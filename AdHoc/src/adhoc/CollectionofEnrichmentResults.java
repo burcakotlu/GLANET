@@ -32,8 +32,6 @@ import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
 import common.Commons;
 
 
-
-
 public class CollectionofEnrichmentResults {
 	
 	public void collectEnrichmentResults(String fileName, int numberofRuns, int numberofPermutations, int numberofComparisons, float level){
@@ -199,8 +197,6 @@ public class CollectionofEnrichmentResults {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println(Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUE_5000_WITH_OCD_GWAS_PERMUTATION_TEST);
-		
 		CollectionofEnrichmentResults collection = new CollectionofEnrichmentResults();
 		
 		NumberofComparisons  numberofComparisons = new NumberofComparisons();
@@ -216,38 +212,38 @@ public class CollectionofEnrichmentResults {
 		float level = Float.parseFloat(args[6]);
 		
 		if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsDnase(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsDnase(),level);
 		}
 		
 		if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsHistone(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsHistone(),level);
 		}
 		
 		if(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 			
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsTfbs(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsTfbs(),level);
 
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),level);
 
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),level);
 
 		}
 		
 		if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 			
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsTfbs(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsTfbs(),level);
 
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),level);
 
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),level);
-			collection.collectEnrichmentResults(Commons.DOKTORA_ECLIPSE_WORKSPACE + Commons.TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),level);
+			collection.collectEnrichmentResults(Commons.OUTPUT_DATA + Commons.TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, numberofRuns,numberofPermutations,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),level);
 
 		}
 		
