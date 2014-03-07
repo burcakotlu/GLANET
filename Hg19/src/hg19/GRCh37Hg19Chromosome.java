@@ -402,7 +402,6 @@ public class GRCh37Hg19Chromosome {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 		
 		// Testing purposes	
 		String chromNumber = Commons.CHROMOSOME1;

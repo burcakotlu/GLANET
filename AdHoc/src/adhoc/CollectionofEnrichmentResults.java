@@ -199,6 +199,8 @@ public class CollectionofEnrichmentResults {
 	 */
 	public static void main(String[] args) {
 		
+		System.out.println(Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUE_5000_WITH_OCD_GWAS_PERMUTATION_TEST);
+		
 		CollectionofEnrichmentResults collection = new CollectionofEnrichmentResults();
 		
 		NumberofComparisons  numberofComparisons = new NumberofComparisons();
