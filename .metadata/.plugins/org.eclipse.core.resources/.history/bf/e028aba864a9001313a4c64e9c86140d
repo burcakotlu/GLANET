@@ -31,6 +31,8 @@ import java.util.Locale;
 import common.Commons;
 
 
+
+
 public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
 	
 //	global variables
@@ -38,7 +40,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
    IntervalTree histoneIntervalTree = null;
    IntervalTree dnaseIntervalTree = null;
    
-   Commons commons = new Commons();
+   common.Commons commons = new common.Commons();
    
 // Write the dnase into corresponding chromosome file  
    public void writetoUnsortedChrBaseDnaseFile(Dnase dnase){
@@ -887,9 +889,32 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	}
 	
 	
+	public FileWriter createFileWriter(String path, String fileName) throws IOException{
+		//First check whether this fileDirectory is already created
+		File directory = new File(path);
+		
+		// if the directory does not exist, create it
+		  if (!directory.exists()) {
+		    System.out.println("creating directory: " + directory);
+		    boolean result = directory.mkdir();  
+
+		     if(result) {    
+		       System.out.println("DIR created");  
+		     }
+		  }
+		
+		return new FileWriter(path+fileName);
+	}
+	
 //	Open Chromosome base Dnase Files 
 	public void openUnsortedChromosomeBaseDnaseFiles(){
 		try {
+			
+			String path = Commons.OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
+			String fileName = "unsorted_chr1_dnase.txt";
+			
+			commons.setChr1FileWriter(new createFileWriter(path, fileName));
+			
 			commons.setChr1FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR1_DNASE));
 			commons.setChr2FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR2_DNASE));
 			commons.setChr3FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR3_DNASE));
