@@ -1,6 +1,7 @@
 /*
  * This program takes human_gene2refseq.txt as input
  * and returns human_refseq2gene.txt as output
+ *  for testing purposes
  * 
  */
 
