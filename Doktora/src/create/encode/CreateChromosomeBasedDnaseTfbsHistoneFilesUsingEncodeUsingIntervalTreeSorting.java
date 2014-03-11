@@ -31,6 +31,8 @@ import java.util.Locale;
 import common.Commons;
 
 
+
+
 public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
 	
 //	global variables
@@ -38,7 +40,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
    IntervalTree histoneIntervalTree = null;
    IntervalTree dnaseIntervalTree = null;
    
-   Commons commons = new Commons();
+   common.Commons commons = new common.Commons();
    
 // Write the dnase into corresponding chromosome file  
    public void writetoUnsortedChrBaseDnaseFile(Dnase dnase){
@@ -1692,7 +1694,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	 */
 	public static void main(String[] args) {
 		
-		File dnaseDir1 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir1 	= new File(Commons.FTP_ENCODE_DNASE_DIRECTORY1);
 		File dnaseDir2 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);		
 		File tfbsDir 	= new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
 		File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);

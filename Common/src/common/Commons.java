@@ -116,10 +116,11 @@ public class Commons {
 	
 	public static final int NUMBER_OF_BASES_BEFORE_SNP_POSITION= 14;
 	public static final int NUMBER_OF_BASES_AFTER_SNP_POSITION= 14;
-	public static final int SNP_POSITION= 15;
+	public static final int ONE_BASED_SNP_POSITION= 15;
 	
 	public static final char SEQUENCE_DIRECTION_D = 'D';
 	public static final char SEQUENCE_DIRECTION_R = 'R';
+	
 	
 	
 	
@@ -424,6 +425,8 @@ public class Commons {
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
 	
+	
+	
 	//Input Data Prepare
 	public static final String CHROMOSOME_POSITION_TYPE_ZERO_BASED = "CHROMOSOME_POSITION_TYPE_ZERO_BASED"; 
 	public static final String CHROMOSOME_POSITION_TYPE_ONE_BASED = "CHROMOSOME_POSITION_TYPE_ONE_BASED"; 
@@ -433,7 +436,9 @@ public class Commons {
 	//OCD_GWAS_SIGNIFICANT_SNPS
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER = INPUT_DATA + "OCD_GWAS_SNP" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber.txt";
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP = OUTPUT_DATA +  "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
+
 	
 	//HIV1 SNPS
 	public static final String HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE = INPUT_DATA + "HIV1_SNP" + System.getProperty("file.separator") + "hglft_www_5c79_8ab500.bed" ;
@@ -470,7 +475,8 @@ public class Commons {
 	public static final String FTP_ENCODE_TFBS_DIRECTORY 	= INPUT_DATA + "ENCODE" + System.getProperty("file.separator") + "transcription_factors";
 	public static final String FTP_ENCODE_HISTONE_DIRECTORY = INPUT_DATA + "ENCODE" + System.getProperty("file.separator") + "histone_macs";
 	
-		
+	public static final String STRING_HYPHEN = "-";
+	
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH =OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";
 	
