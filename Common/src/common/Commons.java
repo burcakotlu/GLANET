@@ -34,8 +34,6 @@ public class Commons {
 	public static final String MAPABILITY = "MAPABILITY";
 	
 	public static final String RANDOM_DATA_GENERATION_LOG_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
-	
-/***burcak*/
 
 //dbSNP
 	public static final String NUCLEOTIDE_A = "A";
@@ -43,32 +41,31 @@ public class Commons {
 	public static final String NUCLEOTIDE_G = "G";
 	public static final String NUCLEOTIDE_T = "T";
 	
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch1.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR2 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch2.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR3 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch3.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR4 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch4.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR5 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch5.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR6 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch6.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR7 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch7.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR8 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch8.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR9 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch9.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR10 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch10.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR11 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch11.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR12 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch12.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR13 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch13.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR14 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch14.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR15 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch15.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR16 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch16.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR17 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch17.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR18 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch18.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR19 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch19.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR20 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch20.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR21	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch21.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR22 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_ch22.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRX 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_chX.flat";
-	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRY 	= DOKTORA_DATA + "dbSNP\\ASN1_flat\\ds_flat_chY.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch1.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR2 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch2.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR3 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch3.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR4 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch4.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR5 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch5.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR6 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch6.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR7 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch7.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR8 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch8.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR9 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch9.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR10 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch10.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR11 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch11.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR12 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch12.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR13 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch13.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR14 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch14.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR15 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch15.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR16 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch16.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR17 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch17.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR18 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch18.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR19 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch19.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR20 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch20.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR21	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch21.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR22 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_ch22.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRX 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_chX.flat";
+	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRY 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "dbSNP" System.getProperty("file.separator") + "ASN1_flat" System.getProperty("file.separator") + "ds_flat_chY.flat";
 
-/*burcak */
 	//Enrich Outputs
 	public static final String ENRICH_OUTPUT_FOLDER = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
 	
@@ -81,7 +78,7 @@ public class Commons {
 	public static final String AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineRegulationBasedKeggPathwayResults.txt";
 	public static final String AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineAllBasedKeggPathwayResults.txt";
 	
-public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\augmentation\\results\\output\\Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
+	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= OUTPUT_DATA + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
 	
 	//RSAT
 	 public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
