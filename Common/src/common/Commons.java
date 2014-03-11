@@ -24,7 +24,7 @@ public class Commons {
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
 	
-	public static Float FLOAT_ZERO = 0.0f; 
+	public static Float FLOAT_ZERO = 0.0f;
 	public static Float FLOAT_TEN_QUADRILLION = 10000000000000000f; 
 	
 	public static Long LONG_ZERO = new Long(0); 
