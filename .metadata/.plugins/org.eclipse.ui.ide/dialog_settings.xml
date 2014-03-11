@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="CleanDialogSettings">
+		<item key="DIALOG_WIDTH" value="828"/>
+		<item value="true" key="BUILD_ALL"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+		<item value="561" key="DIALOG_HEIGHT"/>
+		<item value="546" key="DIALOG_X_ORIGIN"/>
+		<item value="138" key="DIALOG_Y_ORIGIN"/>
+		<item value="true" key="BUILD_NOW"/>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
 		</list>
