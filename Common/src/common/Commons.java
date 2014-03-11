@@ -585,23 +585,23 @@ public class Commons {
 	
 	//Results to be polled 
 	
-	public static final String TO_BE_POLLED_DIRECTORY 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator");
+	public static final String TO_BE_POLLED_DIRECTORY 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator");
 	
-	public static final String TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Dnase" + System.getProperty("file.separator") + "Dnase";
-	public static final String TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Histone" + System.getProperty("file.separator") + "Histone";
-	public static final String TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS		= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Tf" + System.getProperty("file.separator") + "Tf";
+	public static final String TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS 	= TO_BE_POLLED_DIRECTORY + "Dnase" + System.getProperty("file.separator") + "Dnase";
+	public static final String TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS 	= TO_BE_POLLED_DIRECTORY + "Histone" + System.getProperty("file.separator") + "Histone";
+	public static final String TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS		= TO_BE_POLLED_DIRECTORY + "Tf" + System.getProperty("file.separator") + "Tf";
 	
-	public static final String TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "ExonBased";
-	public static final String TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "RegulationBased";
-	public static final String TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "AllBased";
+	public static final String TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "ExonBased";
+	public static final String TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "RegulationBased";
+	public static final String TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "AllBased";
 	
-	public static final String TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfExonBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfRegulationBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfAllBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfExonBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfRegulationBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfAllBasedKeggPathway";
 	
-	public static final String TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineExonBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineRegulationBasedKeggPathway";;
-	public static final String TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineExonBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineRegulationBasedKeggPathway";;
+	public static final String TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway";
 	
 	
 	//binomial distribution
