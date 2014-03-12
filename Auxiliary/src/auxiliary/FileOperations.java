@@ -21,27 +21,27 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileOperations {
 	
-	public static FileWriter createFileWriter(String directory, String fileName) throws IOException{
+	public static FileWriter createFileWriter(String directoryName, String fileName) throws IOException{
 		//First check whether this directory is already created
-		File pathDirectory = new File(directory);
+		File pathDirectory = new File(directoryName);
 		
 		//creates the directory named by this abstract pathname, including necessary and non-existent parent directories.
 		pathDirectory.mkdirs();
 		 
 		
-		return new FileWriter(directory+fileName);
+		return new FileWriter(directoryName+fileName);
 	}
 	
 	
-	public static FileReader createFileReader(String directory, String fileName) throws IOException{
+	public static FileReader createFileReader(String directoryName, String fileName) throws IOException{
 		//First check whether this directory is already created
-		File pathDirectory = new File(directory);
+		File pathDirectory = new File(directoryName);
 		
 		//creates the directory named by this abstract pathname, including necessary and non-existent parent directories.
 		pathDirectory.mkdirs();
 		 
 		
-		return new FileReader(directory+fileName);
+		return new FileReader(directoryName+fileName);
 	}
 	
 	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){

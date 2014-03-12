@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import auxiliary.FileOperations;
+
 import common.Commons;
 
 
@@ -498,103 +500,106 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		try {
 			if (chromName.equals(Commons.CHROMOSOME1)){
 				//open sorted dnase file of Chromosome1
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR1_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME2)){
 				//open sorted dnase file of Chromosome2
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR2_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME3)){
 				//open sorted dnase file of Chromosome3
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME4)){
 				//open sorted dnase file of Chromosome4
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR4_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME5)){
 				//open sorted dnase file of Chromosome5
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR5_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME6)){
 				//open sorted dnase file of Chromosome6
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR6_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME7)){
 				//open sorted dnase file of Chromosome7
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR7_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME8)){
 				//open sorted dnase file of Chromosome8
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR8_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME9)){
 				//open sorted dnase file of Chromosome9
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR9_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME10)){
 				//open sorted dnase file of Chromosome10
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR10_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME11)){
 				//open sorted dnase file of Chromosome11
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR11_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME12)){
 				//open sorted dnase file of Chromosome12
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR12_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME13)){
 				//open sorted dnase file of Chromosome13
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR13_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME14)){
 				//open sorted dnase file of Chromosome14
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR14_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME15)){
 				//open sorted dnase file of Chromosome15
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR15_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME16)){
 				//open sorted dnase file of Chromosome16
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR16_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME17)){
 				//open sorted dnase file of Chromosome17
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR17_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME18)){
 				//open sorted dnase file of Chromosome18
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR18_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME19)){
 				//open sorted dnase file of Chromosome19
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR19_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME20)){
 				//open sorted dnase file of Chromosome20
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR20_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME21)){
 				//open sorted dnase file of Chromosome21
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR21_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME22)){
 				//open sorted dnase file of Chromosome22
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR22_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEX)){
 				//open sorted dnase file of ChromosomeX
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRX_HISTONE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEY)){
 				//open sorted dnase file of ChromosomeY
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_HISTONE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRY_HISTONE_FILENAME);
 				
 			}	
 		
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -675,103 +680,106 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		try {
 			if (chromName.equals(Commons.CHROMOSOME1)){
 				//open sorted dnase file of Chromosome1
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR1_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME2)){
 				//open sorted dnase file of Chromosome2
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR2_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME3)){
 				//open sorted dnase file of Chromosome3
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR3_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME4)){
 				//open sorted dnase file of Chromosome4
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME5)){
 				//open sorted dnase file of Chromosome5
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME6)){
 				//open sorted dnase file of Chromosome6
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME7)){
 				//open sorted dnase file of Chromosome7
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME8)){
 				//open sorted dnase file of Chromosome8
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME9)){
 				//open sorted dnase file of Chromosome9
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME10)){
 				//open sorted dnase file of Chromosome10
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME11)){
 				//open sorted dnase file of Chromosome11
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME12)){
 				//open sorted dnase file of Chromosome12
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME13)){
 				//open sorted dnase file of Chromosome13
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_TFBS);
-				
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
+			
 			}else if (chromName.equals(Commons.CHROMOSOME14)){
 				//open sorted dnase file of Chromosome14
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_TFBS);
-				
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
+			
 			}else if (chromName.equals(Commons.CHROMOSOME15)){
 				//open sorted dnase file of Chromosome15
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_TFBS);
-				
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
+			
 			}else if (chromName.equals(Commons.CHROMOSOME16)){
 				//open sorted dnase file of Chromosome16
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME17)){
 				//open sorted dnase file of Chromosome17
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_TFBS);
-				
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
+			
 			}else if (chromName.equals(Commons.CHROMOSOME18)){
 				//open sorted dnase file of Chromosome18
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME19)){
 				//open sorted dnase file of Chromosome19
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME20)){
 				//open sorted dnase file of Chromosome20
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_TFBS);
-				
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
+			
 			}else if (chromName.equals(Commons.CHROMOSOME21)){
 				//open sorted dnase file of Chromosome21
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME22)){
 				//open sorted dnase file of Chromosome22
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEX)){
 				//open sorted dnase file of ChromosomeX
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEY)){
 				//open sorted dnase file of ChromosomeY
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_TFBS);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
 				
 			}	
 		
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -852,103 +860,106 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		try {
 			if (chromName.equals(Commons.CHROMOSOME1)){
 				//open sorted dnase file of Chromosome1
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR1_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME2)){
 				//open sorted dnase file of Chromosome2
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME3)){
 				//open sorted dnase file of Chromosome3
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME4)){
 				//open sorted dnase file of Chromosome4
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME5)){
 				//open sorted dnase file of Chromosome5
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME6)){
 				//open sorted dnase file of Chromosome6
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME7)){
 				//open sorted dnase file of Chromosome7
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME8)){
 				//open sorted dnase file of Chromosome8
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME9)){
 				//open sorted dnase file of Chromosome9
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME10)){
 				//open sorted dnase file of Chromosome10
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME11)){
 				//open sorted dnase file of Chromosome11
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME12)){
 				//open sorted dnase file of Chromosome12
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME13)){
 				//open sorted dnase file of Chromosome13
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME14)){
 				//open sorted dnase file of Chromosome14
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME15)){
 				//open sorted dnase file of Chromosome15
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME16)){
 				//open sorted dnase file of Chromosome16
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME17)){
 				//open sorted dnase file of Chromosome17
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME18)){
 				//open sorted dnase file of Chromosome18
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME19)){
 				//open sorted dnase file of Chromosome19
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME20)){
 				//open sorted dnase file of Chromosome20
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME21)){
 				//open sorted dnase file of Chromosome21
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOME22)){
 				//open sorted dnase file of Chromosome22
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEX)){
 				//open sorted dnase file of ChromosomeX
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
 				
 			}else if (chromName.equals(Commons.CHROMOSOMEY)){
 				//open sorted dnase file of ChromosomeY
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_DNASE);
+				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
 				
 			}	
 		
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
