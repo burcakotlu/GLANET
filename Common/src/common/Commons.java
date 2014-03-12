@@ -896,9 +896,10 @@ public class Commons {
 	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chrY_refseq_genes.txt";
 	
 	
-	// Create Encode Unsorted Chromosome Base DNASE Files Directory
+	//Create Encode DNASE Directory
 	public static final String CREATE_ENCODE_DNASE_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
 		
+	//Create Encode Unsorted Chromosome Based DNASE Filenames
 	public static final String UNSORTED_CHR1_DNASE_FILENAME = "unsorted_chr1_dnase.txt";
 	public static final String UNSORTED_CHR2_DNASE_FILENAME = "unsorted_chr2_dnase.txt";
 	public static final String UNSORTED_CHR3_DNASE_FILENAME = "unsorted_chr3_dnase.txt";
@@ -924,7 +925,7 @@ public class Commons {
 	public static final String UNSORTED_CHRX_DNASE_FILENAME = "unsorted_chrX_dnase.txt";
 	public static final String UNSORTED_CHRY_DNASE_FILENAME = "unsorted_chrY_dnase.txt";
 	
-	// Sorted Chromosome Base DNASE File names
+	//Sorted Chromosome Based DNASE File names
 	public static final String SORTED_CHR1_DNASE_FILENAME = "sorted_chr1_dnase.txt";
 	public static final String SORTED_CHR2_DNASE_FILENAME = "sorted_chr2_dnase.txt";
 	public static final String SORTED_CHR3_DNASE_FILENAME = "sorted_chr3_dnase.txt";
@@ -957,7 +958,7 @@ public class Commons {
 	//CREATE ENCODE HISTONE directory
 	public static final String CREATE_ENCODE_HISTONE_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
 	
-	 // Unsorted Chromosome Based HISTONE File names
+	 //Unsorted Chromosome Based HISTONE File names
 	 public static final String UNSORTED_CHR1_HISTONE_FILENAME = "unsorted_chr1_histone.txt";
 	 public static final String UNSORTED_CHR2_HISTONE_FILENAME = "unsorted_chr2_histone.txt";
 	 public static final String UNSORTED_CHR3_HISTONE_FILENAME = "unsorted_chr3_histone.txt";
@@ -983,7 +984,7 @@ public class Commons {
 	 public static final String UNSORTED_CHRX_HISTONE_FILENAME = "unsorted_chrX_histone.txt";
 	 public static final String UNSORTED_CHRY_HISTONE_FILENAME = "unsorted_chrY_histone.txt";
 		
-	// Sorted Chromosome Base HISTONE File names
+	//Sorted Chromosome Base HISTONE File names
 	public static final String SORTED_CHR1_HISTONE_FILENAME = "sorted_chr1_histone.txt";
 	public static final String SORTED_CHR2_HISTONE_FILENAME = "sorted_chr2_histone.txt";
 	public static final String SORTED_CHR3_HISTONE_FILENAME = "sorted_chr3_histone.txt";
@@ -1013,7 +1014,7 @@ public class Commons {
 	//CREATE ENCODE TFBS directory
 	public static final String CREATE_ENCODE_TFBS_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
 	
-	// Unsorted Chromosome Based TFBS filenames
+	//Unsorted Chromosome Based TFBS filenames
 	public static final String UNSORTED_CHR1_TFBS_FILENAME = "unsorted_chr1_tfbs.txt";
 	public static final String UNSORTED_CHR2_TFBS_FILENAME = "unsorted_chr2_tfbs.txt";
 	public static final String UNSORTED_CHR3_TFBS_FILENAME = "unsorted_chr3_tfbs.txt";
