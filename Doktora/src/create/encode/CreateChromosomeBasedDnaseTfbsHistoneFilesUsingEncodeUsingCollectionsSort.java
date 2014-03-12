@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import auxiliary.FileOperations;
+
 import common.Commons;
 
 /*
@@ -779,33 +781,35 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 	}
 	
 	
+	
+	
 //	Open Chromosome base Dnase Files 
 	public void openUnsortedChromosomeBaseDnaseFiles(){
 		try {
-			commons.setChr1FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR1_DNASE));
-			commons.setChr2FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR2_DNASE));
-			commons.setChr3FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR3_DNASE));
-			commons.setChr4FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR4_DNASE));
-			commons.setChr5FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR5_DNASE));
-			commons.setChr6FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR6_DNASE));
-			commons.setChr7FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR7_DNASE));
-			commons.setChr8FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR8_DNASE));
-			commons.setChr9FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR9_DNASE));
-			commons.setChr10FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR10_DNASE));
-			commons.setChr11FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR11_DNASE));
-			commons.setChr12FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR12_DNASE));
-			commons.setChr13FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR13_DNASE));
-			commons.setChr14FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR14_DNASE));
-			commons.setChr15FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR15_DNASE));
-			commons.setChr16FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR16_DNASE));
-			commons.setChr17FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR17_DNASE));
-			commons.setChr18FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR18_DNASE));
-			commons.setChr19FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR19_DNASE));
-			commons.setChr20FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR20_DNASE));
-			commons.setChr21FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR21_DNASE));
-			commons.setChr22FileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR22_DNASE));
-			commons.setChrXFileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRX_DNASE));
-			commons.setChrYFileWriter(new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRY_DNASE));				
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR1_DNASE, Commons.UNSORTED_CHR1_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR2_DNASE, Commons.UNSORTED_CHR2_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR3_DNASE, Commons.UNSORTED_CHR3_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR4_DNASE, Commons.UNSORTED_CHR4_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR5_DNASE, Commons.UNSORTED_CHR5_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR6_DNASE, Commons.UNSORTED_CHR6_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR7_DNASE, Commons.UNSORTED_CHR7_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR8_DNASE, Commons.UNSORTED_CHR8_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR9_DNASE, Commons.UNSORTED_CHR9_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR10_DNASE, Commons.UNSORTED_CHR10_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR11_DNASE, Commons.UNSORTED_CHR11_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR12_DNASE, Commons.UNSORTED_CHR12_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR13_DNASE, Commons.UNSORTED_CHR13_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR14_DNASE, Commons.UNSORTED_CHR14_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR15_DNASE, Commons.UNSORTED_CHR15_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR16_DNASE, Commons.UNSORTED_CHR16_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR17_DNASE, Commons.UNSORTED_CHR17_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR18_DNASE, Commons.UNSORTED_CHR18_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR19_DNASE, Commons.UNSORTED_CHR19_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR20_DNASE, Commons.UNSORTED_CHR20_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR21_DNASE, Commons.UNSORTED_CHR21_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHR22_DNASE, Commons.UNSORTED_CHR22_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHRX_DNASE, Commons.UNSORTED_CHRX_DNASE_FILENAME));
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_UNSORTED_CHRY_DNASE, Commons.UNSORTED_CHRY_DNASE_FILENAME));
 					 
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
