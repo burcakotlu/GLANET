@@ -1,0 +1,112 @@
+/**
+ * 
+ */
+package create;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
+
+/**
+ * @author burcakotlu
+ *
+ */
+public class ChromosomeBasedFiles {
+
+	
+	public void closeChromosomeBasedFileWriters(List<BufferedWriter> bufferedWriterList){
+		Iterator<BufferedWriter> itr = bufferedWriterList.iterator();
+		
+		while (itr.hasNext()){
+			BufferedWriter bw = (BufferedWriter) itr.next();
+			try {
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	public void closeChromsomeBaseFileReaders(List<BufferedReader> bufferedReaderList){
+		Iterator<BufferedReader> itr = bufferedReaderList.iterator();
+		
+		while (itr.hasNext()){
+			BufferedReader br = (BufferedReader) itr.next();
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	
+	public static void openUnsortedChromBaseRefSeqGeneFileWriters(List<BufferedWriter> bufferedWriterList){
+		
+		try {
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRY_REFSEQ_GENES);
+				
+			bufferedWriterList.add(new BufferedWriter(fileWriter1));
+			bufferedWriterList.add(new BufferedWriter(fileWriter2));
+			bufferedWriterList.add(new BufferedWriter(fileWriter3));
+			bufferedWriterList.add(new BufferedWriter(fileWriter4));
+			bufferedWriterList.add(new BufferedWriter(fileWriter5));
+			bufferedWriterList.add(new BufferedWriter(fileWriter6));
+			bufferedWriterList.add(new BufferedWriter(fileWriter7));
+			bufferedWriterList.add(new BufferedWriter(fileWriter8));
+			bufferedWriterList.add(new BufferedWriter(fileWriter9));
+			bufferedWriterList.add(new BufferedWriter(fileWriter10));
+			bufferedWriterList.add(new BufferedWriter(fileWriter11));
+			bufferedWriterList.add(new BufferedWriter(fileWriter12));
+			bufferedWriterList.add(new BufferedWriter(fileWriter13));
+			bufferedWriterList.add(new BufferedWriter(fileWriter14));
+			bufferedWriterList.add(new BufferedWriter(fileWriter15));
+			bufferedWriterList.add(new BufferedWriter(fileWriter16));
+			bufferedWriterList.add(new BufferedWriter(fileWriter17));
+			bufferedWriterList.add(new BufferedWriter(fileWriter18));
+			bufferedWriterList.add(new BufferedWriter(fileWriter19));
+			bufferedWriterList.add(new BufferedWriter(fileWriter20));
+			bufferedWriterList.add(new BufferedWriter(fileWriter21));
+			bufferedWriterList.add(new BufferedWriter(fileWriter22));
+			bufferedWriterList.add(new BufferedWriter(fileWriterX));
+			bufferedWriterList.add(new BufferedWriter(fileWriterY));
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

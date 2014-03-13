@@ -40,7 +40,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import auxiliary.FileOperations;
+
 import common.Commons;
+
+import create.ChromosomeBasedFiles;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
@@ -218,7 +222,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			fileReader = new FileReader(fileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES);
+			fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME,Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 		} catch (FileNotFoundException e) {
@@ -591,212 +595,9 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	}
 
 	
-	public void openSortedChromBaseRefSeqGeneFiles(List<BufferedWriter> bufferedWriterList){
-		try {
-			FileWriter  fileWriter1 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_REFSEQ_GENES);
-			
-			bufferedWriterList.add(new BufferedWriter(fileWriter1));
-			bufferedWriterList.add(new BufferedWriter(fileWriter2));
-			bufferedWriterList.add(new BufferedWriter(fileWriter3));
-			bufferedWriterList.add(new BufferedWriter(fileWriter4));
-			bufferedWriterList.add(new BufferedWriter(fileWriter5));
-			bufferedWriterList.add(new BufferedWriter(fileWriter6));
-			bufferedWriterList.add(new BufferedWriter(fileWriter7));
-			bufferedWriterList.add(new BufferedWriter(fileWriter8));
-			bufferedWriterList.add(new BufferedWriter(fileWriter9));
-			bufferedWriterList.add(new BufferedWriter(fileWriter10));
-			bufferedWriterList.add(new BufferedWriter(fileWriter11));
-			bufferedWriterList.add(new BufferedWriter(fileWriter12));
-			bufferedWriterList.add(new BufferedWriter(fileWriter13));
-			bufferedWriterList.add(new BufferedWriter(fileWriter14));
-			bufferedWriterList.add(new BufferedWriter(fileWriter15));
-			bufferedWriterList.add(new BufferedWriter(fileWriter16));
-			bufferedWriterList.add(new BufferedWriter(fileWriter17));
-			bufferedWriterList.add(new BufferedWriter(fileWriter18));
-			bufferedWriterList.add(new BufferedWriter(fileWriter19));
-			bufferedWriterList.add(new BufferedWriter(fileWriter20));
-			bufferedWriterList.add(new BufferedWriter(fileWriter21));
-			bufferedWriterList.add(new BufferedWriter(fileWriter22));
-			bufferedWriterList.add(new BufferedWriter(fileWriterX));
-			bufferedWriterList.add(new BufferedWriter(fileWriterY));
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}				
-	}
 	
 	
-public void openUnsortedChromBaseRefSeqGeneFileReaders(List<BufferedReader> bufferedReaderList){
-		
-		try {
-			FileReader  fileReader1 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR1_REFSEQ_GENES);
-			FileReader  fileReader2 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR2_REFSEQ_GENES);
-			FileReader  fileReader3 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR3_REFSEQ_GENES);
-			FileReader  fileReader4 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR4_REFSEQ_GENES);
-			FileReader  fileReader5 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR5_REFSEQ_GENES);
-			FileReader  fileReader6 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR6_REFSEQ_GENES);
-			FileReader  fileReader7 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR7_REFSEQ_GENES);
-			FileReader  fileReader8 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR8_REFSEQ_GENES);
-			FileReader  fileReader9 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR9_REFSEQ_GENES);
-			FileReader  fileReader10 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR10_REFSEQ_GENES);
-			FileReader  fileReader11 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR11_REFSEQ_GENES);
-			FileReader  fileReader12 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR12_REFSEQ_GENES);
-			FileReader  fileReader13 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR13_REFSEQ_GENES);
-			FileReader  fileReader14 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR14_REFSEQ_GENES);
-			FileReader  fileReader15 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR15_REFSEQ_GENES);
-			FileReader  fileReader16 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR16_REFSEQ_GENES);
-			FileReader  fileReader17 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR17_REFSEQ_GENES);
-			FileReader  fileReader18 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR18_REFSEQ_GENES);
-			FileReader  fileReader19 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR19_REFSEQ_GENES);
-			FileReader  fileReader20 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR20_REFSEQ_GENES);
-			FileReader  fileReader21 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR21_REFSEQ_GENES);
-			FileReader  fileReader22 = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR22_REFSEQ_GENES);
-			FileReader  fileReaderX = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRX_REFSEQ_GENES);
-			FileReader  fileReaderY = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRY_REFSEQ_GENES);
-			
-			bufferedReaderList.add(new BufferedReader(fileReader1));
-			bufferedReaderList.add(new BufferedReader(fileReader2));
-			bufferedReaderList.add(new BufferedReader(fileReader3));
-			bufferedReaderList.add(new BufferedReader(fileReader4));
-			bufferedReaderList.add(new BufferedReader(fileReader5));
-			bufferedReaderList.add(new BufferedReader(fileReader6));
-			bufferedReaderList.add(new BufferedReader(fileReader7));
-			bufferedReaderList.add(new BufferedReader(fileReader8));
-			bufferedReaderList.add(new BufferedReader(fileReader9));
-			bufferedReaderList.add(new BufferedReader(fileReader10));
-			bufferedReaderList.add(new BufferedReader(fileReader11));
-			bufferedReaderList.add(new BufferedReader(fileReader12));
-			bufferedReaderList.add(new BufferedReader(fileReader13));
-			bufferedReaderList.add(new BufferedReader(fileReader14));
-			bufferedReaderList.add(new BufferedReader(fileReader15));
-			bufferedReaderList.add(new BufferedReader(fileReader16));
-			bufferedReaderList.add(new BufferedReader(fileReader17));
-			bufferedReaderList.add(new BufferedReader(fileReader18));
-			bufferedReaderList.add(new BufferedReader(fileReader19));
-			bufferedReaderList.add(new BufferedReader(fileReader20));
-			bufferedReaderList.add(new BufferedReader(fileReader21));
-			bufferedReaderList.add(new BufferedReader(fileReader22));
-			bufferedReaderList.add(new BufferedReader(fileReaderX));
-			bufferedReaderList.add(new BufferedReader(fileReaderY));
-						
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void openUnsortedChromBaseRefSeqGeneFileWriters(List<BufferedWriter> bufferedWriterList){
-		
-		try {
-			FileWriter  fileWriter1 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = new FileWriter(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRY_REFSEQ_GENES);
-			
-			bufferedWriterList.add(new BufferedWriter(fileWriter1));
-			bufferedWriterList.add(new BufferedWriter(fileWriter2));
-			bufferedWriterList.add(new BufferedWriter(fileWriter3));
-			bufferedWriterList.add(new BufferedWriter(fileWriter4));
-			bufferedWriterList.add(new BufferedWriter(fileWriter5));
-			bufferedWriterList.add(new BufferedWriter(fileWriter6));
-			bufferedWriterList.add(new BufferedWriter(fileWriter7));
-			bufferedWriterList.add(new BufferedWriter(fileWriter8));
-			bufferedWriterList.add(new BufferedWriter(fileWriter9));
-			bufferedWriterList.add(new BufferedWriter(fileWriter10));
-			bufferedWriterList.add(new BufferedWriter(fileWriter11));
-			bufferedWriterList.add(new BufferedWriter(fileWriter12));
-			bufferedWriterList.add(new BufferedWriter(fileWriter13));
-			bufferedWriterList.add(new BufferedWriter(fileWriter14));
-			bufferedWriterList.add(new BufferedWriter(fileWriter15));
-			bufferedWriterList.add(new BufferedWriter(fileWriter16));
-			bufferedWriterList.add(new BufferedWriter(fileWriter17));
-			bufferedWriterList.add(new BufferedWriter(fileWriter18));
-			bufferedWriterList.add(new BufferedWriter(fileWriter19));
-			bufferedWriterList.add(new BufferedWriter(fileWriter20));
-			bufferedWriterList.add(new BufferedWriter(fileWriter21));
-			bufferedWriterList.add(new BufferedWriter(fileWriter22));
-			bufferedWriterList.add(new BufferedWriter(fileWriterX));
-			bufferedWriterList.add(new BufferedWriter(fileWriterY));
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	
-	public void closeChromBaseRefSeqGeneFileWriters(List<BufferedWriter> bufferedWriterList){
-		Iterator<BufferedWriter> itr = bufferedWriterList.iterator();
-		
-		while (itr.hasNext()){
-			BufferedWriter bw = (BufferedWriter) itr.next();
-			try {
-				bw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}		
-	}
-	
-	public void closeChromBaseRefSeqGeneFileReaders(List<BufferedReader> bufferedReaderList){
-		Iterator<BufferedReader> itr = bufferedReaderList.iterator();
-		
-		while (itr.hasNext()){
-			BufferedReader br = (BufferedReader) itr.next();
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}		
-	}
+
 	
 	
 	
@@ -1033,15 +834,15 @@ public void openUnsortedChromBaseRefSeqGeneFileReaders(List<BufferedReader> buff
 //		It is augmented with entrez gene id 
 		createIntervals.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap);	
 		
-		createIntervals.openUnsortedChromBaseRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
 		createIntervals.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
-		createIntervals.closeChromBaseRefSeqGeneFileWriters(unsortedBufferedWriterList);		
+		ChromosomeBasedFiles.closeChromosomeBasedFileWriters(unsortedBufferedWriterList);		
 		
-		createIntervals.openUnsortedChromBaseRefSeqGeneFileReaders(unsortedBufferedReaderList);
-		createIntervals.openSortedChromBaseRefSeqGeneFiles(sortedBufferedWriterList);		
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFiles.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
 		createIntervals.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
-		createIntervals.closeChromBaseRefSeqGeneFileReaders(unsortedBufferedReaderList);
-		createIntervals.closeChromBaseRefSeqGeneFileWriters(sortedBufferedWriterList);
+		ChromosomeBasedFiles.closeChromosomeBasedFileReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFiles.closeChromosomeBasedFileWriters(sortedBufferedWriterList);
 	}
 
 }

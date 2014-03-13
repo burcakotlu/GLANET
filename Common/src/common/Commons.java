@@ -834,7 +834,9 @@ public class Commons {
 	
 	
 	public static final String FTP_HG19_REFSEQ_GENES = INPUT_DATA + "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "analyze_hg19_refseq_genes.txt";
+	
+	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "analyze_hg19_refseq_genes.txt";
+	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";
 	
 	public static final String CHROMOSOME1 = "chr1";
 	public static final String CHROMOSOME2 = "chr2";
@@ -861,58 +863,61 @@ public class Commons {
 	public static final String CHROMOSOMEX = "chrX";
 	public static final String CHROMOSOMEY = "chrY";
 	
+	//Create ucsc refseq genes directory
+	public static final String CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
+	
 	
 	//Unsorted Chromosome Base RefSeq Gene Files
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR1_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr1_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR2_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr2_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR3_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr3_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR4_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr4_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR5_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr5_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR6_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr6_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR7_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr7_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR8_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr8_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR9_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr9_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR10_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_ch10_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR11_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr11_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR12_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr12_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR13_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr13_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR14_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr14_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR15_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr15_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR16_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr16_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR17_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr17_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR18_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr18_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR19_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr19_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR20_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr20_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR21_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr21_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHR22_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chr22_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRX_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chrX_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_UNSORTED_CHRY_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "unsorted_chrY_refseq_genes.txt";
+	public static final String UNSORTED_CHR1_REFSEQ_GENES = "unsorted_chr1_refseq_genes.txt";
+	public static final String UNSORTED_CHR2_REFSEQ_GENES = "unsorted_chr2_refseq_genes.txt";
+	public static final String UNSORTED_CHR3_REFSEQ_GENES = "unsorted_chr3_refseq_genes.txt";
+	public static final String UNSORTED_CHR4_REFSEQ_GENES = "unsorted_chr4_refseq_genes.txt";
+	public static final String UNSORTED_CHR5_REFSEQ_GENES = "unsorted_chr5_refseq_genes.txt";
+	public static final String UNSORTED_CHR6_REFSEQ_GENES = "unsorted_chr6_refseq_genes.txt";
+	public static final String UNSORTED_CHR7_REFSEQ_GENES = "unsorted_chr7_refseq_genes.txt";
+	public static final String UNSORTED_CHR8_REFSEQ_GENES = "unsorted_chr8_refseq_genes.txt";
+	public static final String UNSORTED_CHR9_REFSEQ_GENES = "unsorted_chr9_refseq_genes.txt";
+	public static final String UNSORTED_CHR10_REFSEQ_GENES = "unsorted_ch10_refseq_genes.txt";
+	public static final String UNSORTED_CHR11_REFSEQ_GENES = "unsorted_chr11_refseq_genes.txt";
+	public static final String UNSORTED_CHR12_REFSEQ_GENES = "unsorted_chr12_refseq_genes.txt";
+	public static final String UNSORTED_CHR13_REFSEQ_GENES = "unsorted_chr13_refseq_genes.txt";
+	public static final String UNSORTED_CHR14_REFSEQ_GENES = "unsorted_chr14_refseq_genes.txt";
+	public static final String UNSORTED_CHR15_REFSEQ_GENES = "unsorted_chr15_refseq_genes.txt";
+	public static final String UNSORTED_CHR16_REFSEQ_GENES = "unsorted_chr16_refseq_genes.txt";
+	public static final String UNSORTED_CHR17_REFSEQ_GENES = "unsorted_chr17_refseq_genes.txt";
+	public static final String UNSORTED_CHR18_REFSEQ_GENES = "unsorted_chr18_refseq_genes.txt";
+	public static final String UNSORTED_CHR19_REFSEQ_GENES = "unsorted_chr19_refseq_genes.txt";
+	public static final String UNSORTED_CHR20_REFSEQ_GENES = "unsorted_chr20_refseq_genes.txt";
+	public static final String UNSORTED_CHR21_REFSEQ_GENES = "unsorted_chr21_refseq_genes.txt";
+	public static final String UNSORTED_CHR22_REFSEQ_GENES = "unsorted_chr22_refseq_genes.txt";
+	public static final String UNSORTED_CHRX_REFSEQ_GENES = "unsorted_chrX_refseq_genes.txt";
+	public static final String UNSORTED_CHRY_REFSEQ_GENES =  "unsorted_chrY_refseq_genes.txt";
 	
 	//Sorted Chromosome Base RefSeq Gene Files
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR1_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr1_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR2_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr2_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR3_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr3_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR4_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr4_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR5_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr5_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR6_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr6_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR7_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr7_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR8_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr8_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR9_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr9_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR10_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr10_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR11_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr11_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR12_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr12_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR13_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr13_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR14_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr14_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR15_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr15_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR16_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr16_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR17_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr17_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR18_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr18_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR19_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr19_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR20_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr20_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR21_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr21_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR22_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chr22_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRX_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chrX_refseq_genes.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chrY_refseq_genes.txt";
+	public static final String SORTED_CHR1_REFSEQ_GENES = "sorted_chr1_refseq_genes.txt";
+	public static final String SORTED_CHR2_REFSEQ_GENES = "sorted_chr2_refseq_genes.txt";
+	public static final String SORTED_CHR3_REFSEQ_GENES = "sorted_chr3_refseq_genes.txt";
+	public static final String SORTED_CHR4_REFSEQ_GENES = "sorted_chr4_refseq_genes.txt";
+	public static final String SORTED_CHR5_REFSEQ_GENES = "sorted_chr5_refseq_genes.txt";
+	public static final String SORTED_CHR6_REFSEQ_GENES = "sorted_chr6_refseq_genes.txt";
+	public static final String SORTED_CHR7_REFSEQ_GENES = "sorted_chr7_refseq_genes.txt";
+	public static final String SORTED_CHR8_REFSEQ_GENES = "sorted_chr8_refseq_genes.txt";
+	public static final String SORTED_CHR9_REFSEQ_GENES = "sorted_chr9_refseq_genes.txt";
+	public static final String SORTED_CHR10_REFSEQ_GENES = "sorted_chr10_refseq_genes.txt";
+	public static final String SORTED_CHR11_REFSEQ_GENES = "sorted_chr11_refseq_genes.txt";
+	public static final String SORTED_CHR12_REFSEQ_GENES = "sorted_chr12_refseq_genes.txt";
+	public static final String SORTED_CHR13_REFSEQ_GENES = "sorted_chr13_refseq_genes.txt";
+	public static final String SORTED_CHR14_REFSEQ_GENES = "sorted_chr14_refseq_genes.txt";
+	public static final String SORTED_CHR15_REFSEQ_GENES = "sorted_chr15_refseq_genes.txt";
+	public static final String SORTED_CHR16_REFSEQ_GENES = "sorted_chr16_refseq_genes.txt";
+	public static final String SORTED_CHR17_REFSEQ_GENES = "sorted_chr17_refseq_genes.txt";
+	public static final String SORTED_CHR18_REFSEQ_GENES = "sorted_chr18_refseq_genes.txt";
+	public static final String SORTED_CHR19_REFSEQ_GENES = "sorted_chr19_refseq_genes.txt";
+	public static final String SORTED_CHR20_REFSEQ_GENES = "sorted_chr20_refseq_genes.txt";
+	public static final String SORTED_CHR21_REFSEQ_GENES = "sorted_chr21_refseq_genes.txt";
+	public static final String SORTED_CHR22_REFSEQ_GENES = "sorted_chr22_refseq_genes.txt";
+	public static final String SORTED_CHRX_REFSEQ_GENES = "sorted_chrX_refseq_genes.txt";
+	public static final String SORTED_CHRY_REFSEQ_GENES = "sorted_chrY_refseq_genes.txt";
 	
 	
 	//Create Encode DNASE Directory
