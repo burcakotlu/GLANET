@@ -24,7 +24,7 @@ import RSATWS.MatrixScanRequest;
 import RSATWS.MatrixScanResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
-import auxiliary.FileDeletion;
+import auxiliary.FileOperations;
 
 import common.Commons;
 
@@ -575,7 +575,7 @@ public class RSATMatrixScanClient {
 		
 		
 		//Delete the results of the former RSAT matrix scan call
-		FileDeletion.deleteFile(Commons.RSAT_OUTPUT_FILENAME);
+		FileOperations.deleteFile(Commons.RSAT_OUTPUT_FILENAME);
 		
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;

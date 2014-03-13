@@ -4,7 +4,8 @@
  * 
  * Later on it converts the order and writes it to human_refseq2gene.txt  and human_refseq2gene2.txt file.
  * 
- * 
+ * Example 	refseq gene id and 	gene id
+ * 			NR_046536			100873973
  */
 
 package ncbi;
@@ -17,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+
+import auxiliary.FileOperations;
 
 import common.Commons;
 
@@ -36,8 +39,8 @@ public class HumanRefSeq2Gene {
 		int numberofHumanGene2RefseqLines = 0;
 		
 		try {
-			fileReader = new  FileReader(Commons.NCBI_GENE_TO_REF_SEQ);
-			fileWriter = new  FileWriter(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ);
+			fileReader = FileOperations.createFileReader(Commons.NCBI_GENE_TO_REF_SEQ);
+			fileWriter = FileOperations.createFileWriter(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 		
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -105,9 +108,9 @@ public class HumanRefSeq2Gene {
 		RefSeq2Gene refSeq2Gene = null;
 		
 		try {
-			fileReader = new FileReader(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ);
-			fileWriter = new FileWriter(Commons.NCBI_HUMAN_REF_SEQ_TO_GENE);
-			fileWriter2 = new FileWriter(Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2);
+			fileReader = FileOperations.createFileReader(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileWriter = FileOperations.createFileWriter(Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME, Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME);
+			fileWriter2 = FileOperations.createFileWriter(Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME,Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME);
 			
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);

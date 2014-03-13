@@ -248,11 +248,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 				fileName = name.substring(indexofSecondTab+1);
 				
 				if (Commons.DNASE.equals(functionalElementType)){
-					gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;					
 				}else if (Commons.TFBS.equals(functionalElementType)){
-					gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;					
 				}else if (Commons.HISTONE.equals(functionalElementType)){
-					gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;					
 				}
 				
 				
@@ -328,11 +328,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			fileName = name.substring(indexofSecondTab+1);
 			
 			if (Commons.DNASE.equals(functionalElementType)){
-				mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}else if (Commons.TFBS.equals(functionalElementType)){
-				mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}else if (Commons.HISTONE.equals(functionalElementType)){
-				mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}
 			
 			
@@ -574,11 +574,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
+		    				 gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }
 		    			
 		    			calculateMeanGC(fileName,filePath,gcFileName,gcHashMap,gcCharArray,functionalElementType);
@@ -633,11 +633,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		    				 mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }
 		    			
 		    			calculateMeanMapability(fileName,filePath,mapabilityFileName,mapabilityHashMap,mapabilityIntervalTree,functionalElementType);
@@ -723,11 +723,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
+		    				 gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	gcFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }
 		    			 
 		    			 MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -783,11 +783,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		    				 mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.DOKTORA_ECLIPSE_WORKSPACE +"src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }
 		    			 
 		    			 MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -815,7 +815,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		File file;
 		
 		//DNASE
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the gcHashMap
@@ -832,7 +832,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		
 		//TFBS
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -849,7 +849,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		
 		//HISTONE
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -873,7 +873,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			gcCharAray = ChromosomeBasedGCArray.getChromosomeGCArray(chromName, chromSize);
 			
 			//DNASE
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
@@ -881,14 +881,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			
 			
 			//TFBS
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
 			calculateMeanGC(file,Commons.TFBS, gcTfbsHashMap,gcCharAray);
 			
 			//HISTONE
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
@@ -927,7 +927,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		File file;
 		
 		//DNASE
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -944,7 +944,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		
 		//TFBS
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -961,7 +961,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		
 		//HISTONE
-		mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -985,7 +985,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 			
 			//DNASE
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
@@ -993,14 +993,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			
 			
 			//TFBS
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
 			calculateMeanMapability(file,Commons.TFBS, mapabilityTfbsHashMap,mapabilityIntervalTree);
 			
 			//HISTONE
-			mainDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
@@ -1142,11 +1142,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 chromosomeBasedDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		    				 chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	chromosomeBasedDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		 			    	chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	chromosomeBasedDirectory = Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		 			    	chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		 			    }
 		    			
 		    			 
@@ -1393,7 +1393,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	//Delete old files
     	System.out.println("-------------------------");
     	System.out.println("Start deleting old files...");
-    	File folder = new File(Commons.DOKTORA_ECLIPSE_WORKSPACE + "src\\mapabilityandgc\\output\\Augmentation\\FunctionalElementFileBased\\");
+    	File folder = new File(Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\");
     	deleteOldFiles(folder);
     	System.out.println("Deleting old files has ended.");
     	

@@ -116,10 +116,11 @@ public class Commons {
 	
 	public static final int NUMBER_OF_BASES_BEFORE_SNP_POSITION= 14;
 	public static final int NUMBER_OF_BASES_AFTER_SNP_POSITION= 14;
-	public static final int SNP_POSITION= 15;
+	public static final int ONE_BASED_SNP_POSITION= 15;
 	
 	public static final char SEQUENCE_DIRECTION_D = 'D';
 	public static final char SEQUENCE_DIRECTION_R = 'R';
+	
 	
 	
 	
@@ -424,6 +425,8 @@ public class Commons {
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
 	
+	
+	
 	//Input Data Prepare
 	public static final String CHROMOSOME_POSITION_TYPE_ZERO_BASED = "CHROMOSOME_POSITION_TYPE_ZERO_BASED"; 
 	public static final String CHROMOSOME_POSITION_TYPE_ONE_BASED = "CHROMOSOME_POSITION_TYPE_ONE_BASED"; 
@@ -433,7 +436,9 @@ public class Commons {
 	//OCD_GWAS_SIGNIFICANT_SNPS
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER = INPUT_DATA + "OCD_GWAS_SNP" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber.txt";
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP = OUTPUT_DATA +  "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
+
 	
 	//HIV1 SNPS
 	public static final String HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE = INPUT_DATA + "HIV1_SNP" + System.getProperty("file.separator") + "hglft_www_5c79_8ab500.bed" ;
@@ -470,7 +475,8 @@ public class Commons {
 	public static final String FTP_ENCODE_TFBS_DIRECTORY 	= INPUT_DATA + "ENCODE" + System.getProperty("file.separator") + "transcription_factors";
 	public static final String FTP_ENCODE_HISTONE_DIRECTORY = INPUT_DATA + "ENCODE" + System.getProperty("file.separator") + "histone_macs";
 	
-		
+	public static final String STRING_HYPHEN = "-";
+	
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH =OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";
 	
@@ -585,23 +591,23 @@ public class Commons {
 	
 	//Results to be polled 
 	
-	public static final String TO_BE_POLLED_DIRECTORY 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator");
+	public static final String TO_BE_POLLED_DIRECTORY 	= OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator");
 	
-	public static final String TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Dnase" + System.getProperty("file.separator") + "Dnase";
-	public static final String TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Histone" + System.getProperty("file.separator") + "Histone";
-	public static final String TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS		= "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "Tf" + System.getProperty("file.separator") + "Tf";
+	public static final String TO_BE_POLLED_DNASE_NUMBER_OF_OVERLAPS 	= TO_BE_POLLED_DIRECTORY + "Dnase" + System.getProperty("file.separator") + "Dnase";
+	public static final String TO_BE_POLLED_HISTONE_NUMBER_OF_OVERLAPS 	= TO_BE_POLLED_DIRECTORY + "Histone" + System.getProperty("file.separator") + "Histone";
+	public static final String TO_BE_POLLED_TF_NUMBER_OF_OVERLAPS		= TO_BE_POLLED_DIRECTORY + "Tf" + System.getProperty("file.separator") + "Tf";
 	
-	public static final String TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "ExonBased";
-	public static final String TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "RegulationBased";
-	public static final String TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "KeggPathway" + System.getProperty("file.separator") + "AllBased";
+	public static final String TO_BE_POLLED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "ExonBased";
+	public static final String TO_BE_POLLED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "RegulationBased";
+	public static final String TO_BE_POLLED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "KeggPathway" + System.getProperty("file.separator") + "AllBased";
 	
-	public static final String TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfExonBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfRegulationBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfKeggPathway" + System.getProperty("file.separator") + "TfAllBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfExonBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfRegulationBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfKeggPathway" + System.getProperty("file.separator") + "TfAllBasedKeggPathway";
 	
-	public static final String TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineExonBasedKeggPathway";
-	public static final String TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineRegulationBasedKeggPathway";;
-	public static final String TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = "empiricalpvalues" + System.getProperty("file.separator") + "toBePolled" + System.getProperty("file.separator") + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineExonBasedKeggPathway";
+	public static final String TO_BE_POLLED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineRegulationBasedKeggPathway";;
+	public static final String TO_BE_POLLED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_POLLED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway";
 	
 	
 	//binomial distribution
@@ -705,13 +711,26 @@ public class Commons {
 	
 	
 // 	All possible names		
-	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_dnase_cell_lines_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_tfbs_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_histone_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_gene_ids.txt";	
-	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_rna_nucleotide_accession_versions.txt";	
-	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_alternate_gene_names.txt";	
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_kegg_pathway_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME = "all_possible_dnase_cell_lines_names.txt";
+	
+	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME = "all_possible_tfbs_names.txt";
+	
+	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_histone_names.txt";
+		
+	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME = "all_possible_rna_nucleotide_accession_versions.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME = "all_possible_alternate_gene_names.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
 	
 //	Kegg Pathway to Ncbi Ref Seq Gene Ids
 	public static final String KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE = INPUT_DATA + "KEGG" + System.getProperty("file.separator") + "list_pathway_hsa.txt";
@@ -785,9 +804,15 @@ public class Commons {
 			
 	//Downloaded from ncbi, gene2refseq.txt data
 	public static final String NCBI_GENE_TO_REF_SEQ = INPUT_DATA + "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_gene2refseq.txt";
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_refseq2gene.txt";
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2 = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_refseq2gene2.txt";
+	
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
+
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseq2gene.txt";
+
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseq2gene2.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
 //	They have been unzipped.
@@ -890,166 +915,175 @@ public class Commons {
 	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_REFSEQ_GENES = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_chrY_refseq_genes.txt";
 	
 	
-	// Unsorted Chromosome Base DNASE File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR1_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr1_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR2_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr2_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR3_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr3_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR4_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr4_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR5_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr5_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR6_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr6_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR7_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr7_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR8_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr8_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR9_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr9_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR10_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr10_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR11_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr11_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR12_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr12_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR13_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr13_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR14_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr14_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR15_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr15_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR16_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr16_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR17_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr17_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR18_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr18_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR19_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr19_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR20_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr20_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR21_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr21_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR22_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chr22_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRX_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chrX_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRY_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "unsorted_chrY_dnase.txt";	
+	//Create Encode DNASE Directory
+	public static final String CREATE_ENCODE_DNASE_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
+		
+	//Create Encode Unsorted Chromosome Based DNASE Filenames
+	public static final String UNSORTED_CHR1_DNASE_FILENAME = "unsorted_chr1_dnase.txt";
+	public static final String UNSORTED_CHR2_DNASE_FILENAME = "unsorted_chr2_dnase.txt";
+	public static final String UNSORTED_CHR3_DNASE_FILENAME = "unsorted_chr3_dnase.txt";
+	public static final String UNSORTED_CHR4_DNASE_FILENAME = "unsorted_chr4_dnase.txt";
+	public static final String UNSORTED_CHR5_DNASE_FILENAME = "unsorted_chr5_dnase.txt";
+	public static final String UNSORTED_CHR6_DNASE_FILENAME = "unsorted_chr6_dnase.txt";
+	public static final String UNSORTED_CHR7_DNASE_FILENAME = "unsorted_chr7_dnase.txt";
+	public static final String UNSORTED_CHR8_DNASE_FILENAME = "unsorted_chr8_dnase.txt";
+	public static final String UNSORTED_CHR9_DNASE_FILENAME = "unsorted_chr9_dnase.txt";
+	public static final String UNSORTED_CHR10_DNASE_FILENAME = "unsorted_chr10_dnase.txt";
+	public static final String UNSORTED_CHR11_DNASE_FILENAME = "unsorted_chr11_dnase.txt";
+	public static final String UNSORTED_CHR12_DNASE_FILENAME = "unsorted_chr12_dnase.txt";
+	public static final String UNSORTED_CHR13_DNASE_FILENAME = "unsorted_chr13_dnase.txt";
+	public static final String UNSORTED_CHR14_DNASE_FILENAME = "unsorted_chr14_dnase.txt";
+	public static final String UNSORTED_CHR15_DNASE_FILENAME = "unsorted_chr15_dnase.txt";
+	public static final String UNSORTED_CHR16_DNASE_FILENAME = "unsorted_chr16_dnase.txt";
+	public static final String UNSORTED_CHR17_DNASE_FILENAME = "unsorted_chr17_dnase.txt";
+	public static final String UNSORTED_CHR18_DNASE_FILENAME = "unsorted_chr18_dnase.txt";
+	public static final String UNSORTED_CHR19_DNASE_FILENAME = "unsorted_chr19_dnase.txt";
+	public static final String UNSORTED_CHR20_DNASE_FILENAME = "unsorted_chr20_dnase.txt";
+	public static final String UNSORTED_CHR21_DNASE_FILENAME = "unsorted_chr21_dnase.txt";
+	public static final String UNSORTED_CHR22_DNASE_FILENAME = "unsorted_chr22_dnase.txt";
+	public static final String UNSORTED_CHRX_DNASE_FILENAME = "unsorted_chrX_dnase.txt";
+	public static final String UNSORTED_CHRY_DNASE_FILENAME = "unsorted_chrY_dnase.txt";
 	
-	// Sorted Chromosome Base DNASE File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr1_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr2_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr3_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr4_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr5_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr6_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr7_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr8_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr9_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr10_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr11_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr12_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr13_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr14_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr15_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr16_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr17_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr18_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr19_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr20_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr21_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chr22_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chrX_dnase.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator") + "sorted_chrY_dnase.txt";
-
+	//Sorted Chromosome Based DNASE File names
+	public static final String SORTED_CHR1_DNASE_FILENAME = "sorted_chr1_dnase.txt";
+	public static final String SORTED_CHR2_DNASE_FILENAME = "sorted_chr2_dnase.txt";
+	public static final String SORTED_CHR3_DNASE_FILENAME = "sorted_chr3_dnase.txt";
+	public static final String SORTED_CHR4_DNASE_FILENAME = "sorted_chr4_dnase.txt";
+	public static final String SORTED_CHR5_DNASE_FILENAME = "sorted_chr5_dnase.txt";
+	public static final String SORTED_CHR6_DNASE_FILENAME = "sorted_chr6_dnase.txt";
+	public static final String SORTED_CHR7_DNASE_FILENAME = "sorted_chr7_dnase.txt";
+	public static final String SORTED_CHR8_DNASE_FILENAME = "sorted_chr8_dnase.txt";
+	public static final String SORTED_CHR9_DNASE_FILENAME = "sorted_chr9_dnase.txt";
+	public static final String SORTED_CHR10_DNASE_FILENAME = "sorted_chr10_dnase.txt";
+	public static final String SORTED_CHR11_DNASE_FILENAME = "sorted_chr11_dnase.txt";
+	public static final String SORTED_CHR12_DNASE_FILENAME = "sorted_chr12_dnase.txt";
+	public static final String SORTED_CHR13_DNASE_FILENAME = "sorted_chr13_dnase.txt";
+	public static final String SORTED_CHR14_DNASE_FILENAME = "sorted_chr14_dnase.txt";
+	public static final String SORTED_CHR15_DNASE_FILENAME = "sorted_chr15_dnase.txt";
+	public static final String SORTED_CHR16_DNASE_FILENAME = "sorted_chr16_dnase.txt";
+	public static final String SORTED_CHR17_DNASE_FILENAME = "sorted_chr17_dnase.txt";
+	public static final String SORTED_CHR18_DNASE_FILENAME = "sorted_chr18_dnase.txt";
+	public static final String SORTED_CHR19_DNASE_FILENAME = "sorted_chr19_dnase.txt";
+	public static final String SORTED_CHR20_DNASE_FILENAME = "sorted_chr20_dnase.txt";
+	public static final String SORTED_CHR21_DNASE_FILENAME = "sorted_chr21_dnase.txt";
+	public static final String SORTED_CHR22_DNASE_FILENAME = "sorted_chr22_dnase.txt";
+	public static final String SORTED_CHRX_DNASE_FILENAME = "sorted_chrX_dnase.txt";
+	public static final String SORTED_CHRY_DNASE_FILENAME = "sorted_chrY_dnase.txt";
+	
 	
 	//for debug sliding window versus interval tree
 	public static final String BURCAK_DEBUG_ENCODE_SORTED_CHR1_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "burcak_debug_sorted_chr1_histone.txt";
 		
-	// Unsorted Chromosome Base HISTONE File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR1_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr1_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR2_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr2_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR3_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr3_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR4_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr4_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR5_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr5_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR6_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr6_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR7_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr7_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR8_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr8_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR9_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr9_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR10_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr10_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR11_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr11_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR12_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr12_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR13_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr13_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR14_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr14_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR15_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr15_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR16_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr16_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR17_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr17_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR18_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr18_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR19_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr19_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR20_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr20_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR21_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr21_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR22_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chr22_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRX_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chrX_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRY_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "unsorted_chrY_histone.txt";	
+	//CREATE ENCODE HISTONE directory
+	public static final String CREATE_ENCODE_HISTONE_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
 	
-	// Sorted Chromosome Base HISTONE File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr1_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr2_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr3_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr4_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr5_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr6_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr7_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr8_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr9_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr10_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr11_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr12_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr13_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr14_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr15_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr16_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr17_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr18_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr19_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr20_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr21_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chr22_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chrX_histone.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_HISTONE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "sorted_chrY_histone.txt";
-
+	 //Unsorted Chromosome Based HISTONE File names
+	 public static final String UNSORTED_CHR1_HISTONE_FILENAME = "unsorted_chr1_histone.txt";
+	 public static final String UNSORTED_CHR2_HISTONE_FILENAME = "unsorted_chr2_histone.txt";
+	 public static final String UNSORTED_CHR3_HISTONE_FILENAME = "unsorted_chr3_histone.txt";
+	 public static final String UNSORTED_CHR4_HISTONE_FILENAME = "unsorted_chr4_histone.txt";
+	 public static final String UNSORTED_CHR5_HISTONE_FILENAME = "unsorted_chr5_histone.txt";
+	 public static final String UNSORTED_CHR6_HISTONE_FILENAME = "unsorted_chr6_histone.txt";
+	 public static final String UNSORTED_CHR7_HISTONE_FILENAME = "unsorted_chr7_histone.txt";
+	 public static final String UNSORTED_CHR8_HISTONE_FILENAME = "unsorted_chr8_histone.txt";
+	 public static final String UNSORTED_CHR9_HISTONE_FILENAME = "unsorted_chr9_histone.txt";
+	 public static final String UNSORTED_CHR10_HISTONE_FILENAME = "unsorted_chr10_histone.txt";
+	 public static final String UNSORTED_CHR11_HISTONE_FILENAME = "unsorted_chr11_histone.txt";
+	 public static final String UNSORTED_CHR12_HISTONE_FILENAME = "unsorted_chr12_histone.txt";
+	 public static final String UNSORTED_CHR13_HISTONE_FILENAME = "unsorted_chr13_histone.txt";
+	 public static final String UNSORTED_CHR14_HISTONE_FILENAME = "unsorted_chr14_histone.txt";
+	 public static final String UNSORTED_CHR15_HISTONE_FILENAME = "unsorted_chr15_histone.txt";
+	 public static final String UNSORTED_CHR16_HISTONE_FILENAME = "unsorted_chr16_histone.txt";
+	 public static final String UNSORTED_CHR17_HISTONE_FILENAME = "unsorted_chr17_histone.txt";
+	 public static final String UNSORTED_CHR18_HISTONE_FILENAME = "unsorted_chr18_histone.txt";
+	 public static final String UNSORTED_CHR19_HISTONE_FILENAME = "unsorted_chr19_histone.txt";
+	 public static final String UNSORTED_CHR20_HISTONE_FILENAME = "unsorted_chr20_histone.txt";
+	 public static final String UNSORTED_CHR21_HISTONE_FILENAME = "unsorted_chr21_histone.txt";
+	 public static final String UNSORTED_CHR22_HISTONE_FILENAME = "unsorted_chr22_histone.txt";
+	 public static final String UNSORTED_CHRX_HISTONE_FILENAME = "unsorted_chrX_histone.txt";
+	 public static final String UNSORTED_CHRY_HISTONE_FILENAME = "unsorted_chrY_histone.txt";
+		
+	//Sorted Chromosome Base HISTONE File names
+	public static final String SORTED_CHR1_HISTONE_FILENAME = "sorted_chr1_histone.txt";
+	public static final String SORTED_CHR2_HISTONE_FILENAME = "sorted_chr2_histone.txt";
+	public static final String SORTED_CHR3_HISTONE_FILENAME = "sorted_chr3_histone.txt";
+	public static final String SORTED_CHR4_HISTONE_FILENAME = "sorted_chr4_histone.txt";
+	public static final String SORTED_CHR5_HISTONE_FILENAME = "sorted_chr5_histone.txt";
+	public static final String SORTED_CHR6_HISTONE_FILENAME = "sorted_chr6_histone.txt";
+	public static final String SORTED_CHR7_HISTONE_FILENAME = "sorted_chr7_histone.txt";
+	public static final String SORTED_CHR8_HISTONE_FILENAME = "sorted_chr8_histone.txt";
+	public static final String SORTED_CHR9_HISTONE_FILENAME = "sorted_chr9_histone.txt";
+	public static final String SORTED_CHR10_HISTONE_FILENAME = "sorted_chr10_histone.txt";
+	public static final String SORTED_CHR11_HISTONE_FILENAME = "sorted_chr11_histone.txt";
+	public static final String SORTED_CHR12_HISTONE_FILENAME = "sorted_chr12_histone.txt";
+	public static final String SORTED_CHR13_HISTONE_FILENAME = "sorted_chr13_histone.txt";
+	public static final String SORTED_CHR14_HISTONE_FILENAME = "sorted_chr14_histone.txt";
+	public static final String SORTED_CHR15_HISTONE_FILENAME = "sorted_chr15_histone.txt";
+	public static final String SORTED_CHR16_HISTONE_FILENAME = "sorted_chr16_histone.txt";
+	public static final String SORTED_CHR17_HISTONE_FILENAME = "sorted_chr17_histone.txt";
+	public static final String SORTED_CHR18_HISTONE_FILENAME = "sorted_chr18_histone.txt";
+	public static final String SORTED_CHR19_HISTONE_FILENAME = "sorted_chr19_histone.txt";
+	public static final String SORTED_CHR20_HISTONE_FILENAME = "sorted_chr20_histone.txt";
+	public static final String SORTED_CHR21_HISTONE_FILENAME = "sorted_chr21_histone.txt";
+	public static final String SORTED_CHR22_HISTONE_FILENAME = "sorted_chr22_histone.txt";
+	public static final String SORTED_CHRX_HISTONE_FILENAME = "sorted_chrX_histone.txt";
+	public static final String SORTED_CHRY_HISTONE_FILENAME = "sorted_chrY_histone.txt";
+		
 			
-	// Unsorted Chromosome Base TFBS File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR1_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr1_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR2_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr2_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR3_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr3_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR4_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr4_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR5_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr5_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR6_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr6_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR7_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr7_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR8_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr8_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR9_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr9_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR10_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr10_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR11_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr11_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR12_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr12_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR13_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr13_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR14_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr14_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR15_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr15_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR16_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr16_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR17_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr17_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR18_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr18_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR19_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr19_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR20_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr20_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR21_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr21_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHR22_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chr22_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRX_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chrX_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_UNSORTED_CHRY_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "unsorted_chrY_tfbs.txt";	
+	//CREATE ENCODE TFBS directory
+	public static final String CREATE_ENCODE_TFBS_DIRECTORY = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
+	
+	//Unsorted Chromosome Based TFBS filenames
+	public static final String UNSORTED_CHR1_TFBS_FILENAME = "unsorted_chr1_tfbs.txt";
+	public static final String UNSORTED_CHR2_TFBS_FILENAME = "unsorted_chr2_tfbs.txt";
+	public static final String UNSORTED_CHR3_TFBS_FILENAME = "unsorted_chr3_tfbs.txt";
+	public static final String UNSORTED_CHR4_TFBS_FILENAME = "unsorted_chr4_tfbs.txt";
+	public static final String UNSORTED_CHR5_TFBS_FILENAME = "unsorted_chr5_tfbs.txt";
+	public static final String UNSORTED_CHR6_TFBS_FILENAME = "unsorted_chr6_tfbs.txt";
+	public static final String UNSORTED_CHR7_TFBS_FILENAME = "unsorted_chr7_tfbs.txt";
+	public static final String UNSORTED_CHR8_TFBS_FILENAME = "unsorted_chr8_tfbs.txt";
+	public static final String UNSORTED_CHR9_TFBS_FILENAME = "unsorted_chr9_tfbs.txt";
+	public static final String UNSORTED_CHR10_TFBS_FILENAME = "unsorted_chr10_tfbs.txt";
+	public static final String UNSORTED_CHR11_TFBS_FILENAME = "unsorted_chr11_tfbs.txt";
+	public static final String UNSORTED_CHR12_TFBS_FILENAME = "unsorted_chr12_tfbs.txt";
+	public static final String UNSORTED_CHR13_TFBS_FILENAME = "unsorted_chr13_tfbs.txt";
+	public static final String UNSORTED_CHR14_TFBS_FILENAME = "unsorted_chr14_tfbs.txt";
+	public static final String UNSORTED_CHR15_TFBS_FILENAME = "unsorted_chr15_tfbs.txt";
+	public static final String UNSORTED_CHR16_TFBS_FILENAME = "unsorted_chr16_tfbs.txt";
+	public static final String UNSORTED_CHR17_TFBS_FILENAME = "unsorted_chr17_tfbs.txt";
+	public static final String UNSORTED_CHR18_TFBS_FILENAME = "unsorted_chr18_tfbs.txt";
+	public static final String UNSORTED_CHR19_TFBS_FILENAME = "unsorted_chr19_tfbs.txt";
+	public static final String UNSORTED_CHR20_TFBS_FILENAME = "unsorted_chr20_tfbs.txt";
+	public static final String UNSORTED_CHR21_TFBS_FILENAME = "unsorted_chr21_tfbs.txt";
+	public static final String UNSORTED_CHR22_TFBS_FILENAME = "unsorted_chr22_tfbs.txt";
+	public static final String UNSORTED_CHRX_TFBS_FILENAME = "unsorted_chrX_tfbs.txt";
+	public static final String UNSORTED_CHRY_TFBS_FILENAME = "unsorted_chrY_tfbs.txt";
 	
 	// Sorted Chromosome Base TFBS File names
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR1_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr1_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR2_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr2_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR3_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr3_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR4_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr4_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR5_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr5_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR6_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr6_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR7_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr7_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR8_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr8_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR9_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr9_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR10_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr10_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR11_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr11_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR12_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr12_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR13_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr13_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR14_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr14_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR15_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr15_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR16_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr16_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR17_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr17_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR18_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr18_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR19_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr19_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR20_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr20_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR21_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr21_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHR22_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chr22_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRX_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chrX_tfbs.txt";
-	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_ENCODE_SORTED_CHRY_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator") + "sorted_chrY_tbs.txt";
+	public static final String SORTED_CHR1_TFBS_FILENAME = "sorted_chr1_tfbs.txt";
+	public static final String SORTED_CHR2_TFBS_FILENAME = "sorted_chr2_tfbs.txt";
+	public static final String SORTED_CHR3_TFBS_FILENAME = "sorted_chr3_tfbs.txt";
+	public static final String SORTED_CHR4_TFBS_FILENAME = "sorted_chr4_tfbs.txt";
+	public static final String SORTED_CHR5_TFBS_FILENAME = "sorted_chr5_tfbs.txt";
+	public static final String SORTED_CHR6_TFBS_FILENAME = "sorted_chr6_tfbs.txt";
+	public static final String SORTED_CHR7_TFBS_FILENAME = "sorted_chr7_tfbs.txt";
+	public static final String SORTED_CHR8_TFBS_FILENAME = "sorted_chr8_tfbs.txt";
+	public static final String SORTED_CHR9_TFBS_FILENAME = "sorted_chr9_tfbs.txt";
+	public static final String SORTED_CHR10_TFBS_FILENAME = "sorted_chr10_tfbs.txt";
+	public static final String SORTED_CHR11_TFBS_FILENAME = "sorted_chr11_tfbs.txt";
+	public static final String SORTED_CHR12_TFBS_FILENAME = "sorted_chr12_tfbs.txt";
+	public static final String SORTED_CHR13_TFBS_FILENAME = "sorted_chr13_tfbs.txt";
+	public static final String SORTED_CHR14_TFBS_FILENAME = "sorted_chr14_tfbs.txt";
+	public static final String SORTED_CHR15_TFBS_FILENAME = "sorted_chr15_tfbs.txt";
+	public static final String SORTED_CHR16_TFBS_FILENAME = "sorted_chr16_tfbs.txt";
+	public static final String SORTED_CHR17_TFBS_FILENAME = "sorted_chr17_tfbs.txt";
+	public static final String SORTED_CHR18_TFBS_FILENAME = "sorted_chr18_tfbs.txt";
+	public static final String SORTED_CHR19_TFBS_FILENAME = "sorted_chr19_tfbs.txt";
+	public static final String SORTED_CHR20_TFBS_FILENAME = "sorted_chr20_tfbs.txt";
+	public static final String SORTED_CHR21_TFBS_FILENAME = "sorted_chr21_tfbs.txt";
+	public static final String SORTED_CHR22_TFBS_FILENAME = "sorted_chr22_tfbs.txt";
+	public static final String SORTED_CHRX_TFBS_FILENAME = "sorted_chrX_tfbs.txt";
+	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 		
 //	Common FileWriters for Tfbs, Histone and Dnase Files
 	FileWriter chr1FileWriter; 

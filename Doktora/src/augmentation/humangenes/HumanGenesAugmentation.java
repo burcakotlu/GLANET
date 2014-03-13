@@ -39,7 +39,7 @@ public class HumanGenesAugmentation {
 		List<String> refSeqGeneNameList;
 		
 		try {
-			fileReader =  new FileReader(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ);
+			fileReader =  new FileReader(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {

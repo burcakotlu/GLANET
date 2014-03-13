@@ -1557,7 +1557,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		BufferedWriter bufferedWriter = null;
 
 		try {
-			fileWriter = new FileWriter(Commons.DOKTORA_ECLIPSE_WORKSPACE + toBePolledDirectoryName + "_" + runNumber +".txt");
+			fileWriter = new FileWriter(toBePolledDirectoryName + "_" + runNumber +".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(Map.Entry<String,Integer> entry: originalElement2KMap.entrySet()){

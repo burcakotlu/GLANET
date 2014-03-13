@@ -967,7 +967,7 @@ public void openUnsortedChromBaseRefSeqGeneFileReaders(List<BufferedReader> buff
 		
 		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
 		String fileName = Commons.FTP_HG19_REFSEQ_GENES;
-		String fileName2 = Commons.NCBI_HUMAN_REF_SEQ_TO_GENE;
+		String fileName2 = Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME ;
 		
 		CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort createIntervals = new CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort();
 	    

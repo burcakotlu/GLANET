@@ -21,7 +21,7 @@ import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-import auxiliary.FileDeletion;
+import auxiliary.FileOperations;
 
 import common.Commons;
 
@@ -1603,14 +1603,14 @@ public class RserveUtilization {
 		
 //		//Before each run
 //		//delete directories and files under base directories
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
 		
 		
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileDeletion.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
 		
 		
 		//Construct pfm matrices from encode-motif.txt file
