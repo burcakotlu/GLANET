@@ -15,6 +15,7 @@ import java.util.Locale;
 import auxiliary.FileOperations;
 
 import common.Commons;
+import create.ChromosomeBasedFiles;
 
 /*
  * This program created unsorted and sorted chromosome based dnase, tfbs and histone intervals using ENCODE data
@@ -966,8 +967,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 	}
 	
 //	Common function for tfbs, histone and dnase
-	public void closeUnsortedChromosomeBaseFiles() {
-		try {
 //			Close the outermost Stream/Writer/Reader in the chain.
 //			Which is BufferedWriter in this case
 //			It will flush it buffers, close and propagate close to the next Writer in the chain.
@@ -977,40 +976,11 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 //			Then we should close the FileWriter
 //			Otherwise we will lose the remaining chars in the buffers of BufferedWriter
 
-			commons.getChr1BufferedWriter().close();
-			commons.getChr2BufferedWriter().close();
-			commons.getChr3BufferedWriter().close();
-			commons.getChr4BufferedWriter().close();
-			commons.getChr5BufferedWriter().close();
-			commons.getChr6BufferedWriter().close();
-			commons.getChr7BufferedWriter().close();
-			commons.getChr8BufferedWriter().close();
-			commons.getChr9BufferedWriter().close();
-			commons.getChr10BufferedWriter().close();
-			commons.getChr11BufferedWriter().close();
-			commons.getChr12BufferedWriter().close();
-			commons.getChr13BufferedWriter().close();
-			commons.getChr14BufferedWriter().close();
-			commons.getChr15BufferedWriter().close();
-			commons.getChr16BufferedWriter().close();
-			commons.getChr17BufferedWriter().close();
-			commons.getChr18BufferedWriter().close();
-			commons.getChr19BufferedWriter().close();
-			commons.getChr20BufferedWriter().close();
-			commons.getChr21BufferedWriter().close();
-			commons.getChr22BufferedWriter().close();
-			commons.getChrXBufferedWriter().close();
-			commons.getChrYBufferedWriter().close();
-			
+				
 //			After you close the BufferedReder (it flushes it buffers and then close and close propagate) you can also close FileWriter explicitly
 //			no problem, but also no  need
 //			commons.getChr10TfbsFw().close();
 				
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
 	
 //	Write Tfbs Information to the console
 	public void writeTfbsInformationtoConsole(){
@@ -1610,28 +1580,33 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		File tfbsDir = new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
 		File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
 		
+		List<BufferedWriter> unsortedDnaseBufferedWriterList = new ArrayList<BufferedWriter>(24);
+		List<BufferedWriter> unsortedHistoneBufferedWriterList = new ArrayList<BufferedWriter>(24);
+		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
+		
+		
 		
 		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort annotateUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort();
 		
 //		DNASE
-		annotateUsingEncode.openUnsortedChromosomeBaseDnaseFiles();
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedDnaseFileWriters(unsortedDnaseBufferedWriterList);
 		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2);		
 		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1);
-		annotateUsingEncode.closeUnsortedChromosomeBaseFiles();		
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedDnaseBufferedWriterList);	
 		annotateUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
 		annotateUsingEncode.writeDnaseInformationtoConsole();
 
 //		HISTONE
-		annotateUsingEncode.openUnsortedChromosomeBaseHistoneFiles();
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedHistoneFileWriters(unsortedHistoneBufferedWriterList);
 		annotateUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir);		
-		annotateUsingEncode.closeUnsortedChromosomeBaseFiles();
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedHistoneBufferedWriterList);
 		annotateUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
 		annotateUsingEncode.writeHistoneInformationtoConsole();
 				
 //		TFBS
-		annotateUsingEncode.openUnsortedChromosomeBaseTfbsFiles();
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedTfbsFileWriters(unsortedTfbsBufferedWriterList);
 		annotateUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir);		
-		annotateUsingEncode.closeUnsortedChromosomeBaseFiles();		
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedTfbsBufferedWriterList);
 		annotateUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
 		annotateUsingEncode.writeTfbsInformationtoConsole();
 				            

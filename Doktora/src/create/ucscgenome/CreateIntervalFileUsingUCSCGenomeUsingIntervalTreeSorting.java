@@ -521,59 +521,8 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		for (int i =0; i<refSeqGeneList.size(); i++){
 			refSeqGene = refSeqGeneList.get(i);
 			chromName = refSeqGene.getChromName();
-			
-//			getBufferedWriter(chromName,bufferedWriter,bufferedWriterList);		
-			
-			if (chromName.equals(Commons.CHROMOSOME1)){
-				bufferedWriter = bufferedWriterList.get(0);
-			}else if (chromName.equals(Commons.CHROMOSOME2)){
-				bufferedWriter = bufferedWriterList.get(1);			
-			}else if (chromName.equals(Commons.CHROMOSOME3)){
-				bufferedWriter = bufferedWriterList.get(2);			
-			}else if (chromName.equals(Commons.CHROMOSOME4)){
-				bufferedWriter = bufferedWriterList.get(3);			
-			}else if (chromName.equals(Commons.CHROMOSOME5)){
-				bufferedWriter = bufferedWriterList.get(4);			
-			}else if (chromName.equals(Commons.CHROMOSOME6)){
-				bufferedWriter = bufferedWriterList.get(5);			
-			}else if (chromName.equals(Commons.CHROMOSOME7)){
-				bufferedWriter = bufferedWriterList.get(6);			
-			}else if (chromName.equals(Commons.CHROMOSOME8)){
-				bufferedWriter = bufferedWriterList.get(7);			
-			}else if (chromName.equals(Commons.CHROMOSOME9)){
-				bufferedWriter = bufferedWriterList.get(8);			
-			}else if (chromName.equals(Commons.CHROMOSOME10)){
-				bufferedWriter = bufferedWriterList.get(9);			
-			}else if (chromName.equals(Commons.CHROMOSOME11)){
-				bufferedWriter = bufferedWriterList.get(10);			
-			}else if (chromName.equals(Commons.CHROMOSOME12)){
-				bufferedWriter = bufferedWriterList.get(11);			
-			}else if (chromName.equals(Commons.CHROMOSOME13)){
-				bufferedWriter = bufferedWriterList.get(12);			
-			}else if (chromName.equals(Commons.CHROMOSOME14)){
-				bufferedWriter = bufferedWriterList.get(13);			
-			}else if (chromName.equals(Commons.CHROMOSOME15)){
-				bufferedWriter = bufferedWriterList.get(14);			
-			}else if (chromName.equals(Commons.CHROMOSOME16)){
-				bufferedWriter = bufferedWriterList.get(15);			
-			}else if (chromName.equals(Commons.CHROMOSOME17)){
-				bufferedWriter = bufferedWriterList.get(16);			
-			}else if (chromName.equals(Commons.CHROMOSOME18)){
-				bufferedWriter = bufferedWriterList.get(17);			
-			}else if (chromName.equals(Commons.CHROMOSOME19)){
-				bufferedWriter = bufferedWriterList.get(18);			
-			}else if (chromName.equals(Commons.CHROMOSOME20)){
-				bufferedWriter = bufferedWriterList.get(19);			
-			}else if (chromName.equals(Commons.CHROMOSOME21)){
-				bufferedWriter = bufferedWriterList.get(20);			
-			}else if (chromName.equals(Commons.CHROMOSOME22)){
-				bufferedWriter = bufferedWriterList.get(21);			
-			}else if (chromName.equals(Commons.CHROMOSOMEX)){
-				bufferedWriter = bufferedWriterList.get(22);			
-			}else if (chromName.equals(Commons.CHROMOSOMEY)){
-				bufferedWriter = bufferedWriterList.get(23);			
-			}
-			
+						
+			bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(chromName, bufferedWriterList);
 			
 			createExonIntronIntervals(refSeqGene,i,bufferedWriter,information);			
 			create5p3pIntervals(refSeqGene,bufferedWriter,information);

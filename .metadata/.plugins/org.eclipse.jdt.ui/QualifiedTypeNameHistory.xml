@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
-<fullyQualifiedTypeName name="create.ChromosomeBasedFiles"/>
 <fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="create.ChromosomeBasedFiles"/>
 </qualifiedTypeNameHistroy>
