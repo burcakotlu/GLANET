@@ -23,7 +23,7 @@ import common.Commons;
 public class ChromosomeBasedFiles {
 
 	
-	public static void closeChromosomeBasedFileWriters(List<BufferedWriter> bufferedWriterList){
+	public static void closeChromosomeBasedBufferedWriters(List<BufferedWriter> bufferedWriterList){
 		Iterator<BufferedWriter> itr = bufferedWriterList.iterator();
 		
 		while (itr.hasNext()){
@@ -36,7 +36,7 @@ public class ChromosomeBasedFiles {
 		}		
 	}
 	
-	public static void closeChromosomeBasedFileReaders(List<BufferedReader> bufferedReaderList){
+	public static void closeChromosomeBasedBufferedReaders(List<BufferedReader> bufferedReaderList){
 		Iterator<BufferedReader> itr = bufferedReaderList.iterator();
 		
 		while (itr.hasNext()){

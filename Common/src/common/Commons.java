@@ -2196,7 +2196,6 @@ public class Commons {
 		return numberofDnaseinChr1 + numberofDnaseinChr2 + numberofDnaseinChr3 + numberofDnaseinChr4 + numberofDnaseinChr5 + numberofDnaseinChr6 + numberofDnaseinChr7 + numberofDnaseinChr8 + numberofDnaseinChr9 + numberofDnaseinChr10 + numberofDnaseinChr11 + numberofDnaseinChr12 + numberofDnaseinChr13 + numberofDnaseinChr14 + numberofDnaseinChr15 + numberofDnaseinChr16 + numberofDnaseinChr17 + numberofDnaseinChr18 + numberofDnaseinChr19 + numberofDnaseinChr20 + numberofDnaseinChr21 + numberofDnaseinChr22 + numberofDnaseinChrX + numberofDnaseinChrY;  
 	}
 	
-	//path should only include directory names, without any document name (e.g. C:/Users/)
 	public File createFile( String path){
 		
 		File f = new File( path);

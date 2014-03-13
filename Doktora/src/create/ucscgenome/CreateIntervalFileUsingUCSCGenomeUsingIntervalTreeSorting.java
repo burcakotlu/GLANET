@@ -836,13 +836,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
 		createIntervals.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
-		ChromosomeBasedFiles.closeChromosomeBasedFileWriters(unsortedBufferedWriterList);		
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
 		
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
 		ChromosomeBasedFiles.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
 		createIntervals.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
-		ChromosomeBasedFiles.closeChromosomeBasedFileReaders(unsortedBufferedReaderList);
-		ChromosomeBasedFiles.closeChromosomeBasedFileWriters(sortedBufferedWriterList);
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);
 	}
 
 }

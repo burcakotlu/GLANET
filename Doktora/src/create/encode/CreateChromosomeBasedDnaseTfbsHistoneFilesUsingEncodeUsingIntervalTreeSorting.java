@@ -47,6 +47,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 // Write the dnase into corresponding chromosome file  
    public void writetoUnsortedChrBaseDnaseFile(Dnase dnase){
 	   try {
+		   		   
 			if(dnase.getChromName().equals("chr1")){
 				commons.getChr1BufferedWriter().write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+"\n");
 				commons.setNumberofDnaseinChr1(commons.getNumberofDnaseinChr1()+1);
