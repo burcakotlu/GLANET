@@ -19,6 +19,7 @@ import java.util.List;
 
 import common.Commons;
 
+import create.ChromosomeBasedFiles;
 import create.encode.GeneType;
 import create.encode.RegionofInterest;
 
@@ -75,62 +76,8 @@ public class TestTcgaData {
 		String outputString = "";
 		String searchString = null;
 		
-		try {
-			if (chromName.equals(Commons.CHROMOSOME1)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR1_REFSEQ_GENES);				
-			}else if (chromName.equals(Commons.CHROMOSOME2)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR2_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME3)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR3_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME4)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR4_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME5)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR5_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME6)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR6_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME7)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR7_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME8)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR8_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME9)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR9_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME10)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR10_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME11)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR11_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME12)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR12_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME13)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR13_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME14)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR14_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME15)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR15_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME16)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR16_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME17)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR17_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME18)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR18_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME19)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR19_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME20)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR20_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME21)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR21_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOME22)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHR22_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOMEX)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRX_REFSEQ_GENES);			
-			}else if (chromName.equals(Commons.CHROMOSOMEY)){
-				fileReader = new FileReader(Commons.C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_REFSEQ_GENES);			
-			}			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
+		fileReader = ChromosomeBasedFiles.getSortedRefSeqGenesFileReader(chromName);
+		
 		 br = new BufferedReader(fileReader);
 
 			try {
