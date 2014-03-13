@@ -842,9 +842,128 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 
 	
-
+//	Open Chromosome base Histone Mark Files 
+	public void openUnsortedChromosomeBaseHistoneFiles(){
+		try {
+			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME));
+			commons.setChr2FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME));
+			commons.setChr3FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME));
+			commons.setChr4FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME));
+			commons.setChr5FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME));
+			commons.setChr6FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME));
+			commons.setChr7FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME));
+			commons.setChr8FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME));
+			commons.setChr9FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME));
+			commons.setChr10FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME));
+			commons.setChr11FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME));
+			commons.setChr12FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME));
+			commons.setChr13FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME));
+			commons.setChr14FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME));
+			commons.setChr15FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME));
+			commons.setChr16FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME));
+			commons.setChr17FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME));
+			commons.setChr18FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME));
+			commons.setChr19FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME));
+			commons.setChr20FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME));
+			commons.setChr21FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME));
+			commons.setChr22FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME));
+			commons.setChrXFileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME));
+			commons.setChrYFileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME));
+			
+			
+					 
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
+	 commons.setChr1BufferedWriter(new BufferedWriter(commons.getChr1FileWriter()));
+	 commons.setChr2BufferedWriter(new BufferedWriter(commons.getChr2FileWriter()));
+	 commons.setChr3BufferedWriter(new BufferedWriter(commons.getChr3FileWriter()));
+	 commons.setChr4BufferedWriter(new BufferedWriter(commons.getChr4FileWriter()));
+	 commons.setChr5BufferedWriter(new BufferedWriter(commons.getChr5FileWriter()));
+	 commons.setChr6BufferedWriter(new BufferedWriter(commons.getChr6FileWriter()));
+	 commons.setChr7BufferedWriter(new BufferedWriter(commons.getChr7FileWriter()));
+	 commons.setChr8BufferedWriter(new BufferedWriter(commons.getChr8FileWriter()));
+	 commons.setChr9BufferedWriter(new BufferedWriter(commons.getChr9FileWriter()));
+	 commons.setChr10BufferedWriter(new BufferedWriter(commons.getChr10FileWriter()));
+	 commons.setChr11BufferedWriter(new BufferedWriter(commons.getChr11FileWriter()));
+	 commons.setChr12BufferedWriter(new BufferedWriter(commons.getChr12FileWriter()));
+	 commons.setChr13BufferedWriter(new BufferedWriter(commons.getChr13FileWriter()));
+	 commons.setChr14BufferedWriter(new BufferedWriter(commons.getChr14FileWriter()));
+	 commons.setChr15BufferedWriter(new BufferedWriter(commons.getChr15FileWriter()));
+	 commons.setChr16BufferedWriter(new BufferedWriter(commons.getChr16FileWriter()));
+	 commons.setChr17BufferedWriter(new BufferedWriter(commons.getChr17FileWriter()));
+	 commons.setChr18BufferedWriter(new BufferedWriter(commons.getChr18FileWriter()));
+	 commons.setChr19BufferedWriter(new BufferedWriter(commons.getChr19FileWriter()));
+	 commons.setChr20BufferedWriter(new BufferedWriter(commons.getChr20FileWriter()));
+	 commons.setChr21BufferedWriter(new BufferedWriter(commons.getChr21FileWriter()));
+	 commons.setChr22BufferedWriter(new BufferedWriter(commons.getChr22FileWriter()));
+	 commons.setChrXBufferedWriter(new BufferedWriter(commons.getChrXFileWriter()));
+	 commons.setChrYBufferedWriter(new BufferedWriter(commons.getChrYFileWriter()));		 				
 
+	}
+	
+//	open Chromosome base Tfbs files
+//	Each Chromosome base Tfbs file contains transcription factor binding sites information
+	public void openUnsortedChromosomeBaseTfbsFiles(){
+						
+		try {
+				commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR1_TFBS_FILENAME));
+				commons.setChr2FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR2_TFBS_FILENAME));
+				commons.setChr3FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR3_TFBS_FILENAME));
+				commons.setChr4FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR4_TFBS_FILENAME));
+				commons.setChr5FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR5_TFBS_FILENAME));
+				commons.setChr6FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR6_TFBS_FILENAME));
+				commons.setChr7FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR7_TFBS_FILENAME));
+				commons.setChr8FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR8_TFBS_FILENAME));
+				commons.setChr9FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR9_TFBS_FILENAME));
+				commons.setChr10FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR10_TFBS_FILENAME));
+				commons.setChr11FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR11_TFBS_FILENAME));
+				commons.setChr12FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR12_TFBS_FILENAME));
+				commons.setChr13FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR13_TFBS_FILENAME));
+				commons.setChr14FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR14_TFBS_FILENAME));
+				commons.setChr15FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR15_TFBS_FILENAME));
+				commons.setChr16FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR16_TFBS_FILENAME));
+				commons.setChr17FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR17_TFBS_FILENAME));
+				commons.setChr18FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR18_TFBS_FILENAME));
+				commons.setChr19FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR19_TFBS_FILENAME));
+				commons.setChr20FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR20_TFBS_FILENAME));
+				commons.setChr21FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR21_TFBS_FILENAME));
+				commons.setChr22FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHR22_TFBS_FILENAME));
+				commons.setChrXFileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHRX_TFBS_FILENAME));
+				commons.setChrYFileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY, Commons.UNSORTED_CHRY_TFBS_FILENAME));
+							 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 commons.setChr1BufferedWriter(new BufferedWriter(commons.getChr1FileWriter()));
+		 commons.setChr2BufferedWriter(new BufferedWriter(commons.getChr2FileWriter()));
+		 commons.setChr3BufferedWriter(new BufferedWriter(commons.getChr3FileWriter()));
+		 commons.setChr4BufferedWriter(new BufferedWriter(commons.getChr4FileWriter()));
+		 commons.setChr5BufferedWriter(new BufferedWriter(commons.getChr5FileWriter()));
+		 commons.setChr6BufferedWriter(new BufferedWriter(commons.getChr6FileWriter()));
+		 commons.setChr7BufferedWriter(new BufferedWriter(commons.getChr7FileWriter()));
+		 commons.setChr8BufferedWriter(new BufferedWriter(commons.getChr8FileWriter()));
+		 commons.setChr9BufferedWriter(new BufferedWriter(commons.getChr9FileWriter()));
+		 commons.setChr10BufferedWriter(new BufferedWriter(commons.getChr10FileWriter()));
+		 commons.setChr11BufferedWriter(new BufferedWriter(commons.getChr11FileWriter()));
+		 commons.setChr12BufferedWriter(new BufferedWriter(commons.getChr12FileWriter()));
+		 commons.setChr13BufferedWriter(new BufferedWriter(commons.getChr13FileWriter()));
+		 commons.setChr14BufferedWriter(new BufferedWriter(commons.getChr14FileWriter()));
+		 commons.setChr15BufferedWriter(new BufferedWriter(commons.getChr15FileWriter()));
+		 commons.setChr16BufferedWriter(new BufferedWriter(commons.getChr16FileWriter()));
+		 commons.setChr17BufferedWriter(new BufferedWriter(commons.getChr17FileWriter()));
+		 commons.setChr18BufferedWriter(new BufferedWriter(commons.getChr18FileWriter()));
+		 commons.setChr19BufferedWriter(new BufferedWriter(commons.getChr19FileWriter()));
+		 commons.setChr20BufferedWriter(new BufferedWriter(commons.getChr20FileWriter()));
+		 commons.setChr21BufferedWriter(new BufferedWriter(commons.getChr21FileWriter()));
+		 commons.setChr22BufferedWriter(new BufferedWriter(commons.getChr22FileWriter()));
+		 commons.setChrXBufferedWriter(new BufferedWriter(commons.getChrXFileWriter()));
+		 commons.setChrYBufferedWriter(new BufferedWriter(commons.getChrYFileWriter()));		 						 		 
+	}
 	
 //	Common function for tfbs, histone and dnase
 //			Close the outermost Stream/Writer/Reader in the chain.
@@ -1448,7 +1567,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
 		
-		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting createChromosomeBasedFilesUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting();
+		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting annotateUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting();
 
 		//Attention
 		//Encode data
@@ -1464,26 +1583,26 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 //		DNASE
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedDnaseFileWriters(unsortedDnaseBufferedWriterList);	    
-		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2,unsortedDnaseBufferedWriterList);		
-		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1,unsortedDnaseBufferedWriterList);
+		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2,unsortedDnaseBufferedWriterList);		
+		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1,unsortedDnaseBufferedWriterList);
 		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedDnaseBufferedWriterList);		
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
-		createChromosomeBasedFilesUsingEncode.writeDnaseInformationtoConsole();
+		annotateUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
+		annotateUsingEncode.writeDnaseInformationtoConsole();
 		
 		
 //		HISTONE
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedHistoneFileWriters(unsortedHistoneBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir,unsortedHistoneBufferedWriterList);	
+		annotateUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir,unsortedHistoneBufferedWriterList);	
 		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedHistoneBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
-		createChromosomeBasedFilesUsingEncode.writeHistoneInformationtoConsole();
+		annotateUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
+		annotateUsingEncode.writeHistoneInformationtoConsole();
 				
 //		TFBS
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedTfbsFileWriters(unsortedTfbsBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir,unsortedTfbsBufferedWriterList);
+		annotateUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir,unsortedTfbsBufferedWriterList);
 		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedTfbsBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
-		createChromosomeBasedFilesUsingEncode.writeTfbsInformationtoConsole();
+		annotateUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
+		annotateUsingEncode.writeTfbsInformationtoConsole();
 				            
 	}
 
