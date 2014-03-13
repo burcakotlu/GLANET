@@ -898,8 +898,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	public void openUnsortedChromosomeBaseDnaseFiles(){
 		try {
 			
-			
-			commons.setChr1FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR1_DNASE_FILENAME));
+			commons.setChr1FileWriter(new FileWriter( commons.createFile(Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR1_DNASE_FILENAME)));
 			commons.setChr2FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR2_DNASE_FILENAME));
 			commons.setChr3FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR3_DNASE_FILENAME));
 			commons.setChr4FileWriter(FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR4_DNASE_FILENAME));
