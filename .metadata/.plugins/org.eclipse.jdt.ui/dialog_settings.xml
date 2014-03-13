@@ -11,6 +11,17 @@
 	</list>
 	<section name="CallHierarchySearchScope">
 	</section>
+	<section name="RefactoringWizard.preview">
+		<item key="width" value="790"/>
+		<item value="400" key="height"/>
+	</section>
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item key="updateQualifiedNames" value="false"/>
+		<item value="*" key="patterns"/>
+		<item value="false" key="updateSimilarElements"/>
+		<item value="1" key="updateSimilarElementsMatchStrategy"/>
+		<item value="false" key="updateTextualMatches"/>
+	</section>
 	<section name="SearchInDialog">
 		<item key="SearchInProjects" value="true"/>
 		<item value="true" key="SearchInAppLibs"/>

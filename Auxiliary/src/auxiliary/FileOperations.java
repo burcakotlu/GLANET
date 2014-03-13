@@ -34,14 +34,13 @@ public class FileOperations {
 	
 	
 	public static FileReader createFileReader(String directoryName, String fileName) throws IOException{
-		//First check whether this directory is already created
-		File pathDirectory = new File(directoryName);
-		
-		//creates the directory named by this abstract pathname, including necessary and non-existent parent directories.
-		pathDirectory.mkdirs();
 		 
-		
 		return new FileReader(directoryName+fileName);
+	}
+	
+	public static FileReader createFileReader(String directoryNameandfileName) throws IOException{
+		 
+		return new FileReader(directoryNameandfileName);
 	}
 	
 	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){

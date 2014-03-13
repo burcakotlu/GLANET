@@ -711,13 +711,26 @@ public class Commons {
 	
 	
 // 	All possible names		
-	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_dnase_cell_lines_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_tfbs_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_histone_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_gene_ids.txt";	
-	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_rna_nucleotide_accession_versions.txt";	
-	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_alternate_gene_names.txt";	
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator") + "all_possible_kegg_pathway_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME = "all_possible_dnase_cell_lines_names.txt";
+	
+	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME = "all_possible_tfbs_names.txt";
+	
+	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_histone_names.txt";
+		
+	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME = "all_possible_rna_nucleotide_accession_versions.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME = "all_possible_alternate_gene_names.txt";	
+	
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "all_possible_names" + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
 	
 //	Kegg Pathway to Ncbi Ref Seq Gene Ids
 	public static final String KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE = INPUT_DATA + "KEGG" + System.getProperty("file.separator") + "list_pathway_hsa.txt";
@@ -791,9 +804,15 @@ public class Commons {
 			
 	//Downloaded from ncbi, gene2refseq.txt data
 	public static final String NCBI_GENE_TO_REF_SEQ = INPUT_DATA + "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_gene2refseq.txt";
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_refseq2gene.txt";
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2 = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator") + "human_refseq2gene2.txt";
+	
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
+
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseq2gene.txt";
+
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "ncbi" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseq2gene2.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
 //	They have been unzipped.

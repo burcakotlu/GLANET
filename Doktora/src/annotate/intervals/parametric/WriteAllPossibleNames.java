@@ -606,14 +606,14 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public void writeNames(List<String> nameList, String outputFileName){
+	public void writeNames(List<String> nameList, String outputDirectoryName, String outputFileName){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;		
 		
 		
 		try {
 			
-			fileWriter = new FileWriter(outputFileName);
+			fileWriter = FileOperations.createFileWriter(outputDirectoryName,outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 		
 			for(int i = 0; i<nameList.size() ;i++){
@@ -638,7 +638,7 @@ public class WriteAllPossibleNames {
 		
 		List<String> dnaseCellLineNames = new ArrayList<String>();
 		readDnaseCellLineNames(dnaseCellLineNames);
-		writeNames(dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILE);		
+		writeNames(dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
 	}
 	
 	
@@ -646,7 +646,7 @@ public class WriteAllPossibleNames {
 		
 		List<String> tfbsNames = new ArrayList<String>();
 		readTfbsorHistoneNames(tfbsNames, Commons.TFBS);
-		writeNames(tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE);		
+		writeNames(tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 
 	}
 
@@ -654,23 +654,23 @@ public class WriteAllPossibleNames {
 		
 		List<String> histoneNames = new ArrayList<String>();
 		readTfbsorHistoneNames(histoneNames,Commons.HISTONE);
-		writeNames(histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILE);		
+		writeNames(histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
 
 	}
 	
 	public void writeAllPossibleGeneIds(){
 
 		List<String> geneIds = new ArrayList<String>();
-		readGeneIds(geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ);
-		writeNames(geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILE);		
+		readGeneIds(geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
+		writeNames(geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
 		
 	}
 	
 	public void writeAllPossibleRNAAccessionVersions(){
 
 		List<String> rnaNucleotideAccessionVersions = new ArrayList<String>();
-		readRNAAccessionVersions(rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ);
-		writeNames(rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILE);		
+		readRNAAccessionVersions(rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+		writeNames(rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
 		
 	}
 
@@ -679,7 +679,7 @@ public class WriteAllPossibleNames {
 
 		List<String> ucscRefSeqGeneName2s = new ArrayList<String>();
 		readUcscRefSeqGeneName2s(ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
-		writeNames(ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILE);		
+		writeNames(ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
 		
 	}
 	
@@ -687,7 +687,7 @@ public class WriteAllPossibleNames {
 		
 		List<String> keggPathwayNameList = new ArrayList<String>();		
 		readKeggPathwayNames(keggPathwayNameList,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-		writeNames(keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);		
+		writeNames(keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
 	
 	}
 	

@@ -6363,7 +6363,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
-		fillList(dnaseCellLineNameList,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILE);		
+		fillList(dnaseCellLineNameList,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
 		searchDnase(dnaseCellLineNameList,dnaseCellLine2KMap);	
 		writeResults(dnaseCellLine2KMap, Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setDnaseCellLineName2NumberofOverlapsMap(dnaseCellLine2KMap);
@@ -6374,7 +6374,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> tfbsNameandCellLineName2KMap = new HashMap<String,Integer>();	
 		
-		fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE);		
+		fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 		searchTfbs(tfbsNameList,tfbsNameandCellLineName2KMap);		
 		writeResults(tfbsNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setTfbsNameandCellLineName2NumberofOverlapsMap(tfbsNameandCellLineName2KMap);
@@ -6385,7 +6385,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
-		fillList(histoneNameList,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILE);
+		fillList(histoneNameList,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
 		searchHistone(histoneNameList,histoneNameandCellLineName2KMap);
 		writeResults(histoneNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setHistoneNameandCellLineName2NumberofOverlapsMap(histoneNameandCellLineName2KMap);
@@ -6396,7 +6396,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		List<String> keggPathwayNameList = new ArrayList<String>();
 				
 		//Fill keggPathwayNameList
-		fillList(keggPathwayNameList, Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);
+		fillList(keggPathwayNameList, Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);
 		
 		Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String, List<String>>();
 		KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayMap);
@@ -6480,7 +6480,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
-		fillList(dnaseCellLineNameList,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILE);		
+		fillList(dnaseCellLineNameList,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
 		searchDnase(dnaseCellLineNameList,dnaseCellLine2KMap);	
 		writeResults(dnaseCellLine2KMap, Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("DNASE analysis ends.");
@@ -6505,7 +6505,7 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
-		fillList(histoneNameList,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILE);
+		fillList(histoneNameList,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
 		searchHistone(histoneNameList,histoneNameandCellLineName2KMap);
 		writeResults(histoneNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("Histone analysis ends.");
@@ -6588,13 +6588,13 @@ public void searchKeggPathway(Map<String,List<String>> geneId2KeggPathwayMap,Lis
 		//For TF
 		List<String> tfbsNameList = new ArrayList<String>();
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
-		fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE);		
+		fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 		Map<String,Integer> tfCellLine2KMap = new HashMap<String,Integer>();	
 		
 		//For Kegg Pathway
 		List<String> keggPathwayNameList = new ArrayList<String>();
 		//Fill keggPathwayNameList
-		fillList(keggPathwayNameList, Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);
+		fillList(keggPathwayNameList, Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME +Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME );
 		Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String, List<String>>();
 		KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayMap);
 		Map<String,Integer> exonBasedKeggPathway2KMap = new HashMap<String,Integer>();
