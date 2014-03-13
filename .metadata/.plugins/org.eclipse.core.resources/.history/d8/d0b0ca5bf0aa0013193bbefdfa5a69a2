@@ -58,53 +58,53 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		   		   
 			if(dnase.getChromName().equals("chr1")){
-				numberofDNAElements.setNumberofDnaseinChr1(numberofDNAElements.getNumberofDnaseinChr1()+1);
+				commons.setNumberofDnaseinChr1(commons.getNumberofDnaseinChr1()+1);
 			}else if(dnase.getChromName().equals("chr2")){
-				numberofDNAElements.setNumberofDnaseinChr2(numberofDNAElements.getNumberofDnaseinChr2()+1);
+				commons.setNumberofDnaseinChr2(commons.getNumberofDnaseinChr2()+1);
 			}else if(dnase.getChromName().equals("chr3")){
-				numberofDNAElements.setNumberofDnaseinChr3(numberofDNAElements.getNumberofDnaseinChr3()+1);
+				commons.setNumberofDnaseinChr3(commons.getNumberofDnaseinChr3()+1);
 			}else if(dnase.getChromName().equals("chr4")){
-				numberofDNAElements.setNumberofDnaseinChr4(numberofDNAElements.getNumberofDnaseinChr4()+1);
+				commons.setNumberofDnaseinChr4(commons.getNumberofDnaseinChr4()+1);
 			}else if(dnase.getChromName().equals("chr5")){
-				numberofDNAElements.setNumberofDnaseinChr5(numberofDNAElements.getNumberofDnaseinChr5()+1);
+				commons.setNumberofDnaseinChr5(commons.getNumberofDnaseinChr5()+1);
 			}else if(dnase.getChromName().equals("chr6")){
-				numberofDNAElements.setNumberofDnaseinChr6(numberofDNAElements.getNumberofDnaseinChr6()+1);
+				commons.setNumberofDnaseinChr6(commons.getNumberofDnaseinChr6()+1);
 			}else if(dnase.getChromName().equals("chr7")){
-				numberofDNAElements.setNumberofDnaseinChr7(numberofDNAElements.getNumberofDnaseinChr7()+1);
+				commons.setNumberofDnaseinChr7(commons.getNumberofDnaseinChr7()+1);
 			}else if(dnase.getChromName().equals("chr8")){
-				numberofDNAElements.setNumberofDnaseinChr8(numberofDNAElements.getNumberofDnaseinChr8()+1);
+				commons.setNumberofDnaseinChr8(commons.getNumberofDnaseinChr8()+1);
 			}else if(dnase.getChromName().equals("chr9")){
-				numberofDNAElements.setNumberofDnaseinChr9(numberofDNAElements.getNumberofDnaseinChr9()+1);
+				commons.setNumberofDnaseinChr9(commons.getNumberofDnaseinChr9()+1);
 			}else if(dnase.getChromName().equals("chr10")){
-				numberofDNAElements.setNumberofDnaseinChr10(numberofDNAElements.getNumberofDnaseinChr10()+1);
+				commons.setNumberofDnaseinChr10(commons.getNumberofDnaseinChr10()+1);
 			}else if(dnase.getChromName().equals("chr11")){
-				numberofDNAElements.setNumberofDnaseinChr11(numberofDNAElements.getNumberofDnaseinChr11()+1);
+				commons.setNumberofDnaseinChr11(commons.getNumberofDnaseinChr11()+1);
 			}else if(dnase.getChromName().equals("chr12")){
-				numberofDNAElements.setNumberofDnaseinChr12(numberofDNAElements.getNumberofDnaseinChr12()+1);
+				commons.setNumberofDnaseinChr12(commons.getNumberofDnaseinChr12()+1);
 			}else if(dnase.getChromName().equals("chr13")){
-				numberofDNAElements.setNumberofDnaseinChr13(numberofDNAElements.getNumberofDnaseinChr13()+1);
+				commons.setNumberofDnaseinChr13(commons.getNumberofDnaseinChr13()+1);
 			}else if(dnase.getChromName().equals("chr14")){
-				numberofDNAElements.setNumberofDnaseinChr14(numberofDNAElements.getNumberofDnaseinChr14()+1);
+				commons.setNumberofDnaseinChr14(commons.getNumberofDnaseinChr14()+1);
 			}else if(dnase.getChromName().equals("chr15")){
-				numberofDNAElements.setNumberofDnaseinChr15(numberofDNAElements.getNumberofDnaseinChr15()+1);
+				commons.setNumberofDnaseinChr15(commons.getNumberofDnaseinChr15()+1);
 			}else if(dnase.getChromName().equals("chr16")){
-				numberofDNAElements.setNumberofDnaseinChr16(numberofDNAElements.getNumberofDnaseinChr16()+1);
+				commons.setNumberofDnaseinChr16(commons.getNumberofDnaseinChr16()+1);
 			}else if(dnase.getChromName().equals("chr17")){
-				numberofDNAElements.setNumberofDnaseinChr17(numberofDNAElements.getNumberofDnaseinChr17()+1);
+				commons.setNumberofDnaseinChr17(commons.getNumberofDnaseinChr17()+1);
 			}else if(dnase.getChromName().equals("chr18")){
-				numberofDNAElements.setNumberofDnaseinChr18(numberofDNAElements.getNumberofDnaseinChr18()+1);
+				commons.setNumberofDnaseinChr18(commons.getNumberofDnaseinChr18()+1);
 			}else if(dnase.getChromName().equals("chr19")){
-				numberofDNAElements.setNumberofDnaseinChr19(numberofDNAElements.getNumberofDnaseinChr19()+1);
+				commons.setNumberofDnaseinChr19(commons.getNumberofDnaseinChr19()+1);
 			}else if(dnase.getChromName().equals("chr20")){
-				numberofDNAElements.setNumberofDnaseinChr20(numberofDNAElements.getNumberofDnaseinChr20()+1);
+				commons.setNumberofDnaseinChr20(commons.getNumberofDnaseinChr20()+1);
 			}else if(dnase.getChromName().equals("chr21")){
-				numberofDNAElements.setNumberofDnaseinChr21(numberofDNAElements.getNumberofDnaseinChr21()+1);
+				commons.setNumberofDnaseinChr21(commons.getNumberofDnaseinChr21()+1);
 			}else if(dnase.getChromName().equals("chr22")){
-				numberofDNAElements.setNumberofDnaseinChr22(numberofDNAElements.getNumberofDnaseinChr22()+1);
+				commons.setNumberofDnaseinChr22(commons.getNumberofDnaseinChr22()+1);
 			}else if(dnase.getChromName().equals("chrX")){
-				numberofDNAElements.setNumberofDnaseinChrX(numberofDNAElements.getNumberofDnaseinChrX()+1);
+				commons.setNumberofDnaseinChrX(commons.getNumberofDnaseinChrX()+1);
 			}else if(dnase.getChromName().equals("chrY")){
-				numberofDNAElements.setNumberofDnaseinChrY(numberofDNAElements.getNumberofDnaseinChrY()+1);
+				commons.setNumberofDnaseinChrY(commons.getNumberofDnaseinChrY()+1);
 			} 
 			
 		} catch (IOException e) {
@@ -124,53 +124,53 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			bufferedWriter.write(histone.getChromName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+"\n");
 
 			if(histone.getChromName().equals("chr1")){
-				numberofDNAElements.setNumberofHistoneinChr1(numberofDNAElements.getNumberofHistoneinChr1()+1);
+				commons.setNumberofHistoneinChr1(commons.getNumberofHistoneinChr1()+1);
 			}else if (histone.getChromName().equals("chr2")){
-				numberofDNAElements.setNumberofHistoneinChr2(numberofDNAElements.getNumberofHistoneinChr2()+1);				
+				commons.setNumberofHistoneinChr2(commons.getNumberofHistoneinChr2()+1);				
 			}else if (histone.getChromName().equals("chr3")){
-				numberofDNAElements.setNumberofHistoneinChr3(numberofDNAElements.getNumberofHistoneinChr3()+1);				
+				commons.setNumberofHistoneinChr3(commons.getNumberofHistoneinChr3()+1);				
 			}else if (histone.getChromName().equals("chr4")){
-				numberofDNAElements.setNumberofHistoneinChr4(numberofDNAElements.getNumberofHistoneinChr4()+1);				
+				commons.setNumberofHistoneinChr4(commons.getNumberofHistoneinChr4()+1);				
 			}else if (histone.getChromName().equals("chr5")){
-				numberofDNAElements.setNumberofHistoneinChr5(numberofDNAElements.getNumberofHistoneinChr5()+1);				
+				commons.setNumberofHistoneinChr5(commons.getNumberofHistoneinChr5()+1);				
 			}else if (histone.getChromName().equals("chr6")){
-				numberofDNAElements.setNumberofHistoneinChr6(numberofDNAElements.getNumberofHistoneinChr6()+1);				
+				commons.setNumberofHistoneinChr6(commons.getNumberofHistoneinChr6()+1);				
 			}else if (histone.getChromName().equals("chr7")){
-				numberofDNAElements.setNumberofHistoneinChr7(numberofDNAElements.getNumberofHistoneinChr7()+1);				
+				commons.setNumberofHistoneinChr7(commons.getNumberofHistoneinChr7()+1);				
 			}else if (histone.getChromName().equals("chr8")){
-				numberofDNAElements.setNumberofHistoneinChr8(numberofDNAElements.getNumberofHistoneinChr8()+1);				
+				commons.setNumberofHistoneinChr8(commons.getNumberofHistoneinChr8()+1);				
 			}else if (histone.getChromName().equals("chr9")){
-				numberofDNAElements.setNumberofHistoneinChr9(numberofDNAElements.getNumberofHistoneinChr9()+1);				
+				commons.setNumberofHistoneinChr9(commons.getNumberofHistoneinChr9()+1);				
 			}else if (histone.getChromName().equals("chr10")){
-				numberofDNAElements.setNumberofHistoneinChr10(numberofDNAElements.getNumberofHistoneinChr10()+1);				
+				commons.setNumberofHistoneinChr10(commons.getNumberofHistoneinChr10()+1);				
 			}else if (histone.getChromName().equals("chr11")){
-				numberofDNAElements.setNumberofHistoneinChr11(numberofDNAElements.getNumberofHistoneinChr11()+1);				
+				commons.setNumberofHistoneinChr11(commons.getNumberofHistoneinChr11()+1);				
 			}else if (histone.getChromName().equals("chr12")){
-				numberofDNAElements.setNumberofHistoneinChr12(numberofDNAElements.getNumberofHistoneinChr12()+1);				
+				commons.setNumberofHistoneinChr12(commons.getNumberofHistoneinChr12()+1);				
 			}else if (histone.getChromName().equals("chr13")){
-				numberofDNAElements.setNumberofHistoneinChr13(numberofDNAElements.getNumberofHistoneinChr13()+1);				
+				commons.setNumberofHistoneinChr13(commons.getNumberofHistoneinChr13()+1);				
 			}else if (histone.getChromName().equals("chr14")){
-				numberofDNAElements.setNumberofHistoneinChr14(numberofDNAElements.getNumberofHistoneinChr14()+1);				
+				commons.setNumberofHistoneinChr14(commons.getNumberofHistoneinChr14()+1);				
 			}else if (histone.getChromName().equals("chr15")){
-				numberofDNAElements.setNumberofHistoneinChr15(numberofDNAElements.getNumberofHistoneinChr15()+1);				
+				commons.setNumberofHistoneinChr15(commons.getNumberofHistoneinChr15()+1);				
 			}else if (histone.getChromName().equals("chr16")){
-				numberofDNAElements.setNumberofHistoneinChr16(numberofDNAElements.getNumberofHistoneinChr16()+1);				
+				commons.setNumberofHistoneinChr16(commons.getNumberofHistoneinChr16()+1);				
 			}else if (histone.getChromName().equals("chr17")){
-				numberofDNAElements.setNumberofHistoneinChr17(numberofDNAElements.getNumberofHistoneinChr17()+1);				
+				commons.setNumberofHistoneinChr17(commons.getNumberofHistoneinChr17()+1);				
 			}else if (histone.getChromName().equals("chr18")){
-				numberofDNAElements.setNumberofHistoneinChr18(numberofDNAElements.getNumberofHistoneinChr18()+1);				
+				commons.setNumberofHistoneinChr18(commons.getNumberofHistoneinChr18()+1);				
 			}else if (histone.getChromName().equals("chr19")){
-				numberofDNAElements.setNumberofHistoneinChr19(numberofDNAElements.getNumberofHistoneinChr19()+1);				
+				commons.setNumberofHistoneinChr19(commons.getNumberofHistoneinChr19()+1);				
 			}else if (histone.getChromName().equals("chr20")){
-				numberofDNAElements.setNumberofHistoneinChr20(numberofDNAElements.getNumberofHistoneinChr20()+1);				
+				commons.setNumberofHistoneinChr20(commons.getNumberofHistoneinChr20()+1);				
 			}else if (histone.getChromName().equals("chr21")){
-				numberofDNAElements.setNumberofHistoneinChr21(numberofDNAElements.getNumberofHistoneinChr21()+1);				
+				commons.setNumberofHistoneinChr21(commons.getNumberofHistoneinChr21()+1);				
 			}else if (histone.getChromName().equals("chr22")){
-				numberofDNAElements.setNumberofHistoneinChr22(numberofDNAElements.getNumberofHistoneinChr22()+1);				
+				commons.setNumberofHistoneinChr22(commons.getNumberofHistoneinChr22()+1);				
 			}else if (histone.getChromName().equals("chrX")){
-				numberofDNAElements.setNumberofHistoneinChrX(numberofDNAElements.getNumberofHistoneinChrX()+1);				
+				commons.setNumberofHistoneinChrX(commons.getNumberofHistoneinChrX()+1);				
 			}else if (histone.getChromName().equals("chrY")){
-				numberofDNAElements.setNumberofHistoneinChrY(numberofDNAElements.getNumberofHistoneinChrY()+1);				
+				commons.setNumberofHistoneinChrY(commons.getNumberofHistoneinChrY()+1);				
 			}
 			
 		} catch (IOException e) {
@@ -191,75 +191,75 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ "\n");
 			
 			if(tfbs.getChromName().equals("chr1")){
-				numberofDNAElements.setNumberofTfbsinChr1(numberofDNAElements.getNumberofTfbsinChr1()+1);
+				commons.setNumberofTfbsinChr1(commons.getNumberofTfbsinChr1()+1);
 			}else if (tfbs.getChromName().equals("chr2")){
-				numberofDNAElements.setNumberofTfbsinChr2(numberofDNAElements.getNumberofTfbsinChr2()+1);
+				commons.setNumberofTfbsinChr2(commons.getNumberofTfbsinChr2()+1);
 				
 			}else if (tfbs.getChromName().equals("chr3")){
-				numberofDNAElements.setNumberofTfbsinChr3(numberofDNAElements.getNumberofTfbsinChr3()+1);
+				commons.setNumberofTfbsinChr3(commons.getNumberofTfbsinChr3()+1);
 
 			}else if (tfbs.getChromName().equals("chr4")){
-				numberofDNAElements.setNumberofTfbsinChr4(numberofDNAElements.getNumberofTfbsinChr4()+1);
+				commons.setNumberofTfbsinChr4(commons.getNumberofTfbsinChr4()+1);
 
 			}else if (tfbs.getChromName().equals("chr5")){
-				numberofDNAElements.setNumberofTfbsinChr5(numberofDNAElements.getNumberofTfbsinChr5()+1);
+				commons.setNumberofTfbsinChr5(commons.getNumberofTfbsinChr5()+1);
 
 			}else if (tfbs.getChromName().equals("chr6")){
-				numberofDNAElements.setNumberofTfbsinChr6(numberofDNAElements.getNumberofTfbsinChr6()+1);
+				commons.setNumberofTfbsinChr6(commons.getNumberofTfbsinChr6()+1);
 				
 			}else if (tfbs.getChromName().equals("chr7")){
-				numberofDNAElements.setNumberofTfbsinChr7(numberofDNAElements.getNumberofTfbsinChr7()+1);
+				commons.setNumberofTfbsinChr7(commons.getNumberofTfbsinChr7()+1);
 
 			}else if (tfbs.getChromName().equals("chr8")){
-				numberofDNAElements.setNumberofTfbsinChr8(numberofDNAElements.getNumberofTfbsinChr8()+1);
+				commons.setNumberofTfbsinChr8(commons.getNumberofTfbsinChr8()+1);
 			
 			}else if (tfbs.getChromName().equals("chr9")){
-				numberofDNAElements.setNumberofTfbsinChr9(numberofDNAElements.getNumberofTfbsinChr9()+1);
+				commons.setNumberofTfbsinChr9(commons.getNumberofTfbsinChr9()+1);
 
 			}else if (tfbs.getChromName().equals("chr10")){
-				numberofDNAElements.setNumberofTfbsinChr10(numberofDNAElements.getNumberofTfbsinChr10()+1);
+				commons.setNumberofTfbsinChr10(commons.getNumberofTfbsinChr10()+1);
 
 			}else if (tfbs.getChromName().equals("chr11")){
-				numberofDNAElements.setNumberofTfbsinChr11(numberofDNAElements.getNumberofTfbsinChr11()+1);
+				commons.setNumberofTfbsinChr11(commons.getNumberofTfbsinChr11()+1);
 
 			}else if (tfbs.getChromName().equals("chr12")){
-				numberofDNAElements.setNumberofTfbsinChr12(numberofDNAElements.getNumberofTfbsinChr12()+1);
+				commons.setNumberofTfbsinChr12(commons.getNumberofTfbsinChr12()+1);
 
 			}else if (tfbs.getChromName().equals("chr13")){
-				numberofDNAElements.setNumberofTfbsinChr13(numberofDNAElements.getNumberofTfbsinChr13()+1);
+				commons.setNumberofTfbsinChr13(commons.getNumberofTfbsinChr13()+1);
 				
 			}else if (tfbs.getChromName().equals("chr14")){
-				numberofDNAElements.setNumberofTfbsinChr14(numberofDNAElements.getNumberofTfbsinChr14()+1);
+				commons.setNumberofTfbsinChr14(commons.getNumberofTfbsinChr14()+1);
 
 			}else if (tfbs.getChromName().equals("chr15")){
-				numberofDNAElements.setNumberofTfbsinChr15(numberofDNAElements.getNumberofTfbsinChr15()+1);
+				commons.setNumberofTfbsinChr15(commons.getNumberofTfbsinChr15()+1);
 
 			}else if (tfbs.getChromName().equals("chr16")){
-				numberofDNAElements.setNumberofTfbsinChr16(numberofDNAElements.getNumberofTfbsinChr16()+1);
+				commons.setNumberofTfbsinChr16(commons.getNumberofTfbsinChr16()+1);
 
 			}else if (tfbs.getChromName().equals("chr17")){
-				numberofDNAElements.setNumberofTfbsinChr17(numberofDNAElements.getNumberofTfbsinChr17()+1);
+				commons.setNumberofTfbsinChr17(commons.getNumberofTfbsinChr17()+1);
 
 			}else if (tfbs.getChromName().equals("chr18")){
-				numberofDNAElements.setNumberofTfbsinChr18(numberofDNAElements.getNumberofTfbsinChr18()+1);
+				commons.setNumberofTfbsinChr18(commons.getNumberofTfbsinChr18()+1);
 
 			}else if (tfbs.getChromName().equals("chr19")){
-				numberofDNAElements.setNumberofTfbsinChr19(numberofDNAElements.getNumberofTfbsinChr19()+1);
+				commons.setNumberofTfbsinChr19(commons.getNumberofTfbsinChr19()+1);
 
 			}else if (tfbs.getChromName().equals("chr20")){
-				numberofDNAElements.setNumberofTfbsinChr20(numberofDNAElements.getNumberofTfbsinChr20()+1);
+				commons.setNumberofTfbsinChr20(commons.getNumberofTfbsinChr20()+1);
 
 			}else if (tfbs.getChromName().equals("chr21")){
-				numberofDNAElements.setNumberofTfbsinChr21(numberofDNAElements.getNumberofTfbsinChr21()+1);
+				commons.setNumberofTfbsinChr21(commons.getNumberofTfbsinChr21()+1);
 
 			}else if (tfbs.getChromName().equals("chr22")){
-				numberofDNAElements.setNumberofTfbsinChr22(numberofDNAElements.getNumberofTfbsinChr22()+1);
+				commons.setNumberofTfbsinChr22(commons.getNumberofTfbsinChr22()+1);
 
 			}else if (tfbs.getChromName().equals("chrX")){
-				numberofDNAElements.setNumberofTfbsinChrX(numberofDNAElements.getNumberofTfbsinChrX()+1);
+				commons.setNumberofTfbsinChrX(commons.getNumberofTfbsinChrX()+1);
 
 			}else if (tfbs.getChromName().equals("chrY")){
-				numberofDNAElements.setNumberofTfbsinChrY(numberofDNAElements.getNumberofTfbsinChrY()+1);
+				commons.setNumberofTfbsinChrY(commons.getNumberofTfbsinChrY()+1);
 
 			}		
 		} catch (IOException e) {
@@ -865,32 +865,32 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //	Write Tfbs Information to the console
 	public void writeTfbsInformationtoConsole(){
 		
-		System.out.print("Number of tfbs in Chr 1 " + numberofDNAElements.getNumberofTfbsinChr1()+ "\n");
-		System.out.print("Number of tfbs in Chr 2 " + numberofDNAElements.getNumberofTfbsinChr2()+ "\n");
-		System.out.print("Number of tfbs in Chr 3 " + numberofDNAElements.getNumberofTfbsinChr3()+ "\n");
-		System.out.print("Number of tfbs in Chr 4 " + numberofDNAElements.getNumberofTfbsinChr4()+ "\n");
-		System.out.print("Number of tfbs in Chr 5 " + numberofDNAElements.getNumberofTfbsinChr5()+ "\n");
-		System.out.print("Number of tfbs in Chr 6 " + numberofDNAElements.getNumberofTfbsinChr6()+ "\n");
-		System.out.print("Number of tfbs in Chr 7 " + numberofDNAElements.getNumberofTfbsinChr7()+ "\n");
-		System.out.print("Number of tfbs in Chr 8 " + numberofDNAElements.getNumberofTfbsinChr8()+ "\n");
-		System.out.print("Number of tfbs in Chr 9 " + numberofDNAElements.getNumberofTfbsinChr9()+ "\n");
-		System.out.print("Number of tfbs in Chr 10 " + numberofDNAElements.getNumberofTfbsinChr10()+ "\n");
-		System.out.print("Number of tfbs in Chr 11 " + numberofDNAElements.getNumberofTfbsinChr11()+ "\n");
-		System.out.print("Number of tfbs in Chr 12 " + numberofDNAElements.getNumberofTfbsinChr12()+ "\n");
-		System.out.print("Number of tfbs in Chr 13 " + numberofDNAElements.getNumberofTfbsinChr13()+ "\n");
-		System.out.print("Number of tfbs in Chr 14 " + numberofDNAElements.getNumberofTfbsinChr14()+ "\n");
-		System.out.print("Number of tfbs in Chr 15 " + numberofDNAElements.getNumberofTfbsinChr15()+ "\n");
-		System.out.print("Number of tfbs in Chr 16 " + numberofDNAElements.getNumberofTfbsinChr16()+ "\n");
-		System.out.print("Number of tfbs in Chr 17 " + numberofDNAElements.getNumberofTfbsinChr17()+ "\n");
-		System.out.print("Number of tfbs in Chr 18 " + numberofDNAElements.getNumberofTfbsinChr18()+ "\n");
-		System.out.print("Number of tfbs in Chr 19 " + numberofDNAElements.getNumberofTfbsinChr19()+ "\n");
-		System.out.print("Number of tfbs in Chr 20 " + numberofDNAElements.getNumberofTfbsinChr20()+ "\n");
-		System.out.print("Number of tfbs in Chr 21 " + numberofDNAElements.getNumberofTfbsinChr21()+ "\n");
-		System.out.print("Number of tfbs in Chr 22 " + numberofDNAElements.getNumberofTfbsinChr22()+ "\n");
-		System.out.print("Number of tfbs in Chr X " + numberofDNAElements.getNumberofTfbsinChrX()+ "\n");
-		System.out.print("Number of tfbs in Chr Y " + numberofDNAElements.getNumberofTfbsinChrY()+ "\n");
+		System.out.print("Number of tfbs in Chr 1 " + commons.getNumberofTfbsinChr1()+ "\n");
+		System.out.print("Number of tfbs in Chr 2 " + commons.getNumberofTfbsinChr2()+ "\n");
+		System.out.print("Number of tfbs in Chr 3 " + commons.getNumberofTfbsinChr3()+ "\n");
+		System.out.print("Number of tfbs in Chr 4 " + commons.getNumberofTfbsinChr4()+ "\n");
+		System.out.print("Number of tfbs in Chr 5 " + commons.getNumberofTfbsinChr5()+ "\n");
+		System.out.print("Number of tfbs in Chr 6 " + commons.getNumberofTfbsinChr6()+ "\n");
+		System.out.print("Number of tfbs in Chr 7 " + commons.getNumberofTfbsinChr7()+ "\n");
+		System.out.print("Number of tfbs in Chr 8 " + commons.getNumberofTfbsinChr8()+ "\n");
+		System.out.print("Number of tfbs in Chr 9 " + commons.getNumberofTfbsinChr9()+ "\n");
+		System.out.print("Number of tfbs in Chr 10 " + commons.getNumberofTfbsinChr10()+ "\n");
+		System.out.print("Number of tfbs in Chr 11 " + commons.getNumberofTfbsinChr11()+ "\n");
+		System.out.print("Number of tfbs in Chr 12 " + commons.getNumberofTfbsinChr12()+ "\n");
+		System.out.print("Number of tfbs in Chr 13 " + commons.getNumberofTfbsinChr13()+ "\n");
+		System.out.print("Number of tfbs in Chr 14 " + commons.getNumberofTfbsinChr14()+ "\n");
+		System.out.print("Number of tfbs in Chr 15 " + commons.getNumberofTfbsinChr15()+ "\n");
+		System.out.print("Number of tfbs in Chr 16 " + commons.getNumberofTfbsinChr16()+ "\n");
+		System.out.print("Number of tfbs in Chr 17 " + commons.getNumberofTfbsinChr17()+ "\n");
+		System.out.print("Number of tfbs in Chr 18 " + commons.getNumberofTfbsinChr18()+ "\n");
+		System.out.print("Number of tfbs in Chr 19 " + commons.getNumberofTfbsinChr19()+ "\n");
+		System.out.print("Number of tfbs in Chr 20 " + commons.getNumberofTfbsinChr20()+ "\n");
+		System.out.print("Number of tfbs in Chr 21 " + commons.getNumberofTfbsinChr21()+ "\n");
+		System.out.print("Number of tfbs in Chr 22 " + commons.getNumberofTfbsinChr22()+ "\n");
+		System.out.print("Number of tfbs in Chr X " + commons.getNumberofTfbsinChrX()+ "\n");
+		System.out.print("Number of tfbs in Chr Y " + commons.getNumberofTfbsinChrY()+ "\n");
 	
-		System.out.print("Total number of tfbs intervals " + numberofDNAElements.getTotalNumberofTfbs()+ "\n");
+		System.out.print("Total number of tfbs intervals " + commons.getTotalNumberofTfbs()+ "\n");
 			
 	}
 
@@ -898,64 +898,64 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //	Write Dnase Information to the console
 	public void writeDnaseInformationtoConsole(){
 
-		System.out.print("Number of dnase in Chr 1 " + numberofDNAElements.getNumberofDnaseinChr1()+ "\n");
-		System.out.print("Number of dnase in Chr 2 " + numberofDNAElements.getNumberofDnaseinChr2()+ "\n");
-		System.out.print("Number of dnase in Chr 3 " + numberofDNAElements.getNumberofDnaseinChr3()+ "\n");
-		System.out.print("Number of dnase in Chr 4 " + numberofDNAElements.getNumberofDnaseinChr4()+ "\n");
-		System.out.print("Number of dnase in Chr 5 " + numberofDNAElements.getNumberofDnaseinChr5()+ "\n");
-		System.out.print("Number of dnase in Chr 6 " + numberofDNAElements.getNumberofDnaseinChr6()+ "\n");
-		System.out.print("Number of dnase in Chr 7 " + numberofDNAElements.getNumberofDnaseinChr7()+ "\n");
-		System.out.print("Number of dnase in Chr 8 " + numberofDNAElements.getNumberofDnaseinChr8()+ "\n");
-		System.out.print("Number of dnase in Chr 9 " + numberofDNAElements.getNumberofDnaseinChr9()+ "\n");
-		System.out.print("Number of dnase in Chr 10 " + numberofDNAElements.getNumberofDnaseinChr10()+ "\n");
-		System.out.print("Number of dnase in Chr 11 " + numberofDNAElements.getNumberofDnaseinChr11()+ "\n");
-		System.out.print("Number of dnase in Chr 12 " + numberofDNAElements.getNumberofDnaseinChr12()+ "\n");
-		System.out.print("Number of dnase in Chr 13 " + numberofDNAElements.getNumberofDnaseinChr13()+ "\n");
-		System.out.print("Number of dnase in Chr 14 " + numberofDNAElements.getNumberofDnaseinChr14()+ "\n");
-		System.out.print("Number of dnase in Chr 15 " + numberofDNAElements.getNumberofDnaseinChr15()+ "\n");
-		System.out.print("Number of dnase in Chr 16 " + numberofDNAElements.getNumberofDnaseinChr16()+ "\n");
-		System.out.print("Number of dnase in Chr 17 " + numberofDNAElements.getNumberofDnaseinChr17()+ "\n");
-		System.out.print("Number of dnase in Chr 18 " + numberofDNAElements.getNumberofDnaseinChr18()+ "\n");
-		System.out.print("Number of dnase in Chr 19 " + numberofDNAElements.getNumberofDnaseinChr19()+ "\n");
-		System.out.print("Number of dnase in Chr 20 " + numberofDNAElements.getNumberofDnaseinChr20()+ "\n");
-		System.out.print("Number of dnase in Chr 21 " + numberofDNAElements.getNumberofDnaseinChr21()+ "\n");
-		System.out.print("Number of dnase in Chr 22 " + numberofDNAElements.getNumberofDnaseinChr22()+ "\n");
-		System.out.print("Number of dnase in Chr X " + numberofDNAElements.getNumberofDnaseinChrX()+ "\n");
-		System.out.print("Number of dnase in Chr Y " + numberofDNAElements.getNumberofDnaseinChrY()+ "\n");
+		System.out.print("Number of dnase in Chr 1 " + commons.getNumberofDnaseinChr1()+ "\n");
+		System.out.print("Number of dnase in Chr 2 " + commons.getNumberofDnaseinChr2()+ "\n");
+		System.out.print("Number of dnase in Chr 3 " + commons.getNumberofDnaseinChr3()+ "\n");
+		System.out.print("Number of dnase in Chr 4 " + commons.getNumberofDnaseinChr4()+ "\n");
+		System.out.print("Number of dnase in Chr 5 " + commons.getNumberofDnaseinChr5()+ "\n");
+		System.out.print("Number of dnase in Chr 6 " + commons.getNumberofDnaseinChr6()+ "\n");
+		System.out.print("Number of dnase in Chr 7 " + commons.getNumberofDnaseinChr7()+ "\n");
+		System.out.print("Number of dnase in Chr 8 " + commons.getNumberofDnaseinChr8()+ "\n");
+		System.out.print("Number of dnase in Chr 9 " + commons.getNumberofDnaseinChr9()+ "\n");
+		System.out.print("Number of dnase in Chr 10 " + commons.getNumberofDnaseinChr10()+ "\n");
+		System.out.print("Number of dnase in Chr 11 " + commons.getNumberofDnaseinChr11()+ "\n");
+		System.out.print("Number of dnase in Chr 12 " + commons.getNumberofDnaseinChr12()+ "\n");
+		System.out.print("Number of dnase in Chr 13 " + commons.getNumberofDnaseinChr13()+ "\n");
+		System.out.print("Number of dnase in Chr 14 " + commons.getNumberofDnaseinChr14()+ "\n");
+		System.out.print("Number of dnase in Chr 15 " + commons.getNumberofDnaseinChr15()+ "\n");
+		System.out.print("Number of dnase in Chr 16 " + commons.getNumberofDnaseinChr16()+ "\n");
+		System.out.print("Number of dnase in Chr 17 " + commons.getNumberofDnaseinChr17()+ "\n");
+		System.out.print("Number of dnase in Chr 18 " + commons.getNumberofDnaseinChr18()+ "\n");
+		System.out.print("Number of dnase in Chr 19 " + commons.getNumberofDnaseinChr19()+ "\n");
+		System.out.print("Number of dnase in Chr 20 " + commons.getNumberofDnaseinChr20()+ "\n");
+		System.out.print("Number of dnase in Chr 21 " + commons.getNumberofDnaseinChr21()+ "\n");
+		System.out.print("Number of dnase in Chr 22 " + commons.getNumberofDnaseinChr22()+ "\n");
+		System.out.print("Number of dnase in Chr X " + commons.getNumberofDnaseinChrX()+ "\n");
+		System.out.print("Number of dnase in Chr Y " + commons.getNumberofDnaseinChrY()+ "\n");
 	
-		System.out.print("Total number of dnase  intervals" + numberofDNAElements.getTotalNumberofDnase()+ "\n");
+		System.out.print("Total number of dnase  intervals" + commons.getTotalNumberofDnase()+ "\n");
 		
 	}
 	
 //	Write Histone Information to the console
 	public void writeHistoneInformationtoConsole(){
 		
-		System.out.print("Number of histone in Chr 1 " + numberofDNAElements.getNumberofHistoneinChr1()+ "\n");
-		System.out.print("Number of histone in Chr 2 " + numberofDNAElements.getNumberofHistoneinChr2()+ "\n");
-		System.out.print("Number of histone in Chr 3 " + numberofDNAElements.getNumberofHistoneinChr3()+ "\n");
-		System.out.print("Number of histone in Chr 4 " + numberofDNAElements.getNumberofHistoneinChr4()+ "\n");
-		System.out.print("Number of histone in Chr 5 " + numberofDNAElements.getNumberofHistoneinChr5()+ "\n");
-		System.out.print("Number of histone in Chr 6 " + numberofDNAElements.getNumberofHistoneinChr6()+ "\n");
-		System.out.print("Number of histone in Chr 7 " + numberofDNAElements.getNumberofHistoneinChr7()+ "\n");
-		System.out.print("Number of histone in Chr 8 " + numberofDNAElements.getNumberofHistoneinChr8()+ "\n");
-		System.out.print("Number of histone in Chr 9 " + numberofDNAElements.getNumberofHistoneinChr9()+ "\n");
-		System.out.print("Number of histone in Chr 10 " + numberofDNAElements.getNumberofHistoneinChr10()+ "\n");
-		System.out.print("Number of histone in Chr 11 " + numberofDNAElements.getNumberofHistoneinChr11()+ "\n");
-		System.out.print("Number of histone in Chr 12 " + numberofDNAElements.getNumberofHistoneinChr12()+ "\n");
-		System.out.print("Number of histone in Chr 13 " + numberofDNAElements.getNumberofHistoneinChr13()+ "\n");
-		System.out.print("Number of histone in Chr 14 " + numberofDNAElements.getNumberofHistoneinChr14()+ "\n");
-		System.out.print("Number of histone in Chr 15 " + numberofDNAElements.getNumberofHistoneinChr15()+ "\n");
-		System.out.print("Number of histone in Chr 16 " + numberofDNAElements.getNumberofHistoneinChr16()+ "\n");
-		System.out.print("Number of histone in Chr 17 " + numberofDNAElements.getNumberofHistoneinChr17()+ "\n");
-		System.out.print("Number of histone in Chr 18 " + numberofDNAElements.getNumberofHistoneinChr18()+ "\n");
-		System.out.print("Number of histone in Chr 19 " + numberofDNAElements.getNumberofHistoneinChr19()+ "\n");
-		System.out.print("Number of histone in Chr 20 " + numberofDNAElements.getNumberofHistoneinChr20()+ "\n");
-		System.out.print("Number of histone in Chr 21 " + numberofDNAElements.getNumberofHistoneinChr21()+ "\n");
-		System.out.print("Number of histone in Chr 22 " + numberofDNAElements.getNumberofHistoneinChr22()+ "\n");
-		System.out.print("Number of histone in Chr X " + numberofDNAElements.getNumberofHistoneinChrX()+ "\n");
-		System.out.print("Number of histone in Chr Y " + numberofDNAElements.getNumberofHistoneinChrY()+ "\n");
+		System.out.print("Number of histone in Chr 1 " + commons.getNumberofHistoneinChr1()+ "\n");
+		System.out.print("Number of histone in Chr 2 " + commons.getNumberofHistoneinChr2()+ "\n");
+		System.out.print("Number of histone in Chr 3 " + commons.getNumberofHistoneinChr3()+ "\n");
+		System.out.print("Number of histone in Chr 4 " + commons.getNumberofHistoneinChr4()+ "\n");
+		System.out.print("Number of histone in Chr 5 " + commons.getNumberofHistoneinChr5()+ "\n");
+		System.out.print("Number of histone in Chr 6 " + commons.getNumberofHistoneinChr6()+ "\n");
+		System.out.print("Number of histone in Chr 7 " + commons.getNumberofHistoneinChr7()+ "\n");
+		System.out.print("Number of histone in Chr 8 " + commons.getNumberofHistoneinChr8()+ "\n");
+		System.out.print("Number of histone in Chr 9 " + commons.getNumberofHistoneinChr9()+ "\n");
+		System.out.print("Number of histone in Chr 10 " + commons.getNumberofHistoneinChr10()+ "\n");
+		System.out.print("Number of histone in Chr 11 " + commons.getNumberofHistoneinChr11()+ "\n");
+		System.out.print("Number of histone in Chr 12 " + commons.getNumberofHistoneinChr12()+ "\n");
+		System.out.print("Number of histone in Chr 13 " + commons.getNumberofHistoneinChr13()+ "\n");
+		System.out.print("Number of histone in Chr 14 " + commons.getNumberofHistoneinChr14()+ "\n");
+		System.out.print("Number of histone in Chr 15 " + commons.getNumberofHistoneinChr15()+ "\n");
+		System.out.print("Number of histone in Chr 16 " + commons.getNumberofHistoneinChr16()+ "\n");
+		System.out.print("Number of histone in Chr 17 " + commons.getNumberofHistoneinChr17()+ "\n");
+		System.out.print("Number of histone in Chr 18 " + commons.getNumberofHistoneinChr18()+ "\n");
+		System.out.print("Number of histone in Chr 19 " + commons.getNumberofHistoneinChr19()+ "\n");
+		System.out.print("Number of histone in Chr 20 " + commons.getNumberofHistoneinChr20()+ "\n");
+		System.out.print("Number of histone in Chr 21 " + commons.getNumberofHistoneinChr21()+ "\n");
+		System.out.print("Number of histone in Chr 22 " + commons.getNumberofHistoneinChr22()+ "\n");
+		System.out.print("Number of histone in Chr X " + commons.getNumberofHistoneinChrX()+ "\n");
+		System.out.print("Number of histone in Chr Y " + commons.getNumberofHistoneinChrY()+ "\n");
 	
-		System.out.print("Total number of histone intervals " + numberofDNAElements.getTotalNumberofHistone()+ "\n");
+		System.out.print("Total number of histone intervals " + commons.getTotalNumberofHistone()+ "\n");
 			
 	}
 	

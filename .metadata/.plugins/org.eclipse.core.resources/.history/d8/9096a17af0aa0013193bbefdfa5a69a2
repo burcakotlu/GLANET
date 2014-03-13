@@ -865,32 +865,32 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //	Write Tfbs Information to the console
 	public void writeTfbsInformationtoConsole(){
 		
-		System.out.print("Number of tfbs in Chr 1 " + numberofDNAElements.getNumberofTfbsinChr1()+ "\n");
-		System.out.print("Number of tfbs in Chr 2 " + numberofDNAElements.getNumberofTfbsinChr2()+ "\n");
-		System.out.print("Number of tfbs in Chr 3 " + numberofDNAElements.getNumberofTfbsinChr3()+ "\n");
-		System.out.print("Number of tfbs in Chr 4 " + numberofDNAElements.getNumberofTfbsinChr4()+ "\n");
-		System.out.print("Number of tfbs in Chr 5 " + numberofDNAElements.getNumberofTfbsinChr5()+ "\n");
-		System.out.print("Number of tfbs in Chr 6 " + numberofDNAElements.getNumberofTfbsinChr6()+ "\n");
-		System.out.print("Number of tfbs in Chr 7 " + numberofDNAElements.getNumberofTfbsinChr7()+ "\n");
-		System.out.print("Number of tfbs in Chr 8 " + numberofDNAElements.getNumberofTfbsinChr8()+ "\n");
-		System.out.print("Number of tfbs in Chr 9 " + numberofDNAElements.getNumberofTfbsinChr9()+ "\n");
-		System.out.print("Number of tfbs in Chr 10 " + numberofDNAElements.getNumberofTfbsinChr10()+ "\n");
-		System.out.print("Number of tfbs in Chr 11 " + numberofDNAElements.getNumberofTfbsinChr11()+ "\n");
-		System.out.print("Number of tfbs in Chr 12 " + numberofDNAElements.getNumberofTfbsinChr12()+ "\n");
-		System.out.print("Number of tfbs in Chr 13 " + numberofDNAElements.getNumberofTfbsinChr13()+ "\n");
-		System.out.print("Number of tfbs in Chr 14 " + numberofDNAElements.getNumberofTfbsinChr14()+ "\n");
-		System.out.print("Number of tfbs in Chr 15 " + numberofDNAElements.getNumberofTfbsinChr15()+ "\n");
-		System.out.print("Number of tfbs in Chr 16 " + numberofDNAElements.getNumberofTfbsinChr16()+ "\n");
-		System.out.print("Number of tfbs in Chr 17 " + numberofDNAElements.getNumberofTfbsinChr17()+ "\n");
-		System.out.print("Number of tfbs in Chr 18 " + numberofDNAElements.getNumberofTfbsinChr18()+ "\n");
-		System.out.print("Number of tfbs in Chr 19 " + numberofDNAElements.getNumberofTfbsinChr19()+ "\n");
-		System.out.print("Number of tfbs in Chr 20 " + numberofDNAElements.getNumberofTfbsinChr20()+ "\n");
-		System.out.print("Number of tfbs in Chr 21 " + numberofDNAElements.getNumberofTfbsinChr21()+ "\n");
-		System.out.print("Number of tfbs in Chr 22 " + numberofDNAElements.getNumberofTfbsinChr22()+ "\n");
-		System.out.print("Number of tfbs in Chr X " + numberofDNAElements.getNumberofTfbsinChrX()+ "\n");
-		System.out.print("Number of tfbs in Chr Y " + numberofDNAElements.getNumberofTfbsinChrY()+ "\n");
+		System.out.print("Number of tfbs in Chr 1 " + commons.getNumberofTfbsinChr1()+ "\n");
+		System.out.print("Number of tfbs in Chr 2 " + commons.getNumberofTfbsinChr2()+ "\n");
+		System.out.print("Number of tfbs in Chr 3 " + commons.getNumberofTfbsinChr3()+ "\n");
+		System.out.print("Number of tfbs in Chr 4 " + commons.getNumberofTfbsinChr4()+ "\n");
+		System.out.print("Number of tfbs in Chr 5 " + commons.getNumberofTfbsinChr5()+ "\n");
+		System.out.print("Number of tfbs in Chr 6 " + commons.getNumberofTfbsinChr6()+ "\n");
+		System.out.print("Number of tfbs in Chr 7 " + commons.getNumberofTfbsinChr7()+ "\n");
+		System.out.print("Number of tfbs in Chr 8 " + commons.getNumberofTfbsinChr8()+ "\n");
+		System.out.print("Number of tfbs in Chr 9 " + commons.getNumberofTfbsinChr9()+ "\n");
+		System.out.print("Number of tfbs in Chr 10 " + commons.getNumberofTfbsinChr10()+ "\n");
+		System.out.print("Number of tfbs in Chr 11 " + commons.getNumberofTfbsinChr11()+ "\n");
+		System.out.print("Number of tfbs in Chr 12 " + commons.getNumberofTfbsinChr12()+ "\n");
+		System.out.print("Number of tfbs in Chr 13 " + commons.getNumberofTfbsinChr13()+ "\n");
+		System.out.print("Number of tfbs in Chr 14 " + commons.getNumberofTfbsinChr14()+ "\n");
+		System.out.print("Number of tfbs in Chr 15 " + commons.getNumberofTfbsinChr15()+ "\n");
+		System.out.print("Number of tfbs in Chr 16 " + commons.getNumberofTfbsinChr16()+ "\n");
+		System.out.print("Number of tfbs in Chr 17 " + commons.getNumberofTfbsinChr17()+ "\n");
+		System.out.print("Number of tfbs in Chr 18 " + commons.getNumberofTfbsinChr18()+ "\n");
+		System.out.print("Number of tfbs in Chr 19 " + commons.getNumberofTfbsinChr19()+ "\n");
+		System.out.print("Number of tfbs in Chr 20 " + commons.getNumberofTfbsinChr20()+ "\n");
+		System.out.print("Number of tfbs in Chr 21 " + commons.getNumberofTfbsinChr21()+ "\n");
+		System.out.print("Number of tfbs in Chr 22 " + commons.getNumberofTfbsinChr22()+ "\n");
+		System.out.print("Number of tfbs in Chr X " + commons.getNumberofTfbsinChrX()+ "\n");
+		System.out.print("Number of tfbs in Chr Y " + commons.getNumberofTfbsinChrY()+ "\n");
 	
-		System.out.print("Total number of tfbs intervals " + numberofDNAElements.getTotalNumberofTfbs()+ "\n");
+		System.out.print("Total number of tfbs intervals " + commons.getTotalNumberofTfbs()+ "\n");
 			
 	}
 

@@ -1,23 +1,4 @@
-/**
- * @author Burcak Otlu
- *
- * 
- */
-
-
-/*
- * This program created unsorted and sorted chromosome based dnase, tfbs and histone intervals using ENCODE data
- * For sorting it uses Interval Tree Infix Traversal.
- * 
- * It takes 6 minutes.
- * 
- */
-
-
 package create.encode;
-
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,28 +17,28 @@ import auxiliary.FileOperations;
 import common.Commons;
 import create.ChromosomeBasedFiles;
 
+/*
+ * This program created unsorted and sorted chromosome based dnase, tfbs and histone intervals using ENCODE data
+ * For sorting it uses the Collections.sort() method.
+ * 
+ */
 
-
-
-public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
+public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort {
 	
 //	global variables
-   IntervalTree tfbsIntervalTree = null;
-   IntervalTree histoneIntervalTree = null;
-   IntervalTree dnaseIntervalTree = null;
+   List<TranscriptionFactorBindingSite> tfbsList = null;
+   List<Histone> histoneList = null;
+   List<Dnase> dnaseList = null;
    
    NumberofDNAElements numberofDNAElements = new NumberofDNAElements();
    
 // Write the dnase into corresponding chromosome file  
-   public void writetoUnsortedChrBaseDnaseFile(Dnase dnase, List<BufferedWriter> bufferedWriterList){
-	   
-	   BufferedWriter bufferedWriter = null;
+   public void writetoUnsortedChrBaseDnaseFile(Dnase dnase,List<BufferedWriter> unsortedBufferedWriterList){
 	   try {
 		   
-			 bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(dnase.getChromName(), bufferedWriterList);		 
-			 bufferedWriter.write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+"\n");
-
-		   		   
+		   BufferedWriter bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(dnase.getChromName(), unsortedBufferedWriterList);
+		   bufferedWriter.write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+"\n");
+			
 			if(dnase.getChromName().equals("chr1")){
 				numberofDNAElements.setNumberofDnaseinChr1(numberofDNAElements.getNumberofDnaseinChr1()+1);
 			}else if(dnase.getChromName().equals("chr2")){
@@ -117,12 +99,12 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	
    
  //Write the histone into corresponding chromosome file
-	public void writetoUnsortedChrBaseHistoneFile(Histone histone, List<BufferedWriter> bufferedWriterList){
+	public void writetoUnsortedChrBaseHistoneFile(Histone histone, List<BufferedWriter> unsortedBufferedWriterList){
+		
 		try {
-			
-			BufferedWriter bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(histone.getChromName() , bufferedWriterList);
+			BufferedWriter bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(histone.getChromName(), unsortedBufferedWriterList);
 			bufferedWriter.write(histone.getChromName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+"\n");
-
+			
 			if(histone.getChromName().equals("chr1")){
 				numberofDNAElements.setNumberofHistoneinChr1(numberofDNAElements.getNumberofHistoneinChr1()+1);
 			}else if (histone.getChromName().equals("chr2")){
@@ -183,83 +165,83 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
    
 		
 	//Write the tfbs into thecorresponding chromosome file
-	public void writetoUnsortedChrBaseTfbsFile(TranscriptionFactorBindingSite tfbs, List<BufferedWriter> bufferedWriterList){
+	public void writetoUnsortedChrBaseTfbsFile(TranscriptionFactorBindingSite tfbs,List<BufferedWriter> unsortedBufferedWriterList){
 		
 		try {
 			
-			BufferedWriter bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(tfbs.getChromName(), bufferedWriterList);
-			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ "\n");
+			BufferedWriter bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(tfbs.getChromName(), unsortedBufferedWriterList);
+			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+"\n");
 			
 			if(tfbs.getChromName().equals("chr1")){
-				numberofDNAElements.setNumberofTfbsinChr1(numberofDNAElements.getNumberofTfbsinChr1()+1);
+				commons.setNumberofTfbsinChr1(commons.getNumberofTfbsinChr1()+1);
 			}else if (tfbs.getChromName().equals("chr2")){
-				numberofDNAElements.setNumberofTfbsinChr2(numberofDNAElements.getNumberofTfbsinChr2()+1);
+				commons.setNumberofTfbsinChr2(commons.getNumberofTfbsinChr2()+1);
 				
 			}else if (tfbs.getChromName().equals("chr3")){
-				numberofDNAElements.setNumberofTfbsinChr3(numberofDNAElements.getNumberofTfbsinChr3()+1);
+				commons.setNumberofTfbsinChr3(commons.getNumberofTfbsinChr3()+1);
 
 			}else if (tfbs.getChromName().equals("chr4")){
-				numberofDNAElements.setNumberofTfbsinChr4(numberofDNAElements.getNumberofTfbsinChr4()+1);
+				commons.setNumberofTfbsinChr4(commons.getNumberofTfbsinChr4()+1);
 
 			}else if (tfbs.getChromName().equals("chr5")){
-				numberofDNAElements.setNumberofTfbsinChr5(numberofDNAElements.getNumberofTfbsinChr5()+1);
+				commons.setNumberofTfbsinChr5(commons.getNumberofTfbsinChr5()+1);
 
 			}else if (tfbs.getChromName().equals("chr6")){
-				numberofDNAElements.setNumberofTfbsinChr6(numberofDNAElements.getNumberofTfbsinChr6()+1);
+				commons.setNumberofTfbsinChr6(commons.getNumberofTfbsinChr6()+1);
 				
 			}else if (tfbs.getChromName().equals("chr7")){
-				numberofDNAElements.setNumberofTfbsinChr7(numberofDNAElements.getNumberofTfbsinChr7()+1);
+				commons.setNumberofTfbsinChr7(commons.getNumberofTfbsinChr7()+1);
 
 			}else if (tfbs.getChromName().equals("chr8")){
-				numberofDNAElements.setNumberofTfbsinChr8(numberofDNAElements.getNumberofTfbsinChr8()+1);
+				commons.setNumberofTfbsinChr8(commons.getNumberofTfbsinChr8()+1);
 			
 			}else if (tfbs.getChromName().equals("chr9")){
-				numberofDNAElements.setNumberofTfbsinChr9(numberofDNAElements.getNumberofTfbsinChr9()+1);
+				commons.setNumberofTfbsinChr9(commons.getNumberofTfbsinChr9()+1);
 
 			}else if (tfbs.getChromName().equals("chr10")){
-				numberofDNAElements.setNumberofTfbsinChr10(numberofDNAElements.getNumberofTfbsinChr10()+1);
+				commons.setNumberofTfbsinChr10(commons.getNumberofTfbsinChr10()+1);
 
 			}else if (tfbs.getChromName().equals("chr11")){
-				numberofDNAElements.setNumberofTfbsinChr11(numberofDNAElements.getNumberofTfbsinChr11()+1);
+				commons.setNumberofTfbsinChr11(commons.getNumberofTfbsinChr11()+1);
 
 			}else if (tfbs.getChromName().equals("chr12")){
-				numberofDNAElements.setNumberofTfbsinChr12(numberofDNAElements.getNumberofTfbsinChr12()+1);
+				commons.setNumberofTfbsinChr12(commons.getNumberofTfbsinChr12()+1);
 
 			}else if (tfbs.getChromName().equals("chr13")){
-				numberofDNAElements.setNumberofTfbsinChr13(numberofDNAElements.getNumberofTfbsinChr13()+1);
+				commons.setNumberofTfbsinChr13(commons.getNumberofTfbsinChr13()+1);
 				
 			}else if (tfbs.getChromName().equals("chr14")){
-				numberofDNAElements.setNumberofTfbsinChr14(numberofDNAElements.getNumberofTfbsinChr14()+1);
+				commons.setNumberofTfbsinChr14(commons.getNumberofTfbsinChr14()+1);
 
 			}else if (tfbs.getChromName().equals("chr15")){
-				numberofDNAElements.setNumberofTfbsinChr15(numberofDNAElements.getNumberofTfbsinChr15()+1);
+				commons.setNumberofTfbsinChr15(commons.getNumberofTfbsinChr15()+1);
 
 			}else if (tfbs.getChromName().equals("chr16")){
-				numberofDNAElements.setNumberofTfbsinChr16(numberofDNAElements.getNumberofTfbsinChr16()+1);
+				commons.setNumberofTfbsinChr16(commons.getNumberofTfbsinChr16()+1);
 
 			}else if (tfbs.getChromName().equals("chr17")){
-				numberofDNAElements.setNumberofTfbsinChr17(numberofDNAElements.getNumberofTfbsinChr17()+1);
+				commons.setNumberofTfbsinChr17(commons.getNumberofTfbsinChr17()+1);
 
 			}else if (tfbs.getChromName().equals("chr18")){
-				numberofDNAElements.setNumberofTfbsinChr18(numberofDNAElements.getNumberofTfbsinChr18()+1);
+				commons.setNumberofTfbsinChr18(commons.getNumberofTfbsinChr18()+1);
 
 			}else if (tfbs.getChromName().equals("chr19")){
-				numberofDNAElements.setNumberofTfbsinChr19(numberofDNAElements.getNumberofTfbsinChr19()+1);
+				commons.setNumberofTfbsinChr19(commons.getNumberofTfbsinChr19()+1);
 
 			}else if (tfbs.getChromName().equals("chr20")){
-				numberofDNAElements.setNumberofTfbsinChr20(numberofDNAElements.getNumberofTfbsinChr20()+1);
+				commons.setNumberofTfbsinChr20(commons.getNumberofTfbsinChr20()+1);
 
 			}else if (tfbs.getChromName().equals("chr21")){
-				numberofDNAElements.setNumberofTfbsinChr21(numberofDNAElements.getNumberofTfbsinChr21()+1);
+				commons.setNumberofTfbsinChr21(commons.getNumberofTfbsinChr21()+1);
 
 			}else if (tfbs.getChromName().equals("chr22")){
-				numberofDNAElements.setNumberofTfbsinChr22(numberofDNAElements.getNumberofTfbsinChr22()+1);
+				commons.setNumberofTfbsinChr22(commons.getNumberofTfbsinChr22()+1);
 
 			}else if (tfbs.getChromName().equals("chrX")){
-				numberofDNAElements.setNumberofTfbsinChrX(numberofDNAElements.getNumberofTfbsinChrX()+1);
+				commons.setNumberofTfbsinChrX(commons.getNumberofTfbsinChrX()+1);
 
 			}else if (tfbs.getChromName().equals("chrY")){
-				numberofDNAElements.setNumberofTfbsinChrY(numberofDNAElements.getNumberofTfbsinChrY()+1);
+				commons.setNumberofTfbsinChrY(commons.getNumberofTfbsinChrY()+1);
 
 			}		
 		} catch (IOException e) {
@@ -280,37 +262,14 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		int indexofFirstTab =0;
 		int indexofSecondTab=0;
 		int indexofThirdTab=0;
-		int indexofFourthTab=0;
-		int indexofFifthTab=0;
-		int indexofSixthTab=0;
-		
-		int start =0;
-		int end = 0;
 		
 		indexofFirstTab 	= strLine.indexOf('\t');
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-		indexofFourthTab= strLine.indexOf('\t',indexofThirdTab+1);
-		indexofFifthTab= strLine.indexOf('\t',indexofFourthTab+1);
-		indexofSixthTab= strLine.indexOf('\t',indexofFifthTab+1);
-		
-		start = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-		end = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-		
-		//Encode data 
-		//start 0-based inclusive
-		//end exclusive
-		
-		//my convention is
-		//start 0-based inclusive
-		//end 0-based inclusive
 		
 		dnase.setChromName(strLine.substring(0, indexofFirstTab));
-		dnase.setStartPos(start);
-		dnase.setEndPos(end-1);	
-		
-		// +/- or . if no orientation is assigned.
-		dnase.setStrand(strLine.substring(indexofFifthTab+1, indexofSixthTab).charAt(0));
+		dnase.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
+		dnase.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));	
 		
 		
 	}
@@ -327,42 +286,14 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		int indexofFirstTab =0;
 		int indexofSecondTab=0;
 		int indexofThirdTab=0;
-		int indexofFourthTab=0;
-		int indexofFifthTab=0;
-		int indexofSixthTab=0;
-		
-		int start =0;
-		int end =0;
 		
 		indexofFirstTab 	= strLine.indexOf('\t');
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-		indexofFourthTab= strLine.indexOf('\t',indexofThirdTab+1);
-		indexofFifthTab= strLine.indexOf('\t',indexofFourthTab+1);
-		indexofSixthTab= strLine.indexOf('\t',indexofFifthTab+1);
 		
-	
-		start = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-		end = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-			
-		//Encode data 
-		//start 0-based inclusive
-		//end exclusive
-		
-		//my convention is
-		//start 0-based inclusive
-		//end 0-based inclusive
-
-	
 		histone.setChromName(strLine.substring(0, indexofFirstTab));
-		histone.setStartPos(start);
-		histone.setEndPos(end-1);
-		
-		// +/- or . if no orientation is assigned.
-		histone.setStrand(strLine.substring(indexofFifthTab+1, indexofSixthTab).charAt(0));
-			
-		
-			
+		histone.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
+		histone.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));				
 	}
 	
 	
@@ -380,45 +311,18 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		int indexofFirstTab =0;
 		int indexofSecondTab=0;
 		int indexofThirdTab=0;
-		int indexofFourthTab=0;
-		int indexofFifthTab=0;
-		int indexofSixthTab=0;
-		
-		int start =0;
-		int end =0;
-	
 		
 		indexofFirstTab 	= strLine.indexOf('\t');
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-		indexofFourthTab= strLine.indexOf('\t',indexofThirdTab+1);
-		indexofFifthTab= strLine.indexOf('\t',indexofFourthTab+1);
-		indexofSixthTab= strLine.indexOf('\t',indexofFifthTab+1);
 		
-		start = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-		end = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-	
-		//Encode data 
-		//start 0-based inclusive
-		//end exclusive
-		
-		//my convention is
-		//start 0-based inclusive
-		//end 0-based inclusive
-	
 		tfbs.setChromName(strLine.substring(0, indexofFirstTab));
-		tfbs.setStartPos(start);
-		tfbs.setEndPos(end-1);
-		
-		// +/- or . if no orientation is assigned.
-		tfbs.setStrand(strLine.substring(indexofFifthTab+1, indexofSixthTab).charAt(0));
-
-		
-		
+		tfbs.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
+		tfbs.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));						
 		
 	}
 	
-	public static void getCellLineName(CellLineDnase cellLineDnase, String fileName){
+	public void getCellLineName(CellLineDnase cellLineDnase, String fileName){
 //		example fileName
 //		It seems that there are five different kinds of labs 
 //SM_SFMDukeDNaseSeq.pk
@@ -478,7 +382,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	}
 	
 
-	public static void getCellLineNameandHistoneName(CellLineHistone cellLineHistone, String fileName) {
+	public void getCellLineNameandHistoneName(CellLineHistone cellLineHistone, String fileName) {
 //		example fileName
 //		It seems that there are three different kinds of labs 
 //		wgEncodeUwHistoneNhekH3k4me3StdAln.narrowPeak
@@ -537,7 +441,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	
 	
 	
-	public static void getCellLineNameandTranscriptionFactorName(CellLineTranscriptionFactor cellLineandTranscriptionFactor ,String fileName){
+	public void getCellLineNameandTranscriptionFactorName(CellLineTranscriptionFactor cellLineandTranscriptionFactor ,String fileName){
 //		example fileName
 //		It seems that there are three kind of fileName classes
 //		spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
@@ -599,13 +503,11 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	}
 	
 	
-	public void readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(File directory,List<BufferedWriter> bufferedWriterList){
+	public void readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(File directory, List<BufferedWriter> unsortedBufferedWriterList){
 //		Use same cellLineDnase object for each file
 		CellLineDnase cellLineDnase = new CellLineDnase();
 //		Use the same Dnase object for each read line
 		Dnase dnase = new Dnase();
-		
-		long numberofIntervalsInDnaseFiles = 0;
 		
 		if(!directory.exists()){
 			 System.out.println("No File/Dir" + directory.getName()); 
@@ -644,9 +546,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		    					try {
 		    						while ((strLine = br.readLine()) != null)   {
 		    							getDnaseData(strLine, cellLineDnase, dnase);
-		    												
-		    							writetoUnsortedChrBaseDnaseFile(dnase,bufferedWriterList);
-		    							numberofIntervalsInDnaseFiles++;
+		    							writetoUnsortedChrBaseDnaseFile(dnase,unsortedBufferedWriterList);
 		    						}
 		    					} catch (IOException e) {
 		    						// TODO Auto-generated catch block
@@ -665,24 +565,18 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 						}			 
 		        	}//Check for each file and read each file		        	
 //		            System.out.println(files[i]);		            		         		           		            
-		        }	// End of For -----reading each file in the directory	  
-		        
-				System.out.println("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
-    			
-	        } //End of if: For all files in this directory
+		        }	// End of For -----reading each file in the directory	        	
+	        } //For all files in this directory
 		
 	}
 	
 	
 	
-	public void readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(File mainDirectory, List<BufferedWriter> bufferedWriterList){
+	public void readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(File mainDirectory,List<BufferedWriter> unsortedBufferedWriterList){
 //		Use same cellLineHistone object for each file
 		CellLineHistone cellLineNameHistoneName  = new CellLineHistone();
 //		Use the same histone object for each read line
 		Histone histone = new Histone();
-		
-		long numberofIntervalsInHistoneFiles = 0;
-		
 		
 		 if(!mainDirectory.exists()){
 			 System.out.println("No File/Dir"); 
@@ -696,6 +590,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			    
 			    System.out.printf("Number of Histone Files %d in %s\n", files.length,mainDirectory.getAbsolutePath());
 			    
+				
 		        for (int i = 0; i < numberofHistoneFiles; i++) {
 		        	FileReader fileReader =null;
 		        	BufferedReader br = null;
@@ -721,8 +616,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		    					try {
 		    						while ((strLine = br.readLine()) != null)   {
 		    							getHistoneData(strLine, cellLineNameHistoneName, histone);
-		    							writetoUnsortedChrBaseHistoneFile(histone,bufferedWriterList);
-		    							numberofIntervalsInHistoneFiles++;
+		    							writetoUnsortedChrBaseHistoneFile(histone,unsortedBufferedWriterList);
 		    						}
 		    					} catch (IOException e) {
 		    						// TODO Auto-generated catch block
@@ -733,7 +627,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //		    			The typically use is to close the outermost reader in the chain		
 		    					br.close();
 		    					
-		    						
 		    			} catch (FileNotFoundException e) {
 		    				// TODO Auto-generated catch block
 		    				e.printStackTrace();
@@ -749,19 +642,15 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
-				System.out.println("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
-	    		
-	        } //End of if: For all files in this directory
+	        } //For all files in this directory
 				
 	}	
 	
-	public void readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(File mainDirectory, List<BufferedWriter> bufferedWriterList){
+	public void readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(File mainDirectory,List<BufferedWriter> unsortedBufferedWriterList){
 //		Use same CellLineTranscriptionFactor object for each file
 		CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
 //		Use the same transcription factor binding site object for each read line
 		TranscriptionFactorBindingSite tfbs = new TranscriptionFactorBindingSite();
-		
-		int numberofIntervalsInTranscriptionFactorFiles = 0;
 		
 		 if(!mainDirectory.exists()){
 			 System.out.println("No File/Dir"); 
@@ -774,7 +663,8 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			    int numberofTfbsFiles= files.length;
 			    
 			    System.out.printf("Number of Tfbs Files %d in %s\n", files.length, mainDirectory.getAbsolutePath());
-			       
+			    
+				
 		        for (int i = 0; i < numberofTfbsFiles; i++) {
 		        	FileReader fileReader =null;
 		        	BufferedReader br = null;
@@ -800,8 +690,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		    					try {
 		    						while ((strLine = br.readLine()) != null)   {
 		    							getTranscriptionFactorBindingSiteData(strLine, cellLineandTranscriptionFactorName, tfbs);
-		    							writetoUnsortedChrBaseTfbsFile(tfbs,bufferedWriterList);
-		    							numberofIntervalsInTranscriptionFactorFiles++;
+		    							writetoUnsortedChrBaseTfbsFile(tfbs,unsortedBufferedWriterList);
 		    						}
 		    					} catch (IOException e) {
 		    						// TODO Auto-generated catch block
@@ -811,7 +700,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //		    				close the Buffered Reader
 //		    			The typically use is to close the outermost reader in the chain		
 		    					br.close();
-		    					
 		    					
 		    			} catch (FileNotFoundException e) {
 		    				// TODO Auto-generated catch block
@@ -828,21 +716,16 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
-		        
-				System.out.println("number of Intervals In Transcription Factor Files: " + numberofIntervalsInTranscriptionFactorFiles);
-			    
 	        } //For all files in this directory
 				
 	}
 	
 	
 	
-
 	
 
 
 	
-
 	
 
 	
@@ -855,42 +738,42 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //			First we should close the BufferedWriter
 //			Then we should close the FileWriter
 //			Otherwise we will lose the remaining chars in the buffers of BufferedWriter
-	
+
+				
 //			After you close the BufferedReder (it flushes it buffers and then close and close propagate) you can also close FileWriter explicitly
 //			no problem, but also no  need
 //			commons.getChr10TfbsFw().close();
 				
-
 	
 //	Write Tfbs Information to the console
 	public void writeTfbsInformationtoConsole(){
 		
-		System.out.print("Number of tfbs in Chr 1 " + numberofDNAElements.getNumberofTfbsinChr1()+ "\n");
-		System.out.print("Number of tfbs in Chr 2 " + numberofDNAElements.getNumberofTfbsinChr2()+ "\n");
-		System.out.print("Number of tfbs in Chr 3 " + numberofDNAElements.getNumberofTfbsinChr3()+ "\n");
-		System.out.print("Number of tfbs in Chr 4 " + numberofDNAElements.getNumberofTfbsinChr4()+ "\n");
-		System.out.print("Number of tfbs in Chr 5 " + numberofDNAElements.getNumberofTfbsinChr5()+ "\n");
-		System.out.print("Number of tfbs in Chr 6 " + numberofDNAElements.getNumberofTfbsinChr6()+ "\n");
-		System.out.print("Number of tfbs in Chr 7 " + numberofDNAElements.getNumberofTfbsinChr7()+ "\n");
-		System.out.print("Number of tfbs in Chr 8 " + numberofDNAElements.getNumberofTfbsinChr8()+ "\n");
-		System.out.print("Number of tfbs in Chr 9 " + numberofDNAElements.getNumberofTfbsinChr9()+ "\n");
-		System.out.print("Number of tfbs in Chr 10 " + numberofDNAElements.getNumberofTfbsinChr10()+ "\n");
-		System.out.print("Number of tfbs in Chr 11 " + numberofDNAElements.getNumberofTfbsinChr11()+ "\n");
-		System.out.print("Number of tfbs in Chr 12 " + numberofDNAElements.getNumberofTfbsinChr12()+ "\n");
-		System.out.print("Number of tfbs in Chr 13 " + numberofDNAElements.getNumberofTfbsinChr13()+ "\n");
-		System.out.print("Number of tfbs in Chr 14 " + numberofDNAElements.getNumberofTfbsinChr14()+ "\n");
-		System.out.print("Number of tfbs in Chr 15 " + numberofDNAElements.getNumberofTfbsinChr15()+ "\n");
-		System.out.print("Number of tfbs in Chr 16 " + numberofDNAElements.getNumberofTfbsinChr16()+ "\n");
-		System.out.print("Number of tfbs in Chr 17 " + numberofDNAElements.getNumberofTfbsinChr17()+ "\n");
-		System.out.print("Number of tfbs in Chr 18 " + numberofDNAElements.getNumberofTfbsinChr18()+ "\n");
-		System.out.print("Number of tfbs in Chr 19 " + numberofDNAElements.getNumberofTfbsinChr19()+ "\n");
-		System.out.print("Number of tfbs in Chr 20 " + numberofDNAElements.getNumberofTfbsinChr20()+ "\n");
-		System.out.print("Number of tfbs in Chr 21 " + numberofDNAElements.getNumberofTfbsinChr21()+ "\n");
-		System.out.print("Number of tfbs in Chr 22 " + numberofDNAElements.getNumberofTfbsinChr22()+ "\n");
-		System.out.print("Number of tfbs in Chr X " + numberofDNAElements.getNumberofTfbsinChrX()+ "\n");
-		System.out.print("Number of tfbs in Chr Y " + numberofDNAElements.getNumberofTfbsinChrY()+ "\n");
+		System.out.print("Number of tfbs in Chr 1 " + commons.getNumberofTfbsinChr1()+ "\n");
+		System.out.print("Number of tfbs in Chr 2 " + commons.getNumberofTfbsinChr2()+ "\n");
+		System.out.print("Number of tfbs in Chr 3 " + commons.getNumberofTfbsinChr3()+ "\n");
+		System.out.print("Number of tfbs in Chr 4 " + commons.getNumberofTfbsinChr4()+ "\n");
+		System.out.print("Number of tfbs in Chr 5 " + commons.getNumberofTfbsinChr5()+ "\n");
+		System.out.print("Number of tfbs in Chr 6 " + commons.getNumberofTfbsinChr6()+ "\n");
+		System.out.print("Number of tfbs in Chr 7 " + commons.getNumberofTfbsinChr7()+ "\n");
+		System.out.print("Number of tfbs in Chr 8 " + commons.getNumberofTfbsinChr8()+ "\n");
+		System.out.print("Number of tfbs in Chr 9 " + commons.getNumberofTfbsinChr9()+ "\n");
+		System.out.print("Number of tfbs in Chr 10 " + commons.getNumberofTfbsinChr10()+ "\n");
+		System.out.print("Number of tfbs in Chr 11 " + commons.getNumberofTfbsinChr11()+ "\n");
+		System.out.print("Number of tfbs in Chr 12 " + commons.getNumberofTfbsinChr12()+ "\n");
+		System.out.print("Number of tfbs in Chr 13 " + commons.getNumberofTfbsinChr13()+ "\n");
+		System.out.print("Number of tfbs in Chr 14 " + commons.getNumberofTfbsinChr14()+ "\n");
+		System.out.print("Number of tfbs in Chr 15 " + commons.getNumberofTfbsinChr15()+ "\n");
+		System.out.print("Number of tfbs in Chr 16 " + commons.getNumberofTfbsinChr16()+ "\n");
+		System.out.print("Number of tfbs in Chr 17 " + commons.getNumberofTfbsinChr17()+ "\n");
+		System.out.print("Number of tfbs in Chr 18 " + commons.getNumberofTfbsinChr18()+ "\n");
+		System.out.print("Number of tfbs in Chr 19 " + commons.getNumberofTfbsinChr19()+ "\n");
+		System.out.print("Number of tfbs in Chr 20 " + commons.getNumberofTfbsinChr20()+ "\n");
+		System.out.print("Number of tfbs in Chr 21 " + commons.getNumberofTfbsinChr21()+ "\n");
+		System.out.print("Number of tfbs in Chr 22 " + commons.getNumberofTfbsinChr22()+ "\n");
+		System.out.print("Number of tfbs in Chr X " + commons.getNumberofTfbsinChrX()+ "\n");
+		System.out.print("Number of tfbs in Chr Y " + commons.getNumberofTfbsinChrY()+ "\n");
 	
-		System.out.print("Total number of tfbs intervals " + numberofDNAElements.getTotalNumberofTfbs()+ "\n");
+		System.out.print("Total number of tfbs  " + commons.getTotalNumberofTfbs()+ "\n");
 			
 	}
 
@@ -898,64 +781,64 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //	Write Dnase Information to the console
 	public void writeDnaseInformationtoConsole(){
 
-		System.out.print("Number of dnase in Chr 1 " + numberofDNAElements.getNumberofDnaseinChr1()+ "\n");
-		System.out.print("Number of dnase in Chr 2 " + numberofDNAElements.getNumberofDnaseinChr2()+ "\n");
-		System.out.print("Number of dnase in Chr 3 " + numberofDNAElements.getNumberofDnaseinChr3()+ "\n");
-		System.out.print("Number of dnase in Chr 4 " + numberofDNAElements.getNumberofDnaseinChr4()+ "\n");
-		System.out.print("Number of dnase in Chr 5 " + numberofDNAElements.getNumberofDnaseinChr5()+ "\n");
-		System.out.print("Number of dnase in Chr 6 " + numberofDNAElements.getNumberofDnaseinChr6()+ "\n");
-		System.out.print("Number of dnase in Chr 7 " + numberofDNAElements.getNumberofDnaseinChr7()+ "\n");
-		System.out.print("Number of dnase in Chr 8 " + numberofDNAElements.getNumberofDnaseinChr8()+ "\n");
-		System.out.print("Number of dnase in Chr 9 " + numberofDNAElements.getNumberofDnaseinChr9()+ "\n");
-		System.out.print("Number of dnase in Chr 10 " + numberofDNAElements.getNumberofDnaseinChr10()+ "\n");
-		System.out.print("Number of dnase in Chr 11 " + numberofDNAElements.getNumberofDnaseinChr11()+ "\n");
-		System.out.print("Number of dnase in Chr 12 " + numberofDNAElements.getNumberofDnaseinChr12()+ "\n");
-		System.out.print("Number of dnase in Chr 13 " + numberofDNAElements.getNumberofDnaseinChr13()+ "\n");
-		System.out.print("Number of dnase in Chr 14 " + numberofDNAElements.getNumberofDnaseinChr14()+ "\n");
-		System.out.print("Number of dnase in Chr 15 " + numberofDNAElements.getNumberofDnaseinChr15()+ "\n");
-		System.out.print("Number of dnase in Chr 16 " + numberofDNAElements.getNumberofDnaseinChr16()+ "\n");
-		System.out.print("Number of dnase in Chr 17 " + numberofDNAElements.getNumberofDnaseinChr17()+ "\n");
-		System.out.print("Number of dnase in Chr 18 " + numberofDNAElements.getNumberofDnaseinChr18()+ "\n");
-		System.out.print("Number of dnase in Chr 19 " + numberofDNAElements.getNumberofDnaseinChr19()+ "\n");
-		System.out.print("Number of dnase in Chr 20 " + numberofDNAElements.getNumberofDnaseinChr20()+ "\n");
-		System.out.print("Number of dnase in Chr 21 " + numberofDNAElements.getNumberofDnaseinChr21()+ "\n");
-		System.out.print("Number of dnase in Chr 22 " + numberofDNAElements.getNumberofDnaseinChr22()+ "\n");
-		System.out.print("Number of dnase in Chr X " + numberofDNAElements.getNumberofDnaseinChrX()+ "\n");
-		System.out.print("Number of dnase in Chr Y " + numberofDNAElements.getNumberofDnaseinChrY()+ "\n");
+		System.out.print("Number of dnase in Chr 1 " + commons.getNumberofDnaseinChr1()+ "\n");
+		System.out.print("Number of dnase in Chr 2 " + commons.getNumberofDnaseinChr2()+ "\n");
+		System.out.print("Number of dnase in Chr 3 " + commons.getNumberofDnaseinChr3()+ "\n");
+		System.out.print("Number of dnase in Chr 4 " + commons.getNumberofDnaseinChr4()+ "\n");
+		System.out.print("Number of dnase in Chr 5 " + commons.getNumberofDnaseinChr5()+ "\n");
+		System.out.print("Number of dnase in Chr 6 " + commons.getNumberofDnaseinChr6()+ "\n");
+		System.out.print("Number of dnase in Chr 7 " + commons.getNumberofDnaseinChr7()+ "\n");
+		System.out.print("Number of dnase in Chr 8 " + commons.getNumberofDnaseinChr8()+ "\n");
+		System.out.print("Number of dnase in Chr 9 " + commons.getNumberofDnaseinChr9()+ "\n");
+		System.out.print("Number of dnase in Chr 10 " + commons.getNumberofDnaseinChr10()+ "\n");
+		System.out.print("Number of dnase in Chr 11 " + commons.getNumberofDnaseinChr11()+ "\n");
+		System.out.print("Number of dnase in Chr 12 " + commons.getNumberofDnaseinChr12()+ "\n");
+		System.out.print("Number of dnase in Chr 13 " + commons.getNumberofDnaseinChr13()+ "\n");
+		System.out.print("Number of dnase in Chr 14 " + commons.getNumberofDnaseinChr14()+ "\n");
+		System.out.print("Number of dnase in Chr 15 " + commons.getNumberofDnaseinChr15()+ "\n");
+		System.out.print("Number of dnase in Chr 16 " + commons.getNumberofDnaseinChr16()+ "\n");
+		System.out.print("Number of dnase in Chr 17 " + commons.getNumberofDnaseinChr17()+ "\n");
+		System.out.print("Number of dnase in Chr 18 " + commons.getNumberofDnaseinChr18()+ "\n");
+		System.out.print("Number of dnase in Chr 19 " + commons.getNumberofDnaseinChr19()+ "\n");
+		System.out.print("Number of dnase in Chr 20 " + commons.getNumberofDnaseinChr20()+ "\n");
+		System.out.print("Number of dnase in Chr 21 " + commons.getNumberofDnaseinChr21()+ "\n");
+		System.out.print("Number of dnase in Chr 22 " + commons.getNumberofDnaseinChr22()+ "\n");
+		System.out.print("Number of dnase in Chr X " + commons.getNumberofDnaseinChrX()+ "\n");
+		System.out.print("Number of dnase in Chr Y " + commons.getNumberofDnaseinChrY()+ "\n");
 	
-		System.out.print("Total number of dnase  intervals" + numberofDNAElements.getTotalNumberofDnase()+ "\n");
+		System.out.print("Total number of dnase  " + commons.getTotalNumberofDnase()+ "\n");
 		
 	}
 	
 //	Write Histone Information to the console
 	public void writeHistoneInformationtoConsole(){
 		
-		System.out.print("Number of histone in Chr 1 " + numberofDNAElements.getNumberofHistoneinChr1()+ "\n");
-		System.out.print("Number of histone in Chr 2 " + numberofDNAElements.getNumberofHistoneinChr2()+ "\n");
-		System.out.print("Number of histone in Chr 3 " + numberofDNAElements.getNumberofHistoneinChr3()+ "\n");
-		System.out.print("Number of histone in Chr 4 " + numberofDNAElements.getNumberofHistoneinChr4()+ "\n");
-		System.out.print("Number of histone in Chr 5 " + numberofDNAElements.getNumberofHistoneinChr5()+ "\n");
-		System.out.print("Number of histone in Chr 6 " + numberofDNAElements.getNumberofHistoneinChr6()+ "\n");
-		System.out.print("Number of histone in Chr 7 " + numberofDNAElements.getNumberofHistoneinChr7()+ "\n");
-		System.out.print("Number of histone in Chr 8 " + numberofDNAElements.getNumberofHistoneinChr8()+ "\n");
-		System.out.print("Number of histone in Chr 9 " + numberofDNAElements.getNumberofHistoneinChr9()+ "\n");
-		System.out.print("Number of histone in Chr 10 " + numberofDNAElements.getNumberofHistoneinChr10()+ "\n");
-		System.out.print("Number of histone in Chr 11 " + numberofDNAElements.getNumberofHistoneinChr11()+ "\n");
-		System.out.print("Number of histone in Chr 12 " + numberofDNAElements.getNumberofHistoneinChr12()+ "\n");
-		System.out.print("Number of histone in Chr 13 " + numberofDNAElements.getNumberofHistoneinChr13()+ "\n");
-		System.out.print("Number of histone in Chr 14 " + numberofDNAElements.getNumberofHistoneinChr14()+ "\n");
-		System.out.print("Number of histone in Chr 15 " + numberofDNAElements.getNumberofHistoneinChr15()+ "\n");
-		System.out.print("Number of histone in Chr 16 " + numberofDNAElements.getNumberofHistoneinChr16()+ "\n");
-		System.out.print("Number of histone in Chr 17 " + numberofDNAElements.getNumberofHistoneinChr17()+ "\n");
-		System.out.print("Number of histone in Chr 18 " + numberofDNAElements.getNumberofHistoneinChr18()+ "\n");
-		System.out.print("Number of histone in Chr 19 " + numberofDNAElements.getNumberofHistoneinChr19()+ "\n");
-		System.out.print("Number of histone in Chr 20 " + numberofDNAElements.getNumberofHistoneinChr20()+ "\n");
-		System.out.print("Number of histone in Chr 21 " + numberofDNAElements.getNumberofHistoneinChr21()+ "\n");
-		System.out.print("Number of histone in Chr 22 " + numberofDNAElements.getNumberofHistoneinChr22()+ "\n");
-		System.out.print("Number of histone in Chr X " + numberofDNAElements.getNumberofHistoneinChrX()+ "\n");
-		System.out.print("Number of histone in Chr Y " + numberofDNAElements.getNumberofHistoneinChrY()+ "\n");
+		System.out.print("Number of histone in Chr 1 " + commons.getNumberofHistoneinChr1()+ "\n");
+		System.out.print("Number of histone in Chr 2 " + commons.getNumberofHistoneinChr2()+ "\n");
+		System.out.print("Number of histone in Chr 3 " + commons.getNumberofHistoneinChr3()+ "\n");
+		System.out.print("Number of histone in Chr 4 " + commons.getNumberofHistoneinChr4()+ "\n");
+		System.out.print("Number of histone in Chr 5 " + commons.getNumberofHistoneinChr5()+ "\n");
+		System.out.print("Number of histone in Chr 6 " + commons.getNumberofHistoneinChr6()+ "\n");
+		System.out.print("Number of histone in Chr 7 " + commons.getNumberofHistoneinChr7()+ "\n");
+		System.out.print("Number of histone in Chr 8 " + commons.getNumberofHistoneinChr8()+ "\n");
+		System.out.print("Number of histone in Chr 9 " + commons.getNumberofHistoneinChr9()+ "\n");
+		System.out.print("Number of histone in Chr 10 " + commons.getNumberofHistoneinChr10()+ "\n");
+		System.out.print("Number of histone in Chr 11 " + commons.getNumberofHistoneinChr11()+ "\n");
+		System.out.print("Number of histone in Chr 12 " + commons.getNumberofHistoneinChr12()+ "\n");
+		System.out.print("Number of histone in Chr 13 " + commons.getNumberofHistoneinChr13()+ "\n");
+		System.out.print("Number of histone in Chr 14 " + commons.getNumberofHistoneinChr14()+ "\n");
+		System.out.print("Number of histone in Chr 15 " + commons.getNumberofHistoneinChr15()+ "\n");
+		System.out.print("Number of histone in Chr 16 " + commons.getNumberofHistoneinChr16()+ "\n");
+		System.out.print("Number of histone in Chr 17 " + commons.getNumberofHistoneinChr17()+ "\n");
+		System.out.print("Number of histone in Chr 18 " + commons.getNumberofHistoneinChr18()+ "\n");
+		System.out.print("Number of histone in Chr 19 " + commons.getNumberofHistoneinChr19()+ "\n");
+		System.out.print("Number of histone in Chr 20 " + commons.getNumberofHistoneinChr20()+ "\n");
+		System.out.print("Number of histone in Chr 21 " + commons.getNumberofHistoneinChr21()+ "\n");
+		System.out.print("Number of histone in Chr 22 " + commons.getNumberofHistoneinChr22()+ "\n");
+		System.out.print("Number of histone in Chr X " + commons.getNumberofHistoneinChrX()+ "\n");
+		System.out.print("Number of histone in Chr Y " + commons.getNumberofHistoneinChrY()+ "\n");
 	
-		System.out.print("Total number of histone intervals " + numberofDNAElements.getTotalNumberofHistone()+ "\n");
+		System.out.print("Total number of histone  " + commons.getTotalNumberofHistone()+ "\n");
 			
 	}
 	
@@ -978,89 +861,89 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			
 			try {								
 					switch (i) {
-		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME);
+		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR1_HISTONE_FILENAME);
 			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR1_HISTONE_FILENAME);
 		                    break;
-		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME);
+		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR2_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR2_HISTONE_FILENAME);
-                    		break;
-		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME);
-	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
 	        				break;
-		            case 4:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME);
+		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR3_HISTONE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
+			                break;
+		            case 4:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR4_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR4_HISTONE_FILENAME);
 	        				break;
-		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME);
+		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR5_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR5_HISTONE_FILENAME);
 	        				break;
-		            case 6:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME);
+		            case 6:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR6_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR6_HISTONE_FILENAME);
-                    		break;
-		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME);
+	        				break;
+		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR7_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR7_HISTONE_FILENAME);
 	        				break;
-		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME);
+		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR8_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR8_HISTONE_FILENAME);
-                    		break;
-		            case 9:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME);
+	        				break;
+		            case 9:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR9_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR9_HISTONE_FILENAME);
-                    		break;
-		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME);
+	        				break;
+		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR10_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR10_HISTONE_FILENAME);
-                    		break;
-		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME);
+	        				break;
+		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR11_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR11_HISTONE_FILENAME);
-                    		break;
-		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME);
+	        				break;
+		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR12_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR12_HISTONE_FILENAME);
-                    		break;
-		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME);
+	        				break;
+		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR13_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR13_HISTONE_FILENAME);
-                    		break;
-		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME);
+	        				break;
+		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR14_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR14_HISTONE_FILENAME);
-                    		break;
-		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME);
+	        				break;
+		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR15_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR15_HISTONE_FILENAME);
-                    		break;
-		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME);
+	        				break;
+		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR16_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR16_HISTONE_FILENAME);
-                    		break;
-		            case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME);
+	        				break;
+		            case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR17_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR17_HISTONE_FILENAME);
-                    		break;
-		            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME);
+	        				break;
+		            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR18_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR18_HISTONE_FILENAME);
-                    		break;
-		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME);
+	        				break;
+		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR19_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR19_HISTONE_FILENAME);
-                    		break;
-		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME);
+	        				break;
+		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR20_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR20_HISTONE_FILENAME);
-                    		break;
-		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME);
+	        				break;
+		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR21_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR21_HISTONE_FILENAME);
-                    		break;
-		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME);
+	        				break;
+		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR22_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR22_HISTONE_FILENAME);
-                    		break;
-		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME);
+	        				break;
+		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRX_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRX_HISTONE_FILENAME);
-                    		break;
-		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME);
+	        				break;
+		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRY_HISTONE_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRY_HISTONE_FILENAME);
-                    		break;
+	        				break;
 		        }
 									
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
 
-					histoneIntervalTree = new IntervalTree();
-					Histone histone = new Histone();
+					histoneList = new ArrayList<Histone>();
 					
 					try {
 						while ((strLine = br.readLine()) != null)   {
 							  // ADD the content to the ArrayList
+							Histone histone = new Histone();
 							
 							indexofFirstTab = strLine.indexOf('\t');
 							indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -1081,21 +964,28 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							histone.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 							histone.setFileName(strLine.substring(indexofFifthTab+1));
 							
-							IntervalTreeNode node = new IntervalTreeNode(histone.getChromName(), histone.getStartPos(), histone.getEndPos(), histone.getHistoneName(), histone.getCellLineName(), histone.getFileName(),Commons.ORIGINAL_NODE);
-							
-							histoneIntervalTree.intervalTreeInsert(histoneIntervalTree,node);
+							histoneList.add(histone);
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
+					
+					//sort the data
+					Collections.sort(histoneList, Histone.START_POSITION_ORDER);
+					
+//					//for debug purposes
+//					System.out.println("histone chr" + i + " low: "+ histoneList.get(histoneList.size()-1).startPos + " high: "+histoneList.get(histoneList.size()-1).endPos);
+//					//for debug purposes
+
 //					write sorted histone list to file
-					histoneIntervalTree.intervalTreeInfixTraversal(histoneIntervalTree.getRoot(), bw, Commons.HISTONE);
+					for(int j= 0; j <histoneList.size(); j++){
+						bw.write(histoneList.get(j).getChromName()+ "\t" +histoneList.get(j).getStartPos()+"\t"+ histoneList.get(j).getEndPos()+"\t" +histoneList.get(j).getHistoneName()+"\t" +histoneList.get(j).getCellLineName()+"\t" + histoneList.get(j).getFileName()+"\n");												
+					}
 					
 //					Remove memory allocation for histoneList
-					histoneIntervalTree = null;
-					histone = null;
+					histoneList = null;
 					
 					try {
 						br.close();
@@ -1133,91 +1023,90 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			
 			try {								
 					switch (i) {
-		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR1_DNASE_FILENAME);
+		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);
 			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR1_DNASE_FILENAME);
 		                    break;
-		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR2_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
-		     				break;
-		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR3_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
-		     				break;
-		            case 4:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR4_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
-		     				break;
-		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR5_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
-		     				break;
-		            case 6:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR6_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
-		     				break;
-		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR7_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
-		     				break;
-		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR8_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
-		     				break;
-		            case 9:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR9_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
-		     				break;
-		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR10_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
-		     				break;
-		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR11_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
-		     				break;
-		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR12_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
-		     				break;
-		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR13_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
-		     				break;
-		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR14_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
-		     				break;
-		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR15_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
-		     				break;
-		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR16_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
-		     				break;
-		            case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR17_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
-		     				break;
-		            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR18_DNASE_FILENAME);
-		            		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
-		            		break;
-		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR19_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
-		     				break;
-		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR20_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
-		     				break;
-		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR21_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
-		     				break;
-		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR22_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
-		     				break;
-		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRX_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
-		     				break;
-		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRY_DNASE_FILENAME);
-		     				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
-		     				break;
+		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
+	        				break;
+		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
+		                    break;
+		            case 4:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
+		                    break;
+		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
+		                    break;
+		            case 6:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
+		                    break;
+		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
+		                    break;
+		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
+		                    break;
+		            case 9:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
+		                    break;
+		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
+		                    break;
+		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
+		                    break;
+		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
+		                    break;
+		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
+		                    break;
+		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
+		                    break;
+		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
+		                    break;
+		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
+		                    break;
+		            case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
+		                    break;
+		            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
+		                    break;
+		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
+		                    break;
+		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
+		                    break;
+		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
+		                    break;
+		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
+		                    break;
+		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
+		                    break;
+		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
+			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
+		                    break;
 		        }
 									
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
 
-					dnaseIntervalTree = new IntervalTree();					
-					Dnase dnase = new Dnase();
+					dnaseList = new ArrayList<Dnase>();
+					
 					
 					try {
 						while ((strLine = br.readLine()) != null)   {
 							  // ADD the content to the ArrayList
-							
-							
+							Dnase dnase = new Dnase();
 							
 							indexofFirstTab = strLine.indexOf('\t');
 							indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -1235,10 +1124,8 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							dnase.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));							
 							dnase.setCellLineName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 							dnase.setFileName(strLine.substring(indexofFourthTab+1));
-
-							IntervalTreeNode node = new IntervalTreeNode(dnase.getChromName(),dnase.getStartPos(), dnase.getEndPos(),dnase.getCellLineName(), dnase.getFileName(),Commons.ORIGINAL_NODE);							
 							
-							dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree,node);
+							dnaseList.add(dnase);
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -1246,13 +1133,20 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 					}
 					
 					
-//					write sorted dnase Interval Tree to file
-					dnaseIntervalTree.intervalTreeInfixTraversal(dnaseIntervalTree.getRoot(), bw, Commons.DNASE);
+					//sort the data
+					Collections.sort(dnaseList, Dnase.START_POSITION_ORDER);
 					
+//					//for debug purposes
+//					System.out.println("dnase chr" + i + " low: "+ dnaseList.get(dnaseList.size()-1).startPos + " high: "+dnaseList.get(dnaseList.size()-1).endPos);
+//					//for debug purposes
+
+//					write sorted dnase list to file
+					for(int j= 0; j <dnaseList.size(); j++){
+						bw.write(dnaseList.get(j).getChromName()+ "\t" +dnaseList.get(j).getStartPos()+"\t"+ dnaseList.get(j).getEndPos()+"\t" +dnaseList.get(j).getCellLineName()+"\t" + dnaseList.get(j).getFileName()+"\n");												
+					}
 					
 //					Remove memory allocation for dnaseList
-					dnaseIntervalTree = null;
-					dnase = null;
+					dnaseList = null;
 					
 					try {
 						br.close();
@@ -1292,89 +1186,89 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			
 			try {								
 					switch (i) {
-		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME );
+		            case 1:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);
 			        		fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR1_TFBS_FILENAME);
 		                    break;
-		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME );
+		            case 2:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR2_TFBS_FILENAME);
 	        				break;
-		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME );
+		            case 3:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);
 	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR3_TFBS_FILENAME);
 	        				break;
-		            case 4:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
-		    				break;
-		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
-		    				break;
-		            case 6:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
-		    				break;
-		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
-		    				break;
-		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
-		    				break;
-		            case 9:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
-		    				break;
-		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
-		    				break;
-		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
-		    				break;
-		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
-		    				break;
-		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
-		    				break;
-		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
-		    				break;
-		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
-		    				break;
-		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
-		    				break;
-				    case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
-		    				break;
-				            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
-		    				break;
-		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
-		    				break;
-		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME );
-		    				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
-		    				break;
-		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME );
-    						fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
-    						break;
-		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME );
-    						fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
-    						break;
-		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME );
-    						fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
-    						break;
-		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME );
-    						fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
-    						break;
+		            case 4:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
+	        				break;
+		            case 5:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
+	        				break;
+		            case 6:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
+	        				break;
+		            case 7:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
+	        				break;
+		            case 8:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
+	        				break;
+		            case 9:	fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
+	        				break;
+		            case 10:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
+	        				break;
+		            case 11:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
+	        				break;
+		            case 12:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
+	        				break;
+		            case 13:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
+	        				break;
+		            case 14:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
+	        				break;
+		            case 15:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
+	        				break;
+		            case 16:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
+	        				break;
+		            case 17:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
+	        				break;
+		            case 18:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
+	        				break;
+		            case 19:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
+	        				break;
+		            case 20:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
+	        				break;
+		            case 21:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
+	        				break;
+		            case 22:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
+	        				break;
+		            case 23:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
+	        				break;
+		            case 24:fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);
+	        				fileWriter = FileOperations.createFileWriter(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
+	        				break;
 		        }
 									
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
 
-					tfbsIntervalTree = new IntervalTree ();
-					TranscriptionFactorBindingSite tfbs = new TranscriptionFactorBindingSite();
+					tfbsList = new ArrayList<TranscriptionFactorBindingSite>();
 					
 					try {
 						while ((strLine = br.readLine()) != null)   {
 							  // ADD the content to the ArrayList
+							TranscriptionFactorBindingSite tfbs = new TranscriptionFactorBindingSite();
 							
 							indexofFirstTab = strLine.indexOf('\t');
 							indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -1395,8 +1289,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							tfbs.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 							tfbs.setFileName(strLine.substring(indexofFifthTab+1));
 							
-							IntervalTreeNode node = new IntervalTreeNode(tfbs.getChromName(), tfbs.getStartPos(), tfbs.getEndPos(), tfbs.getTranscriptionFactorName(), tfbs.getCellLineName(), tfbs.getFileName(),Commons.ORIGINAL_NODE);
-							tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);
+							tfbsList.add(tfbs);
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -1404,13 +1297,20 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 					}
 					
 					
+					//sort the data
+					Collections.sort(tfbsList, TranscriptionFactorBindingSite.START_POSITION_ORDER);
+					
+//					//for debug purposes
+//					System.out.println("tfbs chr" + i + " low: "+ tfbsList.get(tfbsList.size()-1).startPos + " high: "+tfbsList.get(tfbsList.size()-1).endPos);
+//					//for debug purposes
 
 //					write sorted tfbs list to file
-					tfbsIntervalTree.intervalTreeInfixTraversal(tfbsIntervalTree.getRoot(), bw, Commons.TFBS);
+					for(int j= 0; j <tfbsList.size(); j++){
+						bw.write(tfbsList.get(j).getChromName()+ "\t" +tfbsList.get(j).getStartPos()+"\t"+ tfbsList.get(j).getEndPos()+"\t" +tfbsList.get(j).getTranscriptionFactorName()+"\t" +tfbsList.get(j).getCellLineName()+"\t" + tfbsList.get(j).getFileName()+"\n");												
+					}
 					
 //					Remove memory allocation for tfbsList
-					tfbsIntervalTree = null;
-					tfbs = null;
+					tfbsList = null;
 					
 					try {
 						br.close();
@@ -1438,9 +1338,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	 */
 	public static void main(String[] args) {
 		
-		File dnaseDir1 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);		
-		File tfbsDir 	= new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
+		File dnaseDir1 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir2 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);		
+		File tfbsDir = new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
 		File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
 		
 		List<BufferedWriter> unsortedDnaseBufferedWriterList = new ArrayList<BufferedWriter>(24);
@@ -1448,42 +1348,30 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
 		
-		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting createChromosomeBasedFilesUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting();
-
-		//Attention
-		//Encode data
-		// The starting position of the feature in the chromosome. The first base in a chromosome is numbered 0.
-		// The ending position of the feature in the chromosome or scaffold. 
-		// The chromEnd base is not included in the display of the feature. 
-		//For example, the first 100 bases of a chromosome are defined as chromStart=0, chromEnd=100, and span the bases numbered 0-99.
 		
-		//my convention design
-		// start 0-based
-		// start and end are inclusive
-		// therefore length is equal to end-start+1.
-
+		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort annotateUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort();
+		
 //		DNASE
-		ChromosomeBasedFiles.openUnsortedChromosomeBasedDnaseFileWriters(unsortedDnaseBufferedWriterList);	    
-		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2,unsortedDnaseBufferedWriterList);		
-		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1,unsortedDnaseBufferedWriterList);
-		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedDnaseBufferedWriterList);		
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
-		createChromosomeBasedFilesUsingEncode.writeDnaseInformationtoConsole();
-		
-		
+		ChromosomeBasedFiles.openUnsortedChromosomeBasedDnaseFileWriters(unsortedDnaseBufferedWriterList);
+		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2,unsortedDnaseBufferedWriterList);		
+		annotateUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1,unsortedDnaseBufferedWriterList);
+		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedDnaseBufferedWriterList);	
+		annotateUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
+		annotateUsingEncode.writeDnaseInformationtoConsole();
+
 //		HISTONE
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedHistoneFileWriters(unsortedHistoneBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir,unsortedHistoneBufferedWriterList);	
+		annotateUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir,unsortedHistoneBufferedWriterList);		
 		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedHistoneBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
-		createChromosomeBasedFilesUsingEncode.writeHistoneInformationtoConsole();
+		annotateUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
+		annotateUsingEncode.writeHistoneInformationtoConsole();
 				
 //		TFBS
 		ChromosomeBasedFiles.openUnsortedChromosomeBasedTfbsFileWriters(unsortedTfbsBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir,unsortedTfbsBufferedWriterList);
+		annotateUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir,unsortedTfbsBufferedWriterList);		
 		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedTfbsBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
-		createChromosomeBasedFilesUsingEncode.writeTfbsInformationtoConsole();
+		annotateUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
+		annotateUsingEncode.writeTfbsInformationtoConsole();
 				            
 	}
 
