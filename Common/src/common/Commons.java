@@ -120,10 +120,7 @@ public class Commons {
 	
 	public static final char SEQUENCE_DIRECTION_D = 'D';
 	public static final char SEQUENCE_DIRECTION_R = 'R';
-	
-	
-	
-	
+		
 	
 	//Case Study OCD_GWAS
 	//Comparison of Binomial Test versus Permutation Test
@@ -382,8 +379,7 @@ public class Commons {
 	public static final char NUCLEIC_ACID_UPPER_CASE_N = 'N' ;
 	public static final char NUCLEIC_ACID_LOWER_CASE_N = 'n' ;
 	
-	
-	
+		
 	
 	//Empirical P Value	
 	public static final float GC_THRESHOLD_LOWER_VALUE = (float) 0.01;

@@ -27,8 +27,7 @@ public class FileOperations {
 		
 		//creates the directory named by this abstract pathname, including necessary and non-existent parent directories.
 		pathDirectory.mkdirs();
-		 
-		
+		 		
 		return new FileWriter(directoryName+fileName);
 	}
 	

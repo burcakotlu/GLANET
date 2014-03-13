@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Auxiliary"/>
@@ -8,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Hg19"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MultipleTesting"/>
 	<classpathentry kind="lib" path="C:/eclipse_juno_workspace/Doktora/lib/htmlunit-2.12.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
