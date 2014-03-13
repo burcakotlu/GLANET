@@ -51,12 +51,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
 
-import common.Commons;
+import keggpathway.ncbigenes.KeggPathwayUtility;
 
+import common.Commons;
 import create.ChromosomeBasedFiles;
+
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllName2KMaps;
 import empiricalpvalues.InputLine;
