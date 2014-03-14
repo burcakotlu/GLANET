@@ -6,7 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/BinomialDistribution"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Hg19"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MultipleTesting"/>
-	<classpathentry kind="lib" path="C:/eclipse_juno_workspace/Doktora/lib/htmlunit-2.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
+	<classpathentry kind="lib" path="C:/GitHub/GLANET/Doktora/lib/htmlunit-2.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

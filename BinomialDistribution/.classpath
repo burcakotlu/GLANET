@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Hg19"/>
-	<classpathentry kind="lib" path="C:/eclipse_juno_workspace/BinomialDistribution/lib/commons-math3-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitHub/GLANET/BinomialDistribution/lib/commons-math3-3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
