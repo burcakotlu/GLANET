@@ -56,7 +56,7 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
-import create.ChromosomeBasedFiles;
+import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllName2KMaps;
 import empiricalpvalues.InputLine;
@@ -1254,7 +1254,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
-		fileReader = ChromosomeBasedFiles.getUnsortedRefSeqGenesFileReader(chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(chromName);
 		
 		bufferedReader = new BufferedReader(fileReader);
 		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTree(bufferedReader);

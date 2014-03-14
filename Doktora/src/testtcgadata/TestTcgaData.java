@@ -19,7 +19,7 @@ import java.util.List;
 
 import common.Commons;
 
-import create.ChromosomeBasedFiles;
+import create.ChromosomeBasedFilesandOperations;
 import create.encode.GeneType;
 import create.encode.RegionofInterest;
 
@@ -76,7 +76,7 @@ public class TestTcgaData {
 		String outputString = "";
 		String searchString = null;
 		
-		fileReader = ChromosomeBasedFiles.getSortedRefSeqGenesFileReader(chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getSortedRefSeqGenesFileReader(chromName);
 		
 		 br = new BufferedReader(fileReader);
 

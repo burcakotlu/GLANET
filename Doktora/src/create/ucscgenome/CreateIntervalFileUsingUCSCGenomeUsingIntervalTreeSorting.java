@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +43,7 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
-import create.ChromosomeBasedFiles;
+import create.ChromosomeBasedFilesandOperations;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
@@ -397,26 +396,27 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		
 		try {
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "5D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+						
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "5D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
 
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
 
-			bufferedWriter.flush();
-	
-			information.setNumberof5p1s(information.getNumberof5p1s()+1);
-			information.setNumberof5p2s(information.getNumberof5p2s()+1);
-			information.setNumberof5ds(information.getNumberof5ds()+1);
-			
-			information.setNumberof3p1s(information.getNumberof3p1s()+1);
-			information.setNumberof3p2s(information.getNumberof3p2s()+1);
-			information.setNumberof3ds(information.getNumberof3ds()+1);
-			
-			information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+6);
-
+				bufferedWriter.flush();
+		
+				information.setNumberof5p1s(information.getNumberof5p1s()+1);
+				information.setNumberof5p2s(information.getNumberof5p2s()+1);
+				information.setNumberof5ds(information.getNumberof5ds()+1);
+				
+				information.setNumberof3p1s(information.getNumberof3p1s()+1);
+				information.setNumberof3p2s(information.getNumberof3p2s()+1);
+				information.setNumberof3ds(information.getNumberof3ds()+1);
+				
+				information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+6);
+					
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -428,19 +428,18 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 	public void createExonIntronIntervals(RefSeqGene refSeqGene,int i, BufferedWriter bufferedWriter, RefSeqGeneIntervalsInformation information){
 		int j;
-		
-		
+				
 		try {	
 			//Write exon and intron intervals 			
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
-			
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");			
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+"\n");
-				bufferedWriter.flush();
 				
-				information.setNumberofExons(information.getNumberofExons()+1);
-				information.setNumberofIntrons(information.getNumberofIntrons()+1);
-				information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+2);
+					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");			
+					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+"\n");
+					bufferedWriter.flush();
+					
+					information.setNumberofExons(information.getNumberofExons()+1);
+					information.setNumberofIntrons(information.getNumberofIntrons()+1);
+					information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+2);	
 			}
 			//Write the last exon which is not written in the for loop
 			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");
@@ -448,66 +447,15 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			
 			information.setNumberofExons(information.getNumberofExons()+1);
 			information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+1);
-			
-		} catch (IOException e) {
+				 
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
 	
-	public void getBufferedWriter(String chromName, BufferedWriter bufferedWriter, List<BufferedWriter> bufferedWriterList){
-		if (chromName.equals(Commons.CHROMOSOME1)){
-			bufferedWriter = bufferedWriterList.get(0);
-		}else if (chromName.equals(Commons.CHROMOSOME2)){
-			bufferedWriter = bufferedWriterList.get(1);			
-		}else if (chromName.equals(Commons.CHROMOSOME3)){
-			bufferedWriter = bufferedWriterList.get(2);			
-		}else if (chromName.equals(Commons.CHROMOSOME4)){
-			bufferedWriter = bufferedWriterList.get(3);			
-		}else if (chromName.equals(Commons.CHROMOSOME5)){
-			bufferedWriter = bufferedWriterList.get(4);			
-		}else if (chromName.equals(Commons.CHROMOSOME6)){
-			bufferedWriter = bufferedWriterList.get(5);			
-		}else if (chromName.equals(Commons.CHROMOSOME7)){
-			bufferedWriter = bufferedWriterList.get(6);			
-		}else if (chromName.equals(Commons.CHROMOSOME8)){
-			bufferedWriter = bufferedWriterList.get(7);			
-		}else if (chromName.equals(Commons.CHROMOSOME9)){
-			bufferedWriter = bufferedWriterList.get(8);			
-		}else if (chromName.equals(Commons.CHROMOSOME10)){
-			bufferedWriter = bufferedWriterList.get(9);			
-		}else if (chromName.equals(Commons.CHROMOSOME11)){
-			bufferedWriter = bufferedWriterList.get(10);			
-		}else if (chromName.equals(Commons.CHROMOSOME12)){
-			bufferedWriter = bufferedWriterList.get(11);			
-		}else if (chromName.equals(Commons.CHROMOSOME13)){
-			bufferedWriter = bufferedWriterList.get(12);			
-		}else if (chromName.equals(Commons.CHROMOSOME14)){
-			bufferedWriter = bufferedWriterList.get(13);			
-		}else if (chromName.equals(Commons.CHROMOSOME15)){
-			bufferedWriter = bufferedWriterList.get(14);			
-		}else if (chromName.equals(Commons.CHROMOSOME16)){
-			bufferedWriter = bufferedWriterList.get(15);			
-		}else if (chromName.equals(Commons.CHROMOSOME17)){
-			bufferedWriter = bufferedWriterList.get(16);			
-		}else if (chromName.equals(Commons.CHROMOSOME18)){
-			bufferedWriter = bufferedWriterList.get(17);			
-		}else if (chromName.equals(Commons.CHROMOSOME19)){
-			bufferedWriter = bufferedWriterList.get(18);			
-		}else if (chromName.equals(Commons.CHROMOSOME20)){
-			bufferedWriter = bufferedWriterList.get(19);			
-		}else if (chromName.equals(Commons.CHROMOSOME21)){
-			bufferedWriter = bufferedWriterList.get(20);			
-		}else if (chromName.equals(Commons.CHROMOSOME22)){
-			bufferedWriter = bufferedWriterList.get(21);			
-		}else if (chromName.equals(Commons.CHROMOSOMEX)){
-			bufferedWriter = bufferedWriterList.get(22);			
-		}else if (chromName.equals(Commons.CHROMOSOMEY)){
-			bufferedWriter = bufferedWriterList.get(23);			
-		}
-		
-	}
+
 	
 	public void fillUnsortedChromBaseRefSeqGeneIntervalFiles(List<RefSeqGene> refSeqGeneList, List<BufferedWriter> bufferedWriterList){
 		RefSeqGene refSeqGene = null;
@@ -522,10 +470,16 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			refSeqGene = refSeqGeneList.get(i);
 			chromName = refSeqGene.getChromName();
 						
-			bufferedWriter = ChromosomeBasedFiles.getBufferedWriter(chromName, bufferedWriterList);
+			bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(chromName, bufferedWriterList);
+			//Pay attention, bufferedWriter is null for such refseq genes
+			//chr6_ssto_hap7	LY6G5B
+			//System.out.println(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
+		
 			
-			createExonIntronIntervals(refSeqGene,i,bufferedWriter,information);			
-			create5p3pIntervals(refSeqGene,bufferedWriter,information);
+			if (bufferedWriter!=null){
+				createExonIntronIntervals(refSeqGene,i,bufferedWriter,information);			
+				create5p3pIntervals(refSeqGene,bufferedWriter,information);
+			}
 		}//End of for
 		
 		System.out.println("Number of intervals in exons of refseq genes: " + information.getNumberofExons());
@@ -565,106 +519,10 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		int indexofSeventhTab = 0;
 		
 		for(int i=0; i<24 ; i++){
-			switch(i){
-			case 0:
-					bufferedReader = unsortedBufferedReaderList.get(0);
-					bufferedWriter = sortedBufferedWriterList.get(0);
-					break;
-			case 1:
-					bufferedReader = unsortedBufferedReaderList.get(1);
-					bufferedWriter = sortedBufferedWriterList.get(1);
-					break;
-			case 2:
-					bufferedReader = unsortedBufferedReaderList.get(2);
-					bufferedWriter = sortedBufferedWriterList.get(2);
-					break;
-			case 3:
-					bufferedReader = unsortedBufferedReaderList.get(3);
-					bufferedWriter = sortedBufferedWriterList.get(3);
-					break;
-			case 4:
-					bufferedReader = unsortedBufferedReaderList.get(4);
-					bufferedWriter = sortedBufferedWriterList.get(4);
-					break;
-			case 5:
-					bufferedReader = unsortedBufferedReaderList.get(5);
-					bufferedWriter = sortedBufferedWriterList.get(5);
-					break;
-			case 6:
-					bufferedReader = unsortedBufferedReaderList.get(6);
-					bufferedWriter = sortedBufferedWriterList.get(6);
-					break;
-			case 7:
-					bufferedReader = unsortedBufferedReaderList.get(7);
-					bufferedWriter = sortedBufferedWriterList.get(7);
-					break;
-			case 8:
-					bufferedReader = unsortedBufferedReaderList.get(8);
-					bufferedWriter = sortedBufferedWriterList.get(8);
-					break;
-			case 9:
-					bufferedReader = unsortedBufferedReaderList.get(9);
-					bufferedWriter = sortedBufferedWriterList.get(9);
-					break;
-			case 10:
-					bufferedReader = unsortedBufferedReaderList.get(10);
-					bufferedWriter = sortedBufferedWriterList.get(10);
-					break;
-			case 11:
-					bufferedReader = unsortedBufferedReaderList.get(11);
-					bufferedWriter = sortedBufferedWriterList.get(11);
-					break;
-			case 12:
-					bufferedReader = unsortedBufferedReaderList.get(12);
-					bufferedWriter = sortedBufferedWriterList.get(12);
-					break;
-			case 13:
-					bufferedReader = unsortedBufferedReaderList.get(13);
-					bufferedWriter = sortedBufferedWriterList.get(13);
-					break;
-			case 14:
-					bufferedReader = unsortedBufferedReaderList.get(14);
-					bufferedWriter = sortedBufferedWriterList.get(14);
-					break;
-			case 15:
-					bufferedReader = unsortedBufferedReaderList.get(15);
-					bufferedWriter = sortedBufferedWriterList.get(15);
-					break;
-			case 16:
-					bufferedReader = unsortedBufferedReaderList.get(16);
-					bufferedWriter = sortedBufferedWriterList.get(16);
-					break;
-			case 17:
-					bufferedReader = unsortedBufferedReaderList.get(17);
-					bufferedWriter = sortedBufferedWriterList.get(17);
-					break;
-			case 18:
-					bufferedReader = unsortedBufferedReaderList.get(18);
-					bufferedWriter = sortedBufferedWriterList.get(18);
-					break;
-			case 19:
-					bufferedReader = unsortedBufferedReaderList.get(19);
-					bufferedWriter = sortedBufferedWriterList.get(19);
-					break;
-			case 20:
-					bufferedReader = unsortedBufferedReaderList.get(20);
-					bufferedWriter = sortedBufferedWriterList.get(20);
-					break;
-			case 21:
-					bufferedReader = unsortedBufferedReaderList.get(21);
-					bufferedWriter = sortedBufferedWriterList.get(21);
-					break;
-			case 22:
-					bufferedReader = unsortedBufferedReaderList.get(22);
-					bufferedWriter = sortedBufferedWriterList.get(22);
-					break;
-			case 23:
-					bufferedReader = unsortedBufferedReaderList.get(23);
-					bufferedWriter = sortedBufferedWriterList.get(23);
-					break;
-				
-			}
 			
+			bufferedReader = unsortedBufferedReaderList.get(i);
+			bufferedWriter = sortedBufferedWriterList.get(i);
+						
 			IntervalTree refSeqGeneIntervalTree = new IntervalTree();
 			RefSeqGeneInterval refSeqGeneInterval = new RefSeqGeneInterval();
 			
@@ -783,15 +641,15 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 //		It is augmented with entrez gene id 
 		createIntervals.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap);	
 		
-		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
 		createIntervals.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
-		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
 		
-		ChromosomeBasedFiles.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
-		ChromosomeBasedFiles.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
 		createIntervals.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
-		ChromosomeBasedFiles.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
-		ChromosomeBasedFiles.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);
 	}
 
 }

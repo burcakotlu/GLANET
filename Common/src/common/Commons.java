@@ -5,9 +5,6 @@
 
 package common;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 
 public class Commons {
 	
@@ -1086,9 +1083,5 @@ public class Commons {
 	public static final String SORTED_CHRX_TFBS_FILENAME = "sorted_chrX_tfbs.txt";
 	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 		
-
-
-
-	
 	
 }

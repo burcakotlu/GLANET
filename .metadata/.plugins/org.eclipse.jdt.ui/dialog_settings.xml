@@ -9,12 +9,6 @@
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
-	<section name="CallHierarchySearchScope">
-	</section>
-	<section name="RefactoringWizard.preview">
-		<item key="width" value="790"/>
-		<item value="400" key="height"/>
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item key="updateQualifiedNames" value="false"/>
 		<item value="*" key="patterns"/>
@@ -35,21 +29,40 @@
 		<item value="1" key="rootMode"/>
 		<item value="false" key="linkWithEditor"/>
 	</section>
-	<section name="JavaBuildConfigurationBlock">
-		<item key="expanded2" value="false"/>
-		<item value="false" key="expanded1"/>
-		<item value="true" key="expanded0"/>
-	</section>
 	<section name="NewClassWizardPage">
 		<item key="create_constructor" value="false"/>
 		<item value="false" key="create_main"/>
 		<item value="true" key="create_unimplemented"/>
 	</section>
-	<section name="ClasspathContainerSelectionPage">
-		<item key="index" value="3"/>
-	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
+	</section>
+	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
+		<item key="DIALOG_WIDTH" value="846"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="1024" key="DIALOG_HEIGHT"/>
+		<item value="548" key="DIALOG_X_ORIGIN"/>
+		<item value="11" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="CallHierarchySearchScope">
+	</section>
+	<section name="RefactoringWizard.preview">
+		<item key="width" value="790"/>
+		<item value="400" key="height"/>
+	</section>
+	<section name="JavaBuildConfigurationBlock">
+		<item key="expanded2" value="false"/>
+		<item value="false" key="expanded1"/>
+		<item value="true" key="expanded0"/>
+	</section>
+	<section name="SourceActionDialog.methods">
+		<item key="SynchronizedModifier" value="false"/>
+		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item key="index" value="3"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
@@ -57,6 +70,10 @@
 		<item key="pageIndex" value="1"/>
 	</section>
 	<section name="completion_proposal_size">
+	</section>
+	<section name="AddGetterSetterDialog">
+		<item key="SortOrdering" value="false"/>
+		<item value="false" key="RemoveFinal"/>
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>

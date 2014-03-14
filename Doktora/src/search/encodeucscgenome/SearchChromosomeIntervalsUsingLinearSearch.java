@@ -34,7 +34,7 @@ import java.util.List;
 import auxiliary.FileOperations;
 
 import common.Commons;
-import create.ChromosomeBasedFiles;
+import create.ChromosomeBasedFilesandOperations;
 
 
 
@@ -312,7 +312,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		int indexofSixthTab = 0;
 		int indexofSeventhTab = 0;
 		
-		fileReader = ChromosomeBasedFiles.getSortedRefSeqGenesFileReader(chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getSortedRefSeqGenesFileReader(chromName);
 				
 		br = new BufferedReader(fileReader);
 		 

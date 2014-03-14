@@ -3,4 +3,5 @@
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="create.ChromosomeBasedFiles"/>
+<fullyQualifiedTypeName name="create.encode.NumberofDNAElements"/>
 </qualifiedTypeNameHistroy>
