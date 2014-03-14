@@ -1413,7 +1413,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
+						fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(tfbsNameandCellLineName,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +"\n");
@@ -1523,15 +1523,14 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(permutationNumberDnaseCellLineName);
 					
 					if (bufferedWriter==null){
-						
-//						directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber + "\\");
-//						if (!directory.exists()) {
-//							if (!directory.mkdir()){
-//								System.out.println("Failed to create directory!");
-//							}
-//						}
+						directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber + "\\");
+						if (!directory.exists()) {
+							if (!directory.mkdir()){
+								System.out.println("Failed to create directory!");
+							}
+						}
 													
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber + "\\"+ permutationNumberDnaseCellLineName + ".txt",true);
+						fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber + "\\"+ permutationNumberDnaseCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(permutationNumberDnaseCellLineName,bufferedWriter);
 					}										
@@ -1706,15 +1705,14 @@ public class IntervalTree {
 										bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 										
 										if (bufferedWriter == null){
+											directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+											if (!directory.exists()) {
+												if (!directory.mkdir()){
+													System.out.println("Failed to create directory!");
+												}
+											}
 											
-//											directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//											if (!directory.exists()) {
-//												if (!directory.mkdir()){
-//													System.out.println("Failed to create directory!");
-//												}
-//											}
-											
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+											fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 										
@@ -1753,17 +1751,16 @@ public class IntervalTree {
 										bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 										
 										if (bufferedWriter == null){
+											directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
 											
-//											directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//											
-//											if (!directory.exists()) {
-//												if (!directory.mkdir()){
-//													System.out.println("Failed to create directory!");
-//												}
-//											}
+											if (!directory.exists()) {
+												if (!directory.mkdir()){
+													System.out.println("Failed to create directory!");
+												}
+											}
 											
 											
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS  + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\"+ Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_regulationBased_" + keggPathwayName + ".txt",true);
+											fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS  + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\"+ Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_regulationBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 										
@@ -1794,15 +1791,14 @@ public class IntervalTree {
 									bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 									
 									if (bufferedWriter == null){
+										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+										if (!directory.exists()) {
+											if (!directory.mkdir()){
+												System.out.println("Failed to create directory!");
+											}
+										}
 										
-//										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//										if (!directory.exists()) {
-//											if (!directory.mkdir()){
-//												System.out.println("Failed to create directory!");
-//											}
-//										}
-										
-										fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber +"_all_" + keggPathwayName + ".txt",true);
+										fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber +"_all_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 									
@@ -1984,15 +1980,14 @@ public class IntervalTree {
 								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 								
 								if (bufferedWriter == null){
-								
-//									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//									if (!directory.exists()) {
-//										if (!directory.mkdir()){
-//											System.out.println("Failed to create directory!");
-//										}
-//									}
+									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+									if (!directory.exists()) {
+										if (!directory.mkdir()){
+											System.out.println("Failed to create directory!");
+										}
+									}
 									
-									fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+									fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 								}
@@ -2030,14 +2025,14 @@ public class IntervalTree {
 								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 								
 								if (bufferedWriter == null){
-//									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//									if (!directory.exists()) {
-//										if (!directory.mkdir()){
-//											System.out.println("Failed to create directory!");
-//										}
-//									}
+									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+									if (!directory.exists()) {
+										if (!directory.mkdir()){
+											System.out.println("Failed to create directory!");
+										}
+									}
 									
-									fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
+									fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 								}
@@ -2069,14 +2064,14 @@ public class IntervalTree {
 							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 							
 							if (bufferedWriter == null){
-//								directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//								if (!directory.exists()) {
-//									if (!directory.mkdir()){
-//										System.out.println("Failed to create directory!");
-//									}
-//								}
+								directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+								if (!directory.exists()) {
+									if (!directory.mkdir()){
+										System.out.println("Failed to create directory!");
+									}
+								}
 								
-								fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
+								fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
 								bufferedWriter = new BufferedWriter(fileWriter);
 								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 							}
@@ -2140,14 +2135,14 @@ public class IntervalTree {
 									bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 									
 									if (bufferedWriter == null){
-//										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//										if (!directory.exists()) {
-//											if (!directory.mkdir()){
-//												System.out.println("Failed to create directory!");
-//											}
-//										}
+										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+										if (!directory.exists()) {
+											if (!directory.mkdir()){
+												System.out.println("Failed to create directory!");
+											}
+										}
 										
-										fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+										fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 									}
@@ -2182,14 +2177,14 @@ public class IntervalTree {
 									bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 									
 									if (bufferedWriter == null){
-//										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//										if (!directory.exists()) {
-//											if (!directory.mkdir()){
-//												System.out.println("Failed to create directory!");
-//											}
-//										}
+										directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+										if (!directory.exists()) {
+											if (!directory.mkdir()){
+												System.out.println("Failed to create directory!");
+											}
+										}
 										
-										fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
+										fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										regulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 									}
@@ -2218,14 +2213,14 @@ public class IntervalTree {
 								bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 								
 								if (bufferedWriter == null){
-//									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
-//									if (!directory.exists()) {
-//										if (!directory.mkdir()){
-//											System.out.println("Failed to create directory!");
-//										}
-//									}
+									directory = new File(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\");
+									if (!directory.exists()) {
+										if (!directory.mkdir()){
+											System.out.println("Failed to create directory!");
+										}
+									}
 									
-									fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
+									fileWriter = new FileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ "\\" + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 								}
@@ -2400,7 +2395,7 @@ public class IntervalTree {
 										bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
+											fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
 											bufferedWriter = new BufferedWriter(fileWriter);
 											exonBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +"\n");
@@ -2444,7 +2439,7 @@ public class IntervalTree {
 										bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
+											fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
 											bufferedWriter = new BufferedWriter(fileWriter);
 											regulationBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +"\n");
@@ -2480,7 +2475,7 @@ public class IntervalTree {
 									bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt");
+										fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt");
 										bufferedWriter = new BufferedWriter(fileWriter);
 										allBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +"\n");
@@ -2554,7 +2549,7 @@ public class IntervalTree {
 											bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 											
 											if (bufferedWriter == null){
-												fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
+												fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
 												bufferedWriter = new BufferedWriter(fileWriter);
 												bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 												
@@ -2594,7 +2589,7 @@ public class IntervalTree {
 											bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 											
 											if (bufferedWriter == null){
-												fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
+												fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
 												bufferedWriter = new BufferedWriter(fileWriter);
 												bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 												
@@ -2627,7 +2622,7 @@ public class IntervalTree {
 										bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_all_" + keggPathwayName + ".txt");
+											fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_all_" + keggPathwayName + ".txt");
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											
@@ -2683,7 +2678,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 					count =  nameorIdHashMap.get(node.getGeneEntrezId().toString());
 					
 					if (bufferedWriter == null){
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID +"_" +String.valueOf(node.getGeneEntrezId()) + ".txt");
+						fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID +"_" +String.valueOf(node.getGeneEntrezId()) + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(node.getGeneEntrezId().toString(), bufferedWriter);
 					
@@ -2704,7 +2699,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 						count =  nameorIdHashMap.get(node.getRefSeqGeneName());
 						
 						if (bufferedWriter == null){
-							fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + node.getRefSeqGeneName() + ".txt");
+							fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + node.getRefSeqGeneName() + ".txt");
 							bufferedWriter = new BufferedWriter(fileWriter);
 							bufferedWriterHashMap.put(node.getRefSeqGeneName(), bufferedWriter);							
 						}
@@ -2723,7 +2718,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 						count =  nameorIdHashMap.get(node.getGeneHugoSymbol());
 						
 						if (bufferedWriter == null){
-							fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME +"_" + node.getGeneHugoSymbol() + ".txt");
+							fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME +"_" + node.getGeneHugoSymbol() + ".txt");
 							bufferedWriter = new BufferedWriter(fileWriter);
 							bufferedWriterHashMap.put(node.getGeneHugoSymbol(), bufferedWriter);							
 						}
