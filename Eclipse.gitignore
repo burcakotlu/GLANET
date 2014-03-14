@@ -1,4 +1,5 @@
 *.pydevproject
+.DS_Store
 .metadata
 .gradle
 bin/
