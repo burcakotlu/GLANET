@@ -6,6 +6,12 @@
  *
  * 
  */
+
+/*
+ * 
+ * It lasts for 25 minutes.
+ * It uses dbSNP flat files for augmentation with observed alleles
+ */
 package inputdata.augment;
 
 import intervaltree.IntervalTree;
@@ -21,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import auxiliary.FileOperations;
 
 import common.Commons;
 import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
@@ -120,7 +128,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 		BufferedWriter bufferedWriter = null;
 		
 		try {
-			fileWriter = new FileWriter(augmentedwithdbSNPOutputFileName);
+			fileWriter = FileOperations.createFileWriter(augmentedwithdbSNPOutputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			
@@ -130,7 +138,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 				chrName = entry.getKey();
 				snpPositionList = entry.getValue();
 				
-				dbSNPIntervalTree = CreationofChromosomeBasedSNPIntervalTrees.reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(chrName);
+				dbSNPIntervalTree = CreationofChromosomeBasedSNPIntervalTrees.readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(chrName);
 				root = dbSNPIntervalTree.getRoot();
 				
 				

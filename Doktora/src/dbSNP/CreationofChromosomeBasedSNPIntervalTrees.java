@@ -120,7 +120,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 		
 	}
 	
-	public static IntervalTree reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(String inputFileName,String chrName){
+	public static IntervalTree readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(String inputFileName,String chrName){
 		//pilot example
 		FileReader  fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -303,43 +303,43 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 	}
 		
 	
-	public static IntervalTree reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(String chrName){
+	public static IntervalTree readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(String chrName){
 		
 		switch(chrName){
 		
-			case Commons.CHROMOSOME1 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1,Commons.CHROMOSOME1); 
-			case Commons.CHROMOSOME2 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR2,Commons.CHROMOSOME2); 
-			case Commons.CHROMOSOME3 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR3,Commons.CHROMOSOME3); 
-			case Commons.CHROMOSOME4 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR4,Commons.CHROMOSOME4); 
-			case Commons.CHROMOSOME5 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR5,Commons.CHROMOSOME5); 
-			case Commons.CHROMOSOME6 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR6,Commons.CHROMOSOME6); 
-			case Commons.CHROMOSOME7 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR7,Commons.CHROMOSOME7); 
-			case Commons.CHROMOSOME8 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR8,Commons.CHROMOSOME8); 
-			case Commons.CHROMOSOME9 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR9,Commons.CHROMOSOME9); 
-			case Commons.CHROMOSOME10 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR10,Commons.CHROMOSOME10); 
-			case Commons.CHROMOSOME11 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR11,Commons.CHROMOSOME11); 
-			case Commons.CHROMOSOME12 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR12,Commons.CHROMOSOME12); 
-			case Commons.CHROMOSOME13 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR13,Commons.CHROMOSOME13); 
-			case Commons.CHROMOSOME14 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR14,Commons.CHROMOSOME14); 
-			case Commons.CHROMOSOME15 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR15,Commons.CHROMOSOME15); 
-			case Commons.CHROMOSOME16 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR16,Commons.CHROMOSOME16); 
-			case Commons.CHROMOSOME17 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR17,Commons.CHROMOSOME17); 
-			case Commons.CHROMOSOME18 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR18,Commons.CHROMOSOME18); 
-			case Commons.CHROMOSOME19 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR19,Commons.CHROMOSOME19); 
-			case Commons.CHROMOSOME20 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR20,Commons.CHROMOSOME20); 
-			case Commons.CHROMOSOME21 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR21,Commons.CHROMOSOME21); 
-			case Commons.CHROMOSOME22 : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR22,Commons.CHROMOSOME22); 
-			case Commons.CHROMOSOMEX  : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRX,Commons.CHROMOSOMEX); 
-			case Commons.CHROMOSOMEY : return reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRY,Commons.CHROMOSOMEY); 
+			case Commons.CHROMOSOME1 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1,Commons.CHROMOSOME1); 
+			case Commons.CHROMOSOME2 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR2,Commons.CHROMOSOME2); 
+			case Commons.CHROMOSOME3 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR3,Commons.CHROMOSOME3); 
+			case Commons.CHROMOSOME4 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR4,Commons.CHROMOSOME4); 
+			case Commons.CHROMOSOME5 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR5,Commons.CHROMOSOME5); 
+			case Commons.CHROMOSOME6 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR6,Commons.CHROMOSOME6); 
+			case Commons.CHROMOSOME7 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR7,Commons.CHROMOSOME7); 
+			case Commons.CHROMOSOME8 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR8,Commons.CHROMOSOME8); 
+			case Commons.CHROMOSOME9 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR9,Commons.CHROMOSOME9); 
+			case Commons.CHROMOSOME10 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR10,Commons.CHROMOSOME10); 
+			case Commons.CHROMOSOME11 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR11,Commons.CHROMOSOME11); 
+			case Commons.CHROMOSOME12 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR12,Commons.CHROMOSOME12); 
+			case Commons.CHROMOSOME13 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR13,Commons.CHROMOSOME13); 
+			case Commons.CHROMOSOME14 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR14,Commons.CHROMOSOME14); 
+			case Commons.CHROMOSOME15 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR15,Commons.CHROMOSOME15); 
+			case Commons.CHROMOSOME16 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR16,Commons.CHROMOSOME16); 
+			case Commons.CHROMOSOME17 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR17,Commons.CHROMOSOME17); 
+			case Commons.CHROMOSOME18 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR18,Commons.CHROMOSOME18); 
+			case Commons.CHROMOSOME19 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR19,Commons.CHROMOSOME19); 
+			case Commons.CHROMOSOME20 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR20,Commons.CHROMOSOME20); 
+			case Commons.CHROMOSOME21 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR21,Commons.CHROMOSOME21); 
+			case Commons.CHROMOSOME22 : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR22,Commons.CHROMOSOME22); 
+			case Commons.CHROMOSOMEX  : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRX,Commons.CHROMOSOMEX); 
+			case Commons.CHROMOSOMEY : return readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRY,Commons.CHROMOSOMEY); 
 		
 		}
 		
 		return null;
 	}
 	
-	public static void reaDbSNPFlatFilesandCreateChromosomeBasedSNPIntervalTrees(){
+	public static void readDBSNPFlatFilesandCreateChromosomeBasedSNPIntervalTrees(){
 		
-		IntervalTree dbSNPIntervalTreeChr1 = reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1,Commons.CHROMOSOME1);
+		IntervalTree dbSNPIntervalTreeChr1 = readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR1,Commons.CHROMOSOME1);
 //		IntervalTree dbSNPIntervalTreeChr2 = reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR2,Commons.CHROMOSOME2);
 //		IntervalTree dbSNPIntervalTreeChr3 = reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR3,Commons.CHROMOSOME3);
 //		IntervalTree dbSNPIntervalTreeChr4 = reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHR4,Commons.CHROMOSOME4);
@@ -376,7 +376,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 //		reaDbSNPFlatFilesandCreateChromosomeBasedSNPIntervalTrees();
 		
 		//example usage
-		IntervalTree dbSNPIntervalTree = reaDbSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.CHROMOSOME1);
+		IntervalTree dbSNPIntervalTree = readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(Commons.CHROMOSOME1);
 		
 	}
 
