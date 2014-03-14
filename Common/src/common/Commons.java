@@ -580,7 +580,7 @@ public class Commons {
 	public static final String ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS = LARGE_OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
 
 	public static final String E_DOKTORA_ECLIPSE_WORKSPACE_ANNOTATE_PERMUTATIONS = LARGE_OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
-	public static final String C_DOKTORA_ECLIPSE_WORKSPACE_ANNOTATE_INTERVALS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_PARAMETRIC = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
 	
 	//Results to be polled 
 	

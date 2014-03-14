@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="numberofDNAElements" key="selection"/>
+		<item value="analyze_hg19_refseq_genes.txt" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="analyze_hg19_refseq_genes.txt"/>
+			<item value="createExonIntronIntervals"/>
+			<item value="tfbsList"/>
 			<item value="commons"/>
 			<item value="total"/>
 			<item value="inputdata"/>
 			<item value="HYPHEN"/>
 			<item value="case study"/>
-			<item value="ONE_BASED_SNP_POSITION"/>
-			<item value="head"/>
-			<item value="TO_BE_POLLED"/>
 		</list>
 		<list key="replacehistory">
 			<item value="numberofDNAElements"/>
