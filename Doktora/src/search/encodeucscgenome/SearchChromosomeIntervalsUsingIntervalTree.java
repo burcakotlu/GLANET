@@ -33,7 +33,7 @@ import java.util.List;
 import auxiliary.FileOperations;
 
 import common.Commons;
-import create.ChromosomeBasedFiles;
+import create.ChromosomeBasedFilesandOperations;
  
 
 public class SearchChromosomeIntervalsUsingIntervalTree {
@@ -755,7 +755,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
-		fileReader = ChromosomeBasedFiles.getUnsortedRefSeqGenesFileReader(chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(chromName);
 		bufferedReader = new BufferedReader(fileReader);
 		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTree(bufferedReader);
 			

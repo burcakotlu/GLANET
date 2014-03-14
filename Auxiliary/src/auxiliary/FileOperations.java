@@ -22,16 +22,19 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class FileOperations {
 	
 	//Can Fýrtýna
-	public File createFile( String path){
+	public static FileWriter createFileWriter(String path) throws IOException{
 		
-		File f = new File( path);
+		File f = new File(path);
+		FileWriter fileWriter = null;
 		
 		if(f.isDirectory() && !f.exists())
 			f.mkdirs();
 		else if( !f.isDirectory() && !f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 		
-		return f;
+		fileWriter = new FileWriter(path);
+		
+		return fileWriter;
 	}
 	
 	public static FileWriter createFileWriter(String directoryName, String fileName) throws IOException{

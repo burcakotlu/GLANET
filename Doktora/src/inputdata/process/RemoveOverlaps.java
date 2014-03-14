@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import auxiliary.FileOperations;
+
 import common.Commons;
 
  
@@ -215,7 +217,7 @@ public class RemoveOverlaps {
 		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
 		
 		try {
-			fileWriter = new FileWriter(outputFileName);
+			fileWriter = FileOperations.createFileWriter(outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(Map.Entry<String,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){

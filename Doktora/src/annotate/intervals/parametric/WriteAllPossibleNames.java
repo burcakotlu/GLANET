@@ -1,5 +1,5 @@
 /**
- * @author Burcak Otlu Saritas
+ * @author Burcak Otlu
  *
  * 
  */

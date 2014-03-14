@@ -13,6 +13,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import auxiliary.FileOperations;
+
 import common.Commons;
 
 public class PreparationofOCDSnps {
@@ -40,7 +42,7 @@ public class PreparationofOCDSnps {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = new FileWriter(preparedFileName);
+			fileWriter = FileOperations.createFileWriter(preparedFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine= bufferedReader.readLine())!=null){
