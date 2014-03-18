@@ -30,6 +30,12 @@ public class Commons {
 	public static final String MAPABILITY = "MAPABILITY";
 	
 	public static final String RANDOM_DATA_GENERATION_LOG_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
+	
+	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
+	
+	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_INPUT_FILE_NAME_TEST = INPUT_DATA + System.getProperty("file.separator") +"OCD_GWAS_SNP" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
+	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_INPUT_FILE_NAME = INPUT_DATA + System.getProperty("file.separator") +"OCD_GWAS_SNP" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
+	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_OUTPUT_FILE_NAME = OUTPUT_DATA + System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "jaxbxjctool" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_CHRNAME_CHRPOSITION_OBSERVEDALLELES.txt";
 
 //dbSNP
 	public static final String NUCLEOTIDE_A = "A";

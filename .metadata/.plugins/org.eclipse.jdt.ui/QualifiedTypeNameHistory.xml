@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="create.ChromosomeBasedFiles"/>
 <fullyQualifiedTypeName name="create.encode.NumberofDNAElements"/>
 <fullyQualifiedTypeName name="create.ChromosomeBasedFilesandOperations"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
+<fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Component"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 </qualifiedTypeNameHistroy>

@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="FileOperations.createFileWriter" key="selection"/>
+		<item value="xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE)" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE)"/>
 			<item value="new FileWriter"/>
 			<item value="analyze_hg19_refseq_genes.txt"/>
 			<item value="createExonIntronIntervals"/>
@@ -15,7 +16,6 @@
 			<item value="commons"/>
 			<item value="total"/>
 			<item value="inputdata"/>
-			<item value="HYPHEN"/>
 		</list>
 		<list key="replacehistory">
 			<item value="FileOperations.createFileWriter"/>
