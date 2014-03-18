@@ -196,7 +196,6 @@ public class AugmentationofGivenRsIds {
 
 		           				StartElement snpStart=snpEvt.asStartElement();
 		           				String snpLocalName=snpStart.getName().getLocalPart();
-		           				System.out.println(snpLocalName);
 		                       }//End of while
 
 		           			

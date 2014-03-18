@@ -173,33 +173,40 @@ public class AugmentationofGivenRsIds {
 		                	   
 		                       //for testing purposes when the input is chrNumber and chrPosition starts
 		                       //get the rsID
-//		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPosition + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&retmode=text";
-		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPositionPlusOne + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&usehistory=n";
-//		                       "http://www.ncbi.nlm.nih.gov/entrez/eutils"     
-//		                       db=snp&term=204924684:204924685[Base Position] AND "1"[CHR] AND txid9606&retmax=2&usehistory=n
+		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPositionMinusTen + ":" + snpPositionPlusTen+ "[Base Position] AND "+ chrName +"[CHR] AND txid9606&retmode=text";
 		                       
-		                       //esearch default retmode is xml or it can be set to json
-		                       //how to parse esearch xml output
+//		                       db=snp&term=204924684:204924685[Base Position] AND "1"[CHR] AND txid9606&retmax=2&usehistory=n
 		                       URL urlSearch= new URL(eSearchString);
 		                       
-		                       XMLEventReader snpReader= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
+		                       //System.out.println("EFETCH RESULT:");
+		                       // Read from the URL
+		                       try
+		                       { 
+			                    	 BufferedReader in= new BufferedReader(new InputStreamReader(urlSearch.openStream()));
+			                         String inputLine;       // one line of the result, as it is read line by line
+			                         String sourceHTML= "";  // will eventually contain the whole result
+			                         // Continue to read lines while there are still some left to read
+			                         
+			                         while ((inputLine= in.readLine()) != null)  // read one line of the input stream
+				                         { sourceHTML+= inputLine + "\t";            // add this line to end of the whole shebang
+		//		                           ++lineCount;                              // count the number of lines read
+				                         }
+				                         
+			                         
+			                         // Close the connection
+			                         in.close();
+			                         // Display the entire page
+			                         bufferedWriter.write (sourceHTML);
+			                         bufferedWriter.write ("\t");
+		    	                 
+		                       }
+		                       // Handle any error in opening the connection to the URL
+		                       catch (Exception e)
+		                       { System.out.println("Error reading from the URL:");
+		                         System.out.println(e);
+		                       }
 		                       
-		                       while(snpReader.hasNext())
-		                       {
-		           				XMLEvent snpEvt=snpReader.peek();
-
-		           				if(!snpEvt.isStartElement())
-		                           {
-		           					snpReader.nextEvent();
-		           					continue;
-		                           }
-
-		           				StartElement snpStart=snpEvt.asStartElement();
-		           				String snpLocalName=snpStart.getName().getLocalPart();
-		           				System.out.println(snpLocalName);
-		                       }//End of while
-
-		           			
+		                      
 		                       //for testing purposes when the input is chrNumber and chrPosition ends
 		                       //get the rsID
 		                        

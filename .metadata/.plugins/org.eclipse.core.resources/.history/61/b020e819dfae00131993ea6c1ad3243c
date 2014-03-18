@@ -179,26 +179,9 @@ public class AugmentationofGivenRsIds {
 //		                       db=snp&term=204924684:204924685[Base Position] AND "1"[CHR] AND txid9606&retmax=2&usehistory=n
 		                       
 		                       //esearch default retmode is xml or it can be set to json
-		                       //how to parse esearch xml output
 		                       URL urlSearch= new URL(eSearchString);
 		                       
-		                       XMLEventReader snpReader= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
-		                       
-		                       while(snpReader.hasNext())
-		                       {
-		           				XMLEvent snpEvt=snpReader.peek();
-
-		           				if(!snpEvt.isStartElement())
-		                           {
-		           					snpReader.nextEvent();
-		           					continue;
-		                           }
-
-		           				StartElement snpStart=snpEvt.asStartElement();
-		           				String snpLocalName=snpStart.getName().getLocalPart();
-		           				System.out.println(snpLocalName);
-		                       }//End of while
-
+//		                       XMLEventReader snpReader= xmlInputFactory.createXMLEventReader(new StreamSource(urlSearch)); 
 		           			
 		                       //for testing purposes when the input is chrNumber and chrPosition ends
 		                       //get the rsID

@@ -102,13 +102,14 @@ public class AugmentationofGivenRsIds {
 				
 				for(Assembly as:rs.getAssembly())
                 {  
-                   for(Component comp:as.getComponent())
-                    {                    	       	
+									
+                    for(Component comp:as.getComponent())
+                    {
+                    	       	
 	                   for(MapLoc maploc: comp.getMapLoc())
-	                   {	                	   
+	                   {
+	                	   
 	                	   int snpPosition = maploc.getPhysMapInt();
-	                	   int snpPositionPlusOne = snpPosition+1;
-		                	  
 	                	   int snpPositionMinusTen = snpPosition-10;
 	                	   int snpPositionPlusTen = snpPosition+10;
 	                	   String chrName = comp.getChromosome();
@@ -127,11 +128,13 @@ public class AugmentationofGivenRsIds {
 		                	   bufferedWriter.write(maploc.getPhysMapInt().toString());
 		                       bufferedWriter.write("\t");
 
+
 		                	   bufferedWriter.write(rs.getSequence().getObserved());
 		                	   bufferedWriter.write("\t");
-		                	    
-		                       String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
-		                       URL url= new URL(eFetchString);
+		                	   
+			                	   
+		                       String esearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
+		                       URL url= new URL(esearchString);
 		                       
 		                       //System.out.println("EFETCH RESULT:");
 		                       // Read from the URL
@@ -162,53 +165,27 @@ public class AugmentationofGivenRsIds {
 		                       }
 		                       
 		                       
-		                       bufferedWriter.write(as.getGenomeBuild());
+		                       
+		                	   bufferedWriter.write(as.getGenomeBuild());
 		                	   bufferedWriter.write("\t");
 		                	   bufferedWriter.write(as.getGroupLabel());
 		                	   bufferedWriter.write("\n");
 //		                	   bufferedWriter.write(comp.getAccession());
 //		                	   bufferedWriter.write("\t");
 
-		                	   
-		                	   
-		                       //for testing purposes when the input is chrNumber and chrPosition starts
-		                       //get the rsID
-//		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPosition + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&retmode=text";
-		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPositionPlusOne + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&usehistory=n";
-//		                       "http://www.ncbi.nlm.nih.gov/entrez/eutils"     
-//		                       db=snp&term=204924684:204924685[Base Position] AND "1"[CHR] AND txid9606&retmax=2&usehistory=n
-		                       
-		                       //esearch default retmode is xml or it can be set to json
-		                       //how to parse esearch xml output
-		                       URL urlSearch= new URL(eSearchString);
-		                       
-		                       XMLEventReader snpReader= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
-		                       
-		                       while(snpReader.hasNext())
-		                       {
-		           				XMLEvent snpEvt=snpReader.peek();
-
-		           				if(!snpEvt.isStartElement())
-		                           {
-		           					snpReader.nextEvent();
-		           					continue;
-		                           }
-
-		           				StartElement snpStart=snpEvt.asStartElement();
-		           				String snpLocalName=snpStart.getName().getLocalPart();
-		           				System.out.println(snpLocalName);
-		                       }//End of while
-
-		           			
-		                       //for testing purposes when the input is chrNumber and chrPosition ends
-		                       //get the rsID
-		                        
-		                             
-	                	   }//End of IF groupLabel startsWith "GRCh37"
+		                     
+	                	   }//End of IF
 	                	   
 	                	                   	   
-		                                         
-	        
+	                	  
+
+	                	  
+	                	    
+                           
+
+ 
+	                                         
+	                      
 	                        
 	                   }//End of for Maploc
                     }//End of for Component
