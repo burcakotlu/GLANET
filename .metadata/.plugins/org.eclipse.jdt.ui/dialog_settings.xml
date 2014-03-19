@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item key="CallHierarchyViewPart.call_mode" value="0"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\eclipse_juno_workspace\Doktora\lib" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\burcakotlu\SOAP\Axis2\axis2-1.5.2\lib" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="742" key="CallHierarchyViewPart.ratio1"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
@@ -68,7 +68,7 @@
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item key="pageIndex" value="1"/>
+		<item key="pageIndex" value="2"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item key="create_package_info_java" value="false"/>

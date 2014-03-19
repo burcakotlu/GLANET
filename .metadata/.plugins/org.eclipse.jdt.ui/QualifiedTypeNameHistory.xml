@@ -14,4 +14,5 @@
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub"/>
 </qualifiedTypeNameHistroy>

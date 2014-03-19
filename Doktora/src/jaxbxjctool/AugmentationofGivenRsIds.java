@@ -7,6 +7,7 @@ import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
+import gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,7 +78,6 @@ public class AugmentationofGivenRsIds {
         
 			XMLEventReader reader= xmlInputFactory.createXMLEventReader(new StreamSource(uri)); 
 			
-
 			while(reader.hasNext())
             {
 				XMLEvent evt=reader.peek();
@@ -168,7 +168,6 @@ public class AugmentationofGivenRsIds {
 		                	   bufferedWriter.write("\n");
 //		                	   bufferedWriter.write(comp.getAccession());
 //		                	   bufferedWriter.write("\t");
-
 		                	   
 		                	   
 		                       //for testing purposes when the input is chrNumber and chrPosition starts
@@ -182,22 +181,34 @@ public class AugmentationofGivenRsIds {
 		                       //how to parse esearch xml output
 		                       URL urlSearch= new URL(eSearchString);
 		                       
-		                       XMLEventReader snpReader= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
 		                       
-		                       while(snpReader.hasNext())
+		                       //try this starts
+		                       // search in PubMed Central for stem cells in free fulltext articles
+		                       try
 		                       {
-		           				XMLEvent snpEvt=snpReader.peek();
-
-		           				if(!snpEvt.isStartElement())
+		                           EUtilsServiceStub service = new EUtilsServiceStub();
+		                           // call NCBI ESearch utility
+		                           // NOTE: search term should be URL encoded
+		                           EUtilsServiceStub.ESearchRequest req = new EUtilsServiceStub.ESearchRequest();
+		                           req.setDb("pmc");
+		                           req.setTerm("stem+cells+AND+free+fulltext[filter]");
+		                           req.setRetMax("15");
+		                           EUtilsServiceStub.ESearchResult res = service.run_eSearch(req);
+		                           // results output
+		                           System.out.println("Original query: stem cells AND free fulltext[filter]");
+		                           System.out.println("Found ids: " + res.getCount());
+		                           System.out.print("First " + res.getRetMax() + " ids: ");
+		                           for (int i = 0; i < res.getIdList().getId().length; i++)
 		                           {
-		           					snpReader.nextEvent();
-		           					continue;
+		                               System.out.print(res.getIdList().getId()[i] + " ");
 		                           }
-
-		           				StartElement snpStart=snpEvt.asStartElement();
-		           				String snpLocalName=snpStart.getName().getLocalPart();
-		           				System.out.println(snpLocalName);
-		                       }//End of while
+		                           System.out.println();
+		                       }
+		                       catch (Exception e) { System.out.println(e.toString()); }
+		                   
+		                       
+		                       //try this ends
+		                       
 
 		           			
 		                       //for testing purposes when the input is chrNumber and chrPosition ends
@@ -207,7 +218,6 @@ public class AugmentationofGivenRsIds {
 	                	   }//End of IF groupLabel startsWith "GRCh37"
 	                	   
 	                	                   	   
-		                                         
 	        
 	                        
 	                   }//End of for Maploc

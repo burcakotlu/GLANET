@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="createXMLEventReader" key="selection"/>
+		<item value="unmar" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="unmar"/>
+			<item value="search"/>
 			<item value="createXMLEventReader"/>
 			<item value="esearch"/>
 			<item value="xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE)"/>
 			<item value="new FileWriter"/>
 			<item value="analyze_hg19_refseq_genes.txt"/>
 			<item value="createExonIntronIntervals"/>
-			<item value="tfbsList"/>
-			<item value="commons"/>
 		</list>
 		<list key="replacehistory">
 			<item value="FileOperations.createFileWriter"/>
