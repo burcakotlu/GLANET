@@ -1,0 +1,166 @@
+/**
+ * 
+ */
+package jaxbxjctool;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
+
+/**
+ * @author burcakotlu
+ *
+ */
+public class AugmentationofGivenChrNameandIntervals {
+	
+	
+	//Pay Attention
+	//Contains X for chrX
+	//Contains 1 for chr1
+	
+	//# Sequence-Name	Sequence-Role	Assigned-Molecule	Assigned-Molecule-Location/Type	GenBank-Accn	Relationship	RefSeq-Accn	Assembly-Unit
+	//1	assembled-molecule	1	Chromosome	CM000663.1	=	NC_000001.10	Primary Assembly
+	//X	assembled-molecule	X	Chromosome	CM000685.1	=	NC_000023.10	Primary Assembly
+	public void fillMap(String refSeqIdsforGRCh37InputFile,Map<String,String> chrName2RefSeqIdforGrch37Map){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		String strLine = null;
+		int numberofChromosomesinHomoSapiens = 24;
+		int count = 0;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		
+		String chrName;
+		String refSeqId;
+		
+		try {
+			fileReader = new FileReader(refSeqIdsforGRCh37InputFile);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				if(strLine.startsWith("#")){
+					continue;
+				}else{
+					if (count<numberofChromosomesinHomoSapiens){
+						count++;
+						
+						indexofFirstTab 	= strLine.indexOf('\t');
+						indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
+						indexofThirdTab 	= strLine.indexOf('\t', indexofSecondTab+1);
+						indexofFourthTab 	= strLine.indexOf('\t', indexofThirdTab+1);
+						indexofFifthTab 	= strLine.indexOf('\t', indexofFourthTab+1);
+						indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
+						indexofSeventhTab 	= strLine.indexOf('\t', indexofSixthTab+1);
+						
+						chrName = strLine.substring(0, indexofFirstTab);
+						refSeqId = strLine.substring(indexofSixthTab+1, indexofSeventhTab);
+						
+						chrName2RefSeqIdforGrch37Map.put(chrName, refSeqId);
+						continue;
+						
+					}
+				}
+					
+				break;				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+		
+		
+		
+	public void readChrNameandIntervalInputFileandWriteAugmentedOutputFile(String inputFileName, String outputFileName,Map<String,String> chrName2RefSeqIdforGrch37Map){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String chrNameandPosition= null;
+		String chrName;
+		int chrPosition;
+		
+		int indexofFirstTab;
+		
+		try {
+			
+			fileReader = new FileReader(inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			fileWriter = FileOperations.createFileWriter(outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			while((chrNameandPosition = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = chrNameandPosition.indexOf('\t');
+				
+				chrName = chrNameandPosition.substring(0,indexofFirstTab);
+				chrPosition = Integer.parseInt(chrNameandPosition.substring(indexofFirstTab+1));
+				
+				this.run(chrName,chrPosition,bufferedWriter,chrName2RefSeqIdforGrch37Map);
+			}
+			
+			bufferedReader.close();
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+     
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		AugmentationofGivenChrNameandIntervals app=null;
+		
+		//Example Data
+		//7 NC_000007.13
+		Map<String,String> chrName2RefSeqIdforGrch37Map = new HashMap<String,String>();
+		
+		try {
+			app = new AugmentationofGivenChrNameandIntervals();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
+		String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
+		app.fillMap(refSeqIdsforGRCh37InputFile,chrName2RefSeqIdforGrch37Map);
+		
+        String inputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER;
+        String outputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_CHRNAME_AND_INTERVALS_OUTPUT_FILE_NAME;
+        
+        app.readChrNameandIntervalInputFileandWriteAugmentedOutputFile(inputFileName,outputFileName,chrName2RefSeqIdforGrch37Map);
+        
+	}
+
+}

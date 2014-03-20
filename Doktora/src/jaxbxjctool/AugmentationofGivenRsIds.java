@@ -3,11 +3,11 @@
  */
 package jaxbxjctool;
 
+import generated.ESearchResult;
 import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
-import gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -170,55 +170,8 @@ public class AugmentationofGivenRsIds {
 //		                	   bufferedWriter.write("\t");
 		                	   
 		                	   
-		                       //for testing purposes when the input is chrNumber and chrPosition starts
-		                       //get the rsID
-//		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPosition + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&retmode=text";
-		                       String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ snpPositionPlusOne + ":" + snpPositionPlusOne + "[Base Position] AND "+ chrName +"[CHR] AND txid9606&usehistory=n";
-//		                       "http://www.ncbi.nlm.nih.gov/entrez/eutils"     
-//		                       db=snp&term=204924684:204924685[Base Position] AND "1"[CHR] AND txid9606&retmax=2&usehistory=n
-		                       
-		                       //esearch default retmode is xml or it can be set to json
-		                       //how to parse esearch xml output
-		                       URL urlSearch= new URL(eSearchString);
-		                       
-		                       
-		                       //try this starts
-		                       // search in PubMed Central for stem cells in free fulltext articles
-		                       try
-		                       {
-		                           EUtilsServiceStub service = new EUtilsServiceStub();
-		                           // call NCBI ESearch utility
-		                           // NOTE: search term should be URL encoded
-		                           EUtilsServiceStub.ESearchRequest req = new EUtilsServiceStub.ESearchRequest();
-		                           req.setDb("pmc");
-		                           req.setTerm("stem+cells+AND+free+fulltext[filter]");
-		                           req.setRetMax("15");
-		                           EUtilsServiceStub.ESearchResult res = service.run_eSearch(req);
-		                           // results output
-		                           System.out.println("Original query: stem cells AND free fulltext[filter]");
-		                           System.out.println("Found ids: " + res.getCount());
-		                           System.out.print("First " + res.getRetMax() + " ids: ");
-		                           for (int i = 0; i < res.getIdList().getId().length; i++)
-		                           {
-		                               System.out.print(res.getIdList().getId()[i] + " ");
-		                           }
-		                           System.out.println();
-		                       }
-		                       catch (Exception e) { System.out.println(e.toString()); }
-		                   
-		                       
-		                       //try this ends
-		                       
-
-		           			
-		                       //for testing purposes when the input is chrNumber and chrPosition ends
-		                       //get the rsID
-		                        
-		                             
-	                	   }//End of IF groupLabel startsWith "GRCh37"
-	                	   
-	                	                   	   
-	        
+		          	                        		                             
+	                	  }//End of IF groupLabel startsWith "GRCh37"
 	                        
 	                   }//End of for Maploc
                     }//End of for Component
@@ -335,6 +288,9 @@ public class AugmentationofGivenRsIds {
 	public static void main(String[] args)
     {
 			AugmentationofGivenRsIds app=null;
+			
+			//Example Data
+			//7 NC_000007.13
 			Map<String,String> chrName2RefSeqIdforGrch37Map = new HashMap<String,String>();
 			
 			try {
