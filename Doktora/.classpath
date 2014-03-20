@@ -8,7 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/MultipleTesting"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry kind="lib" path="C:/GitHub/GLANET/Doktora/lib/eutils_axis2.jar" sourcepath="C:/GitHub/GLANET/Doktora/lib/eutils_axis2_src.zip"/>
-	<classpathentry kind="lib" path="C:/GitHub/GLANET/Doktora/lib/htmlunit-2.12.jar"/>
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/axiom-api-1.2.9.jar"/>
@@ -70,5 +69,6 @@
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/xml-resolver-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/burcakotlu/SOAP/Axis2/axis2-1.5.2/lib/XmlSchema-1.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
