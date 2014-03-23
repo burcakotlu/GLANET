@@ -1,8 +1,13 @@
 package ui;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.Semaphore;
+
 import javax.swing.*;
-import javax.swing.text.*;
+
+import common.Commons;
+
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -10,6 +15,9 @@ public class MainView extends JPanel{
 
 	private MainViewDelegate delegate;
 	private JTextField textField1;
+	private JTextField textField2;
+	JPanel listPane;
+	JButton runButton;
 	
 	public interface MainViewDelegate {
 		
@@ -31,6 +39,7 @@ public class MainView extends JPanel{
 	            //This is where a real application would open the file.
 	            //textField1.setText(file.getPath() + "." + System.getProperty("line.separator"));
 	            System.out.println("Opening: " + file.getPath() + "." + System.getProperty("line.separator"));
+	            
 	        } else {
 	            System.out.println("Open command cancelled by user." + System.getProperty("line.separator"));
 	        }
@@ -40,22 +49,40 @@ public class MainView extends JPanel{
 	};
 	
 	
-private ActionListener textFieldSelected = new ActionListener() {
+	private ActionListener runButtonPressed = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 				
-			System.out.println("asd;l");
+			System.out.println("Run Pressed");
+			
+			try {
+            	ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.dir") + System.getProperty("file.separator") + "PreparationofOCDSnps.jar", "-jar");
+            	pb.directory(new File(System.getProperty("user.dir")));
+            	Process p = pb.start();
+			} catch (IOException e1) {
+				
+				e1.printStackTrace();
+			}
 		}
 	};
 	
 	public MainView() {
 		
 		JPanel browseFilePane = createBrowseFileArea( "OCD_GWAS_SNP", textField1);
+		JPanel browseFilePane2 = createBrowseFileArea( "Output Folder", textField2);
+		runButton = new JButton("Run");
+		listPane = new JPanel();
 		
-		setLayout(new BorderLayout());
+		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		
-        add(browseFilePane);
+		runButton.addActionListener(runButtonPressed);
+		
+        listPane.add(browseFilePane);
+        listPane.add(browseFilePane2);
+        listPane.add(runButton);
+        
+        add(listPane);
 	}
 	
 JPanel createBrowseFileArea( String fileType, JTextField textField){
@@ -63,7 +90,7 @@ JPanel createBrowseFileArea( String fileType, JTextField textField){
 	//Create a regular text field.
     textField = new JTextField(10);
     textField.setActionCommand("Browse File...");
-    textField.addActionListener(textFieldSelected);
+    //textField.addActionListener(textFieldSelected);
     
     //Create some labels for the fields.
     JLabel textFieldLabel = new JLabel("Browse: ");
