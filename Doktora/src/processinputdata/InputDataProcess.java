@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import jaxbxjctool.AugmentationofGivenRsIds;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -41,12 +42,14 @@ public class InputDataProcess {
 			fileWriter = FileOperations.createFileWriter(outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
+		
+			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
+			
+			
 			while((rsId = bufferedReader.readLine())!=null){
 				
-				
-			
-//				bufferedWriter.write(chrName + "\t" + start +  "\t" + inclusiveEnd + "\n");
-				
+				app.run(rsId, bufferedWriter);
+							
 			}
 			
 			bufferedReader.close();
@@ -54,6 +57,9 @@ public class InputDataProcess {
 			
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -331,10 +337,13 @@ public class InputDataProcess {
 	public static void main(String[] args) {
 		//Get the input file
 		String inputFileName = args[0];
+		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
 		
 		//Get the input file format
 		String inputFileFormat = args[1];
-		
+		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+				
 		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		
 		//Read input data 

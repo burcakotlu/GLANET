@@ -42,10 +42,32 @@ public class AugmentationofGivenRsIds {
 	private  XMLInputFactory xmlInputFactory=null;
 	
 
+	//Example Data
+	//7 NC_000007.13
+	private Map<String,String> chrName2RefSeqIdforGrch37Map;
 	
+
 	
-	private AugmentationofGivenRsIds() throws Exception
+
+
+	public Map<String, String> getChrName2RefSeqIdforGrch37Map() {
+		return chrName2RefSeqIdforGrch37Map;
+	}
+
+
+	public void setChrName2RefSeqIdforGrch37Map(
+			Map<String, String> chrName2RefSeqIdforGrch37Map) {
+		this.chrName2RefSeqIdforGrch37Map = chrName2RefSeqIdforGrch37Map;
+	}
+
+
+	public AugmentationofGivenRsIds() throws Exception
     {
+		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
+		String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
+			
+		this.chrName2RefSeqIdforGrch37Map = fillMap(refSeqIdsforGRCh37InputFile);
+		
 		this.xmlInputFactory = XMLInputFactory.newInstance();
 		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
 		xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
@@ -66,7 +88,7 @@ public class AugmentationofGivenRsIds {
     }
 	
 	
-	private void run(String rsId,BufferedWriter bufferedWriter, Map<String,String> chrName2RefSeqIdforGrch37Map) throws Exception
+	public void run(String rsId,BufferedWriter bufferedWriter) throws Exception
     {
 
 		if(rsId.startsWith("rs")) 
@@ -105,72 +127,85 @@ public class AugmentationofGivenRsIds {
                     {                    	       	
 	                   for(MapLoc maploc: comp.getMapLoc())
 	                   {	                	   
-	                	   int snpPosition = maploc.getPhysMapInt();
-	                	   int snpPositionPlusOne = snpPosition+1;
+	                	   if (maploc.getPhysMapInt()!=null){
+	                    	   int snpPositionOneBased = maploc.getPhysMapInt();
+		                	   
+		                	   //Convert 1-based snpPosition to 0-based snpPosition
+		                	   int snpPositionZeroBased = snpPositionOneBased-1;
+			                	  
+		                	   int snpPositionMinusTen = snpPositionOneBased-10;
+		                	   int snpPositionPlusTen = snpPositionOneBased+10;
 		                	  
-	                	   int snpPositionMinusTen = snpPosition-10;
-	                	   int snpPositionPlusTen = snpPosition+10;
-	                	   String chrName = comp.getChromosome();
-	                	   String refSeqId = chrName2RefSeqIdforGrch37Map.get(chrName);
-	                	   String groupLabel = as.getGroupLabel();
-	                	   
-	                	   if(groupLabel.startsWith("GRCh37")){
-	                		   
-	                		   bufferedWriter.write("rs"+rsId);
-		                	   bufferedWriter.write("\t");
+		                	   String chrName = comp.getChromosome();
+		                	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
+		                	   String groupLabel = as.getGroupLabel();
 		                	   
-		                	   //Add "chr" here
-		                	   bufferedWriter.write("chr" + comp.getChromosome());
-		                	   bufferedWriter.write("\t");
-		                	   
-		                	   bufferedWriter.write(maploc.getPhysMapInt().toString());
-		                       bufferedWriter.write("\t");
+		                	   if(groupLabel.startsWith("GRCh37")){
+		                		   
+		                		   bufferedWriter.write("rs"+rsId);
+			                	   bufferedWriter.write("\t");
+			                	   
+			                	   //Add "chr" here
+			                	   bufferedWriter.write("chr" + comp.getChromosome());
+			                	   bufferedWriter.write("\t");
+			                	   
+			                	   bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+			                       bufferedWriter.write("\t");
+			                       
+			                       bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+			                       bufferedWriter.write("\n");
 
-		                	   bufferedWriter.write(rs.getSequence().getObserved());
-		                	   bufferedWriter.write("\t");
-		                	    
-		                       String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
-		                       URL url= new URL(eFetchString);
-		                       
-		                       //System.out.println("EFETCH RESULT:");
-		                       // Read from the URL
-		                       try
-		                       { 
-			                    	 BufferedReader in= new BufferedReader(new InputStreamReader(url.openStream()));
-			                         String inputLine;       // one line of the result, as it is read line by line
-			                         String sourceHTML= "";  // will eventually contain the whole result
-			                         // Continue to read lines while there are still some left to read
-			                         
-			                         while ((inputLine= in.readLine()) != null)  // read one line of the input stream
-				                         { sourceHTML+= inputLine + "\t";            // add this line to end of the whole shebang
-		//		                           ++lineCount;                              // count the number of lines read
-				                         }
-				                         
-			                         
-			                         // Close the connection
-			                         in.close();
-			                         // Display the entire page
-			                         bufferedWriter.write (sourceHTML);
-			                         bufferedWriter.write ("\t");
-		    	                 
-		                       }
-		                       // Handle any error in opening the connection to the URL
-		                       catch (Exception e)
-		                       { System.out.println("Error reading from the URL:");
-		                         System.out.println(e);
-		                       }
-		                       
-		                       
-		                       bufferedWriter.write(as.getGenomeBuild());
-		                	   bufferedWriter.write("\t");
-		                	   bufferedWriter.write(as.getGroupLabel());
-		                	   bufferedWriter.write("\n");
-//		                	   bufferedWriter.write(comp.getAccession());
-//		                	   bufferedWriter.write("\t");
-		                	   
-		                	   
-		          	                        		                             
-	                	  }//End of IF groupLabel startsWith "GRCh37"
+
+//			                	   bufferedWriter.write(rs.getSequence().getObserved());
+//			                	   bufferedWriter.write("\t");
+//			                	    
+//			                       String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
+//			                       URL url= new URL(eFetchString);
+//			                       
+//			                       //System.out.println("EFETCH RESULT:");
+//			                       // Read from the URL
+//			                       try
+//			                       { 
+//				                    	 BufferedReader in= new BufferedReader(new InputStreamReader(url.openStream()));
+//				                         String inputLine;       // one line of the result, as it is read line by line
+//				                         String sourceHTML= "";  // will eventually contain the whole result
+//				                         // Continue to read lines while there are still some left to read
+//				                         
+//				                         while ((inputLine= in.readLine()) != null)  // read one line of the input stream
+//					                         { sourceHTML+= inputLine + "\t";            // add this line to end of the whole shebang
+//			//		                           ++lineCount;                              // count the number of lines read
+//					                         }
+//					                         
+//				                         
+//				                         // Close the connection
+//				                         in.close();
+//				                         // Display the entire page
+//				                         bufferedWriter.write (sourceHTML);
+//				                         bufferedWriter.write ("\t");
+//			    	                 
+//			                       }
+//			                       // Handle any error in opening the connection to the URL
+//			                       catch (Exception e)
+//			                       { System.out.println("Error reading from the URL:");
+//			                         System.out.println(e);
+//			                       }
+//			                       
+//			                       
+//			                       bufferedWriter.write(as.getGenomeBuild());
+//			                	   bufferedWriter.write("\t");
+//			                	   bufferedWriter.write(as.getGroupLabel());
+//			                	   bufferedWriter.write("\n");
+//			                	   bufferedWriter.write(comp.getAccession());
+//			                	   bufferedWriter.write("\t");
+			                	   
+			                	   
+			          	                        		                             
+		                	  }//End of IF groupLabel startsWith "GRCh37"
+	                	   }//End of if maploc.getPhysMapInt() is not null
+	                	   else{
+	                		   //Note that for this rsId there is no snpPosition has been found
+	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
+	                	   }
 	                        
 	                   }//End of for Maploc
                     }//End of for Component
@@ -182,7 +217,7 @@ public class AugmentationofGivenRsIds {
     }
 
 
-	public void readRsIDInputFileandWriteAugmentedOutputFile(String inputFileName, String outputFileName,Map<String,String> chrName2RefSeqIdforGrch37Map){
+	public void readRsIDInputFileandWriteAugmentedOutputFile(String inputFileName, String outputFileName){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -201,7 +236,7 @@ public class AugmentationofGivenRsIds {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((rsId = bufferedReader.readLine())!=null){
-				this.run(rsId.substring(2),bufferedWriter,chrName2RefSeqIdforGrch37Map);
+				this.run(rsId.substring(2),bufferedWriter);
 			}
 			
 			bufferedReader.close();
@@ -226,7 +261,9 @@ public class AugmentationofGivenRsIds {
 	//# Sequence-Name	Sequence-Role	Assigned-Molecule	Assigned-Molecule-Location/Type	GenBank-Accn	Relationship	RefSeq-Accn	Assembly-Unit
 	//1	assembled-molecule	1	Chromosome	CM000663.1	=	NC_000001.10	Primary Assembly
 	//X	assembled-molecule	X	Chromosome	CM000685.1	=	NC_000023.10	Primary Assembly
-	public void fillMap(String refSeqIdsforGRCh37InputFile,Map<String,String> chrName2RefSeqIdforGrch37Map){
+	public Map<String,String> fillMap(String refSeqIdsforGRCh37InputFile){
+		
+		Map<String,String> chrName2RefSeqIdforGrch37Map = new HashMap<String,String>();
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -281,6 +318,8 @@ public class AugmentationofGivenRsIds {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return chrName2RefSeqIdforGrch37Map;
 	}
 	
 	
@@ -288,10 +327,7 @@ public class AugmentationofGivenRsIds {
     {
 			AugmentationofGivenRsIds app=null;
 			
-			//Example Data
-			//7 NC_000007.13
-			Map<String,String> chrName2RefSeqIdforGrch37Map = new HashMap<String,String>();
-			
+				
 			try {
 				app = new AugmentationofGivenRsIds();
 			} catch (Exception e) {
@@ -301,14 +337,14 @@ public class AugmentationofGivenRsIds {
 			
 			
 			
-			//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
-			String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
-			app.fillMap(refSeqIdsforGRCh37InputFile,chrName2RefSeqIdforGrch37Map);
+						
+//			String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
+//			app.fillMap(refSeqIdsforGRCh37InputFile,chrName2RefSeqIdforGrch37Map);
 			
 	        String inputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_INPUT_FILE_NAME_TEST;
 	        String outputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_OUTPUT_FILE_NAME;
 	        
-	        app.readRsIDInputFileandWriteAugmentedOutputFile(inputFileName,outputFileName,chrName2RefSeqIdforGrch37Map);
+	        app.readRsIDInputFileandWriteAugmentedOutputFile(inputFileName,outputFileName);
 	        
 	       
 	    
