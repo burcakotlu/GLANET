@@ -8,9 +8,9 @@ package common;
 
 public class Commons {
 	
-	public static final String OUTPUT_DATA = System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator");
+	public static String OUTPUT_DATA = System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator");
 	public static final String LARGE_OUTPUT_DATA = System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "LOutput" + System.getProperty("file.separator");
-	public static final String INPUT_DATA = System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "AnnotationData" + System.getProperty("file.separator");
+	public static String INPUT_DATA = System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "AnnotationData" + System.getProperty("file.separator");
 
 	public static final String RSERVE =  System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Rserve" + System.getProperty("file.separator");
 	
