@@ -31,6 +31,14 @@ public class Commons {
 	
 	public static final String RANDOM_DATA_GENERATION_LOG_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
 	
+	//INPUT DATA PROCESS
+	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
+	public static final String INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE";
+	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
+	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
+			
+							
+	
 	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = INPUT_DATA + System.getProperty("file.separator") +"RefSeqIdsforGRCh37" + System.getProperty("file.separator") + "GCF_000001405.25.assembly.txt";
 	
@@ -423,8 +431,8 @@ public class Commons {
 	
 	//Positive Control
 	public static final String POSITIVE_CONTROL_INPUT_FILE_NAME = INPUT_DATA +  "ENCODE" + System.getProperty("file.separator") + "transcription_factors" + System.getProperty("file.separator") + "spp.optimal.wgEncodeSydhTfbsK562bGata1UcdAlnRep0_VS_wgEncodeSydhTfbsK562bInputUcdAlnRep1.narrowPeak";
-	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
-	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
+	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
+	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
 	
 	
 	
@@ -436,15 +444,15 @@ public class Commons {
 	
 	//OCD_GWAS_SIGNIFICANT_SNPS
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER = INPUT_DATA + "OCD_GWAS_SNP" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP = OUTPUT_DATA +  "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP = OUTPUT_DATA +  "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
 
 	
 	//HIV1 SNPS
 	public static final String HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE = INPUT_DATA + "HIV1_SNP" + System.getProperty("file.separator") + "hglft_www_5c79_8ab500.bed" ;
-	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive.txt" ;
-	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive_without_overlaps.txt" ;
+	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive.txt" ;
+	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive_without_overlaps.txt" ;
 	
 	public static final String RANDOMLY_GENERATED_DATA_FILE = LARGE_OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "RandomlyGeneratedData" + System.getProperty("file.separator") + "PERMUTATION4_RANDOMLY_GENERATED_DATA.txt";
 	
@@ -742,7 +750,7 @@ public class Commons {
 	
 //	Annotate intervals using interval tree
 	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS = INPUT_DATA + "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
-	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "inputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt";
+	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt";
 	
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");

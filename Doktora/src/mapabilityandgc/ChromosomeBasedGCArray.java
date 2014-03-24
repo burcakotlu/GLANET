@@ -8,8 +8,6 @@
  */
 package mapabilityandgc;
 
-import common.Commons;
-
 import empiricalpvalues.GCCharArray;
 
 public class ChromosomeBasedGCArray {

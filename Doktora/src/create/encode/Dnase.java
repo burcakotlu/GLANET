@@ -1,6 +1,5 @@
 package create.encode;
 
-import java.util.Comparator;
 
 public class Dnase implements Comparable<Dnase> {
 	

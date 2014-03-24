@@ -6,7 +6,6 @@
 
 package annotate.intervals.parametric;
 
-import java.io.BufferedWriter;
 
 public class NameandBufferedWriter {
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import common.Commons;
 
+
 public class Window {
 	
 	List<Names> windowBases;

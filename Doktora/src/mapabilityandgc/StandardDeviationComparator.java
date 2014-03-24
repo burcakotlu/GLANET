@@ -8,8 +8,6 @@
  */
 package mapabilityandgc;
 
-import java.util.Comparator;
-import java.util.Map;
 
 public class StandardDeviationComparator implements Comparator<Object>{
 	

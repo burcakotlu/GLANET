@@ -6,7 +6,6 @@
 
 package keggpathway.ncbigenes;
 
-import java.util.List;
 
 public class KeggPathway {
 	String keggPathwayName;

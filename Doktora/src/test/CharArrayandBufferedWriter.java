@@ -6,7 +6,6 @@
 
 package test;
 
-import java.io.BufferedWriter;
 
 public class CharArrayandBufferedWriter {
 	

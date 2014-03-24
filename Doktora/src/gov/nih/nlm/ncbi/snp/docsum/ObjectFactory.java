@@ -8,7 +8,6 @@
 
 package gov.nih.nlm.ncbi.snp.docsum;
 
-import javax.xml.bind.annotation.XmlRegistry;
 
 
 /**

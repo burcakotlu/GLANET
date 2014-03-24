@@ -8,7 +8,6 @@
  */
 package comparison.binomialversuspermutation;
 
-import java.util.Comparator;
 
 public class ComparisonElement implements Comparable<ComparisonElement>{
 	

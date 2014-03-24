@@ -1,6 +1,5 @@
 package create.ucscgenome;
 
-import java.util.List;
 
 public class RefSeqGene {
  

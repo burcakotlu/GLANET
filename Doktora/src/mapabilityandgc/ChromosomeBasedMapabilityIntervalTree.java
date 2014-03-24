@@ -10,8 +10,6 @@ package mapabilityandgc;
 
 import intervaltree.IntervalTree;
 
-import common.Commons;
-
 public class ChromosomeBasedMapabilityIntervalTree {
 	
 	

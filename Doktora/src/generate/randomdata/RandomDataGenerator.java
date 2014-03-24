@@ -8,19 +8,8 @@
  */
 package generate.randomdata;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import mapabilityandgc.GC;
 import mapabilityandgc.Mapability;
-
-import common.Commons;
-
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;

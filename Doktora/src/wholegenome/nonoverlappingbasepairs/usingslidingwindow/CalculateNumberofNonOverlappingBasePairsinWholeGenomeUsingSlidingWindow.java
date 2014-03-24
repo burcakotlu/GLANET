@@ -22,24 +22,7 @@
 
 package wholegenome.nonoverlappingbasepairs.usingslidingwindow;
 
-import hg19.GRCh37Hg19Chromosome;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import keggpathway.ncbigenes.KeggPathwayUtility;
-
-import common.Commons;
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWindow {
 	

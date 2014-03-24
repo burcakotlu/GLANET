@@ -8,8 +8,6 @@
  */
 package mapabilityandgc;
 
-import common.Commons;
-
 import empiricalpvalues.MapabilityFloatArray;
 
 public class ChromosomeBasedMapabilityArray {
