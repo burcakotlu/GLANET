@@ -9,6 +9,7 @@
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;

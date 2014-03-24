@@ -9,8 +9,6 @@
 package mapabilityandgc;
 
 import hg19.GRCh37Hg19Chromosome;
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,11 +17,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.Commons;
-
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+
+import common.Commons;
 
 public class Mapability {
 	

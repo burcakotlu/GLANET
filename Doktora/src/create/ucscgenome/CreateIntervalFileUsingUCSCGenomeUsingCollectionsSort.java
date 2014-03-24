@@ -25,11 +25,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import create.ChromosomeBasedFilesandOperations;
 import auxiliary.FileOperations;
 
 import common.Commons;
-
-import create.ChromosomeBasedFilesandOperations;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {

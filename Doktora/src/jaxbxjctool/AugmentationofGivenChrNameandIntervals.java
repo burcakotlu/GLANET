@@ -3,10 +3,6 @@
  */
 package jaxbxjctool;
 
-import generated.ESearchResult;
-import generated.Id;
-import generated.IdList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -23,6 +19,9 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
 
+import generated.ESearchResult;
+import generated.Id;
+import generated.IdList;
 import auxiliary.FileOperations;
 
 import common.Commons;

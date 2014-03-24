@@ -8,9 +8,9 @@
  */
 package mapabilityandgc;
 
-import common.Commons;
-
 import empiricalpvalues.GCCharArray;
+
+import common.Commons;
 
 public class SingletonChromosomeBasedGCArray {
 	

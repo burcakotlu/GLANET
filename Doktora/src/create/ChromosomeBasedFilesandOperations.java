@@ -12,11 +12,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import create.encode.NumberofDNAElements;
 import auxiliary.FileOperations;
 
 import common.Commons;
-
-import create.encode.NumberofDNAElements;
 
 /**
  * @author burcakotlu

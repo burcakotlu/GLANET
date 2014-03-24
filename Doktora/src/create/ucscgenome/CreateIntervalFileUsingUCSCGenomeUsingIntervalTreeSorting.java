@@ -23,9 +23,6 @@
 package create.ucscgenome;
 
 
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -39,11 +36,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import create.ChromosomeBasedFilesandOperations;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
 import auxiliary.FileOperations;
 
 import common.Commons;
-
-import create.ChromosomeBasedFilesandOperations;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
