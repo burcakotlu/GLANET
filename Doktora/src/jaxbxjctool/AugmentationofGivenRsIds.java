@@ -8,6 +8,28 @@ import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+import javax.xml.transform.stream.StreamSource;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
+
 /**
  * @author burcakotlu
  *

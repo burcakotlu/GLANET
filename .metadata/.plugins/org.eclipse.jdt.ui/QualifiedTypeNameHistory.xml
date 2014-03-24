@@ -6,15 +6,18 @@
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Component"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub.ESearchResult"/>
 <fullyQualifiedTypeName name="generated.ESearchResult"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="common.Commons"/>
 </qualifiedTypeNameHistroy>

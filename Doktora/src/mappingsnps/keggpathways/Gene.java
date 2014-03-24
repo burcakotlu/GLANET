@@ -1,5 +1,7 @@
 package mappingsnps.keggpathways;
 
+import java.util.ArrayList;
+
 
 public class Gene {
 

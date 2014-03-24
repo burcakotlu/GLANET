@@ -6,7 +6,7 @@
  *
  * 
  */
-package inputdata.augment;
+package processinputdata.augment;
 
 public class SnpPosition {
 	

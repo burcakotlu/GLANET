@@ -11,11 +11,29 @@
  * 
  * It lasts for 25 minutes.
  * It uses dbSNP flat files for augmentation with observed alleles
+ * 
+ * This way will not be used it is very costly.
  */
-package inputdata.augment;
+package processinputdata.augment;
 
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
+
 import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
 
 public class AugmentationofProcessedInputDatawithdbSNP {

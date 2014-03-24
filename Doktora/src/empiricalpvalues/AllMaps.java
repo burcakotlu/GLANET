@@ -8,6 +8,9 @@
  */
 package empiricalpvalues;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class AllMaps {
 

@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Mar 24, 2014 
+ * @time 1:57:36 PM
+ */
+package src;
+
+/**
+ * 
+ */
+public class InputDataProcess {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

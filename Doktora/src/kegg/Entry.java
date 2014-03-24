@@ -1,5 +1,7 @@
 package kegg;
 
+import java.util.List;
+
  public class Entry {
 	 
 	private int id;

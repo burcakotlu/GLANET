@@ -8,8 +8,26 @@
  */
 package mapabilityandgc;
 
+import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import kegg.Entry;
+
+import common.Commons;
+
 import create.encode.CellLineDnase;
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
@@ -50,7 +68,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			bufferedWriter = new BufferedWriter(fileWriter);
 					
 			
-			for (Entry<String, MeanandStandardDeviation> entry: treeMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: treeMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 				
@@ -97,7 +115,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			fileWriter = new FileWriter(fileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 					
-			for (Entry<String, MeanandStandardDeviation> entry: treeMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: treeMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 				count++;
@@ -128,7 +146,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			fileWriter = new FileWriter(fileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 					
-			for (Entry<String, MeanandStandardDeviation> entry: hashMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: hashMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 				
@@ -155,7 +173,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			MeanandStandardDeviation values;
 			
 			//Dnase
-			for (Entry<String, MeanandStandardDeviation> entry: dnaseHashMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: dnaseHashMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 
@@ -163,7 +181,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			}
 			
 			//Tfbs
-			for (Entry<String, MeanandStandardDeviation> entry: tfbsHashMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: tfbsHashMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 
@@ -171,7 +189,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			}
 			
 			//Histone
-			for (Entry<String, MeanandStandardDeviation> entry: histoneHashMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: histoneHashMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 

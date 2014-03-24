@@ -4,7 +4,18 @@
  * and write it to a file.
  * 
  */
-package inputdata.prepare;
+package processinputdata.prepare;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
 
 
 public class PreparationofOCDSnps {

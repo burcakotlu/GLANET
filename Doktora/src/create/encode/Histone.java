@@ -1,5 +1,7 @@
 package create.encode;
 
+import java.util.Comparator;
+
 
 public class Histone implements Comparable<Histone>{
 	

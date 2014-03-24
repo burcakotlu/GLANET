@@ -8,6 +8,8 @@
  */
 package mapabilityandgc;
 
+import java.io.BufferedReader;
+
 
 public class GCorMapabilityFile {
 	

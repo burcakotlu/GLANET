@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item key="CallHierarchyViewPart.call_mode" value="0"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\Users\burcakotlu\SOAP\Axis2\axis2-1.5.2\lib" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\GitHub\GLANET\Doktora\lib" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="742" key="CallHierarchyViewPart.ratio1"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
@@ -62,16 +62,28 @@
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
+	<section name="org.eclipse.jdt.internal.ui.preferences.EditTemplateDialog_dialogBounds">
+		<item key="DIALOG_WIDTH" value="995"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="508" key="DIALOG_HEIGHT"/>
+		<item value="156" key="DIALOG_X_ORIGIN"/>
+		<item value="142" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item key="index" value="3"/>
+		<item key="index" value="0"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item key="pageIndex" value="2"/>
+		<item key="pageIndex" value="3"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item key="create_package_info_java" value="false"/>
+	</section>
+	<section name="JavaSearchPage">
+		<item key="HISTORY_SIZE" value="0"/>
+		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="11" key="INCLUDE_MASK"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

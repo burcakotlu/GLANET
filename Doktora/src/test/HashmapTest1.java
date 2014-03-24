@@ -1,6 +1,10 @@
 package test;
 
-import kegg.Entry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class HashmapTest1 {
 	
@@ -8,11 +12,11 @@ public class HashmapTest1 {
 	
 	public void traverseHashtable(){
 		
-		Iterator<Entry<String,List<Integer>>> itr = hashmap.entrySet().iterator();
+		Iterator<Map.Entry<String,List<Integer>>> itr = hashmap.entrySet().iterator();
 		
 		while(itr.hasNext()){
 			
-			Entry<String,List<Integer>> entry = (Entry<String,List<Integer>>)itr.next();
+			Map.Entry<String,List<Integer>> entry = (Map.Entry<String,List<Integer>>)itr.next();
 			System.out.print(entry.getKey() + " "); 
 			List<Integer> list = entry.getValue();
 			

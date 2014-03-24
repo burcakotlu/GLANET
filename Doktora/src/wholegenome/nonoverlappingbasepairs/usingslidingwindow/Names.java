@@ -1,5 +1,8 @@
 package wholegenome.nonoverlappingbasepairs.usingslidingwindow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Names {
 	

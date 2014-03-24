@@ -20,6 +20,20 @@ package search.encodeucscgenome;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import auxiliary.FileOperations;
+
+import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
  
 

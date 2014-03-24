@@ -8,8 +8,24 @@
  */
 package mapabilityandgc;
 
+import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import kegg.Entry;
+
+import common.Commons;
+
 import empiricalpvalues.GCCharArray;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
@@ -479,7 +495,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			String name;
 			MeanandStandardDeviation values;
 			
-			for (Entry<String, MeanandStandardDeviation> entry: hashMap.entrySet()){
+			for (Map.Entry<String, MeanandStandardDeviation> entry: hashMap.entrySet()){
 				name = entry.getKey();
 				values = entry.getValue();
 

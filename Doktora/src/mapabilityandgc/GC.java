@@ -10,6 +10,13 @@
  */
 package mapabilityandgc;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import common.Commons;
+
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
 

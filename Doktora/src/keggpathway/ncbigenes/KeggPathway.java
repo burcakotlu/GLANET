@@ -6,6 +6,8 @@
 
 package keggpathway.ncbigenes;
 
+import java.util.List;
+
 
 public class KeggPathway {
 	String keggPathwayName;
@@ -38,14 +40,6 @@ public class KeggPathway {
 		super();
 		this.keggPathwayName = keggPathwayName;
 	}
-	
-
-	
-	
-	
-	
-	
-
 	
 	
 

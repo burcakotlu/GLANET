@@ -8,6 +8,8 @@
  */
 package empiricalpvalues;
 
+import java.util.Map;
+
 
 public class AllName2KMaps {
 	

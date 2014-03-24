@@ -8,6 +8,8 @@
  */
 package annotate.intervals.parametric;
 
+import java.util.List;
+
 
 public class PermutationNumberUcscRefSeqGeneOverlap {
 	

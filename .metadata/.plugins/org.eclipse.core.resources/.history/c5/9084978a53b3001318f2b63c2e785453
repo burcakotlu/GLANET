@@ -1,0 +1,154 @@
+package process;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
+import common.Commons;
+/**
+ * @author burcakotlu
+ * @date Mar 24, 2014 
+ * @time 1:58:07 PM
+ */
+
+/**
+ * 
+ */
+public class InputDataProcess {
+	
+	public static void 	readDBSNPIDs(String inputFileName, String outputFileName){
+		
+		//Read the file line by line 
+		//Get each rsId
+		//For each RsId get the rsId's chrName, chrPosition 1-based
+		//convert 1-based to 0-based 
+		//remove overlaps if any exists
+		//write the output
+		//continue with the next step
+		
+	}
+
+	//BED format is 0-based, end is exclusive
+	//In BED format, bed lines have three required fileds and nine additional optional fields.
+	//chrom chr3 chrY chr2_random
+	//chromStart first base in a chromosome is numbered 0.
+	//chromEnd is exclusive, fisrt 100 bases of a chromosome are defined as chromStart=0 chromEnd=100, and 
+	//span the bases numbered 0-99.
+	public static void 	readBEDFile(String inputFileName, String outputFileName){
+		
+		//read the file line by line
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		//
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		
+		String chrName;
+		int start,exclusiveEnd, inclusiveEnd;
+		
+		try {
+			
+			fileReader = new FileReader(inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab 	= strLine.indexOf('\t');
+				indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+				
+				chrName = strLine.substring(0, indexofFirstTab);
+				start = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+				
+				//get the inclusive end
+				inclusiveEnd = exclusiveEnd-1;
+				
+				
+				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//Get chrName, start and end
+
+		//End is exclusive
+		//Decrease end by one to make it inclusive
+		
+		//remove overlaps if any exists
+		
+		//write the output
+		//continue with the next step
+		
+	}
+	
+	//GFF3 format is 1-based, end is inclusive
+	public static void 	readGFF3File(String inputFileName, String outputFileName){
+		
+		//read the file line by line
+		//Get chrName, start and end
+		
+	
+		//convert 1-based to 0-based
+		
+		//remove overlaps if any exists
+		//write the output
+		//continue with the next step
+
+	}
+	
+	//0-based coordinates, start and end are inclusive.
+	public static void 	readZeroBasedCoordinates(String inputFileName, String outputFileName){
+		
+		//read the file line by line
+		
+		//Get chrName, start and end
+		
+	
+		//convert 1-based to 0-based
+		
+		//remove overlaps if any exists
+		//write the output
+		//continue with the next step
+
+	}
+	
+	public static void processInputData(String inputFileName,String inputFileFormat, String outputFileName){
+		
+		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
+			readDBSNPIDs(inputFileName,outputFileName);	
+		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
+			readBEDFile(inputFileName,outputFileName);
+		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
+			readGFF3File(inputFileName,outputFileName);
+		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
+			readZeroBasedCoordinates(inputFileName,outputFileName);
+		}
+	}
+	
+	public static void main(String[] args) {
+		//Get the input file
+		String inputFileName = args[0];
+		
+		//Get the input file format
+		String inputFileFormat = args[1];
+		
+		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
+		
+		//Read input data 
+		//Process input data
+		//Write output data
+		processInputData(inputFileName,inputFileFormat,outputFileName);
+				
+
+	}
+
+}

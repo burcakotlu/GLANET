@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;ProcessInputData&apos; to &apos;InputData&apos;&#x0D;&#x0A;- Original element: &apos;ProcessInputData&apos;&#x0D;&#x0A;- Renamed element: &apos;ProcessInputData&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;ProcessInputData&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=ProcessInputData" name="InputData" references="true" stamp="1395662366972" version="1.0"/>
+</session>

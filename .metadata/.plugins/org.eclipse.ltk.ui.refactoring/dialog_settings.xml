@@ -4,4 +4,7 @@
 		<item key="width" value="600"/>
 		<item value="400" key="height"/>
 	</section>
+	<section name="RefactoringPropertyPage">
+		<item key="org.eclipse.ltk.ui.refactoring.sortRefactorings" value="true"/>
+	</section>
 </section>

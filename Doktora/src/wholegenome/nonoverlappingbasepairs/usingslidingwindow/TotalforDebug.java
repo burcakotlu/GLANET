@@ -1,5 +1,7 @@
 package wholegenome.nonoverlappingbasepairs.usingslidingwindow;
 
+import common.Commons;
+
 
 public class TotalforDebug {
 	
