@@ -38,6 +38,13 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
 			
 	public static final String PROCESSED_INPUT_FILE = OUTPUT_DATA + System.getProperty("file.separator")+ "InputData" + System.getProperty("file.separator") +  "process" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
+	
+	//FOR TESTING PURPOSES 
+	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;
+	public static final String TEST_INPUT_FILE_GFF3_FORMAT = "";
+	public static final String TEST_INPUT_FILE_0_BASED_COORDINATES_FORMAT = "";
+	public static final String TEST_INPUT_FILE_DBSNP_IDS_FORMAT = "";
+	
 							
 	
 	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter

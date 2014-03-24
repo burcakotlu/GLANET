@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item key="CallHierarchyViewPart.call_mode" value="0"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\GitHub\GLANET\Doktora\lib" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\GitHub\GLANET\Doktora\lib\commons-math3-3.2" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="742" key="CallHierarchyViewPart.ratio1"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
@@ -11,7 +11,8 @@
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item key="updateQualifiedNames" value="false"/>
+		<item key="renameSubpackages" value="false"/>
+		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateSimilarElements"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
