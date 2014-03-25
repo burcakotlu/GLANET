@@ -34,6 +34,7 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
 			
 	public static final String PROCESSED_INPUT_FILE = System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE = System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
 	
 	//FOR TESTING PURPOSES 
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;

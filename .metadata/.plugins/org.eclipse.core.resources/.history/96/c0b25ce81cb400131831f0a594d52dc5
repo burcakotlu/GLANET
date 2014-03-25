@@ -190,12 +190,12 @@ public class AugmentationofGivenRsIds {
 		   	            			//eutil efetch returns 0-based coordinates
 	   	                    	   int snpPositionZeroBased = maploc.getPhysMapInt();
 	   	                    	   
-//	   	                 		   bufferedWriter.write("rs"+rsId);
-//	   	                    	   bufferedWriter.write("\t");
+	   	                 		   bufferedWriter.write("rs"+rsId);
+	   	                    	   bufferedWriter.write("\t");
 
 	   	                    	   String chrName = comp.getChromosome();
 	   	                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
-	   	                 	   
+	   	                    	   
 	   	                    	   //Add "chr" here
 	   	                    	   bufferedWriter.write("chr" + chrName);
 	   	                    	   bufferedWriter.write("\t");	   
