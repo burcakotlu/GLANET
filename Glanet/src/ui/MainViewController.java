@@ -1,11 +1,10 @@
 package ui;
 
 import javax.swing.JPanel;
-
 import common.Commons;
-
 import ui.MainView;
 import ui.MainView.MainViewDelegate;
+import processinputdata.prepare.*;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
@@ -52,8 +51,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String enrichmentType,
 			   String outputFolder) {
 		
-		Commons.INPUT_DATA = inputFolder;
-		Commons.OUTPUT_DATA = outputFolder;
-		
+		//PreparationofOCDSnps.java
+		PreparationofOCDSnps.run(null);
 	}
 }

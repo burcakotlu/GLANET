@@ -1,17 +1,7 @@
 package ui;
 
 import java.io.File;
-import java.util.Dictionary;
-
-import javax.media.jai.operator.BorderDescriptor;
 import javax.swing.*;
-
-import sun.text.normalizer.Trie.DataManipulate;
-
-import com.apple.dnssd.BrowseListener;
-
-import common.Commons;
-
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -69,6 +59,7 @@ public class MainView extends JPanel{
 				JOptionPane.showMessageDialog(null, "Please fill all the options");
 			else {
 				
+				//delegation to handle the run process.
 				delegate.startRunActionsWithOptions(inputTextField.getText(), 
 						inputFormatCombo.getSelectedItem().toString(), 
 						generateRandomDataModeCombo.getSelectedItem().toString(), 
