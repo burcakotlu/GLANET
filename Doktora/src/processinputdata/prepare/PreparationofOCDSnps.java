@@ -94,14 +94,12 @@ public class PreparationofOCDSnps {
 		
 	}
 	
-	public static void main(String[] args) {
+	public static void run(String[] args) {
 		String inputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER;
 		String preparedFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE;
 		
 		String chromosomePositionType = Commons.CHROMOSOME_POSITION_TYPE_ONE_BASED;
 		addChrString(inputFileName,preparedFileName,chromosomePositionType);
-		
-
 	}
 
 }

@@ -45,8 +45,6 @@ public class MainViewController extends ViewController implements MainViewDelega
 	}
 
 	public void onSetSourceLocationPressed() {
-		System.out.println( "will open file");
-        
 		//presentViewController( new xViewController(contentPanel) );
 	}
 }

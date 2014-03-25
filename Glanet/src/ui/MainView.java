@@ -1,21 +1,16 @@
 package ui;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.Semaphore;
-
 import javax.swing.*;
-
 import common.Commons;
-
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
 public class MainView extends JPanel{
 
 	private MainViewDelegate delegate;
-	private JTextField textField1;
-	private JTextField textField2;
+	private JTextField outputTextField;
+	private JTextField inputTextField;
 	JPanel listPane;
 	JButton runButton;
 	
@@ -28,7 +23,7 @@ public class MainView extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				
+			
 			JFileChooser fc = new JFileChooser();
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			
@@ -37,8 +32,10 @@ public class MainView extends JPanel{
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
 	            //This is where a real application would open the file.
-	            //textField1.setText(file.getPath() + "." + System.getProperty("line.separator"));
-	            System.out.println("Opening: " + file.getPath() + "." + System.getProperty("line.separator"));
+	            if( e.getActionCommand() == "Output Folder")
+	            	outputTextField.setText( file.getPath() + System.getProperty("file.separator"));
+	            else if( e.getActionCommand() == "Input Folder")
+	            	inputTextField.setText( file.getPath() + System.getProperty("file.separator"));
 	            
 	        } else {
 	            System.out.println("Open command cancelled by user." + System.getProperty("line.separator"));
@@ -54,32 +51,25 @@ public class MainView extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 				
-			System.out.println("Run Pressed");
-			
-			try {
-            	ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.dir") + System.getProperty("file.separator") + "PreparationofOCDSnps.jar", "-jar");
-            	pb.directory(new File(System.getProperty("user.dir")));
-            	Process p = pb.start();
-			} catch (IOException e1) {
-				
-				e1.printStackTrace();
-			}
 		}
 	};
 	
 	public MainView() {
 		
-		JPanel browseFilePane = createBrowseFileArea( "OCD_GWAS_SNP", textField1);
-		JPanel browseFilePane2 = createBrowseFileArea( "Output Folder", textField2);
+		inputTextField = new JTextField(30);
+		outputTextField = new JTextField(30);
 		runButton = new JButton("Run");
+		
+		JPanel browseFilePane = createBrowseFileArea( "Input Folder", inputTextField);
+		JPanel browseFilePane2 = createBrowseFileArea( "Output Folder", outputTextField);
 		listPane = new JPanel();
 		
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		
 		runButton.addActionListener(runButtonPressed);
 		
-        listPane.add(browseFilePane);
-        listPane.add(browseFilePane2);
+		listPane.add(browseFilePane);
+		listPane.add(browseFilePane2);
         listPane.add(runButton);
         
         add(listPane);
@@ -88,9 +78,7 @@ public class MainView extends JPanel{
 JPanel createBrowseFileArea( String fileType, JTextField textField){
 	
 	//Create a regular text field.
-    textField = new JTextField(10);
     textField.setActionCommand("Browse File...");
-    //textField.addActionListener(textFieldSelected);
     
     //Create some labels for the fields.
     JLabel textFieldLabel = new JLabel("Browse: ");
@@ -98,10 +86,7 @@ JPanel createBrowseFileArea( String fileType, JTextField textField){
     
     JButton browseButton = new JButton("Browse");
     browseButton.addActionListener( chooseFilePressed);
-	
-	//Create a label to put messages during an action event.
-    JLabel actionLabel = new JLabel(fileType);
-    actionLabel.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
+    browseButton.setActionCommand(fileType);
 
     //Lay out the text controls and the labels.
     JPanel textControlsPane = new JPanel();
@@ -117,10 +102,9 @@ JPanel createBrowseFileArea( String fileType, JTextField textField){
     c.gridwidth = GridBagConstraints.REMAINDER; //last
     c.anchor = GridBagConstraints.WEST;
     c.weightx = 1.0;
-    textControlsPane.add(actionLabel, c);
     textControlsPane.setBorder(
             BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder("Choose the location for " + fileType),
+                            BorderFactory.createTitledBorder(fileType),
                             BorderFactory.createEmptyBorder(5,5,5,5)));
 
     //Put everything together.
