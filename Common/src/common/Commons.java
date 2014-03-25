@@ -29,7 +29,7 @@ public class Commons {
 	public static final String GC = "GC";
 	public static final String MAPABILITY = "MAPABILITY";
 	
-	public static final String RANDOM_DATA_GENERATION_LOG_FILE = OUTPUT_DATA + "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
+	public static final String RANDOM_DATA_GENERATION_LOG_FILE = "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
 	
 	//INPUT DATA PROCESS
 	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
@@ -38,6 +38,7 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
 			
 	public static final String PROCESSED_INPUT_FILE = OUTPUT_DATA + System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE = OUTPUT_DATA + System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
 	
 	//FOR TESTING PURPOSES 
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;
