@@ -46,7 +46,7 @@ public class InputDataProcess {
 	
 	
 	//eutil efetch returns 0-based coordinates for given dbSNP ids 
-	public static void 	readDBSNPIDs(String inputFileName, String outputFolder){
+	public static void 	readDBSNPIDs(String inputFileName, String outputFileFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -63,7 +63,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 		
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
@@ -417,6 +417,22 @@ public class InputDataProcess {
 	}
 	
 	public static void main(String[] args) {
+		//Get the input file
+		String inputFileName = args[0] + "AnnotationData"  + System.getProperty("file.separator") + "OCD_GWAS_SNP" + System.getProperty("file.separator") +  "OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
+		
+
+		inputFileName = args[0] + Commons.TEST_INPUT_DATA_DBSNP_IDS; 
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_BED_format.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_GFF3_format.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
+		
+		//Get the input file format
+		String inputFileFormat = setInputFileFormat(args[2]);
+		
+			
+		//Embedded outputFileName
+//		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		
 		//Read input data 
 		//Process input data

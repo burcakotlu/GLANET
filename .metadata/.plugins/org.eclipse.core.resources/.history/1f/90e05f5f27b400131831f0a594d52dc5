@@ -46,7 +46,7 @@ public class InputDataProcess {
 	
 	
 	//eutil efetch returns 0-based coordinates for given dbSNP ids 
-	public static void 	readDBSNPIDs(String inputFileName, String outputFolder){
+	public static void 	readDBSNPIDs(String inputFileName){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -63,7 +63,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 		
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
@@ -110,7 +110,7 @@ public class InputDataProcess {
 	//chromStart first base in a chromosome is numbered 0.
 	//chromEnd is exclusive, fisrt 100 bases of a chromosome are defined as chromStart=0 chromEnd=100, and 
 	//span the bases numbered 0-99.
-	public static void 	readBEDFile(String inputFileName, String outputFileFolder){
+	public static void 	readBEDFile(String inputFileName){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -134,7 +134,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -178,7 +178,7 @@ public class InputDataProcess {
 	//GFF3 format is 1-based, end is inclusive
 	//example GFF3 input line
 	//chrX	experiment	SNP	146993388	146993388	.	-	0	cellType=HeLA
-	public static void 	readGFF3File(String inputFileName, String outputFileFolder){
+	public static void 	readGFF3File(String inputFileName){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -205,7 +205,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -257,7 +257,7 @@ public class InputDataProcess {
 	//1 100
 	//chr1 100
 	//chr1 100 200
-	public static void 	readZeroBasedCoordinates(String inputFileName, String outputFileFolder){
+	public static void 	readZeroBasedCoordinates(String inputFileName){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -285,7 +285,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -381,8 +381,7 @@ public class InputDataProcess {
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have output file folder
-	//args[2] must have Input File Format
+	//args[1] must have input file format
 	public static void run(String[] args){
 		processInputData(args);
 	}
@@ -391,16 +390,16 @@ public class InputDataProcess {
 	public static void processInputData(String[] args){
 		
 		String inputFileName = args[0];
-		String inputFileFormat = setInputFileFormat(args[2]);
+		String inputFileFormat = setInputFileFormat(args[1]);
 		
 		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readDBSNPIDs(inputFileName,args[1]);	
+			readDBSNPIDs(inputFileName);	
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
-			readBEDFile(inputFileName,args[1]);
+			readBEDFile(inputFileName);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readGFF3File(inputFileName,args[1]);
+			readGFF3File(inputFileName);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readZeroBasedCoordinates(inputFileName,args[1]);
+			readZeroBasedCoordinates(inputFileName);
 		}
 	}
 	
@@ -417,6 +416,22 @@ public class InputDataProcess {
 	}
 	
 	public static void main(String[] args) {
+		//Get the input file
+		String inputFileName = args[0] + "AnnotationData"  + System.getProperty("file.separator") + "OCD_GWAS_SNP" + System.getProperty("file.separator") +  "OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
+		
+
+		inputFileName = args[0] + Commons.TEST_INPUT_DATA_DBSNP_IDS; 
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_BED_format.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_GFF3_format.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
+		
+		//Get the input file format
+		String inputFileFormat = setInputFileFormat(args[2]);
+		
+			
+		//Embedded outputFileName
+//		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		
 		//Read input data 
 		//Process input data

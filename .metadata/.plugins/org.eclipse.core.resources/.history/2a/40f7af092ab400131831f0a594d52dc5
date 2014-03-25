@@ -280,8 +280,17 @@ public class RemoveOverlaps {
 	
 	public static void main(String[] args){
 		
+//		String inputFileNameWithOverlaps  = Commons.TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS;
+//		String inputFileNameWithOverlaps  = args[1] + Commons.PROCESSED_INPUT_FILE;
+//		String inputFileNameWithOverlaps  = Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME;
+//		String inputFileNameWithOverlaps  = Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE;
+		
+		
+		
 		removeOverlaps(args);
 		
+//		writeInputFileWithoutOverlaps(Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS,chromosome2IntervalTree);
+//		writeInputFileWithoutOverlaps(Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS,chromosome2IntervalTree);
 			
 	}
 

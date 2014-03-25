@@ -273,15 +273,26 @@ public class RemoveOverlaps {
 	
 	//args[1] must include the output folder
 	public static void run(String[] args){
-	
+		String inputFileNameWithOverlaps  = args[1] + Commons.PROCESSED_INPUT_FILE;
+
 		removeOverlaps(args);
 		
 	}
 	
 	public static void main(String[] args){
+		Map<String,IntervalTree> chromosome2IntervalTree = new HashMap<String,IntervalTree>();
 		
-		removeOverlaps(args);
+//		String inputFileNameWithOverlaps  = Commons.TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS;
+		String inputFileNameWithOverlaps  = args[1] + Commons.PROCESSED_INPUT_FILE;
+//		String inputFileNameWithOverlaps  = Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME;
+//		String inputFileNameWithOverlaps  = Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE;
 		
+		
+		
+		removeOverlaps(inputFileNameWithOverlaps,args[1]);
+		
+//		writeInputFileWithoutOverlaps(Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS,chromosome2IntervalTree);
+//		writeInputFileWithoutOverlaps(Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS,chromosome2IntervalTree);
 			
 	}
 
