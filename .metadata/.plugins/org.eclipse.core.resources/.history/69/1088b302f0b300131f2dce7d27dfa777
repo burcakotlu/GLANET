@@ -13,9 +13,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
@@ -88,18 +88,12 @@ public class AugmentationofGivenRsIds {
     }
 	
 	
-	public void run(String rsId,BufferedWriter bufferedWriter, List<String> searched, List<String> found) throws Exception
+	public void run(String rsId,BufferedWriter bufferedWriter) throws Exception
     {
-         
-		
-		
+
 		if(rsId.startsWith("rs")) 
 			
 			rsId=rsId.substring(2);
-		
-		 	//for debug
-			searched.add(rsId);
-			//for debug
 			
 			String uri="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="+rsId+"&retmode=xml";			
         
@@ -124,100 +118,97 @@ public class AugmentationofGivenRsIds {
 					continue;
                 }
 
-				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
+				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();
 				
 				
 				for(Assembly as:rs.getAssembly())
                 {  
-					String groupLabel = as.getGroupLabel();
-	                	
-             	   	if(groupLabel.startsWith("GRCh37")){
-            		   
- 
-//                	   bufferedWriter.write(rs.getSequence().getObserved());
-//                	   bufferedWriter.write("\t");
-//                	    
-//                       String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
-//                       URL url= new URL(eFetchString);
-//                       
-//                       //System.out.println("EFETCH RESULT:");
-//                       // Read from the URL
-//                       try
-//                       { 
-//	                    	 BufferedReader in= new BufferedReader(new InputStreamReader(url.openStream()));
-//	                         String inputLine;       // one line of the result, as it is read line by line
-//	                         String sourceHTML= "";  // will eventually contain the whole result
-//	                         // Continue to read lines while there are still some left to read
-//	                         
-//	                         while ((inputLine= in.readLine()) != null)  // read one line of the input stream
-//		                         { sourceHTML+= inputLine + "\t";            // add this line to end of the whole shebang
-////		                           ++lineCount;                              // count the number of lines read
-//		                         }
-//		                         
-//	                         
-//	                         // Close the connection
-//	                         in.close();
-//	                         // Display the entire page
-//	                         bufferedWriter.write (sourceHTML);
-//	                         bufferedWriter.write ("\t");
-//    	                 
-//                       }
-//                       // Handle any error in opening the connection to the URL
-//                       catch (Exception e)
-//                       { System.out.println("Error reading from the URL:");
-//                         System.out.println(e);
-//                       }
-//                       
-//                       
-//                     bufferedWriter.write(as.getGenomeBuild());
-//                	   bufferedWriter.write("\t");
-//                	   bufferedWriter.write(as.getGroupLabel());
-//                	   bufferedWriter.write("\n");
-//                	   bufferedWriter.write(comp.getAccession());
-//                	   bufferedWriter.write("\t");
-                       
-                       
-                       for(Component comp:as.getComponent())
-                       {             
-                      	   
-	   	                   for(MapLoc maploc: comp.getMapLoc())
-	   	                   {	                	   
-	   	                	   if (maploc.getPhysMapInt()!=null){
+                   for(Component comp:as.getComponent())
+                    {                    	       	
+	                   for(MapLoc maploc: comp.getMapLoc())
+	                   {	                	   
+	                	   if (maploc.getPhysMapInt()!=null){
+	                    	   int snpPositionOneBased = maploc.getPhysMapInt();
+		                	   
+		                	   //Convert 1-based snpPosition to 0-based snpPosition
+		                	   int snpPositionZeroBased = snpPositionOneBased-1;
+			                	  
+		                	   int snpPositionMinusTen = snpPositionOneBased-10;
+		                	   int snpPositionPlusTen = snpPositionOneBased+10;
+		                	  
+		                	   String chrName = comp.getChromosome();
+		                	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
+		                	   String groupLabel = as.getGroupLabel();
+		                	   
+		                	   if(groupLabel.startsWith("GRCh37")){
+		                		   
+		                		   bufferedWriter.write("rs"+rsId);
+			                	   bufferedWriter.write("\t");
+			                	   
+			                	   //Add "chr" here
+			                	   bufferedWriter.write("chr" + comp.getChromosome());
+			                	   bufferedWriter.write("\t");
+			                	   
+			                	   bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+			                       bufferedWriter.write("\t");
+			                       
+			                       bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+			                       bufferedWriter.write("\n");
 
-	   	                		   //for debug
-		   	            			found.add(rsId);
-		   	            			//for debug
-		   	                		   
-	   	                    	   int snpPositionZeroBased = maploc.getPhysMapInt();
-	   	                    	   
-	   	                 		   bufferedWriter.write("rs"+rsId);
-	   	                    	   bufferedWriter.write("\t");
 
-	   	                    	   String chrName = comp.getChromosome();
-	   	                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
-	   	                    	   
-	   	                    	   //Add "chr" here
-	   	                    	   bufferedWriter.write("chr" + chrName);
-	   	                    	   bufferedWriter.write("\t");	   
-
-	   	                    	   bufferedWriter.write(String.valueOf(snpPositionZeroBased));
-		                           bufferedWriter.write("\t");
-		                            
-		                           bufferedWriter.write(String.valueOf(snpPositionZeroBased));
-		                           bufferedWriter.write("\n");
-		 		                	  		                	   
-	   	                	   }//End of if maploc.getPhysMapInt() is not null
-//	   	                	   else{
-//	   	                		   //Note that for this rsId there is no snpPosition has been found
-//	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
-//	   	                	   }
-	   	                        
-	   	                   }//End of for Maploc
-                       }//End of for Component
-                	          	                        		                             
-            	  }//End of IF groupLabel startsWith "GRCh37"
-					
-                
+//			                	   bufferedWriter.write(rs.getSequence().getObserved());
+//			                	   bufferedWriter.write("\t");
+//			                	    
+//			                       String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId + "&seq_start="+ snpPositionMinusTen + "&seq_stop=" + snpPositionPlusTen + "&rettype=fasta&retmode=text";
+//			                       URL url= new URL(eFetchString);
+//			                       
+//			                       //System.out.println("EFETCH RESULT:");
+//			                       // Read from the URL
+//			                       try
+//			                       { 
+//				                    	 BufferedReader in= new BufferedReader(new InputStreamReader(url.openStream()));
+//				                         String inputLine;       // one line of the result, as it is read line by line
+//				                         String sourceHTML= "";  // will eventually contain the whole result
+//				                         // Continue to read lines while there are still some left to read
+//				                         
+//				                         while ((inputLine= in.readLine()) != null)  // read one line of the input stream
+//					                         { sourceHTML+= inputLine + "\t";            // add this line to end of the whole shebang
+//			//		                           ++lineCount;                              // count the number of lines read
+//					                         }
+//					                         
+//				                         
+//				                         // Close the connection
+//				                         in.close();
+//				                         // Display the entire page
+//				                         bufferedWriter.write (sourceHTML);
+//				                         bufferedWriter.write ("\t");
+//			    	                 
+//			                       }
+//			                       // Handle any error in opening the connection to the URL
+//			                       catch (Exception e)
+//			                       { System.out.println("Error reading from the URL:");
+//			                         System.out.println(e);
+//			                       }
+//			                       
+//			                       
+//			                       bufferedWriter.write(as.getGenomeBuild());
+//			                	   bufferedWriter.write("\t");
+//			                	   bufferedWriter.write(as.getGroupLabel());
+//			                	   bufferedWriter.write("\n");
+//			                	   bufferedWriter.write(comp.getAccession());
+//			                	   bufferedWriter.write("\t");
+			                	   
+			                	   
+			          	                        		                             
+		                	  }//End of IF groupLabel startsWith "GRCh37"
+	                	   }//End of if maploc.getPhysMapInt() is not null
+	                	   else{
+	                		   //Note that for this rsId there is no snpPosition has been found
+	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
+	                	   }
+	                        
+	                   }//End of for Maploc
+                    }//End of for Component
                 }//End of for Assembly
 				
             }//End of while
@@ -245,7 +236,7 @@ public class AugmentationofGivenRsIds {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((rsId = bufferedReader.readLine())!=null){
-//				this.run(rsId.substring(2),bufferedWriter);
+				this.run(rsId.substring(2),bufferedWriter);
 			}
 			
 			bufferedReader.close();

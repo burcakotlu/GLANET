@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import jaxbxjctool.AugmentationofGivenRsIds;
 import auxiliary.FileOperations;
@@ -45,14 +43,9 @@ public class InputDataProcess {
 		
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
 						
-			//for debug
-			List<Integer> searched = new ArrayList<Integer>();
-			List<Integer> found = new ArrayList<Integer>();
-			//for debug
-			
 			while((rsId = bufferedReader.readLine())!=null){
 				
-				app.run(rsId, bufferedWriter,searched,found);
+				app.run(rsId, bufferedWriter);
 							
 			}
 			

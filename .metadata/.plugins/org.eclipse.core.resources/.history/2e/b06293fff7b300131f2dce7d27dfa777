@@ -245,7 +245,7 @@ public class AugmentationofGivenRsIds {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((rsId = bufferedReader.readLine())!=null){
-//				this.run(rsId.substring(2),bufferedWriter);
+				this.run(rsId.substring(2),bufferedWriter);
 			}
 			
 			bufferedReader.close();

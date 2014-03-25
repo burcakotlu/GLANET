@@ -13,9 +13,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
@@ -88,18 +88,12 @@ public class AugmentationofGivenRsIds {
     }
 	
 	
-	public void run(String rsId,BufferedWriter bufferedWriter, List<String> searched, List<String> found) throws Exception
+	public void run(String rsId,BufferedWriter bufferedWriter) throws Exception
     {
-         
-		
-		
+
 		if(rsId.startsWith("rs")) 
 			
 			rsId=rsId.substring(2);
-		
-		 	//for debug
-			searched.add(rsId);
-			//for debug
 			
 			String uri="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="+rsId+"&retmode=xml";			
         
@@ -126,6 +120,11 @@ public class AugmentationofGivenRsIds {
 
 				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
 				
+				//for debug purposes start
+				if(rsId.equals("3766505")){
+					System.out.println("stop here");
+				}
+				//for debug purposes end
 				
 				for(Assembly as:rs.getAssembly())
                 {  
@@ -183,11 +182,6 @@ public class AugmentationofGivenRsIds {
 	   	                   for(MapLoc maploc: comp.getMapLoc())
 	   	                   {	                	   
 	   	                	   if (maploc.getPhysMapInt()!=null){
-
-	   	                		   //for debug
-		   	            			found.add(rsId);
-		   	            			//for debug
-		   	                		   
 	   	                    	   int snpPositionZeroBased = maploc.getPhysMapInt();
 	   	                    	   
 	   	                 		   bufferedWriter.write("rs"+rsId);
@@ -207,10 +201,10 @@ public class AugmentationofGivenRsIds {
 		                           bufferedWriter.write("\n");
 		 		                	  		                	   
 	   	                	   }//End of if maploc.getPhysMapInt() is not null
-//	   	                	   else{
-//	   	                		   //Note that for this rsId there is no snpPosition has been found
-//	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
-//	   	                	   }
+	   	                	   else{
+	   	                		   //Note that for this rsId there is no snpPosition has been found
+	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
+	   	                	   }
 	   	                        
 	   	                   }//End of for Maploc
                        }//End of for Component
@@ -245,7 +239,7 @@ public class AugmentationofGivenRsIds {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((rsId = bufferedReader.readLine())!=null){
-//				this.run(rsId.substring(2),bufferedWriter);
+				this.run(rsId.substring(2),bufferedWriter);
 			}
 			
 			bufferedReader.close();

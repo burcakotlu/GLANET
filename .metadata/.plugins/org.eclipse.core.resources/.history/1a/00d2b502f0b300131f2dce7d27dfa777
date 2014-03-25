@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import jaxbxjctool.AugmentationofGivenRsIds;
 import auxiliary.FileOperations;
@@ -32,7 +30,8 @@ public class InputDataProcess {
 		//write to output file line by line 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-					
+		
+			
 		String rsId = null;
 		
 		try {
@@ -41,18 +40,15 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader(fileReader);
 			
 			fileWriter = FileOperations.createFileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);			
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
 		
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
-						
-			//for debug
-			List<Integer> searched = new ArrayList<Integer>();
-			List<Integer> found = new ArrayList<Integer>();
-			//for debug
+			
 			
 			while((rsId = bufferedReader.readLine())!=null){
 				
-				app.run(rsId, bufferedWriter,searched,found);
+				app.run(rsId, bufferedWriter);
 							
 			}
 			
@@ -66,7 +62,8 @@ public class InputDataProcess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+		
+		
 		//@todo remove overlaps if any exists
 	
 		

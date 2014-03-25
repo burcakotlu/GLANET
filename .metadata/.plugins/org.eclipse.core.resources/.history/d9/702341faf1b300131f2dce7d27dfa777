@@ -13,9 +13,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
@@ -88,18 +88,12 @@ public class AugmentationofGivenRsIds {
     }
 	
 	
-	public void run(String rsId,BufferedWriter bufferedWriter, List<String> searched, List<String> found) throws Exception
+	public void run(String rsId,BufferedWriter bufferedWriter) throws Exception
     {
-         
-		
-		
+
 		if(rsId.startsWith("rs")) 
 			
 			rsId=rsId.substring(2);
-		
-		 	//for debug
-			searched.add(rsId);
-			//for debug
 			
 			String uri="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="+rsId+"&retmode=xml";			
         
@@ -124,8 +118,7 @@ public class AugmentationofGivenRsIds {
 					continue;
                 }
 
-				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
-				
+				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();				
 				
 				for(Assembly as:rs.getAssembly())
                 {  
@@ -133,7 +126,9 @@ public class AugmentationofGivenRsIds {
 	                	
              	   	if(groupLabel.startsWith("GRCh37")){
             		   
- 
+            		   bufferedWriter.write("rs"+rsId);
+                	   bufferedWriter.write("\t");
+
 //                	   bufferedWriter.write(rs.getSequence().getObserved());
 //                	   bufferedWriter.write("\t");
 //                	    
@@ -178,39 +173,31 @@ public class AugmentationofGivenRsIds {
                        
                        
                        for(Component comp:as.getComponent())
-                       {             
-                      	   
+                       {                    
+                    	   
+                    	   String chrName = comp.getChromosome();
+                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
+                    	   
+                    	   //Add "chr" here
+                    	   bufferedWriter.write("chr" + comp.getChromosome());
+                    	   bufferedWriter.write("\t");	   
+                    	   
 	   	                   for(MapLoc maploc: comp.getMapLoc())
 	   	                   {	                	   
 	   	                	   if (maploc.getPhysMapInt()!=null){
-
-	   	                		   //for debug
-		   	            			found.add(rsId);
-		   	            			//for debug
-		   	                		   
 	   	                    	   int snpPositionZeroBased = maploc.getPhysMapInt();
 	   	                    	   
-	   	                 		   bufferedWriter.write("rs"+rsId);
-	   	                    	   bufferedWriter.write("\t");
-
-	   	                    	   String chrName = comp.getChromosome();
-	   	                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
-	   	                    	   
-	   	                    	   //Add "chr" here
-	   	                    	   bufferedWriter.write("chr" + chrName);
-	   	                    	   bufferedWriter.write("\t");	   
-
-	   	                    	   bufferedWriter.write(String.valueOf(snpPositionZeroBased));
-		                           bufferedWriter.write("\t");
+		   	                    	bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+		                            bufferedWriter.write("\t");
 		                            
-		                           bufferedWriter.write(String.valueOf(snpPositionZeroBased));
-		                           bufferedWriter.write("\n");
+		                            bufferedWriter.write(String.valueOf(snpPositionZeroBased));
+		                            bufferedWriter.write("\n");
 		 		                	  		                	   
 	   	                	   }//End of if maploc.getPhysMapInt() is not null
-//	   	                	   else{
-//	   	                		   //Note that for this rsId there is no snpPosition has been found
-//	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
-//	   	                	   }
+	   	                	   else{
+	   	                		   //Note that for this rsId there is no snpPosition has been found
+	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
+	   	                	   }
 	   	                        
 	   	                   }//End of for Maploc
                        }//End of for Component
@@ -245,7 +232,7 @@ public class AugmentationofGivenRsIds {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((rsId = bufferedReader.readLine())!=null){
-//				this.run(rsId.substring(2),bufferedWriter);
+				this.run(rsId.substring(2),bufferedWriter);
 			}
 			
 			bufferedReader.close();
