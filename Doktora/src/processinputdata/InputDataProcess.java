@@ -244,12 +244,12 @@ public class InputDataProcess {
 		
 		String strLine = null;
 		
-		int indexofFirstTab  = -1;
-		int indexofSecondTab = -1;
+		int indexofFirstTab;
+		int indexofSecondTab;
 		
-		int indexofColon = -1;
-		int indexofDot = -1;
-		int indexofHyphen = -1;
+		int indexofColon;
+		int indexofDot;
+		int indexofHyphen;
 		
 		String chrName = null;
 		int zeroBasedStart = 0;
@@ -296,6 +296,12 @@ public class InputDataProcess {
 							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofDot));
 							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2).trim());
 						}
+						//19:12995239
+						//chr19:12995239				
+						else {
+							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1).trim());
+							zeroBasedInclusiveEnd = zeroBasedStart;
+						}
 					}
 									
 					//chrX 100 200
@@ -310,7 +316,7 @@ public class InputDataProcess {
 						}
 						
 						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
-						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1).trim());
 					}
 					//chrX 100
 					//X 100
@@ -323,7 +329,7 @@ public class InputDataProcess {
 							chrName = "chr" + chrName;
 						}
 						
-						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1));
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1).trim());
 						zeroBasedInclusiveEnd = zeroBasedStart;
 					
 					}
@@ -369,18 +375,18 @@ public class InputDataProcess {
 //		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
 		
 
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_dbSNP_ids.txt";
+		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_dbSNP_ids.txt";
 //		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_BED_format.txt";
 //		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_GFF3_format.txt";
-		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
+//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
 		
 		//Get the input file format
 		String inputFileFormat = args[1];
 		
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
 //		inputFileFormat = Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
 //		inputFileFormat = Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-		inputFileFormat = Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+//		inputFileFormat = Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
 				
 		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		
