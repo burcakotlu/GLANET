@@ -291,10 +291,10 @@ public class InputDataProcess {
 						
 						if (indexofHyphen>=0){
 							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofHyphen));
-							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen+1).trim());
+							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen+1));
 						}else if (indexofDot>=0){
 							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofDot));
-							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2).trim());
+							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2));
 						}
 					}
 									

@@ -130,7 +130,7 @@ public class AugmentationofGivenRsIds {
                 {  
 					String groupLabel = as.getGroupLabel();
 	                	
-             	   	if(groupLabel!=null && groupLabel.startsWith("GRCh37")){
+             	   	if(groupLabel.startsWith("GRCh37")){
             		   
  
 //                	   bufferedWriter.write(rs.getSequence().getObserved());

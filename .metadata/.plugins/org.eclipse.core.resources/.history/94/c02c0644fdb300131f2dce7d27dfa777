@@ -31,7 +31,6 @@ public class InputDataProcess {
 		   return result;
 	}
 	
-	//eutil efetch returns 0-based coordinates for given dbSNP ids 
 	public static void 	readDBSNPIDs(String inputFileName, String outputFileName){
 		
 		//read the file line by line
@@ -61,10 +60,8 @@ public class InputDataProcess {
 			
 			while((rsId = bufferedReader.readLine())!=null){
 				
-				//Skip comment lines
-				if(!(rsId.startsWith("#"))){
-					app.run(rsId, bufferedWriter,searched,found);
-				}//End of if not comment line							
+				app.run(rsId, bufferedWriter,searched,found);
+							
 			}
 			
 			//for debug start
@@ -124,21 +121,19 @@ public class InputDataProcess {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				
-				//Skip comment lines
-				if(!(strLine.startsWith("#"))){
-					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-					
-					chrName = strLine.substring(0, indexofFirstTab);
-					start = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
-					exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
-					
-					//get the inclusive end
-					inclusiveEnd = exclusiveEnd-1;
-					
-					bufferedWriter.write(chrName + "\t" + start +  "\t" + inclusiveEnd + "\n");
-				}//End of if not comment line	
+				indexofFirstTab 	= strLine.indexOf('\t');
+				indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+				
+				chrName = strLine.substring(0, indexofFirstTab);
+				start = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+				
+				//get the inclusive end
+				inclusiveEnd = exclusiveEnd-1;
+				
+				bufferedWriter.write(chrName + "\t" + start +  "\t" + inclusiveEnd + "\n");
+				
 			}
 			
 			bufferedReader.close();
@@ -190,27 +185,23 @@ public class InputDataProcess {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				
-				//Skip comment lines
-				if(!(strLine.startsWith("#"))){
-					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-					indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
-					indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
-					
-					chrName = strLine.substring(0, indexofFirstTab);
-					oneBasedStart = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
-					oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
-					
-					//get the 0-based start
-					zeroBasedStart = oneBasedStart-1;
-					
-					//get the 0-based inclusive end
-					zeroBasedInclusiveEnd = oneBasedInclusiveEnd -1;
-					
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
-				}//End of if not comment line
+				indexofFirstTab 	= strLine.indexOf('\t');
+				indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+				indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
+				indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
 				
+				chrName = strLine.substring(0, indexofFirstTab);
+				oneBasedStart = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
+				oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
+				
+				//get the 0-based start
+				zeroBasedStart = oneBasedStart-1;
+				
+				//get the 0-based inclusive end
+				zeroBasedInclusiveEnd = oneBasedInclusiveEnd -1;
+				
+				bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
 			}
 			
 			bufferedReader.close();
@@ -244,14 +235,14 @@ public class InputDataProcess {
 		
 		String strLine = null;
 		
-		int indexofFirstTab  = -1;
-		int indexofSecondTab = -1;
+		int indexofFirstTab;
+		int indexofSecondTab;
 		
-		int indexofColon = -1;
-		int indexofDot = -1;
-		int indexofHyphen = -1;
+		int indexofColon;
+		int indexofDot;
+		int indexofHyphen;
 		
-		String chrName = null;
+		String chrName;
 		int zeroBasedStart = 0;
 		int zeroBasedInclusiveEnd = 0;
 		
@@ -265,74 +256,72 @@ public class InputDataProcess {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				
-				//skip comment lines
-				if(!(strLine.startsWith("#"))){
+				indexofFirstTab 	= strLine.indexOf('\t');
+				indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+				
+				
+				
+				//chrX 100 200
+				//X 100 200
+				if (indexofSecondTab>=0 && indexofFirstTab>=0){
 					
-					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					chrName = strLine.substring(0, indexofFirstTab);
 					
+					if(!(chrName.startsWith("chr"))){
+						//add "chr"
+						chrName = "chr" + chrName;
+					}
+					
+					zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+					zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+				}
+				//chrX 100
+				//X 100
+				else if (indexofFirstTab>=0){
+					
+					chrName = strLine.substring(0, indexofFirstTab);
+					
+					if(!(chrName.startsWith("chr"))){
+						//add "chr"
+						chrName = "chr" + chrName;
+					}
+					
+					zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1));
+					zeroBasedInclusiveEnd = zeroBasedStart;
+				
+				}
+				
+				//19:12995239..12998702
+				//19:12995239-12998702
+				//chr19:12995239-12998702				
+				//chr11:524690..5247000
+				//there is no tab
+				else{
 					indexofColon = strLine.indexOf(':');
 					indexofDot = strLine.indexOf('.');
 					indexofHyphen = strLine.indexOf('-');
+					
+					chrName = strLine.substring(0, indexofColon);
+					
+					if(!(chrName.startsWith("chr"))){
+						//add "chr"
+						chrName = "chr" + chrName;
+					}
+					
+					
+					if (indexofHyphen>=0){
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofHyphen));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen+1));
+					}else if (indexofDot>=0){
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofDot));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2));
+					}
+					
+				}
 				
-					//19:12995239..12998702
-					//19:12995239-12998702
-					//chr19:12995239-12998702				
-					//chr11:524690..5247000
-					//there is no tab
-					if(indexofColon>=0){
-						chrName = strLine.substring(0, indexofColon);
-						
-						if(!(chrName.startsWith("chr"))){
-							//add "chr"
-							chrName = "chr" + chrName;
-						}
-						
-						
-						if (indexofHyphen>=0){
-							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofHyphen));
-							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen+1).trim());
-						}else if (indexofDot>=0){
-							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofDot));
-							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2).trim());
-						}
-					}
-									
-					//chrX 100 200
-					//X 100 200
-					else if (indexofSecondTab>=0 && indexofFirstTab>=0){
-						
-						chrName = strLine.substring(0, indexofFirstTab);
-						
-						if(!(chrName.startsWith("chr"))){
-							//add "chr"
-							chrName = "chr" + chrName;
-						}
-						
-						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
-						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1));
-					}
-					//chrX 100
-					//X 100
-					else if (indexofFirstTab>=0){
-						
-						chrName = strLine.substring(0, indexofFirstTab);
-						
-						if(!(chrName.startsWith("chr"))){
-							//add "chr"
-							chrName = "chr" + chrName;
-						}
-						
-						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1));
-						zeroBasedInclusiveEnd = zeroBasedStart;
-					
-					}
-					
-					
-					
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
-				}//End of if not comment line
-								
+				
+				bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
+				
 			}
 			
 			bufferedReader.close();
@@ -351,7 +340,7 @@ public class InputDataProcess {
 	
 	public static void processInputData(String inputFileName,String inputFileFormat, String outputFileName){
 		
-		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
+		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
 			readDBSNPIDs(inputFileName,outputFileName);	
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
 			readBEDFile(inputFileName,outputFileName);
@@ -365,22 +354,12 @@ public class InputDataProcess {
 	public static void main(String[] args) {
 		//Get the input file
 		String inputFileName = args[0];
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
+		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
 //		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
-		
-
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_dbSNP_ids.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_BED_format.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_GFF3_format.txt";
-		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
 		
 		//Get the input file format
 		String inputFileFormat = args[1];
-		
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-		inputFileFormat = Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
 				
 		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		

@@ -92,6 +92,7 @@ public class AugmentationofGivenRsIds {
     {
          
 		
+		
 		if(rsId.startsWith("rs")) 
 			
 			rsId=rsId.substring(2);
@@ -130,7 +131,7 @@ public class AugmentationofGivenRsIds {
                 {  
 					String groupLabel = as.getGroupLabel();
 	                	
-             	   	if(groupLabel!=null && groupLabel.startsWith("GRCh37")){
+             	   	if(groupLabel.startsWith("GRCh37")){
             		   
  
 //                	   bufferedWriter.write(rs.getSequence().getObserved());
@@ -187,7 +188,6 @@ public class AugmentationofGivenRsIds {
 		   	            			found.add(rsId);
 		   	            			//for debug
 		   	                		   
-		   	            			//eutil efetch returns 0-based coordinates
 	   	                    	   int snpPositionZeroBased = maploc.getPhysMapInt();
 	   	                    	   
 	   	                 		   bufferedWriter.write("rs"+rsId);
