@@ -1,13 +1,11 @@
 package processinputdata;
 
-import java.awt.peer.SystemTrayPeer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jaxbxjctool.AugmentationofGivenRsIds;
@@ -24,12 +22,6 @@ import common.Commons;
  * 
  */
 public class InputDataProcess {
-	
-	static Collection nonOverLap(Collection bigger, Collection smaller) {
-		   Collection result = bigger;
-		   result.removeAll(smaller);
-		   return result;
-	}
 	
 	public static void 	readDBSNPIDs(String inputFileName, String outputFileName){
 		
@@ -54,8 +46,8 @@ public class InputDataProcess {
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
 						
 			//for debug
-			List<String> searched = new ArrayList<String>();
-			List<String> found = new ArrayList<String>();
+			List<Integer> searched = new ArrayList<Integer>();
+			List<Integer> found = new ArrayList<Integer>();
 			//for debug
 			
 			while((rsId = bufferedReader.readLine())!=null){
@@ -63,12 +55,6 @@ public class InputDataProcess {
 				app.run(rsId, bufferedWriter,searched,found);
 							
 			}
-			
-			//for debug start
-			System.out.println("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
-			List<String> difference = (List<String>) nonOverLap(searched,found);
-			//for debug end
-			
 			
 			bufferedReader.close();
 			bufferedWriter.close();
