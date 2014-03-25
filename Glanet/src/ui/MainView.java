@@ -1,8 +1,17 @@
 package ui;
 
 import java.io.File;
+import java.util.Dictionary;
+
+import javax.media.jai.operator.BorderDescriptor;
 import javax.swing.*;
+
+import sun.text.normalizer.Trie.DataManipulate;
+
+import com.apple.dnssd.BrowseListener;
+
 import common.Commons;
+
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -11,12 +20,21 @@ public class MainView extends JPanel{
 	private MainViewDelegate delegate;
 	private JTextField outputTextField;
 	private JTextField inputTextField;
-	JPanel listPane;
-	JButton runButton;
+	private JPanel listPane;
+	private JButton runButton;
+	private JComboBox<String> generateRandomDataModeCombo;
+	private JComboBox<String> numberOfPerCombo;
+	private JComboBox<String> inputFormatCombo;
+	private JComboBox<String> enrichmentTypeCombo;
 	
 	public interface MainViewDelegate {
 		
-		public void onSetSourceLocationPressed();
+		public void startRunActionsWithOptions(String inputFolder, 
+											   String inputFormat, 
+											   String dataMode, 
+											   String numberOfPermutations,
+											   String enrichmentType,
+											   String outputFolder);
 	}
 	
 	private ActionListener chooseFilePressed = new ActionListener() {
@@ -37,11 +55,7 @@ public class MainView extends JPanel{
 	            else if( e.getActionCommand() == "Input Folder")
 	            	inputTextField.setText( file.getPath() + System.getProperty("file.separator"));
 	            
-	        } else {
-	            System.out.println("Open command cancelled by user." + System.getProperty("line.separator"));
 	        }
-	        
-			delegate.onSetSourceLocationPressed();
 		}
 	};
 	
@@ -50,35 +64,96 @@ public class MainView extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			if( inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0)
+				JOptionPane.showMessageDialog(null, "Please fill all the options");
+			else {
 				
+				delegate.startRunActionsWithOptions(inputTextField.getText(), 
+						inputFormatCombo.getSelectedItem().toString(), 
+						generateRandomDataModeCombo.getSelectedItem().toString(), 
+						numberOfPerCombo.getSelectedItem().toString(), 
+						enrichmentTypeCombo.getSelectedItem().toString(), 
+						outputTextField.getText());
+			}
 		}
 	};
 	
 	public MainView() {
 		
-		inputTextField = new JTextField(30);
+		inputTextField = new JTextField(20);
 		outputTextField = new JTextField(30);
 		runButton = new JButton("Run");
+		runButton.addActionListener(runButtonPressed);
 		
-		JPanel browseFilePane = createBrowseFileArea( "Input Folder", inputTextField);
-		JPanel browseFilePane2 = createBrowseFileArea( "Output Folder", outputTextField);
+		JPanel inputBrowseAndOptionPane = new JPanel();
+		JPanel inputBrowseFilePane = createBrowseFileArea( "Input Folder", inputTextField);
+		JPanel outputBrowseFilePane = createBrowseFileArea( "Output Folder", outputTextField);
 		listPane = new JPanel();
 		
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+		inputBrowseAndOptionPane.setLayout(new FlowLayout());
 		
-		runButton.addActionListener(runButtonPressed);
+		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
+		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
+		String[] inputFormat = { "dbSNPids", "BED Format", "GFF3 format", "O-based coordinates (end inclusive)" };
+		String[] enrichmentType = { "DNase Hypersensitive sites",
+									"Histone Modifications",
+									"Transcription Factors (TFs)",
+									"Kegg Pathway",
+									"TFs and Kegg Pathway" };
+		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
+		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
+		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
+		inputFormatCombo = new JComboBox<String>( inputFormat);
+		enrichmentTypeCombo = new JComboBox<String>( enrichmentType);
 		
-		listPane.add(browseFilePane);
-		listPane.add(browseFilePane2);
+		inputBrowseAndOptionPane.add(inputBrowseFilePane);
+		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", inputFormatCombo));
+		
+		listPane.add(inputBrowseAndOptionPane);
+		listPane.add(createBorderedPanel("Generate Random Data Mode", generateRandomDataModeCombo));
+		listPane.add(createBorderedPanel("Number of Permutations", numberOfPerCombo));
+		listPane.add(createBorderedPanel("Enrichment Type", enrichmentTypeCombo));
+		listPane.add(outputBrowseFilePane);
         listPane.add(runButton);
         
         add(listPane);
 	}
 	
+JPanel createBorderedPanel( String borderName, JComponent panel){
+    
+    //Create some labels for the fields.
+    JLabel componentLabel = new JLabel();
+    componentLabel.setLabelFor(panel);
+
+    //Lay out the text controls and the labels.
+    JPanel paneControlsPane = new JPanel();
+    GridBagLayout gridbag = new GridBagLayout();
+    GridBagConstraints c = new GridBagConstraints();
+
+    paneControlsPane.setLayout(gridbag);
+
+    JLabel[] labels = {componentLabel};
+    JComponent[] components = {panel};
+    addLabelTextRows(labels, components, gridbag, paneControlsPane);
+
+    c.gridwidth = GridBagConstraints.REMAINDER; //last
+    c.anchor = GridBagConstraints.WEST;
+    c.weightx = 1.0;
+    paneControlsPane.setBorder(
+            BorderFactory.createCompoundBorder(
+                            BorderFactory.createTitledBorder(borderName),
+                            BorderFactory.createEmptyBorder(5,5,5,5)));
+
+    //Put everything together.
+    JPanel browseFilePane = new JPanel(new BorderLayout());
+    browseFilePane.add(paneControlsPane,
+                 BorderLayout.PAGE_START);
+    
+    return browseFilePane;
+}
 JPanel createBrowseFileArea( String fileType, JTextField textField){
-	
-	//Create a regular text field.
-    textField.setActionCommand("Browse File...");
     
     //Create some labels for the fields.
     JLabel textFieldLabel = new JLabel("Browse: ");
@@ -114,7 +189,7 @@ JPanel createBrowseFileArea( String fileType, JTextField textField){
     
     return browseFilePane;
 }
-private void addLabelTextRows(JButton[] labels, JTextField[] textFields, GridBagLayout gridbag, Container container) {
+private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
 	GridBagConstraints c = new GridBagConstraints();
 	c.anchor = GridBagConstraints.EAST;
 	int numLabels = labels.length;

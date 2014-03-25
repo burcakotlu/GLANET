@@ -1,7 +1,8 @@
 package ui;
 
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
+import common.Commons;
 
 import ui.MainView;
 import ui.MainView.MainViewDelegate;
@@ -44,7 +45,15 @@ public class MainViewController extends ViewController implements MainViewDelega
 		contentPanel.add(mainView);
 	}
 
-	public void onSetSourceLocationPressed() {
-		//presentViewController( new xViewController(contentPanel) );
+	public void startRunActionsWithOptions(String inputFolder, 
+			   String inputFormat, 
+			   String dataMode, 
+			   String numberOfPermutations,
+			   String enrichmentType,
+			   String outputFolder) {
+		
+		Commons.INPUT_DATA = inputFolder;
+		Commons.OUTPUT_DATA = outputFolder;
+		
 	}
 }
