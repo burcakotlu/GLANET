@@ -433,7 +433,7 @@ public class InputDataProcess {
 		//Read input data 
 		//Process input data
 		//Write output data
-		processInputData(args);
+		processInputData(inputFileName,inputFileFormat);
 				
 
 	}
