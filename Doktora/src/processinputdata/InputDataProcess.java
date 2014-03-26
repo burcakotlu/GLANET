@@ -170,9 +170,7 @@ public class InputDataProcess {
 		}
 		
 		
-		//@todo remove overlaps if any exists
-		
-			
+		//@todo remove overlaps if any exists			
 	}
 	
 	//GFF3 format is 1-based, end is inclusive
@@ -380,27 +378,24 @@ public class InputDataProcess {
 
 	}
 	
-	//args[0] must have input file name with folder
-	//args[1] must have output file folder
-	//args[2] must have Input File Format
-	public static void run(String[] args){
-		processInputData(args);
-	}
 	
 	
 	public static void processInputData(String[] args){
 		
 		String inputFileName = args[0];
-		String inputFileFormat = setInputFileFormat(args[2]);
+		
+		String outputFolder = args[1];
+		
+		String inputFileFormat = setInputFileFormat(args[3]);
 		
 		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readDBSNPIDs(inputFileName,args[1]);	
+			readDBSNPIDs(inputFileName,outputFolder);	
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
-			readBEDFile(inputFileName,args[1]);
+			readBEDFile(inputFileName,outputFolder);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readGFF3File(inputFileName,args[1]);
+			readGFF3File(inputFileName,outputFolder);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readZeroBasedCoordinates(inputFileName,args[1]);
+			readZeroBasedCoordinates(inputFileName,outputFolder);
 		}
 	}
 	
@@ -416,6 +411,14 @@ public class InputDataProcess {
 		return null;
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void run(String[] args){
+		processInputData(args);
+	}
+		
 	public static void main(String[] args) {
 		
 		//Read input data 

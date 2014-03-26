@@ -13,6 +13,7 @@
  * It uses dbSNP flat files for augmentation with observed alleles
  * 
  * This way will not be used it is very costly.
+ * User needs to download 64 GB dbSNP asn1 flat files.
  */
 package processinputdata.augment;
 

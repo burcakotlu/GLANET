@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="processinputdata.InputDataProcess"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt&quot;&#13;&#10;&quot;INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\Output\\&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\&quot;&#13;&#10;&quot;0-based coordinates (End Inclusive)&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Doktora"/>
 </launchConfiguration>

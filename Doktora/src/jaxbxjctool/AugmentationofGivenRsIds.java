@@ -45,10 +45,6 @@ public class AugmentationofGivenRsIds {
 	//Example Data
 	//7 NC_000007.13
 	private Map<String,String> chrName2RefSeqIdforGrch37Map;
-	
-
-	
-
 
 	public Map<String, String> getChrName2RefSeqIdforGrch37Map() {
 		return chrName2RefSeqIdforGrch37Map;
@@ -63,10 +59,10 @@ public class AugmentationofGivenRsIds {
 
 	public AugmentationofGivenRsIds() throws Exception
     {
-		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
-		String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
-			
-		this.chrName2RefSeqIdforGrch37Map = fillMap(refSeqIdsforGRCh37InputFile);
+//		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
+//		String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
+//			
+//		this.chrName2RefSeqIdforGrch37Map = fillMap(refSeqIdsforGRCh37InputFile);
 		
 		this.xmlInputFactory = XMLInputFactory.newInstance();
 		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
@@ -194,7 +190,7 @@ public class AugmentationofGivenRsIds {
 //	   	                    	   bufferedWriter.write("\t");
 
 	   	                    	   String chrName = comp.getChromosome();
-	   	                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
+//	   	                    	   String refSeqId = this.getChrName2RefSeqIdforGrch37Map().get(chrName);
 	   	                 	   
 	   	                    	   //Add "chr" here
 	   	                    	   bufferedWriter.write("chr" + chrName);
