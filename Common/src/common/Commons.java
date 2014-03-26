@@ -493,10 +493,10 @@ public class Commons {
 	public static final String PROCESS_INPUT_DATA_REMOVE_OVERLAPS = "PROCESS_INPUT_DATA_REMOVE_OVERLAPS";
 	
 		
-	public static final String FTP_ENCODE_DNASE_DIRECTORY1 	= "ENCODE" + System.getProperty("file.separator") + "dnase";
-	public static final String FTP_ENCODE_DNASE_DIRECTORY2 	= "ENCODE" + System.getProperty("file.separator") + "dnase_jul2010";
-	public static final String FTP_ENCODE_TFBS_DIRECTORY 	= "ENCODE" + System.getProperty("file.separator") + "transcription_factors";
-	public static final String FTP_ENCODE_HISTONE_DIRECTORY = "ENCODE" + System.getProperty("file.separator") + "histone_macs";
+	public static final String ENCODE_DNASE_DIRECTORY1 	= "ENCODE" + System.getProperty("file.separator") + "dnase";
+	public static final String ENCODE_DNASE_DIRECTORY2 	= "ENCODE" + System.getProperty("file.separator") + "dnase_jul2010";
+	public static final String ENCODE_TFBS_DIRECTORY 	= "ENCODE" + System.getProperty("file.separator") + "transcription_factors";
+	public static final String ENCODE_HISTONE_DIRECTORY = "ENCODE" + System.getProperty("file.separator") + "histone_macs";
 	
 	public static final String STRING_HYPHEN = "-";
 	

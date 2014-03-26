@@ -1025,16 +1025,15 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		
 	}
 	
-	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
-		File dnaseDir1 = new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 = new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY2);		
-		File tfbsDir = new File(args[2] + common.Commons.ENCODE_TFBS_DIRECTORY);		
-		File histoneDir = new File(args[2] + common.Commons.ENCODE_HISTONE_DIRECTORY);
+		File dnaseDir1 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir2 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);		
+		File tfbsDir = new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
+		File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
 		
 		List<BufferedWriter> unsortedDnaseBufferedWriterList 	= new ArrayList<BufferedWriter>(24);
 		List<BufferedWriter> unsortedHistoneBufferedWriterList 	= new ArrayList<BufferedWriter>(24);

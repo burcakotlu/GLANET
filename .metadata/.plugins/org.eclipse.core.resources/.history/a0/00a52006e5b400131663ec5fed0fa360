@@ -1374,10 +1374,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	
 	}
 	
-	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	//args[1] must have output folder
 	public static void main(String[] args){
 		
 		String outputFolder = args[1];
@@ -1388,12 +1385,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
     	
     	//DNASE ORIGINAL ENCODE FILES DIRECTORY
-    	File dnaseDir1 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY1);
-    	File dnaseDir2 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY2);
+    	File dnaseDir1 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
+    	File dnaseDir2 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);
     	//TFBS ORIGINAL ENCODE FILES DIRECTORY
-    	File tfbsDir 	= new File(args[2] + common.Commons.ENCODE_TFBS_DIRECTORY);
+    	File tfbsDir 	= new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);
     	//HISTONE ORIGINAL ENCODE FILES DIRECTORY
-    	File histoneDir = new File(args[2] + common.Commons.ENCODE_HISTONE_DIRECTORY);
+    	File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
 		
     	
     	//Delete old files
