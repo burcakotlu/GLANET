@@ -555,7 +555,10 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		
 	}
 	
-	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
 	public static void main(String[] args) {
 		
 //		TODO  might be done without using refSeqGeneList
@@ -564,9 +567,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		List<BufferedReader> unsortedBufferedReaderList = new ArrayList<BufferedReader>(24);		
 		List<BufferedWriter> sortedBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
+		String outputFolder = args[1];
+		String dataFolder = args[2];
+		
+		
 		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
-		String fileName = Commons.FTP_HG19_REFSEQ_GENES;
-		String fileName2 = Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME ;
+		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
+		String fileName2 = outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME ;
 		
 		CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort createIntervals = new CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort();
 	    
@@ -577,12 +584,12 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 //		refSeqGeneName is augmented with entrez gene id 
 		createIntervals.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap);	
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(outputFolder,unsortedBufferedWriterList);	    
 		createIntervals.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
-		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(outputFolder,unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(outputFolder,sortedBufferedWriterList);		
 		createIntervals.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);

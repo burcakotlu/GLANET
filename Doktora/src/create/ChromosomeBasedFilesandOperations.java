@@ -334,33 +334,33 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static void openUnsortedChromosomeBasedRefSeqGeneFileWriters(List<BufferedWriter> bufferedWriterList){
+	public static void openUnsortedChromosomeBasedRefSeqGeneFileWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
 		
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRY_REFSEQ_GENES);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -395,33 +395,33 @@ public class ChromosomeBasedFilesandOperations {
 		
 	}
 	
-	public static void openUnsortedChromosomeBasedRefSeqGeneFileReaders(List<BufferedReader> bufferedReaderList){
+	public static void openUnsortedChromosomeBasedRefSeqGeneFileReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
 		
 		try {
-			FileReader  fileReader1 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR1_REFSEQ_GENES);
-			FileReader  fileReader2 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR2_REFSEQ_GENES);
-			FileReader  fileReader3 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR3_REFSEQ_GENES);
-			FileReader  fileReader4 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR4_REFSEQ_GENES);
-			FileReader  fileReader5 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR5_REFSEQ_GENES);
-			FileReader  fileReader6 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR6_REFSEQ_GENES);
-			FileReader  fileReader7 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR7_REFSEQ_GENES);
-			FileReader  fileReader8 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR8_REFSEQ_GENES);
-			FileReader  fileReader9 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR9_REFSEQ_GENES);
-			FileReader  fileReader10 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR10_REFSEQ_GENES);
-			FileReader  fileReader11 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR11_REFSEQ_GENES);
-			FileReader  fileReader12 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR12_REFSEQ_GENES);
-			FileReader  fileReader13 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR13_REFSEQ_GENES);
-			FileReader  fileReader14 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR14_REFSEQ_GENES);
-			FileReader  fileReader15 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR15_REFSEQ_GENES);
-			FileReader  fileReader16 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR16_REFSEQ_GENES);
-			FileReader  fileReader17 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR17_REFSEQ_GENES);
-			FileReader  fileReader18 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR18_REFSEQ_GENES);
-			FileReader  fileReader19 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR19_REFSEQ_GENES);
-			FileReader  fileReader20 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR20_REFSEQ_GENES);
-			FileReader  fileReader21 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR21_REFSEQ_GENES);
-			FileReader  fileReader22 = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR22_REFSEQ_GENES);
-			FileReader  fileReaderX = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRX_REFSEQ_GENES);
-			FileReader  fileReaderY = FileOperations.createFileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			FileReader  fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileReader  fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileReader  fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileReader  fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileReader  fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileReader  fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileReader  fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileReader  fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileReader  fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileReader  fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileReader  fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileReader  fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileReader  fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileReader  fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileReader  fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileReader  fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileReader  fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileReader  fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileReader  fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileReader  fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileReader  fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileReader  fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileReader  fileReaderX = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileReader  fileReaderY = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRY_REFSEQ_GENES);
 			
 						
 			bufferedReaderList.add(new BufferedReader(fileReader1));
@@ -457,32 +457,32 @@ public class ChromosomeBasedFilesandOperations {
 		
 	}
 	
-	public static void openSortedChromosomeBasedRefSeqGeneFiles(List<BufferedWriter> bufferedWriterList){
+	public static void openSortedChromosomeBasedRefSeqGeneFiles(String outputFolder,List<BufferedWriter> bufferedWriterList){
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRY_REFSEQ_GENES);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR1_REFSEQ_GENES);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR2_REFSEQ_GENES);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR3_REFSEQ_GENES);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR4_REFSEQ_GENES);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR5_REFSEQ_GENES);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR6_REFSEQ_GENES);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR7_REFSEQ_GENES);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR8_REFSEQ_GENES);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR9_REFSEQ_GENES);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR10_REFSEQ_GENES);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR11_REFSEQ_GENES);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR12_REFSEQ_GENES);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR13_REFSEQ_GENES);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR14_REFSEQ_GENES);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR15_REFSEQ_GENES);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR16_REFSEQ_GENES);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR17_REFSEQ_GENES);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR18_REFSEQ_GENES);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR19_REFSEQ_GENES);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR20_REFSEQ_GENES);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR21_REFSEQ_GENES);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR22_REFSEQ_GENES);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRX_REFSEQ_GENES);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRY_REFSEQ_GENES);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
