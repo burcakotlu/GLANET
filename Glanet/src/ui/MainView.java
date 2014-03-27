@@ -87,7 +87,7 @@ public class MainView extends JPanel{
 		
 		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
-		String[] inputFormat = { "dbSNPids", "BED Format", "GFF3 format", "O-based coordinates (end inclusive)" };
+		String[] inputFormat = { "dbSNP ids", "BED Format", "GFF3 format", "O-based coordinates (end inclusive)" };
 		String[] enrichmentType = { "DNase Hypersensitive sites",
 									"Histone Modifications",
 									"Transcription Factors (TFs)",
