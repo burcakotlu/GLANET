@@ -205,7 +205,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateStandardDeviationGC(String functionalElementType, Map<String,MeanandStandardDeviation> gcHashMap){
+	public static void calculateStandardDeviationGC(String outputFolder,String functionalElementType, Map<String,MeanandStandardDeviation> gcHashMap){
 		String name;
 		String functionalElementName;
 		
@@ -247,11 +247,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 				fileName = name.substring(indexofSecondTab+1);
 				
 				if (Commons.DNASE.equals(functionalElementType)){
-					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;					
 				}else if (Commons.TFBS.equals(functionalElementType)){
-					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;					
 				}else if (Commons.HISTONE.equals(functionalElementType)){
-					gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;					
+					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;					
 				}
 				
 				
@@ -290,7 +290,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//Mapability
 	//mean has been calculated for each file
-	public static void calculateStandardDeviationMapability(String functionalElementType, Map<String,MeanandStandardDeviation> mapabilityHashMap){
+	public static void calculateStandardDeviationMapability(String outputFolder,String functionalElementType, Map<String,MeanandStandardDeviation> mapabilityHashMap){
 		String name;
 			
 		MeanandStandardDeviation meanandStandardDeviation;
@@ -327,11 +327,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			fileName = name.substring(indexofSecondTab+1);
 			
 			if (Commons.DNASE.equals(functionalElementType)){
-				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}else if (Commons.TFBS.equals(functionalElementType)){
-				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}else if (Commons.HISTONE.equals(functionalElementType)){
-				mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
+				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}
 			
 			
@@ -534,7 +534,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateMeanGC(File directory,String functionalElementType, Map<String,MeanandStandardDeviation> gcHashMap, GCCharArray gcCharArray){
+	public static void calculateMeanGC(String outputFolder,File directory,String functionalElementType, Map<String,MeanandStandardDeviation> gcHashMap, GCCharArray gcCharArray){
 		File[] files;
     	File file;
     	int numberofFiles;
@@ -573,11 +573,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
+		    				 gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }
 		    			
 		    			calculateMeanGC(fileName,filePath,gcFileName,gcHashMap,gcCharArray,functionalElementType);
@@ -593,7 +593,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	
 	//Mapability
-	public static void 	calculateMeanMapability(File directory,String functionalElementType, Map<String,MeanandStandardDeviation> mapabilityHashMap,IntervalTree mapabilityIntervalTree){
+	public static void 	calculateMeanMapability(String outputFolder,File directory,String functionalElementType, Map<String,MeanandStandardDeviation> mapabilityHashMap,IntervalTree mapabilityIntervalTree){
 		File[] files;
     	File file;
     	int numberofFiles;
@@ -632,11 +632,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		    				 mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }
 		    			
 		    			calculateMeanMapability(fileName,filePath,mapabilityFileName,mapabilityHashMap,mapabilityIntervalTree,functionalElementType);
@@ -683,7 +683,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void initializeGCHashMap(File directory,Map<String, MeanandStandardDeviation>  gcHashMap,String functionalElementType){
+	public static void initializeGCHashMap(String outputFolder,File directory,Map<String, MeanandStandardDeviation>  gcHashMap,String functionalElementType){
 		File[] files;
     	File file;
     	int numberofFiles;
@@ -722,11 +722,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
+		    				 gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	gcFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
+		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    }
 		    			 
 		    			 MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -743,7 +743,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	
 	//Mapability
-	public static void initializeMapabilityHashMap(File directory, Map<String, MeanandStandardDeviation> mapabilityHashMap, String functionalElementType){
+	public static void initializeMapabilityHashMap(String outputFolder,File directory, Map<String, MeanandStandardDeviation> mapabilityHashMap, String functionalElementType){
 		File[] files;
     	File file;
     	int numberofFiles;
@@ -782,11 +782,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		    				 mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	mapabilityFileName = Commons.OUTPUT_DATA +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    }
 		    			 
 		    			 MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -804,7 +804,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(Map<String, MeanandStandardDeviation>  gcDnaseHashMap, Map<String, MeanandStandardDeviation>  gcTfbsHashMap, Map<String, MeanandStandardDeviation>  gcHistoneHashMap, List<Integer>  hg19ChromosomeSizes){
+	public static void calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(String outputFolder,Map<String, MeanandStandardDeviation>  gcDnaseHashMap, Map<String, MeanandStandardDeviation>  gcTfbsHashMap, Map<String, MeanandStandardDeviation>  gcHistoneHashMap, List<Integer>  hg19ChromosomeSizes){
 		String chromName;
 		int chromSize;
 		GCCharArray gcCharAray;
@@ -814,7 +814,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		File file;
 		
 		//DNASE
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the gcHashMap
@@ -826,12 +826,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for DNASE has started.");
-		initializeGCHashMap(file,gcDnaseHashMap,Commons.DNASE);
+		initializeGCHashMap(outputFolder,file,gcDnaseHashMap,Commons.DNASE);
 		System.out.println("Initialize hash map for DNASE has ended.");
 		
 		
 		//TFBS
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -843,12 +843,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for TFBS has started.");
-		initializeGCHashMap(file,gcTfbsHashMap,Commons.TFBS);
+		initializeGCHashMap(outputFolder,file,gcTfbsHashMap,Commons.TFBS);
 		System.out.println("Initialize hash map for TFBS has ended.");
 		
 		
 		//HISTONE
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -860,7 +860,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for HISTONE  has started.");
-		initializeGCHashMap(file,gcHistoneHashMap,Commons.HISTONE);
+		initializeGCHashMap(outputFolder,file,gcHistoneHashMap,Commons.HISTONE);
 		System.out.println("Initialize hash map for HISTONE has ended.");
 		System.out.println("-------------------------");
 	    
@@ -872,26 +872,26 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			gcCharAray = ChromosomeBasedGCArray.getChromosomeGCArray(chromName, chromSize);
 			
 			//DNASE
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanGC(file,Commons.DNASE, gcDnaseHashMap,gcCharAray);
+			calculateMeanGC(outputFolder,file,Commons.DNASE, gcDnaseHashMap,gcCharAray);
 			
 			
 			//TFBS
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanGC(file,Commons.TFBS, gcTfbsHashMap,gcCharAray);
+			calculateMeanGC(outputFolder,file,Commons.TFBS, gcTfbsHashMap,gcCharAray);
 			
 			//HISTONE
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanGC(file,Commons.HISTONE, gcHistoneHashMap,gcCharAray);
+			calculateMeanGC(outputFolder,file,Commons.HISTONE, gcHistoneHashMap,gcCharAray);
 			
 				
 		}
@@ -899,23 +899,23 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//DNASE
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanGC(gcDnaseHashMap);
-		calculateStandardDeviationGC(Commons.DNASE,gcDnaseHashMap);
+		calculateStandardDeviationGC(outputFolder,Commons.DNASE,gcDnaseHashMap);
 		
 		//TFBS
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanGC(gcTfbsHashMap);
-		calculateStandardDeviationGC(Commons.TFBS,gcTfbsHashMap);
+		calculateStandardDeviationGC(outputFolder,Commons.TFBS,gcTfbsHashMap);
 	
 		//HISTONE
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanGC(gcHistoneHashMap);
-		calculateStandardDeviationGC(Commons.HISTONE,gcHistoneHashMap);
+		calculateStandardDeviationGC(outputFolder,Commons.HISTONE,gcHistoneHashMap);
 	
 	}
 	
 	
 	//Mapability
-	public static void 	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(Map<String, MeanandStandardDeviation> mapabilityDnaseHashMap,Map<String, MeanandStandardDeviation> mapabilityTfbsHashMap,Map<String, MeanandStandardDeviation> mapabilityHistoneHashMap,List<Integer> hg19ChromosomeSizes){
+	public static void 	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(String outputFolder,Map<String, MeanandStandardDeviation> mapabilityDnaseHashMap,Map<String, MeanandStandardDeviation> mapabilityTfbsHashMap,Map<String, MeanandStandardDeviation> mapabilityHistoneHashMap,List<Integer> hg19ChromosomeSizes){
 		
 		String chromName;
 		int chromSize;
@@ -926,7 +926,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		File file;
 		
 		//DNASE
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -938,12 +938,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for DNASE has started.");
-		initializeMapabilityHashMap(file,mapabilityDnaseHashMap,Commons.DNASE);
+		initializeMapabilityHashMap(outputFolder,file,mapabilityDnaseHashMap,Commons.DNASE);
 		System.out.println("Initialize hash map for DNASE has ended.");
 		
 		
 		//TFBS
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -955,12 +955,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for TFBS has started.");
-		initializeMapabilityHashMap(file,mapabilityTfbsHashMap,Commons.TFBS);
+		initializeMapabilityHashMap(outputFolder,file,mapabilityTfbsHashMap,Commons.TFBS);
 		System.out.println("Initialize hash map for TFBS has ended.");
 		
 		
 		//HISTONE
-		mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		
 		//create MeanandStandardDeviation objects for each file in the directory
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
@@ -972,7 +972,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		System.out.println("-------------------------");
 		System.out.println("Initialize hash map for HISTONE  has started.");
-		initializeMapabilityHashMap(file,mapabilityHistoneHashMap,Commons.HISTONE);
+		initializeMapabilityHashMap(outputFolder,file,mapabilityHistoneHashMap,Commons.HISTONE);
 		System.out.println("Initialize hash map for HISTONE has ended.");
 		System.out.println("-------------------------");
 	    
@@ -984,26 +984,26 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 			
 			//DNASE
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanMapability(file,Commons.DNASE, mapabilityDnaseHashMap,mapabilityIntervalTree);
+			calculateMeanMapability(outputFolder,file,Commons.DNASE, mapabilityDnaseHashMap,mapabilityIntervalTree);
 			
 			
 			//TFBS
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanMapability(file,Commons.TFBS, mapabilityTfbsHashMap,mapabilityIntervalTree);
+			calculateMeanMapability(outputFolder,file,Commons.TFBS, mapabilityTfbsHashMap,mapabilityIntervalTree);
 			
 			//HISTONE
-			mainDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanMapability(file,Commons.HISTONE, mapabilityHistoneHashMap,mapabilityIntervalTree);
+			calculateMeanMapability(outputFolder,file,Commons.HISTONE, mapabilityHistoneHashMap,mapabilityIntervalTree);
 			
 				
 		}
@@ -1011,17 +1011,17 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//DNASE
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanMapability(mapabilityDnaseHashMap);
-		calculateStandardDeviationMapability(Commons.DNASE,mapabilityDnaseHashMap);
+		calculateStandardDeviationMapability(outputFolder,Commons.DNASE,mapabilityDnaseHashMap);
 		
 		//TFBS
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanMapability(mapabilityTfbsHashMap);
-		calculateStandardDeviationMapability(Commons.TFBS,mapabilityTfbsHashMap);
+		calculateStandardDeviationMapability(outputFolder,Commons.TFBS,mapabilityTfbsHashMap);
 	
 		//HISTONE
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanMapability(mapabilityHistoneHashMap);
-		calculateStandardDeviationMapability(Commons.HISTONE,mapabilityHistoneHashMap);
+		calculateStandardDeviationMapability(outputFolder,Commons.HISTONE,mapabilityHistoneHashMap);
 	
 	}
     
@@ -1103,7 +1103,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	}
 	
 	
-	public static void createChromosomeBasedFunctionalElementFiles(File directory, String functionalElementType){
+	public static void createChromosomeBasedFunctionalElementFiles(String outputFolder,File directory, String functionalElementType){
 		File[] files;
     	File file;
     	int numberofFiles;
@@ -1141,11 +1141,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			filePath = file.getPath();
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
-		    				 chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
+		    				 chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
 		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
-		 			    	chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
+		 			    	chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
-		 			    	chromosomeBasedDirectory = Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
+		 			    	chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
 		 			    }
 		    			
 		    			 
@@ -1181,7 +1181,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	
 	//Mapability
-	public static void calculateMapability(List<Integer> hg19ChromosomeSizes){
+	public static void calculateMapability(String outputFolder,List<Integer> hg19ChromosomeSizes){
 		
 		String allFunctionalElementMapabilityFiles 		= Commons.ALL_MAPABILITY_FILES;
 		
@@ -1207,7 +1207,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	//DNASE 
     	//TFBS
     	//HISTONE
-    	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(dnaseMapabilityHashMap,tfbsMapabilityHashMap,histoneMapabilityHashMap,hg19ChromosomeSizes);
+    	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(outputFolder,dnaseMapabilityHashMap,tfbsMapabilityHashMap,histoneMapabilityHashMap,hg19ChromosomeSizes);
     	System.out.println("Calculate mean and standard deviation for MAPABILITY has ended.");      
     	
     	//sort by standard deviation descending order
@@ -1277,7 +1277,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateGC(List<Integer> hg19ChromosomeSizes){
+	public static void calculateGC(String outputFolder,List<Integer> hg19ChromosomeSizes){
 		
     	String allFunctionalElementGCFiles 	= Commons.ALL_GC_FILES;
     	
@@ -1305,7 +1305,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	//DNASE 
     	//TFBS
     	//HISTONE
-    	calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(dnaseGCHashMap,tfbsGCHashMap,histoneGCHashMap,hg19ChromosomeSizes);
+    	calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(outputFolder,dnaseGCHashMap,tfbsGCHashMap,histoneGCHashMap,hg19ChromosomeSizes);
     	System.out.println("Calculate mean and standard deviation for GC has ended.");        
     	
     	
@@ -1374,43 +1374,50 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
 	public static void main(String[] args){
+		
+		String outputFolder = args[1];
+		
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 		GRCh37Hg19Chromosome.initializeChromosomeSizes(hg19ChromosomeSizes);
     	//get the hg19 chromosome sizes
     	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
     	
     	//DNASE ORIGINAL ENCODE FILES DIRECTORY
-    	File dnaseDir1 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
-    	File dnaseDir2 	= new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);
+    	File dnaseDir1 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY1);
+    	File dnaseDir2 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY2);
     	//TFBS ORIGINAL ENCODE FILES DIRECTORY
-    	File tfbsDir 	= new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);
+    	File tfbsDir 	= new File(args[2] + common.Commons.ENCODE_TFBS_DIRECTORY);
     	//HISTONE ORIGINAL ENCODE FILES DIRECTORY
-    	File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
+    	File histoneDir = new File(args[2] + common.Commons.ENCODE_HISTONE_DIRECTORY);
 		
     	
     	//Delete old files
     	System.out.println("-------------------------");
     	System.out.println("Start deleting old files...");
-    	File folder = new File(Commons.OUTPUT_DATA + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\");
+    	File folder = new File(outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\");
     	deleteOldFiles(folder);
     	System.out.println("Deleting old files has ended.");
     	
     	//some files may be empty
     	System.out.println("-------------------------");
     	System.out.println("Create chromosome based functional element files has started.");
-    	createChromosomeBasedFunctionalElementFiles(dnaseDir1,Commons.DNASE);
-    	createChromosomeBasedFunctionalElementFiles(dnaseDir2,Commons.DNASE);
-    	createChromosomeBasedFunctionalElementFiles(tfbsDir,Commons.TFBS);
-    	createChromosomeBasedFunctionalElementFiles(histoneDir,Commons.HISTONE);
+    	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir1,Commons.DNASE);
+    	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir2,Commons.DNASE);
+    	createChromosomeBasedFunctionalElementFiles(outputFolder,tfbsDir,Commons.TFBS);
+    	createChromosomeBasedFunctionalElementFiles(outputFolder,histoneDir,Commons.HISTONE);
     	System.out.println("Create chromosome based functional element files has ended.");
     	
     	
     	//Mapability
-    	calculateMapability(hg19ChromosomeSizes);
+    	calculateMapability(outputFolder,hg19ChromosomeSizes);
     	
     	//GC
-    	calculateGC(hg19ChromosomeSizes);
+    	calculateGC(outputFolder,hg19ChromosomeSizes);
   	
     	
 	}

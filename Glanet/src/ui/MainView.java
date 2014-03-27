@@ -2,6 +2,9 @@ package ui;
 
 import java.io.File;
 import javax.swing.*;
+
+import common.Commons;
+
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -87,7 +90,12 @@ public class MainView extends JPanel{
 		
 		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
-		String[] inputFormat = { "dbSNP ids", "BED Format", "GFF3 format", "O-based coordinates (end inclusive)" };
+		
+		String[] inputFormat = { 	Commons.GUI_INPUT_FILE_FORMAT_DBSNP_IDS, 
+									Commons.GUI_INPUT_FILE_FORMAT_BED,
+									Commons.GUI_INPUT_FILE_FORMAT_GFF3,
+									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES };
+		
 		String[] enrichmentType = { "DNase Hypersensitive sites",
 									"Histone Modifications",
 									"Transcription Factors (TFs)",

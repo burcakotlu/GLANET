@@ -23,7 +23,7 @@ import common.Commons;
 
 public class WriteAllPossibleNames {
 	
-	public void closeBufferedReaders(List<BufferedReader> bufferedReaderList){
+	public static void closeBufferedReaders(List<BufferedReader> bufferedReaderList){
 		try {
 			for(int i = 0; i<bufferedReaderList.size(); i++){			
 					bufferedReaderList.get(i).close();
@@ -34,33 +34,33 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public void createChromBaseDnaseBufferedReaders(List<BufferedReader> bufferedReaderList){
+	public static void createChromBaseDnaseBufferedReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
 		
 		try {
-			FileReader fileReader1 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);
-			FileReader fileReader2 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
-			FileReader fileReader3 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
-			FileReader fileReader4 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
-			FileReader fileReader5 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
-			FileReader fileReader6 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
-			FileReader fileReader7 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
-			FileReader fileReader8 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
-			FileReader fileReader9 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
-			FileReader fileReader10 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
-			FileReader fileReader11 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
-			FileReader fileReader12 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
-			FileReader fileReader13 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
-			FileReader fileReader14 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
-			FileReader fileReader15 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
-			FileReader fileReader16 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
-			FileReader fileReader17 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
-			FileReader fileReader18 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
-			FileReader fileReader19 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
-			FileReader fileReader20 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
-			FileReader fileReader21 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
-			FileReader fileReader22 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
-			FileReader fileReader23 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
-			FileReader fileReader24 = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
+			FileReader fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);
+			FileReader fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
+			FileReader fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
+			FileReader fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
+			FileReader fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
+			FileReader fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
+			FileReader fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
+			FileReader fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
+			FileReader fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
+			FileReader fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
+			FileReader fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
+			FileReader fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
+			FileReader fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
+			FileReader fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
+			FileReader fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
+			FileReader fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
+			FileReader fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
+			FileReader fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
+			FileReader fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
+			FileReader fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
+			FileReader fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
+			FileReader fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
+			FileReader fileReader23 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
+			FileReader fileReader24 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
 			
 			BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
 			BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
@@ -122,33 +122,33 @@ public class WriteAllPossibleNames {
 	
 	}
 	
-	public void createChromBaseTfbsBufferedReaders(List<BufferedReader> bufferedReaderList){
+	public static void createChromBaseTfbsBufferedReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
 
 		try {
-			FileReader fileReader1 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);
-			FileReader fileReader2 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);
-			FileReader fileReader3 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);
-			FileReader fileReader4 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);
-			FileReader fileReader5 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);
-			FileReader fileReader6 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);
-			FileReader fileReader7 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);
-			FileReader fileReader8 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);
-			FileReader fileReader9 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);
-			FileReader fileReader10 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);;
-			FileReader fileReader11 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);;
-			FileReader fileReader12 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);;
-			FileReader fileReader13 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);;
-			FileReader fileReader14 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);;
-			FileReader fileReader15 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);;
-			FileReader fileReader16 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);;
-			FileReader fileReader17 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);;
-			FileReader fileReader18 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);;
-			FileReader fileReader19 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);;
-			FileReader fileReader20 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);;
-			FileReader fileReader21 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);;
-			FileReader fileReader22 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);;
-			FileReader fileReader23 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);;
-			FileReader fileReader24 = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);;
+			FileReader fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);
+			FileReader fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);
+			FileReader fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);
+			FileReader fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);
+			FileReader fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);
+			FileReader fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);
+			FileReader fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);
+			FileReader fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);
+			FileReader fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);
+			FileReader fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);;
+			FileReader fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);;
+			FileReader fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);;
+			FileReader fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);;
+			FileReader fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);;
+			FileReader fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);;
+			FileReader fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);;
+			FileReader fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);;
+			FileReader fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);;
+			FileReader fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);;
+			FileReader fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);;
+			FileReader fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);;
+			FileReader fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);;
+			FileReader fileReader23 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);;
+			FileReader fileReader24 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);;
 			
 			BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
 			BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
@@ -210,33 +210,33 @@ public class WriteAllPossibleNames {
 
 	}
 	
-	public void createChromBaseHistoneBufferedReaders(List<BufferedReader> bufferedReaderList){
+	public static void createChromBaseHistoneBufferedReaders(String outputFolder, List<BufferedReader> bufferedReaderList){
 
 		try {
-			FileReader fileReader1 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME);
-			FileReader fileReader2 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME);
-			FileReader fileReader3 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME);
-			FileReader fileReader4 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME);
-			FileReader fileReader5 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME);
-			FileReader fileReader6 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME);
-			FileReader fileReader7 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME);
-			FileReader fileReader8 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME);
-			FileReader fileReader9 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME);
-			FileReader fileReader10 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME);
-			FileReader fileReader11 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME);
-			FileReader fileReader12 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME);
-			FileReader fileReader13 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME);
-			FileReader fileReader14 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME);
-			FileReader fileReader15 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME);
-			FileReader fileReader16 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME);
-			FileReader fileReader17 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME);
-			FileReader fileReader18 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME);
-			FileReader fileReader19 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME);
-			FileReader fileReader20 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME);
-			FileReader fileReader21 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME);
-			FileReader fileReader22 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME);
-			FileReader fileReader23 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME);
-			FileReader fileReader24 = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME);
+			FileReader fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME);
+			FileReader fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME);
+			FileReader fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME);
+			FileReader fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME);
+			FileReader fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME);
+			FileReader fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME);
+			FileReader fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME);
+			FileReader fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME);
+			FileReader fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME);
+			FileReader fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME);
+			FileReader fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME);
+			FileReader fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME);
+			FileReader fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME);
+			FileReader fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME);
+			FileReader fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME);
+			FileReader fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME);
+			FileReader fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME);
+			FileReader fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME);
+			FileReader fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME);
+			FileReader fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME);
+			FileReader fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME);
+			FileReader fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME);
+			FileReader fileReader23 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME);
+			FileReader fileReader24 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME);
 			
 			BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
 			BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
@@ -299,11 +299,11 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public void readDnaseCellLineNames(List<String> dnaseCellLineNames){
+	public static void readDnaseCellLineNames(String outputFolder,List<String> dnaseCellLineNames){
 		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
-		createChromBaseDnaseBufferedReaders(bufferedReaderList);
+		createChromBaseDnaseBufferedReaders(outputFolder,bufferedReaderList);
 		
 		String strLine;
 		BufferedReader bufferedReader = null;
@@ -345,15 +345,15 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public void readTfbsorHistoneNames(List<String> tfbsorHistoneNames,String tfbsorHistone){
+	public static void readTfbsorHistoneNames(String outputFolder,List<String> tfbsorHistoneNames,String tfbsorHistone){
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
 		
 		if (tfbsorHistone.equals(Commons.TFBS)){
-			createChromBaseTfbsBufferedReaders(bufferedReaderList);
+			createChromBaseTfbsBufferedReaders(outputFolder,bufferedReaderList);
 				
 		}else if (tfbsorHistone.equals(Commons.HISTONE)) {
-			createChromBaseHistoneBufferedReaders(bufferedReaderList);				
+			createChromBaseHistoneBufferedReaders(outputFolder,bufferedReaderList);				
 		}
 		
 		
@@ -402,7 +402,7 @@ public class WriteAllPossibleNames {
 
 	
 
-	public void readGeneIds(List<String> geneIds, String inputFileName){
+	public static void readGeneIds(String outputFolder, List<String> geneIds, String inputFileName){
 		
 		String strLine;
 		
@@ -415,7 +415,7 @@ public class WriteAllPossibleNames {
 		String geneId;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(outputFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -444,7 +444,7 @@ public class WriteAllPossibleNames {
 
 	}
 	
-	public void readRNAAccessionVersions(List<String> rnaNucleotideAccessionVersions,String inputFileName){
+	public static void readRNAAccessionVersions(String outputFolder, List<String> rnaNucleotideAccessionVersions,String inputFileName){
 		String strLine;
 		
 		FileReader fileReader = null;
@@ -459,7 +459,7 @@ public class WriteAllPossibleNames {
 		String rnaNucleotideAccessionVersion;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(outputFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -496,7 +496,7 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public void readUcscRefSeqGeneName2s(List<String>  ucscRefSeqGeneName2s,String inputFileName){
+	public static void readUcscRefSeqGeneName2s(String dataFolder,List<String>  ucscRefSeqGeneName2s,String inputFileName){
 		String strLine;
 		
 		FileReader fileReader = null;
@@ -519,7 +519,7 @@ public class WriteAllPossibleNames {
 		String ucscRefSeqGeneName2;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 //			consume first line
@@ -564,7 +564,7 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public void readKeggPathwayNames(List<String> keggPathwayNameList, String inputFileName){
+	public static void readKeggPathwayNames(String dataFolder,List<String> keggPathwayNameList, String inputFileName){
 
 		String strLine;
 		
@@ -577,7 +577,7 @@ public class WriteAllPossibleNames {
 		String keggPathwayName;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -607,14 +607,14 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public void writeNames(List<String> nameList, String outputDirectoryName, String outputFileName){
+	public static void writeNames(String outputFolder,List<String> nameList, String outputDirectoryName, String outputFileName){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;		
 		
 		
 		try {
 			
-			fileWriter = FileOperations.createFileWriter(outputDirectoryName,outputFileName);
+			fileWriter = FileOperations.createFileWriter(outputFolder + outputDirectoryName,outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 		
 			for(int i = 0; i<nameList.size() ;i++){
@@ -635,98 +635,141 @@ public class WriteAllPossibleNames {
 	
 	
 	
-	public void writeAllPossibleDnaseCellLineNames(){
+	public static void writeAllPossibleDnaseCellLineNames(String outputFolder){
 		
 		List<String> dnaseCellLineNames = new ArrayList<String>();
-		readDnaseCellLineNames(dnaseCellLineNames);
-		writeNames(dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
+		readDnaseCellLineNames(outputFolder,dnaseCellLineNames);
+		writeNames(outputFolder,dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
 	}
 	
 	
-	public void writeAllPossibleTfbsNames(){
+	public static void writeAllPossibleTfbsNames(String outputFolder){
 		
 		List<String> tfbsNames = new ArrayList<String>();
-		readTfbsorHistoneNames(tfbsNames, Commons.TFBS);
-		writeNames(tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
+		readTfbsorHistoneNames(outputFolder,tfbsNames, Commons.TFBS);
+		writeNames(outputFolder,tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 
 	}
 
-	public void writeAllPossibleHistoneNames(){
+	public static void writeAllPossibleHistoneNames(String outputFolder){
 		
 		List<String> histoneNames = new ArrayList<String>();
-		readTfbsorHistoneNames(histoneNames,Commons.HISTONE);
-		writeNames(histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
+		readTfbsorHistoneNames(outputFolder,histoneNames,Commons.HISTONE);
+		writeNames(outputFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
 
 	}
 	
-	public void writeAllPossibleGeneIds(){
+	public static void writeAllPossibleGeneIds(String outputFolder){
 
 		List<String> geneIds = new ArrayList<String>();
-		readGeneIds(geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
-		writeNames(geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
+		readGeneIds(outputFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
+		writeNames(outputFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
 		
 	}
 	
-	public void writeAllPossibleRNAAccessionVersions(){
+	public static void writeAllPossibleRNAAccessionVersions(String outputFolder){
 
 		List<String> rnaNucleotideAccessionVersions = new ArrayList<String>();
-		readRNAAccessionVersions(rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
-		writeNames(rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
+		readRNAAccessionVersions(outputFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+		writeNames(outputFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
 		
 	}
 
 	
-	public void writeAllPossibleUcscRefSeqGeneName2s(){
+	public static void writeAllPossibleUcscRefSeqGeneName2s(String dataFolder,String outputFolder){
 
 		List<String> ucscRefSeqGeneName2s = new ArrayList<String>();
-		readUcscRefSeqGeneName2s(ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
-		writeNames(ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
+		readUcscRefSeqGeneName2s(dataFolder,ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
+		writeNames(outputFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
 		
 	}
 	
-	public void writeAllPossibleKeggPathwayNames(){
+	public static void writeAllPossibleKeggPathwayNames(String dataFolder,String outputFolder){
 		
 		List<String> keggPathwayNameList = new ArrayList<String>();		
-		readKeggPathwayNames(keggPathwayNameList,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-		writeNames(keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
+		readKeggPathwayNames(dataFolder,keggPathwayNameList,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
+		writeNames(outputFolder,keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
 	
 	}
 	
 	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void run(String[] args) {
 		
-		WriteAllPossibleNames writeAllPossibleNames = new WriteAllPossibleNames();
-
+		String outputFolder = args[1];
+		String dataFolder = args[2];
+		
+		
 		//Write all possible dnase cell line names	
 		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
-		writeAllPossibleNames.writeAllPossibleDnaseCellLineNames();
+		WriteAllPossibleNames.writeAllPossibleDnaseCellLineNames(outputFolder);
 		
 		//Write all possible tfbs names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\tfbs 
-		writeAllPossibleNames.writeAllPossibleTfbsNames();
+		WriteAllPossibleNames.writeAllPossibleTfbsNames(outputFolder);
 		
 		//Write all possible histone names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\\histone
-		writeAllPossibleNames.writeAllPossibleHistoneNames();
+		WriteAllPossibleNames.writeAllPossibleHistoneNames(outputFolder);
 
 		//Write all possible gene ids
-//		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
-		writeAllPossibleNames.writeAllPossibleGeneIds();
+//			Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
+		WriteAllPossibleNames.writeAllPossibleGeneIds(outputFolder);
 
 		//Write all possible RNA nucleotide accession version, in other words ucsc refseq gene name
-//		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
-		writeAllPossibleNames.writeAllPossibleRNAAccessionVersions();
+//			Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
+		WriteAllPossibleNames.writeAllPossibleRNAAccessionVersions(outputFolder);
 
 		//Write all possible ucsc refseq gene name2
-//		Using hg19_refseq_genes.txt under C:\\eclipse_ganymede\\workspace\\Doktora1\\src\\annotate\\ucscgenome\\input_output	
-		writeAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s();
+//			Using hg19_refseq_genes.txt under C:\\eclipse_ganymede\\workspace\\Doktora1\\src\\annotate\\ucscgenome\\input_output	
+		WriteAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s(dataFolder,outputFolder);
 
 		//Write all possible kegg pathway names		
 		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
-		writeAllPossibleNames.writeAllPossibleKeggPathwayNames();
+		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder,outputFolder);
+	}
+
+	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void main(String[] args) {
+		
+		String outputFolder = args[1];
+		String dataFolder = args[2];
+		
+		
+		//Write all possible dnase cell line names	
+		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
+		WriteAllPossibleNames.writeAllPossibleDnaseCellLineNames(outputFolder);
+		
+		//Write all possible tfbs names
+		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\tfbs 
+		WriteAllPossibleNames.writeAllPossibleTfbsNames(outputFolder);
+		
+		//Write all possible histone names
+		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\\histone
+		WriteAllPossibleNames.writeAllPossibleHistoneNames(outputFolder);
+
+		//Write all possible gene ids
+//		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
+		WriteAllPossibleNames.writeAllPossibleGeneIds(outputFolder);
+
+		//Write all possible RNA nucleotide accession version, in other words ucsc refseq gene name
+//		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
+		WriteAllPossibleNames.writeAllPossibleRNAAccessionVersions(outputFolder);
+
+		//Write all possible ucsc refseq gene name2
+//		Using hg19_refseq_genes.txt under C:\\eclipse_ganymede\\workspace\\Doktora1\\src\\annotate\\ucscgenome\\input_output	
+		WriteAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s(dataFolder,outputFolder);
+
+		//Write all possible kegg pathway names		
+		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
+		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder,outputFolder);
 	}
 
 }

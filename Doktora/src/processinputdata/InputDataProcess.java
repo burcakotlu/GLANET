@@ -46,7 +46,7 @@ public class InputDataProcess {
 	
 	
 	//eutil efetch returns 0-based coordinates for given dbSNP ids 
-	public static void 	readDBSNPIDs(String inputFileName){
+	public static void 	readDBSNPIDs(String inputFileName, String outputFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -63,7 +63,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 		
 			AugmentationofGivenRsIds app = new AugmentationofGivenRsIds();
@@ -110,7 +110,7 @@ public class InputDataProcess {
 	//chromStart first base in a chromosome is numbered 0.
 	//chromEnd is exclusive, fisrt 100 bases of a chromosome are defined as chromStart=0 chromEnd=100, and 
 	//span the bases numbered 0-99.
-	public static void 	readBEDFile(String inputFileName){
+	public static void 	readBEDFile(String inputFileName, String outputFileFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -134,7 +134,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -170,15 +170,13 @@ public class InputDataProcess {
 		}
 		
 		
-		//@todo remove overlaps if any exists
-		
-			
+		//@todo remove overlaps if any exists			
 	}
 	
 	//GFF3 format is 1-based, end is inclusive
 	//example GFF3 input line
 	//chrX	experiment	SNP	146993388	146993388	.	-	0	cellType=HeLA
-	public static void 	readGFF3File(String inputFileName){
+	public static void 	readGFF3File(String inputFileName, String outputFileFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -205,7 +203,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -257,7 +255,7 @@ public class InputDataProcess {
 	//1 100
 	//chr1 100
 	//chr1 100 200
-	public static void 	readZeroBasedCoordinates(String inputFileName){
+	public static void 	readZeroBasedCoordinates(String inputFileName, String outputFileFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -285,7 +283,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -380,49 +378,53 @@ public class InputDataProcess {
 
 	}
 	
-	public static void run(String[] args){
-		processInputData()
-	}
 	
-	public static void processInputData(String inputFileName,String inputFileFormat){
+	
+	public static void processInputData(String[] args){
+		
+		String inputFileName = args[0];
+		
+		String outputFolder = args[1];
+		
+		String inputFileFormat = setInputFileFormat(args[3]);
 		
 		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readDBSNPIDs(inputFileName);	
+			readDBSNPIDs(inputFileName,outputFolder);	
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
-			readBEDFile(inputFileName);
+			readBEDFile(inputFileName,outputFolder);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readGFF3File(inputFileName);
+			readGFF3File(inputFileName,outputFolder);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readZeroBasedCoordinates(inputFileName);
+			readZeroBasedCoordinates(inputFileName,outputFolder);
 		}
 	}
 	
+	public static String setInputFileFormat(String guiInputFileFormat){
+		switch(guiInputFileFormat){
+		
+			case Commons.GUI_INPUT_FILE_FORMAT_DBSNP_IDS			: return Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_BED					: return Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_GFF3					: return Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES	: return Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+		
+		}
+		return null;
+	}
+	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void run(String[] args){
+		processInputData(args);
+	}
+		
 	public static void main(String[] args) {
-		//Get the input file
-		String inputFileName = args[0] + "AnnotationData"  + System.getProperty("file.separator") + "OCD_GWAS_SNP" + System.getProperty("file.separator") +  "OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\AnnotationData\\OCD_GWAS_SNP\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
-		
-
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_dbSNP_ids.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_BED_format.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_GFF3_format.txt";
-//		inputFileName = "C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt";
-		
-		//Get the input file format
-		String inputFileFormat = args[1];
-		
-		inputFileFormat = Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-//		inputFileFormat = Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
-			
-		//Embedded outputFileName
-//		String outputFileName = Commons.PROCESSED_INPUT_FILE; 
 		
 		//Read input data 
 		//Process input data
 		//Write output data
-		processInputData(inputFileName,inputFileFormat);
+		processInputData(args);
 				
 
 	}

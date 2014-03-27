@@ -748,7 +748,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 
 
 	
-	public void readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles(){
+	public void readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles(String outputFolder){
 		
 		int indexofFirstTab=0;
 		int indexofSecondTab=0;
@@ -767,8 +767,8 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 			
 			try {			
 				
-					fileReader = ChromosomeBasedFilesandOperations.getUnsortedHistoneFileReader(i);
-					fileWriter = ChromosomeBasedFilesandOperations.getSortedHistoneFileWriter(i);
+					fileReader = ChromosomeBasedFilesandOperations.getUnsortedHistoneFileReader(i,outputFolder);
+					fileWriter = ChromosomeBasedFilesandOperations.getSortedHistoneFileWriter(i,outputFolder);
 											
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
@@ -841,7 +841,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 	
 	}
 	
-	public void readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles(){
+	public void readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles(String outputFolder){
 		int indexofFirstTab=0;
 		int indexofSecondTab=0;
 		int indexofThirdTab=0;
@@ -857,8 +857,8 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 			BufferedWriter bw = null;
 			
 			try {	
-					fileReader = ChromosomeBasedFilesandOperations.getUnsortedDnaseFileReader(i);
-					fileWriter = ChromosomeBasedFilesandOperations.getSortedDnaseFileWriter(i);
+					fileReader = ChromosomeBasedFilesandOperations.getUnsortedDnaseFileReader(i,outputFolder);
+					fileWriter = ChromosomeBasedFilesandOperations.getSortedDnaseFileWriter(i,outputFolder);
 									
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
@@ -930,7 +930,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 	
 	}
 	
-	public void readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles(){
+	public void readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles(String outputFolder){
 		
 		int indexofFirstTab=0;
 		int indexofSecondTab=0;
@@ -949,8 +949,8 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 			
 			try {			
 				
-					fileReader = ChromosomeBasedFilesandOperations.getUnsortedTfbsFileReader(i);
-					fileWriter = ChromosomeBasedFilesandOperations.getSortedTfbsFileWriter(i);					
+					fileReader = ChromosomeBasedFilesandOperations.getUnsortedTfbsFileReader(i,outputFolder);
+					fileWriter = ChromosomeBasedFilesandOperations.getSortedTfbsFileWriter(i,outputFolder);					
 									
 					br = new BufferedReader(fileReader);					
 					bw = new BufferedWriter(fileWriter);
@@ -1025,43 +1025,46 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		
 	}
 	
-	/**
-	 * @param args
-	 */
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
 	public static void main(String[] args) {
 		
-		File dnaseDir1 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 = new File(common.Commons.FTP_ENCODE_DNASE_DIRECTORY2);		
-		File tfbsDir = new File(common.Commons.FTP_ENCODE_TFBS_DIRECTORY);		
-		File histoneDir = new File(common.Commons.FTP_ENCODE_HISTONE_DIRECTORY);
+		File dnaseDir1 = new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir2 = new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY2);		
+		File tfbsDir = new File(args[2] + common.Commons.ENCODE_TFBS_DIRECTORY);		
+		File histoneDir = new File(args[2] + common.Commons.ENCODE_HISTONE_DIRECTORY);
 		
 		List<BufferedWriter> unsortedDnaseBufferedWriterList 	= new ArrayList<BufferedWriter>(24);
 		List<BufferedWriter> unsortedHistoneBufferedWriterList 	= new ArrayList<BufferedWriter>(24);
 		List<BufferedWriter> unsortedTfbsBufferedWriterList 	= new ArrayList<BufferedWriter>(24);
 		
+		String outputFolder = args[1];
+		
 		
 		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort createChromosomeBasedFilesUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectionsSort();
 		
 //		DNASE
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedDnaseFileWriters(unsortedDnaseBufferedWriterList);
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedDnaseFileWriters(outputFolder,unsortedDnaseBufferedWriterList);
 		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir2,unsortedDnaseBufferedWriterList);		
 		createChromosomeBasedFilesUsingEncode.readEncodeDnaseFilesandWriteUnsortedChromBaseDnaseFiles(dnaseDir1,unsortedDnaseBufferedWriterList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedDnaseBufferedWriterList);	
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles();
+		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseDnaseFilesSortWriteSortedChromosomeBaseDnaseFiles(outputFolder);
 		ChromosomeBasedFilesandOperations.writeDnaseInformationtoConsole(numberofDNAElements);
 
 //		HISTONE
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedHistoneFileWriters(unsortedHistoneBufferedWriterList);
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedHistoneFileWriters(outputFolder,unsortedHistoneBufferedWriterList);
 		createChromosomeBasedFilesUsingEncode.readEncodeHistoneFilesandWriteUnsortedChromBaseHistoneFiles(histoneDir,unsortedHistoneBufferedWriterList);		
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedHistoneBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles();
+		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseHistoneFilesSortWriteSortedChromosomeBaseHistoneFiles(outputFolder);
 		ChromosomeBasedFilesandOperations.writeHistoneInformationtoConsole(numberofDNAElements);
 				
 //		TFBS
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedTfbsFileWriters(unsortedTfbsBufferedWriterList);
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedTfbsFileWriters(outputFolder,unsortedTfbsBufferedWriterList);
 		createChromosomeBasedFilesUsingEncode.readEncodeTfbsFilesandWriteUnsortedChromBaseTfbsFiles(tfbsDir,unsortedTfbsBufferedWriterList);		
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedTfbsBufferedWriterList);
-		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles();
+		createChromosomeBasedFilesUsingEncode.readUnsortedChromBaseTfbsFilesSortWriteSortedChromosomeBaseTfbsFiles(outputFolder);
 		ChromosomeBasedFilesandOperations.writeTfbsInformationtoConsole(numberofDNAElements);
 				            
 	}

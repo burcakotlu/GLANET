@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="processinputdata" key="selection"/>
+		<item value="args[2]" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="args[2]"/>
+			<item value="chrName2RefSeqIdforGrch37Map"/>
+			<item value=",outputFolder,dataFolder"/>
+			<item value="Commons.OUTPUT_DATA"/>
+			<item value="runButton"/>
+			<item value="OCD_GWAS_SIGNIFICANT_SNP_RSIDs"/>
+			<item value="process"/>
 			<item value="processinputdata"/>
-			<item value="line"/>
-			<item value="newline"/>
-			<item value=" "/>
-			<item value="head"/>
-			<item value="&gt;"/>
-			<item value="&gt;&gt;"/>
-			<item value="inputdata"/>
 		</list>
 		<list key="replacehistory">
+			<item value="outputFolder"/>
 			<item value="processinputdata"/>
 			<item value="FileOperations.createFileWriter"/>
 			<item value="numberofDNAElements"/>
@@ -27,7 +28,7 @@
 		<item key="DIALOG_WIDTH" value="353"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="513" key="DIALOG_HEIGHT"/>
-		<item value="763" key="DIALOG_X_ORIGIN"/>
-		<item value="180" key="DIALOG_Y_ORIGIN"/>
+		<item value="1248" key="DIALOG_X_ORIGIN"/>
+		<item value="59" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

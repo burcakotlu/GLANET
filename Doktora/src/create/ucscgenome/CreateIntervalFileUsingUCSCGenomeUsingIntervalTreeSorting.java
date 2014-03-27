@@ -48,7 +48,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 //	global variables
 	
-	public void getRefSeqGeneData(String strLine,RefSeqGene refSeqGene){
+	public static void getRefSeqGeneData(String strLine,RefSeqGene refSeqGene){
 		
 		String refSeqGeneName;
 		String chromName;
@@ -153,7 +153,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	}
 	
 	
-	public void writeInformation(Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
+	public static void writeInformation(Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
 		try {
 				bufferedWriter.write("Size of the refseqGenes is " + refSeqGenes.size()+ "\n");
 				bufferedWriter.write("Size of the refseqGeneNamess is " + refSeqGeneNames.size()+"\n");	
@@ -164,7 +164,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	}
 
 	
-	public void addRefSeqGeneName(RefSeqGene refSeqGene, Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
+	public static void addRefSeqGeneName(RefSeqGene refSeqGene, Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
 		try {
 			
 			if (!refSeqGenes.contains(refSeqGene))
@@ -187,7 +187,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 	}
 	
-	public void analyzeTxCdsExons(RefSeqGene refSeqGene, BufferedWriter bufferedWriter){
+	public static void analyzeTxCdsExons(RefSeqGene refSeqGene, BufferedWriter bufferedWriter){
 		if (!((refSeqGene.getTranscriptionStartPosition()<= refSeqGene.getCdsStart()) &&
 		    (refSeqGene.getTranscriptionEndPosition()>= refSeqGene.getCdsEnd()) &&
 		    (refSeqGene.getExonStarts().get(0)==refSeqGene.getTranscriptionStartPosition()) &&
@@ -202,7 +202,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			
 	}
 	
-	public void readInputFile(String fileName, List<RefSeqGene> refSeqGeneList, Map<String,Integer> refSeq2GeneHashMap){
+	public static void readInputFile(String fileName, List<RefSeqGene> refSeqGeneList, Map<String,Integer> refSeq2GeneHashMap, String outputFolder){
 	    FileReader fileReader =null;
 	    BufferedReader bufferedReader = null;
 	    
@@ -219,7 +219,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			fileReader = new FileReader(fileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME,Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME,Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 		} catch (FileNotFoundException e) {
@@ -275,7 +275,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	}
 
 	
-	public void checkforValidInterval(FivePrimeThreePrime primes){
+	public static void checkforValidInterval(FivePrimeThreePrime primes){
 //		Five primes
 		if ((primes.get_5p1Start()).compareTo(0)<0)		
 			primes.set_5p1Start(0);
@@ -313,7 +313,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		
 	
-	public void create5p3pIntervals(RefSeqGene refSeqGene,BufferedWriter bufferedWriter,RefSeqGeneIntervalsInformation information){
+	public static void create5p3pIntervals(RefSeqGene refSeqGene,BufferedWriter bufferedWriter,RefSeqGeneIntervalsInformation information){
 		char strand;
 		int txStart,txEnd;
 		
@@ -424,7 +424,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		primes = null;
 	}
 	
-	public void createExonIntronIntervals(RefSeqGene refSeqGene,int i, BufferedWriter bufferedWriter, RefSeqGeneIntervalsInformation information){
+	public static void createExonIntronIntervals(RefSeqGene refSeqGene,int i, BufferedWriter bufferedWriter, RefSeqGeneIntervalsInformation information){
 		int j;
 				
 		try {	
@@ -455,7 +455,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 
 	
-	public void fillUnsortedChromBaseRefSeqGeneIntervalFiles(List<RefSeqGene> refSeqGeneList, List<BufferedWriter> bufferedWriterList){
+	public static void fillUnsortedChromBaseRefSeqGeneIntervalFiles(List<RefSeqGene> refSeqGeneList, List<BufferedWriter> bufferedWriterList){
 		RefSeqGene refSeqGene = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -502,7 +502,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 	
 	
-	public void readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(List<BufferedReader> unsortedBufferedReaderList, List<BufferedWriter> sortedBufferedWriterList){
+	public static void readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(List<BufferedReader> unsortedBufferedReaderList, List<BufferedWriter> sortedBufferedWriterList){
 		
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;
@@ -612,8 +612,11 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 	}
 	
-	
-	public static void main(String[] args) {
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void run(String[] args) {
 		
 //		TODO  might be done without using refSeqGeneList
 		List<RefSeqGene> refSeqGeneList = new ArrayList<RefSeqGene>();
@@ -621,11 +624,14 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		List<BufferedReader> unsortedBufferedReaderList = new ArrayList<BufferedReader>(24);		
 		List<BufferedWriter> sortedBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
-		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
-		String fileName = Commons.FTP_HG19_REFSEQ_GENES;
-		String fileName2 = Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
+		String outputFolder = args[1];
+		String dataFolder = args[2];
 		
-		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting createIntervals = new CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting();
+		
+		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
+		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
+		String fileName2 = outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
+		
 		
 		//My convention is zero based start and end.
 		//Ucsc genome table browser convention: Our internal database representations of coordinates always have a zero-based start and a one-based end.
@@ -634,18 +640,62 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	    
 //		ncbi output file will be read into a map
 //		using this map for each gene in the refSeqGeneList  geneId will be added
-		createRefSeq2GeneMap(fileName2,refSeq2GeneHashMap);
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.createRefSeq2GeneMap(fileName2,refSeq2GeneHashMap);
 //		augmentation of RNA nucleotide accession version, in other words refSeqGeneName is done here
 //		It is augmented with entrez gene id 
-		createIntervals.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap);	
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap,outputFolder);	
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(unsortedBufferedWriterList);	    
-		createIntervals.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(outputFolder,unsortedBufferedWriterList);	    
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(unsortedBufferedReaderList);
-		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(sortedBufferedWriterList);		
-		createIntervals.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(outputFolder,unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(outputFolder,sortedBufferedWriterList);		
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);
+	}
+	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET output folder
+	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
+	//args[3] must have Input File Format
+	public static void main(String[] args) {
+		
+//		TODO  might be done without using refSeqGeneList
+		List<RefSeqGene> refSeqGeneList = new ArrayList<RefSeqGene>();
+		List<BufferedWriter> unsortedBufferedWriterList = new ArrayList<BufferedWriter>(24);
+		List<BufferedReader> unsortedBufferedReaderList = new ArrayList<BufferedReader>(24);		
+		List<BufferedWriter> sortedBufferedWriterList = new ArrayList<BufferedWriter>(24);
+		
+		String outputFolder = args[1];
+		String dataFolder = args[2];
+		
+		
+		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
+		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
+		String fileName2 = outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
+		
+		
+		//My convention is zero based start and end.
+		//Ucsc genome table browser convention: Our internal database representations of coordinates always have a zero-based start and a one-based end.
+		//Convert one based end to zero based end in readInputFile()
+	
+	    
+//		ncbi output file will be read into a map
+//		using this map for each gene in the refSeqGeneList  geneId will be added
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.createRefSeq2GeneMap(fileName2,refSeq2GeneHashMap);
+//		augmentation of RNA nucleotide accession version, in other words refSeqGeneName is done here
+//		It is augmented with entrez gene id 
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap,outputFolder);	
+		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(outputFolder,unsortedBufferedWriterList);	    
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
+		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(outputFolder,unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(outputFolder,sortedBufferedWriterList);		
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);
 	}

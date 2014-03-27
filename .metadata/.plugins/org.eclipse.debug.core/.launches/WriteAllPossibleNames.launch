@@ -7,5 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="annotate.intervals.parametric.WriteAllPossibleNames"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\GLANET\\TEST_INPUT_DATA\\Test_0_based_coordinates.txt&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\Output\\&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\&quot;&#13;&#10;&quot;0-based coordinates (End Inclusive)&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Doktora"/>
 </launchConfiguration>
