@@ -1,0 +1,2 @@
+Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
+chr17	7979462	7979462	chr17	7979034	7979491	NM_001139	INTRON4	ALOX12B	242

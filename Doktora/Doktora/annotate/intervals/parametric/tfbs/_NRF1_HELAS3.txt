@@ -1,0 +1,2 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chrX	146993388	146993389	chrX	146993174	146993423	NRF1	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Nrf1IggmusAlnRep0_VS_wgEncodeSydhTfbsHelas3InputIggmusAlnRep0.narrowPeak

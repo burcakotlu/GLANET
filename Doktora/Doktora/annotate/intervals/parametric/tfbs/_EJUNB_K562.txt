@@ -1,0 +1,4 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr11	47600437	47600437	chr11	47600390	47600679	EJUNB	K562	spp.optimal.wgEncodeUchicagoTfbsK562EjunbControlAlnRep0_VS_wgEncodeUchicagoTfbsK562InputControlAlnRep0.narrowPeak
+chr13	111365588	111365588	chr13	111365556	111365845	EJUNB	K562	spp.optimal.wgEncodeUchicagoTfbsK562EjunbControlAlnRep0_VS_wgEncodeUchicagoTfbsK562InputControlAlnRep0.narrowPeak
+chr19	4769739	4769739	chr19	4769569	4769858	EJUNB	K562	spp.optimal.wgEncodeUchicagoTfbsK562EjunbControlAlnRep0_VS_wgEncodeUchicagoTfbsK562InputControlAlnRep0.narrowPeak

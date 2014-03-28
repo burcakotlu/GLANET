@@ -1,0 +1,25 @@
+Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node Histone Name	node CellLineName	node FileName
+chr1	227853620	227853620	chr1	227848245	227854574	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr2	5610079	5610079	chr2	5609107	5610985	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr2	21832195	21832195	chr2	21829754	21833547	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr2	129090108	129090108	chr2	129088946	129090468	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr4	15743390	15743390	chr4	15742693	15744676	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr4	33642613	33642613	chr4	33642147	33644739	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr6	161069940	161069940	chr6	161068819	161073275	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr7	9926029	9926029	chr7	9922272	9927160	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr8	3871451	3871451	chr8	3869671	3871804	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr8	5826094	5826094	chr8	5823910	5826178	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr8	14676811	14676811	chr8	14676394	14678410	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr10	83416996	83416996	chr10	83415430	83417140	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr10	106608434	106608434	chr10	106606682	106608693	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr10	123095375	123095375	chr10	123093371	123096258	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr10	130197452	130197452	chr10	130195766	130201231	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr12	126146094	126146094	chr12	126145172	126148282	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr12	126146258	126146258	chr12	126145172	126148282	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr12	130774188	130774188	chr12	130773261	130776053	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr13	47060216	47060216	chr13	47055259	47061189	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr14	99304455	99304455	chr14	99303437	99306389	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr16	6785190	6785190	chr16	6782899	6785998	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr18	38077440	38077440	chr18	38076174	38078253	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr19	44831988	44831988	chr19	44831475	44834043	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak
+chr19	57804361	57804361	chr19	57801333	57805958	H3K9ME3	OSTEOBL	wgEncodeBroadHistoneOsteoblH3k9me3StdAln.narrowPeak

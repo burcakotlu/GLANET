@@ -1,0 +1,11 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr1	7727853	7727853	chr1	7727641	7727916	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr6	136359445	136359445	chr6	136359405	136359680	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr11	128729844	128729844	chr11	128729836	128730037	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr12	49390676	49390676	chr12	49390586	49390800	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr12	58299249	58299249	chr12	58299150	58299452	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr17	74519373	74519373	chr17	74519230	74519473	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr18	48188791	48188791	chr18	48188585	48188860	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr19	495721	495721	chr19	495688	495963	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr19	4941455	4941455	chr19	4941286	4941561	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak
+chr21	38539118	38539118	chr21	38539037	38539312	CTCF	HEE	spp.optimal.wgEncodeUwTfbsHeeCtcfStdAlnRep0_VS_wgEncodeUwTfbsHeeInputStdAlnRep1.narrowPeak

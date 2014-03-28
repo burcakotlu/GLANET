@@ -1,0 +1,7 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr1	62677047	62677047	chr1	62676798	62677247	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak
+chr2	129090108	129090108	chr2	129089767	129090151	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak
+chr2	129090108	129090108	chr2	129089941	129090390	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak
+chr2	150315376	150315376	chr2	150314970	150315419	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak
+chr6	170792766	170792766	chr6	170792486	170792935	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak
+chr10	4169039	4169039	chr10	4168655	4169104	SETDB1	U2OS	spp.optimal.wgEncodeSydhTfbsU2osSetdb1UcdAlnRep0_VS_wgEncodeSydhTfbsU2osInputUcdAln.narrowPeak

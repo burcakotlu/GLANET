@@ -1,0 +1,3 @@
+Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
+chrX	55041618	55041619	chrX	55036306	55044305	NM_001271748	3P2	APEX2	27301
+chrX	55041618	55041619	chrX	55036306	55044305	NM_014481	3P2	APEX2	27301

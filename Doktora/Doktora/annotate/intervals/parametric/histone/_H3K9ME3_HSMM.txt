@@ -1,0 +1,17 @@
+Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node Histone Name	node CellLineName	node FileName
+chr1	7236809	7236809	chr1	7236530	7238457	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr1	41085925	41085925	chr1	41085236	41086477	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr8	1011479	1011479	chr8	1010467	1011999	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr8	69532252	69532252	chr8	69532113	69532875	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr10	5624368	5624368	chr10	5623512	5624826	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr10	17523141	17523141	chr10	17522542	17524169	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr10	29405386	29405386	chr10	29404274	29405718	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr10	133077815	133077815	chr10	133076847	133078419	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr12	126091465	126091465	chr12	126090717	126091677	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr12	126146094	126146094	chr12	126145184	126146802	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr12	126146258	126146258	chr12	126145184	126146802	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr14	99304455	99304455	chr14	99300759	99304608	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr19	22317313	22317313	chr19	22315744	22318710	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr19	44831988	44831988	chr19	44831284	44833862	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr19	57804361	57804361	chr19	57801273	57804792	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak
+chr22	49218477	49218477	chr22	49215646	49219443	H3K9ME3	HSMM	wgEncodeBroadHistoneHsmmH3k9me3StdAln.narrowPeak

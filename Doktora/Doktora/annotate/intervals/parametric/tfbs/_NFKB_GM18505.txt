@@ -1,0 +1,4 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr6	170862335	170862335	chr6	170862217	170862500	NFKB	GM18505	spp.optimal.wgEncodeSydhTfbsGm18505NfkbIggrabAlnRep0_VS_wgEncodeSydhTfbsGm18505InputIggrabAlnRep0.narrowPeak
+chr8	135612744	135612744	chr8	135612536	135612819	NFKB	GM18505	spp.optimal.wgEncodeSydhTfbsGm18505NfkbIggrabAlnRep0_VS_wgEncodeSydhTfbsGm18505InputIggrabAlnRep0.narrowPeak
+chr22	18560569	18560569	chr22	18560386	18560669	NFKB	GM18505	spp.optimal.wgEncodeSydhTfbsGm18505NfkbIggrabAlnRep0_VS_wgEncodeSydhTfbsGm18505InputIggrabAlnRep0.narrowPeak

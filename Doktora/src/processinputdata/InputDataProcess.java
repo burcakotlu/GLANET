@@ -247,8 +247,137 @@ public class InputDataProcess {
 		
 		//@todo remove overlaps if any exists
 	
-
 	}
+	
+	
+	//1-based coordinates, start and end are inclusive.
+	//1 100 200
+	//1 100
+	//chr1 100
+	//chr1 100 200
+	public static void readOneBasedCoordinates(String inputFileName, String outputFileFolder){
+		
+		int zeroBasedStart;
+		int zeroBasedInclusiveEnd;
+		
+		//read the file line by line
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		//write to output file line by line 
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		
+		int indexofColon;
+		int indexofDot;
+		int indexofHyphen;
+		
+		String chrName = null;
+		int oneBasedStart = 0;
+		int oneBasedInclusiveEnd = 0;
+		
+		try {
+			
+			fileReader = new FileReader(inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				//skip comment lines
+				if(!(strLine.startsWith("#"))){
+					
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					
+					indexofColon = strLine.indexOf(':');
+					indexofDot = strLine.indexOf('.');
+					indexofHyphen = strLine.indexOf('-');
+				
+					//19:12995239..12998702
+					//19:12995239-12998702
+					//chr19:12995239-12998702				
+					//chr11:524690..5247000
+					//there is no tab
+					if(indexofColon>=0){
+						chrName = strLine.substring(0, indexofColon);
+						
+						if(!(chrName.startsWith("chr"))){
+							//add "chr"
+							chrName = "chr" + chrName;
+						}
+						
+						
+						if (indexofHyphen>=0){
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofHyphen));
+							oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen+1).trim());
+						}else if (indexofDot>=0){
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon+1, indexofDot));
+							oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot+2).trim());
+						}
+						//19:12995239
+						//chr19:12995239				
+						else {
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon+1).trim());
+							oneBasedInclusiveEnd = oneBasedStart;
+						}
+					}
+									
+					//chrX 100 200
+					//X 100 200
+					else if (indexofSecondTab>=0 && indexofFirstTab>=0){
+						
+						chrName = strLine.substring(0, indexofFirstTab);
+						
+						if(!(chrName.startsWith("chr"))){
+							//add "chr"
+							chrName = "chr" + chrName;
+						}
+						
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1).trim());
+					}
+					//chrX 100
+					//X 100
+					else if (indexofFirstTab>=0){
+						
+						chrName = strLine.substring(0, indexofFirstTab);
+						
+						if(!(chrName.startsWith("chr"))){
+							//add "chr"
+							chrName = "chr" + chrName;
+						}
+						
+		
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1).trim());
+						oneBasedInclusiveEnd = oneBasedStart;												
+					
+					}
+					
+					zeroBasedStart = oneBasedStart - 1;
+					zeroBasedInclusiveEnd = oneBasedInclusiveEnd - 1;
+					
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
+				}//End of if not comment line
+								
+			}//End of while
+			
+			bufferedReader.close();
+			bufferedWriter.close();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	//0-based coordinates, start and end are inclusive.
 	//1 100 200
@@ -379,14 +508,23 @@ public class InputDataProcess {
 	}
 	
 	
-	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void processInputData(String[] args){
 		
 		String inputFileName = args[0];
+		String glanetFolder = args[1];
 		
-		String outputFolder = args[1];
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
 		
-		String inputFileFormat = setInputFileFormat(args[3]);
+		String inputFileFormat = setInputFileFormat(args[2]);
 		
 		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
 			readDBSNPIDs(inputFileName,outputFolder);	
@@ -396,6 +534,8 @@ public class InputDataProcess {
 			readGFF3File(inputFileName,outputFolder);
 		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
 			readZeroBasedCoordinates(inputFileName,outputFolder);
+		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
+			readOneBasedCoordinates(inputFileName,outputFolder);
 		}
 	}
 	
@@ -406,19 +546,34 @@ public class InputDataProcess {
 			case Commons.GUI_INPUT_FILE_FORMAT_BED					: return Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
 			case Commons.GUI_INPUT_FILE_FORMAT_GFF3					: return Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
 			case Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES	: return Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES	: return Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
 		
 		}
 		return null;
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	//args[1] must have GLANET folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void run(String[] args){
-		processInputData(args);
+	processInputData(args);
 	}
 		
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
 		
 		//Read input data 

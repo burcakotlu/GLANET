@@ -1,0 +1,7 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr6	170862335	170862335	chr6	170862264	170862499	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak
+chr7	130009352	130009352	chr7	130009342	130009577	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak
+chr12	50303926	50303926	chr12	50303748	50303983	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak
+chr12	58299249	58299249	chr12	58299125	58299360	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak
+chr12	131441716	131441716	chr12	131441628	131441863	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak
+chr19	4769739	4769739	chr19	4769549	4769784	MAX	NB4	spp.optimal.wgEncodeSydhTfbsNb4MaxStdAlnRep0_VS_wgEncodeSydhTfbsNb4InputStdAlnRep1.narrowPeak

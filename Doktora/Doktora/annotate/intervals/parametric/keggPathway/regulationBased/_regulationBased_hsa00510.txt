@@ -1,0 +1,3 @@
+Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
+chr1	95470810	95470810	chr1	95448862	95492683	NM_144988	INTRON1	ALG14	199857
+chr6	119528315	119528315	chr6	119526047	119569423	NM_005907	INTRON7	MAN1A1	4121

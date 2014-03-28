@@ -1,0 +1,3 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr13	111365588	111365588	chr13	111365391	111365641	NFYA	K562	spp.optimal.wgEncodeSydhTfbsK562NfyaStdAlnRep0_VS_wgEncodeSydhTfbsK562InputStdAlnRep0.narrowPeak
+chr21	35366933	35366933	chr21	35366718	35367021	NFYA	K562	spp.optimal.wgEncodeSydhTfbsK562NfyaStdAlnRep0_VS_wgEncodeSydhTfbsK562InputStdAlnRep0.narrowPeak

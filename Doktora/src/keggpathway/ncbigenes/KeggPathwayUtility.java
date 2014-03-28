@@ -436,7 +436,7 @@ public class KeggPathwayUtility {
 	 *  Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap will be created.
 	 * 
 	 */
-	public static void createNcbiGeneId2KeggPathwayMap(String fileName, Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap){
+	public static void createNcbiGeneId2KeggPathwayMap(String dataFolder,String fileName, Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap){
 		
 		String strLine;
 		FileReader fileReader = null;
@@ -453,7 +453,7 @@ public class KeggPathwayUtility {
 		List<String> existingKeggPathwayList = null;
 		
 		try {
-			fileReader = new FileReader(fileName);
+			fileReader = new FileReader(dataFolder + fileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){

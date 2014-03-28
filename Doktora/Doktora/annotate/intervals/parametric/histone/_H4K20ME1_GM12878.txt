@@ -1,0 +1,9 @@
+Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node Histone Name	node CellLineName	node FileName
+chr9	34503452	34503452	chr9	34501087	34509811	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr11	2712285	2712285	chr11	2711254	2715350	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr13	111286591	111286591	chr13	111286246	111289740	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr19	1847697	1847697	chr19	1842989	1848404	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr19	2238666	2238666	chr19	2236819	2245929	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr19	4995925	4995925	chr19	4994662	4999779	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr21	46514817	46514817	chr21	46514107	46516710	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak
+chr22	38144617	38144617	chr22	38143525	38145254	H4K20ME1	GM12878	wgEncodeBroadHistoneGm12878H4k20me1StdAln.narrowPeak

@@ -1,0 +1,2 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr19	12995238	12998702	chr19	12995612	12995871	MAX	GM12878	spp.optimal.wgEncodeSydhTfbsGm12878MaxStdAlnRep0_VS_wgEncodeSydhTfbsGm12878InputStdAlnRep1.narrowPeak

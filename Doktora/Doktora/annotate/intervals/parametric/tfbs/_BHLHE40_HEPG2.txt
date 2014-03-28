@@ -1,0 +1,2 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr12	58299249	58299249	chr12	58299133	58299322	BHLHE40	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Bhlhe40V0416101AlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr1xAlnRep0.narrowPeak

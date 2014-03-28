@@ -1,0 +1,13 @@
+Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node Histone Name	node CellLineName	node FileName
+chr2	73329871	73329871	chr2	73329725	73331054	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr2	73330953	73330953	chr2	73329725	73331054	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr2	177146274	177146274	chr2	177144757	177146984	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr2	225434444	225434444	chr2	225434428	225437161	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr5	137802403	137802403	chr5	137801081	137805682	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr5	137805651	137805651	chr5	137801081	137805682	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr6	20408918	20408918	chr6	20407382	20409635	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr19	1828947	1828947	chr19	1828714	1829257	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr21	27446431	27446431	chr21	27440193	27447051	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chr21	27520110	27520110	chr21	27519927	27524392	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chrX	41210941	41210941	chrX	41209788	41212448	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak
+chrX	41212320	41212320	chrX	41209788	41212448	H4K20ME1	HMEC	wgEncodeBroadHistoneHmecH4k20me1StdAln.narrowPeak

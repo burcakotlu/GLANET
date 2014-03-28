@@ -66,7 +66,7 @@ public class GRCh37Hg19Chromosome {
 	}
 	//3 Feb 2014
 	
-	public static void getHg19ChromosomeSizes(List<Integer> chromosomeSizes, String inputFileName){
+	public static void getHg19ChromosomeSizes(List<Integer> chromosomeSizes, String dataFolder, String inputFileName){
 		String strLine = null;
 		String chromName = null;
 		int indexofFirstTab = 0;
@@ -76,7 +76,7 @@ public class GRCh37Hg19Chromosome {
 		BufferedReader bufferedReader;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!= null){

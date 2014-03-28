@@ -87,9 +87,10 @@ public class RemoveOverlaps {
 	 */
 	public static void removeOverlaps(String[] args){
 		
-		String inputFileName  = args[1] + Commons.PROCESSED_INPUT_FILE;
-		String outputFolder = args[1];
-
+		
+		String glanetFolder 	= args[1];	
+		String outputFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
+		String inputFileName  	= outputFolder + Commons.PROCESSED_INPUT_FILE;
 		
 		Map<String,IntervalTree> chromosome2IntervalTree = new HashMap<String,IntervalTree>();
 				
@@ -272,15 +273,29 @@ public class RemoveOverlaps {
 	
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
-public static void run(String[] args){
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	public static void run(String[] args){
 	
 		removeOverlaps(args);
 		
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args){
 		
 		removeOverlaps(args);

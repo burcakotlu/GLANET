@@ -1,0 +1,3 @@
+Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+chr4	3454453	3454453	chr4	3454203	3454478	YY1	NT2D1	spp.optimal.wgEncodeSydhTfbsNt2d1Yy1UcdAlnRep0_VS_wgEncodeSydhTfbsNt2d1InputUcdAlnRep1.narrowPeak
+chr6	170862335	170862335	chr6	170862329	170862410	YY1	NT2D1	spp.optimal.wgEncodeSydhTfbsNt2d1Yy1UcdAlnRep0_VS_wgEncodeSydhTfbsNt2d1InputUcdAlnRep1.narrowPeak

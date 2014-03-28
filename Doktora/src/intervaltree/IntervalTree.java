@@ -1093,7 +1093,7 @@ public class IntervalTree {
 	//Search2 For finding the number of each histoneNameandCellLineName: k for the given search input size: n
 	//For each search input line, each histoneNameandCellLineName will have value 1 or 0
 	//These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap		
-	public void findAllOverlappingHistoneIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2ZeroorOneMap){
+	public void findAllOverlappingHistoneIntervals(String outputFolder, IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2ZeroorOneMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1106,7 +1106,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(histoneNameandCellLine);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE +"_" + histoneNameandCellLine + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE +"_" + histoneNameandCellLine + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(histoneNameandCellLine,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t"  + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t"  + "node Low" + "\t" + "node high" + "\t" + "node Histone Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +"\n");
@@ -1128,11 +1128,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())&& (node.getLeft().getMin() <= interval.getHigh())){
-				findAllOverlappingHistoneIntervals(node.getLeft(),interval,chromName,bufferedWriterHashMap, histoneNameList,histoneNameandCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(outputFolder,node.getLeft(),interval,chromName,bufferedWriterHashMap, histoneNameList,histoneNameandCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingHistoneIntervals(node.getRight(),interval,chromName,bufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(outputFolder,node.getRight(),interval,chromName,bufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap);	
 				
 			}
 				
@@ -1401,7 +1401,7 @@ public class IntervalTree {
 	//Search2 For finding the number of each tfbs:k for the given search input size: n
 	//For each search input line, each tfbs will have value 1 or 0
 	//These 1 or 0's will be accumulated in tfbs2KMap
-	public void findAllOverlappingTfbsIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap, List<TfNameandCellLineNameOverlap> tfandCellLineOverlapList){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap, List<TfNameandCellLineNameOverlap> tfandCellLineOverlapList){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1413,7 +1413,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(tfbsNameandCellLineName,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +"\n");
@@ -1436,11 +1436,11 @@ public class IntervalTree {
 			}
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin() <= interval.getHigh())){
-				findAllOverlappingTfbsIntervals(node.getLeft(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList);	
+				findAllOverlappingTfbsIntervals(outputFolder,node.getLeft(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingTfbsIntervals(node.getRight(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList);	
+				findAllOverlappingTfbsIntervals(outputFolder,node.getRight(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList);	
 			}		
 	}
 	//New Functionality added
@@ -1623,7 +1623,7 @@ public class IntervalTree {
 	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
 	//For each search input line, each dnase cell line will have value 1 or 0
 	//These 1 or 0's will be accumulated in dnaseCellLine2KMap		
-	public void findAllOverlappingDnaseIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2OneorZeroMap){
+	public void findAllOverlappingDnaseIntervals(String outputFolder,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2OneorZeroMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1634,7 +1634,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(node.getCellLineName());
 					
 					if (bufferedWriter==null){
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + node.getCellLineName() + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + node.getCellLineName() + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(node.getCellLineName(),bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "given interval low" + "\t" + 	"given interval high"+ "\t" + "dnase overlap chrom name" + "\t"  + "node low" + "\t" + "node high" + "\t" + "node CellLineName" + "\t" + "node FileName" +"\n");
@@ -1658,11 +1658,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin() <= interval.getHigh())){
-				findAllOverlappingDnaseIntervals(node.getLeft(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap);	
+				findAllOverlappingDnaseIntervals(outputFolder,node.getLeft(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingDnaseIntervals(node.getRight(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2OneorZeroMap);	
+				findAllOverlappingDnaseIntervals(outputFolder,node.getRight(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2OneorZeroMap);	
 				
 			}					
 	}

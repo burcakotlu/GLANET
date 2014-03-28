@@ -1,0 +1,19 @@
+Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node Histone Name	node CellLineName	node FileName
+chr2	102315056	102315056	chr2	102315010	102318152	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr2	225434444	225434444	chr2	225433425	225442140	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr4	148974601	148974601	chr4	148973499	148975219	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr5	137802403	137802403	chr5	137801221	137804906	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr5	137805651	137805651	chr5	137804970	137807053	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr6	20408918	20408918	chr6	20407165	20413727	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr6	160210060	160210060	chr6	160208054	160210481	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr8	95558693	95558693	chr8	95557742	95559970	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr9	129601001	129601001	chr9	129594247	129602704	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr11	2712285	2712285	chr11	2710243	2720777	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr11	2715531	2715531	chr11	2710243	2720777	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr14	64700044	64700044	chr14	64698573	64700047	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr17	36898392	36898392	chr17	36897531	36900679	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr17	48273154	48273154	chr17	48273114	48276585	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr19	1847697	1847697	chr19	1843278	1848055	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr19	4995925	4995925	chr19	4994554	4996108	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr21	36363527	36363527	chr21	36361522	36366595	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
+chr21	46514817	46514817	chr21	46503794	46516676	H4K20ME1	HSMM	wgEncodeBroadHistoneHsmmH4k20me1StdAln.narrowPeak
