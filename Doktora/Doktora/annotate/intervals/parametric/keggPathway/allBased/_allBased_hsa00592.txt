@@ -1,4 +1,0 @@
-Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
-chr17	73871466	73871466	chr17	73837588	73927587	NM_007292	3D	ACOX1	51
-chr17	73871466	73871466	chr17	73837588	73927587	NM_001185039	3D	ACOX1	51
-chr17	73871466	73871466	chr17	73837588	73927587	NM_004035	3D	ACOX1	51

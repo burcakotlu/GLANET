@@ -804,7 +804,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(String outputFolder,Map<String, MeanandStandardDeviation>  gcDnaseHashMap, Map<String, MeanandStandardDeviation>  gcTfbsHashMap, Map<String, MeanandStandardDeviation>  gcHistoneHashMap, List<Integer>  hg19ChromosomeSizes){
+	public static void calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(String outputFolder,String dataFolder,Map<String, MeanandStandardDeviation>  gcDnaseHashMap, Map<String, MeanandStandardDeviation>  gcTfbsHashMap, Map<String, MeanandStandardDeviation>  gcHistoneHashMap, List<Integer>  hg19ChromosomeSizes){
 		String chromName;
 		int chromSize;
 		GCCharArray gcCharAray;
@@ -869,7 +869,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			//use the same char array
-			gcCharAray = ChromosomeBasedGCArray.getChromosomeGCArray(chromName, chromSize);
+			gcCharAray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName, chromSize);
 			
 			//DNASE
 			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
@@ -1277,7 +1277,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	//todo
 	//GC
-	public static void calculateGC(String outputFolder,List<Integer> hg19ChromosomeSizes){
+	public static void calculateGC(String outputFolder,String dataFolder,List<Integer> hg19ChromosomeSizes){
 		
     	String allFunctionalElementGCFiles 	= Commons.ALL_GC_FILES;
     	
@@ -1305,7 +1305,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	//DNASE 
     	//TFBS
     	//HISTONE
-    	calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(outputFolder,dnaseGCHashMap,tfbsGCHashMap,histoneGCHashMap,hg19ChromosomeSizes);
+    	calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(outputFolder,dataFolder,dnaseGCHashMap,tfbsGCHashMap,histoneGCHashMap,hg19ChromosomeSizes);
     	System.out.println("Calculate mean and standard deviation for GC has ended.");        
     	
     	
@@ -1424,7 +1424,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	calculateMapability(outputFolder,hg19ChromosomeSizes);
     	
     	//GC
-    	calculateGC(outputFolder,hg19ChromosomeSizes);
+    	calculateGC(outputFolder,dataFolder,hg19ChromosomeSizes);
   	
     	
 	}

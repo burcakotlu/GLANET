@@ -9,7 +9,6 @@
 <fullyQualifiedTypeName name="generated.ESearchResult"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.util.Hashtable"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
@@ -31,4 +30,5 @@
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.util.OutputUtil"/>
 <fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 </qualifiedTypeNameHistroy>

@@ -1,2 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr1	202075668	202075668	chr1	202075423	202075672	EFOS	K562	spp.optimal.wgEncodeUchicagoTfbsK562EfosControlAlnRep0_VS_wgEncodeUchicagoTfbsK562InputControlAlnRep0.narrowPeak

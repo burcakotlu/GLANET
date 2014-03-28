@@ -1,4 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr6	170862335	170862335	chr6	170862256	170862460	TAF1	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Taf1Pcr2xAlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr2xAlnRep0.narrowPeak
-chr9	115983539	115983539	chr9	115983403	115983666	TAF1	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Taf1Pcr2xAlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr2xAlnRep0.narrowPeak
-chr19	49621963	49621963	chr19	49621843	49622106	TAF1	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Taf1Pcr2xAlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr2xAlnRep0.narrowPeak

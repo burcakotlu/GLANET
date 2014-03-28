@@ -438,7 +438,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	
 	
 	//GC
-	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC(String outputFolder,List<Integer> hg19ChromosomeSizes,Map<String,MeanandStandardDeviation> gcHashMap){
+	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC(String outputFolder,String dataFolder,List<Integer> hg19ChromosomeSizes,Map<String,MeanandStandardDeviation> gcHashMap){
 		String chromName;
 		int chromSize;
 		String chromBasedInputFileName;
@@ -456,7 +456,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			
 			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
 			
-			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(chromName, chromSize);
+			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName, chromSize);
 
 			//DNase
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.DNASE, chromName);
@@ -539,7 +539,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
     	Map<String,MeanandStandardDeviation> gcHashMap = new HashMap<String,MeanandStandardDeviation>();
     	Map<String,MeanandStandardDeviation> mapabilityHashMap = new HashMap<String,MeanandStandardDeviation>();
 
-    	calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC(outputFolder,hg19ChromosomeSizes,gcHashMap);
+    	calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC(outputFolder,dataFolder,hg19ChromosomeSizes,gcHashMap);
     	writeMeanandStdDevResultstoFiles(chromBasedMeanandStdDevofGcFileName,gcHashMap);
     	
     	calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementMapability(outputFolder,hg19ChromosomeSizes,mapabilityHashMap);

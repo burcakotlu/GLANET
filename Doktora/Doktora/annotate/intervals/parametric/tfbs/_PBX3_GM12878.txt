@@ -1,2 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr13	111365588	111365588	chr13	111365434	111365673	PBX3	GM12878	spp.optimal.wgEncodeHaibTfbsGm12878Pbx3Pcr1xAlnRep0_VS_wgEncodeHaibTfbsGm12878ControlPcr1xAlnRep0.narrowPeak

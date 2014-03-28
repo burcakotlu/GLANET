@@ -25,7 +25,7 @@ import common.Commons;
 
 public class KeggPathwayAugmentation {
 	
-	public static void fillKeggPathwayEntry2NameMap(Map<String,String> entry2Name){
+	public static void fillKeggPathwayEntry2NameMap(String dataFolder,Map<String,String> entry2Name){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -36,7 +36,7 @@ public class KeggPathwayAugmentation {
 		String name;
 		
 		try {
-			fileReader = new FileReader(Commons.KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE);
+			fileReader = new FileReader(dataFolder + Commons.KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine= bufferedReader.readLine())!=null){
@@ -134,7 +134,7 @@ public class KeggPathwayAugmentation {
 	
 	//example hsa05016
 	//augment KeggPathwayEntry with KeggPathwayName
-	public static void augmentKeggPathwayEntrywithKeggPathwayName(List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
+	public static void augmentKeggPathwayEntrywithKeggPathwayName(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
 		Map<String,String> entry2NameMap = new HashMap<String,String>();
 		
 		String keggPathwayEntry;
@@ -154,7 +154,7 @@ public class KeggPathwayAugmentation {
 			allList.add(list3);		
 		}
 		
-		fillKeggPathwayEntry2NameMap(entry2NameMap);
+		fillKeggPathwayEntry2NameMap(dataFolder,entry2NameMap);
 		
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){
@@ -226,7 +226,7 @@ public class KeggPathwayAugmentation {
 	//all lists start
 	//example: GABP_hsa05016
 	//augment TfNameCellLineNameKeggPathwayEntry with KeggPathwayName
-	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayName(List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
+	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayName(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
 		Map<String,String> entry2NameMap = new HashMap<String,String>();
 		
 		String keggPathwayEntry;
@@ -249,7 +249,7 @@ public class KeggPathwayAugmentation {
 		String tfName_keggPathwayEntry;
 		int indexofFirstUnderscore;
 		
-		fillKeggPathwayEntry2NameMap(entry2NameMap);
+		fillKeggPathwayEntry2NameMap(dataFolder,entry2NameMap);
 		
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){
@@ -268,7 +268,7 @@ public class KeggPathwayAugmentation {
 	//all lists start
 	//example: GABP_HELAS3_hsa05016
 	//augment TfNameCellLineNameKeggPathwayEntry with KeggPathwayName
-	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName(List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
+	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
 		Map<String,String> entry2NameMap = new HashMap<String,String>();
 		
 		String keggPathwayEntry;
@@ -292,7 +292,7 @@ public class KeggPathwayAugmentation {
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 		
-		fillKeggPathwayEntry2NameMap(entry2NameMap);
+		fillKeggPathwayEntry2NameMap(dataFolder,entry2NameMap);
 		
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){

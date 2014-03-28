@@ -1,3 +1,0 @@
-Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName
-chrX	55041618	55041619	BRG1_K562	55041361	55041704	NM_001271748	55036306	55044305	3P2	APEX2	27301	hsa03410
-chrX	55041618	55041619	BRG1_K562	55041361	55041704	NM_014481	55036306	55044305	3P2	APEX2	27301	hsa03410

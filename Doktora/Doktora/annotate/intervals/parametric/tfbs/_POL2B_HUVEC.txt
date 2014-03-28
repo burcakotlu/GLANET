@@ -1,4 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr6	170862335	170862335	chr6	170862185	170862504	POL2B	HUVEC	spp.optimal.wgEncodeBroadHistoneHuvecPol2bStdAlnRep0_VS_wgEncodeBroadHistoneHuvecControlStdAlnRep0.narrowPeak
-chr13	111365588	111365588	chr13	111365507	111365826	POL2B	HUVEC	spp.optimal.wgEncodeBroadHistoneHuvecPol2bStdAlnRep0_VS_wgEncodeBroadHistoneHuvecControlStdAlnRep0.narrowPeak
-chr15	46211085	46211085	chr15	46211084	46211403	POL2B	HUVEC	spp.optimal.wgEncodeBroadHistoneHuvecPol2bStdAlnRep0_VS_wgEncodeBroadHistoneHuvecControlStdAlnRep0.narrowPeak

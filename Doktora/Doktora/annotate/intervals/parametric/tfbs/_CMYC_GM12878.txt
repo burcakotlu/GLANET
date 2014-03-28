@@ -1,2 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr6	160210060	160210060	chr6	160210006	160210195	CMYC	GM12878	spp.optimal.wgEncodeOpenChromChipGm12878CmycAlnRep0_VS_wgEncodeOpenChromChipGm12878InputAln.narrowPeak

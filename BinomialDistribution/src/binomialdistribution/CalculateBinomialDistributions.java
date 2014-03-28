@@ -349,19 +349,20 @@ public class CalculateBinomialDistributions {
 	 * 
 	 */
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format		
-	//args[4] must have Number of Permutations	
-	//args[5] must have False Discovery Rate
-	//args[6] must have Generate Random Data Mode
-	//args[7] must have writeGeneratedRandomDataMode
-	//args[8] must have writePermutationBasedandParametricBasedAnnotationResultMode
-	//args[9] must have writePermutationBasedAnnotationResultMode	
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
 		
-		String outputFolder = args[1];
-	
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
 		
 		String calculateMode;
 		
@@ -400,7 +401,7 @@ public class CalculateBinomialDistributions {
 		
 		//Calculate whole genome size using hg19_chromosome_sizes input file
 		GRCh37Hg19Chromosome.initializeChromosomeSizes(chromosomeSizes);
-		GRCh37Hg19Chromosome.getHg19ChromosomeSizes(chromosomeSizes,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		GRCh37Hg19Chromosome.getHg19ChromosomeSizes(chromosomeSizes,dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		genomeSize = calculate.calculateWholeGenomeSize(chromosomeSizes, genomeSize);
 		
 		//calculate search input size using C:\eclipse_juno_workspace\Doktora\src\inputdata\process\output\TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt

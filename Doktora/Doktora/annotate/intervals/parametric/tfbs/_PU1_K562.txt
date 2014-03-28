@@ -1,6 +1,0 @@
-Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-chr6	6712344	6712344	chr6	6712199	6712398	PU1	K562	spp.optimal.wgEncodeHaibTfbsK562Pu1Pcr1xAlnRep0_VS_wgEncodeHaibTfbsK562ControlPcr1xAlnRep0.narrowPeak
-chr6	170862335	170862335	chr6	170862309	170862508	PU1	K562	spp.optimal.wgEncodeHaibTfbsK562Pu1Pcr1xAlnRep0_VS_wgEncodeHaibTfbsK562ControlPcr1xAlnRep0.narrowPeak
-chr9	115983539	115983539	chr9	115983456	115983655	PU1	K562	spp.optimal.wgEncodeHaibTfbsK562Pu1Pcr1xAlnRep0_VS_wgEncodeHaibTfbsK562ControlPcr1xAlnRep0.narrowPeak
-chr10	72504762	72504762	chr10	72504609	72504808	PU1	K562	spp.optimal.wgEncodeHaibTfbsK562Pu1Pcr1xAlnRep0_VS_wgEncodeHaibTfbsK562ControlPcr1xAlnRep0.narrowPeak
-chr22	18560569	18560569	chr22	18560565	18560615	PU1	K562	spp.optimal.wgEncodeHaibTfbsK562Pu1Pcr1xAlnRep0_VS_wgEncodeHaibTfbsK562ControlPcr1xAlnRep0.narrowPeak

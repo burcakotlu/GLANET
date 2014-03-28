@@ -1,4 +1,0 @@
-Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
-chr5	73974486	73974486	chr5	73970968	73978967	NM_000521	5P2	HEXB	3074
-chr19	49211968	49211968	chr19	49211191	49219190	NM_001097638	3P2	FUT2	2524
-chr19	49211968	49211968	chr19	49211191	49219190	NM_000511	3P2	FUT2	2524

@@ -88,7 +88,7 @@ public class GC {
 	}
 	
 	
-	public static void fillChromBasedGCArrayfromFastaFile(String gcFastaFileName, GCCharArray gcArray){
+	public static void fillChromBasedGCArrayfromFastaFile(String dataFolder,String gcFastaFileName, GCCharArray gcArray){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		int numberofCharactersRead;
@@ -99,7 +99,7 @@ public class GC {
 		String strLine;
 		
 		try {
-			fileReader = new FileReader(gcFastaFileName);
+			fileReader = new FileReader(dataFolder +gcFastaFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			//skip first informative line of fasta file
@@ -148,56 +148,56 @@ public class GC {
 		
 	}
 		
-	public static  void fillChromBasedGCArray(String chromName, GCCharArray gcArray){
+	public static  void fillChromBasedGCArray(String dataFolder,String chromName, GCCharArray gcArray){
 		
 		switch(chromName){
-			case Commons.CHROMOSOME1:   fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR1_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME1:   fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR1_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME2:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR2_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME2:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR2_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME3:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR3_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME3:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR3_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME4:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR4_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME4:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR4_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME5:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR5_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME5:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR5_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME6:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR6_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME6:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR6_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME7:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR7_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME7:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR7_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME8:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR8_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME8:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR8_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME9:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR9_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME9:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR9_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME10:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR10_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME10:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR10_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME11:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR11_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME11:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR11_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME12:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR12_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME12:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR12_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME13:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR13_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME13:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR13_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME14:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR14_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME14:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR14_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME15:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR15_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME15:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR15_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME16:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR16_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME16:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR16_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME17:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR17_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME17:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR17_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME18:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR18_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME18:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR18_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME19:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR19_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME19:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR19_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME20:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR20_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME20:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR20_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME21:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR21_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME21:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR21_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOME22:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHR22_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOME22:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHR22_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOMEX:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHRX_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOMEX:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHRX_FASTA_FILE,gcArray);
 										break;
-			case Commons.CHROMOSOMEY:  fillChromBasedGCArrayfromFastaFile(Commons.GC_HG19_CHRY_FASTA_FILE,gcArray);
+			case Commons.CHROMOSOMEY:  fillChromBasedGCArrayfromFastaFile(dataFolder,Commons.GC_HG19_CHRY_FASTA_FILE,gcArray);
 										break;
 							
 		}
@@ -205,14 +205,27 @@ public class GC {
 		
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+	
 		InputLine givenInputLine= new InputLine(Commons.CHROMOSOME1, 3500000, 4000000);
 		String chromName = Commons.CHROMOSOME1;
 				
 		GCCharArray gcArray= new GCCharArray(250000000);
 		
 		
-		fillChromBasedGCArray(chromName,gcArray);
+		fillChromBasedGCArray(dataFolder,chromName,gcArray);
 		calculateGCofInterval(givenInputLine,gcArray);
 	
 		System.out.println("Given input line's gc content: " + givenInputLine.getGcContent());
