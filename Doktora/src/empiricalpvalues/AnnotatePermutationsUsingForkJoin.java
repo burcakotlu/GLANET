@@ -1537,10 +1537,14 @@ public class AnnotatePermutationsUsingForkJoin {
 	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
 	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
-		
-		String outputFolder = args[1];
-		String dataFolder = args[2];
-		
+			
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
+		//SET the Input Data File
+		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+
 		//Number of processors can be used in deciding on paralellism level
 		int NUMBER_OF_AVAILABLE_PROCESSORS =  java.lang.Runtime.getRuntime().availableProcessors();
 		
@@ -1550,35 +1554,27 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 		//Set the number of permutations
 //		int NUMBER_OF_PERMUTATIONS = 10000;
-		int NUMBER_OF_PERMUTATIONS = Integer.parseInt(args[4]);
+		int NUMBER_OF_PERMUTATIONS = Integer.parseInt(args[3]);
 		
-		float FDR = Float.parseFloat(args[5]);
+		float FDR = Float.parseFloat(args[4]);
 		
-		
-		//SET the Input Data File
-//		String inputDataFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS;
-//		String inputDataFileName = Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS;
-//		String inputDataFileName = Commons.TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS;
-//		String inputDataFileName = args[3];
-		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 				
 		//Set the Generate Random Data Mode
 //		String generateRandomDataMode = Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
-		String generateRandomDataMode = args[6];
+		String generateRandomDataMode = args[5];
 		
 		//Set the Write Mode of Generated Random Data
 //		String writeGeneratedRandomDataMode = Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA;
-		String writeGeneratedRandomDataMode = args[7];
+		String writeGeneratedRandomDataMode = args[6];
 				
 
 		//Set the Write Mode of Permutation Based and Parametric Based Annotation Result
 //		String writePermutationBasedandParametricBasedAnnotationResultMode = Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
-		String writePermutationBasedandParametricBasedAnnotationResultMode = args[8];
+		String writePermutationBasedandParametricBasedAnnotationResultMode = args[7];
 		
 		//Set the Write Mode of the Permutation Based Annotation Result
 //		String writePermutationBasedAnnotationResultMode = Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
-		String writePermutationBasedAnnotationResultMode = args[9];
-		
+		String writePermutationBasedAnnotationResultMode = args[8];
 		
 		writeInformation();
 			

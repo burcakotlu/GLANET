@@ -751,12 +751,12 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 	}
 	
 	
-	public IntervalTree createUcscRefSeqGenesIntervalTree(String chromName){
+	public IntervalTree createUcscRefSeqGenesIntervalTree(String outputFolder,String chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
-		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(outputFolder,chromName);
 		bufferedReader = new BufferedReader(fileReader);
 		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTree(bufferedReader);
 			
@@ -997,7 +997,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		return bufferedReader;
 	}
 	
-	public void searchEachChromBaseInputFile( String outputFileName){
+	public void searchEachChromBaseInputFile( String outputFolder,String outputFileName){
 		
 		BufferedReader bufferedReader =null ;
 		
@@ -1037,7 +1037,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME1,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME1);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME1);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME1,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1058,7 +1058,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME2,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME2);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME2);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME2,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1080,7 +1080,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME3,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME3);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME3);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME3,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1102,7 +1102,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME4,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME4);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME4);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME4,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1124,7 +1124,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME5,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME5);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME5);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME5,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1146,7 +1146,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME6,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME6);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME6);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME6,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1168,7 +1168,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME7,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME7);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME7);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME7,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1191,7 +1191,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME8,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME8);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME8);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME8,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1213,7 +1213,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME9,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME9);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME9);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME9,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1235,7 +1235,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME10,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME10);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME10);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME10,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1257,7 +1257,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME11,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME11);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME11);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME11,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1279,7 +1279,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME12,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME12);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME12);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME12,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1300,7 +1300,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME13,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME13);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME13);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME13,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1322,7 +1322,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME14,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME14);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME14);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME14,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1344,7 +1344,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME15,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME15);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME15);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME15,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1366,7 +1366,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME16,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME16);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME16);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME16,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1388,7 +1388,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME17,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME17);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME17);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME17,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1410,7 +1410,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME18,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME18);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME18);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME18,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1432,7 +1432,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME19,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME19);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME19);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME19,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1454,7 +1454,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME20,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME20);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME20);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME20,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1476,7 +1476,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME21,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME21);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME21);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME21,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1498,7 +1498,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOME22,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOME22);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME22);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOME22,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1520,7 +1520,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOMEX,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOMEX);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOMEX,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1542,7 +1542,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 					searchHistone(Commons.CHROMOSOMEY,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(Commons.CHROMOSOMEY);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					searchUcscRefSeqGenes(Commons.CHROMOSOMEY,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
@@ -1577,7 +1577,20 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args){
+		
+		String glanetFolder = args[1];
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+	
 		
 		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		
@@ -1591,7 +1604,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		
 		searchInterval.closeBufferedWriterList(bufferedWriterList);
 		
-		searchInterval.searchEachChromBaseInputFile(Commons.SEARCH_USING_INTERVAL_TREE_OUTPUT_FILE);
+		searchInterval.searchEachChromBaseInputFile(outputFolder,Commons.SEARCH_USING_INTERVAL_TREE_OUTPUT_FILE);
 	}
 	
 	

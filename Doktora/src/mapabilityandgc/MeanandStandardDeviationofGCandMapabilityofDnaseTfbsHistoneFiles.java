@@ -1375,25 +1375,32 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args){
 		
-		String outputFolder = args[1];
-		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+	
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 		GRCh37Hg19Chromosome.initializeChromosomeSizes(hg19ChromosomeSizes);
     	//get the hg19 chromosome sizes
-    	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+    	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes,dataFolder, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
     	
     	//DNASE ORIGINAL ENCODE FILES DIRECTORY
-    	File dnaseDir1 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY1);
-    	File dnaseDir2 	= new File(args[2] + common.Commons.ENCODE_DNASE_DIRECTORY2);
+    	File dnaseDir1 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
+    	File dnaseDir2 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
     	//TFBS ORIGINAL ENCODE FILES DIRECTORY
-    	File tfbsDir 	= new File(args[2] + common.Commons.ENCODE_TFBS_DIRECTORY);
+    	File tfbsDir 	= new File(dataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
     	//HISTONE ORIGINAL ENCODE FILES DIRECTORY
-    	File histoneDir = new File(args[2] + common.Commons.ENCODE_HISTONE_DIRECTORY);
+    	File histoneDir = new File(dataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
 		
     	
     	//Delete old files
