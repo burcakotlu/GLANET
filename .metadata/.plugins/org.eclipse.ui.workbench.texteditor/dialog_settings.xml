@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="OUTPUT" key="selection"/>
+		<item value="Integer(0)" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Integer(0)"/>
+			<item value="&quot;Doktora&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;annotate&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;intervals&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;parametric&quot; + System.getProperty(&quot;file.separator&quot;);"/>
 			<item value="output"/>
 			<item value="#N/A"/>
 			<item value="args[2]"/>
 			<item value="chrName2RefSeqIdforGrch37Map"/>
 			<item value=",outputFolder,dataFolder"/>
 			<item value="Commons.OUTPUT_DATA"/>
-			<item value="runButton"/>
-			<item value="OCD_GWAS_SIGNIFICANT_SNP_RSIDs"/>
 		</list>
 		<list key="replacehistory">
 			<item value="outputFolder"/>

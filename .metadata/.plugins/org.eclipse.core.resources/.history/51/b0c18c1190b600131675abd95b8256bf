@@ -172,7 +172,7 @@ public class KeggPathwayAugmentation {
 	//all lists start
 	//example: hsa05016
 	//augment KeggPathwayEntry with KeggPathwayGeneList
-	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
+	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
 		
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 		
@@ -198,7 +198,7 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayAlternateGeneNameList;
 		
 		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(humanRefSeqGeneName2AlternateGeneNameListMap);
 		
 		for(List<FunctionalElement> list: allLists ){

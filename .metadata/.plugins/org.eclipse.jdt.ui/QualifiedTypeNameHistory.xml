@@ -31,4 +31,5 @@
 <fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.util.OutputUtil"/>
 <fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
+<fullyQualifiedTypeName name="java.lang.OutOfMemoryError"/>
 </qualifiedTypeNameHistroy>
