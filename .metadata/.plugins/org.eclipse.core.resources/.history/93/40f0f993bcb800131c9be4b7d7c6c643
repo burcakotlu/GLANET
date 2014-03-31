@@ -22,7 +22,7 @@ import common.Commons;
 
 public class HumanGenesAugmentation {
 	
-	public static void fillHumanGeneId2RefSeqGeneNameMap(String outputFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
+	public static void fillHumanGeneId2RefSeqGeneNameMap(String dataFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -40,7 +40,7 @@ public class HumanGenesAugmentation {
 		List<String> refSeqGeneNameList;
 		
 		try {
-			fileReader =  new FileReader(outputFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -212,7 +212,6 @@ public class HumanGenesAugmentation {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	//args[0] must have input file name with folder
 	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
 	//args[2] must have Input File Format		
@@ -236,7 +235,7 @@ public class HumanGenesAugmentation {
 		
 		// for testing purposes
 		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String, List<String>>();
-		fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
+		fillHumanGeneId2RefSeqGeneNameMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);
 		
 		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
 		fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
