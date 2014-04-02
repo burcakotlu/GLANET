@@ -1095,14 +1095,20 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void run(String[] args){
 		
-		String outputFolder = args[1];
-		String dataFolder = args[2];
-		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+	
 		File dnaseDir1 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
 		File dnaseDir2 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);		
 		File tfbsDir 	= new File(dataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);		
@@ -1113,9 +1119,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
 		
-		
-//		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting createChromosomeBasedFilesUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting();
-
 		//Attention
 		//Encode data
 		// The starting position of the feature in the chromosome. The first base in a chromosome is numbered 0.
@@ -1155,14 +1158,20 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET output folder
-	//args[2] must have GLANET data folder (necessary data for annotation and augmentation)
-	//args[3] must have Input File Format
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
 		
-		String outputFolder = args[1];
-		String dataFolder = args[2];
-		
+		String glanetFolder = args[1];
+		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+	
 		File dnaseDir1 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
 		File dnaseDir2 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);		
 		File tfbsDir 	= new File(dataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);		
@@ -1172,9 +1181,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		List<BufferedWriter> unsortedHistoneBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
-		
-		
-//		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting createChromosomeBasedFilesUsingEncode = new CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting();
+				
 
 		//Attention
 		//Encode data

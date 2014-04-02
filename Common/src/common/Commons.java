@@ -1,12 +1,16 @@
 /*
- * This program takes human_gene2refseq.txt as input
- * and returns human_refseq2gene.txt as output
+ * This program contains constants used in GLANET.
+ * 
  */
 
 package common;
 
 
 public class Commons {
+	
+	public static final String OUTPUT = "Output";
+	public static final String DATA = "Data";
+	
 		
 	public static final String RSERVE =  System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Rserve" + System.getProperty("file.separator");
 	
@@ -42,6 +46,7 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE";
 	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
+	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
 			
 	public static final String PROCESSED_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
@@ -456,6 +461,7 @@ public class Commons {
 	public static final String CHROMOSOME_POSITION_TYPE_ONE_BASED = "CHROMOSOME_POSITION_TYPE_ONE_BASED"; 
 	
 	public static final String NOT_AVAILABLE_SNP_ID = "#N/A";
+	public static final String NOT_APLICABLE = "#N/A";
 	
 	//OCD_GWAS_SIGNIFICANT_SNPS
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER = "OCD_GWAS_SNP" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber.txt";

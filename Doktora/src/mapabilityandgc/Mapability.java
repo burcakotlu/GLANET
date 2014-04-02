@@ -44,7 +44,7 @@ public class Mapability {
 
 
 	
-	public static void fillChromBasedMapabilityArrayfromFile(int chromSize,String inputFileName, MapabilityFloatArray mapabilityFloatArray){
+	public static void fillChromBasedMapabilityArrayfromFile(String dataFolder,int chromSize,String inputFileName, MapabilityFloatArray mapabilityFloatArray){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -60,7 +60,7 @@ public class Mapability {
 		int indexofThirdTab;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine=bufferedReader.readLine())!=null){
@@ -96,55 +96,55 @@ public class Mapability {
 	}
 		
 	//todo
-	public static  void fillChromBasedMapabilityArray(int chromSize, String chromName, MapabilityFloatArray mapabilityFloatArray){		
+	public static  void fillChromBasedMapabilityArray(String dataFolder,int chromSize, String chromName, MapabilityFloatArray mapabilityFloatArray){		
 		switch(chromName){
-			case Commons.CHROMOSOME1:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR1_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME1:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR1_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME2:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR2_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME2:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR2_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME3:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR3_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME3:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR3_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME4:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR4_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME4:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR4_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME5:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR5_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME5:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR5_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME6:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR6_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME6:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR6_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME7:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR7_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME7:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR7_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME8:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR8_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME8:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR8_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME9:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR9_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME9:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR9_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME10:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR10_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME10:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR10_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME11:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR11_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME11:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR11_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME12:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR12_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME12:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR12_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME13:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR13_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME13:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR13_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME14:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR14_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME14:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR14_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME15:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR15_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME15:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR15_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME16:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR16_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME16:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR16_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME17:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR17_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME17:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR17_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME18:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR18_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME18:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR18_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME19:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR19_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME19:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR19_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME20:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR20_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME20:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR20_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME21:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR21_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME21:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR21_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOME22:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHR22_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOME22:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHR22_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOMEX:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHRX_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOMEX:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHRX_FILE,mapabilityFloatArray);
 										break;
-			case Commons.CHROMOSOMEY:   fillChromBasedMapabilityArrayfromFile(chromSize,Commons.MAPABILITY_HG19_CHRY_FILE,mapabilityFloatArray);
+			case Commons.CHROMOSOMEY:   fillChromBasedMapabilityArrayfromFile(dataFolder,chromSize,Commons.MAPABILITY_HG19_CHRY_FILE,mapabilityFloatArray);
 										break;
 							
 					
@@ -385,14 +385,27 @@ public class Mapability {
 		
 	}
 	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		
 		
 		//for testing purposes
 		List<Integer> hg19ChromosomeSizes	= new ArrayList<Integer>();
     			
     	GRCh37Hg19Chromosome.initializeChromosomeSizes(hg19ChromosomeSizes);
     	//get the hg19 chromosome sizes
-    	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+    	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		
 		String chromName = Commons.CHROMOSOME17;
     	int chromSize = hg19ChromosomeSizes.get(16);
@@ -401,8 +414,8 @@ public class Mapability {
     	MapabilityFloatArray mapabilityFloatArray = null;
     	IntervalTree mapabilityIntervalTree=null;
     	
-		gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(chromName,chromSize);
-		mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(chromName,chromSize);
+		gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName,chromSize);
+		mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
 		mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 		
 		int low= 35100000;

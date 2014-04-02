@@ -22,7 +22,7 @@ import common.Commons;
 
 public class HumanGenesAugmentation {
 	
-	public static void fillHumanGeneId2RefSeqGeneNameMap(Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
+	public static void fillHumanGeneId2RefSeqGeneNameMap(String outputFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -40,7 +40,7 @@ public class HumanGenesAugmentation {
 		List<String> refSeqGeneNameList;
 		
 		try {
-			fileReader =  new FileReader(Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  new FileReader(outputFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -90,7 +90,7 @@ public class HumanGenesAugmentation {
 	}
 	
 	
-	public static void fillHumanRefSeqGeneName2AlternateGeneNameMap(Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap){
+	public static void fillHumanRefSeqGeneName2AlternateGeneNameMap(String dataFolder,Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap){
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -118,7 +118,7 @@ public class HumanGenesAugmentation {
 		
 		
 		try {
-			fileReader = new FileReader(Commons.FTP_HG19_REFSEQ_GENES);
+			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -212,17 +212,34 @@ public class HumanGenesAugmentation {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param args
-	 */
+	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	//args[9] must have Dnase Enrichment example: DO_DNASE_ENRICHMENT or DO_NOT_DNASE_ENRICHMENT
+	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
+	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+	//args[13] must have a job name exampe: any_string 
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
 		
 		// for testing purposes
 		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String, List<String>>();
-		fillHumanGeneId2RefSeqGeneNameMap(humanGeneId2RefSeqGeneNameListMap);
+		fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
 		
 		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
-		fillHumanRefSeqGeneName2AlternateGeneNameMap(humanRefSeqGeneName2AlternateGeneNameListMap);
+		fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 		
 		
 		List<String> keggPathwayGeneIdList = new ArrayList<String>();

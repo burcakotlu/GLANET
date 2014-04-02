@@ -1891,8 +1891,19 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 	
 	
 	
-	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		
 		
 		List<Integer> chromosomeSizes = new ArrayList<Integer>(Commons.NUMBER_OF_CHROMOSOMES_HG19);
@@ -1900,7 +1911,7 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWindow calculate = new CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWindow();
 		
 		GRCh37Hg19Chromosome.initializeChromosomeSizes(chromosomeSizes);
-		GRCh37Hg19Chromosome.getHg19ChromosomeSizes(chromosomeSizes,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		GRCh37Hg19Chromosome.getHg19ChromosomeSizes(chromosomeSizes,dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		calculate.printChromosomeSizes(chromosomeSizes);
 				
 		Map<String,List<String>> keggPathway2NcbiGeneIdHashMap = new HashMap<String,List<String>>();
