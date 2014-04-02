@@ -1,9 +1,11 @@
 package ui;
 
 import javax.swing.JPanel;
+
 import common.Commons;
 import ui.MainView;
 import ui.MainView.MainViewDelegate;
+import processinputdata.InputDataProcess;
 import processinputdata.prepare.*;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
@@ -52,6 +54,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String outputFolder) {
 		
 		//PreparationofOCDSnps.java
-		PreparationofOCDSnps.run(null);
+		String[] args = { inputFolder + "ocd_gwas_snp_chrNumber_1BasedCoordinates.txt", outputFolder, inputFolder, inputFormat };
+		
+		InputDataProcess.run(args);
 	}
 }

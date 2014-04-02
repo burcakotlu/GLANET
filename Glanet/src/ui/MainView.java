@@ -94,7 +94,8 @@ public class MainView extends JPanel{
 		String[] inputFormat = { 	Commons.GUI_INPUT_FILE_FORMAT_DBSNP_IDS, 
 									Commons.GUI_INPUT_FILE_FORMAT_BED,
 									Commons.GUI_INPUT_FILE_FORMAT_GFF3,
-									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES };
+									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES,
+									Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES};
 		
 		String[] enrichmentType = { "DNase Hypersensitive sites",
 									"Histone Modifications",
