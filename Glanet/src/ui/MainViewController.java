@@ -54,7 +54,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String outputFolder) {
 		
 		//PreparationofOCDSnps.java
-		String[] args = { inputFolder, outputFolder, inputFolder, inputFormat };
+		String[] args = { inputFolder, outputFolder, inputFormat };
 		
 		InputDataProcess.run(args);
 	}
