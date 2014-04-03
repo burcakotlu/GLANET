@@ -1040,38 +1040,26 @@ public static String takeComplementforeachAllele(String allele){
 
 	
 	
-	//
 	public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String observedAllelesSeparatedwithSlash){
 		
-		int indexofFormerSlash = 0;
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/');
-		
+		int indexofFormerBackSlash = 0;
+		int indexofLatterBackSlash = observedAllelesSeparatedwithSlash.indexOf('/');
 		String allele;
 		String observedAllelesSeparatedwithTabs = "";
 		
-		//for the first allele
-		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash,indexofLatterSlash);
-		
-		//update
-		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";
-		
-		indexofFormerSlash = indexofLatterSlash ;		
-		indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
-	
-				
-		
-		if (indexofFormerSlash>=0 && indexofLatterSlash >=0){
+		if (indexofFormerBackSlash>=0 && indexofLatterBackSlash >=0){
 			
-			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1, indexofLatterSlash);	
+			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerBackSlash, indexofLatterBackSlash);	
+			
+			indexofFormerBackSlash = indexofLatterBackSlash ;
+			
+			indexofLatterBackSlash = observedAllelesSeparatedwithSlash.indexOf('\\',indexofFormerBackSlash+1);
+			
 			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";			
-		
-			indexofFormerSlash = indexofLatterSlash ;			
-			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
-			
 		}
 		
 		//for the last allele
-		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1);	
+		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerBackSlash+1);	
 		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele;
 		
 		return observedAllelesSeparatedwithTabs;
