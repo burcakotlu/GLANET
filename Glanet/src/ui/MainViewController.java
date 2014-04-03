@@ -54,7 +54,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String outputFolder) {
 		
 		//PreparationofOCDSnps.java
-		String[] args = { inputFolder + "ocd_gwas_snp_chrNumber_1BasedCoordinates.txt", outputFolder, inputFolder, inputFormat };
+		String[] args = { inputFolder, outputFolder, inputFolder, inputFormat };
 		
 		InputDataProcess.run(args);
 	}

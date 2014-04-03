@@ -580,8 +580,6 @@ public class InputDataProcess {
 		//Process input data
 		//Write output data
 		processInputData(args);
-				
-
 	}
 
 }
