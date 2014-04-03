@@ -1,0 +1,29 @@
+/**
+ * @author burcakotlu
+ * @date Apr 3, 2014 
+ * @time 12:04:41 PM
+ */
+package jaxbxjctool;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLInputFactory;
+
+/**
+ * 
+ */
+public class AugmentationofGivenIntervalwithRsIds {
+	
+	
+	
+	
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

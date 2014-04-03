@@ -1,0 +1,89 @@
+/**
+ * @author burcakotlu
+ * @date Apr 3, 2014 
+ * @time 11:34:37 AM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class RsInformation {
+	
+	String rsId;
+	String chrName;
+	int start;
+	int end;
+	String observedAlleles;
+	
+	
+
+	public String getRsId() {
+		return rsId;
+	}
+
+
+
+	public void setRsId(String rsId) {
+		this.rsId = rsId;
+	}
+
+
+
+	public String getChrName() {
+		return chrName;
+	}
+
+
+
+	public void setChrName(String chrName) {
+		this.chrName = chrName;
+	}
+
+
+
+	public int getStart() {
+		return start;
+	}
+
+
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+
+
+	public int getEnd() {
+		return end;
+	}
+
+
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+
+
+	public String getObservedAlleles() {
+		return observedAlleles;
+	}
+
+
+
+	public void setObservedAlleles(String observedAlleles) {
+		this.observedAlleles = observedAlleles;
+	}
+
+
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

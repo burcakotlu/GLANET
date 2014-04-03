@@ -155,8 +155,8 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 	public static void writeInformation(Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
 		try {
-				bufferedWriter.write("Size of the refseqGenes is " + refSeqGenes.size()+ "\n");
-				bufferedWriter.write("Size of the refseqGeneNamess is " + refSeqGeneNames.size()+"\n");	
+				bufferedWriter.write("Size of the refseqGenes is " + refSeqGenes.size()+ System.getProperty("line.separator"));
+				bufferedWriter.write("Size of the refseqGeneNamess is " + refSeqGeneNames.size()+System.getProperty("line.separator"));	
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -170,13 +170,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			if (!refSeqGenes.contains(refSeqGene))
 				refSeqGenes.add(refSeqGene);
 			else 
-				bufferedWriter.write("Totally same RefSeq Gene "+ refSeqGene.getRefSeqGeneName() +"\n");
+				bufferedWriter.write("Totally same RefSeq Gene "+ refSeqGene.getRefSeqGeneName() +System.getProperty("line.separator"));
 			
 
 			if (!refSeqGeneNames.contains(refSeqGene.getRefSeqGeneName()))
 				refSeqGeneNames.add(refSeqGene.getRefSeqGeneName());
 			else 
-				bufferedWriter.write("This RefSeq Gene Name already exists " + refSeqGene.getRefSeqGeneName()+ "\n");
+				bufferedWriter.write("This RefSeq Gene Name already exists " + refSeqGene.getRefSeqGeneName()+ System.getProperty("line.separator"));
 			
 			
 			
@@ -193,7 +193,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		    (refSeqGene.getExonStarts().get(0)==refSeqGene.getTranscriptionStartPosition()) &&
 		    (refSeqGene.getExonEnds().get(refSeqGene.getExonCounts()-1)==refSeqGene.getTranscriptionEndPosition()))){
 			  try {
-				bufferedWriter.write("Unexpected refseq gene\n");
+				bufferedWriter.write("Unexpected refseq gene" + System.getProperty("line.separator"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -395,13 +395,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		try {
 						
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "5D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "5D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 
 				bufferedWriter.flush();
 		
@@ -431,8 +431,8 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			//Write exon and intron intervals 			
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
 				
-					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");			
-					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+"\n");
+					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
+					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 					bufferedWriter.flush();
 					
 					information.setNumberofExons(information.getNumberofExons()+1);
@@ -440,7 +440,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 					information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+2);	
 			}
 			//Write the last exon which is not written in the for loop
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 			bufferedWriter.flush();
 			
 			information.setNumberofExons(information.getNumberofExons()+1);

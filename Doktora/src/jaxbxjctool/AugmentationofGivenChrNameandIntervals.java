@@ -124,7 +124,7 @@ public class AugmentationofGivenChrNameandIntervals {
 		}
 	}
 		
-	private void run(String chrName, int chrPosition, BufferedWriter bufferedWriter, Map<String,String> chrName2RefSeqIdforGrch37Map) throws Exception
+	private void run(String chrName, int chrPosition, BufferedWriter bufferedWriter) throws Exception
     {
 
 		
@@ -202,7 +202,7 @@ public class AugmentationofGivenChrNameandIntervals {
 				chrName = chrNameandPosition.substring(0,indexofFirstTab);
 				chrPosition = Integer.parseInt(chrNameandPosition.substring(indexofFirstTab+1));
 				
-				this.run(chrName,chrPosition,bufferedWriter,chrName2RefSeqIdforGrch37Map);
+				this.run(chrName,chrPosition,bufferedWriter);
 			}
 			
 			bufferedReader.close();
@@ -218,10 +218,26 @@ public class AugmentationofGivenChrNameandIntervals {
      
 	}
 
-	/**
-	 * @param args
-	 */
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	//args[9] must have Dnase Enrichment example: DO_DNASE_ENRICHMENT or DO_NOT_DNASE_ENRICHMENT
+	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
+	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+	//args[13] must have a job name exampe: any_string 
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
 		AugmentationofGivenChrNameandIntervals app=null;
 		
 		//Example Data

@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
 
 public class FileOperations {
 	
@@ -73,11 +74,54 @@ public class FileOperations {
 		return new FileReader(directoryNameandfileName);
 	}
 	
+	
+	//Delete all directories under this base directory name
+	//Unless any directory name is in list of notToBeDeleted 
+	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName,List<String> notToBeDeleted){
+		File folder = new File(baseDirectoryName);
+		Boolean toBeDeleted;
+		
+		if (folder.exists()){
+			for(File file:folder.listFiles()){
+				
+				toBeDeleted = true;
+				
+				for(String fileName: notToBeDeleted){
+					if(file.getName().equals(fileName)){
+						toBeDeleted = false;
+					}
+				}
+				
+				if(toBeDeleted){
+					deleteDirectoriesandFiles(file.getPath());
+				}
+			}
+		}
+		
+		
+		
+	}
 	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){
 		File folder = new File(baseDirectoryName);
-		for(File file:folder.listFiles()){
-			deleteDirectoriesandFiles(file.getPath());
+		
+		if (folder.exists()){
+			for(File file:folder.listFiles()){
+				deleteDirectoriesandFiles(file.getPath());
+			}
 		}
+				
+	}
+	
+	
+	public static void deleteDirectoriesandFilesUnderThisDirectory(String outputFolder, String baseDirectoryName){
+		File folder = new File(outputFolder + baseDirectoryName);
+		
+		if (folder.exists()){
+			for(File file:folder.listFiles()){
+				deleteDirectoriesandFiles(file.getPath());
+			}
+		}
+		
 		
 	}
 	

@@ -9,7 +9,16 @@
 	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
 		<item key="SashWeightTree" value="500"/>
 		<item value="500" key="SashWeightDetails"/>
-		<item value="1011" key="WIDTH"/>
+		<item value="1020" key="WIDTH"/>
 		<item value="320" key="HEIGHT"/>
+	</section>
+	<section name="STRING_VALUE_INPUT_DIALOG">
+		<item key="USE_EVALUATION" value="false"/>
+		<item value="423" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="541" key="DIALOG_HEIGHT"/>
+		<item value="true" key="WRAP_TEXT"/>
+		<item value="760" key="DIALOG_X_ORIGIN"/>
+		<item value="163" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

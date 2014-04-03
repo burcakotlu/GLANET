@@ -61,7 +61,7 @@ public class KeggPathwayAugmentation {
 		
 	}
 	
-	public static void fillKeggPathwayEntry2GeneIdListMap(Map<String,List<String>> keggPathwayEntry2GeneIdListMap){
+	public static void fillKeggPathwayEntry2GeneIdListMap(String dataFolder,Map<String,List<String>> keggPathwayEntry2GeneIdListMap){
 		
 		String strLine;
 		FileReader fileReader = null;
@@ -79,7 +79,7 @@ public class KeggPathwayAugmentation {
 		List<String> existingNcbiGeneIdList = null;
 			
 		try {
-			fileReader = new FileReader(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
+			fileReader = new FileReader(dataFolder + Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -172,7 +172,7 @@ public class KeggPathwayAugmentation {
 	//all lists start
 	//example: hsa05016
 	//augment KeggPathwayEntry with KeggPathwayGeneList
-	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
+	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder,String outputFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
 		
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 		
@@ -197,8 +197,8 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayRefSeqGeneNameList;
 		List<String> keggPathwayAlternateGeneNameList;
 		
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
+		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 		
 		for(List<FunctionalElement> list: allLists ){
@@ -342,7 +342,7 @@ public class KeggPathwayAugmentation {
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 		
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(keggPathwayEntry2GeneIdListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
 		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 		
@@ -406,7 +406,7 @@ public class KeggPathwayAugmentation {
 			String tfName_keggPathwayEntry;
 			int indexofFirstUnderscore;
 			
-			KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(keggPathwayEntry2GeneIdListMap);
+			KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
 			HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
 			HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 			
@@ -475,7 +475,7 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayAlternateGeneNameList = new ArrayList<String>();
 		
 		
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(keggPathwayEntry2GeneIdListMap);	
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);	
 		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 		

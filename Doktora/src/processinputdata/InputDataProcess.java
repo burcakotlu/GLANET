@@ -157,7 +157,7 @@ public class InputDataProcess {
 					//get the inclusive end
 					inclusiveEnd = exclusiveEnd-1;
 					
-					bufferedWriter.write(chrName + "\t" + start +  "\t" + inclusiveEnd + "\n");
+					bufferedWriter.write(chrName + "\t" + start +  "\t" + inclusiveEnd + System.getProperty("line.separator"));
 				}//End of if not comment line	
 			}
 			
@@ -231,7 +231,7 @@ public class InputDataProcess {
 					//get the 0-based inclusive end
 					zeroBasedInclusiveEnd = oneBasedInclusiveEnd -1;
 					
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 				}//End of if not comment line
 				
 			}
@@ -364,7 +364,7 @@ public class InputDataProcess {
 					zeroBasedStart = oneBasedStart - 1;
 					zeroBasedInclusiveEnd = oneBasedInclusiveEnd - 1;
 					
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 				}//End of if not comment line
 								
 			}//End of while
@@ -488,7 +488,7 @@ public class InputDataProcess {
 					
 					
 					
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + "\n");
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart +  "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 				}//End of if not comment line
 								
 			}
