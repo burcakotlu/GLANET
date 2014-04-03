@@ -1153,7 +1153,8 @@ public static String takeComplementforeachAllele(String allele){
 			augmentedFileReader = new FileReader(outputFolder + augmentedInputFileName);
 			augmentedBufferedReader = new BufferedReader(augmentedFileReader);
 							
-						
+			
+			
 			while((strLine = augmentedBufferedReader.readLine())!=null){
 							
 				//skip strLine starts with * or contains "Search for" which means it is a header line
