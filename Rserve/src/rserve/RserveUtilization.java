@@ -530,7 +530,7 @@ public class RserveUtilization {
 	}
 	
 	//TF KEGGPATHWAY starts
-	public static void readAugmentedDataWriteSequencesMatrices(String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType,Map<String,List<String>> chrNameZeroBasedCoordinate2ObservedAlleles){
+	public static void readAugmentedDataWriteSequencesMatrices(String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType,Map<String,List<String>> chrNameZeroBasedCoordinate2ObservedAlleles){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -604,7 +604,7 @@ public class RserveUtilization {
 //		NFKB_hsa00380	chr1	89546803	89546803	NFKB_GM12878	89546683	89546992	NM_001008661	89468644	89558643	5D	CCBL2	56267	hsa00380
 
 			try {
-			augmentedFileReader = new FileReader(augmentedInputFileName);
+			augmentedFileReader = new FileReader(outputFolder + augmentedInputFileName);
 			augmentedBufferedReader = new BufferedReader(augmentedFileReader);
 							
 			c = new RConnection();
@@ -1088,7 +1088,7 @@ public class RserveUtilization {
 	}
 	
 	
-	public static void constructObservedAllelesMap(String observedAllelesInputFileName,Map<String,List<String>> chrNameChrCoordinate2ObservedAlleles){
+	public static void constructObservedAllelesMap(String outputFolder,String observedAllelesInputFileName,Map<String,List<String>> chrNameChrCoordinate2ObservedAlleles){
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		String  strLine;
@@ -1109,7 +1109,7 @@ public class RserveUtilization {
 		String key;
 		
 		try {
-				fileReader = new FileReader(observedAllelesInputFileName);
+				fileReader = new FileReader(outputFolder + observedAllelesInputFileName);
 				bufferedReader = new BufferedReader(fileReader);
 				
 				while((strLine = bufferedReader.readLine())!=null){
@@ -1178,16 +1178,13 @@ public class RserveUtilization {
 	
 	
 
-	public static void constructPfmMatricesandLogoMatricesfromJasparCore(String jasparCoreInputFileName,Map<String,String> tfName2PfmMatrices,Map<String,String>  tfName2LogoMatrices){
+	public static void constructPfmMatricesandLogoMatricesfromJasparCore(String dataFolder,String jasparCoreInputFileName,Map<String,String> tfName2PfmMatrices,Map<String,String>  tfName2LogoMatrices){
 		//Attention
 		//Order is ACGT
 				
 		FileReader fileReader ;
 		BufferedReader bufferedReader;
 		String strLine;
-		
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter;
 		
 		
 		String tfName = null;
@@ -1215,7 +1212,7 @@ public class RserveUtilization {
 		int totalCount;
 	
 		try {
-			fileReader = new FileReader(jasparCoreInputFileName);
+			fileReader = new FileReader(dataFolder + jasparCoreInputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			
@@ -1308,7 +1305,7 @@ public class RserveUtilization {
 	}
 	
 	
-	public static void constructLogoMatricesfromEncodeMotifs(String encodeMotifsInputFileName,Map<String,String>  tfName2LogoMatrices){
+	public static void constructLogoMatricesfromEncodeMotifs(String dataFolder,String encodeMotifsInputFileName,Map<String,String>  tfName2LogoMatrices){
 		
 		FileReader fileReader ;
 		BufferedReader bufferedReader;
@@ -1321,7 +1318,7 @@ public class RserveUtilization {
 		
 		
 		try {
-				fileReader = new FileReader(encodeMotifsInputFileName);
+				fileReader = new FileReader(dataFolder +  encodeMotifsInputFileName);
 				bufferedReader = new BufferedReader(fileReader);
 				
 				while((strLine = bufferedReader.readLine())!=null){
@@ -1379,7 +1376,7 @@ public class RserveUtilization {
 	}
 	
 	
-	public static void constructPfmMatricesfromEncodeMotifs(String encodeMotifsInputFileName,Map<String,String> tfName2PfmMatrices){
+	public static void constructPfmMatricesfromEncodeMotifs(String dataFolder,String encodeMotifsInputFileName,Map<String,String> tfName2PfmMatrices){
 		FileReader fileReader ;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -1413,7 +1410,7 @@ public class RserveUtilization {
 		Iterator<PositionFrequency> iterator;
 		
 		try {
-				fileReader = new FileReader(encodeMotifsInputFileName);
+				fileReader = new FileReader(dataFolder + encodeMotifsInputFileName);
 				bufferedReader = new BufferedReader(fileReader);
 				
 				while((strLine = bufferedReader.readLine())!=null){
@@ -1583,9 +1580,28 @@ public class RserveUtilization {
 		//for testing purposes
 	}
 
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	//args[9] must have Dnase Enrichment example: DO_DNASE_ENRICHMENT or DO_NOT_DNASE_ENRICHMENT
+	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
+	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+	//args[13] must have a job name exampe: any_string 
 	public static void main(String[] args) {
-		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;
 		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
+		//pssm matrices
+		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		
 		String jasparCoreInputFileName = Commons.JASPAR_CORE;
 	
 		//TF and KeggPathway
@@ -1603,14 +1619,14 @@ public class RserveUtilization {
 		
 //		//Before each run
 //		//delete directories and files under base directories
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
 		
 		
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE);
 		
 		
 		//Construct pfm matrices from encode-motif.txt file
@@ -1625,17 +1641,17 @@ public class RserveUtilization {
 		Map<String,List<String>> chrNameZeroBasedCoordinate2ObservedAlleles = new HashMap<String,List<String>>();
 		
 		//Construct position frequency matrices from Encode Motifs
-		constructPfmMatricesfromEncodeMotifs(encodeMotifsInputFileName,tfName2PfmMatrices);
+		constructPfmMatricesfromEncodeMotifs(dataFolder,encodeMotifsInputFileName,tfName2PfmMatrices);
 		
 		//Construct logo matrices from Encode Motifs
-		constructLogoMatricesfromEncodeMotifs(encodeMotifsInputFileName,tfName2LogoMatrices);
+		constructLogoMatricesfromEncodeMotifs(dataFolder,encodeMotifsInputFileName,tfName2LogoMatrices);
 		
 		//Construct position frequency matrices from Jaspar Core 
 		//Construct logo matrices from Jaspar Core
-		constructPfmMatricesandLogoMatricesfromJasparCore(jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);
+		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder,jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);
 		
 		//Construct chrNameZeroBasedCoordinate2ObservedAlleles HashMap
-		constructObservedAllelesMap(Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP,chrNameZeroBasedCoordinate2ObservedAlleles);
+		constructObservedAllelesMap(outputFolder,Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP,chrNameZeroBasedCoordinate2ObservedAlleles);
 	
 				
 //		compareChromosomeDNASequences(chromDNASequence);
@@ -1644,18 +1660,18 @@ public class RserveUtilization {
 		//Using snps for Enriched TfandKeggPathway
 		//Output dnaSequences for TfandKeggPathway
 		//Output pfmMatrices for TfandKeggPathway
-		readAugmentedDataWriteSequencesMatrices(augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
-		readAugmentedDataWriteSequencesMatrices(augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
-		readAugmentedDataWriteSequencesMatrices(augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);	
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);	
 
 		
 		//Using tfName2PfmMatrices
 		//Using snps for Enriched Tf CellLine KeggPathway
 		//Output dnaSequences for Tf CellLine KeggPathway
 		//Output pfmMatrices for Tf CellLine KeggPathway
-		readAugmentedDataWriteSequencesMatrices(augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
-		readAugmentedDataWriteSequencesMatrices(augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
-		readAugmentedDataWriteSequencesMatrices(augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
+		readAugmentedDataWriteSequencesMatrices(outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,chrNameZeroBasedCoordinate2ObservedAlleles);
 		
 	}
 

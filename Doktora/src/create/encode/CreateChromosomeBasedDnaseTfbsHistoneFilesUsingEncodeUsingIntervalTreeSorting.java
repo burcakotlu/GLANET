@@ -52,7 +52,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	   try {
 		   
 			 bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(dnase.getChromName(), bufferedWriterList);		 
-			 bufferedWriter.write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+"\n");
+			 bufferedWriter.write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+System.getProperty("line.separator"));
 
 		   		   
 			if(dnase.getChromName().equals("chr1")){
@@ -119,7 +119,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(histone.getChromName() , bufferedWriterList);
-			bufferedWriter.write(histone.getChromName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+"\n");
+			bufferedWriter.write(histone.getChromName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+System.getProperty("line.separator"));
 
 			if(histone.getChromName().equals("chr1")){
 				numberofDNAElements.setNumberofHistoneinChr1(numberofDNAElements.getNumberofHistoneinChr1()+1);
@@ -186,7 +186,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(tfbs.getChromName(), bufferedWriterList);
-			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ "\n");
+			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ System.getProperty("line.separator"));
 			
 			if(tfbs.getChromName().equals("chr1")){
 				numberofDNAElements.setNumberofTfbsinChr1(numberofDNAElements.getNumberofTfbsinChr1()+1);
@@ -615,7 +615,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			    File[] files = directory.listFiles();
 			    int numberofDnaseFiles= files.length;
 			    
-			    System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
+			    System.out.printf("Number of Dnase Files %d in %s" + System.getProperty("line.separator"), files.length, directory.getAbsolutePath());
 				
 		        for (int i = 0; i < numberofDnaseFiles; i++) {
 		        	FileReader fileReader =null;
@@ -692,7 +692,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			    File[] files = mainDirectory.listFiles();
 			    int numberofHistoneFiles= files.length;
 			    
-			    System.out.printf("Number of Histone Files %d in %s\n", files.length,mainDirectory.getAbsolutePath());
+			    System.out.printf("Number of Histone Files %d in %s" + System.getProperty("line.separator"), files.length,mainDirectory.getAbsolutePath());
 			    
 		        for (int i = 0; i < numberofHistoneFiles; i++) {
 		        	FileReader fileReader =null;
@@ -771,7 +771,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 			    File[] files = mainDirectory.listFiles();
 			    int numberofTfbsFiles= files.length;
 			    
-			    System.out.printf("Number of Tfbs Files %d in %s\n", files.length, mainDirectory.getAbsolutePath());
+			    System.out.printf("Number of Tfbs Files %d in %s" + System.getProperty("line.separator"), files.length, mainDirectory.getAbsolutePath());
 			       
 		        for (int i = 0; i < numberofTfbsFiles; i++) {
 		        	FileReader fileReader =null;

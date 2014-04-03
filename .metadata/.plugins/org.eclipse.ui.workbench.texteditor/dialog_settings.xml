@@ -2,33 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="Integer(0)" key="selection"/>
+		<item value="chrNameZeroBasedCoordinate2ObservedAlleles" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Integer(0)"/>
-			<item value="&quot;Doktora&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;annotate&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;intervals&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;parametric&quot; + System.getProperty(&quot;file.separator&quot;);"/>
-			<item value="output"/>
-			<item value="#N/A"/>
-			<item value="args[2]"/>
-			<item value="chrName2RefSeqIdforGrch37Map"/>
-			<item value=",outputFolder,dataFolder"/>
-			<item value="Commons.OUTPUT_DATA"/>
+			<item value="chrNameZeroBasedCoordinate2ObservedAlleles"/>
+			<item value="nucleotide"/>
+			<item value="directoryBase"/>
+			<item value="observed"/>
+			<item value="found"/>
+			<item value="library"/>
+			<item value="\\"/>
+			<item value="\n"/>
 		</list>
 		<list key="replacehistory">
+			<item value="System.getProperty(&quot;line.separator&quot;)"/>
+			<item value="Commons.ORIGINAL"/>
+			<item value="Commons.ALL_POSSIBLE_NAMES"/>
+			<item value="System.getProperty(&quot;file.separator&quot;)"/>
+			<item value="System.getProperty(File.separator)"/>
 			<item value="outputFolder"/>
 			<item value="processinputdata"/>
 			<item value="FileOperations.createFileWriter"/>
-			<item value="numberofDNAElements"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item key="DIALOG_WIDTH" value="353"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="513" key="DIALOG_HEIGHT"/>
-		<item value="1297" key="DIALOG_X_ORIGIN"/>
-		<item value="195" key="DIALOG_Y_ORIGIN"/>
+		<item value="1342" key="DIALOG_X_ORIGIN"/>
+		<item value="522" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

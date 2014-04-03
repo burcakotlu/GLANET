@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Apr 3, 2014 
+ * @time 12:04:41 PM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class AugmentationofGivenIntervalwithRsIds {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

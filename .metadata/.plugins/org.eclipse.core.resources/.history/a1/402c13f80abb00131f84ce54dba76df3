@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Apr 3, 2014 
+ * @time 11:34:37 AM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class RsInformation {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

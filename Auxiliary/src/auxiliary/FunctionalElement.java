@@ -217,7 +217,7 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 		System.out.println("After sort empirical p value");
 		traverseList(list);
 		
-		Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
+		Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
 		System.out.println("After sort bonferroni corrected empirical p value");
 		traverseList(list);
 		
@@ -241,7 +241,7 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 				}
     };
 	
-    public static Comparator<FunctionalElement> BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE = 
+    public static Comparator<FunctionalElement> BONFERRONI_CORRECTED_P_VALUE = 
     		new Comparator<FunctionalElement>() {
 				public int compare(FunctionalElement element1, FunctionalElement element2) {
 					

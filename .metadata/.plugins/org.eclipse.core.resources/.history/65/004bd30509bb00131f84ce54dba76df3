@@ -1,0 +1,29 @@
+/**
+ * @author burcakotlu
+ * @date Apr 3, 2014 
+ * @time 11:18:28 AM
+ * 
+ * Augmentation of given Rs Id with information
+ * 
+ * Information means chrName, chrom RefSeq Id, start, end and observed alleles
+ * 
+ * 
+ * 
+ * 
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class AugmentationofGivenRsIdWithInformation {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

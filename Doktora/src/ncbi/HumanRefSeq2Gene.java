@@ -55,13 +55,13 @@ public class HumanRefSeq2Gene {
 				taxId = Integer.parseInt(strLine.substring(0, indexofFirstTab));
 				
 				if (taxId.equals(9606)){
-					bufferedWriter.write(strLine+"\n");
+					bufferedWriter.write(strLine+System.getProperty("line.separator"));
 					numberofHumanGene2RefseqLines++;
 				}
 							
 			}
 			
-			System.out.print("Number of human gene 2 refseq lines " + numberofHumanGene2RefseqLines +"\n");
+			System.out.print("Number of human gene 2 refseq lines " + numberofHumanGene2RefseqLines +System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 			bufferedReader.close();
@@ -143,8 +143,8 @@ public class HumanRefSeq2Gene {
 					
 					if (!(refSeq2GeneSet.contains(refSeq2Gene))){
 						refSeq2GeneSet.add(refSeq2Gene);
-						bufferedWriter.write(refSeqName + "\t" + geneId + "\n" );
-						bufferedWriter2.write(refSeqNamewithDot + "\t" + geneId + "\n");
+						bufferedWriter.write(refSeqName + "\t" + geneId + System.getProperty("line.separator") );
+						bufferedWriter2.write(refSeqNamewithDot + "\t" + geneId + System.getProperty("line.separator"));
 						numberofHumanRefSeq2Gene++;									
 					}else{
 						refSeq2Gene= null;

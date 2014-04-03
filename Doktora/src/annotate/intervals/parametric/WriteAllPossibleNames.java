@@ -619,7 +619,7 @@ public class WriteAllPossibleNames {
 		
 			for(int i = 0; i<nameList.size() ;i++){
 								
-				bufferedWriter.write(nameList.get(i)+ "\n");
+				bufferedWriter.write(nameList.get(i)+ System.getProperty("line.separator"));
 				bufferedWriter.flush();				
 			}
 			

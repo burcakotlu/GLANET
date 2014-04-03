@@ -331,17 +331,14 @@ public class AugmentationofGivenRsIds {
 	public static void main(String[] args)
     {
 			AugmentationofGivenRsIds app=null;
-			
-				
+							
 			try {
 				app = new AugmentationofGivenRsIds();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+						
 						
 //			String refSeqIdsforGRCh37InputFile = Commons.REFSEQ_IDS_FOR_GRCH37_INPUT_FILE;
 //			app.fillMap(refSeqIdsforGRCh37InputFile,chrName2RefSeqIdforGrch37Map);
@@ -350,9 +347,7 @@ public class AugmentationofGivenRsIds {
 	        String outputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_OUTPUT_FILE_NAME;
 	        
 	        app.readRsIDInputFileandWriteAugmentedOutputFile(inputFileName,outputFileName);
-	        
-	       
-	    
+	        	    
     }
 
 }

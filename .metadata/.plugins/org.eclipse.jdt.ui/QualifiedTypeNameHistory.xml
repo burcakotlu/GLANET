@@ -8,13 +8,11 @@
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub.ESearchResult"/>
 <fullyQualifiedTypeName name="generated.ESearchResult"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.util.Hashtable"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.util.ListIterator"/>
-<fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Future"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
@@ -25,11 +23,20 @@
 <fullyQualifiedTypeName name="mapabilityandgc.GC"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Component"/>
 <fullyQualifiedTypeName name="intervaltree.Interval"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.awt.peer.SystemTrayPeer"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.util.OutputUtil"/>
-<fullyQualifiedTypeName name="common.Commons"/>
-<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.lang.OutOfMemoryError"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals"/>
+<fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdWithInformation"/>
+<fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenIntervalwithRsIds"/>
+<fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 </qualifiedTypeNameHistroy>

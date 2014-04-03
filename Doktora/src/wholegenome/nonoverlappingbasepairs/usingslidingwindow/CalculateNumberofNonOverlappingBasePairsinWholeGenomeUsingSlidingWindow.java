@@ -54,11 +54,11 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWi
 		
 		for(int i =0; i<chromosomeSizes.size(); i++){
 			if (i == 22)
-				System.out.printf("ChrX \t %d\n", chromosomeSizes.get(i));
+				System.out.printf("ChrX \t %d" + System.getProperty("line.separator"), chromosomeSizes.get(i));
 			else if (i == 23)
-				System.out.printf("ChrY \t %d\n", chromosomeSizes.get(i));
+				System.out.printf("ChrY \t %d" + System.getProperty("line.separator"), chromosomeSizes.get(i));
 			else
-				System.out.printf("Chr%d \t %d\n", i+1, chromosomeSizes.get(i));
+				System.out.printf("Chr%d \t %d" + System.getProperty("line.separator"), i+1, chromosomeSizes.get(i));
 				
 		}
 	}
@@ -201,7 +201,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWi
 		int high = 0;
 		String cellLineName = null;
 			
-		System.out.printf("Dnase chromosome%d\n" , chromosomeNumber);
+		System.out.printf("Dnase chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 		
 		List<UnprocessedLine> unprocessedLines = new ArrayList<UnprocessedLine>();
 		UnprocessedLine unprocessedLine;
@@ -454,7 +454,7 @@ public void calculateTfbsNumberofNonoverlappingBasePairs(int chromosomeNumber, i
 		String cellLineName;
 		String tfbsNameandCellLineName;
 		
-		System.out.printf("Tfbs chromosome%d\n" , chromosomeNumber);
+		System.out.printf("Tfbs chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 		
 		List<UnprocessedLine> unprocessedLines = new ArrayList<UnprocessedLine>();
 		UnprocessedLine unprocessedLine;
@@ -711,7 +711,7 @@ public void calculateHistoneNumberofNonoverlappingBasePairs(int chromosomeNumber
 	String cellLineName;
 	String histoneNameandCellLineName;
 	
-	System.out.printf("Histone chromosome%d\n" , chromosomeNumber);
+	System.out.printf("Histone chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 	
 	List<UnprocessedLine> unprocessedLines = new ArrayList<UnprocessedLine>();
 	UnprocessedLine unprocessedLine;
@@ -967,7 +967,7 @@ public void calculateExonBasedKeggPathwayNumberofNonoverlappingBasePairs(int chr
 	String keggPathwayName = null;
 	String intervalName = null;
 		
-	System.out.printf("Exon Based Kegg Pathway chromosome%d\n" , chromosomeNumber);
+	System.out.printf("Exon Based Kegg Pathway chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 	
 	List<UnprocessedLine> unprocessedLines = new ArrayList<UnprocessedLine>();
 	UnprocessedLine unprocessedLine;
@@ -1271,7 +1271,7 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 	String keggPathwayName = null;
 	String intervalName = null;
 	
-	System.out.printf("Regulation Based Kegg Pathway chromosome%d\n" , chromosomeNumber);
+	System.out.printf("Regulation Based Kegg Pathway chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 
 	List<UnprocessedLine> unprocessedLines = new ArrayList<UnprocessedLine>();
 	UnprocessedLine unprocessedLine;
@@ -1878,7 +1878,7 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 			
 			while(iterator.hasNext()){
 				Map.Entry<String,Long> entry = iterator.next();	
-				bufferedWriter.write(entry.getKey()+ "\t" + entry.getValue() + "\n");
+				bufferedWriter.write(entry.getKey()+ "\t" + entry.getValue() + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
