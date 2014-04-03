@@ -628,7 +628,7 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 		return tfName.substring(0, i);
 	}
 	
-public static String   createDirectory(String outputFolder,String directoryName,String enrichmentType){
+public static String   createDirectory(String directoryName,String enrichmentType){
 		
 		String directoryBase=null;
 		
@@ -667,7 +667,7 @@ public static String   createDirectory(String outputFolder,String directoryName,
 			
 		} // End of switch
 		
-		File directory = new File(outputFolder +directoryBase + System.getProperty("file.separator") + directoryName);
+		File directory = new File(directoryBase + System.getProperty("file.separator") + directoryName);
 
 		
 		// if the directory does not exist, create it
@@ -960,12 +960,12 @@ public static String takeComplementforeachAllele(String allele){
 		}
 	}
 
-	public static void createPeakSequencesFile(String outputFolder, String directoryBase,String sequenceFileDirectory, String fileName, String peakName, String peakSequence){
+	public static void createPeakSequencesFile(String directoryBase,String sequenceFileDirectory, String fileName, String peakName, String peakSequence){
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + "\\" + fileName + ".txt",true);
+			fileWriter = new FileWriter(directoryBase + sequenceFileDirectory + "\\" + fileName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			bufferedWriter.write(">" + peakName + "\n");
@@ -980,12 +980,12 @@ public static String takeComplementforeachAllele(String allele){
 
 	}
 	
-	public static void createMatrixFile(String outputFolder,String directoryBase, String tfNameKeggPathwayNameBased_SnpDirectory, String matrixName,String matrix){
+	public static void createMatrixFile(String directoryBase, String tfNameKeggPathwayNameBased_SnpDirectory, String matrixName,String matrix){
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameKeggPathwayNameBased_SnpDirectory + "\\" +matrixName + ".txt",true);
+			fileWriter = new FileWriter(directoryBase + tfNameKeggPathwayNameBased_SnpDirectory + "\\" +matrixName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			bufferedWriter.write(matrix);
@@ -1203,7 +1203,7 @@ public static String takeComplementforeachAllele(String allele){
 					//create tfNameKeggPathwayName based directory  if no directory has been already created
 					if (tf2FalseorTrueMap.get(tfNameKeggPathwayName)==null){
 						//create new directory for this tf
-						createDirectory(outputFolder,tfNameKeggPathwayName,enrichmentType);
+						createDirectory(tfNameKeggPathwayName,enrichmentType);
 						tf2FalseorTrueMap.put(tfNameKeggPathwayName,true);
 					}
 						
@@ -1213,7 +1213,7 @@ public static String takeComplementforeachAllele(String allele){
 					if (snp2FalseorTrueMap.get(tfNameKeggPathwayNameSnpChromNumberSnpLocus)==null){
 						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased;
 						
-						directoryBase = createDirectory(outputFolder,tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
+						directoryBase = createDirectory(tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
 			
 						//convert from zeroBased to oneBased
 						snpLocus_OneBased = snpLocus_ZeroBased +1;
@@ -1276,7 +1276,7 @@ public static String takeComplementforeachAllele(String allele){
 						peakSequence = getDNASequence(chrNamewithoutPreceedingChr,tfStart_OneBased, tfEnd_OneBased,chrName2RefSeqIdforGrch37Map);
 						//to be changed ends
 					
-						createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,peaksFileName,peakName,peakSequence);
+						createPeakSequencesFile(directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,peaksFileName,peakName,peakSequence);
 						
 						peak2FalseorTrueMap.put(tfNameKeggPathwayNameSnpPeak, true);
 					}
@@ -1290,7 +1290,7 @@ public static String takeComplementforeachAllele(String allele){
 						for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 							if (pfmEntry.getKey().contains(tfName)){
 								isThereAnExactTfNamePfmMatrix = true;
-								createMatrixFile(outputFolder,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory,  "pfmMatrices_" + tfName,pfmEntry.getValue());
+								createMatrixFile(directoryBase, tfNameKeggPathwayNameBased_SnpDirectory,  "pfmMatrices_" + tfName,pfmEntry.getValue());
 									
 							}
 						}//End of for
@@ -1299,7 +1299,7 @@ public static String takeComplementforeachAllele(String allele){
 						//find logo entry
 						for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 							if(logoEntry.getKey().contains(tfName)){
-								createMatrixFile(outputFolder,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "logoMatrices_" +tfName,logoEntry.getValue());
+								createMatrixFile(directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "logoMatrices_" +tfName,logoEntry.getValue());
 
 							}
 						}
@@ -1310,14 +1310,14 @@ public static String takeComplementforeachAllele(String allele){
 							//find pfm entry							
 							for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 								if (pfmEntry.getKey().contains(tfNamewithoutNumber)){
-									createMatrixFile(outputFolder,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "pfmMatrices_" + tfName,pfmEntry.getValue());									
+									createMatrixFile(directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "pfmMatrices_" + tfName,pfmEntry.getValue());									
 								}
 							}//End of for
 							
 							//find logo entry
 							for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 								if(logoEntry.getKey().contains(tfNamewithoutNumber)){
-									createMatrixFile(outputFolder,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "logoMatrices_" +tfName,logoEntry.getValue());
+									createMatrixFile(directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, "logoMatrices_" +tfName,logoEntry.getValue());
 
 								}
 							}

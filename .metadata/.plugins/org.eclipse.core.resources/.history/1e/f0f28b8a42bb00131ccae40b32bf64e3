@@ -1213,7 +1213,7 @@ public static String takeComplementforeachAllele(String allele){
 					if (snp2FalseorTrueMap.get(tfNameKeggPathwayNameSnpChromNumberSnpLocus)==null){
 						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased;
 						
-						directoryBase = createDirectory(outputFolder,tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
+						directoryBase = createDirectory(tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
 			
 						//convert from zeroBased to oneBased
 						snpLocus_OneBased = snpLocus_ZeroBased +1;
