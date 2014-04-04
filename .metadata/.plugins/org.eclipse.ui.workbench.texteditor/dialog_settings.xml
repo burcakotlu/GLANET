@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="chrNameZeroBasedCoordinate2ObservedAlleles" key="selection"/>
+		<item value="not cre" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="not cre"/>
+			<item value="not cr"/>
 			<item value="chrNameZeroBasedCoordinate2ObservedAlleles"/>
 			<item value="nucleotide"/>
 			<item value="directoryBase"/>
 			<item value="observed"/>
 			<item value="found"/>
 			<item value="library"/>
-			<item value="\\"/>
-			<item value="\n"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>

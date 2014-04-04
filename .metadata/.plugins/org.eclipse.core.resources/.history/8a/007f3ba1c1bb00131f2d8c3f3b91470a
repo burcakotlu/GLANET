@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import jaxbxjctool._deprecatedAugmentationofGivenRsIds;
+import jaxbxjctool._depreceatedAugmentationofGivenRsIds;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -66,7 +66,7 @@ public class InputDataProcess {
 			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 		
-			_deprecatedAugmentationofGivenRsIds app = new _deprecatedAugmentationofGivenRsIds();
+			_depreceatedAugmentationofGivenRsIds app = new _depreceatedAugmentationofGivenRsIds();
 						
 			//for debug
 			List<String> searched = new ArrayList<String>();
