@@ -1685,20 +1685,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		
 		String runNumber;
 		
-		/*********************************************/
-		//delete old files
-		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC;
-		List<String> notToBeDeleted = new ArrayList<String>();
-		notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
-		notToBeDeleted.add(Commons.ORIGINAL);
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
-		
-		//delete old files
-		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
-		/*********************************************/
-
-		
 		for(int i=1; i<=numberofRuns;i++){
 			System.out.println("**************	" + i + ". Run" + "	******************	starts");
 			
@@ -1768,6 +1754,18 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 //			List<FunctionalElement> tfCellLineAllBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
 
 			
+			/*********************************************/
+			//delete old files
+			String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC;
+			List<String> notToBeDeleted = new ArrayList<String>();
+			notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
+			notToBeDeleted.add(Commons.ORIGINAL);
+			
+			FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
+			
+			String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
+			FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
+			/*********************************************/
 			
 			System.out.println("Concurrent programming has been started.");				
 			//concurrent programming

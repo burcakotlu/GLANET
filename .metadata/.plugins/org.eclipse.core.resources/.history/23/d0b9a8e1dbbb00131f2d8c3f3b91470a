@@ -127,10 +127,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 						
 			bufferedWriter.close();
 			bufferedReader.close();
-			
-			if(histoneBufferedReader!=null){
-				histoneBufferedReader.close();
-			}
+			histoneBufferedReader.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -143,7 +140,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	}
 
 	
-	//Read C:\Users\burcakotlu\GLANET\Output\Doktora\empiricalpvalues\toBeCollected\Dnase\Dnase_all.txt
+	//Read C:\Users\burcakotlu\GLANET\Output\Doktora\empiricalpvalues\toBeCollected\Dnase
 	//Augment it with annotate\\intervals\\parametric\\output results
 	//Write augmented results
 	//For Dnase
@@ -243,9 +240,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			bufferedWriter.close();
 			bufferedReader.close();
-			if (dnaseBufferedReader!=null) {
-				dnaseBufferedReader.close();
-			}
+			dnaseBufferedReader.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

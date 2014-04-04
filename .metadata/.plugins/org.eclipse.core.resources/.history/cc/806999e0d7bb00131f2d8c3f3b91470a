@@ -99,7 +99,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 											
 				//change selection criteria
-				if (bhFDRAdjustedPValue <= FDR){					
+				if (bonCorrPValue <= 0.05f){					
 					enrichedHistoneElements.add(histoneNameCellLineName);	
 				}
 					
@@ -127,10 +127,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 						
 			bufferedWriter.close();
 			bufferedReader.close();
-			
-			if(histoneBufferedReader!=null){
-				histoneBufferedReader.close();
-			}
+			histoneBufferedReader.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -143,7 +140,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	}
 
 	
-	//Read C:\Users\burcakotlu\GLANET\Output\Doktora\empiricalpvalues\toBeCollected\Dnase\Dnase_all.txt
+	//Read C:\Users\burcakotlu\GLANET\Output\Doktora\empiricalpvalues\toBeCollected\Dnase
 	//Augment it with annotate\\intervals\\parametric\\output results
 	//Write augmented results
 	//For Dnase
@@ -214,7 +211,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				
 				//change selection criteria
-				if (bhFDRAdjustedPValue <= FDR){					
+				if (bonCorrPValue <= 0.05f){					
 					enrichedDnaseElements.add(dnaseElementName);	
 				}
 					
@@ -243,9 +240,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			bufferedWriter.close();
 			bufferedReader.close();
-			if (dnaseBufferedReader!=null) {
-				dnaseBufferedReader.close();
-			}
+			dnaseBufferedReader.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -288,7 +283,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		Float empiricalPValue;
 		String keggPathwayNameandDescription;
 		
-		Float bhFDRAdjustedPValue ;
+		Float benjaminiHochbergFDR ;
 		
 		FileReader tfandKeggPathwayFileReader = null;
 		BufferedReader tfandKeggPathwayBufferedReader;
@@ -337,13 +332,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 				//Pay attention to the order
 				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonCorrEmpPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				benjaminiHochbergFDR = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 				
 				//change selection criteria
-				if (bhFDRAdjustedPValue <= FDR){					
-						
+				if (bonCorrEmpPValue <= 0.05f){
+					
 					lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 	
 					if (lines==null){
@@ -488,7 +483,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 					
-					if (bhFDRAdjustedPValue < FDR){
+					if (bonCorrEmpPValue < 0.05){
 					
 					lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 					

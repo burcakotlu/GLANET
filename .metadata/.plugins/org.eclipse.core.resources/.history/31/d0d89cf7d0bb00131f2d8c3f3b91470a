@@ -698,7 +698,7 @@ public static String   createDirectory(String outputFolder,String directoryName,
 			firstLineofFastaFile = sequence.substring(0, indexofLineSeparator);
 			
 			bufferedWriter.write(firstLineofFastaFile + "\t" +fileName + System.getProperty("line.separator"));
-			bufferedWriter.write(sequence.substring(indexofLineSeparator+1).trim());
+			bufferedWriter.write(sequence.substring(indexofLineSeparator+1) + System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 			
@@ -970,20 +970,12 @@ public static String takeComplementforeachAllele(String allele){
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		
-		int indexofFirstLineSeparator;
-		String firstLineofFastaFile;
-		
 		try {
 			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + System.getProperty("file.separator") + fileName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			indexofFirstLineSeparator = peakSequence.indexOf(System.getProperty("line.separator"));
-			firstLineofFastaFile = peakSequence.substring(0,indexofFirstLineSeparator);
-					
-			bufferedWriter.write(firstLineofFastaFile + "\t" +peakName + System.getProperty("line.separator"));
-			bufferedWriter.write(peakSequence.substring(indexofFirstLineSeparator+1).trim());
-	
+			bufferedWriter.write(">" + peakName + System.getProperty("line.separator"));
+			bufferedWriter.write(peakSequence +System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 			
@@ -1036,8 +1028,6 @@ public static String takeComplementforeachAllele(String allele){
 	        sourceHTML= "";  // will eventually contain the whole result
 	        // Continue to read lines while there are still some left to read
 	        
-	        //Pay attention
-	        //Each line including last line has new line character at the end.
 	        while ((inputLine= in.readLine()) != null)  // read one line of the input stream
 	            { sourceHTML+= inputLine + System.getProperty("line.separator");            // add this line to end of the whole shebang
 	//	              ++lineCount;                              // count the number of lines read
@@ -1297,9 +1287,7 @@ public static String takeComplementforeachAllele(String allele){
 							
 							//for debug purposes starts
 							if (observedAllelesSeparatedwithSlash.contains(System.getProperty("line.separator"))){
-								System.out.println("************************");
 								System.out.println(observedAllelesSeparatedwithSlash);
-								System.out.println("************************");
 							}
 							//for debug purposes ends
 							

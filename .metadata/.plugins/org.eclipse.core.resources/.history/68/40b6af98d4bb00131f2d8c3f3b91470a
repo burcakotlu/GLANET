@@ -1297,9 +1297,7 @@ public static String takeComplementforeachAllele(String allele){
 							
 							//for debug purposes starts
 							if (observedAllelesSeparatedwithSlash.contains(System.getProperty("line.separator"))){
-								System.out.println("************************");
 								System.out.println(observedAllelesSeparatedwithSlash);
-								System.out.println("************************");
 							}
 							//for debug purposes ends
 							
