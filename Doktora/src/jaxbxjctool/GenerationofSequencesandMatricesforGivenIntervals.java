@@ -70,10 +70,10 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 						tfName = strLine.substring(1);
 						
 						if (tfName2LogoMatrices.get(tfName)==null){
-							tfName2LogoMatrices.put(tfName, strLine+ "\n");
+							tfName2LogoMatrices.put(tfName, strLine+ System.getProperty("line.separator"));
 							
 						}else{
-							tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName)+ strLine + "\n");	
+							tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName)+ strLine + System.getProperty("line.separator"));	
 						}
 							
 					}//End of if
@@ -81,7 +81,7 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 						
 						
 					else{
-						tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName)+ strLine+ "\n");
+						tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName)+ strLine+ System.getProperty("line.separator"));
 					}
 						
 				}//end of while
@@ -183,22 +183,22 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 							
 							//We must have the former tfName
 							//We must have inserted the header line
-							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + ALine +"\n");
-							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + CLine +"\n");
-							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + GLine +"\n");
-							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + TLine +"\n");
-							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + "//"  +"\n");
+							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + ALine +System.getProperty("line.separator"));
+							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + CLine +System.getProperty("line.separator"));
+							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + GLine +System.getProperty("line.separator"));
+							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + TLine +System.getProperty("line.separator"));
+							tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + "//"  +System.getProperty("line.separator"));
 							//Write former full pfList to the output file ends
 						}//End of if
 						
 						
 						//if tfName is inserted for the first time
 						if (tfName2PfmMatrices.get(tfName)==null){
-							tfName2PfmMatrices.put(tfName, "; " + strLine.substring(1) + "\n");
+							tfName2PfmMatrices.put(tfName, "; " + strLine.substring(1) + System.getProperty("line.separator"));
 						}
 						//else start appending the new coming matrix to the already existing matrices for this tfName
 						else{
-							tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + strLine.substring(1) + "\n");
+							tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + strLine.substring(1) + System.getProperty("line.separator"));
 						}
 						
 						//Initialize positionfrequencyList
@@ -243,11 +243,11 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 				
 				//We must use former tfName
 				//We must have inserted the header line
-				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + ALine +"\n");
-				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + CLine +"\n");
-				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + GLine +"\n");
-				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + TLine +"\n");
-				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + "//"  +"\n");
+				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + ALine +System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + CLine +System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + GLine +System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + TLine +System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName)  + "//"  +System.getProperty("line.separator"));
 				//Write the last positionFrequencyList ends
 				
 				bufferedReader.close();
@@ -408,23 +408,23 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 			
 			//this tfName has no previous position frequency matrix inserted
 			if(tfName2PfmMatrices.get(tfName)==null){
-				tfName2PfmMatrices.put(tfName, "; " + tfName + "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|"+ strLineA+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|"+ strLineC+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|"+ strLineG+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|"+ strLineT+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//"+  "\n");
+				tfName2PfmMatrices.put(tfName, "; " + tfName + System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|"+ strLineA+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|"+ strLineC+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|"+ strLineG+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|"+ strLineT+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//"+  System.getProperty("line.separator"));
 				
 			}
 			//this tfName already has position frequency matrices
 			//append the new position frequency matrix
 			else{
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + tfName + "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|"+ strLineA+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|"+ strLineC+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|"+ strLineG+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|"+ strLineT+  "\n");
-				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//"+  "\n");
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + tfName + System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|"+ strLineA+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|"+ strLineC+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|"+ strLineG+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|"+ strLineT+  System.getProperty("line.separator"));
+				tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//"+  System.getProperty("line.separator"));
 					
 			}
 
@@ -460,11 +460,11 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 			String strLine = null;
 			
 			if (tfName2LogoMatrices.get(tfName) == null){
-				tfName2LogoMatrices.put(tfName, tfName + "\n");		
+				tfName2LogoMatrices.put(tfName, tfName + System.getProperty("line.separator"));		
 			}
 			
 			else{
-				tfName2LogoMatrices.put(tfName,tfName2LogoMatrices.get(tfName)+ tfName + "\n");			
+				tfName2LogoMatrices.put(tfName,tfName2LogoMatrices.get(tfName)+ tfName + System.getProperty("line.separator"));			
 			}
 				
 				
@@ -476,7 +476,7 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 				frequencyG = iteratorG.next();
 				frequencyT = iteratorT.next();
 				
-				strLine = "X" + "\t" + frequencyA + "\t" + frequencyC + "\t" + frequencyG + "\t" + frequencyT +"\n";
+				strLine = "X" + "\t" + frequencyA + "\t" + frequencyC + "\t" + frequencyG + "\t" + frequencyT +System.getProperty("line.separator");
 				tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName) + strLine);
 				
 				
@@ -688,11 +688,11 @@ public static String   createDirectory(String outputFolder,String directoryName,
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + "\\" + fileName + ".txt");
+			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + System.getProperty("file.separator") + fileName + ".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			bufferedWriter.write(">" + fileName + "\n");
-			bufferedWriter.write(sequence +"\n");
+			bufferedWriter.write(">" + fileName + System.getProperty("line.separator"));
+			bufferedWriter.write(sequence +System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 			
@@ -945,11 +945,11 @@ public static String takeComplementforeachAllele(String allele){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + observedAllelesFileDirectory + "\\" + fileName + ".txt");
+			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + observedAllelesFileDirectory + System.getProperty("file.separator") + fileName + ".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(String observedAllele: observedAlleles){
-				bufferedWriter.write(observedAllele + "\n");	
+				bufferedWriter.write(observedAllele + System.getProperty("line.separator"));	
 			}
 			
 			bufferedWriter.close();
@@ -965,11 +965,11 @@ public static String takeComplementforeachAllele(String allele){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + "\\" + fileName + ".txt",true);
+			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + System.getProperty("file.separator") + fileName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			bufferedWriter.write(">" + peakName + "\n");
-			bufferedWriter.write(peakSequence +"\n");
+			bufferedWriter.write(">" + peakName + System.getProperty("line.separator"));
+			bufferedWriter.write(peakSequence +System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 			
@@ -985,7 +985,7 @@ public static String takeComplementforeachAllele(String allele){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameKeggPathwayNameBased_SnpDirectory + "\\" +matrixName + ".txt",true);
+			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameKeggPathwayNameBased_SnpDirectory + System.getProperty("file.separator") +matrixName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			bufferedWriter.write(matrix);
@@ -1075,9 +1075,48 @@ public static String takeComplementforeachAllele(String allele){
 		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele;
 		
 		return observedAllelesSeparatedwithTabs;
+			
+	}
+	
+	
+	public static boolean alreadyExists(String observedAllelesSeparatedbyTabs,List<String> observedAlleles){
 		
+		Boolean exists = false;
+		
+		
+		for(String allele:observedAlleles){
+			if (observedAllelesSeparatedbyTabs.equals(allele)){
+				exists = true;
+				break;
+			}
+		}
+		
+		return exists;
 		
 	}
+		
+	
+	public static void add(String chrNamewithoutChr,int zeroBasedCoordinate, String observedAllelesSeparatedbyTabs,Map<String, List<String>> chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles){
+		String key = chrNamewithoutChr + "_"  + zeroBasedCoordinate;
+		
+		List<String> observedAlleles = chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.get(key);
+		
+		if (observedAlleles==null){
+			observedAlleles = new ArrayList<String>();			
+			observedAlleles.add(observedAllelesSeparatedbyTabs);
+			chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.put(key, observedAlleles);
+		} else {
+			
+			if (!observedAlleles.contains(observedAllelesSeparatedbyTabs)){
+				observedAlleles.add(observedAllelesSeparatedbyTabs);			
+			}
+//			if (!alreadyExists(observedAllelesSeparatedbyTabs,observedAlleles)){
+//				observedAlleles.add(observedAllelesSeparatedbyTabs);
+//			}
+		}
+		
+	}
+	
 	
 	public static void readAugmentedDataWriteSequencesandMatrices(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch37Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
 		
@@ -1137,12 +1176,17 @@ public static String takeComplementforeachAllele(String allele){
 				
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 		
+		//4 April 2014
+		List<String> rsIdList;
+		RsInformation rsInformation;
+		String observedAllelesSeparatedwithSlash ;
+		Map<String,List<String>> chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles = new HashMap<String,List<String>>();
+
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
 		//Pay attention, for the same chrName and ChrPosition there can be more than one observedAlleles String. It is rare but possible.
 		List<String> observedAlleles = new ArrayList<String>(); 
 		List<String> alteredSequences;
-		String observedAllelesSeparatedwithSlash ;
 		String observedAllelesSeparatedwithTabs;
 					
 //		**************	hsa00380 Tryptophan metabolism - Homo sapiens (human)	**************											
@@ -1211,15 +1255,13 @@ public static String takeComplementforeachAllele(String allele){
 					//get snp sequence
 					//write snp sequence to a file under snp directory
 					if (snp2FalseorTrueMap.get(tfNameKeggPathwayNameSnpChromNumberSnpLocus)==null){
-						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased;
+						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + System.getProperty("file.separator")+ "snp_"+ chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased;
 						
 						directoryBase = createDirectory(outputFolder,tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
 			
 						//convert from zeroBased to oneBased
 						snpLocus_OneBased = snpLocus_ZeroBased +1;
-						
-						
-						
+																		
 						chrNamewithoutPreceedingChr = chrNamewithPreceedingChr.substring(3);
 						//to be changed starts
 						referenceSequence = getDNASequence(chrNamewithoutPreceedingChr,snpLocus_OneBased- Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snpLocus_OneBased + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch37Map);
@@ -1227,19 +1269,24 @@ public static String takeComplementforeachAllele(String allele){
 						//for reference sequence
 						createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, snpChromNumberSnpLocusTfNameKeggPathwayName,referenceSequence);
 
-						List<String> rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, snpLocus_OneBased,snpLocus_OneBased);
+						rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, snpLocus_OneBased,snpLocus_OneBased);
 						
 						for(String rsId: rsIdList){
-							RsInformation rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
+							rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 							observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();
 								
 							observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);
+							
+							add(rsInformation.getChrNamewithoutChr(),rsInformation.getStartZeroBased(),observedAllelesSeparatedwithTabs, chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles);
+							
+							//for debug purposes starts
 							if (observedAllelesSeparatedwithSlash.contains(System.getProperty("line.separator"))){
 								System.out.println(observedAllelesSeparatedwithSlash);
 							}
-							observedAlleles.add(observedAllelesSeparatedwithTabs);
+							//for debug purposes ends
+							
 						}
-//						observedAlleles = chrNameZeroBasedCoordinate2ObservedAlleles.get(chromNumber + "_" + snpLocus_ZeroBased);						
+						observedAlleles = chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.get(chrNamewithoutPreceedingChr + "_" + snpLocus_ZeroBased);						
 						//to be changed ends
 						
 						

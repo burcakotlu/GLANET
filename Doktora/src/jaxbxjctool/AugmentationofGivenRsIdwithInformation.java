@@ -117,7 +117,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	   	                		   //set chromosome name
 	   	                		   //This chrName is without "chr"
 	   	                		   //ex: 2, X, Y, 17
-	   	                		   rsInformation.setChrName(comp.getChromosome());
+	   	                		   rsInformation.setChrNamewithoutChr(comp.getChromosome());
 	   	                		   
 	   	                		   //set rsId start position
 	   	                		   //eutil efetch returns 0-based coordinates	   	                    	
@@ -167,7 +167,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			
 			if (test!=null){
 				System.out.println(test.getRsId());
-				System.out.println(test.getChrName());
+				System.out.println(test.getChrNamewithoutChr());
 				System.out.println(test.getStartZeroBased());
 				System.out.println(test.getEndZeroBased());
 				System.out.println(test.getObservedAlleles());

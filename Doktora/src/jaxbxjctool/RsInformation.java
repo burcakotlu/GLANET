@@ -11,7 +11,7 @@ package jaxbxjctool;
 public class RsInformation {
 	
 	String rsId;
-	String chrName;
+	String chrNamewithoutChr;
 	int startZeroBased;
 	int endZeroBased;
 	String observedAlleles;
@@ -52,20 +52,15 @@ public class RsInformation {
 	}
 
 
-
-	public String getChrName() {
-		return chrName;
+	public String getChrNamewithoutChr() {
+		return chrNamewithoutChr;
 	}
 
 
 
-	public void setChrName(String chrName) {
-		this.chrName = chrName;
+	public void setChrNamewithoutChr(String chrNamewithoutChr) {
+		this.chrNamewithoutChr = chrNamewithoutChr;
 	}
-
-
-
-	
 
 
 
