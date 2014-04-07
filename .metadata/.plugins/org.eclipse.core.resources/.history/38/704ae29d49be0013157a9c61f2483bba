@@ -1,0 +1,49 @@
+/**
+ * @author burcakotlu
+ * @date Apr 7, 2014 
+ * @time 11:57:46 AM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class TfKeggPathwayTfInterval {
+	
+		
+	int startZeroBased;
+	int endZeroBased;
+	String chrNamewithoutPreceedingChr;
+	
+	
+	public int getStartZeroBased() {
+		return startZeroBased;
+	}
+	public void setStartZeroBased(int startZeroBased) {
+		this.startZeroBased = startZeroBased;
+	}
+	public int getEndZeroBased() {
+		return endZeroBased;
+	}
+	public void setEndZeroBased(int endZeroBased) {
+		this.endZeroBased = endZeroBased;
+	}
+	public String getChrNamewithoutPreceedingChr() {
+		return chrNamewithoutPreceedingChr;
+	}
+	public void setChrNamewithoutPreceedingChr(String chrNamewithoutPreceedingChr) {
+		this.chrNamewithoutPreceedingChr = chrNamewithoutPreceedingChr;
+	}
+	public String getTfNameKeggPathwayName() {
+		return tfNameKeggPathwayName;
+	}
+	public void setTfNameKeggPathwayName(String tfNameKeggPathwayName) {
+		this.tfNameKeggPathwayName = tfNameKeggPathwayName;
+	}
+	String tfNameKeggPathwayName;
+	
+	
+
+	
+
+}

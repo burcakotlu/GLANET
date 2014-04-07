@@ -1,0 +1,39 @@
+/**
+ * @author burcakotlu
+ * @date Apr 7, 2014 
+ * @time 11:55:40 AM
+ */
+package jaxbxjctool;
+
+import java.util.List;
+
+
+
+/**
+ * 
+ */
+public class GivenInterval {
+	
+	String givenIntervalKey;
+	
+	String chromNamewithoutPreceedingChr;
+	int startZeroBased;
+	int endZeroBased;
+	
+	List<SNP> snpList;
+	List<TfInterval> tfOverlapList;
+	
+	//will be generated from the peaks in this given interval
+	String extendedPeakSequence;
+	
+	
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,23 @@
+/**
+ * @author burcakotlu
+ * @date Apr 7, 2014 
+ * @time 11:57:46 AM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class TfKeggPathwayTfInterval {
+	
+		
+	int startZeroBased;
+	int endZeroBased;
+	String chrNamewithoutPreceedingChr;
+	String tfNameKeggPathwayName;
+	
+	
+
+	
+
+}
