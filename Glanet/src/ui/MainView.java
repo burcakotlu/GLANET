@@ -19,15 +19,30 @@ public class MainView extends JPanel{
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
 	private JComboBox<String> enrichmentTypeCombo;
+	private JCheckBox writeGeneratedRandomData;
+	private JCheckBox writePermutationBasedAndParametricBased;
+	private JCheckBox writePermutationBasedAnnotationResult;
+	private JCheckBox dnaseEnrichment;
+	private JCheckBox histoneEnrichment;
+	private JCheckBox tfAndKeggPathwayEnrichment;
+	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
 	
 	public interface MainViewDelegate {
 		
-		public void startRunActionsWithOptions(String inputFolder, 
-											   String inputFormat, 
-											   String dataMode, 
+		public void startRunActionsWithOptions(String inputFileName, 
+											   String outputFolder,
+											   String inputFileFormat,
 											   String numberOfPermutations,
-											   String enrichmentType,
-											   String outputFolder);
+											   String falseDiscoveryRate,
+											   String generateRandomDataMode,
+											   String writeGeneratedRandomDataMode,
+											   String writePermutationBasedandParametricBasedAnnotationResultMode,
+											   String writePermutationBasedAnnotationResultMode,
+											   String dnaseEnrichment,
+											   String histoneEnrichment,
+											   String tfAndKeggPathwayEnrichment,
+											   String cellLineBasedTfAndKeggPathwayEnrichment,
+											   String jobName);
 	}
 	
 	private ActionListener chooseFilePressed = new ActionListener() {
@@ -66,12 +81,12 @@ public class MainView extends JPanel{
 			else {
 				
 				//delegation to handle the run process.
-				delegate.startRunActionsWithOptions(inputTextField.getText(), 
-						inputFormatCombo.getSelectedItem().toString(), 
-						generateRandomDataModeCombo.getSelectedItem().toString(), 
-						numberOfPerCombo.getSelectedItem().toString(), 
-						enrichmentTypeCombo.getSelectedItem().toString(), 
-						outputTextField.getText());
+//				delegate.startRunActionsWithOptions(inputTextField.getText(), 
+//													inputFormatCombo.getSelectedItem().toString(), 
+//													generateRandomDataModeCombo.getSelectedItem().toString(), 
+//													numberOfPerCombo.getSelectedItem().toString(), 
+//													enrichmentTypeCombo.getSelectedItem().toString(), 
+//													outputTextField.getText());
 			}
 		}
 	};
@@ -100,16 +115,15 @@ public class MainView extends JPanel{
 									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES,
 									Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES};
 		
-		String[] enrichmentType = { "DNase Hypersensitive sites",
-									"Histone Modifications",
-									"Transcription Factors (TFs)",
-									"Kegg Pathway",
-									"TFs and Kegg Pathway" };
+//		String[] enrichmentType = { "DNase Hypersensitive sites",
+//									"Histone Modifications",
+//									"Transcription Factors (TFs)",
+//									"Kegg Pathway",
+//									"TFs and Kegg Pathway" };
 		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
-		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
 		inputFormatCombo = new JComboBox<String>( inputFormat);
-		enrichmentTypeCombo = new JComboBox<String>( enrichmentType);
+		//enrichmentTypeCombo = new JComboBox<String>( enrichmentType);
 		
 		inputBrowseAndOptionPane.add(inputBrowseFilePane);
 		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", inputFormatCombo));
@@ -117,8 +131,29 @@ public class MainView extends JPanel{
 		listPane.add(inputBrowseAndOptionPane);
 		listPane.add(createBorderedPanel("Generate Random Data Mode", generateRandomDataModeCombo));
 		listPane.add(createBorderedPanel("Number of Permutations", numberOfPerCombo));
-		listPane.add(createBorderedPanel("Enrichment Type", enrichmentTypeCombo));
+		//listPane.add(createBorderedPanel("Enrichment Type", enrichmentTypeCombo));
 		listPane.add(outputBrowseFilePane);
+        
+        //Checkbuttons
+        
+        writeGeneratedRandomData = new JCheckBox("writeGeneratedRandomData");
+        writePermutationBasedAndParametricBased = new JCheckBox("writePermutationBasedAndParametricBased");
+        writePermutationBasedAnnotationResult = new JCheckBox("writePermutationBasedAnnotationResult");
+        dnaseEnrichment = new JCheckBox("Dnase Enrichment");
+        histoneEnrichment = new JCheckBox("Histone Enrichment");
+        tfAndKeggPathwayEnrichment = new JCheckBox("Tf And Kegg Pathway Enrichment");
+        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox("CellLine Based Tf And Kegg Pathway Enrichment");
+        
+        JPanel checkPanel = new JPanel(new GridLayout(0, 1));
+        checkPanel.add(writeGeneratedRandomData);
+        checkPanel.add(writePermutationBasedAndParametricBased);
+        checkPanel.add(writePermutationBasedAndParametricBased);
+        checkPanel.add(dnaseEnrichment);
+        checkPanel.add(histoneEnrichment);
+        checkPanel.add(tfAndKeggPathwayEnrichment);
+        checkPanel.add(cellLineBasedTfAndKeggPathwayEnrichment);
+        
+        listPane.add( createBorderedPanel("Options", checkPanel));
         listPane.add(runButton);
         
         add(listPane);
@@ -150,11 +185,11 @@ JPanel createBorderedPanel( String borderName, JComponent panel){
                             BorderFactory.createEmptyBorder(5,5,5,5)));
 
     //Put everything together.
-    JPanel browseFilePane = new JPanel(new BorderLayout());
-    browseFilePane.add(paneControlsPane,
+    JPanel borderedPanel = new JPanel(new BorderLayout());
+    borderedPanel.add(paneControlsPane,
                  BorderLayout.PAGE_START);
     
-    return browseFilePane;
+    return borderedPanel;
 }
 JPanel createBrowseFileArea( String fileType, JTextField textField){
     
