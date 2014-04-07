@@ -1192,8 +1192,6 @@ public static String takeComplementforeachAllele(String allele){
 		String chrNamewithPreceedingChr = null;
 		String chrNamewithoutPreceedingChr = null;
 		
-		int snpLocus_ZeroBased;
-		int snpLocus_OneBased;
 		
 		int givenIntervalStartZeroBased;
 		int givenIntervalEndZeroBased;
@@ -1202,10 +1200,8 @@ public static String takeComplementforeachAllele(String allele){
 		int givenIntervalEndOneBased;
 
 		int tfStart_ZeroBased;
-		int tfStart_OneBased;
-		
 		int tfEnd_ZeroBased;
-		int tfEnd_OneBased;
+		
 				
 		String tfNameCellLineName;
 		
@@ -1225,7 +1221,6 @@ public static String takeComplementforeachAllele(String allele){
 				
 		//used for directory already generated or not
 		Map<String,Boolean> tfNameKeggPathwayName2FalseorTrueMap 			= new HashMap<String,Boolean>();
-		Map<String,Boolean> snp2FalseorTrueMap 			= new HashMap<String,Boolean>();
 		
 		//used for this peak sequence is already retrieved and written.
 		//No need for twice.
@@ -1257,6 +1252,10 @@ public static String takeComplementforeachAllele(String allele){
 		//key must contain tf KeggPathway  tf CellLine chr startZeroBased endZeroBased		
 		Map<String,TfKeggPathwayTfInterval> tfKeggPathwayBasedTfIntervalMap = new HashMap<String,TfKeggPathwayTfInterval>();
 		
+		//key must be chrNamewithPreceedingChr + givenIntervalStartZeroBased + givenIntervalEndZeroBased
+		//this map contains the list of snp keys in a given interval
+		Map<String,List<String>> givenIntervalBasedSnpMap = new HashMap<String,List<String>>();
+		
 		//key must contain chr startZeroBased endZeroBased
 		Map<String,SNP> snpMap =  new HashMap<String,SNP>();
 		
@@ -1264,9 +1263,12 @@ public static String takeComplementforeachAllele(String allele){
 		
 		String tfKeggPathwayGivenIntervalKey;
 		String tfKeggPathwayTfIntervalKey;
-		String snpKey;		
+		String snpKey;	
+		String givenIntervalKey;
 		
 		String givenIntervalName;
+		
+		List<String> snpKeyList;
 		//7 April 2014  ends
 		
 		
@@ -1396,15 +1398,17 @@ public static String takeComplementforeachAllele(String allele){
 					} //End of if
 					//create pfm matrices and logo matrices files ends
 
+					//Create given Interval key
+					givenIntervalKey = "givenInterval" + "_" +chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased +  "_" + givenIntervalEndZeroBased;
 						
-					//Create given interval key					
+					//Create tfNameKeggPathwayName based given interval key					
 					tfKeggPathwayGivenIntervalKey = tfNameKeggPathwayName + "_" + "givenInterval" + "_" +chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased +  "_" + givenIntervalEndZeroBased;
 					
+					//set given interval name
 					givenIntervalName ="givenInterval" + "_" +chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased +  "_" + givenIntervalEndZeroBased;
-					 
-					
+					 					
 					//Create tf interval key
-					tfKeggPathwayTfIntervalKey = tfNameKeggPathwayName + "_" + tfNameCellLineName +  "_"  + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStart_ZeroBased + "_" + tfEnd_ZeroBased;
+					tfKeggPathwayTfIntervalKey = tfNameKeggPathwayName + "_" + givenIntervalKey + "_" + tfNameCellLineName +  "_"  + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStart_ZeroBased + "_" + tfEnd_ZeroBased;
 						
 					//get the given interval
 					tfKeggPathwayGivenInterval = tfKeggPathwayBasedGivenIntervalMap.get(tfKeggPathwayGivenIntervalKey);
@@ -1422,61 +1426,82 @@ public static String takeComplementforeachAllele(String allele){
 						tfKeggPathwayGivenInterval.setSnpKeyList(new ArrayList<String>());
 						tfKeggPathwayGivenInterval.setTfKeggPathwayBasedTfIntervalKeyList(new ArrayList<String>());
 						
-						tfKeggPathwayGivenInterval.setGivenIntervalName(givenIntervalName);
+						tfKeggPathwayGivenInterval.setGivenIntervalName(givenIntervalKey);
 						tfKeggPathwayGivenInterval.setTfNameKeggPathwayName(tfNameKeggPathwayName);
 							
 																	
-						//create directory for this tfKeggPathway and GivenInterval directory
+						//create directory for this tfNameKeggPathwayName based GivenInterval directory
 						createDirectory(outputFolder,tfNameKeggPathwayName + System.getProperty("file.separator") + givenIntervalName,enrichmentType);
 						
 						//part1
-						//get all the rsIds in this given interval
+						//snpKeyList
 						
-						//get the rsIds in this given interval
-						//we have to provide one based coordinates for method arguments
-						rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
-												
-						for(String rsId: rsIdList){
+						//check whether for this given interval snps are already found
+						snpKeyList = givenIntervalBasedSnpMap.get(givenIntervalKey);
+						
+						if (snpKeyList==null){
 							
-							//For each rsId get rs Information
-							rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
+							snpKeyList = new ArrayList<String>();
+							givenIntervalBasedSnpMap.put(givenIntervalKey,snpKeyList);
 							
-							//rsInformation has slash separated observed alleles
-							observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
-							observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
-							
-							snpKey = "snp" + "_" + "chr" + rsInformation.getChrNamewithoutChr() + "_" + rsInformation.getStartZeroBased();
-							
-							SNP snp = snpMap.get(snpKey);
-							
-							if(snp==null){
+							//get all the rsIds in this given interval				
+							//we have to provide one based coordinates for method arguments
+							rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
+													
+							for(String rsId: rsIdList){
 								
-								snp = new SNP();
-								snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
-								snp.setSnpOneBasedCoordinate(rsInformation.getStartZeroBased()+1);
+								//For each rsId get rs Information
+								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 								
-								//get reference sequence for this snp
-								referenceSequence = getDNASequence(snp.getChrNamewithoutPreceedingChr(),snp.getSnpOneBasedCoordinate()- Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snp.getSnpOneBasedCoordinate() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch37Map);
-								snp.setReferenceSequence(referenceSequence);
-								List<String> observedAlleles = new ArrayList<String>();
-								snp.setObservedAlleles(observedAlleles);
+								//rsInformation has slash separated observed alleles
+								observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
+								observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 								
-								snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);
+								snpKey = "snp" + "_" + "chr" + rsInformation.getChrNamewithoutChr() + "_" + rsInformation.getStartZeroBased();
+								
+								SNP snp = snpMap.get(snpKey);
+								
+								if(snp==null){
 									
-								snpMap.put(snpKey, snp);
-								tfKeggPathwayGivenInterval.getSnpKeyList().add(snpKey);
+									snp = new SNP();
+									snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
+									snp.setSnpOneBasedCoordinate(rsInformation.getStartZeroBased()+1);
+									
+									//get reference sequence for this snp
+									referenceSequence = getDNASequence(snp.getChrNamewithoutPreceedingChr(),snp.getSnpOneBasedCoordinate()- Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snp.getSnpOneBasedCoordinate() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch37Map);
+									snp.setReferenceSequence(referenceSequence);
+									List<String> observedAlleles = new ArrayList<String>();
+									snp.setObservedAlleles(observedAlleles);
+									
+									snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);
+										
+									snpMap.put(snpKey, snp);
+									tfKeggPathwayGivenInterval.getSnpKeyList().add(snpKey);
+									snpKeyList.add(snpKey);
+									
+								}else{
+									if (!snp.getObservedAlleles().contains(observedAllelesSeparatedwithTabs)){
+										snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);			
+									}
+									
+									//Note that snpKey is already added to
+									//tfKeggPathwayGivenInterval.getSnpKeyList() and
+									//snpKeyList
+									
+								}//end of else snp is not null					
 								
-							}else{
-								if (!snp.getObservedAlleles().contains(observedAllelesSeparatedwithTabs)){
-									snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);			
-								}
-							}//end of else snp is not null					
+							}//End of for each rsId
 							
-						}//End of for each rsId
+							
+						}else{
+							tfKeggPathwayGivenInterval.setSnpKeyList(snpKeyList);
+						}
 						
+						
+	
 														
 						//part2
-						//tfInterval
+						//tfNameandKeggPathway based tfIntervalKeyList
 						
 						if(tfKeggPathwayBasedTfIntervalMap.get(tfKeggPathwayTfIntervalKey)==null){
 							TfKeggPathwayTfInterval tfKeggPathwayTfInterval = new TfKeggPathwayTfInterval();
@@ -1517,6 +1542,7 @@ public static String takeComplementforeachAllele(String allele){
 							tfKeggPathwayGivenInterval.getTfKeggPathwayBasedTfIntervalKeyList().add(tfKeggPathwayTfIntervalKey);
 						}else{
 							//do nothing
+							//this tfInterval is already in the list
 						}
 					
 						
@@ -1620,11 +1646,8 @@ public static String takeComplementforeachAllele(String allele){
 			
 			//Write snp altered sequences
 			//Write snp observed Alleles
-			List<String> snpKeyList;
 			List<String>  tfIntervalKeyList;
-			
-			String givenIntervalKey;
-			
+						
 			TfKeggPathwayGivenInterval givenInterval;
 			
 			//Augmented file has been read
@@ -1644,7 +1667,6 @@ public static String takeComplementforeachAllele(String allele){
 					
 					//for reference sequence
 					createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName, "referenceSequence" + "_" + snpKeyString,snp.getReferenceSequence());
-
 					
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
 								

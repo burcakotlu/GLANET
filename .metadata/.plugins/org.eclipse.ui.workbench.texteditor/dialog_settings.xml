@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="tfKeggPathwayBasedGivenIntervalMap" key="selection"/>
+		<item value="tfKeggPathwayTfIntervalKey" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="tfKeggPathwayTfIntervalKey"/>
 			<item value="tfKeggPathwayBasedGivenIntervalMap"/>
 			<item value="directoryBase"/>
 			<item value="chrNamewithoutPreceedingChr"/>
@@ -15,7 +16,6 @@
 			<item value="tfKeggPathwayBasedGivenIntervalMap.put"/>
 			<item value="eutil"/>
 			<item value="\\"/>
-			<item value="&quot;\\&quot;"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;file.separator&quot;)"/>
@@ -32,7 +32,7 @@
 		<item key="DIALOG_WIDTH" value="502"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1237" key="DIALOG_X_ORIGIN"/>
-		<item value="510" key="DIALOG_Y_ORIGIN"/>
+		<item value="53" key="DIALOG_X_ORIGIN"/>
+		<item value="283" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
