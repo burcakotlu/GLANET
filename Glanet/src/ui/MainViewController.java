@@ -2,11 +2,18 @@ package ui;
 
 import javax.swing.JPanel;
 
-import common.Commons;
-import ui.MainView;
-import ui.MainView.MainViewDelegate;
-import processinputdata.InputDataProcess;
-import processinputdata.prepare.*;
+import jaxbxjctool.*;
+import ui.MainView.*;
+import wholegenome.nonoverlappingbasepairs.usingintervaltree.*;
+import processinputdata.*;
+import rsat.*;
+import ncbi.*;
+import create.encode.*;
+import create.ucscgenome.*;
+import empiricalpvalues.*;
+import annotate.intervals.parametric.*;
+import augmentation.results.*;
+import adhoc.*;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
@@ -60,17 +67,36 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
 	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
 	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
-	//args[13] must have a job name exampe: any_string 
-	public void startRunActionsWithOptions(String inputFolder, 
-			   String inputFormat, 
-			   String dataMode, 
-			   String numberOfPermutations,
-			   String enrichmentType,
-			   String outputFolder) {
+	//args[13] must have a job name exampe: any_string
+	public void startRunActionsWithOptions(String inputFileName, 
+										   String outputFolder,
+										   String inputFileFormat,
+										   String numberOfPermutations,
+										   String falseDiscoveryRate,
+										   String generateRandomDataMode,
+										   String writeGeneratedRandomDataMode,
+										   String writePermutationBasedandParametricBasedAnnotationResultMode,
+										   String writePermutationBasedAnnotationResultMode,
+										   String dnaseEnrichment,
+										   String histoneEnrichment,
+										   String tfAndKeggPathwayEnrichment,
+										   String cellLineBasedTfAndKeggPathwayEnrichment,
+										   String jobName) {
 		
-		//PreparationofOCDSnps.java
-		String[] args = { inputFolder, outputFolder, inputFormat };
+		String[] args = { inputFileName, outputFolder, inputFileFormat };
 		
-		InputDataProcess.run(args);
+		InputDataProcess.main(args);
+		RemoveOverlaps.main(args);
+		HumanRefSeq2Gene.main(args);
+		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.main(args);
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.main(args);
+		WriteAllPossibleNames.main(args);
+		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(args);
+		AnnotateGivenIntervalsWithGivenParameters.main(args);
+		AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.main(args);
+		CollectionofPermutationsResults.main(args);
+		AugmentationofEnrichedElementswithIntervals.main(args);
+		GenerationofSequencesandMatricesforGivenIntervals.main(args);
+		RSATMatrixScanClient.main(args);
 	}
 }
