@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Apr 4, 2014 
+ * @time 4:08:27 PM
+ */
+package jaxbxjctool;
+
+/**
+ * 
+ */
+public class SNPInformation {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
