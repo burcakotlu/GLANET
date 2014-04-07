@@ -127,8 +127,6 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 		String TLine = "";
 		
 		
-		int indexofUnderscore;
-		
 		String tfName = null;
 		String formerTfName = null;
 		
@@ -157,7 +155,6 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 					
 					if (strLine.startsWith(">")){
 						
-						indexofUnderscore = strLine.indexOf('_');
 						
 						//start reading from first character, skip '>' character
 						tfName = strLine.substring(1);
@@ -1154,9 +1151,15 @@ public static String takeComplementforeachAllele(String allele){
 		String chrNamewithPreceedingChr = null;
 		String chrNamewithoutPreceedingChr = null;
 		
-		int snpLocus_ZeroBased;
+//		int snpLocus_ZeroBased;
 		int snpLocus_OneBased;
 		
+		int givenIntervalStartZeroBased;
+		int givenIntervalEndZeroBased;
+		
+		int givenIntervalStartOneBased;
+		int givenIntervalEndOneBased;
+
 		int tfStart_ZeroBased;
 		int tfStart_OneBased;
 		
@@ -1179,7 +1182,7 @@ public static String takeComplementforeachAllele(String allele){
 		String tfNameKeggPathwayNameSnpPeak;
 		String peaksFileName;
 				
-		Map<String,Boolean> tf2FalseorTrueMap 			= new HashMap<String,Boolean>();
+		Map<String,Boolean> tfNameKeggPathwayName2FalseorTrueMap 			= new HashMap<String,Boolean>();
 		Map<String,Boolean> snp2FalseorTrueMap 			= new HashMap<String,Boolean>();
 		Map<String,Boolean> peak2FalseorTrueMap 		= new HashMap<String,Boolean>();
 		Map<String,Boolean> pfmMatrices2FalseorTrueMap 	= new HashMap<String,Boolean>();
@@ -1197,6 +1200,8 @@ public static String takeComplementforeachAllele(String allele){
 		RsInformation rsInformation;
 		String observedAllelesSeparatedwithSlash ;
 		Map<String,List<String>> chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles = new HashMap<String,List<String>>();
+		
+		Map<String,List<String>> chrNamewithoutChrGivenInterva
 
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
@@ -1212,8 +1217,7 @@ public static String takeComplementforeachAllele(String allele){
 			try {
 			augmentedFileReader = new FileReader(outputFolder + augmentedInputFileName);
 			augmentedBufferedReader = new BufferedReader(augmentedFileReader);
-							
-						
+													
 			while((strLine = augmentedBufferedReader.readLine())!=null){
 							
 				//skip strLine starts with * or contains "Search for" which means it is a header line
@@ -1229,7 +1233,12 @@ public static String takeComplementforeachAllele(String allele){
 					
 					tfNameKeggPathwayName = strLine.substring(0, indexofFirstTab);
 					chrNamewithPreceedingChr =  strLine.substring(indexofFirstTab+1, indexofSecondTab);
-					snpLocus_ZeroBased = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					
+					givenIntervalStartZeroBased = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					givenIntervalEndZeroBased =  Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+					
+					givenIntervalStartOneBased = givenIntervalStartZeroBased + 1 ;
+					givenIntervalEndOneBased =  givenIntervalEndZeroBased + 1;
 						
 					tfNameCellLineName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 					tfStart_ZeroBased = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
@@ -1252,19 +1261,19 @@ public static String takeComplementforeachAllele(String allele){
 					indexofUnderscore = tfNameCellLineName.indexOf('_');
 					cellLineName = tfNameCellLineName.substring(indexofUnderscore+1);
 										
-					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased;
-					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chrNamewithPreceedingChr + "_" + snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased + "_" + givenIntervalEndZeroBased;
+					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased + "_" + givenIntervalEndZeroBased + "_" + tfNameKeggPathwayName;
 					
 					peakName = "peak" + "_" +tfNameCellLineName + "_" +tfStart_ZeroBased + "_" +tfEnd_ZeroBased + "_" + tfNameKeggPathwayName;
-					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chrNamewithPreceedingChr + snpLocus_ZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
-					peaksFileName = "peaks" +  "_" + chrNamewithPreceedingChr + "_" +snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chrNamewithPreceedingChr + givenIntervalStartZeroBased + "_" + givenIntervalEndZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
+					peaksFileName = "peaks" +  "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased + "_" + givenIntervalEndZeroBased + "_" + tfNameKeggPathwayName;
 					
 					
 					//create tfNameKeggPathwayName based directory  if no directory has been already created
-					if (tf2FalseorTrueMap.get(tfNameKeggPathwayName)==null){
+					if (tfNameKeggPathwayName2FalseorTrueMap.get(tfNameKeggPathwayName)==null){
 						//create new directory for this tf
 						createDirectory(outputFolder,tfNameKeggPathwayName,enrichmentType);
-						tf2FalseorTrueMap.put(tfNameKeggPathwayName,true);
+						tfNameKeggPathwayName2FalseorTrueMap.put(tfNameKeggPathwayName,true);
 					}
 						
 					//create snp based directory if no directory has been already created
@@ -1285,12 +1294,15 @@ public static String takeComplementforeachAllele(String allele){
 						//for reference sequence
 						createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayNameBased_SnpDirectory, snpChromNumberSnpLocusTfNameKeggPathwayName,referenceSequence);
 
-						rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, snpLocus_OneBased,snpLocus_OneBased);
+						//get the rsIds in this given interval
+						rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
 						
 						for(String rsId: rsIdList){
+							
+							//For each rsId get rs Information
 							rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
-							observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();
-								
+							
+							observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 							observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);
 							
 							add(rsInformation.getChrNamewithoutChr(),rsInformation.getStartZeroBased(),observedAllelesSeparatedwithTabs, chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles);
@@ -1303,7 +1315,10 @@ public static String takeComplementforeachAllele(String allele){
 							}
 							//for debug purposes ends
 							
-						}
+						}//End of for each rsId
+						
+						
+						
 						observedAlleles = chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.get(chrNamewithoutPreceedingChr + "_" + snpLocus_ZeroBased);						
 						//to be changed ends
 						
@@ -1634,6 +1649,7 @@ public static String takeComplementforeachAllele(String allele){
 		
 		AugmentationofGivenIntervalwithRsIds augofGivenInterval;
 		AugmentationofGivenRsIdwithInformation augofGivenRsId ;
+		
 		try {
 			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
 			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
@@ -1661,7 +1677,6 @@ public static String takeComplementforeachAllele(String allele){
 			}
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

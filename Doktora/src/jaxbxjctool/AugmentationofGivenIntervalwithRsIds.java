@@ -56,13 +56,13 @@ public class AugmentationofGivenIntervalwithRsIds {
 	
 	//Requires oneBased positions
 	//Requires chrName without preceeding "chr" string 
-	public List<String> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int startOneBased,int endOneBased) throws Exception
+	public List<String> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased,int givenIntervalEndOneBased) throws Exception
     {
 		List<String> rsIdList = new ArrayList<String>();
 		
 		//esearch default retmode is xml or it can be set to json
 		//chrName is without "chr", ex: 1, X, Y, 17...
-	    String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ startOneBased + ":" + endOneBased + "[Base Position] AND "+ chrNamewithoutPreceedingChr +"[CHR] AND txid9606&usehistory=n";
+	    String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND "+ chrNamewithoutPreceedingChr +"[CHR] AND txid9606&usehistory=n";
                                 
         XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString)); 
 	

@@ -33,10 +33,10 @@
 <fullyQualifiedTypeName name="jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdWithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenIntervalwithRsIds"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>
