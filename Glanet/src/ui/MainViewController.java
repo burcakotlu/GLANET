@@ -83,7 +83,20 @@ public class MainViewController extends ViewController implements MainViewDelega
 										   String cellLineBasedTfAndKeggPathwayEnrichment,
 										   String jobName) {
 		
-		String[] args = { inputFileName, outputFolder, inputFileFormat };
+		String[] args =   { inputFileName,
+							outputFolder,
+							inputFileFormat,
+							numberOfPermutations,
+							falseDiscoveryRate,
+							generateRandomDataMode,
+							writeGeneratedRandomDataMode,
+							writePermutationBasedandParametricBasedAnnotationResultMode,
+							writePermutationBasedAnnotationResultMode,
+							dnaseEnrichment,
+							histoneEnrichment,
+							tfAndKeggPathwayEnrichment,
+							cellLineBasedTfAndKeggPathwayEnrichment,
+							jobName};
 		
 		InputDataProcess.main(args);
 		RemoveOverlaps.main(args);
