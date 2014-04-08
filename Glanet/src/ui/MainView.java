@@ -31,6 +31,7 @@ public class MainView extends JPanel{
 	private JCheckBox tfAndKeggPathwayEnrichment;
 	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
 	
+	
 	public interface MainViewDelegate {
 		
 		public void startRunActionsWithOptions(String inputFileName, 
@@ -65,9 +66,9 @@ public class MainView extends JPanel{
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
 	            //This is where a real application would open the file.
-	            if( e.getActionCommand() == "Output Folder")
+	            if( e.getActionCommand() == "Glanet Folder")
 	            	outputTextField.setText( file.getPath() + System.getProperty("file.separator"));
-	            else if( e.getActionCommand() == "Input Folder")
+	            else if( e.getActionCommand() == "Input File Name")
 	            	inputTextField.setText( file.getPath() + System.getProperty("file.separator"));
 	            
 	        }
@@ -105,7 +106,7 @@ public class MainView extends JPanel{
 	
 	public MainView() {
 		
-		inputTextField = new JTextField(20);
+		inputTextField = new JTextField(30);
 		outputTextField = new JTextField(30);
 		runButton = new JButton("Run");
 		runButton.addActionListener(runButtonPressed);
