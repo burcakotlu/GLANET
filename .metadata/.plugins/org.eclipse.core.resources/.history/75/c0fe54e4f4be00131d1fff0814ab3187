@@ -888,7 +888,7 @@ public static String takeComplementforeachAllele(String allele){
 		//get the first allele
 		allele = alleles.substring(0,indexofFormerTab);
 		
-		//check for this first allele
+		//check for this allele
 		if (!sameAllele(snp,allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
@@ -915,25 +915,11 @@ public static String takeComplementforeachAllele(String allele){
 			indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
 		}
 		
-		//get the last allele
-		allele = alleles.substring(indexofFormerTab+1);
-		
-		//check for this last allele
-		if (!sameAllele(snp,allele)){
-			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
-			
-			if (alteredSnpSequence!=null){
-				alteredSnpSequences.add(alteredSnpSequence);
-			}
-		}
-		
 		return alteredSnpSequences;
 	}
 
 	public static boolean sameAllele(char snp,String allele){
-		if(allele.isEmpty()){
-			return false;
-		}else if (allele.length()>1){
+		if (allele.length()>1){
 			return false;
 		}else if (allele.equals(Commons.STRING_HYPHEN)){
 			return false;
@@ -1726,7 +1712,7 @@ public static String takeComplementforeachAllele(String allele){
 					//for debug purposes end
 					
 					//for reference sequence
-					createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "reference",snp.getFastaFile());
+					createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "reference" + "_" + snpKeyString,snp.getFastaFile());
 					
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
 								
@@ -1734,11 +1720,11 @@ public static String takeComplementforeachAllele(String allele){
 					int alteredSNPSequenceCount = 0;
 					for(String alteredSequence : alteredSequences){
 						alteredSNPSequenceCount++;
-						createSequenceFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "altered" + alteredSNPSequenceCount,alteredSequence);	
+						createSequenceFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "altered" + alteredSNPSequenceCount + "_" +snpKeyString,alteredSequence);	
 					}
 					
 					//write observedAlleles
-					createObservedAllelesFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "observedAlleles" ,snp.getObservedAlleles());
+					createObservedAllelesFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "observedAlleles" + "_" +snpKeyString,snp.getObservedAlleles());
 										
 				}
 				
@@ -2002,8 +1988,8 @@ public static String takeComplementforeachAllele(String allele){
 				//Using snps for Enriched TfandKeggPathway
 				//Output dnaSequences for TfandKeggPathway
 				//Output pfmMatrices for TfandKeggPathway
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
 			}
 			
@@ -2012,9 +1998,9 @@ public static String takeComplementforeachAllele(String allele){
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway
 				//Output pfmMatrices for Tf CellLine KeggPathway
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	
 			}
 		

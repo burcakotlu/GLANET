@@ -29,21 +29,6 @@ public class SNP{
 	
 
 
-	
-	public String getFastaFile() {
-		return fastaFile;
-	}
-
-
-
-
-	public void setFastaFile(String fastaFile) {
-		this.fastaFile = fastaFile;
-	}
-
-
-
-
 	public String getChrNamewithoutPreceedingChr() {
 		return chrNamewithoutPreceedingChr;
 	}

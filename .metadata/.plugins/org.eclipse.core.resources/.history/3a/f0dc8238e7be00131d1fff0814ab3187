@@ -22,26 +22,9 @@ public class SNP{
 	int snpOneBasedCoordinate;
 	
 	List<String> observedAlleles;
+	String referenceSequence;
 	List<String> alteredSequences;
 	
-	String referenceSequence;
-	String fastaFile;
-	
-
-
-	
-	public String getFastaFile() {
-		return fastaFile;
-	}
-
-
-
-
-	public void setFastaFile(String fastaFile) {
-		this.fastaFile = fastaFile;
-	}
-
-
 
 
 	public String getChrNamewithoutPreceedingChr() {
