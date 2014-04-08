@@ -1,4 +1,5 @@
 *.pydevproject
+.txt
 .snap
 .DS_Store
 .metadata
