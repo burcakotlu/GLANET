@@ -56,10 +56,10 @@ public class MainView extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			
 			JFileChooser fc = new JFileChooser();
-			if( e.getActionCommand() == "Output Folder")
+			if( e.getActionCommand() == "Glanet Folder")
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			else if( e.getActionCommand() == "Input Folder")
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			else if( e.getActionCommand() == "Input File Name")
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			
 			int returnVal = fc.showOpenDialog(MainView.this);
 
