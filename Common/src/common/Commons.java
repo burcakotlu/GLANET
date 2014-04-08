@@ -433,7 +433,7 @@ public class Commons {
 	
 	public static final int NUMBER_OF_TRIAL_FIRST_LEVEL 	=	1000;
 	public static final int NUMBER_OF_TRIAL_SECOND_LEVEL	=	2000;
-	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL	=	3000;
+	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL		=	3000;
 	public static final int NUMBER_OF_TRIAL_FOURTH_LEVEL	=	4000;
 	
 	public static final String ORIGINAL_INPUT_DATA_FILE = "ORIGINAL_INPUT_DATA_FILE";

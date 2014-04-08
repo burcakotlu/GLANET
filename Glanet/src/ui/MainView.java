@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.File;
+
 import javax.swing.*;
 
 import common.Commons;
@@ -11,14 +12,17 @@ import java.awt.event.*;
 public class MainView extends JPanel{
 
 	private MainViewDelegate delegate;
+	private JTextField jobName;
 	private JTextField outputTextField;
 	private JTextField inputTextField;
+	private JTextField falseDiscoveryRate;
+	private JTextField signifanceCriteria;
 	private JPanel listPane;
 	private JButton runButton;
 	private JComboBox<String> generateRandomDataModeCombo;
+	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
-	private JComboBox<String> enrichmentTypeCombo;
 	private JCheckBox writeGeneratedRandomData;
 	private JCheckBox writePermutationBasedAndParametricBased;
 	private JCheckBox writePermutationBasedAnnotationResult;
@@ -81,12 +85,20 @@ public class MainView extends JPanel{
 			else {
 				
 				//delegation to handle the run process.
-//				delegate.startRunActionsWithOptions(inputTextField.getText(), 
-//													inputFormatCombo.getSelectedItem().toString(), 
-//													generateRandomDataModeCombo.getSelectedItem().toString(), 
-//													numberOfPerCombo.getSelectedItem().toString(), 
-//													enrichmentTypeCombo.getSelectedItem().toString(), 
-//													outputTextField.getText());
+				delegate.startRunActionsWithOptions(inputTextField.getText(),
+													outputTextField.getText(),
+													inputFormatCombo.getSelectedItem().toString(),
+													numberOfPerCombo.getSelectedItem().toString(),
+													falseDiscoveryRate.getText(),
+													generateRandomDataModeCombo.getSelectedItem().toString(),
+													writeGeneratedRandomData.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+													writePermutationBasedAndParametricBased.isSelected()?Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
+													writePermutationBasedAnnotationResult.isSelected()?Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
+													dnaseEnrichment.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+													histoneEnrichment.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+													tfAndKeggPathwayEnrichment.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+													cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+													jobName.getText());
 			}
 		}
 	};
@@ -101,6 +113,14 @@ public class MainView extends JPanel{
 		JPanel inputBrowseAndOptionPane = new JPanel();
 		JPanel inputBrowseFilePane = createBrowseFileArea( "Input Folder", inputTextField);
 		JPanel outputBrowseFilePane = createBrowseFileArea( "Output Folder", outputTextField);
+		jobName = new JTextField();
+		signifanceCriteria = new JTextField(20);
+		falseDiscoveryRate = new JTextField(20);
+		
+		JPanel fdrAndSigCriteria = new JPanel(new FlowLayout());
+		fdrAndSigCriteria.add( createBorderedPanel("False Discovery Rate", falseDiscoveryRate));
+		fdrAndSigCriteria.add( createBorderedPanel("Significance Criteria", signifanceCriteria));
+		
 		listPane = new JPanel();
 		
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
@@ -115,27 +135,24 @@ public class MainView extends JPanel{
 									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES,
 									Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES};
 		
-//		String[] enrichmentType = { "DNase Hypersensitive sites",
-//									"Histone Modifications",
-//									"Transcription Factors (TFs)",
-//									"Kegg Pathway",
-//									"TFs and Kegg Pathway" };
+		String[] multipleTest = { "Bonferroni Correction", "Benjamini Hochberg FDR"};
+		
 		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
 		inputFormatCombo = new JComboBox<String>( inputFormat);
-		//enrichmentTypeCombo = new JComboBox<String>( enrichmentType);
+		multipleTestingCombo = new JComboBox<String>( multipleTest);
 		
-		inputBrowseAndOptionPane.add(inputBrowseFilePane);
-		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", inputFormatCombo));
+		inputBrowseAndOptionPane.add( inputBrowseFilePane);
+		inputBrowseAndOptionPane.add( createBorderedPanel("Input Format", inputFormatCombo));
 		
-		listPane.add(inputBrowseAndOptionPane);
-		listPane.add(createBorderedPanel("Generate Random Data Mode", generateRandomDataModeCombo));
-		listPane.add(createBorderedPanel("Number of Permutations", numberOfPerCombo));
-		//listPane.add(createBorderedPanel("Enrichment Type", enrichmentTypeCombo));
-		listPane.add(outputBrowseFilePane);
+		listPane.add( inputBrowseAndOptionPane);
+		listPane.add( createBorderedPanel( "Generate Random Data Mode", generateRandomDataModeCombo));
+		listPane.add( createBorderedPanel( "Multiple Testing", multipleTestingCombo));
+		listPane.add( fdrAndSigCriteria);
+		listPane.add( createBorderedPanel( "Number of Permutations", numberOfPerCombo));
+		listPane.add( outputBrowseFilePane);
         
         //Checkbuttons
-        
         writeGeneratedRandomData = new JCheckBox("writeGeneratedRandomData");
         writePermutationBasedAndParametricBased = new JCheckBox("writePermutationBasedAndParametricBased");
         writePermutationBasedAnnotationResult = new JCheckBox("writePermutationBasedAnnotationResult");
@@ -154,6 +171,7 @@ public class MainView extends JPanel{
         checkPanel.add(cellLineBasedTfAndKeggPathwayEnrichment);
         
         listPane.add( createBorderedPanel("Options", checkPanel));
+        listPane.add( createBorderedPanel("Job Name", jobName));
         listPane.add(runButton);
         
         add(listPane);
@@ -172,9 +190,9 @@ JPanel createBorderedPanel( String borderName, JComponent panel){
 
     paneControlsPane.setLayout(gridbag);
 
-    JLabel[] labels = {componentLabel};
-    JComponent[] components = {panel};
-    addLabelTextRows(labels, components, gridbag, paneControlsPane);
+    JLabel[] labels = { componentLabel};
+    JComponent[] components = { panel};
+    addLabelTextRows( labels, components, gridbag, paneControlsPane);
 
     c.gridwidth = GridBagConstraints.REMAINDER; //last
     c.anchor = GridBagConstraints.WEST;
@@ -193,39 +211,45 @@ JPanel createBorderedPanel( String borderName, JComponent panel){
 }
 JPanel createBrowseFileArea( String fileType, JTextField textField){
     
-    //Create some labels for the fields.
-    JLabel textFieldLabel = new JLabel("Browse: ");
-    textFieldLabel.setLabelFor(textField);
+//    //Create some labels for the fields.
+//    JLabel textFieldLabel = new JLabel( "Browse: ");
+//    textFieldLabel.setLabelFor( textField);
     
-    JButton browseButton = new JButton("Browse");
+    JButton browseButton = new JButton( "Browse");
     browseButton.addActionListener( chooseFilePressed);
-    browseButton.setActionCommand(fileType);
-
-    //Lay out the text controls and the labels.
-    JPanel textControlsPane = new JPanel();
-    GridBagLayout gridbag = new GridBagLayout();
-    GridBagConstraints c = new GridBagConstraints();
-
-    textControlsPane.setLayout(gridbag);
-
-    JButton[] labels = {browseButton};
-    JTextField[] textFields = {textField};
-    addLabelTextRows(labels, textFields, gridbag, textControlsPane);
-
-    c.gridwidth = GridBagConstraints.REMAINDER; //last
-    c.anchor = GridBagConstraints.WEST;
-    c.weightx = 1.0;
-    textControlsPane.setBorder(
-            BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder(fileType),
-                            BorderFactory.createEmptyBorder(5,5,5,5)));
-
-    //Put everything together.
-    JPanel browseFilePane = new JPanel(new BorderLayout());
-    browseFilePane.add(textControlsPane,
-                 BorderLayout.PAGE_START);
+    browseButton.setActionCommand( fileType);
     
-    return browseFilePane;
+    JPanel browsePanel = new JPanel(new FlowLayout());
+    browsePanel.add( browseButton);
+    browsePanel.add( textField);
+    
+    return createBorderedPanel(fileType, browsePanel);
+    
+//    //Lay out the text controls and the labels.
+//    JPanel textControlsPane = new JPanel();
+//    GridBagLayout gridbag = new GridBagLayout();
+//    GridBagConstraints c = new GridBagConstraints();
+//
+//    textControlsPane.setLayout(gridbag);
+//
+//    JLabel[] labels = { browseButton};
+//    JTextField[] textFields = { textField};
+//    addLabelTextRows(labels, textFields, gridbag, textControlsPane);
+//
+//    c.gridwidth = GridBagConstraints.REMAINDER; //last
+//    c.anchor = GridBagConstraints.WEST;
+//    c.weightx = 1.0;
+//    textControlsPane.setBorder(
+//            BorderFactory.createCompoundBorder(
+//                            BorderFactory.createTitledBorder(fileType),
+//                            BorderFactory.createEmptyBorder(5,5,5,5)));
+//
+//    //Put everything together.
+//    JPanel browseFilePane = new JPanel(new BorderLayout());
+//    browseFilePane.add(textControlsPane,
+//                 BorderLayout.PAGE_START);
+//    
+//    return browseFilePane;
 }
 private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
 	GridBagConstraints c = new GridBagConstraints();
