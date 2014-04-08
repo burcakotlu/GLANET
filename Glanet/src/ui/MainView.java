@@ -111,15 +111,15 @@ public class MainView extends JPanel{
 		runButton.addActionListener(runButtonPressed);
 		
 		JPanel inputBrowseAndOptionPane = new JPanel();
-		JPanel inputBrowseFilePane = createBrowseFileArea( "Input Folder", inputTextField);
-		JPanel outputBrowseFilePane = createBrowseFileArea( "Output Folder", outputTextField);
+		JPanel inputBrowseFilePane = createBrowseFileArea( "Input File Name", inputTextField);
+		JPanel outputBrowseFilePane = createBrowseFileArea( "Glanet Folder", outputTextField);
 		jobName = new JTextField();
-		signifanceCriteria = new JTextField(20);
-		falseDiscoveryRate = new JTextField(20);
+		signifanceCriteria = new JTextField(30);
+		falseDiscoveryRate = new JTextField(30);
 		
 		JPanel fdrAndSigCriteria = new JPanel(new FlowLayout());
 		fdrAndSigCriteria.add( createBorderedPanel("False Discovery Rate", falseDiscoveryRate));
-		fdrAndSigCriteria.add( createBorderedPanel("Significance Criteria", signifanceCriteria));
+		fdrAndSigCriteria.add( createBorderedPanel("Bonferroni Correction Significance Criteria", signifanceCriteria));
 		
 		listPane = new JPanel();
 		
@@ -165,12 +165,15 @@ public class MainView extends JPanel{
         checkPanel.add(writeGeneratedRandomData);
         checkPanel.add(writePermutationBasedAndParametricBased);
         checkPanel.add(writePermutationBasedAndParametricBased);
-        checkPanel.add(dnaseEnrichment);
-        checkPanel.add(histoneEnrichment);
-        checkPanel.add(tfAndKeggPathwayEnrichment);
-        checkPanel.add(cellLineBasedTfAndKeggPathwayEnrichment);
         
-        listPane.add( createBorderedPanel("Options", checkPanel));
+        JPanel enrichmentOptions = new JPanel(new GridLayout(0, 1));
+        enrichmentOptions.add(dnaseEnrichment);
+        enrichmentOptions.add(histoneEnrichment);
+        enrichmentOptions.add(tfAndKeggPathwayEnrichment);
+        enrichmentOptions.add(cellLineBasedTfAndKeggPathwayEnrichment);
+        
+        listPane.add( createBorderedPanel("Write Permutation Results", checkPanel));
+        listPane.add( createBorderedPanel("Enrichment Options", enrichmentOptions));
         listPane.add( createBorderedPanel("Job Name", jobName));
         listPane.add(runButton);
         
@@ -211,10 +214,6 @@ JPanel createBorderedPanel( String borderName, JComponent panel){
 }
 JPanel createBrowseFileArea( String fileType, JTextField textField){
     
-//    //Create some labels for the fields.
-//    JLabel textFieldLabel = new JLabel( "Browse: ");
-//    textFieldLabel.setLabelFor( textField);
-    
     JButton browseButton = new JButton( "Browse");
     browseButton.addActionListener( chooseFilePressed);
     browseButton.setActionCommand( fileType);
@@ -224,32 +223,6 @@ JPanel createBrowseFileArea( String fileType, JTextField textField){
     browsePanel.add( textField);
     
     return createBorderedPanel(fileType, browsePanel);
-    
-//    //Lay out the text controls and the labels.
-//    JPanel textControlsPane = new JPanel();
-//    GridBagLayout gridbag = new GridBagLayout();
-//    GridBagConstraints c = new GridBagConstraints();
-//
-//    textControlsPane.setLayout(gridbag);
-//
-//    JLabel[] labels = { browseButton};
-//    JTextField[] textFields = { textField};
-//    addLabelTextRows(labels, textFields, gridbag, textControlsPane);
-//
-//    c.gridwidth = GridBagConstraints.REMAINDER; //last
-//    c.anchor = GridBagConstraints.WEST;
-//    c.weightx = 1.0;
-//    textControlsPane.setBorder(
-//            BorderFactory.createCompoundBorder(
-//                            BorderFactory.createTitledBorder(fileType),
-//                            BorderFactory.createEmptyBorder(5,5,5,5)));
-//
-//    //Put everything together.
-//    JPanel browseFilePane = new JPanel(new BorderLayout());
-//    browseFilePane.add(textControlsPane,
-//                 BorderLayout.PAGE_START);
-//    
-//    return browseFilePane;
 }
 private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
 	GridBagConstraints c = new GridBagConstraints();
