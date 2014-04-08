@@ -43,4 +43,5 @@
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL"/>
 </qualifiedTypeNameHistroy>

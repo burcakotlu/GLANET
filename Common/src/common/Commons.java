@@ -452,14 +452,12 @@ public class Commons {
 	public static final String PERMUTATION = "PERMUTATION";
 	public static final String RANDOMLY_GENERATED_DATA_FOLDER = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator")  + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator")+  "RandomlyGeneratedData" + System.getProperty("file.separator");
 	public static final String RANDOMLY_GENERATED_DATA = "RANDOMLY_GENERATED_DATA";
-	
-	
+		
 	//Positive Control
 	public static final String POSITIVE_CONTROL_INPUT_FILE_NAME =  "ENCODE" + System.getProperty("file.separator") + "transcription_factors" + System.getProperty("file.separator") + "spp.optimal.wgEncodeSydhTfbsK562bGata1UcdAlnRep0_VS_wgEncodeSydhTfbsK562bInputUcdAlnRep1.narrowPeak";
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
 	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
-	
-	
+		
 	
 	//Input Data Prepare
 	public static final String CHROMOSOME_POSITION_TYPE_ZERO_BASED = "CHROMOSOME_POSITION_TYPE_ZERO_BASED"; 
