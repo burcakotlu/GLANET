@@ -164,7 +164,7 @@ public class MainView extends JPanel{
         JPanel checkPanel = new JPanel(new GridLayout(0, 1));
         checkPanel.add(writeGeneratedRandomData);
         checkPanel.add(writePermutationBasedAndParametricBased);
-        checkPanel.add(writePermutationBasedAndParametricBased);
+        checkPanel.add(writePermutationBasedAnnotationResult);
         
         JPanel enrichmentOptions = new JPanel(new GridLayout(0, 1));
         enrichmentOptions.add(dnaseEnrichment);
