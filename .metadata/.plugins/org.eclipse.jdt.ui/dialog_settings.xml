@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item key="CallHierarchyViewPart.call_mode" value="0"/>
+	<item key="ProjectSelectionDialog.show_all" value="false"/>
+	<item value="0" key="CallHierarchyViewPart.call_mode"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
 	<item value="C:\GitHub\GLANET\Doktora\lib\commons-math3-3.2" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
@@ -54,8 +55,8 @@
 		<item value="589" key="height"/>
 	</section>
 	<section name="JavaBuildConfigurationBlock">
-		<item key="expanded2" value="false"/>
-		<item value="false" key="expanded1"/>
+		<item key="expanded2" value="true"/>
+		<item value="true" key="expanded1"/>
 		<item value="true" key="expanded0"/>
 	</section>
 	<section name="SourceActionDialog.methods">
