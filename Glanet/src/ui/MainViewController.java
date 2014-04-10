@@ -98,18 +98,31 @@ public class MainViewController extends ViewController implements MainViewDelega
 							cellLineBasedTfAndKeggPathwayEnrichment,
 							jobName};
 		
+		mainView.setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(args);
+		mainView.setCurrentProcessInfo( "RemoveOverlaps...");
 		RemoveOverlaps.main(args);
+		mainView.setCurrentProcessInfo( "HumanRefSeq2Gene...");
 		HumanRefSeq2Gene.main(args);
+		mainView.setCurrentProcessInfo( "CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting...");
 		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.main(args);
+		mainView.setCurrentProcessInfo( "CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting...");
 		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.main(args);
+		mainView.setCurrentProcessInfo( "WriteAllPossibleNames...");
 		WriteAllPossibleNames.main(args);
+		mainView.setCurrentProcessInfo( "CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree...");
 		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(args);
+		mainView.setCurrentProcessInfo( "AnnotateGivenIntervalsWithGivenParameters...");
 		AnnotateGivenIntervalsWithGivenParameters.main(args);
+		mainView.setCurrentProcessInfo( "AnnotatePermutationsUsingForkJoin_withEnrichmentChoices...");
 		AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.main(args);
+		mainView.setCurrentProcessInfo( "CollectionofPermutationsResults...");
 		CollectionofPermutationsResults.main(args);
+		mainView.setCurrentProcessInfo( "AugmentationofEnrichedElementswithIntervals...");
 		AugmentationofEnrichedElementswithIntervals.main(args);
+		mainView.setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
 		GenerationofSequencesandMatricesforGivenIntervals.main(args);
+		mainView.setCurrentProcessInfo( "RSATMatrixScanClient...");
 		RSATMatrixScanClient.main(args);
 	}
 }
