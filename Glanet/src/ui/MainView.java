@@ -17,6 +17,7 @@ public class MainView extends JPanel{
 	private JTextField inputTextField;
 	private JTextField falseDiscoveryRate;
 	private JTextField signifanceCriteria;
+	private JLabel currentWorkLabel;
 	private JPanel listPane;
 	private JButton runButton;
 	private JComboBox<String> generateRandomDataModeCombo;
@@ -106,6 +107,7 @@ public class MainView extends JPanel{
 	
 	public MainView() {
 		
+		currentWorkLabel = new JLabel("asdasd");
 		inputTextField = new JTextField(30);
 		outputTextField = new JTextField(30);
 		runButton = new JButton("Run");
@@ -177,74 +179,81 @@ public class MainView extends JPanel{
         listPane.add( createBorderedPanel("Enrichment Options", enrichmentOptions));
         listPane.add( createBorderedPanel("Job Name", jobName));
         listPane.add(runButton);
+        listPane.add( currentWorkLabel);
         
         add(listPane);
 	}
 	
-JPanel createBorderedPanel( String borderName, JComponent panel){
-    
-    //Create some labels for the fields.
-    JLabel componentLabel = new JLabel();
-    componentLabel.setLabelFor(panel);
-
-    //Lay out the text controls and the labels.
-    JPanel paneControlsPane = new JPanel();
-    GridBagLayout gridbag = new GridBagLayout();
-    GridBagConstraints c = new GridBagConstraints();
-
-    paneControlsPane.setLayout(gridbag);
-
-    JLabel[] labels = { componentLabel};
-    JComponent[] components = { panel};
-    addLabelTextRows( labels, components, gridbag, paneControlsPane);
-
-    c.gridwidth = GridBagConstraints.REMAINDER; //last
-    c.anchor = GridBagConstraints.WEST;
-    c.weightx = 1.0;
-    paneControlsPane.setBorder(
-            BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder(borderName),
-                            BorderFactory.createEmptyBorder(5,5,5,5)));
-
-    //Put everything together.
-    JPanel borderedPanel = new JPanel(new BorderLayout());
-    borderedPanel.add(paneControlsPane,
-                 BorderLayout.PAGE_START);
-    
-    return borderedPanel;
-}
-JPanel createBrowseFileArea( String fileType, JTextField textField){
-    
-    JButton browseButton = new JButton( "Browse");
-    browseButton.addActionListener( chooseFilePressed);
-    browseButton.setActionCommand( fileType);
-    
-    JPanel browsePanel = new JPanel(new FlowLayout());
-    browsePanel.add( browseButton);
-    browsePanel.add( textField);
-    
-    return createBorderedPanel(fileType, browsePanel);
-}
-private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
-	GridBagConstraints c = new GridBagConstraints();
-	c.anchor = GridBagConstraints.EAST;
-	int numLabels = labels.length;
+	JPanel createBorderedPanel( String borderName, JComponent panel){
+	    
+	    //Create some labels for the fields.
+	    JLabel componentLabel = new JLabel();
+	    componentLabel.setLabelFor(panel);
 	
-	for (int i = 0; i < numLabels; i++) {
-		c.gridwidth = GridBagConstraints.RELATIVE; //next-to-last
-		c.fill = GridBagConstraints.NONE;      //reset to default
-		c.weightx = 0.0;                       //reset to default
-		container.add(labels[i], c);
-		
-		c.gridwidth = GridBagConstraints.REMAINDER;     //end row
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		container.add(textFields[i], c);
+	    //Lay out the text controls and the labels.
+	    JPanel paneControlsPane = new JPanel();
+	    GridBagLayout gridbag = new GridBagLayout();
+	    GridBagConstraints c = new GridBagConstraints();
+	
+	    paneControlsPane.setLayout(gridbag);
+	
+	    JLabel[] labels = { componentLabel};
+	    JComponent[] components = { panel};
+	    addLabelTextRows( labels, components, gridbag, paneControlsPane);
+	
+	    c.gridwidth = GridBagConstraints.REMAINDER; //last
+	    c.anchor = GridBagConstraints.WEST;
+	    c.weightx = 1.0;
+	    paneControlsPane.setBorder(
+	            BorderFactory.createCompoundBorder(
+	                            BorderFactory.createTitledBorder(borderName),
+	                            BorderFactory.createEmptyBorder(5,5,5,5)));
+	
+	    //Put everything together.
+	    JPanel borderedPanel = new JPanel(new BorderLayout());
+	    borderedPanel.add(paneControlsPane,
+	                 BorderLayout.PAGE_START);
+	    
+	    return borderedPanel;
 	}
-}
+	JPanel createBrowseFileArea( String fileType, JTextField textField){
+	    
+	    JButton browseButton = new JButton( "Browse");
+	    browseButton.addActionListener( chooseFilePressed);
+	    browseButton.setActionCommand( fileType);
+	    
+	    JPanel browsePanel = new JPanel(new FlowLayout());
+	    browsePanel.add( browseButton);
+	    browsePanel.add( textField);
+	    
+	    return createBorderedPanel(fileType, browsePanel);
+	}
+	private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.EAST;
+		int numLabels = labels.length;
+		
+		for (int i = 0; i < numLabels; i++) {
+			c.gridwidth = GridBagConstraints.RELATIVE; //next-to-last
+			c.fill = GridBagConstraints.NONE;      //reset to default
+			c.weightx = 0.0;                       //reset to default
+			container.add(labels[i], c);
+			
+			c.gridwidth = GridBagConstraints.REMAINDER;     //end row
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 1.0;
+			container.add(textFields[i], c);
+		}
+	}
 	
 	public void setDelegate( MainViewDelegate delegate){
 		
 		this.delegate = delegate;
+	}
+	
+	public void setCurrentProcessInfo( String info){
+		
+		System.out.println(info);
+		currentWorkLabel.setText( info);
 	}
 }
