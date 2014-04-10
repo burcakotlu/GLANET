@@ -29,20 +29,6 @@ public class SNP{
 
 
 	
-	public int getSnpZeroBasedCoordinate() {
-		return snpZeroBasedCoordinate;
-	}
-
-
-
-
-	public void setSnpZeroBasedCoordinate(int snpZeroBasedCoordinate) {
-		this.snpZeroBasedCoordinate = snpZeroBasedCoordinate;
-	}
-
-
-
-
 	public String getFastaFile() {
 		return fastaFile;
 	}

@@ -5,8 +5,6 @@
  */
 package jaxbxjctool;
 
-import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -1238,66 +1236,15 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 	
-	public static void getSNPBasedPeakSequence(List<String> snpBasedTfIntervalKeyList,Map<String,TfKeggPathwayTfInterval> tfKeggPathwayBasedTfIntervalMap,String chrNamewithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch37Map,String outputFolder, String directoryBase,String tfNameKeggPathwayNameBased_SnpDirectory,String snpKeyString){
+	public static List<String> findTfIntervalsOverlappingWithThisSNP(List<String> tfIntervalKeyList, int snpZeroBasedCoordinate){
 		
-		//initialize  min and max tf intervals
-		int minTfIntervalStartZeroBased = Integer.MAX_VALUE;
-		int maxTfIntervalEndZeroBased = Integer.MIN_VALUE;
-		
-		int tfIntervalStartZeroBased;
-		int tfIntervalEndZeroBased;
-		
-		String tfExtendedPeakSequence;
-		
-					
-		for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
-
-			//get tfInterval
-			TfKeggPathwayTfInterval tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
-			
-			tfIntervalStartZeroBased = tfInterval.getStartZeroBased();
-			tfIntervalEndZeroBased = tfInterval.getEndZeroBased();
-			
-			if (tfIntervalStartZeroBased < minTfIntervalStartZeroBased){
-				minTfIntervalStartZeroBased = tfIntervalStartZeroBased;
-			}
-			
-			if (tfIntervalEndZeroBased > maxTfIntervalEndZeroBased){
-				maxTfIntervalEndZeroBased = tfIntervalEndZeroBased;
-			}
-			
-					
-		}//End of file for each snp based tfInterval
-		
-		
-		//todo
-		//write this tf intervals to the file
-		//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
-
-		//to be changed starts
-		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
-		//to be changed ends
-	
-		//todo peaksFileName
-		createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
-
-	}
-	
-	
-	public static List<String> findTfIntervalsOverlappingWithThisSNP(List<String> tfIntervalKeyList, Map<String,TfKeggPathwayTfInterval> tfIntervalMap,int snpZeroBasedCoordinate){
-		
-		List<String> snpBasedTfIntervalKeyList = new ArrayList<String>();
-		TfKeggPathwayTfInterval tfInterval;
+		List<String> tfIntervalsOverlappingWithThisSNP = new ArrayList<String>();
 		
 		for(String tfIntervalKey: tfIntervalKeyList ){
-			tfInterval = tfIntervalMap.get(tfIntervalKey);
-						
-			if (IntervalTree.overlaps(tfInterval.getStartZeroBased(), tfInterval.getEndZeroBased(), snpZeroBasedCoordinate, snpZeroBasedCoordinate)){
-				snpBasedTfIntervalKeyList.add(tfIntervalKey);
-			}
+			
 		}
 		
-		return snpBasedTfIntervalKeyList;
+		return tfIntervalsOverlappingWithThisSNP;
 		
 	}
 		
@@ -1777,7 +1724,7 @@ public static String takeComplementforeachAllele(String allele){
 			//Write snp observed Alleles
 			List<String>  tfIntervalKeyList;
 			
-			List<String> snpBasedTfIntervalKeyList ;
+			List<String> tfIntervalsOverlappingwithThisSNP ;
 						
 			TfKeggPathwayGivenInterval givenInterval;
 			
@@ -1792,15 +1739,12 @@ public static String takeComplementforeachAllele(String allele){
 				snpKeyList = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfKeggPathwayBasedTfIntervalKeyList();
 				
-				String snpDirectory;
 				
 				for(String snpKeyString : snpKeyList ){
 					SNP snp = snpMap.get(snpKeyString);
-				
-					snpDirectory = tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString;
 										
 					//for reference sequence
-					createSequenceFile(outputFolder ,directoryBase,snpDirectory, "reference",snp.getFastaFile());
+					createSequenceFile(outputFolder ,directoryBase, tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "reference",snp.getFastaFile());
 					
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
 								
@@ -1808,20 +1752,57 @@ public static String takeComplementforeachAllele(String allele){
 					int alteredSNPSequenceCount = 0;
 					for(String alteredSequence : alteredSequences){
 						alteredSNPSequenceCount++;
-						createSequenceFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "altered" + alteredSNPSequenceCount + "_" + snpKeyString,alteredSequence);	
+						createSequenceFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "altered" + alteredSNPSequenceCount,alteredSequence);	
 					}
 					
 					//write observedAlleles
-					createObservedAllelesFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "observedAlleles" + "_" + snpKeyString ,snp.getObservedAlleles());
+					createObservedAllelesFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "observedAlleles" ,snp.getObservedAlleles());
 					
-					//find overlapping tfIntervalkeys with this snp
-					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP(tfIntervalKeyList, tfKeggPathwayBasedTfIntervalMap,  snp.getSnpZeroBasedCoordinate());
+					//find overlapping tfIntervals with this snp
+					tfIntervalsOverlappingwithThisSNP = findTfIntervalsOverlappingWithThisSNP(tfIntervalKeyList, snp.getSnpZeroBasedCoordinate());
 					
-					//get snp based extended peak sequence
-					getSNPBasedPeakSequence(snpBasedTfIntervalKeyList,tfKeggPathwayBasedTfIntervalMap,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch37Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
-														
-				}//End of for each snpKeyString
+					
+										
+				}
+				
+				//initialize  min and max tf intervals
+				minTfIntervalStartZeroBased = Integer.MAX_VALUE;
+				maxTfIntervalEndZeroBased = Integer.MIN_VALUE;
+				
+						
+				for(String tfIntervalKey : tfIntervalKeyList ){
+
+					//get tfInterval
+					TfKeggPathwayTfInterval tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
+					
+					tfIntervalStartZeroBased = tfInterval.getStartZeroBased();
+					tfIntervalEndZeroBased = tfInterval.getEndZeroBased();
+					
+					if (tfIntervalStartZeroBased < minTfIntervalStartZeroBased){
+						minTfIntervalStartZeroBased = tfIntervalStartZeroBased;
+					}
+					
+					if (tfIntervalEndZeroBased > maxTfIntervalEndZeroBased){
+						maxTfIntervalEndZeroBased = tfIntervalEndZeroBased;
+					}
+					
 							
+				}//End of file for each tfIntervals
+				
+				//getDNASequece for this tf Interval
+				
+				//todo
+				//write this tf intervals to the file
+				//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
+		
+				//to be changed starts
+				tfPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
+				//to be changed ends
+			
+				//todo peaksFileName
+				createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfPeakSequence);
+			
+			
 				System.out.println(entry.getKey());
 				
 			}

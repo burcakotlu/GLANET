@@ -14,11 +14,12 @@ public class SNP{
 	
 	String SNPKey;
 	
+	int startZeroBased;
+	int endZeroBased;
 	String chrNamewithoutPreceedingChr;
 	
 	
 	int snpOneBasedCoordinate;
-	int snpZeroBasedCoordinate;
 	
 	List<String> observedAlleles;
 	List<String> alteredSequences;
@@ -29,20 +30,6 @@ public class SNP{
 
 
 	
-	public int getSnpZeroBasedCoordinate() {
-		return snpZeroBasedCoordinate;
-	}
-
-
-
-
-	public void setSnpZeroBasedCoordinate(int snpZeroBasedCoordinate) {
-		this.snpZeroBasedCoordinate = snpZeroBasedCoordinate;
-	}
-
-
-
-
 	public String getFastaFile() {
 		return fastaFile;
 	}
