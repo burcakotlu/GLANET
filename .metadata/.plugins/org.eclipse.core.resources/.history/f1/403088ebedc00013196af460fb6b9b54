@@ -627,11 +627,60 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 		return tfName.substring(0, i);
 	}
 	
-	
-	public static void createTfIntervalsFile(String outputFolder,String directoryBase,String snpDirectory,List<String> snpBasedTfIntervalKeyList){
+public static String   createDirectory(String outputFolder,String directoryName,String enrichmentType){
 		
-	}
+		String directoryBase=null;
+		
+		
+		switch(enrichmentType){
+		
+			case Commons.TF_EXON_BASED_KEGG_PATHWAY:{			
+				directoryBase = Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;	
+				break;
+			}
+			
+			case Commons.TF_REGULATION_BASED_KEGG_PATHWAY:{				
+				directoryBase = Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
+				break;
+			}
+				
+			case Commons.TF_ALL_BASED_KEGG_PATHWAY:{			
+				directoryBase = Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
+				break;
+			}	
+			
+			case Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;		
+				break;
+			}
+			
+			case Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
+				break;
+			}
+			
+			case Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
+				break;
+			}
+			
+		} // End of switch
+		
+		File directory = new File(outputFolder +directoryBase + System.getProperty("file.separator") + directoryName);
 
+		
+		// if the directory does not exist, create it
+		  if (!directory.exists()) {
+		    System.out.println("creating directory: " + directoryName);
+		    boolean result = directory.mkdir();  
+		
+		     if(!result) {    
+		       System.out.println(directoryName + " not created");  
+		     }
+		  }
+		  
+		  return directoryBase;
+	}
 
 	public static void createSequenceFile(String outputFolder,String directoryBase, String sequenceFileDirectory, String fileName,String sequence){
 		
@@ -1220,12 +1269,12 @@ public static String takeComplementforeachAllele(String allele){
 		
 		
 		//todo
-		//write these snp based tf intervals to a file
-		createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,snpBasedTfIntervalKeyList);
+		//write this tf intervals to the file
+		//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
 
 		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
 		
-		//write snp based extended peak sequence file
+		//todo peaksFileName
 		createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
 
 	}
@@ -1290,6 +1339,8 @@ public static String takeComplementforeachAllele(String allele){
 		//for Tf KeggPathway 
 		String tfNameKeggPathwayName;
 				
+		//used for directory already generated or not
+		Map<String,Boolean> tfNameKeggPathwayName2FalseorTrueMap 			= new HashMap<String,Boolean>();
 		
 		
 		//used for this pfm matrix file is already created and written.
@@ -1400,7 +1451,19 @@ public static String takeComplementforeachAllele(String allele){
 					
 					//7 April 2014 starts
 					
-				
+					//create tfNameKeggPathwayName based directory  if no directory has been already created
+					if (tfNameKeggPathwayName2FalseorTrueMap.get(tfNameKeggPathwayName)==null){
+						//create new directory for this tf and Kegg Pathway Name
+
+						//for debug purposes start
+						if(tfNameKeggPathwayName.equals("POL24H8_hsa04110")){
+							System.out.println("stop here");
+						}
+						//for debug purposes end
+						
+						createDirectory(outputFolder,tfNameKeggPathwayName,enrichmentType);
+						tfNameKeggPathwayName2FalseorTrueMap.put(tfNameKeggPathwayName,true);
+					}
 					
 					//create pfmMatrices and logo Matrices for this tfNameKeggPathwayName
 					//create pfm matrices and logo matrices files under tfNameKeggPathwayName starts
@@ -1481,6 +1544,8 @@ public static String takeComplementforeachAllele(String allele){
 						tfKeggPathwayGivenInterval.setTfNameKeggPathwayName(tfNameKeggPathwayName);
 							
 																	
+						//create directory for this tfNameKeggPathwayName based GivenInterval directory
+						createDirectory(outputFolder,tfNameKeggPathwayName + System.getProperty("file.separator") + givenIntervalName,enrichmentType);
 						
 						//part1
 						//snpKeyList

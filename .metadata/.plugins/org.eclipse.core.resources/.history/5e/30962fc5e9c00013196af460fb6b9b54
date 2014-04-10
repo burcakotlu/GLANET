@@ -627,11 +627,60 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 		return tfName.substring(0, i);
 	}
 	
-	
-	public static void createTfIntervalsFile(String outputFolder,String directoryBase,String snpDirectory,List<String> snpBasedTfIntervalKeyList){
+public static String   createDirectory(String outputFolder,String directoryName,String enrichmentType){
 		
-	}
+		String directoryBase=null;
+		
+		
+		switch(enrichmentType){
+		
+			case Commons.TF_EXON_BASED_KEGG_PATHWAY:{			
+				directoryBase = Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;	
+				break;
+			}
+			
+			case Commons.TF_REGULATION_BASED_KEGG_PATHWAY:{				
+				directoryBase = Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
+				break;
+			}
+				
+			case Commons.TF_ALL_BASED_KEGG_PATHWAY:{			
+				directoryBase = Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
+				break;
+			}	
+			
+			case Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;		
+				break;
+			}
+			
+			case Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
+				break;
+			}
+			
+			case Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY:{
+				directoryBase = Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
+				break;
+			}
+			
+		} // End of switch
+		
+		File directory = new File(outputFolder +directoryBase + System.getProperty("file.separator") + directoryName);
 
+		
+		// if the directory does not exist, create it
+		  if (!directory.exists()) {
+		    System.out.println("creating directory: " + directoryName);
+		    boolean result = directory.mkdir();  
+		
+		     if(!result) {    
+		       System.out.println(directoryName + " not created");  
+		     }
+		  }
+		  
+		  return directoryBase;
+	}
 
 	public static void createSequenceFile(String outputFolder,String directoryBase, String sequenceFileDirectory, String fileName,String sequence){
 		
@@ -1197,12 +1246,12 @@ public static String takeComplementforeachAllele(String allele){
 		int tfIntervalEndZeroBased;
 		
 		String tfExtendedPeakSequence;
-		TfKeggPathwayTfInterval tfInterval;
+		
 					
 		for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
 
 			//get tfInterval
-			tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
+			TfKeggPathwayTfInterval tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
 			
 			tfIntervalStartZeroBased = tfInterval.getStartZeroBased();
 			tfIntervalEndZeroBased = tfInterval.getEndZeroBased();
@@ -1216,16 +1265,18 @@ public static String takeComplementforeachAllele(String allele){
 			}
 			
 					
-		}//End of file for each tf interval overlapping with this snp
+		}//End of file for each snp based tfInterval
 		
 		
 		//todo
-		//write these snp based tf intervals to a file
-		createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,snpBasedTfIntervalKeyList);
+		//write this tf intervals to the file
+		//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
 
+		//to be changed starts
 		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
-		
-		//write snp based extended peak sequence file
+		//to be changed ends
+	
+		//todo peaksFileName
 		createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
 
 	}
@@ -1290,7 +1341,12 @@ public static String takeComplementforeachAllele(String allele){
 		//for Tf KeggPathway 
 		String tfNameKeggPathwayName;
 				
+		//used for directory already generated or not
+		Map<String,Boolean> tfNameKeggPathwayName2FalseorTrueMap 			= new HashMap<String,Boolean>();
 		
+		//used for this peak sequence is already retrieved and written.
+		//No need for twice.
+		Map<String,Boolean> peak2FalseorTrueMap 		= new HashMap<String,Boolean>();
 		
 		//used for this pfm matrix file is already created and written.
 		//No need for twice
@@ -1298,8 +1354,11 @@ public static String takeComplementforeachAllele(String allele){
 		
 		String fastaFile;
 		String referenceSequence;
+		String tfPeakSequence;
 		String directoryBase = null;
-					
+		String tfNameKeggPathwayNameBased_SnpDirectory = null;
+		String peakName ;
+				
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 		
 		//4 April 2014
@@ -1334,7 +1393,13 @@ public static String takeComplementforeachAllele(String allele){
 		List<String> snpKeyList;
 		//7 April 2014  ends
 		
-			
+		//10 April 2014 starts
+		int tfIntervalStartZeroBased;
+		int tfIntervalEndZeroBased;
+		int minTfIntervalStartZeroBased;
+		int maxTfIntervalEndZeroBased;
+		//10 April 2014 ends
+		
 				
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
@@ -1397,10 +1462,16 @@ public static String takeComplementforeachAllele(String allele){
 					indexofUnderscore = tfNameCellLineName.indexOf('_');
 					cellLineName = tfNameCellLineName.substring(indexofUnderscore+1);
 															
+					peakName = "peak" + "_" +tfNameCellLineName + "_" +tfStart_ZeroBased + "_" +tfEnd_ZeroBased + "_" + tfNameKeggPathwayName;
 					
 					//7 April 2014 starts
 					
-				
+					//create tfNameKeggPathwayName based directory  if no directory has been already created
+					if (tfNameKeggPathwayName2FalseorTrueMap.get(tfNameKeggPathwayName)==null){
+						//create new directory for this tf and Kegg Pathway Name
+						createDirectory(outputFolder,tfNameKeggPathwayName,enrichmentType);
+						tfNameKeggPathwayName2FalseorTrueMap.put(tfNameKeggPathwayName,true);
+					}
 					
 					//create pfmMatrices and logo Matrices for this tfNameKeggPathwayName
 					//create pfm matrices and logo matrices files under tfNameKeggPathwayName starts
@@ -1481,6 +1552,8 @@ public static String takeComplementforeachAllele(String allele){
 						tfKeggPathwayGivenInterval.setTfNameKeggPathwayName(tfNameKeggPathwayName);
 							
 																	
+						//create directory for this tfNameKeggPathwayName based GivenInterval directory
+						createDirectory(outputFolder,tfNameKeggPathwayName + System.getProperty("file.separator") + givenIntervalName,enrichmentType);
 						
 						//part1
 						//snpKeyList
@@ -1729,8 +1802,6 @@ public static String takeComplementforeachAllele(String allele){
 				
 				snpKeyList = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfKeggPathwayBasedTfIntervalKeyList();
-				
-				chrNamewithoutPreceedingChr = givenInterval.getChromNamewithoutPreceedingChr();
 											
 				for(String snpKeyString : snpKeyList ){
 					SNP snp = snpMap.get(snpKeyString);
@@ -1738,7 +1809,7 @@ public static String takeComplementforeachAllele(String allele){
 					snpDirectory = tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString;
 										
 					//for reference sequence
-					createSequenceFile(outputFolder ,directoryBase,snpDirectory, "reference" + "_" + snpKeyString,snp.getFastaFile());
+					createSequenceFile(outputFolder ,directoryBase,snpDirectory, "reference",snp.getFastaFile());
 					
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
 								
@@ -1746,11 +1817,11 @@ public static String takeComplementforeachAllele(String allele){
 					int alteredSNPSequenceCount = 0;
 					for(String alteredSequence : alteredSequences){
 						alteredSNPSequenceCount++;
-						createSequenceFile(outputFolder,directoryBase, snpDirectory, "altered" + alteredSNPSequenceCount + "_" + snpKeyString,alteredSequence);	
+						createSequenceFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "altered" + alteredSNPSequenceCount + "_" + snpKeyString,alteredSequence);	
 					}
 					
 					//write observedAlleles
-					createObservedAllelesFile(outputFolder,directoryBase, snpDirectory, "observedAlleles" + "_" + snpKeyString ,snp.getObservedAlleles());
+					createObservedAllelesFile(outputFolder,directoryBase, tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString, "observedAlleles" + "_" + snpKeyString ,snp.getObservedAlleles());
 					
 					//find overlapping tfIntervalkeys with this snp
 					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP(tfIntervalKeyList, tfKeggPathwayBasedTfIntervalMap,  snp.getSnpZeroBasedCoordinate());
@@ -1758,11 +1829,11 @@ public static String takeComplementforeachAllele(String allele){
 					//get snp based extended peak sequence
 					getSNPBasedPeakSequence(snpBasedTfIntervalKeyList,tfKeggPathwayBasedTfIntervalMap,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch37Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
 														
-				}//End of for each snp in this given interval
+				}//End of for each snpKeyString
 							
 				System.out.println(entry.getKey());
 				
-			}//End of each given interval
+			}
 			
 						
 		} catch (FileNotFoundException e1) {

@@ -626,12 +626,6 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 		
 		return tfName.substring(0, i);
 	}
-	
-	
-	public static void createTfIntervalsFile(String outputFolder,String directoryBase,String snpDirectory,List<String> snpBasedTfIntervalKeyList){
-		
-	}
-
 
 	public static void createSequenceFile(String outputFolder,String directoryBase, String sequenceFileDirectory, String fileName,String sequence){
 		
@@ -1220,12 +1214,12 @@ public static String takeComplementforeachAllele(String allele){
 		
 		
 		//todo
-		//write these snp based tf intervals to a file
-		createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,snpBasedTfIntervalKeyList);
+		//write this tf intervals to the file
+		//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
 
 		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
 		
-		//write snp based extended peak sequence file
+		//todo peaksFileName
 		createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
 
 	}
