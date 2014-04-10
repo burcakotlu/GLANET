@@ -125,19 +125,19 @@ public class Commons {
 	    
 	//Rserve
 //	public static final String RSERVE_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "rserve" + System.getProperty("file.separator");
-	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "referenceAndAlteredSequences" + System.getProperty("file.separator");
+	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "sequences" + System.getProperty("file.separator");
 	
 	/*************************************************************************************/
 	//TF KEGGPATHWAY DIRECTORY BASES
-	public static final String TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfKeggPathway" + System.getProperty("file.separator") + "TfExonBasedKeggPathway" + System.getProperty("file.separator");
-	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 	= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfKeggPathway" + System.getProperty("file.separator") + "TfRegulationBasedKeggPathway" + System.getProperty("file.separator");
-	public static final String TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfKeggPathway" + System.getProperty("file.separator") + "TfAllBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "TfExonBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 	= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "TfRegulationBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "TfAllBasedKeggPathway" + System.getProperty("file.separator");
 	
 	
 	//TF CELLLINE KEGGPATHWAY DIRECTORY BASES
-	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineExonBasedKeggPathway" + System.getProperty("file.separator");
-	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE = GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineRegulationBasedKeggPathway" + System.getProperty("file.separator");
-	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineExonBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE = GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineRegulationBasedKeggPathway" + System.getProperty("file.separator");
+	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER + "TfCellLineAllBasedKeggPathway" + System.getProperty("file.separator");
 
 	/*************************************************************************************/
 

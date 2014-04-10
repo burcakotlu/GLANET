@@ -1775,16 +1775,14 @@ public static String takeComplementforeachAllele(String allele){
 				
 				//getDNASequece for this tf Interval
 				
-				//todo
-				//write this tf intervals to the file
-				//createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
+				//write this tf interval to the file
+				createTfIntervalsFile(outputFolder,directoryBase,tfNameKeggPathwayName +  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator"),tfIntervalKeyList);
 		
 				//to be changed starts
 				tfPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartZeroBased+1, maxTfIntervalEndZeroBased+1,chrName2RefSeqIdforGrch37Map);
 				//to be changed ends
 			
-				//todo peaksFileName
-				createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfPeakSequence);
+				createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,peaksFileName,peakName,peakSequence);
 			
 			
 				System.out.println(entry.getKey());
