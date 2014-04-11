@@ -884,7 +884,7 @@ public static String takeComplementforeachAllele(String allele){
 		if (!snp.equals(allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -898,7 +898,7 @@ public static String takeComplementforeachAllele(String allele){
 			if (!snp.equals(allele)){
 				alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 				
-				if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+				if (alteredSnpSequence!=null){
 					alteredSnpSequences.add(alteredSnpSequence);
 				}
 			}
@@ -914,7 +914,7 @@ public static String takeComplementforeachAllele(String allele){
 		if (!snp.equals(allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -1498,10 +1498,17 @@ public static String takeComplementforeachAllele(String allele){
 													
 							for(String rsId: rsIdList){
 								
-									
+								if (rsId.equals("71143774") || rsId.equals("372189374")){
+									System.out.println("stops here");
+								}
+								
 								//For each rsId get rs Information
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 
+// 								for debugging starts
+								System.out.println("rsId "+ rsId);
+								System.out.println("rsInformation start zeroBased "+ rsInformation.getStartZeroBased());
+// 								for debugging starts
 								
 								//rsInformation has slash separated observed alleles
 								observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
@@ -1650,7 +1657,7 @@ public static String takeComplementforeachAllele(String allele){
 					SNP snp = snpMap.get(snpKeyString);
 					
 					//start debug
-					if (snpKeyString.equals("snp_chr10_111787715")){
+					if (snpKeyString.equals("snp_chr16_30130492")){
 						System.out.println("debug here");
 					}
 					//end debug	

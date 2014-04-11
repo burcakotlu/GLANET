@@ -884,7 +884,7 @@ public static String takeComplementforeachAllele(String allele){
 		if (!snp.equals(allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -898,7 +898,7 @@ public static String takeComplementforeachAllele(String allele){
 			if (!snp.equals(allele)){
 				alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 				
-				if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+				if (alteredSnpSequence!=null){
 					alteredSnpSequences.add(alteredSnpSequence);
 				}
 			}
@@ -914,7 +914,7 @@ public static String takeComplementforeachAllele(String allele){
 		if (!snp.equals(allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -1650,7 +1650,7 @@ public static String takeComplementforeachAllele(String allele){
 					SNP snp = snpMap.get(snpKeyString);
 					
 					//start debug
-					if (snpKeyString.equals("snp_chr10_111787715")){
+					if (snpKeyString.equals("snp_chr16_30130492")){
 						System.out.println("debug here");
 					}
 					//end debug	

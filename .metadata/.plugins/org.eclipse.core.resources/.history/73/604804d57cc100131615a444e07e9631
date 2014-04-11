@@ -786,7 +786,7 @@ public static String takeComplementforeachAllele(String allele){
 		complementedAllele = takeComplementforeachAllele(allele);
 		
 		if(complementedAllele!=null){
-			complementedAlleles = complementedAlleles + complementedAllele;
+			complementedAlleles = complementedAlleles + complementedAllele + "\t";
 		}
 	
 				
@@ -797,7 +797,7 @@ public static String takeComplementforeachAllele(String allele){
 		
 	}
 	
-	public static List<String> findOtherObservedAllelesandGetAltereSequences(String snp, String alleles,String precedingSNP,String followingSNP){
+	public static List<String> findOtherObservedAllelesandGetAltereSequences(char snp, String alleles,String precedingSNP,String followingSNP){
 		
 		List<String> alteredSnpSequences;
 		
@@ -825,7 +825,7 @@ public static String takeComplementforeachAllele(String allele){
 		
 		String precedingSNP;
 		String followingSNP;
-		String snp;
+		char snp;
 		
 		
 		List<String> alteredSnpSequences;
@@ -840,7 +840,7 @@ public static String takeComplementforeachAllele(String allele){
 		followingSNP = referenceSequence.substring(oneBasedSnpPosition);
 		
 		//snp
-		snp = referenceSequence.substring(oneBasedSnpPosition-1,oneBasedSnpPosition);
+		snp = referenceSequence.charAt(oneBasedSnpPosition-1);
 				
 		//take each possible observed alleles
 		//C\tT\t
@@ -866,7 +866,7 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 	
-	public static List<String>  getAlteredSnpSequences(String snp, String alleles,String precedingSNP,String followingSNP){
+	public static List<String>  getAlteredSnpSequences(char snp, String alleles,String precedingSNP,String followingSNP){
 		
 		int indexofFormerTab;
 		int indexofLatterTab;
@@ -881,10 +881,10 @@ public static String takeComplementforeachAllele(String allele){
 		allele = alleles.substring(0,indexofFormerTab);
 		
 		//check for this first allele
-		if (!snp.equals(allele)){
+		if (!sameAllele(snp,allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -895,10 +895,10 @@ public static String takeComplementforeachAllele(String allele){
 			allele = alleles.substring(indexofFormerTab+1, indexofLatterTab);
 			
 			//check for this allele
-			if (!snp.equals(allele)){
+			if (!sameAllele(snp,allele)){
 				alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 				
-				if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+				if (alteredSnpSequence!=null){
 					alteredSnpSequences.add(alteredSnpSequence);
 				}
 			}
@@ -911,10 +911,10 @@ public static String takeComplementforeachAllele(String allele){
 		allele = alleles.substring(indexofFormerTab+1);
 		
 		//check for this last allele
-		if (!snp.equals(allele)){
+		if (!sameAllele(snp,allele)){
 			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
 			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
+			if (alteredSnpSequence!=null){
 				alteredSnpSequences.add(alteredSnpSequence);
 			}
 		}
@@ -922,11 +922,26 @@ public static String takeComplementforeachAllele(String allele){
 		return alteredSnpSequences;
 	}
 
-
+	public static boolean sameAllele(char snp,String allele){
+		if(allele.isEmpty()){
+			//allele is ""
+			//there is nothing to alter
+			return true;
+		}else if (allele.length()>1){
+			return false;
+		}else if (allele.equals(Commons.STRING_HYPHEN)){
+			return false;
+		}else if(allele.charAt(0)==snp){
+			return true;
+		}
+		
+		return false;
+		
+	}
 	
 	//if snp exists in any of tab delimited alleles useAlleles return true
 	//else useAlleles return false
-	public static boolean useAlleles(String snp,String alleles){
+	public static boolean useAlleles(char snp,String alleles){
 		//alleles is composed by allele each is seperated by tab
 		//A\tC\tG\t
 		
@@ -941,7 +956,7 @@ public static String takeComplementforeachAllele(String allele){
 		allele = alleles.substring(0,indexofFormerTab);
 				
 		//check for this first allele
-		if (snp.equals(allele)){
+		if (sameAllele(snp,allele)){
 			return true;
 		}
 		
@@ -951,7 +966,7 @@ public static String takeComplementforeachAllele(String allele){
 			allele = alleles.substring(indexofFormerTab+1, indexofLatterTab);
 			
 			//check for this allele
-			if (snp.equals(allele)){
+			if (sameAllele(snp,allele)){
 				return true;
 			}
 			
@@ -963,7 +978,7 @@ public static String takeComplementforeachAllele(String allele){
 		allele = alleles.substring(indexofFormerTab+1);
 		
 		//check for this last allele
-		if (snp.equals(allele)){
+		if (sameAllele(snp,allele)){
 			return true;
 		}
 		
@@ -1498,10 +1513,17 @@ public static String takeComplementforeachAllele(String allele){
 													
 							for(String rsId: rsIdList){
 								
-									
+								if (rsId.equals("71143774") || rsId.equals("372189374")){
+									System.out.println("stops here");
+								}
+								
 								//For each rsId get rs Information
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 
+// 								for debugging starts
+								System.out.println("rsId "+ rsId);
+								System.out.println("rsInformation start zeroBased "+ rsInformation.getStartZeroBased());
+// 								for debugging starts
 								
 								//rsInformation has slash separated observed alleles
 								observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
@@ -1650,7 +1672,7 @@ public static String takeComplementforeachAllele(String allele){
 					SNP snp = snpMap.get(snpKeyString);
 					
 					//start debug
-					if (snpKeyString.equals("snp_chr10_111787715")){
+					if (snpKeyString.equals("snp_chr16_30130492")){
 						System.out.println("debug here");
 					}
 					//end debug	
