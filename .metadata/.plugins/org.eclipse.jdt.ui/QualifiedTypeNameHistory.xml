@@ -35,7 +35,6 @@
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenIntervalwithRsIds"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfInterval"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
@@ -46,4 +45,5 @@
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
+<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 </qualifiedTypeNameHistroy>

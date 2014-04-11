@@ -181,9 +181,9 @@ public class FileOperations {
 	    }
 	}
 	
-	public static void deleteFile(String fileName){
+	public static void deleteFile(String outputFolder,String fileName){
 		
-		File file = new File(fileName);
+		File file = new File(outputFolder + fileName);
 		
 		if(file.delete()){
 			System.out.println(file.getName() + " is deleted!");

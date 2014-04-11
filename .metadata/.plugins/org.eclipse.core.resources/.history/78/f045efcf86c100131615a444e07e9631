@@ -476,10 +476,10 @@ public class RSATMatrixScanClient {
 
 	}
 
-	public static void matrixScan(String outputFolder,String baseDirectory,BufferedWriter bufferedWriter){
+	public static void matrixScan(String baseDirectory,BufferedWriter bufferedWriter){
 		
 	
-			File baseFolder = new File(outputFolder+baseDirectory);
+			File baseFolder = new File(baseDirectory);
 			File[] files = baseFolder.listFiles();
 			
 			String snpInputFile = null;
@@ -506,79 +506,52 @@ public class RSATMatrixScanClient {
 			 
 		    for(File enrichedTfandKeggPathways: files){
 		        if(enrichedTfandKeggPathways.isDirectory()) {
-		        	
-		        	//Initialise input files
-	        		pfmMatricesInputFile = null;
-	        		
-	        		//First get the pfm matrices input file	        	
-		        	for (File givenInterval:enrichedTfandKeggPathways.listFiles() ){
-		        		if(!givenInterval.isDirectory()){	        		
-		        	 			//get the pfmMatrixFile
-			        			fileName = givenInterval.getName();
-		         				fileAbsolutePath = givenInterval.getAbsolutePath();
+		         	for(File snps:enrichedTfandKeggPathways.listFiles()){
+		         		if(snps.isDirectory()){
+		         			
+		         			//Initialise input files
+		         			snpInputFile = null;
+		         			alteredSnpInputFile = null;
+		         			alteredSNPInputFiles = new ArrayList<String>();
+		        			peakInputFile = null;
+		        			pfmMatricesInputFile = null;
+		        				         			
+		         			File[] filesforSNPs = snps.listFiles();
+		         			
+		         			for(File snporPeakorPFMorLogo: filesforSNPs){
 		         				
-			        			if(fileName.startsWith("pfm")){
-		         					pfmMatricesInputFile = fileAbsolutePath;
-		         					break;
+		         				fileName = snporPeakorPFMorLogo.getName();
+		         				fileAbsolutePath = snporPeakorPFMorLogo.getAbsolutePath();
+		         				
+		         				//for debug start
+		         				//debug snp_chr11_47600437_ELK4_hsa05016.txt buraya eklenecek
+		         				if (fileName.equals("snp_chr11_47600437_ELK4_hsa05016.txt")){
+		         					System.out.println("stop here");
 		         				}
-			     		}//End of if			        		
-		        	}//End of for
-		        	
-		        	for (File givenInterval:enrichedTfandKeggPathways.listFiles() ){
-		        		if(givenInterval.isDirectory()){
-		        		  	for(File snps:givenInterval.listFiles()){
-				         		if(snps.isDirectory()){
-				         			
-				         			//Initialise input files
-				         			snpInputFile = null;
-				         			alteredSnpInputFile = null;
-				         			alteredSNPInputFiles = new ArrayList<String>();
-				        			peakInputFile = null;
-				        				         			
-				         			File[] filesforSNPs = snps.listFiles();
-				         			
-				         			for(File snporPeakorPFMorLogo: filesforSNPs){
-				         				
-				         				fileName = snporPeakorPFMorLogo.getName();
-				         				fileAbsolutePath = snporPeakorPFMorLogo.getAbsolutePath();
-				         				
-				         				//for debug start
-				         				//debug snp_chr11_47600437_ELK4_hsa05016.txt buraya eklenecek
-				         				if (fileName.equals("snp_chr11_47600437_ELK4_hsa05016.txt")){
-				         					System.out.println("stop here");
-				         				}
-				         				//for debug end
-				         				
-				         				if (fileName.startsWith("reference")){
-				         					snpInputFile = fileAbsolutePath;
-				         				}else if (fileName.startsWith("altered")){
-				         					alteredSnpInputFile = fileAbsolutePath;
-				         					alteredSNPInputFiles.add(alteredSnpInputFile);
-				         				}else if (fileName.startsWith("extendedPeak")){
-				         					peakInputFile = fileAbsolutePath;
-				         				}
-				         				 
-				         			}//for each necessary file under snp directory
-				         			
-				         			//If all necessary files are not null
-				         			if(snpInputFile!= null && peakInputFile!=null && pfmMatricesInputFile!=null ){
-				            			//Matrix Scan Call
-					         			matrixScan(snpInputFile,alteredSNPInputFiles,peakInputFile,pfmMatricesInputFile,proxy,matrixScanRequest,bufferedWriter);
-					   
-				         			}
-				         				
-				         		}//if it is a directory
-				         	}//End of each snp directory
-		        			
-		        		}//if givenIntervals is directory
-		        		
-		        		
-		        		
-		        	}//end of for each givenInterval
-		        	
-		       
-		         	
-		         	
+		         				//for debug end
+		         				
+		         				if (fileName.startsWith("snp")){
+		         					snpInputFile = fileAbsolutePath;
+		         				}else if (fileName.startsWith("altered")){
+		         					alteredSnpInputFile = fileAbsolutePath;
+		         					alteredSNPInputFiles.add(alteredSnpInputFile);
+		         				}else if (fileName.startsWith("peak")){
+		         					peakInputFile = fileAbsolutePath;
+		         				}else if(fileName.startsWith("pfm")){
+		         					pfmMatricesInputFile = fileAbsolutePath;
+		         				}
+		         				 
+		         			}//for each necessary file under snp directory
+		         			
+		         			//If all necessary files are not null
+		         			if(snpInputFile!= null && peakInputFile!=null && pfmMatricesInputFile!=null ){
+		            			//Matrix Scan Call
+			         			matrixScan(snpInputFile,alteredSNPInputFiles,peakInputFile,pfmMatricesInputFile,proxy,matrixScanRequest,bufferedWriter);
+			   
+		         			}
+		         				
+		         		}//if it is a directory
+		         	}//End of each snp directory
 		        }  // if it is a directory
 		    }//End of for each enriched tf and kegg pathway directory
 		    
@@ -623,16 +596,16 @@ public class RSATMatrixScanClient {
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder +Commons.RSAT_OUTPUT_FILENAME,true);
+			fileWriter = new FileWriter(Commons.RSAT_OUTPUT_FILENAME,true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-//			matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-//			matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);
-//
-//			matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-//			matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-//			matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+			matrixScan(tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+			matrixScan(tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+
+//			matrixScan(tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
 			
 			//Close bufferedWriter
 			bufferedWriter.close();

@@ -507,26 +507,11 @@ public class RSATMatrixScanClient {
 		    for(File enrichedTfandKeggPathways: files){
 		        if(enrichedTfandKeggPathways.isDirectory()) {
 		        	
-		        	//Initialise input files
-	        		pfmMatricesInputFile = null;
-	        		
-	        		//First get the pfm matrices input file	        	
-		        	for (File givenInterval:enrichedTfandKeggPathways.listFiles() ){
-		        		if(!givenInterval.isDirectory()){	        		
-		        	 			//get the pfmMatrixFile
-			        			fileName = givenInterval.getName();
-		         				fileAbsolutePath = givenInterval.getAbsolutePath();
-		         				
-			        			if(fileName.startsWith("pfm")){
-		         					pfmMatricesInputFile = fileAbsolutePath;
-		         					break;
-		         				}
-			     		}//End of if			        		
-		        	}//End of for
-		        	
-		        	for (File givenInterval:enrichedTfandKeggPathways.listFiles() ){
-		        		if(givenInterval.isDirectory()){
-		        		  	for(File snps:givenInterval.listFiles()){
+		        	for (File givenIntervals:enrichedTfandKeggPathways.listFiles() ){
+		        		if(givenIntervals.isDirectory()){
+		        			
+		        			
+		        		  	for(File snps:givenIntervals.listFiles()){
 				         		if(snps.isDirectory()){
 				         			
 				         			//Initialise input files
@@ -534,6 +519,7 @@ public class RSATMatrixScanClient {
 				         			alteredSnpInputFile = null;
 				         			alteredSNPInputFiles = new ArrayList<String>();
 				        			peakInputFile = null;
+				        			pfmMatricesInputFile = null;
 				        				         			
 				         			File[] filesforSNPs = snps.listFiles();
 				         			
@@ -572,7 +558,12 @@ public class RSATMatrixScanClient {
 		        			
 		        		}//if givenIntervals is directory
 		        		
-		        		
+		        		else{
+		        			//get the pfmMatrixFile
+		        			if(fileName.startsWith("pfm")){
+	         					pfmMatricesInputFile = fileAbsolutePath;
+	         				}
+		        		}
 		        		
 		        	}//end of for each givenInterval
 		        	
