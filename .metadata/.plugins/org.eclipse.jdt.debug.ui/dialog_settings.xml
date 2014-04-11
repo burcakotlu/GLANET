@@ -9,7 +9,7 @@
 	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
 		<item key="SashWeightTree" value="500"/>
 		<item value="500" key="SashWeightDetails"/>
-		<item value="1020" key="WIDTH"/>
+		<item value="1011" key="WIDTH"/>
 		<item value="320" key="HEIGHT"/>
 	</section>
 	<section name="STRING_VALUE_INPUT_DIALOG">
