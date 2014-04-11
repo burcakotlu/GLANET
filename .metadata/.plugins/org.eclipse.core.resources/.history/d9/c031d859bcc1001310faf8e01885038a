@@ -111,14 +111,6 @@ public class RSATMatrixScanClient {
 		
 		return Integer.parseInt(snp.substring(indexofSecondUnderscore+1, indexofThirdUnderscore));
 		
-//		example snp result line
-//		gi|224589818:170862322-170862350	site	matrix-scan-matrix_2014-04-11.5	D	13	21	ACGGCTGCG	3.5	3.7e-03	-5.602	2.433	2	2		
-//		int indexofFirstColon = bestSNPResultLine.indexOf(':');
-//		int indexofFirstHyphen = bestSNPResultLine.indexOf('-');
-//					
-//		return Integer.parseInt(bestSNPResultLine.substring(indexofFirstColon+1, indexofFirstHyphen)) + Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION;
-
-		
 
 	}
 	
