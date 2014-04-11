@@ -730,6 +730,9 @@ public static String takeComplementforeachAllele(String allele){
 				case 't': 	complementedAllele = complementedAllele + "A";
 							break;
 							
+				case '-': 	complementedAllele = complementedAllele + "-";
+							break;
+							
 				default : return null;			
 							
 			}//End of switch
@@ -845,7 +848,15 @@ public static String takeComplementforeachAllele(String allele){
 			//Find the other alleles other than normal nucleotide
 			alteredSnpSequences = findOtherObservedAllelesandGetAltereSequences(snp,alleles,precedingSNP,followingSNP);
 			
-			allAlteredSnpSequences.addAll(alteredSnpSequences);
+			//check for whether every altered sequence in alteredSnpSequences exists in allAlteredSnpSequences
+			//if allAlteredSnpSequences does not contain it 
+			//then add it
+			for(String alteredSequence:alteredSnpSequences){
+				if (!allAlteredSnpSequences.contains(alteredSequence)){
+					allAlteredSnpSequences.add(alteredSequence);
+					
+				}
+			}
 			
 		}
 	
@@ -911,7 +922,9 @@ public static String takeComplementforeachAllele(String allele){
 
 	public static boolean sameAllele(char snp,String allele){
 		if(allele.isEmpty()){
-			return false;
+			//allele is ""
+			//there is nothing to alter
+			return true;
 		}else if (allele.length()>1){
 			return false;
 		}else if (allele.equals(Commons.STRING_HYPHEN)){
@@ -1085,24 +1098,21 @@ public static String takeComplementforeachAllele(String allele){
 	//
 	public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String observedAllelesSeparatedwithSlash){
 		
-		int indexofFormerSlash = 0;
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/');
+		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
+		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash +1);
 		
 		String allele;
 		String observedAllelesSeparatedwithTabs = "";
 		
 		//for the first allele
-		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash,indexofLatterSlash);
+		allele = observedAllelesSeparatedwithSlash.substring(0,indexofFormerSlash);
 		
 		//update
 		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";
 		
-		indexofFormerSlash = indexofLatterSlash ;		
-		indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
-	
 				
 		
-		if (indexofFormerSlash>=0 && indexofLatterSlash >=0){
+		while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
 			
 			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1, indexofLatterSlash);	
 			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";			
@@ -1204,6 +1214,7 @@ public static String takeComplementforeachAllele(String allele){
 	public static String getDNASequenceFromFastaFile(String fastaFile){
 		String referenceSequence;
 		int indexofFirstLineSeparator;
+		
 		
 		indexofFirstLineSeparator = fastaFile.indexOf(System.getProperty("line.separator"));
 		referenceSequence = fastaFile.substring(indexofFirstLineSeparator+1).trim();
@@ -1500,8 +1511,17 @@ public static String takeComplementforeachAllele(String allele){
 													
 							for(String rsId: rsIdList){
 								
+								if (rsId.equals("71143774") || rsId.equals("372189374")){
+									System.out.println("stops here");
+								}
+								
 								//For each rsId get rs Information
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
+
+// 								for debugging starts
+								System.out.println("rsId "+ rsId);
+								System.out.println("rsInformation start zeroBased "+ rsInformation.getStartZeroBased());
+// 								for debugging starts
 								
 								//rsInformation has slash separated observed alleles
 								observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
@@ -1648,6 +1668,12 @@ public static String takeComplementforeachAllele(String allele){
 											
 				for(String snpKeyString : snpKeyList ){
 					SNP snp = snpMap.get(snpKeyString);
+					
+					//start debug
+					if (snpKeyString.equals("snp_chr16_30130492")){
+						System.out.println("debug here");
+					}
+					//end debug	
 				
 					snpDirectory = tfNameKeggPathwayName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString;
 										

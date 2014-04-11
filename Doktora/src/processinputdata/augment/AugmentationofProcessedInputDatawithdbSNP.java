@@ -117,7 +117,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 	}
 	
 	
-	public static void augmentEachSNPwithDBSNP(Map<String,List<SnpPosition>> chrName2SNPPositionsMap,String augmentedwithdbSNPOutputFileName){
+	public static void augmentEachSNPwithDBSNP(String outputFolder,String dataFolder,Map<String,List<SnpPosition>> chrName2SNPPositionsMap,String augmentedwithdbSNPOutputFileName){
 		
 		IntervalTree dbSNPIntervalTree = null;
 		String  chrName= null;
@@ -130,7 +130,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 		BufferedWriter bufferedWriter = null;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(augmentedwithdbSNPOutputFileName);
+			fileWriter = FileOperations.createFileWriter(outputFolder + augmentedwithdbSNPOutputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			
@@ -140,15 +140,14 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 				chrName = entry.getKey();
 				snpPositionList = entry.getValue();
 				
-				dbSNPIntervalTree = CreationofChromosomeBasedSNPIntervalTrees.readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTree(chrName);
+				dbSNPIntervalTree = CreationofChromosomeBasedSNPIntervalTrees.readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTreeforGivenChromosome(dataFolder,chrName);
 				root = dbSNPIntervalTree.getRoot();
-				
-				
+								
 				for(SnpPosition snpPosition : snpPositionList){
 					//bufferedWriter.write(chrName+ "\t" + snpPosition.getStart() +"\n");
 					
 					
-					IntervalTreeNode node = new IntervalTreeNode(snpPosition.getStart(),snpPosition.getEnd());
+					IntervalTreeNode node = new IntervalTreeNode(snpPosition.getStartZeroBased(),snpPosition.getEndZeroBased());
 					
 					overlappedNodeList = new ArrayList<IntervalTreeNode>();
 					
@@ -159,7 +158,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 //						bufferedWriter.write("OverlapNodeListSize: " + overlappedNodeList.size() + "\n");
 						
 						for(IntervalTreeNode overlapNode:overlappedNodeList){
-							bufferedWriter.write(overlapNode.getRsId() + "\t" + chrName + "\t" + snpPosition.getStart() + "\t");
+							bufferedWriter.write(overlapNode.getRsId() + "\t" + chrName + "\t" + snpPosition.getStartZeroBased() + "\t");
 							
 							for(String observedAllele :overlapNode.getObservedVariationAlleles()){
 								bufferedWriter.write(observedAllele +"\t");
@@ -191,30 +190,46 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 	}
 	
 
-	public static void augmentProcessedInputSNPswithdbSNP(String processedInputDataFileName,String augmentedwithdbSNPOutputFileName){
+	public static void augmentProcessedInputSNPswithdbSNP(String outputFolder,String dataFolder,String processedInputDataFileName,String augmentedwithdbSNPOutputFileName){
 		
 			
 		Map<String,List<SnpPosition>> chrName2SNPPositionsMap = new HashMap<String,List<SnpPosition>>();
 				
 		fillChromosomeBasedSNPPositionsMap(processedInputDataFileName,chrName2SNPPositionsMap);
 		
-		augmentEachSNPwithDBSNP(chrName2SNPPositionsMap,augmentedwithdbSNPOutputFileName);
+		augmentEachSNPwithDBSNP(outputFolder,dataFolder,chrName2SNPPositionsMap,augmentedwithdbSNPOutputFileName);
 		
 			
 			
 	}
 
 	
-	/**
-	 * @param args
-	 */
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	//args[9] must have Dnase Enrichment example: DO_DNASE_ENRICHMENT or DO_NOT_DNASE_ENRICHMENT
+	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
+	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+	//args[13] must have a job name exampe: any_string 
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+
 		//ProcessedInput already contains 0-based coordinates.
-		String processedInputDataFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS;
+		String processedInputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		
 		String augmentedwithdbSNPOutputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP;
 		
-		augmentProcessedInputSNPswithdbSNP(processedInputDataFileName,augmentedwithdbSNPOutputFileName);
+		augmentProcessedInputSNPswithdbSNP(outputFolder,dataFolder,processedInputDataFileName,augmentedwithdbSNPOutputFileName);
 
 	}
 

@@ -488,8 +488,7 @@ public class Commons {
 	public static final String ORIGINAL_READ_LINE = "ORIGINAL_READ_LINE";
 	public static final String DEGENERATED_LINE = "DEGENERATED_LINE";
 	
-	
-	
+		
 	public static final String SENTINEL = "SENTINEL";
 	public static final String NOT_SENTINEL = "NOT_SENTINEL";
 	

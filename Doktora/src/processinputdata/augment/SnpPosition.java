@@ -10,27 +10,37 @@ package processinputdata.augment;
 
 public class SnpPosition {
 	
-	int start;
-	int end;
+	int startZeroBased;
+	int endZeroBased;
 	
 	
 	
 
-	public int getStart() {
-		return start;
+
+
+	public int getStartZeroBased() {
+		return startZeroBased;
 	}
 
-	public void setStart(int start) {
-		this.start = start;
+
+
+	public void setStartZeroBased(int startZeroBased) {
+		this.startZeroBased = startZeroBased;
 	}
 
-	public int getEnd() {
-		return end;
+
+
+	public int getEndZeroBased() {
+		return endZeroBased;
 	}
 
-	public void setEnd(int end) {
-		this.end = end;
+
+
+	public void setEndZeroBased(int endZeroBased) {
+		this.endZeroBased = endZeroBased;
 	}
+
+
 
 	/**
 	 * 
@@ -42,10 +52,10 @@ public class SnpPosition {
 
 	
 	
-	public SnpPosition(int start, int end) {
+	public SnpPosition(int startZeroBased, int endZeroBased) {
 		super();
-		this.start = start;
-		this.end = end;
+		this.startZeroBased = startZeroBased;
+		this.endZeroBased = endZeroBased;
 	}
 
 	/**

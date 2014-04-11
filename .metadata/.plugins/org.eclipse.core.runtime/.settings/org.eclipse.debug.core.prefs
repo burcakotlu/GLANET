@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="allele.isEmpty()"/>\r\n<expression enabled\="true" text\="strLine"/>\r\n<expression enabled\="true" text\="outputFolder + directoryBase + sequenceFileDirectory + System.getProperty(&quot;file.separator&quot;) + fileName + &quot;.txt&quot;"/>\r\n</watchExpressions>\r\n
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="rsInformation"/>\r\n<expression enabled\="true" text\="rsId"/>\r\n<expression enabled\="true" text\="observedAllelesSeparatedwithTabs"/>\r\n</watchExpressions>\r\n

@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="createDirectory" key="selection"/>
+		<item value="todo" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="todo"/>
 			<item value="createDirectory"/>
 			<item value="tfNameKeggPathwayNameBased_SnpDirectory"/>
 			<item value="tfKeggPathwayTfIntervalKey"/>
@@ -15,7 +16,6 @@
 			<item value="tfInterval"/>
 			<item value="tfStart_ZeroBased"/>
 			<item value="ncbi"/>
-			<item value="0.0"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;file.separator&quot;)"/>
