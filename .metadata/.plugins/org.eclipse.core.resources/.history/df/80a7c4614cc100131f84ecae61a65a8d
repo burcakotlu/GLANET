@@ -1309,7 +1309,9 @@ public static String takeComplementforeachAllele(String allele){
 		//for Tf CellLine KeggPathway and
 		//for Tf KeggPathway 
 		String tfNameKeggPathwayName;
-						
+				
+		
+		
 		//used for this pfm matrix file is already created and written.
 		//No need for twice
 		Map<String,Boolean> pfmMatrices2FalseorTrueMap 	= new HashMap<String,Boolean>();
@@ -1324,7 +1326,8 @@ public static String takeComplementforeachAllele(String allele){
 		List<String> rsIdList;
 		RsInformation rsInformation;
 		String observedAllelesSeparatedwithSlash ;
-				
+		
+		
 		//7 April 2014 starts		
 		//key must contain tf  KeggPathway chr startZeroBased endZeroBased
 		Map<String,TfKeggPathwayGivenInterval> tfKeggPathwayBasedGivenIntervalMap = new HashMap<String,TfKeggPathwayGivenInterval>();
@@ -1350,7 +1353,8 @@ public static String takeComplementforeachAllele(String allele){
 		
 		List<String> snpKeyList;
 		//7 April 2014  ends
-					
+		
+			
 				
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
@@ -1405,6 +1409,7 @@ public static String takeComplementforeachAllele(String allele){
 																				
 					//7 April 2014 starts
 									
+					
 					//create pfmMatrices and logo Matrices for this tfNameKeggPathwayName
 					//create pfm matrices and logo matrices files under tfNameKeggPathwayName starts
 					if(pfmMatrices2FalseorTrueMap.get(tfNameKeggPathwayName) == null){
@@ -1485,7 +1490,8 @@ public static String takeComplementforeachAllele(String allele){
 																								
 						
 						//part1
-						//snpKeyList						
+						//snpKeyList
+						
 						//check whether for this given interval snps are already found
 						snpKeyList = givenIntervalBasedSnpMap.get(givenIntervalKey);
 						
@@ -1574,7 +1580,8 @@ public static String takeComplementforeachAllele(String allele){
 							//do nothing
 							//this tfInterval is already added to the map and list
 						}
-												
+						
+						
 							
 					}//For this tfKeggPathway, this given interval is read for the first time.
 					
@@ -1665,7 +1672,8 @@ public static String takeComplementforeachAllele(String allele){
 						alteredSNPSequenceCount++;
 						createSequenceFile(outputFolder,directoryBase, snpDirectory, "altered" + alteredSNPSequenceCount + "_" + snpKeyString,alteredSequence);	
 					}
-									
+					
+					
 					//find overlapping tfIntervalkeys with this snp
 					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP(tfIntervalKeyList, tfKeggPathwayBasedTfIntervalMap,  snp.getSnpZeroBasedCoordinate());
 					

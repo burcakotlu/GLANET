@@ -1665,7 +1665,8 @@ public static String takeComplementforeachAllele(String allele){
 						alteredSNPSequenceCount++;
 						createSequenceFile(outputFolder,directoryBase, snpDirectory, "altered" + alteredSNPSequenceCount + "_" + snpKeyString,alteredSequence);	
 					}
-									
+					
+				
 					//find overlapping tfIntervalkeys with this snp
 					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP(tfIntervalKeyList, tfKeggPathwayBasedTfIntervalMap,  snp.getSnpZeroBasedCoordinate());
 					
