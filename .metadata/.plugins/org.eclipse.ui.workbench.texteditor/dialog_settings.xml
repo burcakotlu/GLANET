@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="todo" key="selection"/>
+		<item value="\n" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="bufe"/>
+			<item value="\n"/>
+			<item value="&quot;\n&quot;"/>
+			<item value="\\"/>
 			<item value="todo"/>
 			<item value="createDirectory"/>
 			<item value="tfNameKeggPathwayNameBased_SnpDirectory"/>
 			<item value="tfKeggPathwayTfIntervalKey"/>
-			<item value="tfKeggPathwayBasedTfIntervalMap.put"/>
-			<item value="tfInterval"/>
-			<item value="tfStart_ZeroBased"/>
-			<item value="ncbi"/>
 		</list>
 		<list key="replacehistory">
-			<item value="System.getProperty(&quot;file.separator&quot;)"/>
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
+			<item value=""/>
+			<item value="System.getProperty(&quot;file.separator&quot;)"/>
 			<item value="Commons.ORIGINAL"/>
 			<item value="Commons.ALL_POSSIBLE_NAMES"/>
 			<item value="System.getProperty(File.separator)"/>
 			<item value="outputFolder"/>
 			<item value="processinputdata"/>
-			<item value="FileOperations.createFileWriter"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item key="DIALOG_WIDTH" value="502"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1067" key="DIALOG_X_ORIGIN"/>
-		<item value="356" key="DIALOG_Y_ORIGIN"/>
+		<item value="1429" key="DIALOG_X_ORIGIN"/>
+		<item value="342" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

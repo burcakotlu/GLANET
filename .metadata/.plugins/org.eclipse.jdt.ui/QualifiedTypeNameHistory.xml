@@ -46,4 +46,5 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
+<fullyQualifiedTypeName name="rsat.Result"/>
 </qualifiedTypeNameHistroy>

@@ -684,8 +684,9 @@ public class GenerationofSequencesandMatricesforGivenIntervals {
 			
 			}
 			//only sequence is sent
+			//so add '>' character to make it fasta format
 			else{
-				bufferedWriter.write(fileName + System.getProperty("line.separator"));
+				bufferedWriter.write(">" + fileName + System.getProperty("line.separator"));
 				bufferedWriter.write(sequence);
 	
 			}
@@ -1008,8 +1009,7 @@ public static String takeComplementforeachAllele(String allele){
 					
 			bufferedWriter.write(firstLineofFastaFile + "\t" +peakName + System.getProperty("line.separator"));
 			bufferedWriter.write(peakSequence.substring(indexofFirstLineSeparator+1).trim());
-	
-			
+		
 			bufferedWriter.close();
 			
 		} catch (IOException e) {
