@@ -130,10 +130,9 @@ public class RSATMatrixScanClient {
 
 	}
 	
+	//peak_BCLAF1M33_K562_47600418_47600641_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-03.2	R	104	113	GCCGGAAGCG	6.9	6.8e-06	-11.897	5.167	1	1
 	public static void getPeakSequenceStartandEnd(PeakSequence peakSequence,String peakResultLine){
 		
-		//example
-		//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	R	37	45	ACAGAGCCG	4.7	5.6e-04	-7.490	3.253	1	1
 		int indexofFirstTab 	= peakResultLine.indexOf('\t');
 		int indexofSecondTab 	= peakResultLine.indexOf('\t',indexofFirstTab+1);
 		int indexofThirdTab 	= peakResultLine.indexOf('\t',indexofSecondTab+1);
@@ -149,20 +148,20 @@ public class RSATMatrixScanClient {
 	
 	public static boolean peakResultLineContainsSNPPosition(String snpResultLine,String peakResultLine){
 		int snpStartOneBased = 0;
-		int peakStartOneBased = 0;
-		int snpPositionWithRespectoPeakSequence = 0;
+		int peakStart = 0;
+		int snpPosition = 0;
 		
 		PeakSequence peakSequence= new PeakSequence();
 		
 		
 		snpStartOneBased = getOneBasedSNPStart(snpResultLine);
-		peakStartOneBased = getOneBasedPeakStart(peakResultLine);
+		peakStart = getPeakStart(peakResultLine);
 		
-		snpPositionWithRespectoPeakSequence = snpStartOneBased - peakStartOneBased +1;
+		snpPosition = snpStartOneBased - peakStart +1;
 		
 		getPeakSequenceStartandEnd(peakSequence,peakResultLine);
 		
-		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpPositionWithRespectoPeakSequence);
+		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpPosition);
 		
 	}
 	
@@ -315,28 +314,15 @@ public class RSATMatrixScanClient {
 		}
 	}
 	
-	public static void calculateLogRatioofPValues(Result bestReferenceSequence, Result bestAlteredSequence, BufferedWriter bufferedWriter) throws IOException{
+	public static void calculateLogRatioofPValues(double pValueofReferenceSequence, double pValueofVariationSequence, BufferedWriter bufferedWriter) throws IOException{
 		
 		double logRatio;
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
-		double pValueofReferenceSequence = 0;
-		double pValueofAlteredSequence = 0;
 		
-		if (bestReferenceSequence != null && bestAlteredSequence!= null){
-			pValueofReferenceSequence = bestReferenceSequence.getpValue();
-			pValueofAlteredSequence = bestAlteredSequence.getpValue();
-			
-			logRatio = Math.log10(pValueofReferenceSequence/pValueofAlteredSequence);
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : " + df.format(logRatio) + "\n");
+		logRatio = Math.log10(pValueofReferenceSequence/pValueofVariationSequence);
+		bufferedWriter.write("log ratio of reference snp sequence to the variation snp sequence is : " + df.format(logRatio) + "\n");
 		
-		}else{
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : Not Applicable"  + "\n");
-			
-		}
-		
-		
-			
 	}
 
 	
@@ -360,7 +346,7 @@ public class RSATMatrixScanClient {
 		for(String alteredSNPResult: alteredSNPResults){
 			bestAlteredSNPLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSNPResult,bufferedWriter);
 			
-			calculateLogRatioofPValues(bestSNPLineResult,bestAlteredSNPLineResult,bufferedWriter);
+			calculateLogRatioofPValues(bestSNPLineResult.getpValue(),bestAlteredSNPLineResult.getpValue(),bufferedWriter);
 		}
 				
 	}

@@ -81,59 +81,50 @@ public class RSATMatrixScanClient {
 		return false;
 	}
 	
-	public static int getOneBasedPeakStart(String bestPeakResultLine){
+	public static int getPeakStart(String bestPeakResultLine){
 //		peak_BCLAF1M33_GM12878_170862295_170862544_BCLAF1M33_hsa05016 	site 	matrix-scan_2014-03-03.2 	R 	108 	117 	GCCGGAAGTG 	7.7 	1.7e-06 	-13.269 	5.762 	1 	1
-//		int indexofFirstTab = bestPeakResultLine.indexOf('\t');
-//		
-//		String peak = bestPeakResultLine.substring(0, indexofFirstTab);
-//		
-//		int indexofFirstUnderscore 	= peak.indexOf('_');
-//		int indexofSecondUnderscore = peak.indexOf('_',indexofFirstUnderscore+1);
-//		int indexofThirdUnderscore 	= peak.indexOf('_',indexofSecondUnderscore+1);
-//		int indexFourthUnderscore 	= peak.indexOf('_',indexofThirdUnderscore+1);
-//		
-//		return Integer.parseInt(peak.substring(indexofThirdUnderscore+1, indexFourthUnderscore));
-	
-		//example
-		//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	R	37	45	ACAGAGCCG	4.7	5.6e-04	-7.490	3.253	1	1
+		int indexofFirstTab = bestPeakResultLine.indexOf('\t');
 		
-		int indexofFirstColon = bestPeakResultLine.indexOf(':');
-		int indexofFirstHyphen = bestPeakResultLine.indexOf('-');
-					
-		return Integer.parseInt(bestPeakResultLine.substring(indexofFirstColon+1, indexofFirstHyphen));
-
+		String peak = bestPeakResultLine.substring(0, indexofFirstTab);
+		
+		int indexofFirstUnderscore 	= peak.indexOf('_');
+		int indexofSecondUnderscore = peak.indexOf('_',indexofFirstUnderscore+1);
+		int indexofThirdUnderscore 	= peak.indexOf('_',indexofSecondUnderscore+1);
+		int indexFourthUnderscore 	= peak.indexOf('_',indexofThirdUnderscore+1);
+		
+		return Integer.parseInt(peak.substring(indexofThirdUnderscore+1, indexFourthUnderscore));
+	
 	}
 	
 	
-	public static int getOneBasedSNPStart(String bestSNPResultLine){
+	public static int getSNPStart(String bestSNPResultLine){
 //		example snp result line
 //		snp_chr6_170862335_BCLAF1M33_hsa05016 	site 	matrix-scan_2014-03-03.5 	D 	15 	28 	GGCTGCGCCTGCGG 	4.8 	4.2e-06 	-12.391 	5.381 	1 	1
 		
-//		int indexofFirstTab = bestSNPResultLine.indexOf('\t');
-//		
-//		String snp = bestSNPResultLine.substring(0, indexofFirstTab);
-//		
-//		int indexofFirstUnderscore = snp.indexOf('_');
-//		int indexofSecondUnderscore = snp.indexOf('_',indexofFirstUnderscore+1);
-//		int indexofThirdUnderscore = snp.indexOf('_',indexofSecondUnderscore+1);
-//		
-//		return Integer.parseInt(snp.substring(indexofSecondUnderscore+1, indexofThirdUnderscore));
+		int indexofFirstTab = bestSNPResultLine.indexOf('\t');
 		
-		//example snp result line
-		//gi|224589818:170862322-170862350	site	matrix-scan-matrix_2014-04-11.5	D	13	21	ACGGCTGCG	3.5	3.7e-03	-5.602	2.433	2	2		
-		int indexofFirstColon = bestSNPResultLine.indexOf(':');
-		int indexofFirstHyphen = bestSNPResultLine.indexOf('-');
-					
-		return Integer.parseInt(bestSNPResultLine.substring(indexofFirstColon+1, indexofFirstHyphen)) + Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION;
+		String snp = bestSNPResultLine.substring(0, indexofFirstTab);
+		
+		int indexofFirstUnderscore = snp.indexOf('_');
+		int indexofSecondUnderscore = snp.indexOf('_',indexofFirstUnderscore+1);
+		int indexofThirdUnderscore = snp.indexOf('_',indexofSecondUnderscore+1);
+		
+		return Integer.parseInt(snp.substring(indexofSecondUnderscore+1, indexofThirdUnderscore));
+		
+//		example snp result line
+//		gi|224589818:170862322-170862350	site	matrix-scan-matrix_2014-04-11.5	D	13	21	ACGGCTGCG	3.5	3.7e-03	-5.602	2.433	2	2		
+//		int indexofFirstColon = bestSNPResultLine.indexOf(':');
+//		int indexofFirstHyphen = bestSNPResultLine.indexOf('-');
+//					
+//		return Integer.parseInt(bestSNPResultLine.substring(indexofFirstColon+1, indexofFirstHyphen)) + Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION;
 
 		
 
 	}
 	
+	//peak_BCLAF1M33_K562_47600418_47600641_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-03.2	R	104	113	GCCGGAAGCG	6.9	6.8e-06	-11.897	5.167	1	1
 	public static void getPeakSequenceStartandEnd(PeakSequence peakSequence,String peakResultLine){
 		
-		//example
-		//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	R	37	45	ACAGAGCCG	4.7	5.6e-04	-7.490	3.253	1	1
 		int indexofFirstTab 	= peakResultLine.indexOf('\t');
 		int indexofSecondTab 	= peakResultLine.indexOf('\t',indexofFirstTab+1);
 		int indexofThirdTab 	= peakResultLine.indexOf('\t',indexofSecondTab+1);
@@ -148,21 +139,21 @@ public class RSATMatrixScanClient {
 
 	
 	public static boolean peakResultLineContainsSNPPosition(String snpResultLine,String peakResultLine){
-		int snpStartOneBased = 0;
-		int peakStartOneBased = 0;
-		int snpPositionWithRespectoPeakSequence = 0;
+		int snpStart = 0;
+		int peakStart = 0;
+		int snpPosition = 0;
 		
 		PeakSequence peakSequence= new PeakSequence();
 		
 		
-		snpStartOneBased = getOneBasedSNPStart(snpResultLine);
-		peakStartOneBased = getOneBasedPeakStart(peakResultLine);
+		snpStart = getSNPStart(snpResultLine);
+		peakStart = getPeakStart(peakResultLine);
 		
-		snpPositionWithRespectoPeakSequence = snpStartOneBased - peakStartOneBased +1;
+		snpPosition = snpStart - peakStart +1;
 		
 		getPeakSequenceStartandEnd(peakSequence,peakResultLine);
 		
-		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpPositionWithRespectoPeakSequence);
+		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpPosition);
 		
 	}
 	
@@ -315,28 +306,15 @@ public class RSATMatrixScanClient {
 		}
 	}
 	
-	public static void calculateLogRatioofPValues(Result bestReferenceSequence, Result bestAlteredSequence, BufferedWriter bufferedWriter) throws IOException{
+	public static void calculateLogRatioofPValues(double pValueofReferenceSequence, double pValueofVariationSequence, BufferedWriter bufferedWriter) throws IOException{
 		
 		double logRatio;
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
-		double pValueofReferenceSequence = 0;
-		double pValueofAlteredSequence = 0;
 		
-		if (bestReferenceSequence != null && bestAlteredSequence!= null){
-			pValueofReferenceSequence = bestReferenceSequence.getpValue();
-			pValueofAlteredSequence = bestAlteredSequence.getpValue();
-			
-			logRatio = Math.log10(pValueofReferenceSequence/pValueofAlteredSequence);
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : " + df.format(logRatio) + "\n");
+		logRatio = Math.log10(pValueofReferenceSequence/pValueofVariationSequence);
+		bufferedWriter.write("log ratio of reference snp sequence to the variation snp sequence is : " + df.format(logRatio) + "\n");
 		
-		}else{
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : Not Applicable"  + "\n");
-			
-		}
-		
-		
-			
 	}
 
 	
@@ -348,7 +326,7 @@ public class RSATMatrixScanClient {
 		
 		String description = "Best snp sequence containing snp position: ";
 		//Get best snp result line containing snp position if it exists
-		bestSNPLineResult = getBestReferenceResultLineContainigSNPPosition(description,snpResult,bufferedWriter);
+		bestSNPLineResult = getBestSnpResultLine(description,snpResult,bufferedWriter);
 			
 		
 		//Get best peak result line containing snp position 
@@ -358,9 +336,9 @@ public class RSATMatrixScanClient {
 		
 		//get the best alteredSNPResultLine containing snp position
 		for(String alteredSNPResult: alteredSNPResults){
-			bestAlteredSNPLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSNPResult,bufferedWriter);
+			bestAlteredSNPLineResult =getBestSnpResultLine(description,alteredSNPResult,bufferedWriter);
 			
-			calculateLogRatioofPValues(bestSNPLineResult,bestAlteredSNPLineResult,bufferedWriter);
+			calculateLogRatioofPValues(bestSNPLineResult.getpValue(),bestAlteredSNPLineResult.getpValue(),bufferedWriter);
 		}
 				
 	}

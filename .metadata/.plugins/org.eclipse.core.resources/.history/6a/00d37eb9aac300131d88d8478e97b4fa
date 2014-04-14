@@ -321,7 +321,7 @@ public class RSATMatrixScanClient {
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
 		double pValueofReferenceSequence = 0;
-		double pValueofAlteredSequence = 0;
+		double pValueofAlteredSequence 0 0;
 		
 		if (bestReferenceSequence != null && bestAlteredSequence!= null){
 			pValueofReferenceSequence = bestReferenceSequence.getpValue();
@@ -360,7 +360,7 @@ public class RSATMatrixScanClient {
 		for(String alteredSNPResult: alteredSNPResults){
 			bestAlteredSNPLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSNPResult,bufferedWriter);
 			
-			calculateLogRatioofPValues(bestSNPLineResult,bestAlteredSNPLineResult,bufferedWriter);
+			calculateLogRatioofPValues(bestSNPLineResult.getpValue(),bestAlteredSNPLineResult.getpValue(),bufferedWriter);
 		}
 				
 	}

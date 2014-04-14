@@ -315,28 +315,15 @@ public class RSATMatrixScanClient {
 		}
 	}
 	
-	public static void calculateLogRatioofPValues(Result bestReferenceSequence, Result bestAlteredSequence, BufferedWriter bufferedWriter) throws IOException{
+	public static void calculateLogRatioofPValues(double pValueofReferenceSequence, double pValueofVariationSequence, BufferedWriter bufferedWriter) throws IOException{
 		
 		double logRatio;
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
-		double pValueofReferenceSequence = 0;
-		double pValueofAlteredSequence = 0;
 		
-		if (bestReferenceSequence != null && bestAlteredSequence!= null){
-			pValueofReferenceSequence = bestReferenceSequence.getpValue();
-			pValueofAlteredSequence = bestAlteredSequence.getpValue();
-			
-			logRatio = Math.log10(pValueofReferenceSequence/pValueofAlteredSequence);
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : " + df.format(logRatio) + "\n");
+		logRatio = Math.log10(pValueofReferenceSequence/pValueofVariationSequence);
+		bufferedWriter.write("log ratio of reference snp sequence to the variation snp sequence is : " + df.format(logRatio) + "\n");
 		
-		}else{
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : Not Applicable"  + "\n");
-			
-		}
-		
-		
-			
 	}
 
 	
@@ -360,7 +347,7 @@ public class RSATMatrixScanClient {
 		for(String alteredSNPResult: alteredSNPResults){
 			bestAlteredSNPLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSNPResult,bufferedWriter);
 			
-			calculateLogRatioofPValues(bestSNPLineResult,bestAlteredSNPLineResult,bufferedWriter);
+			calculateLogRatioofPValues(bestSNPLineResult.getpValue(),bestAlteredSNPLineResult.getpValue(),bufferedWriter);
 		}
 				
 	}
