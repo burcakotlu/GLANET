@@ -52,7 +52,7 @@ public class RSATMatrixScanClient {
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
-				all = all + strLine +"\n";
+				all = all + strLine +System.getProperty("line.separator");
 				
 			}
 			
@@ -168,16 +168,15 @@ public class RSATMatrixScanClient {
 	
 	//Among the reference result lines 
 	//get the best reference line containing snp position
-	public static Result getBestReferenceResultLineContainigSNPPosition(String description, String snpResult,BufferedWriter bufferedWriter) throws IOException{
+	public static Result getBestReferenceResultLineContainigSNPPosition(String description, String snpResult,BufferedWriter bufferedWriter,Result bestReferenceLineResult) throws IOException{
 		
-		String snpResultLine = null;
-		String bestSNPResultLine =null;
+		String resultLine = null;
+		String bestResultLine =null;
 		
 		int indexofSharpinSNPResult;
 		int indexofNewLineinSNPResult;
 		int indexofNextNewLineinSNPResult;
-		
-		
+			
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
@@ -191,23 +190,30 @@ public class RSATMatrixScanClient {
 		char direction = ' ';
 		int start = 0;
 		int end = 0;
+		
 		double pValue = 0;
+		double pValueofReferenceSequence = 0;
+		double logRatio;
+		
 		String sequence = null;
 		
-		int countforSNPResultLine = 0;
+		DecimalFormat df = new DecimalFormat("0.######E0");
+		
+		
+		int countforResultLine = 0;
 		
 		Result result = new Result();
 	
 		indexofSharpinSNPResult = snpResult.indexOf('#');
 		indexofNewLineinSNPResult = snpResult.indexOf('\n',indexofSharpinSNPResult+1);
 		indexofNextNewLineinSNPResult = snpResult.indexOf('\n',indexofNewLineinSNPResult+1);
-		
+					
 		
 		do{
 			
-			snpResultLine = snpResult.substring(indexofNewLineinSNPResult+1,indexofNextNewLineinSNPResult);
+			resultLine = snpResult.substring(indexofNewLineinSNPResult+1,indexofNextNewLineinSNPResult);
 			
-			if(snpResultLine.startsWith(";")){
+			if(resultLine.startsWith(";")){
 				//Not a valid snp result line 
 				break;
 			}
@@ -215,23 +221,23 @@ public class RSATMatrixScanClient {
 			//check whether there is no snp result or there is no snp result containing snp position
 			//if there is a break countforSNPResultLine will remain zero means that there is no snp result
 			//else countforSNPResultLine will be nonzero means there is at least one snp result 
-			countforSNPResultLine++;
+			countforResultLine++;
 			
-			indexofFirstTab 	= snpResultLine.indexOf('\t');
-			indexofSecondTab 	= snpResultLine.indexOf('\t',indexofFirstTab+1);
-			indexofThirdTab 	= snpResultLine.indexOf('\t',indexofSecondTab+1);
-			indexofFourthTab 	= snpResultLine.indexOf('\t',indexofThirdTab+1);
-			indexofFifthTab 	= snpResultLine.indexOf('\t',indexofFourthTab+1);
-			indexofSixthTab 	= snpResultLine.indexOf('\t',indexofFifthTab+1);
-			indexofSeventhTab	= snpResultLine.indexOf('\t',indexofSixthTab+1);
-			indexofEigthTab 	= snpResultLine.indexOf('\t',indexofSeventhTab+1);
-			indexofNinethTab 	= snpResultLine.indexOf('\t',indexofEigthTab+1);
+			indexofFirstTab 	= resultLine.indexOf('\t');
+			indexofSecondTab 	= resultLine.indexOf('\t',indexofFirstTab+1);
+			indexofThirdTab 	= resultLine.indexOf('\t',indexofSecondTab+1);
+			indexofFourthTab 	= resultLine.indexOf('\t',indexofThirdTab+1);
+			indexofFifthTab 	= resultLine.indexOf('\t',indexofFourthTab+1);
+			indexofSixthTab 	= resultLine.indexOf('\t',indexofFifthTab+1);
+			indexofSeventhTab	= resultLine.indexOf('\t',indexofSixthTab+1);
+			indexofEigthTab 	= resultLine.indexOf('\t',indexofSeventhTab+1);
+			indexofNinethTab 	= resultLine.indexOf('\t',indexofEigthTab+1);
 			
-			direction = snpResultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
-			start = Integer.parseInt(snpResultLine.substring(indexofFourthTab+1, indexofFifthTab));
-			end = Integer.parseInt(snpResultLine.substring(indexofFifthTab+1, indexofSixthTab));
-			sequence = snpResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
-			pValue = Double.parseDouble(snpResultLine.substring(indexofEigthTab+1, indexofNinethTab));
+			direction = resultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
+			start = Integer.parseInt(resultLine.substring(indexofFourthTab+1, indexofFifthTab));
+			end = Integer.parseInt(resultLine.substring(indexofFifthTab+1, indexofSixthTab));
+			sequence = resultLine.substring(indexofSixthTab+1,indexofSeventhTab);
+			pValue = Double.parseDouble(resultLine.substring(indexofEigthTab+1, indexofNinethTab));
 			
 			
 			//in case of next snpResult fetch
@@ -241,22 +247,41 @@ public class RSATMatrixScanClient {
 		} while(!constainsSNP(start,end,Commons.ONE_BASED_SNP_POSITION));
 
 		
-		if(snpResultLine.startsWith(";") && countforSNPResultLine==0){
-			bufferedWriter.write("There is no snp result line\n");	
-		}else if (snpResultLine.startsWith(";") && countforSNPResultLine!=0){
-			bufferedWriter.write("There is NO snp result line containing snp position\n");
+		if(resultLine.startsWith(";") && countforResultLine==0){
+			bufferedWriter.write("There is no result line" + System.getProperty("line.separator"));	
+		}else if (resultLine.startsWith(";") && countforResultLine!=0){
+			bufferedWriter.write("There is NO result line containing snp position" + System.getProperty("line.separator"));
 		}else {
-			bestSNPResultLine = snpResultLine;
-			//no need to write this.
-			//bufferedWriter.write(direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + pValue +"\n");
+			bestResultLine = resultLine;
 		}
 		
-		if(bestSNPResultLine!=null){
-			bufferedWriter.write(description + bestSNPResultLine + "\n");
+		
+		//there is a result line containing snp position
+		if(bestResultLine!=null){
+			//This method has called for altered sequence
+			//since bestReferenceLineResult is not null
+			if (bestReferenceLineResult!=null && bestReferenceLineResult.getResultLine() !=null){
+				
+				pValueofReferenceSequence = bestReferenceLineResult.getpValue();
+				logRatio = Math.log10(pValueofReferenceSequence/pValue);
+				
+				bufferedWriter.write(description + " at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + df.format(logRatio) + System.getProperty("line.separator"));
+			}
+			//This method has called for reference sequence
+			//since bestReferenceLineResult is null
+			else{
+				bufferedWriter.write(description + " at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+				
+			}
+		}
+		//there is no result line containing snp position		
+		else{
+			//Do nothing
+			//Already covered above
 		}
 		
 		result.setpValue(pValue);
-		result.setResultLine(bestSNPResultLine);
+		result.setResultLine(bestResultLine);
 		
 		return result;
 
@@ -267,7 +292,26 @@ public class RSATMatrixScanClient {
 		
 		int countforPeakResultLine = 1;
 		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		
+		char direction = ' ';
+		int start = 0;
+		int end = 0;	
+		String sequence = null;
+		double pValue = 0;
+		
 		boolean isThereAPeakResultLineContainingSNPPosition = false;
+		
+		DecimalFormat df = new DecimalFormat("0.######E0");
+		
 
 		int indexofSharpinPeakResult = peakResult.indexOf('#');
 		int indexofNewLineinPeakResult = peakResult.indexOf('\n',indexofSharpinPeakResult+1);
@@ -278,10 +322,31 @@ public class RSATMatrixScanClient {
 		String  bestPeakResultLine = null;
 		
 		if(peakResultLine.startsWith(";")){
-			bufferedWriter.write("There is no peak result line\n");	
+			bufferedWriter.write("There is no peak result line" + System.getProperty("line.separator"));	
 		}else{
+			//example
+			//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	R	37	45	ACAGAGCCG	4.7	5.6e-04	-7.490	3.253	1	1
+			
 			bestPeakResultLine = peakResultLine;
-			bufferedWriter.write("Best peak sequence: " + bestPeakResultLine +"\n");
+			
+			indexofFirstTab 	= bestPeakResultLine.indexOf('\t');
+			indexofSecondTab 	= bestPeakResultLine.indexOf('\t',indexofFirstTab+1);
+			indexofThirdTab 	= bestPeakResultLine.indexOf('\t',indexofSecondTab+1);
+			indexofFourthTab 	= bestPeakResultLine.indexOf('\t',indexofThirdTab+1);
+			indexofFifthTab 	= bestPeakResultLine.indexOf('\t',indexofFourthTab+1);
+			indexofSixthTab 	= bestPeakResultLine.indexOf('\t',indexofFifthTab+1);
+			indexofSeventhTab	= bestPeakResultLine.indexOf('\t',indexofSixthTab+1);
+			indexofEigthTab 	= bestPeakResultLine.indexOf('\t',indexofSeventhTab+1);
+			indexofNinethTab 	= bestPeakResultLine.indexOf('\t',indexofEigthTab+1);
+			
+			direction = bestPeakResultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
+			start = Integer.parseInt(bestPeakResultLine.substring(indexofFourthTab+1, indexofFifthTab));
+			end = Integer.parseInt(bestPeakResultLine.substring(indexofFifthTab+1, indexofSixthTab));
+			sequence = bestPeakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
+			pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
+		
+				
+			bufferedWriter.write(countforPeakResultLine + ". peak result line" +  "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 		}
 		
 		//if best snp result line and best peak result line are not null
@@ -305,73 +370,45 @@ public class RSATMatrixScanClient {
 			
 			//There is a peak result line containing snp position
 			if(isThereAPeakResultLineContainingSNPPosition){
-				bufferedWriter.write("Peak result line containing snp position at " + countforPeakResultLine + ". peak result line : "   + bestPeakResultLine + "\n");
+				//example
+				//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	D	107	115	ACGGCTGCG	3.5	3.7e-03	-5.602	2.433	9	6
+				
+				indexofFirstTab 	= bestPeakResultLine.indexOf('\t');
+				indexofSecondTab 	= bestPeakResultLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab 	= bestPeakResultLine.indexOf('\t',indexofSecondTab+1);
+				indexofFourthTab 	= bestPeakResultLine.indexOf('\t',indexofThirdTab+1);
+				indexofFifthTab 	= bestPeakResultLine.indexOf('\t',indexofFourthTab+1);
+				indexofSixthTab 	= bestPeakResultLine.indexOf('\t',indexofFifthTab+1);
+				indexofSeventhTab	= bestPeakResultLine.indexOf('\t',indexofSixthTab+1);
+				indexofEigthTab 	= bestPeakResultLine.indexOf('\t',indexofSeventhTab+1);
+				indexofNinethTab 	= bestPeakResultLine.indexOf('\t',indexofEigthTab+1);
+				
+				direction = bestPeakResultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
+				start = Integer.parseInt(bestPeakResultLine.substring(indexofFourthTab+1, indexofFifthTab));
+				end = Integer.parseInt(bestPeakResultLine.substring(indexofFifthTab+1, indexofSixthTab));
+				sequence = bestPeakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
+				pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
+			
+				bufferedWriter.write("Peak result line containing snp position at " + countforPeakResultLine + ". peak result lines" +   "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+
 			}
 			//There is no peak result line containing snp position
 			else{
-				bufferedWriter.write("There is no peak result line containing snp position\n");
+				bufferedWriter.write("There is no peak result line containing snp position" + System.getProperty("line.separator"));
 				
 			}
 		}
 	}
 	
-	public static void calculateLogRatioofPValues(Result bestReferenceLineResult, Result bestAlteredLineResult, BufferedWriter bufferedWriter) throws IOException{
-		
-		double logRatio;
-		DecimalFormat df = new DecimalFormat("0.######E0");
-		
-		double pValueofReferenceSequence = 0;
-		double pValueofAlteredSequence = 0;
-		
-		if (bestReferenceLineResult.getResultLine() != null && bestAlteredLineResult.getResultLine()!= null){
-			pValueofReferenceSequence = bestReferenceLineResult.getpValue();
-			pValueofAlteredSequence = bestAlteredLineResult.getpValue();
-			
-			logRatio = Math.log10(pValueofReferenceSequence/pValueofAlteredSequence);
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : " + df.format(logRatio) + "\n");
-		
-		}else{
-			bufferedWriter.write("log ratio of reference sequence to the altered sequence is : Not Applicable"  + "\n");		
-		}
-		
-		
-			
-	}
-
 	
-	//search for the best snp result line containing snp position among peak result lines
-	public static void compareResults(String snpResult, List<String> alteredSNPResults,String peakResult, BufferedWriter bufferedWriter) throws IOException{
-				
-		Result bestReferenceLineResult = null;
-		Result bestAlteredLineResult = null;
-		
-		String description = "Best snp sequence containing snp position: ";
-		//Get best snp result line containing snp position if it exists
-		bestReferenceLineResult = getBestReferenceResultLineContainigSNPPosition(description,snpResult,bufferedWriter);
-			
-		
-		//Get best peak result line containing snp position 
-		getBestPeakResultLine(bestReferenceLineResult.getResultLine(),peakResult,bufferedWriter);
-		
-		description = "Best altered snp sequence containing snp position: ";
-		
-		//get the best alteredSNPResultLine containing snp position
-		for(String alteredSNPResult: alteredSNPResults){
-			bestAlteredLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSNPResult,bufferedWriter);
-			
-			calculateLogRatioofPValues(bestReferenceLineResult,bestAlteredLineResult,bufferedWriter);
-		}
-				
-	}
-
 	
-	public static void matrixScan(String snpInputFile,List<String> alteredSNPInputFiles,String peakInputFile,String pfmMatricesInputFile,RSATWSPortType proxy,MatrixScanRequest matrixScanRequest,BufferedWriter bufferedWriter){
+	public static void matrixScan(String enrichedTfandKeggPathwayName, String givenIntervalName, String snpName,String snpInputFile,List<String> alteredSNPInputFiles,String peakInputFile,String pfmMatricesInputFile,RSATWSPortType proxy,MatrixScanRequest matrixScanRequest,BufferedWriter bufferedWriter){
 		try{
 		
 			
-			bufferedWriter.write("********************************************\n");
-			bufferedWriter.write("This script illustrates a request to RSATMatrixScan ...\n");
-			bufferedWriter.write("pfmMatricesFile: "  + pfmMatricesInputFile +"\n");
+			bufferedWriter.write("**********" + enrichedTfandKeggPathwayName + "**********" + givenIntervalName +  "**********" + snpName + "**********************************" + System.getProperty("line.separator"));
+			//bufferedWriter.write("This script illustrates a request to RSATMatrixScan ..." + System.getProperty("line.separator"));
+			//bufferedWriter.write("pfmMatricesFile: "  + pfmMatricesInputFile +System.getProperty("line.separator"));
 
 			
 //			RSATWebServicesLocator service = new RSATWebServicesLocator();		
@@ -445,8 +482,8 @@ public class RSATMatrixScanClient {
 			matrixScanRequest.setSequence(snpSequence);
 		
 			/*Call the service*/
-			bufferedWriter.write("Matrix-scan: sending request to the server for snp sequence...\n");
-			bufferedWriter.write("snpFile: "+  snpInputFile + "\n");
+			//bufferedWriter.write("Matrix-scan: sending request to the server for reference sequence..." + System.getProperty("line.separator"));
+			//bufferedWriter.write("referenceSequenceFile: "+  snpInputFile + System.getProperty("line.separator"));
 			
 			MatrixScanResponse snpResponse = proxy.matrix_scan(matrixScanRequest);
 				
@@ -456,27 +493,28 @@ public class RSATMatrixScanClient {
 //			String commandUsedontheServerforSNP = snpResponse.getCommand();
 				
 			//Report the server file location
-	//		System.out.println("Result file on the server::\n"+ response.getServer());
+	//		System.out.println("Result file on the server::" + System.getProperty("line.separator")+ response.getServer());
 //			String resultFileontheServerforSNP = snpResponse.getServer();
 			
+			//Write header to the outputFile
+			bufferedWriter.write("Description" + "\t" + "Direction" + "\t" + "Start" + "\t" + "End" + 	"\t" + "Sequence" + "\t" + "pValue" + "\t" + "log(referenceSequenceResultPValue/alteredSequenceResultPValue)" + System.getProperty("line.separator"));
+			
 				
-			//Results
-			String snpResult = snpResponse.getClient();
+			//reference Results
+			String referenceResult = snpResponse.getClient();
 			
-			matrixScanRequest.setSequence(peakSequences);
+			/****************************************************************************/
+			String description = "Best reference sequence containing snp position ";
+			Result bestReferenceLineResult = null;
 			
-			/*Call the service*/
-			bufferedWriter.write("Matrix-scan: sending request to the server for peak sequences...\n");
-			bufferedWriter.write("peakFile: "+  peakInputFile + "\n");
-			
-			MatrixScanResponse peakResponse = proxy.matrix_scan(matrixScanRequest);
-				
-			//Results
-			String peakResult = peakResponse.getClient();
-			
-			List<String> alteredSNPResults = new ArrayList<String>();
+			//Get best reference result line containing snp position if it exists
+			bestReferenceLineResult = getBestReferenceResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);
+			/****************************************************************************/
+									
 			
 			//**************************************
+			int alteredSequenceCount = 1;
+			
 			for(String alteredSNPInputFile:alteredSNPInputFiles ){
 				String alteredSNPSequence = readAllfromFile(alteredSNPInputFile);
 				
@@ -484,28 +522,56 @@ public class RSATMatrixScanClient {
 				matrixScanRequest.setSequence(alteredSNPSequence);
 				
 				/*Call the service*/
-				bufferedWriter.write("Matrix-scan: sending request to the server for altered SNP sequences...\n");
-				bufferedWriter.write("alteredSNPFile: "+  alteredSNPInputFile + "\n");
+				//bufferedWriter.write("Matrix-scan: sending request to the server for altered sequences..." + System.getProperty("line.separator"));
+				//bufferedWriter.write("alteredSequenceFile: "+  alteredSNPInputFile + System.getProperty("line.separator"));
 				
 				MatrixScanResponse alteredSNPResponse = proxy.matrix_scan(matrixScanRequest);
 			
-				String alteredSNPResult = alteredSNPResponse.getClient();
+				//Altered Results
+				String alteredSequenceResult = alteredSNPResponse.getClient();
 				
-				alteredSNPResults.add(alteredSNPResult);
-			}//for each altered snp sequence file
-						
+				/****************************************************************************/
+				description = "Best alteredSequence"  + alteredSequenceCount + " containing snp position ";					
+				Result bestAlteredLineResult = null;
+				
+				//Get best altered result line containing snp position if it exists
+				bestAlteredLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSequenceResult,bufferedWriter,bestReferenceLineResult);
+				
+				alteredSequenceCount++;
+				/****************************************************************************/
+								
+				
+			}//for each altered snp sequence file		
 			//**************************************
 		
 			
-			compareResults(snpResult,alteredSNPResults,peakResult,bufferedWriter);
 			
+			/****************************************************************************/
+			matrixScanRequest.setSequence(peakSequences);
+			
+			/*Call the service*/
+			//bufferedWriter.write("Matrix-scan: sending request to the server for extended peak sequence..." + System.getProperty("line.separator"));
+			//bufferedWriter.write("extendedPeakSequenceFile: "+  peakInputFile + System.getProperty("line.separator"));
+			
+			MatrixScanResponse peakResponse = proxy.matrix_scan(matrixScanRequest);
+				
+			//Extended Peak Results
+			String extendedPeakResult = peakResponse.getClient();
+			
+			//Get best peak result line containing snp position 
+			getBestPeakResultLine(bestReferenceLineResult.getResultLine(),extendedPeakResult,bufferedWriter);
+			/****************************************************************************/
+				
 		
+			
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			
 		}
 
 	}
+	
+	
 
 	public static void matrixScan(String outputFolder,String baseDirectory,BufferedWriter bufferedWriter){
 		
@@ -525,6 +591,10 @@ public class RSATMatrixScanClient {
 			RSATWebServicesLocator service = new RSATWebServicesLocator();
 			RSATWSPortType proxy  = null;
 			
+			String enrichedTfandKeggPathwayName = null;
+			String givenIntervalName = null;
+			String snpName = null;
+			
 			try {
 				proxy = service.getRSATWSPortType();
 			} catch (ServiceException e) {
@@ -539,6 +609,8 @@ public class RSATMatrixScanClient {
 		    	
 		    	//example	BCL3_hsa03050
 		        if(enrichedTfandKeggPathways.isDirectory()) {
+		        	
+		        	enrichedTfandKeggPathwayName = enrichedTfandKeggPathways.getName();
 		        	
 		        	//Initialise input files
 	        		pfmMatricesInputFile = null;
@@ -565,10 +637,15 @@ public class RSATMatrixScanClient {
 		        		//we found a given interval directory
 		        		//example givenInterval_chr6_170862335_170862335
 		        		if(givenInterval.isDirectory()){
+		        			
+		        			givenIntervalName = givenInterval.getName();
+		        			
 		        		  	for(File snps:givenInterval.listFiles()){
 		        		  		
 		        		  		//example snp_chr6_170862335
 				         		if(snps.isDirectory()){
+				         			
+				         			snpName = snps.getName();
 				         			
 				         			//Initialise input files
 				         			snpInputFile = null;
@@ -583,12 +660,6 @@ public class RSATMatrixScanClient {
 				         				fileName = snporPeakorPFMorLogo.getName();
 				         				fileAbsolutePath = snporPeakorPFMorLogo.getAbsolutePath();
 				         				
-				         				//for debug start
-				         				//debug snp_chr11_47600437_ELK4_hsa05016.txt buraya eklenecek
-				         				if (fileName.equals("snp_chr11_47600437_ELK4_hsa05016.txt")){
-				         					System.out.println("stop here");
-				         				}
-				         				//for debug end
 				         				
 				         				if (fileName.startsWith("reference")){
 				         					snpInputFile = fileAbsolutePath;
@@ -604,7 +675,10 @@ public class RSATMatrixScanClient {
 				         			//If all necessary files are not null
 				         			if(snpInputFile!= null && peakInputFile!=null && pfmMatricesInputFile!=null ){
 				            			//Matrix Scan Call
-					         			matrixScan(snpInputFile,alteredSNPInputFiles,peakInputFile,pfmMatricesInputFile,proxy,matrixScanRequest,bufferedWriter);
+				         				//what is enrichedElement
+				         				//what is given interval name
+				         				//what is snp
+					         			matrixScan(enrichedTfandKeggPathwayName, givenIntervalName, snpName,snpInputFile,alteredSNPInputFiles,peakInputFile,pfmMatricesInputFile,proxy,matrixScanRequest,bufferedWriter);
 					   
 				         			}
 				         				
@@ -613,10 +687,7 @@ public class RSATMatrixScanClient {
 		        			
 		        		}//if givenIntervals is directory
 		        				        		
-		        	}//end of for each givenInterval
-		        	
-		       
-		         	
+		        	}//end of for each givenInterval	         	
 		         	
 		        }  // if it is a directory
 		    }//End of for each enriched tf and kegg pathway directory
@@ -626,7 +697,7 @@ public class RSATMatrixScanClient {
 	}
 	
 	//args[0] must have input file name with folder
-	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[1] must have GLANET installation folder with "" at the end. This folder will be used for outputFolder and dataFolder.
 	//args[2] must have Input File Format		
 	//args[3] must have Number of Permutations	
 	//args[4] must have False Discovery Rate (ex: 0.05)

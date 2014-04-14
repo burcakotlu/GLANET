@@ -4,6 +4,20 @@
  * 12:05:22 PM
  * 2014
  *
+ *
+ *How to read RSAT result?
+ *
+ *example
+ *
+ *>altered1_snp_chr10_111787715
+ *GGTAGAAAAGGTTGCGGGGGGAAGAAAAG
+ *
+ *Best alteredSequence1 containing snp position  found at 5. result lines	R	10	18	CCCGCAACC	3.20E-02	-1.43E-01
+ *
+ *
+ * from sequence above sequence between 10. and 18. bases (inclusive) GGTTGCGGG, first base starts at 1. base
+ * take complement CCAACGCCC
+ * take reverse CCCGCAACC
  * 
  */
 package rsat;
@@ -265,12 +279,12 @@ public class RSATMatrixScanClient {
 				pValueofReferenceSequence = bestReferenceLineResult.getpValue();
 				logRatio = Math.log10(pValueofReferenceSequence/pValue);
 				
-				bufferedWriter.write(description + " at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + df.format(logRatio) + System.getProperty("line.separator"));
+				bufferedWriter.write(description + " found at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + df.format(logRatio) + System.getProperty("line.separator"));
 			}
 			//This method has called for reference sequence
 			//since bestReferenceLineResult is null
 			else{
-				bufferedWriter.write(description + " at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+				bufferedWriter.write(description + " found at " +  countforResultLine + ". result lines" + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 				
 			}
 		}
@@ -389,7 +403,7 @@ public class RSATMatrixScanClient {
 				sequence = bestPeakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
 				pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
 			
-				bufferedWriter.write("Peak result line containing snp position at " + countforPeakResultLine + ". peak result lines" +   "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+				bufferedWriter.write("Peak result line containing snp position found at " + countforPeakResultLine + ". peak result lines" +   "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 
 			}
 			//There is no peak result line containing snp position
