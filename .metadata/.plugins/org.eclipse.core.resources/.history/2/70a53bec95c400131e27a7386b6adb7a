@@ -7253,8 +7253,18 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			return allMaps;
 			
 	}
+		//old
+		//args[0] must have input file name with folder
+		//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+		//args[2] must have Input File Format		
+		//args[3] must have Number of Permutations	
+		//args[4] must have False Discovery Rate (ex: 0.05)
+		//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+		//args[6] must have writeGeneratedRandomDataMode checkBox
+		//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+		//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 		
-		
+		//new
 		//args[0]	--->	Input File Name with folder
 		//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
 		//args[2]	--->	Input File Format	
