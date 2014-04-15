@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="BENJAMINI" key="selection"/>
+		<item value="repeatNumber" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="repeatNumber"/>
+			<item value="numberofRuns"/>
+			<item value="_all_wrt_BH_FDR_adjusted_pValue"/>
+			<item value="Benjamini"/>
+			<item value="Benjamini Hochberg FDR"/>
+			<item value="With GC and Mapability"/>
+			<item value="1-based coordinates (End Inclusive)"/>
 			<item value="BENJAMINI"/>
-			<item value="at"/>
-			<item value="bufe"/>
-			<item value="\n"/>
-			<item value="&quot;\n&quot;"/>
-			<item value="\\"/>
-			<item value="todo"/>
-			<item value="createDirectory"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
@@ -32,7 +32,7 @@
 		<item key="DIALOG_WIDTH" value="502"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="992" key="DIALOG_X_ORIGIN"/>
-		<item value="166" key="DIALOG_Y_ORIGIN"/>
+		<item value="1367" key="DIALOG_X_ORIGIN"/>
+		<item value="235" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

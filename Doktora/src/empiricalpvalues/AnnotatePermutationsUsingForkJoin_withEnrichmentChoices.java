@@ -1682,7 +1682,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		String tfCellLineKeggPathwayEnrichment = args[15];
 		
 		//Run Name
-		String runName = args[17] ;
+		String jobName = args[17] ;
 		
 		writeInformation();
 			
@@ -1715,7 +1715,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		numberofRuns = NUMBER_OF_PERMUTATIONS / Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
 		numberofRemainders = NUMBER_OF_PERMUTATIONS % Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
 		
-		//Increase numberofRuns by 1 for remainder permutations less than 1000
+		//Increase numberofRuns by 1 for remainder permutations less than Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN
 		if (numberofRemainders> 0){
 			numberofRuns += 1;
 		}
@@ -1739,7 +1739,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		for(int i=1; i<=numberofRuns;i++){
 			System.out.println("**************	" + i + ". Run" + "	******************	starts");
 			
-			runNumber = runName + i;
+			runNumber = jobName + i;
 			
 			//annotation of original data with permutations	
 			//annotation of original data has permutation number zero
@@ -1782,30 +1782,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			Map<String,List<Integer>> tfCellLineRegulationBasedKeggPathway2AllKMap = new HashMap<String,List<Integer>>() ;
 			Map<String,List<Integer>> tfCellLineAllBasedKeggPathway2AllKMap = new HashMap<String,List<Integer>>();
 			
-			
-//			//functionalElementName based
-//			//empirical p values and bonferroni corrected empirical p values
-//			//These are filled and sorted and then written to files
-//			List<FunctionalElement> dnaseList = new ArrayList<FunctionalElement>();
-//			List<FunctionalElement> histoneList = new ArrayList<FunctionalElement>();
-//			List<FunctionalElement> tfbsList = new ArrayList<FunctionalElement>();
-//			
-//			List<FunctionalElement> exonBasedKeggPathwayList = new ArrayList<FunctionalElement>();
-//			List<FunctionalElement> regulationBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			List<FunctionalElement> allBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			
-//			//Tf and KeggPathway Enrichment or 
-//			List<FunctionalElement> tfExonBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			List<FunctionalElement> tfRegulationBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			List<FunctionalElement> tfAllBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			
-//			//Tf and CellLine and KeggPathway Enrichment 
-//			List<FunctionalElement> tfCellLineExonBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			List<FunctionalElement> tfCellLineRegulationBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-//			List<FunctionalElement> tfCellLineAllBasedKeggPathwayList = new ArrayList<FunctionalElement>();	
-
-			
-			
+						
 			System.out.println("Concurrent programming has been started.");				
 			//concurrent programming
 			//generate random data
@@ -1821,18 +1798,13 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			System.out.println("Concurrent programming has been ended.");				
 				
 			
-			//First Calculate Empirical P Values and Bonferroni Corrected Empirical P Values starts
-			//List<FunctionalElement> list is filled in this method
-			//Using name2AllKMap and originalName2KMap
 			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsDnase(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,dnase2AllKMap, originalDnase2KMap, dnaseList);
 			
 				//Write to be collected files
 				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalDnase2KMap,dnase2AllKMap,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,runNumber);
 			}
 			
 			if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsHistone(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,histone2AllKMap, originalHistone2KMap,histoneList);
 				
 				//Write to be collected files
 				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalHistone2KMap,histone2AllKMap,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,runNumber);
@@ -1840,16 +1812,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			
 				
 			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
-
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsTfbs(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfbs2AllKMap, originalTfbs2KMap, tfbsList);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,exonBasedKeggPathway2AllKMap, originalExonBasedKeggPathway2KMap, exonBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,regulationBasedKeggPathway2AllKMap, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,allBasedKeggPathway2AllKMap, originalAllBasedKeggPathway2KMap, allBasedKeggPathwayList);
-//		
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfExonBasedKeggPathway2AllKMap, originalTfExonBasedKeggPathway2KMap, tfExonBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfRegulationBasedKeggPathway2AllKMap, originalTfRegulationBasedKeggPathway2KMap, tfRegulationBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfAllBasedKeggPathway2AllKMap, originalTfAllBasedKeggPathway2KMap, tfAllBasedKeggPathwayList);
 							
 				//Write to be collected files
 				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runNumber);
@@ -1865,15 +1827,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			}
 			
 			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsTfbs(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfbs2AllKMap, originalTfbs2KMap, tfbsList);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,exonBasedKeggPathway2AllKMap, originalExonBasedKeggPathway2KMap, exonBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,regulationBasedKeggPathway2AllKMap, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,allBasedKeggPathway2AllKMap, originalAllBasedKeggPathway2KMap, allBasedKeggPathwayList);
-//		
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfCellLineExonBasedKeggPathway2AllKMap, originalTfCellLineExonBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfCellLineRegulationBasedKeggPathway2AllKMap, originalTfCellLineRegulationBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathwayList);
-//				annotateOneThousandPermutationsUsingForkJoin.calculateEmpricalPValues(numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,tfCellLineAllBasedKeggPathway2AllKMap, originalTfCellLineAllBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathwayList);
 								
 				//Write to be collected files
 				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runNumber);
@@ -1888,211 +1841,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			}
 			//Calculate Empirical P Values and Bonferroni Corrected Empirical P Values ends
 
-//			//Sort w.r.t. Empirical P Values starts in ascending order
-//			Collections.sort(dnaseList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(tfbsList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(histoneList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			
-//			Collections.sort(exonBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(regulationBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(allBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			
-//			Collections.sort(tfExonBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(tfRegulationBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(tfAllBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//
-//			Collections.sort(tfCellLineExonBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(tfCellLineRegulationBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			Collections.sort(tfCellLineAllBasedKeggPathwayList, FunctionalElement.EMPIRICAL_P_VALUE);
-//			//Sort w.r.t. Empirical P Values in ascending order ends
-//						
-//					
-//			//After sorting w.r.t. empirical p values in ascending order
-//			//Calculate Benjamini and Hochberg Adjusted P Values for FDR starts
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(dnaseList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(histoneList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfbsList,FDR);
-//			
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(exonBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(regulationBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(allBasedKeggPathwayList,FDR);
-//			
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfExonBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfRegulationBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfAllBasedKeggPathwayList,FDR);
-//			
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfCellLineExonBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfCellLineRegulationBasedKeggPathwayList,FDR);
-//			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(tfCellLineAllBasedKeggPathwayList,FDR);
-//			//Calculate Benjamini and Hochberg Adjusted P Values for FDR ends
-//			
-//			
-//			//Augment with Kegg Pathway Name starts
-//			KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayName(exonBasedKeggPathwayList,regulationBasedKeggPathwayList,allBasedKeggPathwayList);		
-//			//Augment with Kegg Pathway Gene List and Alternate Gene Name List
-//			KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList(exonBasedKeggPathwayList,regulationBasedKeggPathwayList,allBasedKeggPathwayList);
-//			
-//			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
-//				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayName(tfExonBasedKeggPathwayList,tfRegulationBasedKeggPathwayList,tfAllBasedKeggPathwayList);
-//				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList(tfExonBasedKeggPathwayList,tfRegulationBasedKeggPathwayList,tfAllBasedKeggPathwayList);
-//			}
-//			
-//			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-//				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName(tfCellLineExonBasedKeggPathwayList,tfCellLineRegulationBasedKeggPathwayList,tfCellLineAllBasedKeggPathwayList);
-//				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList(tfCellLineExonBasedKeggPathwayList,tfCellLineRegulationBasedKeggPathwayList,tfCellLineAllBasedKeggPathwayList);		
-//			}
-//			//Augment with Kegg Pathway Name ends
-//		
-//			
-//				
-//			
-//				
-//			//Write Sorted Empirical P Values to output files		
-//			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			if(histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			
-//			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//			}
-//			
-//			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//			}
-//
-//			
-//			
-//			//sort w.r.t. Benjamini and Hochberg FDR in ascending order
-//			Collections.sort(dnaseList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(histoneList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(tfbsList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			
-//			Collections.sort(exonBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(regulationBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(allBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			
-//			Collections.sort(tfExonBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(tfRegulationBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(tfAllBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			
-//			Collections.sort(tfCellLineExonBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(tfCellLineRegulationBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			Collections.sort(tfCellLineAllBasedKeggPathwayList, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-//			
-//			//Write sorted Benjamini and Hochberg FDR Adjusted P Values
-//			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(dnaseList,Commons.DNASE_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			if(histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			
-//			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//			}
-//			
-//			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR+ "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//			}
-//			//Writing Benjamini and Hochberg Adjusted P Values for FDR ends
-//				
-//			
-//			//Sort w.r.t. Bonferroni Corrected Empirical P Values
-//			Collections.sort(dnaseList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(histoneList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(tfbsList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			
-//			Collections.sort(exonBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(regulationBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(allBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//				
-//			Collections.sort(tfExonBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(tfRegulationBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(tfAllBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//		
-//			Collections.sort(tfCellLineExonBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(tfCellLineRegulationBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			Collections.sort(tfCellLineAllBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE);
-//			
-//		
-//			//Write Sorted Bonferroni Corrected Empirical P Values to output files
-//			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION, Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			if(histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//			}
-//			
-//			
-//			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//
-//			}
-//			
-//			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//				annotateOneThousandPermutationsUsingForkJoin.writetoFile(allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-//
-//			}
 			
 			originalDnase2KMap = null;
 			originalTfbs2KMap = null;

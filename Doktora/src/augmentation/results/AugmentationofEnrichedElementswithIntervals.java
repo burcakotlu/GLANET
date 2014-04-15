@@ -392,11 +392,15 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 			}//end of while : reading enriched tf and kegg Pathway file line by line.
 			
-			
+			//for debug purposes start
+			int numberofEnrichedTfExonBasedKeggPathwayElements = 0;
+			//for debug purposes end
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
 				keggPathwayNameandDescription = entry.getKey();
 				lines = entry.getValue();
+				
+				numberofEnrichedTfExonBasedKeggPathwayElements += lines.size();
 				
 				bufferedWriter.write("**************\t" + keggPathwayNameandDescription + "\t**************" + System.getProperty("line.separator"));
 							
@@ -422,6 +426,11 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 				}
 			}//End of for	
+			
+			//for debug purposes start
+			System.out.println("numberofEnrichedTfExonBasedKeggPathwayElements " + numberofEnrichedTfExonBasedKeggPathwayElements);
+			//for debug purposes end
+		
 				
 		
 			bufferedReader.close();
