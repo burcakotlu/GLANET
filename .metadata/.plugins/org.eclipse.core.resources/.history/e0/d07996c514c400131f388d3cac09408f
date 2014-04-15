@@ -751,12 +751,12 @@ public class RSATMatrixScanClient {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-			matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-			matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);
-
-			matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-			matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-			matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+//
+//			matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
 			
 			//Close bufferedWriter
 			bufferedWriter.close();
