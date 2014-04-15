@@ -43,19 +43,24 @@ public class MainView extends JPanel{
 		public void startRunActionsWithOptions(String inputFileName, 
 											   String outputFolder,
 											   String inputFileFormat,
-											   String numberOfPermutations,
-											   String falseDiscoveryRate,
+											   String numberOfBases,
+											   String enrichmentEnabled,
 											   String generateRandomDataMode,
-											   String writeGeneratedRandomDataMode,
-											   String writePermutationBasedandParametricBasedAnnotationResultMode,
-											   String writePermutationBasedAnnotationResultMode,
+											   String multipleTestingChoice,
+											   String bonferoniCorrectionSignificanceLevel,
+											   String falseDiscoveryRate,
+											   String numberOfPermutations,
 											   String dnaseEnrichment,
 											   String histoneEnrichment,
+											   String tfEnrihment,
+											   String keggPathwayEnrichment,
 											   String tfAndKeggPathwayEnrichment,
 											   String cellLineBasedTfAndKeggPathwayEnrichment,
+											   String regulatorySequenceAnalysisUsingRSAT,
 											   String jobName,
-											   String multipleTestingChoice,
-											   String bonferoniCorrectionSignificanceLevel);
+											   String writeGeneratedRandomDataMode,
+											   String writePermutationBasedandParametricBasedAnnotationResultMode,
+											   String writePermutationBasedAnnotationResultMode);
 	}
 	
 	private ActionListener chooseFilePressed = new ActionListener() {
@@ -94,22 +99,29 @@ public class MainView extends JPanel{
 			else {
 				
 				//delegation to handle the run process.
-				delegate.startRunActionsWithOptions(inputTextField.getText(),
-													outputTextField.getText(),
-													inputFormatCombo.getSelectedItem().toString(),
-													numberOfPerCombo.getSelectedItem().toString(),
-													falseDiscoveryRate.getText(),
-													generateRandomDataModeCombo.getSelectedItem().toString(),
-													writeGeneratedRandomData.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
-													writePermutationBasedAndParametricBased.isSelected()?Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
-													writePermutationBasedAnnotationResult.isSelected()?Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
-													dnaseEnrichment.isSelected()?Commons.DO_DNASE_ENRICHMENT:Commons.DO_NOT_DNASE_ENRICHMENT,
-													histoneEnrichment.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
-													tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
-													cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
-													jobName.getText(),
-													multipleTestingCombo.getSelectedItem().toString().equalsIgnoreCase("Bonferroni Correction")?Commons.BONFERRONI_CORRECTED_P_VALUE:Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,
-													signifanceCriteria.getText());
+				delegate.startRunActionsWithOptions(
+						inputTextField.getText(),
+						outputTextField.getText(),
+						inputFormatCombo.getSelectedItem().toString(),
+						numberOfBases.getText(),
+						enrichmentOptionsCheck.isEnabled()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
+						generateRandomDataModeCombo.getSelectedItem().toString(),
+						multipleTestingCombo.getSelectedItem().toString(),
+						signifanceCriteria.getText(),
+						falseDiscoveryRate.getText(),
+						numberOfPerCombo.getSelectedItem().toString(),
+						dnaseEnrichment.isSelected()?Commons.DO_DNASE_ENRICHMENT:Commons.DO_NOT_DNASE_ENRICHMENT,
+						histoneEnrichment.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
+						tfEnrichment.isSelected()?Commons.DO_TF_ENRICHMENT:Commons.DO_NOT_TF_ENRICHMENT,
+						keggPathwayEnrichment.isSelected()?Commons.DO_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT,
+						tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
+						cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
+						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
+						jobName.getText(),
+						writeGeneratedRandomData.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+						writePermutationBasedAndParametricBased.isSelected()?Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
+						writePermutationBasedAnnotationResult.isSelected()?Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+				);
 			}
 		}
 	};
@@ -149,7 +161,9 @@ public class MainView extends JPanel{
 		listPane.setLayout( new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		inputBrowseAndOptionPane.setLayout( new FlowLayout(FlowLayout.LEFT));
 		
-		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
+		String[] generateRandomDataModeSet = { Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT,
+												Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT };
+		
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
 		
 		String[] inputFormat = { 	Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, 
@@ -158,7 +172,7 @@ public class MainView extends JPanel{
 									Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
 									Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE};
 		
-		String[] multipleTest = { "Benjamini Hochberg FDR", "Bonferroni Correction"};
+		String[] multipleTest = { Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE, Commons.BONFERRONI_CORRECTED_P_VALUE};
 		
 		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);

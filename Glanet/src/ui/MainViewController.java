@@ -69,7 +69,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//args[5]	--->	Generate Random Data Mode
 	//			--->	default	Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT
 	//			--->			Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT	
-	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respest to this parameter
+	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respect to this parameter
 	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE
 	//			--->			Commons.BONFERRONI_CORRECTED_P_VALUE
 	//args[7]	--->	Bonferroni Correction Significance Level, default 0.05
@@ -106,39 +106,49 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	public void startRunActionsWithOptions(String inputFileName, 
-										   String outputFolder,
-										   String inputFileFormat,
-										   String numberOfPermutations,
-										   String falseDiscoveryRate,
-										   String generateRandomDataMode,
-										   String writeGeneratedRandomDataMode,
-										   String writePermutationBasedandParametricBasedAnnotationResultMode,
-										   String writePermutationBasedAnnotationResultMode,
-										   String dnaseEnrichment,
-										   String histoneEnrichment,
-										   String tfAndKeggPathwayEnrichment,
-										   String cellLineBasedTfAndKeggPathwayEnrichment,
-										   String jobName,
-										   String multipleTestingChoice,
-										   String bonferoniCorrectionSignificanceLevel) {
+	public void startRunActionsWithOptions( String inputFileName, 
+			   String outputFolder,
+			   String inputFileFormat,
+			   String numberOfBases,
+			   String enrichmentEnabled,
+			   String generateRandomDataMode,
+			   String multipleTestingChoice,
+			   String bonferoniCorrectionSignificanceLevel,
+			   String falseDiscoveryRate,
+			   String numberOfPermutations,
+			   String dnaseEnrichment,
+			   String histoneEnrichment,
+			   String tfEnrihment,
+			   String keggPathwayEnrichment,
+			   String tfAndKeggPathwayEnrichment,
+			   String cellLineBasedTfAndKeggPathwayEnrichment,
+			   String regulatorySequenceAnalysisUsingRSAT,
+			   String jobName,
+			   String writeGeneratedRandomDataMode,
+			   String writePermutationBasedandParametricBasedAnnotationResultMode,
+			   String writePermutationBasedAnnotationResultMode) {
 		
-		String[] args =   { inputFileName,
-							outputFolder,
-							inputFileFormat,
-							numberOfPermutations,
-							falseDiscoveryRate,
-							generateRandomDataMode,
-							writeGeneratedRandomDataMode,
-							writePermutationBasedandParametricBasedAnnotationResultMode,
-							writePermutationBasedAnnotationResultMode,
-							dnaseEnrichment,
-							histoneEnrichment,
-							tfAndKeggPathwayEnrichment,
-							cellLineBasedTfAndKeggPathwayEnrichment,
-							jobName,
-							multipleTestingChoice,
-							bonferoniCorrectionSignificanceLevel};
+		String[] args =   { inputFileName, 
+				   outputFolder,
+				   inputFileFormat,
+				   numberOfBases,
+				   enrichmentEnabled,
+				   generateRandomDataMode,
+				   multipleTestingChoice,
+				   bonferoniCorrectionSignificanceLevel,
+				   falseDiscoveryRate,
+				   numberOfPermutations,
+				   dnaseEnrichment,
+				   histoneEnrichment,
+				   tfEnrihment,
+				   keggPathwayEnrichment,
+				   tfAndKeggPathwayEnrichment,
+				   cellLineBasedTfAndKeggPathwayEnrichment,
+				   regulatorySequenceAnalysisUsingRSAT,
+				   jobName,
+				   writeGeneratedRandomDataMode,
+				   writePermutationBasedandParametricBasedAnnotationResultMode,
+				   writePermutationBasedAnnotationResultMode};		
 		
 		mainView.setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(args);

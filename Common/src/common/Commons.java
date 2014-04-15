@@ -444,8 +444,8 @@ public class Commons {
 	public static final String WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 	public static final String DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 
-	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT";
-	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT";
+	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mapability";
+	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mapability";
 	public static final String PERMUTATION = "PERMUTATION";
 	public static final String RANDOMLY_GENERATED_DATA_FOLDER = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator")  + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator")+  "RandomlyGeneratedData" + System.getProperty("file.separator");
 	public static final String RANDOMLY_GENERATED_DATA = "RANDOMLY_GENERATED_DATA";
@@ -592,9 +592,9 @@ public class Commons {
 	
 	
 	//P Value type
-	public static final String BONFERRONI_CORRECTED_P_VALUE = "BONFERRONI_CORRECTED_P_VALUE";
+	public static final String BONFERRONI_CORRECTED_P_VALUE = "Bonferroni Correction";
 	public static final String EMPIRICAL_P_VALUE = "EMPIRICAL_P_VALUE";
-	public static final String BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE = "BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE";
+	public static final String BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE = "Benjamini Hochberg FDR";
 	
 
 	//empirical P values 
