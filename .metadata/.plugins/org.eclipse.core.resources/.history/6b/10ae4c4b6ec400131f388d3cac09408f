@@ -45,133 +45,62 @@ public class CollectionofPermutationsResults {
 		FunctionalElement element = null;
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
-		if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-			
-			//sort w.r.t. Benjamini and Hochberg FDR Adjusted pValue
-			Collections.sort(list,FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-			
-			//write the results to a output file starts		
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all_wrt_BH_FDR_adjusted_pValue.txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			//header line in output file
-			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons"  + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
+		
+		//write the results to a output file starts		
+		fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all.txt");
+		bufferedWriter = new BufferedWriter(fileWriter);
+		
+		//header line in output file
+		bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPVlaue: numberOfComparisons " + numberofComparisons + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
 
-			Iterator<FunctionalElement> itr = list.iterator();
+		Iterator<FunctionalElement> itr = list.iterator();
+		
+		while(itr.hasNext()){
+			element = itr.next();
 			
-			while(itr.hasNext()){
-				element = itr.next();
+			
+			if(	enrichmentType.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT) ||
+				enrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) ||
+				enrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
+				
+				//line per element in output file
+				bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
 				
 				
-				if(	enrichmentType.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT) ||
-					enrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) ||
-					enrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-					
-					//line per element in output file
-					bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
-					
-					
-					bufferedWriter.write(element.getKeggPathwayName()+"\t");
-					
-					
-					if (element.getKeggPathwayGeneIdList().size()>=1){
-						int i;
-						//Write the gene ids of the kegg pathway
-						for(i =0 ;i < element.getKeggPathwayGeneIdList().size()-1; i++){
-							bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + ", ");
-						}
-						bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + "\t");
+				bufferedWriter.write(element.getKeggPathwayName()+"\t");
+				
+				
+				if (element.getKeggPathwayGeneIdList().size()>=1){
+					int i;
+					//Write the gene ids of the kegg pathway
+					for(i =0 ;i < element.getKeggPathwayGeneIdList().size()-1; i++){
+						bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + ", ");
 					}
-					
-					if(element.getKeggPathwayAlternateGeneNameList().size()>=1){
-						int i;
-						
-						//Write the alternate gene names of the kegg pathway
-						for(i =0 ;i < element.getKeggPathwayAlternateGeneNameList().size()-1; i++){
-							bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + ", ");
-						}
-						bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + System.getProperty("line.separator"));			
-					}	
-			
-				}else{
-					//line per element in output file
-					bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
-					
+					bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + "\t");
 				}
 				
-			
-			}//End of while
-			
-			//close the file
-			bufferedWriter.close();
-			//write the results to a output file ends
-
-			
-			
-		}else if (multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-			
-			//sort w.r.t. Bonferroni Corrected pVlaue
-			Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
-			
-			//write the results to a output file starts		
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all_wrt_Bonf_corrected_pValue.txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			//header line in output file
-			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
-
-			Iterator<FunctionalElement> itr = list.iterator();
-			
-			while(itr.hasNext()){
-				element = itr.next();
-				
-				
-				if(	enrichmentType.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT) ||
-					enrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) ||
-					enrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
+				if(element.getKeggPathwayAlternateGeneNameList().size()>=1){
+					int i;
 					
-					//line per element in output file
-					bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
-					
-					
-					bufferedWriter.write(element.getKeggPathwayName()+"\t");
-					
-					
-					if (element.getKeggPathwayGeneIdList().size()>=1){
-						int i;
-						//Write the gene ids of the kegg pathway
-						for(i =0 ;i < element.getKeggPathwayGeneIdList().size()-1; i++){
-							bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + ", ");
-						}
-						bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + "\t");
+					//Write the alternate gene names of the kegg pathway
+					for(i =0 ;i < element.getKeggPathwayAlternateGeneNameList().size()-1; i++){
+						bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + ", ");
 					}
-					
-					if(element.getKeggPathwayAlternateGeneNameList().size()>=1){
-						int i;
-						
-						//Write the alternate gene names of the kegg pathway
-						for(i =0 ;i < element.getKeggPathwayAlternateGeneNameList().size()-1; i++){
-							bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + ", ");
-						}
-						bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + System.getProperty("line.separator"));			
-					}	
-			
-				}else{
-					//line per element in output file
-					bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
-					
-				}
+					bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + System.getProperty("line.separator"));			
+				}	
+		
+			}else{
+				//line per element in output file
+				bufferedWriter.write(element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
 				
+			}
 			
-			}//End of while
-			
-			//close the file
-			bufferedWriter.close();
-			//write the results to a output file ends
-			
-		}
 		
+		}//End of while
 		
+		//close the file
+		bufferedWriter.close();
+		//write the results to a output file ends
 	}
 
 	
