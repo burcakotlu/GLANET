@@ -152,11 +152,11 @@ public class MainView extends JPanel{
 		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
 		
-		String[] inputFormat = { 	Commons.GUI_INPUT_FILE_FORMAT_DBSNP_IDS, 
-									Commons.GUI_INPUT_FILE_FORMAT_BED,
-									Commons.GUI_INPUT_FILE_FORMAT_GFF3,
-									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES,
-									Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES};
+		String[] inputFormat = { 	Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, 
+									Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE};
 		
 		String[] multipleTest = { "Benjamini Hochberg FDR", "Bonferroni Correction"};
 		

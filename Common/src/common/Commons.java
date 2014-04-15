@@ -36,18 +36,11 @@ public class Commons {
 	
 	public static final String TEST_INPUT_DATA_DBSNP_IDS = "TEST_INPUT_DATA" + System.getProperty("file.separator") + "Test_dbSNP_ids.txt";
 	
-	
-	public static final String GUI_INPUT_FILE_FORMAT_DBSNP_IDS = "dbSNP IDs";
-	public static final String GUI_INPUT_FILE_FORMAT_BED = "BED";
-	public static final String GUI_INPUT_FILE_FORMAT_GFF3 = "GFF3";
-	public static final String GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES = "0-based coordinates (End Inclusive)";
-	public static final String GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES = "1-based coordinates (End Inclusive)";
-	
-	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_DBSNP_IDS_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
-	public static final String INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE";
-	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
-	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
-	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE";
+	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "dbSNP IDs";
+	public static final String INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "BED";
+	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "GFF3";
+	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
+	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
 			
 	public static final String PROCESSED_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
