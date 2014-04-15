@@ -643,7 +643,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
-	public static void main(String[] args) {
+	public static void main(String[] argss) {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
