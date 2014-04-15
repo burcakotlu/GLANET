@@ -512,7 +512,7 @@ public class InputDataProcess {
 		
 		String inputFileName = args[0];
 		String glanetFolder = args[1];
-		String inputFileFormat = args[2];
+		String inputFileFormat = setInputFileFormat(args[2]);
 		
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
 		
@@ -530,6 +530,18 @@ public class InputDataProcess {
 		}
 	}
 	
+	public static String setInputFileFormat(String guiInputFileFormat){
+		switch(guiInputFileFormat){
+		
+			case Commons.GUI_INPUT_FILE_FORMAT_DBSNP_IDS			: return Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_BED					: return Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_GFF3					: return Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES	: return Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+			case Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES	: return Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+		
+		}
+		return null;
+	}
 	
 	
 	//args[0]	--->	Input File Name with folder
