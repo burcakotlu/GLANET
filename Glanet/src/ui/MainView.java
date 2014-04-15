@@ -88,7 +88,6 @@ public class MainView extends JPanel{
 		}
 	};
 	
-	
 	private ActionListener runButtonPressed = new ActionListener() {
 		
 		@Override
@@ -130,6 +129,13 @@ public class MainView extends JPanel{
 	      public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
 	    	  enableEnrichmentOptions( enrichmentOptionsCheck.isSelected());
+	      }
+	};
+	
+	ItemListener enableRegulatorySequenceAnalysis = new ItemListener() {
+	      public void itemStateChanged(ItemEvent itemEvent) {
+	    	  
+	    	  checkUsabilityOfRegulatorySequenceAnalysis();
 	      }
 	};
 	
@@ -207,6 +213,10 @@ public class MainView extends JPanel{
         keggPathwayEnrichment = new JCheckBox( "KEGG Pathway Enrichment");
         cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based Tf And Kegg Pathway Enrichment");
         
+        tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+        tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+        
         JPanel checkPanel = new JPanel( new GridLayout(0, 1));
         checkPanel.add( writeGeneratedRandomData);
         checkPanel.add( writePermutationBasedAndParametricBased);
@@ -222,6 +232,7 @@ public class MainView extends JPanel{
         
         JPanel RSATOption = new JPanel( new GridLayout(0, 1));
         regulatorySequenceAnalysisUsingRSATCheck = new JCheckBox( "Regulatory Sequence Analysis Using RSAT");
+        checkUsabilityOfRegulatorySequenceAnalysis();
         RSATOption.add( regulatorySequenceAnalysisUsingRSATCheck);
         
         JPanel enrichmentPanel = new JPanel();
@@ -283,6 +294,7 @@ public class MainView extends JPanel{
 	    
 	    return borderedPanel;
 	}
+	
 	JPanel createBrowseFileArea( String fileType, JTextField textField){
 	    
 	    JButton browseButton = new JButton( "Browse");
@@ -295,6 +307,7 @@ public class MainView extends JPanel{
 	    
 	    return createBorderedPanel(fileType, browsePanel);
 	}
+	
 	private void addLabelTextRows(JComponent[] labels, JComponent[] textFields, GridBagLayout gridbag, Container container) {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
@@ -337,10 +350,23 @@ public class MainView extends JPanel{
 		keggPathwayEnrichment.setEnabled( shouldEnable);
 		tfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
 		cellLineBasedTfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
-		regulatorySequenceAnalysisUsingRSATCheck.setEnabled( shouldEnable);
+		checkUsabilityOfRegulatorySequenceAnalysis();
 		writeGeneratedRandomData.setEnabled( shouldEnable);
 		writePermutationBasedAndParametricBased.setEnabled( shouldEnable);
 		writePermutationBasedAnnotationResult.setEnabled( shouldEnable);
+	}
+	
+	public void checkUsabilityOfRegulatorySequenceAnalysis(){
 		
+		if( tfEnrichment.isSelected() || tfAndKeggPathwayEnrichment.isSelected() || cellLineBasedTfAndKeggPathwayEnrichment.isSelected()){
+			if( enrichmentOptionsCheck.isSelected())
+				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
+			else
+				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
+		}
+  	  	else { 
+  	  		regulatorySequenceAnalysisUsingRSATCheck.setSelected( false);
+  	  		regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
+  	  	}
 	}
 }

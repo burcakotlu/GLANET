@@ -53,7 +53,6 @@ public class MainViewController extends ViewController implements MainViewDelega
 		contentPanel.add(mainView);
 	}
 
-	//new
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
 	//args[2]	--->	Input File Format	
