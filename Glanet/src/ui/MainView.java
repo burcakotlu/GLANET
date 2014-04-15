@@ -17,6 +17,7 @@ public class MainView extends JPanel{
 	private JTextField inputTextField;
 	private JTextField falseDiscoveryRate;
 	private JTextField signifanceCriteria;
+	private JTextField numberOfBases;
 	private JLabel currentWorkLabel;
 	private JPanel listPane;
 	private JButton runButton;
@@ -24,12 +25,15 @@ public class MainView extends JPanel{
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
+	private JCheckBox regulatingSequenceAnalysisUsingRSATCheck;
 	private JCheckBox writeGeneratedRandomData;
 	private JCheckBox writePermutationBasedAndParametricBased;
 	private JCheckBox writePermutationBasedAnnotationResult;
 	private JCheckBox dnaseEnrichment;
 	private JCheckBox histoneEnrichment;
 	private JCheckBox tfAndKeggPathwayEnrichment;
+	private JCheckBox tfEnrichment;
+	private JCheckBox keggPathwayEnrichment;
 	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
 	
 	
@@ -48,7 +52,9 @@ public class MainView extends JPanel{
 											   String histoneEnrichment,
 											   String tfAndKeggPathwayEnrichment,
 											   String cellLineBasedTfAndKeggPathwayEnrichment,
-											   String jobName);
+											   String jobName,
+											   String multipleTestingChoice,
+											   String bonferoniCorrectionSignificanceLevel);
 	}
 	
 	private ActionListener chooseFilePressed = new ActionListener() {
@@ -100,16 +106,19 @@ public class MainView extends JPanel{
 													histoneEnrichment.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
 													tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
 													cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
-													jobName.getText());
+													jobName.getText(),
+													multipleTestingCombo.getSelectedItem().toString().equalsIgnoreCase("Bonferroni Correction")?Commons.BONFERRONI_CORRECTED_P_VALUE:Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,
+													signifanceCriteria.getText());
 			}
 		}
 	};
 	
 	public MainView() {
 		
-		currentWorkLabel = new JLabel("asdasd");
+		currentWorkLabel = new JLabel("Current running process will be shown there");
 		inputTextField = new JTextField(30);
-		outputTextField = new JTextField(30);
+		outputTextField = new JTextField(50);
+		numberOfBases = new JTextField(30);
 		runButton = new JButton("Run");
 		runButton.addActionListener(runButtonPressed);
 		
@@ -119,15 +128,18 @@ public class MainView extends JPanel{
 		jobName = new JTextField();
 		signifanceCriteria = new JTextField(30);
 		falseDiscoveryRate = new JTextField(30);
+		falseDiscoveryRate.setText("0.05");
+		signifanceCriteria.setText("0.05");
+		numberOfBases.setText("1");
 		
-		JPanel fdrAndSigCriteria = new JPanel(new FlowLayout());
+		JPanel fdrAndSigCriteria = new JPanel( new FlowLayout());
 		fdrAndSigCriteria.add( createBorderedPanel("False Discovery Rate", falseDiscoveryRate));
 		fdrAndSigCriteria.add( createBorderedPanel("Bonferroni Correction Significance Criteria", signifanceCriteria));
 		
 		listPane = new JPanel();
 		
-		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-		inputBrowseAndOptionPane.setLayout(new FlowLayout());
+		listPane.setLayout( new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+		inputBrowseAndOptionPane.setLayout( new FlowLayout());
 		
 		String[] generateRandomDataModeSet = { "With GC and Mapability", "Without GC and Mapability" };
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
@@ -138,7 +150,7 @@ public class MainView extends JPanel{
 									Commons.GUI_INPUT_FILE_FORMAT_0_BASED_COORDINATES,
 									Commons.GUI_INPUT_FILE_FORMAT_1_BASED_COORDINATES};
 		
-		String[] multipleTest = { "Bonferroni Correction", "Benjamini Hochberg FDR"};
+		String[] multipleTest = { "Benjamini Hochberg FDR", "Bonferroni Correction"};
 		
 		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
@@ -146,14 +158,26 @@ public class MainView extends JPanel{
 		multipleTestingCombo = new JComboBox<String>( multipleTest);
 		
 		inputBrowseAndOptionPane.add( inputBrowseFilePane);
-		inputBrowseAndOptionPane.add( createBorderedPanel("Input Format", inputFormatCombo));
+		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", inputFormatCombo));
+		
+		//annotation panel
+		JPanel annotationPanel = new JPanel( new GridLayout( 0, 1));
+		JPanel numberOfBasesPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+		JLabel numberOfBasesLabel = new JLabel("Number of Bases");
+		JLabel overlapDefinitionLabel = new JLabel("Overlap Definition");
+		numberOfBasesPanel.add( numberOfBasesLabel);
+		numberOfBasesPanel.add( numberOfBases);
+		annotationPanel.add( overlapDefinitionLabel);
+		annotationPanel.add( numberOfBasesPanel);
+		
 		
 		listPane.add( inputBrowseAndOptionPane);
+		listPane.add( outputBrowseFilePane);
+		listPane.add( createBorderedPanel( "Annotation", annotationPanel));
 		listPane.add( createBorderedPanel( "Generate Random Data Mode", generateRandomDataModeCombo));
 		listPane.add( createBorderedPanel( "Multiple Testing", multipleTestingCombo));
 		listPane.add( fdrAndSigCriteria);
 		listPane.add( createBorderedPanel( "Number of Permutations", numberOfPerCombo));
-		listPane.add( outputBrowseFilePane);
         
         //Checkbuttons
         writeGeneratedRandomData = new JCheckBox("writeGeneratedRandomData");
@@ -161,27 +185,39 @@ public class MainView extends JPanel{
         writePermutationBasedAnnotationResult = new JCheckBox("writePermutationBasedAnnotationResult");
         dnaseEnrichment = new JCheckBox("Dnase Enrichment");
         histoneEnrichment = new JCheckBox("Histone Enrichment");
-        tfAndKeggPathwayEnrichment = new JCheckBox("Tf And Kegg Pathway Enrichment");
+        tfAndKeggPathwayEnrichment = new JCheckBox("Tf And KEGG Pathway Enrichment");
+        tfEnrichment = new JCheckBox("Tf Enrichment");
+        keggPathwayEnrichment = new JCheckBox("KEGG Pathway Enrichment");
         cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox("CellLine Based Tf And Kegg Pathway Enrichment");
         
-        JPanel checkPanel = new JPanel(new GridLayout(0, 1));
-        checkPanel.add(writeGeneratedRandomData);
-        checkPanel.add(writePermutationBasedAndParametricBased);
-        checkPanel.add(writePermutationBasedAnnotationResult);
+        JPanel checkPanel = new JPanel( new GridLayout(0, 1));
+        checkPanel.add( writeGeneratedRandomData);
+        checkPanel.add( writePermutationBasedAndParametricBased);
+        checkPanel.add( writePermutationBasedAnnotationResult);
         
-        JPanel enrichmentOptions = new JPanel(new GridLayout(0, 1));
-        enrichmentOptions.add(dnaseEnrichment);
-        enrichmentOptions.add(histoneEnrichment);
-        enrichmentOptions.add(tfAndKeggPathwayEnrichment);
-        enrichmentOptions.add(cellLineBasedTfAndKeggPathwayEnrichment);
+        JPanel enrichmentOptions = new JPanel( new GridLayout(0, 1));
+        enrichmentOptions.add( dnaseEnrichment);
+        enrichmentOptions.add( histoneEnrichment);
+        enrichmentOptions.add( tfEnrichment);
+        enrichmentOptions.add( keggPathwayEnrichment);
+        enrichmentOptions.add( tfAndKeggPathwayEnrichment);
+        enrichmentOptions.add( cellLineBasedTfAndKeggPathwayEnrichment);
         
-        listPane.add( createBorderedPanel("Write Permutation Results", checkPanel));
+        JPanel RSATOption = new JPanel( new GridLayout(0, 1));
+        regulatingSequenceAnalysisUsingRSATCheck = new JCheckBox("Regulating Sequence Analysis Using RSAT");
+        RSATOption.add( regulatingSequenceAnalysisUsingRSATCheck);
+        
         listPane.add( createBorderedPanel("Enrichment Options", enrichmentOptions));
+        listPane.add( createBorderedPanel("RSAT", RSATOption));
+        listPane.add( createBorderedPanel("Write Permutation Results", checkPanel));
         listPane.add( createBorderedPanel("Job Name", jobName));
-        listPane.add(runButton);
+        listPane.add( runButton);
         listPane.add( currentWorkLabel);
         
-        add(listPane);
+        //scroll pane
+        JScrollPane scrollPane = new JScrollPane(listPane);
+        scrollPane.setPreferredSize(new Dimension(840, 720));
+        add(scrollPane);
 	}
 	
 	JPanel createBorderedPanel( String borderName, JComponent panel){
