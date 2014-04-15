@@ -51,11 +51,11 @@ public class CollectionofPermutationsResults {
 			Collections.sort(list,FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
 			
 			//write the results to a output file starts		
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all_wrt_BH_FDR_adjusted_pValue.txt");
+			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//header line in output file
-			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons"  + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
+			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPVlaue: numberOfComparisons " + numberofComparisons + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
 
 			Iterator<FunctionalElement> itr = list.iterator();
 			
@@ -114,11 +114,11 @@ public class CollectionofPermutationsResults {
 			Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
 			
 			//write the results to a output file starts		
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all_wrt_Bonf_corrected_pValue.txt");
+			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_all.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//header line in output file
-			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
+			bufferedWriter.write("Element" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPVlaue: numberOfComparisons " + numberofComparisons + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
 
 			Iterator<FunctionalElement> itr = list.iterator();
 			
