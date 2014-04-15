@@ -617,9 +617,12 @@ public class Commons {
 
 	public static final String ANNOTATE_INTERVALS_PARAMETRIC = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
 	
-	//Results to be polled 
+	//Results to be Collected
 	
 	public static final String TO_BE_COLLECTED_DIRECTORY 	= "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
+	
+	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE = "_all_wrt_BH_FDR_adjusted_pValue.txt";
+	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE = "_all_wrt_Bonf_corrected_pValue.txt";
 	
 	public static final String TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS 	= TO_BE_COLLECTED_DIRECTORY + "Dnase" + System.getProperty("file.separator") + "Dnase";
 	public static final String TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS 	= TO_BE_COLLECTED_DIRECTORY + "Histone" + System.getProperty("file.separator") + "Histone";

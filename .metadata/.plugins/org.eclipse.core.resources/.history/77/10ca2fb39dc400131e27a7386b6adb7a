@@ -36,7 +36,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	//Augment it with C:\Users\burcakotlu\GLANET\Output\Doktora\annotate\intervals\parametric\original\histone overlaps
 	//Write augmented results
 	//For Histone
-	public void	readHistoneFileAugmentandWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String inputFileName, String outputFileName){
+	public void	readHistoneFileAugmentandWrite(String outputFolder,Float FDR,String inputFileName, String outputFileName){
 		String strLine1;
 		String strLine2;
 		
@@ -52,7 +52,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String histoneNameCellLineName;
 		
 		Float empiricalPValue;
-		Float bonfCorrectedPValue; 
+		Float bonCorrPValue; 
 		Float bhFDRAdjustedPValue;
 		
 		FileReader inputFileReader = null;
@@ -95,24 +95,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 							
 				//Pay attention to the order
 				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
+				bonCorrPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 											
-							
-				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-					
-					if (bhFDRAdjustedPValue <= FDR){					
-						enrichedHistoneElements.add(histoneNameCellLineName);	
-					}
-					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-					
-					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
-						enrichedHistoneElements.add(histoneNameCellLineName);	
-					}
-					
+				//change selection criteria
+				if (bhFDRAdjustedPValue <= FDR){					
+					enrichedHistoneElements.add(histoneNameCellLineName);	
 				}
-
 					
 			}//end of while : reading enriched dnase elements file line by line.
 			
@@ -158,7 +147,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	//Augment it with annotate\\intervals\\parametric\\output results
 	//Write augmented results
 	//For Dnase
-	public void readDnaseFileAugmentandWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String inputFileName, String outputFileName){
+	public void readDnaseFileAugmentandWrite(String outputFolder,Float FDR,String inputFileName, String outputFileName){
 	
 		String strLine1;
 		String strLine2;
@@ -175,7 +164,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String dnaseElementName;
 		
 		Float empiricalPValue;
-		Float bonfCorrectedPValue; 
+		Float bonCorrPValue; 
 		Float bhFDRAdjustedPValue;
 		
 		FileReader inputFileReader = null;
@@ -218,23 +207,16 @@ public class AugmentationofEnrichedElementswithIntervals {
 							
 				//Pay attention to the order
 				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
+				bonCorrPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
-				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-					
-					if (bhFDRAdjustedPValue <= FDR){					
-						enrichedDnaseElements.add(dnaseElementName);	
-									}
-					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-					
-					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
-						enrichedDnaseElements.add(dnaseElementName);	
-									}
-					
+				
+				
+				
+				//change selection criteria
+				if (bhFDRAdjustedPValue <= FDR){					
+					enrichedDnaseElements.add(dnaseElementName);	
 				}
-					
 					
 			}//end of while : reading enriched dnase elements file line by line.
 			
@@ -276,12 +258,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 	}
 
 	
-	//Read the empiricalpvalues\\output\\tobeCollected  first
-	//and
-	//Augment it with annotate\\intervals\\parametric\\original results
+	//Read the empiricalpvalues\\output\\tobePolled  first
+	//or 
+	//Read the empiricalpvalues\\output\\ results
+	//Augment it with annotate\\intervals\\parametric\\output results
 	//Write augmented results
 	//For Tf KeggPathway
-	public void readTfKeggPathwayFileAugmentandWrite(String outputFolder,String multipleTestingParameter, Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
+	public void readTfKeggPathwayFileAugmentandWrite(String outputFolder,Float FDR, String inputFileName, String outputFileName, String type){
 		String strLine1;
 		String strLine2;
 		
@@ -301,7 +284,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String tfName_keggPathwayName;
 		String keggPathwayName;
 		String keggPathwayDescription;
-		Float bonfCorrectedPValue; 
+		Float bonCorrEmpPValue; 
 		Float empiricalPValue;
 		String keggPathwayNameandDescription;
 		
@@ -332,6 +315,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 
 //				new example line
 //				JUND_hsa05164	4	0	10000	40081	0.00E+00	0.00E+00	0.00E+00	TRUE
+
 				
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -352,43 +336,24 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				//Pay attention to the order
 				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
+				bonCorrEmpPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 				
-				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-					
-					if (bhFDRAdjustedPValue <= FDR){					
+				//change selection criteria
+				if (bhFDRAdjustedPValue <= FDR){					
 						
-						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
-		
-						if (lines==null){
-							lines = new ArrayList<String>();
-							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
-						}else{
-							lines.add(strLine1);
-						}			
-					}
-					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-					
-					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
-						
-						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
-		
-						if (lines==null){
-							lines = new ArrayList<String>();
-							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
-						}else{
-							lines.add(strLine1);
-						}			
-					}
-					
+					lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
+	
+					if (lines==null){
+						lines = new ArrayList<String>();
+						lines.add(strLine1);
+						enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
+					}else{
+						lines.add(strLine1);
+					}			
 				}
-								
 					
 			}//end of while : reading enriched tf and kegg Pathway file line by line.
 			
@@ -444,7 +409,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 	//ExampleLine
 	//POL24H8_HCT116_hsa05020	0.00E+00	Prion diseases - Homo sapiens (human)	100506742, 10963, 1958, 2002, 2534, 3303, 3309, 3552, 3553, 3569, 3915, 4684, 4685, 4851, 5566, 5567, 5568, 5594, 5595, 5604, 5605, 5613, 5621, 581, 6352, 6647, 712, 713, 714, 727, 729, 730, 731, 732, 733, 735	CASP12, STIP1, EGR1, ELK1, FYN, HSPA1A, HSPA5, IL1A, IL1B, IL6, LAMC1, NCAM1, NCAM2, NOTCH1, PRKACA, PRKACB, PRKACG, MAPK1, MAPK3, MAP2K1, MAP2K2, PRKX, PRNP, BAX, CCL5, SOD1, C1QA, C1QB, C1QC, C5, C6, C7, C8A, C8B, C8G, C9
-	public void readTfCellLineKeggPathwayFileAugmentandWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
+	public void readTfCellLineKeggPathwayFileAugmentandWrite(String outputFolder,Float FDR, String inputFileName, String outputFileName, String type){
 		String strLine1;
 		String strLine2;
 		
@@ -465,7 +430,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		
 		String tfName_cellLineName_keggPathwayName;
 		String keggPathwayName;
-		Float bonfCorrectedPValue; 
+		Float bonCorrEmpPValue; 
 		Float empiricalPValue;
 		Float bhFDRAdjustedPValue;
 		String keggPathwayDescription;
@@ -515,40 +480,24 @@ public class AugmentationofEnrichedElementswithIntervals {
 				keggPathwayName = tfName_cellLineName_keggPathwayName.substring(indexofSecondUnderscore+1,indexofFirstTab);
 				
 				//Pay attention order is important
+				
 				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
+				bonCorrEmpPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+	
 				
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 					
-				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
+					if (bhFDRAdjustedPValue < FDR){
 					
-					if (bhFDRAdjustedPValue <= FDR){					
-						
-						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
-						
-						if (lines==null){
-							lines = new ArrayList<String>();
-							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
-						}else{
-							lines.add(strLine1);
-						}
-					}
+					lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-					
-					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
-						
-						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
-						
-						if (lines==null){
-							lines = new ArrayList<String>();
-							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
-						}else{
-							lines.add(strLine1);
-						}
+					if (lines==null){
+						lines = new ArrayList<String>();
+						lines.add(strLine1);
+						enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
+					}else{
+						lines.add(strLine1);
 					}
 					
 				}
@@ -605,37 +554,29 @@ public class AugmentationofEnrichedElementswithIntervals {
 
 	}
 	
-	public void readandWriteFiles(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String dnaseEnrichment, String histoneEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
-		String withRespectToFileName = null;
-		
-		if (multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-			withRespectToFileName = Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE;
-		}else if (multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
-			withRespectToFileName = Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE;
-			
-		}
+	public void readandWriteFiles(String outputFolder,Float FDR,String dnaseEnrichment, String histoneEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
 		
 		 if (dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-		 		readDnaseFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS);	
+		 		readDnaseFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_all.txt", Commons.AUGMENTED_DNASE_RESULTS);	
 		 }
 		 
 		 if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-		 		readHistoneFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS);	
+		 		readHistoneFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS  + "_all.txt", Commons.AUGMENTED_HISTONE_RESULTS);	
 		 }
 		
 	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 	    	 
-	 		readTfKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-			readTfKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-			readTfKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);
+	 		readTfKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + "_all.txt", Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+			readTfKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_all.txt", Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+			readTfKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS +"_all.txt", Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);
 			
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 
-	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_all.txt", Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_all.txt", Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	readTfCellLineKeggPathwayFileAugmentandWrite(outputFolder,FDR,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_all.txt", Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 
 	     }
 	
@@ -708,9 +649,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		String multipleTestingParameter = args[6];
 		Float FDR = Float.parseFloat(args[8]);
-		Float bonfCorrectionSignificanceLevel = Float.parseFloat(args[7]);
 
 		String dnaseEnrichment = args[10];
 		String histoneEnrichment  = args[11];
@@ -719,7 +658,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 		AugmentationofEnrichedElementswithIntervals enrich = new AugmentationofEnrichedElementswithIntervals();
 		
-		enrich.readandWriteFiles(outputFolder,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		enrich.readandWriteFiles(outputFolder,FDR,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 		
 
 	}
