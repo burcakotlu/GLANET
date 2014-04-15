@@ -552,7 +552,18 @@ public class InputDataProcess {
 		return null;
 	}
 	
-	
+	//args[0] must have input file name with folder
+	//args[1] must have GLANET folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2] must have Input File Format		
+	//args[3] must have Number of Permutations	
+	//args[4] must have False Discovery Rate (ex: 0.05)
+	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
+	//args[6] must have writeGeneratedRandomDataMode checkBox
+	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
+	public static void run(String[] args){
+	processInputData(args);
+	}
 		
 	//args[0] must have input file name with folder
 	//args[1] must have GLANET folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
