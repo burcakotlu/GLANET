@@ -116,6 +116,10 @@ public class Commons {
 	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
 	//Augmentation of Enriched Elements with Overlaps Output Files ends
 	
+	//RSAT PARAMETER
+	public static final String DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
+	public static final String DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
+	
 	//RSAT
 	 public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
 	 public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
@@ -688,6 +692,10 @@ public class Commons {
 	public static final String UCSC_REFSEQ_GENE_ANNOTATION = "UCSC_REFSEQ_GENE_ANNOTATION";
 	public static final String TF_CELLLINE_KEGG_PATHWAY_ANNOTATION = "TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
 	public static final String TF_KEGG_PATHWAY_ANNOTATION = "TF_KEGG_PATHWAY_ANNOTATION";
+	
+	//Enrichmnet parameter
+	public static final String DO_ENRICH = "DO_ENRICH";
+	public static final String DO_NOT_ENRICH = "DO_NOT_ENRICH";
 
 	//Enrichment Type
 	public static final String DO_DNASE_ENRICHMENT 		= "DO_DNASE_ENRICHMENT";
