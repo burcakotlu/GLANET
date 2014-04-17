@@ -51,9 +51,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		private final int chromSize;
 		private final String chromName;
 		private final List<InputLine> chromosomeBasedOriginalInputLines;
-		private final int repeatNumber;
-		private final int NUMBER_OF_PERMUTATIONS;
-		
+			
 		private final String generateRandomDataMode;
 		private final String writeGeneratedRandomDataMode;
 		
@@ -66,16 +64,14 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		private final MapabilityFloatArray mapabilityFloatArray;
 		private final String outputFolder;
 				
-		public GenerateRandomData(String outputFolder,int chromSize, String chromName, List<InputLine> chromosomeBasedOriginalInputLines, int repeatNumber,int NUMBER_OF_PERMUTATIONS, String generateRandomDataMode, String writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
+		public GenerateRandomData(String outputFolder,int chromSize, String chromName, List<InputLine> chromosomeBasedOriginalInputLines, String generateRandomDataMode, String writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
 			
 			this.outputFolder = outputFolder;
 			
 			this.chromSize = chromSize;
 			this.chromName = chromName;
 			this.chromosomeBasedOriginalInputLines = chromosomeBasedOriginalInputLines;
-			this.repeatNumber = repeatNumber;
-			this.NUMBER_OF_PERMUTATIONS = NUMBER_OF_PERMUTATIONS;
-			
+
 			this.generateRandomDataMode = generateRandomDataMode;
 			this.writeGeneratedRandomDataMode = writeGeneratedRandomDataMode;
 			
@@ -101,8 +97,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			//DIVIDE
 			if (highIndex-lowIndex>8){
 			 	middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-			 	GenerateRandomData left  = new GenerateRandomData(outputFolder,chromSize, chromName, chromosomeBasedOriginalInputLines, repeatNumber,NUMBER_OF_PERMUTATIONS, generateRandomDataMode,writeGeneratedRandomDataMode,lowIndex,middleIndex,listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
-			 	GenerateRandomData right = new GenerateRandomData(outputFolder,chromSize, chromName, chromosomeBasedOriginalInputLines, repeatNumber,NUMBER_OF_PERMUTATIONS, generateRandomDataMode,writeGeneratedRandomDataMode,middleIndex,highIndex,listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
+			 	GenerateRandomData left  = new GenerateRandomData(outputFolder,chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode,writeGeneratedRandomDataMode,lowIndex,middleIndex,listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
+			 	GenerateRandomData right = new GenerateRandomData(outputFolder,chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode,writeGeneratedRandomDataMode,middleIndex,highIndex,listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
 	            left.fork();
 	            rightRandomlyGeneratedData = right.compute();
 	            leftRandomlyGeneratedData  = left.join();
@@ -119,16 +115,17 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				Map<Integer,List<InputLine>> randomlyGeneratedDataMap = new HashMap<Integer,List<InputLine>>();
 				 	
 				for(int i=lowIndex; i<highIndex; i++){
-					 annotationTask = listofAnnotationTasks.get(i);
+					 annotationTask = listofAnnotationTasks.get(i);					 					
+					 
 					 permutationNumber = annotationTask.getPermutationNumber();
-					      
-				     System.out.println("Generate Random Data For Task: " + i + "\t" +chromName);	
+					 					      
+				     System.out.println("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName);	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
 				     //Write Generated Random Data
 				     if(Commons.WRITE_GENERATED_RANDOM_DATA.equals(writeGeneratedRandomDataMode)){
-				    	writeGeneratedRandomData(outputFolder,randomlyGeneratedDataMap.get(permutationNumber),repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS);
+				    	writeGeneratedRandomData(outputFolder,randomlyGeneratedDataMap.get(permutationNumber),permutationNumber);
 				     }
 						
 				}//End of FOR
@@ -156,14 +153,14 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		}
 	       
 		
-		protected void writeGeneratedRandomData(String outputFolder,List<InputLine> randomlyGeneratedData,int repeatNumber,int permutationNumber, int NUMBER_OF_PERMUTATIONS){
+		protected void writeGeneratedRandomData(String outputFolder,List<InputLine> randomlyGeneratedData,int permutationNumber){
 			 FileWriter fileWriter;
 		     BufferedWriter bufferedWriter;
 		     InputLine randomlyGeneratedInputLine;
 		        
 		 	try {
 		 		
-				fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RANDOMLY_GENERATED_DATA_FOLDER  + Commons.PERMUTATION + ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS+ permutationNumber)  + "_" + Commons.RANDOMLY_GENERATED_DATA  +".txt",true);
+				fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RANDOMLY_GENERATED_DATA_FOLDER  + Commons.PERMUTATION + permutationNumber  + "_" + Commons.RANDOMLY_GENERATED_DATA  +".txt",true);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
 				for(int i=0;i<randomlyGeneratedData.size(); i++){
@@ -190,8 +187,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	private final int chromSize;
 	private final String chromName;
 	private final Map<Integer,List<InputLine>> randomlyGeneratedDataMap;
-	private final int repeatNumber;
-	private final int NUMBER_OF_PERMUTATIONS;
+	private final int runNumber;
+	private final int numberofPermutations;
 	
 	private final String writePermutationBasedandParametricBasedAnnotationResultMode;
 	
@@ -212,14 +209,14 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	
 	
 	
-	public Annotate(String outputFolder,int chromSize, String chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int repeatNumber,int NUMBER_OF_PERMUTATIONS, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap) {
+	public Annotate(String outputFolder,int chromSize, String chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap) {
 		this.outputFolder  = outputFolder;
 		
 		this.chromSize = chromSize;
 		this.chromName = chromName;
 		this.randomlyGeneratedDataMap = randomlyGeneratedDataMap;
-		this.repeatNumber = repeatNumber;
-		this.NUMBER_OF_PERMUTATIONS = NUMBER_OF_PERMUTATIONS;
+		this.runNumber = runNumber;
+		this.numberofPermutations = numberofPermutations;
 		
 		this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
 		
@@ -259,8 +256,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			//DIVIDE
 			if (highIndex-lowIndex>9){
 			 	middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-	            Annotate left  = new Annotate(outputFolder,chromSize, chromName, randomlyGeneratedDataMap, repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,lowIndex,middleIndex,listofAnnotationTasks,intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap);
-	            Annotate right = new Annotate(outputFolder,chromSize, chromName, randomlyGeneratedDataMap, repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,middleIndex,highIndex,listofAnnotationTasks,intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap);
+	            Annotate left  = new Annotate(outputFolder,chromSize, chromName, randomlyGeneratedDataMap, runNumber,numberofPermutations,writePermutationBasedandParametricBasedAnnotationResultMode,lowIndex,middleIndex,listofAnnotationTasks,intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap);
+	            Annotate right = new Annotate(outputFolder,chromSize, chromName, randomlyGeneratedDataMap, runNumber,numberofPermutations,writePermutationBasedandParametricBasedAnnotationResultMode,middleIndex,highIndex,listofAnnotationTasks,intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap);
 	            left.fork();
 	            rightAllMaps = right.compute();
 	            leftAllMaps  = left.join();
@@ -278,16 +275,16 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     System.out.println("Annotate Random Data For Task: " + i + "\t" +chromName + "\t" + annotationType);	
+				     System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
-				    	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithoutIO(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap));
+				    	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithoutIO(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap));
 				     }
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     else if (Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
-				     	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithIO(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap));
+				     	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithIO(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayMap));
 				     }						
 				}//End of FOR
 					
@@ -689,9 +686,11 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		
 		
 	
-	public void generateAnnotationTasks(String chromName, List<AnnotationTask> listofAnnotationTasks,int repeatNumber,int NUMBER_OF_PERMUTATIONS){	
-			for(int permutationNumber = 1; permutationNumber<= NUMBER_OF_PERMUTATIONS; permutationNumber++){
-				listofAnnotationTasks.add(new AnnotationTask(chromName, (repeatNumber-1)* NUMBER_OF_PERMUTATIONS+permutationNumber));
+	public void generateAnnotationTasks(String chromName, List<AnnotationTask> listofAnnotationTasks,int runNumber,int numberofPermutationsinThisRun){
+		
+		
+			for(int permutationNumber = 1; permutationNumber<= numberofPermutationsinThisRun; permutationNumber++){
+				listofAnnotationTasks.add(new AnnotationTask(chromName, (runNumber-1)* Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN + permutationNumber));
 			}
 	}
 	
@@ -768,7 +767,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	
 	
 	
-	public void writeAnnotationstoFiles(Map<String,Integer> name2KMap, Map<String,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName){
+	public void writeAnnotationstoFiles(String outputFolder,Map<String,Integer> name2KMap, Map<String,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName){
 		
 		String permutationNumberName;
 		String permutationNumber;
@@ -793,7 +792,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			try {
 				
 				if (bufferedWriter==null){
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_PARAMETRIC + folderName + permutationNumber +  "_" + extraFileName + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC + folderName + permutationNumber +  "_" + extraFileName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
 				}
@@ -940,7 +939,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	//the tasks are executed
 	//after all the parallel work is done
 	//results are written to files
-	public void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS,List<InputLine> allOriginalInputLines, Map<String,List<Integer>> dnase2AllKMap,Map<String,List<Integer>> tfbs2AllKMap,Map<String,List<Integer>> histone2AllKMap,Map<String,List<Integer>> exonBasedKeggPathway2AllKMap,Map<String,List<Integer>> regulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> allBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfAllBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfCellLineRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineAllBasedKeggPathway2AllKMap, String generateRandomDataMode, String writeGeneratedRandomDataMode,String writePermutationBasedandParametricBasedAnnotationResultMode,String writePermutationBasedAnnotationResultMode,Map<String,Integer> originalDnase2KMap,Map<String,Integer> originalTfbs2KMap,Map<String,Integer> originalHistone2KMap,Map<String,Integer> originalExonBasedKeggPathway2KMap,Map<String,Integer> originalRegulationBasedKeggPathway2KMap,Map<String,Integer> originalAllBasedKeggPathway2KMap, Map<String,Integer> originalTfExonBasedKeggPathway2KMap,Map<String,Integer> originalTfRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfAllBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineAllBasedKeggPathway2KMap, String dnaseEnrichment, String histoneEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
+	public void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int runNumber, int numberofPermutationsinThisRun,List<InputLine> allOriginalInputLines, Map<String,List<Integer>> dnase2AllKMap,Map<String,List<Integer>> tfbs2AllKMap,Map<String,List<Integer>> histone2AllKMap,Map<String,List<Integer>> exonBasedKeggPathway2AllKMap,Map<String,List<Integer>> regulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> allBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfAllBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfCellLineRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineAllBasedKeggPathway2AllKMap, String generateRandomDataMode, String writeGeneratedRandomDataMode,String writePermutationBasedandParametricBasedAnnotationResultMode,String writePermutationBasedAnnotationResultMode,Map<String,Integer> originalDnase2KMap,Map<String,Integer> originalTfbs2KMap,Map<String,Integer> originalHistone2KMap,Map<String,Integer> originalExonBasedKeggPathway2KMap,Map<String,Integer> originalRegulationBasedKeggPathway2KMap,Map<String,Integer> originalAllBasedKeggPathway2KMap, Map<String,Integer> originalTfExonBasedKeggPathway2KMap,Map<String,Integer> originalTfRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfAllBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineAllBasedKeggPathway2KMap, String dnaseEnrichment, String histoneEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
 		
 		AllMaps allMaps = new AllMaps();
 		AllMaps accumulatedAllMaps = new AllMaps();
@@ -1023,66 +1022,98 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
     	
     	long startTimeAllPermutations = System.currentTimeMillis();
     		   
-    	for(int repeatNumber = 1; repeatNumber<= NUMBER_OF_REPEATS; repeatNumber++){
     		
-    		System.out.println("Repeat: " + repeatNumber);
+		System.out.println("Run Number: " + runNumber);
+
+		//for each chromosome
+		for(int i= 1 ; i<=Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
+			
+    		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
+			chromSize = hg19ChromosomeSizes.get(i-1);
+			
+			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
+							
+			if (chromosomeBaseOriginalInputLines!=null){
+										
+				//initialize list of annotation tasks
+				listofAnnotationTasks = new ArrayList<AnnotationTask>();
+				
+				gcCharArray = new GCCharArray();
+				mapabilityFloatArray = new MapabilityFloatArray();
+			
+				//generate tasks
+				System.out.println("Generate annotation tasks has started.");
+				generateAnnotationTasks(chromName,listofAnnotationTasks,runNumber,numberofPermutationsinThisRun);
+				System.out.println("Generate annotation tasks has ended.");
+				
+				   				
+				if (Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equals(generateRandomDataMode)){
+					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName,chromSize);
+					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
+				}
+				System.out.println("Generate Random Data and Annotate has started.");	
+			    long startTime = System.currentTimeMillis();
+			    
+			    System.out.println("First Generate Random Data");
+			    System.out.println("Generate Random Data has started.");
+ 			    //First generate Random Data
+			    generateRandomData = new GenerateRandomData(outputFolder,chromSize,chromName,chromosomeBaseOriginalInputLines,generateRandomDataMode,writeGeneratedRandomDataMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
+			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
+			    System.out.println("Generate Random Data has ended.");
+			    
+			    //Only in the first run
+			    //generate task for original data
+			    if  (runNumber == 1){
+			    	   //After Random Data Generation has been ended
+					//generate task for User Given Original Data(Genomic Variants)
+				    //Since we do not need random data, there is  original data is given
+					generateAnnotationTaskforOriginalData(chromName,listofAnnotationTasks,Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
+					
+					//Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
+					permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
+			    }
+			 	    
+				System.out.println("Deletion of the gcCharArray has started.");
+				deleteGCCharArray(gcCharArray.getGcArray());
+				System.out.println("Deletion of the gcCharArray has ended.");
+				gcCharArray = null;
+				
+				System.out.println("Deletion of the mapabilityFloatArray has started.");
+				deleteMapabilityFloatArray(mapabilityFloatArray.getMapabilityArray());
+				System.out.println("Deletion of the mapabilityFloatArray has ended.");
+				mapabilityFloatArray = null;
+				
+				System.out.println("Annotate has started.");
+				
+				if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
+					
+					//New Functionality START
+    				//tfbs 
+    				//Kegg Pathway (exon Based, regulation Based, all Based)
+    				//tfbs and Kegg Pathway (exon Based, regulation Based, all Based)
+    				//generate tf interval tree and ucsc refseq genes interval tree
+    				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
+    				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
+      			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_KEGG_PATHWAY_ANNOTATION,tfKeggPathwayEnrichment,geneId2KeggPathwayMap);
+      				allMaps = pool.invoke(annotate);    
+      				//Will be used 	for Tf and KeggPathway Enrichment or
+      				//				for Tf and CellLine and KeggPathway Enrichment
+					accumulate(allMaps, accumulatedAllMaps,Commons.TF_KEGG_PATHWAY_ANNOTATION);	
+      			    accumulate(allMaps, accumulatedAllMaps,Commons.TFBS_ANNOTATION);
+      			    accumulate(allMaps, accumulatedAllMaps,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
+      			  
+      			    allMaps = null;
+      			    deleteIntervalTree(tfIntervalTree);
+      			    deleteIntervalTree(ucscRefSeqGenesIntervalTree);
+      			    tfIntervalTree = null;
+      			    ucscRefSeqGenesIntervalTree = null;	
+      				//New Functionality END
     			
-    		for(int i= 1 ; i<=Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
-    			
-        		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
-    			chromSize = hg19ChromosomeSizes.get(i-1);
-    			
-    			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
-    			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
-    							
-    			if (chromosomeBaseOriginalInputLines!=null){
-    										
-    				listofAnnotationTasks = new ArrayList<AnnotationTask>();
-    				
-    				gcCharArray = new GCCharArray();
-    				mapabilityFloatArray = new MapabilityFloatArray();
-    			
-    				//generate tasks
-    				System.out.println("Generate annotation tasks has started.");
-    				generateAnnotationTasks(chromName,listofAnnotationTasks,repeatNumber,NUMBER_OF_PERMUTATIONS);
-    				System.out.println("Generate annotation tasks has ended.");
-    				
-    				   				
-    				if (Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equals(generateRandomDataMode)){
-    					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName,chromSize);
-    					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
-    				}
-    				System.out.println("Generate Random Data and Annotate has started.");	
-    			    long startTime = System.currentTimeMillis();
-    			    
-    			    System.out.println("First Generate Random Data");
-    			    System.out.println("Generate Random Data has started.");
-     			    //First generate Random Data
-    			    generateRandomData = new GenerateRandomData(outputFolder,chromSize,chromName,chromosomeBaseOriginalInputLines,repeatNumber,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,writeGeneratedRandomDataMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
-    			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
-    			    System.out.println("Generate Random Data has ended.");
-    			    
-    			    //After Random Data Generation has been ended
-    				//generate task for User Given Original Data(Genomic Variants)
-    			    //Since we do not need random data, there is  original data is given
-    				generateAnnotationTaskforOriginalData(chromName,listofAnnotationTasks,Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
-    				
-    				//Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
-    				permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
-    				    
-    				System.out.println("Deletion of the gcCharArray has started.");
-    				deleteGCCharArray(gcCharArray.getGcArray());
-    				System.out.println("Deletion of the gcCharArray has ended.");
-    				gcCharArray = null;
-    				
-    				System.out.println("Deletion of the mapabilityFloatArray has started.");
-    				deleteMapabilityFloatArray(mapabilityFloatArray.getMapabilityArray());
-    				System.out.println("Deletion of the mapabilityFloatArray has ended.");
-    				mapabilityFloatArray = null;
-    				
-    				System.out.println("Annotate has started.");
-    				
-    				if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
+				}
+				
+				
+				if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
     					
     					//New Functionality START
         				//tfbs 
@@ -1091,11 +1122,11 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
         				//generate tf interval tree and ucsc refseq genes interval tree
         				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
         				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
-          			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_KEGG_PATHWAY_ANNOTATION,tfKeggPathwayEnrichment,geneId2KeggPathwayMap);
+          			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,tfCellLineKeggPathwayEnrichment,geneId2KeggPathwayMap);
           				allMaps = pool.invoke(annotate);    
           				//Will be used 	for Tf and KeggPathway Enrichment or
           				//				for Tf and CellLine and KeggPathway Enrichment
-    					accumulate(allMaps, accumulatedAllMaps,Commons.TF_KEGG_PATHWAY_ANNOTATION);	
+    					accumulate(allMaps, accumulatedAllMaps,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION);	
           			    accumulate(allMaps, accumulatedAllMaps,Commons.TFBS_ANNOTATION);
           			    accumulate(allMaps, accumulatedAllMaps,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
           			  
@@ -1108,60 +1139,33 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
         			
     				}
     				
-    				
-    				if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-        					
-        					//New Functionality START
-            				//tfbs 
-            				//Kegg Pathway (exon Based, regulation Based, all Based)
-            				//tfbs and Kegg Pathway (exon Based, regulation Based, all Based)
-            				//generate tf interval tree and ucsc refseq genes interval tree
-            				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
-            				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
-              			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,tfCellLineKeggPathwayEnrichment,geneId2KeggPathwayMap);
-              				allMaps = pool.invoke(annotate);    
-              				//Will be used 	for Tf and KeggPathway Enrichment or
-              				//				for Tf and CellLine and KeggPathway Enrichment
-        					accumulate(allMaps, accumulatedAllMaps,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION);	
-              			    accumulate(allMaps, accumulatedAllMaps,Commons.TFBS_ANNOTATION);
-              			    accumulate(allMaps, accumulatedAllMaps,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
-              			  
-              			    allMaps = null;
-              			    deleteIntervalTree(tfIntervalTree);
-              			    deleteIntervalTree(ucscRefSeqGenesIntervalTree);
-              			    tfIntervalTree = null;
-              			    ucscRefSeqGenesIntervalTree = null;	
-              				//New Functionality END
-            			
-        				}
-        				
-    				if (dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-    					
-    					//dnase
-        			    //generate dnase interval tree
-        			    intervalTree = generateDnaseIntervalTree(outputFolder,chromName);
-        			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.DNASE_ANNOTATION,null,null);
-        				allMaps = pool.invoke(annotate);    			    
-        			    accumulate(allMaps, accumulatedAllMaps, Commons.DNASE_ANNOTATION);
-        			    allMaps = null;
-        			    deleteIntervalTree(intervalTree);
-        			    intervalTree = null;
-            	
-    				}
-    			 		
-    				if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-    				    //histone
-        			    //generate histone interval tree
-        			    intervalTree = generateHistoneIntervalTree(outputFolder,chromName);
-        			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.HISTONE_ANNOTATION,null,null);
-        				allMaps = pool.invoke(annotate);    			    
-        			    accumulate(allMaps, accumulatedAllMaps,Commons.HISTONE_ANNOTATION);
-        			    allMaps = null;
-        			    deleteIntervalTree(intervalTree);
-        			    intervalTree = null;
+				if (dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
+					
+					//dnase
+    			    //generate dnase interval tree
+    			    intervalTree = generateDnaseIntervalTree(outputFolder,chromName);
+    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.DNASE_ANNOTATION,null,null);
+    				allMaps = pool.invoke(annotate);    			    
+    			    accumulate(allMaps, accumulatedAllMaps, Commons.DNASE_ANNOTATION);
+    			    allMaps = null;
+    			    deleteIntervalTree(intervalTree);
+    			    intervalTree = null;
+        	
+				}
+			 		
+				if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
+				    //histone
+    			    //generate histone interval tree
+    			    intervalTree = generateHistoneIntervalTree(outputFolder,chromName);
+    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.HISTONE_ANNOTATION,null,null);
+    				allMaps = pool.invoke(annotate);    			    
+    			    accumulate(allMaps, accumulatedAllMaps,Commons.HISTONE_ANNOTATION);
+    			    allMaps = null;
+    			    deleteIntervalTree(intervalTree);
+    			    intervalTree = null;
 
-    				}
-    	    			    
+				}
+	    			    
 //    			    No NEED, Done in new functionality
 //    			    //tfbs
 //    			    //generate tfbs interval tree
@@ -1172,7 +1176,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 //    			    allMaps = null;
 //    			    deleteIntervalTree(intervalTree);
 //    			    intervalTree = null;
-            		
+        		
 //    			    No NEED, Done in new functionality
 //   			    //ucsc RefSeq Genes
 //    			    //generate UCSC RefSeq Genes interval tree
@@ -1183,30 +1187,29 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 //    			    allMaps = null;
 //    			    deleteIntervalTree(intervalTree);
 //    			    intervalTree = null;	
-    				System.out.println("Annotate has ended.");
-    				
-    			    long endTime = System.currentTimeMillis();
-    				System.out.println("Repeat: " + repeatNumber  + " For Chromosome: " + chromName + " Annotation of " + NUMBER_OF_PERMUTATIONS + " permutations took  " + (endTime - startTime) + " milliseconds.");
-    				System.out.println("Generate Random Data and Annotate has ended.");
-   				
-    				System.out.println("Deletion of the tasks has started.");
-    				deleteAnnotationTasks(listofAnnotationTasks);
-    				System.out.println("Deletion of the tasks has ended.");
-   			
-    			    permutationNumber2RandomlyGeneratedDataHashMap.clear();
-    			    permutationNumber2RandomlyGeneratedDataHashMap= null;
-    				listofAnnotationTasks = null;
-    				annotate = null;
-    				generateRandomData = null;
-    				chromosomeBaseOriginalInputLines =null;
-    				
-    				
-    			}//end of if: chromosome based input lines is not null
-    			
-        	}//End of for: each chromosome
+				System.out.println("Annotate has ended.");
+				
+			    long endTime = System.currentTimeMillis();
+				System.out.println("RunNumber: " + runNumber  + " For Chromosome: " + chromName + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
+				System.out.println("Generate Random Data and Annotate has ended.");
+			
+				System.out.println("Deletion of the tasks has started.");
+				deleteAnnotationTasks(listofAnnotationTasks);
+				System.out.println("Deletion of the tasks has ended.");
+		
+			    permutationNumber2RandomlyGeneratedDataHashMap.clear();
+			    permutationNumber2RandomlyGeneratedDataHashMap= null;
+				listofAnnotationTasks = null;
+				annotate = null;
+				generateRandomData = null;
+				chromosomeBaseOriginalInputLines =null;
+				
+				
+			}//end of if: chromosome based input lines is not null
+			
+    	}//End of for: each chromosome
     	
-    	}//end of for: each repeat
-    		
+    			
     	pool.shutdown();
 		
 		if (pool.isTerminated()){
@@ -1216,7 +1219,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		
 		long endTimeAllPermutations = System.currentTimeMillis();
 	
-		System.out.println("NUMBER_OF_REPEATS: " + NUMBER_OF_REPEATS + " NUMBER_OF_PERMUTATIONS:  "+ NUMBER_OF_PERMUTATIONS  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
+		System.out.println("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  "+ numberofPermutationsinThisRun  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
 	
 		//convert permutation augmented name to only name
 		//Fill elementName2ALLMap and originalElementName2KMap in convert methods
@@ -1242,14 +1245,14 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			
 			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
 				//Dnase
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberDnaseCellLineName2KMap(),permutationNumber2DnaseBufferedWriterHashMap, "dnase" + System.getProperty("file.separator")  , Commons.DNASE);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberDnaseCellLineName2KMap(),permutationNumber2DnaseBufferedWriterHashMap, "dnase" + System.getProperty("file.separator")  , Commons.DNASE);
 				closeBufferedWriters(permutationNumber2DnaseBufferedWriterHashMap);
 			
 			}
 			
 			if(histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
 				//Histone
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberHistoneNameCellLineName2KMap(),permutationNumber2HistoneBufferedWriterHashMap,"histone" + System.getProperty("file.separator") , Commons.HISTONE);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberHistoneNameCellLineName2KMap(),permutationNumber2HistoneBufferedWriterHashMap,"histone" + System.getProperty("file.separator") , Commons.HISTONE);
 				closeBufferedWriters(permutationNumber2HistoneBufferedWriterHashMap);
 		
 			}
@@ -1258,61 +1261,61 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			if(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 				
 				//Tf and Exon Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and All Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Tfbs
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,"keggPathway" + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,"keggPathway" + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//All Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);
 			
 			}else if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 				
 				//Tf and Cell Line and Exon Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Cell Line and Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Cell Line and All Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, "tfCellLineKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Tfbs
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,"keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,"keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator"), Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator"), Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//All Based Kegg Pathway
-				writeAnnotationstoFiles(accumulatedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator"), Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator"), Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);
 
 			}
@@ -1575,7 +1578,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	}
 	
 	//args[0]	--->	Input File Name with folder
-	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[1]	--->	GLANET installation folder with System.getProperty("file.separator") at the end. 
+	//			--->	This folder will be used for outputFolder and dataFolder.
 	//args[2]	--->	Input File Format	
 	//			--->	default	Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
@@ -1637,12 +1641,13 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		int NUMBER_OF_AVAILABLE_PROCESSORS =  java.lang.Runtime.getRuntime().availableProcessors();
 		
 		//Set the number of repeats
-		int NUMBER_OF_REPEATS = 1;
+//		int NUMBER_OF_REPEATS = 1;
 //		int NUMBER_OF_REPEATS = Integer.parseInt(args[0]);
 		
 		//Set the number of permutations
 //		int NUMBER_OF_PERMUTATIONS = 10000;
-		int NUMBER_OF_PERMUTATIONS = Integer.parseInt(args[9]);
+//		int NUMBER_OF_PERMUTATIONS = Integer.parseInt(args[9]);
+		int numberofTotalPermutations = Integer.parseInt(args[9]);
 		
 		float FDR = Float.parseFloat(args[8]);
 		
@@ -1705,23 +1710,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(outputFolder,numberofComparisons);
 			
 		
-		//@todo
-		//for loop starts
-		//NUMBER_OF_PERMUTATIONS has to be multiple of 1000 like 1000, 5000, 10000, 50000, 100000
-		
-		int numberofRuns = 0;
-		int numberofRemainders = 0;
-		
-		numberofRuns = NUMBER_OF_PERMUTATIONS / Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
-		numberofRemainders = NUMBER_OF_PERMUTATIONS % Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
-		
-		//Increase numberofRuns by 1 for remainder permutations less than Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN
-		if (numberofRemainders> 0){
-			numberofRuns += 1;
-		}
-		
-		String runNumber;
-		
 		/*********************************************/
 		//delete old files
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC;
@@ -1736,10 +1724,25 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		/*********************************************/
 
 		
-		for(int i=1; i<=numberofRuns;i++){
-			System.out.println("**************	" + i + ". Run" + "	******************	starts");
+		//for loop starts
+		//NUMBER_OF_PERMUTATIONS has to be multiple of 1000 like 1000, 5000, 10000, 50000, 100000
+		
+		int numberofRuns = 0;
+		int numberofRemainedPermutations = 0;
+		String runName;
+		
+		numberofRuns = numberofTotalPermutations / Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
+		numberofRemainedPermutations = numberofTotalPermutations % Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
+		
+		//Increase numberofRuns by 1 for remainder permutations less than Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN
+		if (numberofRemainedPermutations> 0){
+			numberofRuns += 1;
+		}
+							
+		for(int runNumber=1; runNumber<=numberofRuns;runNumber++){
+			System.out.println("**************	" + runNumber + ". Run" + "	******************	starts");
 			
-			runNumber = jobName + i;
+			runName = jobName + runNumber;
 			
 			//annotation of original data with permutations	
 			//annotation of original data has permutation number zero
@@ -1788,11 +1791,11 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			//generate random data
 			//then annotate permutations concurrently
 			//elementName2AllKMap and originalElementName2KMap will be filled here
-			if ((i == numberofRuns) && (numberofRemainders >0)){
-				annotatePermutationsUsingForkJoin.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,NUMBER_OF_REPEATS,numberofRemainders,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);		
+			if ((runNumber == numberofRuns) && (numberofRemainedPermutations >0)){
+				annotatePermutationsUsingForkJoin.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);		
 				
 			}else {
-				annotatePermutationsUsingForkJoin.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,NUMBER_OF_REPEATS,Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);		
+				annotatePermutationsUsingForkJoin.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichment,histoneEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);		
 				
 			}
 			System.out.println("Concurrent programming has been ended.");				
@@ -1801,43 +1804,43 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			if(dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
 			
 				//Write to be collected files
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalDnase2KMap,dnase2AllKMap,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalDnase2KMap,dnase2AllKMap,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,runName);
 			}
 			
 			if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
 				
 				//Write to be collected files
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalHistone2KMap,histone2AllKMap,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalHistone2KMap,histone2AllKMap,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,runName);
 			}
 			
 				
 			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 							
 				//Write to be collected files
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runName);
 				
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalAllBasedKeggPathway2KMap,allBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalAllBasedKeggPathway2KMap,allBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 				
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfExonBasedKeggPathway2KMap,tfExonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfRegulationBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfAllBasedKeggPathway2KMap,tfAllBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfExonBasedKeggPathway2KMap,tfExonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfRegulationBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfAllBasedKeggPathway2KMap,tfAllBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 			
 			}
 			
 			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 								
 				//Write to be collected files
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runName);
 				
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalAllBasedKeggPathway2KMap,allBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalAllBasedKeggPathway2KMap,allBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 				
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineExonBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineRegulationBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
-				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineAllBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runNumber);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineExonBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineRegulationBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+				annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfCellLineAllBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 			}
 			//Calculate Empirical P Values and Bonferroni Corrected Empirical P Values ends
 
@@ -1880,7 +1883,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			tfCellLineRegulationBasedKeggPathway2AllKMap = null ;
 			tfCellLineAllBasedKeggPathway2AllKMap = null;
 	
-			System.out.println("**************	" + i + ". Run" + "	******************	ends");
+			System.out.println("**************	" + runNumber + ". Run" + "	******************	ends");
 			
 		}
 		//for loop ends						

@@ -977,25 +977,23 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingHistoneIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap){
+	public void findAllOverlappingHistoneIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory = null;
 		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-
 		String permutationNumberHistoneNameaCellLineName;
 		
 
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				try {			
-					permutationNumberHistoneNameaCellLineName =  Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
+					permutationNumberHistoneNameaCellLineName =  Commons.PERMUTATION + permutationNumber + "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
 					
 					bufferedWriter = bufferedWriterHashMap.get(permutationNumberHistoneNameaCellLineName);
 					
 					if (bufferedWriter==null){
 					
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator")+ permutationNumberHistoneNameaCellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator")+ permutationNumberHistoneNameaCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(permutationNumberHistoneNameaCellLineName,bufferedWriter);
 					}
@@ -1015,11 +1013,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingHistoneIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingHistoneIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
 				
 			}
 				
@@ -1029,14 +1027,14 @@ public class IntervalTree {
 	//Empirical P Value Calculation
 	//without IO
 	//without overlappedNodeList
-	public void findAllOverlappingHistoneIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap){
+	public void findAllOverlappingHistoneIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap){
 		String permutationNumberHistoneNameaCellLineName;
 		
 
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				
 					
-					permutationNumberHistoneNameaCellLineName =  Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
+					permutationNumberHistoneNameaCellLineName =  Commons.PERMUTATION + permutationNumber + "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
 												
 					if(permutationNumberHistoneNameCellLineName2ZeroorOneMap.get(permutationNumberHistoneNameaCellLineName)==null){
 						permutationNumberHistoneNameCellLineName2ZeroorOneMap.put(permutationNumberHistoneNameaCellLineName, 1);
@@ -1044,11 +1042,11 @@ public class IntervalTree {
 			}
 						
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingHistoneIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingHistoneIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingHistoneIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap);	
 				
 			}
 			
@@ -1134,19 +1132,17 @@ public class IntervalTree {
 	//Empirical P Value Calculation
 	//with IO
 	//with OverlapNodeList
-	public void findAllOverlappingTfbsIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> 	permutationNumberTfNameCellLineNameOverlapList){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> 	permutationNumberTfNameCellLineNameOverlapList){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-
 		String permutationNumberTfNameCellLineName;
 		
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				try {
 						
 					
-					permutationNumberTfNameCellLineName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
+					permutationNumberTfNameCellLineName = Commons.PERMUTATION + permutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
 					
 					permutationNumberTfNameCellLineNameOverlapList.add(new PermutationNumberTfNameCellLineNameOverlap(permutationNumberTfNameCellLineName,node.getLow(),node.getHigh()));
 					
@@ -1154,7 +1150,7 @@ public class IntervalTree {
 					
 					if (bufferedWriter==null){	
 												
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + permutationNumberTfNameCellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") + permutationNumberTfNameCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(permutationNumberTfNameCellLineName,bufferedWriter);
 					}
@@ -1176,11 +1172,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingTfbsIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingTfbsIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
 				
 			}		
 	}
@@ -1188,26 +1184,25 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingTfbsIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory;
 		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-
+		
 		String permutationNumberTfbsNameCellLineName;
 		
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				try {
 						
 					
-					permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
+					permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + permutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();
 					
 					bufferedWriter = bufferedWriterHashMap.get(permutationNumberTfbsNameCellLineName);
 					
 					if (bufferedWriter==null){	
 											
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + permutationNumberTfbsNameCellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") + permutationNumberTfbsNameCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(permutationNumberTfbsNameCellLineName,bufferedWriter);
 					}
@@ -1229,11 +1224,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingTfbsIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingTfbsIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
 				
 			}
 		
@@ -1242,13 +1237,13 @@ public class IntervalTree {
     	//Empirical P Value Calculation
 		//without IO
 		//without overlappedNodeList
-		public void findAllOverlappingTfbsIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap){
+		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap){
 			String permutationNumberTfbsNameCellLineName;
 		
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				
 					
-				permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();			
+				permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + permutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();			
 					
 				if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfbsNameCellLineName)==null){
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfbsNameCellLineName, 1);
@@ -1257,11 +1252,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingTfbsIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
+				findAllOverlappingTfbsIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap);	
 				
 			}
 			
@@ -1300,14 +1295,14 @@ public class IntervalTree {
 		//Empirical P Value Calculation
 		//without IO
 		//with permutationNumberTfNameCellLineNameOverlapList
-		public void findAllOverlappingTfbsIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList){
+		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList){
 			
 			String permutationNumberTfNameCellLineName;
 			
 				if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 					
 						
-					permutationNumberTfNameCellLineName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();			
+					permutationNumberTfNameCellLineName = Commons.PERMUTATION + permutationNumber+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();			
 					
 					permutationNumberTfNameCellLineNameOverlapList.add(new PermutationNumberTfNameCellLineNameOverlap(permutationNumberTfNameCellLineName,node.getLow(),node.getHigh()));
 					
@@ -1318,11 +1313,11 @@ public class IntervalTree {
 				
 				
 				if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-					findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+					findAllOverlappingTfbsIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
 				}
 				
 				if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-					findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+					findAllOverlappingTfbsIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
 					
 				}
 				
@@ -1483,24 +1478,23 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingDnaseIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap){
+	public void findAllOverlappingDnaseIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory = null;
 		String permutationNumberDnaseCellLineName;
 		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-		
+			
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				try {
 					
-					permutationNumberDnaseCellLineName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_" + node.getCellLineName();
+					permutationNumberDnaseCellLineName = Commons.PERMUTATION + permutationNumber + "_" + node.getCellLineName();
 					
 					bufferedWriter = bufferedWriterHashMap.get(permutationNumberDnaseCellLineName);
 					
 					if (bufferedWriter==null){
 						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber + System.getProperty("file.separator")+ permutationNumberDnaseCellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +permutationNumber + System.getProperty("file.separator")+ permutationNumberDnaseCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(permutationNumberDnaseCellLineName,bufferedWriter);
 					}										
@@ -1521,11 +1515,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingDnaseIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,bufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap);	
+				findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingDnaseIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberDnaseCellLineName2ZeroorOneMap);	
+				findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberDnaseCellLineName2ZeroorOneMap);	
 				
 			}
 						
@@ -1535,12 +1529,12 @@ public class IntervalTree {
 		//Empirical P Value Calculation
 		//without IO
 		//without overlappedNodeList
-		public void findAllOverlappingDnaseIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap){
+		public void findAllOverlappingDnaseIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap){
 		String permutationNumberDnaseCellLineName;
 		
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 						
-					permutationNumberDnaseCellLineName = Commons.PERMUTATION + ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS+permutationNumber) + "_" + node.getCellLineName();
+					permutationNumberDnaseCellLineName = Commons.PERMUTATION + permutationNumber + "_" + node.getCellLineName();
 									
 					if(permutationNumberDnaseCellLineName2ZeroorOneMap.get(permutationNumberDnaseCellLineName)==null){
 						permutationNumberDnaseCellLineName2ZeroorOneMap.put(permutationNumberDnaseCellLineName, 1);
@@ -1549,11 +1543,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingDnaseIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap);	
+				findAllOverlappingDnaseIntervals(permutationNumber,node.getLeft(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingDnaseIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberDnaseCellLineName2ZeroorOneMap);	
+				findAllOverlappingDnaseIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberDnaseCellLineName2ZeroorOneMap);	
 				
 			}
 							
@@ -1643,12 +1637,10 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-
+	
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName = null;
 		List<String> keggPathWayListContainingThisGeneId = null;
@@ -1669,13 +1661,13 @@ public class IntervalTree {
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 										keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ "_" + keggPathwayName;	
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 											
 										bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 										
 										if (bufferedWriter == null){
 											
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 																					
@@ -1708,13 +1700,13 @@ public class IntervalTree {
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 										keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ "_" + keggPathwayName;	
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 											
 										bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 										
 										if (bufferedWriter == null){
 											
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS  + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator")+ Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_regulationBased_" + keggPathwayName + ".txt",true);
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS  + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator")+ Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 										
@@ -1740,13 +1732,13 @@ public class IntervalTree {
 							if(keggPathWayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
-									permutationNumberKeggPathwayName = Commons.PERMUTATION + repeatNumberReflectedPermutationNumber+ "_" + keggPathwayName;	
+									permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 											
 									bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 									
 									if (bufferedWriter == null){
 										
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber +"_all_" + keggPathwayName + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber +"_all_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 										
@@ -1774,11 +1766,11 @@ public class IntervalTree {
 			} //End of If: type is NCBI_GENE_ID
 				
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
+				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
+				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
 				
 			}
 						
@@ -1791,7 +1783,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName = null;
 		List<String> keggPathWayListContainingThisGeneId = null;
@@ -1811,7 +1803,7 @@ public class IntervalTree {
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 										
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathWayListContainingThisGeneId.get(i);	
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathWayListContainingThisGeneId.get(i);	
 										keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 											
 										
@@ -1837,7 +1829,7 @@ public class IntervalTree {
 								
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathWayListContainingThisGeneId.get(i);	
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathWayListContainingThisGeneId.get(i);	
 										keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 											
 										
@@ -1859,7 +1851,7 @@ public class IntervalTree {
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
-									permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathWayListContainingThisGeneId.get(i);	
+									permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathWayListContainingThisGeneId.get(i);	
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 											
 									
@@ -1882,11 +1874,11 @@ public class IntervalTree {
 			} //End of If: type is NCBI_GENE_ID
 				
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
+				findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);		
+				findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);		
 			}
 						
 	}
@@ -1894,7 +1886,7 @@ public class IntervalTree {
 	//NEW FUNCIONALITY
 	//with IO
 	//with Overlap Node List
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName;
 		List<String> keggPathwayListContainingThisGeneId = null;
@@ -1903,8 +1895,6 @@ public class IntervalTree {
 		BufferedWriter bufferedWriter = null;
 		File directory;
 		
-		int repeatNumberReflectedPermutationNumber = ((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber;
-
 		
 		if (Commons.NCBI_GENE_ID.equals(type)){
 			//There is overlap
@@ -1917,18 +1907,18 @@ public class IntervalTree {
 					if (node.getIntervalName().startsWith(Commons.EXON)){							
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberReflectedPermutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
 								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);											
-								permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;	
+								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 								
 								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 								
 								if (bufferedWriter == null){
 																	
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 								}
@@ -1956,18 +1946,18 @@ public class IntervalTree {
 													
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberReflectedPermutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 							
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
 								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
-								permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;
+								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;
 								
 								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 								
 								if (bufferedWriter == null){
 									
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_regulationBased_" + keggPathwayName + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 								}
@@ -1989,18 +1979,18 @@ public class IntervalTree {
 					//write all results							
 					if(keggPathwayListContainingThisGeneId!=null){
 						
-						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberReflectedPermutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 						
 						for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 							
 							keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
-							permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;
+							permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;
 							
 							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 							
 							if (bufferedWriter == null){
 								
-								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
+								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_allBased_" + keggPathwayName + ".txt",true);
 								bufferedWriter = new BufferedWriter(fileWriter);
 								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 							}
@@ -2025,11 +2015,11 @@ public class IntervalTree {
 		} //End of If: type is NCBI_GENE_ID
 			
 		if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList);	
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList);	
 		}
 		
 		if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList);		
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList);		
 		}					
 	}	
 	
@@ -2037,7 +2027,7 @@ public class IntervalTree {
 	
 	//NEW FUNCIONALITY
 	//with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder, int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName;
 		List<String> keggPathwayListContainingThisGeneId = null;
@@ -2068,7 +2058,7 @@ public class IntervalTree {
 									
 									if (bufferedWriter == null){
 										
-										fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber +"_exonBased_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 									}
@@ -2156,11 +2146,11 @@ public class IntervalTree {
 			} //End of If: type is NCBI_GENE_ID
 				
 			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);	
+				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);	
 			}
 			
 			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);		
+				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);		
 			}					
 		}	
 	
@@ -2174,12 +2164,11 @@ public class IntervalTree {
 		//For each search input line, each kegg pathway will have a value of 1 or 0
 		//These 1 or 0's will be accumulated in keggPathway2KMap	
 		//without IO
-		public void findAllOverlappingUcscRefSeqGenesIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList){
+		public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList){
 			String permutationNumberKeggPathwayName = null;
 			String keggPathwayName;
 			List<String> keggPathwayListContainingThisGeneId = null;
 			
-			int repeatNumberConsideredPermutationNumber = (repeatNumber-1)*NUMBER_OF_PERMUTATIONS + permutationNumber;
 				
 				if (Commons.NCBI_GENE_ID.equals(type)){
 					//There is overlap
@@ -2192,13 +2181,13 @@ public class IntervalTree {
 							if (node.getIntervalName().startsWith(Commons.EXON)){							
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberConsideredPermutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 
 									
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 										
 										keggPathwayName = keggPathwayListContainingThisGeneId.get(i);											
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;
 										
 										
 										if(permutationNumberExonBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName)==null){
@@ -2220,12 +2209,12 @@ public class IntervalTree {
 															
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberConsideredPermutationNumber ,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber ,node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 										
 										keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
-										permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;	
+										permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 											
 										if(permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName)==null){
 											permutationNumberRegulationBasedKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
@@ -2240,12 +2229,12 @@ public class IntervalTree {
 							//write all results							
 							if(keggPathwayListContainingThisGeneId!=null){
 								
-								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + repeatNumberConsideredPermutationNumber, node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
+								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber, node.getRefSeqGeneName(), node.getIntervalName(), node.getGeneHugoSymbol(), node.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathwayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 									
 									keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
-									permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + keggPathwayName;	
+									permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber+ "_" + keggPathwayName;	
 																				
 									if(permutationNumberAllBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName)==null){
 										permutationNumberAllBasedKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
@@ -2262,11 +2251,11 @@ public class IntervalTree {
 				} //End of If: type is NCBI_GENE_ID
 					
 				if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-					findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);	
+					findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);	
 				}
 				
 				if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-					findAllOverlappingUcscRefSeqGenesIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);		
+					findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);		
 				}
 							
 		}
