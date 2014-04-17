@@ -981,6 +981,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		Map<String,BufferedWriter> permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>();
 		Map<String,BufferedWriter> permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>();
 		
+		
+	
 		Map<String,List<InputLine>> originalInputLinesMap = new HashMap<String,List<InputLine>>();
 		
 		//todo test it 
