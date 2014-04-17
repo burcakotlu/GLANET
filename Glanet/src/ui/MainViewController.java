@@ -14,6 +14,7 @@ import empiricalpvalues.*;
 import annotate.intervals.parametric.*;
 import augmentation.results.*;
 import adhoc.*;
+import common.Commons;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
@@ -169,11 +170,14 @@ public class MainViewController extends ViewController implements MainViewDelega
 		AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.main(args);
 		mainView.setCurrentProcessInfo( "CollectionofPermutationsResults...");
 		CollectionofPermutationsResults.main(args);
-		mainView.setCurrentProcessInfo( "AugmentationofEnrichedElementswithIntervals...");
-		AugmentationofEnrichedElementswithIntervals.main(args);
-		mainView.setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-		GenerationofSequencesandMatricesforGivenIntervals.main(args);
-		mainView.setCurrentProcessInfo( "RSATMatrixScanClient...");
-		RSATMatrixScanClient.main(args);
+		
+		if( regulatorySequenceAnalysisUsingRSAT.equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+			mainView.setCurrentProcessInfo( "AugmentationofEnrichedElementswithIntervals...");
+			AugmentationofEnrichedElementswithIntervals.main(args);
+			mainView.setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+			GenerationofSequencesandMatricesforGivenIntervals.main(args);
+			mainView.setCurrentProcessInfo( "RSATMatrixScanClient...");
+			RSATMatrixScanClient.main(args);
+		}
 	}
 }
