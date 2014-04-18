@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="NUMBER_OF_PER" key="selection"/>
+		<item value="AllBased" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="allBased"/>
+			<item value="1000"/>
+			<item value="10"/>
+			<item value="original"/>
 			<item value="NUMBER_OF_PER"/>
 			<item value="NUMBEr_OF_PERMU"/>
 			<item value="tfandKeggPathwayEnrichmentType"/>
 			<item value="searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,null,null,null,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType);"/>
-			<item value="inputDataFileName"/>
-			<item value="Annotate Random"/>
-			<item value="Annotate Randım"/>
-			<item value="permutationNumber2DnaseBufferedWriterHashMap"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
@@ -32,7 +32,7 @@
 		<item key="DIALOG_WIDTH" value="502"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="492" key="DIALOG_X_ORIGIN"/>
-		<item value="328" key="DIALOG_Y_ORIGIN"/>
+		<item value="1419" key="DIALOG_X_ORIGIN"/>
+		<item value="559" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

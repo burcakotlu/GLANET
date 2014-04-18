@@ -1711,8 +1711,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			
 		//KEGG Pathway Enrichment, DO or DO_NOT
 		String keggPathwayEnrichment = args[13];
-				
-		
+						
 		//TfKeggPathway Enrichment, DO or DO_NOT
 		String tfKeggPathwayEnrichment = args[14];
 		

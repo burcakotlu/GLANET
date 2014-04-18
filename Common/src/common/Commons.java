@@ -19,7 +19,7 @@ public class Commons {
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
-	public static Integer NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = new Integer(10);
+	public static Integer NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = new Integer(5);
 	
 	public static Float FLOAT_ZERO = new Float(0.0f); 
 	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 
@@ -95,8 +95,15 @@ public class Commons {
 	//Augmentation of Enriched Elements with Overlaps Output Files starts
 //	public static final String ENRICH_OUTPUT_FOLDER = "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
 	
+	public static final String AUGMENTED_ENRICHED_ELEMENTS_WITH_ORIGINAL_INTERVALS_RESULTS_DIRECTORY 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
+	
 	public static final String AUGMENTED_DNASE_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedDnaseResults.txt";
 	public static final String AUGMENTED_HISTONE_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedHistoneResults.txt";
+	public static final String AUGMENTED_TF_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTranscriptionFactorResults.txt";
+	
+	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";
 	
 	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfExonBasedKeggPathwayResults.txt";
 	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfRegulationBasedKeggPathwayResults.txt";
