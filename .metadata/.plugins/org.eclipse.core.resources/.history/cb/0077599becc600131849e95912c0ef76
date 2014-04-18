@@ -1107,7 +1107,10 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
       			    ucscRefSeqGenesIntervalTree = null;	
       				//New Functionality END
     			
-				}else if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
+				}
+				
+				
+				if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
     					
     					//New Functionality START
         				//tfbs 
@@ -1314,7 +1317,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			
 			}else if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 				
-							
+				
+				
 				//Tfbs
 				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
@@ -1879,7 +1883,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 					annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfRegulationBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 					annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfAllBasedKeggPathway2KMap,tfAllBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
 				
-				}else if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
+				}else	if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 					
 					//Write to be collected files
 					annotatePermutationsUsingForkJoin.writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runName);

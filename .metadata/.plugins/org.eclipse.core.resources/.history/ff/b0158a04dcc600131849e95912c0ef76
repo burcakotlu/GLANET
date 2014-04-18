@@ -2271,6 +2271,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		FileWriter fileWriter2 = null;
 		BufferedWriter bufferedWriter2 = null;
 
+		File directory = null;
 		
 		int repeatNumberReflectedPermutationNumber = permutationNumber;
 		
@@ -6749,7 +6750,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 		
 			
-			//Will be used 	for tf and keggPathway enrichment
+			//Will be used 	for tf and keggPathway enrichment and
 			Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
@@ -6804,7 +6805,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 		
 			
-			//Will be used 	for tf and cellline and keggPathway enrichment
+			//Will be used 	for tf and cellline and keggPathway enrichment and
 			Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 

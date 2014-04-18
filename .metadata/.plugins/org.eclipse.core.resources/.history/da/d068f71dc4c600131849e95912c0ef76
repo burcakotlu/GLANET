@@ -2271,6 +2271,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		FileWriter fileWriter2 = null;
 		BufferedWriter bufferedWriter2 = null;
 
+		File directory = null;
 		
 		int repeatNumberReflectedPermutationNumber = permutationNumber;
 		
@@ -3104,7 +3105,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	
 	
-	//There is a parameter called tfandKeggPathwayEnrichmentType	
+		
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment starts
 	//New Functionality START
@@ -3126,7 +3127,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
-				
+		
+		
 		for(InputLine inputLine: inputLines){
 			
 			//Will be filled in tfIntervalTree search
@@ -3148,6 +3150,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap = new HashMap<String,Integer>();
 			Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap = new HashMap<String,Integer>();
 			Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap = new HashMap<String,Integer>();
+
 			
 			low = inputLine.getLow();
 			high = inputLine.getHigh();
@@ -3420,14 +3423,12 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			}
 				
 		}//End of for each input line
-		
-		
 	}
 	//New Functionality END
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment ends
 		
-	//There is NO parameter called tfandKeggPathwayEnrichmentType	
+	
 	//New Functionality START
 	//Empirical P Value Calculation
 	//Search tf and keggPathway
@@ -6749,7 +6750,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 		
 			
-			//Will be used 	for tf and keggPathway enrichment
+			//Will be used 	for tf and keggPathway enrichment and
 			Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
@@ -6804,7 +6805,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 		
 			
-			//Will be used 	for tf and cellline and keggPathway enrichment
+			//Will be used 	for tf and cellline and keggPathway enrichment and
 			Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
@@ -6819,7 +6820,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 			closeBufferedWriters(tfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
 			closeBufferedWriters(tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
 			closeBufferedWriters(tfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
-					
+		
+				
 			
 			allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 			allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
@@ -6974,7 +6976,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 	}
 
 	
-		//All 4 types of interval trees are sent full
+	
 		//Using fork join framework
 		//Empirical P Value Calculation
 		//Without IO
@@ -7022,7 +7024,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		}
 
 		
-		//new starts there is a parameter called tfandKeggPathwayEnrichmentType
+		//new starts
 		//TF_AND_KEGGPATHWAY_ENRICHMENT OR
 		//TF_AND_CELLLINE_AND_KEGGPATHWAY_ENRICHMENT
 		//Not both enrichment at the same time
@@ -7155,7 +7157,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		}
 		//new ends
 		
-		//there is NO parameter called tfandKeggPathwayEnrichmentType
+		
 		//each time one interval tree EXCEPT NEW FUNCTIONALITY
 		//Using fork join framework
 		//Empirical P Value Calculation

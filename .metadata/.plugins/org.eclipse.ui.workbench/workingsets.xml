@@ -13,7 +13,6 @@
 <item elementID="=BinomialDistribution" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=RSAT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=Rserve" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Glanet" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1394543037769_0" label="Window Working Set" name="Aggregate for window 1394543037769"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1394543087758_1" label="Window Working Set" name="Aggregate for window 1394543087758"/>
@@ -79,4 +78,5 @@
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1397715437332_62" label="Window Working Set" name="Aggregate for window 1397715437332"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1397738882964_63" label="Window Working Set" name="Aggregate for window 1397738882964"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1397749668071_64" label="Window Working Set" name="Aggregate for window 1397749668056"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1397800993271_65" label="Window Working Set" name="Aggregate for window 1397800993271"/>
 </workingSetManager>
