@@ -1276,6 +1276,7 @@ public static String takeComplementforeachAllele(String allele){
 		BufferedReader augmentedBufferedReader;
 				
 		String strLine;
+		
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
@@ -1838,43 +1839,87 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 		
-	//args[0] must have input file name with folder
-	//args[1] must have GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
-	//args[2] must have Input File Format		
-	//args[3] must have Number of Permutations	
-	//args[4] must have False Discovery Rate (ex: 0.05)
-	//args[5] must have Generate Random Data Mode (with GC and Mapability/without GC and Mapability)
-	//args[6] must have writeGeneratedRandomDataMode checkBox
-	//args[7] must have writePermutationBasedandParametricBasedAnnotationResultMode checkBox
-	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
-	//args[9] must have Dnase Enrichment example: DO_DNASE_ENRICHMENT or DO_NOT_DNASE_ENRICHMENT
-	//args[10] must have Histone Enrichment example : DO_HISTONE_ENRICHMENT or DO_NOT_HISTONE_ENRICHMENT
-	//args[11] must have Tf and KeggPathway Enrichment example: DO_TF_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
-	//args[12] must have Tf and CellLine and KeggPathway Enrichment example: DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
-	//args[13] must have a job name exampe: any_string 
+	//args[0]	--->	Input File Name with folder
+	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
+	//args[2]	--->	Input File Format	
+	//			--->	default	Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//			--->			Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//			--->			Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//			--->			Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+	//			--->			Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE	
+	//args[3]	--->	Annotation, overlap definition, number of bases, default 1
+	//args[4]	--->	Enrichment parameter
+	//			--->	default	Commons.DO_ENRICH
+	//			--->			Commons.DO_NOT_ENRICH	
+	//args[5]	--->	Generate Random Data Mode
+	//			--->	default	Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT
+	//			--->			Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT	
+	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respest to this parameter
+	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE
+	//			--->			Commons.BONFERRONI_CORRECTED_P_VALUE
+	//args[7]	--->	Bonferroni Correction Significance Level, default 0.05
+	//args[8]	--->	Benjamini Hochberg FDR, default 0.05
+	//args[9]	--->	Number of permutations, default 5000
+	//args[10]	--->	Dnase Enrichment
+	//			--->	default Commons.DO_NOT_DNASE_ENRICHMENT
+	//			--->	Commons.DO_DNASE_ENRICHMENT
+	//args[11]	--->	Histone Enrichment
+	//			--->	default	Commons.DO_NOT_HISTONE_ENRICHMENT
+	//			--->			Commons.DO_HISTONE_ENRICHMENT
+	//args[12]	--->	Transcription Factor(TF) Enrichment 
+	//			--->	default	Commons.DO_NOT_TF_ENRICHMENT
+	//			--->			Commons.DO_TF_ENRICHMENT
+	//args[13]	--->	KEGG Pathway Enrichment
+	//			--->	default	Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT 
+	//			--->			Commons.DO_KEGGPATHWAY_ENRICHMENT
+	//args[14]	--->	TF and KEGG Pathway Enrichment
+	//			--->	default	Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT 
+	//			--->			Commons.DO_TF_KEGGPATHWAY_ENRICHMENT
+	//args[15]	--->	TF and CellLine and KeggPathway Enrichment
+	//			--->	default	Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 
+	//			--->			Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+	//args[16]	--->	RSAT parameter
+	//			--->	default Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+	//			--->			Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+	//args[17]	--->	job name example: ocd_gwas_snps 
+	//args[18]	--->	writeGeneratedRandomDataMode checkBox
+	//			--->	default Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA
+	//			--->			Commons.WRITE_GENERATED_RANDOM_DATA
+	//args[19]	--->	writePermutationBasedandParametricBasedAnnotationResultMode checkBox
+	//			--->	default Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+	//			--->			Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
+	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
+		
+		//TfEnrichment, DO or DO_NOT
+		String tfEnrichment = args[12];
 			
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		String tfKeggPathwayEnrichment = args[11];
+		String tfKeggPathwayEnrichment = args[14];
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		String tfCellLineKeggPathwayEnrichment = args[12];
+		String tfCellLineKeggPathwayEnrichment = args[15];
 
 
 		//pfm matrices
 		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		
 		String jasparCoreInputFileName 		= Commons.JASPAR_CORE;
+		
+		
+		//TF
+		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS;
 	
 		//TF and KeggPathway
 		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS ;
 		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS ;
-		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS ;
-		
+		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS ;		
 				
 		//TF and CellLine and KeggPathway
 		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS ;
@@ -1922,6 +1967,10 @@ public static String takeComplementforeachAllele(String allele){
 			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
 			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
 			
+			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)){
+				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);			
+			}
+			
 								
 			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 				//Using tfName2PfmMatrices
@@ -1938,9 +1987,9 @@ public static String takeComplementforeachAllele(String allele){
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway
 				//Output pfmMatrices for Tf CellLine KeggPathway
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+//				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	
 			}
 		
