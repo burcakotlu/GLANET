@@ -275,7 +275,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	//Augment it with annotate\\intervals\\parametric\\original\\tfKeggPathway overlapped intervals
 	//Write augmented results
 	//For Tf KeggPathway
-	public static void readTfKeggPathwayAllAugmentWrite(String outputFolder,String multipleTestingParameter, Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
+	public static void readTfKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(String outputFolder,String multipleTestingParameter, Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
 		String strLine1;
 		String strLine2;
 		
@@ -301,8 +301,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		
 		Float bhFDRAdjustedPValue ;
 		
-		FileReader tfandKeggPathwayOriginalOverlapsFileReader = null;
-		BufferedReader tfandKeggPathwayOriginalOverlapsBufferedReader = null;
+		FileReader tfandKeggPathwayFileReader = null;
+		BufferedReader tfandKeggPathwayBufferedReader;
 		
 		Map<String,List<String>> enrichedKeggPathways = new HashMap<String,List<String>>();
 		List<String> lines;
@@ -320,6 +320,9 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
 			
+				//example line
+				//AP2GAMMA_hsa00532	1	2	10000	40081	1.00E+00	2.00E-04	9.00E-03	1	Glycosaminoglycan biosynthesis - chondroitin sulfate / dermatan sulfate - Homo sapiens (human)	10090, 11285, 113189, 126792, 166012, 22856, 26229, 29940, 337876, 50515, 51363, 54480, 55454, 55501, 55790, 56548, 64131, 64132, 79586, 9469	UST, B4GALT7, CHST14, B3GALT6, CHST13, CHSY1, B3GAT3, DSE, CHSY3, CHST11, CHST15, CHPF2, CSGALNACT2, CHST12, CSGALNACT1, CHST7, XYLT1, XYLT2, CHPF, CHST3
+				//WHIP_hsa05016	0.00E+00	Huntington's disease - Homo sapiens (human)	100532726, 10105, 10126, 10476, 10488, 10540, 10891, 10975, 1173, 1175, 1211, 1212, 1213, 125965, 126328, 1327, 1329, 1337, 1339, 1340, 1345, 1346, 1347, 1349, 1350, 1351, 1385, 1387, 146754, 148327, 1537, 160, 161, 163, 1639, 170712, 1742, 2033, 23186, 23236, 246721, 25942, 25981, 27019, 27089, 27113, 2776, 2876, 2902, 2904, 291, 2915, 292, 293, 29796, 3064, 3065, 3066, 3092, 317, 341947, 3708, 374291, 387332, 440567, 4508, 4509, 4512, 4513, 4514, 4519, 4694, 4695, 4696, 4697, 4698, 4700, 4701, 4702, 4704, 4705, 4706, 4707, 4708, 4709, 4710, 4711, 4712, 4713, 4714, 4715, 4716, 4717, 4718, 4719, 4720, 4722, 4723, 4724, 4725, 4726, 4728, 4729, 4731, 4899, 498, 506, 509, 51079, 51164, 513, 514, 515, 516, 517, 518, 522, 5330, 5331, 5332, 539, 54205, 5430, 5431, 5432, 5433, 5434, 5435, 5436, 5437, 5438, 5439, 5440, 5441, 54539, 5468, 548644, 55081, 55567, 55967, 56901, 581, 5978, 627, 6389, 6390, 6391, 6392, 64446, 64764, 6647, 6648, 6667, 6874, 6875, 6908, 7019, 7052, 7157, 7350, 7381, 7384, 7385, 7386, 7388, 7416, 7417, 7419, 7802, 8218, 83447, 83544, 836, 841, 842, 84699, 84701, 9001, 90993, 9167, 9377, 9519, 9586	NDUFC2-KCTD14, PPIF, DNAL4, ATP5H, CREB3, DCTN2, PPARGC1A, UQCR11, AP2M1, AP2S1, CLTA, CLTB, CLTC, COX6B2, NDUFA11, COX4I1, COX5B, COX6A1, COX6A2, COX6B1, COX6C, COX7A1, COX7A2, COX7B, COX7C, COX8A, CREB1, CREBBP, DNAH2, CREB3L4, CYC1, AP2A1, AP2A2, AP2B1, DCTN1, COX7B2, DLG4, EP300, RCOR1, PLCB1, POLR2J2, SIN3A, DNAH1, DNAI1, UQCRQ, BBC3, GNAQ, GPX1, GRIN1, GRIN2B, SLC25A4, GRM5, SLC25A5, SLC25A6, UQCR10, HTT, HDAC1, HDAC2, HIP1, APAF1, COX8C, ITPR1, NDUFS7, TBPL2, UQCRHL, NDUFA1, NDUFA2, NDUFA3, NDUFA4, NDUFA5, NDUFA6, NDUFA7, NDUFA8, NDUFA9, NDUFA10, NDUFAB1, NDUFB1, NDUFB2, NDUFB3, NDUFB4, NDUFB5, NDUFB6, NDUFB7, NDUFB8, NDUFB9, NDUFB10, NDUFC1, NDUFC2, NDUFS1, NDUFS2, NDUFS3, NDUFV1, NDUFS4, NDUFS5, NDUFS6, NDUFS8, NDUFV2, NDUFV3, NRF1, ATP5A1, ATP5B, ATP5C1, NDUFA13, DCTN4, ATP5D, ATP5E, ATP5F1, ATP5G1, ATP5G2, ATP5G3, ATP5J, PLCB2, PLCB3, PLCB4, ATP5O, CYCS, POLR2A, POLR2B, POLR2C, POLR2D, POLR2E, POLR2F, POLR2G, POLR2H, POLR2I, POLR2J, POLR2K, POLR2L, NDUFB11, PPARG, POLR2J3, IFT57, DNAH3, NDUFA12, NDUFA4L2, BAX, REST, BDNF, SDHA, SDHB, SDHC, SDHD, DNAI2, CREB3L2, SOD1, SOD2, SP1, TAF4, TAF4B, TBP, TFAM, TGM2, TP53, UCP1, UQCRB, UQCRC1, UQCRC2, UQCRFS1, UQCRH, VDAC1, VDAC2, VDAC3, DNALI1, CLTCL1, SLC25A31, DNAL1, CASP3, CASP8, CASP9, CREB3L3, COX4I2, HAP1, CREB3L1, COX7A2L, COX5A, TBPL1, CREB5
 
 //				new example line
 //				JUND_hsa05164	4	0	10000	40081	0.00E+00	0.00E+00	0.00E+00	TRUE
@@ -348,28 +351,36 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 				
-				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){					
-					if (bhFDRAdjustedPValue <= FDR){											
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
+				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
+					
+					if (bhFDRAdjustedPValue <= FDR){					
+						
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
+		
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}			
-					}					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){					
-					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){											
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
+					}
+					
+				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
+					
+					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
+						
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
+		
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}			
-					}					
+					}
+					
 				}
 								
 					
@@ -381,9 +392,6 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
 				keggPathwayNameandDescription = entry.getKey();
-				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
-				
 				lines = entry.getValue();
 				
 				numberofEnrichedTfExonBasedKeggPathwayElements += lines.size();
@@ -395,34 +403,32 @@ public class AugmentationofEnrichedElementswithIntervals {
 					tfName_keggPathwayName = strLine.substring(0,indexofFirstTab);
 					
 					if(Commons.TF_EXON_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
 					}else if (Commons.TF_REGULATION_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
 					}else if (Commons.TF_ALL_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");					
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");					
 					}
 					
-					tfandKeggPathwayOriginalOverlapsBufferedReader = new BufferedReader(tfandKeggPathwayOriginalOverlapsFileReader);
+					tfandKeggPathwayBufferedReader = new BufferedReader(tfandKeggPathwayFileReader);
 							
 					//Get all the lines of the original data annotation for the enriched Tf and KeggPathway 
 					//Write them to the file
-					while((strLine2 = tfandKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+					while((strLine2 = tfandKeggPathwayBufferedReader.readLine())!=null){
+						bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 + System.getProperty("line.separator"));
 					}
 					
-				} //End of for each enriched tf element with that enriched kegg pathway element  
-			}//End of for each enriched Kegg Pathway element	
+				}
+			}//End of for	
 			
 			//for debug purposes start
 			System.out.println("numberofEnrichedTfExonBasedKeggPathwayElements " + numberofEnrichedTfExonBasedKeggPathwayElements);
 			//for debug purposes end
-			
+		
+				
+		
 			bufferedReader.close();
 			bufferedWriter.close();
-			
-			if (tfandKeggPathwayOriginalOverlapsBufferedReader!=null) {
-				tfandKeggPathwayOriginalOverlapsBufferedReader.close();
-			}
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -441,7 +447,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 	//ExampleLine
 	//POL24H8_HCT116_hsa05020	0.00E+00	Prion diseases - Homo sapiens (human)	100506742, 10963, 1958, 2002, 2534, 3303, 3309, 3552, 3553, 3569, 3915, 4684, 4685, 4851, 5566, 5567, 5568, 5594, 5595, 5604, 5605, 5613, 5621, 581, 6352, 6647, 712, 713, 714, 727, 729, 730, 731, 732, 733, 735	CASP12, STIP1, EGR1, ELK1, FYN, HSPA1A, HSPA5, IL1A, IL1B, IL6, LAMC1, NCAM1, NCAM2, NOTCH1, PRKACA, PRKACB, PRKACG, MAPK1, MAPK3, MAP2K1, MAP2K2, PRKX, PRNP, BAX, CCL5, SOD1, C1QA, C1QB, C1QC, C5, C6, C7, C8A, C8B, C8G, C9
-	public static void readTfCellLineKeggPathwayAllFileAugmentWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
+	public static void readTfCellLineKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel, String inputFileName, String outputFileName, String type){
 		String strLine1;
 		String strLine2;
 		
@@ -455,7 +461,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofEigthTab;
 		int indexofNinethTab;
 		int indexofTenthTab;
-				
+		
+		
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 		
@@ -467,8 +474,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String keggPathwayDescription;
 		String keggPathwayNameandDescription;
 		
-		FileReader tfCellLineKeggPathwayOriginalOverlapsFileReader = null;
-		BufferedReader tfCellLineKeggPathwayOriginalOverlapsBufferedReader = null;
+		FileReader tfandKeggPathwayFileReader = null;
+		BufferedReader tfandKeggPathwayBufferedReader;
 		
 		Map<String,List<String>> enrichedKeggPathways = new HashMap<String,List<String>>();
 		List<String> lines;
@@ -521,12 +528,12 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 					if (bhFDRAdjustedPValue <= FDR){					
 						
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}
@@ -536,12 +543,12 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
 						
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}
@@ -554,13 +561,9 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
-				
 				keggPathwayNameandDescription = entry.getKey();
-				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
-										
 				lines = entry.getValue();
-								
+				
 				bufferedWriter.write("**************\t" + keggPathwayNameandDescription + "\t**************" + System.getProperty("line.separator"));
 								
 				for(String strLine: lines){
@@ -569,23 +572,23 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 					//Get the original data annotation results
 					if(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}else if (Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}else if (Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfandKeggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}
 					
-					tfCellLineKeggPathwayOriginalOverlapsBufferedReader = new BufferedReader(tfCellLineKeggPathwayOriginalOverlapsFileReader);
+					tfandKeggPathwayBufferedReader = new BufferedReader(tfandKeggPathwayFileReader);
 					
 					//Add the original data annotation results
-					//Get all the lines of the original data annotation for the enriched cellline based Tf and KeggPathway 
+					//Get all the lines of the original data annotation for the enriched Tf and KeggPathway 
 					//Write them to the file
-					while((strLine2 = tfCellLineKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));	
+					while((strLine2 = tfandKeggPathwayBufferedReader.readLine())!=null){
+						bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + System.getProperty("line.separator"));	
 					}
 					
 				}
@@ -594,10 +597,6 @@ public class AugmentationofEnrichedElementswithIntervals {
 		
 			bufferedReader.close();
 			bufferedWriter.close();
-			
-			if (tfCellLineKeggPathwayOriginalOverlapsBufferedReader!=null){
-				tfCellLineKeggPathwayOriginalOverlapsBufferedReader.close();
-			}
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -610,9 +609,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 	}
 	
 	
-	//read KeggPathwayall File
-	//Augment EnrichedKeggPathwayElements with  original Overlapped Intervals and Write
-	public static void readKeggPathwayAllFileAugmentWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String inputFileName, String outputFileName,String type){
+	
+	public static void readKeggPathwayFileAugmentEnrichedKeggPathwayElementswithOverlappedIntervalsandWrite(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String inputFileName, String outputFileName,String type){
 		String strLine1;
 		String strLine2;
 		
@@ -628,7 +626,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofTenthTab;
 		
 		int indexofUnderscore;
-						
+			
+			
 		String keggPathwayName;
 		String keggPathwayDescription;
 
@@ -636,8 +635,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		Float bonfCorrectedPValue; 
 		Float bhFDRAdjustedPValue ;
 		
-		FileReader keggPathwayOriginalOverlapsFileReader = null;
-		BufferedReader keggPathwayOriginalOverlapsBufferedReader = null;
+		FileReader keggPathwayFileReader = null;
+		BufferedReader keggPathwayBufferedReader = null;
 		
 		List<String> enrichedKeggPathways = new ArrayList<String>();
 				
@@ -679,14 +678,23 @@ public class AugmentationofEnrichedElementswithIntervals {
 				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
 				
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
-					if (bhFDRAdjustedPValue <= FDR){											
+					
+					if (bhFDRAdjustedPValue <= FDR){					
+						
 						enrichedKeggPathways.add(keggPathwayName + "_" + keggPathwayDescription);
-					}					
-				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){					
+					
+					}
+					
+				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
+					
 					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
-						enrichedKeggPathways.add(keggPathwayName + "_" + keggPathwayDescription);																
-					}					
-				}												
+
+						enrichedKeggPathways.add(keggPathwayName + "_" + keggPathwayDescription);
+																
+					}
+					
+				}							
+					
 			}//end of while : reading enriched kegg Pathway file line by line.
 			
 			//starts
@@ -698,24 +706,25 @@ public class AugmentationofEnrichedElementswithIntervals {
 				keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofUnderscore);
 				
 				if (type.equals(Commons.EXON_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_exonBased_" + keggPathwayName + ".txt");						
+					keggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_exonBased_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_regulationBased_" + keggPathwayName + ".txt");						
+					keggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_regulationBased_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_allBased_" + keggPathwayName + ".txt");						
+					keggPathwayFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_allBased_" + keggPathwayName + ".txt");						
 					
 				}
 				
-				keggPathwayOriginalOverlapsBufferedReader = new BufferedReader(keggPathwayOriginalOverlapsFileReader);
+				keggPathwayBufferedReader = new BufferedReader(keggPathwayFileReader);
 				
 										
-				//Get all the lines of the original data annotation for the enriched Kegg Pathway Elements
+				//Get all the lines of the original data annotation for the enriched Tf
 				//Write them to the file
-				while((strLine2 = keggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
+				while((strLine2 = keggPathwayBufferedReader.readLine())!=null){
 					bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" +strLine2 + System.getProperty("line.separator"));
-				}					
+				}
+					
 				
 			}//End of for	
 			//ends
@@ -725,8 +734,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 			bufferedReader.close();
 			bufferedWriter.close();
 			
-			if (keggPathwayOriginalOverlapsBufferedReader!=null){
-				keggPathwayOriginalOverlapsBufferedReader.close();
+			if (keggPathwayBufferedReader!=null){
+				keggPathwayBufferedReader.close();
 				
 			}
 				
@@ -872,23 +881,38 @@ public class AugmentationofEnrichedElementswithIntervals {
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS);
 		 }
 		 
+		 //todo
 		 if (keggPathwayEnrichment.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT)){
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
+			 readKeggPathwayFileAugmentEnrichedKeggPathwayElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayFileAugmentEnrichedKeggPathwayElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayFileAugmentEnrichedKeggPathwayElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
+
 		 }
 		
-	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){	    	 
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
+	    	 
+	 		readTfKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+			readTfKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+			readTfKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);
+			
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+
+	    	readTfCellLineKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	readTfCellLineKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	readTfCellLineKeggPathwayFileAugmentEnrichedElementswithOverlappedIntervalsandWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+
 	     }
+	
+	    
+//		readTfKeggPathwayFileAugmentandWrite(Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION  + "_OCD_withGCMap_"  + "1"+ "Rep_" + "5000" + "Perm.txt", Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+//		readTfKeggPathwayFileAugmentandWrite(Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION + "_OCD_withGCMap_"  + "1"+ "Rep_" + "5000" + "Perm.txt", Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+//		readTfKeggPathwayFileAugmentandWrite(Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION  + "_OCD_withGCMap_"  + "1"+ "Rep_" + "5000" + "Perm.txt", Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);
+//		
+//		readTfCellLineKeggPathwayFileAugmentandWrite(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR  + "_Level_" + level + "_HIV1_withGCMap_"  + "1"+ "Rep_" + "10000" + "Perm.txt", Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+//		readTfCellLineKeggPathwayFileAugmentandWrite(Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR  + "_Level_" + level + "_HIV1_withGCMap_"  + "1"+ "Rep_" + "10000" + "Perm.txt", Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+//		readTfCellLineKeggPathwayFileAugmentandWrite(Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + level  + "_HIV1_withGCMap_"  + "1"+ "Rep_" + "10000" + "Perm.txt", Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 
 	}
 

@@ -103,7 +103,7 @@ public class Commons {
 	
 	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedExonBasedKeggPathwayResults.txt";
 	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";	
 	
 	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfExonBasedKeggPathwayResults.txt";
 	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfRegulationBasedKeggPathwayResults.txt";

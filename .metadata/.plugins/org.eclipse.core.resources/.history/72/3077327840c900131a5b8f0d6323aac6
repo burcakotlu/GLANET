@@ -1276,7 +1276,6 @@ public static String takeComplementforeachAllele(String allele){
 		BufferedReader augmentedBufferedReader;
 				
 		String strLine;
-		
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;

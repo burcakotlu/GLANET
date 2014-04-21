@@ -1276,7 +1276,6 @@ public static String takeComplementforeachAllele(String allele){
 		BufferedReader augmentedBufferedReader;
 				
 		String strLine;
-		
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
@@ -1897,9 +1896,6 @@ public static String takeComplementforeachAllele(String allele){
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		
-		//TfEnrichment, DO or DO_NOT
-		String tfEnrichment = args[12];
 			
 		//TfKeggPathway Enrichment, DO or DO_NOT
 		String tfKeggPathwayEnrichment = args[14];
@@ -1911,15 +1907,12 @@ public static String takeComplementforeachAllele(String allele){
 		//pfm matrices
 		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		
 		String jasparCoreInputFileName 		= Commons.JASPAR_CORE;
-		
-		
-		//TF
-		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS;
 	
 		//TF and KeggPathway
 		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS ;
 		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS ;
-		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS ;		
+		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS ;
+		
 				
 		//TF and CellLine and KeggPathway
 		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS ;
@@ -1966,10 +1959,6 @@ public static String takeComplementforeachAllele(String allele){
 		try {
 			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
 			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
-			
-			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)){
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);			
-			}
 			
 								
 			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){

@@ -382,7 +382,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
 				keggPathwayNameandDescription = entry.getKey();
 				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
+				keggPathwayDescription = keggPathwayNameandDescription.substring(0,indexofFirstTab);
 				
 				lines = entry.getValue();
 				
@@ -557,7 +557,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				keggPathwayNameandDescription = entry.getKey();
 				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
+				keggPathwayDescription = keggPathwayNameandDescription.substring(0, indexofFirstTab);
 										
 				lines = entry.getValue();
 								

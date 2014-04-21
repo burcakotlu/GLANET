@@ -350,22 +350,22 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){					
 					if (bhFDRAdjustedPValue <= FDR){											
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);		
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}			
 					}					
 				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){					
 					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){											
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);		
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}			
@@ -381,9 +381,6 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
 				keggPathwayNameandDescription = entry.getKey();
-				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
-				
 				lines = entry.getValue();
 				
 				numberofEnrichedTfExonBasedKeggPathwayElements += lines.size();
@@ -407,7 +404,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 					//Get all the lines of the original data annotation for the enriched Tf and KeggPathway 
 					//Write them to the file
 					while((strLine2 = tfandKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+						bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 + System.getProperty("line.separator"));
 					}
 					
 				} //End of for each enriched tf element with that enriched kegg pathway element  
@@ -521,12 +518,12 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 					if (bhFDRAdjustedPValue <= FDR){					
 						
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}
@@ -536,12 +533,12 @@ public class AugmentationofEnrichedElementswithIntervals {
 					
 					if (bonfCorrectedPValue <= bonfCorrectionSignificanceLevel){					
 						
-						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);
+						lines = enrichedKeggPathways.get(keggPathwayName + " " + keggPathwayDescription);
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
 							lines.add(strLine1);
-							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
+							enrichedKeggPathways.put(keggPathwayName+ " " +keggPathwayDescription, lines);
 						}else{
 							lines.add(strLine1);
 						}
@@ -554,13 +551,9 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
-				
 				keggPathwayNameandDescription = entry.getKey();
-				indexofFirstTab = keggPathwayNameandDescription.indexOf("\t");
-				keggPathwayDescription = keggPathwayNameandDescription.substring(indexofFirstTab+1);
-										
 				lines = entry.getValue();
-								
+				
 				bufferedWriter.write("**************\t" + keggPathwayNameandDescription + "\t**************" + System.getProperty("line.separator"));
 								
 				for(String strLine: lines){
@@ -585,7 +578,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 					//Get all the lines of the original data annotation for the enriched cellline based Tf and KeggPathway 
 					//Write them to the file
 					while((strLine2 = tfCellLineKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));	
+						bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + System.getProperty("line.separator"));	
 					}
 					
 				}
