@@ -685,7 +685,7 @@ public class RSATMatrixScanClient {
 				         			}//for each necessary file under snp directory
 				         			
 				         			//If all necessary files are not null
-				         			if(snpInputFile!= null && alteredSnpInputFile!= null && peakInputFile!=null && pfmMatricesInputFile!=null ){
+				         			if(snpInputFile!= null && peakInputFile!=null && pfmMatricesInputFile!=null ){
 				            			//Matrix Scan Call
 				         				//what is enrichedElement
 				         				//what is given interval name

@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="isRegEx" value="false"/>
-		<item value="numberofEnrichedTfExonBasedKeggPathwayElements" key="selection"/>
+		<item value="tfCellLineTfIntervalKey" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="tfCellLineTfIntervalKey"/>
+			<item value="tfCellLineBasedTfIntervalMap"/>
+			<item value="enrichmentType"/>
 			<item value="numberofEnrichedTfExonBasedKeggPathwayElements"/>
 			<item value="readhistone"/>
 			<item value="toBeColle"/>
 			<item value="number_of_per"/>
 			<item value="allBased"/>
-			<item value="1000"/>
-			<item value="10"/>
-			<item value="original"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
@@ -32,7 +32,7 @@
 		<item key="DIALOG_WIDTH" value="502"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1419" key="DIALOG_X_ORIGIN"/>
-		<item value="510" key="DIALOG_Y_ORIGIN"/>
+		<item value="1386" key="DIALOG_X_ORIGIN"/>
+		<item value="42" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
