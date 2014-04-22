@@ -612,6 +612,7 @@ public class RSATMatrixScanClient {
 			try {
 				proxy = service.getRSATWSPortType();
 			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -625,7 +626,7 @@ public class RSATMatrixScanClient {
 		        	
 		        	enrichedTfandKeggPathwayName = enrichedTfandKeggPathways.getName();
 		        	
-		        	//Initialize input files
+		        	//Initialise input files
 	        		pfmMatricesInputFile = null;
 	        		
 	        		//First get the enriched tf specific pfm matrices file

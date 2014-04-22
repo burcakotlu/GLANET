@@ -612,6 +612,7 @@ public class RSATMatrixScanClient {
 			try {
 				proxy = service.getRSATWSPortType();
 			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -625,7 +626,7 @@ public class RSATMatrixScanClient {
 		        	
 		        	enrichedTfandKeggPathwayName = enrichedTfandKeggPathways.getName();
 		        	
-		        	//Initialize input files
+		        	//Initialise input files
 	        		pfmMatricesInputFile = null;
 	        		
 	        		//First get the enriched tf specific pfm matrices file
@@ -653,25 +654,26 @@ public class RSATMatrixScanClient {
 		        			
 		        			givenIntervalName = givenInterval.getName();
 		        			
-		        		  	for(File snp:givenInterval.listFiles()){
+		        		  	for(File snps:givenInterval.listFiles()){
 		        		  		
 		        		  		//example snp_chr6_170862335
-				         		if(snp.isDirectory()){
+				         		if(snps.isDirectory()){
 				         			
-				         			snpName = snp.getName();
+				         			snpName = snps.getName();
 				         			
-				         			//Initialize input files
+				         			//Initialise input files
 				         			snpInputFile = null;
 				         			alteredSnpInputFile = null;
 				         			alteredSNPInputFiles = new ArrayList<String>();
 				        			peakInputFile = null;
 				        				         			
-				         			File[] filesforEachSNP = snp.listFiles();
+				         			File[] filesforSNPs = snps.listFiles();
 				         			
-				         			for(File snporPeakorPFMorLogo: filesforEachSNP){
+				         			for(File snporPeakorPFMorLogo: filesforSNPs){
 				         				
 				         				fileName = snporPeakorPFMorLogo.getName();
-				         				fileAbsolutePath = snporPeakorPFMorLogo.getAbsolutePath();				         				
+				         				fileAbsolutePath = snporPeakorPFMorLogo.getAbsolutePath();
+				         				
 				         				
 				         				if (fileName.startsWith("reference")){
 				         					snpInputFile = fileAbsolutePath;
@@ -766,30 +768,17 @@ public class RSATMatrixScanClient {
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		//TfEnrichment, DO or DO_NOT
-		String tfEnrichment = args[12];
-					
-		//TfKeggPathway Enrichment, DO or DO_NOT
-		String tfKeggPathwayEnrichment = args[14];
-				
-		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		String tfCellLineKeggPathwayEnrichment = args[15];
-		
-		//Regulatory Sequence Analysis, DO or DO_NOT
-		String regulatorySequenceAnalysisUsingRSAT = args[16] ;
-
-
-		
-		String tfBaseDirectory = Commons.TF_RESULTS_DIRECTORY_BASE;
 		
 		String tfExonBasedKeggPathwayBaseDirectory = Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
 		String tfRegulationBasedKeggPathwayBaseDirectory = Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
 		String tfAllBasedKeggPathwayBaseDirectory = Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
-				
+		
+		
 		String tfCellLineExonBasedKeggPathwayBaseDirectory = Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
 		String tfCellLineRegulationBasedKeggPathwayBaseDirectory = Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
 		String tfCellLineAllBasedKeggPathwayBaseDirectory = Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
-				
+		
+		
 		//Delete the results of the former RSAT matrix scan call
 		FileOperations.deleteFile(outputFolder,Commons.RSAT_OUTPUT_FILENAME);
 		
@@ -799,26 +788,13 @@ public class RSATMatrixScanClient {
 			fileWriter = FileOperations.createFileWriter(outputFolder +Commons.RSAT_OUTPUT_FILENAME,true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			//RSAT for TF
-			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
-				matrixScan(outputFolder,tfBaseDirectory,bufferedWriter);
-			}
-
-			//RSAT for TF and KEGG Pathway
-			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
-				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);				
-			}
-
-			
-			//RSAT for TF and CellLine and  KEGG Pathway
-			if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
-				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
-			}
-			
+			matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+//
+//			matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//			matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
 			
 			//Close bufferedWriter
 			bufferedWriter.close();
