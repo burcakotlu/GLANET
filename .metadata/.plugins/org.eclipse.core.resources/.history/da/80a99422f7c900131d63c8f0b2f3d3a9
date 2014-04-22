@@ -1367,7 +1367,7 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 	//tf starts
-	public static void readAugmentedDataWriteSequencesandMatrices_forTf(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch37Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
+	public static void readAugmentedTfDataWriteSequencesandMatrices(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch37Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -1463,7 +1463,7 @@ public static String takeComplementforeachAllele(String allele){
 			while((strLine = augmentedBufferedReader.readLine())!=null){
 							
 				//skip strLine starts with * or contains "Search for" which means it is a header line
-				if (!(strLine.startsWith("*")) && !(strLine.contains("Searched for"))){
+				if (!(strLine.startsWith("*")) && !(strLine.contains("Search for"))){
 					
 					indexofFirstTab 	= strLine.indexOf('\t');
 					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
@@ -1721,9 +1721,6 @@ public static String takeComplementforeachAllele(String allele){
 				givenInterval = entry.getValue();
 				
 				givenIntervalName = givenInterval.getGivenIntervalName();
-				
-				//test
-				tfNameCellLineName = givenInterval.getTfNameCellLineName();
 				
 				snpKeyList = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfCellLineBasedTfIntervalKeyList();
@@ -2479,7 +2476,7 @@ public static String takeComplementforeachAllele(String allele){
 			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)){
 				//todo
 				//generate sequences and matrices for enriched tf elements
-				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);
+				readAugmentedTfDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);
 			}
 			
 								

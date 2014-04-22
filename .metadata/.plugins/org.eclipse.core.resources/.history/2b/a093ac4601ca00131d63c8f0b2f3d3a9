@@ -1722,9 +1722,6 @@ public static String takeComplementforeachAllele(String allele){
 				
 				givenIntervalName = givenInterval.getGivenIntervalName();
 				
-				//test
-				tfNameCellLineName = givenInterval.getTfNameCellLineName();
-				
 				snpKeyList = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfCellLineBasedTfIntervalKeyList();
 				

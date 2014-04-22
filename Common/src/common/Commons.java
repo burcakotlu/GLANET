@@ -132,6 +132,9 @@ public class Commons {
 	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "sequences" + System.getProperty("file.separator");
 	
 	/*************************************************************************************/
+	//TF DIRECTORY BASES
+	public static final String TF_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "Tf" + System.getProperty("file.separator");
+		
 	//TF KEGGPATHWAY DIRECTORY BASES
 	public static final String TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 		= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "TfExonBasedKeggPathway" + System.getProperty("file.separator");
 	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE 	= GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER  + "TfRegulationBasedKeggPathway" + System.getProperty("file.separator");
