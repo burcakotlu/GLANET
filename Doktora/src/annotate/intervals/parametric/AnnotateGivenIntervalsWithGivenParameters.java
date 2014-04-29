@@ -825,60 +825,60 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 	
 	//Empirical P Value Calculation
-	public static IntervalTree createDnaseIntervalTree(String outputFolder,String chromName){
+	public static IntervalTree createDnaseIntervalTree(String dataFolder,String chromName){
 		IntervalTree  dnaseIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
 			if (Commons.CHROMOSOME1.equals(chromName)){
-					fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR1_DNASE_FILENAME);				
+					fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR1_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME2.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR2_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR2_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME3.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR3_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR3_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME4.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR4_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR4_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME5.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR5_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR5_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME6.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR6_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR6_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME7.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR7_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR7_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME8.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR8_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR8_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME9.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR9_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR9_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME10.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR10_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR10_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME11.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR11_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR11_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME12.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR12_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR12_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME13.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR13_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR13_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME14.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR14_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR14_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME15.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR15_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR15_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME16.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR16_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR16_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME17.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR17_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR17_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME18.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR18_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR18_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME19.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR19_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR19_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME20.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR20_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR20_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME21.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR21_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR21_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOME22.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR22_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHR22_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOMEX.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHRX_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHRX_DNASE_FILENAME);				
 			} else if (Commons.CHROMOSOMEY.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHRY_DNASE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY, Commons.UNSORTED_CHRY_DNASE_FILENAME);				
 			} 
 		
 			bufferedReader = new BufferedReader(fileReader);
@@ -967,60 +967,60 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 
 	//Empirical P Value Calculation
-	public static IntervalTree createTfbsIntervalTree(String outputFolder,String chromName){
+	public static IntervalTree createTfbsIntervalTree(String dataFolder,String chromName){
 		IntervalTree  tfbsIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
 			if (Commons.CHROMOSOME1.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME2.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME3.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME4.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME5.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME6.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME7.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME8.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME9.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME10.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME11.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME12.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME13.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME14.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME15.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME16.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME17.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME18.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME19.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME20.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME21.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOME22.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOMEX.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);				
 			} else if (Commons.CHROMOSOMEY.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);				
 			} 
 		
 			bufferedReader = new BufferedReader(fileReader);
@@ -1109,60 +1109,60 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 
 	// Empirical P Value Calculation
-	public static IntervalTree createHistoneIntervalTree(String outputFolder,String chromName){
+	public static IntervalTree createHistoneIntervalTree(String dataFolder,String chromName){
 		IntervalTree  histoneIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
 			if (Commons.CHROMOSOME1.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR1_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR1_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME2.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR2_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR2_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME3.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR3_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR3_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME4.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR4_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR4_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME5.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR5_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR5_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME6.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR6_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR6_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME7.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR7_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR7_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME8.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR8_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR8_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME9.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR9_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR9_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME10.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR10_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR10_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME11.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR11_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR11_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME12.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR12_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR12_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME13.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR13_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR13_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME14.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR14_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR14_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME15.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR15_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR15_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME16.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR16_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR16_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME17.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR17_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR17_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME18.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR18_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR18_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME19.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR19_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR19_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME20.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR20_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR20_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME21.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR21_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR21_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOME22.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR22_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR22_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOMEX.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRX_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRX_HISTONE_FILENAME);				
 			} else if (Commons.CHROMOSOMEY.equals(chromName)){
-				fileReader = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRY_HISTONE_FILENAME);				
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRY_HISTONE_FILENAME);				
 			} 
 		
 			bufferedReader = new BufferedReader(fileReader);
@@ -1249,12 +1249,12 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		return histoneIntervalTree;	
 	}
 	
-	public static IntervalTree createUcscRefSeqGenesIntervalTree(String outputFolder,String chromName){
+	public static IntervalTree createUcscRefSeqGenesIntervalTree(String dataFolder,String chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
-		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(outputFolder,chromName);
+		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReader(dataFolder,chromName);
 		
 		bufferedReader = new BufferedReader(fileReader);
 		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTree(bufferedReader);
@@ -3844,13 +3844,13 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 	
 	
-	public void fillList(List<String> list, String outputFolder, String inputFileName){
+	public void fillList(List<String> list, String dataFolder, String inputFileName){
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		
 		try {
-			fileReader = new FileReader(outputFolder + inputFileName);			
+			fileReader = new FileReader(dataFolder + inputFileName);			
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {			
@@ -3945,7 +3945,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	
 	
-	public void searchDnase(String outputFolder, List<String> dnaseCellLineNameList, Map<String,Integer> dnaseCellLine2KMap) {
+	public void searchDnase(String dataFolder,String outputFolder, List<String> dnaseCellLineNameList, Map<String,Integer> dnaseCellLine2KMap) {
 		
 		BufferedReader bufferedReader =null ;
 				
@@ -3957,7 +3957,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			
 			switch(i){
 				case 1:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME1,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME1,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					searchDnase(outputFolder,Commons.CHROMOSOME1,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());				
@@ -3965,7 +3965,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			
 					break;
 				case 2:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME2,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME2,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME2,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());	
@@ -3973,7 +3973,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 3:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME3,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME3,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME3,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -3981,7 +3981,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					break;
 				case 4:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME4,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME4,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME4,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -3989,7 +3989,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 5:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME5,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME5,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME5,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -3998,7 +3998,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					break;
 				case 6:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME6,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME6,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME6,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4007,7 +4007,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 7:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME7,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME7,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME7,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4015,7 +4015,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					break;
 				case 8:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME8,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME8,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME8,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4023,7 +4023,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 9	:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME9,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME9,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME9,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4031,7 +4031,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					break;
 				case 10:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME10,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME10,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME10,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());	
@@ -4039,7 +4039,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					break;
 				case 11:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME11,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME11,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME11,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4048,7 +4048,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 12:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME12,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME12,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME12,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4056,7 +4056,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 					break;
 				case 13:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME13,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME13,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME13,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4064,7 +4064,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 14:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME14,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME14,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME14,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4072,7 +4072,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 15:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME15,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME15,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME15,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4080,7 +4080,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 16:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME16,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME16,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME16,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4088,7 +4088,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 17:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME17,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME17,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME17,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4096,7 +4096,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					break;
 				case 18:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME18,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME18,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME18,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4104,7 +4104,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 						
 					break;
 				case 19:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME19,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME19,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME19,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4112,7 +4112,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 20:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME20,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME20,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME20,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4121,7 +4121,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 21:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME21,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME21,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME21,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4129,7 +4129,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					break;
 				case 22:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOME22,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME22,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOME22,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4138,7 +4138,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 23:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOMEX,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOMEX,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4146,7 +4146,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 24:							
-					dnaseIntervalTree = createDnaseIntervalTree(outputFolder, Commons.CHROMOSOMEY,dnaseCellLineNameList);
+					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOMEY,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					searchDnase(outputFolder, Commons.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
@@ -4169,7 +4169,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	//New Functionality START
 	//Which cell line does not matter.
-	public void searchTfandKeggPathway(String outputFolder, List<String> tfNameList, List<String> keggPathwayNameList, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap){
+	public void searchTfandKeggPathway(String dataFolder, String outputFolder, List<String> tfNameList, List<String> keggPathwayNameList, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap){
 		BufferedReader bufferedReader =null ;
 		
 		IntervalTree tfbsIntervalTree;
@@ -4197,8 +4197,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			switch(i){
 				case 1:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME1,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME1);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME1,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME1);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME1,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4211,8 +4211,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 				case 2:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME2,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME2);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME2,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME2);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME2,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4225,8 +4225,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 				case 3:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME3,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME3);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME3,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME3);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME3,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4239,8 +4239,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 				case 4:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME4,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME4);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME4,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME4);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME4,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4252,8 +4252,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 5:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME5,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME5);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME5,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME5);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME5,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4265,8 +4265,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 6:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME6,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME6);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME6,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME6);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME6,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4278,8 +4278,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 7:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME7,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME7);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME7,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME7);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME7,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4291,8 +4291,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 8:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME8,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME8);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME8,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME8);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME8,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4304,8 +4304,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 9:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME9,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME9);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME9,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME9);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME9,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4317,8 +4317,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 10:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME10,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME10);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME10,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME10);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME10,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4330,8 +4330,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 11:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME11,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME11);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME11,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME11);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME11,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4343,8 +4343,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 12:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME12,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME12);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME12,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME12);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME12,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4356,8 +4356,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 13:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME13,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME13);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME13,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME13);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME13,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4369,8 +4369,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 14:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME14,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME14);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME14,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME14);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME14,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4382,8 +4382,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 15:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME15,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME15);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME15,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME15);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME15,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4395,8 +4395,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 16:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME16,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME16);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME16,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME16);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME16,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4408,8 +4408,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 17:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME17,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME17);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME17,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME17);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME17,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4421,8 +4421,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 18:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME18,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME18);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME18,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME18);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME18,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4434,8 +4434,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 19:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME19,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME19);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME19,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME19);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME19,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4447,8 +4447,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 20:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME20,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME20);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME20,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME20);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME20,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4460,8 +4460,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 21:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME21,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME21);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME21,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME21);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME21,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4473,8 +4473,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 22:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME22,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME22);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME22,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME22);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME22,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4486,8 +4486,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 23:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOMEX,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEX);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOMEX,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEX,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4499,8 +4499,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;	
 				case 24:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOMEY,tfNameList);
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEY);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOMEY,tfNameList);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					
 					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEY,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
@@ -4539,7 +4539,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 	//New Functionality END
 	
-	public void searchTfbs(String outputFolder, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2KMap) {
+	public void searchTfbs(String dataFolder,String outputFolder, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2KMap) {
 		
 		BufferedReader bufferedReader =null ;
 				
@@ -4552,7 +4552,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			switch(i){
 				case 1:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME1,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME1,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME1,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4561,7 +4561,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 2:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME2,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME2,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME2,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4570,7 +4570,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 3:							
 	
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME3,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME3,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME3,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4579,7 +4579,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 4:							
 			
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME4,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME4,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME4,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4588,7 +4588,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 5:							
 
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME5,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME5,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME5,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4597,7 +4597,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 6:							
 	
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME6,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME6,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME6,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4606,7 +4606,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 7:							
 
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME7,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME7,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME7,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4616,7 +4616,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 8:							
 														
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME8,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME8,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME8,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4626,7 +4626,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 9	:							
 	
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME9,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME9,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME9,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4635,7 +4635,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 10:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME10,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME10,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME10,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4645,7 +4645,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 11:							
 						
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME11,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME11,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME11,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4656,7 +4656,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 12:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME12,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME12,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME12,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4665,7 +4665,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 13:							
 				
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME13,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME13,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME13,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4675,7 +4675,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 14:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME14,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME14,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME14,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4685,7 +4685,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 15:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME15,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME15,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME15,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4695,7 +4695,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 16:							
 				
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME16,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME16,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME16,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4704,7 +4704,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					break;
 				case 17:							
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME17,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME17,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME17,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4714,7 +4714,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 18:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME18,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME18,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME18,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4723,7 +4723,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 19:							
 						
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME19,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME19,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME19,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4732,7 +4732,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 20:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME20,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME20,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME20,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4741,7 +4741,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 21:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME21,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME21,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME21,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4750,7 +4750,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 22:							
 				
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOME22,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOME22,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					searchTfbs(Commons.CHROMOSOME22,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4759,7 +4759,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 23:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOMEX,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOMEX,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					searchTfbs(Commons.CHROMOSOMEX,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4768,7 +4768,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 24:							
 					
-					tfbsIntervalTree = createTfbsIntervalTree(outputFolder,Commons.CHROMOSOMEY,tfbsNameList);
+					tfbsIntervalTree = createTfbsIntervalTree(dataFolder,Commons.CHROMOSOMEY,tfbsNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					searchTfbs(Commons.CHROMOSOMEY,bufferedReader, tfbsIntervalTree, tfbsBufferedWriterHashMap, tfbsNameList,tfbsNameandCellLineName2KMap);
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
@@ -4790,7 +4790,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 	
 	
-	public void searchHistone(String outputFolder, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap) {
+	public void searchHistone(String dataFolder,String outputFolder, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap) {
 		
 		BufferedReader bufferedReader =null ;
 				
@@ -4803,7 +4803,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			switch(i){
 				case 1:							
 		
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME1,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME1,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME1,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4812,7 +4812,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 2:							
 					
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME2,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME2,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME2,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4821,7 +4821,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 						break;
 				case 3:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME3,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME3,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME3,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4829,7 +4829,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 						break;
 				case 4:							
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME4,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME4,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME4,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4838,7 +4838,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 5:							
 				
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME5,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME5,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME5,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4847,7 +4847,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 6:							
 					
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME6,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME6,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME6,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4856,7 +4856,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 7:							
 				
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME7,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME7,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME7,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4865,7 +4865,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 8:							
 				
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME8,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME8,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME8,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4874,7 +4874,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 9	:							
 		
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME9,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME9,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME9,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4883,7 +4883,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 10:							
 		
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME10,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME10,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME10,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4892,7 +4892,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 11:							
 		
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME11,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME11,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME11,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4902,7 +4902,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 12:							
 	
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME12,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME12,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME12,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4911,7 +4911,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 13:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME13,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME13,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME13,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4920,7 +4920,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 14:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME14,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME14,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME14,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4929,7 +4929,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 15:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME15,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME15,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME15,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4938,7 +4938,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 16:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME16,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME16,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME16,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4948,7 +4948,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 17:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME17,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME17,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME17,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4957,7 +4957,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 18:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME18,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME18,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME18,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4966,7 +4966,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 19:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME19,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME19,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME19,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4975,7 +4975,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 20:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME20,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME20,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME20,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4983,7 +4983,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					break;
 				case 21:							
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME21,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME21,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME21,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -4992,7 +4992,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 22:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOME22,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME22,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOME22,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -5001,7 +5001,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 23:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOMEX,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOMEX,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOMEX,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -5010,7 +5010,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					break;
 				case 24:							
 
-					histoneIntervalTree = createHistoneIntervalTree(outputFolder,Commons.CHROMOSOMEY,histoneNameList);
+					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOMEY,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					searchHistone(outputFolder,Commons.CHROMOSOMEY,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
@@ -5906,7 +5906,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 
 
 
-public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneId2KeggPathwayMap,List<String> keggPathwayNameList, Map<String,Integer> keggPathway2KMap, String keggPathwayAnalysisType) {
+public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,List<String>> geneId2KeggPathwayMap,List<String> keggPathwayNameList, Map<String,Integer> keggPathway2KMap, String keggPathwayAnalysisType) {
 	
 	BufferedReader bufferedReader =null ;
 			
@@ -5919,7 +5919,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		
 		switch(i){
 			case 1:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME1);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME1);
 
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME1,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5928,7 +5928,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 2:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME2);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME2);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME2,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5937,7 +5937,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 3:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME3);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME3);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME3,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5946,7 +5946,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 4:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME4);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME4);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME4,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5955,7 +5955,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 5:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME5);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME5);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME5,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5964,7 +5964,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 6:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME6);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME6);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME6,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5973,7 +5973,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 7:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME7);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME7);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME7,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5982,7 +5982,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 8:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME8);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME8);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME8,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -5991,7 +5991,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 9	:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME9);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME9);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME9,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6000,7 +6000,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 10:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME10);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME10);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME10,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6009,7 +6009,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 11:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME11);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME11);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME11,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6018,7 +6018,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 12:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME12);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME12);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME12,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6027,7 +6027,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 13:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME13);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME13);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME13,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6036,7 +6036,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 14:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME14);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME14);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME14,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6045,7 +6045,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 15:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME15);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME15);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME15,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6054,7 +6054,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 16:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME16);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME16);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME16,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6063,7 +6063,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 17:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME17);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME17);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME17,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6072,7 +6072,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 18:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME18);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME18);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME18,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6081,7 +6081,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 19:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME19);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME19);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME19,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6090,7 +6090,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 20:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME20);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME20);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME20,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6099,7 +6099,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 21:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME21);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME21);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME21,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6108,7 +6108,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 22:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME22);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME22);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOME22,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6117,7 +6117,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 23:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEX);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEX);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOMEX,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6126,7 +6126,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 				geneIntervalTree = null;
 				break;
 			case 24:							
-				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEY);
+				geneIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEY);
 				
 				bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 				searchUcscRefSeqGenes(Commons.CHROMOSOMEY,bufferedReader, geneIntervalTree, keggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,keggPathwayNameList, keggPathway2KMap, Commons.NCBI_GENE_ID,keggPathwayAnalysisType);
@@ -6233,8 +6233,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
-		fillList(dnaseCellLineNameList,outputFolder , Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
-		searchDnase(outputFolder,dnaseCellLineNameList,dnaseCellLine2KMap);	
+		fillList(dnaseCellLineNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
+		searchDnase(dataFolder,outputFolder,dnaseCellLineNameList,dnaseCellLine2KMap);	
 		writeResults(dnaseCellLine2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setDnaseCellLineName2NumberofOverlapsMap(dnaseCellLine2KMap);
 		
@@ -6244,8 +6244,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> tfbsNameandCellLineName2KMap = new HashMap<String,Integer>();	
 		
-		fillList(tfbsNameList,outputFolder , Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
-		searchTfbs(outputFolder,tfbsNameList,tfbsNameandCellLineName2KMap);		
+		fillList(tfbsNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
+		searchTfbs(dataFolder,outputFolder,tfbsNameList,tfbsNameandCellLineName2KMap);		
 		writeResults(tfbsNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setTfbsNameandCellLineName2NumberofOverlapsMap(tfbsNameandCellLineName2KMap);
 
@@ -6255,8 +6255,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
-		fillList(histoneNameList,outputFolder ,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
-		searchHistone(outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
+		fillList(histoneNameList,dataFolder ,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
+		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setHistoneNameandCellLineName2NumberofOverlapsMap(histoneNameandCellLineName2KMap);
 		
@@ -6266,7 +6266,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		List<String> keggPathwayNameList = new ArrayList<String>();
 				
 		//Fill keggPathwayNameList
-		fillList(keggPathwayNameList,outputFolder , Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);
+		fillList(keggPathwayNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);
 		
 		Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String, List<String>>();
 		KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayMap);
@@ -6275,7 +6275,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 		Map<String,Integer> exonBasedKeggPathway2KMap = new HashMap<String,Integer>();
 				
-		searchKeggPathway(outputFolder,geneId2KeggPathwayMap,keggPathwayNameList, exonBasedKeggPathway2KMap, Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+		searchKeggPathway(dataFolder,outputFolder,geneId2KeggPathwayMap,keggPathwayNameList, exonBasedKeggPathway2KMap, Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
 		writeResults(exonBasedKeggPathway2KMap, outputFolder,Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setExonBasedKeggPathway2NumberofOverlapsMap(exonBasedKeggPathway2KMap);
 		
@@ -6284,7 +6284,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 		Map<String,Integer> regulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 				
-		searchKeggPathway(outputFolder,geneId2KeggPathwayMap,keggPathwayNameList, regulationBasedKeggPathway2KMap, Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+		searchKeggPathway(dataFolder,outputFolder,geneId2KeggPathwayMap,keggPathwayNameList, regulationBasedKeggPathway2KMap, Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
 		writeResults(regulationBasedKeggPathway2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setRegulationBasedKeggPathway2NumberofOverlapsMap(regulationBasedKeggPathway2KMap);
 		
@@ -6292,7 +6292,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 		Map<String,Integer> allResultsKeggPathway2KMap = new HashMap<String,Integer>();
 						
-		searchKeggPathway(outputFolder, geneId2KeggPathwayMap,keggPathwayNameList, allResultsKeggPathway2KMap, Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
+		searchKeggPathway(dataFolder,outputFolder, geneId2KeggPathwayMap,keggPathwayNameList, allResultsKeggPathway2KMap, Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
 		writeResults(allResultsKeggPathway2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		
 		return allName2KMaps;
@@ -6389,8 +6389,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
-		fillList(dnaseCellLineNameList,outputFolder, Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
-		searchDnase(outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap);	
+		fillList(dnaseCellLineNameList,dataFolder, Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
+		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap);	
 		writeResults(dnaseCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("DNASE analysis ends.");
 		/*********************************************/
@@ -6414,8 +6414,8 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
-		fillList(histoneNameList,outputFolder , Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
-		searchHistone(outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
+		fillList(histoneNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
+		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("Histone analysis ends.");
 		/*********************************************/
@@ -6497,13 +6497,13 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		//For TF
 		List<String> tfbsNameList = new ArrayList<String>();
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
-		fillList(tfbsNameList,outputFolder , Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
+		fillList(tfbsNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 		Map<String,Integer> tfCellLine2KMap = new HashMap<String,Integer>();	
 		
 		//For Kegg Pathway
 		List<String> keggPathwayNameList = new ArrayList<String>();
 		//Fill keggPathwayNameList
-		fillList(keggPathwayNameList, outputFolder , Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME +Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME );
+		fillList(keggPathwayNameList, dataFolder , Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME +Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME );
 		Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String, List<String>>();
 		KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayMap);
 		Map<String,Integer> exonBasedKeggPathway2KMap = new HashMap<String,Integer>();
@@ -6521,7 +6521,7 @@ public void searchKeggPathway(String outputFolder,Map<String,List<String>> geneI
 		Map<String,Integer> tfRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 		Map<String,Integer> tfAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			
-		searchTfandKeggPathway(outputFolder,tfbsNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+		searchTfandKeggPathway(dataFolder,outputFolder,tfbsNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
 		
 		writeResults(tfCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		

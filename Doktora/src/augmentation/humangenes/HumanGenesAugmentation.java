@@ -22,7 +22,7 @@ import common.Commons;
 
 public class HumanGenesAugmentation {
 	
-	public static void fillHumanGeneId2RefSeqGeneNameMap(String outputFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
+	public static void fillHumanGeneId2RefSeqGeneNameMap(String dataFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -40,7 +40,7 @@ public class HumanGenesAugmentation {
 		List<String> refSeqGeneNameList;
 		
 		try {
-			fileReader =  new FileReader(outputFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {

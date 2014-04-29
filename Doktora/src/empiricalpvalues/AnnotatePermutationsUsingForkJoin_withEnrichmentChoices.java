@@ -699,20 +699,20 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		listofAnnotationTasks.add(new AnnotationTask(chromName, 0));
 	}
 	
-	public IntervalTree generateDnaseIntervalTree(String outputFolder,String chromName){		
-		return AnnotateGivenIntervalsWithGivenParameters.createDnaseIntervalTree(outputFolder,chromName);	
+	public IntervalTree generateDnaseIntervalTree(String dataFolder,String chromName){		
+		return AnnotateGivenIntervalsWithGivenParameters.createDnaseIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateTfbsIntervalTree(String outputFolder,String chromName){		
-		return AnnotateGivenIntervalsWithGivenParameters.createTfbsIntervalTree(outputFolder,chromName);	
+	public IntervalTree generateTfbsIntervalTree(String dataFolder,String chromName){		
+		return AnnotateGivenIntervalsWithGivenParameters.createTfbsIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateHistoneIntervalTree(String outputFolder,String chromName){		
-		return AnnotateGivenIntervalsWithGivenParameters.createHistoneIntervalTree(outputFolder,chromName);	
+	public IntervalTree generateHistoneIntervalTree(String dataFolder,String chromName){		
+		return AnnotateGivenIntervalsWithGivenParameters.createHistoneIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateUcscRefSeqGeneIntervalTree(String outputFolder,String chromName){		
-		return AnnotateGivenIntervalsWithGivenParameters.createUcscRefSeqGenesIntervalTree(outputFolder,chromName);	
+	public IntervalTree generateUcscRefSeqGeneIntervalTree(String dataFolder,String chromName){		
+		return AnnotateGivenIntervalsWithGivenParameters.createUcscRefSeqGenesIntervalTree(dataFolder,chromName);	
 	}
 	
 	public void generateIntervalTrees(String outputFolder,String chromName, List<IntervalTree> listofIntervalTrees){
@@ -1090,8 +1090,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
     				//Kegg Pathway (exon Based, regulation Based, all Based)
     				//tfbs and Kegg Pathway (exon Based, regulation Based, all Based)
     				//generate tf interval tree and ucsc refseq genes interval tree
-    				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
-    				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
+    				tfIntervalTree = generateTfbsIntervalTree(dataFolder,chromName);
+    				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(dataFolder,chromName);
       			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_KEGG_PATHWAY_ANNOTATION,tfKeggPathwayEnrichment,geneId2KeggPathwayMap);
       				allMaps = pool.invoke(annotate);    
       				//Will be used 	for Tf and KeggPathway Enrichment or
@@ -1114,8 +1114,8 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
         				//Kegg Pathway (exon Based, regulation Based, all Based)
         				//tfbs and Kegg Pathway (exon Based, regulation Based, all Based)
         				//generate tf interval tree and ucsc refseq genes interval tree
-        				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
-        				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
+        				tfIntervalTree = generateTfbsIntervalTree(dataFolder,chromName);
+        				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(dataFolder,chromName);
           			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,tfCellLineKeggPathwayEnrichment,geneId2KeggPathwayMap);
           				allMaps = pool.invoke(annotate);    
           				//Will be used 	for Tf and KeggPathway Enrichment or
@@ -1137,7 +1137,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 					
 					//dnase
     			    //generate dnase interval tree
-    			    intervalTree = generateDnaseIntervalTree(outputFolder,chromName);
+    			    intervalTree = generateDnaseIntervalTree(dataFolder,chromName);
     			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.DNASE_ANNOTATION,null,null);
     				allMaps = pool.invoke(annotate);    			    
     			    accumulate(allMaps, accumulatedAllMaps, Commons.DNASE_ANNOTATION);
@@ -1150,7 +1150,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
 				    //histone
     			    //generate histone interval tree
-    			    intervalTree = generateHistoneIntervalTree(outputFolder,chromName);
+    			    intervalTree = generateHistoneIntervalTree(dataFolder,chromName);
     			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.HISTONE_ANNOTATION,null,null);
     				allMaps = pool.invoke(annotate);    			    
     			    accumulate(allMaps, accumulatedAllMaps,Commons.HISTONE_ANNOTATION);
@@ -1163,7 +1163,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				if ((tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)) && !(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)) && !(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))){
     			    //tf
     			    //generate tf interval tree
-    			    intervalTree = generateTfbsIntervalTree(outputFolder,chromName);
+    			    intervalTree = generateTfbsIntervalTree(dataFolder,chromName);
     			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.TFBS_ANNOTATION,null,null);
     				allMaps = pool.invoke(annotate);    			    
     			    accumulate(allMaps, accumulatedAllMaps,Commons.TFBS_ANNOTATION);
@@ -1177,7 +1177,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				if (keggPathwayEnrichment.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT) && !(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)) && !(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))){
    			    //ucsc RefSeq Genes
     			    //generate UCSC RefSeq Genes interval tree
-    			    intervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
+    			    intervalTree = generateUcscRefSeqGeneIntervalTree(dataFolder,chromName);
     			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.UCSC_REFSEQ_GENE_ANNOTATION,null,geneId2KeggPathwayMap);
     				allMaps = pool.invoke(annotate);    			    
     			    accumulate(allMaps, accumulatedAllMaps,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
@@ -1739,7 +1739,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		//Set the number of comparisons for TfCellLineExonBasedKeggPathway, TfCellLineRegulationBasedKeggPathway, TfCellLineAllBasedKeggPathway
 		//Set the number of comparisons for TfExonBasedKeggPathway, TfRegulationBasedKeggPathway, TfAllBasedKeggPathway
 		NumberofComparisons  numberofComparisons = new NumberofComparisons();
-		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(outputFolder,numberofComparisons);
+		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(dataFolder,numberofComparisons);
 			
 		
 		/*********************************************/

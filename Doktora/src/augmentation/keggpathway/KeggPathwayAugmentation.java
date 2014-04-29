@@ -198,7 +198,7 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayAlternateGeneNameList;
 		
 		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 		
 		for(List<FunctionalElement> list: allLists ){
@@ -407,7 +407,7 @@ public class KeggPathwayAugmentation {
 			int indexofFirstUnderscore;
 			
 			KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
-			HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
+			HumanGenesAugmentation.fillHumanGeneId2RefSeqGeneNameMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);
 			HumanGenesAugmentation.fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
 			
 			for(List<FunctionalElement> list: allLists){

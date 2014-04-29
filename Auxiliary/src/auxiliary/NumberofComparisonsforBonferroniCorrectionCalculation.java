@@ -17,7 +17,7 @@ import common.Commons;
 
 public class NumberofComparisonsforBonferroniCorrectionCalculation {
 	
-	public static void getNumberofComparisonsforBonferroniCorrection(String outputFolder,NumberofComparisons numberofComparisons){
+	public static void getNumberofComparisonsforBonferroniCorrection(String dataFolder,NumberofComparisons numberofComparisons){
 		
 		Map<String,Integer> dnaseCellLineHashMap = new HashMap<String,Integer>();		
 		Map<String,Integer> tfbsNameCellLineNameHashMap = new HashMap<String,Integer>();
@@ -28,29 +28,29 @@ public class NumberofComparisonsforBonferroniCorrectionCalculation {
 		
 		//Bonferroni Correction
 		//Dnase		
-		CalculateBinomialDistributions.fillHashMapwithOccurences(dnaseCellLineHashMap,outputFolder, Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(dnaseCellLineHashMap,dataFolder, Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsDnase(dnaseCellLineHashMap.size());
 	
 		//Tf
-		CalculateBinomialDistributions.fillHashMapwithOccurences(tfbsNameCellLineNameHashMap,outputFolder, Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(tfbsNameCellLineNameHashMap,dataFolder, Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsTfbs(tfbsNameCellLineNameHashMap.size());
 		
 		//histone
-		CalculateBinomialDistributions.fillHashMapwithOccurences(histoneNameCellLineNameHashMap,outputFolder, Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(histoneNameCellLineNameHashMap,dataFolder, Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsHistone(histoneNameCellLineNameHashMap.size());
 		
 		//exon based kegg pathway
-		CalculateBinomialDistributions.fillHashMapwithOccurences(exonBasedKeggPathwayHashMap,outputFolder, Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(exonBasedKeggPathwayHashMap,dataFolder, Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsExonBasedKeggPathway(exonBasedKeggPathwayHashMap.size());
 		
 		//regulation based Kegg Pathway
-		CalculateBinomialDistributions.fillHashMapwithOccurences(regulationBasedKeggPathwayHashMap,outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(regulationBasedKeggPathwayHashMap,dataFolder, Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsRegulationBasedKeggPathway(regulationBasedKeggPathwayHashMap.size());
 		
 		//all based Kegg Pathway
 		//Attention!!!
 		//Gets the number of kegg pathways using Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE file
-		CalculateBinomialDistributions.fillHashMapwithOccurences(allBasedKeggPathwayHashMap, outputFolder,Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
+		CalculateBinomialDistributions.fillHashMapwithOccurences(allBasedKeggPathwayHashMap, dataFolder,Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		numberofComparisons.setNumberofComparisonsAllBasedKeggPathway(regulationBasedKeggPathwayHashMap.size());
 		
 		//Number of Different Tfbs Cell Line Combinations 406

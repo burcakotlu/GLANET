@@ -409,7 +409,7 @@ public class CollectionofPermutationsResults {
 		CollectionofPermutationsResults collectionofPermutationsResults = new CollectionofPermutationsResults();
 		
 		NumberofComparisons  numberofComparisons = new NumberofComparisons();
-		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(outputFolder,numberofComparisons);
+		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(dataFolder,numberofComparisons);
 				
 		int numberofPermutations = Integer.parseInt(args[9]);
 		
