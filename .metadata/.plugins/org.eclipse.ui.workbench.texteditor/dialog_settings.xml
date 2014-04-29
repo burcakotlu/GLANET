@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="isRegEx" value="false"/>
-		<item value="tfCellLineTfIntervalKey" key="selection"/>
+		<item value="false" key="isRegEx"/>
+		<item value="PERMUTATION" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="permutation"/>
+			<item value="WRITE"/>
+			<item value="outputFolder"/>
+			<item value="NCBI"/>
 			<item value="tfCellLineTfIntervalKey"/>
 			<item value="tfCellLineBasedTfIntervalMap"/>
 			<item value="enrichmentType"/>
 			<item value="numberofEnrichedTfExonBasedKeggPathwayElements"/>
-			<item value="readhistone"/>
-			<item value="toBeColle"/>
-			<item value="number_of_per"/>
-			<item value="allBased"/>
 		</list>
 		<list key="replacehistory">
+			<item value="dataFolder"/>
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
 			<item value=""/>
 			<item value="System.getProperty(&quot;file.separator&quot;)"/>
@@ -25,14 +26,13 @@
 			<item value="Commons.ALL_POSSIBLE_NAMES"/>
 			<item value="System.getProperty(File.separator)"/>
 			<item value="outputFolder"/>
-			<item value="processinputdata"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_WIDTH" value="502"/>
+		<item value="502" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1386" key="DIALOG_X_ORIGIN"/>
-		<item value="42" key="DIALOG_Y_ORIGIN"/>
+		<item value="149" key="DIALOG_X_ORIGIN"/>
+		<item value="53" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
