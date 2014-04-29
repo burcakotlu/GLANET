@@ -19,7 +19,7 @@ import common.Commons;
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
 	private MainView mainView;
-
+	
 	public MainViewController( JPanel contentPanel) {
 		super(contentPanel);
 		
@@ -148,36 +148,15 @@ public class MainViewController extends ViewController implements MainViewDelega
 				   jobName,
 				   writeGeneratedRandomDataMode,
 				   writePermutationBasedandParametricBasedAnnotationResultMode,
-				   writePermutationBasedAnnotationResultMode};		
+				   writePermutationBasedAnnotationResultMode};
 		
-		mainView.setCurrentProcessInfo( "InputDataProcess...");
-		InputDataProcess.main(args);
-		mainView.setCurrentProcessInfo( "RemoveOverlaps...");
-		RemoveOverlaps.main(args);
-		mainView.setCurrentProcessInfo( "HumanRefSeq2Gene...");
-		HumanRefSeq2Gene.main(args);
-		mainView.setCurrentProcessInfo( "CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting...");
-		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.main(args);
-		mainView.setCurrentProcessInfo( "CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting...");
-		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.main(args);
-		mainView.setCurrentProcessInfo( "WriteAllPossibleNames...");
-		WriteAllPossibleNames.main(args);
-		mainView.setCurrentProcessInfo( "CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree...");
-		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(args);
-		mainView.setCurrentProcessInfo( "AnnotateGivenIntervalsWithGivenParameters...");
-		AnnotateGivenIntervalsWithGivenParameters.main(args);
-		mainView.setCurrentProcessInfo( "AnnotatePermutationsUsingForkJoin_withEnrichmentChoices...");
-		AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.main(args);
-		mainView.setCurrentProcessInfo( "CollectionofPermutationsResults...");
-		CollectionofPermutationsResults.main(args);
+		GlanetRunner runner = new GlanetRunner();
 		
-		if( regulatorySequenceAnalysisUsingRSAT.equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
-			mainView.setCurrentProcessInfo( "AugmentationofEnrichedElementswithIntervals...");
-			AugmentationofEnrichedElementswithIntervals.main(args);
-			mainView.setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-			GenerationofSequencesandMatricesforGivenIntervals.main(args);
-			mainView.setCurrentProcessInfo( "RSATMatrixScanClient...");
-			RSATMatrixScanClient.main(args);
-		}
+		GlanetRunner.setArgs(new String[args.length]);
+		GlanetRunner.setMainView( mainView);
+		
+		for( int i = 0; i < args.length; i++) GlanetRunner.getArgs()[i] = args[i];
+		
+		runner.start();
 	}
 }
