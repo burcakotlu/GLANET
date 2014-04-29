@@ -40,9 +40,9 @@ public class App
         		super.windowClosing(e);
         	}
 		});
-        
-        frame.pack();
         frame.setVisible(true);
+        frame.pack();
+        frame.repaint();
 	}
 	
     public static void main( String[] args ) {loadWindow();}

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="RefactoringWizard.preview">
-		<item key="width" value="790"/>
+		<item value="790" key="width"/>
 		<item value="400" key="height"/>
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item key="moveWizard.updateQualifiedNames" value="false"/>
+		<item value="false" key="moveWizard.updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 	</section>
 	<section name="InferTypeArguments">
-		<item key="leaveUnconstrainedRaw" value="true"/>
+		<item value="true" key="leaveUnconstrainedRaw"/>
 		<item value="true" key="assumeCloneReturnsSameType"/>
 	</section>
 	<section name="RefactoringPropertyPage">
-		<item key="org.eclipse.ltk.ui.refactoring.sortRefactorings" value="true"/>
+		<item value="true" key="org.eclipse.ltk.ui.refactoring.sortRefactorings"/>
 	</section>
 </section>

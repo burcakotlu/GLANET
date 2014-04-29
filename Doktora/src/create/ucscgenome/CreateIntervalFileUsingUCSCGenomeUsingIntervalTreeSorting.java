@@ -679,7 +679,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
 		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
-		String fileName2 = outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
+		String fileName2 = dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
 		
 		
 		//My convention is zero based start and end.

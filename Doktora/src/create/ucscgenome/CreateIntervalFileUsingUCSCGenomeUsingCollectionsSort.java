@@ -579,7 +579,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		
 		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
 		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
-		String fileName2 = outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME ;
+		String fileName2 = dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME ;
 		
 		CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort createIntervals = new CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort();
 	    

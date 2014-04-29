@@ -306,6 +306,8 @@ public class MainView extends JPanel{
         //all control operations are done after the gui is completely set
         enableEnrichmentOptions( enableEnrichmentCheckBox.isSelected());
         checkUsabilityOfRegulatorySequenceAnalysis();
+        
+        revalidate();
 	}
 	
 	JPanel createBorderedPanel( String borderName, JComponent panel){

@@ -17,7 +17,7 @@ org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UT
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="true" context\="java" deleted\="false" description\="new DateTime" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.swt.datetime" name\="DateTime">@date ${date}</template></templates>
 org.eclipse.jdt.ui.text.templates_migrated=true
 org.eclipse.jdt.ui.visibility.order=B,V,R,D,
-org.eclipse.jface.textfont=1|Courier New|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Courier New;
+org.eclipse.jface.textfont=1|Consolas|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
 outlinesortoption=T,SF,SI,SM,F,I,C,M,
 proposalOrderMigrated=true
 sourceHoverBackgroundColor=255,255,225

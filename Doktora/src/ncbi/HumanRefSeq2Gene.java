@@ -26,7 +26,7 @@ import common.Commons;
 
 public class HumanRefSeq2Gene {
 	
-	public static void humanGene2RefSeq(String dataFolder,String outputFolder){
+	public static void humanGene2RefSeq(String dataFolder){
 		
 		FileReader fileReader;
 		FileWriter fileWriter;
@@ -41,7 +41,7 @@ public class HumanRefSeq2Gene {
 		
 		try {
 			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_GENE_TO_REF_SEQ);
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
 		
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -79,7 +79,7 @@ public class HumanRefSeq2Gene {
 		
 	}
 	
-	public static void humanRefSeq2Gene(String outputFolder){
+	public static void humanRefSeq2Gene(String dataFolder){
 		
 		FileReader fileReader;
 		FileWriter fileWriter;
@@ -109,9 +109,9 @@ public class HumanRefSeq2Gene {
 		RefSeq2Gene refSeq2Gene = null;
 		
 		try {
-			fileReader = FileOperations.createFileReader(outputFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME, Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME);
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME,Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME, Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME);
+			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME,Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME);
 			
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -228,8 +228,8 @@ public class HumanRefSeq2Gene {
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		humanGene2RefSeq(dataFolder,outputFolder);
-		humanRefSeq2Gene(outputFolder);
+		humanGene2RefSeq(dataFolder);
+		humanRefSeq2Gene(dataFolder);
 
 	}
 
