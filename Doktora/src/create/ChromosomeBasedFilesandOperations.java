@@ -147,33 +147,33 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static void openUnsortedChromosomeBasedDnaseFileWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+	public static void openUnsortedChromosomeBasedDnaseFileWriters(String dataFolder,List<BufferedWriter> bufferedWriterList){
 		
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR1_DNASE_FILENAME);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR2_DNASE_FILENAME);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR3_DNASE_FILENAME);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR4_DNASE_FILENAME);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR5_DNASE_FILENAME);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR6_DNASE_FILENAME);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR7_DNASE_FILENAME);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR8_DNASE_FILENAME);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR9_DNASE_FILENAME);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR10_DNASE_FILENAME);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR11_DNASE_FILENAME);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR12_DNASE_FILENAME);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR13_DNASE_FILENAME);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR14_DNASE_FILENAME);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR15_DNASE_FILENAME);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR16_DNASE_FILENAME);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR17_DNASE_FILENAME);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR18_DNASE_FILENAME);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR19_DNASE_FILENAME);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR20_DNASE_FILENAME);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR21_DNASE_FILENAME);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR22_DNASE_FILENAME);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRX_DNASE_FILENAME);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRY_DNASE_FILENAME);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR1_DNASE_FILENAME);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR2_DNASE_FILENAME);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR3_DNASE_FILENAME);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR4_DNASE_FILENAME);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR5_DNASE_FILENAME);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR6_DNASE_FILENAME);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR7_DNASE_FILENAME);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR8_DNASE_FILENAME);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR9_DNASE_FILENAME);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR10_DNASE_FILENAME);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR11_DNASE_FILENAME);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR12_DNASE_FILENAME);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR13_DNASE_FILENAME);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR14_DNASE_FILENAME);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR15_DNASE_FILENAME);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR16_DNASE_FILENAME);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR17_DNASE_FILENAME);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR18_DNASE_FILENAME);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR19_DNASE_FILENAME);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR20_DNASE_FILENAME);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR21_DNASE_FILENAME);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHR22_DNASE_FILENAME);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRX_DNASE_FILENAME);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY , Commons.UNSORTED_CHRY_DNASE_FILENAME);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -210,33 +210,33 @@ public class ChromosomeBasedFilesandOperations {
 
 	
 	
-	public static void openUnsortedChromosomeBasedHistoneFileWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+	public static void openUnsortedChromosomeBasedHistoneFileWriters(String dataFolder,List<BufferedWriter> bufferedWriterList){
 		
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR1_HISTONE_FILENAME);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR2_HISTONE_FILENAME);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR3_HISTONE_FILENAME);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR4_HISTONE_FILENAME);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR5_HISTONE_FILENAME);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR6_HISTONE_FILENAME);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR7_HISTONE_FILENAME);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR8_HISTONE_FILENAME);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR9_HISTONE_FILENAME);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR10_HISTONE_FILENAME);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR11_HISTONE_FILENAME);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR12_HISTONE_FILENAME);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR13_HISTONE_FILENAME);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR14_HISTONE_FILENAME);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR15_HISTONE_FILENAME);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR16_HISTONE_FILENAME);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR17_HISTONE_FILENAME);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR18_HISTONE_FILENAME);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR19_HISTONE_FILENAME);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR20_HISTONE_FILENAME);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR21_HISTONE_FILENAME);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR22_HISTONE_FILENAME);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHRX_HISTONE_FILENAME);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHRY_HISTONE_FILENAME);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR1_HISTONE_FILENAME);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR2_HISTONE_FILENAME);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR3_HISTONE_FILENAME);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR4_HISTONE_FILENAME);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR5_HISTONE_FILENAME);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR6_HISTONE_FILENAME);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR7_HISTONE_FILENAME);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR8_HISTONE_FILENAME);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR9_HISTONE_FILENAME);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR10_HISTONE_FILENAME);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR11_HISTONE_FILENAME);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR12_HISTONE_FILENAME);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR13_HISTONE_FILENAME);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR14_HISTONE_FILENAME);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR15_HISTONE_FILENAME);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR16_HISTONE_FILENAME);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR17_HISTONE_FILENAME);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR18_HISTONE_FILENAME);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR19_HISTONE_FILENAME);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR20_HISTONE_FILENAME);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR21_HISTONE_FILENAME);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHR22_HISTONE_FILENAME);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHRX_HISTONE_FILENAME);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY , Commons.UNSORTED_CHRY_HISTONE_FILENAME);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -272,33 +272,33 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static void openUnsortedChromosomeBasedTfbsFileWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+	public static void openUnsortedChromosomeBasedTfbsFileWriters(String dataFolder,List<BufferedWriter> bufferedWriterList){
 		
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR1_TFBS_FILENAME);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR2_TFBS_FILENAME);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR3_TFBS_FILENAME);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR4_TFBS_FILENAME);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR5_TFBS_FILENAME);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR6_TFBS_FILENAME);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR7_TFBS_FILENAME);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR8_TFBS_FILENAME);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR9_TFBS_FILENAME);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR10_TFBS_FILENAME);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR11_TFBS_FILENAME);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR12_TFBS_FILENAME);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR13_TFBS_FILENAME);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR14_TFBS_FILENAME);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR15_TFBS_FILENAME);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR16_TFBS_FILENAME);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR17_TFBS_FILENAME);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR18_TFBS_FILENAME);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR19_TFBS_FILENAME);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR20_TFBS_FILENAME);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR21_TFBS_FILENAME);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR22_TFBS_FILENAME);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHRX_TFBS_FILENAME);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHRY_TFBS_FILENAME);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR1_TFBS_FILENAME);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR2_TFBS_FILENAME);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR3_TFBS_FILENAME);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR4_TFBS_FILENAME);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR5_TFBS_FILENAME);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR6_TFBS_FILENAME);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR7_TFBS_FILENAME);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR8_TFBS_FILENAME);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR9_TFBS_FILENAME);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR10_TFBS_FILENAME);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR11_TFBS_FILENAME);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR12_TFBS_FILENAME);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR13_TFBS_FILENAME);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR14_TFBS_FILENAME);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR15_TFBS_FILENAME);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR16_TFBS_FILENAME);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR17_TFBS_FILENAME);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR18_TFBS_FILENAME);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR19_TFBS_FILENAME);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR20_TFBS_FILENAME);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR21_TFBS_FILENAME);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHR22_TFBS_FILENAME);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHRX_TFBS_FILENAME);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY , Commons.UNSORTED_CHRY_TFBS_FILENAME);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -334,33 +334,33 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static void openUnsortedChromosomeBasedRefSeqGeneFileWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+	public static void openUnsortedChromosomeBasedRefSeqGeneFileWriters(String dataFolder,List<BufferedWriter> bufferedWriterList){
 		
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME , Commons.UNSORTED_CHRY_REFSEQ_GENES);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -395,33 +395,33 @@ public class ChromosomeBasedFilesandOperations {
 		
 	}
 	
-	public static void openUnsortedChromosomeBasedRefSeqGeneFileReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
+	public static void openUnsortedChromosomeBasedRefSeqGeneFileReaders(String dataFolder,List<BufferedReader> bufferedReaderList){
 		
 		try {
-			FileReader  fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR1_REFSEQ_GENES);
-			FileReader  fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR2_REFSEQ_GENES);
-			FileReader  fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR3_REFSEQ_GENES);
-			FileReader  fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR4_REFSEQ_GENES);
-			FileReader  fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR5_REFSEQ_GENES);
-			FileReader  fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR6_REFSEQ_GENES);
-			FileReader  fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR7_REFSEQ_GENES);
-			FileReader  fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR8_REFSEQ_GENES);
-			FileReader  fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR9_REFSEQ_GENES);
-			FileReader  fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR10_REFSEQ_GENES);
-			FileReader  fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR11_REFSEQ_GENES);
-			FileReader  fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR12_REFSEQ_GENES);
-			FileReader  fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR13_REFSEQ_GENES);
-			FileReader  fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR14_REFSEQ_GENES);
-			FileReader  fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR15_REFSEQ_GENES);
-			FileReader  fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR16_REFSEQ_GENES);
-			FileReader  fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR17_REFSEQ_GENES);
-			FileReader  fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR18_REFSEQ_GENES);
-			FileReader  fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR19_REFSEQ_GENES);
-			FileReader  fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR20_REFSEQ_GENES);
-			FileReader  fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR21_REFSEQ_GENES);
-			FileReader  fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR22_REFSEQ_GENES);
-			FileReader  fileReaderX = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRX_REFSEQ_GENES);
-			FileReader  fileReaderY = FileOperations.createFileReader(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			FileReader  fileReader1 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileReader  fileReader2 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileReader  fileReader3 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileReader  fileReader4 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileReader  fileReader5 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileReader  fileReader6 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileReader  fileReader7 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileReader  fileReader8 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileReader  fileReader9 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileReader  fileReader10 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileReader  fileReader11 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileReader  fileReader12 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileReader  fileReader13 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileReader  fileReader14 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileReader  fileReader15 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileReader  fileReader16 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileReader  fileReader17 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileReader  fileReader18 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileReader  fileReader19 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileReader  fileReader20 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileReader  fileReader21 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileReader  fileReader22 = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileReader  fileReaderX = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileReader  fileReaderY = FileOperations.createFileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME ,Commons.UNSORTED_CHRY_REFSEQ_GENES);
 			
 						
 			bufferedReaderList.add(new BufferedReader(fileReader1));
@@ -457,32 +457,32 @@ public class ChromosomeBasedFilesandOperations {
 		
 	}
 	
-	public static void openSortedChromosomeBasedRefSeqGeneFiles(String outputFolder,List<BufferedWriter> bufferedWriterList){
+	public static void openSortedChromosomeBasedRefSeqGeneFiles(String dataFolder,List<BufferedWriter> bufferedWriterList){
 		try {
-			FileWriter  fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR1_REFSEQ_GENES);
-			FileWriter  fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR2_REFSEQ_GENES);
-			FileWriter  fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR3_REFSEQ_GENES);
-			FileWriter  fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR4_REFSEQ_GENES);
-			FileWriter  fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR5_REFSEQ_GENES);
-			FileWriter  fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR6_REFSEQ_GENES);
-			FileWriter  fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR7_REFSEQ_GENES);
-			FileWriter  fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR8_REFSEQ_GENES);
-			FileWriter  fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR9_REFSEQ_GENES);
-			FileWriter  fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR10_REFSEQ_GENES);
-			FileWriter  fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR11_REFSEQ_GENES);
-			FileWriter  fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR12_REFSEQ_GENES);
-			FileWriter  fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR13_REFSEQ_GENES);
-			FileWriter  fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR14_REFSEQ_GENES);
-			FileWriter  fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR15_REFSEQ_GENES);
-			FileWriter  fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR16_REFSEQ_GENES);
-			FileWriter  fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR17_REFSEQ_GENES);
-			FileWriter  fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR18_REFSEQ_GENES);
-			FileWriter  fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR19_REFSEQ_GENES);
-			FileWriter  fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR20_REFSEQ_GENES);
-			FileWriter  fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR21_REFSEQ_GENES);
-			FileWriter  fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR22_REFSEQ_GENES);
-			FileWriter  fileWriterX = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRX_REFSEQ_GENES);
-			FileWriter  fileWriterY = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRY_REFSEQ_GENES);
+			FileWriter  fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR1_REFSEQ_GENES);
+			FileWriter  fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR2_REFSEQ_GENES);
+			FileWriter  fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR3_REFSEQ_GENES);
+			FileWriter  fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR4_REFSEQ_GENES);
+			FileWriter  fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR5_REFSEQ_GENES);
+			FileWriter  fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR6_REFSEQ_GENES);
+			FileWriter  fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR7_REFSEQ_GENES);
+			FileWriter  fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR8_REFSEQ_GENES);
+			FileWriter  fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR9_REFSEQ_GENES);
+			FileWriter  fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR10_REFSEQ_GENES);
+			FileWriter  fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR11_REFSEQ_GENES);
+			FileWriter  fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR12_REFSEQ_GENES);
+			FileWriter  fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR13_REFSEQ_GENES);
+			FileWriter  fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR14_REFSEQ_GENES);
+			FileWriter  fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR15_REFSEQ_GENES);
+			FileWriter  fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR16_REFSEQ_GENES);
+			FileWriter  fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR17_REFSEQ_GENES);
+			FileWriter  fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR18_REFSEQ_GENES);
+			FileWriter  fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR19_REFSEQ_GENES);
+			FileWriter  fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR20_REFSEQ_GENES);
+			FileWriter  fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR21_REFSEQ_GENES);
+			FileWriter  fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHR22_REFSEQ_GENES);
+			FileWriter  fileWriterX = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRX_REFSEQ_GENES);
+			FileWriter  fileWriterY = FileOperations.createFileWriter(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME, Commons.SORTED_CHRY_REFSEQ_GENES);
 				
 			bufferedWriterList.add(new BufferedWriter(fileWriter1));
 			bufferedWriterList.add(new BufferedWriter(fileWriter2));
@@ -698,33 +698,33 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static FileReader getUnsortedDnaseFileReader(int i, String outputFolder){
+	public static FileReader getUnsortedDnaseFileReader(int i, String dataFolder){
 		try {
 				switch (i) {
-			        case 1:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);			
-			        case 2:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
-					case 3:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
-			        case 4: return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
-			        case 5:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
-			        case 6:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
-			        case 7:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
-			        case 8:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
-			        case 9:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
-			        case 10:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
-			        case 11:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
-			        case 12:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
-			        case 13:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
-			        case 14:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
-			        case 15:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
-			        case 16:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
-			        case 17:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
-			        case 18:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
-			        case 19:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
-			        case 20:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
-			        case 21:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
-			        case 22:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
-			        case 23:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
-			        case 24:return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
+			        case 1:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);			
+			        case 2:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
+					case 3:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
+			        case 4: return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
+			        case 5:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
+			        case 6:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
+			        case 7:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
+			        case 8:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
+			        case 9:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
+			        case 10:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
+			        case 11:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
+			        case 12:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
+			        case 13:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
+			        case 14:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
+			        case 15:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
+			        case 16:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
+			        case 17:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
+			        case 18:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
+			        case 19:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
+			        case 20:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
+			        case 21:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
+			        case 22:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
+			        case 23:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
+			        case 24:return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
 				}
 				
 					
@@ -740,34 +740,34 @@ public class ChromosomeBasedFilesandOperations {
 	
 			
 	
-	public static FileWriter getSortedDnaseFileWriter(int i,String outputFolder){
+	public static FileWriter getSortedDnaseFileWriter(int i,String dataFolder){
 		try {
 			
 			switch (i) {
-	            case 1:	return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR1_DNASE_FILENAME);
-	            case 2: return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
-	            case 3:	return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
-	     		case 4: return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
-	     		case 5:	return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
-	            case 6:	return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
-	            case 7: return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
-	            case 8:	return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
-	     	    case 9: return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
-	     	    case 10:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
-	     	    case 11:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
-	     	    case 12:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
-	            case 13:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
-	            case 14:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
-	            case 15:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
-	            case 16:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
-	            case 17:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
-	            case 18:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
-	            case 19:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
-	            case 20:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
-	            case 21:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
-	            case 22:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
-	            case 23:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
-	            case 24:return  FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
+	            case 1:	return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR1_DNASE_FILENAME);
+	            case 2: return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
+	            case 3:	return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
+	     		case 4: return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
+	     		case 5:	return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
+	            case 6:	return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
+	            case 7: return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
+	            case 8:	return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
+	     	    case 9: return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
+	     	    case 10:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
+	     	    case 11:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
+	     	    case 12:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
+	            case 13:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
+	            case 14:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
+	            case 15:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
+	            case 16:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
+	            case 17:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
+	            case 18:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
+	            case 19:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
+	            case 20:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
+	            case 21:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
+	            case 22:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
+	            case 23:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
+	            case 24:return  FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
 			}
 									
 		} catch (IOException e) {
@@ -779,33 +779,33 @@ public class ChromosomeBasedFilesandOperations {
 	
     }
 	
-	public static FileReader getUnsortedHistoneFileReader(int i,String outputFolder){
+	public static FileReader getUnsortedHistoneFileReader(int i,String dataFolder){
 		try {
 				switch (i) {
-			        case 1:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME);
-			        case 2:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME);			
-			        case 3:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME);			
-			        case 4:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME);			
-			        case 5:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME);			
-			        case 6:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME);			
-			        case 7:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME);			
-			        case 8:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME);			
-			        case 9:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME);			
-			        case 10:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME);			
-			        case 11:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME);			
-			        case 12:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME);			
-			        case 13:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME);			
-			        case 14:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME);			
-			        case 15:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME);			
-			        case 16:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME);			
-			        case 17:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME);			
-			        case 18:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME);			
-			        case 19:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME);			
-			        case 20:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME);			
-			        case 21:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME);			
-			        case 22:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME);			
-			        case 23:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME);			
-			        case 24:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME);			
+			        case 1:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME);
+			        case 2:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME);			
+			        case 3:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME);			
+			        case 4:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME);			
+			        case 5:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME);			
+			        case 6:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME);			
+			        case 7:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME);			
+			        case 8:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME);			
+			        case 9:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME);			
+			        case 10:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME);			
+			        case 11:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME);			
+			        case 12:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME);			
+			        case 13:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME);			
+			        case 14:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME);			
+			        case 15:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME);			
+			        case 16:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME);			
+			        case 17:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME);			
+			        case 18:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME);			
+			        case 19:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME);			
+			        case 20:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME);			
+			        case 21:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME);			
+			        case 22:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME);			
+			        case 23:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME);			
+			        case 24:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME);			
 					
 				}
 				
@@ -820,33 +820,33 @@ public class ChromosomeBasedFilesandOperations {
 	
     }
 	
-	public static FileWriter getSortedHistoneFileWriter(int i,String outputFolder){
+	public static FileWriter getSortedHistoneFileWriter(int i,String dataFolder){
 		try {
 				switch (i) {
-			        case 1:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR1_HISTONE_FILENAME);
-			        case 2:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR2_HISTONE_FILENAME);
-			        case 3:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
-			        case 4:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR4_HISTONE_FILENAME);
-			        case 5:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR5_HISTONE_FILENAME);
-			        case 6:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR6_HISTONE_FILENAME);
-			        case 7:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR7_HISTONE_FILENAME);
-			        case 8:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR8_HISTONE_FILENAME);
-			        case 9:		return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR9_HISTONE_FILENAME);
-			        case 10:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR10_HISTONE_FILENAME);
-			        case 11:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR11_HISTONE_FILENAME);
-			        case 12:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR12_HISTONE_FILENAME);
-			        case 13:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR13_HISTONE_FILENAME);
-			        case 14:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR14_HISTONE_FILENAME);
-			        case 15:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR15_HISTONE_FILENAME);
-			        case 16:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR16_HISTONE_FILENAME);
-			        case 17:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR17_HISTONE_FILENAME);
-			        case 18:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR18_HISTONE_FILENAME);
-			        case 19:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR19_HISTONE_FILENAME);
-			        case 20:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR20_HISTONE_FILENAME);
-			        case 21:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR21_HISTONE_FILENAME);
-			        case 22:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR22_HISTONE_FILENAME);
-			        case 23:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRX_HISTONE_FILENAME);
-			        case 24:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRY_HISTONE_FILENAME);
+			        case 1:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR1_HISTONE_FILENAME);
+			        case 2:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR2_HISTONE_FILENAME);
+			        case 3:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
+			        case 4:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR4_HISTONE_FILENAME);
+			        case 5:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR5_HISTONE_FILENAME);
+			        case 6:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR6_HISTONE_FILENAME);
+			        case 7:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR7_HISTONE_FILENAME);
+			        case 8:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR8_HISTONE_FILENAME);
+			        case 9:		return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR9_HISTONE_FILENAME);
+			        case 10:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR10_HISTONE_FILENAME);
+			        case 11:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR11_HISTONE_FILENAME);
+			        case 12:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR12_HISTONE_FILENAME);
+			        case 13:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR13_HISTONE_FILENAME);
+			        case 14:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR14_HISTONE_FILENAME);
+			        case 15:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR15_HISTONE_FILENAME);
+			        case 16:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR16_HISTONE_FILENAME);
+			        case 17:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR17_HISTONE_FILENAME);
+			        case 18:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR18_HISTONE_FILENAME);
+			        case 19:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR19_HISTONE_FILENAME);
+			        case 20:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR20_HISTONE_FILENAME);
+			        case 21:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR21_HISTONE_FILENAME);
+			        case 22:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR22_HISTONE_FILENAME);
+			        case 23:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRX_HISTONE_FILENAME);
+			        case 24:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRY_HISTONE_FILENAME);
 					       	
 				}
 				
@@ -862,33 +862,33 @@ public class ChromosomeBasedFilesandOperations {
     }
 	
 	//yeni
-	public static FileReader getUnsortedTfbsFileReader(int i,String outputFolder){
+	public static FileReader getUnsortedTfbsFileReader(int i,String dataFolder){
 		try {
 				switch (i) {
-			        case 1:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);
-			        case 2:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);
-			        case 3:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);
-			        case 4:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);
-			        case 5:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);
-			        case 6:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);
-			        case 7:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);
-			        case 8:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);
-			        case 9:		return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);
-			        case 10:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);
-			        case 11:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);
-			        case 12:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);
-			        case 13:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);
-			        case 14:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);
-			        case 15:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);
-			        case 16:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);
-			        case 17:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);
-			        case 18:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);
-			        case 19:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);
-			        case 20:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);
-			        case 21:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);
-			        case 22:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);
-			        case 23:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);
-			        case 24:	return FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);							
+			        case 1:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);
+			        case 2:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);
+			        case 3:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);
+			        case 4:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);
+			        case 5:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);
+			        case 6:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);
+			        case 7:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);
+			        case 8:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);
+			        case 9:		return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);
+			        case 10:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);
+			        case 11:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);
+			        case 12:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);
+			        case 13:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);
+			        case 14:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);
+			        case 15:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);
+			        case 16:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);
+			        case 17:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);
+			        case 18:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);
+			        case 19:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);
+			        case 20:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);
+			        case 21:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);
+			        case 22:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);
+			        case 23:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);
+			        case 24:	return FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);							
 				}
 				
 							
@@ -902,33 +902,33 @@ public class ChromosomeBasedFilesandOperations {
     }
 	
 	
-	public static FileWriter getSortedTfbsFileWriter(int i,String outputFolder){
+	public static FileWriter getSortedTfbsFileWriter(int i,String dataFolder){
 		try {
 				switch (i) {
-			        case 1:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR1_TFBS_FILENAME);
-			        case 2:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR2_TFBS_FILENAME);
-			        case 3:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR3_TFBS_FILENAME);
-			        case 4:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
-			        case 5:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
-			        case 6:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
-			        case 7:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
-			        case 8:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
-			        case 9:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
-			        case 10:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
-			        case 11:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
-			        case 12:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
-			        case 13:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
-			        case 14:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
-			        case 15:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
-			        case 16:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
-			        case 17:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
-			        case 18:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
-			        case 19:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
-			        case 20:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
-			        case 21:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
-			        case 22:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
-			        case 23:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
-			        case 24:	return FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
+			        case 1:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR1_TFBS_FILENAME);
+			        case 2:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR2_TFBS_FILENAME);
+			        case 3:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR3_TFBS_FILENAME);
+			        case 4:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
+			        case 5:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
+			        case 6:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
+			        case 7:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
+			        case 8:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
+			        case 9:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
+			        case 10:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
+			        case 11:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
+			        case 12:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
+			        case 13:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
+			        case 14:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
+			        case 15:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
+			        case 16:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
+			        case 17:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
+			        case 18:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
+			        case 19:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
+			        case 20:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
+			        case 21:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
+			        case 22:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
+			        case 23:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
+			        case 24:	return FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
 			    			        					       	
 				}
 				

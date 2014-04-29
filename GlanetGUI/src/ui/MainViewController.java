@@ -1,20 +1,7 @@
 package ui;
 
 import javax.swing.JPanel;
-
-import jaxbxjctool.*;
 import ui.MainView.*;
-import wholegenome.nonoverlappingbasepairs.usingintervaltree.*;
-import processinputdata.*;
-import rsat.*;
-import ncbi.*;
-import create.encode.*;
-import create.ucscgenome.*;
-import empiricalpvalues.*;
-import annotate.intervals.parametric.*;
-import augmentation.results.*;
-import adhoc.*;
-import common.Commons;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	

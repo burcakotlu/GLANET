@@ -202,7 +202,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			
 	}
 	
-	public static void readInputFile(String fileName, List<RefSeqGene> refSeqGeneList, Map<String,Integer> refSeq2GeneHashMap, String outputFolder){
+	public static void readInputFile(String fileName, List<RefSeqGene> refSeqGeneList, Map<String,Integer> refSeq2GeneHashMap, String dataFolder){
 	    FileReader fileReader =null;
 	    BufferedReader bufferedReader = null;
 	    
@@ -219,7 +219,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			fileReader = new FileReader(fileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME,Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME,Commons.ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 		} catch (FileNotFoundException e) {
@@ -674,7 +674,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+//		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		
 		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
@@ -692,14 +692,14 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.createRefSeq2GeneMap(fileName2,refSeq2GeneHashMap);
 //		augmentation of RNA nucleotide accession version, in other words refSeqGeneName is done here
 //		It is augmented with entrez gene id 
-		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap,outputFolder);	
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap,dataFolder);	
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(outputFolder,unsortedBufferedWriterList);	    
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(dataFolder,unsortedBufferedWriterList);	    
 		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(unsortedBufferedWriterList);		
 		
-		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(outputFolder,unsortedBufferedReaderList);
-		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(outputFolder,sortedBufferedWriterList);		
+		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileReaders(dataFolder,unsortedBufferedReaderList);
+		ChromosomeBasedFilesandOperations.openSortedChromosomeBasedRefSeqGeneFiles(dataFolder,sortedBufferedWriterList);		
 		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readUnsortedChromBaseRefSeqGeneFilesSortWriteSortedChromBaseRefSeqGeneFiles(unsortedBufferedReaderList,sortedBufferedWriterList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedReaders(unsortedBufferedReaderList);
 		ChromosomeBasedFilesandOperations.closeChromosomeBasedBufferedWriters(sortedBufferedWriterList);

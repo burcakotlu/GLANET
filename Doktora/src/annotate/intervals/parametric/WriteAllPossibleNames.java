@@ -34,33 +34,33 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public static void createChromBaseDnaseBufferedReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
+	public static void createChromBaseDnaseBufferedReaders(String dataFolder,List<BufferedReader> bufferedReaderList){
 		
 		try {
-			FileReader fileReader1 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);
-			FileReader fileReader2 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
-			FileReader fileReader3 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
-			FileReader fileReader4 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
-			FileReader fileReader5 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
-			FileReader fileReader6 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
-			FileReader fileReader7 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
-			FileReader fileReader8 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
-			FileReader fileReader9 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
-			FileReader fileReader10 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
-			FileReader fileReader11 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
-			FileReader fileReader12 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
-			FileReader fileReader13 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
-			FileReader fileReader14 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
-			FileReader fileReader15 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
-			FileReader fileReader16 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
-			FileReader fileReader17 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
-			FileReader fileReader18 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
-			FileReader fileReader19 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
-			FileReader fileReader20 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
-			FileReader fileReader21 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
-			FileReader fileReader22 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
-			FileReader fileReader23 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
-			FileReader fileReader24 = FileOperations.createFileReader(outputFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
+			FileReader fileReader1 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);
+			FileReader fileReader2 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);
+			FileReader fileReader3 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);
+			FileReader fileReader4 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);
+			FileReader fileReader5 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);
+			FileReader fileReader6 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);
+			FileReader fileReader7 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);
+			FileReader fileReader8 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);
+			FileReader fileReader9 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);
+			FileReader fileReader10 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);
+			FileReader fileReader11 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);
+			FileReader fileReader12 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);
+			FileReader fileReader13 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);
+			FileReader fileReader14 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);
+			FileReader fileReader15 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);
+			FileReader fileReader16 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);
+			FileReader fileReader17 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);
+			FileReader fileReader18 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);
+			FileReader fileReader19 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);
+			FileReader fileReader20 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);
+			FileReader fileReader21 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);
+			FileReader fileReader22 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);
+			FileReader fileReader23 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);
+			FileReader fileReader24 = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);
 			
 			BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
 			BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
@@ -299,11 +299,11 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public static void readDnaseCellLineNames(String outputFolder,List<String> dnaseCellLineNames){
+	public static void readDnaseCellLineNames(String dataFolder,List<String> dnaseCellLineNames){
 		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
-		createChromBaseDnaseBufferedReaders(outputFolder,bufferedReaderList);
+		createChromBaseDnaseBufferedReaders(dataFolder,bufferedReaderList);
 		
 		String strLine;
 		BufferedReader bufferedReader = null;
@@ -345,15 +345,15 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public static void readTfbsorHistoneNames(String outputFolder,List<String> tfbsorHistoneNames,String tfbsorHistone){
+	public static void readTfbsorHistoneNames(String dataFolder,List<String> tfbsorHistoneNames,String tfbsorHistone){
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
 		
 		if (tfbsorHistone.equals(Commons.TFBS)){
-			createChromBaseTfbsBufferedReaders(outputFolder,bufferedReaderList);
+			createChromBaseTfbsBufferedReaders(dataFolder,bufferedReaderList);
 				
 		}else if (tfbsorHistone.equals(Commons.HISTONE)) {
-			createChromBaseHistoneBufferedReaders(outputFolder,bufferedReaderList);				
+			createChromBaseHistoneBufferedReaders(dataFolder,bufferedReaderList);				
 		}
 		
 		
@@ -402,7 +402,7 @@ public class WriteAllPossibleNames {
 
 	
 
-	public static void readGeneIds(String outputFolder, List<String> geneIds, String inputFileName){
+	public static void readGeneIds(String dataFolder, List<String> geneIds, String inputFileName){
 		
 		String strLine;
 		
@@ -415,7 +415,7 @@ public class WriteAllPossibleNames {
 		String geneId;
 		
 		try {
-			fileReader = new FileReader(outputFolder + inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -444,7 +444,7 @@ public class WriteAllPossibleNames {
 
 	}
 	
-	public static void readRNAAccessionVersions(String outputFolder, List<String> rnaNucleotideAccessionVersions,String inputFileName){
+	public static void readRNAAccessionVersions(String dataFolder, List<String> rnaNucleotideAccessionVersions,String inputFileName){
 		String strLine;
 		
 		FileReader fileReader = null;
@@ -459,7 +459,7 @@ public class WriteAllPossibleNames {
 		String rnaNucleotideAccessionVersion;
 		
 		try {
-			fileReader = new FileReader(outputFolder + inputFileName);
+			fileReader = new FileReader(dataFolder + inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
@@ -607,14 +607,14 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public static void writeNames(String outputFolder,List<String> nameList, String outputDirectoryName, String outputFileName){
+	public static void writeNames(String dataFolder,List<String> nameList, String outputDirectoryName, String outputFileName){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;		
 		
 		
 		try {
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputDirectoryName,outputFileName);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 		
 			for(int i = 0; i<nameList.size() ;i++){
@@ -635,60 +635,60 @@ public class WriteAllPossibleNames {
 	
 	
 	
-	public static void writeAllPossibleDnaseCellLineNames(String outputFolder){
+	public static void writeAllPossibleDnaseCellLineNames(String dataFolder){
 		
 		List<String> dnaseCellLineNames = new ArrayList<String>();
-		readDnaseCellLineNames(outputFolder,dnaseCellLineNames);
-		writeNames(outputFolder,dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
+		readDnaseCellLineNames(dataFolder,dnaseCellLineNames);
+		writeNames(dataFolder,dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
 	}
 	
 	
-	public static void writeAllPossibleTfbsNames(String outputFolder){
+	public static void writeAllPossibleTfbsNames(String dataFolder){
 		
 		List<String> tfbsNames = new ArrayList<String>();
-		readTfbsorHistoneNames(outputFolder,tfbsNames, Commons.TFBS);
-		writeNames(outputFolder,tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
+		readTfbsorHistoneNames(dataFolder,tfbsNames, Commons.TFBS);
+		writeNames(dataFolder,tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
 
 	}
 
-	public static void writeAllPossibleHistoneNames(String outputFolder){
+	public static void writeAllPossibleHistoneNames(String dataFolder){
 		
 		List<String> histoneNames = new ArrayList<String>();
-		readTfbsorHistoneNames(outputFolder,histoneNames,Commons.HISTONE);
-		writeNames(outputFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
+		readTfbsorHistoneNames(dataFolder,histoneNames,Commons.HISTONE);
+		writeNames(dataFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
 
 	}
 	
-	public static void writeAllPossibleGeneIds(String outputFolder){
+	public static void writeAllPossibleGeneIds(String dataFolder){
 
 		List<String> geneIds = new ArrayList<String>();
-		readGeneIds(outputFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
-		writeNames(outputFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
+		readGeneIds(dataFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
+		writeNames(dataFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
 		
 	}
 	
-	public static void writeAllPossibleRNAAccessionVersions(String outputFolder){
+	public static void writeAllPossibleRNAAccessionVersions(String dataFolder){
 
 		List<String> rnaNucleotideAccessionVersions = new ArrayList<String>();
-		readRNAAccessionVersions(outputFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
-		writeNames(outputFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
+		readRNAAccessionVersions(dataFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+		writeNames(dataFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
 		
 	}
 
 	
-	public static void writeAllPossibleUcscRefSeqGeneName2s(String dataFolder,String outputFolder){
+	public static void writeAllPossibleUcscRefSeqGeneName2s(String dataFolder){
 
 		List<String> ucscRefSeqGeneName2s = new ArrayList<String>();
 		readUcscRefSeqGeneName2s(dataFolder,ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
-		writeNames(outputFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
+		writeNames(dataFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
 		
 	}
 	
-	public static void writeAllPossibleKeggPathwayNames(String dataFolder,String outputFolder){
+	public static void writeAllPossibleKeggPathwayNames(String dataFolder){
 		
 		List<String> keggPathwayNameList = new ArrayList<String>();		
 		readKeggPathwayNames(dataFolder,keggPathwayNameList,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-		writeNames(outputFolder,keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
+		writeNames(dataFolder,keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
 	
 	}
 	
@@ -749,36 +749,36 @@ public class WriteAllPossibleNames {
 		
 		String glanetFolder = args[1];
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+//		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		
 		//Write all possible dnase cell line names	
 		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
-		WriteAllPossibleNames.writeAllPossibleDnaseCellLineNames(outputFolder);
+		WriteAllPossibleNames.writeAllPossibleDnaseCellLineNames(dataFolder);
 		
 		//Write all possible tfbs names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\tfbs 
-		WriteAllPossibleNames.writeAllPossibleTfbsNames(outputFolder);
+		WriteAllPossibleNames.writeAllPossibleTfbsNames(dataFolder);
 		
 		//Write all possible histone names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\\histone
-		WriteAllPossibleNames.writeAllPossibleHistoneNames(outputFolder);
+		WriteAllPossibleNames.writeAllPossibleHistoneNames(dataFolder);
 
 		//Write all possible gene ids
 //		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
-		WriteAllPossibleNames.writeAllPossibleGeneIds(outputFolder);
+		WriteAllPossibleNames.writeAllPossibleGeneIds(dataFolder);
 
 		//Write all possible RNA nucleotide accession version, in other words ucsc refseq gene name
 //		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
-		WriteAllPossibleNames.writeAllPossibleRNAAccessionVersions(outputFolder);
+		WriteAllPossibleNames.writeAllPossibleRNAAccessionVersions(dataFolder);
 
 		//Write all possible ucsc refseq gene name2
 //		Using hg19_refseq_genes.txt under C:\\eclipse_ganymede\\workspace\\Doktora1\\src\\annotate\\ucscgenome\\input_output	
-		WriteAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s(dataFolder,outputFolder);
+		WriteAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s(dataFolder);
 
 		//Write all possible kegg pathway names		
 		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
-		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder,outputFolder);
+		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder);
 	}
 
 }

@@ -1035,7 +1035,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	 * then updated to be inserted node will be inserted into interval tree.
 	 * Otherwise read line will be inserted into the interval tree of that kegg pathway and chromosome.
 	 */
-	public void calculateNumberofNonoverlappingBasePairsforExonBasedKeggPathwayAnalysis(String outputFolder,String dataFolder,Map<String,Long> exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap){
+	public void calculateNumberofNonoverlappingBasePairsforExonBasedKeggPathwayAnalysis(String dataFolder,Map<String,Long> exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap){
 		
 		Map<String,List<String>> keggPathway2NcbiGeneIdHashMap = new HashMap<String,List<String>>();
 		Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap = new HashMap<String,List<String>>();
@@ -1049,53 +1049,53 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		
 		for(int chromosomeNumber= 1; chromosomeNumber<=Commons.NUMBER_OF_CHROMOSOMES_HG19; chromosomeNumber++){
 			switch(chromosomeNumber){
-				case 1: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR1_REFSEQ_GENES);
+				case 1: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR1_REFSEQ_GENES);
 					break;
-				case 2: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME+ Commons.UNSORTED_CHR2_REFSEQ_GENES);
+				case 2: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME+ Commons.UNSORTED_CHR2_REFSEQ_GENES);
 					break;
-				case 3: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR3_REFSEQ_GENES);
+				case 3: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR3_REFSEQ_GENES);
 					break;
-				case 4: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR4_REFSEQ_GENES);
+				case 4: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR4_REFSEQ_GENES);
 					break;
-				case 5: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR5_REFSEQ_GENES);
+				case 5: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR5_REFSEQ_GENES);
 					break;			
-				case 6: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR6_REFSEQ_GENES);
+				case 6: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR6_REFSEQ_GENES);
 					break;
-				case 7: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR7_REFSEQ_GENES);
+				case 7: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR7_REFSEQ_GENES);
 					break;
-				case 8: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR8_REFSEQ_GENES);
+				case 8: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR8_REFSEQ_GENES);
 					break;
-				case 9: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR9_REFSEQ_GENES);
+				case 9: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR9_REFSEQ_GENES);
 					break;
-				case 10: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR10_REFSEQ_GENES);
+				case 10: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR10_REFSEQ_GENES);
 					break;
-				case 11: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR11_REFSEQ_GENES);
+				case 11: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR11_REFSEQ_GENES);
 					break;
-				case 12: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR12_REFSEQ_GENES);
+				case 12: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR12_REFSEQ_GENES);
 					break;
-				case 13: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR13_REFSEQ_GENES);
+				case 13: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR13_REFSEQ_GENES);
 					break;
-				case 14: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR14_REFSEQ_GENES);
+				case 14: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR14_REFSEQ_GENES);
 					break;
-				case 15: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR15_REFSEQ_GENES);
+				case 15: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR15_REFSEQ_GENES);
 					break;
-				case 16: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR16_REFSEQ_GENES);
+				case 16: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR16_REFSEQ_GENES);
 					break;
-				case 17: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR17_REFSEQ_GENES);
+				case 17: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR17_REFSEQ_GENES);
 					break;
-				case 18: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR18_REFSEQ_GENES);
+				case 18: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR18_REFSEQ_GENES);
 					break;
-				case 19: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR19_REFSEQ_GENES);
+				case 19: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR19_REFSEQ_GENES);
 					break;
-				case 20: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR20_REFSEQ_GENES);
+				case 20: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR20_REFSEQ_GENES);
 					break;
-				case 21: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR21_REFSEQ_GENES);
+				case 21: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR21_REFSEQ_GENES);
 					break;
-				case 22: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR22_REFSEQ_GENES);
+				case 22: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR22_REFSEQ_GENES);
 					break;
-				case 23: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRX_REFSEQ_GENES);
+				case 23: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRX_REFSEQ_GENES);
 					break;
-				case 24: calculateforEachChromosomeExonBasedKeggPathway(outputFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRY_REFSEQ_GENES);
+				case 24: calculateforEachChromosomeExonBasedKeggPathway(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRY_REFSEQ_GENES);
 					break;
 
 	
@@ -1124,7 +1124,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	 * then updated to be inserted node will be inserted into interval tree.
 	 * Otherwise read line will be inserted into the interval tree of that kegg pathway and chromosome.
 	 */
-	public void calculateNumberofNonoverlappingBasePairsforRegulationBasedKeggPathwayAnalysis(String outputFolder,String dataFolder,Map<String,Long> regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap){
+	public void calculateNumberofNonoverlappingBasePairsforRegulationBasedKeggPathwayAnalysis(String dataFolder,Map<String,Long> regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap){
 		
 		Map<String,List<String>> keggPathway2NcbiGeneIdHashMap = new HashMap<String,List<String>>();
 		Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap = new HashMap<String,List<String>>();
@@ -1139,53 +1139,53 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		for(int chromosomeNumber= 1; chromosomeNumber<=Commons.NUMBER_OF_CHROMOSOMES_HG19; chromosomeNumber++){
 			
 			switch(chromosomeNumber){
-				case 1: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR1_REFSEQ_GENES);
+				case 1: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR1_REFSEQ_GENES);
 						break;
-				case 2: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR2_REFSEQ_GENES);
+				case 2: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR2_REFSEQ_GENES);
 						break;
-				case 3: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR3_REFSEQ_GENES);
+				case 3: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR3_REFSEQ_GENES);
 						break;
-				case 4: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR4_REFSEQ_GENES);
+				case 4: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR4_REFSEQ_GENES);
 						break;
-				case 5: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR5_REFSEQ_GENES);
+				case 5: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR5_REFSEQ_GENES);
 						break;			
-				case 6: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR6_REFSEQ_GENES);
+				case 6: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR6_REFSEQ_GENES);
 						break;
-				case 7: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR7_REFSEQ_GENES);
+				case 7: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR7_REFSEQ_GENES);
 						break;
-				case 8: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR8_REFSEQ_GENES);
+				case 8: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR8_REFSEQ_GENES);
 						break;
-				case 9: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR9_REFSEQ_GENES);
+				case 9: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR9_REFSEQ_GENES);
 						break;
-				case 10: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR10_REFSEQ_GENES);
+				case 10: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR10_REFSEQ_GENES);
 						break;
-				case 11: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR11_REFSEQ_GENES);
+				case 11: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR11_REFSEQ_GENES);
 						break;
-				case 12: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR12_REFSEQ_GENES);
+				case 12: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR12_REFSEQ_GENES);
 						break;
-				case 13: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR13_REFSEQ_GENES);
+				case 13: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR13_REFSEQ_GENES);
 						break;
-				case 14: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR14_REFSEQ_GENES);
+				case 14: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR14_REFSEQ_GENES);
 						break;
-				case 15: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR15_REFSEQ_GENES);
+				case 15: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR15_REFSEQ_GENES);
 						break;
-				case 16: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR16_REFSEQ_GENES);
+				case 16: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR16_REFSEQ_GENES);
 						break;
-				case 17: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR17_REFSEQ_GENES);
+				case 17: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR17_REFSEQ_GENES);
 						break;
-				case 18: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR18_REFSEQ_GENES);
+				case 18: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR18_REFSEQ_GENES);
 						break;
-				case 19: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR19_REFSEQ_GENES);
+				case 19: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR19_REFSEQ_GENES);
 						break;
-				case 20: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR20_REFSEQ_GENES);
+				case 20: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR20_REFSEQ_GENES);
 						break;
-				case 21: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR21_REFSEQ_GENES);
+				case 21: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR21_REFSEQ_GENES);
 						break;
-				case 22: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR22_REFSEQ_GENES);
+				case 22: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR22_REFSEQ_GENES);
 						break;
-				case 23: calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRX_REFSEQ_GENES);
+				case 23: calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRX_REFSEQ_GENES);
 						break;
-			case 24: 	calculateforEachChromosomeRegulationBasedKeggPathway(outputFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			case 24: 	calculateforEachChromosomeRegulationBasedKeggPathway(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap, ncbiGeneId2KeggPathwayHashMap, Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRY_REFSEQ_GENES);
 						break;
 
 	
@@ -1211,7 +1211,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	 * then updated to be inserted node will be inserted into interval tree.
 	 * Otherwise read line will be inserted into the interval tree of that histone Name and chromosome.
 	 */
-	public void calculateNumberofNonoverlappingBasePairsforDnaseCellLineAnalysis(String outputFolder,Map<String,Long> dnaseCellLine2NumberofNonOverlappingBasePairsHashMap){
+	public void calculateNumberofNonoverlappingBasePairsforDnaseCellLineAnalysis(String dataFolder,Map<String,Long> dnaseCellLine2NumberofNonOverlappingBasePairsHashMap){
 		
 		
 		//For each chromosome and for each dnase cell line name an interval tree will be created.
@@ -1220,53 +1220,53 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		for(int chromosomeNumber= 1; chromosomeNumber<=Commons.NUMBER_OF_CHROMOSOMES_HG19; chromosomeNumber++){
 			
 			switch(chromosomeNumber){
-				case 1: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR1_DNASE_FILENAME);
+				case 1: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR1_DNASE_FILENAME);
 						break;
-				case 2: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR2_DNASE_FILENAME);
+				case 2: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR2_DNASE_FILENAME);
 						break;
-				case 3: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR3_DNASE_FILENAME);
+				case 3: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR3_DNASE_FILENAME);
 						break;
-				case 4: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR4_DNASE_FILENAME);
+				case 4: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR4_DNASE_FILENAME);
 						break;
-				case 5: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR5_DNASE_FILENAME);
+				case 5: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR5_DNASE_FILENAME);
 						break;
-				case 6: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR6_DNASE_FILENAME);
+				case 6: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR6_DNASE_FILENAME);
 						break;
-				case 7: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR7_DNASE_FILENAME);
+				case 7: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR7_DNASE_FILENAME);
 						break;
-				case 8: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR8_DNASE_FILENAME);
+				case 8: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR8_DNASE_FILENAME);
 						break;
-				case 9: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR9_DNASE_FILENAME);
+				case 9: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR9_DNASE_FILENAME);
 						break;
-				case 10: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR10_DNASE_FILENAME);
+				case 10: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR10_DNASE_FILENAME);
 						break;
-				case 11: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR11_DNASE_FILENAME);
+				case 11: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR11_DNASE_FILENAME);
 						break;
-				case 12: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR12_DNASE_FILENAME);
+				case 12: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR12_DNASE_FILENAME);
 						break;
-				case 13: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR13_DNASE_FILENAME);
+				case 13: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR13_DNASE_FILENAME);
 						break;
-				case 14: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR14_DNASE_FILENAME);
+				case 14: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR14_DNASE_FILENAME);
 						break;
-				case 15: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR15_DNASE_FILENAME);
+				case 15: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR15_DNASE_FILENAME);
 						break;
-				case 16: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR16_DNASE_FILENAME);
+				case 16: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR16_DNASE_FILENAME);
 						break;
-				case 17: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR17_DNASE_FILENAME);
+				case 17: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR17_DNASE_FILENAME);
 						break;
-				case 18: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR18_DNASE_FILENAME);
+				case 18: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR18_DNASE_FILENAME);
 						break;
-				case 19: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR19_DNASE_FILENAME);
+				case 19: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR19_DNASE_FILENAME);
 						break;
-				case 20: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR20_DNASE_FILENAME);
+				case 20: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR20_DNASE_FILENAME);
 						break;
-				case 21: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR21_DNASE_FILENAME);
+				case 21: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR21_DNASE_FILENAME);
 						break;
-				case 22: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR22_DNASE_FILENAME);
+				case 22: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHR22_DNASE_FILENAME);
 						break;
-				case 23: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHRX_DNASE_FILENAME);
+				case 23: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHRX_DNASE_FILENAME);
 						break;
-				case 24: calculateforEachChromosomeDnaseCellLine(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHRY_DNASE_FILENAME);
+				case 24: calculateforEachChromosomeDnaseCellLine(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_DNASE_DIRECTORY + Commons.UNSORTED_CHRY_DNASE_FILENAME);
 						break;
 
 			}//End of switch
@@ -1290,7 +1290,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	 * then updated to be inserted node will be inserted into interval tree.
 	 * Otherwise read line will be inserted into the interval tree of that histone Name and chromosome.
 	 */
-	public void calculateNumberofNonoverlappingBasePairsforTfbsAnalysis(String outputFolder,Map<String,Long> tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap){
+	public void calculateNumberofNonoverlappingBasePairsforTfbsAnalysis(String dataFolder,Map<String,Long> tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap){
 		
 		
 		//For each chromosome and tfbs, interval tree will be created.
@@ -1300,53 +1300,53 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		for(int chromosomeNumber= 1; chromosomeNumber<=Commons.NUMBER_OF_CHROMOSOMES_HG19; chromosomeNumber++){
 			
 			switch(chromosomeNumber){
-				case 1: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR1_TFBS_FILENAME);
+				case 1: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR1_TFBS_FILENAME);
 					break;
-				case 2: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR2_TFBS_FILENAME);
+				case 2: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR2_TFBS_FILENAME);
 					break;
-				case 3: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR3_TFBS_FILENAME);
+				case 3: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR3_TFBS_FILENAME);
 					break;
-				case 4: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR4_TFBS_FILENAME);
+				case 4: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR4_TFBS_FILENAME);
 					break;
-				case 5: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR5_TFBS_FILENAME);
+				case 5: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR5_TFBS_FILENAME);
 					break;
-				case 6: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR6_TFBS_FILENAME);
+				case 6: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR6_TFBS_FILENAME);
 					break;
-				case 7: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR7_TFBS_FILENAME);
+				case 7: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR7_TFBS_FILENAME);
 					break;
-				case 8: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR8_TFBS_FILENAME);
+				case 8: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR8_TFBS_FILENAME);
 					break;
-				case 9: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR9_TFBS_FILENAME);
+				case 9: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR9_TFBS_FILENAME);
 					break;
-				case 10: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR10_TFBS_FILENAME);
+				case 10: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR10_TFBS_FILENAME);
 					break;
-				case 11: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR11_TFBS_FILENAME);
+				case 11: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR11_TFBS_FILENAME);
 					break;
-				case 12: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR12_TFBS_FILENAME);
+				case 12: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR12_TFBS_FILENAME);
 					break;
-				case 13: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR13_TFBS_FILENAME);
+				case 13: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR13_TFBS_FILENAME);
 					break;
-				case 14: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR14_TFBS_FILENAME);
+				case 14: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR14_TFBS_FILENAME);
 					break;
-				case 15: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR15_TFBS_FILENAME);
+				case 15: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR15_TFBS_FILENAME);
 					break;
-				case 16: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR16_TFBS_FILENAME);
+				case 16: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR16_TFBS_FILENAME);
 					break;
-				case 17: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR17_TFBS_FILENAME);
+				case 17: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR17_TFBS_FILENAME);
 					break;
-				case 18: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR18_TFBS_FILENAME);
+				case 18: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR18_TFBS_FILENAME);
 					break;
-				case 19: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR19_TFBS_FILENAME);
+				case 19: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR19_TFBS_FILENAME);
 					break;
-				case 20: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR20_TFBS_FILENAME);
+				case 20: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR20_TFBS_FILENAME);
 					break;
-				case 21: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR21_TFBS_FILENAME);
+				case 21: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR21_TFBS_FILENAME);
 					break;
-				case 22: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR22_TFBS_FILENAME);
+				case 22: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHR22_TFBS_FILENAME);
 					break;
-				case 23: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHRX_TFBS_FILENAME);
+				case 23: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHRX_TFBS_FILENAME);
 					break;
-				case 24: calculateforEachChromosomeTfbs(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHRY_TFBS_FILENAME);
+				case 24: calculateforEachChromosomeTfbs(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_TFBS_DIRECTORY + Commons.UNSORTED_CHRY_TFBS_FILENAME);
 					break;
 
 			}//End of switch
@@ -1370,7 +1370,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	 * then updated to be inserted node will be inserted into interval tree.
 	 * Otherwise read line will be inserted into the interval tree of that histone Name and chromosome.
 	 */
-	public void calculateNumberofNonoverlappingBasePairsforHistoneAnalysis(String outputFolder,Map<String,Long> histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap){
+	public void calculateNumberofNonoverlappingBasePairsforHistoneAnalysis(String dataFolder,Map<String,Long> histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap){
 		
 		
 		//For each chromosome and histone name, interval tree will be created.
@@ -1379,53 +1379,53 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		for(int chromosomeNumber= 1; chromosomeNumber<=Commons.NUMBER_OF_CHROMOSOMES_HG19; chromosomeNumber++){
 			
 			switch(chromosomeNumber){
-				case 1: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR1_HISTONE_FILENAME);
+				case 1: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR1_HISTONE_FILENAME);
 					break;
-				case 2: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR2_HISTONE_FILENAME);
+				case 2: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR2_HISTONE_FILENAME);
 					break;
-				case 3: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR3_HISTONE_FILENAME);
+				case 3: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR3_HISTONE_FILENAME);
 					break;
-				case 4: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR4_HISTONE_FILENAME);
+				case 4: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR4_HISTONE_FILENAME);
 					break;
-				case 5: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR5_HISTONE_FILENAME);
+				case 5: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR5_HISTONE_FILENAME);
 					break;
-				case 6: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR6_HISTONE_FILENAME);
+				case 6: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR6_HISTONE_FILENAME);
 					break;
-				case 7: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR7_HISTONE_FILENAME);
+				case 7: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR7_HISTONE_FILENAME);
 					break;
-				case 8: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR8_HISTONE_FILENAME);
+				case 8: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR8_HISTONE_FILENAME);
 					break;
-				case 9: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR9_HISTONE_FILENAME);
+				case 9: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR9_HISTONE_FILENAME);
 					break;
-				case 10: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR10_HISTONE_FILENAME);
+				case 10: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR10_HISTONE_FILENAME);
 					break;
-				case 11: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR11_HISTONE_FILENAME);
+				case 11: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR11_HISTONE_FILENAME);
 					break;
-				case 12: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR12_HISTONE_FILENAME);
+				case 12: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR12_HISTONE_FILENAME);
 					break;
-				case 13: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR13_HISTONE_FILENAME);
+				case 13: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR13_HISTONE_FILENAME);
 					break;
-				case 14: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR14_HISTONE_FILENAME);
+				case 14: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR14_HISTONE_FILENAME);
 					break;
-				case 15: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR15_HISTONE_FILENAME);
+				case 15: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR15_HISTONE_FILENAME);
 					break;
-				case 16: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR16_HISTONE_FILENAME);
+				case 16: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR16_HISTONE_FILENAME);
 					break;
-				case 17: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR17_HISTONE_FILENAME);
+				case 17: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR17_HISTONE_FILENAME);
 					break;
-				case 18: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR18_HISTONE_FILENAME);
+				case 18: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR18_HISTONE_FILENAME);
 					break;
-				case 19: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR19_HISTONE_FILENAME);
+				case 19: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR19_HISTONE_FILENAME);
 					break;
-				case 20: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR20_HISTONE_FILENAME);
+				case 20: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR20_HISTONE_FILENAME);
 					break;
-				case 21: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR21_HISTONE_FILENAME);
+				case 21: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR21_HISTONE_FILENAME);
 					break;
-				case 22: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR22_HISTONE_FILENAME);
+				case 22: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHR22_HISTONE_FILENAME);
 					break;
-				case 23: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHRX_HISTONE_FILENAME);
+				case 23: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHRX_HISTONE_FILENAME);
 					break;
-				case 24: calculateforEachChromosomeHistone(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHRY_HISTONE_FILENAME);
+				case 24: calculateforEachChromosomeHistone(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap, Commons.CREATE_ENCODE_HISTONE_DIRECTORY + Commons.UNSORTED_CHRY_HISTONE_FILENAME);
 					break;
 
 			}//End of switch
@@ -1503,41 +1503,41 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		Map<String,Long> histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap = new HashMap<String,Long>();
 		
 		
-		String dnaseCellLineOutputFileName = outputFolder + Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE;
-		String tfbsOutputFileName = outputFolder + Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE;
-		String histoneOutputFileName = outputFolder + Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE;
-		String exonBasedOutputFileName = outputFolder + Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE;
-		String regulationBasedOutputFileName = outputFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE;
+		String dnaseCellLineOutputFileName = dataFolder + Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE;
+		String tfbsOutputFileName = dataFolder + Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE;
+		String histoneOutputFileName = dataFolder + Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE;
+		String exonBasedOutputFileName = dataFolder + Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE;
+		String regulationBasedOutputFileName = dataFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE;
 		
 			
 		//Dnase
 		//Calculate the number of non overlapping base pairs in dnase cell Line in whole genome
-		calculate.calculateNumberofNonoverlappingBasePairsforDnaseCellLineAnalysis(outputFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap);
+		calculate.calculateNumberofNonoverlappingBasePairsforDnaseCellLineAnalysis(dataFolder,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap);
 		//Write dnase cell line whole genome results to a file
 		calculate.writeNumberofNonoverlappingBasePairsResults(dnaseCellLineOutputFileName, dnaseCellLine2NumberofNonOverlappingBasePairsHashMap);
 		
 		//Tfbs
 		//Calculate the number of non overlapping base pairs in tfbs in whole genome
-		calculate.calculateNumberofNonoverlappingBasePairsforTfbsAnalysis(outputFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);		
+		calculate.calculateNumberofNonoverlappingBasePairsforTfbsAnalysis(dataFolder,tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);		
 		//Write tfbs whole genome results to a file
 		calculate.writeNumberofNonoverlappingBasePairsResults(tfbsOutputFileName, tfbsNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);
 		
 		//Histone
 		//Calculate the number of non overlapping base pairs in histone in whole genome
-		calculate.calculateNumberofNonoverlappingBasePairsforHistoneAnalysis(outputFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);				
+		calculate.calculateNumberofNonoverlappingBasePairsforHistoneAnalysis(dataFolder,histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);				
 		//Write histone whole genome results to a file
 		calculate.writeNumberofNonoverlappingBasePairsResults(histoneOutputFileName, histoneNameandCellLineName2NumberofNonOverlappingBasePairsHashMap);
 		
 		
 		//Exon Based Kegg Pathway
 		//Calculate the number of non overlapping base pairs of exons of genes of each kegg pathway
-		calculate.calculateNumberofNonoverlappingBasePairsforExonBasedKeggPathwayAnalysis(outputFolder,dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);
+		calculate.calculateNumberofNonoverlappingBasePairsforExonBasedKeggPathwayAnalysis(dataFolder,exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);
 		//Write exon based Results to a file
 		calculate.writeNumberofNonoverlappingBasePairsResults(exonBasedOutputFileName, exonBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);		
 		
 		//Regulation Based Kegg Pathway
 		//Calculate the number of non overlapping base pairs of introns, 5p1, 5p2, 3p1 and 3p2 of genes of each kegg pathway
-		calculate.calculateNumberofNonoverlappingBasePairsforRegulationBasedKeggPathwayAnalysis(outputFolder,dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);
+		calculate.calculateNumberofNonoverlappingBasePairsforRegulationBasedKeggPathwayAnalysis(dataFolder,regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);
 		//Write regulation based Results to a file
 		calculate.writeNumberofNonoverlappingBasePairsResults(regulationBasedOutputFileName, regulationBasedKeggPathway2NumberofNonOverlappingBasePairsHashMap);
 			
