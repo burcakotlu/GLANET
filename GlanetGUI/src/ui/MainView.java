@@ -37,7 +37,6 @@ public class MainView extends JPanel{
 	private JCheckBox keggPathwayEnrichment;
 	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
 	
-	
 	public interface MainViewDelegate {
 		
 		public void startRunActionsWithOptions(String inputFileName, 
@@ -94,10 +93,9 @@ public class MainView extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			
 			if( inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0)
-				JOptionPane.showMessageDialog(null, "Please fill all the options");
+				JOptionPane.showMessageDialog(null, "Please fill all the necessary options");
 			else {
 				
-				//delegation to handle the run process.
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						outputTextField.getText(),
@@ -297,7 +295,7 @@ public class MainView extends JPanel{
         listPane.add( runButton);
         
         //currentWorkLabel added to listPane
-        currentWorkLabel = new JLabel("Current running process will be shown there");
+        currentWorkLabel = new JLabel("");
         listPane.add( currentWorkLabel);
         
         //scroll pane added to this view
@@ -395,8 +393,8 @@ public class MainView extends JPanel{
 	
 	public void setCurrentProcessInfo( String info){
 		
-		System.out.println(info);
 		currentWorkLabel.setText( info);
+		revalidate();
 	}
 	
 	public void enableEnrichmentOptions( boolean shouldEnable){
