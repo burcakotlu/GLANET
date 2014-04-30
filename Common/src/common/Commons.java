@@ -19,7 +19,7 @@ public class Commons {
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
-	public static Integer NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = new Integer(5000);
+	public static Integer NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = new Integer(2000);
 	
 	public static Float FLOAT_ZERO = new Float(0.0f); 
 	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 
@@ -454,8 +454,8 @@ public class Commons {
 	public static final String WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 	public static final String DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 
-	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mapability";
-	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mapability";
+	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
+	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
 	public static final String PERMUTATION = "PERMUTATION";
 	public static final String RANDOMLY_GENERATED_DATA_FOLDER = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator")  + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator")+  "RandomlyGeneratedData" + System.getProperty("file.separator");
 	public static final String RANDOMLY_GENERATED_DATA = "RANDOMLY_GENERATED_DATA";

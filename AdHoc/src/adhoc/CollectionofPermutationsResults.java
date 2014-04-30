@@ -191,7 +191,7 @@ public class CollectionofPermutationsResults {
 		
 		String elementName;
 		int originalNumberofOverlaps;
-		int permutationNumberofOverlaps;
+		int permutationNumberofOverlaps = Integer.MAX_VALUE;
 		
 		int numberofPermutationsHavingOverlapsGreaterThanorEqualto;
 		float empiricalPValue;
@@ -244,6 +244,7 @@ public class CollectionofPermutationsResults {
 							indexofLatterComma = strLine.indexOf(',', indexofLatterComma+1);
 							
 						}// Inner while loop: all permutations, number of overlaps of an element
+						
 						
 						//write numberofPermutationsHavingOverlapsGreaterThanorEqualto to map
 						if(elementName2ElementMap.get(elementName)==null){

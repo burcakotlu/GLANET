@@ -1267,7 +1267,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 	//Empirical P Value Calculation
 	//with IO
-	public static void searchDnase(String outputFolder,int permutationNumber,String chromName,List<InputLine> inputLines, IntervalTree dnaseIntervalTree, Map<String,BufferedWriter> dnaseBufferedWriterHashMap,Map<String,Integer> permutationNumberDnaseCellLineName2KMap){
+	public static void searchDnase(String outputFolder,int permutationNumber,String chromName,List<InputLine> inputLines, IntervalTree dnaseIntervalTree, Map<String,BufferedWriter> dnaseBufferedWriterHashMap,Map<String,Integer> permutationNumberDnaseCellLineName2KMap,int overlapDefinition){
 		InputLine inputLine;		
 		int low;
 		int high;
@@ -1282,7 +1282,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			Interval interval = new Interval(low,high);
 			
 			if(dnaseIntervalTree.getRoot().isNotSentinel()){
-				dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap);	
+				dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
 			//accumulate search results of dnaseCellLine2OneorZeroMap in permutationNumberDnaseCellLineName2KMap
@@ -1305,7 +1305,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	//Empirical P Value Calculation
 	//without IO
-	public static void searchDnasewithoutIO(int permutationNumber,String chromName,List<InputLine> inputLines, IntervalTree dnaseIntervalTree,Map<String,Integer> permutationNumberDnaseCellLineName2KMap){
+	public static void searchDnasewithoutIO(int permutationNumber,String chromName,List<InputLine> inputLines, IntervalTree dnaseIntervalTree,Map<String,Integer> permutationNumberDnaseCellLineName2KMap,int overlapDefinition){
 		InputLine inputLine;		
 		int low;
 		int high;
@@ -1355,7 +1355,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //			}			
 
 			if(dnaseIntervalTree.getRoot().isNotSentinel()){
-				dnaseIntervalTree.findAllOverlappingDnaseIntervals(permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap);				
+				dnaseIntervalTree.findAllOverlappingDnaseIntervals(permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);				
 			}
 			
 			//accumulate search results of dnaseCellLine2OneorZeroMap in permutationNumberDnaseCellLineName2KMap
@@ -1374,7 +1374,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		}//End of for
 	}
 	
-	public void searchDnase(String outputFolder,String chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, Map<String,BufferedWriter> dnaseBufferedWriterHashMap,List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2KMap){
+	public void searchDnase(String outputFolder,String chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, Map<String,BufferedWriter> dnaseBufferedWriterHashMap,List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2KMap,int overlapDefinition){
 		
 		
 		String strLine = null;
@@ -1403,7 +1403,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 				
 				if(dnaseIntervalTree.getRoot().isNotSentinel()){
-					dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap);
+					dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap,overlapDefinition);
 				}
 					
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
@@ -1432,7 +1432,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 	//Empirical P Value Calculation
 	//with IO
-	public static void searchTfbs(String outputFolder,int permutationNumber,String chromName, List<InputLine> inputLines, IntervalTree tfbsIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap){
+	public static void searchTfbs(String outputFolder,int permutationNumber,String chromName, List<InputLine> inputLines, IntervalTree tfbsIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap,int overlapDefinition){
 		
 		InputLine inputLine;
 		int low;
@@ -1448,7 +1448,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			Interval interval = new Interval(low,high);
 			
 			if(tfbsIntervalTree.getRoot().isNotSentinel()){
-				tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap);
+				tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);
 			}
 			
 			//accumulate search results of tfbsNameandCellLineName2ZeroorOneMap in tfbsNameandCellLineName2KMap
@@ -1467,7 +1467,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 	//Empirical P Value Calculation
 	//without IO
-	public static void searchTfbswithoutIO(int permutationNumber,String chromName, List<InputLine> inputLines, IntervalTree tfbsIntervalTree, Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap){
+	public static void searchTfbswithoutIO(int permutationNumber,String chromName, List<InputLine> inputLines, IntervalTree tfbsIntervalTree, Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap,int overlapDefinition){
 		
 		InputLine inputLine;
 		int low;
@@ -1517,7 +1517,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 			
 			if(tfbsIntervalTree.getRoot().isNotSentinel()){
-				tfbsIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap);
+				tfbsIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);
 			}
 			
 			//accumulate search results of tfbsNameandCellLineName2ZeroorOneMap in tfbsNameandCellLineName2KMap
@@ -1587,7 +1587,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//New Functionality
 	//TF and Kegg Pathway
 	//TF and CellLine and KeggPathway
-	public void searchTfandKeggPathway(String outputFolder,String chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree,Map<String,BufferedWriter>  tfbsBufferedWriterHashMap, Map<String,BufferedWriter>  exonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter>  regulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter>  allBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,List<String> tfNameList,List<String> keggPathwayNameList,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap, Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap, Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap,Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap){
+	public void searchTfandKeggPathway(String outputFolder,String chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree,Map<String,BufferedWriter>  tfbsBufferedWriterHashMap, Map<String,BufferedWriter>  exonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter>  regulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter>  allBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,List<String> tfNameList,List<String> keggPathwayNameList,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap, Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap, Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap,Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap,int overlapDefinition){
 			String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -1647,7 +1647,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				//TF Search starts here					
 				if(tfbsIntervalTree.getRoot().isNotSentinel()){
-					tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,tfNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList);	
+					tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,tfNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition);	
 				}
 				
 				//accumulate search results of tfbsNameandCellLineName2ZeroorOneMap in tfbsNameandCellLineName2KMap
@@ -1665,7 +1665,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				//UCSCRefSeqGenes Search starts here
 				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList,exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,Commons.NCBI_GENE_ID,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList);
+					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList,exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,Commons.NCBI_GENE_ID,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition);
 				}
 				//UCSCRefSeqGenes Search ends here
 				
@@ -1706,12 +1706,13 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//code will be added here
 				
 				
-				//New search for SNP or interval case, does not matter.
+				//New search for given input SNP or interval case, does not matter.
 				//starts here
 				//for each tf overlap
 				//for each ucscRefSeqGene overlap
 				//if these overlaps overlaps
 				//then write common overlap to output files 
+				//question will the overlapDefinition apply here?
 				for(TfNameandCellLineNameOverlap tfOverlap: tfandCellLineOverlapList){
 					
 					tfNameCellLineName 	= tfOverlap.getTfNameandCellLineName();
@@ -1982,7 +1983,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public static void searchHistone(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree histoneIntervalTree, Map<String,BufferedWriter> histoneBufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap){
+	public static void searchHistone(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree histoneIntervalTree, Map<String,BufferedWriter> histoneBufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap,int overlapDefinition){
 		InputLine inputLine;	
 		int low;
 		int high;
@@ -2000,7 +2001,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				Interval interval = new Interval(low,high);
 				
 				if(histoneIntervalTree.getRoot().isNotSentinel()){
-					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap);					
+					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);					
 				}
 								
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
@@ -2022,7 +2023,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	//Empirical P Value Calculation
 	//without IO
-	public static void searchHistonewithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree histoneIntervalTree, Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap){
+	public static void searchHistonewithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree histoneIntervalTree, Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap,int overlapDefinition){
 		InputLine inputLine;	
 		int low;
 		int high;
@@ -2072,7 +2073,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				}
 				
 				if(histoneIntervalTree.getRoot().isNotSentinel()){
-					histoneIntervalTree.findAllOverlappingHistoneIntervals(permutationNumber,histoneIntervalTree.getRoot(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap);					
+					histoneIntervalTree.findAllOverlappingHistoneIntervals(permutationNumber,histoneIntervalTree.getRoot(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);					
 				}
 								
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
@@ -2091,7 +2092,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 	}
 	
-	public void searchHistone(String outputFolder,String chromName, BufferedReader bufferedReader, IntervalTree histoneIntervalTree, Map<String,BufferedWriter> histoneBufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap){
+	public void searchHistone(String outputFolder,String chromName, BufferedReader bufferedReader, IntervalTree histoneIntervalTree, Map<String,BufferedWriter> histoneBufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap,int overlapDefinition){
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -2118,7 +2119,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				Interval interval = new Interval(low,high);
 				
 				if(histoneIntervalTree.getRoot().isNotSentinel()){
-					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap);						
+					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap,overlapDefinition);						
 				}
 								
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
@@ -2144,7 +2145,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//Empirical P Value Calculation
 	//Search keggPathway
 	//with IO
-	public static void searchUcscRefSeqGenes(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2KMap, String type,String keggPathwayAnalysisType){
+	public static void searchUcscRefSeqGenes(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2KMap, String type,String keggPathwayAnalysisType,int overlapDefinition){
 		
 		InputLine inputLine;
 		int low;
@@ -2161,7 +2162,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				Interval interval = new Interval(low,high);
 
 				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);
+					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);
 				}
 								
 				//accumulate search results of keggPathway2OneorZeroMap in keggPathway2KMap
@@ -2181,7 +2182,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//Empirical P Value Calculation
 	//Search keggPathway
 	//without IO
-	public static  void searchUcscRefSeqGeneswithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2KMap, String type,String keggPathwayAnalysisType){
+	public static  void searchUcscRefSeqGeneswithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2KMap, String type,String keggPathwayAnalysisType,int overlapDefinition){
 		
 		InputLine inputLine;
 		int low;
@@ -2232,7 +2233,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				}
 
 				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType);					
+					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);					
 				}
 				
 				
@@ -2262,7 +2263,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//TF Regulation Based Kegg Pathway
 	//TF All Based Kegg Pathway
 	//with IO
-	public static  void searchTfandKeggPathway(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap, String type,String tfandKeggPathwayEnrichmentType){
+	public static  void searchTfandKeggPathway(String outputFolder,int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap, String type,String tfandKeggPathwayEnrichmentType,int overlapDefinition){
 		int low;
 		int high;
 		
@@ -2313,7 +2314,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberAllBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 		
 				if(tfIntervalTree.getRoot().isNotSentinel()){
-					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				}
 				
 				//accumulate search results of permutationNumberTfbsNameCellLineName2ZeroorOneMap in permutationNumberTfbsNameCellLineName2KMap
@@ -2327,7 +2328,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				}//End of for
 				
 				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);					
+					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 				}
 				
 				//accumulate search results of permutationNumberExonBasedKeggPathway2ZeroorOneMap in permutationNumberExonBasedKeggPathway2KMap
@@ -2365,10 +2366,11 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				
 				
-				//New search for SNP or interval case, does not matter.
+				//New search for given input SNP or interval case, does not matter.
 				//for each tf overlap
 				//for each ucscRefSeqGene overlap
 				//if these overlaps overlaps
+				//question will overlapDefinition apply here?
 				//then write common overlap to output files 
 				//Fill permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
 				//Fill permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
@@ -2700,7 +2702,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//TF Regulation Based Kegg Pathway
 	//TF All Based Kegg Pathway
 	//with IO
-	public static  void searchTfandKeggPathway(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap, String type){
+	public static  void searchTfandKeggPathway(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,BufferedWriter> tfbsBufferedWriterHashMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,Map<String,BufferedWriter> tfExonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap,Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap, String type,int overlapDefinition){
 		int low;
 		int high;
 		
@@ -2748,7 +2750,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberAllBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 		
 				if(tfIntervalTree.getRoot().isNotSentinel()){
-					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);	
+					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				}
 				
 				//accumulate search results of permutationNumberTfbsNameCellLineName2ZeroorOneMap in permutationNumberTfbsNameCellLineName2KMap
@@ -2762,7 +2764,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				}//End of for
 				
 				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);					
+						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 				}
 				
 				//accumulate search results of permutationNumberExonBasedKeggPathway2ZeroorOneMap in permutationNumberExonBasedKeggPathway2KMap
@@ -3114,7 +3116,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//TF and Regulation Based Kegg Pathway
 	//TF and All Based Kegg Pathway
 	//without IO
-	public static  void searchTfandKeggPathwaywithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap,String type,String tfandKeggPathwayEnrichmentType){
+	public static  void searchTfandKeggPathwaywithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameAllBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap,String type,String tfandKeggPathwayEnrichmentType,int overlapDefinition){
 		
 		int low;
 		int high;
@@ -3162,7 +3164,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//First TF
 			//Fill permutationNumberTfNameCellLineName2ZeroorOneMap
 			if(tfIntervalTree.getRoot().isNotSentinel()){
-				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);
+				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);
 			}
 			
 			//accumulate search results of permutationNumberTfNameCellLineName2ZeroorOneMap in permutationNumberTfNameaCellLineName2KMap
@@ -3180,7 +3182,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberAllBasedKeggPathway2ZeroorOneMap
 			if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);					
+				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 			}
 			
 			//accumulate search results of exonBasedKeggPathway2ZeroorOneMap in permutationNumberExonBasedKeggPathway2KMap
@@ -3214,7 +3216,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			}//End of for
 					
 			
-			//New search for SNP or interval case, does not matter.
+			//New search for given input SNP or interval case, does not matter.
 			//for each tf overlap
 			//for each ucscRefSeqGene overlap
 			//if these overlaps overlaps
@@ -3222,6 +3224,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//Fill permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
 			//Fill permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
 			//Fill permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap
+			//question will overlapDefition apply to here?
 			for(PermutationNumberTfNameCellLineNameOverlap permutationNumberTfNameCellLineNameOverlap: permutationNumberTfNameCellLineNameOverlapList){
 				
 				permutationNumberTfNameCellLineName = permutationNumberTfNameCellLineNameOverlap.getPermutationNumberTfNameCellLineName();
@@ -3320,7 +3323,6 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 						} //for each kegg pathways having this gene
 					}//if tfOverlap and ucscRefSeqGeneOverlap overlaps
 				}//for each ucscRefSeqGeneOverlap for the given query
-
 			}//for each tfOverlap for the given query
 			
 			
@@ -3420,8 +3422,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			}
 				
 		}//End of for each input line
-		
-		
+				
 	}
 	//New Functionality END
 	//Tf and KeggPathway Enrichment or
@@ -3435,7 +3436,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	//TF and Regulation Based Kegg Pathway
 	//TF and All Based Kegg Pathway
 	//without IO
-	public static  void searchTfandKeggPathwaywithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfAllBasedKeggPathway2KMap,String type){
+	public static  void searchTfandKeggPathwaywithoutIO(int permutationNumber, String chromName, List<InputLine> inputLines, IntervalTree tfIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberTfNameCellLineName2KMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap,Map<String,Integer> permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfExonBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap, Map<String,Integer> permutationNumberTfAllBasedKeggPathway2KMap,String type,int overlapDefinition){
 		
 		int low;
 		int high;
@@ -3482,7 +3483,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//First TF
 			//Fill permutationNumberTfNameCellLineName2ZeroorOneMap
 			if(tfIntervalTree.getRoot().isNotSentinel()){
-				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList);
+				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);
 			}
 			
 			//accumulate search results of permutationNumberTfNameCellLineName2ZeroorOneMap in permutationNumberTfNameaCellLineName2KMap
@@ -3500,7 +3501,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberAllBasedKeggPathway2ZeroorOneMap
 			if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
-				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList);					
+				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 			}
 			
 			//accumulate search results of exonBasedKeggPathway2ZeroorOneMap in permutationNumberExonBasedKeggPathway2KMap
@@ -3945,7 +3946,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	
 	
-	public void searchDnase(String dataFolder,String outputFolder, List<String> dnaseCellLineNameList, Map<String,Integer> dnaseCellLine2KMap) {
+	public void searchDnase(String dataFolder,String outputFolder, List<String> dnaseCellLineNameList, Map<String,Integer> dnaseCellLine2KMap, int overlapDefinition) {
 		
 		BufferedReader bufferedReader =null ;
 				
@@ -3959,7 +3960,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 1:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME1,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchDnase(outputFolder,Commons.CHROMOSOME1,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2KMap);
+					searchDnase(outputFolder,Commons.CHROMOSOME1,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());				
 					dnaseIntervalTree = null;
 			
@@ -3967,7 +3968,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 2:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME2,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME2,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME2,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());	
 					dnaseIntervalTree = null;
 					
@@ -3975,7 +3976,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 3:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME3,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME3,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME3,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 
@@ -3983,7 +3984,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 4:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME4,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME4,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME4,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;		
 					
@@ -3991,7 +3992,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 5:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME5,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME5,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME5,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 
@@ -4000,7 +4001,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 6:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME6,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME6,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME6,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 			
@@ -4009,7 +4010,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 7:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME7,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME7,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME7,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 				
@@ -4017,7 +4018,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 8:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME8,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME8,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME8,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4025,7 +4026,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 9	:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME9,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME9,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME9,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 
@@ -4033,7 +4034,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 10:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME10,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME10,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME10,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());	
 					dnaseIntervalTree = null;
 				
@@ -4041,7 +4042,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 11:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME11,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME11,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME11,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 	
@@ -4050,7 +4051,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 12:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME12,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME12,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME12,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 	
@@ -4058,7 +4059,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 13:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME13,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME13,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME13,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4066,7 +4067,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 14:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME14,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME14,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME14,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4074,7 +4075,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 15:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME15,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME15,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME15,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4082,7 +4083,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 16:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME16,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME16,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME16,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4090,7 +4091,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 17:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME17,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME17,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME17,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 				
@@ -4098,7 +4099,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 18:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME18,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME18,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME18,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 						
@@ -4106,7 +4107,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 19:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME19,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME19,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME19,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4114,7 +4115,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 20:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME20,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME20,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME20,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 				
@@ -4123,7 +4124,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 21:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME21,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME21,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME21,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 				
@@ -4131,7 +4132,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 22:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOME22,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOME22,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOME22,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 				
@@ -4140,7 +4141,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 23:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOMEX,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4148,7 +4149,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 24:							
 					dnaseIntervalTree = createDnaseIntervalTree(dataFolder, Commons.CHROMOSOMEY,dnaseCellLineNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchDnase(outputFolder, Commons.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap);
+					searchDnase(outputFolder, Commons.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, dnaseBufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);
 					emptyIntervalTree(dnaseIntervalTree.getRoot());					
 					dnaseIntervalTree = null;
 					
@@ -4169,7 +4170,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 	//New Functionality START
 	//Which cell line does not matter.
-	public void searchTfandKeggPathway(String dataFolder, String outputFolder, List<String> tfNameList, List<String> keggPathwayNameList, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap){
+	public void searchTfandKeggPathway(String dataFolder, String outputFolder, List<String> tfNameList, List<String> keggPathwayNameList, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap,int overlapDefinition){
 		BufferedReader bufferedReader =null ;
 		
 		IntervalTree tfbsIntervalTree;
@@ -4201,7 +4202,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME1);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME1,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME1,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 						
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4215,7 +4216,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME2);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME2,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME2,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4229,7 +4230,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME3);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME3,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME3,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 				
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4243,7 +4244,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME4);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME4,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME4,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4256,7 +4257,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME5);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME5,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME5,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4269,7 +4270,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME6);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME6,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME6,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4282,7 +4283,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME7);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME7,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME7,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4295,7 +4296,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME8);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME8,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME8,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4308,7 +4309,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME9);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME9,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME9,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 				
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4321,7 +4322,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME10);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME10,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME10,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4334,7 +4335,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME11);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME11,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME11,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4347,7 +4348,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME12);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME12,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME12,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4360,7 +4361,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME13);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME13,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME13,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4373,7 +4374,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME14);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME14,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME14,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4386,7 +4387,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME15);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME15,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME15,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4399,7 +4400,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME16);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME16,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME16,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4412,7 +4413,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME17);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME17,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME17,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4425,7 +4426,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME18);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME18,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME18,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4438,7 +4439,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME19);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME19,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME19,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4451,7 +4452,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME20);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME20,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME20,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4464,7 +4465,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME21);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME21,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME21,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4477,7 +4478,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOME22);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME22,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOME22,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4490,7 +4491,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEX,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEX,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4503,7 +4504,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(dataFolder,Commons.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
 					
-					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEY,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+					searchTfandKeggPathway(outputFolder,Commons.CHROMOSOMEY,bufferedReader,tfbsIntervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap, tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap, tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfbsNameandCellLineName2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap,overlapDefinition);
 					
 					emptyIntervalTree(tfbsIntervalTree.getRoot());
 					tfbsIntervalTree = null;
@@ -4790,7 +4791,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	}
 	
 	
-	public void searchHistone(String dataFolder,String outputFolder, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap) {
+	public void searchHistone(String dataFolder,String outputFolder, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2KMap,int overlapDefinition) {
 		
 		BufferedReader bufferedReader =null ;
 				
@@ -4805,7 +4806,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME1,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME1,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME1,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4814,7 +4815,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME2,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME2,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME2,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4823,7 +4824,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME3,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME3,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME3,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 
@@ -4831,7 +4832,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 4:							
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME4,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME4,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME4,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4840,7 +4841,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME5,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME5,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME5,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 
@@ -4849,7 +4850,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME6,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME6,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME6,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4858,7 +4859,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME7,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME7,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME7,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4867,7 +4868,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME8,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME8,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME8,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4876,7 +4877,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME9,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME9,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME9,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 
@@ -4885,7 +4886,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME10,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME10,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME10,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4894,7 +4895,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME11,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME11,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME11,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 
@@ -4904,7 +4905,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME12,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME12,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME12,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 
@@ -4913,7 +4914,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME13,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME13,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME13,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4922,7 +4923,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME14,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME14,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME14,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4931,7 +4932,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME15,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME15,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME15,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4940,7 +4941,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME16,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME16,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME16,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4950,7 +4951,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME17,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME17,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME17,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4959,7 +4960,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME18,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME18,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME18,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4968,7 +4969,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME19,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME19,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME19,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4977,7 +4978,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME20,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME20,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME20,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4985,7 +4986,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				case 21:							
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME21,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME21,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME21,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -4994,7 +4995,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOME22,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOME22,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOME22,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -5003,7 +5004,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOMEX,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOMEX,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOMEX,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -5012,7 +5013,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 					histoneIntervalTree = createHistoneIntervalTree(dataFolder,Commons.CHROMOSOMEY,histoneNameList);
 					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchHistone(outputFolder,Commons.CHROMOSOMEY,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap);
+					searchHistone(outputFolder,Commons.CHROMOSOMEY,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2KMap,overlapDefinition);
 					emptyIntervalTree(histoneIntervalTree.getRoot());
 					histoneIntervalTree = null;
 					
@@ -6211,6 +6212,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		String outputFolder = args[1];
 		String dataFolder = args[2];
+		int overlapDefinition = Integer.parseInt(args[3]);
 		
 		String inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		
@@ -6234,7 +6236,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
 		fillList(dnaseCellLineNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
-		searchDnase(dataFolder,outputFolder,dnaseCellLineNameList,dnaseCellLine2KMap);	
+		searchDnase(dataFolder,outputFolder,dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);	
 		writeResults(dnaseCellLine2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setDnaseCellLineName2NumberofOverlapsMap(dnaseCellLine2KMap);
 		
@@ -6256,7 +6258,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
 		fillList(histoneNameList,dataFolder ,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
-		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
+		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap,overlapDefinition);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		allName2KMaps.setHistoneNameandCellLineName2NumberofOverlapsMap(histoneNameandCellLineName2KMap);
 		
@@ -6358,6 +6360,8 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
+		int overlapDefinition = Integer.parseInt(args[3]);
+		
 		String inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		
 		/*********************************************/
@@ -6390,7 +6394,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
 		
 		fillList(dnaseCellLineNameList,dataFolder, Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
-		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap);	
+		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);	
 		writeResults(dnaseCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("DNASE analysis ends.");
 		/*********************************************/
@@ -6415,7 +6419,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
 		fillList(histoneNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);
-		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap);
+		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap,overlapDefinition);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("Histone analysis ends.");
 		/*********************************************/
@@ -6521,7 +6525,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		Map<String,Integer> tfRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 		Map<String,Integer> tfAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			
-		searchTfandKeggPathway(dataFolder,outputFolder,tfbsNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap);
+		searchTfandKeggPathway(dataFolder,outputFolder,tfbsNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition);
 		
 		writeResults(tfCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		
@@ -6612,14 +6616,14 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//Using fork join framework
 	//Empirical P Value Calculation
 	//With IO
-	public static AllMaps annotatePermutationwithIO(String outputFolder,String dataFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree dnaseIntervalTree, IntervalTree tfbsIntervalTree, IntervalTree histoneIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree){
+	public static AllMaps annotatePermutationwithIO(String outputFolder,String dataFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree dnaseIntervalTree, IntervalTree tfbsIntervalTree, IntervalTree histoneIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree,int overlapDefinition){
 		AllMaps allMaps = new AllMaps();
 		
 		//DNASE
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 		Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
 		Map<String,BufferedWriter> dnaseBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-		searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, dnaseIntervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap);
+		searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, dnaseIntervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 		closeBufferedWriters(dnaseBufferedWriterHashMap);
 		allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 		
@@ -6627,7 +6631,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
 		Map<String,BufferedWriter> tfbsBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-		searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,tfbsIntervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap);
+		searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,tfbsIntervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 		closeBufferedWriters(tfbsBufferedWriterHashMap);
 		allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
@@ -6635,7 +6639,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
 		Map<String,BufferedWriter> histoneBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-		searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,histoneIntervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap);
+		searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,histoneIntervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 		closeBufferedWriters(histoneBufferedWriterHashMap);
 		allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 		
@@ -6649,7 +6653,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 		Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
 		Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-		searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+		searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 		closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
 		allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 		
@@ -6658,7 +6662,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 		Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 		Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-		searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+		searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 		closeBufferedWriters(regulationBasedKeggPathwayBufferedWriterHashMap);
 		allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 
@@ -6668,7 +6672,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment starts
-	public static AllMaps annotatePermutationwithIO(String outputFolder,int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, String tfandKeggPathwayEnrichmentType, Map<String,List<String>> geneId2KeggPathwayMap){
+	public static AllMaps annotatePermutationwithIO(String outputFolder,int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, String tfandKeggPathwayEnrichmentType, Map<String,List<String>> geneId2KeggPathwayMap,int overlapDefinition){
 		AllMaps allMaps = new AllMaps();
 		
 		if (Commons.DNASE_ANNOTATION.equals(annotationType)){
@@ -6676,7 +6680,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 			Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
 			Map<String,BufferedWriter> dnaseBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, intervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap);
+			searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, intervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(dnaseBufferedWriterHashMap);
 			allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 			
@@ -6685,7 +6689,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> tfbsBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap);
+			searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(tfbsBufferedWriterHashMap);
 			allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
@@ -6694,7 +6698,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> histoneBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap);
+			searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(histoneBufferedWriterHashMap);
 			allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 		
@@ -6706,7 +6710,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 			
@@ -6714,7 +6718,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(regulationBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 			
@@ -6722,7 +6726,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This allBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(allBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberAllBasedKeggPathway2KMap(permutationNumberAllBasedKeggPathway2KMap);
 
@@ -6754,7 +6758,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			Map<String,BufferedWriter> tfRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 						
-			searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap,tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap,null,null,null,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,null,null,null,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType);
+			searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,tfExonBasedKeggPathwayBufferedWriterHashMap,tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap,null,null,null,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,null,null,null,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);
 			
 			closeBufferedWriters(tfbsBufferedWriterHashMap);
 			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
@@ -6809,7 +6813,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			
-			searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,null,null,null,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType);
+			searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,null,null,null,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);
 			
 			closeBufferedWriters(tfbsBufferedWriterHashMap);
 			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
@@ -6850,7 +6854,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//Using fork join framework
 	//Empirical P Value Calculation
 	//With IO
-	public static AllMaps annotatePermutationwithIO(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, Map<String,List<String>> geneId2KeggPathwayMap){
+	public static AllMaps annotatePermutationwithIO(String outputFolder,int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, Map<String,List<String>> geneId2KeggPathwayMap,int overlapDefinition){
 		AllMaps allMaps = new AllMaps();
 		
 		if (Commons.DNASE_ANNOTATION.equals(annotationType)){
@@ -6858,7 +6862,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 			Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
 			Map<String,BufferedWriter> dnaseBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, intervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap);
+			searchDnase(outputFolder,permutationNumber,chrName,randomlyGeneratedData, intervalTree, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(dnaseBufferedWriterHashMap);
 			allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 			
@@ -6867,7 +6871,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> tfbsBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap);
+			searchTfbs(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(tfbsBufferedWriterHashMap);
 			allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
@@ -6876,7 +6880,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> histoneBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap);
+			searchHistone(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 			closeBufferedWriters(histoneBufferedWriterHashMap);
 			allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 		
@@ -6888,7 +6892,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
 			Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, exonBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 			
@@ -6896,7 +6900,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, regulationBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(regulationBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 			
@@ -6904,7 +6908,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//This allBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
-			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGenes(outputFolder,permutationNumber, chrName, randomlyGeneratedData, intervalTree, allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			closeBufferedWriters(allBasedKeggPathwayBufferedWriterHashMap);
 			allMaps.setPermutationNumberAllBasedKeggPathway2KMap(permutationNumberAllBasedKeggPathway2KMap);
 
@@ -6938,7 +6942,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			Map<String,BufferedWriter> tfAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			
 			
-			searchTfandKeggPathway(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap, tfExonBasedKeggPathwayBufferedWriterHashMap,tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID);
+			searchTfandKeggPathway(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap, tfExonBasedKeggPathwayBufferedWriterHashMap,tfRegulationBasedKeggPathwayBufferedWriterHashMap,tfAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,overlapDefinition);
 			
 			closeBufferedWriters(tfbsBufferedWriterHashMap);
 			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
@@ -6978,25 +6982,25 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//Using fork join framework
 		//Empirical P Value Calculation
 		//Without IO
-		public static AllMaps annotatePermutationwithoutIO(String dataFolder,int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree dnaseIntervalTree, IntervalTree tfbsIntervalTree, IntervalTree histoneIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree){
+		public static AllMaps annotatePermutationwithoutIO(String dataFolder,int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree dnaseIntervalTree, IntervalTree tfbsIntervalTree, IntervalTree histoneIntervalTree,IntervalTree ucscRefSeqGenesIntervalTree,int overlapDefinition){
 			AllMaps allMaps = new AllMaps();
 			
 			//DNASE
 			//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 			Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
-			searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, dnaseIntervalTree, permutationNumberDnaseCellLineName2KMap);
+			searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, dnaseIntervalTree, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 			allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 			
 			//TFBS
 			//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
-			searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,tfbsIntervalTree,permutationNumberTfbsNameCellLineName2KMap);
+			searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,tfbsIntervalTree,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 			allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
 			//HISTONE
 			//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 			Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
-			searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,histoneIntervalTree,permutationNumberHistoneNameCellLineName2KMap);
+			searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,histoneIntervalTree,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 			allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 			
 			
@@ -7008,13 +7012,13 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			//Exon Based Kegg Pathway Analysis
 			//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
-			searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 			
 			//Regulation Based Kegg Pathway Analysis
 			//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 			Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-			searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+			searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, ucscRefSeqGenesIntervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 			allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 
 			return allMaps;
@@ -7030,28 +7034,28 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//Using fork join framework
 		//Empirical P Value Calculation
 		//Without IO
-		public static AllMaps annotatePermutationwithoutIO(int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,String tfandKeggPathwayEnrichmentType, Map<String,List<String>> geneId2KeggPathwayMap){
+		public static AllMaps annotatePermutationwithoutIO(int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,String tfandKeggPathwayEnrichmentType, Map<String,List<String>> geneId2KeggPathwayMap,int overlapDefinition){
 				AllMaps allMaps = new AllMaps();
 					
 				if (Commons.DNASE_ANNOTATION.equals(annotationType)){
 					//DNASE
 					//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 					Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
-					searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, intervalTree, permutationNumberDnaseCellLineName2KMap);
+					searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, intervalTree, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 					allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 					
 				}else if (Commons.TFBS_ANNOTATION.equals(annotationType)){
 					//TFBS
 					//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 					Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
-					searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfbsNameCellLineName2KMap);
+					searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 					allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
 				}else if (Commons.HISTONE_ANNOTATION.equals(annotationType)){
 					//HISTONE
 					//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 					Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
-					searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberHistoneNameCellLineName2KMap);
+					searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 					allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 					
 				}else if (Commons.UCSC_REFSEQ_GENE_ANNOTATION.equals(annotationType)){
@@ -7061,19 +7065,19 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					//Exon Based Kegg Pathway Analysis
 					//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 					Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
-					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 					allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 					
 					//Regulation Based Kegg Pathway Analysis
 					//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 					Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 					allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 
 					//All Based Kegg Pathway Analysis
 					//This allBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 					Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
-					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
+					searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 					allMaps.setPermutationNumberAllBasedKeggPathway2KMap(permutationNumberAllBasedKeggPathway2KMap);
 
 					
@@ -7095,7 +7099,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					Map<String,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap 	= new HashMap<String,Integer>();
 					Map<String,Integer> permutationNumberTfAllBasedKeggPathway2KMap 		= new HashMap<String,Integer>();
 						
-					searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,null,null,null,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType);				
+					searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,null,null,null,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);				
 					
 					allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);	
 					
@@ -7131,7 +7135,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					Map<String,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap 	= new HashMap<String,Integer>();
 					Map<String,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap 		= new HashMap<String,Integer>();
 						
-					searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType);				
+					searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);				
 					
 					allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);	
 					
@@ -7160,28 +7164,28 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//Using fork join framework
 		//Empirical P Value Calculation
 		//Without IO
-		public static AllMaps annotatePermutationwithoutIO(int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,Map<String,List<String>> geneId2KeggPathwayMap){
+		public static AllMaps annotatePermutationwithoutIO(int permutationNumber, String chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,Map<String,List<String>> geneId2KeggPathwayMap,int overlapDefinition){
 			AllMaps allMaps = new AllMaps();
 				
 			if (Commons.DNASE_ANNOTATION.equals(annotationType)){
 				//DNASE
 				//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
 				Map<String,Integer> permutationNumberDnaseCellLineName2KMap = new HashMap<String,Integer>();		
-				searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, intervalTree, permutationNumberDnaseCellLineName2KMap);
+				searchDnasewithoutIO(permutationNumber,chrName,randomlyGeneratedData, intervalTree, permutationNumberDnaseCellLineName2KMap,overlapDefinition);
 				allMaps.setPermutationNumberDnaseCellLineName2KMap(permutationNumberDnaseCellLineName2KMap);
 				
 			}else if (Commons.TFBS_ANNOTATION.equals(annotationType)){
 				//TFBS
 				//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 				Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
-				searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfbsNameCellLineName2KMap);
+				searchTfbswithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
 				allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 
 			}else if (Commons.HISTONE_ANNOTATION.equals(annotationType)){
 				//HISTONE
 				//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 				Map<String,Integer> permutationNumberHistoneNameCellLineName2KMap = new HashMap<String,Integer>();	
-				searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberHistoneNameCellLineName2KMap);
+				searchHistonewithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberHistoneNameCellLineName2KMap,overlapDefinition);
 				allMaps.setPermutationNumberHistoneNameCellLineName2KMap(permutationNumberHistoneNameCellLineName2KMap);
 				
 			}else if (Commons.UCSC_REFSEQ_GENE_ANNOTATION.equals(annotationType)){
@@ -7191,19 +7195,19 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 				//Exon Based Kegg Pathway Analysis
 				//This exonBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 				Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
-				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
+				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 				allMaps.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 				
 				//Regulation Based Kegg Pathway Analysis
 				//This regulationBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 				Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
+				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberRegulationBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 				allMaps.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 
 				//All Based Kegg Pathway Analysis
 				//This allBasedKeggPathway2KMap hash map will contain the kegg pathway name to number of kegg pathway:k for the given search input size:n		
 				Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
-				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
+				searchUcscRefSeqGeneswithoutIO(permutationNumber, chrName, randomlyGeneratedData, intervalTree, geneId2KeggPathwayMap, permutationNumberAllBasedKeggPathway2KMap, Commons.NCBI_GENE_ID,Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS,overlapDefinition);
 				allMaps.setPermutationNumberAllBasedKeggPathway2KMap(permutationNumberAllBasedKeggPathway2KMap);
 
 				
@@ -7228,7 +7232,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 				Map<String,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap 	= new HashMap<String,Integer>();
 				Map<String,Integer> permutationNumberTfAllBasedKeggPathway2KMap 		= new HashMap<String,Integer>();
 				
-				searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID);
+				searchTfandKeggPathwaywithoutIO(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,permutationNumberTfExonBasedKeggPathway2KMap,permutationNumberTfRegulationBasedKeggPathway2KMap,permutationNumberTfAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,overlapDefinition);
 				
 				allMaps.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 				
