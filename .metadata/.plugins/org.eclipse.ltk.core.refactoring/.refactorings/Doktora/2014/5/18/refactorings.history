@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;intervaltree.UcscRefSeqGenes&apos; to &apos;UcscRefSeqGeneIntervalTreeNode&apos;&#x0D;&#x0A;- Original project: &apos;Doktora&apos;&#x0D;&#x0A;- Original element: &apos;intervaltree.UcscRefSeqGenes&apos;&#x0D;&#x0A;- Renamed element: &apos;intervaltree.UcscRefSeqGeneIntervalTreeNode&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;UcscRefSeqGenes&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;intervaltree{UcscRefSeqGenes.java[UcscRefSeqGenes" matchStrategy="1" name="UcscRefSeqGeneIntervalTreeNode" qualified="false" references="true" similarDeclarations="false" stamp="1399029829027" textual="false" version="1.0"/>
+</session>

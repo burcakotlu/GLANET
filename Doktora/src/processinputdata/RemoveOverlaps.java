@@ -8,6 +8,9 @@
  */
 package processinputdata;
 
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -19,8 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -147,7 +148,7 @@ public class RemoveOverlaps {
 					//there is overlap
 					if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 							
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
+						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),Commons.MERGED_NODE);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted =null;	
 						//you may try to delete a node which is already spliced out by former deletions

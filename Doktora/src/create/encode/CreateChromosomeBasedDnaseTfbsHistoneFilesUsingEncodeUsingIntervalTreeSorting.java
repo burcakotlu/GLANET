@@ -16,6 +16,11 @@
 
 package create.encode;
 
+import intervaltree.DnaseIntervalTreeNode;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.TforHistoneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,11 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import create.ChromosomeBasedFilesandOperations;
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
-
 import common.Commons;
+
+import create.ChromosomeBasedFilesandOperations;
 
 
 
@@ -902,7 +905,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 						histone.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 						histone.setFileName(strLine.substring(indexofFifthTab+1));
 						
-						IntervalTreeNode node = new IntervalTreeNode(histone.getChromName(), histone.getStartPos(), histone.getEndPos(), histone.getHistoneName(), histone.getCellLineName(), histone.getFileName(),Commons.ORIGINAL_NODE);
+						IntervalTreeNode node = new TforHistoneIntervalTreeNode(histone.getChromName(), histone.getStartPos(), histone.getEndPos(), histone.getHistoneName(), histone.getCellLineName(), histone.getFileName(),Commons.ORIGINAL_NODE);
 						
 						histoneIntervalTree.intervalTreeInsert(histoneIntervalTree,node);
 					}//End of while
@@ -976,7 +979,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							dnase.setCellLineName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 							dnase.setFileName(strLine.substring(indexofFourthTab+1));
 
-							IntervalTreeNode node = new IntervalTreeNode(dnase.getChromName(),dnase.getStartPos(), dnase.getEndPos(),dnase.getCellLineName(), dnase.getFileName(),Commons.ORIGINAL_NODE);							
+							IntervalTreeNode node = new DnaseIntervalTreeNode(dnase.getChromName(),dnase.getStartPos(), dnase.getEndPos(),dnase.getCellLineName(), dnase.getFileName(),Commons.ORIGINAL_NODE);							
 							
 							dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree,node);
 						}
@@ -1060,7 +1063,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							tfbs.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 							tfbs.setFileName(strLine.substring(indexofFifthTab+1));
 							
-							IntervalTreeNode node = new IntervalTreeNode(tfbs.getChromName(), tfbs.getStartPos(), tfbs.getEndPos(), tfbs.getTranscriptionFactorName(), tfbs.getCellLineName(), tfbs.getFileName(),Commons.ORIGINAL_NODE);
+							IntervalTreeNode node = new TforHistoneIntervalTreeNode(tfbs.getChromName(), tfbs.getStartPos(), tfbs.getEndPos(), tfbs.getTranscriptionFactorName(), tfbs.getCellLineName(), tfbs.getFileName(),Commons.ORIGINAL_NODE);
 							tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);
 						}
 					} catch (IOException e) {

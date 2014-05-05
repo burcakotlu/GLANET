@@ -798,7 +798,7 @@ public class AnnotatePermutationsUsingForkJoin {
 			try {
 				
 				if (bufferedWriter==null){
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC + folderName + permutationNumber +  "_" + extraFileName + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + folderName + permutationNumber +  "_" + extraFileName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
 				}
@@ -1680,10 +1680,10 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 		/*********************************************/
 		//delete old files
-		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC;
+		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 		List<String> notToBeDeleted = new ArrayList<String>();
 		notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
-		notToBeDeleted.add(Commons.ORIGINAL);
+		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		/*********************************************/

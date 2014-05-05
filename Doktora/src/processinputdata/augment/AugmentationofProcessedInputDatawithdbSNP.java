@@ -17,6 +17,10 @@
  */
 package processinputdata.augment;
 
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.OtherIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,12 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 import auxiliary.FileOperations;
 
 import common.Commons;
+
+import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
 
 public class AugmentationofProcessedInputDatawithdbSNP {
 
@@ -158,9 +161,9 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 //						bufferedWriter.write("OverlapNodeListSize: " + overlappedNodeList.size() + "\n");
 						
 						for(IntervalTreeNode overlapNode:overlappedNodeList){
-							bufferedWriter.write(overlapNode.getRsId() + "\t" + chrName + "\t" + snpPosition.getStartZeroBased() + "\t");
+							bufferedWriter.write(((OtherIntervalTreeNode) overlapNode).getRsId() + "\t" + chrName + "\t" + snpPosition.getStartZeroBased() + "\t");
 							
-							for(String observedAllele :overlapNode.getObservedVariationAlleles()){
+							for(String observedAllele :((OtherIntervalTreeNode)overlapNode).getObservedVariationAlleles()){
 								bufferedWriter.write(observedAllele +"\t");
 								
 							}//for every observed allele

@@ -35,13 +35,15 @@
 
 package annotate.intervals.parametric;
 
+import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.TforHistoneIntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -425,7 +427,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//we insert any given interval without overlap check
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 			
 				chromName = null;
@@ -487,7 +489,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if dnase exists in dnaseList 
 				if (dnaseCellLineNameList.contains(cellLineName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
 					dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 				} //End of If	
 				
@@ -548,7 +550,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				
 				chromName = null;
@@ -589,7 +591,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 	    
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
-//				exampple strLine
+//				example strLine
 //				chrY	2804079	2804213	Ctcf	H1hesc	spp.optimal.wgEncodeBroadHistoneH1hescCtcfStdAlnRep0_VS_wgEncodeBroadHistoneH1hescControlStdAlnRep0.narrowPeak
 			
 				indexofFirstTab = strLine.indexOf('\t');
@@ -612,7 +614,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if tfbs exists in tfbsList 
 				if (tfbsNameList.contains(tfbsName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 					tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				}
 				
@@ -675,7 +677,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				
 				chromName = null;
@@ -738,7 +740,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				if (histoneNameList.contains(histoneName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 					histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				}
 				
@@ -806,7 +808,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
 				tree.intervalTreeInsert(tree, node);
 				
 				chromName = null;
@@ -6155,33 +6157,33 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			emptyIntervalTree(node.getRight());
 			emptyIntervalTree(node.getLeft());
 			
-			if(node.getCellLineName()!=null){
-				node.setCellLineName(null);
-			}
-			
-			if(node.getFileName()!=null){
-				node.setFileName(null);
-			}
-			
-			if(node.getTfbsorHistoneName()!=null){
-				node.setTfbsorHistoneName(null);
-			}
-			
-			if(node.getGeneHugoSymbol()!=null){
-				node.setGeneHugoSymbol(null);
-			}
-			
-			if(node.getIntervalName()!=null){
-				node.setIntervalName(null);
-			}
-			
-			if(node.getGeneEntrezId()!=null){
-				node.setGeneEntrezId(null);
-			}
-			
-			if(node.getRefSeqGeneName()!=null){
-				node.setRefSeqGeneName(null);
-			}
+//			if(node.getCellLineName()!=null){
+//				node.setCellLineName(null);
+//			}
+//			
+//			if(node.getFileName()!=null){
+//				node.setFileName(null);
+//			}
+//			
+//			if(node.getTfbsorHistoneName()!=null){
+//				node.setTfbsorHistoneName(null);
+//			}
+//			
+//			if(node.getGeneHugoSymbol()!=null){
+//				node.setGeneHugoSymbol(null);
+//			}
+//			
+//			if(node.getIntervalName()!=null){
+//				node.setIntervalName(null);
+//			}
+//			
+//			if(node.getGeneEntrezId()!=null){
+//				node.setGeneEntrezId(null);
+//			}
+//			
+//			if(node.getRefSeqGeneName()!=null){
+//				node.setRefSeqGeneName(null);
+//			}
 			
 			if(node.getChromName()!=null){
 				node.setChromName(null);
@@ -6366,7 +6368,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		/*********************************************/
 		//delete old files
-		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATE_INTERVALS_PARAMETRIC;
+		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 		List<String> notToBeDeleted = new ArrayList<String>();
 		notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
 		
@@ -7314,11 +7316,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		AnnotateGivenIntervalsWithGivenParameters annotateIntervals = new AnnotateGivenIntervalsWithGivenParameters();
 		
-//		annotateIntervals.annotate(Commons.TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS);
 		annotateIntervals.annotate(args);
-//		annotateIntervals.annotate(Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS);
-//		annotateIntervals.annotate(Commons.RANDOMLY_GENERATED_DATA_FILE);		
-//		annotateIntervals.annotate(Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS);
 		
 		
 	}

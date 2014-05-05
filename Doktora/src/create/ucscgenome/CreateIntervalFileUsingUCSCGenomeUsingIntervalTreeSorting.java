@@ -23,6 +23,10 @@
 package create.ucscgenome;
 
 
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -36,12 +40,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import create.ChromosomeBasedFilesandOperations;
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 import auxiliary.FileOperations;
 
 import common.Commons;
+
+import create.ChromosomeBasedFilesandOperations;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
@@ -556,7 +559,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 					refSeqGeneInterval.setStrand(strLine.substring(indexofSixthTab+1, indexofSeventhTab).charAt(0));
 					refSeqGeneInterval.setAlternateGeneName(strLine.substring(indexofSeventhTab+1));
 					
-					IntervalTreeNode  node = new IntervalTreeNode(refSeqGeneInterval.getChromName(), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),Commons.ORIGINAL_NODE);
+					IntervalTreeNode  node = new UcscRefSeqGeneIntervalTreeNode(refSeqGeneInterval.getChromName(), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),Commons.ORIGINAL_NODE);
 					refSeqGeneIntervalTree.intervalTreeInsert(refSeqGeneIntervalTree, node);
 				}
 			} catch (IOException e) {

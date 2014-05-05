@@ -15,6 +15,12 @@
  */
 package wholegenome.nonoverlappingbasepairs.usingintervaltree;
 
+import intervaltree.DnaseIntervalTreeNode;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.TforHistoneIntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,11 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import auxiliary.FileOperations;
-
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 import keggpathway.ncbigenes.KeggPathwayUtility;
+import auxiliary.FileOperations;
 
 import common.Commons;
 
@@ -54,25 +57,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 	}
 	
 	
-	public IntervalTreeNode mergeIntervals(IntervalTreeNode node1, IntervalTreeNode node2){
-		
-		IntervalTreeNode mergedNode = new IntervalTreeNode(node1.getChromName(),node1.getLow(),node1.getHigh(),node1.getRefSeqGeneName(),node1.getGeneEntrezId(),node1.getIntervalName(),node1.getGeneHugoSymbol(),Commons.MERGED_NODE);
-		
-			
-		if (node2.getLow()<mergedNode.getLow()){
-			mergedNode.setLow(node2.getLow());			
-		}
-			
-		
-		if (node2.getHigh()>mergedNode.getHigh()){
-			mergedNode.setHigh(node2.getHigh());
-		}
-		
-		mergedNode.setNumberofBases(mergedNode.getHigh()-mergedNode.getLow()+1);
-		
-		return mergedNode;
-		
-	}
+
 	
 	//Calculate the number of non overlapping base pairs in the introns, 5p1, 5p2, 3p1 and 3p2 of genes of kegg pathways
 	//create keggPathway2IntervalTreeHashMap for each chromosome
@@ -146,7 +131,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							IntervalTreeNode intervalTreeNode = new IntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name
@@ -174,7 +159,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 								//there is overlap
 								if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 										
-									IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),Commons.MERGED_NODE);
+									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),Commons.MERGED_NODE);
 									IntervalTreeNode splicedoutNode = null;
 									IntervalTreeNode nodetoBeDeleted =null;	
 									//you may try to delete a node which is already spliced out by former deletions
@@ -398,7 +383,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				fileName = strLine.substring(indexofFourthTab+1);								
 				
 				//create intervalTreeNode
-				IntervalTreeNode intervalTreeNode = new IntervalTreeNode(chromName,low,high,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				DnaseIntervalTreeNode intervalTreeNode = new DnaseIntervalTreeNode(chromName,low,high,cellLineName,fileName,Commons.ORIGINAL_NODE);
 		
 				//Get the interval tree for this dnase Cell Line Name							
 				//For first insert of each dnase cell line name and chromosome number
@@ -423,7 +408,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 					//there is overlap
 					if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 							
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
+						IntervalTreeNode mergedNode = new DnaseIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted =null;	
 						//you may try to delete a node which is already spliced out by former deletions
@@ -554,7 +539,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				tfbsNameandCellLineName = tfbsName + "_" +cellLineName;
 											
 				//create intervalTreeNode
-				IntervalTreeNode intervalTreeNode = new IntervalTreeNode(chromName,low,high,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(chromName,low,high,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 		
 				//Get the interval tree for this tfbs Nameand cell line name						
 				//For first insert of each tfbsNameandCellLineName and chromosome number
@@ -579,7 +564,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 					//there is overlap
 					if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 							
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getTfbsorHistoneName(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
+						IntervalTreeNode mergedNode = new TforHistoneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getTfbsorHistoneName(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted =null;	
 						//you may try to delete a node which is already spliced out by former deletions
@@ -707,7 +692,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				histoneNameandCellLineName = histoneName + "_" +cellLineName;
 															
 				//create intervalTreeNode
-				IntervalTreeNode intervalTreeNode = new IntervalTreeNode(chromName,low,high,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(chromName,low,high,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 		
 				//Get the interval tree for this histoneNameandCellLineName							
 				//For first insert of each histoneNameandCellLineName and chromosome number
@@ -732,7 +717,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 					//there is overlap
 					if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 							
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getTfbsorHistoneName(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
+						IntervalTreeNode mergedNode = new TforHistoneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getTfbsorHistoneName(),intervalTreeNode.getCellLineName(), intervalTreeNode.getFileName(),Commons.MERGED_NODE);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted =null;	
 						//you may try to delete a node which is already spliced out by former deletions
@@ -871,7 +856,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							IntervalTreeNode intervalTreeNode = new IntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name
@@ -902,7 +887,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 								//there is overlap
 								if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 										
-									IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),Commons.MERGED_NODE);
+									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),Commons.MERGED_NODE);
 									IntervalTreeNode splicedoutNode = null;
 									IntervalTreeNode nodetoBeDeleted =null;	
 									//you may try to delete a node which is already spliced out by former deletions

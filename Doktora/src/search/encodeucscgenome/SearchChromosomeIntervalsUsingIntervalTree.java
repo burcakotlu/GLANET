@@ -17,9 +17,12 @@
 
 package search.encodeucscgenome;
 
+import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.TforHistoneIntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,7 +80,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);
 								
 			}
@@ -123,7 +126,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFourthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);
 								
 			}
@@ -173,7 +176,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
 				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);
 								
 			}
@@ -228,7 +231,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new IntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
 				tree.intervalTreeInsert(tree, node);
 				
 				

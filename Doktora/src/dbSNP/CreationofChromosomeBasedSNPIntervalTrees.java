@@ -9,15 +9,16 @@
 package dbSNP;
 
 
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.OtherIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
 
 import common.Commons;
 
@@ -267,7 +268,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 							//Convert 1-based coordinate to 0-based coordinate
 							chrPositionZeroBased= chrPositionOneBased-1;
 							
-							IntervalTreeNode node = new IntervalTreeNode(rsId, chrNumber, chrPositionZeroBased, observedVariationAlleles);
+							IntervalTreeNode node = new OtherIntervalTreeNode(rsId, chrNumber, chrPositionZeroBased, observedVariationAlleles);
 							dbSNPIntervalTree.intervalTreeInsert(dbSNPIntervalTree,node);
 							
 						}

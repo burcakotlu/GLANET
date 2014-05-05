@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date May 2, 2014 
+ * @time 2:18:37 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class HistoneIntervalTreeNode {
+
+}

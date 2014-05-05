@@ -10,9 +10,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import jaxbxjctool._deprecatedAugmentationofGivenRsIds;
+import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
+import jaxbxjctool.RsInformation;
 import auxiliary.FileOperations;
-
 import common.Commons;
 /**
  * @author burcakotlu
@@ -66,7 +66,7 @@ public class InputDataProcess {
 			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 		
-			_deprecatedAugmentationofGivenRsIds app = new _deprecatedAugmentationofGivenRsIds();
+			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 						
 			//for debug
 			List<String> searched = new ArrayList<String>();
@@ -77,20 +77,20 @@ public class InputDataProcess {
 				
 				//Skip comment lines
 				if(!(rsId.startsWith("#"))){
-					app.run(rsId, bufferedWriter,searched,found);
+					RsInformation rsInformation = app.getInformationforGivenRsId(rsId);
+					bufferedWriter.write( "chr" + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 				}//End of if not comment line							
 			}
 			
-			//for debug start
-			System.out.println("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
-			List<String> difference = (List<String>) nonOverLap(searched,found);
-			printDifference(difference);
-			//for debug end
+//			//for debug start
+//			System.out.println("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
+//			List<String> difference = (List<String>) nonOverLap(searched,found);
+//			printDifference(difference);
+//			//for debug end
 			
-			
-			bufferedReader.close();
 			bufferedWriter.close();
-			
+			bufferedReader.close();
+				
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,8 +99,6 @@ public class InputDataProcess {
 			e.printStackTrace();
 		}
 				
-		//@todo remove overlaps if any exists
-	
 		
 	}
 
@@ -161,9 +159,9 @@ public class InputDataProcess {
 				}//End of if not comment line	
 			}
 			
-			bufferedReader.close();
 			bufferedWriter.close();
-			
+			bufferedReader.close();
+				
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -236,9 +234,9 @@ public class InputDataProcess {
 				
 			}
 			
-			bufferedReader.close();
 			bufferedWriter.close();
-			
+			bufferedReader.close();
+				
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -369,9 +367,9 @@ public class InputDataProcess {
 								
 			}//End of while
 			
-			bufferedReader.close();
 			bufferedWriter.close();
-			
+			bufferedReader.close();
+				
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -493,8 +491,8 @@ public class InputDataProcess {
 								
 			}
 			
-			bufferedReader.close();
 			bufferedWriter.close();
+			bufferedReader.close();
 			
 			
 		} catch (IOException e) {

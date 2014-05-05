@@ -8,6 +8,17 @@ package common;
 
 public class Commons {
 	
+	public static final String ANNOTATION = "Annotation";
+	public static final String GIVENINPUTDATA = "GivenInputData";
+
+	public static final String ENRICHMENT = "Enrichment";
+	
+	public static final String GENERATED_SEQUENCES = "GeneratedSequences";
+	
+	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
+	public static final String USING_RSAT = "UsingRSAT";
+	
+	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
 	
@@ -30,7 +41,7 @@ public class Commons {
 	public static final String GC = "GC";
 	public static final String MAPABILITY = "MAPABILITY";
 	
-	public static final String RANDOM_DATA_GENERATION_LOG_FILE = "Doktora" + System.getProperty("file.separator") + "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
+	public static final String RANDOM_DATA_GENERATION_LOG_FILE = "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
 	
 	//INPUT DATA PROCESS
 	
@@ -42,8 +53,8 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
 	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
 			
-	public static final String PROCESSED_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Processed_Input_Data.txt";
-	public static final String REMOVED_OVERLAPS_INPUT_FILE = "Doktora" + System.getProperty("file.separator") +  "processinputdata" + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
+	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Processed_Input_Data.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
 	
 	//FOR TESTING PURPOSES 
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;
@@ -56,10 +67,6 @@ public class Commons {
 	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = "RefSeqIdsforGRCh37" + System.getProperty("file.separator") + "GCF_000001405.25.assembly.txt";
 	
-	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_INPUT_FILE_NAME_TEST = System.getProperty("file.separator") +"OCD_GWAS_SNP" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_RSIDs_TEST.txt";
-	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_INPUT_FILE_NAME = System.getProperty("file.separator") +"OCD_GWAS_SNP" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt";
-	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_RSIDS_OUTPUT_FILE_NAME = System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "jaxbxjctool" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_CHRNAME_CHRPOSITION_OBSERVEDALLELES.txt";
-	public static final String  OCD_GWAS_SIGNIFICANT_SNPS_CHRNAME_AND_INTERVALS_OUTPUT_FILE_NAME = System.getProperty("file.separator")+ "Doktora" + System.getProperty("file.separator") +  "jaxbxjctool" + System.getProperty("file.separator") +"OCD_GWAS_SIGNIFICANT_SNP_CHRNAME_CHRPOSITION_RSID_OBSERVEDALLELES.txt";
 
 //dbSNP
 	public static final String NUCLEOTIDE_A = "A";
@@ -93,25 +100,24 @@ public class Commons {
 	public static final String DOKTORA_DATA_DB_SNP_DS_FLAT_FILE_FOR_CHRY 	= System.getProperty("file.separator") + "dbSNP" + System.getProperty("file.separator") + "ASN1_flat" + System.getProperty("file.separator") + "ds_flat_chY.flat";
 
 	//Augmentation of Enriched Elements with Overlaps Output Files starts
-//	public static final String ENRICH_OUTPUT_FOLDER = "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
 	
-	public static final String AUGMENTED_ENRICHED_ELEMENTS_WITH_ORIGINAL_INTERVALS_RESULTS_DIRECTORY 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
+	public static final String AUGMENTED_ENRICHED_ELEMENTS_WITH_ORIGINAL_INTERVALS_RESULTS_DIRECTORY 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
 	
-	public static final String AUGMENTED_DNASE_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedDnaseResults.txt";
-	public static final String AUGMENTED_HISTONE_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedHistoneResults.txt";
-	public static final String AUGMENTED_TF_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTranscriptionFactorResults.txt";
+	public static final String AUGMENTED_DNASE_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedDnaseResults.txt";
+	public static final String AUGMENTED_HISTONE_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedHistoneResults.txt";
+	public static final String AUGMENTED_TF_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTranscriptionFactorResults.txt";
 	
-	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";	
+	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";	
 	
-	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS 			= "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfAllBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS 			= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfAllBasedKeggPathwayResults.txt";
 
-	public static final String AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS = "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS = "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS = "Doktora" + System.getProperty("file.separator") + "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineAllBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineAllBasedKeggPathwayResults.txt";
 	
 	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
 	//Augmentation of Enriched Elements with Overlaps Output Files ends
@@ -125,11 +131,11 @@ public class Commons {
 	 public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
 	 public static final String RSAT_tmp_background_infile = "/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/1nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq.gz";
 	 
-	 public static final String RSAT_OUTPUT_FILENAME= "RSAT" + System.getProperty("file.separator") + "rsat" + System.getProperty("file.separator") + "RSAT_results.txt";
+	 public static final String RSAT_OUTPUT_FILENAME = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT  + System.getProperty("file.separator") + "RSAT_results.txt";
 	    
 	//Rserve
 //	public static final String RSERVE_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "rserve" + System.getProperty("file.separator");
-	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "sequences" + System.getProperty("file.separator");
+	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = Commons.GENERATED_SEQUENCES + System.getProperty("file.separator");
 	
 	/*************************************************************************************/
 	//TF DIRECTORY BASES
@@ -457,13 +463,13 @@ public class Commons {
 	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
 	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
 	public static final String PERMUTATION = "PERMUTATION";
-	public static final String RANDOMLY_GENERATED_DATA_FOLDER = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator")  + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator")+  "RandomlyGeneratedData" + System.getProperty("file.separator");
+	public static final String RANDOMLY_GENERATED_DATA_FOLDER = Commons.ANNOTATION + System.getProperty("file.separator")  +  "RandomlyGeneratedData" + System.getProperty("file.separator");
 	public static final String RANDOMLY_GENERATED_DATA = "RANDOMLY_GENERATED_DATA";
 		
 	//Positive Control
 	public static final String POSITIVE_CONTROL_INPUT_FILE_NAME =  "ENCODE" + System.getProperty("file.separator") + "transcription_factors" + System.getProperty("file.separator") + "spp.optimal.wgEncodeSydhTfbsK562bGata1UcdAlnRep0_VS_wgEncodeSydhTfbsK562bInputUcdAlnRep1.narrowPeak";
-	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
-	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
+	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "positive_control_K562_Gata1.txt";
+	public static final String POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "positive_control_K562_Gata1_without_overlaps.txt";
 		
 	
 	//Input Data Prepare
@@ -475,17 +481,17 @@ public class Commons {
 	
 	//OCD_GWAS_SIGNIFICANT_SNPS
 	public static final String OCD_GWAS_SIGNIFICANT_SNPS_CHRNUMBER_BASEPAIRNUMBER = "OCD_GWAS_SNP" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
-	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP =  "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_PREPARED_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_prepared_file.txt";
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_without_overlaps.txt";	
+	public static final String OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "augment" + System.getProperty("file.separator") + "ocd_gwas_snp_chrNumber_basePairNumber_augmented_with_dbSNP.txt";
 
 	
 	//HIV1 SNPS
 	public static final String HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE = "HIV1_SNP" + System.getProperty("file.separator") + "hglft_www_5c79_8ab500.bed" ;
-	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive.txt" ;
-	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive_without_overlaps.txt" ;
+	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "prepare" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive.txt" ;
+	public static final String HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE_WITHOUT_OVERLAPS = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "HIV1_SNPs_hg19_start_inclusive_end_inclusive_without_overlaps.txt" ;
 	
-	public static final String RANDOMLY_GENERATED_DATA_FILE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "RandomlyGeneratedData" + System.getProperty("file.separator") + "PERMUTATION4_RANDOMLY_GENERATED_DATA.txt";
+	public static final String RANDOMLY_GENERATED_DATA_FILE = Commons.ANNOTATION + System.getProperty("file.separator") + "RandomlyGeneratedData" + System.getProperty("file.separator") + "PERMUTATION4_RANDOMLY_GENERATED_DATA.txt";
 	
 	//Is an interval tree node an original node or a merged node?
 	public static final String ORIGINAL_NODE = "ORIGINAL_NODE";
@@ -526,21 +532,21 @@ public class Commons {
 	
 	
 	//ANNOTATE
-	public static final String ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_dnase_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_results.txt";
-	public static final String ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_histone_results.txt";
+	public static final String ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_dnase_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_results.txt";
+	public static final String ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_histone_results.txt";
 	
-	public static final String ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_exon_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_regulation_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_all_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_exon_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_regulation_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_all_based_kegg_pathway_results.txt";
 	
-	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_exon_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_regulation_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_all_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_exon_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_regulation_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_cellLine_all_based_kegg_pathway_results.txt";
 	
-	public static final String ANNOTATE_INTERVALS_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_exon_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_regulation_based_kegg_pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_all_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_exon_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_regulation_based_kegg_pathway_results.txt";
+	public static final String ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_all_based_kegg_pathway_results.txt";
 			
 	//whole genome using interval tree
 	public static final String DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "dnaseCellLine_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
@@ -558,47 +564,47 @@ public class Commons {
 	public static final String REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_SLIDING_WINDOW = "Doktora" + System.getProperty("file.separator") + "wholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_slidingwindow" + System.getProperty("file.separator") + "regulation_based_kegg_pathway_whole_genome_sliding_window_number_of_non_overlapping_base_pairs.txt";
 	
 	//empirical P values
-	public static final String DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "dnase_EmpiricalPValues";
-	public static final String TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfbs_EmpiricalPValues";
-	public static final String HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "histone_EmpiricalPValues";
-	public static final String EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "exonBasedKeggPathway_EmpiricalPValues";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "regulationBasedKeggPathway_EmpiricalPValues";
-	public static final String ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "allBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfExonBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_EmpiricalPValues";
-	public static final String TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfAllBasedKeggPathway_EmpiricalPValues";
+	public static final String DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "dnase_EmpiricalPValues";
+	public static final String TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfbs_EmpiricalPValues";
+	public static final String HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "histone_EmpiricalPValues";
+	public static final String EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "exonBasedKeggPathway_EmpiricalPValues";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "regulationBasedKeggPathway_EmpiricalPValues";
+	public static final String ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "allBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfExonBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_EmpiricalPValues";
+	public static final String TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfAllBasedKeggPathway_EmpiricalPValues";
 
 	//empirical P values using Bonferroni Correction
-	public static final String DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "dnase_BonfCorr_EmpiricalPValues";
-	public static final String TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfbs_BonfCorr_EmpiricalPValues";
-	public static final String HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "histone_BonfCorr_EmpiricalPValues";
-	public static final String EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "exonBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "regulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "allBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfExonBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
-	public static final String TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfAllBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "dnase_BonfCorr_EmpiricalPValues";
+	public static final String TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfbs_BonfCorr_EmpiricalPValues";
+	public static final String HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "histone_BonfCorr_EmpiricalPValues";
+	public static final String EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "exonBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "regulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "allBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfExonBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_BonfCorr_EmpiricalPValues";
+	public static final String TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfAllBasedKeggPathway_BonfCorr_EmpiricalPValues";
 	
 	
 	//Significant for FDR
-	public static final String DNASE_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "dnase_BH_FDR";
-	public static final String TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfbs_BH_FDR";
-	public static final String HISTONE_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "histone_BH_FDR";
-	public static final String EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "exonBasedKeggPathway_BH_FDR";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "regulationBasedKeggPathway_BH_FDR";
-	public static final String ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "allBasedKeggPathway_BH_FDR";
-	public static final String TF_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfExonBasedKeggPathway_BH_FDR";
-	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_BH_FDR";
-	public static final String TF_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfAllBasedKeggPathway_BH_FDR";
-	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_BH_FDR";
-	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_BH_FDR";
-	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_BH_FDR";
+	public static final String DNASE_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "dnase_BH_FDR";
+	public static final String TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfbs_BH_FDR";
+	public static final String HISTONE_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "histone_BH_FDR";
+	public static final String EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "exonBasedKeggPathway_BH_FDR";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "regulationBasedKeggPathway_BH_FDR";
+	public static final String ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "allBasedKeggPathway_BH_FDR";
+	public static final String TF_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfExonBasedKeggPathway_BH_FDR";
+	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfRegulationBasedKeggPathway_BH_FDR";
+	public static final String TF_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfAllBasedKeggPathway_BH_FDR";
+	public static final String TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineExonBasedKeggPathway_BH_FDR";
+	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineRegulationBasedKeggPathway_BH_FDR";
+	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_BH_FDR";
 	
 	
 	//P Value type
@@ -609,27 +615,25 @@ public class Commons {
 
 	//empirical P values 
 	//directories for annotation of permutations
-	public static final String ANNOTATE_PERMUTATIONS_FOR_DNASE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_TFBS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_HISTONE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_DNASE = Commons.ANNOTATION + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_TFBS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_HISTONE = Commons.ANNOTATION + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
 	
-	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator");
 	
-	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator");
 	
-	public static final String ANNOTATE_PERMUTATIONS_TF_EXON_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_TF_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
 
-	public static final String ANNOTATE_INTERVALS_PARAMETRIC = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
+		//Results to be Collected
 	
-	//Results to be Collected
-	
-	public static final String TO_BE_COLLECTED_DIRECTORY 	= "Doktora" + System.getProperty("file.separator") + "empiricalpvalues" + System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
+	public static final String TO_BE_COLLECTED_DIRECTORY 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
 	
 	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE = "_all_wrt_BH_FDR_adjusted_pValue.txt";
 	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE = "_all_wrt_Bonf_corrected_pValue.txt";
@@ -757,8 +761,7 @@ public class Commons {
 	
 // 	All possible names	
 	public static final String ALL_POSSIBLE_NAMES = "all_possible_names";
-	public static final String ORIGINAL = "original";
-	
+		
 	
 	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME = "all_possible_dnase_cell_lines_names.txt";
@@ -790,28 +793,28 @@ public class Commons {
 
 	//Annotate intervals using interval tree
 	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS = "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
-	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS = "Doktora" + System.getProperty("file.separator") + "processinputdata" + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt";
+	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "process" + System.getProperty("file.separator") + "TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt";
 	
 	//AnnotateGivenIntervalsWithGivenParameters.java starts
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"tfbs" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"histone" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"ncbiGeneId" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") +"ncbiRNA" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") +Commons.ORIGINAL + System.getProperty("file.separator") + "ucscGeneAlternateName" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"tfbs" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"histone" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"ncbiGeneId" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"ncbiRNA" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME = Commons.ANNOTATION + System.getProperty("file.separator") +Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "ucscGeneAlternateName" + System.getProperty("file.separator");
 	
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "keggPathway" + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator");
 	
 	
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfCellLineKeggPathway" + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator");
 	
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ORIGINAL + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
 	//AnnotateGivenIntervalsWithGivenParameters.java ends
 		
 //	Search using Linear search
@@ -823,7 +826,7 @@ public class Commons {
 	public static final String SEARCH_USING_INTERVAL_TREE_OUTPUT_FILE = "Doktora" + System.getProperty("file.separator") + "search" + System.getProperty("file.separator") + "encodeucscgenome" + System.getProperty("file.separator") + "SearchOutput_Using_IntervalTreeSearch.txt";
 	
 	
-	public static final String ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator");
+	public static final String ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator");
 	
 	public static final String SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY = "Doktora" + System.getProperty("file.separator") + "search" + System.getProperty("file.separator") + "encodeucscgenome" + System.getProperty("file.separator");
 	

@@ -47,4 +47,7 @@
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="rsat.Result"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.OtherIntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNode"/>
 </qualifiedTypeNameHistroy>
