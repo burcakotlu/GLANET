@@ -1,0 +1,30 @@
+/**
+ * @author burcakotlu
+ * @date May 5, 2014 
+ * @time 5:41:08 PM
+ */
+package intervaltree;
+
+import common.Commons;
+
+/**
+ * 
+ */
+public enum NodeType {
+	
+	ORIGINAL(Commons.ORIGINAL_NODE);
+	MERGEDNODE(Commons.MERGED_NODE);
+	
+	private final int nodeType;
+	
+	 // Constructor
+	NodeType(int nodeType) {
+        this.nodeType = nodeType;
+     }
+	
+	 public int nodeType()           { return nodeType; }
+	   
+
+}
+
+

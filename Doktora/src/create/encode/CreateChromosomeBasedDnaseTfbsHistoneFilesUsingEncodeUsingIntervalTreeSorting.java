@@ -1154,7 +1154,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-//		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		File dnaseDir1 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
 		File dnaseDir2 	= new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);		

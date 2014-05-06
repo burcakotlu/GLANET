@@ -555,26 +555,34 @@ public class IntervalTree {
 		if(y!=z){
 			//copy y's satellite data into z
 			z.setChromName(y.getChromName());
+			z.setLow(y.getLow());
+			z.setHigh(y.getHigh());
+			z.setNumberofBases(y.getNumberofBases());
+		
 			
-			if ((z instanceof TforHistoneIntervalTreeNode) && (y instanceof TforHistoneIntervalTreeNode)){
+			if ((z instanceof DnaseIntervalTreeNode) && (y instanceof DnaseIntervalTreeNode)){
+				((DnaseIntervalTreeNode)z).setCellLineName(((DnaseIntervalTreeNode)y).getCellLineName());			
+				((DnaseIntervalTreeNode)z).setFileName(((DnaseIntervalTreeNode)y).getFileName());		
+			}
+			
+			
+			else if ((z instanceof TforHistoneIntervalTreeNode) && (y instanceof TforHistoneIntervalTreeNode)){
 				((TforHistoneIntervalTreeNode)z).setTfbsorHistoneName(((TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());			
 				((TforHistoneIntervalTreeNode)z).setCellLineName(((TforHistoneIntervalTreeNode)y).getCellLineName());			
 				((TforHistoneIntervalTreeNode)z).setFileName(((TforHistoneIntervalTreeNode)y).getFileName());		
 			}
 			
 			
-			if ((z instanceof UcscRefSeqGeneIntervalTreeNode) && (y instanceof UcscRefSeqGeneIntervalTreeNode)){
+			else if ((z instanceof UcscRefSeqGeneIntervalTreeNode) && (y instanceof UcscRefSeqGeneIntervalTreeNode)){
 				((UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName(((UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
 				((UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId(((UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
 				((UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol(((UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
 				((UcscRefSeqGeneIntervalTreeNode)z).setIntervalName(((UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
-				((UcscRefSeqGeneIntervalTreeNode)z).setStrand(((UcscRefSeqGeneIntervalTreeNode)y).getStrand());
-			
+				((UcscRefSeqGeneIntervalTreeNode)z).setStrand(((UcscRefSeqGeneIntervalTreeNode)y).getStrand());		
 			}
+			
+			
 				
-			z.setLow(y.getLow());
-			z.setHigh(y.getHigh());
-			z.setNumberofBases(y.getNumberofBases());
 			
 			//Burcak commented only the data has been changed
 			//Left, Right and Parent does not change.
@@ -588,8 +596,11 @@ public class IntervalTree {
 			//set the max of node z
 			updateMaxAttribute(z);
 			
-			//set the min of node z
-			updateMinAttribute(z);
+			
+			if (z instanceof OtherIntervalTreeNode){
+				//set the min of node z
+				updateMinAttribute(z);
+			}
 			
 			
 		}

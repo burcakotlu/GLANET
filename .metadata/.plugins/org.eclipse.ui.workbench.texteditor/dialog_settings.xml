@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="NumberofBases" key="selection"/>
+		<item value="-based coordinates (End Inclusive)" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="numberofBases"/>
-			<item value="gc"/>
-			<item value="mapability"/>
-			<item value="gc,"/>
-			<item value="height"/>
-			<item value="min"/>
-			<item value="Without"/>
-			<item value="GENERATE"/>
+			<item value="-based coordinates (End Inclusive)"/>
+			<item value="sequences"/>
+			<item value="RSAT"/>
+			<item value="rsat"/>
+			<item value="GIVENINPUTDATA"/>
+			<item value="&quot;processinputdata&quot;"/>
+			<item value="processinput"/>
+			<item value="process"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Commons.GIVENINPUTDATA"/>
+			<item value="Commons.ENRICHMENT"/>
+			<item value=""/>
+			<item value="Commons.ANNOTATION + System.getProperty(&quot;file.separator&quot;)"/>
 			<item value="dataFolder"/>
 			<item value="System.getProperty(&quot;line.separator&quot;)"/>
-			<item value=""/>
 			<item value="System.getProperty(&quot;file.separator&quot;)"/>
 			<item value="Commons.ORIGINAL"/>
-			<item value="Commons.ALL_POSSIBLE_NAMES"/>
-			<item value="System.getProperty(File.separator)"/>
-			<item value="outputFolder"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="502" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="946" key="DIALOG_X_ORIGIN"/>
-		<item value="88" key="DIALOG_Y_ORIGIN"/>
+		<item value="904" key="DIALOG_X_ORIGIN"/>
+		<item value="510" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

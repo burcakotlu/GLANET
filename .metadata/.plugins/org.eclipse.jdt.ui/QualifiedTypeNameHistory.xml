@@ -27,13 +27,10 @@
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.util.OutputUtil"/>
 <fullyQualifiedTypeName name="java.lang.OutOfMemoryError"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdWithInformation"/>
-<fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenIntervalwithRsIds"/>
-<fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfInterval"/>
@@ -50,4 +47,7 @@
 <fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.OtherIntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNode"/>
+<fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
+<fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
+<fullyQualifiedTypeName name="common.Commons"/>
 </qualifiedTypeNameHistroy>

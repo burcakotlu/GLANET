@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date May 5, 2014 
+ * @time 5:41:08 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class NodeType {
+
+}

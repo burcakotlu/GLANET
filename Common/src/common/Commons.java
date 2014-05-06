@@ -18,6 +18,9 @@ public class Commons {
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
 	public static final String USING_RSAT = "UsingRSAT";
 	
+	public static final String From_ANNOTATION = "fromAnnotation";
+	
+	
 	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
@@ -763,25 +766,25 @@ public class Commons {
 	public static final String ALL_POSSIBLE_NAMES = "all_possible_names";
 		
 	
-	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME = "all_possible_dnase_cell_lines_names.txt";
 	
-	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME = "all_possible_tfbs_names.txt";
 	
-	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_histone_names.txt";
 		
-	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
 	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
 	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME = "all_possible_rna_nucleotide_accession_versions.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
+	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
 	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME = "all_possible_alternate_gene_names.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromAnnotate" + System.getProperty("file.separator") + "intervals" + System.getProperty("file.separator") + "parametric" + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
 	
 //	Kegg Pathway to Ncbi Ref Seq Gene Ids
