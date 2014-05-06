@@ -38,7 +38,7 @@ public class DnaseIntervalTreeNode extends IntervalTreeNode {
 
 	
 	//For Encode dnase
-	public DnaseIntervalTreeNode(String chromName,int low, int high,String cellLineName, String fileName,String nodeType) {
+	public DnaseIntervalTreeNode(ChromosomeName chromName,int low, int high,String cellLineName, String fileName,NodeType nodeType) {
 		super(chromName,low,high,nodeType);
 		
 		this.cellLineName = cellLineName;

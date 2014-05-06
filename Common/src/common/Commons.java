@@ -10,22 +10,16 @@ public class Commons {
 	
 	public static final String ANNOTATION = "Annotation";
 	public static final String GIVENINPUTDATA = "GivenInputData";
-
-	public static final String ENRICHMENT = "Enrichment";
-	
-	public static final String GENERATED_SEQUENCES = "GeneratedSequences";
-	
+	public static final String ENRICHMENT = "Enrichment";	
+	public static final String GENERATED_SEQUENCES = "GeneratedSequences";	
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
-	public static final String USING_RSAT = "UsingRSAT";
-	
+	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String From_ANNOTATION = "fromAnnotation";
 	
-	
-	
+		
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
-	
-		
+			
 	public static final String RSERVE =  System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Rserve" + System.getProperty("file.separator");
 	
 	public static final Integer ORIGINAL_DATA_PERMUTATION_NUMBER = new Integer(0);
@@ -46,8 +40,7 @@ public class Commons {
 	
 	public static final String RANDOM_DATA_GENERATION_LOG_FILE = "generate" + System.getProperty("file.separator") + "randomdata" + System.getProperty("file.separator") + "GenerateRandomDataLog.txt";
 	
-	//INPUT DATA PROCESS
-	
+	//INPUT DATA PROCESS	
 	public static final String TEST_INPUT_DATA_DBSNP_IDS = "TEST_INPUT_DATA" + System.getProperty("file.separator") + "Test_dbSNP_ids.txt";
 	
 	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "dbSNP IDs";

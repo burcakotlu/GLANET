@@ -28,10 +28,10 @@ public class TforHistoneIntervalTreeNode extends DnaseIntervalTreeNode{
 
 	
 	//For Encode tfbs and histone
-	public TforHistoneIntervalTreeNode(String chromName,int low, int high,  String tfbsorHistoneName,
-			String cellLineName, String fileName,String nodeType) {
-			super(chromName,low,high,cellLineName,fileName,nodeType);
-			this.tfbsorHistoneName= tfbsorHistoneName;
+	public TforHistoneIntervalTreeNode(ChromosomeName chromName,int low, int high,  String tfbsorHistoneName,String cellLineName, String fileName,NodeType nodeType) {
+		
+		super(chromName,low,high,cellLineName,fileName,nodeType);
+		this.tfbsorHistoneName= tfbsorHistoneName;
 			
 			
 	}

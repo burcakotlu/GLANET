@@ -8,8 +8,10 @@
  */
 package processinputdata;
 
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.NodeType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
  
@@ -131,7 +132,7 @@ public class RemoveOverlaps {
 				
 				
 				intervalTree = chromosome2IntervalTree.get(chromosomeName);
-				intervalTreeNode = new IntervalTreeNode(chromosomeName,low, high);
+				intervalTreeNode = new IntervalTreeNode(ChromosomeName.convert(chromosomeName),low, high);
 				
 				//create chromosome based interval tree
 				if(intervalTree == null){
@@ -148,7 +149,7 @@ public class RemoveOverlaps {
 					//there is overlap
 					if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 							
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),Commons.MERGED_NODE);
+						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),NodeType.MERGED);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted =null;	
 						//you may try to delete a node which is already spliced out by former deletions

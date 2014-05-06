@@ -1,0 +1,20 @@
+/**
+ * @author burcakotlu
+ * @date May 6, 2014 
+ * @time 1:25:43 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class MapabilityIntervalTreeNode extends IntervalTreeNode{
+	
+	//CalculateMapability
+	public MapabilityIntervalTreeNode(ChromosomeName chromName, int low, int high, float mapability){
+		super(chromName, low, high);
+	
+		this.mapability = mapability;		
+	}
+
+}

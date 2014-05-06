@@ -1,0 +1,54 @@
+/**
+ * @author burcakotlu
+ * @date May 6, 2014 
+ * @time 11:02:13 AM
+ */
+package intervaltree;
+
+import common.Commons;
+
+/**
+ * 
+ */
+public enum NodeName {
+	
+	SENTINEL(1),
+	NOT_SENTINEL(2);
+
+	private final int nodeName;
+	
+	 // Constructor
+	private NodeName(int nodeName){
+       this.nodeName = nodeName;
+    }
+	
+	 public int nodeName(){ 
+		 return nodeName; 
+	}
+	 
+	 @Override public String toString(){
+	      /*
+	      * Either name() or super.toString() may be called here.
+	      * name() is final, and always returns the exact name as specified in
+	      * declaration; toString() is not final, and is intended for presentation
+	      * to the user. It seems best to call name() here.
+	      */
+		 
+		 if (this.isSentinel())
+			 return "Node Name: " + Commons.SENTINEL;
+		 else 
+			 return "Node Name: " + Commons.NOT_SENTINEL;
+	 }
+	 
+   /** An added method.  */
+   public boolean isSentinel() {
+     //only ORIGINAL is 'original'
+     return  this == SENTINEL;
+   }
+   
+   /** An added method.  */
+   public boolean isNotSentinel() {
+     //only MERGED is 'merged'
+     return  this == NOT_SENTINEL;
+   }
+}
