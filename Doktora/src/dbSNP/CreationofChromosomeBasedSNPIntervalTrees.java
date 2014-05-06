@@ -269,7 +269,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 							//Convert 1-based coordinate to 0-based coordinate
 							chrPositionZeroBased= chrPositionOneBased-1;
 							
-							IntervalTreeNode node = new OtherIntervalTreeNode(rsId, ChromosomeName.convert(chrNumber), chrPositionZeroBased, observedVariationAlleles);
+							IntervalTreeNode node = new OtherIntervalTreeNode(rsId, ChromosomeName.convertStringtoEnum(chrNumber), chrPositionZeroBased, observedVariationAlleles);
 							dbSNPIntervalTree.intervalTreeInsert(dbSNPIntervalTree,node);
 							
 						}

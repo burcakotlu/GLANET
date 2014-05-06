@@ -429,7 +429,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//we insert any given interval without overlap check
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
+				IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 			
 				chromName = null;
@@ -491,7 +491,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if dnase exists in dnaseList 
 				if (dnaseCellLineNameList.contains(cellLineName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
+					IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 					dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 				} //End of If	
 				
@@ -552,7 +552,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				
 				chromName = null;
@@ -616,7 +616,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if tfbs exists in tfbsList 
 				if (tfbsNameList.contains(tfbsName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 					tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				}
 				
@@ -679,7 +679,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				
 				chromName = null;
@@ -742,7 +742,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				if (histoneNameList.contains(histoneName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 					histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				}
 				
@@ -810,7 +810,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
 				tree.intervalTreeInsert(tree, node);
 				
 				chromName = null;

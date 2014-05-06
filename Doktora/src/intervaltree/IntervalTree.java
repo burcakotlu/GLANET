@@ -744,19 +744,19 @@ public class IntervalTree {
 				
 				if (Commons.DNASE.equals(type)){
 					castedNodeDnase = (DnaseIntervalTreeNode) node;
-					bufferedWriter.write(castedNodeDnase.getChromName()+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
+					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeDnase.getChromName())+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
 				}else if (Commons.TFBS.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;					
-					bufferedWriter.write(castedNodeTforHistone.getChromName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
+					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeTforHistone.getChromName())+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if (Commons.HISTONE.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;										
 					bufferedWriter.write(castedNodeTforHistone.getChromName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if(Commons.UCSC_GENE.equals(type)){
 					castedNodeUcscRefSeqGene = (UcscRefSeqGeneIntervalTreeNode) node;
-					bufferedWriter.write(castedNodeUcscRefSeqGene.getChromName()+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName()+ "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
+					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeUcscRefSeqGene.getChromName())+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName()+ "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
 //					bufferedWriter.write(refSeqGeneIntervalList.get(j).getChromName()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalStart()+"\t"+ refSeqGeneIntervalList.get(j).getIntervalEnd()+"\t" +refSeqGeneIntervalList.get(j).getRefSeqGeneName()+ "\t" + refSeqGeneIntervalList.get(j).getGeneId()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalName()+ "\t" + refSeqGeneIntervalList.get(j).getStrand() + "\t" + refSeqGeneIntervalList.get(j).getAlternateGeneName()+ System.getProperty("line.separator"));					
 				}else if (Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS.equals(type)){
-					bufferedWriter.write(node.getChromName()+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
+					bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
 
 				}
 				bufferedWriter.flush();

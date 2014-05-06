@@ -629,7 +629,7 @@ public class Commons {
 
 		//Results to be Collected
 	
-	public static final String TO_BE_COLLECTED_DIRECTORY 	= "empiricalpvalues" + System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
+	public static final String TO_BE_COLLECTED_DIRECTORY 	=  Commons.ENRICHMENT+ System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
 	
 	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE = "_all_wrt_BH_FDR_adjusted_pValue.txt";
 	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE = "_all_wrt_Bonf_corrected_pValue.txt";
@@ -651,31 +651,31 @@ public class Commons {
 	public static final String TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = TO_BE_COLLECTED_DIRECTORY + "TfCellLineKeggPathway" + System.getProperty("file.separator") + "TfCellLineAllBasedKeggPathway";
 	
 	
-	//binomial distribution
-	public static final String DNASE_CELLLINE_NAMES_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "dnase_pvalues.txt";
-	public static final String DNASE_CELLLINE_NAMES_ADJUSTED_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "dnase_adjusted_pvalues.txt";
-	public static final String DNASE_CELLLINE_NAMES_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "dnase_all_values.txt";
-	public static final String DNASE_CELLLINE_NAMES_ADJUSTED_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "dnase_adjusted_all_values.txt";
+	//Binomial Distribution
+	public static final String DNASE_CELLLINE_NAMES_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "dnase_pvalues.txt";
+	public static final String DNASE_CELLLINE_NAMES_ADJUSTED_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "dnase_adjusted_pvalues.txt";
+	public static final String DNASE_CELLLINE_NAMES_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "dnase_all_values.txt";
+	public static final String DNASE_CELLLINE_NAMES_ADJUSTED_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "dnase_adjusted_all_values.txt";
 	
-	public static final String TFBS_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "tfbs_pvalues.txt";
-	public static final String TFBS_ADJUSTED_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "tfbs_adjusted_pvalues.txt";
-	public static final String TFBS_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "tfbs_all_values.txt";
-	public static final String TFBS_ADJUSTED_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "tfbs_adjusted_all_values.txt";
+	public static final String TFBS_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "tfbs_pvalues.txt";
+	public static final String TFBS_ADJUSTED_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "tfbs_adjusted_pvalues.txt";
+	public static final String TFBS_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "tfbs_all_values.txt";
+	public static final String TFBS_ADJUSTED_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "tfbs_adjusted_all_values.txt";
 	
-	public static final String HISTONE_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "histone_pvalues.txt";
-	public static final String HISTONE_ADJUSTED_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "histone_adjusted_pvalues.txt";
-	public static final String HISTONE_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "histone_all_values.txt";
-	public static final String HISTONE_ADJUSTED_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "histone_adjusted_all_values.txt";
+	public static final String HISTONE_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "histone_pvalues.txt";
+	public static final String HISTONE_ADJUSTED_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "histone_adjusted_pvalues.txt";
+	public static final String HISTONE_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "histone_all_values.txt";
+	public static final String HISTONE_ADJUSTED_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "histone_adjusted_all_values.txt";
 	
-	public static final String EXON_BASED_KEGG_PATHWAY_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_pvalues.txt";
-	public static final String EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_adjusted_pvalues.txt";
-	public static final String EXON_BASED_KEGG_PATHWAY_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_all_values.txt";
-	public static final String EXON_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_adjusted_all_values.txt";
+	public static final String EXON_BASED_KEGG_PATHWAY_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_pvalues.txt";
+	public static final String EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_adjusted_pvalues.txt";
+	public static final String EXON_BASED_KEGG_PATHWAY_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_all_values.txt";
+	public static final String EXON_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "exonBased_KeggPathway_adjusted_all_values.txt";
 	
-	public static final String REGULATION_BASED_KEGG_PATHWAY_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_pvalues.txt";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_adjusted_pvalues.txt";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_all_values.txt";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES = "Doktora" + System.getProperty("file.separator") + "binomialdistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_adjusted_all_values.txt";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_pvalues.txt";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_adjusted_pvalues.txt";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_all_values.txt";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES =  "BinomialDistribution" + System.getProperty("file.separator") + "regulationBased_KeggPathway_adjusted_all_values.txt";
 	
 	public static final String CALCULATE_USING_BINOMIAL_DISTRIBUTION = "CALCULATE_USING_BINOMIAL_DISTRIBUTION";
 	public static final String CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION = "CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION";

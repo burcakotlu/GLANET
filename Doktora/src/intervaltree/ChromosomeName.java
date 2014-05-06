@@ -14,30 +14,30 @@ public enum ChromosomeName {
 	
 	
 	
-	CHR0MOSOME1(1),
-	CHR0MOSOME2(2),
-	CHR0MOSOME3(3),
-	CHR0MOSOME4(4),
-	CHR0MOSOME5(5),
-	CHR0MOSOME6(6),
-	CHR0MOSOME7(7),
-	CHR0MOSOME8(8),
-	CHR0MOSOME9(9),
-	CHR0MOSOME10(10),
-	CHR0MOSOME11(11),
-	CHR0MOSOME12(12),
-	CHR0MOSOME13(13),
-	CHR0MOSOME14(14),
-	CHR0MOSOME15(15),
-	CHR0MOSOME16(16),
-	CHR0MOSOME17(17),
-	CHR0MOSOME18(18),
-	CHR0MOSOME19(19),
-	CHR0MOSOME20(20),
-	CHR0MOSOME21(21),
-	CHR0MOSOME22(22),
-	CHR0MOSOMEX(23),
-	CHR0MOSOMEY(24);
+	CHROMOSOME1(1),
+	CHROMOSOME2(2),
+	CHROMOSOME3(3),
+	CHROMOSOME4(4),
+	CHROMOSOME5(5),
+	CHROMOSOME6(6),
+	CHROMOSOME7(7),
+	CHROMOSOME8(8),
+	CHROMOSOME9(9),
+	CHROMOSOME10(10),
+	CHROMOSOME11(11),
+	CHROMOSOME12(12),
+	CHROMOSOME13(13),
+	CHROMOSOME14(14),
+	CHROMOSOME15(15),
+	CHROMOSOME16(16),
+	CHROMOSOME17(17),
+	CHROMOSOME18(18),
+	CHROMOSOME19(19),
+	CHROMOSOME20(20),
+	CHROMOSOME21(21),
+	CHROMOSOME22(22),
+	CHROMOSOMEX(23),
+	CHROMOSOMEY(24);
 
 	
 	 private final int chromosomeName;
@@ -54,59 +54,113 @@ public enum ChromosomeName {
 	}
 	   
     
-    public static ChromosomeName convert(String chrName){
+    public static ChromosomeName convertStringtoEnum(String chrName){
     	
     	if (Commons.CHROMOSOME1.equals(chrName)){
-    		return CHR0MOSOME1;
+    		return CHROMOSOME1;
     	}else if  (Commons.CHROMOSOME2.equals(chrName)){
-    		return CHR0MOSOME2;
+    		return CHROMOSOME2;
     	}else if  (Commons.CHROMOSOME3.equals(chrName)){
-    		return CHR0MOSOME3;
+    		return CHROMOSOME3;
     	}else if  (Commons.CHROMOSOME4.equals(chrName)){
-    		return CHR0MOSOME4;
+    		return CHROMOSOME4;
     	}else if  (Commons.CHROMOSOME5.equals(chrName)){
-    		return CHR0MOSOME5;
+    		return CHROMOSOME5;
     	}else if  (Commons.CHROMOSOME6.equals(chrName)){
-    		return CHR0MOSOME6;
+    		return CHROMOSOME6;
     	}else if  (Commons.CHROMOSOME7.equals(chrName)){
-    		return CHR0MOSOME7;
+    		return CHROMOSOME7;
     	}else if  (Commons.CHROMOSOME8.equals(chrName)){
-    		return CHR0MOSOME8;
+    		return CHROMOSOME8;
     	}else if  (Commons.CHROMOSOME9.equals(chrName)){
-    		return CHR0MOSOME9;
+    		return CHROMOSOME9;
     	}else if  (Commons.CHROMOSOME10.equals(chrName)){
-    		return CHR0MOSOME10;
+    		return CHROMOSOME10;
     	}else if  (Commons.CHROMOSOME11.equals(chrName)){
-    		return CHR0MOSOME11;
+    		return CHROMOSOME11;
     	}else if  (Commons.CHROMOSOME12.equals(chrName)){
-    		return CHR0MOSOME12;
+    		return CHROMOSOME12;
     	}else if  (Commons.CHROMOSOME13.equals(chrName)){
-    		return CHR0MOSOME13;
+    		return CHROMOSOME13;
     	}else if  (Commons.CHROMOSOME14.equals(chrName)){
-    		return CHR0MOSOME14;
+    		return CHROMOSOME14;
     	}else if  (Commons.CHROMOSOME15.equals(chrName)){
-    		return CHR0MOSOME15;
+    		return CHROMOSOME15;
     	}else if  (Commons.CHROMOSOME16.equals(chrName)){
-    		return CHR0MOSOME16;
+    		return CHROMOSOME16;
     	}else if  (Commons.CHROMOSOME17.equals(chrName)){
-    		return CHR0MOSOME17;
+    		return CHROMOSOME17;
     	}else if  (Commons.CHROMOSOME18.equals(chrName)){
-    		return CHR0MOSOME18;
+    		return CHROMOSOME18;
     	}else if  (Commons.CHROMOSOME19.equals(chrName)){
-    		return CHR0MOSOME19;
+    		return CHROMOSOME19;
     	}else if  (Commons.CHROMOSOME20.equals(chrName)){
-    		return CHR0MOSOME20;
+    		return CHROMOSOME20;
     	}else if  (Commons.CHROMOSOME21.equals(chrName)){
-    		return CHR0MOSOME21;
+    		return CHROMOSOME21;
     	}else if  (Commons.CHROMOSOME22.equals(chrName)){
-    		return CHR0MOSOME22;
+    		return CHROMOSOME22;
     	}else if  (Commons.CHROMOSOMEX.equals(chrName)){
-    		return CHR0MOSOMEX;
+    		return CHROMOSOMEX;
     	}else if  (Commons.CHROMOSOMEY.equals(chrName)){
-    		return CHR0MOSOMEY;
+    		return CHROMOSOMEY;
     	}else
     		return null;
     }
 	
 
+    
+public static String convertEnumtoString(ChromosomeName  chrName){
+    	
+    	if (ChromosomeName.CHROMOSOME1.equals(chrName)){
+    		return Commons.CHROMOSOME1;
+    	}else if  (ChromosomeName.CHROMOSOME2.equals(chrName)){
+    		return Commons.CHROMOSOME2;
+    	}else if  (ChromosomeName.CHROMOSOME3.equals(chrName)){
+    		return Commons.CHROMOSOME3;
+    	}else if  (ChromosomeName.CHROMOSOME4.equals(chrName)){
+    		return Commons.CHROMOSOME4;
+    	}else if  (ChromosomeName.CHROMOSOME5.equals(chrName)){
+    		return Commons.CHROMOSOME5;
+    	}else if  (ChromosomeName.CHROMOSOME6.equals(chrName)){
+    		return Commons.CHROMOSOME6;
+    	}else if  (ChromosomeName.CHROMOSOME7.equals(chrName)){
+    		return Commons.CHROMOSOME7;
+    	}else if  (ChromosomeName.CHROMOSOME8.equals(chrName)){
+    		return Commons.CHROMOSOME8;
+    	}else if  (ChromosomeName.CHROMOSOME9.equals(chrName)){
+    		return Commons.CHROMOSOME9;
+    	}else if  (ChromosomeName.CHROMOSOME10.equals(chrName)){
+    		return Commons.CHROMOSOME10;
+    	}else if  (ChromosomeName.CHROMOSOME11.equals(chrName)){
+    		return Commons.CHROMOSOME11;
+    	}else if  (ChromosomeName.CHROMOSOME12.equals(chrName)){
+    		return Commons.CHROMOSOME12;
+    	}else if  (ChromosomeName.CHROMOSOME13.equals(chrName)){
+    		return Commons.CHROMOSOME13;
+    	}else if  (ChromosomeName.CHROMOSOME14.equals(chrName)){
+    		return Commons.CHROMOSOME14;
+    	}else if  (ChromosomeName.CHROMOSOME15.equals(chrName)){
+    		return Commons.CHROMOSOME15;
+    	}else if  (ChromosomeName.CHROMOSOME16.equals(chrName)){
+    		return Commons.CHROMOSOME16;
+    	}else if  (ChromosomeName.CHROMOSOME17.equals(chrName)){
+    		return Commons.CHROMOSOME17;
+    	}else if  (ChromosomeName.CHROMOSOME18.equals(chrName)){
+    		return Commons.CHROMOSOME18;
+    	}else if  (ChromosomeName.CHROMOSOME19.equals(chrName)){
+    		return Commons.CHROMOSOME19;
+    	}else if  (ChromosomeName.CHROMOSOME20.equals(chrName)){
+    		return Commons.CHROMOSOME20;
+    	}else if  (ChromosomeName.CHROMOSOME21.equals(chrName)){
+    		return Commons.CHROMOSOME21;
+    	}else if  (ChromosomeName.CHROMOSOME22.equals(chrName)){
+    		return Commons.CHROMOSOME22;
+    	}else if  (ChromosomeName.CHROMOSOMEX.equals(chrName)){
+    		return Commons.CHROMOSOMEX;
+    	}else if  (ChromosomeName.CHROMOSOMEY.equals(chrName)){
+    		return Commons.CHROMOSOMEY;
+    	}else
+    		return null;
+    }
 }

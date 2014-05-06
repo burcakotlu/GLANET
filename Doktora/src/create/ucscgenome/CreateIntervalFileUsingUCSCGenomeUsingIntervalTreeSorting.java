@@ -559,7 +559,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 					refSeqGeneInterval.setStrand(strLine.substring(indexofSixthTab+1, indexofSeventhTab).charAt(0));
 					refSeqGeneInterval.setAlternateGeneName(strLine.substring(indexofSeventhTab+1));
 					
-					IntervalTreeNode  node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(refSeqGeneInterval.getChromName()), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),NodeType.ORIGINAL);
+					IntervalTreeNode  node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(refSeqGeneInterval.getChromName()), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),NodeType.ORIGINAL);
 					refSeqGeneIntervalTree.intervalTreeInsert(refSeqGeneIntervalTree, node);
 				}
 			} catch (IOException e) {

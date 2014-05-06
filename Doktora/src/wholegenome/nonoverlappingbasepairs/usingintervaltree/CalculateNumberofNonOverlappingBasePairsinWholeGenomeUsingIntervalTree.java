@@ -133,7 +133,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name
@@ -385,7 +385,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				fileName = strLine.substring(indexofFourthTab+1);								
 				
 				//create intervalTreeNode
-				DnaseIntervalTreeNode intervalTreeNode = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),low,high,cellLineName,fileName,NodeType.ORIGINAL);
+				DnaseIntervalTreeNode intervalTreeNode = new DnaseIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,cellLineName,fileName,NodeType.ORIGINAL);
 		
 				//Get the interval tree for this dnase Cell Line Name							
 				//For first insert of each dnase cell line name and chromosome number
@@ -541,7 +541,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				tfbsNameandCellLineName = tfbsName + "_" +cellLineName;
 											
 				//create intervalTreeNode
-				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),low,high,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
+				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 		
 				//Get the interval tree for this tfbs Nameand cell line name						
 				//For first insert of each tfbsNameandCellLineName and chromosome number
@@ -694,7 +694,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				histoneNameandCellLineName = histoneName + "_" +cellLineName;
 															
 				//create intervalTreeNode
-				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),low,high,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
+				TforHistoneIntervalTreeNode intervalTreeNode = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 		
 				//Get the interval tree for this histoneNameandCellLineName							
 				//For first insert of each histoneNameandCellLineName and chromosome number
@@ -858,7 +858,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name

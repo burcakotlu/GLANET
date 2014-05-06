@@ -306,7 +306,7 @@ public class Mapability {
 				
 				
 				//High-1 is done here
-				IntervalTreeNode node = new MapabilityIntervalTreeNode(ChromosomeName.convert(chromName), low, high-1, mapability);
+				IntervalTreeNode node = new MapabilityIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName), low, high-1, mapability);
 				
 				//Assumption there will be no overlaps
 				chromBasedMapabilityIntervalTree.intervalTreeInsert(chromBasedMapabilityIntervalTree, node);

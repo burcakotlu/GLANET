@@ -1,0 +1,166 @@
+/**
+ * @author burcakotlu
+ * @date May 6, 2014 
+ * @time 11:21:39 AM
+ */
+package intervaltree;
+
+import common.Commons;
+
+/**
+ * 
+ */
+public enum ChromosomeName {
+	
+	
+	
+	CHROMOSOME1(1),
+	CHROMOSOME2(2),
+	CHROMOSOME3(3),
+	CHROMOSOME4(4),
+	CHROMOSOME5(5),
+	CHROMOSOME6(6),
+	CHROMOSOME7(7),
+	CHROMOSOME8(8),
+	CHROMOSOME9(9),
+	CHROMOSOME10(10),
+	CHROMOSOME11(11),
+	CHROMOSOME12(12),
+	CHROMOSOME13(13),
+	CHROMOSOME14(14),
+	CHROMOSOME15(15),
+	CHROMOSOME16(16),
+	CHROMOSOME17(17),
+	CHROMOSOME18(18),
+	CHROMOSOME19(19),
+	CHROMOSOME20(20),
+	CHROMOSOME21(21),
+	CHROMOSOME22(22),
+	CHROMOSOMEX(23),
+	CHROMOSOMEY(24);
+
+	
+	 private final int chromosomeName;
+	 
+	/* 
+    * This constructor is private.
+    * Legal to declare a non-private constructor, but not legal
+    * to use such a constructor outside the enum.
+    * Can never use "new" with any enum, even inside the enum 
+    * class itself.
+    */
+    private ChromosomeName(int chromosomeName) {
+    	this.chromosomeName = chromosomeName;
+	}
+	   
+    
+    public static ChromosomeName convertStringtoEnum(String chrName){
+    	
+    	if (Commons.CHROMOSOME1.equals(chrName)){
+    		return CHROMOSOME1;
+    	}else if  (Commons.CHROMOSOME2.equals(chrName)){
+    		return CHROMOSOME2;
+    	}else if  (Commons.CHROMOSOME3.equals(chrName)){
+    		return CHROMOSOME3;
+    	}else if  (Commons.CHROMOSOME4.equals(chrName)){
+    		return CHROMOSOME4;
+    	}else if  (Commons.CHROMOSOME5.equals(chrName)){
+    		return CHROMOSOME5;
+    	}else if  (Commons.CHROMOSOME6.equals(chrName)){
+    		return CHROMOSOME6;
+    	}else if  (Commons.CHROMOSOME7.equals(chrName)){
+    		return CHROMOSOME7;
+    	}else if  (Commons.CHROMOSOME8.equals(chrName)){
+    		return CHROMOSOME8;
+    	}else if  (Commons.CHROMOSOME9.equals(chrName)){
+    		return CHROMOSOME9;
+    	}else if  (Commons.CHROMOSOME10.equals(chrName)){
+    		return CHROMOSOME10;
+    	}else if  (Commons.CHROMOSOME11.equals(chrName)){
+    		return CHROMOSOME11;
+    	}else if  (Commons.CHROMOSOME12.equals(chrName)){
+    		return CHROMOSOME12;
+    	}else if  (Commons.CHROMOSOME13.equals(chrName)){
+    		return CHROMOSOME13;
+    	}else if  (Commons.CHROMOSOME14.equals(chrName)){
+    		return CHROMOSOME14;
+    	}else if  (Commons.CHROMOSOME15.equals(chrName)){
+    		return CHROMOSOME15;
+    	}else if  (Commons.CHROMOSOME16.equals(chrName)){
+    		return CHROMOSOME16;
+    	}else if  (Commons.CHROMOSOME17.equals(chrName)){
+    		return CHROMOSOME17;
+    	}else if  (Commons.CHROMOSOME18.equals(chrName)){
+    		return CHROMOSOME18;
+    	}else if  (Commons.CHROMOSOME19.equals(chrName)){
+    		return CHROMOSOME19;
+    	}else if  (Commons.CHROMOSOME20.equals(chrName)){
+    		return CHROMOSOME20;
+    	}else if  (Commons.CHROMOSOME21.equals(chrName)){
+    		return CHROMOSOME21;
+    	}else if  (Commons.CHROMOSOME22.equals(chrName)){
+    		return CHROMOSOME22;
+    	}else if  (Commons.CHROMOSOMEX.equals(chrName)){
+    		return CHROMOSOMEX;
+    	}else if  (Commons.CHROMOSOMEY.equals(chrName)){
+    		return CHROMOSOMEY;
+    	}else
+    		return null;
+    }
+	
+
+    
+public static String convertStringtoEnum(ChromosomeName  chrName){
+    	
+    	if (ChromosomeName.CHR0MOSOME1.equals(chrName)){
+    		return Commons.CHROMOSOME1;
+    	}else if  (Commons.CHROMOSOME2.equals(chrName)){
+    		return CHR0MOSOME2;
+    	}else if  (Commons.CHROMOSOME3.equals(chrName)){
+    		return CHR0MOSOME3;
+    	}else if  (Commons.CHROMOSOME4.equals(chrName)){
+    		return CHR0MOSOME4;
+    	}else if  (Commons.CHROMOSOME5.equals(chrName)){
+    		return CHR0MOSOME5;
+    	}else if  (Commons.CHROMOSOME6.equals(chrName)){
+    		return CHR0MOSOME6;
+    	}else if  (Commons.CHROMOSOME7.equals(chrName)){
+    		return CHR0MOSOME7;
+    	}else if  (Commons.CHROMOSOME8.equals(chrName)){
+    		return CHR0MOSOME8;
+    	}else if  (Commons.CHROMOSOME9.equals(chrName)){
+    		return CHR0MOSOME9;
+    	}else if  (Commons.CHROMOSOME10.equals(chrName)){
+    		return CHR0MOSOME10;
+    	}else if  (Commons.CHROMOSOME11.equals(chrName)){
+    		return CHR0MOSOME11;
+    	}else if  (Commons.CHROMOSOME12.equals(chrName)){
+    		return CHR0MOSOME12;
+    	}else if  (Commons.CHROMOSOME13.equals(chrName)){
+    		return CHR0MOSOME13;
+    	}else if  (Commons.CHROMOSOME14.equals(chrName)){
+    		return CHR0MOSOME14;
+    	}else if  (Commons.CHROMOSOME15.equals(chrName)){
+    		return CHR0MOSOME15;
+    	}else if  (Commons.CHROMOSOME16.equals(chrName)){
+    		return CHR0MOSOME16;
+    	}else if  (Commons.CHROMOSOME17.equals(chrName)){
+    		return CHR0MOSOME17;
+    	}else if  (Commons.CHROMOSOME18.equals(chrName)){
+    		return CHR0MOSOME18;
+    	}else if  (Commons.CHROMOSOME19.equals(chrName)){
+    		return CHR0MOSOME19;
+    	}else if  (Commons.CHROMOSOME20.equals(chrName)){
+    		return CHR0MOSOME20;
+    	}else if  (Commons.CHROMOSOME21.equals(chrName)){
+    		return CHR0MOSOME21;
+    	}else if  (Commons.CHROMOSOME22.equals(chrName)){
+    		return CHR0MOSOME22;
+    	}else if  (Commons.CHROMOSOMEX.equals(chrName)){
+    		return CHR0MOSOMEX;
+    	}else if  (Commons.CHROMOSOMEY.equals(chrName)){
+    		return CHR0MOSOMEY;
+    	}else
+    		return null;
+    }
+}

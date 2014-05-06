@@ -132,7 +132,7 @@ public class RemoveOverlaps {
 				
 				
 				intervalTree = chromosome2IntervalTree.get(chromosomeName);
-				intervalTreeNode = new IntervalTreeNode(ChromosomeName.convert(chromosomeName),low, high);
+				intervalTreeNode = new IntervalTreeNode(ChromosomeName.convertStringtoEnum(chromosomeName),low, high);
 				
 				//create chromosome based interval tree
 				if(intervalTree == null){

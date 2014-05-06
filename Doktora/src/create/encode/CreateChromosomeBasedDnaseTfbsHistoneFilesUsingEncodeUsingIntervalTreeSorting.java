@@ -906,7 +906,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 						histone.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 						histone.setFileName(strLine.substring(indexofFifthTab+1));
 						
-						IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(histone.getChromName()), histone.getStartPos(), histone.getEndPos(), histone.getHistoneName(), histone.getCellLineName(), histone.getFileName(),NodeType.ORIGINAL);
+						IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(histone.getChromName()), histone.getStartPos(), histone.getEndPos(), histone.getHistoneName(), histone.getCellLineName(), histone.getFileName(),NodeType.ORIGINAL);
 						
 						histoneIntervalTree.intervalTreeInsert(histoneIntervalTree,node);
 					}//End of while
@@ -980,7 +980,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							dnase.setCellLineName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 							dnase.setFileName(strLine.substring(indexofFourthTab+1));
 
-							IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(dnase.getChromName()),dnase.getStartPos(), dnase.getEndPos(),dnase.getCellLineName(), dnase.getFileName(),NodeType.ORIGINAL);							
+							IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convertStringtoEnum(dnase.getChromName()),dnase.getStartPos(), dnase.getEndPos(),dnase.getCellLineName(), dnase.getFileName(),NodeType.ORIGINAL);							
 							
 							dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree,node);
 						}
@@ -1064,7 +1064,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							tfbs.setCellLineName(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 							tfbs.setFileName(strLine.substring(indexofFifthTab+1));
 							
-							IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(tfbs.getChromName()), tfbs.getStartPos(), tfbs.getEndPos(), tfbs.getTranscriptionFactorName(), tfbs.getCellLineName(), tfbs.getFileName(),NodeType.ORIGINAL);
+							IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convertStringtoEnum(tfbs.getChromName()), tfbs.getStartPos(), tfbs.getEndPos(), tfbs.getTranscriptionFactorName(), tfbs.getCellLineName(), tfbs.getFileName(),NodeType.ORIGINAL);
 							tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);
 						}
 					} catch (IOException e) {

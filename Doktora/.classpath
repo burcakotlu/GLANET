@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="lib/RSATWS.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.12.jar"/>
 	<classpathentry kind="lib" path="lib/commons-math3-3.2/commons-math3-3.2.jar"/>
-	<classpathentry kind="lib" path="/GLANET/Doktora/lib/trove-3/3.0.3/trove-3.0.3-src.jar"/>
+	<classpathentry kind="lib" path="lib/trove-3/3.0.3/trove-3.0.3-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
