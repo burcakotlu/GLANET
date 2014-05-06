@@ -137,6 +137,21 @@ public class MainView extends JPanel{
 	      }
 	};
 	
+	ItemListener adjustTfEnrichmentCheckboxes = new ItemListener() {
+	      public void itemStateChanged(ItemEvent itemEvent) {
+	    	  
+	    	  if( ((JCheckBox)itemEvent.getSource()).getName().equalsIgnoreCase("tfAndKeggPathwayEnrichment")){
+	    		  
+	    		  if( tfAndKeggPathwayEnrichment.isSelected())
+	    			  cellLineBasedTfAndKeggPathwayEnrichment.setSelected( false);
+	    	  } else if (((JCheckBox)itemEvent.getSource()).getName().equalsIgnoreCase("cellLineBasedTfAndKeggPathwayEnrichment")){
+	    		  
+	    		  if( cellLineBasedTfAndKeggPathwayEnrichment.isSelected())
+	    			  tfAndKeggPathwayEnrichment.setSelected( false);
+	    	  }
+	      }
+	};
+	
 	public MainView() {
 		
 		//code flow goes respectively with the ui design (top to bottom)
@@ -251,12 +266,16 @@ public class MainView extends JPanel{
         
         //tfAndKeggPathwayEnrichment added to enrichmentOptions
         tfAndKeggPathwayEnrichment = new JCheckBox( "Tf And KEGG Pathway Enrichment");
+        tfAndKeggPathwayEnrichment.setName( "tfAndKeggPathwayEnrichment");
         tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+        tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         enrichmentOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
         
         //cellLineBasedTfAndKeggPathwayEnrichment added to enrichmentOptions
         cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based Tf And Kegg Pathway Enrichment");
+        cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         enrichmentOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT));
         enrichmentPanel.add( createBorderedPanel( "Enrichment Options", enrichmentOptions));
         
