@@ -35,10 +35,12 @@
 
 package annotate.intervals.parametric;
 
+import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
 
@@ -427,7 +429,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//we insert any given interval without overlap check
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 			
 				chromName = null;
@@ -489,7 +491,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if dnase exists in dnaseList 
 				if (dnaseCellLineNameList.contains(cellLineName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 					dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 				} //End of If	
 				
@@ -550,7 +552,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				
 				chromName = null;
@@ -614,7 +616,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				if tfbs exists in tfbsList 
 				if (tfbsNameList.contains(tfbsName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 					tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
 				}
 				
@@ -677,7 +679,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				
 				chromName = null;
@@ -740,7 +742,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				if (histoneNameList.contains(histoneName)){
 //					Creating millions of nodes with six attributes causes out of memory error
-					IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+					IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 					histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				}
 				
@@ -808,7 +810,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
 				tree.intervalTreeInsert(tree, node);
 				
 				chromName = null;
@@ -1283,7 +1285,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 													
 			Interval interval = new Interval(low,high);
 			
-			if(dnaseIntervalTree.getRoot().isNotSentinel()){
+			if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
@@ -1356,7 +1358,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //				previousLeftMostNode = IntervalTree.findLeftMostNodefromPreviousQuery(previousNonEmptyOverlappingNodeList);			
 //			}			
 
-			if(dnaseIntervalTree.getRoot().isNotSentinel()){
+			if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				dnaseIntervalTree.findAllOverlappingDnaseIntervals(permutationNumber,dnaseIntervalTree.getRoot(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);				
 			}
 			
@@ -1404,7 +1406,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				Interval interval = new Interval(low,high);
 
 				
-				if(dnaseIntervalTree.getRoot().isNotSentinel()){
+				if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap,overlapDefinition);
 				}
 					
@@ -1449,7 +1451,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			high = inputLine.getHigh();
 			Interval interval = new Interval(low,high);
 			
-			if(tfbsIntervalTree.getRoot().isNotSentinel()){
+			if(tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);
 			}
 			
@@ -1518,7 +1520,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //			}
 
 			
-			if(tfbsIntervalTree.getRoot().isNotSentinel()){
+			if(tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				tfbsIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfbsIntervalTree.getRoot(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);
 			}
 			
@@ -1562,7 +1564,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				Interval interval = new Interval(low,high);
 				
-				if(tfbsIntervalTree.getRoot().isNotSentinel()){
+				if(tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					tfbsIntervalTree.findAllOverlappingTfbsIntervals(tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap);	
 				}
 				
@@ -1648,7 +1650,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				Interval interval = new Interval(low,high);
 				
 				//TF Search starts here					
-				if(tfbsIntervalTree.getRoot().isNotSentinel()){
+				if(tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					tfbsIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,tfbsIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,tfNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition);	
 				}
 				
@@ -1666,7 +1668,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//TF Search ends here					
 				
 				//UCSCRefSeqGenes Search starts here
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList,exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,Commons.NCBI_GENE_ID,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition);
 				}
 				//UCSCRefSeqGenes Search ends here
@@ -2002,7 +2004,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				Interval interval = new Interval(low,high);
 				
-				if(histoneIntervalTree.getRoot().isNotSentinel()){
+				if(histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);					
 				}
 								
@@ -2074,7 +2076,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //					previousLeftMostNode = IntervalTree.findLeftMostNodefromPreviousQuery(previousNonEmptyOverlappingNodeList);			
 //				}
 				
-				if(histoneIntervalTree.getRoot().isNotSentinel()){
+				if(histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					histoneIntervalTree.findAllOverlappingHistoneIntervals(permutationNumber,histoneIntervalTree.getRoot(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);					
 				}
 								
@@ -2120,7 +2122,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				Interval interval = new Interval(low,high);
 				
-				if(histoneIntervalTree.getRoot().isNotSentinel()){
+				if(histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap,overlapDefinition);						
 				}
 								
@@ -2163,7 +2165,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				high = inputLine.getHigh();
 				Interval interval = new Interval(low,high);
 
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);
 				}
 								
@@ -2234,7 +2236,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 //					previousLeftMostNode = IntervalTree.findLeftMostNodefromPreviousQuery(previousNonEmptyOverlappingNodeList);			
 //				}
 
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);					
 				}
 				
@@ -2315,7 +2317,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberRegulationBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberAllBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 		
-				if(tfIntervalTree.getRoot().isNotSentinel()){
+				if(tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				}
 				
@@ -2329,7 +2331,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					}
 				}//End of for
 				
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 				}
 				
@@ -2751,7 +2753,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberRegulationBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 				List<PermutationNumberUcscRefSeqGeneOverlap> 		permutationNumberAllBasedKeggPathwayOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneOverlap>();
 		
-				if(tfIntervalTree.getRoot().isNotSentinel()){
+				if(tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					tfIntervalTree.findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,tfIntervalTree.getRoot(),interval,chromName,tfbsBufferedWriterHashMap,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				}
 				
@@ -2765,7 +2767,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					}
 				}//End of for
 				
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 				}
 				
@@ -3165,7 +3167,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			
 			//First TF
 			//Fill permutationNumberTfNameCellLineName2ZeroorOneMap
-			if(tfIntervalTree.getRoot().isNotSentinel()){
+			if(tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);
 			}
 			
@@ -3183,7 +3185,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//Fill permutationNumberExonBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberAllBasedKeggPathway2ZeroorOneMap
-			if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+			if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 			}
 			
@@ -3484,7 +3486,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			
 			//First TF
 			//Fill permutationNumberTfNameCellLineName2ZeroorOneMap
-			if(tfIntervalTree.getRoot().isNotSentinel()){
+			if(tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				tfIntervalTree.findAllOverlappingTfbsIntervals(permutationNumber,tfIntervalTree.getRoot(),interval,chromName,permutationNumberTfNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);
 			}
 			
@@ -3502,7 +3504,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			//Fill permutationNumberExonBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
 			//Fill permutationNumberAllBasedKeggPathway2ZeroorOneMap
-			if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+			if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2ZeroorOneMap,permutationNumberRegulationBasedKeggPathway2ZeroorOneMap,permutationNumberAllBasedKeggPathway2ZeroorOneMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);					
 			}
 			
@@ -3760,7 +3762,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				
 				Interval interval = new Interval(low,high);
 
-				if(ucscRefSeqGenesIntervalTree.getRoot().isNotSentinel()){
+				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList, keggPathway2OneorZeroMap,type,keggPathwayAnalysisType);
 				}
 				

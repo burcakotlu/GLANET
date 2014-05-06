@@ -9,6 +9,7 @@
 package dbSNP;
 
 
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
@@ -268,7 +269,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 							//Convert 1-based coordinate to 0-based coordinate
 							chrPositionZeroBased= chrPositionOneBased-1;
 							
-							IntervalTreeNode node = new OtherIntervalTreeNode(rsId, chrNumber, chrPositionZeroBased, observedVariationAlleles);
+							IntervalTreeNode node = new OtherIntervalTreeNode(rsId, ChromosomeName.convert(chrNumber), chrPositionZeroBased, observedVariationAlleles);
 							dbSNPIntervalTree.intervalTreeInsert(dbSNPIntervalTree,node);
 							
 						}
@@ -386,7 +387,6 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		
 		//Read dbSNP flat file and create chromosome based SNP interval tree

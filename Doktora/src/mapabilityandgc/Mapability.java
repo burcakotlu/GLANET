@@ -9,8 +9,10 @@
 package mapabilityandgc;
 
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.MapabilityIntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
 
 import java.io.BufferedReader;
@@ -165,7 +167,7 @@ public class Mapability {
 		List<IntervalTreeNode> overlappedNodeList= new ArrayList<IntervalTreeNode>();
 		
 		IntervalTreeNode node = new IntervalTreeNode(low, high);
-		OtherIntervalTreeNode overlappedNode;
+		MapabilityIntervalTreeNode overlappedNode;
 		
 		
 		mapabilityIntervalTree.findAllOverlappingIntervals(overlappedNodeList,mapabilityIntervalTree.getRoot(), node);
@@ -178,7 +180,7 @@ public class Mapability {
 			//Base assumption is that nodes in the overlappingNodeList do not overlap with each other
 			for(int i=0; i<overlappedNodeList.size(); i++){
 				
-				overlappedNode = (OtherIntervalTreeNode) overlappedNodeList.get(i);
+				overlappedNode = (MapabilityIntervalTreeNode) overlappedNodeList.get(i);
 				
 				numberofOverlappingBases = calculateTheNumberofOverlappingBases(node,overlappedNode);
 				accumulatedMapability = accumulatedMapability + (overlappedNode.getMapability()* numberofOverlappingBases);
@@ -222,7 +224,7 @@ public class Mapability {
 		List<IntervalTreeNode> overlappedNodeList= new ArrayList<IntervalTreeNode>();
 		
 		IntervalTreeNode node = new IntervalTreeNode(low, high);
-		OtherIntervalTreeNode overlappedNode;
+		MapabilityIntervalTreeNode overlappedNode;
 		
 		mapabilityIntervalTree.findAllOverlappingIntervals(overlappedNodeList,mapabilityIntervalTree.getRoot(), node);
 		
@@ -233,7 +235,7 @@ public class Mapability {
 			//Base assumption is that nodes in the overlappingNodeList do not overlap with each other
 			for(int i=0; i<overlappedNodeList.size(); i++){
 				
-				overlappedNode = (OtherIntervalTreeNode) overlappedNodeList.get(i);
+				overlappedNode = (MapabilityIntervalTreeNode) overlappedNodeList.get(i);
 						
 				numberofOverlappingBases = calculateTheNumberofOverlappingBases(node,overlappedNode);
 				accumulatedMapability = accumulatedMapability + (overlappedNode.getMapability()* numberofOverlappingBases);
@@ -304,7 +306,7 @@ public class Mapability {
 				
 				
 				//High-1 is done here
-				IntervalTreeNode node = new OtherIntervalTreeNode(chromName, low, high-1, mapability);
+				IntervalTreeNode node = new MapabilityIntervalTreeNode(ChromosomeName.convert(chromName), low, high-1, mapability);
 				
 				//Assumption there will be no overlaps
 				chromBasedMapabilityIntervalTree.intervalTreeInsert(chromBasedMapabilityIntervalTree, node);

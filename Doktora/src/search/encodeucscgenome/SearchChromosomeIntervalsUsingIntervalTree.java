@@ -17,10 +17,12 @@
 
 package search.encodeucscgenome;
 
+import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
 
@@ -34,9 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
  
 
@@ -80,7 +80,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);
 								
 			}
@@ -126,7 +126,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFourthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new DnaseIntervalTreeNode(chromName,startPosition,endPosition,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new DnaseIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);
 								
 			}
@@ -176,7 +176,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				fileName = strLine.substring(indexofFifthTab+1);
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new TforHistoneIntervalTreeNode(chromName,startPosition,endPosition,tfbsName,cellLineName,fileName,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new TforHistoneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,tfbsName,cellLineName,fileName,NodeType.ORIGINAL);
 				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);
 								
 			}
@@ -231,7 +231,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,Commons.ORIGINAL_NODE);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convert(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
 				tree.intervalTreeInsert(tree, node);
 				
 				
@@ -284,7 +284,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				overlappingNodeList.clear();	
 				
 				
-				if (previousLeftMostNode.isNotSentinel()){
+				if (previousLeftMostNode.getNodeName().isNotSentinel()){
 				
 					//Go up in the interval tree for the new query
 					newSearchStartingNode = IntervalTree.findMostGeneralSearchStaringNodeforNewQuery(interval,previousLeftMostNode);
@@ -295,7 +295,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				
 				
 				//If sentinel means that there is no need to search for this new query
-				if(newSearchStartingNode.isNotSentinel()){
+				if(newSearchStartingNode.getNodeName().isNotSentinel()){
 					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervals(newSearchStartingNode,interval,bufferedWriter,overlappingNodeList);
 				}			
 				
@@ -355,7 +355,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				//Empty the overlapping node list for the new query
 				overlappingNodeList.clear();	
 				
-				if (previousLeftMostNode.isNotSentinel()){
+				if (previousLeftMostNode.getNodeName().isNotSentinel()){
 				
 					//Go up in the interval tree for the new query
 					newSearchStartingNode = IntervalTree.findMostGeneralSearchStaringNodeforNewQuery(interval,previousLeftMostNode);
@@ -367,7 +367,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				
 				
 				//If sentinel means that there is no need to search for this new query
-				if(newSearchStartingNode.isNotSentinel()){
+				if(newSearchStartingNode.getNodeName().isNotSentinel()){
 					histoneIntervalTree.findAllOverlappingHistoneIntervals(newSearchStartingNode,interval,bufferedWriter,overlappingNodeList);
 				}			
 				
@@ -431,7 +431,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				overlappingNodeList.clear();	
 				
 				
-				if (previousLeftMostNode.isNotSentinel()){
+				if (previousLeftMostNode.getNodeName().isNotSentinel()){
 				
 					//Go up in the interval tree for the new query
 					newSearchStartingNode = IntervalTree.findMostGeneralSearchStaringNodeforNewQuery(interval,previousLeftMostNode);
@@ -443,7 +443,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				
 				
 				//If sentinel means that there is no need to search for this new query
-				if(newSearchStartingNode.isNotSentinel()){
+				if(newSearchStartingNode.getNodeName().isNotSentinel()){
 					tfbsIntervalTree.findAllOverlappingTfbsIntervals(newSearchStartingNode,interval,bufferedWriter,overlappingNodeList);
 				}			
 				
@@ -506,7 +506,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				//Empty the overlapping node list for the new query
 				overlappingNodeList.clear();	
 				
-				if (previousLeftMostNode.isNotSentinel()){
+				if (previousLeftMostNode.getNodeName().isNotSentinel()){
 				
 					//Go up in the interval tree for the new query
 					newSearchStartingNode = IntervalTree.findMostGeneralSearchStaringNodeforNewQuery(interval,previousLeftMostNode);
@@ -517,7 +517,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				
 				
 				//If sentinel means that there is no need to search for this new query
-				if(newSearchStartingNode.isNotSentinel()){
+				if(newSearchStartingNode.getNodeName().isNotSentinel()){
 					dnaseIntervalTree.findAllOverlappingDnaseIntervals(newSearchStartingNode,interval,bufferedWriter,overlappingNodeList);
 				}			
 				

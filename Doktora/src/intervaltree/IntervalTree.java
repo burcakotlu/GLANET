@@ -120,10 +120,10 @@ public class IntervalTree {
 		int a = Integer.MIN_VALUE;
 		int b = Integer.MIN_VALUE;
 		
-		if (node.getLeft().isNotSentinel())
+		if (node.getLeft().getNodeName().isNotSentinel())
 			a= node.getLeft().getMax();
 		
-		if(node.getRight().isNotSentinel())
+		if(node.getRight().getNodeName().isNotSentinel())
 			b= node.getRight().getMax();
 		
 		return maximum(node.getHigh(), a, b);
@@ -135,10 +135,10 @@ public class IntervalTree {
 		int a = Integer.MAX_VALUE;
 		int b = Integer.MAX_VALUE;
 		
-		if (node.getLeft().isNotSentinel())
+		if (node.getLeft().getNodeName().isNotSentinel())
 			a= ((OtherIntervalTreeNode)(node.getLeft())).getMin();
 		
-		if(node.getRight().isNotSentinel())
+		if(node.getRight().getNodeName().isNotSentinel())
 			b= ((OtherIntervalTreeNode)(node.getRight())).getMin();
 		
 		return minimum(node.getLow(), a, b);
@@ -150,10 +150,10 @@ public class IntervalTree {
 		
 		((OtherIntervalTreeNode)node).setHeight( ((OtherIntervalTreeNode)node).getHeight() +1);
 		
-		if (node.getLeft().isNotSentinel()){
+		if (node.getLeft().getNodeName().isNotSentinel()){
 			incrementHeightByOne(node.getLeft());
 		}
-		if (node.getRight().isNotSentinel()){
+		if (node.getRight().getNodeName().isNotSentinel()){
 			incrementHeightByOne(node.getRight());
 		}
 		
@@ -162,10 +162,10 @@ public class IntervalTree {
 	public void decrementHeightByOne(IntervalTreeNode node){
 		((OtherIntervalTreeNode)node).setHeight(((OtherIntervalTreeNode)node).getHeight()-1);
 		
-		if (node.getLeft().isNotSentinel()){
+		if (node.getLeft().getNodeName().isNotSentinel()){
 			decrementHeightByOne(node.getLeft());
 		}
-		if (node.getRight().isNotSentinel()){
+		if (node.getRight().getNodeName().isNotSentinel()){
 			decrementHeightByOne(node.getRight());
 		}
 		
@@ -183,12 +183,12 @@ public class IntervalTree {
 		IntervalTreeNode y = x.getRight();		
 		
 		x.setRight(y.getLeft());
-		if(!Commons.SENTINEL.equals(y.getLeft().getName())){
+		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
 			y.getLeft().setParent(x);
 		}
 		y.setParent(x.getParent());
 		
-		if(Commons.SENTINEL.equals(x.getParent().getName())){
+		if(NodeName.SENTINEL.equals(x.getParent().getNodeName())){
 			tree.setRoot(y);
 		} else{
 			if(x==(x.getParent().getLeft())){
@@ -212,12 +212,12 @@ public class IntervalTree {
 			
 			//update height attributes
 			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)x).getHeight()+1);
-			if(x.getLeft().isNotSentinel()){
+			if(x.getLeft().getNodeName().isNotSentinel()){
 				incrementHeightByOne(x.getLeft());
 			}
 			
 			((OtherIntervalTreeNode)y).setHeight(((OtherIntervalTreeNode)y).getHeight()-1);
-			if(y.getRight().isNotSentinel()){
+			if(y.getRight().getNodeName().isNotSentinel()){
 				decrementHeightByOne(y.getRight());
 			}
 
@@ -233,12 +233,12 @@ public class IntervalTree {
 		IntervalTreeNode y = x.getLeft();
 		
 		x.setLeft(y.getRight());
-		if(!Commons.SENTINEL.equals(y.getRight().getName())){
+		if(!Commons.SENTINEL.equals(y.getRight().getNodeName())){
 			y.getRight().setParent(x);
 		}
 		y.setParent(x.getParent());
 		
-		if(Commons.SENTINEL.equals(x.getParent().getName())){
+		if(Commons.SENTINEL.equals(x.getParent().getNodeName())){
 			tree.setRoot(y);
 		} else{
 			if(x==(x.getParent().getRight())){
@@ -262,12 +262,12 @@ public class IntervalTree {
 			
 			//update height attributes
 			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)x).getHeight()+1);
-			if(x.getRight().isNotSentinel()){
+			if(x.getRight().getNodeName().isNotSentinel()){
 				incrementHeightByOne(x.getRight());
 			}
 			
 			((OtherIntervalTreeNode)y).setHeight(((OtherIntervalTreeNode)y).getHeight()-1);
-			if(y.getLeft().isNotSentinel()){
+			if(y.getLeft().getNodeName().isNotSentinel()){
 				decrementHeightByOne(y.getLeft());
 			}
 		}
@@ -405,7 +405,7 @@ public class IntervalTree {
 	public void updateMinAttribute(IntervalTreeNode x){
 		int savedMin;
 		
-		if(x.isNotSentinel()){
+		if(x.getNodeName().isNotSentinel()){
 			
 			
 			savedMin= ((OtherIntervalTreeNode)x).getMin(); 
@@ -424,7 +424,7 @@ public class IntervalTree {
 		boolean hasChanged = false;
 		int savedMax;
 		
-		if(x.isNotSentinel()){
+		if(x.getNodeName().isNotSentinel()){
 			savedMax= x.getMax(); 
 			x.setMax(max(x));	
 			
@@ -446,7 +446,7 @@ public class IntervalTree {
 	 * intervalTreeMinimum returns the minimum elementin the subtree rooted at a given node x
 	 */
 	public IntervalTreeNode intervalTreeMinimum(IntervalTreeNode x){
-		while(!Commons.SENTINEL.equals(x.getLeft().getName())){
+		while(!Commons.SENTINEL.equals(x.getLeft().getNodeName())){
 			x = x.getLeft();
 		}
 		
@@ -464,13 +464,13 @@ public class IntervalTree {
 	public IntervalTreeNode intervalTreeSuccessor(IntervalTreeNode x){
 		IntervalTreeNode y;
 		
-		if (!Commons.SENTINEL.equals(x.getRight().getName())){
+		if (!NodeName.SENTINEL.equals(x.getRight().getNodeName())){
 			return intervalTreeMinimum(x.getRight());			
 		} 
 		
 		y = x.getParent();
 		
-		while(!Commons.SENTINEL.equals(y.getName()) && (x==y.getRight())){
+		while(!NodeName.SENTINEL.equals(y.getNodeName()) && (x==y.getRight())){
 			x = y;
 			y = y.getParent();
 		}		
@@ -504,7 +504,7 @@ public class IntervalTree {
 		//Determine a node y to splice out.
 		//The node y is either the input node z (if z has at most 1 child) or
 		//the successor of z if z has two children.
-		if (Commons.SENTINEL.equals(z.getLeft().getName()) || Commons.SENTINEL.equals(z.getRight().getName())){
+		if (NodeName.SENTINEL.equals(z.getLeft().getNodeName()) || NodeName.SENTINEL.equals(z.getRight().getNodeName())){
 			y = z;			
 		}else{
 			y = intervalTreeSuccessor(z);
@@ -512,7 +512,7 @@ public class IntervalTree {
 		
 		//x is set to the not null child of the y or
 		//x is set to nil[T] if y has no children.
-		if(!Commons.SENTINEL.equals(y.getLeft().getName())){
+		if(!Commons.SENTINEL.equals(y.getLeft().getNodeName())){
 			x = y.getLeft();
 		}else{
 			x = y.getRight();
@@ -529,7 +529,7 @@ public class IntervalTree {
 			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)(y.getParent())).getHeight()+1);
 		}
 		
-		if (Commons.SENTINEL.equals(y.getParent().getName())){
+		if (Commons.SENTINEL.equals(y.getParent().getNodeName())){
 			tree.setRoot(x);
 		}else{
 			if(y==(y.getParent()).getLeft()){
@@ -642,7 +642,7 @@ public class IntervalTree {
 		IntervalTreeNode x = tree.getRoot();
 		
 //		This while sets the parent for the new inserted node z
-		while(!(Commons.SENTINEL.equals(x.getName()))){
+		while(!(NodeName.SENTINEL.equals(x.getNodeName()))){
 			y = x;
 			if (z.getLow()< x.getLow())
 				x = x.getLeft();
@@ -653,7 +653,7 @@ public class IntervalTree {
 		z.setParent(y);
 		
 //		This part sets whether the new inserted node is the left or right child of parent
-		if (Commons.SENTINEL.equals(y.getName())){//enters for the first insert
+		if (NodeName.SENTINEL.equals(y.getNodeName())){//enters for the first insert
 			tree.setRoot(z);
 		} else{
 			if (z.getLow()<y.getLow()){
@@ -692,14 +692,14 @@ public class IntervalTree {
 	
 	public void intervalTreeInfixTraversal(IntervalTreeNode node){
 		
-		if (node.getLeft().isNotSentinel())
+		if (node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getLeft());
 		
-		if (node.isNotSentinel()){
+		if (node.getNodeName().isNotSentinel()){
 			System.out.println(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
 		}
 		
-		if (node.getRight().isNotSentinel())
+		if (node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getRight());
 				
 	}
@@ -707,12 +707,12 @@ public class IntervalTree {
 	
 	public void intervalTreeInfixTraversal(IntervalTreeNode node,BufferedWriter bufferedWriter){
 		
-		if (node.getLeft().isNotSentinel())
+		if (node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getLeft(),bufferedWriter);
 		
 		try {
 			
-			if (node.isNotSentinel()){				
+			if (node.getNodeName().isNotSentinel()){				
 				bufferedWriter.write(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax()+ System.getProperty("line.separator"));
 				bufferedWriter.flush();
 			}
@@ -723,7 +723,7 @@ public class IntervalTree {
 			e.printStackTrace();
 		}
 		
-		if (node.getRight().isNotSentinel())
+		if (node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getRight(),bufferedWriter);
 		
 				
@@ -736,11 +736,11 @@ public class IntervalTree {
 		UcscRefSeqGeneIntervalTreeNode castedNodeUcscRefSeqGene = null;
 		
 		
-		if (node.getLeft().isNotSentinel())
+		if (node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getLeft(),bufferedWriter,type);
 		
 		try {
-			if (node.isNotSentinel()){
+			if (node.getNodeName().isNotSentinel()){
 				
 				if (Commons.DNASE.equals(type)){
 					castedNodeDnase = (DnaseIntervalTreeNode) node;
@@ -768,7 +768,7 @@ public class IntervalTree {
 			e.printStackTrace();
 		}
 		
-		if (node.getRight().isNotSentinel())
+		if (node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getRight(),bufferedWriter,type);
 		
 				
@@ -805,12 +805,12 @@ public class IntervalTree {
 		}
 		
 		//partial overlap possibility
-		if(node.getLeft().isNotSentinel() && ((OtherIntervalTreeNode)(node.getLeft())).getMin()<= high && low <= node.getLeft().getMax()) {
+		if(node.getLeft().getNodeName().isNotSentinel() && ((OtherIntervalTreeNode)(node.getLeft())).getMin()<= high && low <= node.getLeft().getMax()) {
 			findGivenNode(node.getLeft(), low, high,foundNodes);
 		}
 		
 		//partial overlap possibility
-		if(node.getRight().isNotSentinel() && ((OtherIntervalTreeNode)(node.getRight())).getMin()<= high && low <= node.getRight().getMax()) {
+		if(node.getRight().getNodeName().isNotSentinel() && ((OtherIntervalTreeNode)(node.getRight())).getMin()<= high && low <= node.getRight().getMax()) {
 			findGivenNode(node.getRight(), low, high,foundNodes);
 		}
 	 
@@ -845,7 +845,7 @@ public class IntervalTree {
 			parent = parent.getParent();
 			
 			//Exit the loop when parent.getLow()>interval.getHigh()
-			while( 	(parent.isNotSentinel()) &&
+			while( 	(parent.getNodeName().isNotSentinel()) &&
 					(parent.getLow()<=interval.getHigh()) )
 			    {
 				previousParent = parent;
@@ -869,7 +869,7 @@ public class IntervalTree {
 		parent = parent.getParent();
 		
 		//Exit the loop when parent.getLow()>interval.getHigh()
-		while( 	(parent.isNotSentinel()) &&
+		while( 	(parent.getNodeName().isNotSentinel()) &&
 				(parent.getLow()<=interval.getHigh()) )
 		    {
 			previousParent = parent;
@@ -887,17 +887,17 @@ public class IntervalTree {
 		
 		//if there is possibility of overlap between interval and node's children
 		//or overlaps with the node
-		if		(((node.getLeft().isNotSentinel()) && (node.getRight().isNotSentinel()) &&
+		if		(((node.getLeft().getNodeName().isNotSentinel()) && (node.getRight().getNodeName().isNotSentinel()) &&
 				((((OtherIntervalTreeNode)(node.getLeft())).getMin() <= interval.getHigh())  && (interval.getLow()<= node.getLeft().getMax())) &&
 				((((OtherIntervalTreeNode)(node.getRight())).getMin() <= interval.getHigh())  && (interval.getLow()<= node.getRight().getMax())))
 				 || 
 				 (node.getLow()<= interval.getHigh() && interval.getLow() <= node.getHigh()))
 		{
 				return node;
-		}else if(node.getLeft().isNotSentinel() &&
+		}else if(node.getLeft().getNodeName().isNotSentinel() &&
 				((((OtherIntervalTreeNode)(node.getLeft())).getMin() <= interval.getHigh())  && (interval.getLow()<= node.getLeft().getMax()))){
 				return findMostSpecificSearchStaringNodeforNewQuery(interval,node.getLeft());
-		}else if(node.getRight().isNotSentinel() &&
+		}else if(node.getRight().getNodeName().isNotSentinel() &&
 				((((OtherIntervalTreeNode)(node.getRight())).getMin() <= interval.getHigh())  && (interval.getLow()<= node.getRight().getMax()))){
 				return findMostSpecificSearchStaringNodeforNewQuery(interval,node.getRight());
 		}
@@ -911,10 +911,10 @@ public class IntervalTree {
 	public static void writeRouteFromRoottoThisNode(IntervalTreeNode node){
 		IntervalTreeNode parent;
 		
-		if (node.isNotSentinel()){
+		if (node.getNodeName().isNotSentinel()){
 			parent = node.getParent();
 			
-			if (parent.isNotSentinel()){
+			if (parent.getNodeName().isNotSentinel()){
 				if (parent.getLeft()==node){
 					writeRouteFromRoottoThisNode(node.getParent());
 					System.out.println("Left");
@@ -932,7 +932,7 @@ public class IntervalTree {
 		OtherIntervalTreeNode castedNode = null;
 		
 		
-		if (root.isNotSentinel()){
+		if (root.getNodeName().isNotSentinel()){
 			findGivenNode(root,low, high,foundNodes);	
 		}
 		
@@ -950,17 +950,17 @@ public class IntervalTree {
 	
 	//Normal
 	public void findAllOverlappingIntervals(IntervalTreeNode node, Interval interval){
-		if (node.isNotSentinel()){
+		if (node.getNodeName().isNotSentinel()){
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 					System.out.println("overlap" + node.getLow() + "\t" + node.getHigh());
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingIntervals(node.getLeft(),interval);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingIntervals(node.getRight(),interval);	
 				
 			}
@@ -971,18 +971,18 @@ public class IntervalTree {
 	//Normal: for calculation of non overlapping base pairs in whole genome using interval tree
 	public void findAllOverlappingIntervals(List<IntervalTreeNode> overlappedNodeList, IntervalTreeNode root, IntervalTreeNode newNode){
 		
-		if (root.isNotSentinel() && newNode.isNotSentinel()){
+		if (root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				overlappedNodeList.add(root);
 //				System.out.println("overlap " + root.getLow() + "\t" + root.getHigh());
 			}
 			
 						
-			if((root.getLeft().isNotSentinel()) && (newNode.getLow()<=root.getLeft().getMax())){
+			if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow()<=root.getLeft().getMax())){
 				findAllOverlappingIntervals(overlappedNodeList,root.getLeft(),newNode);	
 			}
 			
-			if((root.getRight().isNotSentinel()) && (newNode.getLow()<=root.getRight().getMax()) && (root.getLow()<=newNode.getHigh())){
+			if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow()<=root.getRight().getMax()) && (root.getLow()<=newNode.getHigh())){
 				findAllOverlappingIntervals(overlappedNodeList,root.getRight(),newNode);	
 				
 			}
@@ -998,19 +998,19 @@ public class IntervalTree {
 			
 			IntervalTreeNode overlappedNode=null;
 			
-			if (root.isNotSentinel()){
+			if (root.getNodeName().isNotSentinel()){
 				if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 //						System.out.println(root.getLow() + "\t" + root.getHigh());						
 						return root;
 						
 				}else{
-					if((root.getLeft().isNotSentinel()) && (newNode.getLow()<=root.getLeft().getMax())){
+					if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow()<=root.getLeft().getMax())){
 						overlappedNode = findFirstOverlappingIntervals(root.getLeft(),newNode);
 						if (overlappedNode!=null)
 							return overlappedNode;
 					}
 					
-					if((root.getRight().isNotSentinel()) && (newNode.getLow()<=root.getRight().getMax()) && (root.getLow()<=newNode.getHigh())){
+					if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow()<=root.getRight().getMax()) && (root.getLow()<=newNode.getHigh())){
 						overlappedNode = findFirstOverlappingIntervals(root.getRight(),newNode);	
 						if (overlappedNode!=null)
 							return overlappedNode;
@@ -1051,11 +1051,11 @@ public class IntervalTree {
 		}
 		
 		
-		if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 			findAllOverlappingHistoneIntervals(node.getLeft(),interval,bufferedWriter,overlappingNodeList);	
 		}
 		
-		if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 			findAllOverlappingHistoneIntervals(node.getRight(),interval,bufferedWriter,overlappingNodeList);	
 			
 		}
@@ -1107,11 +1107,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingHistoneIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1140,11 +1140,11 @@ public class IntervalTree {
 				}																				
 			}
 						
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingHistoneIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingHistoneIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1174,11 +1174,11 @@ public class IntervalTree {
 					}																				
 			}
 						
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingHistoneIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlappingNodeList);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingHistoneIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberHistoneNameCellLineName2ZeroorOneMap,overlappingNodeList);	
 				
 			}
@@ -1229,11 +1229,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingHistoneIntervals(outputFolder,node.getLeft(),interval,chromName,bufferedWriterHashMap, histoneNameList,histoneNameandCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingHistoneIntervals(outputFolder,node.getRight(),interval,chromName,bufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1289,11 +1289,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
 				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				
 			}		
@@ -1348,11 +1348,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
 				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, bufferedWriterHashMap,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1381,11 +1381,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingTfbsIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1448,11 +1448,11 @@ public class IntervalTree {
 				}
 				
 				
-				if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 					findAllOverlappingTfbsIntervals(permutationNumber,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 				}
 				
-				if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 					findAllOverlappingTfbsIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,permutationNumberTfNameCellLineNameOverlapList,overlapDefinition);	
 					
 				}
@@ -1499,11 +1499,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingTfbsIntervals(node.getLeft(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(node.getRight(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap);	
 				
 			}		
@@ -1555,11 +1555,11 @@ public class IntervalTree {
 				}					
 			}
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingTfbsIntervals(outputFolder,node.getLeft(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(outputFolder,node.getRight(),interval,chromName, bufferedWriterHashMap,tfbsNameList,tfbsNameandCellLineName2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition);	
 			}		
 	}
@@ -1592,11 +1592,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingTfbsIntervals(node.getLeft(),interval,bufferedWriter,overlappedNodeList);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingTfbsIntervals(node.getRight(),interval,bufferedWriter,overlappedNodeList);	
 				
 			}
@@ -1626,11 +1626,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingDnaseIntervals(node.getLeft(),interval,bufferedWriter,overlappedNodeList);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingDnaseIntervals(node.getRight(),interval,bufferedWriter,overlappedNodeList);		
 			}
 							
@@ -1683,11 +1683,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingDnaseIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1717,11 +1717,11 @@ public class IntervalTree {
 			}//End of IF OVERLAPS
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingDnaseIntervals(permutationNumber,node.getLeft(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingDnaseIntervals(permutationNumber,node.getRight(),interval,chromName,permutationNumberDnaseCellLineName2ZeroorOneMap,overlapDefinition);	
 				
 			}
@@ -1751,11 +1751,11 @@ public class IntervalTree {
 			}//End of IF OVERLAPS
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingDnaseIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, permutationNumberDnaseCellLineName2ZeroorOneMap,overlappingNodeList);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 				findAllOverlappingDnaseIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberDnaseCellLineName2ZeroorOneMap,overlappingNodeList);	
 				
 			}
@@ -1808,11 +1808,11 @@ public class IntervalTree {
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingDnaseIntervals(outputFolder,node.getLeft(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingDnaseIntervals(outputFolder,node.getRight(),interval,chromName,bufferedWriterHashMap,dnaseCellLineNameList,dnaseCellLine2OneorZeroMap,overlapDefinition);	
 				
 			}					
@@ -1959,11 +1959,11 @@ public class IntervalTree {
 				}	
 			} //End of If: type is NCBI_GENE_ID
 				
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);	
 				
 			}
@@ -2073,11 +2073,11 @@ public class IntervalTree {
 				}//End of if: there is overlap	
 			} //End of If: type is NCBI_GENE_ID
 				
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);		
 			}
 						
@@ -2219,11 +2219,11 @@ public class IntervalTree {
 			}//End of if: there is overlap	
 		} //End of If: type is NCBI_GENE_ID
 			
-		if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
 			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);	
 		}
 		
-		if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type, permutationNumberExonBasedKeggPathwayOverlapList, permutationNumberRegulationBasedKeggPathwayOverlapList, permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);		
 		}					
 	}	
@@ -2356,11 +2356,11 @@ public class IntervalTree {
 				}//End of if: there is overlap	
 			} //End of If: type is NCBI_GENE_ID
 				
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName, geneId2KeggPathwayMap,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type);		
 			}					
 		}	
@@ -2466,11 +2466,11 @@ public class IntervalTree {
 					}//End of if: there is overlap	
 				} //End of If: type is NCBI_GENE_ID
 					
-				if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
+				if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) ){
 					findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);	
 				}
 				
-				if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 					findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,permutationNumberRegulationBasedKeggPathway2OneorZeroMap,permutationNumberAllBasedKeggPathway2OneorZeroMap,type,permutationNumberExonBasedKeggPathwayOverlapList,permutationNumberRegulationBasedKeggPathwayOverlapList,permutationNumberAllBasedKeggPathwayOverlapList,overlapDefinition);		
 				}
 							
@@ -2628,11 +2628,11 @@ public class IntervalTree {
 				}	
 			} //End of If: type is NCBI_GENE_ID
 				
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,node.getLeft(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap, keggPathwayNameList, exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,type,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals(outputFolder,node.getRight(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList, exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,type,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition);	
 				
 			}
@@ -2782,11 +2782,11 @@ public class IntervalTree {
 				}	
 			} //End of If: type is NCBI_GENE_ID
 				
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getLeft(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList, keggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getRight(),interval,chromName,bufferedWriterHashMap, geneId2KeggPathwayMap, keggPathwayNameList, keggPathway2OneorZeroMap,type,keggPathwayAnalysisType);	
 				
 			}
@@ -2803,7 +2803,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 	
 	try {
 		
-		if (node.isNotSentinel()){
+		if (node.getNodeName().isNotSentinel()){
 			
 			if (node instanceof UcscRefSeqGeneIntervalTreeNode){
 				castedNode = (UcscRefSeqGeneIntervalTreeNode) node;				
@@ -2870,11 +2870,11 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 				}	
 			}
 
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getLeft(),interval,chromName, bufferedWriterHashMap, nameorIdHashMap,type);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getRight(),interval,chromName, bufferedWriterHashMap, nameorIdHashMap,type);	
 				
 			}
@@ -2915,11 +2915,11 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			}
 			
 			
-			if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getLeft(),interval,bufferedWriter,overlappingNodeList);	
 			}
 			
-			if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
 				findAllOverlappingUcscRefSeqGenesIntervals((UcscRefSeqGeneIntervalTreeNode)node.getRight(),interval,bufferedWriter,overlappingNodeList);	
 				
 			}
@@ -2949,7 +2949,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			if (node.getColor() == Commons.BLACK)
 				numberofBlackNodes++;
 			
-			System.out.println("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getName());
+			System.out.println("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getNodeName());
 			
 		}
 		
@@ -2967,7 +2967,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		// SENTINEL or NOT_SENTINEL_NODE
 		else {
 			//SENTINEL NODE
-			if (node.isSentinel()){
+			if (node.getNodeName().isSentinel()){
 		
 				 if (node.getColor()!=Commons.BLACK){
 					 properties.setEverySentinelLeafIsBlack(false);
@@ -2990,7 +2990,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			}
 			 
 		 	//NOT SENTINEL NODE
-			 else if (node.isNotSentinel()){
+			 else if (node.getNodeName().isNotSentinel()){
 				 	if (node.getColor()!= Commons.RED && node.getColor()!= Commons.BLACK ){
 				 			properties.setEveryNodeIsEitherRedorBlack(false);
 				 			return;
@@ -3103,7 +3103,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		if (Commons.INSERT.equals(operation)){
 			System.out.println("After insert node (" + node.getLow() +"," + node.getHigh() +")");
 			tree.intervalTreeInsert(tree, node);
-			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getName() );
+			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
 			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
@@ -3113,7 +3113,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			System.out.println("After delete node (" + node.getLow() +"," + node.getHigh() +")");
 			splicedOutNode = tree.intervalTreeDelete(tree, node);
 			splicedOutNode = null;
-			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getName() );
+			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
 			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
@@ -3136,12 +3136,12 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 	 *
 	 */
 	public static void deleteNodesofIntervalTree(IntervalTreeNode node){
-		if(node.isNotSentinel()){
+		if(node.getNodeName().isNotSentinel()){
 			deleteNodesofIntervalTree(node.getLeft());
 			deleteNodesofIntervalTree(node.getRight());
 			node = null;
 			
-		}else if(node.isSentinel()){
+		}else if(node.getNodeName().isSentinel()){
 			node =null;
 		}
 		
@@ -3221,7 +3221,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 //		System.out.println("After delete node (" + node15.getLow() +"," + node15.getHigh() +")");
 //		node = tree.intervalTreeDelete(tree, node15);
 //		node = null;
-//		System.out.println("Tree root name: "+ tree.getRoot().getName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getName() );
+//		System.out.println("Tree root name: "+ tree.getRoot().getNodeName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 //		tree.intervalTreeInfixTraversal(tree.getRoot());
 		
 		
