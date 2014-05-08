@@ -1743,9 +1743,9 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		
-		//delete old files
-		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
+//		//delete old files
+//		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
+//		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
 		/*********************************************/
 
 		
