@@ -919,6 +919,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	
 	public void deleteAnnotationTasks(List<AnnotationTask> listofAnnotationTasks){
 		for(AnnotationTask annotationTask : listofAnnotationTasks){
+			
 			annotationTask = null;
 		}
 	}
@@ -1668,7 +1669,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		//Set the number of total permutations
 		int numberofTotalPermutations = Integer.parseInt(args[9]);
 		
-		float FDR = Float.parseFloat(args[8]);
 		
 		//SET the Input Data File
 //		String inputDataFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS;
@@ -1739,7 +1739,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		//delete old files
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 		List<String> notToBeDeleted = new ArrayList<String>();
-		notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
 		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		

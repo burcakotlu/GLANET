@@ -18,7 +18,6 @@
 <fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
 <fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="mapabilityandgc.GC"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Component"/>
@@ -34,7 +33,6 @@
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfInterval"/>
-<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
@@ -53,4 +51,8 @@
 <fullyQualifiedTypeName name="intervaltree.MapabilityIntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.NodeType"/>
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
 </qualifiedTypeNameHistroy>

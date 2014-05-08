@@ -13,10 +13,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 
@@ -299,7 +300,7 @@ public class WriteAllPossibleNames {
 	}
 
 	
-	public static void readDnaseCellLineNames(String dataFolder,List<String> dnaseCellLineNames){
+	public static void readCellLineNames(String dataFolder,List<String> cellLineNames,Map<String,Integer> cellLineName2CellLineNumberMap,Map<Integer,String> cellLineNumber2CellLineNameMap,FileNameNumber fileNameNumber,List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
 		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
@@ -313,7 +314,10 @@ public class WriteAllPossibleNames {
 		int indexofThirdTab 	= 0;
 		int indexofFourthTab	= 0;
 		
-		String dnaseCellLineName;
+		String cellLineName;
+		String fileName;
+		int cellLineNameNumber = 1;
+		
 		
 		try {
 			for(int i = 0; i< bufferedReaderList.size() ; i++){
@@ -328,12 +332,27 @@ public class WriteAllPossibleNames {
 						indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
 						indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 						
-						dnaseCellLineName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+						cellLineName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+						fileName = strLine.substring(indexofFourthTab+1);
 						
-						if(!(dnaseCellLineNames.contains(dnaseCellLineName))){
-							dnaseCellLineNames.add(dnaseCellLineName);
+						if(!(cellLineNames.contains(cellLineName))){
+							cellLineNames.add(cellLineName);
+							
+							cellLineName2CellLineNumberMap.put(cellLineName, cellLineNameNumber);
+							cellLineNumber2CellLineNameMap.put(cellLineNameNumber, cellLineName);
+							
+							cellLineNameNumber++;
 						}
 						
+						
+						if (!(fileNames.contains(fileName))){
+							
+							fileNames.add(fileName);
+							fileName2FileNumberMap.put(fileName, fileNameNumber.getFileNameNumber());
+							fileNumber2FileNameMap.put(fileNameNumber.getFileNameNumber(), fileName);
+							
+							fileNameNumber.setFileNameNumber(fileNameNumber.getFileNameNumber()+1);;
+						}
 					 }// End of While			
 			}// End of For						
 			
@@ -345,7 +364,7 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public static void readTfbsorHistoneNames(String dataFolder,List<String> tfbsorHistoneNames,String tfbsorHistone){
+	public static void readTforHistoneNames(String dataFolder,List<String> tfbsorHistoneNames,Map<String,Integer> elementName2ElementNumberMap,Map<Integer,String> elementNumber2ElementNameMap,String tfbsorHistone,FileNameNumber fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		
 		
@@ -364,8 +383,12 @@ public class WriteAllPossibleNames {
 		int indexofSecondTab 	= 0;
 		int indexofThirdTab 	= 0;
 		int indexofFourthTab	= 0;
-		
+		int indexofFifthTab	= 0;
+			
 		String tfbsorHistoneName;
+		String fileName;
+		int elementNumber = 1;
+		
 		
 		try {
 			for(int i = 0; i< bufferedReaderList.size() ; i++){
@@ -382,11 +405,28 @@ public class WriteAllPossibleNames {
 						indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 						indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
 						indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+						indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 						
 						tfbsorHistoneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+						fileName = strLine.substring(indexofFifthTab+1);
 						
 						if(!(tfbsorHistoneNames.contains(tfbsorHistoneName))){
 							tfbsorHistoneNames.add(tfbsorHistoneName);
+							
+							elementName2ElementNumberMap.put(tfbsorHistoneName, elementNumber);
+							elementNumber2ElementNameMap.put(elementNumber, tfbsorHistoneName);
+							
+							elementNumber++;
+			
+						}
+						
+						if (!(fileNames.contains(fileName))){
+							
+							fileNames.add(fileName);
+							fileName2FileNumberMap.put(fileName, fileNameNumber.getFileNameNumber());
+							fileNumber2FileNameMap.put(fileNameNumber.getFileNameNumber(), fileName);
+							
+							fileNameNumber.setFileNameNumber(fileNameNumber.getFileNameNumber()+1);;
 						}
 						
 					 }// End of While			
@@ -564,7 +604,7 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	public static void readKeggPathwayNames(String dataFolder,List<String> keggPathwayNameList, String inputFileName){
+	public static void readKeggPathwayNames(String dataFolder,List<String> keggPathwayNameList, Map<String,Integer> keggPathwayName2KeggPathwayNumberMap,Map<Integer,String> keggPathwayNumber2KeggPathwayNameMap, String inputFileName){
 
 		String strLine;
 		
@@ -575,6 +615,7 @@ public class WriteAllPossibleNames {
 		int indexofColon = 0;
 		
 		String keggPathwayName;
+		int keggPathwayNumber = 1;
 		
 		try {
 			fileReader = new FileReader(dataFolder + inputFileName);
@@ -591,7 +632,12 @@ public class WriteAllPossibleNames {
 				keggPathwayName = keggPathwayName.substring(indexofColon+1);				
 				
 				if(!(keggPathwayNameList.contains(keggPathwayName))){					
-					keggPathwayNameList.add(keggPathwayName);								
+					keggPathwayNameList.add(keggPathwayName);	
+					
+					keggPathwayName2KeggPathwayNumberMap.put(keggPathwayName, keggPathwayNumber);
+					keggPathwayNumber2KeggPathwayNameMap.put(keggPathwayNumber, keggPathwayName);
+					keggPathwayNumber++;
+										
 				}													
 			} // End of While			
 			
@@ -634,36 +680,109 @@ public class WriteAllPossibleNames {
 	}
 	
 	
-	
-	public static void writeAllPossibleDnaseCellLineNames(String dataFolder){
+	public static void writeMapsString2Integer(String dataFolder,Map<String,Integer> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName){
 		
-		List<String> dnaseCellLineNames = new ArrayList<String>();
-		readDnaseCellLineNames(dataFolder,dnaseCellLineNames);
-		writeNames(dataFolder,dnaseCellLineNames,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME);		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(Map.Entry<String,Integer> entry :cellLineName2CellLineNumberMap.entrySet()){
+				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+				
 	}
 	
 	
-	public static void writeAllPossibleTfbsNames(String dataFolder){
+	public static void writeMapsInteger2String(String dataFolder,Map<Integer,String> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName){
 		
-		List<String> tfbsNames = new ArrayList<String>();
-		readTfbsorHistoneNames(dataFolder,tfbsNames, Commons.TFBS);
-		writeNames(dataFolder,tfbsNames,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME);		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(Map.Entry<Integer,String> entry :cellLineName2CellLineNumberMap.entrySet()){
+				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+			
+	}
+	
+	
+	public static void writeAllPossibleEncodeCellLineNames(String dataFolder,FileNameNumber fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
+		
+		List<String> cellLineNames = new ArrayList<String>();
+		Map<String,Integer> cellLineName2CellLineNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> cellLineNumber2CellLineNameMap = new HashMap<Integer,String>();
 
+		readCellLineNames(dataFolder,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNameNumber,fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
+		writeNames(dataFolder,cellLineNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME);
+		writeMapsString2Integer(dataFolder,cellLineName2CellLineNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,cellLineNumber2CellLineNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+			
+	}
+	
+	
+	public static void writeAllPossibleEncodeTfNames(String dataFolder,FileNameNumber fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
+		
+		List<String> tfNames = new ArrayList<String>();
+		Map<String,Integer> tfName2TfNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> tfNumber2TfNameMap = new HashMap<Integer,String>();
+
+		readTforHistoneNames(dataFolder,tfNames, tfName2TfNumberMap, tfNumber2TfNameMap,Commons.TFBS,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
+		writeNames(dataFolder,tfNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME);		
+		writeMapsString2Integer(dataFolder,tfName2TfNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNAME_2_TFNUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,tfNumber2TfNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+	
 	}
 
-	public static void writeAllPossibleHistoneNames(String dataFolder){
+	public static void writeAllPossibleEncodeHistoneNames(String dataFolder,FileNameNumber fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
 		
 		List<String> histoneNames = new ArrayList<String>();
-		readTfbsorHistoneNames(dataFolder,histoneNames,Commons.HISTONE);
-		writeNames(dataFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME);		
+		Map<String,Integer> histoneName2HistoneNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> histoneNumber2HistoneNameMap = new HashMap<Integer,String>();
+
+		readTforHistoneNames(dataFolder,histoneNames,histoneName2HistoneNumberMap,histoneNumber2HistoneNameMap,Commons.HISTONE,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
+		writeNames(dataFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME);		
+		writeMapsString2Integer(dataFolder,histoneName2HistoneNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENAME_2_HISTONENUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,histoneNumber2HistoneNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);
 
 	}
+	
+	public static void writeAllPossibleEncodeFileNames(String dataFolder,List<String> fileNames,Map<String,Integer> fileName2FileNumberMap,Map<Integer,String> fileNumber2FileNameMap){
+		writeNames(dataFolder,fileNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_ENCODE_FILE_NAMES_OUTPUT_FILENAME);		
+		writeMapsString2Integer(dataFolder,fileName2FileNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENAME_2_FILENUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,fileNumber2FileNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
+
+		
+	}
+	
 	
 	public static void writeAllPossibleGeneIds(String dataFolder){
 
 		List<String> geneIds = new ArrayList<String>();
 		readGeneIds(dataFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
-		writeNames(dataFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
+		writeNames(dataFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
 		
 	}
 	
@@ -671,7 +790,7 @@ public class WriteAllPossibleNames {
 
 		List<String> rnaNucleotideAccessionVersions = new ArrayList<String>();
 		readRNAAccessionVersions(dataFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
-		writeNames(dataFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
+		writeNames(dataFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
 		
 	}
 
@@ -680,16 +799,22 @@ public class WriteAllPossibleNames {
 
 		List<String> ucscRefSeqGeneName2s = new ArrayList<String>();
 		readUcscRefSeqGeneName2s(dataFolder,ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
-		writeNames(dataFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
+		writeNames(dataFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
 		
 	}
 	
 	public static void writeAllPossibleKeggPathwayNames(String dataFolder){
 		
-		List<String> keggPathwayNameList = new ArrayList<String>();		
-		readKeggPathwayNames(dataFolder,keggPathwayNameList,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-		writeNames(dataFolder,keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
-	
+		List<String> keggPathwayNameList = new ArrayList<String>();	
+		Map<String,Integer> keggPathwayName2KeggPathwayNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> keggPathwayNumber2KeggPathwayNameMap = new HashMap<Integer,String>();
+
+		
+		readKeggPathwayNames(dataFolder,keggPathwayNameList,keggPathwayName2KeggPathwayNumberMap,keggPathwayNumber2KeggPathwayNameMap,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
+		writeNames(dataFolder,keggPathwayNameList,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);		
+		writeMapsString2Integer(dataFolder,keggPathwayName2KeggPathwayNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,keggPathwayNumber2KeggPathwayNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+
 	}
 	
 	
@@ -750,18 +875,30 @@ public class WriteAllPossibleNames {
 		String glanetFolder = args[1];
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 	
+		//All Possible File Names 
+		List<String> fileNames = new ArrayList<String>();
+		Map<String,Integer> fileName2FileNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> fileNumber2FileNameMap = new HashMap<Integer,String>();
 		
-		//Write all possible dnase cell line names	
+		FileNameNumber fileNameNumber = new FileNameNumber(1);
+		
+
+		
+		//Write all possible ENCODE cell line names	
 		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
-		WriteAllPossibleNames.writeAllPossibleDnaseCellLineNames(dataFolder);
+		WriteAllPossibleNames.writeAllPossibleEncodeCellLineNames(dataFolder,fileNameNumber, fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
 		
-		//Write all possible tfbs names
+		//Write all possible ENCODE tfbs names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\tfbs 
-		WriteAllPossibleNames.writeAllPossibleTfbsNames(dataFolder);
+		WriteAllPossibleNames.writeAllPossibleEncodeTfNames(dataFolder,fileNameNumber, fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
 		
-		//Write all possible histone names
+		//Write all possible ENCODE histone names
 		//Using unsorted tfbs txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\\histone
-		WriteAllPossibleNames.writeAllPossibleHistoneNames(dataFolder);
+		WriteAllPossibleNames.writeAllPossibleEncodeHistoneNames(dataFolder,fileNameNumber, fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
+		
+		//Write all possible ENCODE file names	
+		WriteAllPossibleNames.writeAllPossibleEncodeFileNames(dataFolder,fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
+
 
 		//Write all possible gene ids
 //		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
@@ -778,6 +915,8 @@ public class WriteAllPossibleNames {
 		//Write all possible kegg pathway names		
 		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
 		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder);
+		
+		
 	}
 
 }

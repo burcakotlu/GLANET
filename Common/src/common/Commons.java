@@ -759,27 +759,43 @@ public class Commons {
 	public static final String ALL_POSSIBLE_NAMES = "all_possible_names";
 		
 	
-	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
-	public static final String WRITE_ALL_POSSIBLE_DNASE_CELL_NAMES_OUTPUT_FILENAME = "all_possible_dnase_cell_lines_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	
-	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
-	public static final String WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILENAME = "all_possible_tfbs_names.txt";
+	//ENCODE CELL LINE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME = "all_possible_encode_cell_lines_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME = "all_possible_encode_cellLineName_2_cellLineNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_cellLineNumber_2_cellLineName_map.txt";
 	
-	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
-	public static final String WRITE_ALL_POSSIBLE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_histone_names.txt";
-		
-	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
+	//ENCODE TF
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME = "all_possible_encode_tf_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNAME_2_TFNUMBER_OUTPUT_FILENAME = "all_possible_encode_tfName_2_tfNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_2_tfName_map.txt";
+
+	//ENCODE HISTONE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_encode_histone_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENAME_2_HISTONENUMBER_OUTPUT_FILENAME = "all_possible_encode_histoneName_2_histoneNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME = "all_possible_encode_histoneNumber_2_histoneName_map.txt";
+	
+	//ENCODE  FILENAME
+	public static final String WRITE_ALL_ENCODE_FILE_NAMES_OUTPUT_FILENAME = "all_possible_encode_file_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENAME_2_FILENUMBER_OUTPUT_FILENAME = "all_possible_encode_fileName_2_fileNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_encode_fileNumber_2_fileName_map.txt";
+
+
+	//KEGG PATHWAY
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME = "all_possible_keggPathwayNumber_2_keggPathwayName_map.txt";
+	
+	
+	
 	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
 	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME = "all_possible_rna_nucleotide_accession_versions.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");	
 	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME = "all_possible_alternate_gene_names.txt";	
 	
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
-	
+
 //	Kegg Pathway to Ncbi Ref Seq Gene Ids
 	public static final String KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE = "KEGG" + System.getProperty("file.separator") + "list_pathway_hsa.txt";
 	public static final String KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE = "KEGG" + System.getProperty("file.separator") + "pathway_hsa.list";

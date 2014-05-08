@@ -235,7 +235,7 @@ public class HashMapVersusListTest {
 //		List<char[]> ncbiRnaNucleotideAccessionVersionList = new ArrayList<char[]>();
 		List<String> ncbiRnaNucleotideAccessionVersionList = new ArrayList<String>();
 
-		hashMapVersusListTest.fillList(ncbiRnaNucleotideAccessionVersionList,Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);
+		hashMapVersusListTest.fillList(ncbiRnaNucleotideAccessionVersionList,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);
 
 //		List<StringandBufferedWriter> listwithString = new ArrayList<StringandBufferedWriter>();
 //		hashMapVersusListTest.functionListString(listwithString,ncbiRnaNucleotideAccessionVersionList);		
