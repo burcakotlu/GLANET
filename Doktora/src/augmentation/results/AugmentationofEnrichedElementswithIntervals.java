@@ -51,7 +51,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 		String histoneNameCellLineName;
 		
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		Float bonfCorrectedPValue; 
 		Float bhFDRAdjustedPValue;
 		
@@ -94,7 +94,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				histoneNameCellLineName = strLine1.substring(0, indexofFirstTab);
 							
 				//Pay attention to the order
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 											
@@ -168,7 +168,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 		String dnaseElementName;
 		
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		Float bonfCorrectedPValue; 
 		Float bhFDRAdjustedPValue;
 		
@@ -211,7 +211,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				dnaseElementName = strLine1.substring(0, indexofFirstTab);
 							
 				//Pay attention to the order
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
@@ -296,7 +296,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String keggPathwayName;
 		String keggPathwayDescription;
 		Float bonfCorrectedPValue; 
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		String keggPathwayNameandDescription;
 		
 		Float bhFDRAdjustedPValue ;
@@ -342,7 +342,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				
 				
 				//Pay attention to the order
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
@@ -462,7 +462,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String tfName_cellLineName_keggPathwayName;
 		String keggPathwayName;
 		Float bonfCorrectedPValue; 
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		Float bhFDRAdjustedPValue;
 		String keggPathwayDescription;
 		String keggPathwayNameandDescription;
@@ -511,7 +511,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				keggPathwayName = tfName_cellLineName_keggPathwayName.substring(indexofSecondUnderscore+1,indexofFirstTab);
 				
 				//Pay attention order is important
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
@@ -632,7 +632,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String keggPathwayName;
 		String keggPathwayDescription;
 
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		Float bonfCorrectedPValue; 
 		Float bhFDRAdjustedPValue ;
 		
@@ -672,7 +672,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 									
 				
 				//Pay attention to the order
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				
@@ -754,7 +754,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	
 		String tfNameCellLineName;
 		
-		Float empiricalPValue;
+//		Float empiricalPValue;
 		Float bonfCorrectedPValue; 
 		Float bhFDRAdjustedPValue;
 		
@@ -797,7 +797,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 				tfNameCellLineName = strLine1.substring(0, indexofFirstTab);
 							
 				//Pay attention to the order
-				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
+//				empiricalPValue = Float.parseFloat(strLine1.substring(indexofFifthTab+1, indexofSixthTab));
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 											
@@ -947,7 +947,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+//		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		String multipleTestingParameter = args[6];

@@ -247,7 +247,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		
 		
 	
-	public void searchUcscRefSeqGenes(String chromName, BufferedReader bufferedReader, IntervalTree ucscRefSeqGenesIntervalTree, BufferedWriter bufferedWriter){
+	public void searchUcscRefSeqGenes(ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree ucscRefSeqGenesIntervalTree, BufferedWriter bufferedWriter){
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -319,7 +319,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		} // End of while 
 	}
 	
-	public void searchHistone(String chromName, BufferedReader bufferedReader, IntervalTree histoneIntervalTree, BufferedWriter bufferedWriter){
+	public void searchHistone(ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree histoneIntervalTree, BufferedWriter bufferedWriter){
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -393,7 +393,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 	}
 	
 	
-	public void searchTfbs(String chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree, BufferedWriter bufferedWriter){
+	public void searchTfbs(ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree, BufferedWriter bufferedWriter){
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -469,7 +469,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 	}
 	
 	
-	public void searchDnase(String chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, BufferedWriter bufferedWriter){
+	public void searchDnase(ChromosomeName chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, BufferedWriter bufferedWriter){
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -754,7 +754,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 	}
 	
 	
-	public IntervalTree createUcscRefSeqGenesIntervalTree(String outputFolder,String chromName){
+	public IntervalTree createUcscRefSeqGenesIntervalTree(String outputFolder,ChromosomeName chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
@@ -770,59 +770,59 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 	
 	}
 	
-	public IntervalTree createHistoneIntervalTree(String chromName){
+	public IntervalTree createHistoneIntervalTree(ChromosomeName chromName){
 		IntervalTree  histoneIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
-			if (Commons.CHROMOSOME1.equals(chromName)){
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR1_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME2.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR2_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME3.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR3_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME4.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR4_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME5.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR5_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME6.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR6_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME7.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR7_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME8.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR8_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME9.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR9_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME10.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR10_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME11.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR11_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME12.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR12_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME13.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR13_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME14.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR14_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME15.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR15_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME16.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR16_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME17.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR17_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME18.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR18_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME19.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR19_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME20.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR20_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME21.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR21_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOME22.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR22_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOMEX.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRX_HISTONE_FILENAME);				
-			} else if (Commons.CHROMOSOMEY.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRY_HISTONE_FILENAME);				
 			} 
 		
@@ -841,59 +841,59 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		return histoneIntervalTree;	
 	}
 	
-	public IntervalTree createTfbsIntervalTree(String chromName){
+	public IntervalTree createTfbsIntervalTree(ChromosomeName chromName){
 		IntervalTree  tfbsIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
-			if (Commons.CHROMOSOME1.equals(chromName)){
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME2.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME3.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME4.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME5.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME6.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME7.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME8.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME9.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME10.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME11.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME12.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME13.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME14.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME15.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME16.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME17.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME18.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME19.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME20.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME21.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOME22.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOMEX.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME);				
-			} else if (Commons.CHROMOSOMEY.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
 					fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME);				
 			} 
 		
@@ -912,59 +912,59 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		return tfbsIntervalTree;	
 	}
 	
-	public IntervalTree createDnaseIntervalTree(String chromName){
+	public IntervalTree createDnaseIntervalTree(ChromosomeName chromName){
 		IntervalTree  dnaseIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
 		try {			
-			if (Commons.CHROMOSOME1.equals(chromName)){
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME2.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME3.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME4.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME5.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME6.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME7.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME8.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME9.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME10.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME11.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME12.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME13.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME14.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME15.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME16.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME17.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME18.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME19.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME20.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME21.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOME22.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOMEX.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME);				
-			} else if (Commons.CHROMOSOMEY.equals(chromName)){
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME);				
 			} 
 		
@@ -1025,529 +1025,529 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 			
 			switch(i){
 			case 1: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME1);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME1);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchDnase(Commons.CHROMOSOME1,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME1,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME1);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME1);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME1,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME1,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME1);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME1);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchHistone(Commons.CHROMOSOME1,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME1,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME1);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME1);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME1,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME1,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 			case 2: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME2);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME2);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchDnase(Commons.CHROMOSOME2,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME2,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME2);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME2);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME2,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME2,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 	
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME2);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME2);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchHistone(Commons.CHROMOSOME2,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME2,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME2);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME2);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME2,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME2,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 			case 3: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME3);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME3);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchDnase(Commons.CHROMOSOME3,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME3,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME3);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME3);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME3,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME3,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 	
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME3);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME3);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchHistone(Commons.CHROMOSOME3,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME3,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME3);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME3);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME3,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME3,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 			case 4: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME4);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME4);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchDnase(Commons.CHROMOSOME4,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME4,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME4);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME4);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME4,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME4,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 	
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME4);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME4);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchHistone(Commons.CHROMOSOME4,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME4,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME4);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME4);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME4,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME4,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 				
 			case 5: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME5);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME5);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchDnase(Commons.CHROMOSOME5,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME5,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME5);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME5);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME5,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME5,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 	
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME5);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME5);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchHistone(Commons.CHROMOSOME5,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME5,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME5);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME5);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME5,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME5,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 		
 		case 6: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME6);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME6);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchDnase(Commons.CHROMOSOME6,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME6,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME6);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME6);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME6,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME6,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 	
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME6);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME6);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchHistone(Commons.CHROMOSOME6,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME6,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME6);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME6);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME6,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME6,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 		case 7: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME7);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME7);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchDnase(Commons.CHROMOSOME7,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME7,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME7);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME7);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME7,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME7,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME7);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME7);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchHistone(Commons.CHROMOSOME7,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME7,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME7);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME7);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME7,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME7,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 
 
 		case 8: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME8);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME8);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchDnase(Commons.CHROMOSOME8,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME8,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME8);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME8);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME8,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME8,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME8);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME8);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchHistone(Commons.CHROMOSOME8,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME8,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME8);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME8);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME8,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME8,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 
 		case 9: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME9);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME9);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchDnase(Commons.CHROMOSOME9,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME9,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME9);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME9);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME9,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME9,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME9);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME9);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchHistone(Commons.CHROMOSOME9,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME9,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME9);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME9);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME9,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME9,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 		case 10: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME10);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME10);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchDnase(Commons.CHROMOSOME10,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME10,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME10);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME10);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME10,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME10,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME10);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME10);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchHistone(Commons.CHROMOSOME10,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME10,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME10);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME10);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME10,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME10,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 		case 11: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME11);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME11);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchDnase(Commons.CHROMOSOME11,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME11,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME11);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME11);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME11,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME11,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME11);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME11);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchHistone(Commons.CHROMOSOME11,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME11,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME11);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME11);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME11,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME11,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 
 		case 12: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME12);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME12);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchDnase(Commons.CHROMOSOME12,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME12,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME12);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME12);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME12,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME12,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME12);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME12);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchHistone(Commons.CHROMOSOME12,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME12,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME12);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME12);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME12,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME12,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 		case 13: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME13);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME13);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchDnase(Commons.CHROMOSOME13,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME13,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME13);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME13);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME13,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME13,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME13);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME13);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchHistone(Commons.CHROMOSOME13,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME13,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME13);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME13);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME13,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME13,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 				
 		case 14: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME14);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME14);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchDnase(Commons.CHROMOSOME14,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME14,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME14);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME14);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME14,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME14,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME14);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME14);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchHistone(Commons.CHROMOSOME14,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME14,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME14);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME14);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME14,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME14,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 					
 		case 15: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME15);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME15);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchDnase(Commons.CHROMOSOME15,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME15,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME15);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME15);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME15,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME15,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME15);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME15);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchHistone(Commons.CHROMOSOME15,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME15,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME15);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME15);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME15,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME15,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 						
 		case 16: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME16);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME16);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchDnase(Commons.CHROMOSOME16,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME16,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME16);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME16);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME16,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME16,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME16);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME16);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchHistone(Commons.CHROMOSOME16,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME16,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME16);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME16);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME16,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME16,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 							
 		case 17: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME17);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME17);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchDnase(Commons.CHROMOSOME17,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME17,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME17);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME17);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME17,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME17,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME17);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME17);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchHistone(Commons.CHROMOSOME17,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME17,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME17);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME17);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME17,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME17,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 								
 		case 18: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME18);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME18);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchDnase(Commons.CHROMOSOME18,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME18,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME18);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME18);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME18,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME18,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME18);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME18);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchHistone(Commons.CHROMOSOME18,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME18,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME18);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME18);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME18,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME18,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 									
 		case 19: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME19);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME19);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchDnase(Commons.CHROMOSOME19,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME19,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME19);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME19);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME19,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME19,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME19);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME19);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchHistone(Commons.CHROMOSOME19,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME19,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME19);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME19);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME19,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME19,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 										
 		case 20: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME20);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME20);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchDnase(Commons.CHROMOSOME20,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME20,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME20);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME20);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME20,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME20,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME20);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME20);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchHistone(Commons.CHROMOSOME20,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME20,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME20);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME20);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME20,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME20,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 											
 		case 21: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME21);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME21);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchDnase(Commons.CHROMOSOME21,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME21,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME21);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME21);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME21,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME21,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME21);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME21);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchHistone(Commons.CHROMOSOME21,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME21,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME21);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME21);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME21,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME21,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 												
 		case 22: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOME22);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOME22);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchDnase(Commons.CHROMOSOME22,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOME22,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOME22);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOME22);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchTfbs(Commons.CHROMOSOME22,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOME22,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOME22);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOME22);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchHistone(Commons.CHROMOSOME22,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOME22,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOME22);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME22);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOME22,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOME22,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;		
 													
 		case 23: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOMEX);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchDnase(Commons.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOMEX);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchTfbs(Commons.CHROMOSOMEX,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOMEX,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOMEX);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchHistone(Commons.CHROMOSOMEX,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOMEX,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEX);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOMEX);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOMEX,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOMEX,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;
 					
 		case 24: 			
-					dnaseIntervalTree = createDnaseIntervalTree(Commons.CHROMOSOMEY);
+					dnaseIntervalTree = createDnaseIntervalTree(ChromosomeName.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchDnase(Commons.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, bufferedWriter);
+					searchDnase(ChromosomeName.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, bufferedWriter);
 					dnaseIntervalTree = null;					
 					
-					tfbsIntervalTree = createTfbsIntervalTree(Commons.CHROMOSOMEY);
+					tfbsIntervalTree = createTfbsIntervalTree(ChromosomeName.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchTfbs(Commons.CHROMOSOMEY,bufferedReader, tfbsIntervalTree, bufferedWriter);
+					searchTfbs(ChromosomeName.CHROMOSOMEY,bufferedReader, tfbsIntervalTree, bufferedWriter);
 					tfbsIntervalTree = null;
 		
-					histoneIntervalTree = createHistoneIntervalTree(Commons.CHROMOSOMEY);
+					histoneIntervalTree = createHistoneIntervalTree(ChromosomeName.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchHistone(Commons.CHROMOSOMEY,bufferedReader, histoneIntervalTree, bufferedWriter);
+					searchHistone(ChromosomeName.CHROMOSOMEY,bufferedReader, histoneIntervalTree, bufferedWriter);
 					histoneIntervalTree = null;
 					
-					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,Commons.CHROMOSOMEY);
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOMEY);
 					bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-					searchUcscRefSeqGenes(Commons.CHROMOSOMEY,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
+					searchUcscRefSeqGenes(ChromosomeName.CHROMOSOMEY,bufferedReader, ucscRefSeqGenesIntervalTree, bufferedWriter);
 					ucscRefSeqGenesIntervalTree = null;					
 					break;					
 

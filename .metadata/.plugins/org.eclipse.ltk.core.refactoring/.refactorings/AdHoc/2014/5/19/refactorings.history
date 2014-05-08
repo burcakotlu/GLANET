@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;CollectionofPermutationsResults.java&apos; to &apos;Doktora/src/empiricalpvalues&apos;&#x0D;&#x0A;- Original project: &apos;AdHoc&apos;&#x0D;&#x0A;- Destination element: &apos;Doktora/src/empiricalpvalues&apos;&#x0D;&#x0A;- Original element: &apos;adhoc.CollectionofPermutationsResults.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=Doktora/src&lt;empiricalpvalues" element1="/src&lt;adhoc{CollectionofPermutationsResults.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1399473682797" units="1" version="1.0"/>
+</session>

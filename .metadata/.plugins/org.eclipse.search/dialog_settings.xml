@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="SearchDialog.ScopePart">
-		<item key="scope" value="2"/>
+		<item value="2" key="scope"/>
 		<list key="lastUsedWorkingSetNames">
 			<item value="GLANET"/>
 		</list>
 	</section>
 	<section name="">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
 		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
 	</section>
 	<section name="">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
 		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
 	</section>
 	<section name="TextSearchPage">
-		<item key="HISTORY_SIZE" value="4"/>
+		<item value="5" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="SEARCH_DERIVED"/>
-		<section name="EXTENSIONS">
-			<item key="0" value="*"/>
-		</section>
-		<section name="HISTORY2">
-			<item key="ignoreCase" value="true"/>
+		<item value="false" key="WHOLE_WORD"/>
+		<section name="HISTORY4">
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
-			<item value="\n" key="textPattern"/>
-			<item value="false" key="isRegExSearch"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY3">
-			<item key="ignoreCase" value="true"/>
-			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
 			<item value="head" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
@@ -46,10 +34,38 @@
 			<list key="workingSets">
 			</list>
 		</section>
+		<section name="EXTENSIONS">
+			<item value="*" key="0"/>
+		</section>
+		<section name="HISTORY2">
+			<item value="true" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="original" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY3">
+			<item value="true" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="\n" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
 		<section name="HISTORY0">
-			<item key="ignoreCase" value="true"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="2" key="scope"/>
-			<item value="&quot;all_possible_names&quot;" key="textPattern"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="Unknown chromosome" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -59,19 +75,21 @@
 			</list>
 		</section>
 		<section name="HISTORY1">
-			<item key="ignoreCase" value="true"/>
-			<item value="0" key="scope"/>
-			<item value="original" key="textPattern"/>
+			<item value="true" key="ignoreCase"/>
+			<item value="2" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="&quot;all_possible_names&quot;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
 			<list key="workingSets">
+				<item value="GLANET"/>
 			</list>
 		</section>
 	</section>
 	<section name="org.eclipse.search.text.FileSearchResultPage">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="Search">
 		<list key="Search.processedPageIds">
@@ -89,12 +107,15 @@
 			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
 		</list>
 	</section>
+	<section name="SearchDialog">
+		<item value="org.eclipse.search.internal.ui.text.TextSearchPage" key="PREVIOUS_PAGE"/>
+	</section>
 	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
-		<item key="org.eclipse.jdt.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
 		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
 	</section>
 	<section name="DialogBounds_SearchDialog">
-		<item key="DIALOG_WIDTH" value="799"/>
+		<item value="799" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="632" key="DIALOG_HEIGHT"/>
 		<item value="591" key="DIALOG_X_ORIGIN"/>

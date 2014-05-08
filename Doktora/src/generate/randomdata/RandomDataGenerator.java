@@ -8,6 +8,8 @@
  */
 package generate.randomdata;
 
+import intervaltree.ChromosomeName;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
@@ -18,9 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import mapabilityandgc.GC;
 import mapabilityandgc.Mapability;
-
 import common.Commons;
-
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;
@@ -28,7 +28,7 @@ import empiricalpvalues.MapabilityFloatArray;
 public class RandomDataGenerator {
 	
 	//todo
-	public static List<InputLine>  generateRandomData(GCCharArray gcCharArray, MapabilityFloatArray mapabilityDoubleArray,int chromSize, String chromName, List<InputLine> chromosomeBasedOriginalInputLines, ThreadLocalRandom threadLocalRandom,String mode){
+	public static List<InputLine>  generateRandomData(GCCharArray gcCharArray, MapabilityFloatArray mapabilityDoubleArray,int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, ThreadLocalRandom threadLocalRandom,String mode){
 		
 		List<InputLine> randomlyGeneratedInputLines = null;
 		
@@ -198,7 +198,7 @@ public class RandomDataGenerator {
 	
 	
 	//generate random data
-	public static void generateRandomData(List<InputLine>  randomlyGeneratedData, List<InputLine> originalInputData,Random myRandom,Integer chromSize,String chromName){
+	public static void generateRandomData(List<InputLine>  randomlyGeneratedData, List<InputLine> originalInputData,Random myRandom,Integer chromSize,ChromosomeName chromName){
 		
 		InputLine originalLine;
 		InputLine randomlyGeneratedLine;

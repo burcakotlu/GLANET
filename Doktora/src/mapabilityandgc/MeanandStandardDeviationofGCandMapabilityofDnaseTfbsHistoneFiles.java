@@ -28,8 +28,8 @@ import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
 import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
 import empiricalpvalues.GCCharArray;
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import common.Commons;
 
 public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
@@ -805,7 +805,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	//todo
 	//GC
 	public static void calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(String outputFolder,String dataFolder,Map<String, MeanandStandardDeviation>  gcDnaseHashMap, Map<String, MeanandStandardDeviation>  gcTfbsHashMap, Map<String, MeanandStandardDeviation>  gcHistoneHashMap, List<Integer>  hg19ChromosomeSizes){
-		String chromName;
+		ChromosomeName chromName;
 		int chromSize;
 		GCCharArray gcCharAray;
 		String  directory=null;
@@ -820,7 +820,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the gcHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -837,7 +837,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -854,7 +854,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -917,7 +917,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	//Mapability
 	public static void 	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(String outputFolder,Map<String, MeanandStandardDeviation> mapabilityDnaseHashMap,Map<String, MeanandStandardDeviation> mapabilityTfbsHashMap,Map<String, MeanandStandardDeviation> mapabilityHistoneHashMap,List<Integer> hg19ChromosomeSizes){
 		
-		String chromName;
+		ChromosomeName chromName;
 		int chromSize;
 		IntervalTree mapabilityIntervalTree;
 		String  directory=null;
@@ -932,7 +932,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -949,7 +949,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -966,7 +966,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//put MeanandStandardDeviation objects in the mapabilityHashMap
 		//take any chromosome
 		//for example chr1
-		chromName = Commons.CHROMOSOME1;
+		chromName = ChromosomeName.CHROMOSOME1;
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
@@ -1029,9 +1029,9 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	
 	
-	public static void closeBufferedWriters(Map<String,BufferedWriter> bufferedWriterHashMap){
+	public static void closeBufferedWriters(Map<ChromosomeName,BufferedWriter> bufferedWriterHashMap){
 		
-		for (Map.Entry<String,BufferedWriter> entry: bufferedWriterHashMap.entrySet()){
+		for (Map.Entry<ChromosomeName,BufferedWriter> entry: bufferedWriterHashMap.entrySet()){
 			BufferedWriter bufferedWriter = entry.getValue();
 			
 			try {
@@ -1046,14 +1046,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	
 	
 	 
-	public static void partitionFileinaChromosomeBasedManner(String filePath, Map<String,BufferedWriter> bufferedWriterHashMap){
+	public static void partitionFileinaChromosomeBasedManner(String filePath, Map<ChromosomeName,BufferedWriter> bufferedWriterHashMap){
 		FileReader fileReader= null;
 		BufferedReader bufferedReader = null;
 		
 		BufferedWriter bufferedWriter = null;
 		
 		String strLine;
-		String chromName;
+		ChromosomeName chromName;
 		
 		int indexofFirstTab;
 		
@@ -1065,7 +1065,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			
 			while((strLine= bufferedReader.readLine())!=null){
 				indexofFirstTab = strLine.indexOf('\t');
-				chromName = strLine.substring(0, indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 				bufferedWriter = bufferedWriterHashMap.get(chromName);
 				bufferedWriter.write(strLine + "\n");
 			}
@@ -1084,8 +1084,8 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 
 
 
-	public static void fillBufferedWriterHashMap(String chromosomeBasedDirectory, String fileName, Map<String,BufferedWriter> bufferedWriterHashMap){
-		String chromName;
+	public static void fillBufferedWriterHashMap(String chromosomeBasedDirectory, String fileName, Map<ChromosomeName,BufferedWriter> bufferedWriterHashMap){
+		ChromosomeName chromName;
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 		
@@ -1150,7 +1150,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 
 		    			 
-		    			Map<String,BufferedWriter> bufferedWriterHashMap = new HashMap<String,BufferedWriter>();
+		    			Map<ChromosomeName,BufferedWriter> bufferedWriterHashMap = new HashMap<ChromosomeName,BufferedWriter>();
 		    			fillBufferedWriterHashMap(chromosomeBasedDirectory,fileName,bufferedWriterHashMap); 
 		    			partitionFileinaChromosomeBasedManner(filePath,bufferedWriterHashMap);
 		    			    			

@@ -8,20 +8,22 @@
  */
 package empiricalpvalues;
 
+import intervaltree.ChromosomeName;
+
 public class InputLine {
 	
-	String chrName;
+	ChromosomeName chrName;
 	int low;
 	int high;
 	float gcContent;
 	float mapability;
 	int length;
+		
 	
-	
-	public String getChrName() {
+	public ChromosomeName getChrName() {
 		return chrName;
 	}
-	public void setChrName(String chrName) {
+	public void setChrName(ChromosomeName chrName) {
 		this.chrName = chrName;
 	}
 	public int getLow() {
@@ -55,7 +57,7 @@ public class InputLine {
 		this.mapability = mapability;
 	}
 	
-	public InputLine(String chrName, int low, int high) {
+	public InputLine(ChromosomeName chrName, int low, int high) {
 		super();
 		this.chrName = chrName;
 		this.low = low;
@@ -64,7 +66,7 @@ public class InputLine {
 		this.length = high-low+1;
 	}
 	
-	public InputLine(String chrName, int low, int high, float gcContent,
+	public InputLine(ChromosomeName chrName, int low, int high, float gcContent,
 			float mapability) {
 		super();
 		this.chrName = chrName;

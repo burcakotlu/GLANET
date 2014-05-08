@@ -10,6 +10,7 @@ package empiricalpvalues;
 
 import generate.randomdata.RandomDataGenerator;
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
@@ -36,7 +37,6 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
-
 import common.Commons;
 
 
@@ -49,7 +49,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		 */
 		private static final long serialVersionUID = -5508399455444935122L;
 		private final int chromSize;
-		private final String chromName;
+		private final ChromosomeName chromName;
 		private final List<InputLine> chromosomeBasedOriginalInputLines;
 			
 		private final String generateRandomDataMode;
@@ -64,7 +64,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		private final MapabilityFloatArray mapabilityFloatArray;
 		private final String outputFolder;
 				
-		public GenerateRandomData(String outputFolder,int chromSize, String chromName, List<InputLine> chromosomeBasedOriginalInputLines, String generateRandomDataMode, String writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
+		public GenerateRandomData(String outputFolder,int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, String generateRandomDataMode, String writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
 			
 			this.outputFolder = outputFolder;
 			
@@ -165,7 +165,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				
 				for(int i=0;i<randomlyGeneratedData.size(); i++){
 					randomlyGeneratedInputLine = randomlyGeneratedData.get(i);
-					bufferedWriter.write(randomlyGeneratedInputLine.getChrName() +"\t" + randomlyGeneratedInputLine.getLow() + "\t" + randomlyGeneratedInputLine.getHigh() +System.getProperty("line.separator"));
+					bufferedWriter.write(ChromosomeName.convertEnumtoString(randomlyGeneratedInputLine.getChrName()) +"\t" + randomlyGeneratedInputLine.getLow() + "\t" + randomlyGeneratedInputLine.getHigh() +System.getProperty("line.separator"));
 					bufferedWriter.flush();
 				}//End of FOR
 				
@@ -185,7 +185,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		
 	private static final long serialVersionUID = 2919115895116169524L;
 	private final int chromSize;
-	private final String chromName;
+	private final ChromosomeName chromName;
 	private final Map<Integer,List<InputLine>> randomlyGeneratedDataMap;
 	private final int runNumber;
 	private final int numberofPermutations;
@@ -211,7 +211,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	
 	
 	
-	public Annotate(String outputFolder,int chromSize, String chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
+	public Annotate(String outputFolder,int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
 		this.outputFolder  = outputFolder;
 		
 		this.chromSize = chromSize;
@@ -486,7 +486,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		int indexofFirstTab;
 		int indexofSecondTab;
 		
-		String chrName;
+		ChromosomeName chrName;
 		int low;
 		int high;
 	
@@ -501,7 +501,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
 				
-				chrName = strLine.substring(0, indexofFirstTab);
+				chrName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 				
 				if (indexofSecondTab>0){
 					low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
@@ -524,9 +524,9 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	}
 	
 	
-	public  void partitionDataChromosomeBased(List<InputLine> originalInputLines, Map<String,List<InputLine>> chromosomeBasedOriginalInputLines){
+	public  void partitionDataChromosomeBased(List<InputLine> originalInputLines, Map<ChromosomeName,List<InputLine>> chromosomeBasedOriginalInputLines){
 		InputLine line;
-		String chrName;
+		ChromosomeName chrName;
 		List<InputLine> list;
 		
 		
@@ -687,7 +687,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		
 		
 	
-	public void generateAnnotationTasks(String chromName, List<AnnotationTask> listofAnnotationTasks,int runNumber,int numberofPermutationsinThisRun){
+	public void generateAnnotationTasks(ChromosomeName chromName, List<AnnotationTask> listofAnnotationTasks,int runNumber,int numberofPermutationsinThisRun){
 		
 		
 			for(int permutationNumber = 1; permutationNumber<= numberofPermutationsinThisRun; permutationNumber++){
@@ -696,27 +696,27 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	}
 	
 	
-	public void generateAnnotationTaskforOriginalData(String chromName, List<AnnotationTask> listofAnnotationTasks,Integer originalDataPermutationNumber){
+	public void generateAnnotationTaskforOriginalData(ChromosomeName chromName, List<AnnotationTask> listofAnnotationTasks,Integer originalDataPermutationNumber){
 		listofAnnotationTasks.add(new AnnotationTask(chromName, 0));
 	}
 	
-	public IntervalTree generateDnaseIntervalTree(String dataFolder,String chromName){		
+	public IntervalTree generateDnaseIntervalTree(String dataFolder,ChromosomeName chromName){		
 		return AnnotateGivenIntervalsWithGivenParameters.createDnaseIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateTfbsIntervalTree(String dataFolder,String chromName){		
+	public IntervalTree generateTfbsIntervalTree(String dataFolder,ChromosomeName chromName){		
 		return AnnotateGivenIntervalsWithGivenParameters.createTfbsIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateHistoneIntervalTree(String dataFolder,String chromName){		
+	public IntervalTree generateHistoneIntervalTree(String dataFolder,ChromosomeName chromName){		
 		return AnnotateGivenIntervalsWithGivenParameters.createHistoneIntervalTree(dataFolder,chromName);	
 	}
 	
-	public IntervalTree generateUcscRefSeqGeneIntervalTree(String dataFolder,String chromName){		
+	public IntervalTree generateUcscRefSeqGeneIntervalTree(String dataFolder,ChromosomeName chromName){		
 		return AnnotateGivenIntervalsWithGivenParameters.createUcscRefSeqGenesIntervalTree(dataFolder,chromName);	
 	}
 	
-	public void generateIntervalTrees(String outputFolder,String chromName, List<IntervalTree> listofIntervalTrees){
+	public void generateIntervalTrees(String outputFolder,ChromosomeName chromName, List<IntervalTree> listofIntervalTrees){
 		IntervalTree dnaseIntervalTree;
 		IntervalTree tfbsIntervalTree ;
 		IntervalTree histoneIntervalTree;
@@ -919,8 +919,6 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 	
 	public void deleteAnnotationTasks(List<AnnotationTask> listofAnnotationTasks){
 		for(AnnotationTask annotationTask : listofAnnotationTasks){
-			annotationTask.setChromName(null);
-			annotationTask.setPermutationNumber(null);
 			annotationTask = null;
 		}
 	}
@@ -982,7 +980,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		Map<String,BufferedWriter> permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>();
 		Map<String,BufferedWriter> permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>();
 		
-		Map<String,List<InputLine>> originalInputLinesMap = new HashMap<String,List<InputLine>>();
+		Map<ChromosomeName,List<InputLine>> originalInputLinesMap = new HashMap<ChromosomeName,List<InputLine>>();
 		
 		//todo test it 
 		//SecureRandom myrandom = new SecureRandom();
@@ -1010,7 +1008,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
     	//get the hg19 chromosome sizes
     	hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		
-		String chromName;
+		ChromosomeName chromName;
     	int chromSize;
     	List<InputLine> chromosomeBaseOriginalInputLines;
     	Map<Integer,List<InputLine>> permutationNumber2RandomlyGeneratedDataHashMap = new HashMap<Integer,List<InputLine>>();
@@ -1060,17 +1058,15 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 			    System.out.println("Generate Random Data has ended.");
 			    
-			    //Only in the first run
+			    //In the first run
 			    //generate task for original data
-			    if  (runNumber == 1){
-			    	   //After Random Data Generation has been ended
-					//generate task for User Given Original Data(Genomic Variants)
-				    //Since we do not need random data, there is  original data is given
-					generateAnnotationTaskforOriginalData(chromName,listofAnnotationTasks,Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
-					
-					//Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
-					permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
-			    }
+		     	//After Random Data Generation has been ended
+				//generate task for User Given Original Data(Genomic Variants)
+			    //Since we do not need random data, there is  original data is given
+				generateAnnotationTaskforOriginalData(chromName,listofAnnotationTasks,Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
+				
+				//Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
+				permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
 			 	    
 				System.out.println("Deletion of the gcCharArray has started.");
 				deleteGCCharArray(gcCharArray.getGcArray());
@@ -1747,9 +1743,9 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		
-		//delete old files
-		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
+//		//delete old files
+//		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
+//		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
 		/*********************************************/
 
 		

@@ -8,9 +8,11 @@
  */
 package mapabilityandgc;
 
-import empiricalpvalues.GCCharArray;
+import intervaltree.ChromosomeName;
 
 import common.Commons;
+
+import empiricalpvalues.GCCharArray;
 
 public class SingletonChromosomeBasedGCArray {
 	
@@ -81,7 +83,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr1GC(String dataFolder,int chromSize) {
 		if (SingletonChr1GCArray == null) {
 			SingletonChr1GCArray =new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME1,SingletonChr1GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME1,SingletonChr1GCArray);	
 		}
 		return SingletonChr1GCArray;
 	}
@@ -89,7 +91,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr2GC(String dataFolder,int chromSize) {
 		if (SingletonChr2GCArray == null) {
 			SingletonChr2GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME2,SingletonChr2GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME2,SingletonChr2GCArray);	
 		}
 		return SingletonChr2GCArray;
 	}
@@ -97,7 +99,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr3GC(String dataFolder,int chromSize) {
 		if (SingletonChr3GCArray == null) {
 			SingletonChr3GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME3,SingletonChr3GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME3,SingletonChr3GCArray);	
 		}
 		return SingletonChr3GCArray;
 	}
@@ -105,7 +107,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr4GC(String dataFolder,int chromSize) {
 		if (SingletonChr4GCArray == null) {
 			SingletonChr4GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME4,SingletonChr4GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME4,SingletonChr4GCArray);	
 		}
 		return SingletonChr4GCArray;
 	}
@@ -113,7 +115,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr5GC(String dataFolder,int chromSize) {
 		if (SingletonChr5GCArray == null) {
 			SingletonChr5GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME5,SingletonChr5GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME5,SingletonChr5GCArray);	
 		}
 		return SingletonChr5GCArray;
 	}
@@ -121,7 +123,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr6GC(String dataFolder,int chromSize) {
 		if (SingletonChr6GCArray == null) {
 			SingletonChr6GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME6,SingletonChr6GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME6,SingletonChr6GCArray);	
 		}
 		return SingletonChr6GCArray;
 	}
@@ -130,7 +132,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr7GC(String dataFolder,int chromSize) {
 		if (SingletonChr7GCArray == null) {
 			SingletonChr7GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME7,SingletonChr7GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME7,SingletonChr7GCArray);	
 		}
 		return SingletonChr7GCArray;
 	}
@@ -138,7 +140,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr8GC(String dataFolder,int chromSize) {
 		if (SingletonChr8GCArray == null) {
 			SingletonChr8GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME8,SingletonChr8GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME8,SingletonChr8GCArray);	
 		}
 		return SingletonChr8GCArray;
 	}
@@ -146,7 +148,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr9GC(String dataFolder,int chromSize) {
 		if (SingletonChr9GCArray == null) {
 			SingletonChr9GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME9,SingletonChr9GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME9,SingletonChr9GCArray);	
 		}
 		return SingletonChr9GCArray;
 	}
@@ -154,7 +156,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr10GC(String dataFolder,int chromSize) {
 		if (SingletonChr10GCArray == null) {
 			SingletonChr10GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME10,SingletonChr10GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME10,SingletonChr10GCArray);	
 		}
 		return SingletonChr10GCArray;
 	}
@@ -162,7 +164,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr11GC(String dataFolder,int chromSize) {
 		if (SingletonChr11GCArray == null) {
 			SingletonChr11GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME11,SingletonChr11GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME11,SingletonChr11GCArray);	
 		}
 		return SingletonChr11GCArray;
 	}
@@ -170,7 +172,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr12GC(String dataFolder,int chromSize) {
 		if (SingletonChr12GCArray == null) {
 			SingletonChr12GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME12,SingletonChr12GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME12,SingletonChr12GCArray);	
 		}
 		return SingletonChr12GCArray;
 	}
@@ -178,7 +180,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr13GC(String dataFolder,int chromSize) {
 		if (SingletonChr13GCArray == null) {
 			SingletonChr13GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME13,SingletonChr13GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME13,SingletonChr13GCArray);	
 		}
 		return SingletonChr13GCArray;
 	}
@@ -186,7 +188,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr14GC(String dataFolder,int chromSize) {
 		if (SingletonChr14GCArray == null) {
 			SingletonChr14GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME14,SingletonChr14GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME14,SingletonChr14GCArray);	
 		}
 		return SingletonChr14GCArray;
 	}
@@ -194,7 +196,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr15GC(String dataFolder,int chromSize) {
 		if (SingletonChr15GCArray == null) {
 			SingletonChr15GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME15,SingletonChr15GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME15,SingletonChr15GCArray);	
 		}
 		return SingletonChr15GCArray;
 	}
@@ -202,7 +204,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr16GC(String dataFolder,int chromSize) {
 		if (SingletonChr16GCArray == null) {
 			SingletonChr16GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME16,SingletonChr16GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME16,SingletonChr16GCArray);	
 		}
 		return SingletonChr16GCArray;
 	}
@@ -210,7 +212,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr17GC(String dataFolder,int chromSize) {
 		if (SingletonChr17GCArray == null) {
 			SingletonChr17GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME17,SingletonChr17GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME17,SingletonChr17GCArray);	
 		}
 		return SingletonChr17GCArray;
 	}
@@ -218,7 +220,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr18GC(String dataFolder,int chromSize) {
 		if (SingletonChr18GCArray == null) {
 			SingletonChr18GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME18,SingletonChr18GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME18,SingletonChr18GCArray);	
 		}
 		return SingletonChr18GCArray;
 	}
@@ -226,7 +228,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr19GC(String dataFolder,int chromSize) {
 		if (SingletonChr19GCArray == null) {
 			SingletonChr19GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME19,SingletonChr19GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME19,SingletonChr19GCArray);	
 		}
 		return SingletonChr19GCArray;
 	}
@@ -234,7 +236,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr20GC(String dataFolder,int chromSize) {
 		if (SingletonChr20GCArray == null) {
 			SingletonChr20GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME20,SingletonChr20GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME20,SingletonChr20GCArray);	
 		}
 		return SingletonChr20GCArray;
 	}
@@ -242,7 +244,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr21GC(String dataFolder,int chromSize) {
 		if (SingletonChr21GCArray == null) {
 			SingletonChr21GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME21,SingletonChr21GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME21,SingletonChr21GCArray);	
 		}
 		return SingletonChr21GCArray;
 	}
@@ -250,7 +252,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChr22GC(String dataFolder,int chromSize) {
 		if (SingletonChr22GCArray == null) {
 			SingletonChr22GCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOME22,SingletonChr22GCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOME22,SingletonChr22GCArray);	
 		}
 		return SingletonChr22GCArray;
 	}
@@ -258,7 +260,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChrXGC(String dataFolder,int chromSize) {
 		if (SingletonChrXGCArray == null) {
 			SingletonChrXGCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOMEX,SingletonChrXGCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOMEX,SingletonChrXGCArray);	
 		}
 		return SingletonChrXGCArray;
 	}
@@ -266,7 +268,7 @@ public class SingletonChromosomeBasedGCArray {
 	public static GCCharArray getSingletonChrYGC(String dataFolder,int chromSize) {
 		if (SingletonChrYGCArray == null) {
 			SingletonChrYGCArray = new GCCharArray(chromSize);
-			GC.fillChromBasedGCArray(dataFolder,Commons.CHROMOSOMEY,SingletonChrYGCArray);	
+			GC.fillChromBasedGCArray(dataFolder,ChromosomeName.CHROMOSOMEY,SingletonChrYGCArray);	
 		}
 		return SingletonChrYGCArray;
 	}

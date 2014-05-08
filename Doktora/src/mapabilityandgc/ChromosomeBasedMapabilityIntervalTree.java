@@ -8,8 +8,8 @@
  */
 package mapabilityandgc;
 
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import common.Commons;
 
 public class ChromosomeBasedMapabilityIntervalTree {
@@ -17,32 +17,32 @@ public class ChromosomeBasedMapabilityIntervalTree {
 	
 	
 	
-	public  static IntervalTree getChromosomeBasedMapabilityIntervalTree(String chromName, int chromSize){
+	public  static IntervalTree getChromosomeBasedMapabilityIntervalTree(ChromosomeName chromName, int chromSize){
 		switch(chromName){
-			case Commons.CHROMOSOME1 :  return getChromosome1MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME2 :  return getChromosome2MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME3 :  return getChromosome3MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME4 :  return getChromosome4MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME5 :  return getChromosome5MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME6 :  return getChromosome6MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME7 :  return getChromosome7MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME8 :  return getChromosome8MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME9 :  return getChromosome9MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME10 :  return getChromosome10MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME11 :  return getChromosome11MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME12 :  return getChromosome12MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME13 :  return getChromosome13MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME14 :  return getChromosome14MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME15 :  return getChromosome15MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME16 :  return getChromosome16MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME17 :  return getChromosome17MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME18 :  return getChromosome18MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME19 :  return getChromosome19MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME20:  return getChromosome20MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME21 :  return getChromosome21MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOME22 :  return getChromosome22MapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOMEX :  return getChromosomeXMapabilityIntervalTree(chromSize); 
-			case Commons.CHROMOSOMEY :  return getChromosomeYMapabilityIntervalTree(chromSize); 
+			case CHROMOSOME1 :  return getChromosome1MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME2 :  return getChromosome2MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME3 :  return getChromosome3MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME4 :  return getChromosome4MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME5 :  return getChromosome5MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME6 :  return getChromosome6MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME7 :  return getChromosome7MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME8 :  return getChromosome8MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME9 :  return getChromosome9MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME10 :  return getChromosome10MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME11 :  return getChromosome11MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME12 :  return getChromosome12MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME13 :  return getChromosome13MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME14 :  return getChromosome14MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME15 :  return getChromosome15MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME16 :  return getChromosome16MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME17 :  return getChromosome17MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME18 :  return getChromosome18MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME19 :  return getChromosome19MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME20:  return getChromosome20MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME21 :  return getChromosome21MapabilityIntervalTree(chromSize); 
+			case CHROMOSOME22 :  return getChromosome22MapabilityIntervalTree(chromSize); 
+			case CHROMOSOMEX :  return getChromosomeXMapabilityIntervalTree(chromSize); 
+			case CHROMOSOMEY :  return getChromosomeYMapabilityIntervalTree(chromSize); 
 				
 		}//End of switch
 		

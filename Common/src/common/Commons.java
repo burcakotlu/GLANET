@@ -27,7 +27,7 @@ public class Commons {
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
-	public static Integer NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = new Integer(2000);
+	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
 	
 	public static Float FLOAT_ZERO = new Float(0.0f); 
 	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 
@@ -49,8 +49,8 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
 	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
 			
-	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Processed_Input_Data.txt";
-	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Removed_Overlaps_Input_Data.txt";
+	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_OverlapsRemoved.txt";
 	
 	//FOR TESTING PURPOSES 
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;

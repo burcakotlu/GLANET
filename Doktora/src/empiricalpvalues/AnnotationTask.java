@@ -8,29 +8,47 @@
  */
 package empiricalpvalues;
 
+import intervaltree.ChromosomeName;
+
 public class AnnotationTask {
 	
-	String chromName;
-	Integer permutationNumber;
+	ChromosomeName chromName;
+	int permutationNumber;
 	
 	
-	public String getChromName() {
+	
+	public ChromosomeName getChromName() {
 		return chromName;
 	}
-	public void setChromName(String chromName) {
+
+
+
+	public void setChromName(ChromosomeName chromName) {
 		this.chromName = chromName;
 	}
-	
-		
-	public Integer getPermutationNumber() {
+
+
+
+
+
+	public int getPermutationNumber() {
 		return permutationNumber;
 	}
-	public void setPermutationNumber(Integer permutationNumber) {
+
+
+
+	public void setPermutationNumber(int permutationNumber) {
 		this.permutationNumber = permutationNumber;
 	}
-	
-	
-	public AnnotationTask(String chromName, Integer permutationNumber) {
+
+
+
+
+
+
+
+
+	public AnnotationTask(ChromosomeName chromName, int permutationNumber) {
 		super();
 		this.chromName = chromName;
 		this.permutationNumber = permutationNumber;

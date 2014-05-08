@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/AdHoc/src/adhoc/CollectionofPermutationsResults.java"/>
+<listEntry value="/Doktora/src/empiricalpvalues/CollectionofPermutationsResults.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="adhoc.CollectionofPermutationsResults"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\test_input_data\\test_interval_data_K562_Usf2_0based_endInclusive.txt&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\&quot;&#13;&#10;&quot;0-based coordinates (End Inclusive)&quot;&#13;&#10;1&#13;&#10;&quot;DO_ENRICH&quot;&#13;&#10;&quot;GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT&quot; &#13;&#10;&quot;Benjamini Hochberg FDR&quot;&#13;&#10;0.05&#13;&#10;0.05&#13;&#10;4000&#13;&#10;&quot;DO_DNASE_ENRICHMENT&quot;&#13;&#10;&quot;DO_HISTONE_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_ENRICHMENT&quot;&#13;&#10;&quot;DO_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT&quot;&#13;&#10;deneme&#13;&#10;&quot;DO_NOT_WRITE_GENERATED_RANDOM_DATA&quot; &#13;&#10;&quot;DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT&quot; &quot;DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT&quot;"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="AdHoc"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="empiricalpvalues.CollectionofPermutationsResults"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\test_input_data\\ocd_gwas_snp_chrNumber_1BasedCoordinates.txt&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\&quot;&#13;&#10;&quot;1-based coordinates (End Inclusive)&quot;&#13;&#10;1&#13;&#10;&quot;DO_ENRICH&quot;&#13;&#10;&quot;With GC and Mappability&quot;&#13;&#10;&quot;Benjamini Hochberg FDR&quot;&#13;&#10;0.05&#13;&#10;0.05&#13;&#10;10000&#13;&#10;&quot;DO_DNASE_ENRICHMENT&quot;&#13;&#10;&quot;DO_HISTONE_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_ENRICHMENT&quot;&#13;&#10;&quot;DO_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_NOT_TF_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT&quot;&#13;&#10;&quot;DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT&quot;&#13;&#10;ocd_gwas&#13;&#10;&quot;DO_NOT_WRITE_GENERATED_RANDOM_DATA&quot; &#13;&#10;&quot;DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT&quot; &quot;DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Doktora"/>
 </launchConfiguration>

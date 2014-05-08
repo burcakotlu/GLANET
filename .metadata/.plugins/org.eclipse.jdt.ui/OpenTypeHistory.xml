@@ -3,11 +3,13 @@
 <typeInfo handle="=Doktora/src&lt;augmentation.results{AugmentationofEnrichedElementswithIntervals.java[AugmentationofEnrichedElementswithIntervals" modifiers="1" timestamp="1398076250159"/>
 <typeInfo handle="=Doktora/src&lt;jaxbxjctool{GenerationofSequencesandMatricesforGivenIntervals.java[GenerationofSequencesandMatricesforGivenIntervals" modifiers="1" timestamp="1398159258074"/>
 <typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{WriteAllPossibleNames.java[WriteAllPossibleNames" modifiers="1" timestamp="1399360181567"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTreeNode.java[IntervalTreeNode" modifiers="1" timestamp="1399364029124"/>
-<typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.java[AnnotatePermutationsUsingForkJoin_withEnrichmentChoices" modifiers="1" timestamp="1399297592592"/>
-<typeInfo handle="=Doktora/src&lt;wholegenome.nonoverlappingbasepairs.usingintervaltree{CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.java[CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree" modifiers="1" timestamp="1399285847666"/>
-<typeInfo handle="=AdHoc/C:\/Program Files\/Java\/jre8\/lib\/rt.jar&lt;com.sun.org.apache.xalan.internal.xsltc.compiler.util(NodeType.class[NodeType" modifiers="49" timestamp="1398760961543"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{DnaseIntervalTreeNode.java[DnaseIntervalTreeNode" modifiers="1" timestamp="1399291745895"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{TforHistoneIntervalTreeNode.java[TforHistoneIntervalTreeNode" modifiers="1" timestamp="1399364080192"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{OtherIntervalTreeNode.java[OtherIntervalTreeNode" modifiers="1" timestamp="1399363787298"/>
+<typeInfo handle="=Doktora/src&lt;wholegenome.nonoverlappingbasepairs.usingintervaltree{CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.java[CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree" modifiers="1" timestamp="1399378493410"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{DnaseIntervalTreeNode.java[DnaseIntervalTreeNode" modifiers="1" timestamp="1399373630631"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{TforHistoneIntervalTreeNode.java[TforHistoneIntervalTreeNode" modifiers="1" timestamp="1399373798863"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{OtherIntervalTreeNode.java[OtherIntervalTreeNode" modifiers="1" timestamp="1399373769489"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTreeNode.java[IntervalTreeNode" modifiers="1" timestamp="1399373483270"/>
+<typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1399471695437"/>
+<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1399466171078"/>
+<typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.java[AnnotatePermutationsUsingForkJoin_withEnrichmentChoices" modifiers="1" timestamp="1399474610031"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{NodeName.java[NodeName" modifiers="16385" timestamp="1399471733895"/>
 </typeInfoHistroy>

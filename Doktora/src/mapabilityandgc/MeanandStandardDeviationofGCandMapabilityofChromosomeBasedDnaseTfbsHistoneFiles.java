@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import empiricalpvalues.GCCharArray;
+import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import common.Commons;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
@@ -36,88 +36,88 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	}
 	
 	
-	public static  String getChromosomeBasedFunctionalElementInputFileName(String outputFolder,String functionalElementType, String chromName){
+	public static  String getChromosomeBasedFunctionalElementInputFileName(String outputFolder,String functionalElementType, ChromosomeName chromName){
 		
 		if (Commons.DNASE.equals(functionalElementType)){
 			switch (chromName){
-				case "chr1" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr1_dnase.txt";
-				case "chr2" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr2_dnase.txt";
-				case "chr3" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr3_dnase.txt";
-				case "chr4" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr4_dnase.txt";
-				case "chr5" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr5_dnase.txt";
-				case "chr6" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr6_dnase.txt";
-				case "chr7" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr7_dnase.txt";
-				case "chr8" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr8_dnase.txt";
-				case "chr9" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr9_dnase.txt";
-				case "chr10" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr10_dnase.txt";
-				case "chr11" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr11_dnase.txt";
-				case "chr12" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr12_dnase.txt";
-				case "chr13" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr13_dnase.txt";
-				case "chr14" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr14_dnase.txt";
-				case "chr15" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr15_dnase.txt";
-				case "chr16" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr16_dnase.txt";
-				case "chr17" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr17_dnase.txt";
-				case "chr18" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr18_dnase.txt";
-				case "chr19" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr19_dnase.txt";
-				case "chr20" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr20_dnase.txt";
-				case "chr21" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr21_dnase.txt";
-				case "chr22" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr22_dnase.txt";
-				case "chrX" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrX_dnase.txt";
-				case "chrY" : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrY_dnase.txt";	
+				case CHROMOSOME1 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr1_dnase.txt";
+				case CHROMOSOME2 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr2_dnase.txt";
+				case CHROMOSOME3: return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr3_dnase.txt";
+				case CHROMOSOME4 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr4_dnase.txt";
+				case CHROMOSOME5 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr5_dnase.txt";
+				case CHROMOSOME6 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr6_dnase.txt";
+				case CHROMOSOME7 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr7_dnase.txt";
+				case CHROMOSOME8 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr8_dnase.txt";
+				case CHROMOSOME9 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr9_dnase.txt";
+				case CHROMOSOME10 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr10_dnase.txt";
+				case CHROMOSOME11 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr11_dnase.txt";
+				case CHROMOSOME12 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr12_dnase.txt";
+				case CHROMOSOME13 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr13_dnase.txt";
+				case CHROMOSOME14 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr14_dnase.txt";
+				case CHROMOSOME15 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr15_dnase.txt";
+				case CHROMOSOME16 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr16_dnase.txt";
+				case CHROMOSOME17 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr17_dnase.txt";
+				case CHROMOSOME18 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr18_dnase.txt";
+				case CHROMOSOME19 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr19_dnase.txt";
+				case CHROMOSOME20 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr20_dnase.txt";
+				case CHROMOSOME21 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr21_dnase.txt";
+				case CHROMOSOME22 : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chr22_dnase.txt";
+				case CHROMOSOMEX : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrX_dnase.txt";
+				case CHROMOSOMEY : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrY_dnase.txt";	
 			}//End of SWITCH
 		}else if (Commons.TFBS.equals(functionalElementType)){
 			switch (chromName){
-				case "chr1" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr1_tfbs.txt";
-				case "chr2" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr2_tfbs.txt";
-				case "chr3" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr3_tfbs.txt";
-				case "chr4" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr4_tfbs.txt";
-				case "chr5" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr5_tfbs.txt";
-				case "chr6" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr6_tfbs.txt";
-				case "chr7" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr7_tfbs.txt";
-				case "chr8" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr8_tfbs.txt";
-				case "chr9" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr9_tfbs.txt";
-				case "chr10" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr10_tfbs.txt";
-				case "chr11" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr11_tfbs.txt";
-				case "chr12" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr12_tfbs.txt";
-				case "chr13" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr13_tfbs.txt";
-				case "chr14" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr14_tfbs.txt";
-				case "chr15" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr15_tfbs.txt";
-				case "chr16" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr16_tfbs.txt";
-				case "chr17" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr17_tfbs.txt";
-				case "chr18" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr18_tfbs.txt";
-				case "chr19" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr19_tfbs.txt";
-				case "chr20" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr20_tfbs.txt";
-				case "chr21" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr21_tfbs.txt";
-				case "chr22" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr22_tfbs.txt";
-				case "chrX" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chrX_tfbs.txt";
-				case "chrY" : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chrY_tfbs.txt";
+				case CHROMOSOME1 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr1_tfbs.txt";
+				case CHROMOSOME2 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr2_tfbs.txt";
+				case CHROMOSOME3: return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr3_tfbs.txt";
+				case CHROMOSOME4 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr4_tfbs.txt";
+				case CHROMOSOME5 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr5_tfbs.txt";
+				case CHROMOSOME6 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr6_tfbs.txt";
+				case CHROMOSOME7 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr7_tfbs.txt";
+				case CHROMOSOME8 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr8_tfbs.txt";
+				case CHROMOSOME9 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr9_tfbs.txt";
+				case CHROMOSOME10 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr10_tfbs.txt";
+				case CHROMOSOME11 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr11_tfbs.txt";
+				case CHROMOSOME12 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr12_tfbs.txt";
+				case CHROMOSOME13 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr13_tfbs.txt";
+				case CHROMOSOME14 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr14_tfbs.txt";
+				case CHROMOSOME15 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr15_tfbs.txt";
+				case CHROMOSOME16 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr16_tfbs.txt";
+				case CHROMOSOME17 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr17_tfbs.txt";
+				case CHROMOSOME18 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr18_tfbs.txt";
+				case CHROMOSOME19 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr19_tfbs.txt";
+				case CHROMOSOME20 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr20_tfbs.txt";
+				case CHROMOSOME21 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr21_tfbs.txt";
+				case CHROMOSOME22 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr22_tfbs.txt";
+				case CHROMOSOMEX : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chrX_tfbs.txt";
+				case CHROMOSOMEY : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chrY_tfbs.txt";	
 			}//End of SWITCH
 		}else if (Commons.HISTONE.equals(functionalElementType)){
 				switch (chromName){
-					case "chr1" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr1_histone.txt";
-					case "chr2" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr2_histone.txt";
-					case "chr3" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr3_histone.txt";
-					case "chr4" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr4_histone.txt";
-					case "chr5" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr5_histone.txt";
-					case "chr6" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr6_histone.txt";
-					case "chr7" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr7_histone.txt";
-					case "chr8" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr8_histone.txt";
-					case "chr9" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr9_histone.txt";
-					case "chr10" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr10_histone.txt";
-					case "chr11" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr11_histone.txt";
-					case "chr12" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr12_histone.txt";
-					case "chr13" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr13_histone.txt";
-					case "chr14" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr14_histone.txt";
-					case "chr15" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr15_histone.txt";
-					case "chr16" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr16_histone.txt";
-					case "chr17" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr17_histone.txt";
-					case "chr18" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr18_histone.txt";
-					case "chr19" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr19_histone.txt";
-					case "chr20" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr20_histone.txt";
-					case "chr21" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr21_histone.txt";
-					case "chr22" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr22_histone.txt";
-					case "chrX" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chrX_histone.txt";
-					case "chrY" : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chrY_histone.txt";
+					case CHROMOSOME1 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr1_histone.txt";
+					case CHROMOSOME2 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr2_histone.txt";
+					case CHROMOSOME3: return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr3_histone.txt";
+					case CHROMOSOME4 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr4_histone.txt";
+					case CHROMOSOME5 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr5_histone.txt";
+					case CHROMOSOME6 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr6_histone.txt";
+					case CHROMOSOME7 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr7_histone.txt";
+					case CHROMOSOME8 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr8_histone.txt";
+					case CHROMOSOME9 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr9_histone.txt";
+					case CHROMOSOME10 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr10_histone.txt";
+					case CHROMOSOME11 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr11_histone.txt";
+					case CHROMOSOME12 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr12_histone.txt";
+					case CHROMOSOME13 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr13_histone.txt";
+					case CHROMOSOME14 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr14_histone.txt";
+					case CHROMOSOME15 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr15_histone.txt";
+					case CHROMOSOME16 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr16_histone.txt";
+					case CHROMOSOME17 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr17_histone.txt";
+					case CHROMOSOME18 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr18_histone.txt";
+					case CHROMOSOME19 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr19_histone.txt";
+					case CHROMOSOME20 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr20_histone.txt";
+					case CHROMOSOME21 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr21_histone.txt";
+					case CHROMOSOME22 : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chr22_histone.txt";
+					case CHROMOSOMEX : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chrX_histone.txt";
+					case CHROMOSOMEY : return outputFolder + "Doktora\\create\\encode\\histone\\unsorted_chrY_histone.txt";	
 				}//End of SWITCH
 			
 		}
@@ -129,7 +129,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	
 	
 	//Mapability	
-	public static void calculateStandardDeviationMapability(String chromName,String functionalElementType, String chromBasedMapabilityFileName, Map<String,MeanandStandardDeviation> mapabilityHashMap){
+	public static void calculateStandardDeviationMapability(ChromosomeName chromName,String functionalElementType, String chromBasedMapabilityFileName, Map<String,MeanandStandardDeviation> mapabilityHashMap){
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -177,7 +177,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	}
 
 	//GC	
-	public static void calculateStandardDeviationGC(String chromName,String functionalElementType, String chromBasedGCFileName, Map<String,MeanandStandardDeviation> gcHashMap){
+	public static void calculateStandardDeviationGC(ChromosomeName chromName,String functionalElementType, String chromBasedGCFileName, Map<String,MeanandStandardDeviation> gcHashMap){
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -227,7 +227,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 		
 	
 	//GC
-	public static void calculateMean(String chromName,String functionalElementType, String chromBasedInputFileName, String chromBasedGCFileName, GCCharArray gcCharArray, Map<String,MeanandStandardDeviation> gcHashMap){
+	public static void calculateMean(ChromosomeName chromName,String functionalElementType, String chromBasedInputFileName, String chromBasedGCFileName, GCCharArray gcCharArray, Map<String,MeanandStandardDeviation> gcHashMap){
 			
 		//do augmentation
 		FileReader fileReader;
@@ -310,7 +310,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	}
 	
 	//Mapability
-	public static void calculateMean(String chromName,String functionalElementType,String chromBasedInputFileName, String chromBasedMapabilityFileName,  IntervalTree mapabilityIntervalTree, Map<String,MeanandStandardDeviation> mapabilityHashMap){
+	public static void calculateMean(ChromosomeName chromName,String functionalElementType,String chromBasedInputFileName, String chromBasedMapabilityFileName,  IntervalTree mapabilityIntervalTree, Map<String,MeanandStandardDeviation> mapabilityHashMap){
 		
 		//do augmentation
 		FileReader fileReader;
@@ -396,7 +396,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	
 	//Mapability
 	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementMapability(String outputFolder,List<Integer> hg19ChromosomeSizes, Map<String,MeanandStandardDeviation> mapabilityHashMap){ 
-		String chromName;
+		ChromosomeName chromName;
 		int chromSize;
 		String chromBasedInputFileName;
 		String chromBasedMapabilityFileName;
@@ -439,7 +439,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	
 	//GC
 	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC(String outputFolder,String dataFolder,List<Integer> hg19ChromosomeSizes,Map<String,MeanandStandardDeviation> gcHashMap){
-		String chromName;
+		ChromosomeName chromName;
 		int chromSize;
 		String chromBasedInputFileName;
 		String chromBasedGCFileName;

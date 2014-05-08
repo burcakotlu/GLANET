@@ -37,18 +37,20 @@
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL"/>
-<fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="rsat.Result"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNode"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
 <fullyQualifiedTypeName name="intervaltree.OtherIntervalTreeNode"/>
 <fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.MapabilityIntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.NodeType"/>
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 </qualifiedTypeNameHistroy>

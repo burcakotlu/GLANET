@@ -37,12 +37,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import sun.security.x509.OtherName;
 import annotate.intervals.parametric.PermutationNumberTfNameCellLineNameOverlap;
 import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap;
 import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 
@@ -233,12 +233,12 @@ public class IntervalTree {
 		IntervalTreeNode y = x.getLeft();
 		
 		x.setLeft(y.getRight());
-		if(!Commons.SENTINEL.equals(y.getRight().getNodeName())){
+		if(!NodeName.SENTINEL.equals(y.getRight().getNodeName())){
 			y.getRight().setParent(x);
 		}
 		y.setParent(x.getParent());
 		
-		if(Commons.SENTINEL.equals(x.getParent().getNodeName())){
+		if(NodeName.SENTINEL.equals(x.getParent().getNodeName())){
 			tree.setRoot(y);
 		} else{
 			if(x==(x.getParent().getRight())){
@@ -446,7 +446,7 @@ public class IntervalTree {
 	 * intervalTreeMinimum returns the minimum elementin the subtree rooted at a given node x
 	 */
 	public IntervalTreeNode intervalTreeMinimum(IntervalTreeNode x){
-		while(!Commons.SENTINEL.equals(x.getLeft().getNodeName())){
+		while(!NodeName.SENTINEL.equals(x.getLeft().getNodeName())){
 			x = x.getLeft();
 		}
 		
@@ -512,7 +512,7 @@ public class IntervalTree {
 		
 		//x is set to the not null child of the y or
 		//x is set to nil[T] if y has no children.
-		if(!Commons.SENTINEL.equals(y.getLeft().getNodeName())){
+		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
 			x = y.getLeft();
 		}else{
 			x = y.getRight();
@@ -529,7 +529,7 @@ public class IntervalTree {
 			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)(y.getParent())).getHeight()+1);
 		}
 		
-		if (Commons.SENTINEL.equals(y.getParent().getNodeName())){
+		if (NodeName.SENTINEL.equals(y.getParent().getNodeName())){
 			tree.setRoot(x);
 		}else{
 			if(y==(y.getParent()).getLeft()){
@@ -1065,7 +1065,7 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingHistoneIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingHistoneIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory = null;
@@ -1122,7 +1122,7 @@ public class IntervalTree {
 	//Empirical P Value Calculation
 	//without IO
 	//without overlappedNodeList
-	public void findAllOverlappingHistoneIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap, int overlapDefinition){
+	public void findAllOverlappingHistoneIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap, int overlapDefinition){
 		String permutationNumberHistoneNameaCellLineName;
 		
 		TforHistoneIntervalTreeNode castedNode = null;
@@ -1244,7 +1244,7 @@ public class IntervalTree {
 	//Empirical P Value Calculation
 	//with IO
 	//with OverlapNodeList
-	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> 	permutationNumberTfNameCellLineNameOverlapList,int overlapDefinition){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> 	permutationNumberTfNameCellLineNameOverlapList,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1302,7 +1302,7 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory;
@@ -1362,7 +1362,7 @@ public class IntervalTree {
     	//Empirical P Value Calculation
 		//without IO
 		//without overlappedNodeList
-		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
+		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
 			String permutationNumberTfbsNameCellLineName;
 			
 			TforHistoneIntervalTreeNode castedNode = null;
@@ -1425,7 +1425,7 @@ public class IntervalTree {
 		//Empirical P Value Calculation
 		//without IO
 		//with permutationNumberTfNameCellLineNameOverlapList
-		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList,int overlapDefinition){
+		public void findAllOverlappingTfbsIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList,int overlapDefinition){
 			
 			String permutationNumberTfNameCellLineName;
 			
@@ -1639,7 +1639,7 @@ public class IntervalTree {
 	
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingDnaseIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingDnaseIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory = null;
@@ -1698,7 +1698,7 @@ public class IntervalTree {
 		//Empirical P Value Calculation
 		//without IO
 		//without overlappedNodeList
-		public void findAllOverlappingDnaseIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
+		public void findAllOverlappingDnaseIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
 			String permutationNumberDnaseCellLineName;
 			DnaseIntervalTreeNode castedNode = null;
 			
@@ -1825,7 +1825,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 	
@@ -1977,7 +1977,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName = null;
 		List<String> keggPathWayListContainingThisGeneId = null;
@@ -2086,7 +2086,7 @@ public class IntervalTree {
 	//NEW FUNCIONALITY
 	//with IO
 	//with Overlap Node List
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName;
 		List<String> keggPathwayListContainingThisGeneId = null;
@@ -2375,7 +2375,7 @@ public class IntervalTree {
 		//For each search input line, each kegg pathway will have a value of 1 or 0
 		//These 1 or 0's will be accumulated in keggPathway2KMap	
 		//without IO
-		public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, String chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
+		public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap, Map<String,Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,Map<String,Integer> permutationNumberAllBasedKeggPathway2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
 			String permutationNumberKeggPathwayName = null;
 			String keggPathwayName;
 			List<String> keggPathwayListContainingThisGeneId = null;

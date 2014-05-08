@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="575" key="DIALOG_X_ORIGIN"/>
+		<item value="327" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="convert" key="selection"/>
+		<item value="originalDnase2KMap," key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="convert"/>
-			<item value="chromosome"/>
-			<item value="&quot;fromAnnotate&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;intervals&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;parametric&quot;"/>
-			<item value="-based coordinates (End Inclusive)"/>
-			<item value="sequences"/>
-			<item value="RSAT"/>
-			<item value="rsat"/>
-			<item value="GIVENINPUTDATA"/>
+			<item value="originalDnase2KMap,"/>
+			<item value="originalDnase2KMap"/>
+			<item value="NUMBER_OF_PER"/>
+			<item value="ORIGINAL_NODE"/>
+			<item value="ORIGI"/>
+			<item value="OR"/>
+			<item value="Commons.M"/>
+			<item value="Commons.O"/>
 		</list>
 		<list key="replacehistory">
-			<item value="Commons.From_ANNOTATION"/>
-			<item value="Commons.From_ANNOTATE"/>
-			<item value="Commons.GIVENINPUTDATA"/>
-			<item value="Commons.ENRICHMENT"/>
+			<item value="ChromosomeName.CH"/>
+			<item value="_histone."/>
+			<item value="\\histone\\"/>
+			<item value="_tfbs."/>
+			<item value="\\tfbs\\"/>
 			<item value=""/>
-			<item value="Commons.ANNOTATION + System.getProperty(&quot;file.separator&quot;)"/>
-			<item value="dataFolder"/>
-			<item value="System.getProperty(&quot;line.separator&quot;)"/>
+			<item value="CH"/>
+			<item value="ChromosomeName"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="502" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="904" key="DIALOG_X_ORIGIN"/>
-		<item value="510" key="DIALOG_Y_ORIGIN"/>
+		<item value="143" key="DIALOG_X_ORIGIN"/>
+		<item value="199" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

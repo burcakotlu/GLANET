@@ -54,6 +54,62 @@ public enum ChromosomeName {
 	}
 	   
     
+    //@todo
+    public String getChromosomeName(){
+    	if (this.equals(ChromosomeName.CHROMOSOME1))
+    		return Commons.CHROMOSOME1;
+    	else if (this.equals(ChromosomeName.CHROMOSOME2))
+    		return Commons.CHROMOSOME2;
+    	else if (this.equals(ChromosomeName.CHROMOSOME3))
+    		return Commons.CHROMOSOME3;
+    	else if (this.equals(ChromosomeName.CHROMOSOME4))
+    		return Commons.CHROMOSOME4;
+    	else if (this.equals(ChromosomeName.CHROMOSOME5))
+    		return Commons.CHROMOSOME5;
+    	else if (this.equals(ChromosomeName.CHROMOSOME6))
+    		return Commons.CHROMOSOME6;
+    	else if (this.equals(ChromosomeName.CHROMOSOME7))
+    		return Commons.CHROMOSOME7;
+    	else if (this.equals(ChromosomeName.CHROMOSOME8))
+    		return Commons.CHROMOSOME8;
+    	else if (this.equals(ChromosomeName.CHROMOSOME9))
+    		return Commons.CHROMOSOME9;
+    	else if (this.equals(ChromosomeName.CHROMOSOME10))
+    		return Commons.CHROMOSOME10;
+    	else if (this.equals(ChromosomeName.CHROMOSOME11))
+    		return Commons.CHROMOSOME11;
+    	else if (this.equals(ChromosomeName.CHROMOSOME12))
+    		return Commons.CHROMOSOME12;
+    	else if (this.equals(ChromosomeName.CHROMOSOME13))
+    		return Commons.CHROMOSOME13;
+    	else if (this.equals(ChromosomeName.CHROMOSOME14))
+    		return Commons.CHROMOSOME14;
+    	else if (this.equals(ChromosomeName.CHROMOSOME15))
+    		return Commons.CHROMOSOME15;
+    	else if (this.equals(ChromosomeName.CHROMOSOME16))
+    		return Commons.CHROMOSOME16;
+    	else if (this.equals(ChromosomeName.CHROMOSOME17))
+    		return Commons.CHROMOSOME17;
+    	else if (this.equals(ChromosomeName.CHROMOSOME18))
+    		return Commons.CHROMOSOME18;
+    	else if (this.equals(ChromosomeName.CHROMOSOME19))
+    		return Commons.CHROMOSOME19;
+    	else if (this.equals(ChromosomeName.CHROMOSOME20))
+    		return Commons.CHROMOSOME20;
+    	else if (this.equals(ChromosomeName.CHROMOSOME21))
+    		return Commons.CHROMOSOME21;
+    	else if (this.equals(ChromosomeName.CHROMOSOME22))
+    		return Commons.CHROMOSOME22;
+    	else if (this.equals(ChromosomeName.CHROMOSOMEX))
+    		return Commons.CHROMOSOMEX;
+    	else if (this.equals(ChromosomeName.CHROMOSOMEY))
+    		return Commons.CHROMOSOMEY;    	
+    	else
+    		return null;
+    				
+    		
+    }
+    
     public static ChromosomeName convertStringtoEnum(String chrName){
     	
     	if (Commons.CHROMOSOME1.equals(chrName)){
@@ -163,4 +219,12 @@ public static String convertEnumtoString(ChromosomeName  chrName){
     	}else
     		return null;
     }
+
+	public static void main(String[] args){
+		ChromosomeName chrName = CHROMOSOMEY;
+		System.out.println(chrName);
+		System.out.println(chrName.name());
+		System.out.println(chrName.getChromosomeName());
+
+	}
 }
