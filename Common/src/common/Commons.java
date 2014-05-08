@@ -1015,6 +1015,35 @@ public class Commons {
 	public static final String UNSORTED_CHRX_DNASE_FILENAME = "unsorted_chrX_dnase.txt";
 	public static final String UNSORTED_CHRY_DNASE_FILENAME = "unsorted_chrY_dnase.txt";
 	
+	
+	//Create Encode Unsorted Chromosome Based DNASE Filenames
+	public static final String UNSORTED_CHR1_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr1_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR2_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr2_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR3_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr3_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR4_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr4_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR5_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr5_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR6_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr6_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR7_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr7_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR8_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr8_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR9_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr9_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR10_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr10_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR11_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr11_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR12_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr12_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR13_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr13_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR14_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr14_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR15_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr15_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR16_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr16_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR17_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr17_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR18_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr18_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR19_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr19_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR20_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr20_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR21_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr21_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHR22_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr22_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHRX_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chrX_dnase_with_numbers.txt";
+	public static final String UNSORTED_CHRY_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chrY_dnase_with_numbers.txt";
+	
+	
+	
 	//Sorted Chromosome Based DNASE File names
 	public static final String SORTED_CHR1_DNASE_FILENAME = "sorted_chr1_dnase.txt";
 	public static final String SORTED_CHR2_DNASE_FILENAME = "sorted_chr2_dnase.txt";
@@ -1073,6 +1102,33 @@ public class Commons {
 	 public static final String UNSORTED_CHR22_HISTONE_FILENAME = "unsorted_chr22_histone.txt";
 	 public static final String UNSORTED_CHRX_HISTONE_FILENAME = "unsorted_chrX_histone.txt";
 	 public static final String UNSORTED_CHRY_HISTONE_FILENAME = "unsorted_chrY_histone.txt";
+	 
+	 
+	//Unsorted Chromosome Based HISTONE File names with numbers 
+	 public static final String UNSORTED_CHR1_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr1_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR2_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr2_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR3_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr3_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR4_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr4_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR5_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr5_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR6_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr6_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR7_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr7_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR8_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr8_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR9_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr9_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR10_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr10_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR11_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr11_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR12_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr12_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR13_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr13_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR14_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr14_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR15_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr15_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR16_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr16_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR17_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr17_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR18_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr18_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR19_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr19_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR20_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr20_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR21_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr21_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHR22_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr22_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHRX_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chrX_histone_with_numbers.txt";
+	 public static final String UNSORTED_CHRY_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chrY_histone_with_numbers.txt";
 		
 	//Sorted Chromosome Base HISTONE File names
 	public static final String SORTED_CHR1_HISTONE_FILENAME = "sorted_chr1_histone.txt";
@@ -1129,6 +1185,33 @@ public class Commons {
 	public static final String UNSORTED_CHR22_TFBS_FILENAME = "unsorted_chr22_tfbs.txt";
 	public static final String UNSORTED_CHRX_TFBS_FILENAME = "unsorted_chrX_tfbs.txt";
 	public static final String UNSORTED_CHRY_TFBS_FILENAME = "unsorted_chrY_tfbs.txt";
+	
+	
+	//Unsorted Chromosome Based TFBS filenames with numbers
+	public static final String UNSORTED_CHR1_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr1_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR2_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr2_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR3_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr3_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR4_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr4_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR5_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr5_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR6_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr6_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR7_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr7_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR8_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr8_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR9_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr9_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR10_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr10_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR11_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr11_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR12_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr12_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR13_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr13_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR14_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr14_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR15_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr15_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR16_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr16_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR17_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr17_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR18_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr18_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR19_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr19_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR20_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr20_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR21_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr21_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHR22_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr22_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHRX_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chrX_tfbs_with_numbers.txt";
+	public static final String UNSORTED_CHRY_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chrY_tfbs_with_numbers.txt";
 	
 	// Sorted Chromosome Base TFBS File names
 	public static final String SORTED_CHR1_TFBS_FILENAME = "sorted_chr1_tfbs.txt";

@@ -33,7 +33,104 @@ public class WriteAllPossibleNames {
 			e.printStackTrace();
 		}		
 	}
+	
+	public static void closeBufferedWriters(List<BufferedWriter> bufferedWriterList){
+		try {
+			for(int i = 0; i<bufferedWriterList.size(); i++){			
+					bufferedWriterList.get(i).close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
 
+	public static void createChromBaseDnaseBufferedWriters(String dataFolder,List<BufferedWriter> bufferedWriterList){
+		
+		try {
+			FileWriter fileWriter1 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR1_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR2_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter3 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR3_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter4 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR4_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter5 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR5_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter6 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR6_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter7 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR7_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter8 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR8_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter9 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR9_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter10 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR10_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter11 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR11_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter12 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR12_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter13 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR13_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter14 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR14_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter15 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR15_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter16 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR16_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter17 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR17_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter18 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR18_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter19 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR19_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter20 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR20_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter21 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR21_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter22 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHR22_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter23 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRX_DNASE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter24 = FileOperations.createFileWriter(dataFolder + Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.UNSORTED_CHRY_DNASE_FILENAME_WITH_NUMBERS);
+			
+			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
+			BufferedWriter bufferedWriter2 = new BufferedWriter(fileWriter2);
+			BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
+			BufferedWriter bufferedWriter4 = new BufferedWriter(fileWriter4);
+			BufferedWriter bufferedWriter5 = new BufferedWriter(fileWriter5);
+			BufferedWriter bufferedWriter6 = new BufferedWriter(fileWriter6);
+			BufferedWriter bufferedWriter7 = new BufferedWriter(fileWriter7);
+			BufferedWriter bufferedWriter8 = new BufferedWriter(fileWriter8);
+			BufferedWriter bufferedWriter9 = new BufferedWriter(fileWriter9);
+			BufferedWriter bufferedWriter10 = new BufferedWriter(fileWriter10);
+			BufferedWriter bufferedWriter11 = new BufferedWriter(fileWriter11);
+			BufferedWriter bufferedWriter12 = new BufferedWriter(fileWriter12);
+			BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
+			BufferedWriter bufferedWriter14 = new BufferedWriter(fileWriter14);
+			BufferedWriter bufferedWriter15 = new BufferedWriter(fileWriter15);
+			BufferedWriter bufferedWriter16 = new BufferedWriter(fileWriter16);
+			BufferedWriter bufferedWriter17 = new BufferedWriter(fileWriter17);
+			BufferedWriter bufferedWriter18 = new BufferedWriter(fileWriter18);
+			BufferedWriter bufferedWriter19 = new BufferedWriter(fileWriter19);
+			BufferedWriter bufferedWriter20 = new BufferedWriter(fileWriter20);
+			BufferedWriter bufferedWriter21 = new BufferedWriter(fileWriter21);
+			BufferedWriter bufferedWriter22 = new BufferedWriter(fileWriter22);
+			BufferedWriter bufferedWriter23 = new BufferedWriter(fileWriter23);
+			BufferedWriter bufferedWriter24 = new BufferedWriter(fileWriter24);
+			
+			bufferedWriterList.add(bufferedWriter1);
+			bufferedWriterList.add(bufferedWriter2);
+			bufferedWriterList.add(bufferedWriter3);
+			bufferedWriterList.add(bufferedWriter4);
+			bufferedWriterList.add(bufferedWriter5);
+			bufferedWriterList.add(bufferedWriter6);
+			bufferedWriterList.add(bufferedWriter7);
+			bufferedWriterList.add(bufferedWriter8);
+			bufferedWriterList.add(bufferedWriter9);
+			bufferedWriterList.add(bufferedWriter10);
+			bufferedWriterList.add(bufferedWriter11);
+			bufferedWriterList.add(bufferedWriter12);
+			bufferedWriterList.add(bufferedWriter13);
+			bufferedWriterList.add(bufferedWriter14);
+			bufferedWriterList.add(bufferedWriter15);
+			bufferedWriterList.add(bufferedWriter16);
+			bufferedWriterList.add(bufferedWriter17);
+			bufferedWriterList.add(bufferedWriter18);
+			bufferedWriterList.add(bufferedWriter19);
+			bufferedWriterList.add(bufferedWriter20);
+			bufferedWriterList.add(bufferedWriter21);
+			bufferedWriterList.add(bufferedWriter22);
+			bufferedWriterList.add(bufferedWriter23);
+			bufferedWriterList.add(bufferedWriter24);				
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 	
 	public static void createChromBaseDnaseBufferedReaders(String dataFolder,List<BufferedReader> bufferedReaderList){
 		
@@ -123,6 +220,97 @@ public class WriteAllPossibleNames {
 	
 	}
 	
+	
+	public static void createChromBaseTfbsBufferedWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+
+		try {
+			FileWriter fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter23 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME_WITH_NUMBERS);;
+			FileWriter fileWriter24 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME_WITH_NUMBERS);;
+			
+			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
+			BufferedWriter bufferedWriter2 = new BufferedWriter(fileWriter2);
+			BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
+			BufferedWriter bufferedWriter4 = new BufferedWriter(fileWriter4);
+			BufferedWriter bufferedWriter5 = new BufferedWriter(fileWriter5);
+			BufferedWriter bufferedWriter6 = new BufferedWriter(fileWriter6);
+			BufferedWriter bufferedWriter7 = new BufferedWriter(fileWriter7);
+			BufferedWriter bufferedWriter8 = new BufferedWriter(fileWriter8);
+			BufferedWriter bufferedWriter9 = new BufferedWriter(fileWriter9);
+			BufferedWriter bufferedWriter10 = new BufferedWriter(fileWriter10);
+			BufferedWriter bufferedWriter11 = new BufferedWriter(fileWriter11);
+			BufferedWriter bufferedWriter12 = new BufferedWriter(fileWriter12);
+			BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
+			BufferedWriter bufferedWriter14 = new BufferedWriter(fileWriter14);
+			BufferedWriter bufferedWriter15 = new BufferedWriter(fileWriter15);
+			BufferedWriter bufferedWriter16 = new BufferedWriter(fileWriter16);
+			BufferedWriter bufferedWriter17 = new BufferedWriter(fileWriter17);
+			BufferedWriter bufferedWriter18 = new BufferedWriter(fileWriter18);
+			BufferedWriter bufferedWriter19 = new BufferedWriter(fileWriter19);
+			BufferedWriter bufferedWriter20 = new BufferedWriter(fileWriter20);
+			BufferedWriter bufferedWriter21 = new BufferedWriter(fileWriter21);
+			BufferedWriter bufferedWriter22 = new BufferedWriter(fileWriter22);
+			BufferedWriter bufferedWriter23 = new BufferedWriter(fileWriter23);
+			BufferedWriter bufferedWriter24 = new BufferedWriter(fileWriter24);
+			
+			bufferedWriterList.add(bufferedWriter1);
+			bufferedWriterList.add(bufferedWriter2);
+			bufferedWriterList.add(bufferedWriter3);
+			bufferedWriterList.add(bufferedWriter4);
+			bufferedWriterList.add(bufferedWriter5);
+			bufferedWriterList.add(bufferedWriter6);
+			bufferedWriterList.add(bufferedWriter7);
+			bufferedWriterList.add(bufferedWriter8);
+			bufferedWriterList.add(bufferedWriter9);
+			bufferedWriterList.add(bufferedWriter10);
+			bufferedWriterList.add(bufferedWriter11);
+			bufferedWriterList.add(bufferedWriter12);
+			bufferedWriterList.add(bufferedWriter13);
+			bufferedWriterList.add(bufferedWriter14);
+			bufferedWriterList.add(bufferedWriter15);
+			bufferedWriterList.add(bufferedWriter16);
+			bufferedWriterList.add(bufferedWriter17);
+			bufferedWriterList.add(bufferedWriter18);
+			bufferedWriterList.add(bufferedWriter19);
+			bufferedWriterList.add(bufferedWriter20);
+			bufferedWriterList.add(bufferedWriter21);
+			bufferedWriterList.add(bufferedWriter22);
+			bufferedWriterList.add(bufferedWriter23);
+			bufferedWriterList.add(bufferedWriter24);				
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
 	public static void createChromBaseTfbsBufferedReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
 
 		try {
@@ -210,6 +398,98 @@ public class WriteAllPossibleNames {
 		}
 
 	}
+	
+	//todo
+	
+	public static void createChromBaseHistoneBufferedWriters(String outputFolder, List<BufferedWriter> bufferedWriterList){
+
+		try {
+			FileWriter fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR1_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR2_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR3_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR4_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR5_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR6_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR7_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR8_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR9_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR10_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR11_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR12_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR13_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR14_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR15_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR16_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR17_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR18_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR19_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR20_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR21_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHR22_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter23 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRX_HISTONE_FILENAME_WITH_NUMBERS);
+			FileWriter fileWriter24 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.UNSORTED_CHRY_HISTONE_FILENAME_WITH_NUMBERS);
+			
+			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
+			BufferedWriter bufferedWriter2 = new BufferedWriter(fileWriter2);
+			BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
+			BufferedWriter bufferedWriter4 = new BufferedWriter(fileWriter4);
+			BufferedWriter bufferedWriter5 = new BufferedWriter(fileWriter5);
+			BufferedWriter bufferedWriter6 = new BufferedWriter(fileWriter6);
+			BufferedWriter bufferedWriter7 = new BufferedWriter(fileWriter7);
+			BufferedWriter bufferedWriter8 = new BufferedWriter(fileWriter8);
+			BufferedWriter bufferedWriter9 = new BufferedWriter(fileWriter9);
+			BufferedWriter bufferedWriter10 = new BufferedWriter(fileWriter10);
+			BufferedWriter bufferedWriter11 = new BufferedWriter(fileWriter11);
+			BufferedWriter bufferedWriter12 = new BufferedWriter(fileWriter12);
+			BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
+			BufferedWriter bufferedWriter14 = new BufferedWriter(fileWriter14);
+			BufferedWriter bufferedWriter15 = new BufferedWriter(fileWriter15);
+			BufferedWriter bufferedWriter16 = new BufferedWriter(fileWriter16);
+			BufferedWriter bufferedWriter17 = new BufferedWriter(fileWriter17);
+			BufferedWriter bufferedWriter18 = new BufferedWriter(fileWriter18);
+			BufferedWriter bufferedWriter19 = new BufferedWriter(fileWriter19);
+			BufferedWriter bufferedWriter20 = new BufferedWriter(fileWriter20);
+			BufferedWriter bufferedWriter21 = new BufferedWriter(fileWriter21);
+			BufferedWriter bufferedWriter22 = new BufferedWriter(fileWriter22);
+			BufferedWriter bufferedWriter23 = new BufferedWriter(fileWriter23);
+			BufferedWriter bufferedWriter24 = new BufferedWriter(fileWriter24);
+			
+			bufferedWriterList.add(bufferedWriter1);
+			bufferedWriterList.add(bufferedWriter2);
+			bufferedWriterList.add(bufferedWriter3);
+			bufferedWriterList.add(bufferedWriter4);
+			bufferedWriterList.add(bufferedWriter5);
+			bufferedWriterList.add(bufferedWriter6);
+			bufferedWriterList.add(bufferedWriter7);
+			bufferedWriterList.add(bufferedWriter8);
+			bufferedWriterList.add(bufferedWriter9);
+			bufferedWriterList.add(bufferedWriter10);
+			bufferedWriterList.add(bufferedWriter11);
+			bufferedWriterList.add(bufferedWriter12);
+			bufferedWriterList.add(bufferedWriter13);
+			bufferedWriterList.add(bufferedWriter14);
+			bufferedWriterList.add(bufferedWriter15);
+			bufferedWriterList.add(bufferedWriter16);
+			bufferedWriterList.add(bufferedWriter17);
+			bufferedWriterList.add(bufferedWriter18);
+			bufferedWriterList.add(bufferedWriter19);
+			bufferedWriterList.add(bufferedWriter20);
+			bufferedWriterList.add(bufferedWriter21);
+			bufferedWriterList.add(bufferedWriter22);
+			bufferedWriterList.add(bufferedWriter23);
+			bufferedWriterList.add(bufferedWriter24);				
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	//todo
 	
 	public static void createChromBaseHistoneBufferedReaders(String outputFolder, List<BufferedReader> bufferedReaderList){
 
@@ -303,17 +583,21 @@ public class WriteAllPossibleNames {
 	public static void readCellLineNames(String dataFolder,List<String> cellLineNames,Map<String,Integer> cellLineName2CellLineNumberMap,Map<Integer,String> cellLineNumber2CellLineNameMap,FileNameNumber fileNameNumber,List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
 		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
+		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		
 		createChromBaseDnaseBufferedReaders(dataFolder,bufferedReaderList);
+		createChromBaseDnaseBufferedWriters(dataFolder,bufferedWriterList);
 		
 		String strLine;
 		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
 		
 		int indexofFirstTab 	= 0;
 		int indexofSecondTab 	= 0;
 		int indexofThirdTab 	= 0;
 		int indexofFourthTab	= 0;
 		
+		String chrNameLowHigh;
 		String cellLineName;
 		String fileName;
 		int cellLineNameNumber = 1;
@@ -322,6 +606,7 @@ public class WriteAllPossibleNames {
 		try {
 			for(int i = 0; i< bufferedReaderList.size() ; i++){
 				 bufferedReader = bufferedReaderList.get(i);
+				 bufferedWriter = bufferedWriterList.get(i);
 				 				
 					while((strLine = bufferedReader.readLine())!=null){
 //						example unsorted dnase line
@@ -332,8 +617,10 @@ public class WriteAllPossibleNames {
 						indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
 						indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 						
+						chrNameLowHigh =  strLine.substring(0, indexofThirdTab);
 						cellLineName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 						fileName = strLine.substring(indexofFourthTab+1);
+						
 						
 						if(!(cellLineNames.contains(cellLineName))){
 							cellLineNames.add(cellLineName);
@@ -353,6 +640,12 @@ public class WriteAllPossibleNames {
 							
 							fileNameNumber.setFileNameNumber(fileNameNumber.getFileNameNumber()+1);;
 						}
+						
+						
+						bufferedWriter.write(chrNameLowHigh + "\t" + cellLineName2CellLineNumberMap.get(cellLineName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator"));
+						
+						
+						
 					 }// End of While			
 			}// End of For						
 			
@@ -360,24 +653,31 @@ public class WriteAllPossibleNames {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}	
+		
 		closeBufferedReaders(bufferedReaderList);
+		closeBufferedWriters(bufferedWriterList);
 	}
 	
 	
 	public static void readTforHistoneNames(String dataFolder,List<String> tfbsorHistoneNames,Map<String,Integer> elementName2ElementNumberMap,Map<Integer,String> elementNumber2ElementNameMap,String tfbsorHistone,FileNameNumber fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
+		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		
 		
 		if (tfbsorHistone.equals(Commons.TFBS)){
 			createChromBaseTfbsBufferedReaders(dataFolder,bufferedReaderList);
-				
+			createChromBaseTfbsBufferedWriters(dataFolder,bufferedWriterList);
+						
 		}else if (tfbsorHistone.equals(Commons.HISTONE)) {
-			createChromBaseHistoneBufferedReaders(dataFolder,bufferedReaderList);				
+			createChromBaseHistoneBufferedReaders(dataFolder,bufferedReaderList);	
+			createChromBaseHistoneBufferedWriters(dataFolder,bufferedWriterList);				
+			
 		}
 		
 		
 		String strLine;
 		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
 		
 		int indexofFirstTab 	= 0;
 		int indexofSecondTab 	= 0;
@@ -385,7 +685,9 @@ public class WriteAllPossibleNames {
 		int indexofFourthTab	= 0;
 		int indexofFifthTab	= 0;
 			
+		String chrNameLowHigh;
 		String tfbsorHistoneName;
+		String cellLineName;
 		String fileName;
 		int elementNumber = 1;
 		
@@ -393,6 +695,7 @@ public class WriteAllPossibleNames {
 		try {
 			for(int i = 0; i< bufferedReaderList.size() ; i++){
 				 bufferedReader = bufferedReaderList.get(i);
+				 bufferedWriter = bufferedWriterList.get(i);
 				 				
 					while((strLine = bufferedReader.readLine())!=null){
 //						example unsorted tfbs line
@@ -407,7 +710,9 @@ public class WriteAllPossibleNames {
 						indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 						indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 						
+						chrNameLowHigh = strLine.substring(0, indexofThirdTab);
 						tfbsorHistoneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+						cellLineName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 						fileName = strLine.substring(indexofFifthTab+1);
 						
 						if(!(tfbsorHistoneNames.contains(tfbsorHistoneName))){
@@ -429,6 +734,8 @@ public class WriteAllPossibleNames {
 							fileNameNumber.setFileNameNumber(fileNameNumber.getFileNameNumber()+1);;
 						}
 						
+						
+						bufferedWriter.write(chrNameLowHigh + "\t" + elementName2ElementNumberMap.get(tfbsorHistoneName) + "\t" + "todo cellline number is expected" + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator"));
 					 }// End of While			
 			}// End of For
 									
@@ -438,6 +745,8 @@ public class WriteAllPossibleNames {
 		}
 		
 		closeBufferedReaders(bufferedReaderList);		
+		closeBufferedWriters(bufferedWriterList);
+		
 	}
 
 	
@@ -875,14 +1184,15 @@ public class WriteAllPossibleNames {
 		String glanetFolder = args[1];
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 	
-		//All Possible File Names 
+		//All Possible Encode File Names 
 		List<String> fileNames = new ArrayList<String>();
 		Map<String,Integer> fileName2FileNumberMap = new HashMap<String,Integer>();
 		Map<Integer,String> fileNumber2FileNameMap = new HashMap<Integer,String>();
 		
 		FileNameNumber fileNameNumber = new FileNameNumber(1);
 		
-
+//todo
+		//cell line name mapleri hepsine gönderilecek
 		
 		//Write all possible ENCODE cell line names	
 		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
