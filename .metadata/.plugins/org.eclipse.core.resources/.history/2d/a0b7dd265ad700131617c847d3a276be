@@ -1,0 +1,32 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 12:09:57 PM
+ */
+package empiricalpvalues;
+
+import java.util.Map;
+
+/**
+ * 
+ */
+public class AllMapsWithNumbers {
+	
+	Map<Integer,Integer> permutationNumberDnaseCellLineName2KMap;
+	Map<Integer,Integer> permutationNumberTfNameCellLineName2KMap;
+	Map<Integer,Integer> permutationNumberHistoneNameCellLineName2KMap;
+	
+	Map<Integer,Integer> permutationNumberExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberAllBasedKeggPathway2KMap;
+	
+	Map<Integer,Integer> permutationNumberTfExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfAllBasedKeggPathway2KMap;
+	
+	Map<Integer,Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap;
+	
+
+}

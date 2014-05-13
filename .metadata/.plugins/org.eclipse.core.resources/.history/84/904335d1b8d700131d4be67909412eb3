@@ -1,0 +1,143 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 12:09:57 PM
+ */
+package empiricalpvalues;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 
+ */
+public class AllMapsWithNumbers {
+	
+	Map<Integer,Integer> permutationNumberDnaseCellLineName2KMap;
+	Map<Integer,Integer> permutationNumberTfNameCellLineName2KMap;
+	Map<Integer,Integer> permutationNumberHistoneNameCellLineName2KMap;
+	
+	Map<Integer,Integer> permutationNumberExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberAllBasedKeggPathway2KMap;
+	
+	Map<Integer,Integer> permutationNumberTfExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfAllBasedKeggPathway2KMap;
+	
+	Map<Integer,Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap;
+	Map<Integer,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap;
+	
+	
+	public Map<Integer, Integer> getPermutationNumberDnaseCellLineName2KMap() {
+		return permutationNumberDnaseCellLineName2KMap;
+	}
+	public void setPermutationNumberDnaseCellLineName2KMap(
+			Map<Integer, Integer> permutationNumberDnaseCellLineName2KMap) {
+		this.permutationNumberDnaseCellLineName2KMap = permutationNumberDnaseCellLineName2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfNameCellLineName2KMap() {
+		return permutationNumberTfNameCellLineName2KMap;
+	}
+	public void setPermutationNumberTfNameCellLineName2KMap(
+			Map<Integer, Integer> permutationNumberTfNameCellLineName2KMap) {
+		this.permutationNumberTfNameCellLineName2KMap = permutationNumberTfNameCellLineName2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberHistoneNameCellLineName2KMap() {
+		return permutationNumberHistoneNameCellLineName2KMap;
+	}
+	public void setPermutationNumberHistoneNameCellLineName2KMap(
+			Map<Integer, Integer> permutationNumberHistoneNameCellLineName2KMap) {
+		this.permutationNumberHistoneNameCellLineName2KMap = permutationNumberHistoneNameCellLineName2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberExonBasedKeggPathway2KMap() {
+		return permutationNumberExonBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberExonBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberExonBasedKeggPathway2KMap) {
+		this.permutationNumberExonBasedKeggPathway2KMap = permutationNumberExonBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberRegulationBasedKeggPathway2KMap() {
+		return permutationNumberRegulationBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberRegulationBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberRegulationBasedKeggPathway2KMap) {
+		this.permutationNumberRegulationBasedKeggPathway2KMap = permutationNumberRegulationBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberAllBasedKeggPathway2KMap() {
+		return permutationNumberAllBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberAllBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberAllBasedKeggPathway2KMap) {
+		this.permutationNumberAllBasedKeggPathway2KMap = permutationNumberAllBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfExonBasedKeggPathway2KMap() {
+		return permutationNumberTfExonBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfExonBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfExonBasedKeggPathway2KMap) {
+		this.permutationNumberTfExonBasedKeggPathway2KMap = permutationNumberTfExonBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfRegulationBasedKeggPathway2KMap() {
+		return permutationNumberTfRegulationBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfRegulationBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfRegulationBasedKeggPathway2KMap) {
+		this.permutationNumberTfRegulationBasedKeggPathway2KMap = permutationNumberTfRegulationBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfAllBasedKeggPathway2KMap() {
+		return permutationNumberTfAllBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfAllBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfAllBasedKeggPathway2KMap) {
+		this.permutationNumberTfAllBasedKeggPathway2KMap = permutationNumberTfAllBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfCellLineExonBasedKeggPathway2KMap() {
+		return permutationNumberTfCellLineExonBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfCellLineExonBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap) {
+		this.permutationNumberTfCellLineExonBasedKeggPathway2KMap = permutationNumberTfCellLineExonBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap() {
+		return permutationNumberTfCellLineRegulationBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap) {
+		this.permutationNumberTfCellLineRegulationBasedKeggPathway2KMap = permutationNumberTfCellLineRegulationBasedKeggPathway2KMap;
+	}
+	public Map<Integer, Integer> getPermutationNumberTfCellLineAllBasedKeggPathway2KMap() {
+		return permutationNumberTfCellLineAllBasedKeggPathway2KMap;
+	}
+	public void setPermutationNumberTfCellLineAllBasedKeggPathway2KMap(
+			Map<Integer, Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap) {
+		this.permutationNumberTfCellLineAllBasedKeggPathway2KMap = permutationNumberTfCellLineAllBasedKeggPathway2KMap;
+	}
+	public AllMapsWithNumbers() {
+		super();
+		
+		this.permutationNumberDnaseCellLineName2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberTfNameCellLineName2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberHistoneNameCellLineName2KMap = new HashMap<Integer,Integer>();
+		
+		this.permutationNumberExonBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberAllBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		
+		this.permutationNumberTfExonBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberTfRegulationBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberTfAllBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		
+		this.permutationNumberTfCellLineExonBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberTfCellLineRegulationBasedKeggPathway2KMap = new HashMap<Integer,Integer>();
+		this.permutationNumberTfCellLineAllBasedKeggPathway2KMap = new HashMap<Integer,Integer>();		
+	
+	}
+	
+	
+	
+	
+	
+
+}

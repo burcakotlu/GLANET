@@ -1,0 +1,61 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 12:09:57 PM
+ */
+package empiricalpvalues;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 
+ */
+public class AllMapsWithNumbers {
+	
+	Map<Long,Integer> permutationNumberDnaseCellLineNumber2KMap;
+	Map<Long,Integer> permutationNumberTfNumberCellLineNumber2KMap;
+	Map<Long,Integer> permutationNumberHistoneNumberCellLineNumber2KMap;
+	
+	Map<Long,Integer> permutationNumberExonBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberRegulationBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberAllBasedKeggPathway2KMap;
+	
+	Map<Long,Integer> permutationNumberTfExonBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberTfRegulationBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberTfAllBasedKeggPathway2KMap;
+	
+	Map<Long,Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap;
+	Map<Long,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap;
+	
+	
+
+
+	public AllMapsWithNumbers() {
+		super();
+		
+		this.permutationNumberDnaseCellLineName2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberTfNameCellLineName2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberHistoneNameCellLineName2KMap = new HashMap<Long,Integer>();
+		
+		this.permutationNumberExonBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberAllBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		
+		this.permutationNumberTfExonBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberTfRegulationBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberTfAllBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		
+		this.permutationNumberTfCellLineExonBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberTfCellLineRegulationBasedKeggPathway2KMap = new HashMap<Long,Integer>();
+		this.permutationNumberTfCellLineAllBasedKeggPathway2KMap = new HashMap<Long,Integer>();		
+	
+	}
+	
+	
+	
+	
+	
+
+}

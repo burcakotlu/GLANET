@@ -1,0 +1,14 @@
+package intervaltree;
+
+public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode{
+
+	char strand;
+	int  refSeqGeneNumber;
+	int geneEntrezId;
+	int geneHugoSymbolNumber;
+
+	//Enum Type
+	IntervalName intervalName;
+
+	
+}

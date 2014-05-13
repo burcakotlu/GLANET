@@ -17,6 +17,7 @@ public class IntervalTreeNode{
 	int high;
 	
 	//Enum types
+	//Enum type ChromosomeName can be CHROMOSOME1,CHROMOSOME2,...,CHROMOSOMEY
 	ChromosomeName chromName;
 	//Enum type NodeName can be SENTINEL or NOT_SENTINEL
 	NodeName nodeName;

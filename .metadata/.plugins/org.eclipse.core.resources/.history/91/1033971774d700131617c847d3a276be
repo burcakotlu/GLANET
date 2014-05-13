@@ -1,0 +1,19 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 3:17:03 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class TforHistoneIntervalTreeNodeWithNumbers extends DnaseIntervalTreeNodeWithNumbers{
+	
+	//	Just for search ENCODE Tfbs  and Histone output
+	short tfbsorHistoneName;
+	
+	
+	
+
+}

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="create.ChromosomeBasedFiles"/>
-<fullyQualifiedTypeName name="create.encode.NumberofDNAElements"/>
-<fullyQualifiedTypeName name="create.ChromosomeBasedFilesandOperations"/>
-<fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub.ESearchResult"/>
 <fullyQualifiedTypeName name="generated.ESearchResult"/>
@@ -15,10 +11,8 @@
 <fullyQualifiedTypeName name="java.util.ListIterator"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Future"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
-<fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
 <fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="mapabilityandgc.GC"/>
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Component"/>
 <fullyQualifiedTypeName name="intervaltree.Interval"/>
@@ -31,7 +25,6 @@
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdWithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenIntervalwithRsIds"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfInterval"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL"/>
@@ -44,15 +37,27 @@
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
 <fullyQualifiedTypeName name="intervaltree.OtherIntervalTreeNode"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
-<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.MapabilityIntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.NodeType"/>
-<fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
+<fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
+<fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
+<fullyQualifiedTypeName name="intervaltree.KeggPathwayAnalysisType"/>
+<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneNumberOverlap"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberTfNumberCellLineNumberOverlap"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap"/>
+<fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 </qualifiedTypeNameHistroy>

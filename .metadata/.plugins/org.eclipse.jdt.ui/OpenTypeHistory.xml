@@ -2,14 +2,17 @@
 <typeInfoHistroy>
 <typeInfo handle="=Doktora/src&lt;augmentation.results{AugmentationofEnrichedElementswithIntervals.java[AugmentationofEnrichedElementswithIntervals" modifiers="1" timestamp="1399534061340"/>
 <typeInfo handle="=Doktora/src&lt;jaxbxjctool{GenerationofSequencesandMatricesforGivenIntervals.java[GenerationofSequencesandMatricesforGivenIntervals" modifiers="1" timestamp="1398159258074"/>
-<typeInfo handle="=Doktora/src&lt;wholegenome.nonoverlappingbasepairs.usingintervaltree{CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.java[CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree" modifiers="1" timestamp="1399378493410"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{DnaseIntervalTreeNode.java[DnaseIntervalTreeNode" modifiers="1" timestamp="1399373630631"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{TforHistoneIntervalTreeNode.java[TforHistoneIntervalTreeNode" modifiers="1" timestamp="1399373798863"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{OtherIntervalTreeNode.java[OtherIntervalTreeNode" modifiers="1" timestamp="1399373769489"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTreeNode.java[IntervalTreeNode" modifiers="1" timestamp="1399373483270"/>
-<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1399559278534"/>
+<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1399906048281"/>
+<typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1399580737595"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{UcscRefSeqGeneIntervalTreeNode.java[UcscRefSeqGeneIntervalTreeNode" modifiers="1" timestamp="1399880760042"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTreeNode.java[IntervalTreeNode" modifiers="1" timestamp="1399876419849"/>
+<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{WriteAllPossibleNames.java[WriteAllPossibleNames" modifiers="1" timestamp="1399619262021"/>
+<typeInfo handle="=Doktora/src&lt;wholegenome.nonoverlappingbasepairs.usingintervaltree{CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.java[CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree" modifiers="1" timestamp="1399378493410"/>
 <typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.java[AnnotatePermutationsUsingForkJoin_withEnrichmentChoices" modifiers="1" timestamp="1399548138441"/>
+<typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsWithEnrichmentChoicesWithNumbers.java[AnnotatePermutationsWithEnrichmentChoicesWithNumbers" modifiers="1" timestamp="1399668046001"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTree.java[IntervalTree" modifiers="1" timestamp="1399906075779"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{NodeName.java[NodeName" modifiers="16385" timestamp="1399471733895"/>
-<typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1399558804176"/>
-<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{WriteAllPossibleNames.java[WriteAllPossibleNames" modifiers="1" timestamp="1399559183543"/>
 </typeInfoHistroy>

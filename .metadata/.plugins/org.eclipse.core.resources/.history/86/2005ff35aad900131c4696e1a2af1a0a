@@ -1,0 +1,27 @@
+/**
+ * @author burcakotlu
+ * @date May 12, 2014 
+ * @time 10:47:47 AM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public enum IntervalName {
+	
+	 private final int intervalName;
+	 
+	 /* 
+	    * This constructor is private.
+	    * Legal to declare a non-private constructor, but not legal
+	    * to use such a constructor outside the enum.
+	    * Can never use "new" with any enum, even inside the enum 
+	    * class itself.
+	    */
+	    private IntervalName(int intervalName) {
+	    	this.intervalName = intervalName;
+		}
+		
+
+}

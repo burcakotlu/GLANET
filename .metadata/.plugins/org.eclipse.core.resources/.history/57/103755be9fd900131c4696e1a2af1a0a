@@ -1,0 +1,34 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 3:17:03 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class TforHistoneIntervalTreeNodeWithNumbers extends DnaseIntervalTreeNodeWithNumbers{
+	
+	//	Just for search ENCODE Tfbs  and Histone output
+	short tfbsorHistoneName;
+
+	public short getTfbsorHistoneName() {
+		return tfbsorHistoneName;
+	}
+
+	public void setTfbsorHistoneName(short tfbsorHistoneName) {
+		this.tfbsorHistoneName = tfbsorHistoneName;
+	}
+
+	public TforHistoneIntervalTreeNodeWithNumbers(ChromosomeName chromName,
+			int low, int high, short cellLineName, short fileName,
+			NodeType nodeType, short tfbsorHistoneName) {
+		super(chromName, low, high, cellLineName, fileName, nodeType);
+		this.tfbsorHistoneName = tfbsorHistoneName;
+	}
+	
+	
+	
+
+}

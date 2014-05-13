@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date May 9, 2014 
+ * @time 3:13:23 PM
+ */
+package intervaltree;
+
+/**
+ * 
+ */
+public class DnaseIntervalTreeNodeWithNumbers {
+
+}
