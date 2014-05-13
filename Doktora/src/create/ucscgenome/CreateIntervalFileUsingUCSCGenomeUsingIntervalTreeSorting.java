@@ -434,6 +434,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			//Write exon and intron intervals 			
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
 				
+					
 					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
 					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 					bufferedWriter.flush();
@@ -680,7 +681,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 //		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		
-		Map<String,Integer> refSeq2GeneHashMap =  new HashMap<String,Integer>();
+		Map<String,Integer> refSeq2GeneIdHashMap =  new HashMap<String,Integer>();
 		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;
 		String fileName2 = dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME;
 		
@@ -692,10 +693,9 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	    
 //		ncbi output file will be read into a map
 //		using this map for each gene in the refSeqGeneList  geneId will be added
-		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.createRefSeq2GeneMap(fileName2,refSeq2GeneHashMap);
-//		augmentation of RNA nucleotide accession version, in other words refSeqGeneName is done here
-//		It is augmented with entrez gene id 
-		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneHashMap,dataFolder);	
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.createRefSeq2GeneMap(fileName2,refSeq2GeneIdHashMap);
+//		augmentation of refSeqGeneName (in other words RNA nucleotide accession version) with entrez gene id 
+		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.readInputFile(fileName, refSeqGeneList,refSeq2GeneIdHashMap,dataFolder);	
 		
 		ChromosomeBasedFilesandOperations.openUnsortedChromosomeBasedRefSeqGeneFileWriters(dataFolder,unsortedBufferedWriterList);	    
 		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.fillUnsortedChromBaseRefSeqGeneIntervalFiles(refSeqGeneList, unsortedBufferedWriterList);		

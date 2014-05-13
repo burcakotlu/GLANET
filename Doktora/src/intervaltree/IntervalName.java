@@ -15,10 +15,12 @@ public enum IntervalName {
 	
 	EXON(1),
 	INTRON(2),
-	_5P1(3),
-	_5P2(4),
-	_3P1(5),
-	_3P2(6);
+	FIVE_P_ONE(3),
+	FIVE_P_TWO(4),
+	FIVE_D(5),
+	THREE_P_ONE(6),
+	THREE_P_TWO(7),
+	THREE_D(8);
 
 	
 	
@@ -51,14 +53,18 @@ public enum IntervalName {
     		return Commons.EXON;
     	else if (this.equals(IntervalName.INTRON))
     		return Commons.INTRON;
-    	else if (this.equals(IntervalName._5P1))
+    	else if (this.equals(IntervalName.FIVE_P_ONE))
     		return Commons.FIVE_P_ONE;
-    	else if (this.equals(IntervalName._5P2))
+    	else if (this.equals(IntervalName.FIVE_P_TWO))
     		return Commons.FIVE_P_TWO;
-    	else if (this.equals(IntervalName._3P1))
+    	else if (this.equals(IntervalName.FIVE_D))
+    		return Commons.FIVE_D;
+    	else if (this.equals(IntervalName.THREE_P_ONE))
     		return Commons.THREE_P_ONE;
-    	else if (this.equals(IntervalName._3P2))
-    		return Commons.THREE_P_TWO;	
+    	else if (this.equals(IntervalName.THREE_P_TWO))
+    		return Commons.THREE_P_TWO;
+    	else if (this.equals(IntervalName.THREE_D))
+    		return Commons.THREE_D;	
     	else
     		return null;   		
     }
@@ -76,21 +82,54 @@ public enum IntervalName {
 		
     /** An added method.  */
     public boolean isFivePOne() {
-     return  this == _5P1;
+     return  this == FIVE_P_ONE;
     }
     
     /** An added method.  */
     public boolean isFivePTwo() {
-     return  this == _5P2;
+     return  this == FIVE_P_TWO;
+    }
+    
+    /** An added method.  */
+    public boolean isFiveD() {
+     return  this == FIVE_D;
     }
     
     /** An added method.  */
     public boolean isThreePOne() {
-     return  this == _3P1;
+     return  this == THREE_P_ONE;
     }
     
     /** An added method.  */
     public boolean isThreePTwo() {
-     return  this == _3P2;
+     return  this == THREE_P_TWO;
+    }
+    
+    /** An added method.  */
+    public boolean isThreeD() {
+     return  this == THREE_D;
+    }
+    
+    
+    public static IntervalName convertStringtoEnum(String intervalName){
+    	
+    	if (Commons.EXON.equals(intervalName)){
+    		return EXON;
+    	}else if  (Commons.INTRON.equals(intervalName)){
+    		return INTRON;
+    	}else if  (Commons.FIVE_P_ONE.equals(intervalName)){
+    		return FIVE_P_ONE;
+    	}else if  (Commons.FIVE_P_TWO.equals(intervalName)){
+    		return FIVE_P_TWO;
+    	}else if  (Commons.FIVE_D.equals(intervalName)){
+    		return FIVE_D;
+    	}else if  (Commons.THREE_P_ONE.equals(intervalName)){
+    		return THREE_P_ONE;
+    	}else if  (Commons.THREE_P_TWO.equals(intervalName)){
+    		return THREE_P_TWO;
+    	}else if  (Commons.THREE_D.equals(intervalName)){
+    		return THREE_D;
+    	}else
+    		return null;
     }
 }

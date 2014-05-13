@@ -39,12 +39,15 @@ import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.DnaseIntervalTreeNodeWithNumbers;
 import intervaltree.Interval;
+import intervaltree.IntervalName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.KeggPathwayAnalysisType;
 import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
+import intervaltree.TforHistoneIntervalTreeNodeWithNumbers;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -59,9 +62,7 @@ import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
@@ -573,6 +574,67 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		return dnaseIntervalTree;
 	}
 	
+	
+	//@todo
+	//Empirical P Value Calculation
+	public static IntervalTree generateEncodeTfbsIntervalTreeWithNumbers(BufferedReader bufferedReader){
+		IntervalTree tfbsIntervalTree = new IntervalTree();
+		String strLine;
+		
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+		int indexofThirdTab = 0;
+		int indexofFourthTab = 0;
+		int indexofFifthTab = 0;
+		
+		int startPosition = 0;
+		int endPosition = 0;
+		
+		ChromosomeName chromName;
+		Short tfNumber;
+		Short cellLineNumber;
+		Short fileNumber;
+			  
+	    
+		try {
+			while((strLine = bufferedReader.readLine())!=null){
+//					exampple strLine
+//					chrY	2804079	2804213	Ctcf	H1hesc	spp.optimal.wgEncodeBroadHistoneH1hescCtcfStdAlnRep0_VS_wgEncodeBroadHistoneH1hescControlStdAlnRep0.narrowPeak
+			
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab+1);
+				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
+				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
+					
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
+				
+				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+				
+				tfNumber = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+				
+				cellLineNumber = Short.parseShort(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				
+				fileNumber = Short.parseShort(strLine.substring(indexofFifthTab+1));
+
+//					Creating millions of nodes with six attributes causes out of memory error
+				TforHistoneIntervalTreeNodeWithNumbers node = new TforHistoneIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,tfNumber,cellLineNumber,fileNumber,NodeType.ORIGINAL);
+				tfbsIntervalTree.intervalTreeInsert(tfbsIntervalTree, node);					
+				
+				chromName = null;
+				strLine = null;
+								
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return tfbsIntervalTree;
+	}
+	//@todo
+	
 	//Empirical P Value Calculation
 	public static IntervalTree generateEncodeTfbsIntervalTree(BufferedReader bufferedReader){
 		IntervalTree tfbsIntervalTree = new IntervalTree();
@@ -700,6 +762,68 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		return tfbsIntervalTree;
 	}
 	
+	//@todo
+	//Empirical P Value Calculation
+	public static IntervalTree generateEncodeHistoneIntervalTreeWithNumbers(BufferedReader bufferedReader) {
+		IntervalTree histoneIntervalTree = new IntervalTree();
+		String strLine;
+		
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+		int indexofThirdTab = 0;
+		int indexofFourthTab = 0;
+		int indexofFifthTab = 0;
+				
+		ChromosomeName chromName;
+		int startPosition = 0;
+		int endPosition = 0;
+		
+		short histoneName;
+		short cellLineName;
+		short fileName;
+		
+	
+		try {
+			while((strLine = bufferedReader.readLine())!=null){
+//					example strLine
+//					chr9	131533188	131535395	H2az	Gm12878	wgEncodeBroadHistoneGm12878H2azStdAln.narrowPeak
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab+1);
+				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
+				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
+					
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
+				
+				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+				
+				
+				histoneName = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+				
+				cellLineName = Short.parseShort(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				
+				fileName = Short.parseShort(strLine.substring(indexofFifthTab+1));
+				
+//					Creating millions of nodes with six attributes causes out of memory error
+				TforHistoneIntervalTreeNodeWithNumbers node = new TforHistoneIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
+				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
+				
+				chromName = null;
+				strLine = null;
+								
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return histoneIntervalTree;
+	}
+	//@todo
+	
+	
 	//Empirical P Value Calculation
 	public static IntervalTree generateEncodeHistoneIntervalTree(BufferedReader bufferedReader) {
 		IntervalTree histoneIntervalTree = new IntervalTree();
@@ -825,6 +949,83 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 
 		return histoneIntervalTree;
 	}
+	
+	//@todo
+	public static IntervalTree generateUcscRefSeqGenesIntervalTreeWithNumbers(BufferedReader bufferedReader){
+		IntervalTree tree = new IntervalTree();
+		String strLine;
+		
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+		int indexofThirdTab = 0;
+		int indexofFourthTab = 0;
+		int indexofFifthTab = 0;
+		int indexofSixthTab = 0;
+		int indexofSeventhTab = 0;
+		int indexofEighthTab = 0;
+		
+		int startPosition = 0;
+		int endPosition = 0;
+		
+		ChromosomeName chromName;
+		IntervalName intervalName;
+		Integer intervalNumber;
+
+		Integer geneEntrezId;
+		Integer refSeqGeneNameNumber;
+		Integer geneHugoSymbolNumber;		
+		
+		
+		try {
+			while((strLine = bufferedReader.readLine())!=null){
+//				example strLine
+//				chrY	16733888	16734470	NR_028319	22829	EXON	2	+	NLGN4Y
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab+1);
+				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
+				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
+				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab+1);
+				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);	
+				indexofEighthTab = strLine.indexOf('\t',indexofSeventhTab+1);	
+				
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
+				
+				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+				
+				refSeqGeneNameNumber = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+				geneEntrezId = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				
+				intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+	
+				geneHugoSymbolNumber = Integer.parseInt(strLine.substring(indexofEighthTab+1));
+								
+				
+//				Creating millions of nodes with seven attributes causes out of memory error
+				UcscRefSeqGeneIntervalTreeNodeWithNumbers node = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,geneEntrezId,refSeqGeneNameNumber,geneHugoSymbolNumber,intervalName,intervalNumber,NodeType.ORIGINAL);
+				tree.intervalTreeInsert(tree, node);
+				
+				chromName = null;
+				intervalName = null;
+				
+				geneEntrezId = null;
+				refSeqGeneNameNumber = null;
+				geneHugoSymbolNumber = null;
+				
+				strLine = null;
+				
+			}// end of While
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+		return tree;
+	}
+
+	//@todo
 
 	public static IntervalTree generateUcscRefSeqGenesIntervalTree(BufferedReader bufferedReader){
 		IntervalTree tree = new IntervalTree();
@@ -1107,6 +1308,80 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		return dnaseIntervalTree;
 	}
 
+	
+	//@todo
+	//Empirical P Value Calculation
+	public static IntervalTree createTfbsIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){
+		IntervalTree  tfbsIntervalTree =null;
+		FileReader fileReader =null;
+		BufferedReader bufferedReader = null;
+		
+		try {			
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR1_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR2_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR3_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR4_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR5_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR6_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR7_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR8_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR9_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR10_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR11_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR12_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR13_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR14_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR15_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR16_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR17_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR18_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR19_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR20_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR21_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHR22_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRX_TFBS_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.UNSORTED_CHRY_TFBS_FILENAME_WITH_NUMBERS);				
+			} 
+		
+			bufferedReader = new BufferedReader(fileReader);
+			tfbsIntervalTree = generateEncodeTfbsIntervalTreeWithNumbers(bufferedReader);
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return tfbsIntervalTree;	
+	}
+	//@todo
+	
 	//Empirical P Value Calculation
 	public static IntervalTree createTfbsIntervalTree(String dataFolder,ChromosomeName chromName){
 		IntervalTree  tfbsIntervalTree =null;
@@ -1248,6 +1523,81 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 		return tfbsIntervalTree;	
 	}
+	
+	//@todo
+	// Empirical P Value Calculation
+	public static IntervalTree createHistoneIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){
+		IntervalTree  histoneIntervalTree =null;
+		FileReader fileReader =null;
+		BufferedReader bufferedReader = null;
+		
+		try {			
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR1_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR2_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR3_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR4_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR5_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR6_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR7_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR8_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR9_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR10_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR11_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR12_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR13_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR14_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR15_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR16_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR17_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR18_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR19_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR20_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR21_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHR22_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRX_HISTONE_FILENAME_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
+				fileReader = FileOperations.createFileReader(dataFolder + Commons.CREATE_ENCODE_HISTONE_DIRECTORY, Commons.UNSORTED_CHRY_HISTONE_FILENAME_WITH_NUMBERS);				
+			} 
+		
+			bufferedReader = new BufferedReader(fileReader);
+			histoneIntervalTree = generateEncodeHistoneIntervalTreeWithNumbers(bufferedReader);
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return histoneIntervalTree;	
+	}
+	//@todo
+	
+	
 
 	// Empirical P Value Calculation
 	public static IntervalTree createHistoneIntervalTree(String dataFolder,ChromosomeName chromName){
@@ -1389,6 +1739,24 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		
 		return histoneIntervalTree;	
 	}
+	
+	
+	
+	//@todo
+	public static IntervalTree createUcscRefSeqGenesIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){
+		IntervalTree  ucscRefSeqGenesIntervalTree =null;
+		FileReader fileReader =null;
+		BufferedReader bufferedReader = null;
+		
+		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReaderWithNumbers(dataFolder,chromName);
+		
+		bufferedReader = new BufferedReader(fileReader);
+		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
+		
+		return ucscRefSeqGenesIntervalTree;	
+	
+	}
+	//@todo
 	
 	public static IntervalTree createUcscRefSeqGenesIntervalTree(String dataFolder,ChromosomeName chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
@@ -7478,7 +7846,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//with Numbers starts
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment starts
-	public static AllMaps annotatePermutationwithIOwithNumbers(String outputFolder,int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, String tfandKeggPathwayEnrichmentType, Map<String,List<String>> geneId2KeggPathwayMap,int overlapDefinition){
+	public static AllMapsWithNumbers annotatePermutationwithIOwithNumbers(String outputFolder,int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, String tfandKeggPathwayEnrichmentType, Map<Integer,List<Short>> geneId2KeggPathwayNumberMap,int overlapDefinition){
 		AllMaps allMaps = new AllMaps();
 		
 		if (Commons.DNASE_ANNOTATION.equals(annotationType)){

@@ -1812,6 +1812,57 @@ public class IntervalTree {
 						
 	}
 	
+	//@todo	
+	public static int getKeggPathwayNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+		
+		int keggPathwayNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber %  10000L);
+		
+		return keggPathwayNumber;
+	}
+	//@todo
+	
+	//@todo
+	public static int getCellLineNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+		
+		int cellLineNumber;
+		long permutationNumberElementNumber;
+		long cellLineNumberKeggPathwayNumber;
+		int keggPathwayNumber;
+		
+		cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
+		keggPathwayNumber =(int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
+		
+		cellLineNumber = (int)((cellLineNumberKeggPathwayNumber-keggPathwayNumber) /10000L);
+		return cellLineNumber;
+	}
+	//@todo
+	
+	//@todo
+	public static int getElementNumber(long PermutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+		
+		int elementNumber;
+		long permutationNumberElementNumber;
+		long temp;
+		
+		temp = PermutationNumberElementNumberCellLineNumberKeggPathwayNumber - (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L);
+		permutationNumberElementNumber = (int) (temp / 100000000L);
+		
+		elementNumber = (int) (permutationNumberElementNumber % 10000L);
+		return elementNumber;
+	}
+	//@todo
+	
+	//@todo
+	public static int getPermutationNumber(long PermutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+		int permutationNumber;
+		
+		long temp = PermutationNumberElementNumberCellLineNumberKeggPathwayNumber - (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L);
+		permutationNumber = (int) (temp / 1000000000000L);
+		
+		return permutationNumber;
+	}
+	//@todo
+	
 	//@todo
 	//test it
 	public static long generateCombinedNumber(int permutationNumber,short elementNumber,short cellLineNumber,short keggPathwayNumber){

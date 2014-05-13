@@ -4,8 +4,8 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode{
 
 	char strand;
 	
-	int refSeqGeneNumber;
 	int geneEntrezId;
+	int refSeqGeneNumber;
 	int geneHugoSymbolNumber;
 
 	//Enum Type
@@ -80,13 +80,15 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode{
 		
 		
 	//For Ucsc gene without strand attribute
-	public UcscRefSeqGeneIntervalTreeNodeWithNumbers(ChromosomeName chromName, int low, int high, Integer refSeqGeneNumber, Integer geneEntrezId, IntervalName intervalName, Integer geneHugoSymbolNumber,NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNodeWithNumbers(ChromosomeName chromName, int low, int high,  Integer geneEntrezId, Integer refSeqGeneNumber, Integer geneHugoSymbolNumber,IntervalName intervalName, Integer intervalNumber, NodeType nodeType) {
 		super(chromName,low,high,nodeType);
 		
-		this.refSeqGeneNumber = refSeqGeneNumber;
 		this.geneEntrezId = geneEntrezId;
-		this.intervalName = intervalName;
+		this.refSeqGeneNumber = refSeqGeneNumber;
 		this.geneHugoSymbolNumber = geneHugoSymbolNumber;
+		
+		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 		
 		
 	}

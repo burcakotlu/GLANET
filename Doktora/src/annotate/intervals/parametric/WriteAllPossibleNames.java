@@ -309,7 +309,184 @@ public class WriteAllPossibleNames {
 
 	}
 	
+	//@todo
+	public static void createChromBasedUcscRefSeqGeneBufferedWriters(String outputFolder,List<BufferedWriter> bufferedWriterList){
+
+		try {
+			FileWriter fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR1_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR2_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter3 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR3_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter4 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR4_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter5 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR5_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter6 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR6_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter7 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR7_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter8 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR8_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter9 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR9_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter10 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR10_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter11 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR11_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter12 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR12_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter13 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR13_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter14 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR14_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter15 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR15_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter16 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR16_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter17 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR17_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter18 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR18_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter19 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR19_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter20 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR20_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter21 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR21_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter22 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR22_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter23 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHRX_REFSEQ_GENES_WITH_NUMBERS);
+			FileWriter fileWriter24 = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHRY_REFSEQ_GENES_WITH_NUMBERS);
+			
+			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
+			BufferedWriter bufferedWriter2 = new BufferedWriter(fileWriter2);
+			BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
+			BufferedWriter bufferedWriter4 = new BufferedWriter(fileWriter4);
+			BufferedWriter bufferedWriter5 = new BufferedWriter(fileWriter5);
+			BufferedWriter bufferedWriter6 = new BufferedWriter(fileWriter6);
+			BufferedWriter bufferedWriter7 = new BufferedWriter(fileWriter7);
+			BufferedWriter bufferedWriter8 = new BufferedWriter(fileWriter8);
+			BufferedWriter bufferedWriter9 = new BufferedWriter(fileWriter9);
+			BufferedWriter bufferedWriter10 = new BufferedWriter(fileWriter10);
+			BufferedWriter bufferedWriter11 = new BufferedWriter(fileWriter11);
+			BufferedWriter bufferedWriter12 = new BufferedWriter(fileWriter12);
+			BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
+			BufferedWriter bufferedWriter14 = new BufferedWriter(fileWriter14);
+			BufferedWriter bufferedWriter15 = new BufferedWriter(fileWriter15);
+			BufferedWriter bufferedWriter16 = new BufferedWriter(fileWriter16);
+			BufferedWriter bufferedWriter17 = new BufferedWriter(fileWriter17);
+			BufferedWriter bufferedWriter18 = new BufferedWriter(fileWriter18);
+			BufferedWriter bufferedWriter19 = new BufferedWriter(fileWriter19);
+			BufferedWriter bufferedWriter20 = new BufferedWriter(fileWriter20);
+			BufferedWriter bufferedWriter21 = new BufferedWriter(fileWriter21);
+			BufferedWriter bufferedWriter22 = new BufferedWriter(fileWriter22);
+			BufferedWriter bufferedWriter23 = new BufferedWriter(fileWriter23);
+			BufferedWriter bufferedWriter24 = new BufferedWriter(fileWriter24);
+			
+			bufferedWriterList.add(bufferedWriter1);
+			bufferedWriterList.add(bufferedWriter2);
+			bufferedWriterList.add(bufferedWriter3);
+			bufferedWriterList.add(bufferedWriter4);
+			bufferedWriterList.add(bufferedWriter5);
+			bufferedWriterList.add(bufferedWriter6);
+			bufferedWriterList.add(bufferedWriter7);
+			bufferedWriterList.add(bufferedWriter8);
+			bufferedWriterList.add(bufferedWriter9);
+			bufferedWriterList.add(bufferedWriter10);
+			bufferedWriterList.add(bufferedWriter11);
+			bufferedWriterList.add(bufferedWriter12);
+			bufferedWriterList.add(bufferedWriter13);
+			bufferedWriterList.add(bufferedWriter14);
+			bufferedWriterList.add(bufferedWriter15);
+			bufferedWriterList.add(bufferedWriter16);
+			bufferedWriterList.add(bufferedWriter17);
+			bufferedWriterList.add(bufferedWriter18);
+			bufferedWriterList.add(bufferedWriter19);
+			bufferedWriterList.add(bufferedWriter20);
+			bufferedWriterList.add(bufferedWriter21);
+			bufferedWriterList.add(bufferedWriter22);
+			bufferedWriterList.add(bufferedWriter23);
+			bufferedWriterList.add(bufferedWriter24);				
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	//@todo
 	
+	//@todo
+	public static void createChromBasedUcscRefSeqGeneBufferedReaders(String folderName,List<BufferedReader> bufferedReaderList ){
+		try {
+			FileReader fileReader1 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR1_REFSEQ_GENES);
+			FileReader fileReader2 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR2_REFSEQ_GENES);
+			FileReader fileReader3 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR3_REFSEQ_GENES);
+			FileReader fileReader4 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR4_REFSEQ_GENES);
+			FileReader fileReader5 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR5_REFSEQ_GENES);
+			FileReader fileReader6 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR6_REFSEQ_GENES);
+			FileReader fileReader7 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR7_REFSEQ_GENES);
+			FileReader fileReader8 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR8_REFSEQ_GENES);
+			FileReader fileReader9 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR9_REFSEQ_GENES);
+			FileReader fileReader10 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR10_REFSEQ_GENES);
+			FileReader fileReader11 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR11_REFSEQ_GENES);
+			FileReader fileReader12 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR12_REFSEQ_GENES);
+			FileReader fileReader13 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR13_REFSEQ_GENES);
+			FileReader fileReader14 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR14_REFSEQ_GENES);
+			FileReader fileReader15 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR15_REFSEQ_GENES);
+			FileReader fileReader16 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR16_REFSEQ_GENES);
+			FileReader fileReader17 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR17_REFSEQ_GENES);
+			FileReader fileReader18 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR18_REFSEQ_GENES);
+			FileReader fileReader19 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR19_REFSEQ_GENES);
+			FileReader fileReader20 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR20_REFSEQ_GENES);
+			FileReader fileReader21 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR21_REFSEQ_GENES);
+			FileReader fileReader22 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR22_REFSEQ_GENES);
+			FileReader fileReader23 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHRX_REFSEQ_GENES);
+			FileReader fileReader24 = FileOperations.createFileReader(folderName + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHRY_REFSEQ_GENES);
+			
+			BufferedReader bufferedReader1 = new BufferedReader(fileReader1);
+			BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
+			BufferedReader bufferedReader3 = new BufferedReader(fileReader3);
+			BufferedReader bufferedReader4 = new BufferedReader(fileReader4);
+			BufferedReader bufferedReader5 = new BufferedReader(fileReader5);
+			BufferedReader bufferedReader6 = new BufferedReader(fileReader6);
+			BufferedReader bufferedReader7 = new BufferedReader(fileReader7);
+			BufferedReader bufferedReader8 = new BufferedReader(fileReader8);
+			BufferedReader bufferedReader9 = new BufferedReader(fileReader9);
+			BufferedReader bufferedReader10 = new BufferedReader(fileReader10);
+			BufferedReader bufferedReader11 = new BufferedReader(fileReader11);
+			BufferedReader bufferedReader12 = new BufferedReader(fileReader12);
+			BufferedReader bufferedReader13 = new BufferedReader(fileReader13);
+			BufferedReader bufferedReader14 = new BufferedReader(fileReader14);
+			BufferedReader bufferedReader15 = new BufferedReader(fileReader15);
+			BufferedReader bufferedReader16 = new BufferedReader(fileReader16);
+			BufferedReader bufferedReader17 = new BufferedReader(fileReader17);
+			BufferedReader bufferedReader18 = new BufferedReader(fileReader18);
+			BufferedReader bufferedReader19 = new BufferedReader(fileReader19);
+			BufferedReader bufferedReader20 = new BufferedReader(fileReader20);
+			BufferedReader bufferedReader21 = new BufferedReader(fileReader21);
+			BufferedReader bufferedReader22 = new BufferedReader(fileReader22);
+			BufferedReader bufferedReader23 = new BufferedReader(fileReader23);
+			BufferedReader bufferedReader24 = new BufferedReader(fileReader24);
+			
+			bufferedReaderList.add(bufferedReader1);
+			bufferedReaderList.add(bufferedReader2);
+			bufferedReaderList.add(bufferedReader3);
+			bufferedReaderList.add(bufferedReader4);
+			bufferedReaderList.add(bufferedReader5);
+			bufferedReaderList.add(bufferedReader6);
+			bufferedReaderList.add(bufferedReader7);
+			bufferedReaderList.add(bufferedReader8);
+			bufferedReaderList.add(bufferedReader9);
+			bufferedReaderList.add(bufferedReader10);
+			bufferedReaderList.add(bufferedReader11);
+			bufferedReaderList.add(bufferedReader12);
+			bufferedReaderList.add(bufferedReader13);
+			bufferedReaderList.add(bufferedReader14);
+			bufferedReaderList.add(bufferedReader15);
+			bufferedReaderList.add(bufferedReader16);
+			bufferedReaderList.add(bufferedReader17);
+			bufferedReaderList.add(bufferedReader18);
+			bufferedReaderList.add(bufferedReader19);
+			bufferedReaderList.add(bufferedReader20);
+			bufferedReaderList.add(bufferedReader21);
+			bufferedReaderList.add(bufferedReader22);
+			bufferedReaderList.add(bufferedReader23);
+			bufferedReaderList.add(bufferedReader24);				
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	//@todo
 	
 	public static void createChromBaseTfbsBufferedReaders(String outputFolder,List<BufferedReader> bufferedReaderList){
 
@@ -752,7 +929,127 @@ public class WriteAllPossibleNames {
 		
 	}
 
+
+	//@todo
+	public static void readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(String dataFolder,List<Integer> geneEntrezIds,List<String> refseqGeneNames, Map<String,Integer> refseqGeneName2RefseqGeneNameNumberMap,Map<Integer,String> refseqGeneNameNumber2refseqGeneNameMap,List<String> geneHugoSymbols,Map<String,Integer> geneHugoSymbol2geneHugoSymbolNumberMap,Map<Integer,String> geneHugoSymbolNumber2geneHugoSymbolMap)
+	{
+		
+		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
+		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
+		
+		
+		createChromBasedUcscRefSeqGeneBufferedReaders(dataFolder,bufferedReaderList);
+		createChromBasedUcscRefSeqGeneBufferedWriters(dataFolder,bufferedWriterList);
+		
+		
+		String strLine;
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+		
+		int indexofFirstTab 	= 0;
+		int indexofSecondTab 	= 0;
+		int indexofThirdTab 	= 0;
+		int indexofFourthTab	= 0;
+		int indexofFifthTab	= 0;
+		int indexofSixthTab	= 0;
+		int indexofSeventhTab	= 0;
+		
+		String chrNameLowHigh;
+		String refseqGeneName;
+		int entrezGeneId;
+		String intervalName;
+		int intervalNumber;
+		char strand;
+		String geneHugoSymbol;
+		
+		int refseqGeneNameNumber = 1;
+		int geneHugoSymbolNumber = 1;
+		
+		
+		
+		try {
+			for(int i = 0; i< bufferedReaderList.size() ; i++){
+				 bufferedReader = bufferedReaderList.get(i);
+				 bufferedWriter = bufferedWriterList.get(i);
+				 				
+					while((strLine = bufferedReader.readLine())!=null){
+//						example unsorted ucsc refseq gene line
+//						chrY	16636453	16636815	NR_028319	22829	EXON1	+	NLGN4Y
+
+						indexofFirstTab = strLine.indexOf('\t');
+						indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+						indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+						indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+						indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+						indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+						indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+						
+						chrNameLowHigh = strLine.substring(0, indexofThirdTab);
+						refseqGeneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+						entrezGeneId = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+						intervalName = strLine.substring(indexofFifthTab+1,indexofSixthTab);
+						strand = (strLine.substring(indexofSixthTab+1,indexofSeventhTab)).charAt(0);
+						geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
+						
+						if(!(geneEntrezIds.contains(entrezGeneId))){
+							geneEntrezIds.add(entrezGeneId);							
+						}
+						
+						if (!(refseqGeneNames.contains(refseqGeneName))){
+							
+							refseqGeneNames.add(refseqGeneName);
+							refseqGeneName2RefseqGeneNameNumberMap.put(refseqGeneName, refseqGeneNameNumber);
+							refseqGeneNameNumber2refseqGeneNameMap.put(refseqGeneNameNumber, refseqGeneName);
+							
+							refseqGeneNameNumber++;
+							
+						}
+						
+						if (!(geneHugoSymbols.contains(geneHugoSymbol))){
+							
+							geneHugoSymbols.add(geneHugoSymbol);
+							geneHugoSymbol2geneHugoSymbolNumberMap.put(geneHugoSymbol,geneHugoSymbolNumber);
+							geneHugoSymbolNumber2geneHugoSymbolMap.put(geneHugoSymbolNumber, geneHugoSymbol);
+							
+							geneHugoSymbolNumber++;
+						}
+						
+						
+//						example input strLine
+//						chrY	16733888	16734470	NR_028319	22829	EXON2	+	NLGN4Y
+						
+						if (intervalName.startsWith(Commons.EXON)){
+							intervalNumber = Integer.parseInt(intervalName.substring(4));
+							intervalName = intervalName.substring(0,4);
+						}else if (intervalName.startsWith(Commons.INTRON)){
+							intervalNumber = Integer.parseInt(intervalName.substring(6));
+							intervalName = intervalName.substring(0,6);
+						}else{
+							intervalNumber =0;
+						}
+
+						if (intervalNumber>0){
+							//Write unsorted ucsc refseq gene files with numbers
+							bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
+
+						}else{
+							//Write unsorted ucsc refseq gene files with numbers
+							bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + Commons.EMPTY_STRING +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
 	
+						}
+				}// End of While			
+			}// End of For
+									
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+		
+		closeBufferedReaders(bufferedReaderList);		
+		closeBufferedWriters(bufferedWriterList);
+	}
+
+	//@todo
 
 	public static void readGeneIds(String dataFolder, List<String> geneIds, String inputFileName){
 		
@@ -992,6 +1289,32 @@ public class WriteAllPossibleNames {
 	}
 	
 	
+	public static void writeNumbers(String dataFolder,List<Integer> numberList, String outputDirectoryName, String outputFileName){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+		
+			for(int i = 0; i<numberList.size() ;i++){
+								
+				bufferedWriter.write(numberList.get(i)+ System.getProperty("line.separator"));
+				bufferedWriter.flush();				
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	
+	}
+	
 	public static void writeMapsString2Integer(String dataFolder,Map<String,Integer> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName){
 		
 		FileWriter fileWriter = null;
@@ -1086,6 +1409,36 @@ public class WriteAllPossibleNames {
 
 		
 	}
+
+
+	//@todo
+	public static void writeAllPossible_UcscGeneEntrezId_RefSeqGeneName_HugoSymbol(String dataFolder){
+
+		List<Integer> geneEntrezIds = new ArrayList<Integer>();
+		
+		List<String> refseqGeneNames = new ArrayList<String>();
+		Map<String,Integer> refseqGeneName2RefseqGeneNameNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> refseqGeneNameNumber2refseqGeneNameMap = new HashMap<Integer,String>();
+		
+		List<String> geneHugoSymbols = new ArrayList<String>();	
+		Map<String,Integer> geneHugoSymbol2geneHugoSymbolNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> geneHugoSymbolNumber2geneHugoSymbolMap = new HashMap<Integer,String>();
+
+		readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(dataFolder,geneEntrezIds,refseqGeneNames,refseqGeneName2RefseqGeneNameNumberMap,refseqGeneNameNumber2refseqGeneNameMap,geneHugoSymbols,geneHugoSymbol2geneHugoSymbolNumberMap,geneHugoSymbolNumber2geneHugoSymbolMap);
+		
+		writeNumbers(dataFolder,geneEntrezIds,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_REF_SEQ_GENES_ENTREZ_GENE_IDS);		
+		
+		writeNames(dataFolder,refseqGeneNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_REF_SEQ_GENE_NAMES);		
+		writeMapsString2Integer(dataFolder,refseqGeneName2RefseqGeneNameNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_2_REFSEQ_GENE_NAME_NUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,refseqGeneNameNumber2refseqGeneNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
+
+		
+		writeNames(dataFolder,geneHugoSymbols,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_GENE_HUGO_SYMBOLS_NAMES);		
+		writeMapsString2Integer(dataFolder,geneHugoSymbol2geneHugoSymbolNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_2_GENE_HUGO_SYMBOL_NUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,geneHugoSymbolNumber2geneHugoSymbolMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+
+	}
+	//@todo
 	
 	
 	public static void writeAllPossibleGeneIds(String dataFolder){
@@ -1215,17 +1568,23 @@ public class WriteAllPossibleNames {
 		WriteAllPossibleNames.writeAllPossibleEncodeCellLineNamesFileNames(dataFolder,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
 
 
-		//Write all possible gene ids
+		//Write all possible gene ids from ncbi file which is processed by GLANET
 //		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
 		WriteAllPossibleNames.writeAllPossibleGeneIds(dataFolder);
 
-		//Write all possible RNA nucleotide accession version, in other words ucsc refseq gene name
+		//Write all possible RNA nucleotide accession version, in other words ucsc refseq gene names from ncbi file which is processed by GLANET
 //		Using human_gene2refseq.txt under C:\eclipse_ganymede\workspace\Doktora1\src\ncbi\input_output
 		WriteAllPossibleNames.writeAllPossibleRNAAccessionVersions(dataFolder);
 
-		//Write all possible ucsc refseq gene name2
+		//Write all possible ucsc refseq gene name2, in other words hugo gene symbol, alternate gene name from hg19_refseq_genes.txt which is downloaded from ucsc genome browser
 //		Using hg19_refseq_genes.txt under C:\\eclipse_ganymede\\workspace\\Doktora1\\src\\annotate\\ucscgenome\\input_output	
 		WriteAllPossibleNames.writeAllPossibleUcscRefSeqGeneName2s(dataFolder);
+		
+		//@todo
+		//UCSC REFSEQ GENES
+		//Read unsorted_ucsc_refseq_gene_chromosomebased_files and Write unsorted_ucsc_refseq_gene_chromosomebased_files_with_Numbers
+		WriteAllPossibleNames.writeAllPossible_UcscGeneEntrezId_RefSeqGeneName_HugoSymbol(dataFolder);
+		//@todo
 
 		//Write all possible kegg pathway names		
 		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output

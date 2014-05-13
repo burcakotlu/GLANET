@@ -16,9 +16,14 @@ public class Commons {
 	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String From_ANNOTATION = "fromAnnotation";
 	
+	public static final String BYGLANET = "byGLANET";
+	
 		
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
+	
+	
+	public static final String ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
 			
 	public static final String RSERVE =  System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Rserve" + System.getProperty("file.separator");
 	
@@ -545,12 +550,12 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"results" + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_tf_all_based_kegg_pathway_results.txt";
 			
 	//whole genome using interval tree
-	public static final String DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "dnaseCellLine_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
-	public static final String DUMMY_DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "dummy_dnase_cell_line_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
-	public static final String TFBS_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "tfbs_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
-	public static final String HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "histone_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
-	public static final String EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "exon_based_kegg_pathway_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs.txt";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE = "byGLANET" + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "regulation_based_kegg_pathway_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
+	public static final String DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "dnaseCellLine_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
+	public static final String DUMMY_DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "dummy_dnase_cell_line_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
+	public static final String TFBS_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "tfbs_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
+	public static final String HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "histone_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
+	public static final String EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "exon_based_kegg_pathway_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs.txt";
+	public static final String REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE = Commons.BYGLANET + System.getProperty("file.separator") + "fromWholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_intervaltree" + System.getProperty("file.separator") + "regulation_based_kegg_pathway_whole_genome_using_interval_tree_number_of_non_overlapping_base_pairs_.txt";
 
 	//whole genome using sliding window
 	public static final String DNASE_CELL_LINE_WHOLE_GENOME_USING_SLIDING_WINDOW = "Doktora" + System.getProperty("file.separator") + "wholegenome" + System.getProperty("file.separator") + "nonoverlappingbasepairs" + System.getProperty("file.separator") + "wholegenome_slidingwindow" + System.getProperty("file.separator") + "dnaseCellLine_whole_genome_using_sliding_window_number_of_non_overlapping_base_pairs.txt";
@@ -684,8 +689,13 @@ public class Commons {
 	public static final String INTRON = "INTRON";
 	public static final String FIVE_P_ONE = "5P1";
 	public static final String FIVE_P_TWO = "5P2";
+	public static final String FIVE_D = "5D";
 	public static final String THREE_P_ONE = "3P1";
 	public static final String THREE_P_TWO = "3P2";
+	public static final String THREE_D = "3D";
+	
+	
+	public static final String EMPTY_STRING = "";
 	
 	public static final String EXON_BASED_KEGG_PATHWAY_ANALYSIS 		= "EXON_BASED_KEGG_PATHWAY_ANALYSIS";
 	public static final String REGULATION_BASED_KEGG_PATHWAY_ANALYSIS 	= "REGULATION_BASED_KEGG_PATHWAY_ANALYSIS";
@@ -759,7 +769,7 @@ public class Commons {
 	public static final String ALL_POSSIBLE_NAMES = "all_possible_names";
 		
 	
-	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	
 	//ENCODE CELL LINE
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME = "all_possible_encode_cell_lines_names.txt";
@@ -788,6 +798,18 @@ public class Commons {
 	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME = "all_possible_keggPathwayNumber_2_keggPathwayName_map.txt";
 	
 	
+	//UCSC Genome Browser RefSeq Genes
+	public static final String WRITE_ALL_UCSC_REF_SEQ_GENES_ENTREZ_GENE_IDS = "all_possible_ucsc_refseq_genes_entrez_geneIds.txt";
+	
+	//UCSC Genome Browser RefSeq Gene Names
+	public static final String WRITE_ALL_UCSC_REF_SEQ_GENE_NAMES = "all_possible_ucsc_refseq_gene_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_2_REFSEQ_GENE_NAME_NUMBER_OUTPUT_FILENAME = "all_possible_ucsc_refseqGeneName_2_refseqGeneNameNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME = "all_possible_ucsc_refseqGeneNameNumber_2_refseqGeneName_map.txt";
+	
+	//UCSC Genome Browser Gene Hugo Symbols
+	public static final String WRITE_ALL_UCSC_GENE_HUGO_SYMBOLS_NAMES = "all_possible_ucsc_gene_hugo_symbols.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_2_GENE_HUGO_SYMBOL_NUMBER_OUTPUT_FILENAME = "all_possible_ucsc_geneHugoSymbol_2_geneHugoSymbolNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME = "all_possible_ucsc_geneHugoSymbolNumber_2_geneHugoSymbol_map.txt";
 	
 	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
 	
@@ -871,13 +893,13 @@ public class Commons {
 	//Downloaded from ncbi, gene2refseq.txt data
 	public static final String NCBI_GENE_TO_REF_SEQ = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
 	
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
 	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
 
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
 	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseq2gene.txt";
 
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
 	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseq2gene2.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
@@ -901,7 +923,7 @@ public class Commons {
 	
 	public static final String FTP_HG19_REFSEQ_GENES = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
 	
-	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
+	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";
 	
 	public static final String CHROMOSOME1 = "chr1";
@@ -930,7 +952,7 @@ public class Commons {
 	public static final String CHROMOSOMEY = "chrY";
 	
 	//Create ucsc refseq genes directory
-	public static final String CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME = "byGLANET" + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
+	public static final String CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
 	
 	
 	//Unsorted Chromosome Base RefSeq Gene Files
@@ -958,6 +980,34 @@ public class Commons {
 	public static final String UNSORTED_CHR22_REFSEQ_GENES = "unsorted_chr22_refseq_genes.txt";
 	public static final String UNSORTED_CHRX_REFSEQ_GENES = "unsorted_chrX_refseq_genes.txt";
 	public static final String UNSORTED_CHRY_REFSEQ_GENES =  "unsorted_chrY_refseq_genes.txt";
+	
+	//@todo
+	//Unsorted Chromosome Base RefSeq Gene Files with Numbers
+	public static final String UNSORTED_CHR1_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr1_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR2_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr2_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR3_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr3_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR4_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr4_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR5_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr5_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR6_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr6_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR7_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr7_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR8_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr8_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR9_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr9_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR10_REFSEQ_GENES_WITH_NUMBERS = "unsorted_ch10_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR11_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr11_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR12_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr12_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR13_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr13_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR14_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr14_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR15_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr15_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR16_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr16_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR17_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr17_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR18_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr18_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR19_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr19_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR20_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr20_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR21_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr21_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHR22_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chr22_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHRX_REFSEQ_GENES_WITH_NUMBERS = "unsorted_chrX_refseq_genes_with_numbers.txt";
+	public static final String UNSORTED_CHRY_REFSEQ_GENES_WITH_NUMBERS =  "unsorted_chrY_refseq_genes_with_numbers.txt";
+	//@todo
 	
 	//Sorted Chromosome Base RefSeq Gene Files
 	public static final String SORTED_CHR1_REFSEQ_GENES = "sorted_chr1_refseq_genes.txt";
@@ -987,7 +1037,7 @@ public class Commons {
 	
 	
 	//Create Encode DNASE Directory
-	public static final String CREATE_ENCODE_DNASE_DIRECTORY = "byGLANET" + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
+	public static final String CREATE_ENCODE_DNASE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
 		
 	//Create Encode Unsorted Chromosome Based DNASE Filenames
 	public static final String UNSORTED_CHR1_DNASE_FILENAME = "unsorted_chr1_dnase.txt";
@@ -1075,7 +1125,7 @@ public class Commons {
 	public static final String BURCAK_DEBUG_ENCODE_SORTED_CHR1_HISTONE = "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "burcak_debug_sorted_chr1_histone.txt";
 		
 	//CREATE ENCODE HISTONE directory
-	public static final String CREATE_ENCODE_HISTONE_DIRECTORY = "byGLANET" + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
+	public static final String CREATE_ENCODE_HISTONE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
 	
 	 //Unsorted Chromosome Based HISTONE File names
 	 public static final String UNSORTED_CHR1_HISTONE_FILENAME = "unsorted_chr1_histone.txt";
@@ -1158,7 +1208,7 @@ public class Commons {
 		
 			
 	//CREATE ENCODE TFBS directory
-	public static final String CREATE_ENCODE_TFBS_DIRECTORY = "byGLANET" + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
+	public static final String CREATE_ENCODE_TFBS_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
 	
 	//Unsorted Chromosome Based TFBS filenames
 	public static final String UNSORTED_CHR1_TFBS_FILENAME = "unsorted_chr1_tfbs.txt";

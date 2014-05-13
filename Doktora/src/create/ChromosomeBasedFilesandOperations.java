@@ -515,6 +515,73 @@ public class ChromosomeBasedFilesandOperations {
 		}				
 	}
 	
+	
+	//@todo
+	public static FileReader getUnsortedRefSeqGenesFileReaderWithNumbers(String dataFolder,ChromosomeName chromName){
+		
+		FileReader fileReader = null;
+	
+		try {
+			
+			if (ChromosomeName.CHROMOSOME1.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR1_REFSEQ_GENES_WITH_NUMBERS);								
+			} else if (ChromosomeName.CHROMOSOME2.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR2_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME3.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR3_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME4.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR4_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME5.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR5_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME6.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR6_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME7.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR7_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME8.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR8_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME9.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR9_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME10.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR10_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME11.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR11_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME12.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR12_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME13.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR13_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME14.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR14_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME15.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR15_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME16.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR16_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME17.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR17_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME18.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR18_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME19.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR19_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME20.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR20_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME21.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR21_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOME22.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHR22_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEX.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRX_REFSEQ_GENES_WITH_NUMBERS);				
+			} else if (ChromosomeName.CHROMOSOMEY.equals(chromName)){
+				fileReader = new FileReader(dataFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.UNSORTED_CHRY_REFSEQ_GENES_WITH_NUMBERS);				
+			} 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return fileReader;
+	}
+	//@todo
+	
+	
 	public static FileReader getUnsortedRefSeqGenesFileReader(String dataFolder,ChromosomeName chromName){
 				
 		FileReader fileReader = null;
