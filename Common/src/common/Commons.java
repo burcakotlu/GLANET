@@ -15,6 +15,7 @@ public class Commons {
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
 	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String From_ANNOTATION = "fromAnnotation";
+	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
 	
 	public static final String BYGLANET = "byGLANET";
 	
@@ -766,10 +767,9 @@ public class Commons {
 	
 	
 // 	All possible names	
-	public static final String ALL_POSSIBLE_NAMES = "all_possible_names";
 		
 	
-	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.From_ANNOTATION + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
 	
 	//ENCODE CELL LINE
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME = "all_possible_encode_cell_lines_names.txt";

@@ -1517,7 +1517,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					//ucsc RefSeq Genes
     			    //generate UCSC RefSeq Genes interval tree
     			    intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);
-    			    annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.UCSC_REFSEQ_GENE_ANNOTATION,null,geneId2KeggPathwayMap,overlapDefinition);
+    			    annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.UCSC_REFSEQ_GENE_ANNOTATION,null,geneId2KeggPathwayNumberMap,overlapDefinition);
     			    allMapsWithNumbers = pool.invoke(annotateWithNumbers);    			    
     			    accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
     			    allMapsWithNumbers = null;
@@ -1536,7 +1536,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     				//generate tf interval tree and ucsc refseq genes interval tree
     				tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder,chromName);
     				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);
-    				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_KEGG_PATHWAY_ANNOTATION,tfKeggPathwayEnrichment,geneId2KeggPathwayMap,overlapDefinition);
+    				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_KEGG_PATHWAY_ANNOTATION,tfKeggPathwayEnrichment,geneId2KeggPathwayNumberMap,overlapDefinition);
     				allMapsWithNumbers = pool.invoke(annotateWithNumbers);    
       				//Will be used 	for Tf and KeggPathway Enrichment or
       				//				for Tf and CellLine and KeggPathway Enrichment
@@ -1560,7 +1560,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
         				//generate tf interval tree and ucsc refseq genes interval tree
         				tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder,chromName);
         				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);
-        				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,tfCellLineKeggPathwayEnrichment,geneId2KeggPathwayMap,overlapDefinition);
+        				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,tfCellLineKeggPathwayEnrichment,geneId2KeggPathwayNumberMap,overlapDefinition);
         				allMapsWithNumbers = pool.invoke(annotateWithNumbers);    
           				//Will be used 	for Tf and KeggPathway Enrichment or
           				//				for Tf and CellLine and KeggPathway Enrichment

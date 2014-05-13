@@ -255,6 +255,11 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 				}else{
 //					If rna nucleotide accession version has no corresponding gene id, zero is inserted.
 					refSeqGene.setGeneId(Commons.ZERO);
+					
+					//for debug starts
+					System.out.println(refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId());
+					//for debug ends
+
 				}
 										
 				addRefSeqGeneName(refSeqGene, refSeqGenes, refSeqGeneNames,bufferedWriter);
@@ -435,7 +440,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
 				
 					
-					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
+					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId()+ "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
 					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 					bufferedWriter.flush();
 					

@@ -58,6 +58,6 @@
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
-<fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNames"/>
+<fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
 </qualifiedTypeNameHistroy>

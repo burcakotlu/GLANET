@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="INTRON" key="selection"/>
+		<item value="Commons.ALL_POSSIBLE_NAMES" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Commons.ALL_POSSIBLE_NAMES"/>
+			<item value="ALL_POSSIBLE_NAMES"/>
 			<item value="INTRON"/>
 			<item value="refseq_genes.txt"/>
 			<item value="REFSEQ_GENES"/>
 			<item value="_TFBS_FILENAME_"/>
 			<item value=" = FileOperations.createFileWriter(outputFolder + Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME,Commons.UNSORTED_CHR1_TFBS_FILENAME_WITH_NUMBERS);"/>
 			<item value="CREATE_ENCODE_TFBS_DIRECTORY"/>
-			<item value="TFBS_FILENAME"/>
-			<item value="outputFolder"/>
 		</list>
 		<list key="replacehistory">
 			<item value="refseq_genes_with_numbers.txt"/>
