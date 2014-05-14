@@ -1028,15 +1028,10 @@ public class WriteAllPossibleNames {
 							intervalNumber =0;
 						}
 
-						if (intervalNumber>0){
-							//Write unsorted ucsc refseq gene files with numbers
-							bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
+						//Write unsorted ucsc refseq gene files with numbers
+						bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
 
-						}else{
-							//Write unsorted ucsc refseq gene files with numbers
-							bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + Commons.EMPTY_STRING +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
-	
-						}
+						
 				}// End of While			
 			}// End of For
 									

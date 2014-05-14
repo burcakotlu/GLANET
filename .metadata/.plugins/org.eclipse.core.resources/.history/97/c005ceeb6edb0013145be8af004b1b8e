@@ -3385,7 +3385,7 @@ public class IntervalTree {
 
 						
 						
-						//write ALL results							
+						//write all results							
 						if(keggPathwayListContainingThisGeneId!=null){
 							
 							permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
