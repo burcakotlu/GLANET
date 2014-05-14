@@ -4517,7 +4517,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//TF and EXON Based Kegg Pathway
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberExonBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 							
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/
@@ -4549,7 +4549,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberRegulationBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
 						
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 									
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/
@@ -4579,7 +4579,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//TF and ALL Based Kegg Pathway
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberAllBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 									
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/

@@ -28,7 +28,7 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 	int geneEntrezId;
 	int low;
 	int high;
-	List<Short> keggPathwayNumberList;
+	List<Short> keggPathwayNameList;
 	
 	
 	
@@ -81,13 +81,11 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 	public void setHigh(int high) {
 		this.high = high;
 	}
-	
-	
-	public List<Short> getKeggPathwayNumberList() {
-		return keggPathwayNumberList;
+	public List<Short> getKeggPathwayNameList() {
+		return keggPathwayNameList;
 	}
-	public void setKeggPathwayNumberList(List<Short> keggPathwayNumberList) {
-		this.keggPathwayNumberList = keggPathwayNumberList;
+	public void setKeggPathwayNameList(List<Short> keggPathwayNameList) {
+		this.keggPathwayNameList = keggPathwayNameList;
 	}
 	
 	
@@ -95,7 +93,7 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 			int permutationNumber, int refSeqGeneNumber,
 			IntervalName intervalName, int intervalNumber,
 			int geneHugoSymbolNumber, int geneEntrezId, int low, int high,
-			List<Short> keggPathwayNumberList) {
+			List<Short> keggPathwayNameList) {
 		super();
 		this.permutationNumber = permutationNumber;
 		this.refSeqGeneNumber = refSeqGeneNumber;
@@ -105,7 +103,7 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 		this.geneEntrezId = geneEntrezId;
 		this.low = low;
 		this.high = high;
-		this.keggPathwayNumberList = keggPathwayNumberList;
+		this.keggPathwayNameList = keggPathwayNameList;
 	}
 	
 	

@@ -3328,26 +3328,26 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 										
 									}else if (tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 										/************************************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(permutationNumberTfNumberCellLineNumber, keggPathwayNumber);
-																				
-										if (permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)==null){
-											permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
+										permutationNumberTfNameCellLineNameKeggPathwayName = permutationNumberTfNameCellLineName + "_" + keggPathwayName;
+										
+										if (permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)==null){
+											permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, 1);
 										}
 										/************************************************/
 										
 										/************************************************/
-										bufferedWriter1 = tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber);
+										bufferedWriter1 = tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNameCellLineNameKeggPathwayName);
 										
 										if (bufferedWriter1==null){											
 											
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNumberCellLineNumberKeggPathwayNumber + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNameCellLineNameKeggPathwayName + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
-											tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber,bufferedWriter1);
-											bufferedWriter1.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name number" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name" + "\t" + "interval number" + "\t" + "hugo symbol number" + "\t" + "entrez id"+ "\t" + "keggPathwayNumber" + System.getProperty("line.separator"));
+											tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNameCellLineNameKeggPathwayName,bufferedWriter1);
+											bufferedWriter1.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
 											
 										}
 	
-										bufferedWriter1.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getPermutationNumberTfNumberCellLineNumber()+ "\t"  + permutationNumberTfNumberCellLineNumberOverlap.getLow() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getRefSeqGeneNumber()+ "\t" +permutationNumberUcscRefSeqGeneNumberOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalName() + "\t" +  permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalNumber() + "\t"+ permutationNumberUcscRefSeqGeneNumberOverlap.getGeneHugoSymbolNumber() + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getGeneEntrezId()+ "\t" + keggPathwayNumber + System.getProperty("line.separator"));
+										bufferedWriter1.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNameCellLineNameOverlap.getPermutationNumberTfNameCellLineName()+ "\t"  + permutationNumberTfNameCellLineNameOverlap.getLow() + "\t" + permutationNumberTfNameCellLineNameOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneOverlap.getRefSeqGeneName()+ "\t" +permutationNumberUcscRefSeqGeneOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneOverlap.getIntervalName() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneHugoSymbol() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneEntrezId()+ "\t" + keggPathwayName + System.getProperty("line.separator"));
 										bufferedWriter1.flush();
 										/************************************************/
 
@@ -3362,60 +3362,60 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					
 					//TF and All Based Kegg Pathway
-					for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberAllBasedKeggPathwayOverlapList){
-						if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
-							for(Short keggPathwayNumber : permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+					for (PermutationNumberUcscRefSeqGeneOverlap permutationNumberUcscRefSeqGeneOverlap: permutationNumberAllBasedKeggPathwayOverlapList){
+						if(IntervalTree.overlaps(permutationNumberTfNameCellLineNameOverlap.getLow(),permutationNumberTfNameCellLineNameOverlap.getHigh(),permutationNumberUcscRefSeqGeneOverlap.getLow(), permutationNumberUcscRefSeqGeneOverlap.getHigh())){
+							for(String keggPathwayName:permutationNumberUcscRefSeqGeneOverlap.getKeggPathwayNameList()){ 
 								
 									if (tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 										
 										/************************************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(permutationNumberTfNumber, keggPathwayNumber);
+										permutationNumberTfNameKeggPathwayName = permutationNumberTfName + "_" + keggPathwayName;
 										
-										if (permutationNumberTfNumberAllBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNumberKeggPathwayNumber)==null){
-											permutationNumberTfNumberAllBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
+										if (permutationNumberTfNameAllBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNameKeggPathwayName)==null){
+											permutationNumberTfNameAllBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNameKeggPathwayName, 1);
 										}
 										/************************************************/
 										
 										/************************************************/
-										bufferedWriter2 = tfAllBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNumberKeggPathwayNumber);
+										bufferedWriter2 = tfAllBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNameKeggPathwayName);
 										
 										if (bufferedWriter2==null){	
 											
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNumberKeggPathwayNumber + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNameKeggPathwayName + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
-											tfAllBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNumberKeggPathwayNumber,bufferedWriter2);
-											bufferedWriter2.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name number" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name" + "\t" + "interval number" + "\t" + "hugo suymbol number" + "\t" + "entrez id"+ "\t" + "keggPathwayNumber" + System.getProperty("line.separator"));
+											tfAllBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNameKeggPathwayName,bufferedWriter2);
+											bufferedWriter2.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
 											
 										}
 	
 	
-										bufferedWriter2.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getPermutationNumberTfNumberCellLineNumber()+ "\t"  + permutationNumberTfNumberCellLineNumberOverlap.getLow() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getRefSeqGeneNumber()+ "\t" +permutationNumberUcscRefSeqGeneNumberOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalName() + "\t" +permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalNumber() + "\t"  + permutationNumberUcscRefSeqGeneNumberOverlap.getGeneHugoSymbolNumber() + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getGeneEntrezId()+ "\t" + keggPathwayNumber + System.getProperty("line.separator"));
+										bufferedWriter2.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNameCellLineNameOverlap.getPermutationNumberTfNameCellLineName()+ "\t"  + permutationNumberTfNameCellLineNameOverlap.getLow() + "\t" + permutationNumberTfNameCellLineNameOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneOverlap.getRefSeqGeneName()+ "\t" +permutationNumberUcscRefSeqGeneOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneOverlap.getIntervalName() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneHugoSymbol() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneEntrezId()+ "\t" + keggPathwayName + System.getProperty("line.separator"));
 										bufferedWriter2.flush();
 										/************************************************/
 
 									}else if (tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 										/************************************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(permutationNumberTfNumberCellLineNumber, keggPathwayNumber);
+										permutationNumberTfNameCellLineNameKeggPathwayName = permutationNumberTfNameCellLineName + "_" + keggPathwayName;
 										
-										if (permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)==null){
-											permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
+										if (permutationNumberTfNameCellLineNameAllBasedKeggPathway2ZeroorOneMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)==null){
+											permutationNumberTfNameCellLineNameAllBasedKeggPathway2ZeroorOneMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, 1);
 										}
 										/************************************************/
 										
 										/************************************************/
-										bufferedWriter1 = tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber);
+										bufferedWriter1 = tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberTfNameCellLineNameKeggPathwayName);
 										
 										if (bufferedWriter1==null){	
 											
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNumberCellLineNumberKeggPathwayNumber + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +repeatNumberReflectedPermutationNumber+ System.getProperty("file.separator") +"_" + permutationNumberTfNameCellLineNameKeggPathwayName + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
-											tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber,bufferedWriter1);
-											bufferedWriter1.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name number" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name" + "\t" + "interval number" + "\t" + "hugo symbol number" + "\t" + "entrez id"+ "\t" + "keggPathwayNumber" + System.getProperty("line.separator"));
+											tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberTfNameCellLineNameKeggPathwayName,bufferedWriter1);
+											bufferedWriter1.write("Searched for chr" + "\t" +"given interval low"+ "\t" + "given interval high" +"\t" + "tfbs" + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" +"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
 											
 										}
 	
 	
-										bufferedWriter1.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getPermutationNumberTfNumberCellLineNumber()+ "\t"  + permutationNumberTfNumberCellLineNumberOverlap.getLow() + "\t" + permutationNumberTfNumberCellLineNumberOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getRefSeqGeneNumber()+ "\t" +permutationNumberUcscRefSeqGeneNumberOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalName() + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getIntervalNumber() + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getGeneHugoSymbolNumber() + "\t" + permutationNumberUcscRefSeqGeneNumberOverlap.getGeneEntrezId()+ "\t" + keggPathwayNumber + System.getProperty("line.separator"));
+										bufferedWriter1.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + permutationNumberTfNameCellLineNameOverlap.getPermutationNumberTfNameCellLineName()+ "\t"  + permutationNumberTfNameCellLineNameOverlap.getLow() + "\t" + permutationNumberTfNameCellLineNameOverlap.getHigh()  + "\t" + permutationNumberUcscRefSeqGeneOverlap.getRefSeqGeneName()+ "\t" +permutationNumberUcscRefSeqGeneOverlap.getLow()+ "\t" + permutationNumberUcscRefSeqGeneOverlap.getHigh()  + "\t" +  permutationNumberUcscRefSeqGeneOverlap.getIntervalName() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneHugoSymbol() + "\t" + permutationNumberUcscRefSeqGeneOverlap.getGeneEntrezId()+ "\t" + keggPathwayName + System.getProperty("line.separator"));
 										bufferedWriter1.flush();
 										/************************************************/
 																		
@@ -3433,28 +3433,28 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					//TF EXON BASED
 					//Fill permutationNumberTfNameExonBasedKeggPathway2KMap using permutationNumberTfNameExonBasedKeggPathway2ZeroorOneMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberExonBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameExonBasedKeggPathway2ZeroorOneMap.entrySet()){
 					
-						permutationNumberTfNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberExonBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberExonBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameExonBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)==null){
+							permutationNumberTfNameExonBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberExonBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, permutationNumberTfNumberExonBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameExonBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, permutationNumberTfNameExonBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
 					
 					//TF REGULATION BASED
 					//Fill permutationNumberTfNameRegulationBasedKeggPathway2KMap using permutationNumberTfNameRegulationBasedKeggPathway2ZeroorOneMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberRegulationBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameRegulationBasedKeggPathway2ZeroorOneMap.entrySet()){
 						
-						permutationNumberTfNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberRegulationBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberRegulationBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameRegulationBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)==null){
+							permutationNumberTfNameRegulationBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberRegulationBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, permutationNumberTfNumberRegulationBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameRegulationBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, permutationNumberTfNameRegulationBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
@@ -3462,14 +3462,14 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					//TF ALL BASED
 					//Fill  permutationNumberTfNameAllBasedKeggPathway2KMap using permutationNumberTfNameAllBasedKeggPathway2ZeroorOneMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberAllBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameAllBasedKeggPathway2ZeroorOneMap.entrySet()){
 						
-						permutationNumberTfNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberAllBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberAllBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameAllBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)==null){
+							permutationNumberTfNameAllBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberAllBasedKeggPathway2KMap.put(permutationNumberTfNumberKeggPathwayNumber, permutationNumberTfNumberAllBasedKeggPathway2KMap.get(permutationNumberTfNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameAllBasedKeggPathway2KMap.put(permutationNumberTfNameKeggPathwayName, permutationNumberTfNameAllBasedKeggPathway2KMap.get(permutationNumberTfNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
@@ -3477,28 +3477,28 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				} else if (tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 					//TF CELLLINE EXON BASED
 					//Fill permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap using permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberCellLineNumberExonBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameCellLineNameExonBasedKeggPathway2ZeroorOneMap.entrySet()){
 					
-						permutationNumberTfNumberCellLineNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameCellLineNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberCellLineNumberExonBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberCellLineNumberExonBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)==null){
+							permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberCellLineNumberExonBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, permutationNumberTfNumberCellLineNumberExonBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, permutationNumberTfNameCellLineNameExonBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
 					
 					//TF CELLLINE REGULATION BASED
 					//Fill permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap using permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2ZeroorOneMap.entrySet()){
 						
-						permutationNumberTfNumberCellLineNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameCellLineNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)==null){
+							permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
@@ -3506,14 +3506,14 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 					
 					//TF CELLLINE ALL BASED
 					//Fill  permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap using permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap
-					for(Map.Entry<Long, Integer> keggPathwayZeroOrOne: permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2ZeroorOneMap.entrySet()){
+					for(Map.Entry<String, Integer> keggPathwayZeroOrOne: permutationNumberTfNameCellLineNameAllBasedKeggPathway2ZeroorOneMap.entrySet()){
 						
-						permutationNumberTfNumberCellLineNumberKeggPathwayNumber = keggPathwayZeroOrOne.getKey();
+						permutationNumberTfNameCellLineNameKeggPathwayName = keggPathwayZeroOrOne.getKey();
 						
-						if (permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)==null){
-							permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, keggPathwayZeroOrOne.getValue());
+						if (permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)==null){
+							permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, keggPathwayZeroOrOne.getValue());
 						}else{
-							permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2KMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2KMap.get(permutationNumberTfNumberCellLineNumberKeggPathwayNumber)+keggPathwayZeroOrOne.getValue());	
+							permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap.put(permutationNumberTfNameCellLineNameKeggPathwayName, permutationNumberTfNameCellLineNameAllBasedKeggPathway2KMap.get(permutationNumberTfNameCellLineNameKeggPathwayName)+keggPathwayZeroOrOne.getValue());	
 						}
 						
 					}//End of for inner loop 
@@ -4517,7 +4517,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//TF and EXON Based Kegg Pathway
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberExonBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 							
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/
@@ -4549,7 +4549,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberRegulationBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
 						
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 									
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/
@@ -4579,7 +4579,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//TF and ALL Based Kegg Pathway
 				for (PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap: permutationNumberAllBasedKeggPathwayNumberOverlapList){
 					if(IntervalTree.overlaps(permutationNumberTfNumberCellLineNumberOverlap.getLow(),permutationNumberTfNumberCellLineNumberOverlap.getHigh(),permutationNumberUcscRefSeqGeneNumberOverlap.getLow(), permutationNumberUcscRefSeqGeneNumberOverlap.getHigh())){
-						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNumberList()){ 
+						for(Short keggPathwayNumber:permutationNumberUcscRefSeqGeneNumberOverlap.getKeggPathwayNameList()){ 
 									
 							if(tfandKeggPathwayEnrichmentType.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 								/***********************************/
@@ -8586,51 +8586,42 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			/***************************************************************************/
 			/***************************************************************************/
 			//New Functionality
-
-			//TF Enrichment
-			Map<Long,Integer> permutationNumberTfNumberCellLineNumber2KMap 		= new HashMap<Long,Integer>();	
-			
-			//KEGG PATHWAY Enrichment
-			Map<Long,Integer> permutationNumberExonBasedKeggPathway2KMap 		= new HashMap<Long,Integer>();	
-			Map<Long,Integer> permutationNumberRegulationBasedKeggPathway2KMap 	= new HashMap<Long,Integer>();
-			Map<Long,Integer> permutationNumberAllBasedKeggPathway2KMap 		= new HashMap<Long,Integer>();
+			//TF and Kegg Pathway
+			Map<String,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<String,Integer>();	
+			Map<String,Integer> permutationNumberExonBasedKeggPathway2KMap = new HashMap<String,Integer>();	
+			Map<String,Integer> permutationNumberRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
+			Map<String,Integer> permutationNumberAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
 			
 			
-			//TF and CELLLINE and KEGG Pathway enrichment
-			Map<Long,Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap 			= new HashMap<Long,Integer>();
-			Map<Long,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap 	= new HashMap<Long,Integer>();
-			Map<Long,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap 			= new HashMap<Long,Integer>();
+			//Will be used	for tf and cellline and keggPathway enrichment
+			Map<String,Integer> permutationNumberTfCellLineExonBasedKeggPathway2KMap 		= new HashMap<String,Integer>();
+			Map<String,Integer> permutationNumberTfCellLineRegulationBasedKeggPathway2KMap 	= new HashMap<String,Integer>();
+			Map<String,Integer> permutationNumberTfCellLineAllBasedKeggPathway2KMap 		= new HashMap<String,Integer>();
 			
-			
-			//TF BufferedWriters
-			Map<Long,BufferedWriter> tfBufferedWriterHashMap 							= new HashMap<Long,BufferedWriter>();
-			
-			//KEGG Pathway BufferedWriters
-			Map<Long,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap 			= new HashMap<Long,BufferedWriter>(); 
-			Map<Long,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap 	= new HashMap<Long,BufferedWriter>(); 
-			Map<Long,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap 			= new HashMap<Long,BufferedWriter>(); 
+			Map<String,BufferedWriter> tfbsBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+			Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+			Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+			Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 		
 			
-			//TF CELLINE KEGG Pathway BufferedWriters
-			Map<Long,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap 		= new HashMap<Long,BufferedWriter>(); 
-			Map<Long,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap 	= new HashMap<Long,BufferedWriter>(); 
-			Map<Long,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap 		= new HashMap<Long,BufferedWriter>(); 
+			//Will be used 	for tf and cellline and keggPathway enrichment
+			Map<String,BufferedWriter> tfCellLineExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+			Map<String,BufferedWriter> tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+			Map<String,BufferedWriter> tfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
 			
-			searchTfandKeggPathwayWithNumbers(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,null,null,null,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayNumberMap,permutationNumberTfNumberCellLineNumber2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);
+			searchTfandKeggPathway(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,tfbsBufferedWriterHashMap, exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,null,null,null,tfCellLineExonBasedKeggPathwayBufferedWriterHashMap,tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap,tfCellLineAllBasedKeggPathwayBufferedWriterHashMap,geneId2KeggPathwayMap,permutationNumberTfbsNameCellLineName2KMap,permutationNumberExonBasedKeggPathway2KMap,permutationNumberRegulationBasedKeggPathway2KMap,permutationNumberAllBasedKeggPathway2KMap,null,null,null,permutationNumberTfCellLineExonBasedKeggPathway2KMap,permutationNumberTfCellLineRegulationBasedKeggPathway2KMap,permutationNumberTfCellLineAllBasedKeggPathway2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);
 			
-			closeBufferedWritersWithNumbers(tfBufferedWriterHashMap);
+			closeBufferedWriters(tfbsBufferedWriterHashMap);
+			closeBufferedWriters(exonBasedKeggPathwayBufferedWriterHashMap);
+			closeBufferedWriters(regulationBasedKeggPathwayBufferedWriterHashMap);
+			closeBufferedWriters(allBasedKeggPathwayBufferedWriterHashMap);
 			
-			closeBufferedWritersWithNumbers(exonBasedKeggPathwayBufferedWriterHashMap);
-			closeBufferedWritersWithNumbers(regulationBasedKeggPathwayBufferedWriterHashMap);
-			closeBufferedWritersWithNumbers(allBasedKeggPathwayBufferedWriterHashMap);
-			
-			closeBufferedWritersWithNumbers(tfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
-			closeBufferedWritersWithNumbers(tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
-			closeBufferedWritersWithNumbers(tfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
+			closeBufferedWriters(tfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
+			closeBufferedWriters(tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
+			closeBufferedWriters(tfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
 					
 			
-			allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap(permutationNumberTfNumberCellLineNumber2KMap);
-			
+			allMapsWithNumbers.setPermutationNumberTfNameCellLineName2KMap(permutationNumberTfbsNameCellLineName2KMap);
 			allMapsWithNumbers.setPermutationNumberExonBasedKeggPathway2KMap(permutationNumberExonBasedKeggPathway2KMap);
 			allMapsWithNumbers.setPermutationNumberRegulationBasedKeggPathway2KMap(permutationNumberRegulationBasedKeggPathway2KMap);
 			allMapsWithNumbers.setPermutationNumberAllBasedKeggPathway2KMap(permutationNumberAllBasedKeggPathway2KMap);
