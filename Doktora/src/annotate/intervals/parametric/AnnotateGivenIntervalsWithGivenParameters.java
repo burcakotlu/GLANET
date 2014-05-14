@@ -62,7 +62,9 @@ import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
@@ -437,7 +439,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				//we insert any given interval without overlap check
 				
 //				Creating millions of nodes with six attributes causes out of memory error
-				IntervalTreeNode node = new DnaseIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
+				DnaseIntervalTreeNodeWithNumbers node = new DnaseIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
 			
 					
@@ -778,15 +780,17 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 		int startPosition = 0;
 		int endPosition = 0;
 		
-		short histoneName;
-		short cellLineName;
-		short fileName;
+		short histoneNumber;
+		short cellLineNumber;
+		short fileNumber;
 		
 	
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
-//					example strLine
+//					old example strLine
 //					chr9	131533188	131535395	H2az	Gm12878	wgEncodeBroadHistoneGm12878H2azStdAln.narrowPeak
+//				chr22	20747267	20749217	1	17	654
+
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -800,14 +804,14 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				
 				
-				histoneName = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+				histoneNumber = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 				
-				cellLineName = Short.parseShort(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				cellLineNumber = Short.parseShort(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 				
-				fileName = Short.parseShort(strLine.substring(indexofFifthTab+1));
+				fileNumber = Short.parseShort(strLine.substring(indexofFifthTab+1));
 				
 //					Creating millions of nodes with six attributes causes out of memory error
-				TforHistoneIntervalTreeNodeWithNumbers node = new TforHistoneIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,histoneName,cellLineName,fileName,NodeType.ORIGINAL);
+				TforHistoneIntervalTreeNodeWithNumbers node = new TforHistoneIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,histoneNumber,cellLineNumber,fileNumber,NodeType.ORIGINAL);
 				histoneIntervalTree.intervalTreeInsert(histoneIntervalTree, node);				
 				
 				chromName = null;
@@ -8992,9 +8996,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 				}else if (Commons.TFBS_ANNOTATION.equals(annotationType)){
 					//TFBS
 					//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
-					Map<Long,Integer> permutationNumberTfbsNameCellLineName2KMap = new HashMap<Long,Integer>();	
-					searchTfbswithoutIOwithNumbers(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfbsNameCellLineName2KMap,overlapDefinition);
-					allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap(permutationNumberTfbsNameCellLineName2KMap);
+					Map<Long,Integer> permutationNumberTfNumberCellLineNumber2KMap = new HashMap<Long,Integer>();	
+					searchTfbswithoutIOwithNumbers(permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberTfNumberCellLineNumber2KMap,overlapDefinition);
+					allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap(permutationNumberTfNumberCellLineNumber2KMap);
 
 				}else if (Commons.HISTONE_ANNOTATION.equals(annotationType)){
 					//HISTONE
@@ -9032,11 +9036,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					/***************************************************************************/
 					//New Functionality
 					//TF and Kegg Pathway
-					Map<Long,Integer> permutationNumberTfNumberCellLineNumber2KMap = new HashMap<Long,Integer>();	
+					Map<Long,Integer> permutationNumberTfNumberCellLineNumber2KMap 				= new HashMap<Long,Integer>();	
 					
-					Map<Long,Integer> permutationNumberExonBasedKeggPathwayNumber2KMap = new HashMap<Long,Integer>();	
-					Map<Long,Integer> permutationNumberRegulationBasedKeggPathwayNumber2KMap = new HashMap<Long,Integer>();
-					Map<Long,Integer> permutationNumberAllBasedKeggPathwayNumber2KMap = new HashMap<Long,Integer>();
+					Map<Long,Integer> permutationNumberExonBasedKeggPathwayNumber2KMap 			= new HashMap<Long,Integer>();	
+					Map<Long,Integer> permutationNumberRegulationBasedKeggPathwayNumber2KMap 	= new HashMap<Long,Integer>();
+					Map<Long,Integer> permutationNumberAllBasedKeggPathwayNumber2KMap 			= new HashMap<Long,Integer>();
 					
 					
 					//Will be used 	for tf and keggPathway enrichment

@@ -46,18 +46,18 @@
 <fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
-<fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNode"/>
-<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.KeggPathwayAnalysisType"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneNumberOverlap"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberTfNumberCellLineNumberOverlap"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
-<fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNames"/>
 <fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 </qualifiedTypeNameHistroy>

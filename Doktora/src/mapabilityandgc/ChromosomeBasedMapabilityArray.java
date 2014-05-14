@@ -10,7 +10,6 @@ package mapabilityandgc;
 
 import intervaltree.ChromosomeName;
 import empiricalpvalues.MapabilityFloatArray;
-import common.Commons;
 
 public class ChromosomeBasedMapabilityArray {
 	

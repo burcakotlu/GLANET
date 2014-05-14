@@ -13,7 +13,6 @@ import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.MapabilityIntervalTreeNode;
-import intervaltree.OtherIntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 
@@ -931,7 +932,7 @@ public class WriteAllPossibleNames {
 
 
 	//@todo
-	public static void readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(String dataFolder,List<Integer> geneEntrezIds,List<String> refseqGeneNames, Map<String,Integer> refseqGeneName2RefseqGeneNameNumberMap,Map<Integer,String> refseqGeneNameNumber2refseqGeneNameMap,List<String> geneHugoSymbols,Map<String,Integer> geneHugoSymbol2geneHugoSymbolNumberMap,Map<Integer,String> geneHugoSymbolNumber2geneHugoSymbolMap)
+	public static void readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(String dataFolder,List<Integer> geneEntrezIds,List<String> refseqGeneNames, Map<String,Integer> refseqGeneName2RefseqGeneNameNumberMap,Map<Integer,String> refseqGeneNameNumber2RefseqGeneNameMap,List<String> geneHugoSymbols,Map<String,Integer> geneHugoSymbol2GeneHugoSymbolNumberMap,Map<Integer,String> geneHugoSymbolNumber2GeneHugoSymbolMap)
 	{
 		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
@@ -965,8 +966,7 @@ public class WriteAllPossibleNames {
 		int refseqGeneNameNumber = 1;
 		int geneHugoSymbolNumber = 1;
 		
-		
-		
+				
 		try {
 			for(int i = 0; i< bufferedReaderList.size() ; i++){
 				 bufferedReader = bufferedReaderList.get(i);
@@ -999,7 +999,7 @@ public class WriteAllPossibleNames {
 							
 							refseqGeneNames.add(refseqGeneName);
 							refseqGeneName2RefseqGeneNameNumberMap.put(refseqGeneName, refseqGeneNameNumber);
-							refseqGeneNameNumber2refseqGeneNameMap.put(refseqGeneNameNumber, refseqGeneName);
+							refseqGeneNameNumber2RefseqGeneNameMap.put(refseqGeneNameNumber, refseqGeneName);
 							
 							refseqGeneNameNumber++;
 							
@@ -1008,8 +1008,8 @@ public class WriteAllPossibleNames {
 						if (!(geneHugoSymbols.contains(geneHugoSymbol))){
 							
 							geneHugoSymbols.add(geneHugoSymbol);
-							geneHugoSymbol2geneHugoSymbolNumberMap.put(geneHugoSymbol,geneHugoSymbolNumber);
-							geneHugoSymbolNumber2geneHugoSymbolMap.put(geneHugoSymbolNumber, geneHugoSymbol);
+							geneHugoSymbol2GeneHugoSymbolNumberMap.put(geneHugoSymbol,geneHugoSymbolNumber);
+							geneHugoSymbolNumber2GeneHugoSymbolMap.put(geneHugoSymbolNumber, geneHugoSymbol);
 							
 							geneHugoSymbolNumber++;
 						}
@@ -1029,7 +1029,7 @@ public class WriteAllPossibleNames {
 						}
 
 						//Write unsorted ucsc refseq gene files with numbers
-						bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2geneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
+						bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2GeneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
 
 						
 				}// End of While			
@@ -1413,24 +1413,24 @@ public class WriteAllPossibleNames {
 		
 		List<String> refseqGeneNames = new ArrayList<String>();
 		Map<String,Integer> refseqGeneName2RefseqGeneNameNumberMap = new HashMap<String,Integer>();
-		Map<Integer,String> refseqGeneNameNumber2refseqGeneNameMap = new HashMap<Integer,String>();
+		Map<Integer,String> refseqGeneNameNumber2RefseqGeneNameMap = new HashMap<Integer,String>();
 		
 		List<String> geneHugoSymbols = new ArrayList<String>();	
-		Map<String,Integer> geneHugoSymbol2geneHugoSymbolNumberMap = new HashMap<String,Integer>();
-		Map<Integer,String> geneHugoSymbolNumber2geneHugoSymbolMap = new HashMap<Integer,String>();
+		Map<String,Integer> geneHugoSymbol2GeneHugoSymbolNumberMap = new HashMap<String,Integer>();
+		Map<Integer,String> geneHugoSymbolNumber2GeneHugoSymbolMap = new HashMap<Integer,String>();
 
-		readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(dataFolder,geneEntrezIds,refseqGeneNames,refseqGeneName2RefseqGeneNameNumberMap,refseqGeneNameNumber2refseqGeneNameMap,geneHugoSymbols,geneHugoSymbol2geneHugoSymbolNumberMap,geneHugoSymbolNumber2geneHugoSymbolMap);
+		readUnsortedUcscRefSeqGeneFilesandWriteUnsortedUcscRefSeqGeneFilesWithNumbers(dataFolder,geneEntrezIds,refseqGeneNames,refseqGeneName2RefseqGeneNameNumberMap,refseqGeneNameNumber2RefseqGeneNameMap,geneHugoSymbols,geneHugoSymbol2GeneHugoSymbolNumberMap,geneHugoSymbolNumber2GeneHugoSymbolMap);
 		
 		writeNumbers(dataFolder,geneEntrezIds,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_REF_SEQ_GENES_ENTREZ_GENE_IDS);		
 		
 		writeNames(dataFolder,refseqGeneNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_REF_SEQ_GENE_NAMES);		
 		writeMapsString2Integer(dataFolder,refseqGeneName2RefseqGeneNameNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_2_REFSEQ_GENE_NAME_NUMBER_OUTPUT_FILENAME);
-		writeMapsInteger2String(dataFolder,refseqGeneNameNumber2refseqGeneNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,refseqGeneNameNumber2RefseqGeneNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
 
 		
 		writeNames(dataFolder,geneHugoSymbols,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_UCSC_GENE_HUGO_SYMBOLS_NAMES);		
-		writeMapsString2Integer(dataFolder,geneHugoSymbol2geneHugoSymbolNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_2_GENE_HUGO_SYMBOL_NUMBER_OUTPUT_FILENAME);
-		writeMapsInteger2String(dataFolder,geneHugoSymbolNumber2geneHugoSymbolMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+		writeMapsString2Integer(dataFolder,geneHugoSymbol2GeneHugoSymbolNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_2_GENE_HUGO_SYMBOL_NUMBER_OUTPUT_FILENAME);
+		writeMapsInteger2String(dataFolder,geneHugoSymbolNumber2GeneHugoSymbolMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
 
 	}
 	//@todo

@@ -9,11 +9,10 @@
 package mapabilityandgc;
 
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.IntervalTree;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import intervaltree.IntervalTree;
 
 import common.Commons;
 

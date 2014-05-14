@@ -9,6 +9,8 @@
 package mapabilityandgc;
 
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.ChromosomeName;
+import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,10 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import empiricalpvalues.GCCharArray;
-import intervaltree.ChromosomeName;
-import intervaltree.IntervalTree;
 import common.Commons;
+
+import empiricalpvalues.GCCharArray;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
 

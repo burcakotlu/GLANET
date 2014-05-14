@@ -44,6 +44,7 @@ import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap;
 import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 
@@ -2630,7 +2631,7 @@ public class IntervalTree {
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
 	//with Numbers
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayMap, Map<Long,Integer> permutationNumberKeggPathwayNumber2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayNumberMap, Map<Long,Integer> permutationNumberKeggPathwayNumber2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
 		Long permutationNumberKeggPathwayNumber = null;
 		
 		Short keggPathwayNumber = null;
@@ -2652,7 +2653,7 @@ public class IntervalTree {
 							//exon based kegg pathway analysis
 							if (castedNode.getIntervalName().isExon()){
 								
-								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId());
+								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayNumberMap.get(castedNode.getGeneEntrezId());
 								
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
@@ -2681,7 +2682,7 @@ public class IntervalTree {
 								castedNode.getIntervalName().isThreePOne()||
 								castedNode.getIntervalName().isThreePTwo()){
 								
-								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId());
+								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayNumberMap.get(castedNode.getGeneEntrezId());
 								
 								if(keggPathWayListContainingThisGeneId!=null){
 									for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
@@ -2705,7 +2706,7 @@ public class IntervalTree {
 						}//regulation based kegg pathway analysis
 						//write all results
 						else{
-							keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId());
+							keggPathWayListContainingThisGeneId =  geneId2KeggPathwayNumberMap.get(castedNode.getGeneEntrezId());
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
@@ -2734,11 +2735,11 @@ public class IntervalTree {
 			} //End of If: type is NCBI_GENE_ID
 				
 			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
-				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathwayNumber2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);	
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,node.getLeft(),interval,chromName, geneId2KeggPathwayNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);	
 			}
 			
 			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayMap, permutationNumberKeggPathwayNumber2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);		
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,node.getRight(),interval,chromName, geneId2KeggPathwayNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap,type,keggPathwayAnalysisType,overlapDefinition);		
 			}
 						
 	}

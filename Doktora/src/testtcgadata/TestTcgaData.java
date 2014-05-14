@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import create.encode.GeneType;
 import create.encode.RegionofInterest;
-
-import common.Commons;
 
 public class TestTcgaData {
 
