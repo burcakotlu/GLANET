@@ -15,10 +15,15 @@ import java.util.List;
 
 public class FunctionalElement implements Comparable<FunctionalElement> {
 	
-	String name;
 	Float empiricalPValue;
 	Float bonferroniCorrectedEmpiricalPValue;
-	String description;
+	
+	
+
+	//15 MAY 2014
+	long tforHistoneNumberCellLineNumberKeggPathwayNumber;
+	String tforHistoneNameCellLineNameKeggPathwayName;
+	
 	
 	//18 FEB 2014 
 	int originalNumberofOverlaps;
@@ -32,13 +37,53 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	boolean rejectNullHypothesis;
 	
 	
-	//In case of Functional element is a KEGG Pathway
-	String keggPathwayName;
+	//In case of Functional element contains a KEGG Pathway
+	int keggPathwayNumber;   	//202	
+	String keggPathwayEntry;	//hsa04974
+	String keggPathwayName; 	//Protein digestion and absorption - Homo sapiens (human)
 	List<String> keggPathwayGeneIdList;
 	List<String> keggPathwayRefSeqGeneNameList;
 	List<String> keggPathwayAlternateGeneNameList;
 		
 	
+	
+	
+	
+
+	public String getKeggPathwayEntry() {
+		return keggPathwayEntry;
+	}
+
+	public void setKeggPathwayEntry(String keggPathwayEntry) {
+		this.keggPathwayEntry = keggPathwayEntry;
+	}
+
+	public int getKeggPathwayNumber() {
+		return keggPathwayNumber;
+	}
+
+	public void setKeggPathwayNumber(int keggPathwayNumber) {
+		this.keggPathwayNumber = keggPathwayNumber;
+	}
+
+	public long getTforHistoneNumberCellLineNumberKeggPathwayNumber() {
+		return tforHistoneNumberCellLineNumberKeggPathwayNumber;
+	}
+
+	public void setTforHistoneNumberCellLineNumberKeggPathwayNumber(
+			long tforHistoneNumberCellLineNumberKeggPathwayNumber) {
+		this.tforHistoneNumberCellLineNumberKeggPathwayNumber = tforHistoneNumberCellLineNumberKeggPathwayNumber;
+	}
+
+	public String getTforHistoneNameCellLineNameKeggPathwayName() {
+		return tforHistoneNameCellLineNameKeggPathwayName;
+	}
+
+	public void setTforHistoneNameCellLineNameKeggPathwayName(
+			String tforHistoneNameCellLineNameKeggPathwayName) {
+		this.tforHistoneNameCellLineNameKeggPathwayName = tforHistoneNameCellLineNameKeggPathwayName;
+	}
+
 	public Float getBH_FDR_adjustedPValue() {
 		return BH_FDR_adjustedPValue;
 	}
@@ -147,23 +192,9 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	}
 
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
+	
+	
 	
 
 	/**

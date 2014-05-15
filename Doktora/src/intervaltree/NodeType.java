@@ -23,7 +23,7 @@ public enum NodeType {
         this.nodeType = nodeType;
      }
 	
-	 public int getNodeType(){ 
+	public int getNodeType(){ 
 		 return nodeType; 
 	}
 	 

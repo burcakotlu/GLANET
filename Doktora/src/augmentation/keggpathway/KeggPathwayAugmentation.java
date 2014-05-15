@@ -132,6 +132,25 @@ public class KeggPathwayAugmentation {
 	}
 	
 	
+	//@todo
+	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(Map<Integer,String> keggPathwayNumber2KeggPathwayEntryMap,List<FunctionalElement> list){
+		
+		int keggPathwayNumber;
+		String keggPathwayEntry;
+		
+		
+		for(FunctionalElement element : list){
+			
+			keggPathwayNumber = element.getKeggPathwayNumber();
+			keggPathwayEntry = keggPathwayNumber2KeggPathwayEntryMap.get(keggPathwayNumber);
+			
+			element.setKeggPathwayEntry(keggPathwayEntry);
+			
+		}		
+		
+	}
+	//@todo
+	
 	//example hsa05016
 	//augment KeggPathwayEntry with KeggPathwayName
 	public static void augmentKeggPathwayEntrywithKeggPathwayName(String dataFolder,List<FunctionalElement> list1, List<FunctionalElement> list2,List<FunctionalElement> list3){
@@ -159,7 +178,7 @@ public class KeggPathwayAugmentation {
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){
 				
-				keggPathwayEntry = element.getName();
+				keggPathwayEntry = element.getKeggPathwayEntry();
 				
 				keggPathwayName = entry2NameMap.get(keggPathwayEntry);
 				element.setKeggPathwayName(keggPathwayName);	
@@ -203,7 +222,8 @@ public class KeggPathwayAugmentation {
 		
 		for(List<FunctionalElement> list: allLists ){
 			for(FunctionalElement element: list){
-				keggPathwayEntry = element.getName();
+				
+				keggPathwayEntry = element.getKeggPathwayEntry();
 				
 				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
 				
@@ -254,7 +274,7 @@ public class KeggPathwayAugmentation {
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){
 				
-				tfName_keggPathwayEntry = element.getName();
+				tfName_keggPathwayEntry = element.getKeggPathwayEntry();
 				indexofFirstUnderscore = tfName_keggPathwayEntry.indexOf('_');
 				keggPathwayEntry  = tfName_keggPathwayEntry.substring(indexofFirstUnderscore+1);
 					
@@ -297,7 +317,7 @@ public class KeggPathwayAugmentation {
 		for(List<FunctionalElement> list:allList){
 			for(FunctionalElement element:list){
 				
-				tfName_cellLineName_keggPathwayEntry = element.getName();
+				tfName_cellLineName_keggPathwayEntry = element.getTforHistoneNameCellLineNameKeggPathwayName();
 				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_');
 				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_', indexofFirstUnderscore+1);
 				keggPathwayEntry  = tfName_cellLineName_keggPathwayEntry.substring(indexofSecondUnderscore+1);
@@ -349,7 +369,7 @@ public class KeggPathwayAugmentation {
 		for(List<FunctionalElement> list: allLists){
 			for(FunctionalElement element: list){
 				
-				tfName_cellLineName_keggPathwayEntry = element.getName();
+				tfName_cellLineName_keggPathwayEntry = element.getTforHistoneNameCellLineNameKeggPathwayName();
 				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_');
 				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_', indexofFirstUnderscore+1);
 				keggPathwayEntry  = tfName_cellLineName_keggPathwayEntry.substring(indexofSecondUnderscore+1);
@@ -413,9 +433,7 @@ public class KeggPathwayAugmentation {
 			for(List<FunctionalElement> list: allLists){
 				for(FunctionalElement element: list){
 					
-					tfName_keggPathwayEntry = element.getName();
-					indexofFirstUnderscore = tfName_keggPathwayEntry.indexOf('_');
-					keggPathwayEntry  = tfName_keggPathwayEntry.substring(indexofFirstUnderscore+1);
+					keggPathwayEntry  = element.getKeggPathwayEntry();
 					
 					keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
 					

@@ -2055,51 +2055,57 @@ public class IntervalTree {
 	}
 	
 	//@todo	
-	public static int getKeggPathwayNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+	public static int getKeggPathwayNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		
-		int keggPathwayNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber %  10000L);
+		int keggPathwayNumber = (int) (PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber %  10000L);
 		
 		return keggPathwayNumber;
 	}
 	//@todo
 	
 	//@todo
-	public static int getCellLineNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+	public static int getCellLineNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		
 		int cellLineNumber;
-		long permutationNumberElementNumber;
 		long cellLineNumberKeggPathwayNumber;
-		int keggPathwayNumber;
 		
-		cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
-		keggPathwayNumber =(int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
-		
-		cellLineNumber = (int)((cellLineNumberKeggPathwayNumber-keggPathwayNumber) /10000L);
+		cellLineNumberKeggPathwayNumber = PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000000L;
+			
+		cellLineNumber = (int)(cellLineNumberKeggPathwayNumber /10000L);
 		return cellLineNumber;
 	}
 	//@todo
 	
 	//@todo
-	public static int getElementNumber(long PermutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+	//Get last 9., 10., 11. and 12. digits
+	public static int getTforHistoneNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		
-		int elementNumber;
-		long permutationNumberElementNumber;
-		long temp;
+		int tforHistoneNumber;
+		long permutationNumberTforHistoneNumber;
 		
-		temp = PermutationNumberElementNumberCellLineNumberKeggPathwayNumber - (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L);
-		permutationNumberElementNumber = (int) (temp / 100000000L);
+		permutationNumberTforHistoneNumber = PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber / 100000000L;
 		
-		elementNumber = (int) (permutationNumberElementNumber % 10000L);
-		return elementNumber;
+		tforHistoneNumber = (int) (permutationNumberTforHistoneNumber % 10000L);
+		return tforHistoneNumber;
+	}
+	//@todo
+	
+	
+	//@todo	
+	public static long getOtherNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
+		long otherNumber;
+		
+		otherNumber = PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
+		
+		return otherNumber;
 	}
 	//@todo
 	
 	//@todo
-	public static int getPermutationNumber(long PermutationNumberElementNumberCellLineNumberKeggPathwayNumber){
+	public static int getPermutationNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		int permutationNumber;
 		
-		long temp = PermutationNumberElementNumberCellLineNumberKeggPathwayNumber - (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L);
-		permutationNumber = (int) (temp / 1000000000000L);
+		permutationNumber = (int) (PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
 		
 		return permutationNumber;
 	}

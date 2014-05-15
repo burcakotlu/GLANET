@@ -633,8 +633,7 @@ public class Commons {
 	public static final String ANNOTATE_PERMUTATIONS_TF_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator");
 	public static final String ANNOTATE_PERMUTATIONS_TF_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + "tfKeggPathway" + System.getProperty("file.separator") + "tfAllBased" + System.getProperty("file.separator");
 
-		//Results to be Collected
-	
+	//Results to be Collected
 	public static final String TO_BE_COLLECTED_DIRECTORY 	=  Commons.ENRICHMENT+ System.getProperty("file.separator") + "toBeCollected" + System.getProperty("file.separator");
 	
 	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE = "_all_wrt_BH_FDR_adjusted_pValue.txt";
@@ -766,7 +765,7 @@ public class Commons {
 	public static final String FIND_FIRST = "FIND_FIRST";
 	
 	
-// 	All possible names	
+	//All possible names	
 		
 	
 	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
