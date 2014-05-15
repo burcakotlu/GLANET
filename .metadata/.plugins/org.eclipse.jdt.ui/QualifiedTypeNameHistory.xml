@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="gov.nih.nlm.ncbi.www.soap.eutils.EUtilsServiceStub.ESearchResult"/>
-<fullyQualifiedTypeName name="generated.ESearchResult"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.util.Hashtable"/>
@@ -34,14 +32,12 @@
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
 <fullyQualifiedTypeName name="intervaltree.OtherIntervalTreeNode"/>
-<fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
 <fullyQualifiedTypeName name="intervaltree.MapabilityIntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.NodeType"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
@@ -51,8 +47,6 @@
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneNumberOverlap"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberTfNumberCellLineNumberOverlap"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap"/>
-<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNames"/>
 <fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
@@ -60,4 +54,10 @@
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
+<fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="empiricalpvalues.KeyOrder"/>
+<fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
+<fullyQualifiedTypeName name="gnu.trove.iterator.TLongIntIterator"/>
 </qualifiedTypeNameHistroy>

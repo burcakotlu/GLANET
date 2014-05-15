@@ -28,6 +28,9 @@
  */
 package intervaltree;
 
+import gnu.trove.map.TLongIntMap;
+import gnu.trove.map.TLongObjectMap;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -44,7 +47,6 @@ import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap;
 import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 
@@ -1183,8 +1185,8 @@ public class IntervalTree {
 	//without IO
 	//without overlappedNodeList
 	//with Numbers
-	public void findAllOverlappingHistoneIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Long,Integer> permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition){
-		Long permutationNumberHistoneNumberCellLineNumber;
+	public void findAllOverlappingHistoneIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition){
+		long permutationNumberHistoneNumberCellLineNumber;
 		
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 				
@@ -1197,7 +1199,7 @@ public class IntervalTree {
 				permutationNumberHistoneNumberCellLineNumber = generateCombinedNumber(permutationNumber, castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short)0);
 				
 				
-				if(permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.get(permutationNumberHistoneNumberCellLineNumber)==null){
+				if(!(permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberHistoneNumberCellLineNumber))){
 					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(permutationNumberHistoneNumberCellLineNumber, 1);
 				}																				
 			}
@@ -1587,8 +1589,8 @@ public class IntervalTree {
 	//without IO
 	//without overlappedNodeList
 	//with numbers
-	public void findAllOverlappingTfbsIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Long,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
-		Long permutationNumberTfNumberCellLineNumber;
+	public void findAllOverlappingTfbsIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap,int overlapDefinition){
+		long permutationNumberTfNumberCellLineNumber;
 		
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 							
@@ -1600,7 +1602,7 @@ public class IntervalTree {
 							
 			permutationNumberTfNumberCellLineNumber = generateCombinedNumber(permutationNumber,castedNode.getTforHistoneNumber(),castedNode.getCellLineNumber(),(short)0);
 			
-			if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfNumberCellLineNumber)==null){
+			if(!(permutationNumberTfbsNameCellLineName2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
 				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber, 1);
 			}
 		}
@@ -1684,7 +1686,7 @@ public class IntervalTree {
 		//Empirical P Value Calculation
 		//without IO
 		//with permutationNumberTfNameCellLineNameOverlapList
-		public void findAllOverlappingTfbsIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Long,Integer> permutationNumberTfNumberCellLineNumber2ZeroorOneMap,List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList,int overlapDefinition){
+		public void findAllOverlappingTfbsIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap,List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList,int overlapDefinition){
 			
 			long permutationNumberTfNumberCellLineNumber;
 			
@@ -1701,7 +1703,7 @@ public class IntervalTree {
 									
 					permutationNumberTfNumberCellLineNumberOverlapList.add(new PermutationNumberTfNumberCellLineNumberOverlap(permutationNumberTfNumberCellLineNumber,castedNode.getLow(),castedNode.getHigh()));
 					
-					if(permutationNumberTfNumberCellLineNumber2ZeroorOneMap.get(permutationNumberTfNumberCellLineNumber)==null){
+					if(!(permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
 						permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber, 1);
 					}
 				}
@@ -1939,12 +1941,12 @@ public class IntervalTree {
 	//with Numbers
 	//Empirical P Value Calculation
 	//with IO
-	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Long,BufferedWriter> bufferedWriterHashMap, Map<Long,Integer> permutationNumberDnaseCellLineNumber2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		File directory = null;
 		
-		Long permutationNumberDnaseCellLineNumber;
+		long permutationNumberDnaseCellLineNumber;
 		
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		
@@ -1969,7 +1971,7 @@ public class IntervalTree {
 						bufferedWriterHashMap.put(permutationNumberDnaseCellLineNumber,bufferedWriter);
 					}										
 					
-					if(permutationNumberDnaseCellLineNumber2ZeroorOneMap.get(permutationNumberDnaseCellLineNumber)==null){
+					if(!(permutationNumberDnaseCellLineNumber2ZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))){
 						permutationNumberDnaseCellLineNumber2ZeroorOneMap.put(permutationNumberDnaseCellLineNumber, 1);
 					}
 					
@@ -1985,11 +1987,11 @@ public class IntervalTree {
 			
 			
 			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
-				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, permutationNumberDnaseCellLineNumber2ZeroorOneMap,overlapDefinition);	
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,permutationNumber,node.getLeft(),interval,chromName,bufferedWriterHashMap, permutationNumberDnaseCellLineNumber2ZeroorOneMap,overlapDefinition);	
 			}
 			
 			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
-				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberDnaseCellLineNumber2ZeroorOneMap,overlapDefinition);	
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,permutationNumber,node.getRight(),interval,chromName,bufferedWriterHashMap,permutationNumberDnaseCellLineNumber2ZeroorOneMap,overlapDefinition);	
 				
 			}
 						
@@ -2161,7 +2163,7 @@ public class IntervalTree {
 	//Empirical P Value Calculation
 	//without IO
 	//without overlappedNodeList
-	public void findAllOverlappingDnaseIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Long,Integer> permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingDnaseIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberDnaseCellLineName2ZeroorOneMap,int overlapDefinition){
 		
 		Long permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
@@ -2175,7 +2177,7 @@ public class IntervalTree {
 					
 				permutationNumberDnaseCellLineNumber = generateCombinedNumber(permutationNumber,(short)0,castedNode.getCellLineNumber(),(short)0);
 								
-				if(permutationNumberDnaseCellLineName2ZeroorOneMap.get(permutationNumberDnaseCellLineNumber)==null){
+				if(!(permutationNumberDnaseCellLineName2ZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))){
 					permutationNumberDnaseCellLineName2ZeroorOneMap.put(permutationNumberDnaseCellLineNumber, 1);
 				}
 		}//End of IF OVERLAPS
@@ -2637,8 +2639,8 @@ public class IntervalTree {
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
 	//with Numbers
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayNumberMap, Map<Long,Integer> permutationNumberKeggPathwayNumber2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
-		Long permutationNumberKeggPathwayNumber = null;
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayNumberMap, TLongIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
+		long permutationNumberKeggPathwayNumber;
 		
 		Short keggPathwayNumber = null;
 		List<Short> keggPathWayListContainingThisGeneId = null;
@@ -2670,7 +2672,7 @@ public class IntervalTree {
 										permutationNumberKeggPathwayNumber = generateCombinedNumber(permutationNumber,(short) 0, (short) 0, keggPathwayNumber);
 																							
 										
-										if(permutationNumberKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+										if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 										}
 										
@@ -2699,7 +2701,7 @@ public class IntervalTree {
 											
 										
 										
-										if(permutationNumberKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+										if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 										}
 										
@@ -2723,7 +2725,7 @@ public class IntervalTree {
 									permutationNumberKeggPathwayNumber = generateCombinedNumber(permutationNumber, (short) 0, (short) 0, keggPathwayNumber);	
 									
 									
-									if(permutationNumberKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+									if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 									}
 									
@@ -3326,8 +3328,8 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayNumbersMap, Map<Long,Integer> permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap, Map<Long,Integer> permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap,Map<Long,Integer> permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
-		Long permutationNumberKeggPathwayNumber = null;
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<Integer,List<Short>> geneId2KeggPathwayNumbersMap, TLongIntMap permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap, TLongIntMap permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, TLongIntMap permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap,String type,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList,List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList,int overlapDefinition){
+		long permutationNumberKeggPathwayNumber;
 		short keggPathwayNumber;
 		List<Short> keggPathwayListContainingThisGeneId = null;
 		
@@ -3356,7 +3358,7 @@ public class IntervalTree {
 									permutationNumberKeggPathwayNumber = generateCombinedNumber(permutationNumber, (short)0, (short)0, keggPathwayNumber);
 									
 									
-									if(permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+									if(!(permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 									}
 									
@@ -3382,7 +3384,7 @@ public class IntervalTree {
 									keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 									permutationNumberKeggPathwayNumber = generateCombinedNumber(permutationNumber, (short) 0, (short) 0, keggPathwayNumber);
 										
-									if(permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+									if(!(permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 									}
 																			
@@ -3402,7 +3404,7 @@ public class IntervalTree {
 								keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayNumber = generateCombinedNumber(permutationNumber, (short) 0, (short) 0, keggPathwayNumber);
 																			
-								if(permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.get(permutationNumberKeggPathwayNumber)==null){
+								if(!(permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 									permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 								}
 																
