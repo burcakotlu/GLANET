@@ -1,19 +1,15 @@
 package ui;
 
-import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
-import ncbi.HumanRefSeq2Gene;
-import rsat.RSATMatrixScanClient;
-import wholegenome.nonoverlappingbasepairs.usingintervaltree.CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree;
-import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
-import annotate.intervals.parametric.WriteAllPossibleNames;
-import augmentation.results.AugmentationofEnrichedElementswithIntervals;
-import common.Commons;
-import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
-import create.ucscgenome.CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting;
-import empiricalpvalues.AnnotatePermutationsUsingForkJoin_withEnrichmentChoices;
+import empiricalpvalues.AnnotatePermutationsWithEnrichmentChoicesWithNumbers;
 import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
+import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
+import rsat.RSATMatrixScanClient;
+import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
+import augmentation.results.AugmentationofEnrichedElementswithIntervals;
+
+import common.Commons;
 
 public class GlanetRunner extends Thread{
 	
@@ -25,8 +21,10 @@ public class GlanetRunner extends Thread{
 		
 		getMainView().setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(getArgs());
+		
 		getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 		InputDataRemoveOverlaps.main(getArgs());
+		
 //		getMainView().setCurrentProcessInfo( "HumanRefSeq2Gene...");
 //		HumanRefSeq2Gene.main(getArgs());
 //		getMainView().setCurrentProcessInfo( "CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting...");
@@ -37,10 +35,14 @@ public class GlanetRunner extends Thread{
 //		WriteAllPossibleNames.main(getArgs());
 //		getMainView().setCurrentProcessInfo( "CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree...");
 //		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(getArgs());
-		getMainView().setCurrentProcessInfo( "AnnotateGivenIntervalsWithGivenParameters...");
-		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
-		getMainView().setCurrentProcessInfo( "AnnotatePermutationsUsingForkJoin_withEnrichmentChoices...");
-		AnnotatePermutationsUsingForkJoin_withEnrichmentChoices.main(getArgs());
+
+		
+//		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+//		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
+//		
+		getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+		AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
+		
 		getMainView().setCurrentProcessInfo( "CollectionofPermutationsResults...");
 		CollectionofPermutationsResults.main(getArgs());
 		

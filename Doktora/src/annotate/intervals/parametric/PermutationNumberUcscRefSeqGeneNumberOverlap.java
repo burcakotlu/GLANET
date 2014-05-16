@@ -5,6 +5,7 @@
  */
 package annotate.intervals.parametric;
 
+import gnu.trove.list.TShortList;
 import intervaltree.IntervalName;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 	int geneEntrezId;
 	int low;
 	int high;
-	List<Short> keggPathwayNumberList;
+	TShortList keggPathwayNumberList;
 	
 	
 	
@@ -83,19 +84,21 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 	}
 	
 	
-	public List<Short> getKeggPathwayNumberList() {
+
+
+	
+	
+	public TShortList getKeggPathwayNumberList() {
 		return keggPathwayNumberList;
 	}
-	public void setKeggPathwayNumberList(List<Short> keggPathwayNumberList) {
+	public void setKeggPathwayNumberList(TShortList keggPathwayNumberList) {
 		this.keggPathwayNumberList = keggPathwayNumberList;
 	}
-	
-	
 	public PermutationNumberUcscRefSeqGeneNumberOverlap(
 			int permutationNumber, int refSeqGeneNumber,
 			IntervalName intervalName, int intervalNumber,
 			int geneHugoSymbolNumber, int geneEntrezId, int low, int high,
-			List<Short> keggPathwayNumberList) {
+			TShortList keggPathwayNumberList) {
 		super();
 		this.permutationNumber = permutationNumber;
 		this.refSeqGeneNumber = refSeqGeneNumber;

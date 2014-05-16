@@ -1288,20 +1288,22 @@ public class Commons {
 	public static final String SORTED_CHRX_TFBS_FILENAME = "sorted_chrX_tfbs.txt";
 	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 	
-	public static final String GUI_HINT_INPUT_FILE_NAME = "input file description here";
-	public static final String GUI_HINT_INPUT_FORMAT = "input format desc here";
-	public static final String GUI_HINT_GLANET_FOLDER = "glanet folder desc here";
-	public static final String GUI_HINT_NUMBER_OF_BASES = "number of bases desc here";
-	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "generate random data mode desc here";
-	public static final String GUI_HINT_MULTIPLE_TESTING = "multiple testing desc here";
-	public static final String GUI_HINT_FDR = "fdr desc here";
-	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "bonferroni correction desc here";
-	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "number of permutations desc here";
-	public static final String GUI_HINT_DNASE_ENRICHMENT = "dnase enrichment desc here";
-	public static final String GUI_HINT_HISTONE_ENRICHMENT = "histone enrichment desc here";
-	public static final String GUI_HINT_TF_ENRICHMENT = "tf enrichment desc here";
-	public static final String GUI_HINT_KEGG_PATHWAY_ENRICHMENT = "kegg pathway desc here";
-	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT = "tf and kegg pathway desc here";
-	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT = "cellline based tf and kegg desc here";
-	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "regulatory sequence analysis desc here";
+	
+	/******************************HINTS****************************************/
+	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
+	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
+	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";
+	public static final String GUI_HINT_NUMBER_OF_BASES = "Number of bases required for overlap definition";
+	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
+	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";
+	public static final String GUI_HINT_FDR = "False Discovery Rate";
+	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
+	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number of Permutations that will be carried out for Enrichment";
+	public static final String GUI_HINT_DNASE_ENRICHMENT = "DNase Enrichment";
+	public static final String GUI_HINT_HISTONE_ENRICHMENT = "Histone Enrichment";
+	public static final String GUI_HINT_TF_ENRICHMENT = "Transcription Factor Enrichment";
+	public static final String GUI_HINT_KEGG_PATHWAY_ENRICHMENT = "KEGG Pathway Enrichment";
+	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT = "Transcription Factor and KEGG Pathway Enrichment";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT = "Cell Line based Transcription Factor and KEGG Pathway Enrichment";
+	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 }

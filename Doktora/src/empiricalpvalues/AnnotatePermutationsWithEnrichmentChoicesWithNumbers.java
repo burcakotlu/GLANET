@@ -7,12 +7,14 @@ package empiricalpvalues;
 
 import generate.randomdata.RandomDataGenerator;
 import gnu.trove.iterator.TIntIterator;
-import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 import hg19.GRCh37Hg19Chromosome;
@@ -41,6 +43,7 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
 
 /**
@@ -512,7 +515,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	private final int lowIndex;
 	private final int highIndex;
 	
-	private final Map<Integer,List<Short>> geneId2KeggPathwayNumberMap;
+	private final TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap;
 	
 	private final String outputFolder;
 	
@@ -520,7 +523,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	
 	
 		
-	public AnnotateWithNumbers(String outputFolder,int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType,Map<Integer, List<Short>> geneId2KeggPathwayNumberMap,int overlapDefinition) {
+	public AnnotateWithNumbers(String outputFolder,int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType, String tfandKeggPathwayEnrichmentType, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap,int overlapDefinition) {
 		this.outputFolder  = outputFolder;
 		
 		this.chromSize = chromSize;
@@ -594,10 +597,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				    	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithoutIOwithNumbers(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayNumberMap,overlapDefinition));
 				     }
 				     
-//				     //NEW FUNCTIONALITY HAS BEEN ADDED
-//				     else if (Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
-//				     	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithIOwithNumbers(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayNumberMap,overlapDefinition));
-//				     }						
+				     //NEW FUNCTIONALITY HAS BEEN ADDED
+				     else if (Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
+				     	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithIOwithNumbers(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2KeggPathwayNumberMap,overlapDefinition));
+				     }						
 				}//End of FOR
 					
 				combineListofAllMapsWithNumbers(listofAllMapsWithNumbers,allMapsWithNumbers);
@@ -1318,7 +1321,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	//the tasks are executed
 	//after all the parallel work is done
 	//results are written to files
-	public static void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int runNumber, int numberofPermutationsinThisRun,List<InputLine> allOriginalInputLines, TLongObjectMap<TIntList> dnase2AllKMap,TLongObjectMap<TIntList> tfbs2AllKMap,TLongObjectMap<TIntList> histone2AllKMap,TLongObjectMap<TIntList> exonBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> regulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> allBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap, TLongObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap, TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap, String generateRandomDataMode, String writeGeneratedRandomDataMode,String writePermutationBasedandParametricBasedAnnotationResultMode,String writePermutationBasedAnnotationResultMode,TLongIntMap originalDnase2KMap,TLongIntMap originalTfbs2KMap,TLongIntMap originalHistone2KMap,TLongIntMap originalExonBasedKeggPathway2KMap,TLongIntMap originalRegulationBasedKeggPathway2KMap,TLongIntMap originalAllBasedKeggPathway2KMap, TLongIntMap originalTfExonBasedKeggPathway2KMap,TLongIntMap originalTfRegulationBasedKeggPathway2KMap,TLongIntMap originalTfAllBasedKeggPathway2KMap,TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap,TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap,TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap, String dnaseEnrichment, String histoneEnrichment, String tfEnrichment, String keggPathwayEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment,int overlapDefinition,Map<Integer,List<Short>> geneId2KeggPathwayNumberMap){
+	public static void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int runNumber, int numberofPermutationsinThisRun,List<InputLine> allOriginalInputLines, TLongObjectMap<TIntList> dnase2AllKMap,TLongObjectMap<TIntList> tfbs2AllKMap,TLongObjectMap<TIntList> histone2AllKMap,TLongObjectMap<TIntList> exonBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> regulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> allBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap, TLongObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap, TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap,TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap, String generateRandomDataMode, String writeGeneratedRandomDataMode,String writePermutationBasedandParametricBasedAnnotationResultMode,String writePermutationBasedAnnotationResultMode,TLongIntMap originalDnase2KMap,TLongIntMap originalTfbs2KMap,TLongIntMap originalHistone2KMap,TLongIntMap originalExonBasedKeggPathway2KMap,TLongIntMap originalRegulationBasedKeggPathway2KMap,TLongIntMap originalAllBasedKeggPathway2KMap, TLongIntMap originalTfExonBasedKeggPathway2KMap,TLongIntMap originalTfRegulationBasedKeggPathway2KMap,TLongIntMap originalTfAllBasedKeggPathway2KMap,TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap,TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap,TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap, String dnaseEnrichment, String histoneEnrichment, String tfEnrichment, String keggPathwayEnrichment, String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment,int overlapDefinition,TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap){
 		
 		//allMaps stores one chromosome based results
 		AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
@@ -2020,14 +2023,16 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		//@todo This map can be <Integer,List<Short>>
 		//Kegg Pathway 2 Integer is already ready
 		//NCBI Gene Id is Integer
-		Map<Integer,List<Short>> geneId2KeggPathwayNumberMap = new HashMap<Integer, List<Short>>();
-		Map<String,Short> keggPathwayName2KeggPathwayNumberMap = new HashMap<String,Short>();
+		TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+		
+//		Map<Integer,List<Short>> geneId2KeggPathwayNumberMap = new HashMap<Integer, List<Short>>();
+		Map<String,Short> keggPathwayEntry2KeggPathwayNumberMap = new HashMap<String,Short>();
 		
 		
 		//new calls
 		//all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
-		KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES+ System.getProperty("file.separator") ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
-		KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayName2KeggPathwayNumberMap);
+		KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES+ System.getProperty("file.separator") ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayEntry2KeggPathwayNumberMap);
+		KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayEntry2KeggPathwayNumberMap);
 		/*********************FILL GENEID 2 KEGG PATHWAY NUMBER  MAP  ENDS****************************/		
 		/*********************************************************************************************/			
 		
