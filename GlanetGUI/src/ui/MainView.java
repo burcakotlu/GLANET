@@ -158,7 +158,7 @@ public class MainView extends JPanel{
 		//you can see the hierarchy by moving down
 		
 		//holds the general content of the ui. listPane added to scrollPane
-		listPane = new JPanel();
+		listPane = new JPanel();		
 		listPane.setLayout( new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		
 		//to enable scroll down on listPane. scrollPane added to this view
