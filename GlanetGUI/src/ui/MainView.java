@@ -266,7 +266,7 @@ public class MainView extends JPanel{
         
         //tfAndKeggPathwayEnrichment added to enrichmentOptions
         tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Enrichment");
-        tfAndKeggPathwayEnrichment.setName( "tfAndKeggPathwayEnrichment");
+        tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
         tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         enrichmentOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
