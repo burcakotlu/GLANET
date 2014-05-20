@@ -288,21 +288,21 @@ public class MainView extends JPanel{
         enrichmentPanel.add( createBorderedPanel( "RSAT", createPanelWithHint(rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
         listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
         
-        //checkPanel added to listPane
-        JPanel checkPanel = new JPanel( new GridLayout(0, 1));
-        
-        //writeGeneratedRandomData added to checkPanel
-        writeGeneratedRandomData = new JCheckBox( "writeGeneratedRandomData");
-        checkPanel.add( writeGeneratedRandomData);
-        
-        //writePermutationBasedAndParametricBased added to checkPanel
-        writePermutationBasedAndParametricBased = new JCheckBox( "writePermutationBasedAndParametricBased");
-        checkPanel.add( writePermutationBasedAndParametricBased);
-        
-        //writePermutationBasedAnnotationResult added to checkPanel
-        writePermutationBasedAnnotationResult = new JCheckBox( "writePermutationBasedAnnotationResult");
-        checkPanel.add( writePermutationBasedAnnotationResult);
-        listPane.add( createBorderedPanel( "Write Permutation Results", checkPanel));
+//        //checkPanel added to listPane
+//        JPanel checkPanel = new JPanel( new GridLayout(0, 1));
+//        
+//        //writeGeneratedRandomData added to checkPanel
+//        writeGeneratedRandomData = new JCheckBox( "writeGeneratedRandomData");
+//        checkPanel.add( writeGeneratedRandomData);
+//        
+//        //writePermutationBasedAndParametricBased added to checkPanel
+//        writePermutationBasedAndParametricBased = new JCheckBox( "writePermutationBasedAndParametricBased");
+//        checkPanel.add( writePermutationBasedAndParametricBased);
+//        
+//        //writePermutationBasedAnnotationResult added to checkPanel
+//        writePermutationBasedAnnotationResult = new JCheckBox( "writePermutationBasedAnnotationResult");
+//        checkPanel.add( writePermutationBasedAnnotationResult);
+//        listPane.add( createBorderedPanel( "Write Permutation Results", checkPanel));
         
         //jobName added to listPane
         jobName = new JTextField();
