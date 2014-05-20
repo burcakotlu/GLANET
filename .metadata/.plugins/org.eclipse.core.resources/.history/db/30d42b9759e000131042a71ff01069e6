@@ -36,9 +36,9 @@ public class GlanetRunner extends Thread{
 //		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(getArgs());
 
 		
-		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
-		
+//		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+//		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
+//		
 		getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 		AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
 		

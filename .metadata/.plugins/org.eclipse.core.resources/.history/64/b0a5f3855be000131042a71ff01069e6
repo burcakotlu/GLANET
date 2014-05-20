@@ -81,7 +81,8 @@ public class FileOperations {
 		File folder = new File(baseDirectoryName);
 		if (folder.exists()){
 			for(File file:folder.listFiles()){
-							
+				
+				
 				if (!(notToBeDeleted.contains(file.getName()))){
 					deleteDirectoriesandFiles(file.getPath());
 					
