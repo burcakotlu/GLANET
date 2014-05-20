@@ -256,7 +256,7 @@ public class MainView extends JPanel{
 		enrichmentOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_HISTONE_ENRICHMENT));
 		
 		//tfEnrichment added to enrichmentOptions
-		tfEnrichment = new JCheckBox( "Tf Enrichment");
+		tfEnrichment = new JCheckBox( "TF Enrichment");
 		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
 		enrichmentOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_TF_ENRICHMENT));
 		
@@ -265,14 +265,14 @@ public class MainView extends JPanel{
         enrichmentOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ENRICHMENT));
         
         //tfAndKeggPathwayEnrichment added to enrichmentOptions
-        tfAndKeggPathwayEnrichment = new JCheckBox( "Tf And KEGG Pathway Enrichment");
-        tfAndKeggPathwayEnrichment.setName( "tfAndKeggPathwayEnrichment");
+        tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Enrichment");
+        tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
         tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         enrichmentOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
         
         //cellLineBasedTfAndKeggPathwayEnrichment added to enrichmentOptions
-        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based Tf And Kegg Pathway Enrichment");
+        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based TF And KEGG Pathway Enrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
