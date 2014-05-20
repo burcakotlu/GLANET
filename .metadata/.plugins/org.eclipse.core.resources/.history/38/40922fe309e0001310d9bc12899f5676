@@ -54,7 +54,7 @@ public class GlanetRunner extends Thread{
 			RSATMatrixScanClient.main(getArgs());
 		}
 		
-		//args[1]  already has file separator at the end
+		//args[1]  already has file separator
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		
 	}
