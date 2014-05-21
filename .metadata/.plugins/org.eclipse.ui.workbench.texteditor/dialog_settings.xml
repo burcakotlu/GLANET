@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="numberofPermutationsHavingOverlapsGreaterThanorEqualto" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&gt;&gt;"/>
+			<item value="&lt;&lt;"/>
 			<item value="numberofPermutationsHavingOverlapsGreaterThanorEqualto"/>
 			<item value="geneId"/>
 			<item value="here"/>
 			<item value="keggPathwayZeroOrOne.getValue()"/>
 			<item value="keggPathwayZeroOrOne.getKey()"/>
 			<item value="ZeroOrOne.getKey()"/>
-			<item value="zeroOrOne.getValue()"/>
-			<item value="zeroOrOne.getKey()"/>
 		</list>
 		<list key="replacehistory">
 			<item value="it.value()"/>

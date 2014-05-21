@@ -115,9 +115,9 @@ public class MainView extends JPanel{
 						cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
 						jobName.getText(),
-						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
-						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
-						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+						writeGeneratedRandomData.isSelected()?Commons.WRITE_GENERATED_RANDOM_DATA:Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
+						writePermutationBasedAndParametricBased.isSelected()?Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
+						writePermutationBasedAnnotationResult.isSelected()?Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT:Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 				);
 			}
 		}
@@ -291,18 +291,18 @@ public class MainView extends JPanel{
         //checkPanel added to listPane
         JPanel checkPanel = new JPanel( new GridLayout(0, 1));
         
-//        //writeGeneratedRandomData added to checkPanel
-//        writeGeneratedRandomData = new JCheckBox( "writeGeneratedRandomData");
-//        checkPanel.add( writeGeneratedRandomData);
-//        
-//        //writePermutationBasedAndParametricBased added to checkPanel
-//        writePermutationBasedAndParametricBased = new JCheckBox( "writePermutationBasedAndParametricBased");
-//        checkPanel.add( writePermutationBasedAndParametricBased);
-//        
-//        //writePermutationBasedAnnotationResult added to checkPanel
-//        writePermutationBasedAnnotationResult = new JCheckBox( "writePermutationBasedAnnotationResult");
-//        checkPanel.add( writePermutationBasedAnnotationResult);
-//        listPane.add( createBorderedPanel( "Write Permutation Results", checkPanel));
+        //writeGeneratedRandomData added to checkPanel
+        writeGeneratedRandomData = new JCheckBox( "writeGeneratedRandomData");
+        checkPanel.add( writeGeneratedRandomData);
+        
+        //writePermutationBasedAndParametricBased added to checkPanel
+        writePermutationBasedAndParametricBased = new JCheckBox( "writePermutationBasedAndParametricBased");
+        checkPanel.add( writePermutationBasedAndParametricBased);
+        
+        //writePermutationBasedAnnotationResult added to checkPanel
+        writePermutationBasedAnnotationResult = new JCheckBox( "writePermutationBasedAnnotationResult");
+        checkPanel.add( writePermutationBasedAnnotationResult);
+        listPane.add( createBorderedPanel( "Write Permutation Results", checkPanel));
         
         //jobName added to listPane
         jobName = new JTextField();
@@ -438,12 +438,12 @@ public class MainView extends JPanel{
 		cellLineBasedTfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
 		if( cellLineBasedTfAndKeggPathwayEnrichment.isSelected()) cellLineBasedTfAndKeggPathwayEnrichment.setSelected( shouldEnable);
 		checkUsabilityOfRegulatorySequenceAnalysis();
-//		writeGeneratedRandomData.setEnabled( shouldEnable);
-//		if( writeGeneratedRandomData.isSelected()) writeGeneratedRandomData.setSelected( shouldEnable);
-//		writePermutationBasedAndParametricBased.setEnabled( shouldEnable);
-//		if( writePermutationBasedAndParametricBased.isSelected()) writePermutationBasedAndParametricBased.setSelected( shouldEnable);
-//		writePermutationBasedAnnotationResult.setEnabled( shouldEnable);
-//		if( writePermutationBasedAnnotationResult.isSelected()) writePermutationBasedAnnotationResult.setSelected( shouldEnable);
+		writeGeneratedRandomData.setEnabled( shouldEnable);
+		if( writeGeneratedRandomData.isSelected()) writeGeneratedRandomData.setSelected( shouldEnable);
+		writePermutationBasedAndParametricBased.setEnabled( shouldEnable);
+		if( writePermutationBasedAndParametricBased.isSelected()) writePermutationBasedAndParametricBased.setSelected( shouldEnable);
+		writePermutationBasedAnnotationResult.setEnabled( shouldEnable);
+		if( writePermutationBasedAnnotationResult.isSelected()) writePermutationBasedAnnotationResult.setSelected( shouldEnable);
 		
 		revalidate();
 	}
