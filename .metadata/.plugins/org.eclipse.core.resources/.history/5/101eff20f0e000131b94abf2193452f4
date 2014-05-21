@@ -7,8 +7,7 @@ import giveninputdata.InputDataRemoveOverlaps;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
-import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
-
+import augmentation.results.AugmentationofEnrichedElementswithIntervals;
 import common.Commons;
 
 public class GlanetRunner extends Thread{
@@ -43,14 +42,12 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 		AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
 		
-		getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+		getMainView().setCurrentProcessInfo( "CollectionofPermutationsResults...");
 		CollectionofPermutationsResults.main(getArgs());
 		
-		getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
-		AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
-
-		
 		if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+			getMainView().setCurrentProcessInfo( "AugmentationofEnrichedElementswithIntervals...");
+			AugmentationofEnrichedElementswithIntervals.main(getArgs());
 			getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
 			GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
 			getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
