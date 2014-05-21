@@ -48,6 +48,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		int indexofEigthTab; 
+		int indexofNinethTab; 
+		
 	
 		String histoneNameCellLineName;
 		
@@ -78,8 +80,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
 				
-				//example line
+				//old example line
 				//H2AZ_K562	129	0	10	162	0.00E+00	0.00E+00	0.00E+00	TRUE
+
+//				new example lines
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 5000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 162 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05
+//				300630000	H3K27ME3_K562	360	0	5000	162	0.00E+00	0.00E+00	0.00E+00	TRUE
+
 	
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -89,12 +96,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
 				indexofSeventhTab	= strLine1.indexOf('\t',indexofSixthTab+1);
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
-						
-				histoneNameCellLineName = strLine1.substring(0, indexofFirstTab);
+				indexofNinethTab	= strLine1.indexOf('\t',indexofEigthTab+1);
+				
+				histoneNameCellLineName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 							
 				//Pay attention to the order
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 											
 							
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){					
@@ -163,6 +171,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		int indexofEigthTab; 
+		int indexofNinethTab;
 	
 		String dnaseElementName;
 		
@@ -192,9 +201,14 @@ public class AugmentationofEnrichedElementswithIntervals {
 			strLine1= bufferedReader.readLine();
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
-				
+//				old example lines				
 //				Element	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 8 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 82 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05
 //				NHDF_NEO	51	0	8	82	0.00E+00	0.00E+00	0.00E+00	TRUE
+
+//				new example lines				
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 5000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 82 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05
+//				560000	HRCE	45	402	5000	82	8.04E-02	1.00E+00	4.71E-01	FALSE
+
 				
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -204,12 +218,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
 				indexofSeventhTab	= strLine1.indexOf('\t',indexofSixthTab+1);
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
+				indexofNinethTab	= strLine1.indexOf('\t',indexofEigthTab+1);
 						
-				dnaseElementName = strLine1.substring(0, indexofFirstTab);
+				dnaseElementName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 							
 				//Pay attention to the order
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 				
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
 					
@@ -285,6 +300,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofEigthTab;
 		int indexofNinethTab;
 		int indexofTenthTab;
+		int indexofEleventhTab;;
 			
 		int indexofFirstUnderscore;
 		
@@ -316,8 +332,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 			while ((strLine1= bufferedReader.readLine())!=null ){
 			
 
-//				new example line
+//				old example line
 //				JUND_hsa05164	4	0	10000	40081	0.00E+00	0.00E+00	0.00E+00	TRUE
+				
+//				new example lines
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 5000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 40081 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05			
+//				4500000233	HDAC2SC6296_hsa05160	3	0	5000	40081	0.00E+00	0.00E+00	0.00E+00	TRUE	Hepatitis C - Homo sapiens (human)	10000, 100132463, 100506658, 10062, 10197, 1026, 10379, 10686, 1147, 1364, 1365, 1366, 137075, 1432, 148022, 149461, 1950, 1956, 1965, 207, 208, 23533, 23562, 23586, 24146, 26285, 27102, 2885, 29110, 2932, 3265, 3434, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449, 3451, 3452, 3454, 3455, 3456, 3551, 3576, 3646, 3659, 3661, 3665, 369, 3716, 3845, 3949, 439996, 440275, 4790, 4792, 4893, 4938, 4939, 4940, 49861, 5010, 51208, 5163, 5290, 5291, 5293, 5294, 5295, 5296, 53842, 5465, 5515, 5516, 5518, 5519, 5520, 5521, 5522, 55844, 5594, 5595, 5599, 5600, 5601, 5602, 5603, 5610, 572, 57506, 5894, 5970, 6041, 6256, 6300, 644672, 6654, 6655, 673, 6772, 6773, 6774, 7098, 7122, 7124, 7132, 7157, 7186, 7187, 7189, 7297, 8503, 8517, 8554, 8717, 8737, 9021, 9071, 9073, 9074, 9075, 9076, 9080, 9451, 949, 9641, 975	AKT3, CLDN24, OCLN, NR1H3, PSME3, CDKN1A, IRF9, CLDN16, CHUK, CLDN4, CLDN3, CLDN7, CLDN23, MAPK14, TICAM1, CLDN19, EGF, EGFR, EIF2S1, AKT1, AKT2, PIK3R5, CLDN14, DDX58, CLDN15, CLDN17, EIF2AK1, GRB2, TBK1, GSK3B, HRAS, IFIT1, IFNA1, IFNA2, IFNA4, IFNA5, IFNA6, IFNA7, IFNA8, IFNA10, IFNA13, IFNA14, IFNA16, IFNA17, IFNA21, IFNAR1, IFNAR2, IFNB1, IKBKB, IL8, EIF3E, IRF1, IRF3, IRF7, ARAF, JAK1, KRAS, LDLR, IFIT1B, EIF2AK4, NFKB1, NFKBIA, NRAS, OAS1, OAS2, OAS3, CLDN20, CLDN11, CLDN18, PDK1, PIK3CA, PIK3CB, PIK3CD, PIK3CG, PIK3R1, PIK3R2, CLDN22, PPARA, PPP2CA, PPP2CB, PPP2R1A, PPP2R1B, PPP2R2A, PPP2R2B, PPP2R2C, PPP2R2D, MAPK1, MAPK3, MAPK8, MAPK11, MAPK9, MAPK10, MAPK13, EIF2AK2, BAD, MAVS, RAF1, RELA, RNASEL, RXRA, MAPK12, CLDN25, SOS1, SOS2, BRAF, STAT1, STAT2, STAT3, TLR3, CLDN5, TNF, TNFRSF1A, TP53, TRAF2, TRAF3, TRAF6, TYK2, PIK3R3, IKBKG, PIAS1, TRADD, RIPK1, SOCS3, CLDN10, CLDN8, CLDN6, CLDN2, CLDN1, CLDN9, EIF2AK3, SCARB1, IKBKE, CD81
+
 				
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -329,28 +350,29 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
 				indexofNinethTab 	= strLine1.indexOf('\t',indexofEigthTab+1);
 				indexofTenthTab 	= strLine1.indexOf('\t',indexofNinethTab+1);
+				indexofEleventhTab	= strLine1.indexOf('\t',indexofTenthTab+1);
 					
-				tfName_keggPathwayName = strLine1.substring(0, indexofFirstTab);
+				tfName_keggPathwayName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 				
 				indexofFirstUnderscore = tfName_keggPathwayName.indexOf('_');
-				keggPathwayName = tfName_keggPathwayName.substring(indexofFirstUnderscore+1,indexofFirstTab);
+				keggPathwayName = tfName_keggPathwayName.substring(indexofFirstUnderscore+1);
 				
 				
 				//Pay attention to the order
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 				
-				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
+				keggPathwayDescription = strLine1.substring(indexofTenthTab+1, indexofEleventhTab);
 				
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){					
 					if (bhFDRAdjustedPValue <= FDR){											
 						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
 						if (lines==null){
 							lines = new ArrayList<String>();
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
 						}else{
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 						}			
 					}					
 				}else if(multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){					
@@ -358,10 +380,10 @@ public class AugmentationofEnrichedElementswithIntervals {
 						lines = enrichedKeggPathways.get(keggPathwayName + "\t" + keggPathwayDescription);		
 						if (lines==null){
 							lines = new ArrayList<String>();
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
 						}else{
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 						}			
 					}					
 				}
@@ -449,7 +471,9 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofEigthTab;
 		int indexofNinethTab;
 		int indexofTenthTab;
+		int indexofEleventhTab;
 				
+		
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 		
@@ -479,15 +503,18 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
 			
-				//example line
-				//AP2GAMMA_HELAS3_hsa00532	1	4	10000	109214	1E0	4E-4	Glycosaminoglycan biosynthesis - chondroitin sulfate / dermatan sulfate - Homo sapiens (human)	10090, 11285, 113189, 126792, 166012, 22856, 26229, 29940, 337876, 50515, 51363, 54480, 55454, 55501, 55790, 56548, 64131, 64132, 79586, 9469	UST, B4GALT7, CHST14, B3GALT6, CHST13, CHSY1, B3GAT3, DSE, CHSY3, CHST11, CHST15, CHPF2, CSGALNACT2, CHST12, CSGALNACT1, CHST7, XYLT1, XYLT2, CHPF, CHST3
 				
-//				new example line			
+//				old example line			
 //				HEY1_K562_hsa05166	5	0	10000	109214	0.00E+00	0.00E+00	0.00E+00	TRUE
+				
+//				new example lines exist starting with element number
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 10000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 109214 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05			
+//				6800990031	NFKB_GM15510_hsa00380	3	0	10000	109214	0.00E+00	0.00E+00	0.00E+00	TRUE	Tryptophan metabolism - Homo sapiens (human)	11185, 121278, 125061, 130013, 15, 1543, 1544, 1545, 1644, 169355, 1892, 1962, 217, 219, 223, 224, 23498, 259307, 26, 2639, 3030, 3033, 316, 3620, 38, 39, 4128, 4129, 438, 4967, 501, 51166, 55753, 56267, 6999, 7166, 847, 8564, 883, 8942	INMT, TPH2, AFMID, ACMSD, AANAT, CYP1A1, CYP1A2, CYP1B1, DDC, IDO2, ECHS1, EHHADH, ALDH2, ALDH1B1, ALDH9A1, ALDH3A2, HAAO, IL4I1, ABP1, GCDH, HADHA, HADH, AOX1, IDO1, ACAT1, ACAT2, MAOA, MAOB, ASMT, OGDH, ALDH7A1, AADAT, OGDHL, CCBL2, TDO2, TPH1, CAT, KMO, CCBL1, KYNU
 
-				indexofFirstTab = strLine1.indexOf('\t');
-				indexofSecondTab = strLine1.indexOf('\t', indexofFirstTab+1);
-				indexofThirdTab = strLine1.indexOf('\t',indexofSecondTab+1);
+
+				indexofFirstTab 	= strLine1.indexOf('\t');
+				indexofSecondTab 	= strLine1.indexOf('\t', indexofFirstTab+1);
+				indexofThirdTab 	= strLine1.indexOf('\t',indexofSecondTab+1);
 				indexofFourthTab 	= strLine1.indexOf('\t',indexofThirdTab+1);
 				indexofFifthTab 	= strLine1.indexOf('\t',indexofFourthTab+1);
 				indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
@@ -495,19 +522,19 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
 				indexofNinethTab 	= strLine1.indexOf('\t',indexofEigthTab+1);
 				indexofTenthTab 	= strLine1.indexOf('\t',indexofNinethTab+1);
+				indexofEleventhTab	= strLine1.indexOf('\t',indexofTenthTab+1);
 				
-				
-				tfName_cellLineName_keggPathwayName = strLine1.substring(0, indexofFirstTab);
+				tfName_cellLineName_keggPathwayName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 				
 				indexofFirstUnderscore = tfName_cellLineName_keggPathwayName.indexOf('_');
 				indexofSecondUnderscore = tfName_cellLineName_keggPathwayName.indexOf('_',indexofFirstUnderscore+1);
-				keggPathwayName = tfName_cellLineName_keggPathwayName.substring(indexofSecondUnderscore+1,indexofFirstTab);
+				keggPathwayName = tfName_cellLineName_keggPathwayName.substring(indexofSecondUnderscore+1);
 				
 				//Pay attention order is important
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 				
-				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
+				keggPathwayDescription = strLine1.substring(indexofTenthTab+1, indexofEleventhTab);
 					
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
 					
@@ -517,10 +544,10 @@ public class AugmentationofEnrichedElementswithIntervals {
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
 						}else{
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 						}
 					}
 					
@@ -532,10 +559,10 @@ public class AugmentationofEnrichedElementswithIntervals {
 						
 						if (lines==null){
 							lines = new ArrayList<String>();
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 							enrichedKeggPathways.put(keggPathwayName+ "\t" +keggPathwayDescription, lines);
 						}else{
-							lines.add(strLine1);
+							lines.add(strLine1.substring(indexofFirstTab+1));
 						}
 					}
 					
@@ -618,6 +645,8 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofEigthTab;
 		int indexofNinethTab;
 		int indexofTenthTab;
+		int indexofEleventhTab;
+		
 		
 		int indexofUnderscore;
 						
@@ -645,8 +674,15 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
 			
+				
+//				old example line
 //				Element	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 8 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 269 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05			
 //				hsa04960	13	0	8	269	0.00E+00	0.00E+00	0.00E+00	TRUE	Aldosterone-regulated sodium reabsorption - Homo sapiens (human)	23327, 23439, 23533, 2810, 3291, 3479, 3630, 3643, 3667, 3758, 3845, 4306, 476, 477, 478, 480, 481, 482, 483, 486, 5170, 5290, 5291, 5293, 5294, 5295, 5296, 53828, 5578, 5579, 5582, 5594, 5595, 6337, 6338, 6340, 6446, 8503, 9351	NEDD4L, ATP1B4, PIK3R5, SFN, HSD11B2, IGF1, INS, INSR, IRS1, KCNJ1, KRAS, NR3C2, ATP1A1, ATP1A2, ATP1A3, ATP1A4, ATP1B1, ATP1B2, ATP1B3, FXYD2, PDPK1, PIK3CA, PIK3CB, PIK3CD, PIK3CG, PIK3R1, PIK3R2, FXYD4, PRKCA, PRKCB, PRKCG, MAPK1, MAPK3, SCNN1A, SCNN1B, SCNN1G, SGK1, PIK3R3, SLC9A3R2
+
+//				new example lines
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 5000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 269 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05			
+//				251	hsa05216	22	0	5000	269	0.00E+00	0.00E+00	0.00E+00	TRUE	Thyroid cancer - Homo sapiens (human)	10342, 1499, 3265, 3845, 4609, 4893, 4914, 51176, 5468, 5594, 5595, 5604, 5605, 595, 5979, 6256, 6257, 6258, 673, 6932, 6934, 7157, 7170, 7175, 7849, 8030, 8031, 83439, 999	TFG, CTNNB1, HRAS, KRAS, MYC, NRAS, NTRK1, LEF1, PPARG, MAPK1, MAPK3, MAP2K1, MAP2K2, CCND1, RET, RXRA, RXRB, RXRG, BRAF, TCF7, TCF7L2, TP53, TPM3, TPR, PAX8, CCDC6, NCOA4, TCF7L1, CDH1
+
 				
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -658,15 +694,16 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
 				indexofNinethTab 	= strLine1.indexOf('\t',indexofEigthTab+1);
 				indexofTenthTab 	= strLine1.indexOf('\t',indexofNinethTab+1);
+				indexofEleventhTab	= strLine1.indexOf('\t',indexofTenthTab+1);
 					
-				keggPathwayName = strLine1.substring(0, indexofFirstTab);
+				keggPathwayName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 									
 				
 				//Pay attention to the order
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 				
-				keggPathwayDescription = strLine1.substring(indexofNinethTab+1, indexofTenthTab);
+				keggPathwayDescription = strLine1.substring(indexofTenthTab+1, indexofEleventhTab);
 				
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
 					if (bhFDRAdjustedPValue <= FDR){											
@@ -741,6 +778,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		int indexofEigthTab; 
+		int indexofNinethTab;
 	
 		String tfNameCellLineName;
 		
@@ -771,8 +809,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 			
 			while ((strLine1= bufferedReader.readLine())!=null ){
 				
-				//example line
+				//old example line
 				//H2AZ_K562	129	0	10	162	0.00E+00	0.00E+00	0.00E+00	TRUE
+
+//				new example lines
+//				Element Number	Element Name	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 5000 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 406 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05
+//				4500380000	HDAC2SC6296_HEPG2	10	17	5000	406	3.40E-03	1.00E+00	1.03E-01	FALSE
+
 	
 				indexofFirstTab 	= strLine1.indexOf('\t');
 				indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
@@ -782,12 +825,13 @@ public class AugmentationofEnrichedElementswithIntervals {
 				indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
 				indexofSeventhTab	= strLine1.indexOf('\t',indexofSixthTab+1);
 				indexofEigthTab 	= strLine1.indexOf('\t',indexofSeventhTab+1);
-						
-				tfNameCellLineName = strLine1.substring(0, indexofFirstTab);
+				indexofNinethTab	= strLine1.indexOf('\t',indexofEigthTab+1);
+				
+				tfNameCellLineName = strLine1.substring(indexofFirstTab+1, indexofSecondTab);
 							
 				//Pay attention to the order
-				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSixthTab+1, indexofSeventhTab));
-				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
+				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 											
 							
 				if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){				
@@ -838,7 +882,7 @@ public class AugmentationofEnrichedElementswithIntervals {
 
 	
 	
-	public static void readandWriteFiles(String outputFolder,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String dnaseEnrichment, String histoneEnrichment, String tfEnrichment, String keggPathwayEnrichment,String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
+	public static void readandWriteFiles(String outputFolder,String jobName,String multipleTestingParameter,Float FDR, Float bonfCorrectionSignificanceLevel,String dnaseEnrichment, String histoneEnrichment, String tfEnrichment, String keggPathwayEnrichment,String tfKeggPathwayEnrichment, String tfCellLineKeggPathwayEnrichment){
 		String withRespectToFileName = null;
 		
 		//set the file end String
@@ -849,33 +893,33 @@ public class AugmentationofEnrichedElementswithIntervals {
 		}
 		
 		 if (dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
-			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS);	
+			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS);	
 		 }
 		 
 		 if (histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
-			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS);	
+			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS);	
 		 }
 		 
 		 if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)){
-			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS);
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS);
 		 }
 		 
 		 if (keggPathwayEnrichment.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT)){
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
 		 }
 		
 	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){	    	 
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS  + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	     }
 
 	}
@@ -948,14 +992,16 @@ public class AugmentationofEnrichedElementswithIntervals {
 		String keggPathwayEnrichment  = args[13];
 		String tfKeggPathwayEnrichment = args[14];
 		String tfCellLineKeggPathwayEnrichment = args[15];
+		
+		String jobName = args[17];
 	
 		
 		//delete old files starts 
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_ORIGINAL_INTERVALS_RESULTS_DIRECTORY);
+		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);
 		//delete old files ends
 			
 		
-		AugmentationofEnrichedElementswithIntervals.readandWriteFiles(outputFolder,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		AugmentationofEnrichedElementswithIntervals.readandWriteFiles(outputFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 		
 
 	}

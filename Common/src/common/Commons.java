@@ -16,6 +16,7 @@ public class Commons {
 	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String From_ANNOTATION = "fromAnnotation";
 	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
+	public static final String AUGMENTATION = "Augmentation";
 	
 	public static final String BYGLANET = "byGLANET";
 	
@@ -103,25 +104,25 @@ public class Commons {
 
 	//Augmentation of Enriched Elements with Overlaps Output Files starts
 	
-	public static final String AUGMENTED_ENRICHED_ELEMENTS_WITH_ORIGINAL_INTERVALS_RESULTS_DIRECTORY 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator");
+	public static final String AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY 		= Commons.AUGMENTATION + System.getProperty("file.separator") + "EnrichedElementsWithGivenInputData" + System.getProperty("file.separator");
 	
-	public static final String AUGMENTED_DNASE_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedDnaseResults.txt";
-	public static final String AUGMENTED_HISTONE_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedHistoneResults.txt";
-	public static final String AUGMENTED_TF_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTranscriptionFactorResults.txt";
+	public static final String AUGMENTED_DNASE_RESULTS 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedDnaseResults.txt";
+	public static final String AUGMENTED_HISTONE_RESULTS 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedHistoneResults.txt";
+	public static final String AUGMENTED_TF_RESULTS 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY+ "AugmentedTranscriptionFactorResults.txt";
 	
-	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedAllBasedKeggPathwayResults.txt";	
+	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedAllBasedKeggPathwayResults.txt";	
 	
-	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS 			= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfAllBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS 			= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfAllBasedKeggPathwayResults.txt";
 
-	public static final String AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineExonBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineRegulationBasedKeggPathwayResults.txt";
-	public static final String AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS = "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "AugmentedTfCellLineAllBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS = Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfCellLineExonBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS = Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfCellLineRegulationBasedKeggPathwayResults.txt";
+	public static final String AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS = Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedTfCellLineAllBasedKeggPathwayResults.txt";
 	
-	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= "augmentation" + System.getProperty("file.separator") + "results" + System.getProperty("file.separator") + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
+	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
 	//Augmentation of Enriched Elements with Overlaps Output Files ends
 	
 	//RSAT PARAMETER
