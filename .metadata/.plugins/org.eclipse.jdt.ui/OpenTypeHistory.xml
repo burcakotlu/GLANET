@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=Doktora/src&lt;augmentation.results{AugmentationofEnrichedElementswithIntervals.java[AugmentationofEnrichedElementswithIntervals" modifiers="1" timestamp="1399534061340"/>
-<typeInfo handle="=Doktora/src&lt;jaxbxjctool{GenerationofSequencesandMatricesforGivenIntervals.java[GenerationofSequencesandMatricesforGivenIntervals" modifiers="1" timestamp="1398159258074"/>
+<typeInfo handle="=Doktora/src&lt;jaxbxjctool{GenerationofSequencesandMatricesforGivenIntervals.java[GenerationofSequencesandMatricesforGivenIntervals" modifiers="1" timestamp="1400679525067"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{DnaseIntervalTreeNode.java[DnaseIntervalTreeNode" modifiers="1" timestamp="1399373630631"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{TforHistoneIntervalTreeNode.java[TforHistoneIntervalTreeNode" modifiers="1" timestamp="1399373798863"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{OtherIntervalTreeNode.java[OtherIntervalTreeNode" modifiers="1" timestamp="1399373769489"/>
@@ -15,12 +14,12 @@
 <typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{WriteAllPossibleNames.java[WriteAllPossibleNames" modifiers="1" timestamp="1400095409728"/>
 <typeInfo handle="=Doktora/src&lt;intervaltree{ChromosomeName.java[ChromosomeName" modifiers="16385" timestamp="1399461656883"/>
 <typeInfo handle="=Doktora/src&lt;test{MinandMaxValues.java[MinandMaxValues" modifiers="1" timestamp="1400138679309"/>
-<typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1400229486275"/>
+<typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1400674984069"/>
 <typeInfo handle="=Doktora/src&lt;test{TroveTest.java[TroveTest" modifiers="1" timestamp="1400160726180"/>
 <typeInfo handle="=Doktora/src&lt;empiricalpvalues{CollectionofPermutationsResults.java[CollectionofPermutationsResults" modifiers="1" timestamp="1400156318060"/>
 <typeInfo handle="=Doktora/src&lt;auxiliary{FileOperations.java[FileOperations" modifiers="1" timestamp="1400616944523"/>
-<typeInfo handle="=GlanetGUI/src&lt;ui{GlanetRunner.java[GlanetRunner" modifiers="1" timestamp="1400616114434"/>
-<typeInfo handle="=GlanetGUI/src&lt;ui{MainView.java[MainView" modifiers="1" timestamp="1400618077063"/>
+<typeInfo handle="=GlanetGUI/src&lt;ui{MainView.java[MainView" modifiers="1" timestamp="1400662582560"/>
 <typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1400616255758"/>
 <typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsWithEnrichmentChoicesWithNumbers.java[AnnotatePermutationsWithEnrichmentChoicesWithNumbers" modifiers="1" timestamp="1400232460713"/>
+<typeInfo handle="=GlanetGUI/src&lt;ui{GlanetRunner.java[GlanetRunner" modifiers="1" timestamp="1400616114434"/>
 </typeInfoHistroy>

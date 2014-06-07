@@ -6,22 +6,23 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="givenIntervalBasedSnpMap" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="givenIntervalBasedSnpMap"/>
+			<item value="&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\OCD_GWAS_SNP\givenIntervalBasedSnpMap"/>
+			<item value="&quot;C:\\Users\\burcakotlu\\GLANET\\Data\\OCD_GWAS_SNP\\ocd_gwas_snp_chrNumber_1BasedCoordinates.txt&quot;"/>
+			<item value="&quot;augmentation&quot; + System.getProperty(&quot;file.separator&quot;) + &quot;results&quot; + System.getProperty(&quot;file.separator&quot;)"/>
 			<item value="&gt;&gt;"/>
 			<item value="&lt;&lt;"/>
 			<item value="numberofPermutationsHavingOverlapsGreaterThanorEqualto"/>
 			<item value="geneId"/>
-			<item value="here"/>
-			<item value="keggPathwayZeroOrOne.getValue()"/>
-			<item value="keggPathwayZeroOrOne.getKey()"/>
-			<item value="ZeroOrOne.getKey()"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY"/>
 			<item value="it.value()"/>
 			<item value="it.key()"/>
 			<item value="TLongIntMap "/>
@@ -29,14 +30,13 @@
 			<item value="new TLongIntHashMap()"/>
 			<item value="new TLongIntMap()"/>
 			<item value="TLongObjectHashMap&lt;BufferedWriter&gt;()"/>
-			<item value="TLongObjectMap&lt;BufferedWriter&gt;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="502" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1049" key="DIALOG_X_ORIGIN"/>
-		<item value="483" key="DIALOG_Y_ORIGIN"/>
+		<item value="355" key="DIALOG_X_ORIGIN"/>
+		<item value="370" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
