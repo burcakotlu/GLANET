@@ -11,7 +11,6 @@ package mapabilityandgc;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,14 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import common.Commons;
-
 import create.encode.CellLineDnase;
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
 import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
 import empiricalpvalues.GCCharArray;
+import ui.GlanetRunner;
 
 public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 
@@ -546,7 +544,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	String gcFileName=null; 
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -584,7 +582,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			calculateMeanGC(fileName,filePath,gcFileName,gcHashMap,gcCharArray,functionalElementType);
 		    			
 		        	}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			
@@ -605,7 +603,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	String mapabilityFileName=null; 
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -643,7 +641,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			calculateMeanMapability(fileName,filePath,mapabilityFileName,mapabilityHashMap,mapabilityIntervalTree,functionalElementType);
 		    			
 		        	}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			
@@ -695,7 +693,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	String gcFileName=null; 
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -734,7 +732,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			 gcHashMap.put(Commons.GC +	"\t" + functionalElementType + "\t" + fileName, meanandStandardDeviation);
 		    			
 		    		}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			
@@ -755,7 +753,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	String mapabilityFileName=null; 
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -794,7 +792,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			 mapabilityHashMap.put(Commons.MAPABILITY +	"\t" + functionalElementType + "\t" + fileName, meanandStandardDeviation);
 		    			
 		    		}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			
@@ -825,10 +823,10 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for DNASE has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for DNASE has started.");
 		initializeGCHashMap(outputFolder,file,gcDnaseHashMap,Commons.DNASE);
-		System.out.println("Initialize hash map for DNASE has ended.");
+		GlanetRunner.appendLog("Initialize hash map for DNASE has ended.");
 		
 		
 		//TFBS
@@ -842,10 +840,10 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for TFBS has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for TFBS has started.");
 		initializeGCHashMap(outputFolder,file,gcTfbsHashMap,Commons.TFBS);
-		System.out.println("Initialize hash map for TFBS has ended.");
+		GlanetRunner.appendLog("Initialize hash map for TFBS has ended.");
 		
 		
 		//HISTONE
@@ -859,11 +857,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for HISTONE  has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for HISTONE  has started.");
 		initializeGCHashMap(outputFolder,file,gcHistoneHashMap,Commons.HISTONE);
-		System.out.println("Initialize hash map for HISTONE has ended.");
-		System.out.println("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for HISTONE has ended.");
+		GlanetRunner.appendLog("-------------------------");
 	    
 		for(int i=1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
 					
@@ -937,10 +935,10 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for DNASE has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for DNASE has started.");
 		initializeMapabilityHashMap(outputFolder,file,mapabilityDnaseHashMap,Commons.DNASE);
-		System.out.println("Initialize hash map for DNASE has ended.");
+		GlanetRunner.appendLog("Initialize hash map for DNASE has ended.");
 		
 		
 		//TFBS
@@ -954,10 +952,10 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for TFBS has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for TFBS has started.");
 		initializeMapabilityHashMap(outputFolder,file,mapabilityTfbsHashMap,Commons.TFBS);
-		System.out.println("Initialize hash map for TFBS has ended.");
+		GlanetRunner.appendLog("Initialize hash map for TFBS has ended.");
 		
 		
 		//HISTONE
@@ -971,11 +969,11 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		initializeDirectory = mainDirectory + chromName + "\\";
 		file = new File(initializeDirectory);
 		
-		System.out.println("-------------------------");
-		System.out.println("Initialize hash map for HISTONE  has started.");
+		GlanetRunner.appendLog("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for HISTONE  has started.");
 		initializeMapabilityHashMap(outputFolder,file,mapabilityHistoneHashMap,Commons.HISTONE);
-		System.out.println("Initialize hash map for HISTONE has ended.");
-		System.out.println("-------------------------");
+		GlanetRunner.appendLog("Initialize hash map for HISTONE has ended.");
+		GlanetRunner.appendLog("-------------------------");
 	    
 		for(int i=1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
 					
@@ -1114,7 +1112,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	String chromosomeBasedDirectory = null;
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir: " + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir: " + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -1157,7 +1155,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			    			
 		    			
 		        	}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			
@@ -1174,7 +1172,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	        if(file.isFile()){
 	            file.delete();
 	        }else if(file.isDirectory()) {
-	        	//System.out.println("Folder Name: "+ file.getName() + " Absolute Path: " + file.getAbsolutePath());
+	        	//GlanetRunner.appendLog("Folder Name: "+ file.getName() + " Absolute Path: " + file.getAbsolutePath());
 	        	deleteOldFiles(file);
 	        }
 	    }     
@@ -1202,14 +1200,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	Map<String,MeanandStandardDeviation> tfbsMapabilityHashMap = new HashMap<String,MeanandStandardDeviation>();
     	Map<String,MeanandStandardDeviation> histoneMapabilityHashMap = new HashMap<String,MeanandStandardDeviation>();
   	
-    	System.out.println("-------------------------");
-    	System.out.println("Calculate mean and standard deviation for MAPABILITY has started.");   
+    	GlanetRunner.appendLog("-------------------------");
+    	GlanetRunner.appendLog("Calculate mean and standard deviation for MAPABILITY has started.");   
     	//For all functional elements
     	//DNASE 
     	//TFBS
     	//HISTONE
     	calculateMeanandStandardDeviationofMapabilityofEachFunctionalElementFile(outputFolder,dnaseMapabilityHashMap,tfbsMapabilityHashMap,histoneMapabilityHashMap,hg19ChromosomeSizes);
-    	System.out.println("Calculate mean and standard deviation for MAPABILITY has ended.");      
+    	GlanetRunner.appendLog("Calculate mean and standard deviation for MAPABILITY has ended.");      
     	
     	//sort by standard deviation descending order
     	//Dnase
@@ -1244,34 +1242,34 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	histoneMapabilityTreeMapMeanAscendingOrder.putAll(histoneMapabilityHashMap);
     
     	
-    	System.out.println("-------------------------");
+    	GlanetRunner.appendLog("-------------------------");
     	//DNASE
-    	System.out.println("Write results for ALL DNASE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for ALL DNASE MAPABILITY has started.");        
     	writeMeanandStdDevResultstoFiles(allDnaseMapabilityFiles, dnaseMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TOP TEN DNASE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN DNASE MAPABILITY has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenDnaseMapabilityFiles, dnaseMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TEN DIFFERENT MEAN DNASE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN DNASE MAPABILITY has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanDnaseMapabilityFiles, dnaseMapabilityTreeMapMeanAscendingOrder);
        	
     	
     	//TFBS
-    	System.out.println("Write results for ALL TFBS MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for ALL TFBS MAPABILITY has started.");        
     	writeMeanandStdDevResultstoFiles(allTfbsMapabilityFiles, tfbsMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TOP TEN TFBS MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN TFBS MAPABILITY has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenTfbsMapabilityFiles, tfbsMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TEN DIFFERENT MEAN TFBS MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN TFBS MAPABILITY has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanTfbsMapabilityFiles, tfbsMapabilityTreeMapMeanAscendingOrder);
       
     	//HISTONE
-    	System.out.println("Write results for ALL HISTONE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for ALL HISTONE MAPABILITY has started.");        
     	writeMeanandStdDevResultstoFiles(allHistoneMapabilityFiles, histoneMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TOP TEN HISTONE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN HISTONE MAPABILITY has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenHistoneMapabilityFiles, histoneMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for TEN DIFFERENT MEAN HISTONE MAPABILITY has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN HISTONE MAPABILITY has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanHistoneMapabilityFiles, histoneMapabilityTreeMapMeanAscendingOrder);
       
     	writeMeanandStdDevResultstoFiles(allFunctionalElementMapabilityFiles, dnaseMapabilityTreeMapStdDevDescendingOrder,tfbsMapabilityTreeMapStdDevDescendingOrder,histoneMapabilityTreeMapStdDevDescendingOrder);
-    	System.out.println("Write results for MAPABILITY has ended.");        
+    	GlanetRunner.appendLog("Write results for MAPABILITY has ended.");        
     
 	}
 	
@@ -1300,14 +1298,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	Map<String,MeanandStandardDeviation> tfbsGCHashMap = new HashMap<String,MeanandStandardDeviation>();
     	Map<String,MeanandStandardDeviation> histoneGCHashMap = new HashMap<String,MeanandStandardDeviation>();
     	
-    	System.out.println("-------------------------");
-    	System.out.println("Calculate mean and standard deviation for GC has started.");   
+    	GlanetRunner.appendLog("-------------------------");
+    	GlanetRunner.appendLog("Calculate mean and standard deviation for GC has started.");   
     	//For all functional elements
     	//DNASE 
     	//TFBS
     	//HISTONE
     	calculateMeanandStandardDeviationofGCofEachFunctionalElementFile(outputFolder,dataFolder,dnaseGCHashMap,tfbsGCHashMap,histoneGCHashMap,hg19ChromosomeSizes);
-    	System.out.println("Calculate mean and standard deviation for GC has ended.");        
+    	GlanetRunner.appendLog("Calculate mean and standard deviation for GC has ended.");        
     	
     	
     	
@@ -1344,33 +1342,33 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	histoneGCTreeMapMeanAscendingOrder.putAll(histoneGCHashMap);
     
     	
-    	System.out.println("-------------------------");
+    	GlanetRunner.appendLog("-------------------------");
     	//DNASE
-    	System.out.println("Write results for ALL DNASE GC has started.");        
+    	GlanetRunner.appendLog("Write results for ALL DNASE GC has started.");        
     	writeMeanandStdDevResultstoFiles(allDnaseGCFiles, dnaseGCTreeMap);
-    	System.out.println("Write results for TOP TEN DNASE GC has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN DNASE GC has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenDnaseGCFiles, dnaseGCTreeMap);
-    	System.out.println("Write results for TEN DIFFERENT MEAN DNASE GC has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN DNASE GC has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanDnaseGCFiles, dnaseGCTreeMapMeanAscendingOrder);
        
     	//TFBS
-    	System.out.println("Write results for ALL TFBS GC has started.");        
+    	GlanetRunner.appendLog("Write results for ALL TFBS GC has started.");        
     	writeMeanandStdDevResultstoFiles(allTfbsGCFiles, tfbsGCTreeMap);
-    	System.out.println("Write results for TOP TEN TFBS GC has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN TFBS GC has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenTfbsGCFiles, tfbsGCTreeMap);
-    	System.out.println("Write results for TEN DIFFERENT MEAN TFBS GC has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN TFBS GC has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanTfbsGCFiles, tfbsGCTreeMapMeanAscendingOrder);
      
     	//HISTONE
-    	System.out.println("Write results for ALL HISTONE GC has started.");        
+    	GlanetRunner.appendLog("Write results for ALL HISTONE GC has started.");        
     	writeMeanandStdDevResultstoFiles(allHistoneGCFiles, histoneGCTreeMap);
-    	System.out.println("Write results for TOP TEN HISTONE GC has started.");        
+    	GlanetRunner.appendLog("Write results for TOP TEN HISTONE GC has started.");        
     	writeTopTenMostVaryingStdDevResultstoFiles(topTenHistoneGCFiles, histoneGCTreeMap);
-    	System.out.println("Write results for TEN DIFFERENT MEAN HISTONE GC has started.");        
+    	GlanetRunner.appendLog("Write results for TEN DIFFERENT MEAN HISTONE GC has started.");        
     	writeTenDifferentMeanFiles(tenDifferentMeanHistoneGCFiles, histoneGCTreeMapMeanAscendingOrder);
      
     	writeMeanandStdDevResultstoFiles(allFunctionalElementGCFiles, dnaseGCTreeMap,tfbsGCTreeMap,histoneGCTreeMap);
-    	System.out.println("Write results for GC has ended.");        
+    	GlanetRunner.appendLog("Write results for GC has ended.");        
     
     	
 	}
@@ -1405,20 +1403,20 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
     	
     	//Delete old files
-    	System.out.println("-------------------------");
-    	System.out.println("Start deleting old files...");
+    	GlanetRunner.appendLog("-------------------------");
+    	GlanetRunner.appendLog("Start deleting old files...");
     	File folder = new File(outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\");
     	deleteOldFiles(folder);
-    	System.out.println("Deleting old files has ended.");
+    	GlanetRunner.appendLog("Deleting old files has ended.");
     	
     	//some files may be empty
-    	System.out.println("-------------------------");
-    	System.out.println("Create chromosome based functional element files has started.");
+    	GlanetRunner.appendLog("-------------------------");
+    	GlanetRunner.appendLog("Create chromosome based functional element files has started.");
     	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir1,Commons.DNASE);
     	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir2,Commons.DNASE);
     	createChromosomeBasedFunctionalElementFiles(outputFolder,tfbsDir,Commons.TFBS);
     	createChromosomeBasedFunctionalElementFiles(outputFolder,histoneDir,Commons.HISTONE);
-    	System.out.println("Create chromosome based functional element files has ended.");
+    	GlanetRunner.appendLog("Create chromosome based functional element files has ended.");
     	
     	
     	//Mapability

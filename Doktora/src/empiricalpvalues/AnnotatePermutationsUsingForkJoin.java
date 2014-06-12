@@ -12,7 +12,6 @@ import generate.randomdata.RandomDataGenerator;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -29,7 +28,6 @@ import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
-
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedMapabilityArray;
@@ -40,7 +38,7 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import binomialdistribution.CalculateBinomialDistributions;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -128,7 +126,7 @@ public class AnnotatePermutationsUsingForkJoin {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     System.out.println("Generate Random Data For Task: " + i + "\t" +chromName);	
+				     GlanetRunner.appendLog("Generate Random Data For Task: " + i + "\t" +chromName);	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
@@ -284,7 +282,7 @@ public class AnnotatePermutationsUsingForkJoin {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     System.out.println("Annotate Random Data For Task: " + i + "\t" +chromName + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Task: " + i + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
@@ -498,7 +496,7 @@ public class AnnotatePermutationsUsingForkJoin {
 		int low;
 		int high;
 	
-		System.out.println("Input data file name is: " + inputFileName);
+		GlanetRunner.appendLog("Input data file name is: " + inputFileName);
 		
 		try {
 			fileReader = new FileReader(inputFileName);
@@ -1072,14 +1070,14 @@ public class AnnotatePermutationsUsingForkJoin {
     		   
     	for(int repeatNumber = 1; repeatNumber<= NUMBER_OF_REPEATS; repeatNumber++){
     		
-    		System.out.println("Repeat: " + repeatNumber);
+    		GlanetRunner.appendLog("Repeat: " + repeatNumber);
     			
     		for(int i= 1 ; i<=Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
     			
         		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
     			chromSize = hg19ChromosomeSizes.get(i-1);
     			
-    			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
+    			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
     			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
     							
     			if (chromosomeBaseOriginalInputLines!=null){
@@ -1090,24 +1088,24 @@ public class AnnotatePermutationsUsingForkJoin {
     				mapabilityFloatArray = new MapabilityFloatArray();
     			
     				//generate tasks
-    				System.out.println("Generate annotation tasks has started.");
+    				GlanetRunner.appendLog("Generate annotation tasks has started.");
     				generateAnnotationTasks(chromName,listofAnnotationTasks,repeatNumber,NUMBER_OF_PERMUTATIONS);
-    				System.out.println("Generate annotation tasks has ended.");
+    				GlanetRunner.appendLog("Generate annotation tasks has ended.");
     				
     				   				
     				if (Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equals(generateRandomDataMode)){
     					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName,chromSize);
     					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
     				}
-    				System.out.println("Generate Random Data and Annotate has started.");	
+    				GlanetRunner.appendLog("Generate Random Data and Annotate has started.");	
     			    long startTime = System.currentTimeMillis();
     			    
-    			    System.out.println("First Generate Random Data");
-    			    System.out.println("Generate Random Data has started.");
+    			    GlanetRunner.appendLog("First Generate Random Data");
+    			    GlanetRunner.appendLog("Generate Random Data has started.");
      			    //First generate Random Data
     			    generateRandomData = new GenerateRandomData(outputFolder,chromSize,chromName,chromosomeBaseOriginalInputLines,repeatNumber,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,writeGeneratedRandomDataMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
     			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
-    			    System.out.println("Generate Random Data has ended.");
+    			    GlanetRunner.appendLog("Generate Random Data has ended.");
     			    
     			    //After Random Data Generation has been ended
     				//generate task for User Given Original Data(Genomic Variants)
@@ -1117,17 +1115,17 @@ public class AnnotatePermutationsUsingForkJoin {
     				//Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
     				permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
     				    
-    				System.out.println("Deletion of the gcCharArray has started.");
+    				GlanetRunner.appendLog("Deletion of the gcCharArray has started.");
     				deleteGCCharArray(gcCharArray.getGcArray());
-    				System.out.println("Deletion of the gcCharArray has ended.");
+    				GlanetRunner.appendLog("Deletion of the gcCharArray has ended.");
     				gcCharArray = null;
     				
-    				System.out.println("Deletion of the mapabilityFloatArray has started.");
+    				GlanetRunner.appendLog("Deletion of the mapabilityFloatArray has started.");
     				deleteMapabilityFloatArray(mapabilityFloatArray.getMapabilityArray());
-    				System.out.println("Deletion of the mapabilityFloatArray has ended.");
+    				GlanetRunner.appendLog("Deletion of the mapabilityFloatArray has ended.");
     				mapabilityFloatArray = null;
     				
-    				System.out.println("Annotate has started.");
+    				GlanetRunner.appendLog("Annotate has started.");
     				//New Functionality START
     				//tfbs 
     				//Kegg Pathway (exon Based, regulation Based, all Based)
@@ -1190,15 +1188,15 @@ public class AnnotatePermutationsUsingForkJoin {
 //    			    allMaps = null;
 //    			    deleteIntervalTree(intervalTree);
 //    			    intervalTree = null;	
-    				System.out.println("Annotate has ended.");
+    				GlanetRunner.appendLog("Annotate has ended.");
     				
     			    long endTime = System.currentTimeMillis();
-    				System.out.println("Repeat: " + repeatNumber  + " For Chromosome: " + chromName + " Annotation of " + NUMBER_OF_PERMUTATIONS + " permutations took  " + (endTime - startTime) + " milliseconds.");
-    				System.out.println("Generate Random Data and Annotate has ended.");
+    				GlanetRunner.appendLog("Repeat: " + repeatNumber  + " For Chromosome: " + chromName + " Annotation of " + NUMBER_OF_PERMUTATIONS + " permutations took  " + (endTime - startTime) + " milliseconds.");
+    				GlanetRunner.appendLog("Generate Random Data and Annotate has ended.");
    				
-    				System.out.println("Deletion of the tasks has started.");
+    				GlanetRunner.appendLog("Deletion of the tasks has started.");
     				deleteAnnotationTasks(listofAnnotationTasks);
-    				System.out.println("Deletion of the tasks has ended.");
+    				GlanetRunner.appendLog("Deletion of the tasks has ended.");
    			
     			    permutationNumber2RandomlyGeneratedDataHashMap.clear();
     			    permutationNumber2RandomlyGeneratedDataHashMap= null;
@@ -1217,13 +1215,13 @@ public class AnnotatePermutationsUsingForkJoin {
     	pool.shutdown();
 		
 		if (pool.isTerminated()){
-			System.out.println("ForkJoinPool is terminated ");
+			GlanetRunner.appendLog("ForkJoinPool is terminated ");
 			
 		}   	
 		
 		long endTimeAllPermutations = System.currentTimeMillis();
 	
-		System.out.println("NUMBER_OF_REPEATS: " + NUMBER_OF_REPEATS + " NUMBER_OF_PERMUTATIONS:  "+ NUMBER_OF_PERMUTATIONS  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
+		GlanetRunner.appendLog("NUMBER_OF_REPEATS: " + NUMBER_OF_REPEATS + " NUMBER_OF_PERMUTATIONS:  "+ NUMBER_OF_PERMUTATIONS  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
 	
 		//convert permutation augmented name to only name
 		//Fill elementName2ALLMap and originalElementName2KMap in convert methods
@@ -1497,9 +1495,9 @@ public class AnnotatePermutationsUsingForkJoin {
 
 
 	public static void writeInformation(){
-		System.out.println("Java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory());
-        System.out.println("Java runtime total memory: " + java.lang.Runtime.getRuntime().totalMemory());	
-		System.out.println("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
+		GlanetRunner.appendLog("Java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory());
+        GlanetRunner.appendLog("Java runtime total memory: " + java.lang.Runtime.getRuntime().totalMemory());	
+		GlanetRunner.appendLog("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
 	
 	}
 	
@@ -1688,13 +1686,12 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 		
 	
-		System.out.println("Concurrent programming has been started.");				
+		GlanetRunner.appendLog("Concurrent programming has been started.");				
 		//concurrent programming
 		//generate random data
 		//then annotate permutations concurrently
 		annotatePermutationsUsingForkJoin.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,  tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,overlapDefinition);		
-		System.out.println("Concurrent programming has been ended.");				
-			
+		GlanetRunner.appendLog("Concurrent programming has been ended.");				
 		
 		//First Calculate Empirical P Values and Bonferroni Corrected Empirical P Values starts
 		//List<FunctionalElement> list is filled in this method

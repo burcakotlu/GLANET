@@ -29,15 +29,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-
-
+import ui.GlanetRunner;
 
 public class MapSNPstoKEGGPathway {
 	
@@ -115,7 +113,7 @@ public class MapSNPstoKEGGPathway {
 					  }
 					  
 				  }else{
-					  System.out.println("Input File Format is not as accepted!");
+					  GlanetRunner.appendLog("Input File Format is not as accepted!");
 					  break;
 				  }
 				  
@@ -131,7 +129,7 @@ public class MapSNPstoKEGGPathway {
 					  if (indexofColon>0){
 						  geneID= strLine.substring(indexofColon+1,secondIndexofTab);
 					  }else{
-						  System.out.println("Input File Format is not as accepted!");
+						  GlanetRunner.appendLog("Input File Format is not as accepted!");
 						  break;
 					  }					  
 					  
@@ -155,8 +153,8 @@ public class MapSNPstoKEGGPathway {
 							  DomElement element = listIterator.next();
 							  
 							  if (element.getAttribute("value").equals("Download")){
-//								  System.out.println("Download exist");
-//								  System.out.println(element.getClass());
+//								  GlanetRunner.appendLog("Download exist");
+//								  GlanetRunner.appendLog(element.getClass());
 								  if (element.getClass().toString().contains("HtmlSubmitInput")){
 										 	HtmlSubmitInput htmlSubmitInput = (HtmlSubmitInput) element;
 										  	Page saveFilePage = htmlSubmitInput.click();
@@ -196,7 +194,7 @@ public class MapSNPstoKEGGPathway {
 					  }					  					  					
 					  					  				  
 				  }else{
-					  System.out.println("Input File Format is not as accepted!");
+					  GlanetRunner.appendLog("Input File Format is not as accepted!");
 					  break;
 				  }									  
 					 					  

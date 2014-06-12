@@ -6,7 +6,6 @@
 package jaxbxjctool;
 
 import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -20,9 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 /**
@@ -1085,7 +1083,7 @@ public static String takeComplementforeachAllele(String allele){
 		refSeqId = chrName2RefSeqIdforGrch37Map.get(chrNamewithoutPreceedingChr);
 				
 	  
-	  //System.out.println("EFETCH RESULT:");
+	  //GlanetRunner.appendLog("EFETCH RESULT:");
 	  // Read from the URL
 	  try
 	  { 
@@ -1107,8 +1105,8 @@ public static String takeComplementforeachAllele(String allele){
 	        // Close the connection
 	        in.close();
 	  }catch (Exception e){ 
-		  System.out.println("Error reading from the URL:");
-		  System.out.println(e);
+		  GlanetRunner.appendLog("Error reading from the URL:");
+		  GlanetRunner.appendLog(e);
 	  }
 	  
 	
@@ -1735,7 +1733,7 @@ public static String takeComplementforeachAllele(String allele){
 					
 					//start debug
 					if (snpKeyString.equals("snp_chr10_111787715")){
-						System.out.println("debug here");
+						GlanetRunner.appendLog("debug here");
 					}
 					//end debug	
 				
@@ -1767,7 +1765,7 @@ public static String takeComplementforeachAllele(String allele){
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				GlanetRunner.appendLog(entry.getKey());
 				
 			}//End of each given interval
 			
@@ -2161,7 +2159,7 @@ public static String takeComplementforeachAllele(String allele){
 					
 					//start debug
 					if (snpKeyString.equals("snp_chr10_111787715")){
-						System.out.println("debug here");
+						GlanetRunner.appendLog("debug here");
 					}
 					//end debug	
 				
@@ -2193,7 +2191,7 @@ public static String takeComplementforeachAllele(String allele){
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				GlanetRunner.appendLog(entry.getKey());
 				
 			}//End of each given interval
 			

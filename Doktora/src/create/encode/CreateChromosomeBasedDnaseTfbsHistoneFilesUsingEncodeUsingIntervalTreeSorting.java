@@ -13,7 +13,6 @@
  * 
  */
 
-
 package create.encode;
 
 import intervaltree.ChromosomeName;
@@ -22,7 +21,7 @@ import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
-
+import ui.GlanetRunner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,13 +32,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
-
-
-
 
 public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
 	
@@ -444,7 +438,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 					start = start + "idrPool.".length();
 					cellLineDnase.setCellLineName(fileName.substring(start, indexof_Dnase).toUpperCase(Locale.ENGLISH));																
 				}else{
-					System.out.println("Unknown Lab: " + fileName);
+					GlanetRunner.appendLog("Unknown Lab: " + fileName);
 				}
 			} else{			
 				cellLineDnase.setCellLineName(fileName.substring(start, indexofDukeDnase).toUpperCase(Locale.ENGLISH));
@@ -456,25 +450,25 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_DS).toUpperCase(Locale.ENGLISH));								
 			}else{
-				System.out.println("Unknown Lab: " + fileName);
+				GlanetRunner.appendLog("Unknown Lab: " + fileName);
 			}
 		}else if (indexof_Dnase>=0){
 			if (indexofIdrPool>=0){
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_Dnase).toUpperCase(Locale.ENGLISH));																
 			}else{
-				System.out.println("Unknown Lab: " + fileName);
+				GlanetRunner.appendLog("Unknown Lab: " + fileName);
 			}
 		}else if (indexof_FAIRE>=0){
 			if (indexofIdrPool>=0){
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_FAIRE).toUpperCase(Locale.ENGLISH));																				
 			}else{
-				System.out.println("Unknown Lab: " + fileName);
+				GlanetRunner.appendLog("Unknown Lab: " + fileName);
 			}
 			
 		}else{
-			System.out.println("Unknown Lab: " + fileName);
+			GlanetRunner.appendLog("Unknown Lab: " + fileName);
 		}
 		
 		cellLineDnase.setFileName(fileName);
@@ -504,7 +498,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		}else if (broadHistoneStart>=0){
 			start = broadHistoneStart+ "BroadHistone".length();
 		}else{
-			System.out.println("Unknown Lab in  Histone Files");	
+			GlanetRunner.appendLog("Unknown Lab in  Histone Files");	
 		}
 		
 		
@@ -567,7 +561,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //			BroadHistone
 			start = broadHistoneStart+"BroadHistone".length();			
 		}else{
-			System.out.println("Unknown Lab in TFBS file");	
+			GlanetRunner.appendLog("Unknown Lab in TFBS file");	
 		}
 			
 		
@@ -611,7 +605,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		long numberofIntervalsInDnaseFiles = 0;
 		
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -667,10 +661,10 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							e.printStackTrace();
 						}			 
 		        	}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
-				System.out.println("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
+				GlanetRunner.appendLog("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
     			
 	        } //End of if: For all files in this directory
 		
@@ -688,7 +682,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		
 		
 		 if(!mainDirectory.exists()){
-			 System.out.println("No File/Dir"); 
+			 GlanetRunner.appendLog("No File/Dir"); 
 		 }
         
 		 // Reading directory contents
@@ -747,12 +741,12 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            System.out.println(files[i]);		            
+//		            GlanetRunner.appendLog(files[i]);		            
 		         
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
-				System.out.println("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
+				GlanetRunner.appendLog("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
 	    		
 	        } //End of if: For all files in this directory
 				
@@ -767,7 +761,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		int numberofIntervalsInTranscriptionFactorFiles = 0;
 		
 		 if(!mainDirectory.exists()){
-			 System.out.println("No File/Dir"); 
+			 GlanetRunner.appendLog("No File/Dir"); 
 		 }
         
 		 // Reading directory contents
@@ -826,13 +820,13 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            System.out.println(files[i]);		            
+//		            GlanetRunner.appendLog(files[i]);		            
 		         
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
 		        
-				System.out.println("number of Intervals In Transcription Factor Files: " + numberofIntervalsInTranscriptionFactorFiles);
+				GlanetRunner.appendLog("number of Intervals In Transcription Factor Files: " + numberofIntervalsInTranscriptionFactorFiles);
 			    
 	        } //For all files in this directory
 				
@@ -895,9 +889,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 						indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 						
 						if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || indexofFifthTab <0){
-							System.out.println("Unexpected histone format in Unsorted Histone File");
-							System.out.println("For chromosome " + i);
-							System.out.println(strLine);								
+							GlanetRunner.appendLog("Unexpected histone format in Unsorted Histone File");
+							GlanetRunner.appendLog("For chromosome " + i);
+							GlanetRunner.appendLog(strLine);								
 						}
 						
 						histone.setChromName(strLine.substring(0, indexofFirstTab));							
@@ -970,9 +964,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 							
 							if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0)){
-								System.out.println("Unexpected tfbs format in Unsorted Dnase File");
-								System.out.println("For chromosome " + i);
-								System.out.println(strLine);								
+								GlanetRunner.appendLog("Unexpected tfbs format in Unsorted Dnase File");
+								GlanetRunner.appendLog("For chromosome " + i);
+								GlanetRunner.appendLog(strLine);								
 							}
 							
 							dnase.setChromName(strLine.substring(0, indexofFirstTab));							
@@ -1053,9 +1047,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 							
 							if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || indexofFifthTab <0){
-								System.out.println("Unexpected tfbs format in Unsorted Tfbs File");
-								System.out.println("For chromosome " + i);
-								System.out.println(strLine);								
+								GlanetRunner.appendLog("Unexpected tfbs format in Unsorted Tfbs File");
+								GlanetRunner.appendLog("For chromosome " + i);
+								GlanetRunner.appendLog(strLine);								
 							}
 							
 							tfbs.setChromName(strLine.substring(0, indexofFirstTab));							

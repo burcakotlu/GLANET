@@ -16,10 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 
@@ -113,7 +112,7 @@ public class KeggPathwayAugmentation {
 					if (!(existingNcbiGeneIdList.contains(ncbiGeneId))){
 						existingNcbiGeneIdList.add(ncbiGeneId);
 					} else{
-						System.out.println("More than one ncbi gene ids for the same kegg pathway");
+						GlanetRunner.appendLog("More than one ncbi gene ids for the same kegg pathway");
 					}
 					
 				}
@@ -501,7 +500,7 @@ public class KeggPathwayAugmentation {
 		HumanGenesAugmentation.augmentGeneIdWithRefSeqGeneName(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.augmentRefSeqGeneNamewithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
 		
-		System.out.println("Stop here");
+		GlanetRunner.appendLog("Stop here");
 
 	}
 

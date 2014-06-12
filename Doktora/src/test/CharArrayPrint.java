@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class CharArrayPrint {
 	
 	public static  boolean equals(char[] x, char[] y){

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-
+import ui.GlanetRunner;
 
 public class CreateSimulatedData {
 	
@@ -69,7 +69,7 @@ public class CreateSimulatedData {
 				caseandcontrolArray[i][index]=1;
 			}
 		}
-		System.out.println("Data Simulation is over");
+		GlanetRunner.appendLog("Data Simulation is over");
 	}
 	
 	public void readInputFile(String inputFilename){
@@ -95,7 +95,7 @@ public class CreateSimulatedData {
 				  out.write(ssnumber+"\n");
 			  }
 			  //Close the input stream
-			  System.out.println("Number of snps in dummy input data: " +  referenceSNPs.size());
+			  GlanetRunner.appendLog("Number of snps in dummy input data: " +  referenceSNPs.size());
 			  out.close();
 			  in.close();
 			  }catch (Exception e){//Catch exception if any
@@ -110,9 +110,9 @@ public class CreateSimulatedData {
         long heapSize = Runtime.getRuntime().totalMemory();
          
         //Print the jvm heap size.
-        System.out.println("Heap Size = " + heapSize);
+        GlanetRunner.appendLog("Heap Size = " + heapSize);
         
-        System.out.println(java.lang.Runtime.getRuntime().maxMemory()); 
+        GlanetRunner.appendLog(java.lang.Runtime.getRuntime().maxMemory()); 
 		
 		CreateSimulatedData createSimulatedData = new CreateSimulatedData();
 		createSimulatedData.readInputFile(args[0]);

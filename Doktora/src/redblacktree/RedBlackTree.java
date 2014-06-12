@@ -4,6 +4,7 @@
  * 
  */
 
+import ui.GlanetRunner;
 
 package redblacktree;
 
@@ -124,7 +125,7 @@ public class RedBlackTree {
 		RedBlackTreeNode y = x.getRight();
 		
 		if(y==null){
-			System.out.println("Invalid Left Rotate Operation");
+			GlanetRunner.appendLog("Invalid Left Rotate Operation");
 		}
 		else {
 			x.setRight(y.getLeft());
@@ -162,7 +163,7 @@ public class RedBlackTree {
 		RedBlackTreeNode y = x.getLeft();
 		
 		if(y==null){
-			System.out.println("Invalid Right Rotate Operation");
+			GlanetRunner.appendLog("Invalid Right Rotate Operation");
 		}
 		else {
 			x.setLeft(y.getRight());
@@ -202,7 +203,7 @@ public class RedBlackTree {
 		if (node.getLeft()!=null)
 			redBlackTreeInfixTraversal(node.getLeft());
 		
-		System.out.println(node.getKey());
+		GlanetRunner.appendLog(node.getKey());
 		
 		if (node.getRight()!=null)
 			redBlackTreeInfixTraversal(node.getRight());

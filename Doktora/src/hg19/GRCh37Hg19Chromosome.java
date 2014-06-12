@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 public class GRCh37Hg19Chromosome {
@@ -279,7 +279,7 @@ public class GRCh37Hg19Chromosome {
 			
 			//check whether fasta file starts with > greater character
 			if (!strLine.startsWith(">")){
-				System.out.println("Fasta file does not start with > character.");
+				GlanetRunner.appendLog("Fasta file does not start with > character.");
 			}
 			
 			
@@ -292,7 +292,7 @@ public class GRCh37Hg19Chromosome {
 			}//end of while
 			
 			
-			System.out.println("nthBase must be written once: " + nthBase + " dnaSequenceArray construction has ended.");
+			GlanetRunner.appendLog("nthBase must be written once: " + nthBase + " dnaSequenceArray construction has ended.");
 			
 		} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -413,7 +413,7 @@ public class GRCh37Hg19Chromosome {
 		for(int i=0; i<=10; i++){
 			System.out.print(chr1AllSequence[97533597+i]);
 		}
-		System.out.println("\n");
+		GlanetRunner.appendLog("\n");
 
 
 	}

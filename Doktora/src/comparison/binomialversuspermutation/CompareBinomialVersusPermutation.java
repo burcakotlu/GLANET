@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -72,7 +72,7 @@ public class CompareBinomialVersusPermutation {
 						name2AdjustedPValueMap.put(name, adjustedPValue);
 													
 					}else{
-						System.out.println("Unexpected Duplicate Element");
+						GlanetRunner.appendLog("Unexpected Duplicate Element");
 					}		
 					
 				}//End of while
@@ -134,7 +134,7 @@ public class CompareBinomialVersusPermutation {
 						elementList.add(element);
 												
 					}else{
-						System.out.println("Unexpected Duplicate Element");
+						GlanetRunner.appendLog("Unexpected Duplicate Element");
 					}		
 					
 				}//End of while
@@ -410,7 +410,7 @@ public class CompareBinomialVersusPermutation {
 					name2AdjustedPValuePermutation_1000_with_Map.size()>0
 					){
 					
-					System.out.println("Unexpected Situation 3");
+					GlanetRunner.appendLog("Unexpected Situation 3");
 			}
 			
 			bufferedWriter.close();
@@ -706,7 +706,7 @@ public class CompareBinomialVersusPermutation {
 					name2AdjustedPValuePermutation_1000_with_Map.size()>0 ||
 					name2AdjustedPValuePermutation_1000_without_Map.size()>0){
 					
-					System.out.println("Unexpected Situation 2");
+					GlanetRunner.appendLog("Unexpected Situation 2");
 			}
 			
 			//Close the buffer

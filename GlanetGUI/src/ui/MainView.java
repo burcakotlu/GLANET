@@ -1,11 +1,8 @@
 package ui;
 
 import java.io.File;
-
 import javax.swing.*;
-
 import common.Commons;
-
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -36,6 +33,7 @@ public class MainView extends JPanel{
 	private JCheckBox tfEnrichment;
 	private JCheckBox keggPathwayEnrichment;
 	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
+	private JTextArea logArea;
 	
 	public interface MainViewDelegate {
 		
@@ -308,6 +306,15 @@ public class MainView extends JPanel{
         jobName = new JTextField();
         listPane.add( createBorderedPanel( "Job Name", jobName));
         
+        logArea = new JTextArea( 5, 20);
+        JScrollPane logAreaScrollPane = new JScrollPane( logArea);
+        logAreaScrollPane.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        logAreaScrollPane.setPreferredSize(new Dimension(250, 250));
+        logArea.setEditable( false);
+        logArea.setLineWrap(true);
+        logArea.setWrapStyleWord(true);
+        listPane.add( createBorderedPanel( "Log", logAreaScrollPane));
+        
         //runButton added to listPane
         runButton = new JButton("Run");
 		runButton.addActionListener(runButtonPressed);
@@ -462,5 +469,15 @@ public class MainView extends JPanel{
   	  	}
 		
 		revalidate();
+	}
+	
+	public void appendNewTextToLogArea( String text){
+		
+		logArea.append( text + "\n");
+	}
+	
+	public void appendNewTextToLogArea( int text){
+		
+		logArea.append( text + "\n");
 	}
 }

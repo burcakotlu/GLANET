@@ -28,7 +28,6 @@ import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.NodeType;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -41,11 +40,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import ui.GlanetRunner;
 import create.ChromosomeBasedFilesandOperations;
 
 
@@ -240,7 +237,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 //			Consume first line since first line contains column names
 			strLine = bufferedReader.readLine();
 			if (strLine!=null){
-//				System.out.println(strLine);				
+//				GlanetRunner.appendLog(strLine);				
 			}
 			
 			while ((strLine = bufferedReader.readLine()) != null)   {	
@@ -259,7 +256,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 					refSeqGene.setGeneId(Commons.ZERO);
 					
 					//for debug starts
-					System.out.println(refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId());
+					GlanetRunner.appendLog(refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId());
 					//for debug ends
 
 				}
@@ -482,7 +479,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(chromName, bufferedWriterList);
 			//Pay attention, bufferedWriter is null for such refseq genes
 			//chr6_ssto_hap7	LY6G5B
-			//System.out.println(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
+			//GlanetRunner.appendLog(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
 		
 			
 			if (bufferedWriter!=null){
@@ -491,18 +488,18 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			}
 		}//End of for
 		
-		System.out.println("Number of intervals in exons of refseq genes: " + information.getNumberofExons());
-		System.out.println("Number of intervals in introns of refseq genes: " + information.getNumberofIntrons());
+		GlanetRunner.appendLog("Number of intervals in exons of refseq genes: " + information.getNumberofExons());
+		GlanetRunner.appendLog("Number of intervals in introns of refseq genes: " + information.getNumberofIntrons());
 		
-		System.out.println("Number of intervals in 5p1s of refseq genes: " + information.getNumberof5p1s());
-		System.out.println("Number of intervals in 5p2s of refseq genes: " + information.getNumberof5p2s());
-		System.out.println("Number of intervals in 5ds of refseq genes: " + information.getNumberof5ds());
+		GlanetRunner.appendLog("Number of intervals in 5p1s of refseq genes: " + information.getNumberof5p1s());
+		GlanetRunner.appendLog("Number of intervals in 5p2s of refseq genes: " + information.getNumberof5p2s());
+		GlanetRunner.appendLog("Number of intervals in 5ds of refseq genes: " + information.getNumberof5ds());
 		
-		System.out.println("Number of intervals in 3p1s of refseq genes: " + information.getNumberof3p1s());
-		System.out.println("Number of intervals in 3p2s of refseq genes: " + information.getNumberof3p2s());
-		System.out.println("Number of intervals in 3ds of refseq genes: " + information.getNumberof3ds());
+		GlanetRunner.appendLog("Number of intervals in 3p1s of refseq genes: " + information.getNumberof3p1s());
+		GlanetRunner.appendLog("Number of intervals in 3p2s of refseq genes: " + information.getNumberof3p2s());
+		GlanetRunner.appendLog("Number of intervals in 3ds of refseq genes: " + information.getNumberof3ds());
 		
-		System.out.println("Number of intervals in refseq genes: " + information.getNumberofRefSeqGeneIntervals());
+		GlanetRunner.appendLog("Number of intervals in refseq genes: " + information.getNumberofRefSeqGeneIntervals());
 		
 	}
 
@@ -551,9 +548,9 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 //					chrY	16636453	16636816	NR_028319	22829	Exon1	+	NLGN4Y
 
 					if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || (indexofFifthTab<0) || (indexofSixthTab<0) || indexofSeventhTab<0){
-						System.out.println("Unexpected format in Unsorted RefSeq Gene File");
-						System.out.println("For chromosome " + i);
-						System.out.println(strLine);								
+						GlanetRunner.appendLog("Unexpected format in Unsorted RefSeq Gene File");
+						GlanetRunner.appendLog("For chromosome " + i);
+						GlanetRunner.appendLog(strLine);								
 					}
 					
 					refSeqGeneInterval.setChromName(strLine.substring(0, indexofFirstTab));							
@@ -606,7 +603,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 				if(!(refSeq2GeneHashMap.containsKey(refSeqName))){
 					refSeq2GeneHashMap.put(refSeqName, geneId);
 				}else{
-					System.out.println("RefSeqName already exists " + refSeqName);
+					GlanetRunner.appendLog("RefSeqName already exists " + refSeqName);
 				}
 			}// End of while
 			

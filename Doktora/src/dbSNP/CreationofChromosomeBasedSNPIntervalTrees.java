@@ -13,14 +13,13 @@ import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 public class CreationofChromosomeBasedSNPIntervalTrees {
@@ -194,8 +193,8 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 						rsId = subString;
 						count++;
 						
-//						System.out.println("*************************");
-//						System.out.println(rsId);
+//						GlanetRunner.appendLog("*************************");
+//						GlanetRunner.appendLog(rsId);
 					}
 					
 //					SNP     1. Rs.sequence.observed                         (observed variation alleles)
@@ -214,7 +213,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 						indexofEqualSign = alleleswithEqualSign.indexOf('=');
 						alleles = alleleswithEqualSign.substring(indexofEqualSign+1);
 					
-//						System.out.println(alleles);
+//						GlanetRunner.appendLog(alleles);
 						getObservedVariationAlleles(alleles,observedVariationAlleles);
 						
 						
@@ -279,7 +278,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 						orient = orientwithEqualSign.substring(indexofEqualSign+1).charAt(0);
 											
 						
-//						System.out.println(assembly + "\t" + chrNumber + "\t" + chrPosition + "\t" + orient + "\t");
+//						GlanetRunner.appendLog(assembly + "\t" + chrNumber + "\t" + chrPosition + "\t" + orient + "\t");
 						
 						
 					}
@@ -287,7 +286,7 @@ public class CreationofChromosomeBasedSNPIntervalTrees {
 
 			}
 			
-			System.out.println("number of snps is: " + count);
+			GlanetRunner.appendLog("number of snps is: " + count);
 			//Close bufferedReader
 			bufferedReader.close();
 			

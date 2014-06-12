@@ -13,7 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -52,7 +52,7 @@ public class ChromosomeBasedGCOneZeroFiles {
 			
 			//check whether fasta file starts with > greater character
 			if (!strLine.startsWith(">")){
-				System.out.println("Fasta file does not start with > character.");
+				GlanetRunner.appendLog("Fasta file does not start with > character.");
 			}
 			
 			//end of line characters remain unchanged
@@ -86,7 +86,7 @@ public class ChromosomeBasedGCOneZeroFiles {
 			
 			//numberofBases complies with the size of the hg19 chromosomes
 			
-			System.out.println("chr"+chromNumber + " "+ numberofBases);
+			GlanetRunner.appendLog("chr"+chromNumber + " "+ numberofBases);
 			
 			bufferedWriter.close();
 			bufferedReader.close();

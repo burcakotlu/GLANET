@@ -7,11 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
 /**
  * @author burcakotlu
@@ -37,7 +36,7 @@ public class InputDataProcess {
 		
 		while(itr.hasNext()){
 			
-			System.out.println(itr.toString());
+			GlanetRunner.appendLog(itr.toString());
 			itr.next();
 			
 		}
@@ -82,7 +81,7 @@ public class InputDataProcess {
 			}
 			
 //			//for debug start
-//			System.out.println("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
+//			GlanetRunner.appendLog("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
 //			List<String> difference = (List<String>) nonOverLap(searched,found);
 //			printDifference(difference);
 //			//for debug end

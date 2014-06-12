@@ -10,10 +10,9 @@ package mapabilityandgc;
 
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 public class SingletonChromosomeBasedMapabilityIntervalTree {
@@ -302,7 +301,7 @@ public class SingletonChromosomeBasedMapabilityIntervalTree {
 		//for testing purposes
 //		intervalTree = getSingletonChromosomeBasedMapabilityIntervalTree(Commons.CHROMOSOME1, chromSize);
 
-		System.out.println("Look at interval tree");
+		GlanetRunner.appendLog("Look at interval tree");
 	}
 
 }

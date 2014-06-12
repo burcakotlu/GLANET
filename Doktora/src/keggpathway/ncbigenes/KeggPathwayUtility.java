@@ -9,7 +9,6 @@ package keggpathway.ncbigenes;
 import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntObjectMap;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -23,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -390,7 +389,7 @@ public class KeggPathwayUtility {
 					if (!(existingNcbiGeneIdList.contains(ncbiGeneId))){
 						existingNcbiGeneIdList.add(ncbiGeneId);
 					} else{
-						System.out.println("More than one same ncbi gene ids for the same kegg pathway");
+						GlanetRunner.appendLog("More than one same ncbi gene ids for the same kegg pathway");
 					}
 					
 					keggPathway2NcbiGeneIdHashMap.put(keggPathwayName, existingNcbiGeneIdList);
@@ -411,7 +410,7 @@ public class KeggPathwayUtility {
 					if(!(existingKeggPathwayList.contains(keggPathwayName))){
 						existingKeggPathwayList.add(keggPathwayName);
 					} else{
-						System.out.println("More than one same kegg pathway for the same ncbi gene id");
+						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
 					}
 					
 					ncbiGeneId2KeggPathwayHashMap.put(ncbiGeneId, existingKeggPathwayList);
@@ -531,7 +530,7 @@ public class KeggPathwayUtility {
 					if(!(existingKeggPathwayList.contains(keggPathwayNumber))){
 						existingKeggPathwayList.add(keggPathwayNumber);
 					} else{
-						System.out.println("More than one same kegg pathway for the same ncbi gene id");
+						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
 					}
 					
 					ncbiGeneId2KeggPathwayNumberHashMap.put(ncbiGeneId, existingKeggPathwayList);		
@@ -612,15 +611,12 @@ public class KeggPathwayUtility {
 					if(!(existingKeggPathwayList.contains(keggPathwayName))){
 						existingKeggPathwayList.add(keggPathwayName);
 					} else{
-						System.out.println("More than one same kegg pathway for the same ncbi gene id");
+						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
 					}
 					
 					ncbiGeneId2KeggPathwayHashMap.put(ncbiGeneId, existingKeggPathwayList);
 		
 				}
-				
-					
-				
 			} // End of While
 			
 		} catch (FileNotFoundException e) {

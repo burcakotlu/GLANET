@@ -6,13 +6,11 @@
 package intervaltree;
 
 import common.Commons;
-
+import ui.GlanetRunner;
 /**
  * 
  */
 public enum ChromosomeName {
-	
-	
 	
 	CHROMOSOME1(1),
 	CHROMOSOME2(2),
@@ -222,9 +220,9 @@ public static String convertEnumtoString(ChromosomeName  chrName){
 
 	public static void main(String[] args){
 		ChromosomeName chrName = CHROMOSOMEY;
-		System.out.println(chrName);
-		System.out.println(chrName.name());
-		System.out.println(chrName.getChromosomeName());
+		GlanetRunner.appendLog(chrName.toString());
+		GlanetRunner.appendLog(chrName.name());
+		GlanetRunner.appendLog(chrName.getChromosomeName());
 
 	}
 }

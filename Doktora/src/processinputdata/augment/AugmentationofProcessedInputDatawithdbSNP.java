@@ -20,7 +20,6 @@ package processinputdata.augment;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -31,11 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
-
 import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
 
 public class AugmentationofProcessedInputDatawithdbSNP {
@@ -174,7 +171,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 					}//End of if 
 				}//for every snp
 				
-				System.out.println(entry.getKey() +"\t" + entry.getValue().size());
+				GlanetRunner.appendLog(entry.getKey() +"\t" + entry.getValue().size());
 				
 				dbSNPIntervalTree = null;
 			}//for every chromosome

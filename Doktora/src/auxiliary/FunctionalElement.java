@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import ui.GlanetRunner;
 
 public class FunctionalElement implements Comparable<FunctionalElement> {
 	
@@ -207,7 +208,7 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	
 	public static void traverseList(List<FunctionalElement> list){
 		for (FunctionalElement ele: list){
-			System.out.println("empirical p value" +"\t" + ele.getEmpiricalPValue() + "\t" + "bonferroni corrected empirical p value" +"\t" + ele.getBonferroniCorrectedEmpiricalPValue());
+			GlanetRunner.appendLog("empirical p value" +"\t" + ele.getEmpiricalPValue() + "\t" + "bonferroni corrected empirical p value" +"\t" + ele.getBonferroniCorrectedEmpiricalPValue());
 			
 		}
 	}
@@ -240,16 +241,16 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 		list.add(element3);
 		list.add(element4);
 		
-		System.out.println("Before any sort");
+		GlanetRunner.appendLog("Before any sort");
 		traverseList(list);
 		
 		
 		Collections.sort(list,FunctionalElement.EMPIRICAL_P_VALUE);
-		System.out.println("After sort empirical p value");
+		GlanetRunner.appendLog("After sort empirical p value");
 		traverseList(list);
 		
 		Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
-		System.out.println("After sort bonferroni corrected empirical p value");
+		GlanetRunner.appendLog("After sort bonferroni corrected empirical p value");
 		traverseList(list);
 		
 		

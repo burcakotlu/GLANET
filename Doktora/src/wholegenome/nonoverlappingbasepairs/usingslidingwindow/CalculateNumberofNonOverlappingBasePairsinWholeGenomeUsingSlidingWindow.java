@@ -23,7 +23,6 @@
 package wholegenome.nonoverlappingbasepairs.usingslidingwindow;
 
 import hg19.GRCh37Hg19Chromosome;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -36,9 +35,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import keggpathway.ncbigenes.KeggPathwayUtility;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWindow {
@@ -50,7 +48,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWi
 	
 	
 	public void printChromosomeSizes(List<Integer> chromosomeSizes){
-		System.out.println("For information : Chromosome Sizes");
+		GlanetRunner.appendLog("For information : Chromosome Sizes");
 		
 		for(int i =0; i<chromosomeSizes.size(); i++){
 			if (i == 22)
@@ -232,7 +230,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWi
 			//therefore jthWindow<= numberofWindows is removed
 			for(int jthWindow = 0; ;){
 				
-//				System.out.println("jth\t" + jthWindow + "\twindow");,
+//				GlanetRunner.appendLog("jth\t" + jthWindow + "\twindow");,
 				
 				
 				allowedWindowLow = jthWindow * WINDOW_SIZE;
@@ -486,7 +484,7 @@ public void calculateTfbsNumberofNonoverlappingBasePairs(int chromosomeNumber, i
 			//therefore jthWindow<= numberofWindows is removed			
 			for(int jthWindow = 0; ;){
 				
-//				System.out.println("jth\t" + jthWindow + "\twindow");,
+//				GlanetRunner.appendLog("jth\t" + jthWindow + "\twindow");,
 				
 				
 				allowedWindowLow = jthWindow * WINDOW_SIZE;
@@ -742,7 +740,7 @@ public void calculateHistoneNumberofNonoverlappingBasePairs(int chromosomeNumber
 		//therefore jthWindow<= numberofWindows is removed		
 		for(int jthWindow = 0; ;){
 			
-//			System.out.println("jth\t" + jthWindow + "\twindow");,
+//			GlanetRunner.appendLog("jth\t" + jthWindow + "\twindow");,
 			
 			
 			allowedWindowLow = jthWindow * WINDOW_SIZE;
@@ -997,7 +995,7 @@ public void calculateExonBasedKeggPathwayNumberofNonoverlappingBasePairs(int chr
 		//therefore jthWindow<= numberofWindows is removed
 		for(int jthWindow = 0; ;){
 			
-//			System.out.println("jth\t" + jthWindow + "\twindow");,
+//			GlanetRunner.appendLog("jth\t" + jthWindow + "\twindow");,
 			
 			allowedWindowLow = jthWindow * WINDOW_SIZE;
 			allowedWindowHigh = allowedWindowLow + WINDOW_SIZE-1; 
@@ -1300,7 +1298,7 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 		//there are intervals in sorted chromosome based files may exceed the given chrom size
 		//therefore jthWindow<= numberofWindows condition is removed
 		for(int jthWindow = 0; ;){
-//			System.out.println("jth\t" + jthWindow + "\twindow");,
+//			GlanetRunner.appendLog("jth\t" + jthWindow + "\twindow");,
 			
 			allowedWindowLow = jthWindow * WINDOW_SIZE;
 			allowedWindowHigh = allowedWindowLow + WINDOW_SIZE-1; 

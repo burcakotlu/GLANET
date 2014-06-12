@@ -11,7 +11,6 @@ package mapabilityandgc;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -22,9 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
-
 import empiricalpvalues.GCCharArray;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
@@ -409,7 +407,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
 			
 			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 			
@@ -455,7 +453,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
 			
 			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName, chromSize);
 

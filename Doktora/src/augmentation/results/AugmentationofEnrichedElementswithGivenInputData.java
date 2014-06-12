@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -430,7 +430,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 			}//End of for each enriched Kegg Pathway element	
 			
 			//for debug purposes start
-			System.out.println("numberofEnrichedTfExonBasedKeggPathwayElements " + numberofEnrichedTfExonBasedKeggPathwayElements);
+			GlanetRunner.appendLog("numberofEnrichedTfExonBasedKeggPathwayElements " + numberofEnrichedTfExonBasedKeggPathwayElements);
 			//for debug purposes end
 			
 			bufferedReader.close();

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -260,7 +260,7 @@ public class HumanGenesAugmentation {
 		augmentGeneIdWithRefSeqGeneName(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList,humanGeneId2RefSeqGeneNameListMap);		
 		augmentRefSeqGeneNamewithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
 		
-		System.out.println("come here");
+		GlanetRunner.appendLog("come here");
 	}
 
 }

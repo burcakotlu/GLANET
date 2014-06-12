@@ -27,11 +27,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import ui.GlanetRunner;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.commons.math3.util.FastMath;
-
 import common.Commons;
 
 
@@ -163,7 +162,7 @@ public class CalculateBinomialDistributions {
 		double pValue = 0.0;
 		
 //		if (element.getName().equals("H3K27AC")){
-//			System.out.println("here");
+//			GlanetRunner.appendLog("here");
 //		}
 		
 		for(int k = numberofOccurrencesinSearchInputData ; k<= searchInputSize; k++){
@@ -193,7 +192,7 @@ public class CalculateBinomialDistributions {
 			double pValue = computePvalue(element);
 			element.setPValue(pValue);
 			if (pValue<0.00001){
-//				System.out.println(element.getName() + "\tp-value:\t" + pValue);
+//				GlanetRunner.appendLog(element.getName() + "\tp-value:\t" + pValue);
 			}
 		}
 		

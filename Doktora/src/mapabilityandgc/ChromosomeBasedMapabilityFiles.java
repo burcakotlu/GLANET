@@ -16,9 +16,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
-
 
 public class ChromosomeBasedMapabilityFiles {
 	
@@ -64,7 +63,7 @@ public class ChromosomeBasedMapabilityFiles {
 					
 					correspondingBufferedWriter = chromName2BufferedWriterHashMap.get(chromName);
 					if (correspondingBufferedWriter== null){
-						System.out.println(chromName);
+						GlanetRunner.appendLog(chromName);
 					}else{
 						correspondingBufferedWriter.write(chromName + "\t" + low + "\t"  + high + "\t" + mapability + "\n");
 					}

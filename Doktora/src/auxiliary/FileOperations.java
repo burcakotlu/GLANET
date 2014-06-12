@@ -19,10 +19,11 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
+import ui.GlanetRunner;
 
 public class FileOperations {
 	
-	//Can Fýrtýna
+	//Can Firtina
 	public static FileWriter createFileWriter(String path) throws IOException{
 		
 		File f = new File(path);
@@ -127,7 +128,7 @@ public class FileOperations {
 		      public FileVisitResult visitFile(Path file,
 		              BasicFileAttributes attrs) throws IOException {
 		 
-		          System.out.println("Deleting file: " + file);
+		          GlanetRunner.appendLog("Deleting file: " + file);
 		          Files.delete(file);
 		          return FileVisitResult.CONTINUE;
 		      }
@@ -136,7 +137,7 @@ public class FileOperations {
 		      public FileVisitResult postVisitDirectory(Path dir,
 		              IOException exc) throws IOException {
 		 
-		          System.out.println("Deleting dir: " + dir);
+		          GlanetRunner.appendLog("Deleting dir: " + dir);
 		          if (exc == null) {
 		              Files.delete(dir);
 		              return FileVisitResult.CONTINUE;
@@ -153,11 +154,11 @@ public class FileOperations {
 	}
 	
 	public static void deleteOldFiles(String directoryName){
-		System.out.println("Start deleting old files...");
+		GlanetRunner.appendLog("Start deleting old files...");
 		//Delete old files before new run 
 		File folder = new File(directoryName);
 		deleteOldFiles(folder);
-		System.out.println("Old files are deleted");
+		GlanetRunner.appendLog("Old files are deleted");
 	}
 	
 	
@@ -178,9 +179,9 @@ public class FileOperations {
 		File file = new File(outputFolder + fileName);
 		
 		if(file.delete()){
-			System.out.println(file.getName() + " is deleted!");
+			GlanetRunner.appendLog(file.getName() + " is deleted!");
 		}else{
-			System.out.println("Delete operation is failed.");
+			GlanetRunner.appendLog("Delete operation is failed.");
 		}
 		
 	}

@@ -24,11 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import ui.GlanetRunner;
 import create.ChromosomeBasedFilesandOperations;
 
 
@@ -213,7 +211,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 //			Consume first line since first line contains column names
 			strLine = bufferedReader.readLine();
 			if (strLine!=null){
-//				System.out.println(strLine);				
+//				GlanetRunner.appendLog(strLine);				
 			}
 			
 			while ((strLine = bufferedReader.readLine()) != null)   {	
@@ -422,7 +420,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 
 			//Pay attention, bufferedWriter is null for such refseq genes
 			//chr6_ssto_hap7	LY6G5B
-			//System.out.println(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
+			//GlanetRunner.appendLog(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
 		
 			if(bufferedWriter!=null){
 				createExonIntronIntervals(refSeqGene,i,bufferedWriter);			
@@ -471,9 +469,9 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 //					chrY	16636453	16636816	NR_028319	22829	Exon1	+	NLGN4Y
 
 					if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || (indexofFifthTab<0) || (indexofSixthTab<0) || indexofSeventhTab<0){
-						System.out.println("Unexpected format in Unsorted RefSeq Gene File");
-						System.out.println("For chromosome " + i);
-						System.out.println(strLine);								
+						GlanetRunner.appendLog("Unexpected format in Unsorted RefSeq Gene File");
+						GlanetRunner.appendLog("For chromosome " + i);
+						GlanetRunner.appendLog(strLine);								
 					}
 					
 					refSeqGeneInterval.setChromName(strLine.substring(0, indexofFirstTab));							
@@ -500,7 +498,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 			
 			
 //			//for debug purposes
-//				System.out.println("chr" + i+  " high: " + refSeqGeneIntervalList.get(refSeqGeneIntervalList.size()-1).getIntervalEnd());
+//				GlanetRunner.appendLog("chr" + i+  " high: " + refSeqGeneIntervalList.get(refSeqGeneIntervalList.size()-1).getIntervalEnd());
 //			//for debug purposes
 			
 
@@ -538,7 +536,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 				if(!(refSeq2GeneHashMap.containsKey(refSeqName))){
 					refSeq2GeneHashMap.put(refSeqName, geneId);
 				}else{
-					System.out.println("RefSeqName already exists " + refSeqName);
+					GlanetRunner.appendLog("RefSeqName already exists " + refSeqName);
 				}
 			}// End of while
 			

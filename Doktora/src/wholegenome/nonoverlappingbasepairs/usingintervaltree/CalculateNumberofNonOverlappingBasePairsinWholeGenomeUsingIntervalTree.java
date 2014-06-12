@@ -22,7 +22,6 @@ import intervaltree.IntervalTreeNode;
 import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -35,13 +34,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
-
-
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree {
 	
@@ -271,7 +267,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				}
 				
 				if (overlappedNodeList.size()>0){
-					System.out.println("Overlap");
+					GlanetRunner.appendLog("Overlap");
 				}
 			
 		}
@@ -292,7 +288,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		
 		if (node.getNodeName().isNotSentinel()){
 			if (node.getMax()!=IntervalTree.max(node)){
-				System.out.println("There is a wrongly set max attribute!");
+				GlanetRunner.appendLog("There is a wrongly set max attribute!");
 			}
 			
 			

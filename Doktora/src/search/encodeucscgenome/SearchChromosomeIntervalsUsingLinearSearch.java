@@ -21,7 +21,6 @@
 package search.encodeucscgenome;
 
 import intervaltree.Interval;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,15 +29,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
-
-
-
 
 public class SearchChromosomeIntervalsUsingLinearSearch {
 	
@@ -203,7 +197,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 				bufList.get(23).write(strLine + "\n");
 				bufList.get(23).flush();		
 			}else{
-				System.out.println("Unknown chromosome");
+				GlanetRunner.appendLog("Unknown chromosome");
 			}
 
 		

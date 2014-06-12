@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -55,7 +55,7 @@ public class CalculateNumberofTfElements {
 				
 			}
 			
-			System.out.println(tfName2KMap.size());
+			GlanetRunner.appendLog(tfName2KMap.size());
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

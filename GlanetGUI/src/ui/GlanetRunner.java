@@ -8,14 +8,13 @@ import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
-
 import common.Commons;
 
 public class GlanetRunner extends Thread{
 	
 	private static String args[];
 	private static MainView mainView;
-	
+
 	@Override
 	public void run(){
 		
@@ -60,6 +59,16 @@ public class GlanetRunner extends Thread{
 		//args[1]  already has file separator at the end
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		
+	}
+	
+	public static void appendLog( String log) {
+		
+		getMainView().appendNewTextToLogArea( log);
+	}
+	
+	public static void appendLog( int log) {
+		
+		getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static MainView getMainView() {

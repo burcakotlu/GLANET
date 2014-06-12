@@ -13,7 +13,7 @@
 //import generate.randomdata.RandomDataGenerator;
 //import hg19.GRCh37Hg19Chromosome;
 //import intervaltree.IntervalTree;
-//
+//import ui.GlanetRunner;
 //import java.io.BufferedReader;
 //import java.io.BufferedWriter;
 //import java.io.File;
@@ -67,7 +67,7 @@
 //		
 //		AllMaps allMaps ;
 //		
-//		System.out.println("Chromosome Name: "+ this.chrName +" Annotate Permutation Number: " + this.permutationNumber);
+//		GlanetRunner.appendLog("Chromosome Name: "+ this.chrName +" Annotate Permutation Number: " + this.permutationNumber);
 //		
 //		AnnotateGivenIntervalsWithGivenParameters annotateIntervals = new AnnotateGivenIntervalsWithGivenParameters();
 //		allMaps = annotateIntervals.annotatPermutation(this.permutationNumber,this.chrName,this.inputLines,dnaseIntervalTree,tfbsIntervalTree,histoneIntervalTree,ucscRefSeqGeneIntervalTree);
@@ -259,7 +259,7 @@
 //			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 //			chromSize = hg19ChromosomeSizes.get(i-1);
 //			
-//			System.out.println("chromosome name:" + chromName);
+//			GlanetRunner.appendLog("chromosome name:" + chromName);
 //			
 //			originalInputLines 	= chromosomeBasedOriginalInputLines.get(chromName);
 //			
@@ -446,7 +446,7 @@
 //		        if(file.isFile()){
 //		            file.delete();
 //		        }else if(file.isDirectory()) {
-//		        	//System.out.println("Folder Name: "+ file.getName() + " Absolute Path: " + file.getAbsolutePath());
+//		        	//GlanetRunner.appendLog("Folder Name: "+ file.getName() + " Absolute Path: " + file.getAbsolutePath());
 //		        	//Do not delete Folder "C:\eclipse_juno_workspace\Doktora\src\annotate\intervals\parametric\output\all_possible_names"
 //		        	if (!(file.getName().equals("all_possible_names"))){
 //		        		deleteOldFiles(file);
@@ -457,9 +457,9 @@
 //	
 //	public static void main(String[] args) {
 //		
-//		System.out.println("java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory()); 
+//		GlanetRunner.appendLog("java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory()); 
 //		//Number of processors can be paralellism level
-//		System.out.println("java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
+//		GlanetRunner.appendLog("java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
 //		
 //		AnnotateOneThousandPermutationsUsingExecutorService oneThousandPermutations = new AnnotateOneThousandPermutationsUsingExecutorService();
 //
@@ -523,7 +523,7 @@
 //		oneThousandPermutations.calculateEmpricalPValue(exonBasedKeggPathway2AllKMap, originalExonBasedKeggPathway2KMap, Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,NUMBER_OF_PERMUTATIONS);
 //		oneThousandPermutations.calculateEmpricalPValue(regulationBasedKeggPathway2AllKMap, originalRegulationBasedKeggPathway2KMap, Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,NUMBER_OF_PERMUTATIONS);
 //		
-//		System.out.println("stop at this debug point");
+//		GlanetRunner.appendLog("stop at this debug point");
 //		
 //		}
 //

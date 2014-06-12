@@ -18,11 +18,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
 import auxiliary.FileOperations;
-
+import ui.GlanetRunner;
 import common.Commons;
-
 
 public class HumanRefSeq2Gene {
 	
@@ -153,8 +151,8 @@ public class HumanRefSeq2Gene {
 				}							
 			} // End of While
 			
-			System.out.println("Number of human refseq to gene lines " + numberofHumanRefSeq2Gene);			
-			System.out.println("Number of refseq names " + numberofRefSeqNames);			
+			GlanetRunner.appendLog("Number of human refseq to gene lines " + numberofHumanRefSeq2Gene);			
+			GlanetRunner.appendLog("Number of refseq names " + numberofRefSeqNames);			
 			
 			bufferedWriter.close();
 			bufferedWriter2.close();

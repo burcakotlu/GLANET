@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import ui.GlanetRunner;
 import common.Commons;
 
 
@@ -339,7 +339,7 @@ public class CreationofDataFileforRBoxPlot{
 	    	BufferedReader bufferedReader=null;
 	    	
 			if(!directory.exists()){
-				 System.out.println("No File/Dir" + directory.getName()); 
+				 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 			 }
 			
 			 if(directory.isDirectory()){// a directory!
@@ -384,7 +384,7 @@ public class CreationofDataFileforRBoxPlot{
     	
     	
 		if(!directory.exists()){
-			 System.out.println("No File/Dir" + directory.getName()); 
+			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -419,7 +419,7 @@ public class CreationofDataFileforRBoxPlot{
 		    			
 		    				
 		    		}//Check for each file and read each file		        	
-//		            System.out.println(files[i]);		            		         		           		            
+//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 			

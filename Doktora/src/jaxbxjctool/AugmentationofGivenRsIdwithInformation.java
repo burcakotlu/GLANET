@@ -19,7 +19,6 @@ import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
@@ -27,7 +26,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
-
+import ui.GlanetRunner;
 /**
  * 
  */
@@ -134,7 +133,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	   	                	   }//End of if maploc.getPhysMapInt() is not null
 //	   	                	   else{
 //	   	                		   //Note that for this rsId there is no snpPosition has been found
-//	   	                		   System.out.println("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
+//	   	                		   GlanetRunner.appendLog("Note that for this" + "\t" + rsId + "\t" +"there is no snpPosition has been found.");
 //	   	                	   }
 	   	                        
 	   	                   }//End of for Maploc
@@ -166,11 +165,11 @@ public class AugmentationofGivenRsIdwithInformation {
 			test =app.getInformationforGivenRsId(rsId);
 			
 			if (test!=null){
-				System.out.println(test.getRsId());
-				System.out.println(test.getChrNamewithoutChr());
-				System.out.println(test.getStartZeroBased());
-				System.out.println(test.getEndZeroBased());
-				System.out.println(test.getObservedAlleles());
+				GlanetRunner.appendLog(test.getRsId());
+				GlanetRunner.appendLog(test.getChrNamewithoutChr());
+				GlanetRunner.appendLog(test.getStartZeroBased());
+				GlanetRunner.appendLog(test.getEndZeroBased());
+				GlanetRunner.appendLog(test.getObservedAlleles());
 
 			}
 			
