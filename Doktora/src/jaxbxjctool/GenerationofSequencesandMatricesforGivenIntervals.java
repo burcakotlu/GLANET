@@ -1106,7 +1106,7 @@ public static String takeComplementforeachAllele(String allele){
 	        in.close();
 	  }catch (Exception e){ 
 		  GlanetRunner.appendLog("Error reading from the URL:");
-		  GlanetRunner.appendLog(e);
+		  System.out.println(e);
 	  }
 	  
 	

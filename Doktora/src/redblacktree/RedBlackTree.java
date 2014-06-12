@@ -3,10 +3,9 @@
  *
  * 
  */
+package redblacktree;
 
 import ui.GlanetRunner;
-
-package redblacktree;
 
 public class RedBlackTree {
 	

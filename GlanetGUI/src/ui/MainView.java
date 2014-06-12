@@ -480,4 +480,9 @@ public class MainView extends JPanel{
 		
 		logArea.append( text + "\n");
 	}
+	
+	public void appendNewTextToLogArea( float text){
+		
+		logArea.append( text + "\n");
+	}
 }

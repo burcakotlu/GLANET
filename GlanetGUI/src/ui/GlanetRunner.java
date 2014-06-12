@@ -70,6 +70,11 @@ public class GlanetRunner extends Thread{
 		
 		getMainView().appendNewTextToLogArea( log);
 	}
+	
+	public static void appendLog( float log) {
+		
+		getMainView().appendNewTextToLogArea( log);
+	}
 
 	public static MainView getMainView() {
 		return mainView;
