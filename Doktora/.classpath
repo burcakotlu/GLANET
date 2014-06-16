@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/GlanetGUI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/RSATWS.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.12.jar"/>
 	<classpathentry kind="lib" path="lib/commons-math3-3.2/commons-math3-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/trove-3/3.0.3/trove-3.0.3-src.jar"/>
 	<classpathentry kind="lib" path="lib/trove-3/3.0.3/lib/trove-3.0.3.jar"/>
+	<classpathentry kind="lib" path="/GlanetGUI/GLANETGUI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

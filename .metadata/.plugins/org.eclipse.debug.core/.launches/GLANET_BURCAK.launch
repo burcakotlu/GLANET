@@ -8,5 +8,4 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="ui.App"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="GlanetGUI"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms8G -Xmx16G"/>
 </launchConfiguration>
