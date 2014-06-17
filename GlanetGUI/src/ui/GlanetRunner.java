@@ -18,23 +18,12 @@ public class GlanetRunner extends Thread{
 	@Override
 	public void run(){
 		
+		try {
 		getMainView().setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(getArgs());
 		
 		getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 		InputDataRemoveOverlaps.main(getArgs());
-		
-//		getMainView().setCurrentProcessInfo( "HumanRefSeq2Gene...");
-//		HumanRefSeq2Gene.main(getArgs());
-//		getMainView().setCurrentProcessInfo( "CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting...");
-//		CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.main(getArgs());
-//		getMainView().setCurrentProcessInfo( "CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting...");
-//		CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting.main(getArgs());
-//		getMainView().setCurrentProcessInfo( "WriteAllPossibleNames...");
-//		WriteAllPossibleNames.main(getArgs());
-//		getMainView().setCurrentProcessInfo( "CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree...");
-//		CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.main(getArgs());
-
 		
 		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
@@ -58,7 +47,10 @@ public class GlanetRunner extends Thread{
 		
 		//args[1]  already has file separator at the end
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
-		
+		} catch (SecurityException e) {
+			
+			System.out.println("pressed stop");
+        }
 	}
 	
 	public static void appendLog( String log) {
