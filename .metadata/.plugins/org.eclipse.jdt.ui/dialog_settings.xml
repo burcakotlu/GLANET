@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
 	<item value="false" key="ProjectSelectionDialog.show_all"/>
-	<item value="0" key="CallHierarchyViewPart.call_mode"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\GitHub\GLANET\Doktora\lib\trove-3\3.0.3" key="org.eclipse.jdt.ui.lastextjar"/>
-	<item value="3" key="CallHierarchyViewPart.orientation"/>
-	<item value="filter_imports;" key="filters_last_used"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
 	<item value="689" key="CallHierarchyViewPart.ratio1"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="0" key="CallHierarchyViewPart.call_mode"/>
+	<item value="C:\GitHub\GLANET\Doktora\lib\trove-3\3.0.3" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="3" key="CallHierarchyViewPart.orientation"/>
+	<item value="filter_imports;" key="filters_last_used"/>
 	<item value="1" key="org.eclipse.jdt.ui.last.selected.jre.kind2"/>
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
@@ -59,6 +63,29 @@
 	<section name="AddGetterSetterDialog">
 		<item value="false" key="SortOrdering"/>
 		<item value="false" key="RemoveFinal"/>
+	</section>
+	<section name="JarPackageWizard">
+		<item value="false" key="JarPackageWizardPage.INCLUDE_DIRECTORY_ENTRIES"/>
+		<item value="" key="JarManifestWizardPage.MANIFEST_LOCATION"/>
+		<item value="false" key="JarManifestWizardPage.SEAL_JAR"/>
+		<item value="true" key="JarPackageWizardPage.COMPRESS"/>
+		<item value="false" key="JarManifestWizardPage.REUSE_MANIFEST"/>
+		<item value="false" key="jarOptionsWizardPage.STORE_USE_SRC_FOLDERS"/>
+		<item value="true" key="jarOptionsWizardPage.EXPORT_WARNINGS"/>
+		<item value="" key="jarOptionsWizardPage.DESCRIPTION_LOCATION"/>
+		<item value="true" key="jarOptionsWizardPage.BUILD_IF_NEEDED"/>
+		<item value="false" key="JarPackageWizardPage.EXPORT_JAVA_FILES"/>
+		<item value="true" key="jarOptionsWizardPage.EXPORT_ERRORS"/>
+		<item value="true" key="JarManifestWizardPage.GENERATE_MANIFEST"/>
+		<item value="true" key="JarPackageWizardPage.EXPORT_CLASS_FILES"/>
+		<item value="false" key="JarPackageWizardPage.OVERWRITE"/>
+		<item value="false" key="jarOptionsWizardPage.SAVE_DESCRIPTION"/>
+		<item value="false" key="JarPackageWizardPage.REFACTORINGS"/>
+		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
+		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
+		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="GlanetGUI/GLANETGUI.jar"/>
+		</list>
 	</section>
 	<section name="JavaElementSearchActions">
 		<list key="lastUsedWorkingSetNames0">
@@ -112,9 +139,9 @@
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History/&gt;" key="History"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;" key="WorkingSet"/>
 		<section name="DialogBoundsSettings">
-			<item value="1262" key="DIALOG_WIDTH"/>
+			<item value="508" key="DIALOG_WIDTH"/>
 			<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-			<item value="520" key="DIALOG_HEIGHT"/>
+			<item value="778" key="DIALOG_HEIGHT"/>
 			<item value="669" key="DIALOG_X_ORIGIN"/>
 			<item value="190" key="DIALOG_Y_ORIGIN"/>
 		</section>
@@ -137,7 +164,7 @@
 		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="0" key="index"/>
+		<item value="3" key="index"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>

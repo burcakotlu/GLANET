@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
@@ -48,7 +47,6 @@
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="common.Commons"/>
-<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="empiricalpvalues.KeyOrder"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="gnu.trove.iterator.TLongIntIterator"/>
 <fullyQualifiedTypeName name="gnu.trove.iterator.TShortIterator"/>
 <fullyQualifiedTypeName name="gnu.trove.map.TIntObjectMap"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 </qualifiedTypeNameHistroy>

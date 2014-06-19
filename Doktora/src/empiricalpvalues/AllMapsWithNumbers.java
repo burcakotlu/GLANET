@@ -5,23 +5,23 @@
  */
 package empiricalpvalues;
 
+import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TLongIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
-
-import java.util.HashMap;
 
 /**
  * 
  */
 public class AllMapsWithNumbers {
 	
-	TLongIntMap permutationNumberDnaseCellLineNumber2KMap;
+	TIntIntMap permutationNumberDnaseCellLineNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumber2KMap;
 	TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap;
 	
-	TLongIntMap permutationNumberExonBasedKeggPathway2KMap;
-	TLongIntMap permutationNumberRegulationBasedKeggPathway2KMap;
-	TLongIntMap permutationNumberAllBasedKeggPathway2KMap;
+	TIntIntMap permutationNumberExonBasedKeggPathway2KMap;
+	TIntIntMap permutationNumberRegulationBasedKeggPathway2KMap;
+	TIntIntMap permutationNumberAllBasedKeggPathway2KMap;
 	
 	TLongIntMap permutationNumberTfExonBasedKeggPathway2KMap;
 	TLongIntMap permutationNumberTfRegulationBasedKeggPathway2KMap;
@@ -38,21 +38,7 @@ public class AllMapsWithNumbers {
 
 
 
-	public TLongIntMap getPermutationNumberDnaseCellLineNumber2KMap() {
-		return permutationNumberDnaseCellLineNumber2KMap;
-	}
-
-
-
-
-
-
-
-
-	public void setPermutationNumberDnaseCellLineNumber2KMap(
-			TLongIntMap permutationNumberDnaseCellLineNumber2KMap) {
-		this.permutationNumberDnaseCellLineNumber2KMap = permutationNumberDnaseCellLineNumber2KMap;
-	}
+	
 
 
 
@@ -102,88 +88,9 @@ public class AllMapsWithNumbers {
 
 
 
-
-
-
-
-
-	public TLongIntMap getPermutationNumberExonBasedKeggPathway2KMap() {
-		return permutationNumberExonBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
-	public void setPermutationNumberExonBasedKeggPathway2KMap(
-			TLongIntMap permutationNumberExonBasedKeggPathway2KMap) {
-		this.permutationNumberExonBasedKeggPathway2KMap = permutationNumberExonBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
-	public TLongIntMap getPermutationNumberRegulationBasedKeggPathway2KMap() {
-		return permutationNumberRegulationBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
-	public void setPermutationNumberRegulationBasedKeggPathway2KMap(
-			TLongIntMap permutationNumberRegulationBasedKeggPathway2KMap) {
-		this.permutationNumberRegulationBasedKeggPathway2KMap = permutationNumberRegulationBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
-	public TLongIntMap getPermutationNumberAllBasedKeggPathway2KMap() {
-		return permutationNumberAllBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
-	public void setPermutationNumberAllBasedKeggPathway2KMap(
-			TLongIntMap permutationNumberAllBasedKeggPathway2KMap) {
-		this.permutationNumberAllBasedKeggPathway2KMap = permutationNumberAllBasedKeggPathway2KMap;
-	}
-
-
-
-
-
-
-
-
 	public TLongIntMap getPermutationNumberTfExonBasedKeggPathway2KMap() {
 		return permutationNumberTfExonBasedKeggPathway2KMap;
 	}
-
-
-
-
-
 
 
 
@@ -310,6 +217,94 @@ public class AllMapsWithNumbers {
 
 
 
+	public TIntIntMap getPermutationNumberDnaseCellLineNumber2KMap() {
+		return permutationNumberDnaseCellLineNumber2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberDnaseCellLineNumber2KMap(
+			TIntIntMap permutationNumberDnaseCellLineNumber2KMap) {
+		this.permutationNumberDnaseCellLineNumber2KMap = permutationNumberDnaseCellLineNumber2KMap;
+	}
+
+
+
+
+
+
+
+
+	public TIntIntMap getPermutationNumberExonBasedKeggPathway2KMap() {
+		return permutationNumberExonBasedKeggPathway2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberExonBasedKeggPathway2KMap(
+			TIntIntMap permutationNumberExonBasedKeggPathway2KMap) {
+		this.permutationNumberExonBasedKeggPathway2KMap = permutationNumberExonBasedKeggPathway2KMap;
+	}
+
+
+
+
+
+
+
+
+	public TIntIntMap getPermutationNumberRegulationBasedKeggPathway2KMap() {
+		return permutationNumberRegulationBasedKeggPathway2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberRegulationBasedKeggPathway2KMap(
+			TIntIntMap permutationNumberRegulationBasedKeggPathway2KMap) {
+		this.permutationNumberRegulationBasedKeggPathway2KMap = permutationNumberRegulationBasedKeggPathway2KMap;
+	}
+
+
+
+
+
+
+
+
+	public TIntIntMap getPermutationNumberAllBasedKeggPathway2KMap() {
+		return permutationNumberAllBasedKeggPathway2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberAllBasedKeggPathway2KMap(
+			TIntIntMap permutationNumberAllBasedKeggPathway2KMap) {
+		this.permutationNumberAllBasedKeggPathway2KMap = permutationNumberAllBasedKeggPathway2KMap;
+	}
+
+
+
+
 
 
 
@@ -317,13 +312,13 @@ public class AllMapsWithNumbers {
 	public AllMapsWithNumbers() {
 		super();
 		
-		this.permutationNumberDnaseCellLineNumber2KMap 			= new TLongIntHashMap();
+		this.permutationNumberDnaseCellLineNumber2KMap 			= new TIntIntHashMap();
 		this.permutationNumberTfNumberCellLineNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberHistoneNumberCellLineNumber2KMap 	= new TLongIntHashMap();
 		
-		this.permutationNumberExonBasedKeggPathway2KMap 		= new TLongIntHashMap();
-		this.permutationNumberRegulationBasedKeggPathway2KMap 	= new TLongIntHashMap();
-		this.permutationNumberAllBasedKeggPathway2KMap 			= new TLongIntHashMap();
+		this.permutationNumberExonBasedKeggPathway2KMap 		= new TIntIntHashMap();
+		this.permutationNumberRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
+		this.permutationNumberAllBasedKeggPathway2KMap 			= new TIntIntHashMap();
 		
 		this.permutationNumberTfExonBasedKeggPathway2KMap 		= new TLongIntHashMap();
 		this.permutationNumberTfRegulationBasedKeggPathway2KMap = new TLongIntHashMap();

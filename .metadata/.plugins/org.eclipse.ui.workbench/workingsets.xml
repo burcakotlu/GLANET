@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1396338415038_36" label="GLANET" name="GLANET">
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1403170536616_72" label="GLANET_WORKING_SET" name="GLANET_WORKING_SET">
 <item elementID="=Common" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/positivecontrol" type="4"/>
 <item elementID="=Doktora" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Tree" type="4"/>
+<item elementID="=GlanetGUI" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=RSAT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=Rserve" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
