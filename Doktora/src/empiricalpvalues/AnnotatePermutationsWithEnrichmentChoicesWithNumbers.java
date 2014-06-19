@@ -134,7 +134,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
 					 					      
-				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName);	
+				     System.out.println("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName);	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
@@ -293,7 +293,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
+				     System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
@@ -592,7 +592,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
+				     System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
@@ -844,7 +844,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		int low;
 		int high;
 	
-		GlanetRunner.appendLog("Input data file name is: " + inputFileName);
+		System.out.println("Input data file name is: " + inputFileName);
 		
 		try {
 			fileReader = new FileReader(inputFileName);
@@ -1271,7 +1271,9 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				if (bufferedWriter==null){
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + folderName + permutationNumber +  "_" + extraFileName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
-						//@todo
+						
+						bufferedWriter.write("CellLineNumberOrKeggPathwayNumber" + "\t" + "NumberofOverlaps" +System.getProperty("line.separator"));					
+						
 						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
 				}
 				
@@ -1294,6 +1296,122 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	}
 	//TIntIntMap version ends
 	
+	
+	public static void writeAnnotationstoFiles_ElementNumberCellLineNumber(String outputFolder,TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap, Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName){
+		
+		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
+		Integer permutationNumber;
+		Integer elementNumber;
+		Integer cellLineNumber;
+		
+		Integer numberofOverlaps;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		
+		for(TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext();){
+			
+			it.advance();
+			
+			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
+			numberofOverlaps = it.value();
+			
+			permutationNumber 	= IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+			elementNumber 		= IntervalTree.getTforHistoneNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+			cellLineNumber 		= IntervalTree.getCellLineNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+				
+					
+			bufferedWriter = permutationNumber2BufferedWriterHashMap.get(permutationNumber) ;
+			
+			try {
+				
+				if (bufferedWriter==null){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + folderName + permutationNumber +  "_" + extraFileName + ".txt");
+						bufferedWriter = new BufferedWriter(fileWriter);
+						
+						bufferedWriter.write("TforHistoneNumber" + "\t" + "CellLineNumber" + "\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+						
+						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
+				}
+				
+				if (elementNumber>0){
+					bufferedWriter.write(elementNumber +"\t");
+				}
+				
+				if (cellLineNumber>0){
+					bufferedWriter.write(cellLineNumber +"\t");					
+				}
+				
+						
+				bufferedWriter.write(numberofOverlaps +System.getProperty("line.separator"));
+				
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}//End of for
+					
+	}
+	
+	//yeni starts
+	public static void writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(String outputFolder,TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap, Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName){
+		
+		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
+		Integer permutationNumber;
+		Integer elementNumber;
+		Integer keggPathwayNumber;
+		
+		Integer numberofOverlaps;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		
+		for(TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext();){
+			
+			it.advance();
+			
+			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
+			numberofOverlaps = it.value();
+			
+			permutationNumber 	= IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+			elementNumber 		= IntervalTree.getTforHistoneNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+			keggPathwayNumber 	= IntervalTree.getKeggPathwayNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber);
+			
+					
+			bufferedWriter = permutationNumber2BufferedWriterHashMap.get(permutationNumber) ;
+			
+			try {
+				
+				if (bufferedWriter==null){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + folderName + permutationNumber +  "_" + extraFileName + ".txt");
+						bufferedWriter = new BufferedWriter(fileWriter);
+						
+						bufferedWriter.write("TfNumber" + "\t" + "KeggPathwayNumber" +"\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+						
+						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
+				}
+				
+				if (elementNumber>0){
+					bufferedWriter.write(elementNumber +"\t");
+				}
+				
+				if (keggPathwayNumber>0){
+					bufferedWriter.write(keggPathwayNumber +"\t");		
+				}
+				
+				bufferedWriter.write(numberofOverlaps +System.getProperty("line.separator"));
+				
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}//End of for
+					
+	}
+
+	//yeni ends
 	
 	public static void writeAnnotationstoFiles(String outputFolder,TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap, Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName){
 		
@@ -1329,7 +1447,9 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				if (bufferedWriter==null){
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + folderName + permutationNumber +  "_" + extraFileName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
-						//@todo
+						
+						bufferedWriter.write("TfNumber" + "\t" + "CellLineNumber" + "\t" + "KeggPathwayNumber" +"\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+						
 						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
 				}
 				
@@ -1667,7 +1787,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     	
     	long startTimeAllPermutations = System.currentTimeMillis();
     		       		
-		GlanetRunner.appendLog("Run Number: " + runNumber);
+		System.out.println("Run Number: " + runNumber);
 		
 
 		/******************************************************************************************************/		
@@ -1677,7 +1797,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			System.out.println("chromosome name:" + chromName + " chromosome size: " + chromSize);
 			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
 							
 			if (chromosomeBaseOriginalInputLines!=null){
@@ -1690,9 +1810,9 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 			
 				/******************************************************************************************************/		
 				/******************************GENERATE ANNOTATION TASKS STARTS****************************************/						
-				GlanetRunner.appendLog("Generate annotation tasks has started.");
+				System.out.println("Generate annotation tasks has started.");
 				generateAnnotationTasks(chromName,listofAnnotationTasks,runNumber,numberofPermutationsinThisRun);
-				GlanetRunner.appendLog("Generate annotation tasks has ended.");
+				System.out.println("Generate annotation tasks has ended.");
 				/********************************GENERATE ANNOTATION TASKS ENDS****************************************/						
 				/******************************************************************************************************/		
 
@@ -1710,15 +1830,15 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				
 				/******************************************************************************************************/		
 				/**********************************GENERATE RANDOM DATA STARTS*****************************************/						
-				GlanetRunner.appendLog("Generate Random Data and Annotate has started.");	
+				System.out.println("Generate Random Data and Annotate has started.");	
 			    long startTime = System.currentTimeMillis();
 			    
-			    GlanetRunner.appendLog("First Generate Random Data");
-			    GlanetRunner.appendLog("Generate Random Data has started.");
+			    System.out.println("First Generate Random Data");
+			    System.out.println("Generate Random Data has started.");
  			    //First generate Random Data
 			    generateRandomData = new GenerateRandomData(outputFolder,chromSize,chromName,chromosomeBaseOriginalInputLines,generateRandomDataMode,writeGeneratedRandomDataMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
 			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
-			    GlanetRunner.appendLog("Generate Random Data has ended.");
+			    System.out.println("Generate Random Data has ended.");
 			    /**********************************GENERATE RANDOM DATA ENDS*****************************************/						
 			    /******************************************************************************************************/		
 			    
@@ -1751,7 +1871,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				
 				/******************************************************************************************************/		
 				/*****************************ANNOTATE PERMUTATIONS STARTS*********************************************/					
-				GlanetRunner.appendLog("Annotate has started.");
+				System.out.println("Annotate has started.");
 				
 				if (dnaseEnrichment.equals(Commons.DO_DNASE_ENRICHMENT)){
 					
@@ -1857,18 +1977,18 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
           				//New Functionality END
         			
     			}      		
-				GlanetRunner.appendLog("Annotate has ended.");
+				System.out.println("Annotate has ended.");
 				/*****************************ANNOTATE PERMUTATIONS ENDS***********************************************/					
 				/******************************************************************************************************/		
 
 
 			    long endTime = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
-				GlanetRunner.appendLog("Generate Random Data and Annotate has ended.");
+				System.out.println("RunNumber: " + runNumber  + " For Chromosome: " + chromName + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
+				System.out.println("Generate Random Data and Annotate has ended.");
 			
-				GlanetRunner.appendLog("Deletion of the tasks has started.");
+				System.out.println("Deletion of the tasks has started.");
 				deleteAnnotationTasks(listofAnnotationTasks);
-				GlanetRunner.appendLog("Deletion of the tasks has ended.");
+				System.out.println("Deletion of the tasks has ended.");
 		
 			    permutationNumber2RandomlyGeneratedDataHashMap.clear();
 			    permutationNumber2RandomlyGeneratedDataHashMap= null;
@@ -1888,13 +2008,13 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     	pool.shutdown();
 		
 		if (pool.isTerminated()){
-			GlanetRunner.appendLog("ForkJoinPool is terminated ");
+			System.out.println("ForkJoinPool is terminated ");
 			
 		}   	
 		
 		long endTimeAllPermutations = System.currentTimeMillis();
 	
-		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  "+ numberofPermutationsinThisRun  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
+		System.out.println("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  "+ numberofPermutationsinThisRun  + " took "  + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
 	
 		/************************************************************************************************************************/
 		/*****************************************CONVERT************************************************************************/
@@ -1933,7 +2053,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 			
 			if(histoneEnrichment.equals(Commons.DO_HISTONE_ENRICHMENT)){
 				//Histone
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap(),permutationNumber2HistoneBufferedWriterHashMap,"histone" + System.getProperty("file.separator") , Commons.HISTONE);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap(),permutationNumber2HistoneBufferedWriterHashMap,"histone" + System.getProperty("file.separator") , Commons.HISTONE);
 				closeBufferedWriters(permutationNumber2HistoneBufferedWriterHashMap);
 		
 			}
@@ -1941,7 +2061,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 			
 			if(tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)  && !(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)) && !(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))){					
 				//Transcription Factor 
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);					
 			}
 			
@@ -1964,21 +2084,21 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 			
 			if(tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){
 				
+				//Tfbs
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);				
+				
 				//Tf and Exon Based Kegg Pathway
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps" + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and All Based Kegg Pathway
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
-				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);
-				
-				//Tfbs
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
-				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, "tfKeggPathwayNumberofOverlaps"+ System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
+				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);			
 				
 				//Exon Based Kegg Pathway
 				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,"keggPathway" + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
@@ -1996,7 +2116,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				
 							
 				//Tfbs
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
@@ -2144,9 +2264,9 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	
 
 	public static void writeInformation(){
-		GlanetRunner.appendLog("Java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory());
-        GlanetRunner.appendLog("Java runtime total memory: " + java.lang.Runtime.getRuntime().totalMemory());	
-		GlanetRunner.appendLog("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
+		System.out.println("Java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory());
+        System.out.println("Java runtime total memory: " + java.lang.Runtime.getRuntime().totalMemory());	
+		System.out.println("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors()); 
 	
 	}
 	
@@ -2351,13 +2471,13 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		/*********************************************************************************************/	
 		/*********************FOR LOOP FOR RUN NUMBERS  STARTS****************************************/				
 		if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) && tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
-			GlanetRunner.appendLog("Both Tf_KEGG_Pathway_enrichment and  Tf_Cellline_Kegg_Pathway_enrichment can not be selected");
+			System.out.println("Both Tf_KEGG_Pathway_enrichment and  Tf_Cellline_Kegg_Pathway_enrichment can not be selected");
 		}
 		else{
 			
 			for(int runNumber=1; runNumber<=numberofRuns;runNumber++){
 				
-				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
+				System.out.println("**************	" + runNumber + ". Run" + "	******************	starts");
 				
 				runName = jobName + runNumber;
 				
@@ -2418,7 +2538,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				
 				/*********************************************************************************************/			
 				/**************************ANNOTATE PERMUTATIONS STARTS***************************************/		
-				GlanetRunner.appendLog("Concurrent programming has been started.");				
+				System.out.println("Concurrent programming has been started.");				
 				//concurrent programming
 				//generate random data
 				//then annotate permutations concurrently
@@ -2429,7 +2549,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					AnnotatePermutationsWithEnrichmentChoicesWithNumbers.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichment,histoneEnrichment,tfEnrichment, keggPathwayEnrichment, tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment,overlapDefinition,geneId2KeggPathwayNumberMap);		
 					
 				}
-				GlanetRunner.appendLog("Concurrent programming has been ended.");				
+				System.out.println("Concurrent programming has been ended.");				
 				/**************************ANNOTATE PERMUTATIONS ENDS*****************************************/
 				/*********************************************************************************************/			
 				
@@ -2532,7 +2652,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				/***********************************FREE MEMORY ENDS******************************************/
 				/*********************************************************************************************/							
 
-				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	ends");
+				System.out.println("**************	" + runNumber + ". Run" + "	******************	ends");
 				
 			}
 			//end of for each run number						

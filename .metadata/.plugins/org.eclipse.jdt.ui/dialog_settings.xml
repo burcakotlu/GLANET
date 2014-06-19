@@ -92,6 +92,9 @@
 			<item value="GLANET"/>
 		</list>
 	</section>
+	<section name="WorkingSetModelAwareSelectionDialog">
+		<item value="true" key="ShowVisibleOnly"/>
+	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
@@ -175,10 +178,22 @@
 		<item value="false" key="create_package_info_java"/>
 	</section>
 	<section name="JavaSearchPage">
-		<item value="7" key="HISTORY_SIZE"/>
+		<item value="8" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="15" key="INCLUDE_MASK"/>
 		<section name="HISTORY6">
+			<item value="false" key="isCaseSensitive"/>
+			<item value="" key="javaElement"/>
+			<item value="0" key="scope"/>
+			<item value="11" key="includeMask"/>
+			<item value="all_possible" key="pattern"/>
+			<item value="2" key="limitTo"/>
+			<item value="0" key="matchLocations"/>
+			<item value="0" key="searchFor"/>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY7">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
 			<item value="0" key="scope"/>
@@ -195,7 +210,7 @@
 			<item value="" key="javaElement"/>
 			<item value="0" key="scope"/>
 			<item value="11" key="includeMask"/>
-			<item value="all_possible*" key="pattern"/>
+			<item value="all_possible_names" key="pattern"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="0" key="searchFor"/>
@@ -207,7 +222,7 @@
 			<item value="" key="javaElement"/>
 			<item value="0" key="scope"/>
 			<item value="11" key="includeMask"/>
-			<item value="all_possible" key="pattern"/>
+			<item value="all_possible*" key="pattern"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="0" key="searchFor"/>
@@ -215,6 +230,19 @@
 			</list>
 		</section>
 		<section name="HISTORY2">
+			<item value="false" key="isCaseSensitive"/>
+			<item value="" key="javaElement"/>
+			<item value="2" key="scope"/>
+			<item value="15" key="includeMask"/>
+			<item value="*&quot;all_possible_names&quot;*" key="pattern"/>
+			<item value="3" key="limitTo"/>
+			<item value="0" key="matchLocations"/>
+			<item value="4" key="searchFor"/>
+			<list key="workingSets">
+				<item value="GLANET"/>
+			</list>
+		</section>
+		<section name="HISTORY3">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
 			<item value="2" key="scope"/>
@@ -227,19 +255,19 @@
 				<item value="GLANET"/>
 			</list>
 		</section>
-		<section name="HISTORY3">
+		<section name="HISTORY0">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
 			<item value="0" key="scope"/>
-			<item value="11" key="includeMask"/>
-			<item value="all_possible_names" key="pattern"/>
+			<item value="15" key="includeMask"/>
+			<item value="System.out.println" key="pattern"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="0" key="searchFor"/>
 			<list key="workingSets">
 			</list>
 		</section>
-		<section name="HISTORY0">
+		<section name="HISTORY1">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
 			<item value="2" key="scope"/>
@@ -248,19 +276,6 @@
 			<item value="2" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="0" key="searchFor"/>
-			<list key="workingSets">
-				<item value="GLANET"/>
-			</list>
-		</section>
-		<section name="HISTORY1">
-			<item value="false" key="isCaseSensitive"/>
-			<item value="" key="javaElement"/>
-			<item value="2" key="scope"/>
-			<item value="15" key="includeMask"/>
-			<item value="*&quot;all_possible_names&quot;*" key="pattern"/>
-			<item value="3" key="limitTo"/>
-			<item value="0" key="matchLocations"/>
-			<item value="4" key="searchFor"/>
 			<list key="workingSets">
 				<item value="GLANET"/>
 			</list>

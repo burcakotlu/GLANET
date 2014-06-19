@@ -71,7 +71,7 @@ public class Mapability {
 				
 				//high is 1-based therefore it can be equal to chromSize
 				if (low>=chromSize || high > chromSize ){
-					GlanetRunner.appendLog("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: "+ high);
+					System.out.println("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: "+ high);
 				}
 				
 				//High-1 is done here
@@ -81,7 +81,7 @@ public class Mapability {
 							
 			}
 			
-			GlanetRunner.appendLog("This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Double Array construction has ended.");
+			System.out.println("This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Double Array construction has ended.");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -294,7 +294,7 @@ public class Mapability {
 				
 				//high is 1-based therefore it can be equal to chromSize
 				if (low>=chromSize|| high > chromSize ){
-					GlanetRunner.appendLog("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: "+ high);
+					System.out.println("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: "+ high);
 				}
 				
 				
@@ -312,7 +312,7 @@ public class Mapability {
 //				
 //				//there is overlap
 //				if (overlappedNodeList!= null && overlappedNodeList.size()>0){
-//					GlanetRunner.appendLog("Unexpected situation: there is overlap in interval tree for mapability");
+//					System.out.println("Unexpected situation: there is overlap in interval tree for mapability");
 //				}else{
 //					chromBasedMapabilityIntervalTree.intervalTreeInsert(chromBasedMapabilityIntervalTree, node);
 //					
@@ -320,7 +320,7 @@ public class Mapability {
 							
 			}
 			
-			GlanetRunner.appendLog("This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Interval Tree construction has ended.");
+			System.out.println("This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Interval Tree construction has ended.");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -428,9 +428,9 @@ public class Mapability {
 		InputLine inputLine = new InputLine(chromName, low, high);
 		
 		Mapability.calculateMapabilityofInterval(inputLine, mapabilityIntervalTree);
-		GlanetRunner.appendLog("Using Interval Tree "+ inputLine.getMapability());
+		System.out.println("Using Interval Tree "+ inputLine.getMapability());
 		Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
-		GlanetRunner.appendLog("Using Double Array: "+ inputLine.getMapability());
+		System.out.println("Using Double Array: "+ inputLine.getMapability());
 		
     	
     }

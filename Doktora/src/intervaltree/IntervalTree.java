@@ -704,7 +704,7 @@ public class IntervalTree {
 			intervalTreeInfixTraversal(node.getLeft());
 		
 		if (node.getNodeName().isNotSentinel()){
-			GlanetRunner.appendLog(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+			System.out.println(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
 		}
 		
 		if (node.getRight().getNodeName().isNotSentinel())
@@ -925,10 +925,10 @@ public class IntervalTree {
 			if (parent.getNodeName().isNotSentinel()){
 				if (parent.getLeft()==node){
 					writeRouteFromRoottoThisNode(node.getParent());
-					GlanetRunner.appendLog("Left");
+					System.out.println("Left");
 				}else if (parent.getRight()==node){
 					writeRouteFromRoottoThisNode(node.getParent());
-					GlanetRunner.appendLog("Right");
+					System.out.println("Right");
 				}
 			}
 		}
@@ -950,7 +950,7 @@ public class IntervalTree {
 				castedNode = (OtherIntervalTreeNode) foundNode;
 			}
 			
-			GlanetRunner.appendLog("Height: "+ castedNode.height);
+			System.out.println("Height: "+ castedNode.height);
 			writeRouteFromRoottoThisNode(foundNode);
 		}
 		
@@ -960,7 +960,7 @@ public class IntervalTree {
 	public void findAllOverlappingIntervals(IntervalTreeNode node, Interval interval){
 		if (node.getNodeName().isNotSentinel()){
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
-					GlanetRunner.appendLog("overlap" + node.getLow() + "\t" + node.getHigh());
+					System.out.println("overlap" + node.getLow() + "\t" + node.getHigh());
 			}
 			
 			
@@ -982,7 +982,7 @@ public class IntervalTree {
 		if (root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				overlappedNodeList.add(root);
-//				GlanetRunner.appendLog("overlap " + root.getLow() + "\t" + root.getHigh());
+//				System.out.println("overlap " + root.getLow() + "\t" + root.getHigh());
 			}
 			
 						
@@ -1008,7 +1008,7 @@ public class IntervalTree {
 			
 			if (root.getNodeName().isNotSentinel()){
 				if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
-//						GlanetRunner.appendLog(root.getLow() + "\t" + root.getHigh());						
+//						System.out.println(root.getLow() + "\t" + root.getHigh());						
 						return root;
 						
 				}else{
@@ -1098,6 +1098,10 @@ public class IntervalTree {
 					
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator")+ permutationNumberHistoneNumberCellLineNumber + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName"+ "\t"  + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" +System.getProperty("line.separator"));
+						bufferedWriter.flush();
+										
+
 						bufferedWriterHashMap.put(permutationNumberHistoneNumberCellLineNumber,bufferedWriter);
 					}
 					
@@ -1374,6 +1378,9 @@ public class IntervalTree {
 												
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" +"\t" + "tfbs" + "\t" + "ChromName" + "\t"  + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" +System.getProperty("line.separator"));
+						bufferedWriter.flush();
+						
 						bufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumber,bufferedWriter);
 					}
 					
@@ -1494,6 +1501,9 @@ public class IntervalTree {
 											
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber+ System.getProperty("file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" +"\t" + "tfbs" + "\t" + "ChromName"+ "\t"  + "Low" + "\t" + "High" + "\t" + "TfNumber"+ "\t" + "CellLineNumber" + "\t" + "FileNumber" +System.getProperty("line.separator"));
+						bufferedWriter.flush();
+					
 						bufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumber,bufferedWriter);
 					}
 					
@@ -1972,6 +1982,9 @@ public class IntervalTree {
 						
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION +permutationNumber + System.getProperty("file.separator")+ permutationNumberDnaseCellLineNumber + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh"+ "\t" + "dnase" + "\t" + "dnaseChromName"+ "\t"  + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" +System.getProperty("line.separator"));
+						bufferedWriter.flush();	
+						
 						bufferedWriterHashMap.put(permutationNumberDnaseCellLineNumber,bufferedWriter);
 					}										
 					
@@ -2425,6 +2438,9 @@ public class IntervalTree {
 											
 											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_exonBased_" + keggPathwayNumber + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" +  "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+											bufferedWriter.flush();	
+										
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 																					
 										}
@@ -2465,6 +2481,9 @@ public class IntervalTree {
 											
 											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS  + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator")+ Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayNumber + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" +  "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+											bufferedWriter.flush();	
+										
 											bufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 										
 											
@@ -2498,6 +2517,9 @@ public class IntervalTree {
 										
 										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber +"_all_" + keggPathwayNumber + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
+										bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" +  "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+										bufferedWriter.flush();	
+									
 										bufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 										
 									}
@@ -3002,6 +3024,9 @@ public class IntervalTree {
 																	
 									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_exonBased_" + keggPathwayNumber + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
+									bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+									bufferedWriter.flush();	
+		
 									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 								}
 								
@@ -3043,6 +3068,10 @@ public class IntervalTree {
 									
 									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_regulationBased_" + keggPathwayNumber + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
+									
+									bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+									bufferedWriter.flush();	
+		
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 								}
 									
@@ -3076,6 +3105,10 @@ public class IntervalTree {
 								
 								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION +permutationNumber+ System.getProperty("file.separator") + Commons.PERMUTATION +permutationNumber +"_allBased_" + keggPathwayNumber + ".txt",true);
 								bufferedWriter = new BufferedWriter(fileWriter);
+								
+								bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName"+ "\t" +  "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t"+ "GeneEntrezId" +System.getProperty("line.separator"));
+								bufferedWriter.flush();	
+
 								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayNumber, bufferedWriter);
 							}
 																		
@@ -4075,7 +4108,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		
 		while(itr.hasNext()){
 			IntervalTreeNode  node =(IntervalTreeNode) itr.next();			
-			GlanetRunner.appendLog(node.getLow() + "\t" + node.getHigh());
+			System.out.println(node.getLow() + "\t" + node.getHigh());
 			
 		}
 	}
@@ -4085,7 +4118,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		IntervalTreeNode node;
 		int numberofBlackNodes = 0;
 		
-		GlanetRunner.appendLog("One Path Starts");
+		System.out.println("One Path Starts");
 		
 		for(int i = 0; i<path.getNodeList().size(); i++){
 			node = path.getNodeList().get(i);
@@ -4093,12 +4126,12 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			if (node.getColor() == Commons.BLACK)
 				numberofBlackNodes++;
 			
-			GlanetRunner.appendLog("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getNodeName());
+			System.out.println("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getNodeName());
 			
 		}
 		
 		
-		GlanetRunner.appendLog("--- Number of black nodes: " + numberofBlackNodes);
+		System.out.println("--- Number of black nodes: " + numberofBlackNodes);
 		
 	}
 	
@@ -4245,26 +4278,26 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		IntervalTreeNode splicedOutNode;
 		
 		if (Commons.INSERT.equals(operation)){
-			GlanetRunner.appendLog("After insert node (" + node.getLow() +"," + node.getHigh() +")");
+			System.out.println("After insert node (" + node.getLow() +"," + node.getHigh() +")");
 			tree.intervalTreeInsert(tree, node);
-			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
-			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 			
 			
 		}else if(Commons.DELETE.equals(operation)){
-			GlanetRunner.appendLog("After delete node (" + node.getLow() +"," + node.getHigh() +")");
+			System.out.println("After delete node (" + node.getLow() +"," + node.getHigh() +")");
 			splicedOutNode = tree.intervalTreeDelete(tree, node);
 			splicedOutNode = null;
-			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
-			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 			
 		}
 		
-		GlanetRunner.appendLog("-------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------");
 		
 		
 	}
@@ -4362,16 +4395,16 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		
 		
 		//Deletion of erroneous data: non existing node
-//		GlanetRunner.appendLog("After delete node (" + node15.getLow() +"," + node15.getHigh() +")");
+//		System.out.println("After delete node (" + node15.getLow() +"," + node15.getHigh() +")");
 //		node = tree.intervalTreeDelete(tree, node15);
 //		node = null;
-//		GlanetRunner.appendLog("Tree root name: "+ tree.getRoot().getNodeName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+//		System.out.println("Tree root name: "+ tree.getRoot().getNodeName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 //		tree.intervalTreeInfixTraversal(tree.getRoot());
 		
 		
 		
 	
-//		GlanetRunner.appendLog("Overlapping Intervals");
+//		System.out.println("Overlapping Intervals");
 //		tree.findAllOverlappingIntervals(tree.getRoot(), new Interval(5,20));
 		
 //		tree.printOverlappingIntervalsList(resultList);

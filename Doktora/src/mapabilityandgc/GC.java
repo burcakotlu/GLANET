@@ -77,7 +77,7 @@ public class GC {
 			}
 			gcContent = gcContent/length;
 		}else{
-			GlanetRunner.appendLog("input line's high exceeds hg19 chromsome size");
+			System.out.println("input line's high exceeds hg19 chromsome size");
 		}
 		
 		givenInputLine.setGcContent(gcContent);
@@ -108,12 +108,12 @@ public class GC {
 			
 			//check whether fasta file starts with > greater character
 			if (!strLine.startsWith(">")){
-				GlanetRunner.appendLog("Fasta file does not start with > character.");
+				System.out.println("Fasta file does not start with > character.");
 			}
 			
 			while((numberofCharactersRead = bufferedReader.read(cbuf))!=-1){
 				
-//				GlanetRunner.appendLog("number of characters read: " + numberofCharactersRead);
+//				System.out.println("number of characters read: " + numberofCharactersRead);
 				
 				for(int i =0; i<numberofCharactersRead ; i++){
 					ch = cbuf[i];
@@ -136,7 +136,7 @@ public class GC {
 			}//end of while
 			
 			
-			GlanetRunner.appendLog("nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");
+			System.out.println("nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");
 			
 		} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -229,7 +229,7 @@ public class GC {
 		fillChromBasedGCArray(dataFolder,chromName,gcArray);
 		calculateGCofInterval(givenInputLine,gcArray);
 	
-		GlanetRunner.appendLog("Given input line's gc content: " + givenInputLine.getGcContent());
+		System.out.println("Given input line's gc content: " + givenInputLine.getGcContent());
 	}
 
 }

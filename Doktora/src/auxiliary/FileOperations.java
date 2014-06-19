@@ -136,7 +136,7 @@ public class FileOperations {
 		      public FileVisitResult visitFile(Path file,
 		              BasicFileAttributes attrs) throws IOException {
 		 
-		          GlanetRunner.appendLog("Deleting file: " + file);
+		          System.out.println("Deleting file: " + file);
 		          Files.delete(file);
 		          return FileVisitResult.CONTINUE;
 		      }
@@ -145,7 +145,7 @@ public class FileOperations {
 		      public FileVisitResult postVisitDirectory(Path dir,
 		              IOException exc) throws IOException {
 		 
-		          GlanetRunner.appendLog("Deleting dir: " + dir);
+		          System.out.println("Deleting dir: " + dir);
 		          if (exc == null) {
 		              Files.delete(dir);
 		              return FileVisitResult.CONTINUE;
@@ -166,13 +166,15 @@ public class FileOperations {
 		File folder = new File(directoryName);
 		
 		 if(folder.isFile()){
-			 GlanetRunner.appendLog("Deleting " + folder.getAbsolutePath());	
+			 System.out.println("Deleting " + folder.getAbsolutePath());	
 			 folder.delete();
 	     }else if(folder.isDirectory()) {	    		 
 	    		 File[] files = folder.listFiles();
 	    		 for(File file: files){
 	    			 deleteOldFiles(file.getAbsolutePath());
-	    		 }	    		 									     
+	    		 }	
+	    		 folder.delete();
+	    		 
 	     }  				
 	}
 	
@@ -182,7 +184,7 @@ public class FileOperations {
 		File folder = new File(directoryName);
 		
 		 if(folder.isFile()){
-			 GlanetRunner.appendLog("Deleting " + folder.getAbsolutePath());	
+			 System.out.println("Deleting " + folder.getAbsolutePath());	
 			 folder.delete();
 	     }else if(folder.isDirectory()) {
 	    	 if (!(notToBeDeleted.contains(folder.getName()))){
@@ -190,10 +192,10 @@ public class FileOperations {
 	    		 File[] files = folder.listFiles();
 	    		 for(File file: files){
 	    			 deleteOldFiles(file.getAbsolutePath(),notToBeDeleted);
-	    		 }	    		 									
-			}
-	       
-	     }  
+	    		 }	
+	    		 folder.delete();
+			}//if it is not in notToBeDeleted	       
+	     }  ///if it is a directory
 				
 	}
 	
@@ -216,9 +218,9 @@ public class FileOperations {
 		File file = new File(outputFolder + fileName);
 		
 		if(file.delete()){
-			GlanetRunner.appendLog(file.getName() + " is deleted!");
+			System.out.println(file.getName() + " is deleted!");
 		}else{
-			GlanetRunner.appendLog("Delete operation is failed.");
+			System.out.println("Delete operation is failed.");
 		}
 		
 	}

@@ -355,8 +355,8 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				bufList.get(23).write(strLine + System.getProperty("line.separator"));
 				bufList.get(23).flush();		
 			}else{
-				//GlanetRunner.appendLog("Unknown chromosome");
-				GlanetRunner.appendLog("Unknown chromosome");
+				//System.out.println("Unknown chromosome");
+				System.out.println("Unknown chromosome");
 			}
 
 		
@@ -1934,9 +1934,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				}
 
 			}//End of for
-			
-			
-			
+				
 			interval = null;
 			
 		}//End of for
@@ -6800,8 +6798,8 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 										
 					emptyIntervalTree(geneIntervalTree.getRoot());
 					geneIntervalTree = null;
-					//GlanetRunner.appendLog("Chr1 NcbiGeneId");
-					GlanetRunner.appendLog("Chr1 NcbiGeneId");
+					//System.out.println("Chr1 NcbiGeneId");
+					System.out.println("Chr1 NcbiGeneId");
 					break;
 				case 2:							
 					geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME2);
@@ -6811,7 +6809,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr2 NcbiGeneId");
+					System.out.println("Chr2 NcbiGeneId");
 
 					break;
 				case 3:							
@@ -6822,7 +6820,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr3  NcbiGeneId");
+					System.out.println("Chr3  NcbiGeneId");
 
 					break;
 				case 4:							
@@ -6833,7 +6831,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr4  NcbiGeneId");
+					System.out.println("Chr4  NcbiGeneId");
 
 					break;
 				case 5:							
@@ -6844,7 +6842,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr5 NcbiGeneId");
+					System.out.println("Chr5 NcbiGeneId");
 
 					break;
 				case 6:							
@@ -6855,7 +6853,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr6 NcbiGeneId");
+					System.out.println("Chr6 NcbiGeneId");
 
 					break;
 				case 7:							
@@ -6866,7 +6864,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr7 NcbiGeneId");
+					System.out.println("Chr7 NcbiGeneId");
 
 					break;
 				case 8:							
@@ -6877,7 +6875,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr8 NcbiGeneId");
+					System.out.println("Chr8 NcbiGeneId");
 
 					break;
 				case 9	:							
@@ -6888,7 +6886,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr9 NcbiGeneId");
+					System.out.println("Chr9 NcbiGeneId");
 
 					break;
 				case 10:							
@@ -6899,7 +6897,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr10 NcbiGeneId");
+					System.out.println("Chr10 NcbiGeneId");
 
 					break;
 				case 11:							
@@ -6910,7 +6908,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr11 NcbiGeneId");
+					System.out.println("Chr11 NcbiGeneId");
 					
 					break;
 				case 12:							
@@ -6921,7 +6919,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr12 NcbiGeneId");
+					System.out.println("Chr12 NcbiGeneId");
 
 					break;
 				case 13:							
@@ -6932,7 +6930,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr13 NcbiGeneId");
+					System.out.println("Chr13 NcbiGeneId");
 
 					break;
 				case 14:							
@@ -6943,7 +6941,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr14 NcbiGeneId");
+					System.out.println("Chr14 NcbiGeneId");
 
 					break;
 				case 15:							
@@ -6954,7 +6952,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr15 NcbiGeneId");
+					System.out.println("Chr15 NcbiGeneId");
 
 					break;
 				case 16:							
@@ -6965,7 +6963,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr16 NcbiGeneId");
+					System.out.println("Chr16 NcbiGeneId");
 
 					break;
 				case 17:							
@@ -6976,7 +6974,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr17 NcbiGeneId");
+					System.out.println("Chr17 NcbiGeneId");
 
 					break;
 				case 18:							
@@ -6987,7 +6985,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr18 NcbiGeneId");
+					System.out.println("Chr18 NcbiGeneId");
 
 					break;
 				case 19:							
@@ -6998,7 +6996,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr19 NcbiGeneId");
+					System.out.println("Chr19 NcbiGeneId");
 
 					break;
 				case 20:							
@@ -7009,7 +7007,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr20 NcbiGeneId");
+					System.out.println("Chr20 NcbiGeneId");
 
 					break;
 				case 21:							
@@ -7020,7 +7018,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr21 NcbiGeneId");
+					System.out.println("Chr21 NcbiGeneId");
 
 					break;
 				case 22:							
@@ -7031,7 +7029,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr22 NcbiGeneId");
+					System.out.println("Chr22 NcbiGeneId");
 					
 					break;
 				case 23:							
@@ -7042,7 +7040,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 					
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr23 NcbiGeneId");
+					System.out.println("Chr23 NcbiGeneId");
 
 					break;
 				case 24:							
@@ -7053,7 +7051,7 @@ public void searchNcbiGeneId(String outputFolder, Map<String,Integer> ncbiGeneId
 
 					emptyIntervalTree(geneIntervalTree.getRoot());								
 					geneIntervalTree = null;
-					GlanetRunner.appendLog("Chr24 NcbiGeneId");
+					System.out.println("Chr24 NcbiGeneId");
 			
 					break;
 					
@@ -7092,7 +7090,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr1 NcbiRNA");
+				System.out.println("Chr1 NcbiRNA");
 				break;
 			case 2:							
 				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME2);
@@ -7102,7 +7100,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr2 NcbiRNA");
+				System.out.println("Chr2 NcbiRNA");
 
 				break;
 			case 3:							
@@ -7113,7 +7111,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr3 NcbiRNA");
+				System.out.println("Chr3 NcbiRNA");
 
 				break;
 			case 4:							
@@ -7124,7 +7122,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr4 NcbiRNA");
+				System.out.println("Chr4 NcbiRNA");
 
 				break;
 			case 5:							
@@ -7135,7 +7133,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr5 NcbiRNA");
+				System.out.println("Chr5 NcbiRNA");
 
 				break;
 			case 6:							
@@ -7146,7 +7144,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr6 NcbiRNA");
+				System.out.println("Chr6 NcbiRNA");
 
 				break;
 			case 7:							
@@ -7157,7 +7155,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr7 NcbiRNA");
+				System.out.println("Chr7 NcbiRNA");
 
 				break;
 			case 8:							
@@ -7168,7 +7166,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr8 NcbiRNA");
+				System.out.println("Chr8 NcbiRNA");
 
 				break;
 			case 9	:							
@@ -7179,7 +7177,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr9 NcbiRNA");
+				System.out.println("Chr9 NcbiRNA");
 
 				break;
 			case 10:							
@@ -7190,7 +7188,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr10 NcbiRNA");
+				System.out.println("Chr10 NcbiRNA");
 
 				break;
 			case 11:							
@@ -7201,7 +7199,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr11 NcbiRNA");
+				System.out.println("Chr11 NcbiRNA");
 				
 				break;
 			case 12:							
@@ -7212,7 +7210,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr12 NcbiRNA");
+				System.out.println("Chr12 NcbiRNA");
 
 				break;
 			case 13:							
@@ -7223,7 +7221,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr13 NcbiRNA");
+				System.out.println("Chr13 NcbiRNA");
 
 				break;
 			case 14:							
@@ -7234,7 +7232,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr14 NcbiRNA");
+				System.out.println("Chr14 NcbiRNA");
 
 				break;
 			case 15:							
@@ -7245,7 +7243,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr15 NcbiRNA");
+				System.out.println("Chr15 NcbiRNA");
 
 				break;
 			case 16:							
@@ -7256,7 +7254,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr16 NcbiRNA");
+				System.out.println("Chr16 NcbiRNA");
 
 				break;
 			case 17:							
@@ -7267,7 +7265,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr17 NcbiRNA");
+				System.out.println("Chr17 NcbiRNA");
 
 				break;
 			case 18:							
@@ -7278,7 +7276,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr18 NcbiRNA");
+				System.out.println("Chr18 NcbiRNA");
 
 				break;
 			case 19:							
@@ -7289,7 +7287,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr19 NcbiRNA");
+				System.out.println("Chr19 NcbiRNA");
 
 				break;
 			case 20:							
@@ -7300,7 +7298,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr20 NcbiRNA");
+				System.out.println("Chr20 NcbiRNA");
 
 				break;
 			case 21:							
@@ -7311,7 +7309,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr21 NcbiRNA");
+				System.out.println("Chr21 NcbiRNA");
 
 				break;
 			case 22:							
@@ -7322,7 +7320,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr22 NcbiRNA");
+				System.out.println("Chr22 NcbiRNA");
 				
 				break;
 			case 23:							
@@ -7333,7 +7331,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr23 NcbiRNA");
+				System.out.println("Chr23 NcbiRNA");
 
 				break;
 			case 24:							
@@ -7344,7 +7342,7 @@ public void searchNcbiRNANucleotideAccessionVersion(String outputFolder,Map<Stri
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr24 NcbiRNA");
+				System.out.println("Chr24 NcbiRNA");
 		
 				break;
 				
@@ -7382,7 +7380,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr1 UcscGeneAlternateName");
+				System.out.println("Chr1 UcscGeneAlternateName");
 				break;
 			case 2:							
 				geneIntervalTree = createUcscRefSeqGenesIntervalTree(outputFolder,ChromosomeName.CHROMOSOME2);
@@ -7392,7 +7390,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 									
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr2 UcscGeneAlternateName");
+				System.out.println("Chr2 UcscGeneAlternateName");
 
 				break;
 			case 3:							
@@ -7403,7 +7401,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr3 UcscGeneAlternateName");
+				System.out.println("Chr3 UcscGeneAlternateName");
 
 				break;
 			case 4:							
@@ -7415,7 +7413,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr4 UcscGeneAlternateName");
+				System.out.println("Chr4 UcscGeneAlternateName");
 
 				break;
 			case 5:							
@@ -7426,7 +7424,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 									
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr5 UcscGeneAlternateName");
+				System.out.println("Chr5 UcscGeneAlternateName");
 
 				break;
 			case 6:							
@@ -7437,7 +7435,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr6 UcscGeneAlternateName");
+				System.out.println("Chr6 UcscGeneAlternateName");
 
 				break;
 			case 7:							
@@ -7448,7 +7446,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr7 UcscGeneAlternateName");
+				System.out.println("Chr7 UcscGeneAlternateName");
 
 				break;
 			case 8:							
@@ -7459,7 +7457,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr8 UcscGeneAlternateName");
+				System.out.println("Chr8 UcscGeneAlternateName");
 
 				break;
 			case 9	:							
@@ -7470,7 +7468,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr9 UcscGeneAlternateName");
+				System.out.println("Chr9 UcscGeneAlternateName");
 
 				break;
 			case 10:							
@@ -7481,7 +7479,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr10 UcscGeneAlternateName");
+				System.out.println("Chr10 UcscGeneAlternateName");
 
 				break;
 			case 11:							
@@ -7492,7 +7490,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr11 UcscGeneAlternateName");
+				System.out.println("Chr11 UcscGeneAlternateName");
 				
 				break;
 			case 12:							
@@ -7503,7 +7501,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr12 UcscGeneAlternateName");
+				System.out.println("Chr12 UcscGeneAlternateName");
 
 				break;
 			case 13:							
@@ -7514,7 +7512,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr13 UcscGeneAlternateName");
+				System.out.println("Chr13 UcscGeneAlternateName");
 
 				break;
 			case 14:							
@@ -7525,7 +7523,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr14 UcscGeneAlternateName");
+				System.out.println("Chr14 UcscGeneAlternateName");
 
 				break;
 			case 15:							
@@ -7537,7 +7535,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr15 UcscGeneAlternateName");
+				System.out.println("Chr15 UcscGeneAlternateName");
 
 				break;
 			case 16:							
@@ -7548,7 +7546,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr16 UcscGeneAlternateName");
+				System.out.println("Chr16 UcscGeneAlternateName");
 
 				break;
 			case 17:							
@@ -7559,7 +7557,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr17 UcscGeneAlternateName");
+				System.out.println("Chr17 UcscGeneAlternateName");
 
 				break;
 			case 18:							
@@ -7570,7 +7568,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr18 UcscGeneAlternateName");
+				System.out.println("Chr18 UcscGeneAlternateName");
 
 				break;
 			case 19:							
@@ -7581,7 +7579,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 									
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr19 UcscGeneAlternateName");
+				System.out.println("Chr19 UcscGeneAlternateName");
 
 				break;
 			case 20:							
@@ -7592,7 +7590,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr20 UcscGeneAlternateName");
+				System.out.println("Chr20 UcscGeneAlternateName");
 
 				break;
 			case 21:							
@@ -7603,7 +7601,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 									
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr21 UcscGeneAlternateName");
+				System.out.println("Chr21 UcscGeneAlternateName");
 
 				break;
 			case 22:							
@@ -7614,7 +7612,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr22 UcscGeneAlternateName");
+				System.out.println("Chr22 UcscGeneAlternateName");
 				
 				break;
 			case 23:							
@@ -7625,7 +7623,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 				
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr23 UcscGeneAlternateName");
+				System.out.println("Chr23 UcscGeneAlternateName");
 
 				break;
 			case 24:							
@@ -7636,7 +7634,7 @@ public void searchUcscGeneAlternateName(String outputFolder, Map<String,Integer>
 
 				emptyIntervalTree(geneIntervalTree.getRoot());								
 				geneIntervalTree = null;
-				GlanetRunner.appendLog("Chr24 UcscGeneAlternateName");
+				System.out.println("Chr24 UcscGeneAlternateName");
 		
 				break;
 				
@@ -8146,7 +8144,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillList(dnaseCellLineNameList,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME);		
 		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);	
 		writeResults(dnaseCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
-		GlanetRunner.appendLog("DNASE analysis ends.");
+		System.out.println("DNASE analysis ends.");
 		/*********************************************/
 		
 
@@ -8171,7 +8169,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillList(histoneNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME);
 		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap,overlapDefinition);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
-		GlanetRunner.appendLog("Histone analysis ends.");
+		System.out.println("Histone analysis ends.");
 		/*********************************************/
 		
 		
@@ -8291,7 +8289,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		writeResults(tfRegulationBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		writeResults(tfAllBasedKeggPathway2KMap, outputFolder,Commons.ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		
-		GlanetRunner.appendLog("TF analysis ends, Kegg Pathway analysis ends, Tf_CellLine_KeggPathway analysis ends, Tf_KeggPathway analysis ends.");
+		System.out.println("TF analysis ends, Kegg Pathway analysis ends, Tf_CellLine_KeggPathway analysis ends, Tf_KeggPathway analysis ends.");
 		//New Functionality END
 		/*********************************************/
 		

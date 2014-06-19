@@ -3,28 +3,40 @@
 	<section name="SearchDialog.ScopePart">
 		<item value="2" key="scope"/>
 		<list key="lastUsedWorkingSetNames">
-			<item value="GLANET"/>
+			<item value="GLANET_WORKING_SET"/>
 		</list>
+	</section>
+	<section name="">
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="">
 		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
 		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
 	</section>
-	<section name="">
-		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
-	</section>
 	<section name="TextSearchPage">
-		<item value="6" key="HISTORY_SIZE"/>
+		<item value="7" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="SEARCH_DERIVED"/>
 		<item value="false" key="WHOLE_WORD"/>
+		<section name="HISTORY6">
+			<item value="true" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="head" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
 		<section name="HISTORY4">
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="\n" key="textPattern"/>
+			<item value="original" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -36,7 +48,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="head" key="textPattern"/>
+			<item value="\n" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -51,7 +63,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="2" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="&quot;all_possible_names&quot;" key="textPattern"/>
+			<item value="Unknown chromosome" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -62,17 +74,32 @@
 		</section>
 		<section name="HISTORY3">
 			<item value="true" key="ignoreCase"/>
-			<item value="0" key="scope"/>
+			<item value="2" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="original" key="textPattern"/>
+			<item value="&quot;all_possible_names&quot;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
 			<list key="workingSets">
+				<item value="GLANET"/>
 			</list>
 		</section>
 		<section name="HISTORY0">
+			<item value="true" key="ignoreCase"/>
+			<item value="2" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="System.out.println" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+				<item value="GLANET"/>
+				<item value="GLANET_WORKING_SET"/>
+			</list>
+		</section>
+		<section name="HISTORY1">
 			<item value="true" key="ignoreCase"/>
 			<item value="2" key="scope"/>
 			<item value="false" key="isWholeWord"/>
@@ -83,19 +110,7 @@
 			</list>
 			<list key="workingSets">
 				<item value="GLANET"/>
-			</list>
-		</section>
-		<section name="HISTORY1">
-			<item value="true" key="ignoreCase"/>
-			<item value="2" key="scope"/>
-			<item value="false" key="isWholeWord"/>
-			<item value="Unknown chromosome" key="textPattern"/>
-			<item value="false" key="isRegExSearch"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-				<item value="GLANET"/>
+				<item value="GLANET_WORKING_SET"/>
 			</list>
 		</section>
 	</section>
@@ -119,7 +134,7 @@
 		</list>
 	</section>
 	<section name="SearchDialog">
-		<item value="org.eclipse.search.internal.ui.text.TextSearchPage" key="PREVIOUS_PAGE"/>
+		<item value="org.eclipse.jdt.ui.JavaSearchPage" key="PREVIOUS_PAGE"/>
 	</section>
 	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
 		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
