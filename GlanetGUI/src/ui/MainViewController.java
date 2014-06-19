@@ -6,6 +6,7 @@ import ui.MainView.*;
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
 	private MainView mainView;
+	private GlanetRunner runner;
 	
 	public MainViewController( JPanel contentPanel) {
 		super(contentPanel);
@@ -137,7 +138,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 				   writePermutationBasedandParametricBasedAnnotationResultMode,
 				   writePermutationBasedAnnotationResultMode};
 		
-		GlanetRunner runner = new GlanetRunner();
+		runner = new GlanetRunner();
 		
 		GlanetRunner.setArgs(new String[args.length]);
 		GlanetRunner.setMainView( mainView);
@@ -145,5 +146,10 @@ public class MainViewController extends ViewController implements MainViewDelega
 		for( int i = 0; i < args.length; i++) GlanetRunner.getArgs()[i] = args[i];
 		
 		runner.start();
+	}
+	
+	public void stopCurrentProcess() {
+		
+		runner.interrupt();
 	}
 }

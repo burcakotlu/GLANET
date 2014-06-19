@@ -1,13 +1,22 @@
 package ui;
 
 import java.io.File;
+
 import javax.swing.*;
+import javax.xml.ws.RequestWrapper;
+
 import common.Commons;
+
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
 public class MainView extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private MainViewDelegate delegate;
 	private JTextField jobName;
 	private JTextField outputTextField;
@@ -18,15 +27,13 @@ public class MainView extends JPanel{
 	private JLabel currentWorkLabel;
 	private JPanel listPane;
 	private JButton runButton;
+	private JButton stopButton;
 	private JComboBox<String> generateRandomDataModeCombo;
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
 	private JCheckBox enableEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
-	private JCheckBox writeGeneratedRandomData;
-	private JCheckBox writePermutationBasedAndParametricBased;
-	private JCheckBox writePermutationBasedAnnotationResult;
 	private JCheckBox dnaseEnrichment;
 	private JCheckBox histoneEnrichment;
 	private JCheckBox tfAndKeggPathwayEnrichment;
@@ -58,6 +65,8 @@ public class MainView extends JPanel{
 											   String writeGeneratedRandomDataMode,
 											   String writePermutationBasedandParametricBasedAnnotationResultMode,
 											   String writePermutationBasedAnnotationResultMode);
+		
+		public void stopCurrentProcess();
 	}
 	
 	private ActionListener chooseFilePressed = new ActionListener() {
@@ -94,6 +103,9 @@ public class MainView extends JPanel{
 				JOptionPane.showMessageDialog(null, "Please fill all the necessary options");
 			else {
 				
+				logArea.setText("");
+				logArea.setCaretPosition(logArea.getDocument().getLength());
+				
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						outputTextField.getText(),
@@ -117,7 +129,22 @@ public class MainView extends JPanel{
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 				);
+				
+				stopButton.setEnabled( true);
+				runButton.setEnabled( false);
 			}
+		}
+	};
+	
+	private ActionListener stopButtonPressed = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			delegate.stopCurrentProcess();
+			
+			stopButton.setEnabled( false);
+			runButton.setEnabled( true);
 		}
 	};
 	
@@ -286,26 +313,26 @@ public class MainView extends JPanel{
         enrichmentPanel.add( createBorderedPanel( "RSAT", createPanelWithHint(rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
         listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
         
-        //checkPanel added to listPane
-        JPanel checkPanel = new JPanel( new GridLayout(0, 1));
-        
-//        //writeGeneratedRandomData added to checkPanel
-//        writeGeneratedRandomData = new JCheckBox( "writeGeneratedRandomData");
-//        checkPanel.add( writeGeneratedRandomData);
-//        
-//        //writePermutationBasedAndParametricBased added to checkPanel
-//        writePermutationBasedAndParametricBased = new JCheckBox( "writePermutationBasedAndParametricBased");
-//        checkPanel.add( writePermutationBasedAndParametricBased);
-//        
-//        //writePermutationBasedAnnotationResult added to checkPanel
-//        writePermutationBasedAnnotationResult = new JCheckBox( "writePermutationBasedAnnotationResult");
-//        checkPanel.add( writePermutationBasedAnnotationResult);
-//        listPane.add( createBorderedPanel( "Write Permutation Results", checkPanel));
-        
         //jobName added to listPane
         jobName = new JTextField();
         listPane.add( createBorderedPanel( "Job Name", jobName));
         
+        JPanel rsButtonPane = new JPanel( new FlowLayout());
+        
+        //runButton added to rsButtonPane
+        runButton = new JButton("Run");
+		runButton.addActionListener( runButtonPressed);
+		rsButtonPane.add( runButton);
+        
+        //stopButton added to rsButtonPane
+        stopButton = new JButton("Stop");
+        stopButton.addActionListener( stopButtonPressed);
+        stopButton.setEnabled( false);
+        rsButtonPane.add( stopButton);
+        
+        listPane.add( rsButtonPane);
+        
+        //logArea added to listPane
         logArea = new JTextArea( 5, 20);
         JScrollPane logAreaScrollPane = new JScrollPane( logArea);
         logAreaScrollPane.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -313,12 +340,7 @@ public class MainView extends JPanel{
         logArea.setEditable( false);
         logArea.setLineWrap(true);
         logArea.setWrapStyleWord(true);
-        listPane.add( createBorderedPanel( "Log", logAreaScrollPane));
-        
-        //runButton added to listPane
-        runButton = new JButton("Run");
-		runButton.addActionListener(runButtonPressed);
-        listPane.add( runButton);
+        listPane.add( createBorderedPanel( "GLANET Log", logAreaScrollPane));
         
         //currentWorkLabel added to listPane
         currentWorkLabel = new JLabel("");
@@ -474,15 +496,18 @@ public class MainView extends JPanel{
 	public void appendNewTextToLogArea( String text){
 		
 		logArea.append( text + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 	
 	public void appendNewTextToLogArea( int text){
 		
 		logArea.append( text + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 	
 	public void appendNewTextToLogArea( float text){
 		
 		logArea.append( text + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 }
