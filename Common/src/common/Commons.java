@@ -18,6 +18,14 @@ public class Commons {
 	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
 	public static final String AUGMENTATION = "Augmentation";
 	
+	public static final String ANNOTATION_DNASE = "Annotation_Dnase";
+	public static final String ANNOTATION_TFBS = "Annotation_Tfbs";
+	public static final String ANNOTATION_HISTONE = "Annotation_Histone";
+	public static final String ANNOTATION_KEGGPATHWAY = "Annotation_KeggPathway";
+	public static final String ANNOTATION_TFKEGGPATHWAY = "Annotation_TfKeggPathwayNumberofOverlaps";
+	public static final String ANNOTATION_TFCELLLINEKEGGPATHWAY = "Annotation_TfCellLineKeggPathwayNumberofOverlaps";
+	
+	
 	public static final String BYGLANET = "byGLANET";
 	
 		

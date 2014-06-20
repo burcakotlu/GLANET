@@ -28,6 +28,7 @@
  */
 package intervaltree;
 
+import empiricalpvalues.KeyOrder;
 import gnu.trove.list.TShortList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
@@ -51,7 +52,6 @@ import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap;
 import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 public class IntervalTree {
@@ -2095,7 +2095,37 @@ public class IntervalTree {
 	}
 	//int ends
 	
-	
+	//mixed starts
+	public static int getCellLineNumber(long mixedNumber, KeyOrder keyOrder){
+		
+		int cellLineNumber = Integer.MIN_VALUE;
+		
+		switch(keyOrder){
+			case DNASE_CELLLINENUMBER:{		cellLineNumber = (int) (mixedNumber % 10000L);
+											break;										
+										}
+			case TFNUMBER_CELLLINENUMBER: {	 cellLineNumber = (int) (mixedNumber % 10000L);
+											 break;																				
+										}
+												
+			case HISTONENUMBER_CELLLINENUMBER:{	cellLineNumber = (int) (mixedNumber % 10000L);
+			 										break;	
+			 									}
+			
+			case KEGGPATHWAYNUMBER:{	break;
+									}
+				
+			case TFNUMBER_KEGGPATHWAYNUMBER:{	break;
+											}
+			case TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER:{	cellLineNumber = (int) ((mixedNumber / 10000L) % 10000L);
+																break;
+															}
+										
+		}
+		
+		return cellLineNumber;
+	}
+	//mixed ends
 	
 	//long starts
 	public static int getCellLineNumber(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
@@ -2110,7 +2140,42 @@ public class IntervalTree {
 	}
 	//long ends
 	
-	//@todo
+	
+	
+	public static int getTforHistoneNumber(long mixedNumber, KeyOrder keyOrder){
+		
+		int tforHistoneNumber = Integer.MIN_VALUE;
+		
+		switch(keyOrder){
+			case DNASE_CELLLINENUMBER:{	break;										
+										}
+			case TFNUMBER_CELLLINENUMBER: {	 tforHistoneNumber = (int) (mixedNumber / 10000L);
+											 break;																				
+										}
+												
+			case HISTONENUMBER_CELLLINENUMBER:{	 	tforHistoneNumber = (int) (mixedNumber / 10000L);
+			 										break;	
+			 								}
+			
+			case KEGGPATHWAYNUMBER:{	break;
+									}
+				
+			case TFNUMBER_KEGGPATHWAYNUMBER:{	tforHistoneNumber = (int) (mixedNumber / 10000L);
+												break;
+											}
+			
+			case TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER:{	tforHistoneNumber = (int) ((mixedNumber / 100000000L) % 10000L);
+																break;
+															}
+										
+		}
+	
+		return tforHistoneNumber;
+		
+	}
+	
+	
+	
 	//Get last 9., 10., 11. and 12. digits
 	public static int getTforHistoneNumber(long PermutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		
@@ -2122,7 +2187,7 @@ public class IntervalTree {
 		tforHistoneNumber = (int) (permutationNumberTforHistoneNumber % 10000L);
 		return tforHistoneNumber;
 	}
-	//@todo
+	
 	
 	public static int getElementNumberCellLineNumberOrKeggPathwayNumber(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		int elementNumberCellLineNumberOrKeggPathwayNumber = 0;

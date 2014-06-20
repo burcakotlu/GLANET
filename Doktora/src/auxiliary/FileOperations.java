@@ -173,8 +173,7 @@ public class FileOperations {
 	    		 for(File file: files){
 	    			 deleteOldFiles(file.getAbsolutePath());
 	    		 }	
-	    		 folder.delete();
-	    		 
+	    		 folder.delete();	 
 	     }  				
 	}
 	

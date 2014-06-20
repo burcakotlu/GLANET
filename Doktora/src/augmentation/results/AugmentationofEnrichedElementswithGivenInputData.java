@@ -979,7 +979,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-//		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		String multipleTestingParameter = args[6];
@@ -994,13 +993,11 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		String tfCellLineKeggPathwayEnrichment = args[15];
 		
 		String jobName = args[17];
-	
-		
-		//delete old files starts 
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);
-		//delete old files ends
 			
-		
+		//delete old files starts 
+		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);
+		//delete old files ends
+					
 		AugmentationofEnrichedElementswithGivenInputData.readandWriteFiles(outputFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 		
 

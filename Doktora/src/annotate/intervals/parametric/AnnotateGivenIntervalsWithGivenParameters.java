@@ -73,7 +73,6 @@ import java.util.List;
 import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
-import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -81,7 +80,6 @@ import common.Commons;
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
-import empiricalpvalues.AllName2KMaps;
 import empiricalpvalues.InputLine;
 
 public class AnnotateGivenIntervalsWithGivenParameters {
@@ -8113,9 +8111,8 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/********************************************************************/
 		/***********delete old files starts**********************************/
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
-		List<String> notToBeDeleted = new ArrayList<String>();
 		
-		FileOperations.deleteOldFiles(annotateOutputBaseDirectoryName,notToBeDeleted);
+		FileOperations.deleteOldFiles(annotateOutputBaseDirectoryName);
 		/***********delete old files ends***********************************/
 		/******************************************************************/
 		

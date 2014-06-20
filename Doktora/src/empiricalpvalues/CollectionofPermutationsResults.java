@@ -70,7 +70,7 @@ public class CollectionofPermutationsResults {
 					enrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 					
 					//line per element in output file
-					bufferedWriter.write(element.getTforHistoneNumberCellLineNumberKeggPathwayNumber() + "\t" + element.getTforHistoneNameCellLineNameKeggPathwayName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
+					bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
 					
 					
 					bufferedWriter.write(element.getKeggPathwayName()+"\t");
@@ -100,7 +100,7 @@ public class CollectionofPermutationsResults {
 			
 				}else{
 					//line per element in output file
-					bufferedWriter.write(element.getTforHistoneNumberCellLineNumberKeggPathwayNumber() + "\t" + element.getTforHistoneNameCellLineNameKeggPathwayName()+ "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
+					bufferedWriter.write(element.getNumber() + "\t" + element.getName()+ "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
 					
 				}
 				
@@ -136,11 +136,9 @@ public class CollectionofPermutationsResults {
 					enrichmentType.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
 					
 					//line per element in output file
-					bufferedWriter.write(element.getTforHistoneNumberCellLineNumberKeggPathwayNumber() + "\t" + element.getTforHistoneNameCellLineNameKeggPathwayName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
+					bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");					
 					
-					
-					bufferedWriter.write(element.getKeggPathwayName()+"\t");
-					
+					bufferedWriter.write(element.getKeggPathwayName()+"\t");				
 					
 					if (element.getKeggPathwayGeneIdList().size()>=1){
 						int i;
@@ -163,7 +161,7 @@ public class CollectionofPermutationsResults {
 			
 				}else{
 					//line per element in output file
-					bufferedWriter.write(element.getTforHistoneNumberCellLineNumberKeggPathwayNumber() + "\t" + element.getTforHistoneNameCellLineNameKeggPathwayName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
+					bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +System.getProperty("line.separator"));
 					
 				}
 				
@@ -215,7 +213,7 @@ public class CollectionofPermutationsResults {
 	
 	//@todo
 	//question is this elementNumber
-	public String convertNumberToName(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,KeyOrder keyOrder, Map<Integer,String> cellLineNumber2NameMap,Map<Integer,String> tfNumber2NameMap,Map<Integer,String> histoneNumber2NameMap, Map<Integer,String> keggPathwayNumber2NameMap){
+	public String convertNumberToName(long number,KeyOrder keyOrder, Map<Integer,String> cellLineNumber2NameMap,Map<Integer,String> tfNumber2NameMap,Map<Integer,String> histoneNumber2NameMap, Map<Integer,String> keggPathwayNumber2NameMap){
 	
 		int cellLineNumber;
 		int tfNumber;
@@ -228,42 +226,49 @@ public class CollectionofPermutationsResults {
 		String keggPathwayName;
 		
 		switch(keyOrder){
-			case DNASE_CELLLINENUMBER:{		cellLineNumber = IntervalTree.getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+			case DNASE_CELLLINENUMBER:{		cellLineNumber = IntervalTree.getCellLineNumber(number,keyOrder);
 											cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
 											return cellLineName;	
 										}
-			case TFNUMBER_CELLLINENUMBER: {	 tfNumber = IntervalTree.getTforHistoneNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+			case TFNUMBER_CELLLINENUMBER: {	 tfNumber = IntervalTree.getTforHistoneNumber(number,keyOrder);
 											 tfName = tfNumber2NameMap.get(tfNumber);
-											 cellLineNumber = IntervalTree.getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+											 cellLineNumber = IntervalTree.getCellLineNumber(number,keyOrder);
 											 cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
 											 return tfName + "_" + cellLineName;																					
 											}
 												
-			case	HISTONENUMBER_CELLLINENUMBER:{	 histoneNumber = IntervalTree.getTforHistoneNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+			case	HISTONENUMBER_CELLLINENUMBER:{	 histoneNumber = IntervalTree.getTforHistoneNumber(number,keyOrder);
 													 histoneName = histoneNumber2NameMap.get(histoneNumber);
-													 cellLineNumber = IntervalTree.getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+													 
+													 cellLineNumber = IntervalTree.getCellLineNumber(number,keyOrder);
 													 cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
+													 
 													 return histoneName + "_" + cellLineName;													
 												}
 			
-			case KEGGPATHWAYNUMBER:{	keggPathwayNumber = IntervalTree.getKeggPathwayNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+			case KEGGPATHWAYNUMBER:{	keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
 									 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
 									 	return keggPathwayName;
 									}
 				
-			case TFNUMBER_KEGGPATHWAYNUMBER:{		tfNumber = IntervalTree.getTforHistoneNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+			case TFNUMBER_KEGGPATHWAYNUMBER:{		tfNumber = IntervalTree.getTforHistoneNumber(number,keyOrder);
 													tfName = tfNumber2NameMap.get(tfNumber);
-													keggPathwayNumber = IntervalTree.getKeggPathwayNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+													
+													keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
 												 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
+												 	
 												 	return tfName  + "_" + keggPathwayName;	
 											}
 			case TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER:{
-																tfNumber = IntervalTree.getTforHistoneNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+																tfNumber = IntervalTree.getTforHistoneNumber(number,keyOrder);
 																tfName = tfNumber2NameMap.get(tfNumber);
-																cellLineNumber = IntervalTree.getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+																
+																cellLineNumber = IntervalTree.getCellLineNumber(number,keyOrder);
 																cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
-																keggPathwayNumber = IntervalTree.getKeggPathwayNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber);
+																
+																keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
 															 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
+															 	
 															 	return tfName + "_" + cellLineName + "_" + keggPathwayName;		 
 																}
 											
@@ -296,15 +301,13 @@ public class CollectionofPermutationsResults {
 		float bonferroniCorrectedEmpiricalPValue;
 		
 		FunctionalElement element;
-		long tforHistoneNumberCellLineNumberKeggPathwayNumber;		
+		long mixedNumber;		
 		String tforHistoneNameCellLineNameKeggPathwayName;
 		
 		//In case of functionalElement contains kegg pathway
-		int keggPathwayNumber;
-		
+		int keggPathwayNumber;	
 	
-		Map<Long,FunctionalElement> elementNumber2ElementMap = new  HashMap<Long,FunctionalElement>();
-		
+		Map<Long,FunctionalElement> elementNumber2ElementMap = new  HashMap<Long,FunctionalElement>();	
 		
 		int numberofPermutations;
 		
@@ -338,7 +341,7 @@ public class CollectionofPermutationsResults {
 			/***********************FOR EACH RUN STARTS****************************************/		
 			for (int i=1; i<=numberofRuns; i++){
 				
-					tempRunName =  "_" + jobName + i;
+					tempRunName =  "_" + jobName +  "_" + i;
 					
 					fileReader = new FileReader(outputFolder + fileName + tempRunName  + ".txt" );
 					bufferedReader = new BufferedReader(fileReader);
@@ -351,7 +354,7 @@ public class CollectionofPermutationsResults {
 						indexofTab = strLine.indexOf('\t');
 						indexofPipe = strLine.indexOf('|');
 						
-					    tforHistoneNumberCellLineNumberKeggPathwayNumber = Long.parseLong(strLine.substring(0,indexofTab));
+						mixedNumber = Long.parseLong(strLine.substring(0,indexofTab));
 						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofTab+1,indexofPipe));
 						
 						indexofFormerComma = indexofPipe;
@@ -371,17 +374,17 @@ public class CollectionofPermutationsResults {
 						
 						
 						//write numberofPermutationsHavingOverlapsGreaterThanorEqualto to map
-						if(elementNumber2ElementMap.get(tforHistoneNumberCellLineNumberKeggPathwayNumber)==null){
+						if(elementNumber2ElementMap.get(mixedNumber)==null){
 							element = new FunctionalElement();
 							
-							element.setTforHistoneNumberCellLineNumberKeggPathwayNumber(tforHistoneNumberCellLineNumberKeggPathwayNumber);
+							element.setNumber(mixedNumber);
 							
-							tforHistoneNameCellLineNameKeggPathwayName = convertNumberToName(tforHistoneNumberCellLineNumberKeggPathwayNumber,keyOrder,cellLineNumber2CellLineNameMap,tfNumber2TfNameMap,histoneNumber2HistoneNameMap,keggPathwayNumber2KeggPathwayEntryMap);
-							element.setTforHistoneNameCellLineNameKeggPathwayName(tforHistoneNameCellLineNameKeggPathwayName);
+							tforHistoneNameCellLineNameKeggPathwayName = convertNumberToName(mixedNumber,keyOrder,cellLineNumber2CellLineNameMap,tfNumber2TfNameMap,histoneNumber2HistoneNameMap,keggPathwayNumber2KeggPathwayEntryMap);
+							element.setName(tforHistoneNameCellLineNameKeggPathwayName);
 							
 							//in case of element contains a KEGG PATHWAY
 							if (keyOrder.isKeggPathwayNumber() || keyOrder.isTfNumberKeggPathwayNumber() || keyOrder.isTfNumberCellLineNumberKeggPathwayNumber()){
-								keggPathwayNumber = IntervalTree.getKeggPathwayNumber(tforHistoneNumberCellLineNumberKeggPathwayNumber);
+								keggPathwayNumber = IntervalTree.getKeggPathwayNumber(mixedNumber);
 								element.setKeggPathwayNumber(keggPathwayNumber);
 							}
 							//set keggPathwayNumber
@@ -390,10 +393,10 @@ public class CollectionofPermutationsResults {
 							element.setOriginalNumberofOverlaps(originalNumberofOverlaps);
 							element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualto(numberofPermutationsHavingOverlapsGreaterThanorEqualto);
 							
-							elementNumber2ElementMap.put(tforHistoneNumberCellLineNumberKeggPathwayNumber, element);
+							elementNumber2ElementMap.put(mixedNumber, element);
 						}else{
 							
-							element = elementNumber2ElementMap.get(tforHistoneNumberCellLineNumberKeggPathwayNumber);
+							element = elementNumber2ElementMap.get(mixedNumber);
 							
 							element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualto(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + numberofPermutationsHavingOverlapsGreaterThanorEqualto );
 							
@@ -403,6 +406,7 @@ public class CollectionofPermutationsResults {
 					
 					//Close bufferedReader
 					bufferedReader.close();
+					fileReader.close();
 									
 			}//End of for: each run
 			/***********************FOR EACH RUN ENDS******************************************/		
@@ -415,7 +419,7 @@ public class CollectionofPermutationsResults {
 			//Now compute empirical pValue and Bonferroni Corrected pValue and write
 			for(Map.Entry<Long, FunctionalElement> entry: elementNumber2ElementMap.entrySet()){
 				
-				tforHistoneNumberCellLineNumberKeggPathwayNumber = entry.getKey();
+				mixedNumber = entry.getKey();
 				element 	= entry.getValue();
 				
 				numberofPermutationsHavingOverlapsGreaterThanorEqualto = element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto();
