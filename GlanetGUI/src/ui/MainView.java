@@ -24,6 +24,7 @@ public class MainView extends JPanel{
 	private JTextField falseDiscoveryRate;
 	private JTextField signifanceCriteria;
 	private JTextField numberOfBases;
+	private JTextField numberOfPerInEachRun;
 	private JLabel currentWorkLabel;
 	private JPanel listPane;
 	private JButton runButton;
@@ -64,7 +65,8 @@ public class MainView extends JPanel{
 											   String jobName,
 											   String writeGeneratedRandomDataMode,
 											   String writePermutationBasedandParametricBasedAnnotationResultMode,
-											   String writePermutationBasedAnnotationResultMode);
+											   String writePermutationBasedAnnotationResultMode,
+											   String numberOfPermutationsInEachRun);
 		
 		public void stopCurrentProcess();
 	}
@@ -111,7 +113,7 @@ public class MainView extends JPanel{
 						outputTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
-						enableEnrichmentCheckBox.isEnabled()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
+						enableEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
 						generateRandomDataModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
 						signifanceCriteria.getText(),
@@ -127,7 +129,8 @@ public class MainView extends JPanel{
 						jobName.getText(),
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
-						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
+						numberOfPerInEachRun.getText()
 				);
 				
 				stopButton.setEnabled( true);
@@ -251,7 +254,7 @@ public class MainView extends JPanel{
         enrichmentPanel.add( createBorderedPanel( "Multiple Testing", createPanelWithHint(multipleTestingCombo, Commons.GUI_HINT_MULTIPLE_TESTING)));
         
         //fdrAndSigCriteria added to enrichmentPanel
-        JPanel fdrAndSigCriteria = new JPanel( new FlowLayout(FlowLayout.LEFT));
+        JPanel fdrAndSigCriteria = new JPanel( new GridLayout(1, 2));
         
         //falseDiscoveryRate added to fdrAndSigCriteria
         falseDiscoveryRate = new JTextField(30);
@@ -264,11 +267,20 @@ public class MainView extends JPanel{
 		fdrAndSigCriteria.add( createBorderedPanel( "Bonferroni Correction Significance Criteria", createPanelWithHint(signifanceCriteria, Commons.GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA)));
 		enrichmentPanel.add( fdrAndSigCriteria);
 		
-		//numberOfPerCombo added to enrichmentPanel
+		//permutationPanel added to enrichmentPanel
+		JPanel permutationPanel = new JPanel( new GridLayout(1, 2));
+		
+		//numberOfPerCombo added to permutationPanel
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
-		enrichmentPanel.add( createBorderedPanel( "Number of Permutations", createPanelWithHint(numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
+		permutationPanel.add( createBorderedPanel( "Number of Permutations", createPanelWithHint(numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 		
+		//numberOfPerInEachRun added to permutationPanel
+		numberOfPerInEachRun = new JTextField(30);
+		numberOfPerInEachRun.setText("2000");
+		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_FDR)));
+		
+		enrichmentPanel.add( permutationPanel);
 		//enrichmentOptions added to enrichmentPanel
 		JPanel enrichmentOptions = new JPanel( new GridLayout(0, 1));
 		
@@ -455,6 +467,7 @@ public class MainView extends JPanel{
 		signifanceCriteria.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
 		dnaseEnrichment.setEnabled( shouldEnable);
+		numberOfPerInEachRun.setEnabled( shouldEnable);
 		if( dnaseEnrichment.isSelected()) dnaseEnrichment.setSelected( shouldEnable);
 		histoneEnrichment.setEnabled( shouldEnable);
 		if( histoneEnrichment.isSelected()) histoneEnrichment.setSelected( shouldEnable);
@@ -467,12 +480,6 @@ public class MainView extends JPanel{
 		cellLineBasedTfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
 		if( cellLineBasedTfAndKeggPathwayEnrichment.isSelected()) cellLineBasedTfAndKeggPathwayEnrichment.setSelected( shouldEnable);
 		checkUsabilityOfRegulatorySequenceAnalysis();
-//		writeGeneratedRandomData.setEnabled( shouldEnable);
-//		if( writeGeneratedRandomData.isSelected()) writeGeneratedRandomData.setSelected( shouldEnable);
-//		writePermutationBasedAndParametricBased.setEnabled( shouldEnable);
-//		if( writePermutationBasedAndParametricBased.isSelected()) writePermutationBasedAndParametricBased.setSelected( shouldEnable);
-//		writePermutationBasedAnnotationResult.setEnabled( shouldEnable);
-//		if( writePermutationBasedAnnotationResult.isSelected()) writePermutationBasedAnnotationResult.setSelected( shouldEnable);
 		
 		revalidate();
 	}

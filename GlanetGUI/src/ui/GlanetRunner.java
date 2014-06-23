@@ -28,21 +28,25 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
 		
-		getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-		AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
-		
-		getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
-		CollectionofPermutationsResults.main(getArgs());
-		
-		getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
-		AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
-
-		
-		if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
-			getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-			GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
-			getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
-			RSATMatrixScanClient.main(getArgs());
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			
+			getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+			AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
+			
+			getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+			CollectionofPermutationsResults.main(getArgs());
+			
+			getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+			AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
+			
+			
+			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+				
+				getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+				GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
+				getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
+				RSATMatrixScanClient.main(getArgs());
+			}
 		}
 		
 		//args[1]  already has file separator at the end
