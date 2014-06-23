@@ -1845,15 +1845,15 @@ public class IntervalTree {
 				try {
 					
 					bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
-					
+														
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(tfbsNameandCellLineName,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
-						
+						bufferedWriter.flush();
 					}
-					
+						
 					if(tfbsNameandCellLineName2ZeroorOneMap.get(tfbsNameandCellLineName)==null){
 						tfbsNameandCellLineName2ZeroorOneMap.put(tfbsNameandCellLineName, 1);
 					}
@@ -3759,16 +3759,16 @@ public class IntervalTree {
 									
 									if (keggPathwayNameList.contains(keggPathwayName)){
 										
-										bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
+										bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);										
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											exonBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
-											
-											
+											bufferedWriter.flush();
 										}
+																					
 										
 										if(exonBasedKeggPathway2OneorZeroMap.get(keggPathwayName)==null){
 											exonBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
@@ -3806,12 +3806,14 @@ public class IntervalTree {
 										bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											regulationBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
-
+											bufferedWriter.flush();
 										}
+
+										
 										
 										if(regulationBasedKeggPathway2OneorZeroMap.get(keggPathwayName)==null){
 											regulationBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
@@ -3837,18 +3839,19 @@ public class IntervalTree {
 							for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
 								
-								if (keggPathwayNameList.contains(keggPathwayName)){
+								if (keggPathwayNameList.contains(keggPathwayName)){			
 									
 									bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 									
-									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt");
+									
+									if (bufferedWriter==null){
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										allBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
-
-										
+										bufferedWriter.flush();					
 									}
+									
 									
 									if(allBasedKeggPathway2OneorZeroMap.get(keggPathwayName)==null){
 										allBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
