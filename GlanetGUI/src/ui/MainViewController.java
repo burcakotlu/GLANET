@@ -94,6 +94,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//args[21]  --->    number of permutations in each run. Default is 2000
+	
 	public void startRunActionsWithOptions( String inputFileName, 
 			   String outputFolder,
 			   String inputFileFormat,
@@ -114,7 +116,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String jobName,
 			   String writeGeneratedRandomDataMode,
 			   String writePermutationBasedandParametricBasedAnnotationResultMode,
-			   String writePermutationBasedAnnotationResultMode) {
+			   String writePermutationBasedAnnotationResultMode,
+			   String numberOfPermutationsInEachRun) {
 		
 		String[] args =   { inputFileName, 
 				   outputFolder,
@@ -136,7 +139,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 				   jobName,
 				   writeGeneratedRandomDataMode,
 				   writePermutationBasedandParametricBasedAnnotationResultMode,
-				   writePermutationBasedAnnotationResultMode};
+				   writePermutationBasedAnnotationResultMode,
+				   numberOfPermutationsInEachRun};
 		
 		runner = new GlanetRunner();
 		
