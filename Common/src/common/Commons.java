@@ -42,7 +42,7 @@ public class Commons {
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
-	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
+//	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
 	
 	public static Float FLOAT_ZERO = new Float(0.0f); 
 	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 

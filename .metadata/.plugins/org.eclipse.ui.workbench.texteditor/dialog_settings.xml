@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="5000" key="selection"/>
+		<item value=".equals" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="5000"/>
-			<item value="Number_"/>
-			<item value="Number_of"/>
-			<item value="originalDnase2KMap"/>
+			<item value=".equals"/>
+			<item value="enrichmentType"/>
+			<item value="Annotation"/>
+			<item value="Annoation"/>
+			<item value="annotationType"/>
+			<item value="generateRandomDataMode"/>
 			<item value="2000"/>
-			<item value="with numbers"/>
-			<item value="GlanetRunner.appendLog"/>
-			<item value="System.out.println"/>
+			<item value="writePermutationBasedAnnotationResultMode"/>
 		</list>
 		<list key="replacehistory">
 			<item value="System.out.println"/>
@@ -33,10 +33,10 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="502" key="DIALOG_WIDTH"/>
+		<item value="724" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1120" key="DIALOG_X_ORIGIN"/>
-		<item value="32" key="DIALOG_Y_ORIGIN"/>
+		<item value="431" key="DIALOG_HEIGHT"/>
+		<item value="938" key="DIALOG_X_ORIGIN"/>
+		<item value="228" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

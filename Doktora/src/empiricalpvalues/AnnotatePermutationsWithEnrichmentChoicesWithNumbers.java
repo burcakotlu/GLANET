@@ -1146,11 +1146,11 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		
 		
 	
-	public static void generateAnnotationTasks(ChromosomeName chromName, List<AnnotationTask> listofAnnotationTasks,int runNumber,int numberofPermutationsinThisRun){
+	public static void generateAnnotationTasks(ChromosomeName chromName, List<AnnotationTask> listofAnnotationTasks,int runNumber,int numberofPermutationsinThisRun,int numberofPermutationsinEachRun){
 		
 		
 			for(int permutationNumber = 1; permutationNumber<= numberofPermutationsinThisRun; permutationNumber++){
-				listofAnnotationTasks.add(new AnnotationTask(chromName, (runNumber-1)* Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN + permutationNumber));
+				listofAnnotationTasks.add(new AnnotationTask(chromName, (runNumber-1)* numberofPermutationsinEachRun + permutationNumber));
 			}
 	}
 	
@@ -1644,7 +1644,14 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	//the tasks are executed
 	//after all the parallel work is done
 	//results are written to files
-	public static void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int runNumber, int numberofPermutationsinThisRun,List<InputLine> allOriginalInputLines, 
+	public static void annotateAllPermutationsInThreads(
+			String outputFolder,
+			String dataFolder,
+			int NUMBER_OF_AVAILABLE_PROCESSORS,
+			int runNumber, 
+			int numberofPermutationsinThisRun,
+			int numberofPermutationsinEachRun,
+			List<InputLine> allOriginalInputLines, 
 			TIntObjectMap<TIntList> dnase2AllKMap,
 			TIntObjectMap<TIntList> tfbs2AllKMap,
 			TIntObjectMap<TIntList> histone2AllKMap,
@@ -1810,7 +1817,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				/******************************************************************************************************/		
 				/******************************GENERATE ANNOTATION TASKS STARTS****************************************/						
 				System.out.println("Generate annotation tasks has started.");
-				generateAnnotationTasks(chromName,listofAnnotationTasks,runNumber,numberofPermutationsinThisRun);
+				generateAnnotationTasks(chromName,listofAnnotationTasks,runNumber,numberofPermutationsinThisRun,numberofPermutationsinEachRun);
 				System.out.println("Generate annotation tasks has ended.");
 				/********************************GENERATE ANNOTATION TASKS ENDS****************************************/						
 				/******************************************************************************************************/		
@@ -2331,7 +2338,11 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		int NUMBER_OF_AVAILABLE_PROCESSORS =  java.lang.Runtime.getRuntime().availableProcessors();
 			
 		//Set the number of total permutations
-		int numberofTotalPermutations = Integer.parseInt(args[9]);		
+		int numberofTotalPermutations = Integer.parseInt(args[9]);
+		
+		//set the number of permutations in each run
+		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
+		
 		
 		//SET the Input Data File
 //		String inputDataFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS;
@@ -2482,8 +2493,8 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 		int numberofRemainedPermutations = 0;
 		String runName;
 		
-		numberofRuns = numberofTotalPermutations / Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
-		numberofRemainedPermutations = numberofTotalPermutations % Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN;
+		numberofRuns = numberofTotalPermutations / numberofPermutationsInEachRun;
+		numberofRemainedPermutations = numberofTotalPermutations % numberofPermutationsInEachRun;
 		
 		//Increase numberofRuns by 1 for remainder permutations less than Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN
 		if (numberofRemainedPermutations> 0){
@@ -2569,9 +2580,9 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				//then annotate permutations concurrently
 				//elementName2AllKMap and originalElementName2KMap will be filled here
 				if ((runNumber == numberofRuns) && (numberofRemainedPermutations >0)){
-					AnnotatePermutationsWithEnrichmentChoicesWithNumbers.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap);						
+					AnnotatePermutationsWithEnrichmentChoicesWithNumbers.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap);						
 				}else {
-					AnnotatePermutationsWithEnrichmentChoicesWithNumbers.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap);		
+					AnnotatePermutationsWithEnrichmentChoicesWithNumbers.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap);		
 					
 				}
 				System.out.println("Concurrent programming has been ended.");				
