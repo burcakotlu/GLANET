@@ -74,12 +74,11 @@ import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
+import empiricalpvalues.EnrichmentType;
 import empiricalpvalues.InputLine;
 
 public class AnnotateGivenIntervalsWithGivenParameters {
@@ -2042,6 +2041,13 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					dnaseIntervalTree.findAllOverlappingDnaseIntervals(outputFolder,dnaseIntervalTree.getRoot(),interval,chromName, dnaseBufferedWriterHashMap,dnaseCellLineNameList, dnaseCellLine2OneorZeroMap,overlapDefinition);
 				}
+				
+				//too many opened files error starts
+				if(!dnaseBufferedWriterHashMap.isEmpty()){
+					closeBufferedWriters(dnaseBufferedWriterHashMap);
+					dnaseBufferedWriterHashMap.clear();
+				}
+				//too many opened files error ends
 					
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
 				for(Map.Entry<String, Integer> zeroOrOne: dnaseCellLine2OneorZeroMap.entrySet()){
@@ -3045,6 +3051,13 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				if(histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					histoneIntervalTree.findAllOverlappingHistoneIntervals(outputFolder,histoneIntervalTree.getRoot(),interval,chromName, histoneBufferedWriterHashMap,histoneNameList,histoneNameandCellLineName2ZeroorOneMap,overlapDefinition);						
 				}
+				
+				//too many opened files error starts
+				if(!histoneBufferedWriterHashMap.isEmpty()){
+					closeBufferedWriters(histoneBufferedWriterHashMap);
+					histoneBufferedWriterHashMap.clear();
+				}
+				//too many opened files error ends
 								
 				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
 				for(Map.Entry<String, Integer> zeroOrOne: histoneNameandCellLineName2ZeroorOneMap.entrySet()){
@@ -3306,7 +3319,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathway2KMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathway2KMap, 
 			String type,
-			String tfandKeggPathwayEnrichmentType,
+			EnrichmentType tfandKeggPathwayEnrichmentType,
 			int overlapDefinition){
 		int low;
 		int high;
@@ -4642,7 +4655,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 			TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap, 
 			TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,
 			String type,
-			String tfandKeggPathwayEnrichmentType,
+			EnrichmentType tfandKeggPathwayEnrichmentType,
 			int overlapDefinition){
 		
 		int low;
@@ -6013,7 +6026,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				}//end of Swicth
 		}//end of For
 		
-		closeBufferedWriters(dnaseBufferedWriterHashMap);	
+//		closeBufferedWriters(dnaseBufferedWriterHashMap);	
 		
 		try {
 			bufferedReader.close();
@@ -6877,7 +6890,7 @@ public class AnnotateGivenIntervalsWithGivenParameters {
 				}//end of Swicth
 		}//end of For
 		
-		closeBufferedWriters(histoneBufferedWriterHashMap);
+//		closeBufferedWriters(histoneBufferedWriterHashMap);
 		
 		try {
 			bufferedReader.close();
@@ -8745,7 +8758,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//with Numbers starts
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment starts
-	public static AllMapsWithNumbers annotatePermutationwithIOwithNumbers(String outputFolder,int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, String tfandKeggPathwayEnrichmentType, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap,int overlapDefinition){
+	public static AllMapsWithNumbers annotatePermutationwithIOwithNumbers(String outputFolder,int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree,  IntervalTree ucscRefSeqGenesIntervalTree, String annotationType, EnrichmentType tfandKeggPathwayEnrichmentType, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap,int overlapDefinition){
 		AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
 		
 		if (Commons.DNASE_ANNOTATION.equals(annotationType)){
@@ -9252,7 +9265,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//Empirical P Value Calculation
 		//Without IO
 		//with Numbers
-		public static AllMapsWithNumbers annotatePermutationwithoutIOwithNumbers(int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,String tfandKeggPathwayEnrichmentType, TIntObjectMap<TShortList> geneId2KeggPathwayMap,int overlapDefinition){
+		public static AllMapsWithNumbers annotatePermutationwithoutIOwithNumbers(int permutationNumber, ChromosomeName chrName, List<InputLine> randomlyGeneratedData,IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree, String annotationType,EnrichmentType tfandKeggPathwayEnrichmentType, TIntObjectMap<TShortList> geneId2KeggPathwayMap,int overlapDefinition){
 				AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
 					
 				if (Commons.DNASE_ANNOTATION.equals(annotationType)){

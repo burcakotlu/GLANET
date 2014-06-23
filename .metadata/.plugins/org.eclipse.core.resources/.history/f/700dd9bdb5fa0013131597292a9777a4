@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date Jun 23, 2014 
+ * @time 12:05:35 PM
+ */
+package empiricalpvalues;
+
+/**
+ * 
+ */
+public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
+
+}

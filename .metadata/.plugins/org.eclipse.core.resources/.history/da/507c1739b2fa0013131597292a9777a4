@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date Jun 23, 2014 
+ * @time 11:40:08 AM
+ */
+package empiricalpvalues;
+
+/**
+ * 
+ */
+public enum GenerateRandomDataMode {
+
+}

@@ -20,17 +20,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import mapabilityandgc.GC;
 import mapabilityandgc.Mapability;
-
 import common.Commons;
-
 import empiricalpvalues.GCCharArray;
+import empiricalpvalues.GenerateRandomDataMode;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;
 
 public class RandomDataGenerator {
 	
 	//todo
-	public static List<InputLine>  generateRandomData(GCCharArray gcCharArray, MapabilityFloatArray mapabilityDoubleArray,int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, ThreadLocalRandom threadLocalRandom,String mode){
+	public static List<InputLine>  generateRandomData(GCCharArray gcCharArray, MapabilityFloatArray mapabilityDoubleArray,int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, ThreadLocalRandom threadLocalRandom,GenerateRandomDataMode generateRandomDataMode){
 		
 		List<InputLine> randomlyGeneratedInputLines = null;
 		
@@ -57,7 +56,7 @@ public class RandomDataGenerator {
 		DecimalFormat df = new DecimalFormat("#.######");
 	      
 		
-		if (Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT.equals(mode)){
+		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
 			
 					
 					randomlyGeneratedInputLines = new ArrayList<InputLine>();
@@ -80,7 +79,7 @@ public class RandomDataGenerator {
 			
 			
 			
-		}else if (Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equals(mode)){
+		}else if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 			
 			//for logging purposes
 //			try {

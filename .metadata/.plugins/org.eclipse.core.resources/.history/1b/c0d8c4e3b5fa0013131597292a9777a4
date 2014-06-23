@@ -1,0 +1,22 @@
+/**
+ * @author burcakotlu
+ * @date Jun 23, 2014 
+ * @time 12:05:35 PM
+ */
+package empiricalpvalues;
+
+/**
+ * 
+ */
+public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
+	
+	WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT(1),
+	DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT(2);
+	
+	private final int writePermutationBasedandParametricBasedAnnotationResultMode;
+	
+	private WritePermutationBasedandParametricBasedAnnotationResultMode(int writePermutationBasedandParametricBasedAnnotationResultMode) {
+    	this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
+	}
+
+}

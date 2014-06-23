@@ -1,0 +1,19 @@
+/**
+ * @author burcakotlu
+ * @date Jun 23, 2014 
+ * @time 11:40:08 AM
+ */
+package empiricalpvalues;
+
+/**
+ * 
+ */
+public enum GenerateRandomDataMode {
+	
+	GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT(1),
+	GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT(2);
+	
+	private final int generateRandomDataMode;
+	
+
+}
