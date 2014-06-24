@@ -8,8 +8,8 @@
  */
 package mapabilityandgc;
 
-import intervaltree.ChromosomeName;
 import empiricalpvalues.GCCharArray;
+import enumtypes.ChromosomeName;
 
 public class ChromosomeBasedGCArray {
 	

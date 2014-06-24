@@ -17,20 +17,19 @@ public class Commons {
 	public static final String From_ANNOTATION = "fromAnnotation";
 	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
 	public static final String AUGMENTATION = "Augmentation";
-	
-	public static final String ANNOTATION_DNASE = "Annotation_Dnase";
-	public static final String ANNOTATION_TFBS = "Annotation_Tfbs";
-	public static final String ANNOTATION_HISTONE = "Annotation_Histone";
-	public static final String ANNOTATION_KEGGPATHWAY = "Annotation_KeggPathway";
-	public static final String ANNOTATION_TFKEGGPATHWAY = "Annotation_TfKeggPathwayNumberofOverlaps";
-	public static final String ANNOTATION_TFCELLLINEKEGGPATHWAY = "Annotation_TfCellLineKeggPathwayNumberofOverlaps";
-	
-	
-	public static final String BYGLANET = "byGLANET";
-	
 		
+	public static final String BYGLANET = "byGLANET";
+			
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
+	
+	//Annotation Type
+	public static final String DNASE_ANNOTATION 		= "DNASE_ANNOTATION";
+	public static final String TF_ANNOTATION 			= "TF_ANNOTATION";
+	public static final String HISTONE_ANNOTATION 		= "HISTONE_ANNOTATION";
+	public static final String GENE_SET_ANNOTATION 		= "GENE_SET_ANNOTATION";
+	public static final String TF_GENE_SET_ANNOTATION 	= "TF_GENE_SET_ANNOTATION";
+	public static final String TF_CELLLINE_GENE_SET_ANNOTATION = "TF_CELLLINE_GENE_SET_ANNOTATION";
 	
 	
 	public static final String ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
@@ -710,14 +709,7 @@ public class Commons {
 	public static final String REGULATION_BASED_KEGG_PATHWAY_ANALYSIS 	= "REGULATION_BASED_KEGG_PATHWAY_ANALYSIS";
 	public static final String ALL_BASED_KEGG_PATHWAY_ANALYSIS 	= "ALL_BASED_KEGG_PATHWAY_ANALYSIS";
 	
-	//Annotation Type
-	public static final String DNASE_ANNOTATION 		= "DNASE_ANNOTATION";
-	public static final String TFBS_ANNOTATION 			= "TFBS_ANNOTATION";
-	public static final String HISTONE_ANNOTATION 		= "HISTONE_ANNOTATION";
-	public static final String UCSC_REFSEQ_GENE_ANNOTATION = "UCSC_REFSEQ_GENE_ANNOTATION";
-	public static final String TF_CELLLINE_KEGG_PATHWAY_ANNOTATION = "TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
-	public static final String TF_KEGG_PATHWAY_ANNOTATION = "TF_KEGG_PATHWAY_ANNOTATION";
-	
+		
 	//Enrichment parameter
 	public static final String DO_ENRICH = "DO_ENRICH";
 	public static final String DO_NOT_ENRICH = "DO_NOT_ENRICH";
@@ -734,17 +726,16 @@ public class Commons {
 	public static final String DO_NOT_TF_ENRICHMENT 	= "DO_NOT_TF_ENRICHMENT";
 	
 	//6 March 2014
-	public static final String DO_KEGGPATHWAY_ENRICHMENT 		= "DO_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_GENESET_ENRICHMENT 		= "DO_GENESET_ENRICHMENT";
+	public static final String DO_NOT_GENESET_ENRICHMENT 	= "DO_NOT_GENESET_ENRICHMENT";
+		
+	public static final String DO_TF_GENESET_ENRICHMENT 	= "DO_TF_GENESET_ENRICHMENT";
+	public static final String DO_NOT_TF_GENESET_ENRICHMENT = "DO_NOT_TF_GENESET_ENRICHMENT";
 	
 	//You can choose TF_CELLLINE_KEGGPATHWAY or TF_KEGGPATHWAY, not both
 	//TF and KEGGPATHWAY Enrichment is done by default in case of any choice.
-	public static final String DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 		= "DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	
-	public static final String DO_TF_KEGGPATHWAY_ENRICHMENT 			= "DO_TF_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_KEGGPATHWAY_ENRICHMENT 		= "DO_NOT_TF_KEGGPATHWAY_ENRICHMENT";
-
+	public static final String DO_TF_CELLLINE_GENESET_ENRICHMENT 		= "DO_TF_CELLLINE_GENESET_ENRICHMENT";
+	public static final String DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT";
 	
 //	Write all possible names
 	public static final String DNASE = "DNASE";

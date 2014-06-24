@@ -15,13 +15,12 @@
 
 package create.encode;
 
-import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import ui.GlanetRunner;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,8 +31,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import common.Commons;
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeType;
 
 public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
 	

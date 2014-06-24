@@ -28,7 +28,10 @@
  */
 package intervaltree;
 
-import empiricalpvalues.KeyOrder;
+import enumtypes.ChromosomeName;
+import enumtypes.KeggPathwayAnalysisType;
+import enumtypes.KeyOrder;
+import enumtypes.NodeName;
 import gnu.trove.list.TShortList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;

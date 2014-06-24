@@ -15,13 +15,12 @@
  */
 package wholegenome.nonoverlappingbasepairs.usingintervaltree;
 
-import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -34,10 +33,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeType;
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree {
 	

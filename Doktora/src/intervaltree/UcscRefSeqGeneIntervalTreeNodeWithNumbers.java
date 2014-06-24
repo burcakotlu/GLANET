@@ -1,5 +1,9 @@
 package intervaltree;
 
+import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
+import enumtypes.NodeType;
+
 public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode{
 
 	char strand;

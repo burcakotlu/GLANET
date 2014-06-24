@@ -9,18 +9,20 @@
 package dbSNP;
 
 
-import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import ui.GlanetRunner;
 import common.Commons;
+import enumtypes.ChromosomeName;
 
 public class CreationofChromosomeBasedSNPIntervalTrees {
 

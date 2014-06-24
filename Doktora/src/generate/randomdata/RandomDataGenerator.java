@@ -8,8 +8,6 @@
  */
 package generate.randomdata;
 
-import intervaltree.ChromosomeName;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
@@ -22,9 +20,10 @@ import mapabilityandgc.GC;
 import mapabilityandgc.Mapability;
 import common.Commons;
 import empiricalpvalues.GCCharArray;
-import empiricalpvalues.GenerateRandomDataMode;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;
+import enumtypes.ChromosomeName;
+import enumtypes.GenerateRandomDataMode;
 
 public class RandomDataGenerator {
 	

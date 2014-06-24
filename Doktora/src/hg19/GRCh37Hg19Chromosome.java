@@ -8,8 +8,6 @@
  */
 package hg19;
 
-import intervaltree.ChromosomeName;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,8 +15,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import ui.GlanetRunner;
 import common.Commons;
+import enumtypes.ChromosomeName;
 
 public class GRCh37Hg19Chromosome {
 	

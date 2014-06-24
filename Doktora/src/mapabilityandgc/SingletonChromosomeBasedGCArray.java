@@ -8,11 +8,9 @@
  */
 package mapabilityandgc;
 
-import intervaltree.ChromosomeName;
-
 import common.Commons;
-
 import empiricalpvalues.GCCharArray;
+import enumtypes.ChromosomeName;
 
 public class SingletonChromosomeBasedGCArray {
 	

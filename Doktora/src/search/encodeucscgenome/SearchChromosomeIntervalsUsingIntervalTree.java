@@ -17,14 +17,13 @@
 
 package search.encodeucscgenome;
 
-import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -33,10 +32,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeType;
  
 
 public class SearchChromosomeIntervalsUsingIntervalTree {

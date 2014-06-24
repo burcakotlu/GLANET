@@ -3,8 +3,6 @@
  */
 package create;
 
-import intervaltree.ChromosomeName;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -15,10 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.encode.NumberofDNAElements;
+import enumtypes.ChromosomeName;
 
 /**
  * @author burcakotlu

@@ -904,19 +904,19 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS);
 		 }
 		 
-		 if (keggPathwayEnrichment.equals(Commons.DO_KEGGPATHWAY_ENRICHMENT)){
+		 if (keggPathwayEnrichment.equals(Commons.DO_GENESET_ENRICHMENT)){
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
 		 }
 		
-	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)){	    	 
+	     if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_GENESET_ENRICHMENT)){	    	 
 	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
 	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
 	     }
 		
-	     if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)){
+	     if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT)){
 	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);

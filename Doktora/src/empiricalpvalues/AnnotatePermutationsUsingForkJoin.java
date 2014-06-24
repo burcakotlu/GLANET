@@ -8,10 +8,13 @@
  */
 package empiricalpvalues;
 
+import enumtypes.AnnotationType;
+import enumtypes.ChromosomeName;
+import enumtypes.GenerateRandomDataMode;
 import generate.randomdata.RandomDataGenerator;
 import hg19.GRCh37Hg19Chromosome;
-import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,6 +31,7 @@ import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedMapabilityArray;
@@ -204,7 +208,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	private final IntervalTree intervalTree;
 	private final IntervalTree ucscRefSeqGenesIntervalTree;
 	
-	private final String annotationType;
+	private final AnnotationType annotationType;
 	private final int lowIndex;
 	private final int highIndex;
 	
@@ -215,7 +219,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	
 	
 	
-	public Annotate(String outputFolder, int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int repeatNumber,int NUMBER_OF_PERMUTATIONS, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,String annotationType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
+	public Annotate(String outputFolder, int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int repeatNumber,int NUMBER_OF_PERMUTATIONS, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,AnnotationType annotationType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
 		
 		this.outputFolder = outputFolder;
 		this.chromSize = chromSize;
@@ -854,18 +858,18 @@ public class AnnotatePermutationsUsingForkJoin {
 	}
 	
 	//Accumulate chromosomeBasedAllMaps in accumulatedAllMaps
-	public static void accumulate(AllMaps chromosomeBasedAllMaps, AllMaps accumulatedAllMaps, String annotationType){
+	public static void accumulate(AllMaps chromosomeBasedAllMaps, AllMaps accumulatedAllMaps, AnnotationType annotationType){
 		
-		if (Commons.DNASE_ANNOTATION.equals(annotationType)){
+		if (annotationType.isDnaseAnnotation()){
 			//Dnase
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberDnaseCellLineName2KMap(), accumulatedAllMaps.getPermutationNumberDnaseCellLineName2KMap());
-		}else if (Commons.TFBS_ANNOTATION.equals(annotationType)){
+		}else if (annotationType.isTfAnnotation()){
 			//Tfbs
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberTfNameCellLineName2KMap(), accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap());
-		}else if (Commons.HISTONE_ANNOTATION.equals(annotationType)){
+		}else if (annotationType.isHistoneAnnotation()){
 			//Histone
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberHistoneNameCellLineName2KMap(), accumulatedAllMaps.getPermutationNumberHistoneNameCellLineName2KMap());
-		}else if (Commons.UCSC_REFSEQ_GENE_ANNOTATION.equals(annotationType)){
+		}else if (annotationType.isGeneSetAnnotation()){
 			//Exon Based Kegg Pathway
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberExonBasedKeggPathway2KMap());
 			
@@ -875,12 +879,12 @@ public class AnnotatePermutationsUsingForkJoin {
 			//All Based Kegg Pathway
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberAllBasedKeggPathway2KMap());
 	
-		}else if (Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
+		}else if (annotationType.isTfCellLineGeneSetAnnotation()){
 			//TF and CellLine and Kegg Pathway Annotation
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap());
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap());
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap());
-		} else if (Commons.TF_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
+		} else if (annotationType.isTfGeneSetAnnotation()){
 			//NEW FUNCIONALITY
 			//TF and Kegg Pathway Annotation
 			accumulate(chromosomeBasedAllMaps.getPermutationNumberTfExonBasedKeggPathway2KMap(), accumulatedAllMaps.getPermutationNumberTfExonBasedKeggPathway2KMap());
@@ -1133,12 +1137,12 @@ public class AnnotatePermutationsUsingForkJoin {
     				//generate tf interval tree and ucsc refseq genes interval tree
     				tfIntervalTree = generateTfbsIntervalTree(outputFolder,chromName);
     				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTree(outputFolder,chromName);
-      			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,geneId2KeggPathwayMap,overlapDefinition);
+      			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,AnnotationType.TF_CELLLINE_GENE_SET_ANNOTATION,geneId2KeggPathwayMap,overlapDefinition);
       				allMaps = pool.invoke(annotate);    			    
-      			    accumulate(allMaps, accumulatedAllMaps,Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION);
-      			    accumulate(allMaps, accumulatedAllMaps,Commons.TF_KEGG_PATHWAY_ANNOTATION);
-      			    accumulate(allMaps, accumulatedAllMaps,Commons.TFBS_ANNOTATION);
-      			    accumulate(allMaps, accumulatedAllMaps,Commons.UCSC_REFSEQ_GENE_ANNOTATION);
+      			    accumulate(allMaps, accumulatedAllMaps,AnnotationType.TF_CELLLINE_GENE_SET_ANNOTATION);
+      			    accumulate(allMaps, accumulatedAllMaps,AnnotationType.TF_GENE_SET_ANNOTATION);
+      			    accumulate(allMaps, accumulatedAllMaps,AnnotationType.TF_ANNOTATION);
+      			    accumulate(allMaps, accumulatedAllMaps,AnnotationType.GENE_SET_ANNOTATION);
       			  
       			    allMaps = null;
       			    deleteIntervalTree(tfIntervalTree);
@@ -1150,9 +1154,9 @@ public class AnnotatePermutationsUsingForkJoin {
     			    //dnase
     			    //generate dnase interval tree
     			    intervalTree = generateDnaseIntervalTree(outputFolder,chromName);
-    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.DNASE_ANNOTATION,null,overlapDefinition);
+    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,AnnotationType.DNASE_ANNOTATION,null,overlapDefinition);
     				allMaps = pool.invoke(annotate);    			    
-    			    accumulate(allMaps, accumulatedAllMaps, Commons.DNASE_ANNOTATION);
+    			    accumulate(allMaps, accumulatedAllMaps, AnnotationType.DNASE_ANNOTATION);
     			    allMaps = null;
     			    deleteIntervalTree(intervalTree);
     			    intervalTree = null;
@@ -1160,9 +1164,9 @@ public class AnnotatePermutationsUsingForkJoin {
     			    //histone
     			    //generate histone interval tree
     			    intervalTree = generateHistoneIntervalTree(outputFolder,chromName);
-    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,Commons.HISTONE_ANNOTATION,null,overlapDefinition);
+    			    annotate = new Annotate(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,repeatNumber,NUMBER_OF_PERMUTATIONS,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,intervalTree,null,AnnotationType.HISTONE_ANNOTATION,null,overlapDefinition);
     				allMaps = pool.invoke(annotate);    			    
-    			    accumulate(allMaps, accumulatedAllMaps,Commons.HISTONE_ANNOTATION);
+    			    accumulate(allMaps, accumulatedAllMaps,AnnotationType.HISTONE_ANNOTATION);
     			    allMaps = null;
     			    deleteIntervalTree(intervalTree);
     			    intervalTree = null;
