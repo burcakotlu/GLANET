@@ -219,7 +219,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	private final IntervalTree ucscRefSeqGenesIntervalTree;
 	
 	private final AnnotationType annotationType;
-	private final String tfandKeggPathwayEnrichmentType;
+	private final EnrichmentType tfandKeggPathwayEnrichmentType;
 	
 	private final int lowIndex;
 	private final int highIndex;
@@ -232,7 +232,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	
 	
 	
-	public Annotate(String outputFolder,int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,AnnotationType annotationType, String tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
+	public Annotate(String outputFolder,int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int runNumber,int numberofPermutations, WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,AnnotationType annotationType, EnrichmentType tfandKeggPathwayEnrichmentType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
 		this.outputFolder  = outputFolder;
 		
 		this.chromSize = chromSize;
@@ -1860,6 +1860,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 				/*****************************************FREE MEMORY STARTS*******************************************/						
 			    gcCharArray = null;				
 				mapabilityFloatArray = null;
+				
+				System.gc();
+				System.runFinalization();
+				
 				/*****************************************FREE MEMORY ENDS*******************************************/						
 			    /******************************************************************************************************/		
 
@@ -1896,6 +1900,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    allMapsWithNumbers = null;
     			    deleteIntervalTree(intervalTree);
     			    intervalTree = null;
+    			    
+    			    System.gc();
+    				System.runFinalization();
+    				
         	
 				}
 			 		
@@ -1909,6 +1917,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    allMapsWithNumbers = null;
     			    deleteIntervalTree(intervalTree);
     			    intervalTree = null;
+    			    
+    			    System.gc();
+    				System.runFinalization();
+    				
 
 				}
 	    			    
@@ -1922,6 +1934,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    allMapsWithNumbers = null;
     			    deleteIntervalTree(intervalTree);
     			    intervalTree = null;
+    			    
+    			    System.gc();
+    				System.runFinalization();
+    				
 
 				}
 				
@@ -1935,7 +1951,11 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.GENE_SET_ANNOTATION);
     			    allMapsWithNumbers = null;
     			    deleteIntervalTree(intervalTree);
-    			    intervalTree = null;	
+    			    intervalTree = null;
+    			    
+    			    System.gc();
+    				System.runFinalization();
+    				
 
 				}
 	
@@ -1963,6 +1983,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
       			    tfIntervalTree = null;
       			    ucscRefSeqGenesIntervalTree = null;	
       				//New Functionality END
+      			    
+      			  System.gc();
+      			  System.runFinalization();
+  				
     			
 				}else if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
     					
@@ -1987,6 +2011,10 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
           			    tfIntervalTree = null;
           			    ucscRefSeqGenesIntervalTree = null;	
           				//New Functionality END
+          			    
+          			  System.gc();
+          			  System.runFinalization();
+      							
         			
     			}      		
 				System.out.println("Annotate has ended.");

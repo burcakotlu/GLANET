@@ -217,6 +217,109 @@ public static String convertEnumtoString(ChromosomeName  chrName){
     		return null;
     }
 
+
+	/** An added method.  */
+	public boolean isCHROMOSOME1() {
+	    return  this == CHROMOSOME1;
+	}
+	
+	/** An added method.  */
+	public boolean isCHROMOSOME2() {
+	    return  this == CHROMOSOME2;
+	}
+
+	/** An added method.  */
+	public boolean isCHROMOSOME3() {
+	    return  this == CHROMOSOME3;
+	}
+	
+	/** An added method.  */
+	public boolean isCHROMOSOME4() {
+	    return  this == CHROMOSOME4;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME5() {
+	    return  this == CHROMOSOME5;
+	}
+	
+	/** An added method.  */
+	public boolean isCHROMOSOME6() {
+	    return  this == CHROMOSOME6;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME7() {
+	    return  this == CHROMOSOME7;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME8() {
+	    return  this == CHROMOSOME8;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME9() {
+	    return  this == CHROMOSOME9;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME10() {
+	    return  this == CHROMOSOME10;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME11() {
+	    return  this == CHROMOSOME11;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME12() {
+	    return  this == CHROMOSOME12;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME13() {
+	    return  this == CHROMOSOME13;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME14() {
+	    return  this == CHROMOSOME14;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME15() {
+	    return  this == CHROMOSOME15;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME16() {
+	    return  this == CHROMOSOME16;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME17() {
+	    return  this == CHROMOSOME17;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME18() {
+	    return  this == CHROMOSOME18;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME19() {
+	    return  this == CHROMOSOME19;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME20() {
+	    return  this == CHROMOSOME20;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOME21() {
+	    return  this == CHROMOSOME21;
+	}/** An added method.  */
+	public boolean isCHROMOSOME22() {
+	    return  this == CHROMOSOME22;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOMEX() {
+	    return  this == CHROMOSOMEX;
+	}
+	/** An added method.  */
+	public boolean isCHROMOSOMEY() {
+	    return  this == CHROMOSOMEY;
+	}
+	
+	
+
 	public static void main(String[] args){
 		ChromosomeName chrName = CHROMOSOMEY;
 		System.out.println(chrName.toString());

@@ -30,9 +30,12 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
+
 import enumtypes.EnrichmentType;
 import enumtypes.KeyOrder;
+import enumtypes.MultipleTestingType;
 
 
 
@@ -42,13 +45,13 @@ public class CollectionofPermutationsResults {
 	//How to decide enriched elements?
 	//with respect to Benjamini Hochberg FDR or
 	//with respect to Bonferroni Correction Significance Level
-	public void writeResultstoOutputFiles(String outputFolder,String fileName,String jobName,List<FunctionalElement> list,EnrichmentType enrichmentType,String multipleTestingParameter,float bonferroniCorrectionSignigicanceLevel,float FDR,int numberofPermutations,int numberofComparisons) throws IOException{
+	public void writeResultstoOutputFiles(String outputFolder,String fileName,String jobName,List<FunctionalElement> list,EnrichmentType enrichmentType,MultipleTestingType multipleTestingParameter,float bonferroniCorrectionSignigicanceLevel,float FDR,int numberofPermutations,int numberofComparisons) throws IOException{
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		FunctionalElement element = null;
 		DecimalFormat df = new DecimalFormat("0.######E0");
 		
-		if(multipleTestingParameter.equals(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE)){
+		if(multipleTestingParameter.isBenjaminiHochbergFDR()){
 			
 			//sort w.r.t. Benjamini and Hochberg FDR Adjusted pValue
 			Collections.sort(list,FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
@@ -114,7 +117,7 @@ public class CollectionofPermutationsResults {
 
 			
 			
-		}else if (multipleTestingParameter.equals(Commons.BONFERRONI_CORRECTED_P_VALUE)){
+		}else if (multipleTestingParameter.isBonferroniCorrection()){
 			
 			//sort w.r.t. Bonferroni Corrected pVlaue
 			Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
@@ -285,7 +288,7 @@ public class CollectionofPermutationsResults {
 			int numberofPermutationsInEachRun,
 			float bonferroniCorrectionSignigicanceLevel, 
 			float FDR, 
-			String multipleTestingParameter, 
+			MultipleTestingType multipleTestingParameter, 
 			String dataFolder, 
 			String outputFolder,
 			String fileName, 
@@ -613,7 +616,7 @@ public class CollectionofPermutationsResults {
 		int numberofRemainders = 0;
 		
 		//Multiple Testing Parameter for selection of enriched elements
-		String multipleTestingParameter = args[6];
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
 		
 		numberofRuns = numberofPermutations / numberofPermutationsInEachRun;
 		numberofRemainders = numberofPermutations % numberofPermutationsInEachRun;

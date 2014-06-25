@@ -249,7 +249,7 @@ public class MainView extends JPanel{
         enrichmentPanel.add( createBorderedPanel( "Generate Random Data Mode", createPanelWithHint(generateRandomDataModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE)));
         
         //multipleTestingCombo added to enrichmentPanel
-        String[] multipleTest = { Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE, Commons.BONFERRONI_CORRECTED_P_VALUE};
+        String[] multipleTest = { Commons.BENJAMINI_HOCHBERG_FDR, Commons.BONFERRONI_CORRECTION};
         multipleTestingCombo = new JComboBox<String>( multipleTest);
         enrichmentPanel.add( createBorderedPanel( "Multiple Testing", createPanelWithHint(multipleTestingCombo, Commons.GUI_HINT_MULTIPLE_TESTING)));
         

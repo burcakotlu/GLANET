@@ -19,7 +19,6 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	Float empiricalPValue;
 	Float bonferroniCorrectedEmpiricalPValue;
 	
-	
 
 	//15 MAY 2014
 	long number;

@@ -20,6 +20,7 @@ package processinputdata.augment;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.OtherIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,10 +31,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
 import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
+import enumtypes.ChromosomeName;
 
 public class AugmentationofProcessedInputDatawithdbSNP {
 
@@ -120,7 +123,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 	public static void augmentEachSNPwithDBSNP(String outputFolder,String dataFolder,Map<String,List<SnpPosition>> chrName2SNPPositionsMap,String augmentedwithdbSNPOutputFileName){
 		
 		IntervalTree dbSNPIntervalTree = null;
-		String  chrName= null;
+		ChromosomeName  chrName= null;
 		List<SnpPosition> snpPositionList = null;
 		List<IntervalTreeNode> overlappedNodeList = null;
 		
@@ -137,7 +140,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 			for(Map.Entry<String, List<SnpPosition>> entry:chrName2SNPPositionsMap.entrySet() ){
 
 				//get the dbSNP interval tree
-				chrName = entry.getKey();
+				chrName = ChromosomeName.convertStringtoEnum(entry.getKey());
 				snpPositionList = entry.getValue();
 				
 				dbSNPIntervalTree = CreationofChromosomeBasedSNPIntervalTrees.readDBSNPFlatFileandCreateChromosomeBasedSNPIntervalTreeforGivenChromosome(dataFolder,chrName);
@@ -158,7 +161,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 //						bufferedWriter.write("OverlapNodeListSize: " + overlappedNodeList.size() + "\n");
 						
 						for(IntervalTreeNode overlapNode:overlappedNodeList){
-							bufferedWriter.write(((OtherIntervalTreeNode) overlapNode).getRsId() + "\t" + chrName + "\t" + snpPosition.getStartZeroBased() + "\t");
+							bufferedWriter.write(((OtherIntervalTreeNode) overlapNode).getRsId() + "\t" + chrName.getChromosomeName() + "\t" + snpPosition.getStartZeroBased() + "\t");
 							
 							for(String observedAllele :((OtherIntervalTreeNode)overlapNode).getObservedVariationAlleles()){
 								bufferedWriter.write(observedAllele +"\t");

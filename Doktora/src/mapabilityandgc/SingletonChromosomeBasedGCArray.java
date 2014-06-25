@@ -45,32 +45,32 @@ public class SingletonChromosomeBasedGCArray {
 			// Optional Code
 	}
 
-	public static GCCharArray getSingletonChromosomeGCArray(String dataFolder,String chromName, int chromSize){
+	public static GCCharArray getSingletonChromosomeGCArray(String dataFolder,ChromosomeName chromName, int chromSize){
 		switch(chromName){
-			case Commons.CHROMOSOME1 :  return getSingletonChr1GC(dataFolder,chromSize); 
-			case Commons.CHROMOSOME2 :  return getSingletonChr2GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME3 :  return getSingletonChr3GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME4 :  return getSingletonChr4GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME5 :  return getSingletonChr5GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME6 :  return getSingletonChr6GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME7 :  return getSingletonChr7GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME8 :  return getSingletonChr8GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME9 :  return getSingletonChr9GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME10 : return getSingletonChr10GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME11 : return getSingletonChr11GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME12 : return  getSingletonChr12GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME13 : return getSingletonChr13GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME14 : return getSingletonChr14GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME15 : return getSingletonChr15GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME16 : return getSingletonChr16GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME17 : return getSingletonChr17GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME18 : return getSingletonChr18GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME19 : return  getSingletonChr19GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME20 : return getSingletonChr20GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME21 : return getSingletonChr21GC(dataFolder,chromSize);
-			case Commons.CHROMOSOME22 : return getSingletonChr22GC(dataFolder,chromSize);
-			case Commons.CHROMOSOMEX  : return getSingletonChrXGC(dataFolder,chromSize);
-			case Commons.CHROMOSOMEY  : return getSingletonChrYGC(dataFolder,chromSize);						
+			case CHROMOSOME1 :  return getSingletonChr1GC(dataFolder,chromSize); 
+			case CHROMOSOME2 :  return getSingletonChr2GC(dataFolder,chromSize);
+			case CHROMOSOME3 :  return getSingletonChr3GC(dataFolder,chromSize);
+			case CHROMOSOME4 :  return getSingletonChr4GC(dataFolder,chromSize);
+			case CHROMOSOME5 :  return getSingletonChr5GC(dataFolder,chromSize);
+			case CHROMOSOME6 :  return getSingletonChr6GC(dataFolder,chromSize);
+			case CHROMOSOME7 :  return getSingletonChr7GC(dataFolder,chromSize);
+			case CHROMOSOME8 :  return getSingletonChr8GC(dataFolder,chromSize);
+			case CHROMOSOME9 :  return getSingletonChr9GC(dataFolder,chromSize);
+			case CHROMOSOME10 : return getSingletonChr10GC(dataFolder,chromSize);
+			case CHROMOSOME11 : return getSingletonChr11GC(dataFolder,chromSize);
+			case CHROMOSOME12 : return  getSingletonChr12GC(dataFolder,chromSize);
+			case CHROMOSOME13 : return getSingletonChr13GC(dataFolder,chromSize);
+			case CHROMOSOME14 : return getSingletonChr14GC(dataFolder,chromSize);
+			case CHROMOSOME15 : return getSingletonChr15GC(dataFolder,chromSize);
+			case CHROMOSOME16 : return getSingletonChr16GC(dataFolder,chromSize);
+			case CHROMOSOME17 : return getSingletonChr17GC(dataFolder,chromSize);
+			case CHROMOSOME18 : return getSingletonChr18GC(dataFolder,chromSize);
+			case CHROMOSOME19 : return  getSingletonChr19GC(dataFolder,chromSize);
+			case CHROMOSOME20 : return getSingletonChr20GC(dataFolder,chromSize);
+			case CHROMOSOME21 : return getSingletonChr21GC(dataFolder,chromSize);
+			case CHROMOSOME22 : return getSingletonChr22GC(dataFolder,chromSize);
+			case CHROMOSOMEX  : return getSingletonChrXGC(dataFolder,chromSize);
+			case CHROMOSOMEY  : return getSingletonChrYGC(dataFolder,chromSize);						
 		}
 		
 		return null;

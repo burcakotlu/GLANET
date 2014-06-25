@@ -118,7 +118,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		refSeqGene.setRefSeqGeneName(refSeqGeneName);
 		refSeqGene.setAlternateGeneName(alternateGeneName);
-		refSeqGene.setChromName(chromName); 
+		refSeqGene.setChromName(ChromosomeName.convertStringtoEnum(chromName)); 
 		refSeqGene.setStrand(strand);
 		refSeqGene.setTranscriptionStartPosition(txStart);
 		refSeqGene.setTranscriptionEndPosition(txEnd);
@@ -469,7 +469,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		RefSeqGene refSeqGene = null;
 		BufferedWriter bufferedWriter = null;
 		
-		String chromName;
+		ChromosomeName chromName;
 		
 		RefSeqGeneIntervalsInformation information = new RefSeqGeneIntervalsInformation();
 		

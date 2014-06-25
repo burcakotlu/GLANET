@@ -11,6 +11,10 @@ package empiricalpvalues;
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
+import enumtypes.MultipleTestingType;
+import enumtypes.WriteGeneratedRandomDataMode;
+import enumtypes.WritePermutationBasedAnnotationResultMode;
+import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
 import generate.randomdata.RandomDataGenerator;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
@@ -61,7 +65,7 @@ public class AnnotatePermutationsUsingForkJoin {
 		private final int NUMBER_OF_PERMUTATIONS;
 		
 		private final GenerateRandomDataMode generateRandomDataMode;
-		private final String writeGeneratedRandomDataMode;
+		private final WriteGeneratedRandomDataMode writeGeneratedRandomDataMode;
 		
 		private final int lowIndex;
 		private final int highIndex;
@@ -74,7 +78,7 @@ public class AnnotatePermutationsUsingForkJoin {
 		private final String outputFolder;
 
 				
-		public GenerateRandomData(String outputFolder, int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, int repeatNumber,int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, String writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
+		public GenerateRandomData(String outputFolder, int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, int repeatNumber,int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks,GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
 			
 			this.chromSize = chromSize;
 			this.chromName = chromName;
@@ -135,7 +139,7 @@ public class AnnotatePermutationsUsingForkJoin {
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
 				     //Write Generated Random Data
-				     if(Commons.WRITE_GENERATED_RANDOM_DATA.equals(writeGeneratedRandomDataMode)){
+				     if(writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()){
 				    	writeGeneratedRandomData(outputFolder,randomlyGeneratedDataMap.get(permutationNumber),repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS);
 				     }
 						
@@ -202,7 +206,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	private final int repeatNumber;
 	private final int NUMBER_OF_PERMUTATIONS;
 	
-	private final String writePermutationBasedandParametricBasedAnnotationResultMode;
+	private final WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode;
 	
 	private final List<AnnotationTask> listofAnnotationTasks;
 	private final IntervalTree intervalTree;
@@ -219,7 +223,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	
 	
 	
-	public Annotate(String outputFolder, int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int repeatNumber,int NUMBER_OF_PERMUTATIONS, String writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,AnnotationType annotationType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
+	public Annotate(String outputFolder, int chromSize, ChromosomeName chromName, Map<Integer,List<InputLine>> randomlyGeneratedDataMap, int repeatNumber,int NUMBER_OF_PERMUTATIONS, WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, IntervalTree intervalTree, IntervalTree ucscRefSeqGenesIntervalTree,AnnotationType annotationType,Map<String, List<String>> geneId2KeggPathwayMap,int overlapDefinition) {
 		
 		this.outputFolder = outputFolder;
 		this.chromSize = chromSize;
@@ -289,12 +293,12 @@ public class AnnotatePermutationsUsingForkJoin {
 				     GlanetRunner.appendLog("Annotate Random Data For Task: " + i + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
-				     if(Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
+				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
 				    	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithoutIO(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,geneId2KeggPathwayMap,overlapDefinition));
 				     }
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
-				     else if (Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
+				     else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
 				     	 listofAllMaps.add(AnnotateGivenIntervalsWithGivenParameters.annotatePermutationwithIO(outputFolder,repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,geneId2KeggPathwayMap,overlapDefinition));
 				     }						
 				}//End of FOR
@@ -995,7 +999,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	//the tasks are executed
 	//after all the parallel work is done
 	//results are written to files
-	public void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS,List<InputLine> allOriginalInputLines, Map<String,List<Integer>> dnase2AllKMap,Map<String,List<Integer>> tfbs2AllKMap,Map<String,List<Integer>> histone2AllKMap,Map<String,List<Integer>> exonBasedKeggPathway2AllKMap,Map<String,List<Integer>> regulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> allBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfCellLineRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineAllBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfRegulationBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfAllBasedKeggPathway2AllKMap, GenerateRandomDataMode generateRandomDataMode, String writeGeneratedRandomDataMode,String writePermutationBasedandParametricBasedAnnotationResultMode,String writePermutationBasedAnnotationResultMode,Map<String,Integer> originalDnase2KMap,Map<String,Integer> originalTfbs2KMap,Map<String,Integer> originalHistone2KMap,Map<String,Integer> originalExonBasedKeggPathway2KMap,Map<String,Integer> originalRegulationBasedKeggPathway2KMap,Map<String,Integer> originalAllBasedKeggPathway2KMap, Map<String,Integer> originalTfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> originalTfExonBasedKeggPathway2KMap,Map<String,Integer> originalTfRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfAllBasedKeggPathway2KMap,int overlapDefinition){
+	public void annotateAllPermutationsInThreads(String outputFolder,String dataFolder,int NUMBER_OF_AVAILABLE_PROCESSORS,int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS,List<InputLine> allOriginalInputLines, Map<String,List<Integer>> dnase2AllKMap,Map<String,List<Integer>> tfbs2AllKMap,Map<String,List<Integer>> histone2AllKMap,Map<String,List<Integer>> exonBasedKeggPathway2AllKMap,Map<String,List<Integer>> regulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> allBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfCellLineRegulationBasedKeggPathway2AllKMap,Map<String,List<Integer>> tfCellLineAllBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfExonBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfRegulationBasedKeggPathway2AllKMap, Map<String,List<Integer>> tfAllBasedKeggPathway2AllKMap, GenerateRandomDataMode generateRandomDataMode, WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode,Map<String,Integer> originalDnase2KMap,Map<String,Integer> originalTfbs2KMap,Map<String,Integer> originalHistone2KMap,Map<String,Integer> originalExonBasedKeggPathway2KMap,Map<String,Integer> originalRegulationBasedKeggPathway2KMap,Map<String,Integer> originalAllBasedKeggPathway2KMap, Map<String,Integer> originalTfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> originalTfExonBasedKeggPathway2KMap,Map<String,Integer> originalTfRegulationBasedKeggPathway2KMap,Map<String,Integer> originalTfAllBasedKeggPathway2KMap,int overlapDefinition){
 		
 		AllMaps allMaps = new AllMaps();
 		AllMaps accumulatedAllMaps = new AllMaps();
@@ -1246,7 +1250,7 @@ public class AnnotatePermutationsUsingForkJoin {
 		convert(accumulatedAllMaps.getPermutationNumberTfAllBasedKeggPathway2KMap(),tfAllBasedKeggPathway2AllKMap,originalTfAllBasedKeggPathway2KMap);
 	
 		//Permutation Based Results
-		if (Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT.equals(writePermutationBasedAnnotationResultMode)){
+		if (writePermutationBasedAnnotationResultMode.isWritePermutationBasedAnnotationResultMode()){
 			//Dnase
 			writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberDnaseCellLineName2KMap(),permutationNumber2DnaseBufferedWriterHashMap, "dnase" + System.getProperty("file.separator")  , Commons.DNASE);
 			closeBufferedWriters(permutationNumber2DnaseBufferedWriterHashMap);
@@ -1303,7 +1307,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	
 	
 		
-	public void writetoFile(String outputFolder,List<FunctionalElement> list, String fileName, String empiricalPValueType, int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, String inputDataFileName,float FDR){
+	public void writetoFile(String outputFolder,List<FunctionalElement> list, String fileName, MultipleTestingType empiricalPValueType, int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, String inputDataFileName,float FDR){
 		FileWriter fileWriter=null;
 		BufferedWriter bufferedWriter;
 		
@@ -1340,11 +1344,11 @@ public class AnnotatePermutationsUsingForkJoin {
 			//Write header line
 			//If BONFERRONI_CORRECTED_EMPIRICAL_P_VALUE first BonfCorrPValue then Empirical P Value
 			//Else If EMPIRICAL_P_VALUE first EmpiricalPValue then BonfCorrPValue
-			if (Commons.BONFERRONI_CORRECTED_P_VALUE.equals(empiricalPValueType)){	
+			if (empiricalPValueType.isBonferroniCorrection()){	
 				bufferedWriter.write("Name" + "\t"+ "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingOverlapsGreaterThanorEqualto" + "\t" + "NumberofPermutations" + "\t" + "NumberofComparisons" + "\t" + "BonfCorrEmpiricalPValue" + "\t"+ "EmpiricalPValue" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of "+ FDR + System.getProperty("line.separator"));	
-			} else if(Commons.EMPIRICAL_P_VALUE.equals(empiricalPValueType)){
+			} else if(empiricalPValueType.isEmpiricalPValue()){
 				bufferedWriter.write("Name" + "\t"+ "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingOverlapsGreaterThanorEqualto" + "\t" + "NumberofPermutations" + "\t" + "NumberofComparisons" + "\t" + "EmpiricalPValue" + "\t"+ "BonfCorrEmpiricalPValue" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of "+ FDR + System.getProperty("line.separator"));	
-			} else if (Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE.equals(empiricalPValueType)){
+			} else if (empiricalPValueType.isBenjaminiHochbergFDR()){
 				bufferedWriter.write("Name" + "\t"+ "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingOverlapsGreaterThanorEqualto" + "\t" + "NumberofPermutations" + "\t" + "NumberofComparisons" + "\t" + "BonfCorrEmpiricalPValue" + "\t"+ "EmpiricalPValue" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of "+ FDR + System.getProperty("line.separator"));	
 			}
 			
@@ -1355,11 +1359,11 @@ public class AnnotatePermutationsUsingForkJoin {
 				//In case of Functional Element is a kegg pathway
 				if(element.getKeggPathwayName()!=null){
 					
-					if (Commons.BONFERRONI_CORRECTED_P_VALUE.equals(empiricalPValueType)){	
+					if (empiricalPValueType.isBonferroniCorrection()){	
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t"+ df.format(element.getEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis()+"\t");	
-					} else if(Commons.EMPIRICAL_P_VALUE.equals(empiricalPValueType)){
+					} else if(empiricalPValueType.isEmpiricalPValue()){
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" +df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis() +"\t");	
-					} else if(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE.equals(empiricalPValueType)){
+					} else if(empiricalPValueType.isBenjaminiHochbergFDR()){
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t"+ df.format(element.getEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis() +"\t");	
 						
 					}
@@ -1384,11 +1388,11 @@ public class AnnotatePermutationsUsingForkJoin {
 					
 					}					
 				}else{
-					if (Commons.BONFERRONI_CORRECTED_P_VALUE.equals(empiricalPValueType)){	
+					if (empiricalPValueType.isBonferroniCorrection()){	
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t"+ df.format(element.getEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));	
-					} else if(Commons.EMPIRICAL_P_VALUE.equals(empiricalPValueType)){
+					} else if(empiricalPValueType.isEmpiricalPValue()){
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" +df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));	
-					} else if(Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE.equals(empiricalPValueType)){
+					} else if(empiricalPValueType.isBenjaminiHochbergFDR()){
 						bufferedWriter.write(element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + element.getNumberofPermutations() + "\t" + element.getNumberofComparisons() + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue())+ "\t"+ df.format(element.getEmpiricalPValue())+ "\t" + df.format(element.getBH_FDR_adjustedPValue()) +"\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));	
 								
 					}
@@ -1408,7 +1412,7 @@ public class AnnotatePermutationsUsingForkJoin {
 	
 	
 	
-	public void writetoFileSmallValueInsteadofZero(Random random, List<FunctionalElement> list, String fileName, String empiricalPValueType, int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, String inputDataFileName){
+	public void writetoFileSmallValueInsteadofZero(Random random, List<FunctionalElement> list, String fileName, MultipleTestingType empiricalPValueType, int NUMBER_OF_REPEATS, int NUMBER_OF_PERMUTATIONS, GenerateRandomDataMode generateRandomDataMode, String inputDataFileName){
 		FileWriter fileWriter=null;
 		BufferedWriter bufferedWriter;
 		
@@ -1471,13 +1475,13 @@ public class AnnotatePermutationsUsingForkJoin {
 				
 				
 				
-				if (Commons.BONFERRONI_CORRECTED_P_VALUE.equals(empiricalPValueType)){	
+				if (empiricalPValueType.isBonferroniCorrection()){	
 					bonfCorrEmpiricalPValue = element.getBonferroniCorrectedEmpiricalPValue();
 					if(bonfCorrEmpiricalPValue.equals(Commons.FLOAT_ZERO)){
 						element.setBonferroniCorrectedEmpiricalPValue(random.nextFloat()/Commons.FLOAT_TEN_QUADRILLION);
 					}
 					bufferedWriter.write(df.format(element.getBonferroniCorrectedEmpiricalPValue())+ System.getProperty("line.separator"));	
-				} else if(Commons.EMPIRICAL_P_VALUE.equals(empiricalPValueType)){
+				} else if(empiricalPValueType.isEmpiricalPValue()){
 					empiricalPValue = element.getEmpiricalPValue();
 					if (empiricalPValue.equals(Commons.FLOAT_ZERO)){
 						element.setEmpiricalPValue(random.nextFloat()/Commons.FLOAT_TEN_QUADRILLION);
@@ -1590,16 +1594,16 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 		//Set the Write Mode of Generated Random Data
 //		String writeGeneratedRandomDataMode = Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA;
-		String writeGeneratedRandomDataMode = args[18];
+		WriteGeneratedRandomDataMode writeGeneratedRandomDataMode = WriteGeneratedRandomDataMode.convertStringtoEnum(args[18]);
 				
 
 		//Set the Write Mode of Permutation Based and Parametric Based Annotation Result
 //		String writePermutationBasedandParametricBasedAnnotationResultMode = Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
-		String writePermutationBasedandParametricBasedAnnotationResultMode = args[20];
+		WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode = WritePermutationBasedandParametricBasedAnnotationResultMode.convertStringtoEnum(args[20]);
 		
 		//Set the Write Mode of the Permutation Based Annotation Result
 //		String writePermutationBasedAnnotationResultMode = Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
-		String writePermutationBasedAnnotationResultMode = args[8];
+		WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode = WritePermutationBasedAnnotationResultMode.convertStringtoEnum(args[8]);
 		
 		writeInformation();
 			
@@ -1769,21 +1773,21 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 			
 		//Write Sorted Empirical P Values to output files
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 			
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,Commons.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES,MultipleTestingType.EMPIRICAL_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 
 		
 		//sort w.r.t. BH FDR adjusted p values in ascending order
@@ -1805,21 +1809,21 @@ public class AnnotatePermutationsUsingForkJoin {
 		
 		
 		//write sorted BH FDR Adjusted P Values to files
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR, Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR, Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR, MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR, MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 				
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR + "_Level_" + FDR,MultipleTestingType.BENJAMINI_HOCHBERG_FDR,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
 		
 			
@@ -1850,21 +1854,21 @@ public class AnnotatePermutationsUsingForkJoin {
 		Collections.sort(tfAllBasedKeggPathwayList, FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
 	
 		//Write Sorted Bonferroni Corrected Empirical P Values to output files
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION, Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,dnaseList,Commons.DNASE_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION, MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfbsList,Commons.TFBS_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,histoneList,Commons.HISTONE_NAME_CELL_LINE_NAME_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		    
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,exonBasedKeggPathwayList,Commons.EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,regulationBasedKeggPathwayList,Commons.REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,allBasedKeggPathwayList,Commons.ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 		
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineExonBasedKeggPathwayList,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineRegulationBasedKeggPathwayList,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfCellLineAllBasedKeggPathwayList,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
-		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,Commons.BONFERRONI_CORRECTED_P_VALUE,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfExonBasedKeggPathwayList,Commons.TF_EXON_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfRegulationBasedKeggPathwayList,Commons.TF_REGULATION_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
+		annotatePermutationsUsingForkJoin.writetoFile(outputFolder,tfAllBasedKeggPathwayList,Commons.TF_ALL_BASED_KEGG_PATHWAY_EMPIRICAL_P_VALUES_USING_BONFERRONI_CORRECTION,MultipleTestingType.BONFERRONI_CORRECTION,NUMBER_OF_REPEATS,NUMBER_OF_PERMUTATIONS,generateRandomDataMode,inputDataFileName,FDR);
 
 		
 //		//Write Sorted Bonferroni Corrected Empirical P Values to output files

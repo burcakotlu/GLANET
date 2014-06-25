@@ -52,145 +52,145 @@ public class ChromosomeBasedMapabilityIntervalTree {
 	
 	public static IntervalTree getChromosome1MapabilityIntervalTree(int chromSize) {
 			IntervalTree mapabilityIntervalTree = new IntervalTree();
-			Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME1,mapabilityIntervalTree);	
+			Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME1,mapabilityIntervalTree);	
 			return mapabilityIntervalTree;
 	}
 
 	public static IntervalTree getChromosome2MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME2,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME2,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome3MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME3,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME3,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome4MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME4,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME4,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome5MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME5,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME5,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome6MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME6,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME6,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome7MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME7,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME7,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome8MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME8,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME8,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome9MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME9,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME9,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome10MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME10,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME10,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome11MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME11,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME11,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome12MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME12,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME12,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome13MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME13,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME13,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome14MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME14,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME14,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome15MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME15,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME15,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome16MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME16,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME16,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome17MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME17,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME17,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome18MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME18,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME18,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome19MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME19,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME19,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome20MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME20,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME20,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome21MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME21,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME21,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosome22MapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOME22,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOME22,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosomeXMapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOMEX,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOMEX,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	
 	public static IntervalTree getChromosomeYMapabilityIntervalTree(int chromSize) {
 		IntervalTree mapabilityIntervalTree = new IntervalTree();
-		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,Commons.CHROMOSOMEY,mapabilityIntervalTree);	
+		Mapability.fillChromosomeBasedMapabilityIntervalTree(chromSize,ChromosomeName.CHROMOSOMEY,mapabilityIntervalTree);	
 		return mapabilityIntervalTree;
 	}
 	

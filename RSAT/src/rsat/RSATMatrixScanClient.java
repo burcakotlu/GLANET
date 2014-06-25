@@ -39,8 +39,9 @@ import RSATWS.MatrixScanResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.EnrichmentType;
+import enumtypes.RegulatorySequenceAnalysisType;
 
 
 
@@ -767,19 +768,17 @@ public class RSATMatrixScanClient {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		//TfEnrichment, DO or DO_NOT
-		String tfEnrichment = args[12];
+		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[12]);
 					
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		String tfKeggPathwayEnrichment = args[14];
+		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[14]);
 				
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		String tfCellLineKeggPathwayEnrichment = args[15];
+		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[15]);
 		
 		//Regulatory Sequence Analysis, DO or DO_NOT
-		String regulatorySequenceAnalysisUsingRSAT = args[16] ;
-
-
-		
+		RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT = RegulatorySequenceAnalysisType.convertStringtoEnum(args[16]) ;
+	
 		String tfBaseDirectory = Commons.TF_RESULTS_DIRECTORY_BASE;
 		
 		String tfExonBasedKeggPathwayBaseDirectory = Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;
@@ -800,12 +799,12 @@ public class RSATMatrixScanClient {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//RSAT for TF
-			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+			if (tfEnrichment.isTfEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
 				matrixScan(outputFolder,tfBaseDirectory,bufferedWriter);
 			}
 
 			//RSAT for TF and KEGG Pathway
-			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_GENESET_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+			if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
 				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
 				matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
 				matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);				
@@ -813,7 +812,7 @@ public class RSATMatrixScanClient {
 
 			
 			//RSAT for TF and CellLine and  KEGG Pathway
-			if (tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT) && regulatorySequenceAnalysisUsingRSAT.equals(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+			if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
 				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
 				matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
 				matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);

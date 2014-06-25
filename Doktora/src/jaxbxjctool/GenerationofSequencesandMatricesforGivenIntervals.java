@@ -6,6 +6,7 @@
 package jaxbxjctool;
 
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -19,9 +20,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
+import enumtypes.EnrichmentType;
 
 /**
  * 
@@ -2406,13 +2409,13 @@ public static String takeComplementforeachAllele(String allele){
 		
 		
 		//TfEnrichment, DO or DO_NOT
-		String tfEnrichment = args[12];
+		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[12]);
 			
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		String tfKeggPathwayEnrichment = args[14];
+		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[14]);
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		String tfCellLineKeggPathwayEnrichment = args[15];
+		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[15]);
 
 
 		//pfm matrices
@@ -2474,14 +2477,14 @@ public static String takeComplementforeachAllele(String allele){
 			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
 			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
 			
-			if (tfEnrichment.equals(Commons.DO_TF_ENRICHMENT)){
+			if (tfEnrichment.isTfEnrichment()){
 				//todo
 				//generate sequences and matrices for enriched tf elements
 				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);
 			}
 			
 								
-			if (tfKeggPathwayEnrichment.equals(Commons.DO_TF_GENESET_ENRICHMENT)){
+			if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment()){
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched TfandKeggPathway
 				//Output dnaSequences for TfandKeggPathway
@@ -2491,7 +2494,7 @@ public static String takeComplementforeachAllele(String allele){
 				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch37Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
 			}
 			
-			if(tfCellLineKeggPathwayEnrichment.equals(Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT)){
+			if(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway

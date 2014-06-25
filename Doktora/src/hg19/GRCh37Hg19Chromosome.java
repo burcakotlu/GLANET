@@ -30,9 +30,9 @@ public class GRCh37Hg19Chromosome {
 	
 	
 	//3 Feb 2014
-	public static void getHg19ChromosomeSizes(Map<String,Integer> chromosomeSizes, String inputFileName){
+	public static void getHg19ChromosomeSizes(Map<ChromosomeName,Integer> chromosomeSizes, String inputFileName){
 		String strLine = null;
-		String chromName = null;
+		ChromosomeName chromName = null;
 		int indexofFirstTab = 0;
 		int chromSize = 0;
 		
@@ -49,7 +49,7 @@ public class GRCh37Hg19Chromosome {
 				indexofFirstTab = strLine.indexOf('\t');
 				
 				if (indexofFirstTab >= 0){
-					chromName = strLine.substring(0, indexofFirstTab);
+					chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 					chromSize = Integer.valueOf(strLine.substring(indexofFirstTab+1));
 				}
 				
@@ -70,7 +70,7 @@ public class GRCh37Hg19Chromosome {
 	
 	public static void getHg19ChromosomeSizes(List<Integer> chromosomeSizes, String dataFolder, String inputFileName){
 		String strLine = null;
-		String chromName = null;
+		ChromosomeName chromName = null;
 		int indexofFirstTab = 0;
 		int chromSize = 0;
 		
@@ -85,59 +85,62 @@ public class GRCh37Hg19Chromosome {
 				indexofFirstTab = strLine.indexOf('\t');
 				
 				if (indexofFirstTab >= 0){
-					chromName = strLine.substring(0, indexofFirstTab);
+					chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 					chromSize = Integer.valueOf(strLine.substring(indexofFirstTab+1));
 				}
 				
-				if (Commons.CHROMOSOME1.equals(chromName)){
-					chromosomeSizes.set(0, chromSize);
-				}else if (Commons.CHROMOSOME2.equals(chromName)){
-					chromosomeSizes.set(1, chromSize);
-				}else if (Commons.CHROMOSOME3.equals(chromName)){
-					chromosomeSizes.set(2, chromSize);
-				}else if (Commons.CHROMOSOME4.equals(chromName)){
-					chromosomeSizes.set(3, chromSize);
-				}else if (Commons.CHROMOSOME5.equals(chromName)){
-					chromosomeSizes.set(4, chromSize);
-				}else if (Commons.CHROMOSOME6.equals(chromName)){
-					chromosomeSizes.set(5, chromSize);
-				}else if (Commons.CHROMOSOME7.equals(chromName)){
-					chromosomeSizes.set(6, chromSize);
-				}else if (Commons.CHROMOSOME8.equals(chromName)){
-					chromosomeSizes.set(7, chromSize);
-				}else if (Commons.CHROMOSOME9.equals(chromName)){
-					chromosomeSizes.set(8, chromSize);
-				}else if (Commons.CHROMOSOME10.equals(chromName)){
-					chromosomeSizes.set(9, chromSize);
-				}else if (Commons.CHROMOSOME11.equals(chromName)){
-					chromosomeSizes.set(10, chromSize);
-				}else if (Commons.CHROMOSOME12.equals(chromName)){
-					chromosomeSizes.set(11, chromSize);
-				}else if (Commons.CHROMOSOME13.equals(chromName)){
-					chromosomeSizes.set(12, chromSize);
-				}else if (Commons.CHROMOSOME14.equals(chromName)){
-					chromosomeSizes.set(13, chromSize);
-				}else if (Commons.CHROMOSOME15.equals(chromName)){
-					chromosomeSizes.set(14, chromSize);
-				}else if (Commons.CHROMOSOME16.equals(chromName)){
-					chromosomeSizes.set(15, chromSize);
-				}else if (Commons.CHROMOSOME17.equals(chromName)){
-					chromosomeSizes.set(16, chromSize);
-				}else if (Commons.CHROMOSOME18.equals(chromName)){
-					chromosomeSizes.set(17, chromSize);
-				}else if (Commons.CHROMOSOME19.equals(chromName)){
-					chromosomeSizes.set(18, chromSize);
-				}else if (Commons.CHROMOSOME20.equals(chromName)){
-					chromosomeSizes.set(19, chromSize);
-				}else if (Commons.CHROMOSOME21.equals(chromName)){
-					chromosomeSizes.set(20, chromSize);
-				}else if (Commons.CHROMOSOME22.equals(chromName)){
-					chromosomeSizes.set(21, chromSize);
-				}else if (Commons.CHROMOSOMEX.equals(chromName)){
-					chromosomeSizes.set(22, chromSize);
-				}else if (Commons.CHROMOSOMEY.equals(chromName)){
-					chromosomeSizes.set(23, chromSize);
-				}				
+				if(chromName!=null){
+					if (chromName.isCHROMOSOME1()){
+						chromosomeSizes.set(0, chromSize);
+					}else if (chromName.isCHROMOSOME2()){
+						chromosomeSizes.set(1, chromSize);
+					}else if (chromName.isCHROMOSOME3()){
+						chromosomeSizes.set(2, chromSize);
+					}else if (chromName.isCHROMOSOME4()){
+						chromosomeSizes.set(3, chromSize);
+					}else if (chromName.isCHROMOSOME5()){
+						chromosomeSizes.set(4, chromSize);
+					}else if (chromName.isCHROMOSOME6()){
+						chromosomeSizes.set(5, chromSize);
+					}else if (chromName.isCHROMOSOME7()){
+						chromosomeSizes.set(6, chromSize);
+					}else if (chromName.isCHROMOSOME8()){
+						chromosomeSizes.set(7, chromSize);
+					}else if (chromName.isCHROMOSOME9()){
+						chromosomeSizes.set(8, chromSize);
+					}else if (chromName.isCHROMOSOME10()){
+						chromosomeSizes.set(9, chromSize);
+					}else if (chromName.isCHROMOSOME11()){
+						chromosomeSizes.set(10, chromSize);
+					}else if (chromName.isCHROMOSOME12()){
+						chromosomeSizes.set(11, chromSize);
+					}else if (chromName.isCHROMOSOME13()){
+						chromosomeSizes.set(12, chromSize);
+					}else if (chromName.isCHROMOSOME14()){
+						chromosomeSizes.set(13, chromSize);
+					}else if (chromName.isCHROMOSOME15()){
+						chromosomeSizes.set(14, chromSize);
+					}else if (chromName.isCHROMOSOME16()){
+						chromosomeSizes.set(15, chromSize);
+					}else if (chromName.isCHROMOSOME17()){
+						chromosomeSizes.set(16, chromSize);
+					}else if (chromName.isCHROMOSOME18()){
+						chromosomeSizes.set(17, chromSize);
+					}else if (chromName.isCHROMOSOME19()){
+						chromosomeSizes.set(18, chromSize);
+					}else if (chromName.isCHROMOSOME20()){
+						chromosomeSizes.set(19, chromSize);
+					}else if (chromName.isCHROMOSOME21()){
+						chromosomeSizes.set(20, chromSize);
+					}else if (chromName.isCHROMOSOME22()){
+						chromosomeSizes.set(21, chromSize);
+					}else if (chromName.isCHROMOSOMEX()){
+						chromosomeSizes.set(22, chromSize);
+					}else if (chromName.isCHROMOSOMEY()){
+						chromosomeSizes.set(23, chromSize);
+					}				
+				}
+				
 			} // End of While
 			
 			bufferedReader.close();
@@ -207,55 +210,55 @@ public class GRCh37Hg19Chromosome {
 		return chrName;
 	}
 	
-	public static int getHg19ChromsomeSize(List<Integer> hg19ChromosomeSizes,String chromName){
+	public static int getHg19ChromsomeSize(List<Integer> hg19ChromosomeSizes,ChromosomeName chromName){
 		
-		if(chromName.equals(Commons.CHROMOSOME1)){
+		if(chromName.isCHROMOSOME1()){
 			return hg19ChromosomeSizes.get(0);
-		}else if(chromName.equals(Commons.CHROMOSOME2)){
+		}else if(chromName.isCHROMOSOME2()){
 			return hg19ChromosomeSizes.get(1);
-		}else if(chromName.equals(Commons.CHROMOSOME3)){
+		}else if(chromName.isCHROMOSOME3()){
 			return hg19ChromosomeSizes.get(2);
-		}else if(chromName.equals(Commons.CHROMOSOME4)){
+		}else if(chromName.isCHROMOSOME4()){
 			return hg19ChromosomeSizes.get(3);
-		}else if(chromName.equals(Commons.CHROMOSOME5)){
+		}else if(chromName.isCHROMOSOME5()){
 			return hg19ChromosomeSizes.get(4);
-		}else if(chromName.equals(Commons.CHROMOSOME6)){
+		}else if(chromName.isCHROMOSOME6()){
 			return hg19ChromosomeSizes.get(5);
-		}else if(chromName.equals(Commons.CHROMOSOME7)){
+		}else if(chromName.isCHROMOSOME7()){
 			return hg19ChromosomeSizes.get(6);
-		}else if(chromName.equals(Commons.CHROMOSOME8)){
+		}else if(chromName.isCHROMOSOME8()){
 			return hg19ChromosomeSizes.get(7);
-		}else if(chromName.equals(Commons.CHROMOSOME9)){
+		}else if(chromName.isCHROMOSOME9()){
 			return hg19ChromosomeSizes.get(8);
-		}else if(chromName.equals(Commons.CHROMOSOME10)){
+		}else if(chromName.isCHROMOSOME10()){
 			return hg19ChromosomeSizes.get(9);
-		}else if(chromName.equals(Commons.CHROMOSOME11)){
+		}else if(chromName.isCHROMOSOME11()){
 			return hg19ChromosomeSizes.get(10);
-		}else if(chromName.equals(Commons.CHROMOSOME12)){
+		}else if(chromName.isCHROMOSOME12()){
 			return hg19ChromosomeSizes.get(11);
-		}else if(chromName.equals(Commons.CHROMOSOME13)){
+		}else if(chromName.isCHROMOSOME13()){
 			return hg19ChromosomeSizes.get(12);
-		}else if(chromName.equals(Commons.CHROMOSOME14)){
+		}else if(chromName.isCHROMOSOME14()){
 			return hg19ChromosomeSizes.get(13);
-		}else if(chromName.equals(Commons.CHROMOSOME15)){
+		}else if(chromName.isCHROMOSOME15()){
 			return hg19ChromosomeSizes.get(14);
-		}else if(chromName.equals(Commons.CHROMOSOME16)){
+		}else if(chromName.isCHROMOSOME16()){
 			return hg19ChromosomeSizes.get(15);
-		}else if(chromName.equals(Commons.CHROMOSOME17)){
+		}else if(chromName.isCHROMOSOME17()){
 			return hg19ChromosomeSizes.get(16);
-		}else if(chromName.equals(Commons.CHROMOSOME18)){
+		}else if(chromName.isCHROMOSOME18()){
 			return hg19ChromosomeSizes.get(17);
-		}else if(chromName.equals(Commons.CHROMOSOME19)){
+		}else if(chromName.isCHROMOSOME19()){
 			return hg19ChromosomeSizes.get(18);
-		}else if(chromName.equals(Commons.CHROMOSOME20)){
+		}else if(chromName.isCHROMOSOME20()){
 			return hg19ChromosomeSizes.get(19);
-		}else if(chromName.equals(Commons.CHROMOSOME21)){
+		}else if(chromName.isCHROMOSOME21()){
 			return hg19ChromosomeSizes.get(20);
-		}else if(chromName.equals(Commons.CHROMOSOME22)){
+		}else if(chromName.isCHROMOSOME22()){
 			return hg19ChromosomeSizes.get(21);
-		}else if(chromName.equals(Commons.CHROMOSOMEX)){
+		}else if(chromName.isCHROMOSOMEX()){
 			return hg19ChromosomeSizes.get(22);
-		}else if(chromName.equals(Commons.CHROMOSOMEY)){
+		}else if(chromName.isCHROMOSOMEY()){
 			return hg19ChromosomeSizes.get(23);
 		}
 		return 0;
@@ -302,63 +305,63 @@ public class GRCh37Hg19Chromosome {
 	}
 	
 
-	public static void 	fillDnaSequenceArray(String chromName,Integer chromSize, char[] dnaSequenceArray){
+	public static void 	fillDnaSequenceArray(ChromosomeName chromName,Integer chromSize, char[] dnaSequenceArray){
 		
 		switch(chromName){
 		
-			case Commons.CHROMOSOME1:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR1_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME1:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR1_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME2:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR2_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME2:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR2_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME3:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR3_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME3:   fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR3_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME4:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR4_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME4:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR4_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME5:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR5_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME5:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR5_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME6:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR6_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME6:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR6_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME7:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR7_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME7:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR7_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME8:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR8_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME8:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR8_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME9:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR9_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME9:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR9_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME10:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR10_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME10:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR10_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME11:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR11_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME11:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR11_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME12:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR12_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME12:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR12_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME13:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR13_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME13:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR13_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME14:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR14_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME14:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR14_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME15:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR15_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME15:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR15_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME16:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR16_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME16:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR16_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME17:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR17_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME17:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR17_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME18:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR18_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME18:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR18_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME19:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR19_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME19:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR19_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME20:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR20_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME20:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR20_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME21:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR21_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME21:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR21_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOME22:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR22_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOME22:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHR22_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOMEX:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHRX_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOMEX:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHRX_FASTA_FILE,dnaSequenceArray);
 										break;
-			case Commons.CHROMOSOMEY:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHRY_FASTA_FILE,dnaSequenceArray);
+			case CHROMOSOMEY:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHRY_FASTA_FILE,dnaSequenceArray);
 										break;			
 		}
 		
 	}
 	
-	public static char[] fillHsapiensHg19Chromosome(String chromNumber, int chromSize){
+	public static char[] fillHsapiensHg19Chromosome(ChromosomeName chromNumber, int chromSize){
 		
 		char[] chromDNASequence = new char[chromSize];
 		fillDnaSequenceArray(chromNumber,chromSize,chromDNASequence);
@@ -368,11 +371,11 @@ public class GRCh37Hg19Chromosome {
 	
 
 	
-	public static void fillHsapiensHg19Chromosomes(Map<String, Integer> hg19ChromosomeSizes, Map<String,char[]>chromosomeBasedDNASequences){
-		String chromName;
+	public static void fillHsapiensHg19Chromosomes(Map<ChromosomeName, Integer> hg19ChromosomeSizes, Map<ChromosomeName,char[]>chromosomeBasedDNASequences){
+		ChromosomeName chromName;
 		Integer chromSize;
 	
-		for(Map.Entry<String, Integer> entry : hg19ChromosomeSizes.entrySet()){
+		for(Map.Entry<ChromosomeName, Integer> entry : hg19ChromosomeSizes.entrySet()){
 			
 			chromName = entry.getKey();
 			chromSize = entry.getValue();
@@ -386,9 +389,9 @@ public class GRCh37Hg19Chromosome {
 	}
 	
 	
-	public static char[] getHsapiensHg19ChromosomeDNASequence(String chromNumber){
+	public static char[] getHsapiensHg19ChromosomeDNASequence(ChromosomeName chromNumber){
 		//for testing purposes
-		Map<String, Integer> hg19ChromosomeSizes	= new HashMap<String,Integer>();
+		Map<ChromosomeName, Integer> hg19ChromosomeSizes	= new HashMap<ChromosomeName,Integer>();
 		
     	//get the hg19 chromosome sizes
     	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
@@ -407,7 +410,7 @@ public class GRCh37Hg19Chromosome {
 
 		
 		// Testing purposes	
-		String chromNumber = Commons.CHROMOSOME1;
+		ChromosomeName chromNumber = ChromosomeName.CHROMOSOME1;
 		char[] chr1AllSequence = getHsapiensHg19ChromosomeDNASequence(chromNumber);
 		
 		for(int i=0; i<=10; i++){

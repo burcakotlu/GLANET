@@ -24,10 +24,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import auxiliary.FileOperations;
 import common.Commons;
 import ui.GlanetRunner;
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
 
 
 public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
@@ -92,7 +94,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		
 		refSeqGene.setRefSeqGeneName(refSeqGeneName);
 		refSeqGene.setAlternateGeneName(alternateGeneName);
-		refSeqGene.setChromName(chromName); 
+		refSeqGene.setChromName(ChromosomeName.convertStringtoEnum(chromName)); 
 		refSeqGene.setStrand(strand);
 		refSeqGene.setTranscriptionStartPosition(txStart);
 		refSeqGene.setTranscriptionEndPosition(txEnd);
@@ -410,7 +412,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		RefSeqGene refSeqGene = null;
 		BufferedWriter bufferedWriter = null;
 		
-		String chromName;
+		ChromosomeName chromName;
 		
 		for (int i =0; i<refSeqGeneList.size(); i++){
 			refSeqGene = refSeqGeneList.get(i);

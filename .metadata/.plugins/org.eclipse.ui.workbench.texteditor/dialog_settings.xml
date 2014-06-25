@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value=".equals" key="selection"/>
+		<item value="Enum" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value=".equals"/>
-			<item value="enrichmentType"/>
-			<item value="Annotation"/>
-			<item value="Annoation"/>
-			<item value="annotationType"/>
-			<item value="generateRandomDataMode"/>
-			<item value="2000"/>
-			<item value="writePermutationBasedAnnotationResultMode"/>
+			<item value="Enum"/>
+			<item value="EnumTye"/>
+			<item value="KEGG"/>
+			<item value="DNASE_CELLLINENUMBER"/>
+			<item value="System.gc"/>
+			<item value="System."/>
+			<item value="Enrichment"/>
+			<item value="ChromosomeName"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ChromosomeName.CH"/>
+			<item value="chromName.isCHROMOSOME"/>
+			<item value="chromName.isChromosome"/>
+			<item value="CH"/>
+			<item value="ChromosomeName.CHROMOSOME"/>
+			<item value="Commons.BONFERRONI_CORRECTION"/>
 			<item value="System.out.println"/>
 			<item value="GlanetRunner.appendLog"/>
-			<item value="Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY"/>
-			<item value="it.value()"/>
-			<item value="it.key()"/>
-			<item value="TLongIntMap "/>
-			<item value="TLongObjectMap&lt;BufferedWriter&gt;  "/>
-			<item value="new TLongIntHashMap()"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="724" key="DIALOG_WIDTH"/>
+		<item value="792" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="431" key="DIALOG_HEIGHT"/>
-		<item value="938" key="DIALOG_X_ORIGIN"/>
-		<item value="228" key="DIALOG_Y_ORIGIN"/>
+		<item value="625" key="DIALOG_HEIGHT"/>
+		<item value="588" key="DIALOG_X_ORIGIN"/>
+		<item value="400" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

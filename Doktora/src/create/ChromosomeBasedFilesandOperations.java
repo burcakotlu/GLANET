@@ -645,59 +645,59 @@ public class ChromosomeBasedFilesandOperations {
 	}
 	
 	
-	public static FileReader getSortedRefSeqGenesFileReader(String chromName){
+	public static FileReader getSortedRefSeqGenesFileReader(ChromosomeName chromName){
 		
 		FileReader fileReader = null;
 	
 		try {
 			
-			if (Commons.CHROMOSOME1.equals(chromName)){
+			if (chromName.isCHROMOSOME1()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR1_REFSEQ_GENES);								
-			} else if (Commons.CHROMOSOME2.equals(chromName)){
+			} else if (chromName.isCHROMOSOME2()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR2_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME3.equals(chromName)){
+			} else if (chromName.isCHROMOSOME3()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR3_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME4.equals(chromName)){
+			} else if (chromName.isCHROMOSOME4()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR4_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME5.equals(chromName)){
+			} else if (chromName.isCHROMOSOME5()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR5_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME6.equals(chromName)){
+			} else if (chromName.isCHROMOSOME6()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR6_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME7.equals(chromName)){
+			} else if (chromName.isCHROMOSOME7()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR7_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME8.equals(chromName)){
+			} else if (chromName.isCHROMOSOME8()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR8_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME9.equals(chromName)){
+			} else if (chromName.isCHROMOSOME9()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR9_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME10.equals(chromName)){
+			} else if (chromName.isCHROMOSOME10()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR10_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME11.equals(chromName)){
+			} else if (chromName.isCHROMOSOME11()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR11_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME12.equals(chromName)){
+			} else if (chromName.isCHROMOSOME12()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR12_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME13.equals(chromName)){
+			} else if (chromName.isCHROMOSOME13()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR13_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME14.equals(chromName)){
+			} else if (chromName.isCHROMOSOME14()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR14_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME15.equals(chromName)){
+			} else if (chromName.isCHROMOSOME15()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR15_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME16.equals(chromName)){
+			} else if (chromName.isCHROMOSOME16()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR16_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME17.equals(chromName)){
+			} else if (chromName.isCHROMOSOME17()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR17_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME18.equals(chromName)){
+			} else if (chromName.isCHROMOSOME18()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR18_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME19.equals(chromName)){
+			} else if (chromName.isCHROMOSOME19()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR19_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME20.equals(chromName)){
+			} else if (chromName.isCHROMOSOME20()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR20_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME21.equals(chromName)){
+			} else if (chromName.isCHROMOSOME21()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR21_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOME22.equals(chromName)){
+			} else if (chromName.isCHROMOSOME22()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHR22_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOMEX.equals(chromName)){
+			} else if (chromName.isCHROMOSOMEX()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHRX_REFSEQ_GENES);				
-			} else if (Commons.CHROMOSOMEY.equals(chromName)){
+			} else if (chromName.isCHROMOSOMEY()){
 				fileReader = new FileReader(Commons.CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME + Commons.SORTED_CHRY_REFSEQ_GENES);				
 			} 
 		} catch (FileNotFoundException e) {
@@ -708,56 +708,56 @@ public class ChromosomeBasedFilesandOperations {
 		return fileReader;
 	}
 	
-	public static BufferedWriter getBufferedWriter(String chromName,List<BufferedWriter> bufferedWriterList){
+	public static BufferedWriter getBufferedWriter(ChromosomeName chromName,List<BufferedWriter> bufferedWriterList){
 		BufferedWriter bufferedWriter = null;
 		
-		if (chromName.equals(Commons.CHROMOSOME1)){
+		if (chromName.isCHROMOSOME1()){
 			bufferedWriter = bufferedWriterList.get(0);
-		}else if (chromName.equals(Commons.CHROMOSOME2)){
+		}else if (chromName.isCHROMOSOME2()){
 			bufferedWriter = bufferedWriterList.get(1);			
-		}else if (chromName.equals(Commons.CHROMOSOME3)){
+		}else if (chromName.isCHROMOSOME3()){
 			bufferedWriter = bufferedWriterList.get(2);			
-		}else if (chromName.equals(Commons.CHROMOSOME4)){
+		}else if (chromName.isCHROMOSOME4()){
 			bufferedWriter = bufferedWriterList.get(3);			
-		}else if (chromName.equals(Commons.CHROMOSOME5)){
+		}else if (chromName.isCHROMOSOME5()){
 			bufferedWriter = bufferedWriterList.get(4);			
-		}else if (chromName.equals(Commons.CHROMOSOME6)){
+		}else if (chromName.isCHROMOSOME6()){
 			bufferedWriter = bufferedWriterList.get(5);			
-		}else if (chromName.equals(Commons.CHROMOSOME7)){
+		}else if (chromName.isCHROMOSOME7()){
 			bufferedWriter = bufferedWriterList.get(6);			
-		}else if (chromName.equals(Commons.CHROMOSOME8)){
+		}else if (chromName.isCHROMOSOME8()){
 			bufferedWriter = bufferedWriterList.get(7);			
-		}else if (chromName.equals(Commons.CHROMOSOME9)){
+		}else if (chromName.isCHROMOSOME9()){
 			bufferedWriter = bufferedWriterList.get(8);			
-		}else if (chromName.equals(Commons.CHROMOSOME10)){
+		}else if (chromName.isCHROMOSOME10()){
 			bufferedWriter = bufferedWriterList.get(9);			
-		}else if (chromName.equals(Commons.CHROMOSOME11)){
+		}else if (chromName.isCHROMOSOME11()){
 			bufferedWriter = bufferedWriterList.get(10);			
-		}else if (chromName.equals(Commons.CHROMOSOME12)){
+		}else if (chromName.isCHROMOSOME12()){
 			bufferedWriter = bufferedWriterList.get(11);			
-		}else if (chromName.equals(Commons.CHROMOSOME13)){
+		}else if (chromName.isCHROMOSOME13()){
 			bufferedWriter = bufferedWriterList.get(12);			
-		}else if (chromName.equals(Commons.CHROMOSOME14)){
+		}else if (chromName.isCHROMOSOME14()){
 			bufferedWriter = bufferedWriterList.get(13);			
-		}else if (chromName.equals(Commons.CHROMOSOME15)){
+		}else if (chromName.isCHROMOSOME15()){
 			bufferedWriter = bufferedWriterList.get(14);			
-		}else if (chromName.equals(Commons.CHROMOSOME16)){
+		}else if (chromName.isCHROMOSOME16()){
 			bufferedWriter = bufferedWriterList.get(15);			
-		}else if (chromName.equals(Commons.CHROMOSOME17)){
+		}else if (chromName.isCHROMOSOME17()){
 			bufferedWriter = bufferedWriterList.get(16);			
-		}else if (chromName.equals(Commons.CHROMOSOME18)){
+		}else if (chromName.isCHROMOSOME18()){
 			bufferedWriter = bufferedWriterList.get(17);			
-		}else if (chromName.equals(Commons.CHROMOSOME19)){
+		}else if (chromName.isCHROMOSOME19()){
 			bufferedWriter = bufferedWriterList.get(18);			
-		}else if (chromName.equals(Commons.CHROMOSOME20)){
+		}else if (chromName.isCHROMOSOME20()){
 			bufferedWriter = bufferedWriterList.get(19);			
-		}else if (chromName.equals(Commons.CHROMOSOME21)){
+		}else if (chromName.isCHROMOSOME21()){
 			bufferedWriter = bufferedWriterList.get(20);			
-		}else if (chromName.equals(Commons.CHROMOSOME22)){
+		}else if (chromName.isCHROMOSOME22()){
 			bufferedWriter = bufferedWriterList.get(21);			
-		}else if (chromName.equals(Commons.CHROMOSOMEX)){
+		}else if (chromName.isCHROMOSOMEX()){
 			bufferedWriter = bufferedWriterList.get(22);			
-		}else if (chromName.equals(Commons.CHROMOSOMEY)){
+		}else if (chromName.isCHROMOSOMEY()){
 			bufferedWriter = bufferedWriterList.get(23);			
 		}
 		
