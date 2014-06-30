@@ -10,18 +10,22 @@ package annotate.intervals.parametric;
 
 import java.util.List;
 
+import enumtypes.IntervalName;
+
 
 public class PermutationNumberUcscRefSeqGeneOverlap {
 	
 	//example
 	//refSeqGeneName	NM_002979	
-	//intervalName	INTRON15	
+	//intervalName	INTRON
+	//intervalNumber	15	
 	//geneHugoSymbol	SCP2	
 	//geneEntrezId	6342
 
 	String permutationNumber;
 	String refSeqGeneName;
-	String intervalName;
+	IntervalName intervalName;
+	int intervalNumber;
 	String geneHugoSymbol;
 	int geneEntrezId;
 	int low;
@@ -30,13 +34,14 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 	
 		
 	public PermutationNumberUcscRefSeqGeneOverlap(String permutationNumber,
-			String refSeqGeneName, String intervalName, String geneHugoSymbol,
+			String refSeqGeneName, IntervalName intervalName, int intervalNumber, String geneHugoSymbol,
 			int geneEntrezId, int low, int high,
 			List<String> keggPathwayNameList) {
 		super();
 		this.permutationNumber = permutationNumber;
 		this.refSeqGeneName = refSeqGeneName;
 		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 		this.geneHugoSymbol = geneHugoSymbol;
 		this.geneEntrezId = geneEntrezId;
 		this.low = low;
@@ -45,6 +50,36 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 	}
 
 	
+	
+	
+	public IntervalName getIntervalName() {
+		return intervalName;
+	}
+
+
+
+
+	public void setIntervalName(IntervalName intervalName) {
+		this.intervalName = intervalName;
+	}
+
+
+
+
+	public int getIntervalNumber() {
+		return intervalNumber;
+	}
+
+
+
+
+	public void setIntervalNumber(int intervalNumber) {
+		this.intervalNumber = intervalNumber;
+	}
+
+
+
+
 	public String getRefSeqGeneName() {
 		return refSeqGeneName;
 	}
@@ -53,14 +88,7 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 		this.refSeqGeneName = refSeqGeneName;
 	}
 
-	public String getIntervalName() {
-		return intervalName;
-	}
-
-	public void setIntervalName(String intervalName) {
-		this.intervalName = intervalName;
-	}
-
+	
 	public String getGeneHugoSymbol() {
 		return geneHugoSymbol;
 	}

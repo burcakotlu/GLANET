@@ -45,19 +45,19 @@
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="empiricalpvalues.WriteGeneratedRandomDataMode"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="empiricalpvalues.GenerateRandomDataMode"/>
 <fullyQualifiedTypeName name="empiricalpvalues.EnrichmentType"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotationType"/>
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
 <fullyQualifiedTypeName name="enumtypes.RegulatorySequenceAnalysisType"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
-<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 <fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
-<fullyQualifiedTypeName name="enumtypes.IntervalName"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="enumtypes.KeggPathwayAnalysisType"/>
 <fullyQualifiedTypeName name="enumtypes.WriteGeneratedRandomDataMode"/>
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode"/>
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedAnnotationResultMode"/>
+<fullyQualifiedTypeName name="enumtypes.IntervalName"/>
+<fullyQualifiedTypeName name="common.Commons"/>
+<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 </qualifiedTypeNameHistroy>

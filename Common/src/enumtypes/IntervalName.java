@@ -48,7 +48,7 @@ public enum IntervalName {
 	}
 		
     
-    public String getIntervalName(){
+    public String getIntervalNameString(){
     	if (this.equals(IntervalName.EXON))
     		return Commons.EXON;
     	else if (this.equals(IntervalName.INTRON))

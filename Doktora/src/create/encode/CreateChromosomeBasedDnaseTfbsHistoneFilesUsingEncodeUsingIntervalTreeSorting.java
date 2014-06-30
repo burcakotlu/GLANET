@@ -39,10 +39,6 @@ import enumtypes.NodeType;
 
 public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting {
 	
-//	global variables
-//   IntervalTree tfbsIntervalTree = null;
-//   IntervalTree histoneIntervalTree = null;
-//   IntervalTree dnaseIntervalTree = null;
    
    static NumberofDNAElements numberofDNAElements = new NumberofDNAElements();
    
@@ -53,56 +49,56 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	   try {
 		   
 			 bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(dnase.getChromName(), bufferedWriterList);		 
-			 bufferedWriter.write(dnase.getChromName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+System.getProperty("line.separator"));
+			 bufferedWriter.write(dnase.getChromName().getChromosomeName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+System.getProperty("line.separator"));
 
 		   		   
-			if(dnase.getChromName().equals("chr1")){
+			if(dnase.getChromName().isCHROMOSOME1()){
 				numberofDNAElements.setNumberofDnaseinChr1(numberofDNAElements.getNumberofDnaseinChr1()+1);
-			}else if(dnase.getChromName().equals("chr2")){
+			}else if(dnase.getChromName().isCHROMOSOME2()){
 				numberofDNAElements.setNumberofDnaseinChr2(numberofDNAElements.getNumberofDnaseinChr2()+1);
-			}else if(dnase.getChromName().equals("chr3")){
+			}else if(dnase.getChromName().isCHROMOSOME3()){
 				numberofDNAElements.setNumberofDnaseinChr3(numberofDNAElements.getNumberofDnaseinChr3()+1);
-			}else if(dnase.getChromName().equals("chr4")){
+			}else if(dnase.getChromName().isCHROMOSOME4()){
 				numberofDNAElements.setNumberofDnaseinChr4(numberofDNAElements.getNumberofDnaseinChr4()+1);
-			}else if(dnase.getChromName().equals("chr5")){
+			}else if(dnase.getChromName().isCHROMOSOME5()){
 				numberofDNAElements.setNumberofDnaseinChr5(numberofDNAElements.getNumberofDnaseinChr5()+1);
-			}else if(dnase.getChromName().equals("chr6")){
+			}else if(dnase.getChromName().isCHROMOSOME6()){
 				numberofDNAElements.setNumberofDnaseinChr6(numberofDNAElements.getNumberofDnaseinChr6()+1);
-			}else if(dnase.getChromName().equals("chr7")){
+			}else if(dnase.getChromName().isCHROMOSOME7()){
 				numberofDNAElements.setNumberofDnaseinChr7(numberofDNAElements.getNumberofDnaseinChr7()+1);
-			}else if(dnase.getChromName().equals("chr8")){
+			}else if(dnase.getChromName().isCHROMOSOME8()){
 				numberofDNAElements.setNumberofDnaseinChr8(numberofDNAElements.getNumberofDnaseinChr8()+1);
-			}else if(dnase.getChromName().equals("chr9")){
+			}else if(dnase.getChromName().isCHROMOSOME9()){
 				numberofDNAElements.setNumberofDnaseinChr9(numberofDNAElements.getNumberofDnaseinChr9()+1);
-			}else if(dnase.getChromName().equals("chr10")){
+			}else if(dnase.getChromName().isCHROMOSOME10()){
 				numberofDNAElements.setNumberofDnaseinChr10(numberofDNAElements.getNumberofDnaseinChr10()+1);
-			}else if(dnase.getChromName().equals("chr11")){
+			}else if(dnase.getChromName().isCHROMOSOME11()){
 				numberofDNAElements.setNumberofDnaseinChr11(numberofDNAElements.getNumberofDnaseinChr11()+1);
-			}else if(dnase.getChromName().equals("chr12")){
+			}else if(dnase.getChromName().isCHROMOSOME12()){
 				numberofDNAElements.setNumberofDnaseinChr12(numberofDNAElements.getNumberofDnaseinChr12()+1);
-			}else if(dnase.getChromName().equals("chr13")){
+			}else if(dnase.getChromName().isCHROMOSOME13()){
 				numberofDNAElements.setNumberofDnaseinChr13(numberofDNAElements.getNumberofDnaseinChr13()+1);
-			}else if(dnase.getChromName().equals("chr14")){
+			}else if(dnase.getChromName().isCHROMOSOME14()){
 				numberofDNAElements.setNumberofDnaseinChr14(numberofDNAElements.getNumberofDnaseinChr14()+1);
-			}else if(dnase.getChromName().equals("chr15")){
+			}else if(dnase.getChromName().isCHROMOSOME15()){
 				numberofDNAElements.setNumberofDnaseinChr15(numberofDNAElements.getNumberofDnaseinChr15()+1);
-			}else if(dnase.getChromName().equals("chr16")){
+			}else if(dnase.getChromName().isCHROMOSOME16()){
 				numberofDNAElements.setNumberofDnaseinChr16(numberofDNAElements.getNumberofDnaseinChr16()+1);
-			}else if(dnase.getChromName().equals("chr17")){
+			}else if(dnase.getChromName().isCHROMOSOME17()){
 				numberofDNAElements.setNumberofDnaseinChr17(numberofDNAElements.getNumberofDnaseinChr17()+1);
-			}else if(dnase.getChromName().equals("chr18")){
+			}else if(dnase.getChromName().isCHROMOSOME18()){
 				numberofDNAElements.setNumberofDnaseinChr18(numberofDNAElements.getNumberofDnaseinChr18()+1);
-			}else if(dnase.getChromName().equals("chr19")){
+			}else if(dnase.getChromName().isCHROMOSOME19()){
 				numberofDNAElements.setNumberofDnaseinChr19(numberofDNAElements.getNumberofDnaseinChr19()+1);
-			}else if(dnase.getChromName().equals("chr20")){
+			}else if(dnase.getChromName().isCHROMOSOME20()){
 				numberofDNAElements.setNumberofDnaseinChr20(numberofDNAElements.getNumberofDnaseinChr20()+1);
-			}else if(dnase.getChromName().equals("chr21")){
+			}else if(dnase.getChromName().isCHROMOSOME21()){
 				numberofDNAElements.setNumberofDnaseinChr21(numberofDNAElements.getNumberofDnaseinChr21()+1);
-			}else if(dnase.getChromName().equals("chr22")){
+			}else if(dnase.getChromName().isCHROMOSOME22()){
 				numberofDNAElements.setNumberofDnaseinChr22(numberofDNAElements.getNumberofDnaseinChr22()+1);
-			}else if(dnase.getChromName().equals("chrX")){
+			}else if(dnase.getChromName().isCHROMOSOMEX()){
 				numberofDNAElements.setNumberofDnaseinChrX(numberofDNAElements.getNumberofDnaseinChrX()+1);
-			}else if(dnase.getChromName().equals("chrY")){
+			}else if(dnase.getChromName().isCHROMOSOMEY()){
 				numberofDNAElements.setNumberofDnaseinChrY(numberofDNAElements.getNumberofDnaseinChrY()+1);
 			} 
 			
@@ -120,55 +116,55 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(histone.getChromName() , bufferedWriterList);
-			bufferedWriter.write(histone.getChromName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+System.getProperty("line.separator"));
+			bufferedWriter.write(histone.getChromName().getChromosomeName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+System.getProperty("line.separator"));
 
-			if(histone.getChromName().equals("chr1")){
+			if(histone.getChromName().isCHROMOSOME1()){
 				numberofDNAElements.setNumberofHistoneinChr1(numberofDNAElements.getNumberofHistoneinChr1()+1);
-			}else if (histone.getChromName().equals("chr2")){
+			}else if (histone.getChromName().isCHROMOSOME2()){
 				numberofDNAElements.setNumberofHistoneinChr2(numberofDNAElements.getNumberofHistoneinChr2()+1);				
-			}else if (histone.getChromName().equals("chr3")){
+			}else if (histone.getChromName().isCHROMOSOME3()){
 				numberofDNAElements.setNumberofHistoneinChr3(numberofDNAElements.getNumberofHistoneinChr3()+1);				
-			}else if (histone.getChromName().equals("chr4")){
+			}else if (histone.getChromName().isCHROMOSOME4()){
 				numberofDNAElements.setNumberofHistoneinChr4(numberofDNAElements.getNumberofHistoneinChr4()+1);				
-			}else if (histone.getChromName().equals("chr5")){
+			}else if (histone.getChromName().isCHROMOSOME5()){
 				numberofDNAElements.setNumberofHistoneinChr5(numberofDNAElements.getNumberofHistoneinChr5()+1);				
-			}else if (histone.getChromName().equals("chr6")){
+			}else if (histone.getChromName().isCHROMOSOME6()){
 				numberofDNAElements.setNumberofHistoneinChr6(numberofDNAElements.getNumberofHistoneinChr6()+1);				
-			}else if (histone.getChromName().equals("chr7")){
+			}else if (histone.getChromName().isCHROMOSOME7()){
 				numberofDNAElements.setNumberofHistoneinChr7(numberofDNAElements.getNumberofHistoneinChr7()+1);				
-			}else if (histone.getChromName().equals("chr8")){
+			}else if (histone.getChromName().isCHROMOSOME8()){
 				numberofDNAElements.setNumberofHistoneinChr8(numberofDNAElements.getNumberofHistoneinChr8()+1);				
-			}else if (histone.getChromName().equals("chr9")){
+			}else if (histone.getChromName().isCHROMOSOME9()){
 				numberofDNAElements.setNumberofHistoneinChr9(numberofDNAElements.getNumberofHistoneinChr9()+1);				
-			}else if (histone.getChromName().equals("chr10")){
+			}else if (histone.getChromName().isCHROMOSOME10()){
 				numberofDNAElements.setNumberofHistoneinChr10(numberofDNAElements.getNumberofHistoneinChr10()+1);				
-			}else if (histone.getChromName().equals("chr11")){
+			}else if (histone.getChromName().isCHROMOSOME11()){
 				numberofDNAElements.setNumberofHistoneinChr11(numberofDNAElements.getNumberofHistoneinChr11()+1);				
-			}else if (histone.getChromName().equals("chr12")){
+			}else if (histone.getChromName().isCHROMOSOME12()){
 				numberofDNAElements.setNumberofHistoneinChr12(numberofDNAElements.getNumberofHistoneinChr12()+1);				
-			}else if (histone.getChromName().equals("chr13")){
+			}else if (histone.getChromName().isCHROMOSOME13()){
 				numberofDNAElements.setNumberofHistoneinChr13(numberofDNAElements.getNumberofHistoneinChr13()+1);				
-			}else if (histone.getChromName().equals("chr14")){
+			}else if (histone.getChromName().isCHROMOSOME14()){
 				numberofDNAElements.setNumberofHistoneinChr14(numberofDNAElements.getNumberofHistoneinChr14()+1);				
-			}else if (histone.getChromName().equals("chr15")){
+			}else if (histone.getChromName().isCHROMOSOME15()){
 				numberofDNAElements.setNumberofHistoneinChr15(numberofDNAElements.getNumberofHistoneinChr15()+1);				
-			}else if (histone.getChromName().equals("chr16")){
+			}else if (histone.getChromName().isCHROMOSOME16()){
 				numberofDNAElements.setNumberofHistoneinChr16(numberofDNAElements.getNumberofHistoneinChr16()+1);				
-			}else if (histone.getChromName().equals("chr17")){
+			}else if (histone.getChromName().isCHROMOSOME17()){
 				numberofDNAElements.setNumberofHistoneinChr17(numberofDNAElements.getNumberofHistoneinChr17()+1);				
-			}else if (histone.getChromName().equals("chr18")){
+			}else if (histone.getChromName().isCHROMOSOME18()){
 				numberofDNAElements.setNumberofHistoneinChr18(numberofDNAElements.getNumberofHistoneinChr18()+1);				
-			}else if (histone.getChromName().equals("chr19")){
+			}else if (histone.getChromName().isCHROMOSOME19()){
 				numberofDNAElements.setNumberofHistoneinChr19(numberofDNAElements.getNumberofHistoneinChr19()+1);				
-			}else if (histone.getChromName().equals("chr20")){
+			}else if (histone.getChromName().isCHROMOSOME20()){
 				numberofDNAElements.setNumberofHistoneinChr20(numberofDNAElements.getNumberofHistoneinChr20()+1);				
-			}else if (histone.getChromName().equals("chr21")){
+			}else if (histone.getChromName().isCHROMOSOME21()){
 				numberofDNAElements.setNumberofHistoneinChr21(numberofDNAElements.getNumberofHistoneinChr21()+1);				
-			}else if (histone.getChromName().equals("chr22")){
+			}else if (histone.getChromName().isCHROMOSOME22()){
 				numberofDNAElements.setNumberofHistoneinChr22(numberofDNAElements.getNumberofHistoneinChr22()+1);				
-			}else if (histone.getChromName().equals("chrX")){
+			}else if (histone.getChromName().isCHROMOSOMEX()){
 				numberofDNAElements.setNumberofHistoneinChrX(numberofDNAElements.getNumberofHistoneinChrX()+1);				
-			}else if (histone.getChromName().equals("chrY")){
+			}else if (histone.getChromName().isCHROMOSOMEY()){
 				numberofDNAElements.setNumberofHistoneinChrY(numberofDNAElements.getNumberofHistoneinChrY()+1);				
 			}
 			
@@ -187,79 +183,56 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(tfbs.getChromName(), bufferedWriterList);
-			bufferedWriter.write(tfbs.getChromName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ System.getProperty("line.separator"));
+			bufferedWriter.write(tfbs.getChromName().getChromosomeName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ System.getProperty("line.separator"));
 			
-			if(tfbs.getChromName().equals("chr1")){
+			if(tfbs.getChromName().isCHROMOSOME1()){
 				numberofDNAElements.setNumberofTfbsinChr1(numberofDNAElements.getNumberofTfbsinChr1()+1);
-			}else if (tfbs.getChromName().equals("chr2")){
-				numberofDNAElements.setNumberofTfbsinChr2(numberofDNAElements.getNumberofTfbsinChr2()+1);
-				
-			}else if (tfbs.getChromName().equals("chr3")){
+			}else if (tfbs.getChromName().isCHROMOSOME2()){
+				numberofDNAElements.setNumberofTfbsinChr2(numberofDNAElements.getNumberofTfbsinChr2()+1);			
+			}else if (tfbs.getChromName().isCHROMOSOME3()){
 				numberofDNAElements.setNumberofTfbsinChr3(numberofDNAElements.getNumberofTfbsinChr3()+1);
-
-			}else if (tfbs.getChromName().equals("chr4")){
+			}else if (tfbs.getChromName().isCHROMOSOME4()){
 				numberofDNAElements.setNumberofTfbsinChr4(numberofDNAElements.getNumberofTfbsinChr4()+1);
-
-			}else if (tfbs.getChromName().equals("chr5")){
+			}else if (tfbs.getChromName().isCHROMOSOME5()){
 				numberofDNAElements.setNumberofTfbsinChr5(numberofDNAElements.getNumberofTfbsinChr5()+1);
-
-			}else if (tfbs.getChromName().equals("chr6")){
-				numberofDNAElements.setNumberofTfbsinChr6(numberofDNAElements.getNumberofTfbsinChr6()+1);
-				
-			}else if (tfbs.getChromName().equals("chr7")){
+			}else if (tfbs.getChromName().isCHROMOSOME6()){
+				numberofDNAElements.setNumberofTfbsinChr6(numberofDNAElements.getNumberofTfbsinChr6()+1);				
+			}else if (tfbs.getChromName().isCHROMOSOME7()){
 				numberofDNAElements.setNumberofTfbsinChr7(numberofDNAElements.getNumberofTfbsinChr7()+1);
-
-			}else if (tfbs.getChromName().equals("chr8")){
-				numberofDNAElements.setNumberofTfbsinChr8(numberofDNAElements.getNumberofTfbsinChr8()+1);
-			
-			}else if (tfbs.getChromName().equals("chr9")){
+			}else if (tfbs.getChromName().isCHROMOSOME8()){
+				numberofDNAElements.setNumberofTfbsinChr8(numberofDNAElements.getNumberofTfbsinChr8()+1);			
+			}else if (tfbs.getChromName().isCHROMOSOME9()){
 				numberofDNAElements.setNumberofTfbsinChr9(numberofDNAElements.getNumberofTfbsinChr9()+1);
-
-			}else if (tfbs.getChromName().equals("chr10")){
+			}else if (tfbs.getChromName().isCHROMOSOME10()){
 				numberofDNAElements.setNumberofTfbsinChr10(numberofDNAElements.getNumberofTfbsinChr10()+1);
-
-			}else if (tfbs.getChromName().equals("chr11")){
+			}else if (tfbs.getChromName().isCHROMOSOME11()){
 				numberofDNAElements.setNumberofTfbsinChr11(numberofDNAElements.getNumberofTfbsinChr11()+1);
-
-			}else if (tfbs.getChromName().equals("chr12")){
+			}else if (tfbs.getChromName().isCHROMOSOME12()){
 				numberofDNAElements.setNumberofTfbsinChr12(numberofDNAElements.getNumberofTfbsinChr12()+1);
-
-			}else if (tfbs.getChromName().equals("chr13")){
-				numberofDNAElements.setNumberofTfbsinChr13(numberofDNAElements.getNumberofTfbsinChr13()+1);
-				
-			}else if (tfbs.getChromName().equals("chr14")){
+			}else if (tfbs.getChromName().isCHROMOSOME13()){
+				numberofDNAElements.setNumberofTfbsinChr13(numberofDNAElements.getNumberofTfbsinChr13()+1);				
+			}else if (tfbs.getChromName().isCHROMOSOME14()){
 				numberofDNAElements.setNumberofTfbsinChr14(numberofDNAElements.getNumberofTfbsinChr14()+1);
-
-			}else if (tfbs.getChromName().equals("chr15")){
+			}else if (tfbs.getChromName().isCHROMOSOME15()){
 				numberofDNAElements.setNumberofTfbsinChr15(numberofDNAElements.getNumberofTfbsinChr15()+1);
-
-			}else if (tfbs.getChromName().equals("chr16")){
+			}else if (tfbs.getChromName().isCHROMOSOME16()){
 				numberofDNAElements.setNumberofTfbsinChr16(numberofDNAElements.getNumberofTfbsinChr16()+1);
-
-			}else if (tfbs.getChromName().equals("chr17")){
+			}else if (tfbs.getChromName().isCHROMOSOME17()){
 				numberofDNAElements.setNumberofTfbsinChr17(numberofDNAElements.getNumberofTfbsinChr17()+1);
-
-			}else if (tfbs.getChromName().equals("chr18")){
+			}else if (tfbs.getChromName().isCHROMOSOME18()){
 				numberofDNAElements.setNumberofTfbsinChr18(numberofDNAElements.getNumberofTfbsinChr18()+1);
-
-			}else if (tfbs.getChromName().equals("chr19")){
+			}else if (tfbs.getChromName().isCHROMOSOME19()){
 				numberofDNAElements.setNumberofTfbsinChr19(numberofDNAElements.getNumberofTfbsinChr19()+1);
-
-			}else if (tfbs.getChromName().equals("chr20")){
+			}else if (tfbs.getChromName().isCHROMOSOME20()){
 				numberofDNAElements.setNumberofTfbsinChr20(numberofDNAElements.getNumberofTfbsinChr20()+1);
-
-			}else if (tfbs.getChromName().equals("chr21")){
+			}else if (tfbs.getChromName().isCHROMOSOME21()){
 				numberofDNAElements.setNumberofTfbsinChr21(numberofDNAElements.getNumberofTfbsinChr21()+1);
-
-			}else if (tfbs.getChromName().equals("chr22")){
+			}else if (tfbs.getChromName().isCHROMOSOME22()){
 				numberofDNAElements.setNumberofTfbsinChr22(numberofDNAElements.getNumberofTfbsinChr22()+1);
-
-			}else if (tfbs.getChromName().equals("chrX")){
+			}else if (tfbs.getChromName().isCHROMOSOMEX()){
 				numberofDNAElements.setNumberofTfbsinChrX(numberofDNAElements.getNumberofTfbsinChrX()+1);
-
-			}else if (tfbs.getChromName().equals("chrY")){
+			}else if (tfbs.getChromName().isCHROMOSOMEY()){
 				numberofDNAElements.setNumberofTfbsinChrY(numberofDNAElements.getNumberofTfbsinChrY()+1);
-
 			}		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -440,7 +413,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 					start = start + "idrPool.".length();
 					cellLineDnase.setCellLineName(fileName.substring(start, indexof_Dnase).toUpperCase(Locale.ENGLISH));																
 				}else{
-					GlanetRunner.appendLog("Unknown Lab: " + fileName);
+					System.out.println("Unknown Lab: " + fileName);
 				}
 			} else{			
 				cellLineDnase.setCellLineName(fileName.substring(start, indexofDukeDnase).toUpperCase(Locale.ENGLISH));
@@ -452,25 +425,25 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_DS).toUpperCase(Locale.ENGLISH));								
 			}else{
-				GlanetRunner.appendLog("Unknown Lab: " + fileName);
+				System.out.println("Unknown Lab: " + fileName);
 			}
 		}else if (indexof_Dnase>=0){
 			if (indexofIdrPool>=0){
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_Dnase).toUpperCase(Locale.ENGLISH));																
 			}else{
-				GlanetRunner.appendLog("Unknown Lab: " + fileName);
+				System.out.println("Unknown Lab: " + fileName);
 			}
 		}else if (indexof_FAIRE>=0){
 			if (indexofIdrPool>=0){
 				start = start + "idrPool.".length();
 				cellLineDnase.setCellLineName(fileName.substring(start, indexof_FAIRE).toUpperCase(Locale.ENGLISH));																				
 			}else{
-				GlanetRunner.appendLog("Unknown Lab: " + fileName);
+				System.out.println("Unknown Lab: " + fileName);
 			}
 			
 		}else{
-			GlanetRunner.appendLog("Unknown Lab: " + fileName);
+			System.out.println("Unknown Lab: " + fileName);
 		}
 		
 		cellLineDnase.setFileName(fileName);
@@ -500,7 +473,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		}else if (broadHistoneStart>=0){
 			start = broadHistoneStart+ "BroadHistone".length();
 		}else{
-			GlanetRunner.appendLog("Unknown Lab in  Histone Files");	
+			System.out.println("Unknown Lab in  Histone Files");	
 		}
 		
 		
@@ -563,7 +536,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 //			BroadHistone
 			start = broadHistoneStart+"BroadHistone".length();			
 		}else{
-			GlanetRunner.appendLog("Unknown Lab in TFBS file");	
+			System.out.println("Unknown Lab in TFBS file");	
 		}
 			
 		
@@ -607,7 +580,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		long numberofIntervalsInDnaseFiles = 0;
 		
 		if(!directory.exists()){
-			 GlanetRunner.appendLog("No File/Dir" + directory.getName()); 
+			 System.out.println("No File/Dir" + directory.getName()); 
 		 }
 		
 		 // Reading directory contents
@@ -663,10 +636,10 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							e.printStackTrace();
 						}			 
 		        	}//Check for each file and read each file		        	
-//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
+//		            System.out.println(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
-				GlanetRunner.appendLog("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
+				System.out.println("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
     			
 	        } //End of if: For all files in this directory
 		
@@ -684,7 +657,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		
 		
 		 if(!mainDirectory.exists()){
-			 GlanetRunner.appendLog("No File/Dir"); 
+			 System.out.println("No File/Dir"); 
 		 }
         
 		 // Reading directory contents
@@ -743,12 +716,12 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            GlanetRunner.appendLog(files[i]);		            
+//		            System.out.println(files[i]);		            
 		         
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
-				GlanetRunner.appendLog("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
+				System.out.println("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
 	    		
 	        } //End of if: For all files in this directory
 				
@@ -763,7 +736,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		int numberofIntervalsInTranscriptionFactorFiles = 0;
 		
 		 if(!mainDirectory.exists()){
-			 GlanetRunner.appendLog("No File/Dir"); 
+			 System.out.println("No File/Dir"); 
 		 }
         
 		 // Reading directory contents
@@ -822,13 +795,13 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            GlanetRunner.appendLog(files[i]);		            
+//		            System.out.println(files[i]);		            
 		         
 		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
 		        
-				GlanetRunner.appendLog("number of Intervals In Transcription Factor Files: " + numberofIntervalsInTranscriptionFactorFiles);
+				System.out.println("number of Intervals In Transcription Factor Files: " + numberofIntervalsInTranscriptionFactorFiles);
 			    
 	        } //For all files in this directory
 				
@@ -891,9 +864,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 						indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 						
 						if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || indexofFifthTab <0){
-							GlanetRunner.appendLog("Unexpected histone format in Unsorted Histone File");
-							GlanetRunner.appendLog("For chromosome " + i);
-							GlanetRunner.appendLog(strLine);								
+							System.out.println("Unexpected histone format in Unsorted Histone File");
+							System.out.println("For chromosome " + i);
+							System.out.println(strLine);								
 						}
 						
 						histone.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
@@ -966,9 +939,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 							
 							if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0)){
-								GlanetRunner.appendLog("Unexpected tfbs format in Unsorted Dnase File");
-								GlanetRunner.appendLog("For chromosome " + i);
-								GlanetRunner.appendLog(strLine);								
+								System.out.println("Unexpected tfbs format in Unsorted Dnase File");
+								System.out.println("For chromosome " + i);
+								System.out.println(strLine);								
 							}
 							
 							dnase.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
@@ -1049,9 +1022,9 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 							
 							if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || indexofFifthTab <0){
-								GlanetRunner.appendLog("Unexpected tfbs format in Unsorted Tfbs File");
-								GlanetRunner.appendLog("For chromosome " + i);
-								GlanetRunner.appendLog(strLine);								
+								System.out.println("Unexpected tfbs format in Unsorted Tfbs File");
+								System.out.println("For chromosome " + i);
+								System.out.println(strLine);								
 							}
 							
 							tfbs.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
@@ -1162,8 +1135,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		List<BufferedWriter> unsortedHistoneBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		List<BufferedWriter> unsortedTfbsBufferedWriterList = new ArrayList<BufferedWriter>(24);
 		
-				
-
 		//Attention
 		//Encode data
 		// The starting position of the feature in the chromosome. The first base in a chromosome is numbered 0.

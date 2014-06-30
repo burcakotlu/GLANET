@@ -25,6 +25,19 @@ public class EnumEqualTest {
 			System.out.println("They are not equal");
 		}
 
+		
+		ChromosomeName name1 = ChromosomeName.CHROMOSOME1;
+		ChromosomeName  name2 = ChromosomeName.CHROMOSOME1;
+		
+		if(name1.equals(name2)){
+			System.out.println("Equality check They are equal");
+			
+		}
+		
+		System.out.println("1" + name2.getChromosomeName());
+		System.out.println("2" + name2.toString());
+		
+		
 	}
 
 }

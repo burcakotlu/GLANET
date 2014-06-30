@@ -23,6 +23,7 @@
 package wholegenome.nonoverlappingbasepairs.usingslidingwindow;
 
 import hg19.GRCh37Hg19Chromosome;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -35,9 +36,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
+
 import common.Commons;
+
+import enumtypes.IntervalName;
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingSlidingWindow {
 	
@@ -958,12 +963,14 @@ public void calculateExonBasedKeggPathwayNumberofNonoverlappingBasePairs(int chr
 	int indexofFourthTab = 0;
 	int indexofFifthTab = 0;
 	int indexofSixthTab = 0;
+	int indexofSeventhTab = 0;
 	
 	int low = 0;
 	int high = 0;
 	String ncbiGeneId = null;
 	String keggPathwayName = null;
-	String intervalName = null;
+	IntervalName intervalName = null;
+	int intervalNumber = 0;
 		
 	System.out.printf("Exon Based Kegg Pathway chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 	
@@ -1037,7 +1044,7 @@ public void calculateExonBasedKeggPathwayNumberofNonoverlappingBasePairs(int chr
 				//process the overlap
 				if(overlaps(low,high,allowedWindowLow,allowedWindowHigh)){
 					
-					if (intervalName.startsWith(Commons.EXON)){
+					if (intervalName.isExon()){
 						//Get the list of kegg pathway names contain this ncbi gene id
 						List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
 						
@@ -1106,25 +1113,27 @@ public void calculateExonBasedKeggPathwayNumberofNonoverlappingBasePairs(int chr
 			if (unprocessedLines.size()==0){
 					while((strLine = bufferedReader.readLine())!=null){
 					
-					//chr9	4510	12509	NM_182905	100287171	3P2	-	WASH1
+					//chr9	4510	12509	NM_182905	100287171	3P	2	-	WASH1
 
-					indexofFirstTab = strLine.indexOf('\t');
-					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
-					indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
-					indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
-					indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+					indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
+					indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
+					indexofSixthTab 	= strLine.indexOf('\t',indexofFifthTab+1);
+					indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
 					
 					low = Integer.valueOf(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					high =Integer.valueOf(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 					ncbiGeneId = strLine.substring(indexofFourthTab+1, indexofFifthTab);
-					intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
+					intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+					intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
 				
 					
 					//process the overlap
 					if(overlaps(low,high,allowedWindowLow,allowedWindowHigh)){
 						
-						if (intervalName.startsWith(Commons.EXON)){
+						if (intervalName.isExon()){
 							//Get the list of kegg pathway names contain this ncbi gene id
 							List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
 							
@@ -1262,12 +1271,14 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 	int indexofFourthTab = 0;
 	int indexofFifthTab = 0;
 	int indexofSixthTab = 0;
+	int indexofSeventhTab = 0;
 	
 	int low = 0;
 	int high = 0;
 	String ncbiGeneId = null;
 	String keggPathwayName = null;
-	String intervalName = null;
+	IntervalName intervalName = null;
+	int intervalNumber;
 	
 	System.out.printf("Regulation Based Kegg Pathway chromosome%d" + System.getProperty("line.separator") , chromosomeNumber);
 
@@ -1339,11 +1350,11 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 				//process the overlap
 				if(overlaps(low,high,allowedWindowLow,allowedWindowHigh)){
 					
-					if (intervalName.startsWith(Commons.INTRON) ||
-							intervalName.startsWith(Commons.FIVE_P_ONE) ||
-							intervalName.startsWith(Commons.FIVE_P_TWO)||
-							intervalName.startsWith(Commons.THREE_P_ONE) ||
-							intervalName.startsWith(Commons.THREE_P_TWO)){
+					if (intervalName.isIntron() ||
+							intervalName.isFivePOne() ||
+							intervalName.isFivePTwo()||
+							intervalName.isThreePOne() ||
+							intervalName.isThreePTwo()){
 						//Get the list of kegg pathway names contain this ncbi gene id
 						List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
 						
@@ -1423,21 +1434,22 @@ public void calculateRegulationBasedKeggPathwayNumberofNonoverlappingBasePairs(i
 					indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 					indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
 					indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+					indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
 					
 					low = Integer.valueOf(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					high =Integer.valueOf(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 					ncbiGeneId = strLine.substring(indexofFourthTab+1, indexofFifthTab);
-					intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
-				
+					intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+					intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
 					
 					//process the overlap
 					if(overlaps(low,high,allowedWindowLow,allowedWindowHigh)){
 						
-						if (intervalName.startsWith(Commons.INTRON) ||
-								intervalName.startsWith(Commons.FIVE_P_ONE) ||
-								intervalName.startsWith(Commons.FIVE_P_TWO)||
-								intervalName.startsWith(Commons.THREE_P_ONE) ||
-								intervalName.startsWith(Commons.THREE_P_TWO)){
+						if (intervalName.isIntron() ||
+							intervalName.isFivePOne() ||
+							intervalName.isFivePTwo() ||
+							intervalName.isThreePOne() ||
+							intervalName.isThreePTwo()){
 							//Get the list of kegg pathway names contain this ncbi gene id
 							List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
 							

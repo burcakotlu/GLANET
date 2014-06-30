@@ -120,6 +120,7 @@ public class Commons {
 	public static final String CHROMOSOME22 = "chr22";
 	public static final String CHROMOSOMEX = "chrX";
 	public static final String CHROMOSOMEY = "chrY";
+	public static final String CHROMOSOMEWITHDIFFERENTNAME = "chrWithDifferentName";
 	
 	public static final String ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
 			

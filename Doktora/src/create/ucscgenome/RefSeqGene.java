@@ -144,9 +144,10 @@ public boolean equals(Object obj){
 		if (this.getClass() == obj.getClass()){
 			RefSeqGene  refSeqGene = (RefSeqGene) obj;
 			
+			
 			if (refSeqGene.getRefSeqGeneName().equals(this.getRefSeqGeneName()) && 
 			    refSeqGene.getAlternateGeneName().equals(this.getAlternateGeneName()) &&
-			    refSeqGene.getChromName().equals(this.getChromName()) &&
+			    refSeqGene.getChromName().equals(this.getChromName()) &&			    
 			    (refSeqGene.getExonCounts()==this.getExonCounts()) &&
 			    (refSeqGene.getStrand()==this.getStrand()) &&
 			    (refSeqGene.getTranscriptionStartPosition()== this.getTranscriptionStartPosition())&&

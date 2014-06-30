@@ -1623,6 +1623,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 	public static void deleteIntervalTree(IntervalTree intervalTree){
 		
 		IntervalTree.deleteNodesofIntervalTree(intervalTree.getRoot());
+		intervalTree.setRoot(null);
 		intervalTree 	= null;
 	}
 	
@@ -1857,9 +1858,12 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 			    
 			    
 			    /******************************************************************************************************/		
-				/*****************************************FREE MEMORY STARTS*******************************************/						
-			    gcCharArray = null;				
+				/*****************************************FREE MEMORY STARTS*******************************************/
+			    gcCharArray.setGcArray(null);
+			    gcCharArray = null;		
+			    mapabilityFloatArray.setMapabilityArray(null);
 				mapabilityFloatArray = null;
+				
 				
 				System.gc();
 				System.runFinalization();
@@ -1920,7 +1924,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    
     			    System.gc();
     				System.runFinalization();
-    				
+   				
 
 				}
 	    			    
@@ -1955,7 +1959,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
     			    
     			    System.gc();
     				System.runFinalization();
-    				
+   				
 
 				}
 	

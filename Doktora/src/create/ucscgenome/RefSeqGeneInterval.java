@@ -2,15 +2,19 @@ package create.ucscgenome;
 
 import java.util.Comparator;
 
+import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
+
 
 
 
 public class RefSeqGeneInterval implements Comparable<RefSeqGeneInterval>{
-	 String chromName;
-	 Integer intervalStart;
+	 ChromosomeName chromName;
+	 int intervalStart;
 	 int intervalEnd;	 
 	 String refSeqGeneName;
-	 String intervalName;
+	 IntervalName intervalName;
+	 int intervalNumber;
 	 char strand;
 	 String alternateGeneName;
 	 Integer geneId;
@@ -23,18 +27,8 @@ public class RefSeqGeneInterval implements Comparable<RefSeqGeneInterval>{
 	public void setGeneId(Integer geneId) {
 		this.geneId = geneId;
 	}
-	public String getChromName() {
-		return chromName;
-	}
-	public void setChromName(String chromName) {
-		this.chromName = chromName;
-	}
-	public Integer getIntervalStart() {
-		return intervalStart;
-	}
-	public void setIntervalStart(Integer intervalStart) {
-		this.intervalStart = intervalStart;
-	}
+
+
 	public int getIntervalEnd() {
 		return intervalEnd;
 	}
@@ -47,12 +41,7 @@ public class RefSeqGeneInterval implements Comparable<RefSeqGeneInterval>{
 	public void setRefSeqGeneName(String refSeqGeneName) {
 		this.refSeqGeneName = refSeqGeneName;
 	}
-	public String getIntervalName() {
-		return intervalName;
-	}
-	public void setIntervalName(String intervalName) {
-		this.intervalName = intervalName;
-	}
+	
 	public char getStrand() {
 		return strand;
 	}
@@ -66,10 +55,39 @@ public class RefSeqGeneInterval implements Comparable<RefSeqGeneInterval>{
 		this.alternateGeneName = alternateGeneName;
 	}
 
+	
+	
+	public ChromosomeName getChromName() {
+		return chromName;
+	}
+	public void setChromName(ChromosomeName chromName) {
+		this.chromName = chromName;
+	}
+	public int getIntervalStart() {
+		return intervalStart;
+	}
+	public void setIntervalStart(int intervalStart) {
+		this.intervalStart = intervalStart;
+	}
+	public IntervalName getIntervalName() {
+		return intervalName;
+	}
+	public void setIntervalName(IntervalName intervalName) {
+		this.intervalName = intervalName;
+	}
+	public int getIntervalNumber() {
+		return intervalNumber;
+	}
+	public void setIntervalNumber(int intervalNumber) {
+		this.intervalNumber = intervalNumber;
+	}
+
+
+
 	static final Comparator<RefSeqGeneInterval> START_POSITION_ORDER = 
         new Comparator<RefSeqGeneInterval>() {
 		 	public int compare(RefSeqGeneInterval refSeqGeneInterval1, RefSeqGeneInterval  refSeqGeneInterval2) {
-		 		return refSeqGeneInterval1.getIntervalStart().compareTo(refSeqGeneInterval2.getIntervalStart());
+		 		return refSeqGeneInterval1.compareTo(refSeqGeneInterval2);
 		 	}
 	 	};
 
@@ -77,9 +95,9 @@ public class RefSeqGeneInterval implements Comparable<RefSeqGeneInterval>{
 
 	@Override
 	public int compareTo(RefSeqGeneInterval refSeqGeneInterval) {
-		if (this.intervalStart.intValue() < refSeqGeneInterval.getIntervalStart().intValue())
+		if (this.intervalStart < refSeqGeneInterval.getIntervalStart())
 			return -1;
-		else if (this.intervalStart.intValue() == refSeqGeneInterval.getIntervalStart().intValue())
+		else if (this.intervalStart == refSeqGeneInterval.getIntervalStart())
 			return 0;
 		else 
 			return 1;

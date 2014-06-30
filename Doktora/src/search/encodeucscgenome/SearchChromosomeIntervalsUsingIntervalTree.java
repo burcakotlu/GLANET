@@ -38,6 +38,7 @@ import ui.GlanetRunner;
 import common.Commons;
 import create.ChromosomeBasedFilesandOperations;
 import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
 import enumtypes.NodeType;
  
 
@@ -200,20 +201,23 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		int indexofFifthTab = 0;
 		int indexofSixthTab = 0;
 		int indexofSeventhTab = 0;
+		int indexofEighthTab = 0;
+		
 		
 		int startPosition = 0;
 		int endPosition = 0;
 		
-		String chromName;
+		ChromosomeName chromName;
 		String  refSeqGeneName;
 		Integer geneEntrezId;
-		String intervalName;
+		IntervalName intervalName;
+		int intervalNumber;
 		String geneHugoSymbol;
 		
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
 //				example strLine
-//				chr17	67074846	67075215	NM_080284	23460	Exon1	-	ABCA6
+//				chr17	67074846	67075215	NM_080284	23460	Exon	1	-	ABCA6
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -222,17 +226,19 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
 				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab+1);
 				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);	
+				indexofEighthTab = strLine.indexOf('\t',indexofSeventhTab+1);
 				
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
 				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				refSeqGeneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 				geneEntrezId = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
-				intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
-				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
+				intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+				geneHugoSymbol = strLine.substring(indexofEighthTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,intervalNumber,geneHugoSymbol,NodeType.ORIGINAL);
 				tree.intervalTreeInsert(tree, node);
 				
 				

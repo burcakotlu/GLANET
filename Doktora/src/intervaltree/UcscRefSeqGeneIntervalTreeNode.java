@@ -6,6 +6,7 @@
 package intervaltree;
 
 import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
 import enumtypes.NodeType;
 
 
@@ -18,7 +19,8 @@ public class UcscRefSeqGeneIntervalTreeNode extends IntervalTreeNode{
 	char strand;
 	String  refSeqGeneName;
 	Integer geneEntrezId;
-	String intervalName;
+	IntervalName intervalName;
+	int intervalNumber;
 	String geneHugoSymbol;
 	
 	public ChromosomeName getChromName() {
@@ -41,13 +43,26 @@ public class UcscRefSeqGeneIntervalTreeNode extends IntervalTreeNode{
 	}
 
 
-	public String getIntervalName() {
+	
+
+
+	public IntervalName getIntervalName() {
 		return intervalName;
 	}
 
 
-	public void setIntervalName(String intervalName) {
+	public void setIntervalName(IntervalName intervalName) {
 		this.intervalName = intervalName;
+	}
+
+
+	public int getIntervalNumber() {
+		return intervalNumber;
+	}
+
+
+	public void setIntervalNumber(int intervalNumber) {
+		this.intervalNumber = intervalNumber;
 	}
 
 
@@ -83,22 +98,24 @@ public class UcscRefSeqGeneIntervalTreeNode extends IntervalTreeNode{
 
 	
 	//For Exon Based Kegg Pathway Enrichment Analysis Ucsc gene
-	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, Integer geneEntrezId, String intervalName,NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, Integer geneEntrezId, IntervalName intervalName,int intervalNumber, NodeType nodeType) {
 			super(chromName,low,high,nodeType);
 			
 			this.geneEntrezId = geneEntrezId;
 			this.intervalName = intervalName;
+			this.intervalNumber = intervalNumber;
 			
 	}
 	
 	
 	//For Ucsc gene without strand attribute
-	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, String refSeqGeneName, Integer geneEntrezId, String intervalName, String geneHugoSymbol,NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, String refSeqGeneName, Integer geneEntrezId, IntervalName intervalName,int intervalNumber, String geneHugoSymbol,NodeType nodeType) {
 		super(chromName,low,high,nodeType);
 		
 		this.refSeqGeneName = refSeqGeneName;
 		this.geneEntrezId = geneEntrezId;
 		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 		this.geneHugoSymbol = geneHugoSymbol;
 		
 		
@@ -106,12 +123,13 @@ public class UcscRefSeqGeneIntervalTreeNode extends IntervalTreeNode{
 		
 		
 	//For Ucsc gene with strand attribute
-	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, String refSeqGeneName, Integer geneEntrezId, String intervalName,char strand, String geneHugoSymbol,NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNode(ChromosomeName chromName, int low, int high, String refSeqGeneName, Integer geneEntrezId, IntervalName intervalName,int intervalNumber, char strand, String geneHugoSymbol,NodeType nodeType) {
 		super(chromName,low,high,nodeType);
 		
 		this.refSeqGeneName = refSeqGeneName;
 		this.geneEntrezId = geneEntrezId;
 		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 		this.strand = strand;
 		this.geneHugoSymbol = geneHugoSymbol;
 		

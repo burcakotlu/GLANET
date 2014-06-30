@@ -41,10 +41,12 @@ import java.util.Map;
 import java.util.Set;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
-import ui.GlanetRunner;
+
 import create.ChromosomeBasedFilesandOperations;
 import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
 import enumtypes.NodeType;
 
 
@@ -55,7 +57,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	public static void getRefSeqGeneData(String strLine,RefSeqGene refSeqGene){
 		
 		String refSeqGeneName;
-		String chromName;
+		ChromosomeName chromName;
 		char strand;
 		int txStart;
 		int txEnd;
@@ -81,23 +83,30 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		int indexofTwelfthTab = 0;
 		int indexofThirteenthTab = 0;
 		
-		indexofFirstTab = strLine.indexOf('\t');
-		indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
-		indexofThirdTab = strLine.indexOf('\t', indexofSecondTab+1);
-		indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
-		indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
-		indexofSixthTab = strLine.indexOf('\t', indexofFifthTab+1);
-		indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab+1);
-		indexofEighthTab = strLine.indexOf('\t', indexofSeventhTab+1);
-		indexofNinethTab = strLine.indexOf('\t', indexofEighthTab+1);
-		indexofTenthTab = strLine.indexOf('\t', indexofNinethTab+1);
-		indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab+1);
-		indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab+1);
-		indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab+1);
+		indexofFirstTab 		= strLine.indexOf('\t');
+		indexofSecondTab 		= strLine.indexOf('\t', indexofFirstTab+1);
+		indexofThirdTab 		= strLine.indexOf('\t', indexofSecondTab+1);
+		indexofFourthTab 		= strLine.indexOf('\t', indexofThirdTab+1);
+		indexofFifthTab 		= strLine.indexOf('\t', indexofFourthTab+1);
+		indexofSixthTab 		= strLine.indexOf('\t', indexofFifthTab+1);
+		indexofSeventhTab 		= strLine.indexOf('\t', indexofSixthTab+1);
+		indexofEighthTab 		= strLine.indexOf('\t', indexofSeventhTab+1);
+		indexofNinethTab 		= strLine.indexOf('\t', indexofEighthTab+1);
+		indexofTenthTab 		= strLine.indexOf('\t', indexofNinethTab+1);
+		indexofEleventhTab 		= strLine.indexOf('\t', indexofTenthTab+1);
+		indexofTwelfthTab 		= strLine.indexOf('\t', indexofEleventhTab+1);
+		indexofThirteenthTab 	= strLine.indexOf('\t', indexofTwelfthTab+1);
 		
 		
 		refSeqGeneName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
-		chromName = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+		chromName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+		
+		//for debug purposes starts
+		if (chromName == null){
+			System.out.println("There is a situation, chromName is null" + strLine);			
+		}
+		//for debug purposes ends
+		
 		strand = strLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
 		
 		
@@ -118,7 +127,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		refSeqGene.setRefSeqGeneName(refSeqGeneName);
 		refSeqGene.setAlternateGeneName(alternateGeneName);
-		refSeqGene.setChromName(ChromosomeName.convertStringtoEnum(chromName)); 
+		refSeqGene.setChromName(chromName); 
 		refSeqGene.setStrand(strand);
 		refSeqGene.setTranscriptionStartPosition(txStart);
 		refSeqGene.setTranscriptionEndPosition(txEnd);
@@ -170,6 +179,12 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 	
 	public static void addRefSeqGeneName(RefSeqGene refSeqGene, Set<RefSeqGene> refSeqGenes, Set<String> refSeqGeneNames,BufferedWriter bufferedWriter){
 		try {
+			
+			//for debug purposes starts
+			if (refSeqGene.getChromName() == null){
+				System.out.println("refSeqGene chromName is null");
+			}
+			//for debug purposes ends 
 			
 			if (!refSeqGenes.contains(refSeqGene))
 				refSeqGenes.add(refSeqGene);
@@ -239,7 +254,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 //			Consume first line since first line contains column names
 			strLine = bufferedReader.readLine();
 			if (strLine!=null){
-//				GlanetRunner.appendLog(strLine);				
+//				System.out.println(strLine);				
 			}
 			
 			while ((strLine = bufferedReader.readLine()) != null)   {	
@@ -256,10 +271,6 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 				}else{
 //					If rna nucleotide accession version has no corresponding gene id, zero is inserted.
 					refSeqGene.setGeneId(Commons.ZERO);
-					
-					//for debug starts
-					GlanetRunner.appendLog(refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId());
-					//for debug ends
 
 				}
 										
@@ -404,13 +415,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		try {
 						
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" +"5P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "5D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_ONE.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_TWO.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t"   + IntervalName.FIVE_D.getIntervalNameString()   + "\t" + "0" + "\t" + strand + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P1" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3P2" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + "3D" + "\t"+ strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_ONE.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_TWO.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+				bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" 	  + IntervalName.THREE_D.getIntervalNameString() +  "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 
 				bufferedWriter.flush();
 		
@@ -439,10 +450,9 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		try {	
 			//Write exon and intron intervals 			
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
-				
-					
-					bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId()+ "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
-					bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.INTRON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+									
+					bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId()+ "\t" + IntervalName.EXON.getIntervalNameString() + "\t" +(j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));			
+					bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.INTRON.getIntervalNameString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 					bufferedWriter.flush();
 					
 					information.setNumberofExons(information.getNumberofExons()+1);
@@ -450,7 +460,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 					information.setNumberofRefSeqGeneIntervals(information.getNumberofRefSeqGeneIntervals()+2);	
 			}
 			//Write the last exon which is not written in the for loop
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + Commons.EXON + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
+			bufferedWriter.write(refSeqGene.getChromName().getChromosomeName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.EXON.getIntervalNameString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+System.getProperty("line.separator"));
 			bufferedWriter.flush();
 			
 			information.setNumberofExons(information.getNumberofExons()+1);
@@ -481,7 +491,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(chromName, bufferedWriterList);
 			//Pay attention, bufferedWriter is null for such refseq genes
 			//chr6_ssto_hap7	LY6G5B
-			//GlanetRunner.appendLog(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
+			//System.out.println(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
 		
 			
 			if (bufferedWriter!=null){
@@ -490,18 +500,18 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			}
 		}//End of for
 		
-		GlanetRunner.appendLog("Number of intervals in exons of refseq genes: " + information.getNumberofExons());
-		GlanetRunner.appendLog("Number of intervals in introns of refseq genes: " + information.getNumberofIntrons());
+		System.out.println("Number of intervals in exons of refseq genes: " + information.getNumberofExons());
+		System.out.println("Number of intervals in introns of refseq genes: " + information.getNumberofIntrons());
 		
-		GlanetRunner.appendLog("Number of intervals in 5p1s of refseq genes: " + information.getNumberof5p1s());
-		GlanetRunner.appendLog("Number of intervals in 5p2s of refseq genes: " + information.getNumberof5p2s());
-		GlanetRunner.appendLog("Number of intervals in 5ds of refseq genes: " + information.getNumberof5ds());
+		System.out.println("Number of intervals in 5p1s of refseq genes: " + information.getNumberof5p1s());
+		System.out.println("Number of intervals in 5p2s of refseq genes: " + information.getNumberof5p2s());
+		System.out.println("Number of intervals in 5ds of refseq genes: " + information.getNumberof5ds());
 		
-		GlanetRunner.appendLog("Number of intervals in 3p1s of refseq genes: " + information.getNumberof3p1s());
-		GlanetRunner.appendLog("Number of intervals in 3p2s of refseq genes: " + information.getNumberof3p2s());
-		GlanetRunner.appendLog("Number of intervals in 3ds of refseq genes: " + information.getNumberof3ds());
+		System.out.println("Number of intervals in 3p1s of refseq genes: " + information.getNumberof3p1s());
+		System.out.println("Number of intervals in 3p2s of refseq genes: " + information.getNumberof3p2s());
+		System.out.println("Number of intervals in 3ds of refseq genes: " + information.getNumberof3ds());
 		
-		GlanetRunner.appendLog("Number of intervals in refseq genes: " + information.getNumberofRefSeqGeneIntervals());
+		System.out.println("Number of intervals in refseq genes: " + information.getNumberofRefSeqGeneIntervals());
 		
 	}
 
@@ -525,6 +535,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		int indexofFifthTab =0;
 		int indexofSixthTab =0;		
 		int indexofSeventhTab = 0;
+		int indexofEigthTab = 0;
 		
 		for(int i=0; i<24 ; i++){
 			
@@ -538,35 +549,39 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 				while ((strLine = bufferedReader.readLine()) != null)   {
 					  // ADD the content to the ArrayList
 						
-					indexofFirstTab = strLine.indexOf('\t');
-					indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
-					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
-					indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
-					indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
-					indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
-					indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
+					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+					indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
+					indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
+					indexofSixthTab 	= strLine.indexOf('\t',indexofFifthTab+1);
+					indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
+					indexofEigthTab 	= strLine.indexOf('\t',indexofSeventhTab+1);
 					
 //					example line
-//					chrY	16636453	16636816	NR_028319	22829	Exon1	+	NLGN4Y
+//					chrY	16636453	16636816	NR_028319	22829	Exon 1	+	NLGN4Y
+//					chrY	16636453	16636816	NR_028319	22829	5p1  0 	+	NLGN4Y
 
 					if ((indexofFirstTab<0) || (indexofSecondTab<0) || (indexofThirdTab<0) || (indexofFourthTab<0) || (indexofFifthTab<0) || (indexofSixthTab<0) || indexofSeventhTab<0){
-						GlanetRunner.appendLog("Unexpected format in Unsorted RefSeq Gene File");
-						GlanetRunner.appendLog("For chromosome " + i);
-						GlanetRunner.appendLog(strLine);								
+						System.out.println("Unexpected format in Unsorted RefSeq Gene File");
+						System.out.println("For chromosome " + i);
+						System.out.println(strLine);								
 					}
 					
-					refSeqGeneInterval.setChromName(strLine.substring(0, indexofFirstTab));							
+					refSeqGeneInterval.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
 					refSeqGeneInterval.setIntervalStart(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
 					refSeqGeneInterval.setIntervalEnd(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));
 					refSeqGeneInterval.setRefSeqGeneName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 					
 					refSeqGeneInterval.setGeneId(Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab)));
 					
-					refSeqGeneInterval.setIntervalName(strLine.substring(indexofFifthTab+1, indexofSixthTab));
-					refSeqGeneInterval.setStrand(strLine.substring(indexofSixthTab+1, indexofSeventhTab).charAt(0));
-					refSeqGeneInterval.setAlternateGeneName(strLine.substring(indexofSeventhTab+1));
+					refSeqGeneInterval.setIntervalName(IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab)));				
+					refSeqGeneInterval.setIntervalNumber(Integer.parseInt(strLine.substring(indexofSixthTab+1,indexofSeventhTab)));
 					
-					IntervalTreeNode  node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(refSeqGeneInterval.getChromName()), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),NodeType.ORIGINAL);
+					refSeqGeneInterval.setStrand(strLine.substring(indexofSeventhTab+1, indexofEigthTab).charAt(0));
+					refSeqGeneInterval.setAlternateGeneName(strLine.substring(indexofEigthTab+1));
+					
+					IntervalTreeNode  node = new UcscRefSeqGeneIntervalTreeNode(refSeqGeneInterval.getChromName(), refSeqGeneInterval.getIntervalStart(), refSeqGeneInterval.getIntervalEnd(),refSeqGeneInterval.getRefSeqGeneName(), refSeqGeneInterval.getGeneId(), refSeqGeneInterval.getIntervalName(),refSeqGeneInterval.getIntervalNumber(), refSeqGeneInterval.getStrand(),refSeqGeneInterval.getAlternateGeneName(),NodeType.ORIGINAL);
 					refSeqGeneIntervalTree.intervalTreeInsert(refSeqGeneIntervalTree, node);
 				}
 			} catch (IOException e) {
@@ -605,7 +620,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 				if(!(refSeq2GeneHashMap.containsKey(refSeqName))){
 					refSeq2GeneHashMap.put(refSeqName, geneId);
 				}else{
-					GlanetRunner.appendLog("RefSeqName already exists " + refSeqName);
+					System.out.println("RefSeqName already exists " + refSeqName);
 				}
 			}// End of while
 			
@@ -684,8 +699,6 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-//		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
-	
 		
 		Map<String,Integer> refSeq2GeneIdHashMap =  new HashMap<String,Integer>();
 		String fileName = dataFolder + Commons.FTP_HG19_REFSEQ_GENES;

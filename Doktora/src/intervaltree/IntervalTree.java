@@ -755,20 +755,19 @@ public class IntervalTree {
 				
 				if (Commons.DNASE.equals(type)){
 					castedNodeDnase = (DnaseIntervalTreeNode) node;
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeDnase.getChromName())+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
+					bufferedWriter.write(castedNodeDnase.getChromName().getChromosomeName()+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
 				}else if (Commons.TFBS.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;					
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeTforHistone.getChromName())+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
+					bufferedWriter.write(castedNodeTforHistone.getChromName().getChromosomeName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if (Commons.HISTONE.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;										
-					bufferedWriter.write(castedNodeTforHistone.getChromName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
+					bufferedWriter.write(castedNodeTforHistone.getChromName().getChromosomeName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if(Commons.UCSC_GENE.equals(type)){
 					castedNodeUcscRefSeqGene = (UcscRefSeqGeneIntervalTreeNode) node;
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeUcscRefSeqGene.getChromName())+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName()+ "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
+					bufferedWriter.write(castedNodeUcscRefSeqGene.getChromName().getChromosomeName()+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName().getIntervalNameString()+ "\t" + castedNodeUcscRefSeqGene.getIntervalNumber() + "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
 //					bufferedWriter.write(refSeqGeneIntervalList.get(j).getChromName()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalStart()+"\t"+ refSeqGeneIntervalList.get(j).getIntervalEnd()+"\t" +refSeqGeneIntervalList.get(j).getRefSeqGeneName()+ "\t" + refSeqGeneIntervalList.get(j).getGeneId()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalName()+ "\t" + refSeqGeneIntervalList.get(j).getStrand() + "\t" + refSeqGeneIntervalList.get(j).getAlternateGeneName()+ System.getProperty("line.separator"));					
 				}else if (Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS.equals(type)){
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
-
+					bufferedWriter.write(node.getChromName().getChromosomeName()+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
 				}
 				bufferedWriter.flush();
 			}
@@ -2657,7 +2656,7 @@ public class IntervalTree {
 						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2692,11 +2691,11 @@ public class IntervalTree {
 						//write regulation based results
 						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2928,7 +2927,7 @@ public class IntervalTree {
 						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2951,11 +2950,11 @@ public class IntervalTree {
 						//write regulation based results
 						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne() ||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -3236,10 +3235,10 @@ public class IntervalTree {
 					keggPathwayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 				
 					//write exon based results
-					if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+					if (castedNode.getIntervalName().isExon()){							
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
@@ -3270,15 +3269,15 @@ public class IntervalTree {
 					
 					//write regulation based results
 					//Regulation Based kegg pathway analysis
-					if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-						castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-						castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-						castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-						castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+					if (castedNode.getIntervalName().isIntron() ||
+						castedNode.getIntervalName().isFivePOne() ||
+						castedNode.getIntervalName().isFivePTwo() ||
+						castedNode.getIntervalName().isThreePOne()||
+						castedNode.getIntervalName().isThreePTwo()){
 													
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 							
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
@@ -3311,7 +3310,7 @@ public class IntervalTree {
 					//write all results							
 					if(keggPathwayListContainingThisGeneId!=null){
 						
-						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 						
 						for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 							
@@ -3385,7 +3384,7 @@ public class IntervalTree {
 						keggPathwayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 					
 						//write exon based results
-						if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+						if (castedNode.getIntervalName().isExon()){							
 							if(keggPathwayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 									
@@ -3416,11 +3415,11 @@ public class IntervalTree {
 						
 						//write regulation based results
 						//Regulation Based kegg pathway analysis
-						if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+						if (castedNode.getIntervalName().isIntron() ||
+							castedNode.getIntervalName().isFivePOne() ||
+							castedNode.getIntervalName().isFivePTwo() ||
+							castedNode.getIntervalName().isThreePOne()||
+							castedNode.getIntervalName().isThreePTwo()){
 														
 							if(keggPathwayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
@@ -3639,10 +3638,10 @@ public class IntervalTree {
 						
 						
 							//write exon based results
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+							if (castedNode.getIntervalName().isExon()){							
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 									
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
@@ -3662,15 +3661,15 @@ public class IntervalTree {
 							
 							//write regulation based results
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 															
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber ,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber ,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 										
@@ -3690,7 +3689,7 @@ public class IntervalTree {
 							//write all results							
 							if(keggPathwayListContainingThisGeneId!=null){
 								
-								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 									
@@ -3751,11 +3750,11 @@ public class IntervalTree {
 					try {
 												
 						//write exon based kegg pathway results
-						if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+						if (castedNode.getIntervalName().isExon()){
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								
-								exonBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathWayListContainingThisGeneId));
+								exonBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathWayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3790,16 +3789,16 @@ public class IntervalTree {
 
 						
 						//write regulation based kegg pathway results
-						if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+						if (castedNode.getIntervalName().isIntron() ||
+							castedNode.getIntervalName().isFivePOne() ||
+							castedNode.getIntervalName().isFivePTwo() ||
+							castedNode.getIntervalName().isThreePOne()||
+							castedNode.getIntervalName().isThreePTwo()){
 							
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								
-								regulationBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
+								regulationBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3837,7 +3836,7 @@ public class IntervalTree {
 						//write all results
 						if(keggPathWayListContainingThisGeneId!=null){
 							
-							allBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(),castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
+							allBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
 							
 							for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3916,7 +3915,7 @@ public class IntervalTree {
 						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -3952,11 +3951,11 @@ public class IntervalTree {
 						//write regulation based results
 						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -4387,9 +4386,15 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		if(node.getNodeName().isNotSentinel()){
 			deleteNodesofIntervalTree(node.getLeft());
 			deleteNodesofIntervalTree(node.getRight());
-			node = null;
-			
+			node.setChromName(null);
+			node.setLeft(null);
+			node.setRight(null);
+			node.setParent(null);
+			node.setNodeName(null);
+			node.setNodeType(null);
+			node=null;
 		}else if(node.getNodeName().isSentinel()){
+			node.setParent(null);
 			node =null;
 		}
 		
