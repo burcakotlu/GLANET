@@ -8238,7 +8238,13 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		int overlapDefinition = Integer.parseInt(args[3]);
 		
-		String inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		String inputFileName;
+		
+		if (args[4].equals(Commons.DO_ENRICH)) {
+			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		}else {
+			inputFileName = outputFolder + Commons.PROCESSED_INPUT_FILE;
+		}
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/

@@ -22,9 +22,13 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(getArgs());
 		
-		getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-		InputDataRemoveOverlaps.main(getArgs());
-		
+		/* In case of Enrichment remove overlaps and merge */
+		/* In case of only Annotation, do not remove overlaps and merge*/
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+			InputDataRemoveOverlaps.main(getArgs());
+		}
+						
 		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
 		
