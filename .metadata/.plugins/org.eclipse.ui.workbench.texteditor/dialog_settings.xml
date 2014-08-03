@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="intervalName" key="selection"/>
+		<item value="," key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="intervalName"/>
-			<item value="GlanetRunner.appendLog"/>
-			<item value="setIntervalName"/>
-			<item value="System.out."/>
-			<item value="EXON"/>
-			<item value="Glanet"/>
-			<item value="System.gc"/>
-			<item value="Enum"/>
+			<item value=",dnaseCellLineNumberList,"/>
+			<item value=",dnaseCellLineNumberList,&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;"/>
+			<item value=",dnaseCellLineNumberList);"/>
+			<item value="createDnaseIntervalTreeWithNumbers"/>
+			<item value="generateEncodeDnaseIntervalTreeWithNumbers"/>
+			<item value="searchDnase"/>
+			<item value="searchDnase(&#x09;&#x09;"/>
+			<item value="searchDnase(&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;"/>
 		</list>
 		<list key="replacehistory">
-			<item value="System.out.println"/>
-			<item value="ChromosomeName.CH"/>
-			<item value="chromName.isCHROMOSOME"/>
-			<item value="chromName.isChromosome"/>
-			<item value="CH"/>
-			<item value="ChromosomeName.CHROMOSOME"/>
-			<item value="Commons.BONFERRONI_CORRECTION"/>
-			<item value="GlanetRunner.appendLog"/>
+			<item value=","/>
+			<item value=");"/>
+			<item value="searchDnaseWithNumbers"/>
+			<item value="searchDnaseWithNumbers("/>
+			<item value="dnaseCellLineNumber2KMap"/>
+			<item value="dnaseCellLineNumber2k"/>
+			<item value="dnaseCelllineNumber2K&#x09;"/>
+			<item value="dnaseCellLineNumber2K&#x09;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="792" key="DIALOG_WIDTH"/>
+		<item value="946" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="625" key="DIALOG_HEIGHT"/>
-		<item value="595" key="DIALOG_X_ORIGIN"/>
-		<item value="546" key="DIALOG_Y_ORIGIN"/>
+		<item value="566" key="DIALOG_HEIGHT"/>
+		<item value="169" key="DIALOG_X_ORIGIN"/>
+		<item value="243" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
 <fullyQualifiedTypeName name="rsat.Result"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -26,7 +24,6 @@
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNames"/>
 <fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
-<fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
@@ -34,7 +31,6 @@
 <fullyQualifiedTypeName name="empiricalpvalues.KeyOrder"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTree"/>
 <fullyQualifiedTypeName name="gnu.trove.iterator.TLongObjectIterator"/>
-<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="gnu.trove.map.hash.TLongIntHashMap"/>
 <fullyQualifiedTypeName name="gnu.trove.map.TLongIntMap"/>
 <fullyQualifiedTypeName name="gnu.trove.map.TLongObjectMap"/>
@@ -57,7 +53,11 @@
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode"/>
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedAnnotationResultMode"/>
 <fullyQualifiedTypeName name="common.Commons"/>
-<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 <fullyQualifiedTypeName name="enumtypes.IntervalName"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
+<fullyQualifiedTypeName name="gnu.trove.list.array.TShortArrayList"/>
+<fullyQualifiedTypeName name="gnu.trove.map.hash.TShortIntHashMap"/>
+<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
+<fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 </qualifiedTypeNameHistroy>

@@ -5,29 +5,30 @@
  */
 package annotate.intervals.parametric;
 
-import empiricalpvalues.AllMaps;
-import empiricalpvalues.AllMapsWithNumbers;
-import empiricalpvalues.InputLine;
-import enumtypes.AnnotationType;
-import enumtypes.ChromosomeName;
-import enumtypes.EnrichmentType;
-import enumtypes.IntervalName;
-import enumtypes.KeggPathwayAnalysisType;
-import enumtypes.NodeType;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.iterator.TLongObjectIterator;
+import gnu.trove.iterator.TShortIntIterator;
 import gnu.trove.iterator.TShortIterator;
+import gnu.trove.iterator.TShortObjectIterator;
+import gnu.trove.iterator.TShortShortIterator;
 import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TShortIntMap;
+import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.TShortShortMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.map.hash.TShortIntHashMap;
+import gnu.trove.map.hash.TShortObjectHashMap;
+import gnu.trove.map.hash.TShortShortHashMap;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.DnaseIntervalTreeNodeWithNumbers;
 import intervaltree.Interval;
@@ -51,10 +52,17 @@ import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
+import empiricalpvalues.AllMaps;
+import empiricalpvalues.AllMapsWithNumbers;
+import empiricalpvalues.InputLine;
+import enumtypes.AnnotationType;
+import enumtypes.ChromosomeName;
+import enumtypes.EnrichmentType;
+import enumtypes.IntervalName;
+import enumtypes.KeggPathwayAnalysisType;
+import enumtypes.NodeType;
 
 /**
  * 
@@ -404,7 +412,8 @@ public class AnnotateGivenIntervalsWithNumbers {
 						
 	}
 	
-	//Generate Interval Tree with Numbers starts
+	//Generate Dnase Interval Tree with Numbers starts
+	//For Annotation and Enrichment
 	//Empirical P Value Calculation
 	public static IntervalTree generateEncodeDnaseIntervalTreeWithNumbers(BufferedReader bufferedReader) {
 		IntervalTree dnaseIntervalTree = new IntervalTree();
@@ -419,18 +428,17 @@ public class AnnotateGivenIntervalsWithNumbers {
 		int endPosition = 0;
 		
 		ChromosomeName chromName;
-		short cellLineName;
-		short fileName;
+		short cellLineNumber;
+		short fileNumber;
 		
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
 				
-//					old example strLine
-//					chr1	91852781	91853156	GM12878	idrPool.GM12878-DS9432-DS10671.z_OV_GM12878-DS10671.z_VS_GM12878-DS9432.z.npk2.narrowPeak
+//				old example strLine
+//				chr1	91852781	91853156	GM12878	idrPool.GM12878-DS9432-DS10671.z_OV_GM12878-DS10671.z_VS_GM12878-DS9432.z.npk2.narrowPeak
 				
-//					new example line with numbers
-//					chrY	2709520	2709669	1	1
-
+//				new example line with numbers
+//				chrY	2709520	2709669	1	1
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -442,19 +450,17 @@ public class AnnotateGivenIntervalsWithNumbers {
 				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
 				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				
-				cellLineName = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));
-								
-				fileName = Short.parseShort(strLine.substring(indexofFourthTab+1));
+				cellLineNumber = Short.parseShort(strLine.substring(indexofThirdTab+1, indexofFourthTab));							
+				fileNumber = Short.parseShort(strLine.substring(indexofFourthTab+1));
 				
 				//important note
 				//while constructing the dnaseIntervalTree
 				//we don't check for overlaps
 				//we insert any given interval without overlap check
 				
-//					Creating millions of nodes with six attributes causes out of memory error
-				DnaseIntervalTreeNodeWithNumbers node = new DnaseIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,cellLineName,fileName,NodeType.ORIGINAL);
+//				Creating millions of nodes with six attributes causes out of memory error
+				DnaseIntervalTreeNodeWithNumbers node = new DnaseIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,cellLineNumber,fileNumber,NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);						
-			
 					
 			} // End of While 
 		} catch (IOException e) {
@@ -526,6 +532,8 @@ public class AnnotateGivenIntervalsWithNumbers {
 		return dnaseIntervalTree;
 	}
 
+	
+	
 	
 	public IntervalTree generateEncodeDnaseIntervalTree(BufferedReader bufferedReader, List<String> dnaseCellLineNameList) {
 		IntervalTree dnaseIntervalTree = new IntervalTree();
@@ -1120,6 +1128,7 @@ public class AnnotateGivenIntervalsWithNumbers {
 
 	//Generate Interval Tree
 	//With Number starts
+	//For Annotation and Enrichment
 	public static IntervalTree createDnaseIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){
 		IntervalTree  dnaseIntervalTree =null;
 		FileReader fileReader =null;
@@ -1262,6 +1271,7 @@ public class AnnotateGivenIntervalsWithNumbers {
 		return dnaseIntervalTree;
 	}
 
+	
 	
 	public IntervalTree createDnaseIntervalTree(String outputFolder, ChromosomeName chromName, List<String> dnaseCellLineNameList){
 		IntervalTree  dnaseIntervalTree =null;
@@ -1991,6 +2001,84 @@ public class AnnotateGivenIntervalsWithNumbers {
 			
 		}//End of for
 	}
+	
+	//@todo starts
+	public void searchDnaseWithNumbers(String outputFolder,ChromosomeName chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, TShortObjectMap<BufferedWriter> dnaseCellLineNumber2BufferedWriterHashMap, TShortIntMap dnaseCellLineNumber2KMap,int overlapDefinition){
+		
+		
+		String strLine = null;
+		int indexofFirstTab = 0 ;
+		int indexofSecondTab = 0;
+		
+		int low;
+		int high;
+		
+		try {
+			while((strLine = bufferedReader.readLine())!=null){
+				TShortShortMap dnaseCellLineNumber2OneorZeroMap = new TShortShortHashMap();
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				
+				low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+				
+//					indexofSecondTab must be greater than zero if it exists since indexofFirstTab must exists and can be at least zero therefore indexofSecondTab can be at least one.
+				if (indexofSecondTab>0)
+					high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+				else 
+					high = low;
+							
+				Interval interval = new Interval(low,high);
+
+				
+				if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
+					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,dnaseIntervalTree.getRoot(),interval,chromName, dnaseCellLineNumber2BufferedWriterHashMap, dnaseCellLineNumber2OneorZeroMap,overlapDefinition);
+				}
+				
+				//too many opened files error starts
+				if(!dnaseCellLineNumber2BufferedWriterHashMap.isEmpty()){
+					closeBufferedWritersWithNumbers(dnaseCellLineNumber2BufferedWriterHashMap);
+					dnaseCellLineNumber2BufferedWriterHashMap.clear();
+				}
+				//too many opened files error ends
+					
+//				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
+//				for(Map.Entry<String, Integer> zeroOrOne: dnaseCellLineNumber2OneorZeroMap.entrySet()){
+//					 
+//					if (dnaseCellLineNumber2KMap.get(zeroOrOne.getKey())==null){
+//						dnaseCellLineNumber2KMap.put(zeroOrOne.getKey(), zeroOrOne.getValue());
+//					}else{
+//						dnaseCellLineNumber2KMap.put(zeroOrOne.getKey(), dnaseCellLineNumber2KMap.get(zeroOrOne.getKey())+zeroOrOne.getValue());
+//						
+//					}
+//	
+//				}//End of for
+				
+				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
+				// accessing keys/values through an iterator:
+				for ( TShortShortIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext(); ) {
+				    it.advance();
+				    if (!dnaseCellLineNumber2KMap.containsKey(it.key())){
+				    	dnaseCellLineNumber2KMap.put(it.key(),it.value());
+				    }else{
+				    	dnaseCellLineNumber2KMap.put(it.key(), dnaseCellLineNumber2KMap.get(it.key())+it.value());
+						
+				    }			        
+				}/* End of For */
+				
+			
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // End of while 
+			
+	}
+	//@todo ends
+	
 	
 	public void searchDnase(String outputFolder,ChromosomeName chromName,BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, Map<String,BufferedWriter> dnaseBufferedWriterHashMap,List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2KMap,int overlapDefinition){
 		
@@ -5695,6 +5783,43 @@ public class AnnotateGivenIntervalsWithNumbers {
 		return bufferedReader;
 	}
 	
+	//@todo starts
+	public void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+		short cellLineNumber;
+		String cellLineName;
+		
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);			
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null) {
+				indexofFirstTab = strLine.indexOf('\t');
+				cellLineNumber = Short.parseShort(strLine.substring(0,indexofFirstTab));
+				cellLineName = strLine.substring(indexofFirstTab+1);
+				number2NameMap.put(cellLineNumber, cellLineName);
+				strLine = null;
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
+	}	
+	//@todo ends
+	
 	
 	public void fillList(List<String> list, String dataFolder, String inputFileName){
 		String strLine;
@@ -5756,6 +5881,40 @@ public class AnnotateGivenIntervalsWithNumbers {
 		}			
 	}
 	
+	//@todo starts
+	public void writeResultsWithNumbers(TShortIntMap dnaseCellLineNumber2KMap, TShortObjectMap<String> dnaseCellLineNumber2CellLineNameMap, String outputFolder, String outputFileName){
+		FileWriter fileWriter;
+		BufferedWriter  bufferedWriter;
+		String elementName;
+		try {
+			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//header line
+		   	bufferedWriter.write("Element Number" + "\t" + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			
+			
+			// accessing keys/values through an iterator:
+			for ( TShortIntIterator it = dnaseCellLineNumber2KMap.iterator(); it.hasNext(); ) {
+			    it.advance();
+			    elementName = dnaseCellLineNumber2CellLineNameMap.get(it.key());
+			   	bufferedWriter.write(it.key() + "\t" + elementName + "\t" + it.value() + System.getProperty("line.separator"));
+			}
+			
+//			for (Map.Entry<String, Integer> entry: hashMap.entrySet()){
+//				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
+//			}
+						
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	//@todo ends
+	
 	public void writeResults(Map<String,Integer> hashMap, String outputFolder, String outputFileName){
 		FileWriter fileWriter;
 		BufferedWriter  bufferedWriter;
@@ -5794,6 +5953,231 @@ public class AnnotateGivenIntervalsWithNumbers {
 				e.printStackTrace();
 			}	
 	}
+
+	//@todo starts
+	public void searchDnaseWithNumbers(String dataFolder,String outputFolder, TShortIntMap dnaseCellLineNumber2KMap, int overlapDefinition) {
+		
+		BufferedReader bufferedReader =null ;
+				
+		IntervalTree dnaseIntervalTree;
+			
+//		Map<String,BufferedWriter> dnaseBufferedWriterHashMap = new HashMap<String,BufferedWriter>(); 
+		TShortObjectMap<BufferedWriter> dnaseCellLineNumber2BufferedWriterHashMap = new TShortObjectHashMap<BufferedWriter>();
+		
+		for(int i = 1; i<=24 ; i++ ){
+			
+			switch(i){
+				case 1:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME1);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
+					searchDnaseWithNumbers(outputFolder,ChromosomeName.CHROMOSOME1,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap, dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());				
+					dnaseIntervalTree = null;
+			
+					break;
+				case 2:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME2);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME2,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());	
+					dnaseIntervalTree = null;
+					
+					break;
+				case 3:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME3);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME3,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+
+					break;
+				case 4:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME4);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME4,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;		
+					
+					break;
+				case 5:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME5);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME5,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+
+				
+					break;
+				case 6:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME6);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME6,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+			
+					
+					break;
+				case 7:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME7);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME7,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+				
+					break;
+				case 8:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME8);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME8,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 9	:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME9);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME9,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+
+					break;
+				case 10:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME10);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME10,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());	
+					dnaseIntervalTree = null;
+				
+					break;
+				case 11:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME11);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME11,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+	
+					
+					break;
+				case 12:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME12);
+					bufferedReader = createBufferedReader(outputFolder , Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME12,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+	
+					break;
+				case 13:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME13);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME13,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 14:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME14);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME14,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 15:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME15);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME15,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 16:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME16);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME16,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 17:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME17);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME17,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+				
+					break;
+				case 18:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME18);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME18,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+						
+					break;
+				case 19:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME19);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME19,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 20:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME20);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME20,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+				
+					
+					break;
+				case 21:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME21);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME21,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+				
+					break;
+				case 22:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOME22);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOME22,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+				
+					
+					break;
+				case 23:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOMEX);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOMEX,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+				case 24:							
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, ChromosomeName.CHROMOSOMEY);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
+					searchDnaseWithNumbers(outputFolder, ChromosomeName.CHROMOSOMEY,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap,dnaseCellLineNumber2KMap,overlapDefinition);
+					emptyIntervalTree(dnaseIntervalTree.getRoot());					
+					dnaseIntervalTree = null;
+					
+					break;
+					
+				}//end of Swicth
+		}//end of For
+		
+//			closeBufferedWriters(dnaseBufferedWriterHashMap);	
+		
+		try {
+			bufferedReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	//@todo ends
 	
 	
 	public void searchDnase(String dataFolder,String outputFolder, List<String> dnaseCellLineNameList, Map<String,Integer> dnaseCellLine2KMap, int overlapDefinition) {
@@ -8213,7 +8597,13 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		int overlapDefinition = Integer.parseInt(args[3]);
 		
-		String inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		String inputFileName;
+		
+		if (args[4].equals(Commons.DO_ENRICH)) {
+			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		}else {
+			inputFileName = outputFolder + Commons.PROCESSED_INPUT_FILE;
+		}
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
@@ -8240,33 +8630,38 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		/*********************************************/
 		//DNASE
-		//Search input interval files for dnase 
-		List<String> dnaseCellLineNameList = new ArrayList<String>();	
-		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
-		Map<String,Integer> dnaseCellLine2KMap = new HashMap<String,Integer>();		
+		//Search input interval files for dnase 		
+		TShortObjectMap<String> dnaseCellLineNumber2CellLineNameMap = new TShortObjectHashMap<String>();
 		
-		fillList(dnaseCellLineNameList,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME);		
-		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);	
-		writeResults(dnaseCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
+		//This dnaseCellLineNumber2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
+		TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
+		
+		fillNumber2NameMap(dnaseCellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+		
+		searchDnaseWithNumbers(dataFolder,outputFolder,dnaseCellLineNumber2KMap,overlapDefinition);
+		writeResultsWithNumbers(dnaseCellLineNumber2KMap, dnaseCellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
 		System.out.println("DNASE analysis ends.");
 		/*********************************************/
 		
-
-//			Accomplished in NEW FUNCTIONALITY ---TF and Kegg Pathway Analysis
-//			//TFBS
-//			//Search input interval files for tfbs 		
-//			List<String> tfbsNameList = new ArrayList<String>();
-//			//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
-//			Map<String,Integer> tfbsNameandCellLineName2KMap = new HashMap<String,Integer>();	
+		/*********************************************/
+//		Accomplished in NEW FUNCTIONALITY ---TF and Kegg Pathway Analysis
+//		//TFBS
+//		//Search input interval files for tfbs 		
+//		List<String> tfbsNameList = new ArrayList<String>();
+//		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
+//		Map<String,Integer> tfbsNameandCellLineName2KMap = new HashMap<String,Integer>();	
 //			
-//			fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE);		
-//			searchTfbs(tfbsNameList,tfbsNameandCellLineName2KMap);		
-//			writeResults(tfbsNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_TFBS_RESULTS_GIVEN_SEARCH_INPUT);
-
+//		fillList(tfbsNameList,Commons.WRITE_ALL_POSSIBLE_TFBS_NAMES_OUTPUT_FILE);		
+//		searchTfbs(tfbsNameList,tfbsNameandCellLineName2KMap);		
+//		writeResults(tfbsNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_TFBS_RESULTS_GIVEN_SEARCH_INPUT);
+		/*********************************************/
+		
+		
 		/*********************************************/
 		//HISTONE
 		//Search input interval files for histone 		
-		List<String> histoneNameList = new ArrayList<String>();		
+		List<String> histoneNameList = new ArrayList<String>();	
+		
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
 		Map<String,Integer> histoneNameandCellLineName2KMap = new HashMap<String,Integer>();	
 			
@@ -8464,6 +8859,20 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		}
 	}
 	
+	
+	//TShortObjectMap<BufferedWriter> version
+	public static void closeBufferedWritersWithNumbers(TShortObjectMap<BufferedWriter> bufferedWriterHashMap){
+		BufferedWriter bufferedWriter  = null;
+		for(TShortObjectIterator<BufferedWriter> it = bufferedWriterHashMap.iterator(); it.hasNext(); ){		
+			it.advance();			
+			try {
+				bufferedWriter = it.value();				
+				bufferedWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	//TIntObjectMap<BufferedWriter> version
 	public static void closeBufferedWritersWithNumbers(TIntObjectMap<BufferedWriter> bufferedWriterHashMap){

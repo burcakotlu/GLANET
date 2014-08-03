@@ -56,6 +56,8 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.TShortShortMap;
 
 public class IntervalTree {
 
@@ -2402,7 +2404,63 @@ public class IntervalTree {
 							
 		}
 
-	
+	//@todo starts
+	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
+	//For each search input line, each dnase cell line will have value 1 or 0
+	//These 1 or 0's will be accumulated in dnaseCellLine2KMap		
+	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TShortObjectMap<BufferedWriter> dnaseCellLineNumber2bufferedWriterHashMap,TShortShortMap dnaseCellLineNumber2OneorZeroMap,int overlapDefinition){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+		
+			if (node instanceof DnaseIntervalTreeNodeWithNumbers){
+				
+				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
+			}
+		
+			if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				try {
+					
+					
+					
+					bufferedWriter = (BufferedWriter)dnaseCellLineNumber2bufferedWriterHashMap.get(castedNode.getCellLineNumber());
+					
+					if (bufferedWriter==null){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + castedNode.getCellLineNumber() + ".txt",true);
+						bufferedWriter = new BufferedWriter(fileWriter);
+						dnaseCellLineNumber2bufferedWriterHashMap.put(castedNode.getCellLineNumber(),bufferedWriter);
+						bufferedWriter.write("Searched for chr" + "\t" + "given interval low" + "\t" + 	"given interval high"+ "\t" + "dnase overlap chrom name" + "\t"  + "node low" + "\t" + "node high" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
+						
+						
+					}										
+					
+					if(!dnaseCellLineNumber2OneorZeroMap.containsKey(castedNode.getCellLineNumber())){
+						dnaseCellLineNumber2OneorZeroMap.put(castedNode.getCellLineNumber(), (short)1);
+					}
+					
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()+ "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() +System.getProperty("line.separator"));
+					bufferedWriter.flush();	
+					
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+			}
+			
+			
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,dnaseCellLineNumber2bufferedWriterHashMap, dnaseCellLineNumber2OneorZeroMap,overlapDefinition);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,dnaseCellLineNumber2bufferedWriterHashMap,dnaseCellLineNumber2OneorZeroMap,overlapDefinition);	
+				
+			}					
+	}	
+	//@todo ends
+		
 	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
 	//For each search input line, each dnase cell line will have value 1 or 0
 	//These 1 or 0's will be accumulated in dnaseCellLine2KMap		
