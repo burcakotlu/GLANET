@@ -604,7 +604,6 @@ public class KeggPathwayUtility {
 				keggPathwayName = keggPathwayName.substring(indexofFirstColon+1);				
 				ncbiGeneId = Integer.parseInt(ncbiGeneIdName.substring(indexofSecondColon+1));
 				
-				//What if it is null? check this situation
 				keggPathwayNumber = keggPathwayName2KeggPathwayNumberMap.get(keggPathwayName);
 				
 				//fill ncbiGeneId2KeggPathwayHashMap

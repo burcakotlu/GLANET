@@ -5113,3 +5113,31 @@ Java Model Exception: Java Model Status [findAllOverlappingUcscRefSeqGenesInterv
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
 !SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-08-09 23:39:24.443
 !MESSAGE findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, Map<String,List<String>>, List<String>, TShortShortMap, TShortShortMap, TShortShortMap, String, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/String;>;>;Ljava/util/List<Ljava/lang/String;>;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Ljava/lang/String;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist
+!SESSION 2014-08-11 23:53:53.305 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-11 23:53:58.790
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-11 23:53:58.806
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-11 23:54:00.306
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-11 23:54:00.306
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.

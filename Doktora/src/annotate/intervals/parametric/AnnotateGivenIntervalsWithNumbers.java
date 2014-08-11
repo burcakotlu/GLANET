@@ -15,11 +15,13 @@ import gnu.trove.iterator.TShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.iterator.TShortShortIterator;
 import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TIntShortMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortIntMap;
 import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.TShortShortMap;
@@ -28,6 +30,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TIntShortHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.map.hash.TObjectShortHashMap;
 import gnu.trove.map.hash.TShortIntHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
 import gnu.trove.map.hash.TShortShortHashMap;
@@ -2441,18 +2444,20 @@ public class AnnotateGivenIntervalsWithNumbers {
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
 				
+				//TF CellLine
 				TIntShortMap 	tfNumberCellLineNumber2ZeroorOneMap 	= new TIntShortHashMap();
 				
+				//KEGGPathway
 				TShortShortMap 	exonBasedKeggPathway2OneorZeroMap 		= new TShortShortHashMap();
 				TShortShortMap 	regulationBasedKeggPathway2OneorZeroMap = new TShortShortHashMap();
 				TShortShortMap 	allBasedKeggPathway2OneorZeroMap 		= new TShortShortHashMap();
 				
-				//will be filled here
+				//TF KEGGPathway
 				TIntShortMap tfExonBasedKeggPathway2OneorZeroMap 		= new TIntShortHashMap();
 				TIntShortMap tfRegulationBasedKeggPathway2OneorZeroMap 	= new TIntShortHashMap();
 				TIntShortMap tfAllBasedKeggPathway2OneorZeroMap 		= new TIntShortHashMap();
 				
-				//will be filled here
+				//TF CellLine KEGGPathway
 				TIntShortMap tfCellLineExonBasedKeggPathway2OneorZeroMap 		= new TIntShortHashMap();
 				TIntShortMap tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= new TIntShortHashMap();
 				TIntShortMap tfCellLineAllBasedKeggPathway2OneorZeroMap 		= new TIntShortHashMap();
@@ -6369,13 +6374,13 @@ public class AnnotateGivenIntervalsWithNumbers {
 	}
 	
 	//@todo starts
-	public void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
+	public void fillName2NumberMap(TObjectShortMap<String> name2NumberMap,String dataFolder, String inputFileName){
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		int indexofFirstTab;
-		short cellLineNumber;
-		String cellLineName;
+		short number;
+		String name;
 		
 		try {
 			fileReader = new FileReader(dataFolder + inputFileName);			
@@ -6383,9 +6388,47 @@ public class AnnotateGivenIntervalsWithNumbers {
 			
 			while((strLine = bufferedReader.readLine())!=null) {
 				indexofFirstTab = strLine.indexOf('\t');
-				cellLineNumber = Short.parseShort(strLine.substring(0,indexofFirstTab));
-				cellLineName = strLine.substring(indexofFirstTab+1);
-				number2NameMap.put(cellLineNumber, cellLineName);
+				name = strLine.substring(0,indexofFirstTab);
+				number = Short.parseShort(strLine.substring(indexofFirstTab+1));
+				name2NumberMap.put(name, number);
+				strLine = null;
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
+	}
+	
+	//@todo ends
+	
+	//@todo starts
+	public void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+		short number;
+		String name;
+		
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);			
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null) {
+				indexofFirstTab = strLine.indexOf('\t');
+				number = Short.parseShort(strLine.substring(0,indexofFirstTab));
+				name = strLine.substring(indexofFirstTab+1);
+				number2NameMap.put(number, name);
 				strLine = null;
 			}
 			
@@ -7036,7 +7079,23 @@ public class AnnotateGivenIntervalsWithNumbers {
 	//New Functionality START
 	//TF CellLine KEGGPathway
 	//TF KEGGPathway
-	public void searchTfandKeggPathwayWithNumbers(String dataFolder, String outputFolder, List<String> tfNameList, List<String> keggPathwayNameList, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> tfbsNameandCellLineName2KMap, Map<String,Integer> exonBasedKeggPathway2KMap, Map<String,Integer> regulationBasedKeggPathway2KMap, Map<String,Integer> allBasedKeggPathway2KMap, Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap,Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap,Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap, Map<String,Integer> tfExonBasedKeggPathway2KMap, Map<String,Integer> tfRegulationBasedKeggPathway2KMap, Map<String,Integer> tfAllBasedKeggPathway2KMap,int overlapDefinition){
+	public void searchTfandKeggPathwayWithNumbers(
+			String dataFolder, 
+			String outputFolder, 
+			List<String> tfNameList, 
+			List<String> keggPathwayNameList, 
+			TIntObjectMap<TShortArrayList> geneId2ListofKeggPathwayNumberMap, 
+			TIntIntMap tfbsNameandCellLineName2KMap,
+			TShortIntMap exonBasedKeggPathway2KMap,
+			TShortIntMap regulationBasedKeggPathway2KMap,
+			TShortIntMap allBasedKeggPathway2KMap,
+			TIntIntMap tfCellLineExonBasedKeggPathway2KMap,
+			TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap,
+			TIntIntMap tfCellLineAllBasedKeggPathway2KMap, 
+			TIntIntMap tfExonBasedKeggPathway2KMap, 
+			TIntIntMap tfRegulationBasedKeggPathway2KMap, 
+			TIntIntMap tfAllBasedKeggPathway2KMap,
+			int overlapDefinition){
 		BufferedReader bufferedReader =null ;
 		
 		IntervalTree tfbsIntervalTree;
@@ -9865,12 +9924,16 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		TShortObjectMap<String> histoneNumber2HistoneNameMap 		= new TShortObjectHashMap<String>();	
 		TShortObjectMap<String> tfNumber2TfNameMap 					= new TShortObjectHashMap<String>();	
 		TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap= new TShortObjectHashMap<String>();	
-				
+		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectShortHashMap<String>();
+		
 		fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
 		fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
 		fillNumber2NameMap(histoneNumber2HistoneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);		
 		fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);		
-		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);		
+		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+		
+		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);
+		
 		/*********************************************/
 		/***************INITIALIZATION****************/
 		/*********************************************/
@@ -9997,34 +10060,37 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//Search for tf and kegg pathway here
 		//This tfbsCellLineKeggPathway2KMap hash map will contain the tfbs cell line and Kegg Pathway name to number of tfbs cell Line and Kegg Pathway :k for the given search input size:n
 	
-		//For TF
+		//TF
 		List<String> tfbsNameList = new ArrayList<String>();
 		//This tfbsNameandCellLineName2KMap hash map will contain the tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 		fillList(tfbsNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME);		
-		Map<String,Integer> tfCellLine2KMap = new HashMap<String,Integer>();	
+		TIntIntMap tfCellLine2KMap = new TIntIntHashMap();	
 		
 		//For Kegg Pathway
 		List<String> keggPathwayNameList = new ArrayList<String>();
 		//Fill keggPathwayNameList
 		fillList(keggPathwayNameList, dataFolder , Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME +Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME );
-		Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String, List<String>>();
-		KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayMap);
-		Map<String,Integer> exonBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> regulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> allBasedKeggPathway2KMap = new HashMap<String,Integer>();
 		
-		//For TF and CellLine and KeggPathway
-		Map<String,Integer> tfCellLineExonBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> tfCellLineRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> tfCellLineAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		
-		//New
-		//For TF and KeggPathway
-		Map<String,Integer> tfExonBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> tfRegulationBasedKeggPathway2KMap = new HashMap<String,Integer>();
-		Map<String,Integer> tfAllBasedKeggPathway2KMap = new HashMap<String,Integer>();
+		TIntObjectMap<TShortArrayList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortArrayList>();
+		KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, keggPathwayName2KeggPathwayNumberMap,geneId2ListofKeggPathwayNumberMap);
 			
-		searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,tfbsNameList,keggPathwayNameList,geneId2KeggPathwayMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition);
+		
+		//KeggPathway
+		TShortIntMap exonBasedKeggPathway2KMap 			= new TShortIntHashMap();
+		TShortIntMap regulationBasedKeggPathway2KMap 	= new TShortIntHashMap();
+		TShortIntMap allBasedKeggPathway2KMap 			= new TShortIntHashMap();
+		
+		//TF and CellLine and KeggPathway
+		TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
+		TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+		TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
+		
+		//TF and KeggPathway
+		TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+		TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+		TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+			
+		searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,tfbsNameList,keggPathwayNameList,geneId2ListofKeggPathwayNumberMap,tfCellLine2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition);
 		
 		writeResults(tfCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		
