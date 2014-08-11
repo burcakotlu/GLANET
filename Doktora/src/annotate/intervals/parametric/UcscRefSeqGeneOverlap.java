@@ -23,13 +23,14 @@ public class UcscRefSeqGeneOverlap {
 	//geneEntrezId	6342
 
 	String refSeqGeneName;
+	String geneHugoSymbol;
+	List<String> keggPathwayNameList;
+	
 	IntervalName intervalName;
 	int intervalNumber;
-	String geneHugoSymbol;
 	int geneEntrezId;
 	int low;
 	int high;
-	List<String> keggPathwayNameList;
 	
 	
 

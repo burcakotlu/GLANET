@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayTfInterval"/>
-<fullyQualifiedTypeName name="rsat.Result"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNode"/>
 <fullyQualifiedTypeName name="jaxbxjctool.AugmentationofGivenRsIdwithInformation"/>
 <fullyQualifiedTypeName name="jaxbxjctool.RsInformation"/>
@@ -24,7 +21,6 @@
 <fullyQualifiedTypeName name="intervaltree.ChromosomeName"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNames"/>
 <fullyQualifiedTypeName name="empiricalpvalues.AllMapsWithNumbers"/>
-<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="intervaltree.IntervalTreeNode"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 <fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+<fullyQualifiedTypeName name="enumtypes.KeyOrder"/>
+<fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNodeWithNumbers"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.TfNameandCellLineNameOverlapWithNumbers"/>
+<fullyQualifiedTypeName name="gnu.trove.iterator.TIntShortIterator"/>
 </qualifiedTypeNameHistroy>

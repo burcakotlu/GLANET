@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="," key="selection"/>
+		<item value="keggPathwayNameList" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value=",dnaseCellLineNumberList,"/>
-			<item value=",dnaseCellLineNumberList,&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;"/>
-			<item value=",dnaseCellLineNumberList);"/>
-			<item value="createDnaseIntervalTreeWithNumbers"/>
-			<item value="generateEncodeDnaseIntervalTreeWithNumbers"/>
-			<item value="searchDnase"/>
-			<item value="searchDnase(&#x09;&#x09;"/>
-			<item value="searchDnase(&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;"/>
+			<item value="keggPathwayNameList"/>
+			<item value="tfNameList"/>
+			<item value="searchTfandKeggPathway"/>
+			<item value="createUcscRefSeqGenesIntervalTree"/>
+			<item value=",tfNameList);"/>
+			<item value="createTfbsIntervalTree"/>
+			<item value="cellLineNumber2CellLineNameMap);"/>
+			<item value=",overlapDefinition);"/>
 		</list>
 		<list key="replacehistory">
-			<item value=","/>
+			<item value="searchTfandKeggPathwayWithNumbers"/>
+			<item value="createUcscRefSeqGenesIntervalTreeWithNumbers"/>
 			<item value=");"/>
-			<item value="searchDnaseWithNumbers"/>
-			<item value="searchDnaseWithNumbers("/>
-			<item value="dnaseCellLineNumber2KMap"/>
-			<item value="dnaseCellLineNumber2k"/>
-			<item value="dnaseCelllineNumber2K&#x09;"/>
-			<item value="dnaseCellLineNumber2K&#x09;"/>
+			<item value="createTfbsIntervalTreeWithNumbers"/>
+			<item value="cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);"/>
+			<item value=",overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);"/>
+			<item value=",overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap)"/>
+			<item value="histoneNumberCellLineNumber2KMap"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="946" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="566" key="DIALOG_HEIGHT"/>
-		<item value="169" key="DIALOG_X_ORIGIN"/>
-		<item value="243" key="DIALOG_Y_ORIGIN"/>
+		<item value="817" key="DIALOG_X_ORIGIN"/>
+		<item value="102" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

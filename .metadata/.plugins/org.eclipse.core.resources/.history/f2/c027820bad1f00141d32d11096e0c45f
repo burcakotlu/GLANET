@@ -1,0 +1,18 @@
+/**
+ * @author burcakotlu
+ * @date Aug 9, 2014 
+ * @time 1:05:07 PM
+ */
+package annotate.intervals.parametric;
+
+/**
+ * 
+ */
+public class TfNameandCellLineNameOverlapWithNumbers {
+	
+	int tfNumberCellLineNumber;
+	int low;
+	int high;
+	
+
+}
