@@ -63,16 +63,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
@@ -8270,7 +8271,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*********************************************/
 		
 		/*********************************************/
-		//DNASE
+		Instant dnaseStart = Instant.now();
+		Date dt = Date.from(dnaseStart);
+	    System.out.println("DNASE analysis starts: " + dt);
+		
+	    //DNASE
 		//Search input interval files for dnase 
 		List<String> dnaseCellLineNameList = new ArrayList<String>();	
 		//This dnaseCellLine2KMap hash map will contain the dnase cell line name to number of dnase cell line:k for the given search input size:n
@@ -8279,7 +8284,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillList(dnaseCellLineNameList,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME);		
 		searchDnase(dataFolder,outputFolder, dnaseCellLineNameList,dnaseCellLine2KMap,overlapDefinition);	
 		writeResults(dnaseCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
-		System.out.println("DNASE analysis ends.");
+		
+		Instant dnaseEnd = Instant.now();
+		dt = Date.from(dnaseEnd);
+		System.out.println("DNASE analysis ends: " +dt);
+		
+		System.out.println("Dnase Analysis took: " + Duration.between(dnaseStart, dnaseEnd).getSeconds() +" seconds");
 		/*********************************************/
 		
 
@@ -8295,7 +8305,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 //		writeResults(tfbsNameandCellLineName2KMap, Commons.ANNOTATE_INTERVALS_TFBS_RESULTS_GIVEN_SEARCH_INPUT);
 
 		/*********************************************/
-		//HISTONE
+		Instant histoneStart = Instant.now();
+		dt = Date.from(histoneStart);
+	    System.out.println("Histone analysis starts: " + dt);
+		
+	    //HISTONE
 		//Search input interval files for histone 		
 		List<String> histoneNameList = new ArrayList<String>();		
 		//This histoneNameandCellLineName2KMap hash map will contain the histoneNameandCellLineName to number of histoneNameandCellLineName: k for the given search input size: n
@@ -8304,7 +8318,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillList(histoneNameList,dataFolder , Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME);
 		searchHistone(dataFolder,outputFolder,histoneNameList,histoneNameandCellLineName2KMap,overlapDefinition);
 		writeResults(histoneNameandCellLineName2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
-		System.out.println("Histone analysis ends.");
+		
+		Instant histoneEnd = Instant.now();
+		dt = Date.from(histoneEnd);
+	    System.out.println("Histone analysis ends: " + dt);
+	    
+	    System.out.println("Histone Analysis took: " + Duration.between(histoneStart, histoneEnd).getSeconds() +" seconds");		
 		/*********************************************/
 		
 		
@@ -8375,6 +8394,10 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 //		writeResults(allResultsKeggPathway2KMap, Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		
 		/*********************************************/
+	    Instant tfStart = Instant.now();
+		dt = Date.from(tfStart);
+	    System.out.println("TF and others analysis starts: " + dt);
+//		System.out.println("TF analysis starts, Kegg Pathway analysis starts, Tf_CellLine_KeggPathway analysis starts, Tf_KeggPathway analysis starts.");
 		//New Functionality START
 		//Search for tf here
 		//Search for kegg pathway here
@@ -8424,10 +8447,16 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		writeResults(tfRegulationBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		writeResults(tfAllBasedKeggPathway2KMap, outputFolder,Commons.ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		
-		System.out.println("TF analysis ends, Kegg Pathway analysis ends, Tf_CellLine_KeggPathway analysis ends, Tf_KeggPathway analysis ends.");
-		//New Functionality END
+		Instant tfEnd = Instant.now();
+		dt = Date.from(tfEnd);
+	    System.out.println("TF and other analysis ends: " + dt);
+	    System.out.println("Tf and other analysis took: " + Duration.between(tfStart, tfEnd).getSeconds() +" seconds");		
+
+	    //New Functionality END
 		/*********************************************/
 		
+	    System.out.println("All analysis with Strings took: " + Duration.between(dnaseStart, tfEnd).getSeconds() +" seconds");		
+
 
 	}
 	
