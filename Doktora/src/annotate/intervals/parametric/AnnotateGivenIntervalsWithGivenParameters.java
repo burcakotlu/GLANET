@@ -8230,7 +8230,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//			--->			Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
+	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	public void annotate(String[] args){
 		
 		String glanetFolder = args[1];
