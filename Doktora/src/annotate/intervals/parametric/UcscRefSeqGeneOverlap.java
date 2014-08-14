@@ -10,22 +10,27 @@ package annotate.intervals.parametric;
 
 import java.util.List;
 
+import enumtypes.IntervalName;
+
 
 public class UcscRefSeqGeneOverlap {
 	
 	//example
 	//refSeqGeneName	NM_002979	
-	//intervalName	INTRON15	
+	//intervalName	INTRON
+	//intervalNumber 15	
 	//geneHugoSymbol	SCP2	
 	//geneEntrezId	6342
 
 	String refSeqGeneName;
-	String intervalName;
 	String geneHugoSymbol;
+	List<String> keggPathwayNameList;
+	
+	IntervalName intervalName;
+	int intervalNumber;
 	int geneEntrezId;
 	int low;
 	int high;
-	List<String> keggPathwayNameList;
 	
 	
 
@@ -37,12 +42,22 @@ public class UcscRefSeqGeneOverlap {
 		this.refSeqGeneName = refSeqGeneName;
 	}
 
-	public String getIntervalName() {
+	
+
+	public IntervalName getIntervalName() {
 		return intervalName;
 	}
 
-	public void setIntervalName(String intervalName) {
+	public void setIntervalName(IntervalName intervalName) {
 		this.intervalName = intervalName;
+	}
+
+	public int getIntervalNumber() {
+		return intervalNumber;
+	}
+
+	public void setIntervalNumber(int intervalNumber) {
+		this.intervalNumber = intervalNumber;
 	}
 
 	public String getGeneHugoSymbol() {
@@ -87,12 +102,13 @@ public class UcscRefSeqGeneOverlap {
 
 	
 	
-	public UcscRefSeqGeneOverlap(String refSeqGeneName, String intervalName,
+	public UcscRefSeqGeneOverlap(String refSeqGeneName, IntervalName intervalName,int intervalNumber,
 			String geneHugoSymbol, int geneEntrezId, int low, int high,
 			List<String> keggPathwayNameList) {
 		super();
 		this.refSeqGeneName = refSeqGeneName;
 		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 		this.geneHugoSymbol = geneHugoSymbol;
 		this.geneEntrezId = geneEntrezId;
 		this.low = low;

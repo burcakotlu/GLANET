@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import create.encode.GeneType;
 import create.encode.RegionofInterest;
+import enumtypes.ChromosomeName;
 
 public class TestTcgaData {
 
@@ -46,7 +46,7 @@ public class TestTcgaData {
 
 	public void searchforTestTCGAData(RegionofInterest region,BufferedWriter bw, String searchedAlternateGeneName,Integer searchedGeneId, GeneType geneType){
 //		todo
-		String chromName = region.getChromName();
+		ChromosomeName chromName = ChromosomeName.convertStringtoEnum(region.getChromName());
 		int startPositionofRegionofInterest = region.getStartPosition();
 		int endPositionofRegionofInterest = region.getEndPosition();
 		
@@ -87,7 +87,7 @@ public class TestTcgaData {
 //				chrX	181384	271383	NR_027231	283981	5	+	LINC00685
 
 
-				searchString = "Searched for " + chromName +"\t"+ startPositionofRegionofInterest + "\t" + endPositionofRegionofInterest+ "\t" + searchedAlternateGeneName + "\t" + searchedGeneId + "\n";
+				searchString = "Searched for " + chromName.getChromosomeName() +"\t"+ startPositionofRegionofInterest + "\t" + endPositionofRegionofInterest+ "\t" + searchedAlternateGeneName + "\t" + searchedGeneId + "\n";
 				
 				while ((strLine = br.readLine()) != null)   {
 					
@@ -129,7 +129,7 @@ public class TestTcgaData {
 //						strand =strLine.substring(indexofSixthTab+1,indexofSeventhTab).charAt(0);
 						alternateGeneName = strLine.substring(indexofSeventhTab+1);
 						
-						outputString = outputString.concat("Found" + "\t" + chromName + "\t" + startPosition + "\t" + endPosition + "\t"  + intervalName + "\t" +refSeqGeneName + "\t" + geneId + "\t" + alternateGeneName + "\n");						
+						outputString = outputString.concat("Found" + "\t" + chromName.getChromosomeName() + "\t" + startPosition + "\t" + endPosition + "\t"  + intervalName + "\t" +refSeqGeneName + "\t" + geneId + "\t" + alternateGeneName + "\n");						
 					}
 				} // End of While
 				

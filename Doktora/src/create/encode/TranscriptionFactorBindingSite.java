@@ -2,11 +2,13 @@ package create.encode;
 
 import java.util.Comparator;
 
+import enumtypes.ChromosomeName;
+
 
 public class TranscriptionFactorBindingSite implements Comparable<TranscriptionFactorBindingSite>  {
 	
 	String transcriptionFactorName;
-	String chromName;
+	ChromosomeName chromName;
 	String cellLineName;
 //	In order to compare with respect to startPos it has to be Integer
 	Integer startPos;
@@ -18,6 +20,13 @@ public class TranscriptionFactorBindingSite implements Comparable<TranscriptionF
     
 	
 	
+	
+	public ChromosomeName getChromName() {
+		return chromName;
+	}
+	public void setChromName(ChromosomeName chromName) {
+		this.chromName = chromName;
+	}
 	
 	public char getStrand() {
 		return strand;
@@ -46,12 +55,7 @@ public class TranscriptionFactorBindingSite implements Comparable<TranscriptionF
 	public void setTranscriptionFactorName(String transcriptionFactorName) {
 		this.transcriptionFactorName = transcriptionFactorName;
 	}
-	public String getChromName() {
-		return chromName;
-	}
-	public void setChromName(String chromName) {
-		this.chromName = chromName;
-	}
+	
 	public Integer getStartPos() {
 		return startPos;
 	}

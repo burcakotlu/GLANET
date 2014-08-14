@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="5000" key="selection"/>
+		<item value="fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap," key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="5000"/>
-			<item value="Number_"/>
-			<item value="Number_of"/>
-			<item value="originalDnase2KMap"/>
-			<item value="2000"/>
-			<item value="with numbers"/>
-			<item value="GlanetRunner.appendLog"/>
-			<item value="System.out.println"/>
+			<item value="fileNumber2FileNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,"/>
+			<item value=",overlapDefinition);"/>
+			<item value="containsKey"/>
+			<item value="exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap"/>
+			<item value="tfbsNameandCellLineName2KMap"/>
+			<item value="tfbsNameandCellLineName2KMap&#x09;&#x09;&#x09;&#x09;&#x09;"/>
+			<item value=",tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,"/>
+			<item value=",tfNameList,keggPathwayNameList,geneId2KeggPathwayMap,&#x09;&#x09;"/>
 		</list>
 		<list key="replacehistory">
-			<item value="System.out.println"/>
-			<item value="GlanetRunner.appendLog"/>
-			<item value="Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY"/>
-			<item value="it.value()"/>
-			<item value="it.key()"/>
-			<item value="TLongIntMap "/>
-			<item value="TLongObjectMap&lt;BufferedWriter&gt;  "/>
-			<item value="new TLongIntHashMap()"/>
+			<item value="fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,"/>
+			<item value=",overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value="exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,tfNumberExonBasedKeggPathwayNumber2KMap,tfNumberRegulationBasedKeggPathwayNumber2KMap,tfNumberAllBasedKeggPathwayNumber2KMap"/>
+			<item value="tfNumberCellLineNumber2KMap"/>
+			<item value=",geneId2ListofKeggPathwayNumberMap,"/>
+			<item value="searchTfandKeggPathwayWithNumbers"/>
+			<item value="createUcscRefSeqGenesIntervalTreeWithNumbers"/>
+			<item value=");"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="502" key="DIALOG_WIDTH"/>
+		<item value="946" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="525" key="DIALOG_HEIGHT"/>
-		<item value="1120" key="DIALOG_X_ORIGIN"/>
-		<item value="32" key="DIALOG_Y_ORIGIN"/>
+		<item value="566" key="DIALOG_HEIGHT"/>
+		<item value="367" key="DIALOG_X_ORIGIN"/>
+		<item value="245" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

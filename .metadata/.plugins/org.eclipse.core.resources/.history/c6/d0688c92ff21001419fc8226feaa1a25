@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date Aug 12, 2014 
+ * @time 12:01:57 PM
+ */
+package annotate.intervals.parametric;
+
+/**
+ * 
+ */
+public class UcscRefSeqGeneOverlapWithNumbers {
+
+}

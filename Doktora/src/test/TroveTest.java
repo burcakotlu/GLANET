@@ -31,6 +31,7 @@ public class TroveTest {
 		tIntList.add(12);
 		tIntList.add(13);
 		
+		//MAP
 		// accessing keys/values through an iterator:
 		for ( TIntObjectIterator it = tIntIntMap.iterator(); it.hasNext(); ) {
 		    it.advance();
@@ -38,6 +39,7 @@ public class TroveTest {
 		    
 		}
 		
+		//LIST
 		for ( TIntIterator it2 = tIntList.iterator(); it2.hasNext(); ) {
 		    System.out.println(it2.next() + "," );	    
 		}

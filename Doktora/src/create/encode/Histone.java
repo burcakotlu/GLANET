@@ -2,11 +2,13 @@ package create.encode;
 
 import java.util.Comparator;
 
+import enumtypes.ChromosomeName;
+
 
 public class Histone implements Comparable<Histone>{
 	
 	String histoneName;
-	String chromName;
+	ChromosomeName chromName;
 	String cellLineName;
 	Integer startPos;
 	int endPos;	
@@ -15,6 +17,14 @@ public class Histone implements Comparable<Histone>{
     
     
     
+    
+    
+	public ChromosomeName getChromName() {
+		return chromName;
+	}
+	public void setChromName(ChromosomeName chromName) {
+		this.chromName = chromName;
+	}
 	public char getStrand() {
 		return strand;
 	}
@@ -27,12 +37,7 @@ public class Histone implements Comparable<Histone>{
 	public void setHistoneName(String histoneName) {
 		this.histoneName = histoneName;
 	}
-	public String getChromName() {
-		return chromName;
-	}
-	public void setChromName(String chromName) {
-		this.chromName = chromName;
-	}
+	
 	public String getCellLineName() {
 		return cellLineName;
 	}

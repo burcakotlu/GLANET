@@ -2,11 +2,13 @@ package create.ucscgenome;
 
 import java.util.List;
 
+import enumtypes.ChromosomeName;
+
 
 public class RefSeqGene {
  
  String refSeqGeneName;
- String chromName;
+ ChromosomeName chromName;
  char strand;
  int transcriptionStartPosition;
  int transcriptionEndPosition;
@@ -46,12 +48,15 @@ public String getRefSeqGeneName() {
 public void setRefSeqGeneName(String refSeqGeneName) {
 	this.refSeqGeneName = refSeqGeneName;
 }
-public String getChromName() {
+
+
+public ChromosomeName getChromName() {
 	return chromName;
 }
-public void setChromName(String chromName) {
+public void setChromName(ChromosomeName chromName) {
 	this.chromName = chromName;
 }
+
 public char getStrand() {
 	return strand;
 }
@@ -139,9 +144,10 @@ public boolean equals(Object obj){
 		if (this.getClass() == obj.getClass()){
 			RefSeqGene  refSeqGene = (RefSeqGene) obj;
 			
+			
 			if (refSeqGene.getRefSeqGeneName().equals(this.getRefSeqGeneName()) && 
 			    refSeqGene.getAlternateGeneName().equals(this.getAlternateGeneName()) &&
-			    refSeqGene.getChromName().equals(this.getChromName()) &&
+			    refSeqGene.getChromName().equals(this.getChromName()) &&			    
 			    (refSeqGene.getExonCounts()==this.getExonCounts()) &&
 			    (refSeqGene.getStrand()==this.getStrand()) &&
 			    (refSeqGene.getTranscriptionStartPosition()== this.getTranscriptionStartPosition())&&

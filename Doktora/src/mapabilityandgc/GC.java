@@ -10,15 +10,15 @@
  */
 package mapabilityandgc;
 
-import intervaltree.ChromosomeName;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import common.Commons;
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
+import enumtypes.ChromosomeName;
 import ui.GlanetRunner;
 
 public class GC {

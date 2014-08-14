@@ -17,21 +17,110 @@ public class Commons {
 	public static final String From_ANNOTATION = "fromAnnotation";
 	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
 	public static final String AUGMENTATION = "Augmentation";
-	
-	public static final String ANNOTATION_DNASE = "Annotation_Dnase";
-	public static final String ANNOTATION_TFBS = "Annotation_Tfbs";
-	public static final String ANNOTATION_HISTONE = "Annotation_Histone";
-	public static final String ANNOTATION_KEGGPATHWAY = "Annotation_KeggPathway";
-	public static final String ANNOTATION_TFKEGGPATHWAY = "Annotation_TfKeggPathwayNumberofOverlaps";
-	public static final String ANNOTATION_TFCELLLINEKEGGPATHWAY = "Annotation_TfCellLineKeggPathwayNumberofOverlaps";
-	
-	
-	public static final String BYGLANET = "byGLANET";
-	
 		
+	public static final String BYGLANET = "byGLANET";
+			
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
 	
+	//EnumTye AnnotationType
+	public static final String DNASE_ANNOTATION 		= "DNASE_ANNOTATION";
+	public static final String TF_ANNOTATION 			= "TF_ANNOTATION";
+	public static final String HISTONE_ANNOTATION 		= "HISTONE_ANNOTATION";
+	public static final String GENE_SET_ANNOTATION 		= "GENE_SET_ANNOTATION";
+	public static final String TF_GENE_SET_ANNOTATION 	= "TF_GENE_SET_ANNOTATION";
+	public static final String TF_CELLLINE_GENE_SET_ANNOTATION = "TF_CELLLINE_GENE_SET_ANNOTATION";
+	
+	//EnumType WriteGeneratedRandomDataMode
+	public static final String WRITE_GENERATED_RANDOM_DATA = "WRITE_GENERATED_RANDOM_DATA";
+	public static final String DO_NOT_WRITE_GENERATED_RANDOM_DATA = "DO_NOT_WRITE_GENERATED_RANDOM_DATA";
+	
+	//EnumType WritePermutationBasedandParametricBasedAnnotationResultMode	
+	public static final String WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
+	public static final String DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
+	
+	//EnumType WritePermutationBasedAnnotationResultMode
+	public static final String WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
+	public static final String DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
+
+	//Enum type GenerateRandomDataMode
+	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
+	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
+	
+	//EnumType RegulatorySequenceAnalysisType
+	//RSAT PARAMETER
+	public static final String DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
+	public static final String DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
+
+	//EnumType NodeType
+	//Is an interval tree node an original node or a merged node?
+	public static final String ORIGINAL_NODE = "ORIGINAL_NODE";
+	public static final String MERGED_NODE = "MERGED_NODE";
+
+	//EnumType NodeName
+	public static final String SENTINEL = "SENTINEL";
+	public static final String NOT_SENTINEL = "NOT_SENTINEL";
+
+	//EnumType MultipleTestingType
+	//P Value type
+	public static final String BONFERRONI_CORRECTION = "Bonferroni Correction";
+	public static final String EMPIRICAL_P_VALUE = "Empirical p value";
+	public static final String BENJAMINI_HOCHBERG_FDR = "Benjamini Hochberg FDR";
+
+	//EnumType Interval Name
+	public static final String EXON = "EXON";
+	public static final String INTRON = "INTRON";
+	public static final String FIVE_P_ONE = "5P1";
+	public static final String FIVE_P_TWO = "5P2";
+	public static final String FIVE_D = "5D";
+	public static final String THREE_P_ONE = "3P1";
+	public static final String THREE_P_TWO = "3P2";
+	public static final String THREE_D = "3D";
+
+	
+	//EnumType Enrichment Type
+	public static final String DO_DNASE_ENRICHMENT 		= "DO_DNASE_ENRICHMENT";
+	public static final String DO_NOT_DNASE_ENRICHMENT 	= "DO_NOT_DNASE_ENRICHMENT";	
+	public static final String DO_HISTONE_ENRICHMENT 		= "DO_HISTONE_ENRICHMENT";
+	public static final String DO_NOT_HISTONE_ENRICHMENT 	= "DO_NOT_HISTONE_ENRICHMENT";
+	public static final String DO_TF_ENRICHMENT 		= "DO_TF_ENRICHMENT";
+	public static final String DO_NOT_TF_ENRICHMENT 	= "DO_NOT_TF_ENRICHMENT";
+	public static final String DO_GENESET_ENRICHMENT 		= "DO_GENESET_ENRICHMENT";
+	public static final String DO_NOT_GENESET_ENRICHMENT 	= "DO_NOT_GENESET_ENRICHMENT";
+	public static final String DO_TF_GENESET_ENRICHMENT 	= "DO_TF_GENESET_ENRICHMENT";
+	public static final String DO_NOT_TF_GENESET_ENRICHMENT = "DO_NOT_TF_GENESET_ENRICHMENT";
+	//You can choose TF_CELLLINE_KEGGPATHWAY or TF_KEGGPATHWAY, not both
+	//TF and KEGGPATHWAY Enrichment is done by default in case of any choice.
+	public static final String DO_TF_CELLLINE_GENESET_ENRICHMENT 		= "DO_TF_CELLLINE_GENESET_ENRICHMENT";
+	public static final String DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT";
+
+	
+	//EnumType ChromosomeName
+	public static final String CHROMOSOME1 = "chr1";
+	public static final String CHROMOSOME2 = "chr2";
+	public static final String CHROMOSOME3 = "chr3";
+	public static final String CHROMOSOME4 = "chr4";
+	public static final String CHROMOSOME5 = "chr5";
+	public static final String CHROMOSOME6 = "chr6";
+	public static final String CHROMOSOME7 = "chr7";
+	public static final String CHROMOSOME8 = "chr8";
+	public static final String CHROMOSOME9 = "chr9";
+	public static final String CHROMOSOME10 = "chr10";
+	public static final String CHROMOSOME11 = "chr11";
+	public static final String CHROMOSOME12 = "chr12";
+	public static final String CHROMOSOME13 = "chr13";
+	public static final String CHROMOSOME14 = "chr14";
+	public static final String CHROMOSOME15 = "chr15";
+	public static final String CHROMOSOME16 = "chr16";
+	public static final String CHROMOSOME17 = "chr17";
+	public static final String CHROMOSOME18 = "chr18";
+	public static final String CHROMOSOME19 = "chr19";
+	public static final String CHROMOSOME20 = "chr20";
+	public static final String CHROMOSOME21 = "chr21";
+	public static final String CHROMOSOME22 = "chr22";
+	public static final String CHROMOSOMEX = "chrX";
+	public static final String CHROMOSOMEY = "chrY";
+	public static final String CHROMOSOMEWITHDIFFERENTNAME = "chrWithDifferentName";
 	
 	public static final String ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
 			
@@ -42,7 +131,7 @@ public class Commons {
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 
-	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
+//	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
 	
 	public static Float FLOAT_ZERO = new Float(0.0f); 
 	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 
@@ -133,10 +222,7 @@ public class Commons {
 	public static final String TEST_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "Test_AugmentedTfRegulationBasedKeggPathwayResults.txt";
 	//Augmentation of Enriched Elements with Overlaps Output Files ends
 	
-	//RSAT PARAMETER
-	public static final String DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
-	public static final String DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
-	
+		
 	//RSAT
 	 public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
 	 public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
@@ -462,17 +548,9 @@ public class Commons {
 	
 	public static final String ORIGINAL_INPUT_DATA_FILE = "ORIGINAL_INPUT_DATA_FILE";
 	
-	public static final String WRITE_GENERATED_RANDOM_DATA = "WRITE_GENERATED_RANDOM_DATA";
-	public static final String DO_NOT_WRITE_GENERATED_RANDOM_DATA = "DO_NOT_WRITE_GENERATED_RANDOM_DATA";
 	
-	public static final String WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
-	public static final String DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
 	
-	public static final String WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
-	public static final String DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
-
-	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
-	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
+	
 	public static final String PERMUTATION = "PERMUTATION";
 	public static final String RANDOMLY_GENERATED_DATA_FOLDER = Commons.ANNOTATION + System.getProperty("file.separator")  +  "RandomlyGeneratedData" + System.getProperty("file.separator");
 	public static final String RANDOMLY_GENERATED_DATA = "RANDOMLY_GENERATED_DATA";
@@ -504,17 +582,11 @@ public class Commons {
 	
 	public static final String RANDOMLY_GENERATED_DATA_FILE = Commons.ANNOTATION + System.getProperty("file.separator") + "RandomlyGeneratedData" + System.getProperty("file.separator") + "PERMUTATION4_RANDOMLY_GENERATED_DATA.txt";
 	
-	//Is an interval tree node an original node or a merged node?
-	public static final String ORIGINAL_NODE = "ORIGINAL_NODE";
-	public static final String MERGED_NODE = "MERGED_NODE";
 	
 	//For Whole Genome Sliding Window
 	public static final String ORIGINAL_READ_LINE = "ORIGINAL_READ_LINE";
 	public static final String DEGENERATED_LINE = "DEGENERATED_LINE";
 	
-		
-	public static final String SENTINEL = "SENTINEL";
-	public static final String NOT_SENTINEL = "NOT_SENTINEL";
 	
 	public static final char RED = 'r';
 	public static final char BLACK = 'b';
@@ -618,10 +690,6 @@ public class Commons {
 	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_BENJAMINI_HOCHBERG_FDR = Commons.ENRICHMENT + System.getProperty("file.separator") + "tfCellLineAllBasedKeggPathway_BH_FDR";
 	
 	
-	//P Value type
-	public static final String BONFERRONI_CORRECTED_P_VALUE = "Bonferroni Correction";
-	public static final String EMPIRICAL_P_VALUE = "EMPIRICAL_P_VALUE";
-	public static final String BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE = "Benjamini Hochberg FDR";
 	
 
 	//empirical P values 
@@ -694,58 +762,21 @@ public class Commons {
 	public static final String CALCULATE_USING_BINOMIAL_DISTRIBUTION = "CALCULATE_USING_BINOMIAL_DISTRIBUTION";
 	public static final String CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION = "CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION";
 	
-	public static final String EXON = "EXON";
-	public static final String INTRON = "INTRON";
-	public static final String FIVE_P_ONE = "5P1";
-	public static final String FIVE_P_TWO = "5P2";
-	public static final String FIVE_D = "5D";
-	public static final String THREE_P_ONE = "3P1";
-	public static final String THREE_P_TWO = "3P2";
-	public static final String THREE_D = "3D";
+	
 	
 	
 	public static final String EMPTY_STRING = "";
 	
-	public static final String EXON_BASED_KEGG_PATHWAY_ANALYSIS 		= "EXON_BASED_KEGG_PATHWAY_ANALYSIS";
-	public static final String REGULATION_BASED_KEGG_PATHWAY_ANALYSIS 	= "REGULATION_BASED_KEGG_PATHWAY_ANALYSIS";
-	public static final String ALL_BASED_KEGG_PATHWAY_ANALYSIS 	= "ALL_BASED_KEGG_PATHWAY_ANALYSIS";
+//	public static final String EXON_BASED_KEGG_PATHWAY_ANALYSIS 		= "EXON_BASED_KEGG_PATHWAY_ANALYSIS";
+//	public static final String REGULATION_BASED_KEGG_PATHWAY_ANALYSIS 	= "REGULATION_BASED_KEGG_PATHWAY_ANALYSIS";
+//	public static final String ALL_BASED_KEGG_PATHWAY_ANALYSIS 	= "ALL_BASED_KEGG_PATHWAY_ANALYSIS";
 	
-	//Annotation Type
-	public static final String DNASE_ANNOTATION 		= "DNASE_ANNOTATION";
-	public static final String TFBS_ANNOTATION 			= "TFBS_ANNOTATION";
-	public static final String HISTONE_ANNOTATION 		= "HISTONE_ANNOTATION";
-	public static final String UCSC_REFSEQ_GENE_ANNOTATION = "UCSC_REFSEQ_GENE_ANNOTATION";
-	public static final String TF_CELLLINE_KEGG_PATHWAY_ANNOTATION = "TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
-	public static final String TF_KEGG_PATHWAY_ANNOTATION = "TF_KEGG_PATHWAY_ANNOTATION";
-	
-	//Enrichmnet parameter
+		
+	//Enrichment parameter
 	public static final String DO_ENRICH = "DO_ENRICH";
 	public static final String DO_NOT_ENRICH = "DO_NOT_ENRICH";
 
-	//Enrichment Type
-	public static final String DO_DNASE_ENRICHMENT 		= "DO_DNASE_ENRICHMENT";
-	public static final String DO_NOT_DNASE_ENRICHMENT 	= "DO_NOT_DNASE_ENRICHMENT";
-	
-	public static final String DO_HISTONE_ENRICHMENT 		= "DO_HISTONE_ENRICHMENT";
-	public static final String DO_NOT_HISTONE_ENRICHMENT 	= "DO_NOT_HISTONE_ENRICHMENT";
-
-	//6 March 2014
-	public static final String DO_TF_ENRICHMENT 		= "DO_TF_ENRICHMENT";
-	public static final String DO_NOT_TF_ENRICHMENT 	= "DO_NOT_TF_ENRICHMENT";
-	
-	//6 March 2014
-	public static final String DO_KEGGPATHWAY_ENRICHMENT 		= "DO_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_KEGGPATHWAY_ENRICHMENT";
-	
-	//You can choose TF_CELLLINE_KEGGPATHWAY or TF_KEGGPATHWAY, not both
-	//TF and KEGGPATHWAY Enrichment is done by default in case of any choice.
-	public static final String DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 		= "DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	
-	public static final String DO_TF_KEGGPATHWAY_ENRICHMENT 			= "DO_TF_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_KEGGPATHWAY_ENRICHMENT 		= "DO_NOT_TF_KEGGPATHWAY_ENRICHMENT";
-
-	
+		
 //	Write all possible names
 	public static final String DNASE = "DNASE";
 	public static final String TFBS = "TFBS";
@@ -934,30 +965,8 @@ public class Commons {
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";
 	
-	public static final String CHROMOSOME1 = "chr1";
-	public static final String CHROMOSOME2 = "chr2";
-	public static final String CHROMOSOME3 = "chr3";
-	public static final String CHROMOSOME4 = "chr4";
-	public static final String CHROMOSOME5 = "chr5";
-	public static final String CHROMOSOME6 = "chr6";
-	public static final String CHROMOSOME7 = "chr7";
-	public static final String CHROMOSOME8 = "chr8";
-	public static final String CHROMOSOME9 = "chr9";
-	public static final String CHROMOSOME10 = "chr10";
-	public static final String CHROMOSOME11 = "chr11";
-	public static final String CHROMOSOME12 = "chr12";
-	public static final String CHROMOSOME13 = "chr13";
-	public static final String CHROMOSOME14 = "chr14";
-	public static final String CHROMOSOME15 = "chr15";
-	public static final String CHROMOSOME16 = "chr16";
-	public static final String CHROMOSOME17 = "chr17";
-	public static final String CHROMOSOME18 = "chr18";
-	public static final String CHROMOSOME19 = "chr19";
-	public static final String CHROMOSOME20 = "chr20";
-	public static final String CHROMOSOME21 = "chr21";
-	public static final String CHROMOSOME22 = "chr22";
-	public static final String CHROMOSOMEX = "chrX";
-	public static final String CHROMOSOMEY = "chrY";
+	
+	
 	
 	//Create ucsc refseq genes directory
 	public static final String CREATE_UCSCGENOME_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");

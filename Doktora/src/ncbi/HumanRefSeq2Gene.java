@@ -151,8 +151,8 @@ public class HumanRefSeq2Gene {
 				}							
 			} // End of While
 			
-			GlanetRunner.appendLog("Number of human refseq to gene lines " + numberofHumanRefSeq2Gene);			
-			GlanetRunner.appendLog("Number of refseq names " + numberofRefSeqNames);			
+			System.out.println("Number of human refseq to gene lines " + numberofHumanRefSeq2Gene);			
+			System.out.println("Number of refseq names " + numberofRefSeqNames);			
 			
 			bufferedWriter.close();
 			bufferedWriter2.close();
@@ -220,6 +220,7 @@ public class HumanRefSeq2Gene {
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//args[21]	--->	number of permutations in each run	
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];

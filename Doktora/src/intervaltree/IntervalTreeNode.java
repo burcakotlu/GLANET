@@ -1,5 +1,5 @@
 /**
- * @author Burcak Otlu Saritas
+ * @author Burcak Otlu
  *
  * 
  */
@@ -7,6 +7,9 @@
 package intervaltree;
 
 import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeName;
+import enumtypes.NodeType;
 
 
 public class IntervalTreeNode{

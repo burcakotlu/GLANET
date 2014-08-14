@@ -7,10 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
+
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
-import auxiliary.FileOperations;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
 /**
  * @author burcakotlu
@@ -578,6 +580,7 @@ public class InputDataProcess {
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//args[21]	--->	number of permutations in each run	
 	public static void main(String[] args) {
 		
 		//Read input data 

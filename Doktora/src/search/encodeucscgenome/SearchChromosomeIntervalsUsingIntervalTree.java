@@ -17,14 +17,13 @@
 
 package search.encodeucscgenome;
 
-import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -33,10 +32,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
+import enumtypes.NodeType;
  
 
 public class SearchChromosomeIntervalsUsingIntervalTree {
@@ -198,20 +201,23 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		int indexofFifthTab = 0;
 		int indexofSixthTab = 0;
 		int indexofSeventhTab = 0;
+		int indexofEighthTab = 0;
+		
 		
 		int startPosition = 0;
 		int endPosition = 0;
 		
-		String chromName;
+		ChromosomeName chromName;
 		String  refSeqGeneName;
 		Integer geneEntrezId;
-		String intervalName;
+		IntervalName intervalName;
+		int intervalNumber;
 		String geneHugoSymbol;
 		
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
 //				example strLine
-//				chr17	67074846	67075215	NM_080284	23460	Exon1	-	ABCA6
+//				chr17	67074846	67075215	NM_080284	23460	Exon	1	-	ABCA6
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
@@ -220,17 +226,19 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab+1);
 				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab+1);
 				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);	
+				indexofEighthTab = strLine.indexOf('\t',indexofSeventhTab+1);
 				
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
 				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				refSeqGeneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 				geneEntrezId = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
-				intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
-				geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
+				intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+				geneHugoSymbol = strLine.substring(indexofEighthTab+1);
 				
 //				Creating millions of nodes with seven attributes causes out of memory error
-				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+				IntervalTreeNode node = new UcscRefSeqGeneIntervalTreeNode(chromName,startPosition,endPosition,refSeqGeneName,geneEntrezId,intervalName,intervalNumber,geneHugoSymbol,NodeType.ORIGINAL);
 				tree.intervalTreeInsert(tree, node);
 				
 				
@@ -540,79 +548,79 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 
 	
 	
-	public void writeChromBaseSearchInputFile(String chromName, String strLine, List<BufferedWriter> bufList){
+	public void writeChromBaseSearchInputFile(ChromosomeName chromName, String strLine, List<BufferedWriter> bufList){
 		try {
 			
-			if (chromName.equals(Commons.CHROMOSOME1)){
+			if (chromName.isCHROMOSOME1()){
 					bufList.get(0).write(strLine + "\n");
 					bufList.get(0).flush();		
-			} else 	if (chromName.equals(Commons.CHROMOSOME2)){
+			} else 	if (chromName.isCHROMOSOME2()){
 				bufList.get(1).write(strLine + "\n");
 				bufList.get(1).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME3)){
+			}else 	if (chromName.isCHROMOSOME3()){
 				bufList.get(2).write(strLine + "\n");
 				bufList.get(2).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME4)){
+			}else 	if (chromName.isCHROMOSOME4()){
 				bufList.get(3).write(strLine + "\n");
 				bufList.get(3).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME5)){
+			}else 	if (chromName.isCHROMOSOME5()){
 				bufList.get(4).write(strLine + "\n");
 				bufList.get(4).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME6)){
+			}else 	if (chromName.isCHROMOSOME6()){
 				bufList.get(5).write(strLine + "\n");
 				bufList.get(5).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME7)){
+			}else 	if (chromName.isCHROMOSOME7()){
 				bufList.get(6).write(strLine + "\n");
 				bufList.get(6).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME8)){
+			}else 	if (chromName.isCHROMOSOME8()){
 				bufList.get(7).write(strLine + "\n");
 				bufList.get(7).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME9)){
+			}else 	if (chromName.isCHROMOSOME9()){
 				bufList.get(8).write(strLine + "\n");
 				bufList.get(8).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME10)){
+			}else 	if (chromName.isCHROMOSOME10()){
 				bufList.get(9).write(strLine + "\n");
 				bufList.get(9).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME11)){
+			}else 	if (chromName.isCHROMOSOME11()){
 				bufList.get(10).write(strLine + "\n");
 				bufList.get(10).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME12)){
+			}else 	if (chromName.isCHROMOSOME12()){
 				bufList.get(11).write(strLine + "\n");
 				bufList.get(11).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME13)){
+			}else 	if (chromName.isCHROMOSOME13()){
 				bufList.get(12).write(strLine + "\n");
 				bufList.get(12).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME14)){
+			}else 	if (chromName.isCHROMOSOME14()){
 				bufList.get(13).write(strLine + "\n");
 				bufList.get(13).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME15)){
+			}else 	if (chromName.isCHROMOSOME15()){
 				bufList.get(14).write(strLine + "\n");
 				bufList.get(14).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME16)){
+			}else 	if (chromName.isCHROMOSOME16()){
 				bufList.get(15).write(strLine + "\n");
 				bufList.get(15).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME17)){
+			}else 	if (chromName.isCHROMOSOME17()){
 				bufList.get(16).write(strLine + "\n");
 				bufList.get(16).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME18)){
+			}else 	if (chromName.isCHROMOSOME18()){
 				bufList.get(17).write(strLine + "\n");
 				bufList.get(17).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME19)){
+			}else 	if (chromName.isCHROMOSOME19()){
 				bufList.get(18).write(strLine + "\n");
 				bufList.get(18).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME20)){
+			}else 	if (chromName.isCHROMOSOME20()){
 				bufList.get(19).write(strLine + "\n");
 				bufList.get(19).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME21)){
+			}else 	if (chromName.isCHROMOSOME21()){
 				bufList.get(20).write(strLine + "\n");
 				bufList.get(20).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME22)){
+			}else 	if (chromName.isCHROMOSOME22()){
 				bufList.get(21).write(strLine + "\n");
 				bufList.get(21).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOMEX)){
+			}else 	if (chromName.isCHROMOSOMEX()){
 				bufList.get(22).write(strLine + "\n");
 				bufList.get(22).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOMEY)){
+			}else 	if (chromName.isCHROMOSOMEY()){
 				bufList.get(23).write(strLine + "\n");
 				bufList.get(23).flush();		
 			}else{
@@ -632,7 +640,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 		
 		String strLine;
 		int indexofFirstTab;
-		String chromName;
+		ChromosomeName chromName;
 		
 		try {
 			fileReader = new FileReader(inputFileName);
@@ -641,7 +649,7 @@ public class SearchChromosomeIntervalsUsingIntervalTree {
 			while((strLine=bufferedReader.readLine())!=null){
 				
 				indexofFirstTab = strLine.indexOf('\t');
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				writeChromBaseSearchInputFile(chromName,strLine,bufferedWriterList);
 				
 			} // End of While

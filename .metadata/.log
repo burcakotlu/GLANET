@@ -2396,3 +2396,2928 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-06-23 14:54:18.700
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-23 14:54:18.701
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-06-23 17:18:08.276 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-23 17:18:15.988
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-23 17:18:15.991
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-23 17:18:54.201
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-23 17:18:54.201
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-06-24 09:48:08.116 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-24 09:48:14.215
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-24 09:48:14.215
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-24 09:48:28.507
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-24 09:48:28.507
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-06-25 10:02:27.693 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 10:03:10.272
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 10:03:10.272
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-25 10:03:24.560
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-25 10:03:24.560
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 15:53:00.042
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 15:53:00.042
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-06-25 17:45:50.364 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 17:45:58.958
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 17:45:58.974
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-25 17:46:14.038
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-25 17:46:14.038
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 17:49:42.995
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-25 17:49:42.995
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-06-26 00:25:00.893 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 00:25:06.141
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 00:25:06.141
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 00:25:13.703
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 00:25:13.703
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-26 00:25:14.013
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-26 00:25:14.018
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 14:19:24.509
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 14:19:39.603
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 14:20:23.641
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 14:28:52.869
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:15:46.882
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:15:51.808
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:23:13.800
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:23:19.803
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:34:47.938
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:34:52.845
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 15:35:32.200
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:27:06.977
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:27:11.864
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:27:46.007
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:35.264
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:37.634
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:38.986
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:41.327
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:44.422
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:33:58.283
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:34:02.744
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:34:19.666
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:34:21.077
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:35:40.831
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:35:41.768
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:40:30.684
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:40:33.960
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:40:58.514
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:41:00.050
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:47:02.045
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:54:02.150
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:54:04.296
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 16:54:05.641
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:14:37.698
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:14:41.252
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:28:13.014
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:28:44.819
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:28:46.393
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:28:49.343
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:32:49.269
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:32:52.478
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:42:52.375
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 17:46:15.992
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+!SESSION 2014-06-26 20:21:04.460 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 20:21:28.591
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 20:21:28.604
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-26 20:21:34.018
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-26 20:21:34.018
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:13:51.273
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:14:48.367
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:14:50.714
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:36:08.260
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:38:12.223
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:38:14.433
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-26 23:38:16.040
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+!SESSION 2014-06-27 10:00:07.659 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:00:21.279
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 10:01:23.703
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 10:01:23.704
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 10:01:28.423
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 10:01:28.423
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:03:48.853
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:03:51.865
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:05:50.458
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:54.654
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:56.416
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:57.486
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:58.000
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:58.450
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:06:59.234
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:11:52.168
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:11:55.400
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:13:01.241
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:13:05.267
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:14:13.069
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:14:17.632
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:17:14.961
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:18:13.004
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:18:15.016
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:18:41.237
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:18:48.347
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:18:54.717
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+!SESSION 2014-06-27 10:28:04.053 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 10:28:12.165
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 10:28:12.167
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 10:28:16.093
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 10:28:16.093
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:21.470
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:21.635
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:23.876
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:23.987
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:24.708
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:24.892
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:36.706
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:36.813
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:38.569
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:38.683
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:39.246
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\ar-SA\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:39.358
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:29:56.632
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:29:59.275
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:30:06.491
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:30:08.952
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:30:10.894
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:30:12.419
+!MESSAGE Problem listing IBM VM processes using C:\Windows\System32\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:34:46.894
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:34:49.411
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-06-27 10:34:50.918
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-06-27 10:34:52.033
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\javaw.exe rc = 1 : Unrecognized option: -J-Dfile.encoding=Cp1254
+
+!SESSION 2014-06-27 15:57:13.313 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 15:57:29.065
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 15:57:29.097
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 15:57:45.228
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-27 15:57:45.228
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 16:32:05.983
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-27 16:32:05.983
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-06-30 10:33:37.456 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-30 10:33:52.571
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-06-30 10:33:52.602
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-30 10:34:07.565
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-06-30 10:34:07.565
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-02 16:04:46.659 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-02 16:04:52.222
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-02 16:04:52.238
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-02 16:05:08.053
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-02 16:05:08.053
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-14 16:29:38.142 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-14 16:29:43.392
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-14 16:29:43.401
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-14 16:29:58.988
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-14 16:29:58.989
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-15 13:13:24.985 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 13:13:42.521
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 13:13:42.524
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 13:13:56.863
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 13:13:56.864
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:15:42.358
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:15:43.884
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:16:27.874
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:16:29.565
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:16:56.705
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:16:56.818
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:16:59.982
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:17:00.099
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:17:00.803
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:17:00.922
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:17:01.409
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:17:12.921
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:20:13.223
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:20:13.338
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:20:15.821
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:20:15.939
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:20:16.792
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:20:16.909
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:20:17.488
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:20:17.606
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 13:20:17.949
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 13:20:18.387
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Could not create the Java virtual machine.
+Unrecognized option: -J-Dfile.encoding=Cp1254
+
+!SESSION 2014-07-15 14:15:14.974 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 14:16:02.899
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 14:16:02.955
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 14:16:08.861
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 14:16:08.862
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 14:17:00.464
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 14:17:01.471
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 14:24:09.784
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 14:24:09.897
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 14:33:29.787
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 14:33:29.903
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+!SESSION 2014-07-15 14:41:44.474 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 14:42:15.737
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 14:42:16.197
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 15:30:38.017
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 15:30:38.432
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 15:30:39.826
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 15:30:39.951
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 15:32:27.039
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 15:32:27.040
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 15:32:32.018
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 15:32:32.018
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-15 16:18:48.103 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:18:52.963
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:18:52.966
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:19:06.730
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:19:07.163
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:19:07.333
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:19:07.334
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-15 16:21:44.953 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:21:57.311
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:21:57.313
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:21:58.013
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:21:58.015
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:22:02.437
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:22:02.884
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:22:23.551
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:22:23.964
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:22:24.655
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:22:24.771
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:22:25.240
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:22:25.356
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+!SESSION 2014-07-15 16:22:47.231 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:22:56.023
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:22:56.026
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:22:56.731
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:22:56.732
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-15 16:37:19.180 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:38:24.559
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:38:24.713
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:38:30.847
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:38:30.850
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:38:55.402
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:38:56.879
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:39:44.269
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:39:44.380
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:41:37.592
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:41:37.702
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:41:41.158
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:41:41.274
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Error: Unable to locate JRE meeting specification "1.6"
+
+!SESSION 2014-07-15 16:45:33.871 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:47:32.504
+!MESSAGE Error getting list of VMs with [HPROF jmap dump provider] provider
+!STACK 0
+org.eclipse.mat.SnapshotException: Error getting Java processes list with 'jps'. Try to configure a JDK for the HPROF jmap provider
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:67)
+	at org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.getAvailableVMs(JMapHeapDumpProvider.java:139)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.doOperation(AcquireDialog.java:449)
+	at org.eclipse.mat.ui.internal.acquire.AcquireDialog$GetVMListRunnable.run(AcquireDialog.java:441)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Cannot run program "C:\Windows\System32\bin\jps": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.mat.hprof.acquire.LocalJavaProcessesUtils.getLocalVMsUsingJPS(LocalJavaProcessesUtils.java:43)
+	... 4 more
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 8 more
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:47:33.054
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Exception in thread "main" java.lang.NoClassDefFoundError: com/ibm/tools/attach/VirtualMachine
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.getAvailableVMs1(IBMDumpProvider.java:513)
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.main(IBMDumpProvider.java:590)
+Caused by: java.lang.ClassNotFoundException: com.ibm.tools.attach.VirtualMachine
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 2 more
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:48:14.036
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Exception in thread "main" java.lang.NoClassDefFoundError: com/ibm/tools/attach/VirtualMachine
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.getAvailableVMs1(IBMDumpProvider.java:513)
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.main(IBMDumpProvider.java:590)
+Caused by: java.lang.ClassNotFoundException: com.ibm.tools.attach.VirtualMachine
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 2 more
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:48:16.864
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Exception in thread "main" java.lang.NoClassDefFoundError: com/ibm/tools/attach/VirtualMachine
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.getAvailableVMs1(IBMDumpProvider.java:513)
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.main(IBMDumpProvider.java:590)
+Caused by: java.lang.ClassNotFoundException: com.ibm.tools.attach.VirtualMachine
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 2 more
+
+
+!ENTRY org.eclipse.mat.ui 2 0 2014-07-15 16:48:30.712
+!MESSAGE Problem listing IBM VM processes using C:\Program Files\Java\jre8\bin\java rc = 1 : Exception in thread "main" java.lang.NoClassDefFoundError: com/ibm/tools/attach/VirtualMachine
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.getAvailableVMs1(IBMDumpProvider.java:513)
+	at org.eclipse.mat.ibmvm.acquire.IBMDumpProvider.main(IBMDumpProvider.java:590)
+Caused by: java.lang.ClassNotFoundException: com.ibm.tools.attach.VirtualMachine
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 2 more
+
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:48:38.891
+!MESSAGE Executing { "C:\Program Files\Java\jdk1.8.0_05\bin\jmap", "-dump:format=b,file=C:\Users\burcakotlu\java_pid3892.0001.hprof", "3892" }
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:48:43.250
+!MESSAGE Detected compressed references, because with uncompressed 64-bit references the array at 0x3c00039f0 would overlap the array at 0x3c00039d0
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:48:44.194
+!MESSAGE Wrote threads call stacks to C:\Users\burcakotlu\java_pid3892.0001.threads
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:48:44.219
+!MESSAGE Heap C:\Users\burcakotlu\java_pid3892.0001.hprof contains 93,956 objects
+
+!ENTRY org.eclipse.mat.ui 1 0 2014-07-15 16:48:45.078
+!MESSAGE Removed 63,985 unreachable objects using 87,781,776 bytes
+!SESSION 2014-07-15 16:50:56.333 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:51:04.671
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-15 16:51:04.684
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:51:05.738
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-15 16:51:05.738
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-07-25 10:18:00.204 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-07-25 10:18:43.295
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-07-25 10:18:43.320
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-25 10:18:48.277
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-07-25 10:18:48.278
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-01 14:27:37.423 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-01 14:28:16.163
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-01 14:28:16.179
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-01 14:28:21.726
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-01 14:28:21.726
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-02 13:16:17.842 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 13:17:00.754
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 13:17:00.770
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-02 13:17:07.536
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-02 13:17:07.536
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-02 22:41:50.910 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 22:42:50.883
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 22:42:50.914
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-02 22:42:56.901
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-02 22:42:56.901
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 22:56:35.007
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-02 22:56:35.008
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-08-03 10:31:02.731 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 10:31:18.607
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 10:31:18.622
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 10:31:24.451
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 10:31:24.451
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-03 14:19:30.485 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-08-03 14:19:35.674
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 14:19:52.072
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 14:19:52.108
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 14:20:19.581
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 14:20:19.581
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-03 23:05:35.847 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 23:05:46.918
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-03 23:05:46.918
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 23:05:52.203
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-03 23:05:52.203
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-04 00:10:59.337 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-04 00:11:04.431
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-04 00:11:04.431
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-04 00:11:06.009
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-04 00:11:06.009
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-04 23:12:36.202 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-04 23:14:06.654
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-04 23:14:06.654
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-04 23:14:09.576
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-04 23:14:09.576
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 00:00:06.112
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 00:00:06.112
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-08-05 11:21:48.708 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 11:22:02.759
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 11:22:02.788
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 11:22:13.445
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 11:22:13.446
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-05 11:22:15.195
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-05 11:22:15.196
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-05 12:28:30.454 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 12:28:40.893
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-05 12:28:40.955
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-05 12:28:45.159
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-05 12:28:45.159
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-08 11:56:54.785 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 11:57:32.563
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 11:57:32.617
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 11:57:45.219
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 11:57:45.219
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-08 13:02:21.168 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 13:02:33.138
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 13:02:33.138
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 13:02:34.810
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 13:02:34.810
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-08 13:54:32.635 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 13:54:37.620
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 13:54:37.620
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 13:54:39.230
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 13:54:39.230
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2014-08-08 14:26:38.457
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [findAllOverlappingHistoneIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntShortMap, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingHistoneIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntShortMap;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:529)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:563)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:289)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:275)
+	at org.eclipse.jdt.internal.core.Member.getFlags(Member.java:165)
+	at org.eclipse.jdt.internal.corext.util.JdtFlags.isPrivate(JdtFlags.java:161)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkSuperImplementationDetector.isOverriddenMethod(JavaElementHyperlinkSuperImplementationDetector.java:54)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkSuperImplementationDetector.addHyperlinks(JavaElementHyperlinkSuperImplementationDetector.java:41)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector.detectHyperlinks(JavaElementHyperlinkDetector.java:114)
+	at org.eclipse.ui.texteditor.HyperlinkDetectorRegistry$HyperlinkDetectorDelegate.detectHyperlinks(HyperlinkDetectorRegistry.java:80)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:289)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:261)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.mouseMove(HyperlinkManager.java:469)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4170)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3759)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:140)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:611)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+!SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-08-08 14:26:38.504
+!MESSAGE findAllOverlappingHistoneIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntShortMap, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingHistoneIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntShortMap;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2014-08-08 14:26:38.504
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [findAllOverlappingHistoneIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntShortMap, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingHistoneIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntShortMap;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:529)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:563)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:289)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:275)
+	at org.eclipse.jdt.internal.core.SourceMethod.getReturnType(SourceMethod.java:188)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkReturnTypeDetector.addHyperlinks(JavaElementHyperlinkReturnTypeDetector.java:43)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector.detectHyperlinks(JavaElementHyperlinkDetector.java:114)
+	at org.eclipse.ui.texteditor.HyperlinkDetectorRegistry$HyperlinkDetectorDelegate.detectHyperlinks(HyperlinkDetectorRegistry.java:80)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:289)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:261)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.mouseMove(HyperlinkManager.java:469)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4170)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3759)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:140)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:611)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+!SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-08-08 14:26:38.504
+!MESSAGE findAllOverlappingHistoneIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntShortMap, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingHistoneIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntShortMap;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist
+!SESSION 2014-08-08 22:39:45.089 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 22:43:19.276
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-08 22:43:19.287
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 22:43:23.446
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-08 22:43:23.447
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-09 11:59:56.005 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-09 12:00:02.481
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-09 12:00:02.481
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-09 12:00:04.361
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-09 12:00:04.361
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-09 22:44:59.822 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-09 22:45:06.655
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-09 22:45:06.655
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-09 22:45:08.359
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-09 22:45:08.359
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2014-08-09 23:39:24.396
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, Map<String,List<String>>, List<String>, TShortShortMap, TShortShortMap, TShortShortMap, String, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/String;>;>;Ljava/util/List<Ljava/lang/String;>;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Ljava/lang/String;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:529)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:563)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:289)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:275)
+	at org.eclipse.jdt.internal.core.Member.getFlags(Member.java:165)
+	at org.eclipse.jdt.internal.corext.util.JdtFlags.isPrivate(JdtFlags.java:161)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkSuperImplementationDetector.isOverriddenMethod(JavaElementHyperlinkSuperImplementationDetector.java:54)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkSuperImplementationDetector.addHyperlinks(JavaElementHyperlinkSuperImplementationDetector.java:41)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector.detectHyperlinks(JavaElementHyperlinkDetector.java:114)
+	at org.eclipse.ui.texteditor.HyperlinkDetectorRegistry$HyperlinkDetectorDelegate.detectHyperlinks(HyperlinkDetectorRegistry.java:80)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:289)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:261)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.mouseMove(HyperlinkManager.java:469)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4170)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3759)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:140)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:611)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+!SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-08-09 23:39:24.428
+!MESSAGE findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, Map<String,List<String>>, List<String>, TShortShortMap, TShortShortMap, TShortShortMap, String, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/String;>;>;Ljava/util/List<Ljava/lang/String;>;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Ljava/lang/String;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2014-08-09 23:39:24.443
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, Map<String,List<String>>, List<String>, TShortShortMap, TShortShortMap, TShortShortMap, String, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/String;>;>;Ljava/util/List<Ljava/lang/String;>;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Ljava/lang/String;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:529)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:563)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:289)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:275)
+	at org.eclipse.jdt.internal.core.SourceMethod.getReturnType(SourceMethod.java:188)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkReturnTypeDetector.addHyperlinks(JavaElementHyperlinkReturnTypeDetector.java:43)
+	at org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector.detectHyperlinks(JavaElementHyperlinkDetector.java:114)
+	at org.eclipse.ui.texteditor.HyperlinkDetectorRegistry$HyperlinkDetectorDelegate.detectHyperlinks(HyperlinkDetectorRegistry.java:80)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:289)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.findHyperlinks(HyperlinkManager.java:261)
+	at org.eclipse.jface.text.hyperlink.HyperlinkManager.mouseMove(HyperlinkManager.java:469)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4170)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3759)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:140)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:611)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+!SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-08-09 23:39:24.443
+!MESSAGE findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String, IntervalTreeNode, Interval, ChromosomeName, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, TIntObjectMap<BufferedWriter>, Map<String,List<String>>, List<String>, TShortShortMap, TShortShortMap, TShortShortMap, String, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, List<UcscRefSeqGeneOverlap>, int) {key=Lintervaltree/IntervalTree;.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(Ljava/lang/String;Lintervaltree/IntervalTreeNode;Lintervaltree/Interval;Lenumtypes/ChromosomeName;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Lgnu/trove/map/TIntObjectMap<Ljava/io/BufferedWriter;>;Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/String;>;>;Ljava/util/List<Ljava/lang/String;>;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Lgnu/trove/map/TShortShortMap;Ljava/lang/String;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;Ljava/util/List<Lannotate/intervals/parametric/UcscRefSeqGeneOverlap;>;I)V} [in IntervalTree [in [Working copy] IntervalTree.java [in intervaltree [in src [in Doktora]]]]] does not exist
+!SESSION 2014-08-11 23:53:53.305 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-11 23:53:58.790
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-11 23:53:58.806
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-11 23:54:00.306
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-11 23:54:00.306
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-12 11:21:22.957 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 11:21:36.544
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 11:21:36.559
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 11:21:42.903
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 11:21:42.903
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-12 12:58:56.657 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 12:59:02.783
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 12:59:02.783
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 12:59:04.439
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 12:59:04.439
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-12 22:47:42.256 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 22:56:18.584
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-12 22:56:18.589
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 22:56:22.327
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-12 22:56:22.328
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-13 10:55:32.403 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-13 10:56:14.698
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-13 10:56:14.708
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-13 10:56:35.246
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-13 10:56:35.247
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2014-08-13 23:01:37.562 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-13 23:01:49.718
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-13 23:01:49.750
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-13 23:01:55.516
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-13 23:01:55.516
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 00:06:06.681
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 00:06:06.681
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+!SESSION 2014-08-14 14:24:40.707 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 14:25:22.096
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 14:25:22.112
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 14:27:03.859
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
+
+!ENTRY org.eclipse.ui 4 4 2014-08-14 14:27:03.859
+!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-14 14:27:11.797
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-08-14 14:27:11.797
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\burcakotlu'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.

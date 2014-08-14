@@ -28,13 +28,6 @@
  */
 package intervaltree;
 
-import empiricalpvalues.KeyOrder;
-import gnu.trove.list.TShortList;
-import gnu.trove.map.TIntIntMap;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TLongIntMap;
-import gnu.trove.map.TLongObjectMap;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -44,15 +37,32 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ui.GlanetRunner;
 import annotate.intervals.parametric.PermutationNumberTfNameCellLineNameOverlap;
 import annotate.intervals.parametric.PermutationNumberTfNumberCellLineNumberOverlap;
 import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneNumberOverlap;
 import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneOverlap;
+import annotate.intervals.parametric.TfCellLineOverlapWithNumbers;
 import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
+import annotate.intervals.parametric.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.ChromosomeName;
+import enumtypes.KeggPathwayAnalysisType;
+import enumtypes.KeyOrder;
+import enumtypes.NodeName;
+import gnu.trove.iterator.TShortIterator;
+import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TShortArrayList;
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TIntShortMap;
+import gnu.trove.map.TLongIntMap;
+import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.TShortShortMap;
 
 public class IntervalTree {
 
@@ -752,20 +762,19 @@ public class IntervalTree {
 				
 				if (Commons.DNASE.equals(type)){
 					castedNodeDnase = (DnaseIntervalTreeNode) node;
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeDnase.getChromName())+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
+					bufferedWriter.write(castedNodeDnase.getChromName().getChromosomeName()+ "\t" + castedNodeDnase.getLow()+"\t"+ castedNodeDnase.getHigh() +"\t" + castedNodeDnase.getCellLineName()+"\t" + castedNodeDnase.getFileName()+System.getProperty("line.separator"));																
 				}else if (Commons.TFBS.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;					
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeTforHistone.getChromName())+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
+					bufferedWriter.write(castedNodeTforHistone.getChromName().getChromosomeName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if (Commons.HISTONE.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;										
-					bufferedWriter.write(castedNodeTforHistone.getChromName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
+					bufferedWriter.write(castedNodeTforHistone.getChromName().getChromosomeName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
 				}else if(Commons.UCSC_GENE.equals(type)){
 					castedNodeUcscRefSeqGene = (UcscRefSeqGeneIntervalTreeNode) node;
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(castedNodeUcscRefSeqGene.getChromName())+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName()+ "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
+					bufferedWriter.write(castedNodeUcscRefSeqGene.getChromName().getChromosomeName()+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName().getIntervalNameString()+ "\t" + castedNodeUcscRefSeqGene.getIntervalNumber() + "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
 //					bufferedWriter.write(refSeqGeneIntervalList.get(j).getChromName()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalStart()+"\t"+ refSeqGeneIntervalList.get(j).getIntervalEnd()+"\t" +refSeqGeneIntervalList.get(j).getRefSeqGeneName()+ "\t" + refSeqGeneIntervalList.get(j).getGeneId()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalName()+ "\t" + refSeqGeneIntervalList.get(j).getStrand() + "\t" + refSeqGeneIntervalList.get(j).getAlternateGeneName()+ System.getProperty("line.separator"));					
 				}else if (Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS.equals(type)){
-					bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
-
+					bufferedWriter.write(node.getChromName().getChromosomeName()+ "\t" + node.getLow()+"\t"+ node.getHigh() +  System.getProperty("line.separator"));
 				}
 				bufferedWriter.flush();
 			}
@@ -1293,10 +1302,79 @@ public class IntervalTree {
 			
 	}
 	
+	//@todo for Annotation with Numbers starts
 	//Search2 For finding the number of each histoneNameandCellLineName: k for the given search input size: n
 	//For each search input line, each histoneNameandCellLineName will have value 1 or 0
 	//These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap		
-	public void findAllOverlappingHistoneIntervals(String outputFolder, IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2ZeroorOneMap,int overlapDefinition){
+	public void findAllOverlappingHistoneIntervalsWithNumbers(String outputFolder, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap histoneNumberCellLineNumber2ZeroorOneMap,int overlapDefinition,TShortObjectMap<String> histoneNumber2HistoneNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		
+		String histoneName;
+		String cellLineName;
+		String fileName;
+				
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		
+		if (node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
+		}
+									
+	
+		int histoneNumberCellLineNumber = generateCombinedNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short)0);
+		
+
+			if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				try {	
+					
+					histoneName = histoneNumber2HistoneNameMap.get(castedNode.getTforHistoneNumber());
+					cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+					fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
+				
+					
+					bufferedWriter = bufferedWriterHashMap.get(histoneNumberCellLineNumber);
+					
+					if (bufferedWriter==null){						
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE +"_" + histoneName + "_" + cellLineName + ".txt",true);
+						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriterHashMap.put(histoneNumberCellLineNumber,bufferedWriter);
+						bufferedWriter.write("Searched for chr" + "\t"  + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t"  + "node Low" + "\t" + "node high" + "\t" + "node HistoneName" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
+						
+					}
+					
+					if(!histoneNumberCellLineNumber2ZeroorOneMap.containsKey(histoneNumberCellLineNumber)){
+						histoneNumberCellLineNumber2ZeroorOneMap.put(histoneNumberCellLineNumber, (short)1);
+					}
+										
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + histoneName + "\t" + cellLineName + "\t" + fileName +System.getProperty("line.separator"));
+					bufferedWriter.flush();
+									
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}					
+			}
+			
+			
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingHistoneIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,bufferedWriterHashMap,histoneNumberCellLineNumber2ZeroorOneMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingHistoneIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,bufferedWriterHashMap,histoneNumberCellLineNumber2ZeroorOneMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+				
+			}
+				
+	}
+	//@todo for Annotation with Numbers ends
+	
+	
+	//Search2 For finding the number of each histoneNameandCellLineName: k for the given search input size: n
+	//For each search input line, each histoneNameandCellLineName will have value 1 or 0
+	//These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap		
+	public void findAllOverlappingHistoneIntervals(String outputFolder, IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> histoneNameList, Map<String,Integer> histoneNameandCellLineName2ZeroorOneMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1327,7 +1405,7 @@ public class IntervalTree {
 						histoneNameandCellLineName2ZeroorOneMap.put(histoneNameandCellLine, 1);
 					}
 										
-					bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + String.valueOf(castedNode.getCellLineName()) + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + String.valueOf(castedNode.getCellLineName()) + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
 					bufferedWriter.flush();
 									
 
@@ -1776,7 +1854,7 @@ public class IntervalTree {
 	//Search2 For finding the number of each tfbs:k for the given search input size: n
 	//For each search input line, each tfbs will have value 1 or 0
 	//These 1 or 0's will be accumulated in tfbs2KMap
-	public void findAllOverlappingTfbsIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap){
+	public void findAllOverlappingTfbsIntervals(IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1803,7 +1881,7 @@ public class IntervalTree {
 						tfbsNameandCellLineName2ZeroorOneMap.put(tfbsNameandCellLineName, 1);
 					}
 					
-					bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() +"\t" + "tfbs" + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
+					bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() +"\t" + "tfbs" + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
 					bufferedWriter.flush();
 					
 				} catch (IOException e) {
@@ -1823,12 +1901,64 @@ public class IntervalTree {
 			}		
 	}
 
+	//@todo Annotation with Numbers starts
+	public void findAllOverlappingTfbsIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap tfNumberCellLineNumber2ZeroorOneMap, List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList,int overlapDefinition,TShortObjectMap<String> tfNumber2TfNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		if (node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
+		}
+		
+		//KEGG Pathway number included
+		int elementNumberCellLineNumber = IntervalTree.generateCombinedNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short)0);
+		
+		
+			if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				try {
+					
+					bufferedWriter = bufferedWriterHashMap.get(elementNumberCellLineNumber);
+														
+					if (bufferedWriter==null){						
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
+						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriterHashMap.put(elementNumberCellLineNumber,bufferedWriter);
+						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
+						bufferedWriter.flush();
+					}
+						
+					if(!tfNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
+						tfNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, (short)1);
+					}
+					
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber())+ "\t" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) +System.getProperty("line.separator"));
+					bufferedWriter.flush();
+					
+					tfandCellLineOverlapList.add(new TfCellLineOverlapWithNumbers(elementNumberCellLineNumber,castedNode.getLow(),castedNode.getHigh()));
+
+					} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+			}
+			
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName, bufferedWriterHashMap,tfNumberCellLineNumber2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName, bufferedWriterHashMap,tfNumberCellLineNumber2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}		
+	}
+	//@todo Annotation with Numbers ends
 	
 	//New Functionality added
 	//Search2 For finding the number of each tfbs:k for the given search input size: n
 	//For each search input line, each tfbs will have value 1 or 0
 	//These 1 or 0's will be accumulated in tfbs2KMap
-	public void findAllOverlappingTfbsIntervals(String outputFolder,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap, List<TfNameandCellLineNameOverlap> tfandCellLineOverlapList,int overlapDefinition){
+	public void findAllOverlappingTfbsIntervals(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList, Map<String,Integer> tfbsNameandCellLineName2ZeroorOneMap, List<TfNameandCellLineNameOverlap> tfandCellLineOverlapList,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -1858,7 +1988,7 @@ public class IntervalTree {
 						tfbsNameandCellLineName2ZeroorOneMap.put(tfbsNameandCellLineName, 1);
 					}
 					
-					bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName()+ "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
 					bufferedWriter.flush();
 					
 					tfandCellLineOverlapList.add(new TfNameandCellLineNameOverlap(tfbsNameandCellLineName,castedNode.getLow(),castedNode.getHigh()));
@@ -2127,6 +2257,111 @@ public class IntervalTree {
 	}
 	//mixed ends
 	
+	//@todo For Annotation with Numbers starts
+	public static int removeCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		int elementNumber;
+		int cellLineNumber;
+		int keggPathwayNumber;
+		
+		int elmentNumberCellLineNumber;
+		int elementNumberKeggPathwayNumber;
+		
+		
+		
+		
+		//example 100_300_020 
+		keggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000;
+		elmentNumberCellLineNumber = elementNumberCellLineNumberKeggPathwayNumber-keggPathwayNumber;
+		cellLineNumber = elmentNumberCellLineNumber %1000000;
+		elementNumber = elmentNumberCellLineNumber-cellLineNumber;
+		elementNumberKeggPathwayNumber = elementNumber + keggPathwayNumber;
+		
+		return elementNumberKeggPathwayNumber;
+	}
+	//@todo For Annotation with Numbers ends
+	
+	//@todo For Annotation with Numbers starts
+	public static int removeElementNumberCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		int keggPathwayNumber;
+		
+		//example 100_300_020 
+		keggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000;
+		
+		return keggPathwayNumber;
+	}
+	//@todo For Annotation with Numbers ends
+	
+	//@todo For Annotation with Numbers starts
+	public static int removeCellLineNumberKeggPathwayNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		int elementNumber;
+		int cellLineNumberKeggPathwayNumber;
+		
+		//example 100_300_020 
+		cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
+		
+		elementNumber =  elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber;
+		
+		return elementNumber;
+	}
+	//@todo For Annotation with Numbers ends
+	
+	//@todo For Annotation with Numbers starts
+	public static short getKeggPathwayNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		short keggPathwayNumber;
+		
+		//example 100_300_020 
+		keggPathwayNumber = (short) (elementNumberCellLineNumberKeggPathwayNumber % 1000);
+		
+		return keggPathwayNumber;
+	}
+	//@todo For Annotation with Numbers ends
+	
+	//@todo For Annotation with Numbers starts
+	public static short getCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		short cellLineNumber;
+		
+		//example 100_300_020 
+		cellLineNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber / 1000) % 1000);
+		
+		return cellLineNumber;
+	}
+	//@todo For Annotation with Numbers ends
+	
+	//@todo For Annotation with Numbers starts
+	public static short getElementNumber(int elementNumberCellLineNumberKeggPathwayNumber){
+		//1., 2. and 3. digits show  keggPathwayNumber
+		//4., 5. and 6. digits show  cellLineNumber
+		//7., 8., 9. and 10.  digits show elementNumber
+		short elementNumber;
+		int cellLineNumberKeggPathwayNumber;
+		
+		//example 100_300_020 
+		cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
+		
+		elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber)/1000000);
+		
+		return elementNumber;
+	}
+	//@todo For Annotation with Numbers ends
+
+	
+	
+	
 	//long starts
 	public static int getCellLineNumber(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber){
 		
@@ -2249,6 +2484,22 @@ public class IntervalTree {
 		return permutationNumberCellLineNumberorKeggPathwayNumber;
 		
 	}
+	
+	//For Annotation starts
+	public static int generateCombinedNumber(short elementNumber, short cellLineNumber, short keggPathwayNumber){
+		int combinedNumber;
+		
+		//Integer.MAX 2147_483_647
+		//Integer.MIN -2147_483_648
+		
+		//1.,2.,3. digits show the KEGG Pathway number if any (last three digits)
+		//4.,5.,6., digits show the cell line number (middle three digits)
+		//7.,8.,9.,10. digits show the element number (first four digits)
+		
+		combinedNumber = elementNumber*1000000 + cellLineNumber*1000 + keggPathwayNumber;
+		return combinedNumber;
+	}	
+	//For Annotation ends
 	
 	//long version
 	public static long generateCombinedNumber(int permutationNumber,short elementNumber,short cellLineNumber,short keggPathwayNumber){
@@ -2400,11 +2651,70 @@ public class IntervalTree {
 							
 		}
 
-	
+	//@todo Annotation with Numbers starts
 	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
 	//For each search input line, each dnase cell line will have value 1 or 0
 	//These 1 or 0's will be accumulated in dnaseCellLine2KMap		
-	public void findAllOverlappingDnaseIntervals(String outputFolder,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2OneorZeroMap,int overlapDefinition){
+	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TShortObjectMap<BufferedWriter> dnaseCellLineNumber2bufferedWriterHashMap,TShortShortMap dnaseCellLineNumber2OneorZeroMap,int overlapDefinition,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String cellLineName;
+		String fileName;
+		
+		
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+		
+			if (node instanceof DnaseIntervalTreeNodeWithNumbers){
+				
+				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
+			}
+		
+			if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				try {
+					
+					cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+					fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
+					
+					bufferedWriter = (BufferedWriter)dnaseCellLineNumber2bufferedWriterHashMap.get(castedNode.getCellLineNumber());
+					
+					if (bufferedWriter==null){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + cellLineName + ".txt",true);
+						bufferedWriter = new BufferedWriter(fileWriter);
+						dnaseCellLineNumber2bufferedWriterHashMap.put(castedNode.getCellLineNumber(),bufferedWriter);
+						bufferedWriter.write("Searched for chr" + "\t" + "given interval low" + "\t" + 	"given interval high"+ "\t" + "dnase overlap chrom name" + "\t"  + "node low" + "\t" + "node high" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));												
+					}										
+					
+					if(!dnaseCellLineNumber2OneorZeroMap.containsKey(castedNode.getCellLineNumber())){
+						dnaseCellLineNumber2OneorZeroMap.put(castedNode.getCellLineNumber(), (short)1);
+					}
+					
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()+ "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName +System.getProperty("line.separator"));
+					bufferedWriter.flush();	
+					
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+			}
+			
+			
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,dnaseCellLineNumber2bufferedWriterHashMap, dnaseCellLineNumber2OneorZeroMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,dnaseCellLineNumber2bufferedWriterHashMap,dnaseCellLineNumber2OneorZeroMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+				
+			}					
+	}	
+	//@todo Annotation with Numbers ends
+		
+	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
+	//For each search input line, each dnase cell line will have value 1 or 0
+	//These 1 or 0's will be accumulated in dnaseCellLine2KMap		
+	public void findAllOverlappingDnaseIntervals(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, List<String> dnaseCellLineNameList,Map<String,Integer> dnaseCellLine2OneorZeroMap,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -2435,7 +2745,7 @@ public class IntervalTree {
 						dnaseCellLine2OneorZeroMap.put(castedNode.getCellLineName(), 1);
 					}
 					
-					bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh()+ "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()+ "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() +System.getProperty("line.separator"));
 					bufferedWriter.flush();	
 					
 					
@@ -2464,7 +2774,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap, TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap, TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 	
@@ -2484,7 +2794,7 @@ public class IntervalTree {
 					try {
 												
 						//write exon based results
-						if (Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
 							if (castedNode.getIntervalName().isExon()){
@@ -2514,7 +2824,7 @@ public class IntervalTree {
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 										}
 										
-										bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() +  "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() +  "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 										bufferedWriter.flush();	
 									
 										
@@ -2524,7 +2834,7 @@ public class IntervalTree {
 
 						}
 						//write regulation based results
-						else if (Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
 							if (castedNode.getIntervalName().isIntron() ||
 								castedNode.getIntervalName().isFivePOne() ||
@@ -2558,7 +2868,7 @@ public class IntervalTree {
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 										}
 										
-										bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" +  castedNode.getGeneHugoSymbolNumber()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" +  castedNode.getGeneHugoSymbolNumber()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 										bufferedWriter.flush();	
 											
 									}// End of For: for all kegg pathways having this gene in their gene list
@@ -2593,7 +2903,7 @@ public class IntervalTree {
 										permutationNumberKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 									}
 									
-									bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 									bufferedWriter.flush();	
 									
 									
@@ -2631,7 +2941,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 	
@@ -2651,10 +2961,10 @@ public class IntervalTree {
 					try {
 												
 						//write exon based results
-						if (Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2687,13 +2997,13 @@ public class IntervalTree {
 
 						}
 						//write regulation based results
-						else if (Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2906,7 +3216,7 @@ public class IntervalTree {
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap	
 	//without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType,int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,List<String>> geneId2KeggPathwayMap, Map<String,Integer> permutationNumberKeggPathway2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType,int overlapDefinition){
 		String permutationNumberKeggPathwayName = null;
 		String keggPathwayName = null;
 		List<String> keggPathWayListContainingThisGeneId = null;
@@ -2922,10 +3232,10 @@ public class IntervalTree {
 						}
 					
 						//write exon based results
-						if (Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -2946,13 +3256,13 @@ public class IntervalTree {
 
 						}
 						//write regulation based results
-						else if (Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne() ||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -3233,10 +3543,10 @@ public class IntervalTree {
 					keggPathwayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 				
 					//write exon based results
-					if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+					if (castedNode.getIntervalName().isExon()){							
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
@@ -3267,15 +3577,15 @@ public class IntervalTree {
 					
 					//write regulation based results
 					//Regulation Based kegg pathway analysis
-					if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-						castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-						castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-						castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-						castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+					if (castedNode.getIntervalName().isIntron() ||
+						castedNode.getIntervalName().isFivePOne() ||
+						castedNode.getIntervalName().isFivePTwo() ||
+						castedNode.getIntervalName().isThreePOne()||
+						castedNode.getIntervalName().isThreePTwo()){
 													
 						if(keggPathwayListContainingThisGeneId!=null){
 							
-							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 							
 							for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 								
@@ -3308,7 +3618,7 @@ public class IntervalTree {
 					//write all results							
 					if(keggPathwayListContainingThisGeneId!=null){
 						
-						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 						
 						for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 							
@@ -3382,7 +3692,7 @@ public class IntervalTree {
 						keggPathwayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 					
 						//write exon based results
-						if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+						if (castedNode.getIntervalName().isExon()){							
 							if(keggPathwayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 									
@@ -3413,11 +3723,11 @@ public class IntervalTree {
 						
 						//write regulation based results
 						//Regulation Based kegg pathway analysis
-						if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+						if (castedNode.getIntervalName().isIntron() ||
+							castedNode.getIntervalName().isFivePOne() ||
+							castedNode.getIntervalName().isFivePTwo() ||
+							castedNode.getIntervalName().isThreePOne()||
+							castedNode.getIntervalName().isThreePTwo()){
 														
 							if(keggPathwayListContainingThisGeneId!=null){
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
@@ -3636,10 +3946,10 @@ public class IntervalTree {
 						
 						
 							//write exon based results
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){							
+							if (castedNode.getIntervalName().isExon()){							
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 									
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
@@ -3659,15 +3969,15 @@ public class IntervalTree {
 							
 							//write regulation based results
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 															
 								if(keggPathwayListContainingThisGeneId!=null){
 									
-									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber ,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+									permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber ,castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 									for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 										
@@ -3687,7 +3997,7 @@ public class IntervalTree {
 							//write all results							
 							if(keggPathwayListContainingThisGeneId!=null){
 								
-								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
+								permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathwayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathwayListContainingThisGeneId.size(); i++){
 									
@@ -3720,6 +4030,169 @@ public class IntervalTree {
 
 	//NEW FUNCIONALITY
 		
+	//@todo for Annotation with Numbers starts
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
+			String outputFolder,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName, 
+			TShortObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, 
+			TShortObjectMap<BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, 
+			TShortObjectMap<BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, 
+			TIntObjectMap<TShortArrayList> geneId2ListofKeggPathwayNumberMap, 
+			TShortShortMap exonBasedKeggPathway2OneorZeroMap, 
+			TShortShortMap regulationBasedKeggPathway2OneorZeroMap, 
+			TShortShortMap allBasedKeggPathway2OneorZeroMap, 
+			String type, 
+			List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKeggPathwayOverlapList, 
+			List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKeggPathwayOverlapList, 
+			List<UcscRefSeqGeneOverlapWithNumbers> allBasedKeggPathwayOverlapList, 
+			int overlapDefinition,
+			TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		short keggPathwayNumber;
+		TShortArrayList keggPathWayNumberListContainingThisGeneId = null;
+		
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+		
+			if (Commons.NCBI_GENE_ID.equals(type)){
+				if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+					
+					if (node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+						castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers) node;						
+					}
+					
+					keggPathWayNumberListContainingThisGeneId =  geneId2ListofKeggPathwayNumberMap.get(castedNode.getGeneEntrezId());
+					
+					try {
+												
+						//write exon based kegg pathway results
+						if (castedNode.getIntervalName().isExon()){
+							
+							if(keggPathWayNumberListContainingThisGeneId!=null){
+								
+								exonBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(castedNode.getRefSeqGeneNumber(), castedNode.getGeneHugoSymbolNumber(), castedNode.getGeneEntrezId(),keggPathWayNumberListContainingThisGeneId,castedNode.getIntervalName(), castedNode.getIntervalNumber(), node.getLow(), node.getHigh()));
+
+								for(TShortIterator it =keggPathWayNumberListContainingThisGeneId.iterator(); it.hasNext();){
+									keggPathwayNumber = it.next();	
+									
+										
+									bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayNumber);										
+									
+									if (bufferedWriter == null){
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+										bufferedWriter = new BufferedWriter(fileWriter);
+										exonBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
+										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
+										bufferedWriter.flush();
+									}
+																				
+									
+									if(!exonBasedKeggPathway2OneorZeroMap.containsKey(keggPathwayNumber)){
+										exonBasedKeggPathway2OneorZeroMap.put(keggPathwayNumber, (short)1);
+									}
+									
+									bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber())+ "\t" + castedNode.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber())+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+									bufferedWriter.flush();	
+																			
+									
+								}// End of For: for all keggpathways having this gene in their gene list
+							} //End of If: keggPathWayListContainingThisGeneId is not null								
+						}// End of If: Exon Based Kegg Pathway Analysis, Overlapped node is an exon
+
+						
+						//write regulation based kegg pathway results
+						if (castedNode.getIntervalName().isIntron() ||
+							castedNode.getIntervalName().isFivePOne() ||
+							castedNode.getIntervalName().isFivePTwo() ||
+							castedNode.getIntervalName().isThreePOne()||
+							castedNode.getIntervalName().isThreePTwo()){
+							
+							
+							if(keggPathWayNumberListContainingThisGeneId!=null){
+								
+								regulationBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(castedNode.getRefSeqGeneNumber(),castedNode.getGeneHugoSymbolNumber(),castedNode.getGeneEntrezId(), keggPathWayNumberListContainingThisGeneId, castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getLow(), castedNode.getHigh()));
+
+								for(TShortIterator it = keggPathWayNumberListContainingThisGeneId.iterator(); it.hasNext();){
+									keggPathwayNumber = it.next();	
+									
+									bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayNumber);
+									
+									if (bufferedWriter == null){
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+										bufferedWriter = new BufferedWriter(fileWriter);
+										regulationBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
+										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
+										bufferedWriter.flush();
+									}
+
+									
+									
+									if(!regulationBasedKeggPathway2OneorZeroMap.containsKey(keggPathwayNumber)){
+										regulationBasedKeggPathway2OneorZeroMap.put(keggPathwayNumber, (short)1);
+									}
+									
+									bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber())+ "\t" + castedNode.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber())+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+									bufferedWriter.flush();	
+										
+								}// End of For: for all kegg pathways having this gene in their gene list
+							} // End of If:		keggPathWayListContainingThisGeneId is not null					
+						}//End of If: Regulation Based kegg pathway Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+
+						
+						//write all results
+						if(keggPathWayNumberListContainingThisGeneId!=null){
+							
+							allBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(castedNode.getRefSeqGeneNumber(),castedNode.getGeneHugoSymbolNumber(),castedNode.getGeneEntrezId(),keggPathWayNumberListContainingThisGeneId, castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getLow(), castedNode.getHigh()));
+							
+							for(TShortIterator it = keggPathWayNumberListContainingThisGeneId.iterator(); it.hasNext();){
+								keggPathwayNumber = it.next();	
+								
+									
+								bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayNumber);
+								
+								
+								if (bufferedWriter==null){
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+									bufferedWriter = new BufferedWriter(fileWriter);
+									allBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
+									bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
+									bufferedWriter.flush();					
+								}
+								
+								
+								if(!allBasedKeggPathway2OneorZeroMap.containsKey(keggPathwayNumber)){
+									allBasedKeggPathway2OneorZeroMap.put(keggPathwayNumber,(short) 1);
+								}
+								
+								bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber())+ "\t" + castedNode.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber())+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+								bufferedWriter.flush();	
+																	
+							}// End of For: for all kegg pathways having this gene in their gene list
+						} // End of If:		keggPathWayListContainingThisGeneId is not null	
+							
+					} catch (IOException e) {
+						e.printStackTrace();
+					}					
+				}	
+			} //End of If: type is NCBI_GENE_ID
+				
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,geneId2ListofKeggPathwayNumberMap, exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,type,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap, geneId2ListofKeggPathwayNumberMap, exonBasedKeggPathway2OneorZeroMap,regulationBasedKeggPathway2OneorZeroMap,allBasedKeggPathway2OneorZeroMap,type,exonBasedKeggPathwayOverlapList,regulationBasedKeggPathwayOverlapList,allBasedKeggPathwayOverlapList,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);	
+				
+			}
+	}
+	//New Functionality ends	
+	//@todo for Annotation with Numbers ends	
+		
 		
 	//New Functionality starts
 	//Search2 Kegg Pathway
@@ -3727,7 +4200,7 @@ public class IntervalTree {
 	//Search for KEGG Pathways (exon based, regulation based, all based)
 	//Search for TF and KEGG Pathways (tf and exonBased, tf and regulationBased,tf and allBased)	
 	//will be modified	
-	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, List<String> keggPathwayNameList, Map<String,Integer> exonBasedKeggPathway2OneorZeroMap,Map<String,Integer> regulationBasedKeggPathway2OneorZeroMap, Map<String,Integer> allBasedKeggPathway2OneorZeroMap, String type, List<UcscRefSeqGeneOverlap> exonBasedKeggPathwayOverlapList, List<UcscRefSeqGeneOverlap> regulationBasedKeggPathwayOverlapList, List<UcscRefSeqGeneOverlap> allBasedKeggPathwayOverlapList, int overlapDefinition){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, Map<String,BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, List<String> keggPathwayNameList, Map<String,Integer> exonBasedKeggPathway2OneorZeroMap,Map<String,Integer> regulationBasedKeggPathway2OneorZeroMap, Map<String,Integer> allBasedKeggPathway2OneorZeroMap, String type, List<UcscRefSeqGeneOverlap> exonBasedKeggPathwayOverlapList, List<UcscRefSeqGeneOverlap> regulationBasedKeggPathwayOverlapList, List<UcscRefSeqGeneOverlap> allBasedKeggPathwayOverlapList, int overlapDefinition){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -3748,11 +4221,11 @@ public class IntervalTree {
 					try {
 												
 						//write exon based kegg pathway results
-						if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+						if (castedNode.getIntervalName().isExon()){
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								
-								exonBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathWayListContainingThisGeneId));
+								exonBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), node.getLow(), node.getHigh(),keggPathWayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3774,7 +4247,7 @@ public class IntervalTree {
 											exonBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
 										}
 										
-										bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+										bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 										bufferedWriter.flush();	
 										
 									
@@ -3787,16 +4260,16 @@ public class IntervalTree {
 
 						
 						//write regulation based kegg pathway results
-						if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-							castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-							castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+						if (castedNode.getIntervalName().isIntron() ||
+							castedNode.getIntervalName().isFivePOne() ||
+							castedNode.getIntervalName().isFivePTwo() ||
+							castedNode.getIntervalName().isThreePOne()||
+							castedNode.getIntervalName().isThreePTwo()){
 							
 							
 							if(keggPathWayListContainingThisGeneId!=null){
 								
-								regulationBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
+								regulationBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
 
 								for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3819,7 +4292,7 @@ public class IntervalTree {
 											regulationBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
 										}
 										
-										bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+										bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 										bufferedWriter.flush();	
 										
 
@@ -3834,7 +4307,7 @@ public class IntervalTree {
 						//write all results
 						if(keggPathWayListContainingThisGeneId!=null){
 							
-							allBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(),castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
+							allBasedKeggPathwayOverlapList.add(new UcscRefSeqGeneOverlap(castedNode.getRefSeqGeneName(), castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),keggPathWayListContainingThisGeneId));
 							
 							for(int i= 0; i<keggPathWayListContainingThisGeneId.size(); i++){
 								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);	
@@ -3857,7 +4330,7 @@ public class IntervalTree {
 										allBasedKeggPathway2OneorZeroMap.put(keggPathwayName, 1);
 									}
 									
-									bufferedWriter.write(chromName + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+									bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 									bufferedWriter.flush();	
 									
 
@@ -3890,7 +4363,7 @@ public class IntervalTree {
 	//For finding the number of each keggpathway:k for the given search input size: n
 	//For each search input line, each kegg pathway will have a value of 1 or 0
 	//These 1 or 0's will be accumulated in keggPathway2KMap		
-	public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, List<String> keggPathwayNameList, Map<String,Integer> keggPathway2OneorZeroMap, String type, String keggPathwayAnalysisType){
+	public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,List<String>> geneId2KeggPathwayMap, List<String> keggPathwayNameList, Map<String,Integer> keggPathway2OneorZeroMap, String type, KeggPathwayAnalysisType keggPathwayAnalysisType){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -3910,10 +4383,10 @@ public class IntervalTree {
 						}
 								
 						//write exon based results
-						if (Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							
 							//exon based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.EXON)){
+							if (castedNode.getIntervalName().isExon()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -3936,7 +4409,7 @@ public class IntervalTree {
 												keggPathway2OneorZeroMap.put(keggPathwayName, 1);
 											}
 											
-											bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+											bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 											bufferedWriter.flush();	
 										}//If this keggPathwayName is in  keggPathwayNameList
 										
@@ -3947,13 +4420,13 @@ public class IntervalTree {
 
 						}
 						//write regulation based results
-						else if (Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS.equals(keggPathwayAnalysisType)){
+						else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 							//Regulation Based kegg pathway analysis
-							if (castedNode.getIntervalName().startsWith(Commons.INTRON) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_ONE) ||
-								castedNode.getIntervalName().startsWith(Commons.FIVE_P_TWO) ||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_ONE)||
-								castedNode.getIntervalName().startsWith(Commons.THREE_P_TWO)){
+							if (castedNode.getIntervalName().isIntron() ||
+								castedNode.getIntervalName().isFivePOne() ||
+								castedNode.getIntervalName().isFivePTwo() ||
+								castedNode.getIntervalName().isThreePOne()||
+								castedNode.getIntervalName().isThreePTwo()){
 								
 								keggPathWayListContainingThisGeneId =  geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 								
@@ -3976,7 +4449,7 @@ public class IntervalTree {
 												keggPathway2OneorZeroMap.put(keggPathwayName, 1);
 											}
 											
-											bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+											bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 											bufferedWriter.flush();	
 										}//If this keggPathwayName is in  keggPathwayNameList
 										
@@ -4009,7 +4482,7 @@ public class IntervalTree {
 											keggPathway2OneorZeroMap.put(keggPathwayName, 1);
 										}
 										
-										bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 										bufferedWriter.flush();	
 									}//If this keggPathwayName is in  keggPathwayNameList
 									
@@ -4039,7 +4512,7 @@ public class IntervalTree {
 		
 
 //Search2
-public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, Interval interval, String chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> nameorIdHashMap, String type){
+public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, Interval interval, ChromosomeName chromName, Map<String,BufferedWriter> bufferedWriterHashMap, Map<String,Integer> nameorIdHashMap, String type){
 	FileWriter fileWriter = null;
 	BufferedWriter bufferedWriter = null;
 	Integer count ;
@@ -4070,7 +4543,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 					
 					
 					
-					bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+					bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 					bufferedWriter.flush();					
 										
 					count++;
@@ -4088,7 +4561,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 							bufferedWriterHashMap.put(castedNode.getRefSeqGeneName(), bufferedWriter);							
 						}
 													
-						bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+						bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 						bufferedWriter.flush();		
 						
 						count++;
@@ -4107,7 +4580,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 							bufferedWriterHashMap.put(castedNode.getGeneHugoSymbol(), bufferedWriter);							
 						}
 												
-						bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" +  castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+						bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName()+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName()+ "\t" +  castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol()+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 						bufferedWriter.flush();					
 						
 						count++;
@@ -4384,9 +4857,15 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		if(node.getNodeName().isNotSentinel()){
 			deleteNodesofIntervalTree(node.getLeft());
 			deleteNodesofIntervalTree(node.getRight());
-			node = null;
-			
+			node.setChromName(null);
+			node.setLeft(null);
+			node.setRight(null);
+			node.setParent(null);
+			node.setNodeName(null);
+			node.setNodeType(null);
+			node=null;
 		}else if(node.getNodeName().isSentinel()){
+			node.setParent(null);
 			node =null;
 		}
 		

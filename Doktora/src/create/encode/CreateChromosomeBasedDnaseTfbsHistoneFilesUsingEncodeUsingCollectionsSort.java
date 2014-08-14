@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
 import ui.GlanetRunner;
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
 
 /*
  * This program created unsorted and sorted chromosome based dnase, tfbs and histone intervals using ENCODE data
@@ -267,7 +268,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
 		
-		dnase.setChromName(strLine.substring(0, indexofFirstTab));
+		dnase.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));
 		dnase.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
 		dnase.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));	
 		
@@ -291,7 +292,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
 		
-		histone.setChromName(strLine.substring(0, indexofFirstTab));
+		histone.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));
 		histone.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
 		histone.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));				
 	}
@@ -316,7 +317,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 		indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 		indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
 		
-		tfbs.setChromName(strLine.substring(0, indexofFirstTab));
+		tfbs.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));
 		tfbs.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab)));
 		tfbs.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));						
 		
@@ -794,7 +795,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 								GlanetRunner.appendLog(strLine);								
 							}
 							
-							histone.setChromName(strLine.substring(0, indexofFirstTab));							
+							histone.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
 							histone.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab)));
 							histone.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));							
 							histone.setHistoneName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
@@ -884,7 +885,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 								GlanetRunner.appendLog(strLine);								
 							}
 							
-							dnase.setChromName(strLine.substring(0, indexofFirstTab));							
+							dnase.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
 							dnase.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab)));
 							dnase.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));							
 							dnase.setCellLineName(strLine.substring(indexofThirdTab+1, indexofFourthTab));
@@ -976,7 +977,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 								GlanetRunner.appendLog(strLine);								
 							}
 							
-							tfbs.setChromName(strLine.substring(0, indexofFirstTab));							
+							tfbs.setChromName(ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab)));							
 							tfbs.setStartPos(Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab)));
 							tfbs.setEndPos(Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab)));							
 							tfbs.setTranscriptionFactorName(strLine.substring(indexofThirdTab+1, indexofFourthTab));

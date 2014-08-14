@@ -9,6 +9,8 @@ package keggpathway.ncbigenes;
 import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectShortMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -22,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
@@ -554,6 +557,93 @@ public class KeggPathwayUtility {
 	}
 	//@todo
 	
+	
+	//@todo ncbiGeneId2ListofKeggPathwayNumber starts
+	/*
+	 *  pathway_hsa.list file is read.
+	 *  Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap will be created.
+	 * 
+	 */
+	public static void createNcbiGeneId2ListofKeggPathwayNumberMap(String dataFolder,String fileName, TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap, TIntObjectMap<TShortArrayList> ncbiGeneId2ListofKeggPathwayNumberHashMap){
+		
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		int indexofFirstTab 	= -1;
+		int indexofSecondTab 	= -1;
+		int indexofFirstColon 		= -1;
+		int indexofSecondColon 		= -1;
+		
+		String keggPathwayName;
+		String ncbiGeneIdName;
+		
+		short keggPathwayNumber;
+		int ncbiGeneId;
+		
+		TShortArrayList existingKeggPathwayNumberList = null;
+		
+		try {
+			fileReader = new FileReader(dataFolder + fileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				//example line
+				//path:hsa00010	hsa:10327	reverse
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				
+				keggPathwayName = strLine.substring(0,indexofFirstTab);
+				ncbiGeneIdName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+				
+				indexofFirstColon = keggPathwayName.indexOf(':');
+				indexofSecondColon = ncbiGeneIdName.indexOf(':');
+				
+				keggPathwayName = keggPathwayName.substring(indexofFirstColon+1);				
+				ncbiGeneId = Integer.parseInt(ncbiGeneIdName.substring(indexofSecondColon+1));
+				
+				//What if it is null? check this situation
+				keggPathwayNumber = keggPathwayName2KeggPathwayNumberMap.get(keggPathwayName);
+				
+				//fill ncbiGeneId2KeggPathwayHashMap
+				//Hash Map does not contain this ncbiGeneId
+				if (!ncbiGeneId2ListofKeggPathwayNumberHashMap.containsKey(ncbiGeneId)){					
+					TShortArrayList keggPathwayNumberList = new TShortArrayList();
+					keggPathwayNumberList.add(keggPathwayNumber);
+					ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, keggPathwayNumberList);
+					}
+				//Hash Map contains this ncbiGeneId
+				else{
+					existingKeggPathwayNumberList = ncbiGeneId2ListofKeggPathwayNumberHashMap.get(ncbiGeneId);
+					
+					if(!(existingKeggPathwayNumberList.contains(keggPathwayNumber))){
+						existingKeggPathwayNumberList.add(keggPathwayNumber);
+					} else{
+						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
+					}
+					
+					ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, existingKeggPathwayNumberList);
+		
+				}
+			} // End of While
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}					
+	
+	}
+	//@todo ncbiGeneId2ListofKeggPathwayNumber ends
 	
 	/*
 	 *  pathway_hsa.list file is read.

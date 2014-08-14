@@ -16,14 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 
+
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.ChromosomeName;
 
 
 
@@ -489,12 +490,12 @@ public class RserveUtilization {
 	}
 	
 	
-	public static String getDNASequence(String chromNumber, String _strand, int[] _startandEnd,RConnection c){
+	public static String getDNASequence(ChromosomeName chromNumber, String _strand, int[] _startandEnd,RConnection c){
 		try {
 			
 			//todo use my own get sequence code for the software 
 			c.assign("intervalStrand", _strand);
-			c.assign("chrom", chromNumber);
+			c.assign("chrom", chromNumber.getChromosomeName());
 			c.assign("startandEnd",_startandEnd);
 			return c.eval("seq_sd1 <- getSeq( Hsapiens, chrom, start=startandEnd[1], end=startandEnd[2], strand = intervalStrand, as.character=TRUE)").asString();
 
@@ -550,7 +551,7 @@ public class RserveUtilization {
 		int indexofUnderscore;
 		int indexofSecondUnderScore;
 			
-		String chromNumber;
+		ChromosomeName chromNumber;
 		
 		int snpLocus_ZeroBased;
 		int snpLocus_OneBased;
@@ -628,7 +629,7 @@ public class RserveUtilization {
 					indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
 					
 					tfNameKeggPathwayName = strLine.substring(0, indexofFirstTab);
-					chromNumber =  strLine.substring(indexofFirstTab+1, indexofSecondTab);
+					chromNumber =  ChromosomeName.convertStringtoEnum(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					snpLocus_ZeroBased = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 						
 					tfNameCellLineName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
@@ -653,12 +654,12 @@ public class RserveUtilization {
 					cellLineName = tfNameCellLineName.substring(indexofUnderscore+1);
 					
 					
-					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chromNumber + "_" + snpLocus_ZeroBased;
-					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chromNumber + "_" + snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased;
+					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
 					
 					peakName = "peak" + "_" +tfNameCellLineName + "_" +tfStart_ZeroBased + "_" +tfEnd_ZeroBased + "_" + tfNameKeggPathwayName;
-					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chromNumber + snpLocus_ZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
-					peaksFileName = "peaks" +  "_" + chromNumber + "_" +snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chromNumber.getChromosomeName() + snpLocus_ZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
+					peaksFileName = "peaks" +  "_" + chromNumber.getChromosomeName() + "_" +snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
 					
 					
 					//create tfNameKeggPathwayName based directory  if no directory has been already created
@@ -672,7 +673,7 @@ public class RserveUtilization {
 					//get snp sequence
 					//write snp sequence to a file under snp directory
 					if (snp2FalseorTrueMap.get(tfNameKeggPathwayNameSnpChromNumberSnpLocus)==null){
-						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chromNumber + "_" + snpLocus_ZeroBased;
+						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased;
 						
 						directoryBase = createDirectory(tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
 			
@@ -680,7 +681,7 @@ public class RserveUtilization {
 						snpLocus_OneBased = snpLocus_ZeroBased +1;
 						
 						//for debug purposes start
-						if(chromNumber.equals(Commons.CHROMOSOME8) && snpLocus_ZeroBased == 143887956){
+						if(chromNumber.isCHROMOSOME8() && snpLocus_ZeroBased == 143887956){
 							System.out.println("stop here");
 						}
 						//for debug purposes end
@@ -1553,9 +1554,9 @@ public class RserveUtilization {
 			
 	}
 	
-	public static char[] getHsapiensHg19ChromosomeDNASequence(String chromNumber){
+	public static char[] getHsapiensHg19ChromosomeDNASequence(ChromosomeName chromNumber){
 		//for testing purposes
-		Map<String, Integer> hg19ChromosomeSizes	= new HashMap<String,Integer>();
+		Map<ChromosomeName, Integer> hg19ChromosomeSizes	= new HashMap<ChromosomeName,Integer>();
 		
     	//get the hg19 chromosome sizes
     	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
@@ -1567,10 +1568,10 @@ public class RserveUtilization {
 			
 	}
 	
-	public static void getHsapiensHg19DNASequences(Map<String,char[]> hg19ChromosomeBasedDNASequences){
+	public static void getHsapiensHg19DNASequences(Map<ChromosomeName,char[]> hg19ChromosomeBasedDNASequences){
 		
 		//for testing purposes
-		Map<String, Integer> hg19ChromosomeSizes	= new HashMap<String,Integer>();
+		Map<ChromosomeName, Integer> hg19ChromosomeSizes	= new HashMap<ChromosomeName,Integer>();
 		
     	//get the hg19 chromosome sizes
     	GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);

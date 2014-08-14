@@ -7,6 +7,7 @@ import giveninputdata.InputDataRemoveOverlaps;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
+import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
 import common.Commons;
 
@@ -22,11 +23,15 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "InputDataProcess...");
 		InputDataProcess.main(getArgs());
 		
-		getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-		InputDataRemoveOverlaps.main(getArgs());
-		
+		/* In case of Enrichment remove overlaps and merge */
+		/* In case of only Annotation, do not remove overlaps and do not merge*/
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+			InputDataRemoveOverlaps.main(getArgs());
+		}
+						
 		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-		AnnotateGivenIntervalsWithGivenParameters.main(getArgs());
+		AnnotateGivenIntervalsWithNumbers.main(getArgs());
 		
 		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
@@ -53,7 +58,7 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		} catch (SecurityException e) {
 			
-			System.out.println("pressed stop");
+			GlanetRunner.appendLog("pressed stop");
         }
 	}
 	

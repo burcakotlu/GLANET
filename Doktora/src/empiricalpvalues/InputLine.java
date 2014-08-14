@@ -8,7 +8,7 @@
  */
 package empiricalpvalues;
 
-import intervaltree.ChromosomeName;
+import enumtypes.ChromosomeName;
 
 public class InputLine {
 	

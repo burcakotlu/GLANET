@@ -1,0 +1,33 @@
+/**
+ * @author burcakotlu
+ * @date Aug 12, 2014 
+ * @time 12:01:57 PM
+ */
+package annotate.intervals.parametric;
+
+import enumtypes.IntervalName;
+import gnu.trove.list.array.TShortArrayList;
+
+/**
+ * 
+ */
+public class UcscRefSeqGeneOverlapWithNumbers {
+	//example
+	//refSeqGeneName	NM_002979	
+	//intervalName	INTRON
+	//intervalNumber 15	
+	//geneHugoSymbol	SCP2	
+	//geneEntrezId	6342
+
+	int refSeqGeneNumber;
+	int geneHugoSymbolNumber;
+	int geneEntrezId;
+	
+	TShortArrayList keggPathwayNumberList;
+	
+	IntervalName intervalName;
+	int intervalNumber;
+	int low;
+	int high;
+
+}

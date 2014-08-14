@@ -5,6 +5,8 @@
  */
 package intervaltree;
 
+import enumtypes.ChromosomeName;
+
 /**
  * 
  */

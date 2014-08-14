@@ -122,9 +122,9 @@ public class MainView extends JPanel{
 						dnaseEnrichment.isSelected()?Commons.DO_DNASE_ENRICHMENT:Commons.DO_NOT_DNASE_ENRICHMENT,
 						histoneEnrichment.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
 						tfEnrichment.isSelected()?Commons.DO_TF_ENRICHMENT:Commons.DO_NOT_TF_ENRICHMENT,
-						keggPathwayEnrichment.isSelected()?Commons.DO_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT,
-						tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
-						cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
+						keggPathwayEnrichment.isSelected()?Commons.DO_GENESET_ENRICHMENT:Commons.DO_NOT_GENESET_ENRICHMENT,
+						tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_GENESET_ENRICHMENT:Commons.DO_NOT_TF_GENESET_ENRICHMENT,
+						cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
 						jobName.getText(),
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
@@ -249,7 +249,7 @@ public class MainView extends JPanel{
         enrichmentPanel.add( createBorderedPanel( "Generate Random Data Mode", createPanelWithHint(generateRandomDataModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE)));
         
         //multipleTestingCombo added to enrichmentPanel
-        String[] multipleTest = { Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE, Commons.BONFERRONI_CORRECTED_P_VALUE};
+        String[] multipleTest = { Commons.BENJAMINI_HOCHBERG_FDR, Commons.BONFERRONI_CORRECTION};
         multipleTestingCombo = new JComboBox<String>( multipleTest);
         enrichmentPanel.add( createBorderedPanel( "Multiple Testing", createPanelWithHint(multipleTestingCombo, Commons.GUI_HINT_MULTIPLE_TESTING)));
         

@@ -8,6 +8,8 @@ package intervaltree;
 import java.util.List;
 
 import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeName;
 
 /**
  * 

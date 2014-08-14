@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+hprofStrictness=hprofStrictnessWarning
+org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.lastJDKDir=C\:\\Program Files\\Java\\jdk1.8.0_05
+org.eclipse.mat.hprof.acquire.JMapHeapDumpProvider.lastJmapJDKDir=C\:\\Program Files\\Java\\jdk1.8.0_05

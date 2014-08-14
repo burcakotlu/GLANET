@@ -8,10 +8,8 @@
  */
 package giveninputdata;
 
-import intervaltree.ChromosomeName;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,8 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.NodeType;
 
  
 

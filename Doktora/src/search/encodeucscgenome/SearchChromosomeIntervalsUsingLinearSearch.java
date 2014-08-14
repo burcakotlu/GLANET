@@ -21,6 +21,7 @@
 package search.encodeucscgenome;
 
 import intervaltree.Interval;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -29,10 +30,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import auxiliary.FileOperations;
+
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
+import enumtypes.ChromosomeName;
 
 public class SearchChromosomeIntervalsUsingLinearSearch {
 	
@@ -121,79 +126,79 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		}
 	}
 
-	public void writeChromBaseSearchInputFile(String chromName, String strLine, List<BufferedWriter> bufList){
+	public void writeChromBaseSearchInputFile(ChromosomeName chromName, String strLine, List<BufferedWriter> bufList){
 		try {
 			
-			if (chromName.equals(Commons.CHROMOSOME1)){
+			if (chromName.isCHROMOSOME1()){
 					bufList.get(0).write(strLine + "\n");
 					bufList.get(0).flush();		
-			} else 	if (chromName.equals(Commons.CHROMOSOME2)){
+			} else 	if (chromName.isCHROMOSOME2()){
 				bufList.get(1).write(strLine + "\n");
 				bufList.get(1).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME3)){
+			}else 	if (chromName.isCHROMOSOME3()){
 				bufList.get(2).write(strLine + "\n");
 				bufList.get(2).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME4)){
+			}else 	if (chromName.isCHROMOSOME4()){
 				bufList.get(3).write(strLine + "\n");
 				bufList.get(3).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME5)){
+			}else 	if (chromName.isCHROMOSOME5()){
 				bufList.get(4).write(strLine + "\n");
 				bufList.get(4).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME6)){
+			}else 	if (chromName.isCHROMOSOME6()){
 				bufList.get(5).write(strLine + "\n");
 				bufList.get(5).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME7)){
+			}else 	if (chromName.isCHROMOSOME7()){
 				bufList.get(6).write(strLine + "\n");
 				bufList.get(6).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME8)){
+			}else 	if (chromName.isCHROMOSOME8()){
 				bufList.get(7).write(strLine + "\n");
 				bufList.get(7).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME9)){
+			}else 	if (chromName.isCHROMOSOME9()){
 				bufList.get(8).write(strLine + "\n");
 				bufList.get(8).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME10)){
+			}else 	if (chromName.isCHROMOSOME10()){
 				bufList.get(9).write(strLine + "\n");
 				bufList.get(9).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME11)){
+			}else 	if (chromName.isCHROMOSOME11()){
 				bufList.get(10).write(strLine + "\n");
 				bufList.get(10).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME12)){
+			}else 	if (chromName.isCHROMOSOME12()){
 				bufList.get(11).write(strLine + "\n");
 				bufList.get(11).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME13)){
+			}else 	if (chromName.isCHROMOSOME13()){
 				bufList.get(12).write(strLine + "\n");
 				bufList.get(12).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME14)){
+			}else 	if (chromName.isCHROMOSOME14()){
 				bufList.get(13).write(strLine + "\n");
 				bufList.get(13).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME15)){
+			}else 	if (chromName.isCHROMOSOME15()){
 				bufList.get(14).write(strLine + "\n");
 				bufList.get(14).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME16)){
+			}else 	if (chromName.isCHROMOSOME16()){
 				bufList.get(15).write(strLine + "\n");
 				bufList.get(15).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME17)){
+			}else 	if (chromName.isCHROMOSOME17()){
 				bufList.get(16).write(strLine + "\n");
 				bufList.get(16).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME18)){
+			}else 	if (chromName.isCHROMOSOME18()){
 				bufList.get(17).write(strLine + "\n");
 				bufList.get(17).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME19)){
+			}else 	if (chromName.isCHROMOSOME19()){
 				bufList.get(18).write(strLine + "\n");
 				bufList.get(18).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME20)){
+			}else 	if (chromName.isCHROMOSOME20()){
 				bufList.get(19).write(strLine + "\n");
 				bufList.get(19).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME21)){
+			}else 	if (chromName.isCHROMOSOME21()){
 				bufList.get(20).write(strLine + "\n");
 				bufList.get(20).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOME22)){
+			}else 	if (chromName.isCHROMOSOME22()){
 				bufList.get(21).write(strLine + "\n");
 				bufList.get(21).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOMEX)){
+			}else 	if (chromName.isCHROMOSOMEX()){
 				bufList.get(22).write(strLine + "\n");
 				bufList.get(22).flush();		
-			}else 	if (chromName.equals(Commons.CHROMOSOMEY)){
+			}else 	if (chromName.isCHROMOSOMEY()){
 				bufList.get(23).write(strLine + "\n");
 				bufList.get(23).flush();		
 			}else{
@@ -214,7 +219,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		
 		String strLine;
 		int indexofFirstTab;
-		String chromName;
+		ChromosomeName chromName;
 		
 		try {
 			fileReader = new FileReader(inputFileName);
@@ -223,7 +228,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 			while((strLine=bufferedReader.readLine())!=null){
 				
 				indexofFirstTab = strLine.indexOf('\t');
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				writeChromBaseSearchInputFile(chromName,strLine,bufferedWriterList);
 				
 			} // End of While
@@ -282,7 +287,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 			return false;
 	}
 	
-	public void searchforUcscRefSeqGenesintheGivenRegionofInterest(String chromName, Interval interval, BufferedWriter bw){
+	public void searchforUcscRefSeqGenesintheGivenRegionofInterest(ChromosomeName chromName, Interval interval, BufferedWriter bw){
 		
 		int startPositionofRegionofInterest = interval.getLow();
 		int endPositionofRegionofInterest = interval.getHigh();
@@ -350,7 +355,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 						intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
 						geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 
-						bw.write("ucscRefSeqGene" + "\t" + chromName+ "\t" +  startPosition + "\t" + endPosition + "\t" + ucscRefSeqGeneName+ "\t" + intervalName + "\t" + geneHugoSymbol+ "\t"+ geneEntrezId +"\n");
+						bw.write("ucscRefSeqGene" + "\t" + chromName.getChromosomeName()+ "\t" +  startPosition + "\t" + endPosition + "\t" + ucscRefSeqGeneName+ "\t" + intervalName + "\t" + geneHugoSymbol+ "\t"+ geneEntrezId +"\n");
 						bw.flush();
 
 					}
@@ -367,7 +372,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 	}
 
 	
-	public void searchforHistoneintheGivenRegionofInterest(String chromName, Interval interval, BufferedWriter bw){
+	public void searchforHistoneintheGivenRegionofInterest(ChromosomeName chromName, Interval interval, BufferedWriter bw){
 		
 		int startPositionofRegionofInterest = interval.getLow();
 		int endPositionofRegionofInterest = interval.getHigh();
@@ -391,99 +396,99 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		
 		
 		try {
-			if (chromName.equals(Commons.CHROMOSOME1)){
+			if (chromName.isCHROMOSOME1()){
 				//open sorted dnase file of Chromosome1
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR1_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME2)){
+			}else if (chromName.isCHROMOSOME2()){
 				//open sorted dnase file of Chromosome2
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR2_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME3)){
+			}else if (chromName.isCHROMOSOME3()){
 				//open sorted dnase file of Chromosome3
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR3_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME4)){
+			}else if (chromName.isCHROMOSOME4()){
 				//open sorted dnase file of Chromosome4
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR4_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME5)){
+			}else if (chromName.isCHROMOSOME5()){
 				//open sorted dnase file of Chromosome5
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR5_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME6)){
+			}else if (chromName.isCHROMOSOME6()){
 				//open sorted dnase file of Chromosome6
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR6_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME7)){
+			}else if (chromName.isCHROMOSOME7()){
 				//open sorted dnase file of Chromosome7
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR7_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME8)){
+			}else if (chromName.isCHROMOSOME8()){
 				//open sorted dnase file of Chromosome8
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR8_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME9)){
+			}else if (chromName.isCHROMOSOME9()){
 				//open sorted dnase file of Chromosome9
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR9_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME10)){
+			}else if (chromName.isCHROMOSOME10()){
 				//open sorted dnase file of Chromosome10
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR10_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME11)){
+			}else if (chromName.isCHROMOSOME11()){
 				//open sorted dnase file of Chromosome11
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR11_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME12)){
+			}else if (chromName.isCHROMOSOME12()){
 				//open sorted dnase file of Chromosome12
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR12_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME13)){
+			}else if (chromName.isCHROMOSOME13()){
 				//open sorted dnase file of Chromosome13
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR13_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME14)){
+			}else if (chromName.isCHROMOSOME14()){
 				//open sorted dnase file of Chromosome14
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR14_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME15)){
+			}else if (chromName.isCHROMOSOME15()){
 				//open sorted dnase file of Chromosome15
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR15_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME16)){
+			}else if (chromName.isCHROMOSOME16()){
 				//open sorted dnase file of Chromosome16
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR16_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME17)){
+			}else if (chromName.isCHROMOSOME17()){
 				//open sorted dnase file of Chromosome17
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR17_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME18)){
+			}else if (chromName.isCHROMOSOME18()){
 				//open sorted dnase file of Chromosome18
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR18_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME19)){
+			}else if (chromName.isCHROMOSOME19()){
 				//open sorted dnase file of Chromosome19
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR19_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME20)){
+			}else if (chromName.isCHROMOSOME20()){
 				//open sorted dnase file of Chromosome20
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR20_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME21)){
+			}else if (chromName.isCHROMOSOME21()){
 				//open sorted dnase file of Chromosome21
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR21_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME22)){
+			}else if (chromName.isCHROMOSOME22()){
 				//open sorted dnase file of Chromosome22
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHR22_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEX)){
+			}else if (chromName.isCHROMOSOMEX()){
 				//open sorted dnase file of ChromosomeX
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRX_HISTONE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEY)){
+			}else if (chromName.isCHROMOSOMEY()){
 				//open sorted dnase file of ChromosomeY
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_HISTONE_DIRECTORY,Commons.SORTED_CHRY_HISTONE_FILENAME);
 				
@@ -548,7 +553,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 	}
 
 	
-	public void searchforTfbsintheGivenRegionofInterest(String chromName, Interval interval, BufferedWriter bw){
+	public void searchforTfbsintheGivenRegionofInterest(ChromosomeName chromName, Interval interval, BufferedWriter bw){
 		
 		int startPositionofRegionofInterest = interval.getLow();
 		int endPositionofRegionofInterest = interval.getHigh();
@@ -571,99 +576,99 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		int indexofFifthTab = 0;
 		
 		try {
-			if (chromName.equals(Commons.CHROMOSOME1)){
+			if (chromName.isCHROMOSOME1()){
 				//open sorted dnase file of Chromosome1
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR1_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME2)){
+			}else if (chromName.isCHROMOSOME2()){
 				//open sorted dnase file of Chromosome2
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR2_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME3)){
+			}else if (chromName.isCHROMOSOME3()){
 				//open sorted dnase file of Chromosome3
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR3_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME4)){
+			}else if (chromName.isCHROMOSOME4()){
 				//open sorted dnase file of Chromosome4
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR4_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME5)){
+			}else if (chromName.isCHROMOSOME5()){
 				//open sorted dnase file of Chromosome5
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR5_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME6)){
+			}else if (chromName.isCHROMOSOME6()){
 				//open sorted dnase file of Chromosome6
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR6_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME7)){
+			}else if (chromName.isCHROMOSOME7()){
 				//open sorted dnase file of Chromosome7
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR7_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME8)){
+			}else if (chromName.isCHROMOSOME8()){
 				//open sorted dnase file of Chromosome8
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR8_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME9)){
+			}else if (chromName.isCHROMOSOME9()){
 				//open sorted dnase file of Chromosome9
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR9_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME10)){
+			}else if (chromName.isCHROMOSOME10()){
 				//open sorted dnase file of Chromosome10
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR10_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME11)){
+			}else if (chromName.isCHROMOSOME11()){
 				//open sorted dnase file of Chromosome11
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR11_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME12)){
+			}else if (chromName.isCHROMOSOME12()){
 				//open sorted dnase file of Chromosome12
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR12_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME13)){
+			}else if (chromName.isCHROMOSOME13()){
 				//open sorted dnase file of Chromosome13
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR13_TFBS_FILENAME);
 			
-			}else if (chromName.equals(Commons.CHROMOSOME14)){
+			}else if (chromName.isCHROMOSOME14()){
 				//open sorted dnase file of Chromosome14
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR14_TFBS_FILENAME);
 			
-			}else if (chromName.equals(Commons.CHROMOSOME15)){
+			}else if (chromName.isCHROMOSOME15()){
 				//open sorted dnase file of Chromosome15
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR15_TFBS_FILENAME);
 			
-			}else if (chromName.equals(Commons.CHROMOSOME16)){
+			}else if (chromName.isCHROMOSOME16()){
 				//open sorted dnase file of Chromosome16
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR16_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME17)){
+			}else if (chromName.isCHROMOSOME17()){
 				//open sorted dnase file of Chromosome17
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR17_TFBS_FILENAME);
 			
-			}else if (chromName.equals(Commons.CHROMOSOME18)){
+			}else if (chromName.isCHROMOSOME18()){
 				//open sorted dnase file of Chromosome18
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR18_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME19)){
+			}else if (chromName.isCHROMOSOME19()){
 				//open sorted dnase file of Chromosome19
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR19_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME20)){
+			}else if (chromName.isCHROMOSOME20()){
 				//open sorted dnase file of Chromosome20
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR20_TFBS_FILENAME);
 			
-			}else if (chromName.equals(Commons.CHROMOSOME21)){
+			}else if (chromName.isCHROMOSOME21()){
 				//open sorted dnase file of Chromosome21
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR21_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME22)){
+			}else if (chromName.isCHROMOSOME22()){
 				//open sorted dnase file of Chromosome22
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHR22_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEX)){
+			}else if (chromName.isCHROMOSOMEX()){
 				//open sorted dnase file of ChromosomeX
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRX_TFBS_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEY)){
+			}else if (chromName.isCHROMOSOMEY()){
 				//open sorted dnase file of ChromosomeY
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_TFBS_DIRECTORY,Commons.SORTED_CHRY_TFBS_FILENAME);
 				
@@ -730,7 +735,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 
 	
 //	search whether there is any dnase in the region of interest
-	public void	searchforDnaseintheGivenRegionofInterest(String chromName, Interval interval, BufferedWriter bw){
+	public void	searchforDnaseintheGivenRegionofInterest(ChromosomeName chromName, Interval interval, BufferedWriter bw){
 		
 		int startPositionofRegionofInterest = interval.getLow();
 		int endPositionofRegionofInterest = interval.getHigh();
@@ -751,99 +756,99 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		int indexofFourthTab = 0;
 		
 		try {
-			if (chromName.equals(Commons.CHROMOSOME1)){
+			if (chromName.isCHROMOSOME1()){
 				//open sorted dnase file of Chromosome1
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR1_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME2)){
+			}else if (chromName.isCHROMOSOME2()){
 				//open sorted dnase file of Chromosome2
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR2_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME3)){
+			}else if (chromName.isCHROMOSOME3()){
 				//open sorted dnase file of Chromosome3
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR3_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME4)){
+			}else if (chromName.isCHROMOSOME4()){
 				//open sorted dnase file of Chromosome4
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR4_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME5)){
+			}else if (chromName.isCHROMOSOME5()){
 				//open sorted dnase file of Chromosome5
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR5_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME6)){
+			}else if (chromName.isCHROMOSOME6()){
 				//open sorted dnase file of Chromosome6
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR6_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME7)){
+			}else if (chromName.isCHROMOSOME7()){
 				//open sorted dnase file of Chromosome7
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR7_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME8)){
+			}else if (chromName.isCHROMOSOME8()){
 				//open sorted dnase file of Chromosome8
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR8_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME9)){
+			}else if (chromName.isCHROMOSOME9()){
 				//open sorted dnase file of Chromosome9
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR9_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME10)){
+			}else if (chromName.isCHROMOSOME10()){
 				//open sorted dnase file of Chromosome10
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR10_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME11)){
+			}else if (chromName.isCHROMOSOME11()){
 				//open sorted dnase file of Chromosome11
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR11_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME12)){
+			}else if (chromName.isCHROMOSOME12()){
 				//open sorted dnase file of Chromosome12
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR12_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME13)){
+			}else if (chromName.isCHROMOSOME13()){
 				//open sorted dnase file of Chromosome13
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR13_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME14)){
+			}else if (chromName.isCHROMOSOME14()){
 				//open sorted dnase file of Chromosome14
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR14_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME15)){
+			}else if (chromName.isCHROMOSOME15()){
 				//open sorted dnase file of Chromosome15
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR15_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME16)){
+			}else if (chromName.isCHROMOSOME16()){
 				//open sorted dnase file of Chromosome16
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR16_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME17)){
+			}else if (chromName.isCHROMOSOME17()){
 				//open sorted dnase file of Chromosome17
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR17_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME18)){
+			}else if (chromName.isCHROMOSOME18()){
 				//open sorted dnase file of Chromosome18
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR18_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME19)){
+			}else if (chromName.isCHROMOSOME19()){
 				//open sorted dnase file of Chromosome19
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR19_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME20)){
+			}else if (chromName.isCHROMOSOME20()){
 				//open sorted dnase file of Chromosome20
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR20_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME21)){
+			}else if (chromName.isCHROMOSOME21()){
 				//open sorted dnase file of Chromosome21
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR21_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOME22)){
+			}else if (chromName.isCHROMOSOME22()){
 				//open sorted dnase file of Chromosome22
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHR22_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEX)){
+			}else if (chromName.isCHROMOSOMEX()){
 				//open sorted dnase file of ChromosomeX
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRX_DNASE_FILENAME);
 				
-			}else if (chromName.equals(Commons.CHROMOSOMEY)){
+			}else if (chromName.isCHROMOSOMEY()){
 				//open sorted dnase file of ChromosomeY
 				fileReader = FileOperations.createFileReader(Commons.CREATE_ENCODE_DNASE_DIRECTORY,Commons.SORTED_CHRY_DNASE_FILENAME);
 				
@@ -892,7 +897,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 						cellLineName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 						fileName = strLine.substring(indexofFourthTab+1);
 
-						bw.write("dnase" + "\t" + chromName+ "\t"  + startPosition + "\t" + endPosition + "\t" + cellLineName + "\t" + fileName +"\n");
+						bw.write("dnase" + "\t" + chromName.getChromosomeName()+ "\t"  + startPosition + "\t" + endPosition + "\t" + cellLineName + "\t" + fileName +"\n");
 						bw.flush();
 
 					}
@@ -909,7 +914,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 	}
 	
 	
-	public void searchUcscRefSeqGenes(BufferedReader bufferedReader, String chromName, BufferedWriter bufferedWriter){
+	public void searchUcscRefSeqGenes(BufferedReader bufferedReader, ChromosomeName chromName, BufferedWriter bufferedWriter){
 		
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -931,7 +936,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();				
 				searchforUcscRefSeqGenesintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -947,7 +952,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 	}
 
 
-	public void searchHistone(BufferedReader bufferedReader, String chromName, BufferedWriter bufferedWriter){
+	public void searchHistone(BufferedReader bufferedReader, ChromosomeName chromName, BufferedWriter bufferedWriter){
 		
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -969,7 +974,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();				
 				searchforHistoneintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -985,7 +990,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 	}
 
 	
-	public void searchTfbs(BufferedReader bufferedReader, String chromName, BufferedWriter bufferedWriter){
+	public void searchTfbs(BufferedReader bufferedReader, ChromosomeName chromName, BufferedWriter bufferedWriter){
 		
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -1007,7 +1012,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 								
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();												
 				searchforTfbsintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -1022,7 +1027,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		
 	}
 	
-	public void searchDnase(BufferedReader bufferedReader, String chromName, BufferedWriter bufferedWriter){
+	public void searchDnase(BufferedReader bufferedReader, ChromosomeName chromName, BufferedWriter bufferedWriter){
 		
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -1045,7 +1050,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();								
 				searchforDnaseintheGivenRegionofInterest(chromName, interval, bufferedWriter);
 
@@ -1081,340 +1086,340 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 			switch(i){
 			case 1: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME1, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME1, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME1, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME1, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME1, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME1, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr1_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME1, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME1, bufferedWriter);
 				break;
 
 			case 2: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME2, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME2, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME2, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME2, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME2, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME2, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr2_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME2, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME2, bufferedWriter);
 				break;
 
 			case 3: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME3, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME3, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME3, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME3, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME3, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME3, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr3_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME3, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME3, bufferedWriter);
 				break;
 
 			case 4: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME4, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME4, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME4, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME4, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME4, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME4, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr4_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME4, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME4, bufferedWriter);
 				break;
 				
 			case 5: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME5, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME5, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME5, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME5, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME5, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME5, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr5_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME5, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME5, bufferedWriter);
 				break;
 				
 			case 6: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME6, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME6, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME6, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME6, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME6, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME6, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr6_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME6, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME6, bufferedWriter);
 				break;		
 				
 			case 7: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME7, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME7, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME7, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME7, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME7, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME7, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr7_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME7, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME7, bufferedWriter);
 				break;
 				
 			case 8: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME8, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME8, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME8, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME8, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME8, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME8, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr8_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME8, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME8, bufferedWriter);
 				break;		
 				
 			case 9: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME9, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME9, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME9, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME9, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME9, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME9, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr9_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME9, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME9, bufferedWriter);
 				break;
 			
 			case 10: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME10, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME10, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME10, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME10, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME10, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME10, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr10_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME10, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME10, bufferedWriter);
 				break;
 			
 			case 11: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME11, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME11, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME11, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME11, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME11, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME11, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr11_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME11, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME11, bufferedWriter);
 				break;
 				
 			case 12: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME12, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME12, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME12, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME12, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME12, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME12, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr12_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME12, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME12, bufferedWriter);
 				break;
 				
 			case 13: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME13, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME13, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME13, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME13, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME13, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME13, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr13_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME13, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME13, bufferedWriter);
 				break;
 				
 			case 14: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME14, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME14, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME14, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME14, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME14, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME14, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr14_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME14, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME14, bufferedWriter);
 				break;
 				
 			case 15: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME15, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME15, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME15, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME15, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME15, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME15, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr15_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME15, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME15, bufferedWriter);
 				break;
 				
 			case 16: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME16, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME16, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME16, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME16, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME16, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME16, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr16_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME16, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME16, bufferedWriter);
 				break;
 				
 			case 17: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME17, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME17, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME17, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME17, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME17, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME17, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr17_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME17, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME17, bufferedWriter);
 				break;
 				
 			case 18: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME18, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME18, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME18, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME18, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME18, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME18, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr18_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME18, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME18, bufferedWriter);
 				break;
 				
 			case 19: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME19, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME19, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME19, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME19, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME19, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME19, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr19_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME19, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME19, bufferedWriter);
 				break;
 				
 			case 20: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME20, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME20, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME20, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME20, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME20, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME20, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr20_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME20, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME20, bufferedWriter);
 				break;
 				
 			case 21: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME21, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME21, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME21, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME21, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME21, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME21, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr21_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME21, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME21, bufferedWriter);
 				break;
 				
 			case 22: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOME22, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOME22, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOME22, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOME22, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOME22, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOME22, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chr22_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOME22, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOME22, bufferedWriter);
 				break;
 				
 				
 			case 23: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOMEX, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOMEX, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOMEX, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOMEX, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOMEX, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOMEX, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrX_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOMEX, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOMEX, bufferedWriter);
 				break;
 				
 
 			case 24: 			
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-				searchDnase(bufferedReader, Commons.CHROMOSOMEY, bufferedWriter);
+				searchDnase(bufferedReader, ChromosomeName.CHROMOSOMEY, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-				searchTfbs(bufferedReader, Commons.CHROMOSOMEY, bufferedWriter);
+				searchTfbs(bufferedReader, ChromosomeName.CHROMOSOMEY, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-				searchHistone(bufferedReader, Commons.CHROMOSOMEY, bufferedWriter);
+				searchHistone(bufferedReader, ChromosomeName.CHROMOSOMEY, bufferedWriter);
 				
 				bufferedReader = createBufferedReader(Commons.SEARCH_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + "search_chrY_input_file.txt");
-				searchUcscRefSeqGenes(bufferedReader,  Commons.CHROMOSOMEY, bufferedWriter);
+				searchUcscRefSeqGenes(bufferedReader,  ChromosomeName.CHROMOSOMEY, bufferedWriter);
 				break;
 		}// End of Switch 						
 	}// End of For

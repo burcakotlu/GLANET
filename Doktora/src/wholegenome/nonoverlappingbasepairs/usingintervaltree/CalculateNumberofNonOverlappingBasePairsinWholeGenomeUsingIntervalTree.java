@@ -15,13 +15,12 @@
  */
 package wholegenome.nonoverlappingbasepairs.usingintervaltree;
 
-import intervaltree.ChromosomeName;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-import intervaltree.NodeType;
 import intervaltree.TforHistoneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -34,10 +33,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.IntervalName;
+import enumtypes.NodeType;
 
 public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree {
 	
@@ -71,15 +74,17 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		int indexofFourthTab =0;
 		int indexofFifthTab =0;
 		int indexofSixthTab =0;
-		int indexofSeventhTab =0;		
+		int indexofSeventhTab =0;
+		int indexofEighthTab = 0;
 		
-		String chromName;
+		ChromosomeName chromName;
 		int low;
 		int high;
 		String refSeqGeneName;		
 		String ncbiGeneId;
 		Integer geneEntrezId;		
-		String intervalName;
+		IntervalName intervalName;
+		int intervalNumber;
 		String geneHugoSymbol;
 		
 		//Initialize this for each chromosome
@@ -103,22 +108,24 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				indexofFifthTab 	= strLine.indexOf('\t', indexofFourthTab+1);
 				indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
 				indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
+				indexofEighthTab	= strLine.indexOf('\t',indexofSeventhTab+1);
 					
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 				high = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));	
 				refSeqGeneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 				ncbiGeneId = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 				geneEntrezId = Integer.parseInt(ncbiGeneId);
-				intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
-				geneHugoSymbol =strLine.substring(indexofSeventhTab+1);
+				intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+				geneHugoSymbol =strLine.substring(indexofEighthTab+1);
 				
 				//Fill the regulation based keggPathway2IntervalTreeHashMap
-				if (intervalName.startsWith(Commons.INTRON) ||
-						intervalName.startsWith(Commons.FIVE_P_ONE) ||
-						intervalName.startsWith(Commons.FIVE_P_TWO)||
-						intervalName.startsWith(Commons.THREE_P_ONE) ||
-						intervalName.startsWith(Commons.THREE_P_TWO)){
+				if (intervalName.isIntron() ||
+						intervalName.isFivePOne() ||
+						intervalName.isFivePTwo()||
+						intervalName.isThreePOne() ||
+						intervalName.isThreePTwo()){
 					
 					//Get the list of kegg pathway names contain this ncbi gene id
 					List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
@@ -129,7 +136,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,intervalNumber,geneHugoSymbol,NodeType.ORIGINAL);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name
@@ -157,7 +164,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 								//there is overlap
 								if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 										
-									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),NodeType.MERGED);
+									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getIntervalNumber(), intervalTreeNode.getGeneHugoSymbol(),NodeType.MERGED);
 									IntervalTreeNode splicedoutNode = null;
 									IntervalTreeNode nodetoBeDeleted =null;	
 									//you may try to delete a node which is already spliced out by former deletions
@@ -801,15 +808,17 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 		int indexofFourthTab =0;
 		int indexofFifthTab =0;
 		int indexofSixthTab =0;
-		int indexofSeventhTab =0;		
+		int indexofSeventhTab =0;
+		int indexofEighth = 0;
 		
-		String chromName;
+		ChromosomeName chromName;
 		int low;
 		int high;
 		String refSeqGeneName;		
 		String ncbiGeneId;
 		Integer geneEntrezId;		
-		String intervalName;
+		IntervalName intervalName;
+		int intervalNumber;
 		String geneHugoSymbol;
 		
 		//Initialize this for each chromosome
@@ -825,7 +834,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 			while((strLine = bufferedReader.readLine())!=null){
 				
 				//example strLine
-				//chrY	16636453	16636816	NR_028319	22829	Exon1	+	NLGN4Y
+				//chrY	16636453	16636816	NR_028319	22829	Exon	1	+	NLGN4Y
 				indexofFirstTab 	= strLine.indexOf('\t');
 				indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 				indexofThirdTab 	= strLine.indexOf('\t', indexofSecondTab+1);
@@ -833,18 +842,20 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 				indexofFifthTab 	= strLine.indexOf('\t', indexofFourthTab+1);
 				indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
 				indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
+				indexofEighth		= strLine.indexOf('\t',indexofSeventhTab+1);
 					
-				chromName = strLine.substring(0,indexofFirstTab);
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 				high = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));	
 				refSeqGeneName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 				ncbiGeneId = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 				geneEntrezId = Integer.parseInt(ncbiGeneId);
-				intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
-				geneHugoSymbol =strLine.substring(indexofSeventhTab+1);
+				intervalName = IntervalName.convertStringtoEnum(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				intervalNumber = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+				geneHugoSymbol =strLine.substring(indexofEighth+1);
 				
 				//Fill the exon based keggPathway2IntervalTreeHashMap
-				if (intervalName.startsWith(Commons.EXON)){
+				if (intervalName.isExon()){
 					//Get the list of kegg pathway names contain this ncbi gene id
 					List<String> keggPathwayNameListContainingThisNcbiGeneId = ncbiGeneId2KeggPathwayHashMap.get(ncbiGeneId);
 					
@@ -854,7 +865,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 						for(int i=0; i<keggPathwayNameListContainingThisNcbiGeneId.size() ; i++){
 							
 							//create intervalTreeNode
-							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName),low,high,refSeqGeneName,geneEntrezId,intervalName,geneHugoSymbol,NodeType.ORIGINAL);
+							UcscRefSeqGeneIntervalTreeNode intervalTreeNode = new UcscRefSeqGeneIntervalTreeNode(chromName,low,high,refSeqGeneName,geneEntrezId,intervalName,intervalNumber,geneHugoSymbol,NodeType.ORIGINAL);
 		
 							String keggPathwayName = keggPathwayNameListContainingThisNcbiGeneId.get(i);
 							//Get the interval tree for this Kegg Pathway Name
@@ -885,7 +896,7 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 								//there is overlap
 								if (overlappedNodeList!= null && overlappedNodeList.size()>0){
 										
-									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getGeneHugoSymbol(),NodeType.MERGED);
+									IntervalTreeNode mergedNode = new UcscRefSeqGeneIntervalTreeNode(intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(),intervalTreeNode.getRefSeqGeneName(),intervalTreeNode.getGeneEntrezId(),intervalTreeNode.getIntervalName(),intervalTreeNode.getIntervalNumber(),intervalTreeNode.getGeneHugoSymbol(),NodeType.MERGED);
 									IntervalTreeNode splicedoutNode = null;
 									IntervalTreeNode nodetoBeDeleted =null;	
 									//you may try to delete a node which is already spliced out by former deletions
