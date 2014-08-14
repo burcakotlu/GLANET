@@ -58,7 +58,7 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		} catch (SecurityException e) {
 			
-			GlanetRunner.appendLog("pressed stop");
+			System.out.println("pressed stop");
         }
 	}
 	

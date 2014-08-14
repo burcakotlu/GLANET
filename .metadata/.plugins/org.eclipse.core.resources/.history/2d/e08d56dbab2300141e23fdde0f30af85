@@ -582,7 +582,7 @@ public class RSATMatrixScanClient {
 		
 			
 		} catch(Exception e) {
-			System.out.println(e.toString());
+			GlanetRunner.appendLog(e.toString());
 			
 		}
 
