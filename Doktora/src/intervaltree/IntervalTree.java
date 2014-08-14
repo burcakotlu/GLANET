@@ -1902,6 +1902,59 @@ public class IntervalTree {
 	}
 
 	//@todo Annotation with Numbers starts
+	public void findAllOverlappingTfbsIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap tfNumberCellLineNumber2ZeroorOneMap,int overlapDefinition,TShortObjectMap<String> tfNumber2TfNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		if (node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
+		}
+		
+		//KEGG Pathway number included
+		int elementNumberCellLineNumber = IntervalTree.generateCombinedNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short)0);
+		
+		
+			if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				try {
+					
+					bufferedWriter = bufferedWriterHashMap.get(elementNumberCellLineNumber);
+														
+					if (bufferedWriter==null){						
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
+						bufferedWriter = new BufferedWriter(fileWriter);
+						bufferedWriterHashMap.put(elementNumberCellLineNumber,bufferedWriter);
+						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
+						bufferedWriter.flush();
+					}
+						
+					if(!tfNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
+						tfNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, (short)1);
+					}
+					
+					bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName()+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber())+ "\t" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) +System.getProperty("line.separator"));
+					bufferedWriter.flush();
+					
+					
+					} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+			}
+			
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName, bufferedWriterHashMap,tfNumberCellLineNumber2ZeroorOneMap,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName, bufferedWriterHashMap,tfNumberCellLineNumber2ZeroorOneMap,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
+			}		
+	}
+	//@todo Annotation with Numbers ends
+	
+	
+	//@todo Annotation with Numbers with OverlapList starts
 	public void findAllOverlappingTfbsIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap tfNumberCellLineNumber2ZeroorOneMap, List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList,int overlapDefinition,TShortObjectMap<String> tfNumber2TfNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -1952,7 +2005,7 @@ public class IntervalTree {
 				findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName, bufferedWriterHashMap,tfNumberCellLineNumber2ZeroorOneMap,tfandCellLineOverlapList,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);	
 			}		
 	}
-	//@todo Annotation with Numbers ends
+	//@todo  Annotation with Numbers with OverlapList ends
 	
 	//New Functionality added
 	//Search2 For finding the number of each tfbs:k for the given search input size: n

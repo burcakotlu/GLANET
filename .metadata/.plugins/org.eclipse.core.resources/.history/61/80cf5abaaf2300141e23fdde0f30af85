@@ -602,7 +602,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){

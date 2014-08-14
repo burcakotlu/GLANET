@@ -42,7 +42,6 @@
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedAnnotationResultMode"/>
 <fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="enumtypes.IntervalName"/>
-<fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
 <fullyQualifiedTypeName name="gnu.trove.list.array.TShortArrayList"/>
 <fullyQualifiedTypeName name="gnu.trove.map.hash.TShortIntHashMap"/>
 <fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="java.time.Duration"/>
 <fullyQualifiedTypeName name="com.sun.javafx.scene.control.skin.CellSkinBase"/>
 <fullyQualifiedTypeName name="create.encode.CellLineTranscriptionFactor"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
 </qualifiedTypeNameHistroy>
