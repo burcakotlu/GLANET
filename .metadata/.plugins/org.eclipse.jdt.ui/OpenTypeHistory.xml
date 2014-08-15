@@ -21,9 +21,9 @@
 <typeInfo handle="=Doktora/src&lt;create.encode{CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.java[CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting" modifiers="1" timestamp="1404132102758"/>
 <typeInfo handle="=Doktora/src&lt;wholegenome.nonoverlappingbasepairs.usingintervaltree{CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree.java[CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalTree" modifiers="1" timestamp="1404122810839"/>
 <typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1404138821563"/>
-<typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsWithEnrichmentChoicesWithNumbers.java[AnnotatePermutationsWithEnrichmentChoicesWithNumbers" modifiers="1" timestamp="1408019838087"/>
-<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTree.java[IntervalTree" modifiers="1" timestamp="1407928991491"/>
+<typeInfo handle="=Doktora/src&lt;intervaltree{IntervalTree.java[IntervalTree" modifiers="1" timestamp="1408051063044"/>
 <typeInfo handle="=Doktora/src&lt;test{TroveTest.java[TroveTest" modifiers="1" timestamp="1407838570181"/>
-<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1407920720836"/>
-<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithNumbers.java[AnnotateGivenIntervalsWithNumbers" modifiers="1" timestamp="1408019806583"/>
+<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithGivenParameters.java[AnnotateGivenIntervalsWithGivenParameters" modifiers="1" timestamp="1408052091515"/>
+<typeInfo handle="=Doktora/src&lt;annotate.intervals.parametric{AnnotateGivenIntervalsWithNumbers.java[AnnotateGivenIntervalsWithNumbers" modifiers="1" timestamp="1408051495457"/>
+<typeInfo handle="=Doktora/src&lt;empiricalpvalues{AnnotatePermutationsWithEnrichmentChoicesWithNumbers.java[AnnotatePermutationsWithEnrichmentChoicesWithNumbers" modifiers="1" timestamp="1408019838087"/>
 </typeInfoHistroy>

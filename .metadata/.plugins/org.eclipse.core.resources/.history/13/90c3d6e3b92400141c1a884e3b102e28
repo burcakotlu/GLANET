@@ -142,7 +142,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
 					 					      
-				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName.toString());	
+				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName);	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
@@ -602,7 +602,7 @@ public class AnnotatePermutationsWithEnrichmentChoicesWithNumbers {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.toString() + "\t" + annotationType);	
+				     System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
