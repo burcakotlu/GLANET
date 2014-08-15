@@ -58,23 +58,23 @@ public class GlanetRunner extends Thread{
 		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		} catch (SecurityException e) {
 			
-			//GlanetRunner.appendLog("pressed stop");
+			GlanetRunner.appendLog("pressed stop");
         }
 	}
 	
 	public static void appendLog( String log) {
 		
-		getMainView().appendNewTextToLogArea( log);
+		//getMainView().appendNewTextToLogArea( log);
 	}
 	
 	public static void appendLog( int log) {
 		
-		getMainView().appendNewTextToLogArea( log);
+		//getMainView().appendNewTextToLogArea( log);
 	}
 	
 	public static void appendLog( float log) {
 		
-		getMainView().appendNewTextToLogArea( log);
+		//getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static MainView getMainView() {
