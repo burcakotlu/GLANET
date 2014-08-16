@@ -30,6 +30,20 @@
 		<item value="-301" key="DIALOG_X_ORIGIN"/>
 		<item value="-253" key="DIALOG_Y_ORIGIN"/>
 	</section>
+	<section name="org.eclipse.ui.internal.dialogs.WorkbenchEditorsDialog">
+		<item value="0" key="sort"/>
+		<item value="false" key="allPersp"/>
+		<list key="columns">
+			<item value="385"/>
+			<item value="771"/>
+		</list>
+		<list key="bounds">
+			<item value="351"/>
+			<item value="0"/>
+			<item value="1218"/>
+			<item value="835"/>
+		</list>
+	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.jdt.internal.ui.jarpackager.JarPackageWizard" key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID"/>
 		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>

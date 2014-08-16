@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="create.encode.CellLineTranscriptionFactor"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
 <fullyQualifiedTypeName name="ui.GlanetRunner"/>
+<fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 </qualifiedTypeNameHistroy>
