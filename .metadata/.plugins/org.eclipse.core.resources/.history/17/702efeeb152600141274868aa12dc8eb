@@ -12387,7 +12387,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		if (dnaseEnrichmentType.isDnaseEnrichment()){
 			dnaseStart = Instant.now();
 			dt = Date.from(dnaseStart);
-		    GlanetRunner.appendLog("DNASE annotation starts: " + dt);
+		    GlanetRunner.appendLog("DNASE annotation starts: " + dt.toString());
 				
 			searchDnaseWithNumbers(dataFolder,outputFolder,dnaseCellLineNumber2KMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			writeResultsWithNumbers(dnaseCellLineNumber2KMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
