@@ -6,9 +6,9 @@ import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
+import annotate.intervals.parametric.AnnotateGivenIntervalsWithGivenParameters;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
-
 import common.Commons;
 
 public class GlanetRunner extends Thread{

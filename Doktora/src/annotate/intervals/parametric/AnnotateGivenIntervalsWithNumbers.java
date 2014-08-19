@@ -12378,8 +12378,8 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		TIntIntMap tfAllBasedKeggPathway2KMap 			= new TIntIntHashMap();
 
 		Date dt;
-		Instant dnaseStart,histoneStart,transcriptionFactorStart,KEGGPathwayStart,tfKEGGPathwayStart,tfCellLineKEGGPathwayStart;
-		Instant dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd;
+		Instant dnaseStart,histoneStart,transcriptionFactorStart,KEGGPathwayStart,tfKEGGPathwayStart,tfCellLineKEGGPathwayStart,tfCellLineKEGGPathway_and_TFKEGGPathwayStart;
+		Instant dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
 		
 		/*****************************************************************************/
 		/************DNASE**ANNOTATION****starts**************************************/
@@ -12394,7 +12394,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			dnaseEnd = Instant.now();
 			dt = Date.from(dnaseEnd);
-			GlanetRunner.appendLog("DNASE annotation ends: " +dt);
+			GlanetRunner.appendLog("DNASE annotation ends: " +dt.toString());
 			
 			GlanetRunner.appendLog("Dnase annotation took: " + Duration.between(dnaseStart, dnaseEnd).getSeconds() +" seconds");
 			
@@ -12636,10 +12636,10 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/************Search input interval files for TF AND CELLLINE AND KEGG PATHWAY***/
 		/*******************************************************************************/	
 		if (tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
-		    Instant tfCellLineKEGGPathway_and_TFKEGGPathwayStart = Instant.now();
+		    tfCellLineKEGGPathway_and_TFKEGGPathwayStart = Instant.now();
 			dt = Date.from(tfCellLineKEGGPathway_and_TFKEGGPathwayStart);
 		    GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation starts: " + dt);
-		    
+	    
 		    			
 			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
 			
@@ -12662,7 +12662,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap,tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder,Commons.ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 			
 			
-			Instant tfCellLineKEGGPathway_and_TFKEGGPathwayEnd = Instant.now();
+			tfCellLineKEGGPathway_and_TFKEGGPathwayEnd = Instant.now();
 			dt = Date.from(tfCellLineKEGGPathway_and_TFKEGGPathwayEnd);
 		    GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + dt);
 		    GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + Duration.between(tfCellLineKEGGPathway_and_TFKEGGPathwayStart, tfCellLineKEGGPathway_and_TFKEGGPathwayEnd).getSeconds() +" seconds");		
