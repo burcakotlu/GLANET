@@ -32,7 +32,6 @@
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
 <fullyQualifiedTypeName name="enumtypes.RegulatorySequenceAnalysisType"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
-<fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="enumtypes.KeggPathwayAnalysisType"/>
 <fullyQualifiedTypeName name="enumtypes.WriteGeneratedRandomDataMode"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
 <fullyQualifiedTypeName name="ui.GlanetRunner"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
+<fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
 </qualifiedTypeNameHistroy>
