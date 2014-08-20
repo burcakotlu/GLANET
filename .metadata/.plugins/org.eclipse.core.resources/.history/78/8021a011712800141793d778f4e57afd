@@ -12866,7 +12866,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	    /*******************************************************************************/
 		/************TF******ANNOTATION******starts*************************************/
 		/*******************************************************************************/	
-		if (tfEnrichmentType.isTfEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
+		if (tfEnrichmentType.isTfEnrichment() && !tfKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
 			transcriptionFactorStart = Instant.now();
 			dt = Date.from(transcriptionFactorStart);
 		    System.out.println("TF annotation starts: " + dt);
@@ -12893,7 +12893,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	    /*******************************************************************************/
 		/************KEGG PATHWAY*****ANNOTATION***starts*******************************/
 		/*******************************************************************************/	
-		if (keggPathwayEnrichmentType.isGeneSetEnrichment()&& !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
+		if (keggPathwayEnrichmentType.isGeneSetEnrichment()&& !tfKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
 		    KEGGPathwayStart = Instant.now();
 			dt = Date.from(KEGGPathwayStart);
 		    System.out.println("KEGG Pathway annotation starts: " + dt);
@@ -12922,7 +12922,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	    /*******************************************************************************/
 		/************TF KEGGPATHWAY***ANNOTATION*****starts*****************************/
 		/*******************************************************************************/
-		if (tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
+		if (tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() && !tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
 		    tfKEGGPathwayStart = Instant.now();
 			dt = Date.from(tfKEGGPathwayStart);
 		    System.out.println("TF KEGGPathway annotation starts: " + dt);
@@ -12959,7 +12959,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	    /*******************************************************************************/
 		/************TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts********************/
 		/*******************************************************************************/
-		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment())){
+		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()){
 			tfCellLineKEGGPathwayStart = Instant.now();
 			dt = Date.from(tfCellLineKEGGPathwayStart);
 		    System.out.println("TF CELLLINE KEGGPATHWAY annotation starts: " + dt);
@@ -13067,7 +13067,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		if (tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
 		    tfCellLineKEGGPathway_and_TFKEGGPathwayStart = Instant.now();
 			dt = Date.from(tfCellLineKEGGPathway_and_TFKEGGPathwayStart);
-		    System.out.println("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + dt);
+		    System.out.println("TFCellLineKEGGPathway and  TFKEGGPathway annotation starts: " + dt);
 	    
 		    			
 			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
