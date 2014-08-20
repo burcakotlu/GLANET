@@ -33,7 +33,7 @@ public class MainView extends JPanel{
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
-	private JCheckBox enableEnrichmentCheckBox;
+	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
 	private JCheckBox dnaseEnrichment;
 	private JCheckBox histoneEnrichment;
@@ -113,7 +113,7 @@ public class MainView extends JPanel{
 						outputTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
-						enableEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
+						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
 						generateRandomDataModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
 						signifanceCriteria.getText(),
@@ -133,8 +133,7 @@ public class MainView extends JPanel{
 						numberOfPerInEachRun.getText()
 				);
 				
-				stopButton.setEnabled( true);
-				runButton.setEnabled( false);
+				enableStartProcess( false);
 			}
 		}
 	};
@@ -154,7 +153,7 @@ public class MainView extends JPanel{
 	ItemListener enableEnrichmentListener = new ItemListener() {
 	      public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
-	    	  enableEnrichmentOptions( enableEnrichmentCheckBox.isSelected());
+	    	  enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
 	      }
 	};
 	
@@ -215,9 +214,13 @@ public class MainView extends JPanel{
 		listPane.add( createBrowseFileArea( "Glanet Folder", outputTextField, Commons.GUI_HINT_GLANET_FOLDER));
 		
 		//annotationPanel added to listPane
-		JPanel annotationPanel = new JPanel( new GridLayout( 0, 1));
-		JLabel overlapDefinitionLabel = new JLabel( "Overlap Definition 2"); //overlapDefinitionLabel added to annotationPanel
-		annotationPanel.add( overlapDefinitionLabel);
+		JPanel annotationPanel = new JPanel();
+		annotationPanel.setLayout( new BoxLayout(annotationPanel, BoxLayout.PAGE_AXIS));
+		
+		JPanel overlapDefinitionPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+		JLabel overlapDefinitionLabel = new JLabel( "Overlap Definition"); //overlapDefinitionLabel added to annotationPanel
+		overlapDefinitionPanel.add( overlapDefinitionLabel);
+		annotationPanel.add( overlapDefinitionPanel);
 		
 		//numberOfBasesPanel added to annotationPanel
 		JPanel numberOfBasesPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
@@ -231,6 +234,42 @@ public class MainView extends JPanel{
 		numberOfBases.setText("1");
 		numberOfBasesPanel.add( createPanelWithHint(numberOfBases, Commons.GUI_HINT_NUMBER_OF_BASES));
 		annotationPanel.add( numberOfBasesPanel);
+		
+		//enrichmentOptions added to annotationPanel
+		JPanel annotationOptions = new JPanel( new GridLayout(0, 1));
+		
+		//dnaseEnrichment added to enrichmentOptions
+		dnaseEnrichment = new JCheckBox( "DNase Enrichment");
+		annotationOptions.add( createPanelWithHint(dnaseEnrichment, Commons.GUI_HINT_DNASE_ENRICHMENT));
+		
+		//histoneEnrichment added to enrichmentOptions
+		histoneEnrichment = new JCheckBox( "Histone Enrichment");
+		annotationOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_HISTONE_ENRICHMENT));
+		
+		//tfEnrichment added to enrichmentOptions
+		tfEnrichment = new JCheckBox( "TF Enrichment");
+		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+		annotationOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_TF_ENRICHMENT));
+		
+		//tfEnrichment added to enrichmentOptions
+        keggPathwayEnrichment = new JCheckBox( "KEGG Pathway Enrichment");
+        annotationOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ENRICHMENT));
+        
+        //tfAndKeggPathwayEnrichment added to enrichmentOptions
+        tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Enrichment");
+        tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
+        tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+//		        tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
+        annotationOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
+        
+        //cellLineBasedTfAndKeggPathwayEnrichment added to enrichmentOptions
+        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based TF And KEGG Pathway Enrichment");
+        cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
+        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
+//		        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
+        annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT));
+        annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));
+		        
 		listPane.add( createBorderedPanel( "Annotation", annotationPanel));
 		
 		//enrichmenPanel added to listPane
@@ -238,9 +277,11 @@ public class MainView extends JPanel{
         enrichmentPanel.setLayout( new BoxLayout(enrichmentPanel, BoxLayout.PAGE_AXIS));
         
         //enableEnrichmentCheckBox added to enrichmentPanel
-        enableEnrichmentCheckBox = new JCheckBox( "Enable Enrichment");
-        enableEnrichmentCheckBox.addItemListener( enableEnrichmentListener);
-        enrichmentPanel.add( enableEnrichmentCheckBox);
+        JPanel performEnrichmentPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+        performEnrichmentCheckBox = new JCheckBox( "Perform Enrichment");
+        performEnrichmentCheckBox.addItemListener( enableEnrichmentListener);
+        performEnrichmentPanel.add( performEnrichmentCheckBox);
+        enrichmentPanel.add( performEnrichmentPanel);
         
         //generateRandomDataModeCombo added to enrichmentPanel
         String[] generateRandomDataModeSet = { Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT,
@@ -281,40 +322,6 @@ public class MainView extends JPanel{
 		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_FDR)));
 		
 		enrichmentPanel.add( permutationPanel);
-		//enrichmentOptions added to enrichmentPanel
-		JPanel enrichmentOptions = new JPanel( new GridLayout(0, 1));
-		
-		//dnaseEnrichment added to enrichmentOptions
-		dnaseEnrichment = new JCheckBox( "DNase Enrichment");
-		enrichmentOptions.add( createPanelWithHint(dnaseEnrichment, Commons.GUI_HINT_DNASE_ENRICHMENT));
-		
-		//histoneEnrichment added to enrichmentOptions
-		histoneEnrichment = new JCheckBox( "Histone Enrichment");
-		enrichmentOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_HISTONE_ENRICHMENT));
-		
-		//tfEnrichment added to enrichmentOptions
-		tfEnrichment = new JCheckBox( "TF Enrichment");
-		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-		enrichmentOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_TF_ENRICHMENT));
-		
-		//tfEnrichment added to enrichmentOptions
-        keggPathwayEnrichment = new JCheckBox( "KEGG Pathway Enrichment");
-        enrichmentOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ENRICHMENT));
-        
-        //tfAndKeggPathwayEnrichment added to enrichmentOptions
-        tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Enrichment");
-        tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
-        tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-//        tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
-        enrichmentOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
-        
-        //cellLineBasedTfAndKeggPathwayEnrichment added to enrichmentOptions
-        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based TF And KEGG Pathway Enrichment");
-        cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
-        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-//        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
-        enrichmentOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT));
-        enrichmentPanel.add( createBorderedPanel( "Enrichment Options", enrichmentOptions));
         
         //rsatOption added to enrichmentPanel
         JPanel rsatOption = new JPanel( new GridLayout(0, 1));
@@ -362,7 +369,7 @@ public class MainView extends JPanel{
         add( scrollPane);
         
         //all control operations are done after the gui is completely set
-        enableEnrichmentOptions( enableEnrichmentCheckBox.isSelected());
+        enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
         checkUsabilityOfRegulatorySequenceAnalysis();
         
         revalidate();
@@ -466,20 +473,7 @@ public class MainView extends JPanel{
 		falseDiscoveryRate.setEnabled( shouldEnable);
 		signifanceCriteria.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
-		dnaseEnrichment.setEnabled( shouldEnable);
 		numberOfPerInEachRun.setEnabled( shouldEnable);
-		if( dnaseEnrichment.isSelected()) dnaseEnrichment.setSelected( shouldEnable);
-		histoneEnrichment.setEnabled( shouldEnable);
-		if( histoneEnrichment.isSelected()) histoneEnrichment.setSelected( shouldEnable);
-		tfEnrichment.setEnabled( shouldEnable);
-		if( tfEnrichment.isSelected()) tfEnrichment.setSelected( shouldEnable);
-		keggPathwayEnrichment.setEnabled( shouldEnable);
-		if( keggPathwayEnrichment.isSelected()) keggPathwayEnrichment.setSelected( shouldEnable);
-		tfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
-		if( tfAndKeggPathwayEnrichment.isSelected()) tfAndKeggPathwayEnrichment.setSelected( shouldEnable);
-		cellLineBasedTfAndKeggPathwayEnrichment.setEnabled( shouldEnable);
-		if( cellLineBasedTfAndKeggPathwayEnrichment.isSelected()) cellLineBasedTfAndKeggPathwayEnrichment.setSelected( shouldEnable);
-		checkUsabilityOfRegulatorySequenceAnalysis();
 		
 		revalidate();
 	}
@@ -487,7 +481,7 @@ public class MainView extends JPanel{
 	public void checkUsabilityOfRegulatorySequenceAnalysis(){
 		
 		if( tfEnrichment.isSelected() || tfAndKeggPathwayEnrichment.isSelected() || cellLineBasedTfAndKeggPathwayEnrichment.isSelected()){
-			if( enableEnrichmentCheckBox.isSelected())
+			if( performEnrichmentCheckBox.isSelected())
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
 			else
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
@@ -516,5 +510,11 @@ public class MainView extends JPanel{
 		
 		logArea.append( text + "\n");
 		logArea.setCaretPosition(logArea.getDocument().getLength());
+	}
+	
+	public void enableStartProcess( boolean enable){
+		
+		runButton.setEnabled( enable);
+		stopButton.setEnabled( !enable);
 	}
 }

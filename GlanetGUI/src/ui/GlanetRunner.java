@@ -20,45 +20,48 @@ public class GlanetRunner extends Thread{
 	public void run(){
 		
 		try {
-		getMainView().setCurrentProcessInfo( "InputDataProcess...");
-		InputDataProcess.main(getArgs());
-		
-		/* In case of Enrichment remove overlaps and merge */
-		/* In case of only Annotation, do not remove overlaps and do not merge*/
-		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
-			getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-			InputDataRemoveOverlaps.main(getArgs());
-		}
-						
-		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-		AnnotateGivenIntervalsWithNumbersWithChoices.main(getArgs());
-		
-		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			getMainView().setCurrentProcessInfo( "InputDataProcess...");
+			InputDataProcess.main( getArgs());
 			
-			getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-			AnnotatePermutationsWithNumbersWithChoices.main(getArgs());
-			
-			getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
-			CollectionofPermutationsResults.main(getArgs());
-			
-			getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
-			AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
-			
-			
-			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
-				
-				getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-				GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
-				getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
-				RSATMatrixScanClient.main(getArgs());
+			/* In case of Enrichment remove overlaps and merge */
+			/* In case of only Annotation, do not remove overlaps and do not merge*/
+			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+				InputDataRemoveOverlaps.main(getArgs());
 			}
-		}
+							
+			getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+			AnnotateGivenIntervalsWithNumbersWithChoices.main(getArgs());
+			
+			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+				
+				getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+				AnnotatePermutationsWithNumbersWithChoices.main(getArgs());
+				
+				getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+				CollectionofPermutationsResults.main(getArgs());
+				
+				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+				AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
+				
+				
+				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+					
+					getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+					GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
+					getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
+					RSATMatrixScanClient.main(getArgs());
+				}
+			}
+			
+			//args[1]  already has file separator at the end
+			getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
+			getMainView().enableStartProcess( true);
+			GlanetRunner.appendLog( "Execution has ended");
 		
-		//args[1]  already has file separator at the end
-		getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		} catch (SecurityException e) {
 			
-			GlanetRunner.appendLog("pressed stop");
+			GlanetRunner.appendLog("Pressed stop");
         }
 	}
 	
