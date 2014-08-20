@@ -64,17 +64,17 @@ public class GlanetRunner extends Thread{
 	
 	public static void appendLog( String log) {
 		
-		//getMainView().appendNewTextToLogArea( log);
+		getMainView().appendNewTextToLogArea( log);
 	}
 	
 	public static void appendLog( int log) {
 		
-		//getMainView().appendNewTextToLogArea( log);
+		getMainView().appendNewTextToLogArea( log);
 	}
 	
 	public static void appendLog( float log) {
 		
-		//getMainView().appendNewTextToLogArea( log);
+		getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static MainView getMainView() {

@@ -216,7 +216,7 @@ public class MainView extends JPanel{
 		
 		//annotationPanel added to listPane
 		JPanel annotationPanel = new JPanel( new GridLayout( 0, 1));
-		JLabel overlapDefinitionLabel = new JLabel( "Overlap Definition"); //overlapDefinitionLabel added to annotationPanel
+		JLabel overlapDefinitionLabel = new JLabel( "Overlap Definition 2"); //overlapDefinitionLabel added to annotationPanel
 		annotationPanel.add( overlapDefinitionLabel);
 		
 		//numberOfBasesPanel added to annotationPanel
