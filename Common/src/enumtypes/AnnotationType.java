@@ -17,7 +17,8 @@ public enum AnnotationType {
 	HISTONE_ANNOTATION(3),
 	GENE_SET_ANNOTATION(4),
 	TF_GENE_SET_ANNOTATION(5),
-	TF_CELLLINE_GENE_SET_ANNOTATION(6);
+	TF_CELLLINE_GENE_SET_ANNOTATION(6),
+	BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION(7);
 	
 	private final int annotationType;
 	
@@ -46,7 +47,9 @@ public enum AnnotationType {
     		return TF_GENE_SET_ANNOTATION;
     	}else if  (Commons.TF_CELLLINE_GENE_SET_ANNOTATION.equals(annotationType)){
     		return TF_CELLLINE_GENE_SET_ANNOTATION;
-    	}else
+    	}else if (Commons.BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION.equals(annotationType)){
+    		return BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION;
+    	}else     	
     		return null;
     }
     
@@ -58,12 +61,13 @@ public enum AnnotationType {
     	else if (this.equals(AnnotationType.TF_ANNOTATION))
     		return Commons.TF_ANNOTATION;
     	else if (this.equals(AnnotationType.GENE_SET_ANNOTATION))
-    		return Commons.GENE_SET_ANNOTATION;
-    	
+    		return Commons.GENE_SET_ANNOTATION;    	
     	else if (this.equals(AnnotationType.TF_GENE_SET_ANNOTATION))
     		return Commons.TF_GENE_SET_ANNOTATION;
     	else if (this.equals(AnnotationType.TF_CELLLINE_GENE_SET_ANNOTATION))
     		return Commons.TF_CELLLINE_GENE_SET_ANNOTATION;  	
+    	else if (this.equals(AnnotationType.BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION))
+    		return Commons.BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION;
     	else
     		return null;   		
     }
@@ -97,5 +101,9 @@ public enum AnnotationType {
     public boolean isTfCellLineGeneSetAnnotation() {
         return  this == TF_CELLLINE_GENE_SET_ANNOTATION;
     }
-	
+	    
+    /** An added method.  */
+    public boolean isBothTfGeneSetAndTfCellLineGeneSetAnnotation() {
+        return  this == BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION;
+    }
 }

@@ -24,12 +24,13 @@ public class Commons {
 	public static final String DATA = "Data";
 	
 	//EnumTye AnnotationType
-	public static final String DNASE_ANNOTATION 		= "DNASE_ANNOTATION";
-	public static final String TF_ANNOTATION 			= "TF_ANNOTATION";
-	public static final String HISTONE_ANNOTATION 		= "HISTONE_ANNOTATION";
-	public static final String GENE_SET_ANNOTATION 		= "GENE_SET_ANNOTATION";
-	public static final String TF_GENE_SET_ANNOTATION 	= "TF_GENE_SET_ANNOTATION";
-	public static final String TF_CELLLINE_GENE_SET_ANNOTATION = "TF_CELLLINE_GENE_SET_ANNOTATION";
+	public static final String DNASE_ANNOTATION 				= "DNASE_ANNOTATION";
+	public static final String TF_ANNOTATION 					= "TF_ANNOTATION";
+	public static final String HISTONE_ANNOTATION 				= "HISTONE_ANNOTATION";
+	public static final String GENE_SET_ANNOTATION 				= "GENE_SET_ANNOTATION";
+	public static final String TF_GENE_SET_ANNOTATION 			= "TF_GENE_SET_ANNOTATION";
+	public static final String TF_CELLLINE_GENE_SET_ANNOTATION 	= "TF_CELLLINE_GENE_SET_ANNOTATION";
+	public static final String BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION = "BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION";
 	
 	//EnumType WriteGeneratedRandomDataMode
 	public static final String WRITE_GENERATED_RANDOM_DATA = "WRITE_GENERATED_RANDOM_DATA";
@@ -88,11 +89,10 @@ public class Commons {
 	public static final String DO_GENESET_ENRICHMENT 		= "DO_GENESET_ENRICHMENT";
 	public static final String DO_NOT_GENESET_ENRICHMENT 	= "DO_NOT_GENESET_ENRICHMENT";
 	public static final String DO_TF_GENESET_ENRICHMENT 	= "DO_TF_GENESET_ENRICHMENT";
-	public static final String DO_NOT_TF_GENESET_ENRICHMENT = "DO_NOT_TF_GENESET_ENRICHMENT";
-	//You can choose TF_CELLLINE_KEGGPATHWAY or TF_KEGGPATHWAY, not both
-	//TF and KEGGPATHWAY Enrichment is done by default in case of any choice.
+	public static final String DO_NOT_TF_GENESET_ENRICHMENT = "DO_NOT_TF_GENESET_ENRICHMENT";	
 	public static final String DO_TF_CELLLINE_GENESET_ENRICHMENT 		= "DO_TF_CELLLINE_GENESET_ENRICHMENT";
 	public static final String DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT";
+	public static final String BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT = "BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT";
 
 	
 	//EnumType ChromosomeName

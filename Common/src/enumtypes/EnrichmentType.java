@@ -20,7 +20,10 @@ public enum EnrichmentType {
 	DO_NOT_TF_GENESET_ENRICHMENT(10),
 	
 	DO_TF_CELLLINE_GENESET_ENRICHMENT(11),
-	DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT(12);
+	DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT(12),
+	
+	BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT(13);
+	
 	
 	private final int enrichmentType;
 	
@@ -62,7 +65,10 @@ public enum EnrichmentType {
     		return DO_TF_CELLLINE_GENESET_ENRICHMENT;
     	}else if  (Commons.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT.equals(enrichmentType)){
     		return DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT;
-    	}else
+    	}else if (Commons.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT.equals(enrichmentType)){
+    		return BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
+    	}
+    	else
     		return null;
     }
     
@@ -97,7 +103,8 @@ public enum EnrichmentType {
     	else if (this.equals(EnrichmentType.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT))
     		return Commons.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT;
     	
-    	
+    	else if (this.equals(EnrichmentType.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT))
+    		return Commons.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
     	else
     		return null;
     				
@@ -134,5 +141,11 @@ public enum EnrichmentType {
     public boolean isTfCellLineGeneSetEnrichment() {
         return  this == DO_TF_CELLLINE_GENESET_ENRICHMENT;
     }
+    
+    /** An added method.  */
+    public boolean isBothTfGeneSetAndTfCellLineGeneSetEnrichment() {
+        return  this == BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
+    }
+    
 
 }
