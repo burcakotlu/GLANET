@@ -438,6 +438,41 @@ public class KeggPathwayUtility {
 	
 	}
 
+	//@todo Trove library usage starts
+	public static void fillKeggPathwayName2KeggPathwayNumberMap(String dataFolder, String direcyoryName, String inputFileName, TObjectShortMap<String> keggPathwayName2KeggPathwayNumber){
+		
+		String strLine;
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		
+		String keggPathwayName;
+		short keggPathwayNumber;
+		int indexofFirstTab;
+		
+		try {
+			fileReader = FileOperations.createFileReader(dataFolder + direcyoryName + inputFileName);			
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				keggPathwayName = strLine.substring(0,indexofFirstTab);
+				keggPathwayNumber = Short.parseShort(strLine.substring(indexofFirstTab+1));
+				
+				keggPathwayName2KeggPathwayNumber.put(keggPathwayName, keggPathwayNumber);
+				
+			}
+			
+			bufferedReader.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	//@todo Trove library usage ends
 	
 	//@todo
 	public static void fillKeggPathwayName2KeggPathwayNumberMap(String dataFolder, String direcyoryName, String inputFileName, Map<String,Short> keggPathwayName2KeggPathwayNumber){
@@ -474,6 +509,89 @@ public class KeggPathwayUtility {
 	
 	}
 	//@todo
+	
+	
+	//@todo Trove Library usage starts
+	public static void createNcbiGeneId2KeggPathwayNumberMap(String dataFolder,String fileName, TIntObjectMap<TShortList> ncbiGeneId2KeggPathwayNumberHashMap,TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap){
+		
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		int indexofFirstTab 	= -1;
+		int indexofSecondTab 	= -1;
+		int indexofFirstColon 		= -1;
+		int indexofSecondColon 		= -1;
+		
+		String keggPathwayEntry;
+		Short keggPathwayNumber;
+		String ncbiGeneIdString;
+		Integer ncbiGeneId;
+		
+		
+		TShortList  existingKeggPathwayList = null;
+		
+		try {
+			fileReader = new FileReader(dataFolder + fileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				//example line
+				//path:hsa00010	hsa:10327	reverse
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				
+				keggPathwayEntry = strLine.substring(0,indexofFirstTab);
+				ncbiGeneIdString = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+				
+				indexofFirstColon = keggPathwayEntry.indexOf(':');
+				indexofSecondColon = ncbiGeneIdString.indexOf(':');
+				
+				keggPathwayEntry = keggPathwayEntry.substring(indexofFirstColon+1);				
+				ncbiGeneIdString = ncbiGeneIdString.substring(indexofSecondColon+1);
+				
+				keggPathwayNumber = keggPathwayName2KeggPathwayNumberMap.get(keggPathwayEntry);
+				ncbiGeneId =Integer.parseInt(ncbiGeneIdString);
+				
+				//fill ncbiGeneId2KeggPathwayHashMap
+				//Hash Map does not contain this ncbiGeneId
+				if (ncbiGeneId2KeggPathwayNumberHashMap.get(ncbiGeneId)==null){					
+					TShortList keggPathwayNumberList = new TShortArrayList();
+					keggPathwayNumberList.add(keggPathwayNumber);
+					ncbiGeneId2KeggPathwayNumberHashMap.put(ncbiGeneId, keggPathwayNumberList);
+					}
+				//Hash Map contains this ncbiGeneId
+				else{
+					existingKeggPathwayList = ncbiGeneId2KeggPathwayNumberHashMap.get(ncbiGeneId);
+					
+					if(!(existingKeggPathwayList.contains(keggPathwayNumber))){
+						existingKeggPathwayList.add(keggPathwayNumber);
+					} else{
+						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
+					}
+					
+					ncbiGeneId2KeggPathwayNumberHashMap.put(ncbiGeneId, existingKeggPathwayList);		
+				}
+								
+			} // End of While
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}					
+	
+	}
+	//@todo Trove Library usage ends
 	
 	//@todo
 	public static void createNcbiGeneId2KeggPathwayNumberMap(String dataFolder,String fileName, TIntObjectMap<TShortList> ncbiGeneId2KeggPathwayNumberHashMap,Map<String,Short> keggPathwayEntry2KeggPathwayNumberMap){
