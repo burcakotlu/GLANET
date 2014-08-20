@@ -1,6 +1,6 @@
 package ui;
 
-import empiricalpvalues.AnnotatePermutationsWithNumbersWithChoices;
+import empiricalpvalues.AnnotatePermutationsWithEnrichmentChoicesWithNumbers;
 import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
@@ -36,7 +36,7 @@ public class GlanetRunner extends Thread{
 		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
 			getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-			AnnotatePermutationsWithNumbersWithChoices.main(getArgs());
+			AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
 			
 			getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 			CollectionofPermutationsResults.main(getArgs());

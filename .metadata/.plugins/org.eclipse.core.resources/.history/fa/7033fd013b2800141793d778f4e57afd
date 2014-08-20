@@ -1,12 +1,12 @@
 package ui;
 
-import empiricalpvalues.AnnotatePermutationsWithNumbersWithChoices;
+import empiricalpvalues.AnnotatePermutationsWithEnrichmentChoicesWithNumbers;
 import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
-import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
+import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
 
 import common.Commons;
@@ -31,12 +31,12 @@ public class GlanetRunner extends Thread{
 		}
 						
 		getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-		AnnotateGivenIntervalsWithNumbersWithChoices.main(getArgs());
+		AnnotateGivenIntervalsWithNumbers.main(getArgs());
 		
 		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
 			getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-			AnnotatePermutationsWithNumbersWithChoices.main(getArgs());
+			AnnotatePermutationsWithEnrichmentChoicesWithNumbers.main(getArgs());
 			
 			getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 			CollectionofPermutationsResults.main(getArgs());
