@@ -12795,17 +12795,16 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		TShortIntMap regulationBasedKeggPathway2KMap 	= new TShortIntHashMap();
 		TShortIntMap allBasedKeggPathway2KMap 			= new TShortIntHashMap();
 				
-		//TF KEGGPathway
-		TIntIntMap tfExonBasedKeggPathway2KMap 			= new TIntIntHashMap();
-		TIntIntMap tfRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
-		TIntIntMap tfAllBasedKeggPathway2KMap 			= new TIntIntHashMap();
-
-		//TF CellLine KEGGPathway
+		//TF and CellLine and KEGGPathway
 		TIntIntMap tfCellLineExonBasedKeggPathway2KMap 			= new TIntIntHashMap();
 		TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
 		TIntIntMap tfCellLineAllBasedKeggPathway2KMap 			= new TIntIntHashMap();
 		
-		
+		//TF and KEGGPathway
+		TIntIntMap tfExonBasedKeggPathway2KMap 			= new TIntIntHashMap();
+		TIntIntMap tfRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
+		TIntIntMap tfAllBasedKeggPathway2KMap 			= new TIntIntHashMap();
+
 		Date dt;
 		Instant dnaseStart,histoneStart,transcriptionFactorStart,KEGGPathwayStart,tfKEGGPathwayStart,tfCellLineKEGGPathwayStart,tfCellLineKEGGPathway_and_TFKEGGPathwayStart;
 		Instant dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
@@ -14184,7 +14183,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					TLongIntMap  permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap 	= new TLongIntHashMap();
 					TLongIntMap  permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 		= new TLongIntHashMap();
 						
-					searchTfandKeggPathwaywithoutIOwithNumbers(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfNumberCellLineNumber2KMap,permutationNumberExonBasedKeggPathwayNumber2KMap,permutationNumberRegulationBasedKeggPathwayNumber2KMap,permutationNumberAllBasedKeggPathwayNumber2KMap,permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap,permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap,permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap,permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);				
+					searchTfandKeggPathwaywithoutIOwithNumbers(permutationNumber,chrName,randomlyGeneratedData,intervalTree,ucscRefSeqGenesIntervalTree,geneId2KeggPathwayMap,permutationNumberTfNumberCellLineNumber2KMap,permutationNumberExonBasedKeggPathwayNumber2KMap,permutationNumberRegulationBasedKeggPathwayNumber2KMap,permutationNumberAllBasedKeggPathwayNumber2KMap,null,null,null,permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,Commons.NCBI_GENE_ID,tfandKeggPathwayEnrichmentType,overlapDefinition);				
 
 					//TF
 					allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap(permutationNumberTfNumberCellLineNumber2KMap);	
