@@ -1317,11 +1317,13 @@ public class Commons {
 	public static final String GUI_HINT_FDR = "False Discovery Rate";
 	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
 	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number of Permutations that will be carried out for Enrichment";
-	public static final String GUI_HINT_DNASE_ENRICHMENT = "DNase Enrichment";
-	public static final String GUI_HINT_HISTONE_ENRICHMENT = "Histone Enrichment";
-	public static final String GUI_HINT_TF_ENRICHMENT = "Transcription Factor Enrichment";
-	public static final String GUI_HINT_KEGG_PATHWAY_ENRICHMENT = "KEGG Pathway Enrichment";
-	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT = "Transcription Factor and KEGG Pathway Enrichment";
-	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT = "Cell Line based Transcription Factor and KEGG Pathway Enrichment";
+	
+	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "CellLine Based DNase Annotation";
+	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "CellLine Based Histone Annotation";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "CellLine Based Transcription Factor Annotation";
+	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
+	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Cell Line based Transcription Factor and KEGG Pathway Annotation";
+	
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 }
