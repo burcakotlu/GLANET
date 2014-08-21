@@ -42,7 +42,7 @@ public class GlanetRunner extends Thread{
 			all.addAll(col1);
 			all.addAll(col2);
 			
-			//Combination getArgs and selected cellLines as String array
+			//Combination of arguments and selected cellLines
 			String[] allArguments = all.toArray(new String[] {});
 			
 		
