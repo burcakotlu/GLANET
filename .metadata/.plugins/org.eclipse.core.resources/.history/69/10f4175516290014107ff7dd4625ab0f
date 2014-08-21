@@ -14361,7 +14361,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 		//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 		//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
-		//args[21]	--->	number of permutations in each run
 		public static void main(String[] args) {
 		
 			AnnotateGivenIntervalsWithNumbersWithChoices annotateIntervals = new AnnotateGivenIntervalsWithNumbersWithChoices();

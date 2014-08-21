@@ -5,9 +5,7 @@ import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
@@ -35,49 +33,42 @@ public class GlanetRunner extends Thread{
 		 */
 		
 		try {
-			
-			Collection<String> all = new ArrayList<String>();
-			List<String> col1 = Arrays.asList(getArgs());
-			List<String> col2 = Arrays.asList(cellLines);
-			all.addAll(col1);
-			all.addAll(col2);
-			
-			//Combination of arguments and selected cellLines
-			String[] allArguments = all.toArray(new String[] {});
-			
-		
 			getMainView().setCurrentProcessInfo( "InputDataProcess...");
-			InputDataProcess.main(allArguments);
+			InputDataProcess.main( getArgs());
 			
 			/* In case of Enrichment remove overlaps and merge */
 			/* In case of only Annotation, do not remove overlaps and do not merge*/
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-				InputDataRemoveOverlaps.main(allArguments);
+				InputDataRemoveOverlaps.main(getArgs());
 			}
 							
 			getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-			AnnotateGivenIntervalsWithNumbersWithChoices.main(allArguments);
+			List<String> col1 = Arrays.asList(getArgs());
+			List<String> col2 = Arrays.asList(cellLines);
+			col1.addAll(col2);
+			
+			AnnotateGivenIntervalsWithNumbersWithChoices.main(col1.toArray(<String>));
 			
 			
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 				
 				getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-				AnnotatePermutationsWithNumbersWithChoices.main(allArguments);
+				AnnotatePermutationsWithNumbersWithChoices.main(getArgs());
 				
 				getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
-				CollectionofPermutationsResults.main(allArguments);
+				CollectionofPermutationsResults.main(getArgs());
 				
 				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
-				AugmentationofEnrichedElementswithGivenInputData.main(allArguments);
+				AugmentationofEnrichedElementswithGivenInputData.main(getArgs());
 				
 				
 				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 					
 					getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-					GenerationofSequencesandMatricesforGivenIntervals.main(allArguments);
+					GenerationofSequencesandMatricesforGivenIntervals.main(getArgs());
 					getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
-					RSATMatrixScanClient.main(allArguments);
+					RSATMatrixScanClient.main(getArgs());
 				}
 			}
 			
