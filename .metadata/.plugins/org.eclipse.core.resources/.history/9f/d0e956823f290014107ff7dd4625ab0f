@@ -287,8 +287,6 @@ public class MainView extends JPanel{
         JPanel performEnrichmentPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
         performEnrichmentCheckBox = new JCheckBox( "Perform Enrichment");
         performEnrichmentCheckBox.addItemListener( enableEnrichmentListener);
-        performEnrichmentCheckBox.addItemListener( enableRegulatorySequenceAnalysis);
-		
         performEnrichmentPanel.add( performEnrichmentCheckBox);
         enrichmentPanel.add( performEnrichmentPanel);
         
