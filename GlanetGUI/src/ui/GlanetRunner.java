@@ -8,16 +8,24 @@ import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
-
 import common.Commons;
 
 public class GlanetRunner extends Thread{
 	
 	private static String args[];
 	private static MainView mainView;
+	private static String cellLines[];
 
 	@Override
 	public void run(){
+		
+		/*--------------------------------
+		 * IMPORTANT
+		 * USE cellLines[] WHEREVER YOU WANT HERE. THE SELECTED CELL LINES
+		 * ARE PASSED HERE AS A ARRAY OF STRINGS. IF NO CELL LINE IS SELECTED
+		 * THEN THE SIZE OF cellLines[] IS ZERO. CHECK THIS BEFORE USING IT.
+		 * -------------------------------
+		 */
 		
 		try {
 			getMainView().setCurrentProcessInfo( "InputDataProcess...");
@@ -81,19 +89,36 @@ public class GlanetRunner extends Thread{
 	}
 
 	public static MainView getMainView() {
+		
 		return mainView;
 	}
 
 	public static void setMainView(MainView mainView) {
+		
 		GlanetRunner.mainView = mainView;
 	}
 
 	public static String[] getArgs() {
+		
 		return args;
 	}
 
-	public static void setArgs(String args[]) {
+	public static void setArgs( String args[]) {
 		
-		GlanetRunner.args = args;
+		GlanetRunner.args = new String[args.length];
+		for( int i = 0; i < args.length; i++) 
+			GlanetRunner.args[i] = args[i];
+	}
+	
+	public static String[] getCellLines() {
+		
+		return cellLines;
+	}
+
+	public static void setCellLines( String cellLines[]) {
+		
+		GlanetRunner.cellLines = new String[cellLines.length];
+		for( int i = 0; i < cellLines.length; i++) 
+			GlanetRunner.cellLines[i] = cellLines[i];
 	}
 }

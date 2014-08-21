@@ -42,6 +42,7 @@ public class MainView extends JPanel{
 	private JCheckBox keggPathwayEnrichment;
 	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
 	private JTextArea logArea;
+	private JList<String> cellLinesList;
 	
 	public interface MainViewDelegate {
 		
@@ -66,7 +67,8 @@ public class MainView extends JPanel{
 											   String writeGeneratedRandomDataMode,
 											   String writePermutationBasedandParametricBasedAnnotationResultMode,
 											   String writePermutationBasedAnnotationResultMode,
-											   String numberOfPermutationsInEachRun);
+											   String numberOfPermutationsInEachRun,
+											   String[] cellLinesToBeConsidered);
 		
 		public void stopCurrentProcess();
 	}
@@ -130,7 +132,8 @@ public class MainView extends JPanel{
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
-						numberOfPerInEachRun.getText()
+						numberOfPerInEachRun.getText(),
+						cellLinesList.getSelectedValuesList().toArray(new String[0])
 				);
 				
 				enableStartProcess( false);
@@ -235,41 +238,45 @@ public class MainView extends JPanel{
 		numberOfBasesPanel.add( createPanelWithHint(numberOfBases, Commons.GUI_HINT_NUMBER_OF_BASES));
 		annotationPanel.add( numberOfBasesPanel);
 		
-		//enrichmentOptions added to annotationPanel
+		//annotationOptions added to annotationPanel
 		JPanel annotationOptions = new JPanel( new GridLayout(0, 1));
 		
-		//dnaseEnrichment added to enrichmentOptions
+		//dnaseEnrichment added to annotationOptions
 		dnaseEnrichment = new JCheckBox( "DNase Enrichment");
 		annotationOptions.add( createPanelWithHint(dnaseEnrichment, Commons.GUI_HINT_DNASE_ENRICHMENT));
 		
-		//histoneEnrichment added to enrichmentOptions
+		//histoneEnrichment added to annotationOptions
 		histoneEnrichment = new JCheckBox( "Histone Enrichment");
 		annotationOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_HISTONE_ENRICHMENT));
 		
-		//tfEnrichment added to enrichmentOptions
+		//tfEnrichment added to annotationOptions
 		tfEnrichment = new JCheckBox( "TF Enrichment");
 		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
 		annotationOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_TF_ENRICHMENT));
 		
-		//tfEnrichment added to enrichmentOptions
+		//tfEnrichment added to annotationOptions
         keggPathwayEnrichment = new JCheckBox( "KEGG Pathway Enrichment");
         annotationOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ENRICHMENT));
         
-        //tfAndKeggPathwayEnrichment added to enrichmentOptions
+        //tfAndKeggPathwayEnrichment added to annotationOptions
         tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Enrichment");
         tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
         tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-//		        tfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         annotationOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ENRICHMENT));
         
-        //cellLineBasedTfAndKeggPathwayEnrichment added to enrichmentOptions
+        //cellLineBasedTfAndKeggPathwayEnrichment added to annotationOptions
         cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based TF And KEGG Pathway Enrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-//		        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( adjustTfEnrichmentCheckboxes);
         annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ENRICHMENT));
         annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));
-		        
+        
+        //cellLinesScrollPane added to annotationPanel
+        cellLinesList = new JList<String>( createCellLines()); //see the comment on the method definition (createCellLines())
+        JScrollPane cellLinesScrollPane = new JScrollPane( cellLinesList);
+        cellLinesList.setVisibleRowCount( 5);
+        annotationPanel.add( createBorderedPanel( "Cell Lines To Be Considered", cellLinesScrollPane));
+        
 		listPane.add( createBorderedPanel( "Annotation", annotationPanel));
 		
 		//enrichmenPanel added to listPane
@@ -516,5 +523,141 @@ public class MainView extends JPanel{
 		
 		runButton.setEnabled( enable);
 		stopButton.setEnabled( !enable);
+	}
+	
+	//if you want to change the cell lines, please change here
+	private String[] createCellLines() {
+		
+		String[] cellLines = { "AG04449",
+				"AG04450",
+				"AG09309",
+				"AG09319",
+				"AG10803",
+				"AOAF",
+				"BJ",
+				"CACO2",
+				"CHORION",
+				"CMK",
+				"D721",
+				"FB0167P",
+				"FB8470",
+				"FIBROBLASTS_PARK",
+				"GM06990",
+				"GM12865",
+				"GM12878",
+				"GM12891",
+				"GM12892",
+				"GM18507",
+				"GM19238",
+				"GM19239",
+				"GM19240",
+				"H1_ES",
+				"H9_ES",
+				"HAEPIC",
+				"HBMEC",
+				"HCF",
+				"HCFAA",
+				"HCM",
+				"HCONF",
+				"HCPEPIC",
+				"HCT116",
+				"HEEPIC",
+				"HELA",
+				"HELAS3",
+				"HELAS3_IFNA",
+				"HEPG2",
+				"HESC",
+				"HESCT0",
+				"HGF",
+				"HL60",
+				"HMEC",
+				"HMF",
+				"HMVEC_DBLAD",
+				"HMVEC_DBLNEO",
+				"HMVEC_DLYAD",
+				"HMVEC_DLYNEO",
+				"HMVEC_DNEO",
+				"HMVEC_LBL",
+				"HMVEC_LLY",
+				"HNPCEPIC",
+				"HPAF",
+				"HPDLF",
+				"HPF",
+				"HRCE",
+				"HRE",
+				"HRPEPIC",
+				"HTH1",
+				"HTH2",
+				"HUVEC",
+				"HVMF",
+				"K562",
+				"LHSR",
+				"LHSR_INDUCED",
+				"MCF7",
+				"MELANOCYTE",
+				"MYOBLAST",
+				"MYOMETRIAL",
+				"MYOTUBE",
+				"NB4",
+				"NHA",
+				"NHDF_AD",
+				"NHDF_NEO",
+				"NHEK",
+				"NHLF",
+				"PANC1",
+				"PANCREATIC_ISLETS",
+				"SAEC",
+				"SKMC",
+				"SKNSH",
+				"SM_SFM",
+				"H1HESC",
+				"HSMM",
+				"HSMMT",
+				"NHDFAD",
+				"OSTEOBL",
+				"A549",
+				"ECC1",
+				"HTB11",
+				"PFSK1",
+				"SKNSHRA",
+				"T47D",
+				"U87",
+				"FIBROBL",
+				"GLIOBLA",
+				"PROGFIB",
+				"GM10847",
+				"GM15510",
+				"GM18505",
+				"GM18526",
+				"GM18951",
+				"GM19099",
+				"GM19193",
+				"HEK293B",
+				"HEPG2B",
+				"K562B",
+				"MCF10AES",
+				"NT2D1",
+				"PBDE",
+				"RAJI",
+				"SHSY5Y",
+				"TREXHEK293",
+				"U2OS",
+				"GM12801",
+				"GM12864",
+				"GM12872",
+				"GM12873",
+				"GM12874",
+				"GM12875",
+				"HASP",
+				"HCPE",
+				"HEE",
+				"HEK293",
+				"HRPE",
+				"WERIRB1",
+				"H7ES",
+				"JURKAT",
+				"NHDFNEO"};
+		
+		return cellLines;
 	}
 }
