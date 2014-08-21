@@ -95,6 +95,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//args[21]  --->    number of permutations in each run. Default is 2000
+	//args[22]  --->	Selected cell lines. If no selected cell line, then size of
+	//					the array is zero. Always check the size before using it.
+	//					This is a array of strings.
 	
 	public void startRunActionsWithOptions( String inputFileName, 
 			   String outputFolder,
@@ -117,7 +120,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String writeGeneratedRandomDataMode,
 			   String writePermutationBasedandParametricBasedAnnotationResultMode,
 			   String writePermutationBasedAnnotationResultMode,
-			   String numberOfPermutationsInEachRun) {
+			   String numberOfPermutationsInEachRun,
+			   String[] cellLinesToBeConsidered) {
 		
 		String[] args =   { inputFileName, 
 				   outputFolder,
@@ -144,10 +148,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 		
 		runner = new GlanetRunner();
 		
-		GlanetRunner.setArgs(new String[args.length]);
+		GlanetRunner.setArgs( args);
 		GlanetRunner.setMainView( mainView);
-		
-		for( int i = 0; i < args.length; i++) GlanetRunner.getArgs()[i] = args[i];
+		GlanetRunner.setCellLines( cellLinesToBeConsidered);
 		
 		runner.start();
 	}
