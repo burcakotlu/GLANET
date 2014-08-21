@@ -13096,8 +13096,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");		
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 

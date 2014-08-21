@@ -12830,7 +12830,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
 			
 			GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
 			
 			System.gc();
 			System.runFinalization();
@@ -12856,8 +12855,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
 		    
 			GlanetRunner.appendLog("CellLine Based Histone annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 		    System.gc();
 			System.runFinalization();
 		
@@ -12883,8 +12881,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
 		    
 			GlanetRunner.appendLog("CellLine Based TF annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 		}
@@ -12912,8 +12909,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("KEGG Pathway annotation ends: " + new Date());
 		    
 			GlanetRunner.appendLog("KEGG Pathway annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 
@@ -12949,8 +12945,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("TF KEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TF KEGGPathway annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");		
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 
@@ -12986,8 +12981,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation ends: " + new Date());
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");	    
-			GlanetRunner.appendLog("**********************************************************");
-			
+		    
 			System.gc();
 			System.runFinalization();
 
@@ -13096,8 +13090,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");		
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 

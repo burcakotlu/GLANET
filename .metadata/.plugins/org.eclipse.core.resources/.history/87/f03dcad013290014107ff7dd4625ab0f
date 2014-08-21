@@ -12819,7 +12819,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		if (dnaseEnrichmentType.isDnaseEnrichment()){
 			
 		    
-			GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
+			GlanetRunner.appendLog("DNASE annotation starts: " + new Date());
 		    dateBefore = System.currentTimeMillis();
 		    
 			searchDnaseWithNumbers(dataFolder,outputFolder,dnaseCellLineNumber2KMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
@@ -12827,10 +12827,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			dateAfter = System.currentTimeMillis();
 			
-			GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
+			GlanetRunner.appendLog("DNASE annotation ends: " + new Date());
 			
-			GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
+			GlanetRunner.appendLog("Dnase annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
 			
 			System.gc();
 			System.runFinalization();
@@ -12846,18 +12845,17 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/
 		if (histoneEnrichmentType.isHistoneEnrichment()){
 			
-			GlanetRunner.appendLog("CellLine Based Histone annotation starts: " + new Date());
+			GlanetRunner.appendLog("Histone annotation starts: " + new Date());
 		    
 		    dateBefore = System.currentTimeMillis();
 		   	searchHistoneWithNumbers(dataFolder,outputFolder,histoneNumberCellLineNumber2KMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
 			dateAfter = System.currentTimeMillis();
 			
-			GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
+			GlanetRunner.appendLog("Histone annotation ends: " + new Date());
 		    
-			GlanetRunner.appendLog("CellLine Based Histone annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
-			GlanetRunner.appendLog("**********************************************************");
-			
+			GlanetRunner.appendLog("Histone annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
+
 		    System.gc();
 			System.runFinalization();
 		
@@ -12873,18 +12871,17 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/	
 		if (tfEnrichmentType.isTfEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
 			
-			GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
+			GlanetRunner.appendLog("TF annotation starts: " + new Date());
 		    
 		    dateBefore = System.currentTimeMillis();
 			searchTranscriptionFactorWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 			dateAfter = System.currentTimeMillis();
 			
-			GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
+			GlanetRunner.appendLog("TF annotation ends: " + new Date());
 		    
-			GlanetRunner.appendLog("CellLine Based TF annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
-			GlanetRunner.appendLog("**********************************************************");
-			
+			GlanetRunner.appendLog("TF annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");				
+
 			System.gc();
 			System.runFinalization();
 		}
@@ -12912,8 +12909,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("KEGG Pathway annotation ends: " + new Date());
 		    
 			GlanetRunner.appendLog("KEGG Pathway annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 
@@ -12949,8 +12945,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("TF KEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TF KEGGPathway annotation took: " + (float)((dateAfter - dateBefore)/1000) +" seconds");		
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 
@@ -12965,7 +12960,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/
 		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment())){
 			
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
+			GlanetRunner.appendLog("TF CELLLINE KEGGPATHWAY annotation starts: " + new Date());
 		    
 		    dateBefore = System.currentTimeMillis();
 		    searchTfCellLineKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
@@ -12984,10 +12979,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 			dateAfter = System.currentTimeMillis();
 			
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation ends: " + new Date());
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");	    
-			GlanetRunner.appendLog("**********************************************************");
-			
+			GlanetRunner.appendLog("TF CELLLINE KEGGPATHWAY annotation ends: " + new Date());
+			GlanetRunner.appendLog("TF CELLLINE KEGGPATHWAY annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");	    
+		    
 			System.gc();
 			System.runFinalization();
 
@@ -13096,8 +13090,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");		
-			GlanetRunner.appendLog("**********************************************************");
-			
+
 			System.gc();
 			System.runFinalization();
 
