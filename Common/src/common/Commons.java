@@ -166,6 +166,7 @@ public class Commons {
 	
 	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = "RefSeqIdsforGRCh37" + System.getProperty("file.separator") + "GCF_000001405.25.assembly.txt";
+	public static final String REFSEQ_IDS_FOR_GRCH38_INPUT_FILE = "RefSeqIdsforGRCh38" + System.getProperty("file.separator") + "GCF_000001405.26.assembly.txt";
 	
 
 //dbSNP
@@ -1308,9 +1309,9 @@ public class Commons {
 	
 	
 	/******************************HINTS****************************************/
-	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
-	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
-	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";
+	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File must be tab delimited .txt file";
+	public static final String GUI_HINT_INPUT_FORMAT = "Set Input Data Format";
+	public static final String GUI_HINT_GLANET_FOLDER = "Set GLANET FOLDER";
 	public static final String GUI_HINT_NUMBER_OF_BASES = "Number of bases required for overlap definition";
 	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";

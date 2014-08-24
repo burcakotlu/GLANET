@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="annotate.intervals.parametric.FileNameNumber"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="generate.randomdata.RandomDataGenerator"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNode"/>
@@ -41,7 +38,6 @@
 <fullyQualifiedTypeName name="enumtypes.IntervalName"/>
 <fullyQualifiedTypeName name="gnu.trove.list.array.TShortArrayList"/>
 <fullyQualifiedTypeName name="gnu.trove.map.hash.TShortIntHashMap"/>
-<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 <fullyQualifiedTypeName name="intervaltree.DnaseIntervalTreeNodeWithNumbers"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="enumtypes.KeyOrder"/>
@@ -57,7 +53,11 @@
 <fullyQualifiedTypeName name="com.sun.javafx.scene.control.skin.CellSkinBase"/>
 <fullyQualifiedTypeName name="create.encode.CellLineTranscriptionFactor"/>
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
-<fullyQualifiedTypeName name="ui.GlanetRunner"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 <fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
+<fullyQualifiedTypeName name="ui.GlanetRunner"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.runtime.reflect.Accessor.GetterSetterReflection"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 </qualifiedTypeNameHistroy>

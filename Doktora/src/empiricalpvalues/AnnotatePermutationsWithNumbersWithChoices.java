@@ -144,7 +144,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
 					 					      
-				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber + "\t" +chromName.toString());	
+				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.toString());	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      

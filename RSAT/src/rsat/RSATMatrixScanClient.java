@@ -807,17 +807,17 @@ public class RSATMatrixScanClient {
 
 			//RSAT for TF and KEGG Pathway
 			if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
-				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);				
+//				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//				matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//				matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriter);				
 			}
 
 			
 			//RSAT for TF and CellLine and  KEGG Pathway
 			if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
-				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
-				matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
+//				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriter);
+//				matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriter);
+//				matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriter);
 			}
 			
 			

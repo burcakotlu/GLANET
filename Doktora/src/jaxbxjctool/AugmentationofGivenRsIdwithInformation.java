@@ -98,7 +98,7 @@ public class AugmentationofGivenRsIdwithInformation {
                 {  
 					String groupLabel = as.getGroupLabel();
 	                	
-             	   	if(groupLabel!=null && groupLabel.startsWith("GRCh37")){
+             	   	if(groupLabel!=null && groupLabel.startsWith("GRCh38")){
             		   
                         
                        for(Component comp:as.getComponent())
