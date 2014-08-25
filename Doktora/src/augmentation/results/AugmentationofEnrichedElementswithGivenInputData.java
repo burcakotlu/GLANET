@@ -183,7 +183,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							bufferedWriter.write(histoneElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 							
 						}
-					}
+					}//End of while
 					
 				
 			}//End of for	
@@ -360,7 +360,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							
 						}
 						
-					}
+					}//End of while
 					
 				
 			}//End of for	
@@ -554,8 +554,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 //						Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName
 //						CHROMOSOME1	11862777	11862777	POL2_K562	11862639	11862938	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
 //						CHROMOSOME1	11862777	11862777	POL2_K562	11862636	11862905	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
-
-						
 						
 						//process strLine2
 						if(strLine2.contains("Search")){
@@ -576,7 +574,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
 							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
 							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
-							
 								
 							tfNameCellLineName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
 							tfCellLineZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
@@ -585,8 +582,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneName = strLine2.substring(indexofSixthTab+1, indexofSeventhTab);
 							refseqGeneZeroBasedStart = Integer.parseInt(strLine2.substring(indexofSeventhTab+1, indexofEigthTab));
 							refseqGeneZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofEigthTab+1, indexofNinethTab));
-							
-							
+														
 							rest = strLine2.substring(indexofNinethTab+1);
 													
 							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
@@ -598,10 +594,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
-							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
 									 
 						}
-					}
+					}//End of while
 					
 				} //End of for each enriched tf element with that enriched kegg pathway element  
 			}//End of for each enriched Kegg Pathway element	
@@ -805,13 +801,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 //						Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName
 //						CHROMOSOME1	11862777	11862777	POL2_K562	11862639	11862938	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
 //						CHROMOSOME1	11862777	11862777	POL2_K562	11862636	11862905	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
-
-						
 						
 						//process strLine2
 						if(strLine2.contains("Search")){
-							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));
-											
+							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));				
 						}else{
 
 							indexofFirstTab 	= strLine2.indexOf('\t');
@@ -827,8 +820,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
 							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
 							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
-							
-								
+													
 							tfNameCellLineName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
 							tfCellLineZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
 							tfCellLineZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
@@ -836,8 +828,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneName = strLine2.substring(indexofSixthTab+1, indexofSeventhTab);
 							refseqGeneZeroBasedStart = Integer.parseInt(strLine2.substring(indexofSeventhTab+1, indexofEigthTab));
 							refseqGeneZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofEigthTab+1, indexofNinethTab));
-							
-							
+														
 							rest = strLine2.substring(indexofNinethTab+1);
 													
 							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
@@ -849,11 +840,11 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
-							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
 									 
 						}
 			
-					}
+					}//End of while
 					
 				}
 			}	
@@ -1028,8 +1019,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 						givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
 						givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
 						givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
-						
-							
+								
 						overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
 						overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
 						overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
@@ -1045,7 +1035,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 						
 					}
-				}					
+				}//End of while					
 				
 			}//End of for	
 			//ends
@@ -1193,8 +1183,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
 							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
 							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
-							
-								
+															
 							overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
 							overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
 							overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
@@ -1211,7 +1200,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							
 						}
 						
-					}					
+					}//End of while					
 				
 			}//End of for	
 			//ends

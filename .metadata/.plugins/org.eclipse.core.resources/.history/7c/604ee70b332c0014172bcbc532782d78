@@ -1,0 +1,145 @@
+/**
+ * @author burcakotlu
+ * @date Aug 25, 2014 
+ * @time 11:00:56 AM
+ */
+package augmentation.results;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import common.Commons;
+import enumtypes.EnrichmentType;
+
+/**
+ * 
+ */
+public class CreationofFileswith1BasedGRCh37Coordinates {
+	
+	public void readDnaseResultsandWrite(String outputFolder, String dnaseResultsFileName){
+		
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		
+		FileWriter fileWriter;
+		BufferedWriter bufferedWriter;
+		
+		String strLine= null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+	
+		String givenIntervalChrName;		
+		int givenIntervalOneBasedStart;
+		int givenIntervalOneBasedEnd;		
+	
+		String overlapChrName;
+		int overlapOneBasedStart;
+		int overlapOneBasedEnd;	
+		
+		
+		try {
+			fileReader = new FileReader(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + dnaseResultsFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				if(!strLine.contains("Search") && !strLine.startsWith("*")){
+					
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
+					indexofThirdTab 	= strLine.indexOf('\t', indexofSecondTab+1);
+					indexofFourthTab 	= strLine.indexOf('\t', indexofThirdTab+1);
+					indexofFifthTab 	= strLine.indexOf('\t', indexofFourthTab+1);
+					indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
+					
+					givenIntervalChrName = strLine.substring(0, indexofFirstTab);
+					givenIntervalOneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					givenIntervalOneBasedEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+												
+					overlapChrName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+					overlapOneBasedStart = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+					overlapOneBasedEnd = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+			
+				}
+			
+					
+				
+			
+			}//End of while
+			
+			fileWriter = new FileWriter(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + Commons.AUGMENTED_DNASE_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			bufferedReader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+		
+	
+	public static void readandCreateFiles(String outputFolder, EnrichmentType dnaseEnrichment, EnrichmentType histoneEnrichment, EnrichmentType tfEnrichment, EnrichmentType keggPathwayEnrichment, EnrichmentType tfKeggPathwayEnrichment, EnrichmentType tfCellLineKeggPathwayEnrichment){
+		if (dnaseEnrichment.isDnaseEnrichment()){
+			 readDnaseResultsandWrite(outputFolder, Commons.AUGMENTED_DNASE_RESULTS_1_BASED_GRCH37_COORDINATES);	
+		 }
+		 
+		 if (histoneEnrichment.isHistoneEnrichment()){
+			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_1_BASED_GRCH37_COORDINATES);	
+		 }
+		 
+		 if (tfEnrichment.isTfEnrichment()){
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1_BASED_GRCH37_COORDINATES);
+		 }
+		 
+		 if (keggPathwayEnrichment.isGeneSetEnrichment()){
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
+		 }
+		
+	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment()){	    	 
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+	     }
+		
+	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	     }
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String glanetFolder = args[1];
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		
+		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
+		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);
+		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[12]);
+		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[13]);
+		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
+		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
+		
+		String jobName = args[17];
+		
+		CreationofFileswith1BasedGRCh37Coordinates.readandCreateFiles(outputFolder,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+	}
+
+}
