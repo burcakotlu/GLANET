@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="auxiliary.FunctionalElement"/>
 <fullyQualifiedTypeName name="intervaltree.TforHistoneIntervalTreeNode"/>
 <fullyQualifiedTypeName name="intervaltree.KeggPathwayAnalysisType"/>
@@ -29,7 +28,6 @@
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
 <fullyQualifiedTypeName name="enumtypes.RegulatorySequenceAnalysisType"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="enumtypes.KeggPathwayAnalysisType"/>
 <fullyQualifiedTypeName name="enumtypes.WriteGeneratedRandomDataMode"/>
 <fullyQualifiedTypeName name="enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
+<fullyQualifiedTypeName name="javafx.scene.control.IndexRangeBuilder"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
