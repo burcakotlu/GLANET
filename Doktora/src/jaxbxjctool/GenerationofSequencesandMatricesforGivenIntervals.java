@@ -1388,8 +1388,8 @@ public static String takeComplementforeachAllele(String allele){
 		String chrNamewithPreceedingChr = null;
 		String chrNamewithoutPreceedingChr = null;
 				
-		int givenIntervalStartZeroBased;
-		int givenIntervalEndZeroBased;
+//		int givenIntervalStartZeroBased;
+//		int givenIntervalEndZeroBased;
 		
 		int givenIntervalStartOneBased;
 		int givenIntervalEndOneBased;
@@ -1478,12 +1478,12 @@ public static String takeComplementforeachAllele(String allele){
 					chrNamewithPreceedingChr =  strLine.substring(indexofFirstTab+1, indexofSecondTab);
 					chrNamewithoutPreceedingChr = chrNamewithPreceedingChr.substring(3);
 					
-					givenIntervalStartZeroBased = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-					givenIntervalEndZeroBased =  Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+					givenIntervalStartOneBased = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					givenIntervalEndOneBased =  Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 					
 					//Used in finding list of rsIds in this given interval
-					givenIntervalStartOneBased = givenIntervalStartZeroBased + 1 ;
-					givenIntervalEndOneBased =  givenIntervalEndZeroBased + 1;
+//					givenIntervalStartOneBased = givenIntervalStartZeroBased + 1 ;
+//					givenIntervalEndOneBased =  givenIntervalEndZeroBased + 1;
 						
 					tfStart_ZeroBased = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
 					tfEnd_ZeroBased =  Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
@@ -1545,7 +1545,7 @@ public static String takeComplementforeachAllele(String allele){
 					//create pfm matrices and logo matrices files ends
 
 					//Set given interval name
-					givenIntervalName ="givenInterval" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartZeroBased +  "_" + givenIntervalEndZeroBased;
+					givenIntervalName ="givenInterval" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartOneBased +  "_" + givenIntervalEndOneBased;
 					
 					//Create tfNameKeggPathwayName based given interval key					
 					tfCellLineGivenIntervalKey = tfNameCellLineName + "_" + givenIntervalName;
@@ -1564,8 +1564,8 @@ public static String takeComplementforeachAllele(String allele){
 						tfCellLineBasedGivenIntervalMap.put(tfCellLineGivenIntervalKey, tfCellLineGivenInterval);
 						
 						tfCellLineGivenInterval.setChromNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);
-						tfCellLineGivenInterval.setStartZeroBased(givenIntervalStartZeroBased);
-						tfCellLineGivenInterval.setEndZeroBased(givenIntervalEndZeroBased);
+						tfCellLineGivenInterval.setStartZeroBased(givenIntervalStartOneBased-1);
+						tfCellLineGivenInterval.setEndZeroBased(givenIntervalEndOneBased-1);
 						
 						tfCellLineGivenInterval.setSnpKeyList(new ArrayList<String>());
 						tfCellLineGivenInterval.setTfCellLineBasedTfIntervalKeyList(new ArrayList<String>());
@@ -2427,17 +2427,17 @@ public static String takeComplementforeachAllele(String allele){
 		
 		
 		//TF
-		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS_1_BASED_GRCH37_COORDINATES;
+		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS_1_BASED_GRCH38_COORDINATES;
 	
 		//TF and KeggPathway
-		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;
-		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;
-		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;		
+		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;
+		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;
+		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;		
 				
 		//TF and CellLine and KeggPathway
-		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;
-		String augmentedTfCellLineRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;
-		String augmentedTfCellLineAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES ;
+		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;
+		String augmentedTfCellLineRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;
+		String augmentedTfCellLineAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH38_COORDINATES ;
 		
 		//Example Data
 		//7 NC_000007.13  GRCh37

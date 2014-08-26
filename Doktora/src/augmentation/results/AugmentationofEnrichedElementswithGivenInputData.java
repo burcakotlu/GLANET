@@ -180,7 +180,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
-							bufferedWriter.write(histoneElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							bufferedWriter.write(histoneElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 							
 						}
 					}//End of while
@@ -356,7 +356,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
-							bufferedWriter.write(dnaseName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							bufferedWriter.write(dnaseName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 							
 						}
 						
@@ -594,7 +594,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
-							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
 									 
 						}
 					}//End of while
@@ -840,7 +840,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
-							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineOneBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneOneBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
 									 
 						}
 			
@@ -1032,7 +1032,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 						overlapOneBasedStart = overlapZeroBasedStart+1;
 						overlapOneBasedEnd = overlapZeroBasedEnd +1;
 						
-						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 						
 					}
 				}//End of while					
@@ -1196,7 +1196,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
-							bufferedWriter.write(tfElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalOneBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapOneBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							bufferedWriter.write(tfElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
 							
 						}
 						
@@ -1246,33 +1246,33 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		}
 		
 		 if (dnaseEnrichment.isDnaseEnrichment()){
-			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS_1_BASED_GRCH37_COORDINATES);	
+			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
 		 }
 		 
 		 if (histoneEnrichment.isHistoneEnrichment()){
-			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_1_BASED_GRCH37_COORDINATES);	
+			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
 		 }
 		 
 		 if (tfEnrichment.isTfEnrichment()){
-			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1_BASED_GRCH37_COORDINATES);
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 		 }
 		 
 		 if (keggPathwayEnrichment.isGeneSetEnrichment()){
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
 		 }
 		
 	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment()){	    	 
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1_BASED_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	     }
 
 	}
