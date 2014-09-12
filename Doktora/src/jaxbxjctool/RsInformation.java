@@ -15,8 +15,39 @@ public class RsInformation {
 	int startZeroBased;
 	int endZeroBased;
 	String observedAlleles;
+	boolean merged;
+	String orient;
 	
 	
+	
+	
+	
+	
+	
+	public String getOrient() {
+		return orient;
+	}
+
+
+
+	public void setOrient(String orient) {
+		this.orient = orient;
+	}
+
+
+
+	public boolean isMerged() {
+		return merged;
+	}
+
+
+
+	public void setMerged(boolean merged) {
+		this.merged = merged;
+	}
+
+
+
 	public int getStartZeroBased() {
 		return startZeroBased;
 	}

@@ -14,7 +14,7 @@ import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
-
+import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
 import common.Commons;
 
 public class GlanetRunner extends Thread{
@@ -71,6 +71,9 @@ public class GlanetRunner extends Thread{
 				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 				AugmentationofEnrichedElementswithGivenInputData.main(allArguments);
 				
+				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main(allArguments);
+		
 				
 				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 					

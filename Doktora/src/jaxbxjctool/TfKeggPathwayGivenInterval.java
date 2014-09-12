@@ -16,8 +16,8 @@ public class TfKeggPathwayGivenInterval {
 	
 	
 	String chromNamewithoutPreceedingChr;
-	int startZeroBased;
-	int endZeroBased;
+	int startOneBased;
+	int endOneBased;
 	
 	List<String> snpKeyList;
 	List<String> tfKeggPathwayBasedTfIntervalKeyList;
@@ -28,10 +28,6 @@ public class TfKeggPathwayGivenInterval {
 	String givenIntervalName;
 	String tfNameKeggPathwayName;
 	
-	
-	
-
-
 
 	public String getTfNameKeggPathwayName() {
 		return tfNameKeggPathwayName;
@@ -86,10 +82,15 @@ public class TfKeggPathwayGivenInterval {
 
 
 
+	public int getStartOneBased() {
+		return startOneBased;
+	}
 
 
-	public int getStartZeroBased() {
-		return startZeroBased;
+
+
+	public void setStartOneBased(int startOneBased) {
+		this.startOneBased = startOneBased;
 	}
 
 
@@ -97,8 +98,8 @@ public class TfKeggPathwayGivenInterval {
 
 
 
-	public void setStartZeroBased(int startZeroBased) {
-		this.startZeroBased = startZeroBased;
+	public int getEndOneBased() {
+		return endOneBased;
 	}
 
 
@@ -106,17 +107,8 @@ public class TfKeggPathwayGivenInterval {
 
 
 
-	public int getEndZeroBased() {
-		return endZeroBased;
-	}
-
-
-
-
-
-
-	public void setEndZeroBased(int endZeroBased) {
-		this.endZeroBased = endZeroBased;
+	public void setEndOneBased(int endOneBased) {
+		this.endOneBased = endOneBased;
 	}
 
 

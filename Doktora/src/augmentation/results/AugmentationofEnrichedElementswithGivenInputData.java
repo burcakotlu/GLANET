@@ -78,10 +78,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		int overlapZeroBasedEnd;
 		String rest;
 
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 
-		int overlapOneBasedStart;
 		int overlapOneBasedEnd;
 		
 		try {
@@ -174,10 +172,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							
 							rest = strLine2.substring(indexofSixthTab+1);
 													
-							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 							
-							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
 							bufferedWriter.write(histoneElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
@@ -250,10 +246,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		int overlapZeroBasedEnd;
 		String rest;
 		
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 	
-		int overlapOneBasedStart;
 		int overlapOneBasedEnd;	
 				
 		try {
@@ -350,10 +344,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							
 							rest = strLine2.substring(indexofSixthTab+1);
 													
-							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 							
-							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
 							bufferedWriter.write(dnaseName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
@@ -436,13 +428,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		
 		String rest;
 
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 
-		int tfCellLineOneBasedStart;
 		int tfCellLineOneBasedEnd;
 		
-		int refseqGeneOneBasedStart;
 		int refseqGeneOneBasedEnd;
 	
 				
@@ -585,13 +574,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 														
 							rest = strLine2.substring(indexofNinethTab+1);
 													
-							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 							
-							tfCellLineOneBasedStart = tfCellLineZeroBasedStart+1;
 							tfCellLineOneBasedEnd = tfCellLineZeroBasedEnd +1;
 							
-							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
 							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
@@ -674,13 +660,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		
 		String rest;
 
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 
-		int tfCellLineOneBasedStart;
 		int tfCellLineOneBasedEnd;
 		
-		int refseqGeneOneBasedStart;
 		int refseqGeneOneBasedEnd;
 		
 		try {
@@ -831,13 +814,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 														
 							rest = strLine2.substring(indexofNinethTab+1);
 													
-							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 							
-							tfCellLineOneBasedStart = tfCellLineZeroBasedStart+1;
 							tfCellLineOneBasedEnd = tfCellLineZeroBasedEnd +1;
 							
-							refseqGeneOneBasedStart = refseqGeneZeroBasedStart+1;
 							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
 							
 							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
@@ -908,10 +888,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		int overlapZeroBasedEnd;
 		String rest;
 
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 
-		int overlapOneBasedStart;
 		int overlapOneBasedEnd;
 
 		try {
@@ -1026,10 +1004,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 						
 						rest = strLine2.substring(indexofSixthTab+1);
 												
-						givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 						givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 						
-						overlapOneBasedStart = overlapZeroBasedStart+1;
 						overlapOneBasedEnd = overlapZeroBasedEnd +1;
 						
 						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
@@ -1097,10 +1073,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		int overlapZeroBasedEnd;
 		String rest;
 		
-		int givenIntervalOneBasedStart;
 		int givenIntervalOneBasedEnd;		
 	
-		int overlapOneBasedStart;
 		int overlapOneBasedEnd;
 		
 				
@@ -1190,10 +1164,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 							
 							rest = strLine2.substring(indexofSixthTab+1);
 													
-							givenIntervalOneBasedStart 	= givenIntervalZeroBasedStart+1;
 							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
 							
-							overlapOneBasedStart = overlapZeroBasedStart+1;
 							overlapOneBasedEnd = overlapZeroBasedEnd +1;
 							
 							bufferedWriter.write(tfElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));

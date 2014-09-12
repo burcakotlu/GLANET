@@ -19,6 +19,10 @@ import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
+import gov.nih.nlm.ncbi.snp.docsum.Rs.MergeHistory;
+
+import java.util.List;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
@@ -26,6 +30,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
+
 import ui.GlanetRunner;
 /**
  * 
@@ -59,10 +64,70 @@ public class AugmentationofGivenRsIdwithInformation {
 
     }
 	
+	
+	public int getTheNumberofBasesIntheObservedAlleles(String observedAllelesSeparatedwithSlash){
+		int numberOfBasesAtMost = Integer.MIN_VALUE;
+		int num;
+		
+			
+		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
+		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash +1);
+		
+		String allele;
+		
+		//for the first allele
+		allele = observedAllelesSeparatedwithSlash.substring(0,indexofFormerSlash);
+		
+		//newly added starts
+		num = allele.length();
+		
+		if (num>numberOfBasesAtMost){
+			numberOfBasesAtMost = num;			
+		}
+		//newly added ends
+		
+		
+				
+		
+		while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
+			
+			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1, indexofLatterSlash);	
+			
+			//newly added starts
+			num = allele.length();
+			
+			if (num>numberOfBasesAtMost){
+				numberOfBasesAtMost = num;			
+			}
+			//newly added ends
+			
+			
+			indexofFormerSlash = indexofLatterSlash ;			
+			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
+			
+		}
+		
+		//for the last allele
+		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1);	
+		
+		//newly added starts
+		num = allele.length();
+		
+		if (num>numberOfBasesAtMost){
+			numberOfBasesAtMost = num;			
+		}
+		//newly added ends
+		
+		
+		return numberOfBasesAtMost;
+		
+	}
+	
 	public RsInformation getInformationforGivenRsId(String rsId) throws Exception
     {
 		
 			RsInformation rsInformation = null;
+			int numberofBasesInTheSNPAtMost;
          		
 			if(rsId.startsWith("rs")) {
 				rsId=rsId.substring(2);			
@@ -93,6 +158,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
 				
+			
 				
 				for(Assembly as:rs.getAssembly())
                 {  
@@ -109,6 +175,25 @@ public class AugmentationofGivenRsIdwithInformation {
 	   	                	   if (maploc.getPhysMapInt()!=null){
 	   	                		   
 	   	                		   rsInformation = new RsInformation();
+	   	                		   
+	   	                		   //starts 29th August 2014
+		   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+		   	        				if (mergeHistoryList.size()>0){
+		   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+		   	        						if (Integer.parseInt(rsId) == mergeHistory.getRsId()){
+		   	        							rsInformation.setMerged(true);
+		   	        							break;
+		   	        						}
+		   	        					}
+		   	        					
+		   	        				}
+		   	        				//ends 29th August 2014
+		   	        				
+		   	        				
+		   	        				//starts 31st August 2014
+		   	        				//forward or reverse
+		   	        				rsInformation.setOrient(maploc.getOrient());
+		   	        				//ends 31st August 2014
 	   	                		  
 	   	                		   //set rsId
 	   	                		   rsInformation.setRsId(rsId);
@@ -122,13 +207,17 @@ public class AugmentationofGivenRsIdwithInformation {
 	   	                		   //eutil efetch returns 0-based coordinates	   	                    	
 	   	                		   rsInformation.setStartZeroBased(maploc.getPhysMapInt());
 
-	   	                		   //set rsId end position
-	   	                		   //eutil efetch returns 0-based coordinates		   	                    	
-	   	                		   rsInformation.setEndZeroBased(maploc.getPhysMapInt());
 	   	                		   
 	   	                		   //set rsId observed Alleles
 	   	                		   rsInformation.setObservedAlleles(rs.getSequence().getObserved());
+	   	                		   
+	   	                		   numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
+	   	                		   
 
+	   	                		   //set rsId end position
+	   	                		   //eutil efetch returns 0-based coordinates		   	                    	
+	   	                		   rsInformation.setEndZeroBased(maploc.getPhysMapInt()+numberofBasesInTheSNPAtMost-1);
+	   	                		  
 		   	                		   		 		                	  		                	   
 	   	                	   }//End of if maploc.getPhysMapInt() is not null
 //	   	                	   else{

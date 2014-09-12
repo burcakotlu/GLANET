@@ -123,7 +123,7 @@ public class CollectionofPermutationsResults {
 			Collections.sort(list,FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
 			
 			//write the results to a output file starts		
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE);
+			fileWriter = FileOperations.createFileWriter(outputFolder + fileName  + "_" + jobName+ Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//header line in output file
