@@ -1,8 +1,11 @@
 package ui;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Console;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -45,5 +48,20 @@ public class App
         frame.repaint();
 	}
 	
-    public static void main( String[] args ) {loadWindow();}
+    public static void main( String[] args) {
+    	
+    	Console console = System.console();
+    	if( console != null){
+    		
+    		String argsForGlanetRunner[] = null;
+    		//initialize the argsForGlanetRunner here. Get the necessary information from args and put it
+    		//to argsForGlanetRunner. The format should be in the agreed format 
+    		//to pass the appropriate indices see the comment above startRunActionsWithOptions(..) 
+    		//in MainViewController 
+    		
+    		GlanetRunner.setMainView( null);
+    		GlanetRunner.setArgs( argsForGlanetRunner);
+    		
+    	} else if( !GraphicsEnvironment.isHeadless())
+    		loadWindow();}
 }

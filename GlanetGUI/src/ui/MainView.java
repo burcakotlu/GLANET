@@ -31,6 +31,7 @@ public class MainView extends JPanel{
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> inputFormatCombo;
+	private JComboBox<String> inputAssembly;
 	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
 	private JCheckBox dnaseEnrichment;
@@ -174,21 +175,6 @@ public class MainView extends JPanel{
 	      }
 	};
 	
-//	ItemListener adjustTfEnrichmentCheckboxes = new ItemListener() {
-//	      public void itemStateChanged(ItemEvent itemEvent) {
-//	    	  
-//	    	  if( ((JCheckBox)itemEvent.getSource()).getName().equalsIgnoreCase("tfAndKeggPathwayEnrichment")){
-//	    		  
-//	    		  if( tfAndKeggPathwayEnrichment.isSelected())
-//	    			  cellLineBasedTfAndKeggPathwayEnrichment.setSelected( false);
-//	    	  } else if (((JCheckBox)itemEvent.getSource()).getName().equalsIgnoreCase("cellLineBasedTfAndKeggPathwayEnrichment")){
-//	    		  
-//	    		  if( cellLineBasedTfAndKeggPathwayEnrichment.isSelected())
-//	    			  tfAndKeggPathwayEnrichment.setSelected( false);
-//	    	  }
-//	      }
-//	};
-	
 	public MainView() {
 		
 		//code flow goes respectively with the ui design (top to bottom)
@@ -215,8 +201,14 @@ public class MainView extends JPanel{
 				Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
 				Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
 				Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE};
+		
 		inputFormatCombo = new JComboBox<String>( inputFormat);
-		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint(inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
+		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
+		
+		String[] assemblyFormat = { Commons.INPUT_ASSEMBLY_HG_19 };
+		inputAssembly = new JComboBox<String>( assemblyFormat);
+		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly", createPanelWithHint( inputAssembly, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
+		
 		listPane.add( inputBrowseAndOptionPane);
 		
 		//outputTextField added to listPane
