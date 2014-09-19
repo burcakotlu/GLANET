@@ -4,10 +4,12 @@ import empiricalpvalues.AnnotatePermutationsWithNumbersWithChoices;
 import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
+import giveninputdata.Preparation;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
+import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
 
 import common.Commons;
 
@@ -20,6 +22,9 @@ public class GlanetRunner extends Thread{
 	public void run(){
 		
 		try {
+			
+			getMainView().setCurrentProcessInfo( "Preparation...");
+			Preparation.main( args);
 
 			getMainView().setCurrentProcessInfo( "InputDataProcess...");
 			InputDataProcess.main( args);
@@ -46,6 +51,9 @@ public class GlanetRunner extends Thread{
 				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 				AugmentationofEnrichedElementswithGivenInputData.main( args);
 				
+				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+		
 				
 				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 					

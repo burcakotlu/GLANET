@@ -230,9 +230,9 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 		//ProcessedInput already contains 0-based coordinates.
 		String processedInputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		
-		String augmentedwithdbSNPOutputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP;
+//		String augmentedwithdbSNPOutputFileName = Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP;
 		
-		augmentProcessedInputSNPswithdbSNP(outputFolder,dataFolder,processedInputDataFileName,augmentedwithdbSNPOutputFileName);
+//		augmentProcessedInputSNPswithdbSNP(outputFolder,dataFolder,processedInputDataFileName,augmentedwithdbSNPOutputFileName);
 
 	}
 

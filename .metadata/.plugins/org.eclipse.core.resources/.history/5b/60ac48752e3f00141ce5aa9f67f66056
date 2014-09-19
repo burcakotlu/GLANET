@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Sep 18, 2014 
+ * @time 3:21:52 PM
+ */
+package collaboration;
+
+/**
+ * 
+ */
+public class ElementEnrichmentMap {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -54,4 +54,17 @@
 			<item value="org.eclipse.jdt.ui.Java"/>
 		</list>
 	</section>
+	<section name="ShowViewDialog">
+		<item value="472" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="org.eclipse.debug.ui.DebugView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
+		<item value="517" key="DIALOG_HEIGHT"/>
+		<item value="735" key="DIALOG_X_ORIGIN"/>
+		<item value="179" key="DIALOG_Y_ORIGIN"/>
+		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.ui"/>
+			<item value="org.eclipse.debug.ui"/>
+			<item value="org.eclipse.jdt.ui.java"/>
+		</list>
+	</section>
 </section>

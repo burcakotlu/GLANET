@@ -1,0 +1,68 @@
+/**
+ * @author burcakotlu
+ * @date Sep 18, 2014 
+ * @time 10:20:46 AM
+ */
+package ui;
+
+import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
+import rsat.RSATMatrixScanClient;
+import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
+import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
+import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
+
+import common.Commons;
+
+import empiricalpvalues.AnnotatePermutationsWithNumbersWithChoices;
+import empiricalpvalues.CollectionofPermutationsResults;
+import giveninputdata.InputDataProcess;
+import giveninputdata.InputDataRemoveOverlaps;
+import giveninputdata.Preparation;
+
+/**
+ * 
+ */
+public class GlanetRunnerWithoutGUI {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		Preparation.main(args);
+				
+		InputDataProcess.main(args);
+		
+		/* In case of Enrichment remove overlaps and merge */
+		/* In case of only Annotation, do not remove overlaps and do not merge*/
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			InputDataRemoveOverlaps.main(args);
+		}
+						
+		AnnotateGivenIntervalsWithNumbersWithChoices.main(args);
+		
+		
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			
+			AnnotatePermutationsWithNumbersWithChoices.main(args);
+			
+			CollectionofPermutationsResults.main(args);
+			
+			AugmentationofEnrichedElementswithGivenInputData.main(args);
+			
+			CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main(args);
+	
+			
+			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+				
+				GenerationofSequencesandMatricesforGivenIntervals.main(args);
+				RSATMatrixScanClient.main(args);
+			}
+		}
+		
+		//args[1]  already has file separator at the end
+		GlanetRunner.appendLog( "Execution has ended");
+
+	}
+
+}
