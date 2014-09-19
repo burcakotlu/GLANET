@@ -19,11 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.control.IndexRangeBuilder;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.EnrichmentType;
 import enumtypes.MultipleTestingType;
 
@@ -70,7 +69,19 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		BufferedReader histoneOriginalOverlapsBufferedReader = null;
 				
 		List<String> enrichedHistoneElements = new ArrayList<String>();
-				
+		
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;		
+		String overlapChrName;
+		int overlapZeroBasedStart;
+		int overlapZeroBasedEnd;
+		String rest;
+
+		int givenIntervalOneBasedEnd;		
+
+		int overlapOneBasedEnd;
+		
 		try {
 			inputFileReader = new FileReader(outputFolder + inputFileName);
 			bufferedReader 	= new BufferedReader(inputFileReader);
@@ -133,8 +144,42 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					//Get all the lines of the original data annotation for the enriched Histone elements 
 					//Write them to the file
 					while((strLine2 = histoneOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(histoneElementName + "\t" +strLine2 + System.getProperty("line.separator"));
-					}
+						
+						//process strLine2
+						if(strLine2.contains("Search")){
+							bufferedWriter.write(histoneElementName + "\t" +strLine2 + System.getProperty("line.separator"));
+								
+						}else{
+//							Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
+//							chr1	11862777	11862777	CHROMOSOME1	11862018	11864248	H2AZ	GM12878	wgEncodeBroadHistoneGm12878H2azStdAln.narrowPeak
+//							Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
+//							chr17	47440465	47440465	CHROMOSOME17	47437087	47440781	H2AZ	GM12878	wgEncodeBroadHistoneGm12878H2azStdAln.narrowPeak
+
+							indexofFirstTab 	= strLine2.indexOf('\t');
+							indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+							indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+							indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+							indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+							indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+							
+							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+															
+							overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+							overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+							overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+							
+							rest = strLine2.substring(indexofSixthTab+1);
+													
+							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+							
+							overlapOneBasedEnd = overlapZeroBasedEnd +1;
+							
+							bufferedWriter.write(histoneElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							
+						}
+					}//End of while
 					
 				
 			}//End of for	
@@ -192,6 +237,18 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		BufferedReader dnaseOriginalOverlapBufferedReader = null;
 				
 		List<String> enrichedDnaseElements = new ArrayList<String>();
+		
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;		
+		String overlapChrName;
+		int overlapZeroBasedStart;
+		int overlapZeroBasedEnd;
+		String rest;
+		
+		int givenIntervalOneBasedEnd;		
+	
+		int overlapOneBasedEnd;	
 				
 		try {
 			inputFileReader = new FileReader(outputFolder + inputFileName);
@@ -259,8 +316,43 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					//Get all the lines of the original data annotation for the enriched Dnase
 					//Write them to the file
 					while((strLine2 = dnaseOriginalOverlapBufferedReader.readLine())!=null){
-						bufferedWriter.write(dnaseName + "\t" +strLine2 + System.getProperty("line.separator"));
-					}
+						
+						//process strLine2
+						if(strLine2.contains("Search")){
+							bufferedWriter.write(dnaseName + "\t" +strLine2 + System.getProperty("line.separator"));
+								
+						}else{
+
+//							Searched for chr	given interval low	given interval high	dnase overlap chrom name	node low	node high	node CellLineName	node FileName
+//							chr10	104846177	104846177	CHROMOSOME10	104846080	104846229	AG04449	AG04449-DS12319.peaks.fdr0.01.hg19.bed
+//							chr10	104846177	104846177	CHROMOSOME10	104846100	104846249	AG04449	AG04449-DS12329.peaks.fdr0.01.hg19.bed
+
+							indexofFirstTab 	= strLine2.indexOf('\t');
+							indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+							indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+							indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+							indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+							indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+							
+							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+														
+							overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+							overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+							overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+							
+							rest = strLine2.substring(indexofSixthTab+1);
+													
+							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+							
+							overlapOneBasedEnd = overlapZeroBasedEnd +1;
+							
+							bufferedWriter.write(dnaseName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							
+						}
+						
+					}//End of while
 					
 				
 			}//End of for	
@@ -321,6 +413,27 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		
 		Map<String,List<String>> enrichedKeggPathways = new HashMap<String,List<String>>();
 		List<String> lines;
+		
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;	
+		
+		String tfNameCellLineName;
+		int tfCellLineZeroBasedStart;
+		int tfCellLineZeroBasedEnd;
+				
+		String refseqGeneName;
+		int refseqGeneZeroBasedStart;
+		int refseqGeneZeroBasedEnd;
+		
+		String rest;
+
+		int givenIntervalOneBasedEnd;		
+
+		int tfCellLineOneBasedEnd;
+		
+		int refseqGeneOneBasedEnd;
+	
 				
 		try {
 			FileReader inputFileReader  = new FileReader(outputFolder + inputFileName);
@@ -427,15 +540,54 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					//Get all the lines of the original data annotation for the enriched Tf and KeggPathway 
 					//Write them to the file
 					while((strLine2 = tfandKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
-					}
+//						Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName
+//						CHROMOSOME1	11862777	11862777	POL2_K562	11862639	11862938	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
+//						CHROMOSOME1	11862777	11862777	POL2_K562	11862636	11862905	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
+						
+						//process strLine2
+						if(strLine2.contains("Search")){
+							bufferedWriter.write(tfName_keggPathwayName + "\t" +strLine2 +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+									
+						}else{
+
+							indexofFirstTab 	= strLine2.indexOf('\t');
+							indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+							indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+							indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+							indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+							indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+							indexofSeventhTab 	= strLine2.indexOf('\t', indexofSixthTab+1);
+							indexofEigthTab 	= strLine2.indexOf('\t', indexofSeventhTab+1);
+							indexofNinethTab 	= strLine2.indexOf('\t', indexofEigthTab+1);
+							
+							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+								
+							tfNameCellLineName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+							tfCellLineZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+							tfCellLineZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+							
+							refseqGeneName = strLine2.substring(indexofSixthTab+1, indexofSeventhTab);
+							refseqGeneZeroBasedStart = Integer.parseInt(strLine2.substring(indexofSeventhTab+1, indexofEigthTab));
+							refseqGeneZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofEigthTab+1, indexofNinethTab));
+														
+							rest = strLine2.substring(indexofNinethTab+1);
+													
+							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+							
+							tfCellLineOneBasedEnd = tfCellLineZeroBasedEnd +1;
+							
+							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
+							
+							bufferedWriter.write(tfName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+									 
+						}
+					}//End of while
 					
 				} //End of for each enriched tf element with that enriched kegg pathway element  
 			}//End of for each enriched Kegg Pathway element	
 			
-			//for debug purposes start
-			GlanetRunner.appendLog("numberofEnrichedTfExonBasedKeggPathwayElements " + numberofEnrichedTfExonBasedKeggPathwayElements);
-			//for debug purposes end
 			
 			bufferedReader.close();
 			bufferedWriter.close();
@@ -493,6 +645,26 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		
 		Map<String,List<String>> enrichedKeggPathways = new HashMap<String,List<String>>();
 		List<String> lines;
+		
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;	
+		
+		String tfNameCellLineName;
+		int tfCellLineZeroBasedStart;
+		int tfCellLineZeroBasedEnd;
+				
+		String refseqGeneName;
+		int refseqGeneZeroBasedStart;
+		int refseqGeneZeroBasedEnd;
+		
+		String rest;
+
+		int givenIntervalOneBasedEnd;		
+
+		int tfCellLineOneBasedEnd;
+		
+		int refseqGeneOneBasedEnd;
 		
 		try {
 			FileReader inputFileReader  = new FileReader(outputFolder + inputFileName);
@@ -608,8 +780,51 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					//Get all the lines of the original data annotation for the enriched cellline based Tf and KeggPathway 
 					//Write them to the file
 					while((strLine2 = tfCellLineKeggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));	
-					}
+						
+//						Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName
+//						CHROMOSOME1	11862777	11862777	POL2_K562	11862639	11862938	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
+//						CHROMOSOME1	11862777	11862777	POL2_K562	11862636	11862905	NM_005957	11861456	11862936	INTRON	MTHFR	4524	hsa00670
+						
+						//process strLine2
+						if(strLine2.contains("Search")){
+							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" +strLine2 + "\t" + keggPathwayDescription + System.getProperty("line.separator"));				
+						}else{
+
+							indexofFirstTab 	= strLine2.indexOf('\t');
+							indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+							indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+							indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+							indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+							indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+							indexofSeventhTab 	= strLine2.indexOf('\t', indexofSixthTab+1);
+							indexofEigthTab 	= strLine2.indexOf('\t', indexofSeventhTab+1);
+							indexofNinethTab 	= strLine2.indexOf('\t', indexofEigthTab+1);
+							
+							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+													
+							tfNameCellLineName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+							tfCellLineZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+							tfCellLineZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+							
+							refseqGeneName = strLine2.substring(indexofSixthTab+1, indexofSeventhTab);
+							refseqGeneZeroBasedStart = Integer.parseInt(strLine2.substring(indexofSeventhTab+1, indexofEigthTab));
+							refseqGeneZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofEigthTab+1, indexofNinethTab));
+														
+							rest = strLine2.substring(indexofNinethTab+1);
+													
+							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+							
+							tfCellLineOneBasedEnd = tfCellLineZeroBasedEnd +1;
+							
+							refseqGeneOneBasedEnd = refseqGeneZeroBasedEnd+1;
+							
+							bufferedWriter.write(tfName_cellLineName_keggPathwayName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" +tfNameCellLineName + "\t" + tfCellLineZeroBasedStart + "\t" + tfCellLineOneBasedEnd + "\t" + refseqGeneName + "\t" + refseqGeneZeroBasedStart + "\t" + refseqGeneOneBasedEnd + "\t" + rest +  "\t" + keggPathwayDescription + System.getProperty("line.separator"));
+									 
+						}
+			
+					}//End of while
 					
 				}
 			}	
@@ -664,7 +879,19 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		BufferedReader keggPathwayOriginalOverlapsBufferedReader = null;
 		
 		List<String> enrichedKeggPathways = new ArrayList<String>();
-				
+			
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;		
+		String overlapChrName;
+		int overlapZeroBasedStart;
+		int overlapZeroBasedEnd;
+		String rest;
+
+		int givenIntervalOneBasedEnd;		
+
+		int overlapOneBasedEnd;
+
 		try {
 			FileReader inputFileReader  = new FileReader(outputFolder + inputFileName);
 			BufferedReader bufferedReader = new BufferedReader(inputFileReader);
@@ -729,13 +956,13 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofUnderscore);
 				
 				if (type.equals(Commons.EXON_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_exonBased_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_regulationBased_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_KEGG_PATHWAY)){
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_allBased_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 					
 				}
 				
@@ -745,8 +972,46 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				//Get all the lines of the original data annotation for the enriched Kegg Pathway Elements
 				//Write them to the file
 				while((strLine2 = keggPathwayOriginalOverlapsBufferedReader.readLine())!=null){
-					bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" +strLine2 + System.getProperty("line.separator"));
-				}					
+//					Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
+//					chr1	11862777	11862777	CHROMOSOME1	11861456	11862936	NM_005957	INTRON	MTHFR	4524
+//					Searched for chr	interval Low	interval High	ucscRefSeqGene node ChromName	node Low	node High	node RefSeqGeneName	node IntervalName	node GeneHugoSymbol	node GeneEntrezId
+//					chr10	96495792	96495792	CHROMOSOME10	96422462	96512461	NM_000769	FIVE_D	CYP2C19	1557
+//					chr10	96495792	96495792	CHROMOSOME10	96495019	96495946	NM_001128925	EXON	CYP2C18	1562
+//					chr10	96495792	96495792	CHROMOSOME10	96495019	96495946	NM_000772	EXON	CYP2C18	1562
+
+						
+					
+					//process strLine2
+					if(strLine2.contains("Search")){
+						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" +strLine2 + System.getProperty("line.separator"));
+										
+					}else{
+
+						indexofFirstTab 	= strLine2.indexOf('\t');
+						indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+						indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+						indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+						indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+						indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+						
+						givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+						givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+						givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+								
+						overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+						overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+						overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+						
+						rest = strLine2.substring(indexofSixthTab+1);
+												
+						givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+						
+						overlapOneBasedEnd = overlapZeroBasedEnd +1;
+						
+						bufferedWriter.write(enrichedKeggPathwayNameandDescription + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+						
+					}
+				}//End of while					
 				
 			}//End of for	
 			//ends
@@ -799,6 +1064,19 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		BufferedReader tfOriginalOverlapsBufferedReader = null;
 				
 		List<String> enrichedTfElements = new ArrayList<String>();
+
+		String givenIntervalChrName;		
+		int givenIntervalZeroBasedStart;
+		int givenIntervalZeroBasedEnd;		
+		String overlapChrName;
+		int overlapZeroBasedStart;
+		int overlapZeroBasedEnd;
+		String rest;
+		
+		int givenIntervalOneBasedEnd;		
+	
+		int overlapOneBasedEnd;
+		
 				
 		try {
 			inputFileReader = new FileReader(outputFolder + inputFileName);
@@ -861,8 +1139,40 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					//Get all the lines of the original data annotation for the enriched Tf elements
 					//Write them to the file
 					while((strLine2 = tfOriginalOverlapsBufferedReader.readLine())!=null){
-						bufferedWriter.write(tfElementName + "\t" +strLine2 + System.getProperty("line.separator"));
-					}					
+						//process strLine2
+						if(strLine2.contains("Search")){
+							bufferedWriter.write(tfElementName + "\t" +strLine2 + System.getProperty("line.separator"));
+							
+						}else{
+//							Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+//							chr1	11862777	11862777	CHROMOSOME1	11862639	11862938	POL2	K562	spp.optimal.wgEncodeSydhTfbsK562Pol2Ifna30StdAlnRep0_VS_wgEncodeSydhTfbsK562InputIfna30StdAlnRep1.narrowPeak
+
+							indexofFirstTab 	= strLine2.indexOf('\t');
+							indexofSecondTab 	= strLine2.indexOf('\t', indexofFirstTab+1);
+							indexofThirdTab 	= strLine2.indexOf('\t', indexofSecondTab+1);
+							indexofFourthTab 	= strLine2.indexOf('\t', indexofThirdTab+1);
+							indexofFifthTab 	= strLine2.indexOf('\t', indexofFourthTab+1);
+							indexofSixthTab 	= strLine2.indexOf('\t', indexofFifthTab+1);
+							
+							givenIntervalChrName = strLine2.substring(0, indexofFirstTab);
+							givenIntervalZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFirstTab+1, indexofSecondTab));
+							givenIntervalZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofSecondTab+1, indexofThirdTab));
+															
+							overlapChrName = strLine2.substring(indexofThirdTab+1, indexofFourthTab);
+							overlapZeroBasedStart = Integer.parseInt(strLine2.substring(indexofFourthTab+1, indexofFifthTab));
+							overlapZeroBasedEnd = Integer.parseInt(strLine2.substring(indexofFifthTab+1, indexofSixthTab));
+							
+							rest = strLine2.substring(indexofSixthTab+1);
+													
+							givenIntervalOneBasedEnd 	= givenIntervalZeroBasedEnd+1;
+							
+							overlapOneBasedEnd = overlapZeroBasedEnd +1;
+							
+							bufferedWriter.write(tfElementName + "\t" + givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t"  + givenIntervalOneBasedEnd + "\t" + overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapOneBasedEnd +"\t" +rest + System.getProperty("line.separator"));
+							
+						}
+						
+					}//End of while					
 				
 			}//End of for	
 			//ends
@@ -908,33 +1218,63 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		}
 		
 		 if (dnaseEnrichment.isDnaseEnrichment()){
-			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS);	
+			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
 		 }
 		 
 		 if (histoneEnrichment.isHistoneEnrichment()){
-			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS);	
+			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
 		 }
 		 
-		 if (tfEnrichment.isTfEnrichment()){
-			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS);
+		 if (tfEnrichment.isTfEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 		 }
 		 
-		 if (keggPathwayEnrichment.isGeneSetEnrichment()){
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.EXON_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS,Commons.REGULATION_BASED_KEGG_PATHWAY);
-			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS,Commons.ALL_BASED_KEGG_PATHWAY);
+		 if (keggPathwayEnrichment.isGeneSetEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
 		 }
 		
-	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment()){	    	 
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){	    	 
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
+			 
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
+
+				
+			 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
 	     }
 		
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment())){
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
+			 
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
+
+			 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+	     }
+	     
+	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
+			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
+			 
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
+			 
+			 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
+
+
+			 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName+ withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	     }
 
 	}
@@ -994,7 +1334,15 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = "noname";
+		}
+		//jobName ends
+							
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
 		Float FDR = Float.parseFloat(args[8]);
@@ -1007,7 +1355,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
 		
-		String jobName = args[17];
 			
 		//delete old files starts 
 		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);

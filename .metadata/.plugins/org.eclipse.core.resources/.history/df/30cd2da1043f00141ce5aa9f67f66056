@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Sep 18, 2014 
+ * @time 10:20:46 AM
+ */
+package ui;
+
+/**
+ * 
+ */
+public class GlanetRunnerWithoutGUI {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -11,24 +11,25 @@ package jaxbxjctool;
 public class TfKeggPathwayTfInterval {
 
 	
-	int startZeroBased;
-	int endZeroBased;
+	int startOneBased;
+	int endOneBased;
 	String chrNamewithoutPreceedingChr;
 	String tfNameKeggPathwayName;
 	String tfNameCellLineName;
 	
 	
-	public int getStartZeroBased() {
-		return startZeroBased;
+	
+	public int getStartOneBased() {
+		return startOneBased;
 	}
-	public void setStartZeroBased(int startZeroBased) {
-		this.startZeroBased = startZeroBased;
+	public void setStartOneBased(int startOneBased) {
+		this.startOneBased = startOneBased;
 	}
-	public int getEndZeroBased() {
-		return endZeroBased;
+	public int getEndOneBased() {
+		return endOneBased;
 	}
-	public void setEndZeroBased(int endZeroBased) {
-		this.endZeroBased = endZeroBased;
+	public void setEndOneBased(int endOneBased) {
+		this.endOneBased = endOneBased;
 	}
 	public String getChrNamewithoutPreceedingChr() {
 		return chrNamewithoutPreceedingChr;

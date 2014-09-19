@@ -66,7 +66,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 				case CHROMOSOMEX : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrX_dnase.txt";
 				case CHROMOSOMEY : return outputFolder + "Doktora\\create\\encode\\dnase\\unsorted_chrY_dnase.txt";	
 			}//End of SWITCH
-		}else if (Commons.TFBS.equals(functionalElementType)){
+		}else if (Commons.TF.equals(functionalElementType)){
 			switch (chromName){
 				case CHROMOSOME1 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr1_tfbs.txt";
 				case CHROMOSOME2 : return outputFolder + "Doktora\\create\\encode\\tfbs\\unsorted_chr2_tfbs.txt";
@@ -253,9 +253,9 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			meanandStandardDeviation = new MeanandStandardDeviation();
 			gcHashMap.put(chromName + "\t" + Commons.DNASE + "\t" + Commons.GC, meanandStandardDeviation);
 			
-		}else if (Commons.TFBS.equals(functionalElementType)){
+		}else if (Commons.TF.equals(functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
-			gcHashMap.put(chromName + "\t" + Commons.TFBS + "\t" + Commons.GC, meanandStandardDeviation);
+			gcHashMap.put(chromName + "\t" + Commons.TF + "\t" + Commons.GC, meanandStandardDeviation);
 			
 		}else if (Commons.HISTONE.equals(functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
@@ -336,9 +336,9 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			meanandStandardDeviation = new MeanandStandardDeviation();
 			mapabilityHashMap.put(chromName + "\t" + Commons.DNASE + "\t" + Commons.MAPABILITY, meanandStandardDeviation);
 			
-		}else if (Commons.TFBS.equals(functionalElementType)){
+		}else if (Commons.TF.equals(functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
-			mapabilityHashMap.put(chromName + "\t" + Commons.TFBS + "\t" + Commons.MAPABILITY, meanandStandardDeviation);
+			mapabilityHashMap.put(chromName + "\t" + Commons.TF + "\t" + Commons.MAPABILITY, meanandStandardDeviation);
 			
 		}else if (Commons.HISTONE.equals(functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
@@ -420,10 +420,10 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			calculateStandardDeviationMapability(chromName, Commons.DNASE, chromBasedMapabilityFileName, mapabilityHashMap);
 			
 			//Tfbs
-			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.TFBS, chromName);
+			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.TF, chromName);
 			chromBasedMapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Tfbs\\"  + chromName + "_tfbs_mapability.txt";
-			calculateMean(chromName,Commons.TFBS,chromBasedInputFileName,chromBasedMapabilityFileName, mapabilityIntervalTree,mapabilityHashMap);
-			calculateStandardDeviationMapability(chromName, Commons.TFBS, chromBasedMapabilityFileName, mapabilityHashMap);
+			calculateMean(chromName,Commons.TF,chromBasedInputFileName,chromBasedMapabilityFileName, mapabilityIntervalTree,mapabilityHashMap);
+			calculateStandardDeviationMapability(chromName, Commons.TF, chromBasedMapabilityFileName, mapabilityHashMap);
 			
 			//Histone
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.HISTONE, chromName);
@@ -466,10 +466,10 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			calculateStandardDeviationGC(chromName,Commons.DNASE,chromBasedGCFileName,gcHashMap);
 			
 			//Tfbs
-			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.TFBS, chromName);
+			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.TF, chromName);
 			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Tfbs\\" + chromName + "_tfbs_gc.txt";
-			calculateMean(chromName,Commons.TFBS,chromBasedInputFileName,chromBasedGCFileName, gcCharArray,gcHashMap);
-			calculateStandardDeviationGC(chromName,Commons.TFBS, chromBasedGCFileName,gcHashMap);
+			calculateMean(chromName,Commons.TF,chromBasedInputFileName,chromBasedGCFileName, gcCharArray,gcHashMap);
+			calculateStandardDeviationGC(chromName,Commons.TF, chromBasedGCFileName,gcHashMap);
 			
 			//Histone
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName(outputFolder,Commons.HISTONE, chromName);

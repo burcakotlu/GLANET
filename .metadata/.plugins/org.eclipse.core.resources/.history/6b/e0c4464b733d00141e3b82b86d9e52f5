@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Sep 16, 2014 
+ * @time 10:29:20 AM
+ */
+package collaboration;
+
+/**
+ * 
+ */
+public class Interval {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

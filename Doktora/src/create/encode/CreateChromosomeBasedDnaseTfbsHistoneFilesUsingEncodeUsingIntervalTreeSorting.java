@@ -1045,7 +1045,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 					
 
 //					write sorted tfbs list to file
-					tfbsIntervalTree.intervalTreeInfixTraversal(tfbsIntervalTree.getRoot(), bw, Commons.TFBS);
+					tfbsIntervalTree.intervalTreeInfixTraversal(tfbsIntervalTree.getRoot(), bw, Commons.TF);
 					
 //					Remove memory allocation for tfbsList
 					tfbsIntervalTree = null;

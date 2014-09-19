@@ -403,7 +403,7 @@ public class CalculateBinomialDistributions {
 		
 		//calculate search input size using C:\eclipse_juno_workspace\Doktora\src\inputdata\process\output\TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt
 //		searchInputDataSize = calculate.calculateSearchInputSize(Commons.TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITHOUT_OVERLAPS);
-		searchInputDataSize = calculate.calculateSearchInputSize(Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS);
+//		searchInputDataSize = calculate.calculateSearchInputSize(Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS);
 //		searchInputDataSize = calculate.calculateSearchInputSize(Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS);
 		
 		

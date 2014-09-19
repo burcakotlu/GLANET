@@ -1453,7 +1453,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 		
 		searchInterval.createChromBaseSeachInputFilesBufferedWriters(bufferedWriterList);		
 //		searchInterval.partitionSearchInputFilePerChromName(Commons.OCD_GWAS_SIGNIFICANT_SNPS_WITHOUT_OVERLAPS,bufferedWriterList);
-		searchInterval.partitionSearchInputFilePerChromName(Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS,bufferedWriterList);
+//		searchInterval.partitionSearchInputFilePerChromName(Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME_WITHOUT_OVERLAPS,bufferedWriterList);
 		searchInterval.closeBufferedWriterList(bufferedWriterList);
 		
 		searchInterval.searchEachChromBaseInputFile(Commons.SEARCH_USING_LINEAR_SEARCH_OUTPUT_FILE);

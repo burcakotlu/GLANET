@@ -1,0 +1,366 @@
+/**
+ * @author burcakotlu
+ * @date Sep 17, 2014 
+ * @time 4:47:22 PM
+ */
+package collaboration;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import common.Commons;
+import enumtypes.MultipleTestingType;
+
+/**
+ * 
+ */
+public class ElementVersusPhenotypeEnrichmentTableCreation {
+
+	public static void readEnrichmentResults(String outputFolder, float bonferroniCorrectionSignificanceLevel,String elementType, Map<String,ElementEnrichment> elementMap){
+		
+		
+		String enrichmentDirectory = outputFolder + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType + System.getProperty("file.separator");
+		String name = null;
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		
+		String elementName = null;
+		float BonferroniCorrectedPValue;
+		float BHFDRAdjustedPValue;
+		boolean enriched_BH_FDR;
+		boolean enriched_Bonferroni_Correction;
+		
+		boolean headerLine= true;
+		
+		ElementEnrichment element = null;
+		
+		
+		//Read each file under enrichmentFolder	
+		File enrichmentFolder = new File(enrichmentDirectory);
+		
+		if (enrichmentFolder.exists() && enrichmentFolder.isDirectory()){
+			File[] files = enrichmentFolder.listFiles();
+			
+			 for(File elementEnrichmentFile: files){
+				 	//example	Dnase_CVD_381_SNPS_all_wrt_BH_FDR_adjusted_pValue.txt
+			        if(elementEnrichmentFile.isFile()) {
+			        		
+			        	//get file whose name contain "all"
+			        	name = elementEnrichmentFile.getName();
+			        	
+			        	if (name.contains(Commons.ALL)){
+			        		try {
+								fileReader 		= new FileReader(elementEnrichmentFile);
+								bufferedReader 	= new BufferedReader(fileReader);
+								
+								//Skip header line
+								if (headerLine){
+									strLine = bufferedReader.readLine();
+									headerLine= false;
+								}
+					        	
+								while((strLine = bufferedReader.readLine())!=null){
+									
+									
+										
+										indexofFirstTab = strLine.indexOf('\t');
+										indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+										indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+										indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+										indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+										indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+										indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+										indexofEigthTab = strLine.indexOf('\t',indexofSeventhTab+1);
+										indexofNinethTab = strLine.indexOf('\t',indexofEigthTab+1);
+										indexofTenthTab = strLine.indexOf('\t',indexofNinethTab+1);
+										
+//										3100170099	PU1_GM12878_hsa03060	1	0	10	109214	0.00E+00	0.00E+00	0.00E+00	TRUE	Protein export - Homo sapiens (human)	10952, 11231, 196294, 23478, 23480, 28972, 29927, 3309, 5018, 55176, 58477, 60559, 6726, 6727, 6728, 6729, 6730, 6731, 6734, 7095, 83943, 90701, 9789	SEC61B, SEC63, IMMP1L, SEC11A, SEC61G, SPCS1, SEC61A1, HSPA5, OXA1L, SEC61A2, SRPRB, SPCS3, SRP9, SRP14, SRP19, SRP54, SRP68, SRP72, SRPR, SEC62, IMMP2L, SEC11C, SPCS2
+
+										//Get the element name
+										elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+										
+										BonferroniCorrectedPValue = Float.parseFloat(strLine.substring(indexofSeventhTab+1,indexofEigthTab));
+										BHFDRAdjustedPValue = Float.parseFloat(strLine.substring(indexofEigthTab+1,indexofNinethTab));
+										
+										if(indexofTenthTab!=-1){
+											enriched_BH_FDR = Boolean.parseBoolean(strLine.substring(indexofNinethTab+1,indexofTenthTab));
+											
+										}else{
+											enriched_BH_FDR = Boolean.parseBoolean(strLine.substring(indexofNinethTab+1));
+											
+										}
+										
+										if (BonferroniCorrectedPValue <= bonferroniCorrectionSignificanceLevel){
+											enriched_Bonferroni_Correction= true;
+										}else{
+											enriched_Bonferroni_Correction = false;
+													
+										}
+										
+										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
+										
+										elementMap.put(elementName, element);
+										
+									
+									
+								}//End of while
+								
+							bufferedReader.close();
+							fileReader.close();
+								
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			        	}//End of IF: file containing Commons.ALL
+			        			        	
+			        }// End of IF: it is a file
+				 
+			 }//End of for: each file in this directory
+			    			    			
+		}//End of IF: It is a directory
+	}
+
+	
+	public static void writeEnrichmentResultsInACertainOrder(
+			String encodeCollaborationHeatMapDirectory,
+			String elementType,
+			MultipleTestingType multipleTestingParameter,
+			Map<String,ElementEnrichment> elementEnrichmentMap,
+			List<String> elementNameList){
+		
+			
+			String outputDirectory = encodeCollaborationHeatMapDirectory + elementType + "_EnrichmnentTable.txt";
+			
+			F
+			
+			//If elementNameList is empty write EnrichmnetTable w.r.t. elementName order in elementMap
+			if (elementNameList.isEmpty()){
+				
+			}else{
+				
+			}
+		
+	}
+	
+	
+	public static void writeEnrichmentResultsInACertainOrder(
+			String outputFolder,
+			MultipleTestingType multipleTestingParameter,
+			Map<String,ElementEnrichment> dnaseMap,
+			Map<String,ElementEnrichment> tfMap,
+			Map<String,ElementEnrichment> histoneMap,
+			Map<String,ElementEnrichment> exonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> allBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap,
+			List<String> dnaseCellLineNameList,
+			List<String> tfNameCellLineNameList,
+			List<String> histoneNameCellLineNameList,
+			List<String> exonBasedKEGGPathwayNameList,
+			List<String> regulationBasedKEGGPathwayNameList,
+			List<String> allBasedKEGGPathwayNameList,
+			List<String> tfNameExonBasedKEGGPathwayNameList,
+			List<String> tfNameRegulationBasedKEGGPathwayNameList,
+			List<String> tfNameAllBasedKEGGPathwayNameList,
+			List<String> tfNameCellLineNameExonBasedKEGGPathwayNameList,
+			List<String> tfNameCellLineNameRegulationBasedKEGGPathwayNameList,
+			List<String> tfNameCellLineNameAllBasedKEGGPathwayNameList){
+		
+		String encodeCollaborationHeatMapDirectory = outputFolder + System.getProperty("file.separator") + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") + Commons.ENRICHMENT_HEAT_MAP_FOR_ALL_PHENOTYPES + System.getProperty("file.separator") ;
+		
+		
+		writeEnrichmentResultsInACertainOrder(encodeCollaborationHeatMapDirectory,Commons.DNASE,multipleTestingParameter,dnaseMap,dnaseCellLineNameList);
+		
+	}
+	
+	public static void readEnrichmentResults(String outputFolder,
+			float bonferroniCorrectionSignificanceLevel,
+			Map<String,ElementEnrichment> dnaseMap,
+			Map<String,ElementEnrichment> tfMap,
+			Map<String,ElementEnrichment> histoneMap,
+			Map<String,ElementEnrichment> exonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> allBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap){
+		
+		/****************************************************************************/
+		/**********************************DNASE starts******************************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder,bonferroniCorrectionSignificanceLevel, Commons.DNASE,dnaseMap);
+		/****************************************************************************/
+		/**********************************DNASE  ends*******************************/
+		/****************************************************************************/
+	
+		
+		/****************************************************************************/
+		/**********************************TF starts*********************************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder,bonferroniCorrectionSignificanceLevel, Commons.TF,tfMap);
+		/****************************************************************************/
+		/**********************************TF  ends**********************************/
+		/****************************************************************************/
+
+		/****************************************************************************/
+		/**********************************HISTONE starts****************************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder,bonferroniCorrectionSignificanceLevel, Commons.HISTONE,histoneMap);
+		/****************************************************************************/
+		/**********************************HISTONE  ends*****************************/
+		/****************************************************************************/
+
+		
+		/****************************************************************************/
+		/**********************************KEGGPathway starts************************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel,Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY,exonBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel, Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY,regulationBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel,Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY,allBasedKEGGPathwayMap);
+		/****************************************************************************/
+		/**********************************KEGGPathway  ends*************************/
+		/****************************************************************************/
+
+		
+		/****************************************************************************/
+		/**********************************TF KEGGPathway starts*********************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel, Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_EXON_BASED_KEGG_PATHWAY,tfExonBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel,Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_REGULATION_BASED_KEGG_PATHWAY,tfRegulationBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel,Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_ALL_BASED_KEGG_PATHWAY,tfAllBasedKEGGPathwayMap);
+		/****************************************************************************/
+		/**********************************TF KEGGPathway  ends**********************/
+		/****************************************************************************/
+
+		
+		/****************************************************************************/
+		/**********************************TF CELLLINE KEGGPathway starts************/
+		/****************************************************************************/
+		//Get the enrichment results per elementName which are under .../GLANET/Output/jobName/Enrichment	
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel, Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY,tfCellLineExonBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel, Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY,tfCellLineRegulationBasedKEGGPathwayMap);
+		readEnrichmentResults(outputFolder, bonferroniCorrectionSignificanceLevel, Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")+ Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,tfCellLineAllBasedKEGGPathwayMap);
+		/****************************************************************************/
+		/**********************************TF CELLLINE KEGGPathway  ends*************/
+		/****************************************************************************/
+	}
+	
+	public static void main(String[] args) {
+		
+		//@todo args have to be changed
+		
+		String glanetFolder = args[1];
+		
+		//Multiple Testing Parameter for selection of enriched elements
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
+		
+		float bonferroniCorrectionSignificanceLevel = Float.parseFloat(args[7]); 
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = "noname";
+		}
+		//jobName ends
+		
+		
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		
+		//Element Name List will be initialized only once, starts
+		//CellLine
+		List<String> dnaseCellLineNameList  		= new ArrayList<String>();
+		
+		//TF_CellLine
+		List<String> tfNameCellLineNameList  		= new ArrayList<String>();
+		
+		//HISTONE_CellLine
+		List<String> histoneNameCellLineNameList  	= new ArrayList<String>();
+
+		//KEGGPathway
+		List<String> exonBasedKEGGPathwayNameList  			= new ArrayList<String>();
+		List<String> regulationBasedKEGGPathwayNameList  	= new ArrayList<String>();
+		List<String> allBasedKEGGPathwayNameList  			= new ArrayList<String>();
+
+		//TF_KEGGPathway
+		List<String> tfNameExonBasedKEGGPathwayNameList  		= new ArrayList<String>();
+		List<String> tfNameRegulationBasedKEGGPathwayNameList  	= new ArrayList<String>();
+		List<String> tfNameAllBasedKEGGPathwayNameList  		= new ArrayList<String>();
+
+		//TF_CellLine_KEGGPathway
+		List<String> tfNameCellLineNameExonBasedKEGGPathwayNameList  		= new ArrayList<String>();
+		List<String> tfNameCellLineNameRegulationBasedKEGGPathwayNameList  	= new ArrayList<String>();
+		List<String> tfNameCellLineNameAllBasedKEGGPathwayNameList  		= new ArrayList<String>();
+		//Element Name List will be initialized only once, ends
+
+		//@todo For starts
+		//For each phenotype in CVD
+		
+		//ENRICHMENT Element HashMaps starts
+		Map<String,ElementEnrichment> dnaseMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> histoneMap 	= new HashMap<String,ElementEnrichment>();
+		
+		Map<String,ElementEnrichment> exonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> allBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+
+		Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
+
+		Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap 	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
+		//ENRICHMENT Element HashMaps ends
+		
+			
+		//Enrichment
+		readEnrichmentResults(outputFolder,bonferroniCorrectionSignificanceLevel,dnaseMap,tfMap,histoneMap,exonBasedKEGGPathwayMap,regulationBasedKEGGPathwayMap,allBasedKEGGPathwayMap,tfExonBasedKEGGPathwayMap,tfRegulationBasedKEGGPathwayMap,tfAllBasedKEGGPathwayMap,tfCellLineExonBasedKEGGPathwayMap,tfCellLineRegulationBasedKEGGPathwayMap,tfCellLineAllBasedKEGGPathwayMap);
+		
+		
+		//Write results to a heatmap in a certain order 
+		//Order will be created by the enriched elements per elementType for each phenotype
+		writeEnrichmentResultsInACertainOrder(outputFolder,multipleTestingParameter,dnaseMap,tfMap,histoneMap,exonBasedKEGGPathwayMap,regulationBasedKEGGPathwayMap,allBasedKEGGPathwayMap,tfExonBasedKEGGPathwayMap,tfRegulationBasedKEGGPathwayMap,tfAllBasedKEGGPathwayMap,tfCellLineExonBasedKEGGPathwayMap,tfCellLineRegulationBasedKEGGPathwayMap,tfCellLineAllBasedKEGGPathwayMap,dnaseCellLineNameList,tfNameCellLineNameList,histoneNameCellLineNameList,exonBasedKEGGPathwayNameList,regulationBasedKEGGPathwayNameList,allBasedKEGGPathwayNameList,tfNameExonBasedKEGGPathwayNameList,tfNameRegulationBasedKEGGPathwayNameList,tfNameAllBasedKEGGPathwayNameList,tfNameCellLineNameExonBasedKEGGPathwayNameList,tfNameCellLineNameRegulationBasedKEGGPathwayNameList,tfNameCellLineNameAllBasedKEGGPathwayNameList);
+		//@todo For ends
+		
+
+	}
+
+}

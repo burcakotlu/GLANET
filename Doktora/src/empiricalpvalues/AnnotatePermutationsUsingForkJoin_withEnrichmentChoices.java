@@ -1277,7 +1277,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 			
 			if(tfEnrichment.isTfEnrichment()  && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){					
 				//Transcription Factor 
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);					
 			}
 			
@@ -1313,7 +1313,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Tfbs
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
@@ -1332,7 +1332,7 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 				
 							
 				//Tfbs
-				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+				writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
@@ -1761,11 +1761,10 @@ public class AnnotatePermutationsUsingForkJoin_withEnrichmentChoices {
 		//delete old files
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 		List<String> notToBeDeleted = new ArrayList<String>();
-		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		
 		//delete old files
-		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.TO_BE_COLLECTED_DIRECTORY;
+		String toBeCollectedOutputBaseDirectoryName = outputFolder + Commons.ENRICHMENT_DIRECTORY;
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(toBeCollectedOutputBaseDirectoryName);			
 		/*********************************************/
 

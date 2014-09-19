@@ -106,12 +106,12 @@ public class PrepareHIV1SNPs {
 	 */
 	public static void main(String[] args) {
 		
-		String inputFileName  = Commons.HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE;
-		String outputFileName = Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE;
+//		String inputFileName  = Commons.HIV1_SNPS_START_INCLUSIVE_END_EXCLUSIVE;
+//		String outputFileName = Commons.HIV1_SNPS_START_INCLUSIVE_END_INCLUSIVE;
 		
 		String chromosomePositionType = Commons.CHROMOSOME_POSITION_TYPE_ONE_BASED;
 		
-		readandWrite(inputFileName,outputFileName,chromosomePositionType);
+//		readandWrite(inputFileName,outputFileName,chromosomePositionType);
 
 	}
 

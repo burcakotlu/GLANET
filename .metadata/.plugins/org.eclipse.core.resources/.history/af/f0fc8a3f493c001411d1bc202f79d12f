@@ -1,0 +1,21 @@
+/**
+ * @author burcakotlu
+ * @date Sep 14, 2014 
+ * @time 10:53:50 PM
+ */
+package giveninputdata;
+
+/**
+ * 
+ */
+public class Preparation {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
