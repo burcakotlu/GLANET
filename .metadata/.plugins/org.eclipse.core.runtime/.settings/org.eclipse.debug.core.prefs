@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
 org.eclipse.debug.core.PREF_BREAKPOINT_MANAGER_ENABLED_STATE=true
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="rs.getSequence().getObserved()"/>\r\n<expression enabled\="true" text\="rsId"/>\r\n<expression enabled\="true" text\="maploc.getOrient()"/>\r\n<expression enabled\="true" text\="referenceSequence"/>\r\n<expression enabled\="true" text\="rsInformation"/>\r\n</watchExpressions>\r\n
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="jobName.trim()"/>\r\n</watchExpressions>\r\n

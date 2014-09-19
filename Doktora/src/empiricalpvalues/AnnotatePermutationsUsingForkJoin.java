@@ -1256,7 +1256,7 @@ public class AnnotatePermutationsUsingForkJoin {
 			closeBufferedWriters(permutationNumber2DnaseBufferedWriterHashMap);
 			
 			//Tfbs
-			writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TFBS);
+			writeAnnotationstoFiles(outputFolder,accumulatedAllMaps.getPermutationNumberTfNameCellLineName2KMap(),permutationNumber2TfbsBufferedWriterHashMap, "tfbs" + System.getProperty("file.separator") , Commons.TF);
 			closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 			
 			//Histone
@@ -1688,7 +1688,6 @@ public class AnnotatePermutationsUsingForkJoin {
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 		List<String> notToBeDeleted = new ArrayList<String>();
 		notToBeDeleted.add(Commons.ALL_POSSIBLE_NAMES);
-		notToBeDeleted.add(Commons.GIVENINPUTDATA);
 		
 		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(annotateOutputBaseDirectoryName,notToBeDeleted);
 		/*********************************************/

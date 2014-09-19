@@ -1304,7 +1304,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 			switch(enrichmentType){
 			
-				case Commons.TFBS:{
+				case Commons.TF:{
 					directoryBase = Commons.TF_RESULTS_DIRECTORY_BASE;	
 					break;
 				}
@@ -2594,8 +2594,16 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = "noname";
+		}
+		//jobName ends
+				
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 				
 		//TfEnrichment, DO or DO_NOT
 		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[12]);
@@ -2638,7 +2646,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					
 //		//Before each run
 //		//delete directories and files under base directories
-		FileOperations.deleteDirectoriesandFilesUnderThisDirectory(outputFolder,Commons.GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER);
+		FileOperations.deleteOldFiles(outputFolder + Commons.GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER);
 				
 		//Construct pfm matrices from encode-motif.txt file
 		//A tf can have more than one pfm matrices
@@ -2670,7 +2678,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			if (tfEnrichment.isTfEnrichment()){
 				//todo
 				//generate sequences and matrices for enriched tf elements
-				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TFBS);
+				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
 			}
 			
 								

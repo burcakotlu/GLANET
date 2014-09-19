@@ -100,7 +100,7 @@ public class AnnotationBinaryMatrixGeneration {
 			folderName = outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE;
 		}else if (elementType.equals(Commons.HISTONE)){
 			folderName = outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE;
-		} else if (elementType.equals(Commons.TFBS)){
+		} else if (elementType.equals(Commons.TF)){
 			folderName = outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS;
 		}
 		
@@ -198,7 +198,7 @@ public class AnnotationBinaryMatrixGeneration {
 			outputFileName = outputFolder + Commons.ANNOTATIONBINARYMATRIX_DNASE;
 		}else if (elementType.equals(Commons.HISTONE)){
 			outputFileName = outputFolder + Commons.ANNOTATIONBINARYMATRIX_HISTONE;
-		}else if (elementType.equals(Commons.TFBS)){
+		}else if (elementType.equals(Commons.TF)){
 			outputFileName = outputFolder + Commons.ANNOTATIONBINARYMATRIX_TF;
 		}
 		
@@ -377,7 +377,7 @@ public class AnnotationBinaryMatrixGeneration {
 		/***************************READ ANNOTATIONs FILL BINARY MATRICES starts************************/
 		/***********************************************************************************************/		
 		readAnnotations(givenIntervalName2ArrayXIndexMap,dnaseCellLineNameList,dnaseCelllineNames,annotationBinaryMatrixforDnase,outputFolder,Commons.DNASE);
-		readAnnotations(givenIntervalName2ArrayXIndexMap,tfNameCellLineNameList,tfNameCellLineNames,annotationBinaryMatrixforTf,outputFolder,Commons.TFBS);
+		readAnnotations(givenIntervalName2ArrayXIndexMap,tfNameCellLineNameList,tfNameCellLineNames,annotationBinaryMatrixforTf,outputFolder,Commons.TF);
 		readAnnotations(givenIntervalName2ArrayXIndexMap,histoneNameCellLineNameList,histoneNameCellLineNames,annotationBinaryMatrixforHistone,outputFolder,Commons.HISTONE);
 		
 		readAnnotations(givenIntervalName2ArrayXIndexMap,exonBasedKEGGPathwayList,exonBasedKEGGPathwayNames,annotationBinaryMatrixforExonBasedKEGG,outputFolder,Commons.EXON_BASED_KEGG_PATHWAY);
@@ -400,7 +400,7 @@ public class AnnotationBinaryMatrixGeneration {
 		/***************************WRITE ANNOTATION BINARY MATRICES starts*****************************/
 		/***********************************************************************************************/	
 		writeAnnotationBinaryMatrix(annotationBinaryMatrixforDnase,givenIntervalNames,givenIntervalName2ArrayXIndexMap.size(),dnaseCelllineNames,dnaseCellLineNameList.size(),outputFolder,Commons.DNASE);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTf,givenIntervalNames,givenIntervalName2ArrayXIndexMap.size(),tfNameCellLineNames,tfNameCellLineNameList.size(),outputFolder,Commons.TFBS);
+		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTf,givenIntervalNames,givenIntervalName2ArrayXIndexMap.size(),tfNameCellLineNames,tfNameCellLineNameList.size(),outputFolder,Commons.TF);
 		writeAnnotationBinaryMatrix(annotationBinaryMatrixforHistone,givenIntervalNames,givenIntervalName2ArrayXIndexMap.size(),histoneNameCellLineNames,histoneNameCellLineNameList.size(),outputFolder,Commons.HISTONE);
 		
 		writeAnnotationBinaryMatrix(annotationBinaryMatrixforExonBasedKEGG,givenIntervalNames,givenIntervalName2ArrayXIndexMap.size(),exonBasedKEGGPathwayNames,exonBasedKEGGPathwayList.size(),outputFolder,Commons.EXON_BASED_KEGG_PATHWAY);

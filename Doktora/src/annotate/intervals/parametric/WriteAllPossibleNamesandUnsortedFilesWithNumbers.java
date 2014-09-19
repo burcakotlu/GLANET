@@ -837,7 +837,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		
 		
-		if (tfbsorHistone.equals(Commons.TFBS)){
+		if (tfbsorHistone.equals(Commons.TF)){
 			createChromBaseTfbsBufferedReaders(dataFolder,bufferedReaderList);
 			createChromBaseTfbsBufferedWriters(dataFolder,bufferedWriterList);
 						
@@ -1369,7 +1369,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		Map<String,Integer> tfName2TfNumberMap = new HashMap<String,Integer>();
 		Map<Integer,String> tfNumber2TfNameMap = new HashMap<Integer,String>();
 
-		readTforHistoneNames(dataFolder,tfNames, tfName2TfNumberMap, tfNumber2TfNameMap,Commons.TFBS,cellLineNameNumber,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
+		readTforHistoneNames(dataFolder,tfNames, tfName2TfNumberMap, tfNumber2TfNameMap,Commons.TF,cellLineNameNumber,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
 		writeNames(dataFolder,tfNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME);		
 		writeMapsString2Integer(dataFolder,tfName2TfNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNAME_2_TFNUMBER_OUTPUT_FILENAME);
 		writeMapsInteger2String(dataFolder,tfNumber2TfNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);

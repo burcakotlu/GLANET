@@ -1652,7 +1652,7 @@ public class RserveUtilization {
 		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder,jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);
 		
 		//Construct chrNameZeroBasedCoordinate2ObservedAlleles HashMap
-		constructObservedAllelesMap(outputFolder,Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP,chrNameZeroBasedCoordinate2ObservedAlleles);
+//		constructObservedAllelesMap(outputFolder,Commons.OCD_GWAS_SIGNIFICANT_SNPS_AUGMENTED_WITH_DBSNP,chrNameZeroBasedCoordinate2ObservedAlleles);
 	
 				
 //		compareChromosomeDNASequences(chromDNASequence);

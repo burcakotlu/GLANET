@@ -222,7 +222,16 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 	 */
 	public static void main(String[] args) {
 		String glanetFolder = args[1];
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = "noname";
+		}
+		//jobName ends
+				
+				
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 		
 		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
 		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);
@@ -232,6 +241,10 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
 		
 		
+		//delete old files starts 
+		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_REMAP_DIRECTORY);
+		//delete old files ends
+	
 		CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.readandCreateFiles(outputFolder,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 	}
 

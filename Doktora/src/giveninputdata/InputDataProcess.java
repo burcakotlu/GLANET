@@ -12,7 +12,6 @@ import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
 /**
  * @author burcakotlu
@@ -510,7 +509,14 @@ public class InputDataProcess {
 		String glanetFolder = args[1];
 		String inputFileFormat = args[2];
 		
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = "noname";
+		}
+		//jobName ends
+		
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
 		
 		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){

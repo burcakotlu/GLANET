@@ -4,6 +4,7 @@ import empiricalpvalues.AnnotatePermutationsWithNumbersWithChoices;
 import empiricalpvalues.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
+import giveninputdata.Preparation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
 import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
+
 import common.Commons;
 
 public class GlanetRunner extends Thread{
@@ -45,7 +47,10 @@ public class GlanetRunner extends Thread{
 			//Combination getArgs and selected cellLines as String array
 			String[] allArguments = all.toArray(new String[] {});
 			
-		
+			
+			getMainView().setCurrentProcessInfo( "Preparation...");
+			Preparation.main(allArguments);
+					
 			getMainView().setCurrentProcessInfo( "InputDataProcess...");
 			InputDataProcess.main(allArguments);
 			

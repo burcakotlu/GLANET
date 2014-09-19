@@ -249,7 +249,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 				
 				if (Commons.DNASE.equals(functionalElementType)){
 					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;					
-				}else if (Commons.TFBS.equals(functionalElementType)){
+				}else if (Commons.TF.equals(functionalElementType)){
 					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;					
 				}else if (Commons.HISTONE.equals(functionalElementType)){
 					gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;					
@@ -329,7 +329,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			
 			if (Commons.DNASE.equals(functionalElementType)){
 				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
-			}else if (Commons.TFBS.equals(functionalElementType)){
+			}else if (Commons.TF.equals(functionalElementType)){
 				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
 			}else if (Commons.HISTONE.equals(functionalElementType)){
 				mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;					
@@ -405,7 +405,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 					CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineName(cellLineDnase,inputFileName);
 					meanandStdDev.setName(cellLineDnase.getCellLineName());
 
-			   }else if(Commons.TFBS.equals(functionalElementType)){
+			   }else if(Commons.TF.equals(functionalElementType)){
 //	       			Get the cell line name and transcription factor name from file name		
 				   CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
 				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
@@ -488,7 +488,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 					CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineName(cellLineDnase,inputFileName);
 					meanandStdDev.setName(cellLineDnase.getCellLineName());
 
-			   }else if(Commons.TFBS.equals(functionalElementType)){
+			   }else if(Commons.TF.equals(functionalElementType)){
 //	       			Get the cell line name and transcription factor name from file name		
 				   CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
 				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
@@ -557,7 +557,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			    if (Commons.DNASE.equals(functionalElementType)){
 			    	System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
-				}else  if (Commons.TFBS.equals(functionalElementType)){
+				}else  if (Commons.TF.equals(functionalElementType)){
 					System.out.printf("Number of Tfbs Files %d in %s\n", files.length, directory.getAbsolutePath());
 				} else if (Commons.HISTONE.equals(functionalElementType)){
 					System.out.printf("Number of Histone Files %d in %s\n", files.length, directory.getAbsolutePath());
@@ -575,7 +575,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
 		    				 gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
-		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
+		 			    }else  if (Commons.TF.equals(functionalElementType)){
 		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
 		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
@@ -616,7 +616,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			    if (Commons.DNASE.equals(functionalElementType)){
 			    	System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
-				}else  if (Commons.TFBS.equals(functionalElementType)){
+				}else  if (Commons.TF.equals(functionalElementType)){
 					System.out.printf("Number of Tfbs Files %d in %s\n", files.length, directory.getAbsolutePath());
 				} else if (Commons.HISTONE.equals(functionalElementType)){
 					System.out.printf("Number of Histone Files %d in %s\n", files.length, directory.getAbsolutePath());
@@ -634,7 +634,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
 		    				 mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
-		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
+		 			    }else  if (Commons.TF.equals(functionalElementType)){
 		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
 		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
@@ -706,7 +706,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			    if (Commons.DNASE.equals(functionalElementType)){
 			    	System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
-				}else  if (Commons.TFBS.equals(functionalElementType)){
+				}else  if (Commons.TF.equals(functionalElementType)){
 					System.out.printf("Number of Tfbs Files %d in %s\n", files.length, directory.getAbsolutePath());
 				} else if (Commons.HISTONE.equals(functionalElementType)){
 					System.out.printf("Number of Histone Files %d in %s\n", files.length, directory.getAbsolutePath());
@@ -724,7 +724,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
 		    				 gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
-		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
+		 			    }else  if (Commons.TF.equals(functionalElementType)){
 		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
 		 			    	gcFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
@@ -766,7 +766,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			    if (Commons.DNASE.equals(functionalElementType)){
 			    	System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
-				}else  if (Commons.TFBS.equals(functionalElementType)){
+				}else  if (Commons.TF.equals(functionalElementType)){
 					System.out.printf("Number of Tfbs Files %d in %s\n", files.length, directory.getAbsolutePath());
 				} else if (Commons.HISTONE.equals(functionalElementType)){
 					System.out.printf("Number of Histone Files %d in %s\n", files.length, directory.getAbsolutePath());
@@ -784,7 +784,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
 		    				 mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
-		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
+		 			    }else  if (Commons.TF.equals(functionalElementType)){
 		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
 		 			    	mapabilityFileName = outputFolder +"Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
@@ -844,7 +844,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		GlanetRunner.appendLog("-------------------------");
 		GlanetRunner.appendLog("Initialize hash map for TFBS has started.");
-		initializeGCHashMap(outputFolder,file,gcTfbsHashMap,Commons.TFBS);
+		initializeGCHashMap(outputFolder,file,gcTfbsHashMap,Commons.TF);
 		GlanetRunner.appendLog("Initialize hash map for TFBS has ended.");
 		
 		
@@ -885,7 +885,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanGC(outputFolder,file,Commons.TFBS, gcTfbsHashMap,gcCharAray);
+			calculateMeanGC(outputFolder,file,Commons.TF, gcTfbsHashMap,gcCharAray);
 			
 			//HISTONE
 			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
@@ -905,7 +905,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//TFBS
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanGC(gcTfbsHashMap);
-		calculateStandardDeviationGC(outputFolder,Commons.TFBS,gcTfbsHashMap);
+		calculateStandardDeviationGC(outputFolder,Commons.TF,gcTfbsHashMap);
 	
 		//HISTONE
 		//After mapability has been calculated for all chromosomes 
@@ -956,7 +956,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		
 		GlanetRunner.appendLog("-------------------------");
 		GlanetRunner.appendLog("Initialize hash map for TFBS has started.");
-		initializeMapabilityHashMap(outputFolder,file,mapabilityTfbsHashMap,Commons.TFBS);
+		initializeMapabilityHashMap(outputFolder,file,mapabilityTfbsHashMap,Commons.TF);
 		GlanetRunner.appendLog("Initialize hash map for TFBS has ended.");
 		
 		
@@ -997,7 +997,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			directory = mainDirectory + chromName + "\\";
 			file = new File(directory);
 			//calculate mapability for all files of Dnase
-			calculateMeanMapability(outputFolder,file,Commons.TFBS, mapabilityTfbsHashMap,mapabilityIntervalTree);
+			calculateMeanMapability(outputFolder,file,Commons.TF, mapabilityTfbsHashMap,mapabilityIntervalTree);
 			
 			//HISTONE
 			mainDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
@@ -1017,7 +1017,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		//TFBS
 		//After mapability has been calculated for all chromosomes 
 		calculateMeanMapability(mapabilityTfbsHashMap);
-		calculateStandardDeviationMapability(outputFolder,Commons.TFBS,mapabilityTfbsHashMap);
+		calculateStandardDeviationMapability(outputFolder,Commons.TF,mapabilityTfbsHashMap);
 	
 		//HISTONE
 		//After mapability has been calculated for all chromosomes 
@@ -1125,7 +1125,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			    if (Commons.DNASE.equals(functionalElementType)){
 			    	System.out.printf("Number of Dnase Files %d in %s\n", files.length, directory.getAbsolutePath());
-				}else  if (Commons.TFBS.equals(functionalElementType)){
+				}else  if (Commons.TF.equals(functionalElementType)){
 					System.out.printf("Number of Tfbs Files %d in %s\n", files.length, directory.getAbsolutePath());
 				} else if (Commons.HISTONE.equals(functionalElementType)){
 					System.out.printf("Number of Histone Files %d in %s\n", files.length, directory.getAbsolutePath());
@@ -1143,7 +1143,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		    			
 		    			 if (Commons.DNASE.equals(functionalElementType)){
 		    				 chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\";
-		 			    }else  if (Commons.TFBS.equals(functionalElementType)){
+		 			    }else  if (Commons.TF.equals(functionalElementType)){
 		 			    	chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\";
 		 			    } else if (Commons.HISTONE.equals(functionalElementType)){
 		 			    	chromosomeBasedDirectory = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\";
@@ -1416,7 +1416,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
     	GlanetRunner.appendLog("Create chromosome based functional element files has started.");
     	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir1,Commons.DNASE);
     	createChromosomeBasedFunctionalElementFiles(outputFolder,dnaseDir2,Commons.DNASE);
-    	createChromosomeBasedFunctionalElementFiles(outputFolder,tfbsDir,Commons.TFBS);
+    	createChromosomeBasedFunctionalElementFiles(outputFolder,tfbsDir,Commons.TF);
     	createChromosomeBasedFunctionalElementFiles(outputFolder,histoneDir,Commons.HISTONE);
     	GlanetRunner.appendLog("Create chromosome based functional element files has ended.");
     	

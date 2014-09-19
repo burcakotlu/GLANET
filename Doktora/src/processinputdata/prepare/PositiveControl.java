@@ -143,10 +143,10 @@ public class PositiveControl {
 	
 	public static void main(String[] args) {
 		
-		String inputFileName = Commons.POSITIVE_CONTROL_INPUT_FILE_NAME;
-		String outputFileName = Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME;
-		
-		readPositiveControlInputFileandWriteOutputFile(inputFileName,outputFileName);
+//		String inputFileName = Commons.POSITIVE_CONTROL_INPUT_FILE_NAME;
+//		String outputFileName = Commons.POSITIVE_CONTROL_OUTPUT_FILE_NAME;
+//		
+//		readPositiveControlInputFileandWriteOutputFile(inputFileName,outputFileName);
 	}
 
 }

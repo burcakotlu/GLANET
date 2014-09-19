@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="19" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="debug"/>
-			<item value="stop here"/>
-			<item value="stop"/>
-			<item value="stops"/>
-			<item value="stops here"/>
-			<item value="Unexpected"/>
-			<item value="2ArrayYIndexMap"/>
-			<item value="Map&lt;String,Short&gt;"/>
+			<item value="19"/>
+			<item value="GlanetRunner"/>
+			<item value="augmentAnnotationandEnrichmentResultsWithRSIds"/>
+			<item value="all"/>
+			<item value="&quot;all&quot;"/>
+			<item value="Elements"/>
+			<item value="new ArrayList&lt;Element&gt;();"/>
+			<item value="todo"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Map"/>
+			<item value="new HashMap&lt;String,Element&gt;()"/>
+			<item value=""/>
+			<item value="Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
+			<item value="Commons.RESULTS"/>
+			<item value="CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
+			<item value="&quot;"/>
 			<item value="List"/>
-			<item value="List&lt;String&gt;"/>
-			<item value="ArrayList&lt;String&gt;()"/>
-			<item value="ANNOTATIONBINARY"/>
-			<item value="GRCh38"/>
-			<item value="System.out.println"/>
-			<item value="fileWriter"/>
-			<item value="bufferedWriter"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="926" key="DIALOG_WIDTH"/>
+		<item value="789" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="602" key="DIALOG_HEIGHT"/>
-		<item value="790" key="DIALOG_X_ORIGIN"/>
-		<item value="433" key="DIALOG_Y_ORIGIN"/>
+		<item value="333" key="DIALOG_HEIGHT"/>
+		<item value="1059" key="DIALOG_X_ORIGIN"/>
+		<item value="219" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
