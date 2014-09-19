@@ -192,6 +192,8 @@ public class Commons {
 	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "GFF3";
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
 	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
+	
+	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
 			
 	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_0_Based_hg19_coordinates.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt";
@@ -1411,9 +1413,10 @@ public class Commons {
 	
 	
 	/******************************HINTS****************************************/
-	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File must be tab delimited .txt file";
-	public static final String GUI_HINT_INPUT_FORMAT = "Set Input Data Format";
-	public static final String GUI_HINT_GLANET_FOLDER = "Set GLANET FOLDER";
+	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
+	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
+	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported assemblies";
+	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";
 	public static final String GUI_HINT_NUMBER_OF_BASES = "Number of bases required for overlap definition";
 	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";
