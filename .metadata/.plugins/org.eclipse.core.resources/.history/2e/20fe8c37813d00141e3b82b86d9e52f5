@@ -1,0 +1,31 @@
+/**
+ * @author burcakotlu
+ * @date Sep 16, 2014 
+ * @time 10:14:50 AM
+ */
+package collaboration;
+
+import java.util.List;
+
+/**
+ * 
+ */
+public class Element {
+	
+	String elementName;
+	boolean enriched;
+	float rawPValue;
+	float BonferroniCorrectedPValue;
+	float BHFDRAdjustedPValue;
+	int numberofOverlaps;
+	List<Interval> intervalList;
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
