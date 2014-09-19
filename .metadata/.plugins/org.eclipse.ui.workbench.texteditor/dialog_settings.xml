@@ -6,12 +6,13 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
 			<item value="&gt;&gt;"/>
 			<item value="&lt;&lt;&lt;"/>
 			<item value="HEAD"/>
@@ -19,9 +20,9 @@
 			<item value="GlanetRunner"/>
 			<item value="augmentAnnotationandEnrichmentResultsWithRSIds"/>
 			<item value="all"/>
-			<item value="&quot;all&quot;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
 			<item value="Map"/>
 			<item value="new HashMap&lt;String,Element&gt;()"/>
 			<item value=""/>
@@ -29,13 +30,12 @@
 			<item value="Commons.RESULTS"/>
 			<item value="CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
 			<item value="&quot;"/>
-			<item value="List"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="789" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="333" key="DIALOG_HEIGHT"/>
+		<item value="583" key="DIALOG_HEIGHT"/>
 		<item value="1059" key="DIALOG_X_ORIGIN"/>
 		<item value="219" key="DIALOG_Y_ORIGIN"/>
 	</section>

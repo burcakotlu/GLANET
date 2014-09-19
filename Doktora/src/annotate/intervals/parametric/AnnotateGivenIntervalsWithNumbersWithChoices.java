@@ -61,9 +61,7 @@ import java.util.Map;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
@@ -2393,6 +2391,77 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 			e.printStackTrace();
 		} // End of while 
 	}
+	
+	
+	//@todo Gene Annotation with numbers starts
+	public void searchGeneWithNumbers(
+			String outputFolder,
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree ucscRefSeqGenesIntervalTree,
+			TIntIntMap geneAlternateNumber2KMap, 
+			int overlapDefinition,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap){
+			
+			String strLine = null;
+			int indexofFirstTab = 0;
+			int indexofSecondTab = 0;
+			
+			int low;
+			int high;
+						
+				try {
+				while((strLine = bufferedReader.readLine())!=null){
+					
+					
+					TIntShortMap 	geneAlternateNumber2OneorZeroMap		= new TIntShortHashMap();
+											
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					
+					low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					
+	//					indexofSecondTab must be greater than zero if it exists since indexofFirstTab must exists and can be at least zero therefore indexofSecondTab can be at least one.
+					if (indexofSecondTab>0)
+						high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					else 
+						high = low;
+					
+					Interval interval = new Interval(low,high);
+					
+								
+					//UCSCRefSeqGenes Search starts here
+					if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName,geneAlternateNumber2OneorZeroMap,Commons.NCBI_GENE_ID,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					}
+					//UCSCRefSeqGenes Search ends here
+					
+				
+					//accumulate search results of exonBasedKeggPathway2OneorZeroMap in exonBasedKeggPathway2KMap
+					for(TIntShortIterator it =  geneAlternateNumber2OneorZeroMap.iterator(); it.hasNext();){
+						 it.advance();
+						 
+						if (!geneAlternateNumber2KMap.containsKey(it.key())){
+							geneAlternateNumber2KMap.put(it.key(), it.value());
+						}else{
+							geneAlternateNumber2KMap.put(it.key(), geneAlternateNumber2KMap.get(it.key())+it.value());
+						}
+		
+					}//End of for
+					
+					
+					
+				}//End of while
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} // End of while 
+	}
+
+	//@todo Gene Annotation with numbers ends
+	
 	
 	//@todo Annotation with numbers starts
 	//KEGG Pathway
@@ -7994,6 +8063,34 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	}
 	//@todo ends
 	
+	//yeni starts
+	public void writeResultsWithNumbers(TIntIntMap number2KMap, TIntObjectMap<String> number2NameMap, String outputFolder, String outputFileName){
+		FileWriter fileWriter;
+		BufferedWriter  bufferedWriter;
+		String elementName;
+		try {
+			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//header line
+		   	bufferedWriter.write("Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+						
+			// accessing keys/values through an iterator:
+			for ( TIntIntIterator it = number2KMap.iterator(); it.hasNext(); ) {
+			    it.advance();
+			    elementName = number2NameMap.get(it.key());
+			   	bufferedWriter.write(elementName + "\t" + it.value() + System.getProperty("line.separator"));
+			}
+									
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+	}
+	//yeni ends
+	
 	//@todo TF CellLine KEGGPathway starts
 	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumberKeggNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,String outputFolder , String outputFileName){
 		FileWriter fileWriter;
@@ -8616,6 +8713,279 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 		}
 		
 	}
+	
+	
+	//@todo Gene Annotation with numbers starts 
+	public void searchGeneWithNumbers(
+			String dataFolder,
+			String outputFolder,
+			TIntIntMap geneAlternateNumber2KMap,
+			int overlapDefinition,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap){
+			
+		BufferedReader bufferedReader =null ;
+		
+		IntervalTree ucscRefSeqGenesIntervalTree;
+		
+		
+		
+		for(int i = 1; i<=24 ; i++ ){
+		
+			switch(i){
+				case 1:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME1);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR1);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME1,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+				
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;
+					
+				case 2:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME2);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR2);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME2,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+					
+				case 3:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME3);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR3);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME3,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+					
+				case 4:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME4);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR4);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME4,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 5:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME5);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR5);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME5,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 6:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME6);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR6);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME6,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 7:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME7);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR7);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME7,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 8:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME8);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR8);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME8,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 9:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME9);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR9);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME9,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 10:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME10);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR10);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME10,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 11:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME11);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR11);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME11,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 12:							
+					
+						ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME12);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR12);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME12,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 13:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME13);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR13);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME13,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 14:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME14);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR14);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME14,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 15:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME15);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR15);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME15,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 16:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME16);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR16);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME16,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 17:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME17);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR17);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME17,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 18:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME18);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR18);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME18,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 19:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME19);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR19);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME19,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 20:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME20);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR20);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME20,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 21:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME21);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR21);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME21,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 22:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOME22);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR22);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOME22,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 23:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOMEX);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHRX);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOMEX,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+				case 24:							
+					
+					ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,ChromosomeName.CHROMOSOMEY);
+					bufferedReader = createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHRY);
+					
+					searchGeneWithNumbers(outputFolder,ChromosomeName.CHROMOSOMEY,bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+					
+					emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
+					ucscRefSeqGenesIntervalTree = null;
+					break;	
+			} // End of Switch
+		}//End of FOR all chromosomes
+		try {
+			bufferedReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	//@todo Gene Annotation with numbers ends 
 	
 	//@todo Annotation with numbers starts
 	public void searchKEGGPathwayWithNumbers(
@@ -12793,6 +13163,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 
 		//TF
 		TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();	
+		
+		//Gene Alternate Name
+		TIntIntMap geneAlternateNumber2KMap = new TIntIntHashMap();	
 			
 		//KEGGPathway
 		TIntObjectMap<TShortArrayList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortArrayList>();
@@ -12902,7 +13275,27 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/
 		
 	
-	    
+		/*******************************************************************************/
+		/************GENE*****ANNOTATION***starts***************************************/
+		/*******************************************************************************/	
+		GlanetRunner.appendLog("Gene annotation starts: " + new Date());
+		dateBefore = System.currentTimeMillis();
+		
+		searchGeneWithNumbers(dataFolder,outputFolder,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
+		dateAfter = System.currentTimeMillis();
+			
+		GlanetRunner.appendLog("Gene annotation ends: " + new Date());
+		    
+		GlanetRunner.appendLog("Gene annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
+		GlanetRunner.appendLog("**********************************************************");
+			
+		System.gc();
+		System.runFinalization();	
+		/*******************************************************************************/
+		/************GENE*****ANNOTATION***ends*****************************************/
+		/*******************************************************************************/	
+	 
 	    
 	    /*******************************************************************************/
 		/************KEGG PATHWAY*****ANNOTATION***starts*******************************/
