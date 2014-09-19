@@ -33,7 +33,6 @@
 <fullyQualifiedTypeName name="annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbers"/>
 <fullyQualifiedTypeName name="jaxbxjctool.TfKeggPathwayGivenInterval"/>
 <fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
-<fullyQualifiedTypeName name="ui.GlanetRunner"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.runtime.reflect.Accessor.GetterSetterReflection"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="javafx.scene.control.IndexRangeBuilder"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="collaboration.ElementEnrichmentMap"/>
 <fullyQualifiedTypeName name="collaboration.ElementEnrichment"/>
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
+<fullyQualifiedTypeName name="ui.GlanetRunner"/>
 </qualifiedTypeNameHistroy>
