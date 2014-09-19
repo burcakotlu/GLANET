@@ -392,38 +392,68 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 
 			
 		/*******************************************************************************/
-		/***************************KEGGPATHWAY starts**********************************/
+		/***************************KEGGPATHWAY starts***********************/
 		/*******************************************************************************/
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.KEGG_PATHWAY ,Commons.KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.EXON_BASED_KEGG_PATHWAY, Commons.EXON_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.KEGG_PATHWAY ,Commons.KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.REGULATION_BASED_KEGG_PATHWAY, Commons.REGULATION_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.KEGG_PATHWAY ,Commons.KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.ALL_BASED_KEGG_PATHWAY, Commons.ALL_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		/*******************************************************************************/
-		/***************************KEGGPATHWAY ends************************************/
+		/***************************KEGGPATHWAY ends*************************/
 		/*******************************************************************************/
 
 		
+		
+
+		
 		/*******************************************************************************/
-		/***************************TF_KEGGPATHWAY starts*******************************/
+		/***************************TF_KEGGPATHWAY starts********************/
 		/*******************************************************************************/
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_KEGGPATHWAY,Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_EXON_BASED_KEGG_PATHWAY, Commons.TF_EXON_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_KEGGPATHWAY,Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_REGULATION_BASED_KEGG_PATHWAY, Commons.TF_REGULATION_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_KEGGPATHWAY,Commons.TF_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_ALL_BASED_KEGG_PATHWAY, Commons.TF_ALL_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		/*******************************************************************************/
-		/***************************TF_KEGGPATHWAY ends*********************************/
+		/***************************TF_KEGGPATHWAY ends**********************/
 		/*******************************************************************************/
 
 		
 		
 		/*******************************************************************************/
-		/***************************TF_CELLLINE_KEGGPATHWAY starts**********************/
+		/***************************TF_CELLLINE_KEGGPATHWAY starts********************/
 		/*******************************************************************************/
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		prepareElementVersusPhenotypeEnrichmentTable(outputFolder,encodeCollaborationHeatMapDirectory,bonferroniCorrectionSignificanceLevel,multipleTestingParameter,Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,NUMBER_OF_PHENOTYPES,phenotypeDirectoryNames,elementNameList,elementEnrichmentMapArray);
 		/*******************************************************************************/
-		/***************************TF_CELLINE_KEGGPATHWAY ends*************************/
+		/***************************TF_CELLINE_KEGGPATHWAY ends**********************/
 		/*******************************************************************************/
 
+
+		
+	
+		
+//		/*******************************************************************************/
+//		/***************************TF_CELLLINE_ALL_BASED KEGGPATHWAY starts************/
+//		/*******************************************************************************/
+//		//Will be initialized for each element type starts
+//		elementNameList  = new ArrayList<String>();
+//		elementEnrichmentMapArray = new ElementEnrichmentMap[NUMBER_OF_PHENOTYPES];
+//		
+//		for(int i= 0; i<NUMBER_OF_PHENOTYPES ; i++){
+//			elementEnrichmentMapArray[i] = new ElementEnrichmentMap();
+//		}		
+//		
+//
+//		//Read elementEnrichmentMap for 19 phenotypes starts
+//		//Fill elementNameList while reading elementEnrichmentMaps for 19 phenotypes
+//		readElementEnrichmentMapsfor19Phenotypes(outputFolder,bonferroniCorrectionSignificanceLevel,Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,phenotypeDirectoryNames,elementEnrichmentMapArray,elementNameList);
+//		//Read elementEnrichmentMap for 19 phenotypes ends
+//
+//		//According to the order in elementNameList
+//		//Write EnrichmentTable filled with 1/0s for the selected multiple testing parameter for 19 phenotypes	
+//		writeEnrichmentResultsInACertainOrder(encodeCollaborationHeatMapDirectory,Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY,multipleTestingParameter,phenotypeDirectoryNames,elementEnrichmentMapArray,elementNameList);
+//		/*******************************************************************************/
+//		/***************************TF_CELLLINE_ALL_BASED KEGGPATHWAY ends**************/
+//		/*******************************************************************************/
 
 	}
 

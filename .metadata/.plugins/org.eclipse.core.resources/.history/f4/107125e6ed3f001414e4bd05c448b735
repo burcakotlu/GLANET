@@ -77,7 +77,6 @@ public class GlanetRunner extends Thread{
 	
 	public static void appendLog( String log) {
 		
-		
 		getMainView().appendNewTextToLogArea( log);
 	}
 	
