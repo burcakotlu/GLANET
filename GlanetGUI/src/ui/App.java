@@ -53,11 +53,31 @@ public class App
     	Console console = System.console();
     	if( console != null){
     		
-    		String argsForGlanetRunner[] = null;
-    		//initialize the argsForGlanetRunner here. Get the necessary information from args and put it
-    		//to argsForGlanetRunner. The format should be in the agreed format 
-    		//to pass the appropriate indices see the comment above startRunActionsWithOptions(..) 
-    		//in MainViewController 
+    		int i = 0;
+    		String argsForGlanetRunner[] = new String[22];
+    		
+    		argsForGlanetRunner[i++] = args[args.length-22];
+    		argsForGlanetRunner[i++] = args[args.length-21];;
+    		argsForGlanetRunner[i++] = args[args.length-20];;
+    		argsForGlanetRunner[i++] = args[args.length-19];;
+    		argsForGlanetRunner[i++] = args[args.length-18];;
+    		argsForGlanetRunner[i++] = args[args.length-17];;
+    		argsForGlanetRunner[i++] = args[args.length-16];;
+    		argsForGlanetRunner[i++] = args[args.length-15];;
+    		argsForGlanetRunner[i++] = args[args.length-14];;
+    		argsForGlanetRunner[i++] = args[args.length-13];;
+    		argsForGlanetRunner[i++] = args[args.length-12];;
+    		argsForGlanetRunner[i++] = args[args.length-11];;
+    		argsForGlanetRunner[i++] = args[args.length-10];;
+    		argsForGlanetRunner[i++] = args[args.length-9];;
+    		argsForGlanetRunner[i++] = args[args.length-8];;
+    		argsForGlanetRunner[i++] = args[args.length-7];;
+    		argsForGlanetRunner[i++] = args[args.length-6];;
+    		argsForGlanetRunner[i++] = args[args.length-5];;
+    		argsForGlanetRunner[i++] = args[args.length-4];;
+    		argsForGlanetRunner[i++] = args[args.length-3];;
+    		argsForGlanetRunner[i++] = args[args.length-2];;
+    		argsForGlanetRunner[i++] = args[args.length-1];
     		
     		GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
