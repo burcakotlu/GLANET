@@ -1406,6 +1406,9 @@ public class Commons {
 	public static final String SORTED_CHRX_TFBS_FILENAME = "sorted_chrX_tfbs.txt";
 	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 	
+	//all_possible_encode_cell_lines_names
+	public static final String ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES = Commons.DATA + System.getProperty("file.separator") + Commons.BYGLANET + System.getProperty("file.separator") + "fromWriteAllPossibleNames" + System.getProperty("file.separator") + "all_possible_encode_cell_lines_names.txt";
+	
 	
 	/******************************HINTS****************************************/
 	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File must be tab delimited .txt file";

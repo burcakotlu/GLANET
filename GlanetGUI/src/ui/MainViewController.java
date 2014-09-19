@@ -95,9 +95,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//args[21]  --->    number of permutations in each run. Default is 2000
-	//args[22]  --->	Selected cell lines. If no selected cell line, then size of
-	//					the array is zero. Always check the size before using it.
-	//					This is a array of strings.
+	//args[22] - args[args.length-1]  --->	Note that the selected cell lines are
+	//					always inserted at the end of the args array because it's size
+	//					is not fixed. So for not (until the next change on args array) the selected cell
+	//					lines can be reached starting from 22th index up until (args.length-1)th index.
+	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
+	//					give an out of boundry exception in a for loop with this approach.
 	
 	public void startRunActionsWithOptions( String inputFileName, 
 			   String outputFolder,
@@ -123,34 +126,40 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String numberOfPermutationsInEachRun,
 			   String[] cellLinesToBeConsidered) {
 		
-		String[] args =   { inputFileName, 
-				   outputFolder,
-				   inputFileFormat,
-				   numberOfBases,
-				   enrichmentEnabled,
-				   generateRandomDataMode,
-				   multipleTestingChoice,
-				   bonferoniCorrectionSignificanceLevel,
-				   falseDiscoveryRate,
-				   numberOfPermutations,
-				   dnaseEnrichment,
-				   histoneEnrichment,
-				   tfEnrihment,
-				   keggPathwayEnrichment,
-				   tfAndKeggPathwayEnrichment,
-				   cellLineBasedTfAndKeggPathwayEnrichment,
-				   regulatorySequenceAnalysisUsingRSAT,
-				   jobName,
-				   writeGeneratedRandomDataMode,
-				   writePermutationBasedandParametricBasedAnnotationResultMode,
-				   writePermutationBasedAnnotationResultMode,
-				   numberOfPermutationsInEachRun};
+		int i = 0;
+		String[] args = new String[22+cellLinesToBeConsidered.length];
+		
+		args[i++] = inputFileName;
+		args[i++] = outputFolder;
+		args[i++] = inputFileFormat;
+		args[i++] = numberOfBases;
+		args[i++] = enrichmentEnabled;
+		args[i++] = generateRandomDataMode;
+		args[i++] = multipleTestingChoice;
+		args[i++] = bonferoniCorrectionSignificanceLevel;
+		args[i++] = falseDiscoveryRate;
+		args[i++] = numberOfPermutations;
+		args[i++] = dnaseEnrichment;
+		args[i++] = histoneEnrichment;
+		args[i++] = tfEnrihment;
+		args[i++] = keggPathwayEnrichment;
+		args[i++] = tfAndKeggPathwayEnrichment;
+		args[i++] = cellLineBasedTfAndKeggPathwayEnrichment;
+		args[i++] = regulatorySequenceAnalysisUsingRSAT;
+		args[i++] = jobName;
+		args[i++] = writeGeneratedRandomDataMode;
+		args[i++] = writePermutationBasedandParametricBasedAnnotationResultMode;
+		args[i++] = writePermutationBasedAnnotationResultMode;
+		args[i++] = numberOfPermutationsInEachRun;
+		
+		//filling the rest with selected cell lines. 
+		for( i = 22; i < args.length; i++)
+			args[i] = cellLinesToBeConsidered[i-22];
 		
 		runner = new GlanetRunner();
 		
 		GlanetRunner.setArgs( args);
 		GlanetRunner.setMainView( mainView);
-		GlanetRunner.setCellLines( cellLinesToBeConsidered);
 		
 		runner.start();
 	}
