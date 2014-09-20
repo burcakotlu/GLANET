@@ -553,6 +553,8 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		int startZeroBasedHg19Inclusive;
 		int endZeroBasedHg19Inclusive;
 		
+		int startOneBasedHg19Inclusive;
+		
 		String concatenated= null;
 		String rsID = null;
 		
@@ -564,8 +566,13 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			FileWriter fileWriter = FileOperations.createFileWriter(annotationResultsWithRsIdsOutputFileName);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
+			//write header line
+			bufferedWriter.write("Searched rsID"	+ "\t" + "snp chrName"	+ "\t" + "snp Pos hg19 1based" + "\t" +	"ucscRefSeqGene ChromName"	+ "\t" + "ucscRefSeqGene Low"	+ "\t" + "ucscRefSeqGene High" + "\t" +	"ucscRefSeqGene RefSeqGeneName" + "\t" +	"ucscRefSeqGene IntervalName"	+ "\t" + "ucscRefSeqGene GeneHugoSymbol" + "\t" +	"ucscRefSeqGene GeneEntrezId" +  System.getProperty("line.separator"));
+			
+			
 			while((strLine = bufferedReader.readLine())!=null){
 				if (!strLine.startsWith("Search")){
+					
 					indexofFirstTab = strLine.indexOf('\t');
 					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
@@ -574,13 +581,13 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 					startZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					endZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 					
+					startOneBasedHg19Inclusive = startZeroBasedHg19Inclusive+1;
+					
 					concatenated = chrName + "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;							
 			
 					rsID = overlap2RSIDMap.get(concatenated);
 					
-					bufferedWriter.write(rsID + "\t" +strLine + System.getProperty("line.separator"));
-				}else{
-					bufferedWriter.write("" + "\t" + strLine+ System.getProperty("line.separator"));
+					bufferedWriter.write(rsID + "\t" + chrName + "\t" +startOneBasedHg19Inclusive + "\t" + strLine.substring(indexofThirdTab+1) + System.getProperty("line.separator"));
 				}
 			}//End of While
 			
