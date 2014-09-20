@@ -12,7 +12,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,10 +29,10 @@ import enumtypes.MultipleTestingType;
 /**
  * 
  */
-public class ElementsEnrichmentSummaryTableCreation {
+public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 	
 	
-	public static void readEnrichmentResults(String outputFolder, float bonferroniCorrectionSignificanceLevel,String elementType, Map<String,Element> elementMap){
+	public static void readEnrichmentResults(String outputFolder, float bonferroniCorrectionSignificanceLevel,String elementType, Map<String,ElementEnrichment> elementMap){
 		
 		
 		String enrichmentDirectory = outputFolder + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType + System.getProperty("file.separator");
@@ -60,7 +62,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 		
 		boolean headerLine= true;
 		
-		Element element = null;
+		ElementEnrichment element = null;
 		
 		
 		//Read each file under enrichmentFolder	
@@ -107,7 +109,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 										//Get the element name
 										elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
 										
-										empiricalPValue = Float.parseFloat(strLine.substring(indexofSixthTab+1,indexofSeventhTab));
+										empiricalPValue = Float.parseFloat(strLine.substring(indexofSixthTab+1,indexofSeventhTab));		
 										BonferroniCorrectedPValue = Float.parseFloat(strLine.substring(indexofSeventhTab+1,indexofEigthTab));
 										BHFDRAdjustedPValue = Float.parseFloat(strLine.substring(indexofEigthTab+1,indexofNinethTab));
 										
@@ -126,7 +128,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 													
 										}
 										
-										element = new Element(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,empiricalPValue,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
+										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,empiricalPValue,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
 										
 										elementMap.put(elementName, element);
 										
@@ -155,7 +157,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 	
 	
 	
-	public static void readAnnotationResults(String outputFolder, String elementType, List<Element> elementList){
+	public static void readAnnotationResults(String outputFolder, String elementType, List<ElementAnnotationEnrichment> elementList){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -175,7 +177,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 		Set<String> overlappingGivenIntervals = null;
 		String name = null;
 		String elementName = null;
-		Element element = null;
+		ElementAnnotationEnrichment element = null;
 			
 		String annotationDirectory = outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + elementType + System.getProperty("file.separator");
 		
@@ -218,7 +220,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 							}//End of while
 							
 							//We have read the overlaps for a certain element
-							element = new Element(elementName,overlappingGivenIntervals.size(),overlappingGivenIntervals);
+							element = new ElementAnnotationEnrichment(elementName,overlappingGivenIntervals.size(),overlappingGivenIntervals);
 							elementList.add(element);
 							
 							bufferedReader.close();
@@ -240,7 +242,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 			
 	}
 
-	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap){
+	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap, Map<String,String> overlap2EQTLMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -268,6 +270,9 @@ public class ElementsEnrichmentSummaryTableCreation {
 		String chrName;
 		int startZeroBasedHg19Inclusive;
 		int endZeroBasedHg19Inclusive;
+		
+		String eQTL_geneName;
+		String eQTL_geneLocation;
 		
 		String key;
 		
@@ -306,12 +311,21 @@ public class ElementsEnrichmentSummaryTableCreation {
 				startZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				endZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				
+				eQTL_geneName = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+				eQTL_geneLocation = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+				
 				key = chrName+ "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;
 				
 				if (!overlap2RSIDMap.containsKey(key)){
 					overlap2RSIDMap.put(key , rsID);
 				}
 				
+				
+				if (!overlap2EQTLMap.containsKey(key)){
+					overlap2EQTLMap.put(key , eQTL_geneName + "_" + eQTL_geneLocation);
+				}else{
+					overlap2EQTLMap.put(key , overlap2EQTLMap.get(key) + " " + eQTL_geneName+ "_" +eQTL_geneLocation);				
+				}
 			}//End of while
 			
 			bufferedReader.close();
@@ -330,18 +344,18 @@ public class ElementsEnrichmentSummaryTableCreation {
 	
 	
 	public static void readAnnotationResults(String outputFolder,
-			List<Element> dnaseElements,
-			List<Element> tfElements,
-			List<Element> histoneElements,
-			List<Element> exonBasedKEGGPathwayElements,
-			List<Element> regulationBasedKEGGPathwayElements,
-			List<Element> allBasedKEGGPathwayElements,
-			List<Element> tfExonBasedKEGGPathwayElements,
-			List<Element> tfRegulationBasedKEGGPathwayElements,
-			List<Element> tfAllBasedKEGGPathwayElements,
-			List<Element> tfCellLineExonBasedKEGGPathwayElements,
-			List<Element> tfCellLineRegulationBasedKEGGPathwayElements,
-			List<Element> tfCellLineAllBasedKEGGPathwayElements){
+			List<ElementAnnotationEnrichment> dnaseElements,
+			List<ElementAnnotationEnrichment> tfElements,
+			List<ElementAnnotationEnrichment> histoneElements,
+			List<ElementAnnotationEnrichment> exonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> regulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> allBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfExonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfRegulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfAllBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineExonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineRegulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineAllBasedKEGGPathwayElements){
 		
 		
 		/****************************************************************************/
@@ -415,18 +429,18 @@ public class ElementsEnrichmentSummaryTableCreation {
 	
 	public static void readEnrichmentResults(String outputFolder,
 			float bonferroniCorrectionSignificanceLevel,
-			Map<String,Element> dnaseMap,
-			Map<String,Element> tfMap,
-			Map<String,Element> histoneMap,
-			Map<String,Element> exonBasedKEGGPathwayMap,
-			Map<String,Element> regulationBasedKEGGPathwayMap,
-			Map<String,Element> allBasedKEGGPathwayMap,
-			Map<String,Element> tfExonBasedKEGGPathwayMap,
-			Map<String,Element> tfRegulationBasedKEGGPathwayMap,
-			Map<String,Element> tfAllBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineExonBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineRegulationBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineAllBasedKEGGPathwayMap){
+			Map<String,ElementEnrichment> dnaseMap,
+			Map<String,ElementEnrichment> tfMap,
+			Map<String,ElementEnrichment> histoneMap,
+			Map<String,ElementEnrichment> exonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> allBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap){
 		
 		/****************************************************************************/
 		/**********************************DNASE starts******************************/
@@ -495,11 +509,11 @@ public class ElementsEnrichmentSummaryTableCreation {
 	
 	
 	public static  void augmentAnnotationandEnrichmentResultsWithRSIds(Map<String,String> overlap2RSIDMap,
-			List<Element> elementListFromAnnotation,
-			Map<String,Element> elementMapFromEnrichment){
+			List<ElementAnnotationEnrichment> elementListFromAnnotation,
+			Map<String,ElementEnrichment> elementMapFromEnrichment){
 		
-		Element elementFromAnnotation = null;
-		Element elementFromEnrichment = null;
+		ElementAnnotationEnrichment elementAnnotationEnrichment = null;
+		ElementEnrichment elementFromEnrichment = null;
 		
 		Iterator iterator = elementListFromAnnotation.iterator();
 		
@@ -512,27 +526,28 @@ public class ElementsEnrichmentSummaryTableCreation {
 		while(iterator.hasNext()){
 			
 			//Get the rsIds from overlap2RSIDMap
-			elementFromAnnotation = (Element) iterator.next();			
-			elementName = elementFromAnnotation.getElementName();
+			elementAnnotationEnrichment = (ElementAnnotationEnrichment) iterator.next();			
+			elementName = elementAnnotationEnrichment.getElementName();
 			
 			rsIdList = new ArrayList<String>();			
-			for(String chrName_start_end : elementFromAnnotation.getOverlappingGivenIntervalSet()){
+			for(String chrName_start_end : elementAnnotationEnrichment.getOverlappingGivenIntervalSet()){
 				
 				rsId = overlap2RSIDMap.get(chrName_start_end);
 				rsIdList.add(rsId);
 				
 			}			
-			elementFromAnnotation.setRsIdList(rsIdList);
+			elementAnnotationEnrichment.setRsIdList(rsIdList);
 			
 			
 			//Get enriched_Bonferroni_Correction and enriched_BH_FDR
 			elementFromEnrichment = elementMapFromEnrichment.get(elementName);
 			
-			elementFromAnnotation.setEnriched_Bonferroni_Correction(elementFromEnrichment.isEnriched_Bonferroni_Correction());
-			elementFromAnnotation.setEnriched_BH_FDR(elementFromEnrichment.isEnriched_BH_FDR());
+			elementAnnotationEnrichment.setEnriched_Bonferroni_Correction(elementFromEnrichment.isEnriched_Bonferroni_Correction());
+			elementAnnotationEnrichment.setEnriched_BH_FDR(elementFromEnrichment.isEnriched_BH_FDR());
 			
-			elementFromAnnotation.setBonferroniCorrectedPValue(elementFromEnrichment.getBonferroniCorrectedPValue());
-			elementFromAnnotation.setBHFDRAdjustedPValue(elementFromEnrichment.getBHFDRAdjustedPValue());
+			elementAnnotationEnrichment.setEmpiricalPValue(elementFromEnrichment.getEmpiricalPValue());
+			elementAnnotationEnrichment.setBonferroniCorrectedPValue(elementFromEnrichment.getBonferroniCorrectedPValue());
+			elementAnnotationEnrichment.setBHFDRAdjustedPValue(elementFromEnrichment.getBHFDRAdjustedPValue());
 			
 			
 		}//End of while
@@ -540,32 +555,102 @@ public class ElementsEnrichmentSummaryTableCreation {
 	}
 	
 	
+	public static void augmentAnnotationResultsWithRsIds(
+			String annotationResultsInputFileName,
+			String annotationResultsWithRsIdsOutputFileName,
+			Map<String,String> overlap2RSIDMap,
+			Map<String,String> overlap2EQTLMap){
+		String strLine;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		
+		String chrName;
+		int startZeroBasedHg19Inclusive;
+		int endZeroBasedHg19Inclusive;
+		
+		int startOneBasedHg19Inclusive;
+		
+		String concatenated= null;
+		String rsID = null;
+		String eQTLs = null;
+		
+		try {
+			FileReader fileReader = FileOperations.createFileReader(annotationResultsInputFileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			
+			FileWriter fileWriter = FileOperations.createFileWriter(annotationResultsWithRsIdsOutputFileName);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//write header line
+			bufferedWriter.write("Searched rsID" + "\t" + "eQTLs" + "\t" + "snp chrName"	+ "\t" + "snp Pos hg19 1based" + "\t" +	"ucscRefSeqGene ChromName"	+ "\t" + "ucscRefSeqGene Low"	+ "\t" + "ucscRefSeqGene High" + "\t" +	"ucscRefSeqGene RefSeqGeneName" + "\t" +	"ucscRefSeqGene IntervalName"	+ "\t" + "ucscRefSeqGene GeneHugoSymbol" + "\t" +	"ucscRefSeqGene GeneEntrezId" +  System.getProperty("line.separator"));
+
+//			example strLine		
+//			chr1	11862777	11862777	chr1	11820828	11910827	NM_001040194	THREE_D	AGTRAP	57085
+
+			while((strLine = bufferedReader.readLine())!=null){
+				if (!strLine.startsWith("Search")){
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+						
+					chrName = strLine.substring(0,indexofFirstTab);
+					startZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					endZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					
+					startOneBasedHg19Inclusive = startZeroBasedHg19Inclusive+1;
+					
+					concatenated = chrName + "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;							
+			
+					rsID = overlap2RSIDMap.get(concatenated);
+					eQTLs =overlap2EQTLMap.get(concatenated);
+							
+					bufferedWriter.write(rsID + "\t" + eQTLs +  "\t" + chrName + "\t" +startOneBasedHg19Inclusive + "\t" + strLine.substring(indexofThirdTab+1) + System.getProperty("line.separator"));
+				}
+			}//End of While
+			
+			bufferedReader.close();
+			fileReader.close();
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	public static void augmentAnnotationandEnrichmentResultsWithRSIds(
 			Map<String,String> overlap2RSIDMap,
-			List<Element> dnaseElements,
-			List<Element> tfElements,
-			List<Element> histoneElements,
-			List<Element> exonBasedKEGGPathwayElements,
-			List<Element> regulationBasedKEGGPathwayElements,
-			List<Element> allBasedKEGGPathwayElements,
-			List<Element> tfExonBasedKEGGPathwayElements,
-			List<Element> tfRegulationBasedKEGGPathwayElements,
-			List<Element> tfAllBasedKEGGPathwayElements,
-			List<Element> tfCellLineExonBasedKEGGPathwayElements,
-			List<Element> tfCellLineRegulationBasedKEGGPathwayElements,
-			List<Element> tfCellLineAllBasedKEGGPathwayElements,
-			Map<String,Element> dnaseMap,
-			Map<String,Element> tfMap,
-			Map<String,Element> histoneMap,
-			Map<String,Element> exonBasedKEGGPathwayMap,
-			Map<String,Element> regulationBasedKEGGPathwayMap,
-			Map<String,Element> allBasedKEGGPathwayMap,
-			Map<String,Element> tfExonBasedKEGGPathwayMap,
-			Map<String,Element> tfRegulationBasedKEGGPathwayMap,
-			Map<String,Element> tfAllBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineExonBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineRegulationBasedKEGGPathwayMap,
-			Map<String,Element> tfCellLineAllBasedKEGGPathwayMap){
+			List<ElementAnnotationEnrichment> dnaseElements,
+			List<ElementAnnotationEnrichment> tfElements,
+			List<ElementAnnotationEnrichment> histoneElements,
+			List<ElementAnnotationEnrichment> exonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> regulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> allBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfExonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfRegulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfAllBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineExonBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineRegulationBasedKEGGPathwayElements,
+			List<ElementAnnotationEnrichment> tfCellLineAllBasedKEGGPathwayElements,
+			Map<String,ElementEnrichment> dnaseMap,
+			Map<String,ElementEnrichment> tfMap,
+			Map<String,ElementEnrichment> histoneMap,
+			Map<String,ElementEnrichment> exonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> allBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap,
+			Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap){
 		
 		
 			augmentAnnotationandEnrichmentResultsWithRSIds(overlap2RSIDMap,dnaseElements,dnaseMap);
@@ -592,25 +677,33 @@ public class ElementsEnrichmentSummaryTableCreation {
 		String extraDirectoryName,
 		String initialFileName,
 		MultipleTestingType multipleTestingParameter,
-		List<Element> augmentedElementList){
+		List<ElementAnnotationEnrichment> augmentedElementList){
 		
-		FileWriter fileWriter = null;
+		DecimalFormat df = new DecimalFormat("0.######E0");
 		
+		FileWriter fileWriter = null;		
 		BufferedWriter bufferedWriter = null;
+				
+		//sort the elements w.r.t. its pValue from smallest to largest before traversing the list
+		if (multipleTestingParameter.isBonferroniCorrection()){
+			Collections.sort(augmentedElementList,ElementAnnotationEnrichment.BONFERRONI_CORRECTED_P_VALUE);
+			
+		}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
+			Collections.sort(augmentedElementList,ElementAnnotationEnrichment.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);			
+		}
+			
+				
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(encodeCollaborationDirectory + extraDirectoryName + System.getProperty("file.separator") + initialFileName + "_AnnotationEnrichmentWithRSIDs_SummaryTable.txt");
+			fileWriter = FileOperations.createFileWriter(encodeCollaborationDirectory + extraDirectoryName + System.getProperty("file.separator") + initialFileName + "_SummaryTable.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//write header line
-			if (multipleTestingParameter.isBonferroniCorrection()){
-				bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "Bonferroni Corrected P Value" + "\t" + "Enriched"  +  System.getProperty("line.separator"));			
-			}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
-				bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Enriched"  +  System.getProperty("line.separator"));			
-			}
+			bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "Empirical P Value" + "\t" + "Bonferroni Corrected P Value" + "\t" + "Bonferroni_Enriched"  + "\t" + "BH FDR Adjusted P Value (sorted w.r.t. this value)" + "\t" + "BH_Enriched"  + System.getProperty("line.separator"));			
+		
 			
 			
-			for(Element e : augmentedElementList ){
+			for(ElementAnnotationEnrichment e : augmentedElementList ){
 				bufferedWriter.write(e.getElementName() + "\t" + e.getNumberofOverlaps() + "\t");
 				
 				//Write all of the rsIds
@@ -619,18 +712,11 @@ public class ElementsEnrichmentSummaryTableCreation {
 				}//End of for each rsID in the rsIDList
 				
 				bufferedWriter.write("\t");
-				
-				
-				if (multipleTestingParameter.isBonferroniCorrection()){
-					bufferedWriter.write(e.getBonferroniCorrectedPValue() + "\t" + e.enriched_Bonferroni_Correction+ System.getProperty("line.separator"));
-					
-				}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
-					bufferedWriter.write(e.getBHFDRAdjustedPValue() + "\t" + e.enriched_BH_FDR+ System.getProperty("line.separator"));
-				}
+								
+				bufferedWriter.write( df.format(e.getEmpiricalPValue())+ "\t" + df.format(e.getBonferroniCorrectedPValue()) + "\t" + e.enriched_Bonferroni_Correction + "\t" + df.format(e.getBHFDRAdjustedPValue()) + "\t" + e.enriched_BH_FDR + System.getProperty("line.separator"));
+					 
 				
 			}//End of for each element
-			
-			
 			
 			
 			bufferedWriter.close();
@@ -641,11 +727,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 		}
 		
 		
-		if (multipleTestingParameter.isBonferroniCorrection()){
-			
-		}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
-			
-		}
+		
 		
 		
 	
@@ -655,34 +737,34 @@ public class ElementsEnrichmentSummaryTableCreation {
 	public static void writeAnnotationEnrichmentWithRSIDsSummaryTable(
 		String outputFolder,
 		MultipleTestingType multipleTestingParameter,
-		List<Element> dnaseElements,
-		List<Element> tfElements,
-		List<Element> histoneElements,
-		List<Element> exonBasedKEGGPathwayElements,
-		List<Element> regulationBasedKEGGPathwayElements,
-		List<Element> allBasedKEGGPathwayElements,
-		List<Element> tfExonBasedKEGGPathwayElements,
-		List<Element> tfRegulationBasedKEGGPathwayElements,
-		List<Element> tfAllBasedKEGGPathwayElements,
-		List<Element> tfCellLineExonBasedKEGGPathwayElements,
-		List<Element> tfCellLineRegulationBasedKEGGPathwayElements,
-		List<Element> tfCellLineAllBasedKEGGPathwayElements){
+		List<ElementAnnotationEnrichment> dnaseElements,
+		List<ElementAnnotationEnrichment> tfElements,
+		List<ElementAnnotationEnrichment> histoneElements,
+		List<ElementAnnotationEnrichment> exonBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> regulationBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> allBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfExonBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfRegulationBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfAllBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfCellLineExonBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfCellLineRegulationBasedKEGGPathwayElements,
+		List<ElementAnnotationEnrichment> tfCellLineAllBasedKEGGPathwayElements){
 		
-		String encodeCollaborationDirectory = outputFolder + System.getProperty("file.separator") + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator");
+		String encodeCollaborationSummaryTablesDirectory = outputFolder + System.getProperty("file.separator") + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") + Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES + System.getProperty("file.separator") ;
 		
 		/****************************************************************************/
-		/**********************************DNASE starts************/
+		/**********************************DNASE starts******************************/
 		/****************************************************************************/
-		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationDirectory, Commons.DNASE,Commons.DNASE, multipleTestingParameter,dnaseElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.DNASE,Commons.DNASE, multipleTestingParameter,dnaseElements);
 		/****************************************************************************/
-		/**********************************DNASE  ends*************/
+		/**********************************DNASE  ends*******************************/
 		/****************************************************************************/
 	
 		
 		/****************************************************************************/
 		/**********************************TF starts*********************************/
 		/****************************************************************************/
-		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationDirectory, Commons.TF,Commons.TF, multipleTestingParameter,tfElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF,Commons.TF, multipleTestingParameter,tfElements);
 		/****************************************************************************/
 		/**********************************TF  ends**********************************/
 		/****************************************************************************/
@@ -691,7 +773,7 @@ public class ElementsEnrichmentSummaryTableCreation {
 		/****************************************************************************/
 		/**********************************HISTONE starts****************************/
 		/****************************************************************************/
-		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationDirectory, Commons.HISTONE,Commons.HISTONE, multipleTestingParameter,histoneElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.HISTONE,Commons.HISTONE, multipleTestingParameter,histoneElements);
 		/****************************************************************************/
 		/**********************************HISTONE  ends*****************************/
 		/****************************************************************************/
@@ -699,9 +781,33 @@ public class ElementsEnrichmentSummaryTableCreation {
 		/****************************************************************************/
 		/**********************************KEGGPathway starts************************/
 		/****************************************************************************/
-		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationDirectory, Commons.KEGG_PATHWAY, multipleTestingParameter,histoneElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.KEGG_PATHWAY,Commons.EXON_BASED_KEGG_PATHWAY, multipleTestingParameter,exonBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.KEGG_PATHWAY,Commons.REGULATION_BASED_KEGG_PATHWAY, multipleTestingParameter,regulationBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.KEGG_PATHWAY,Commons.ALL_BASED_KEGG_PATHWAY, multipleTestingParameter,allBasedKEGGPathwayElements);
 		/****************************************************************************/
 		/**********************************KEGGPathway  ends*************************/
+		/****************************************************************************/
+
+		
+		/****************************************************************************/
+		/**********************************TF KEGGPathway starts*********************/
+		/****************************************************************************/
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_KEGGPATHWAY,Commons.TF_EXON_BASED_KEGG_PATHWAY, multipleTestingParameter,tfExonBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_KEGGPATHWAY,Commons.TF_REGULATION_BASED_KEGG_PATHWAY, multipleTestingParameter,tfRegulationBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_KEGGPATHWAY,Commons.TF_ALL_BASED_KEGG_PATHWAY, multipleTestingParameter,tfAllBasedKEGGPathwayElements);
+		/****************************************************************************/
+		/**********************************TF KEGGPathway  ends**********************/
+		/****************************************************************************/
+
+		
+		/****************************************************************************/
+		/**********************************TF CellLine KEGGPathway starts************/
+		/****************************************************************************/
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY, multipleTestingParameter,tfCellLineExonBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY, multipleTestingParameter,tfCellLineRegulationBasedKEGGPathwayElements);
+		writeAnnotationEnrichmentWithRSIDsSummaryTable(encodeCollaborationSummaryTablesDirectory, Commons.TF_CELLLINE_KEGGPATHWAY,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY, multipleTestingParameter,tfCellLineAllBasedKEGGPathwayElements);
+		/****************************************************************************/
+		/**********************************TF CellLine KEGGPathway  ends*************/
 		/****************************************************************************/
 
 	}
@@ -731,48 +837,64 @@ public class ElementsEnrichmentSummaryTableCreation {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
 		//ANNOTATION Element ArrayLists starts
-		List<Element> dnaseElements 	= new ArrayList<Element>();
-		List<Element> tfElements 		= new ArrayList<Element>();
-		List<Element> histoneElements 	= new ArrayList<Element>();
+		List<ElementAnnotationEnrichment> dnaseElements 	= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> tfElements 		= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> histoneElements 	= new ArrayList<ElementAnnotationEnrichment>();
 		
-		List<Element> exonBasedKEGGPathwayElements 		= new ArrayList<Element>();
-		List<Element> regulationBasedKEGGPathwayElements= new ArrayList<Element>();
-		List<Element> allBasedKEGGPathwayElements 		= new ArrayList<Element>();
+		List<ElementAnnotationEnrichment> exonBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> regulationBasedKEGGPathwayElements= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> allBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
 
-		List<Element> tfExonBasedKEGGPathwayElements 		= new ArrayList<Element>();
-		List<Element> tfRegulationBasedKEGGPathwayElements	= new ArrayList<Element>();
-		List<Element> tfAllBasedKEGGPathwayElements 		= new ArrayList<Element>();
+		List<ElementAnnotationEnrichment> tfExonBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> tfRegulationBasedKEGGPathwayElements	= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> tfAllBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
 
-		List<Element> tfCellLineExonBasedKEGGPathwayElements 		= new ArrayList<Element>();
-		List<Element> tfCellLineRegulationBasedKEGGPathwayElements	= new ArrayList<Element>();
-		List<Element> tfCellLineAllBasedKEGGPathwayElements 		= new ArrayList<Element>();
+		List<ElementAnnotationEnrichment> tfCellLineExonBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> tfCellLineRegulationBasedKEGGPathwayElements	= new ArrayList<ElementAnnotationEnrichment>();
+		List<ElementAnnotationEnrichment> tfCellLineAllBasedKEGGPathwayElements 		= new ArrayList<ElementAnnotationEnrichment>();
 		//ANNOTATION Element ArrayLists ends
 		
 		//ENRICHMENT Element HashMaps starts
-		Map<String,Element> dnaseMap 	= new HashMap<String,Element>();
-		Map<String,Element> tfMap 		= new HashMap<String,Element>();
-		Map<String,Element> histoneMap = new HashMap<String,Element>();
+		Map<String,ElementEnrichment> dnaseMap 	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> histoneMap = new HashMap<String,ElementEnrichment>();
 		
-		Map<String,Element> exonBasedKEGGPathwayMap 		= new HashMap<String,Element>();
-		Map<String,Element> regulationBasedKEGGPathwayMap	= new HashMap<String,Element>();
-		Map<String,Element> allBasedKEGGPathwayMap 			= new HashMap<String,Element>();
+		Map<String,ElementEnrichment> exonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> allBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
 
-		Map<String,Element> tfExonBasedKEGGPathwayMap 			= new HashMap<String,Element>();
-		Map<String,Element> tfRegulationBasedKEGGPathwayMap		= new HashMap<String,Element>();
-		Map<String,Element> tfAllBasedKEGGPathwayMap 			= new HashMap<String,Element>();
+		Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
 
-		Map<String,Element> tfCellLineExonBasedKEGGPathwayMap 		= new HashMap<String,Element>();
-		Map<String,Element> tfCellLineRegulationBasedKEGGPathwayMap = new HashMap<String,Element>();
-		Map<String,Element> tfCellLineAllBasedKEGGPathwayMap 		= new HashMap<String,Element>();
+		Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap = new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
 		//ENRICHMENT Element HashMaps ends
 
-		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();
+		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();		
+		Map<String,String> overlap2EQTLMap = new HashMap<String,String>();
 		
 		String inputFileName = "C:"+ System.getProperty("file.separator") +"Users" + System.getProperty("file.separator") + "burcakotlu" + System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "ENCODE Collaboration" + System.getProperty("file.separator") +"eqtl-gene-anno-all.txt";
 		
+		
+		String annotationResultsInputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName.txt";		
+		String annotationResultsWithRsIdsOutputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName_withRsIds_withEQTLs.txt";
+		
+		/********************************************************************/
+		/***********delete old files starts**********************************/
+		String encodeCollaborationDirectoryName = outputFolder + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") +Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES;
+		
+		FileOperations.deleteOldFiles(encodeCollaborationDirectoryName);
+		/***********delete old files ends***********************************/
+		/******************************************************************/
+		
+		
 		//Fill the rsId 2 chrName_start_end HashMap
 		//Fill chrName_start_end 2 rsId  HashMap
-		readRSIDMap(inputFileName,overlap2RSIDMap);
+		readRSIDMap(inputFileName,overlap2RSIDMap,overlap2EQTLMap);
+		
+		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsOutputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
 		readAnnotationResults(outputFolder,dnaseElements,tfElements,histoneElements,exonBasedKEGGPathwayElements,regulationBasedKEGGPathwayElements,allBasedKEGGPathwayElements,tfExonBasedKEGGPathwayElements,tfRegulationBasedKEGGPathwayElements,tfAllBasedKEGGPathwayElements,tfCellLineExonBasedKEGGPathwayElements,tfCellLineRegulationBasedKEGGPathwayElements,tfCellLineAllBasedKEGGPathwayElements);
 		

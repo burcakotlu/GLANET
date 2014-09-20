@@ -242,7 +242,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			
 	}
 
-	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap){
+	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap, Map<String,String> overlap2EQTLMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -270,6 +270,9 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		String chrName;
 		int startZeroBasedHg19Inclusive;
 		int endZeroBasedHg19Inclusive;
+		
+		String eQTL_geneName;
+		String eQTL_geneLocation;
 		
 		String key;
 		
@@ -308,12 +311,21 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 				startZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				endZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				
+				eQTL_geneName = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+				eQTL_geneLocation = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+				
 				key = chrName+ "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;
 				
 				if (!overlap2RSIDMap.containsKey(key)){
 					overlap2RSIDMap.put(key , rsID);
 				}
 				
+				
+				if (!overlap2EQTLMap.containsKey(key)){
+					overlap2EQTLMap.put(key , eQTL_geneName + "_" + eQTL_geneLocation);
+				}else{
+					overlap2EQTLMap.put(key , overlap2EQTLMap.get(key) + " " + eQTL_geneName+ "_" +eQTL_geneLocation);				
+				}
 			}//End of while
 			
 			bufferedReader.close();
@@ -543,20 +555,36 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 	}
 	
 	
-	public static void augmentAnnotationResultsWithRsIds(String annotationResultsInputFileName,String annotationResultsWithRsIdsOutputFileName,Map<String,String> overlap2RSIDMap){
+	public static void augmentAnnotationResultsWithRsIds(
+			String annotationResultsInputFileName,
+			String annotationResultsWithRsIdsOutputFileName,
+			Map<String,String> overlap2RSIDMap,
+			Map<String,String> overlap2EQTLMap){
+		
+		
 		String strLine;
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
 		
 		String chrName;
 		int startZeroBasedHg19Inclusive;
 		int endZeroBasedHg19Inclusive;
+		String annotatedGeneAlternateName;
 		
 		int startOneBasedHg19Inclusive;
 		
 		String concatenated= null;
 		String rsID = null;
+		String eQTLs = null;
+		
+		boolean isAnnotatedGeneIneQTLS = false;
 		
 		try {
 			FileReader fileReader = FileOperations.createFileReader(annotationResultsInputFileName);
@@ -567,27 +595,45 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//write header line
-			bufferedWriter.write("Searched rsID"	+ "\t" + "snp chrName"	+ "\t" + "snp Pos hg19 1based" + "\t" +	"ucscRefSeqGene ChromName"	+ "\t" + "ucscRefSeqGene Low"	+ "\t" + "ucscRefSeqGene High" + "\t" +	"ucscRefSeqGene RefSeqGeneName" + "\t" +	"ucscRefSeqGene IntervalName"	+ "\t" + "ucscRefSeqGene GeneHugoSymbol" + "\t" +	"ucscRefSeqGene GeneEntrezId" +  System.getProperty("line.separator"));
-			
-			
+			bufferedWriter.write("Searched rsID" + "\t" + "eQTLs" + "\t" + "Annotated Gene in eQTLS" + "\t" +  "snp chrName"	+ "\t" + "snp Pos hg19 1based" + "\t" +	"ucscRefSeqGene ChromName"	+ "\t" + "ucscRefSeqGene Low"	+ "\t" + "ucscRefSeqGene High" + "\t" +	"ucscRefSeqGene RefSeqGeneName" + "\t" +	"ucscRefSeqGene IntervalName"	+ "\t" + "ucscRefSeqGene GeneHugoSymbol" + "\t" + "ucscRefSeqGene GeneEntrezId" +  System.getProperty("line.separator"));
+
+//			example strLine		
+//			chr1	11862777	11862777	chr1	11820828	11910827	NM_001040194	THREE_D	AGTRAP	57085
+
 			while((strLine = bufferedReader.readLine())!=null){
 				if (!strLine.startsWith("Search")){
 					
 					indexofFirstTab = strLine.indexOf('\t');
 					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+					indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+					indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+					indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+					indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+					indexofEigthTab = strLine.indexOf('\t',indexofSeventhTab+1);
+					indexofNinethTab = strLine.indexOf('\t',indexofEigthTab+1);
 						
 					chrName = strLine.substring(0,indexofFirstTab);
 					startZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					endZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					annotatedGeneAlternateName = strLine.substring(indexofEigthTab+1, indexofNinethTab);
 					
 					startOneBasedHg19Inclusive = startZeroBasedHg19Inclusive+1;
 					
 					concatenated = chrName + "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;							
 			
 					rsID = overlap2RSIDMap.get(concatenated);
+					eQTLs =overlap2EQTLMap.get(concatenated);
 					
-					bufferedWriter.write(rsID + "\t" + chrName + "\t" +startOneBasedHg19Inclusive + "\t" + strLine.substring(indexofThirdTab+1) + System.getProperty("line.separator"));
+					if (eQTLs.contains(annotatedGeneAlternateName)){
+						isAnnotatedGeneIneQTLS =  true;
+					}else{
+						isAnnotatedGeneIneQTLS = false;
+					}
+					
+					
+							
+					bufferedWriter.write(rsID + "\t" + eQTLs +  "\t" + isAnnotatedGeneIneQTLS + "\t" + chrName + "\t" +startOneBasedHg19Inclusive + "\t" + strLine.substring(indexofThirdTab+1) + System.getProperty("line.separator"));
 				}
 			}//End of While
 			
@@ -852,14 +898,14 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
 		//ENRICHMENT Element HashMaps ends
 
-		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();
+		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();		
+		Map<String,String> overlap2EQTLMap = new HashMap<String,String>();
 		
 		String inputFileName = "C:"+ System.getProperty("file.separator") +"Users" + System.getProperty("file.separator") + "burcakotlu" + System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "ENCODE Collaboration" + System.getProperty("file.separator") +"eqtl-gene-anno-all.txt";
 		
 		
-		String annotationResultsInputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName.txt";
-		
-		String annotationResultsWithRsIdsOutputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName_withRsIds.txt";
+		String annotationResultsInputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName.txt";		
+		String annotationResultsWithRsIdsOutputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName_withRsIds_withEQTLs.txt";
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
@@ -872,9 +918,9 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		
 		//Fill the rsId 2 chrName_start_end HashMap
 		//Fill chrName_start_end 2 rsId  HashMap
-		readRSIDMap(inputFileName,overlap2RSIDMap);
+		readRSIDMap(inputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
-		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsOutputFileName,overlap2RSIDMap);
+		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsOutputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
 		readAnnotationResults(outputFolder,dnaseElements,tfElements,histoneElements,exonBasedKEGGPathwayElements,regulationBasedKEGGPathwayElements,allBasedKEGGPathwayElements,tfExonBasedKEGGPathwayElements,tfRegulationBasedKEGGPathwayElements,tfAllBasedKEGGPathwayElements,tfCellLineExonBasedKEGGPathwayElements,tfCellLineRegulationBasedKEGGPathwayElements,tfCellLineAllBasedKEGGPathwayElements);
 		
