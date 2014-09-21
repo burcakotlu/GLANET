@@ -81,7 +81,6 @@ public class GlanetRunner extends Thread{
 			System.out.println( log);
 		else
 			getMainView().appendNewTextToLogArea( log);
-
 	}
 	
 	public static void appendLog( int log) {
