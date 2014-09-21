@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,9 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.MultipleTestingType;
 
 /**
@@ -55,6 +54,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		int indexofTenthTab;
 		
 		String elementName = null;
+		float empiricalPValue;
 		float BonferroniCorrectedPValue;
 		float BHFDRAdjustedPValue;
 		boolean enriched_BH_FDR;
@@ -109,6 +109,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 										//Get the element name
 										elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
 										
+										empiricalPValue = Float.parseFloat(strLine.substring(indexofSixthTab+1,indexofSeventhTab));		
 										BonferroniCorrectedPValue = Float.parseFloat(strLine.substring(indexofSeventhTab+1,indexofEigthTab));
 										BHFDRAdjustedPValue = Float.parseFloat(strLine.substring(indexofEigthTab+1,indexofNinethTab));
 										
@@ -127,7 +128,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 													
 										}
 										
-										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
+										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,empiricalPValue,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
 										
 										elementMap.put(elementName, element);
 										
@@ -241,7 +242,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			
 	}
 
-	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap){
+	public static void readRSIDMap(String inputFileName,Map<String,String> overlap2RSIDMap, Map<String,String> overlap2EQTLMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -269,6 +270,9 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		String chrName;
 		int startZeroBasedHg19Inclusive;
 		int endZeroBasedHg19Inclusive;
+		
+		String eQTL_geneName;
+		String eQTL_geneLocation;
 		
 		String key;
 		
@@ -307,12 +311,21 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 				startZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				endZeroBasedHg19Inclusive = snpOneBasedPositionHg19 - 1;
 				
+				eQTL_geneName = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+				eQTL_geneLocation = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+				
 				key = chrName+ "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;
 				
 				if (!overlap2RSIDMap.containsKey(key)){
 					overlap2RSIDMap.put(key , rsID);
 				}
 				
+				
+				if (!overlap2EQTLMap.containsKey(key)){
+					overlap2EQTLMap.put(key , eQTL_geneName + "_" + eQTL_geneLocation);
+				}else{
+					overlap2EQTLMap.put(key , overlap2EQTLMap.get(key) + " " + eQTL_geneName+ "_" +eQTL_geneLocation);				
+				}
 			}//End of while
 			
 			bufferedReader.close();
@@ -532,11 +545,108 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			elementAnnotationEnrichment.setEnriched_Bonferroni_Correction(elementFromEnrichment.isEnriched_Bonferroni_Correction());
 			elementAnnotationEnrichment.setEnriched_BH_FDR(elementFromEnrichment.isEnriched_BH_FDR());
 			
+			elementAnnotationEnrichment.setEmpiricalPValue(elementFromEnrichment.getEmpiricalPValue());
 			elementAnnotationEnrichment.setBonferroniCorrectedPValue(elementFromEnrichment.getBonferroniCorrectedPValue());
 			elementAnnotationEnrichment.setBHFDRAdjustedPValue(elementFromEnrichment.getBHFDRAdjustedPValue());
 			
 			
 		}//End of while
+		
+	}
+	
+	
+	public static void augmentAnnotationResultsWithRsIds(
+			String annotationResultsInputFileName,
+			String annotationResultsWithRsIdsOutputFileName,
+			Map<String,String> overlap2RSIDMap,
+			Map<String,String> overlap2EQTLMap){
+		
+		
+		String strLine;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		
+		String chrName;
+		int startZeroBasedHg19Inclusive;
+		int endZeroBasedHg19Inclusive;
+		String annotatedGeneAlternateName;
+		
+		int startOneBasedHg19Inclusive;
+		
+		String concatenated= null;
+		String rsID = null;
+		String eQTLs = null;
+		
+		boolean isAnnotatedGeneIneQTLS = false;
+		
+		try {
+			FileReader fileReader = FileOperations.createFileReader(annotationResultsInputFileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			
+			FileWriter fileWriter = FileOperations.createFileWriter(annotationResultsWithRsIdsOutputFileName);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//write header line
+			bufferedWriter.write("Searched rsID" + "\t" + "eQTLs" + "\t" + "Annotated Gene in eQTLS" + "\t" +  "snp chrName"	+ "\t" + "snp Pos hg19 1based" + "\t" +	"ucscRefSeqGene ChromName"	+ "\t" + "ucscRefSeqGene Low"	+ "\t" + "ucscRefSeqGene High" + "\t" +	"ucscRefSeqGene RefSeqGeneName" + "\t" +	"ucscRefSeqGene IntervalName"	+ "\t" + "ucscRefSeqGene GeneHugoSymbol" + "\t" + "ucscRefSeqGene GeneEntrezId" +  System.getProperty("line.separator"));
+
+//			example strLine		
+//			chr1	11862777	11862777	chr1	11820828	11910827	NM_001040194	THREE_D	AGTRAP	57085
+
+			while((strLine = bufferedReader.readLine())!=null){
+				if (!strLine.startsWith("Search")){
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+					indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+					indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+					indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+					indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+					indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+					indexofEigthTab = strLine.indexOf('\t',indexofSeventhTab+1);
+					indexofNinethTab = strLine.indexOf('\t',indexofEigthTab+1);
+						
+					chrName = strLine.substring(0,indexofFirstTab);
+					startZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					endZeroBasedHg19Inclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					annotatedGeneAlternateName = strLine.substring(indexofEigthTab+1, indexofNinethTab);
+					
+					startOneBasedHg19Inclusive = startZeroBasedHg19Inclusive+1;
+					
+					concatenated = chrName + "_" + startZeroBasedHg19Inclusive + "_" + endZeroBasedHg19Inclusive;							
+			
+					rsID = overlap2RSIDMap.get(concatenated);
+					eQTLs =overlap2EQTLMap.get(concatenated);
+					
+					if (eQTLs.contains(annotatedGeneAlternateName)){
+						isAnnotatedGeneIneQTLS =  true;
+					}else{
+						isAnnotatedGeneIneQTLS = false;
+					}
+					
+					
+							
+					bufferedWriter.write(rsID + "\t" + eQTLs +  "\t" + isAnnotatedGeneIneQTLS + "\t" + chrName + "\t" +startOneBasedHg19Inclusive + "\t" + strLine.substring(indexofThirdTab+1) + System.getProperty("line.separator"));
+				}
+			}//End of While
+			
+			bufferedReader.close();
+			fileReader.close();
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -595,9 +705,11 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		MultipleTestingType multipleTestingParameter,
 		List<ElementAnnotationEnrichment> augmentedElementList){
 		
+		DecimalFormat df = new DecimalFormat("0.######E0");
+		
 		FileWriter fileWriter = null;		
 		BufferedWriter bufferedWriter = null;
-		
+				
 		//sort the elements w.r.t. its pValue from smallest to largest before traversing the list
 		if (multipleTestingParameter.isBonferroniCorrection()){
 			Collections.sort(augmentedElementList,ElementAnnotationEnrichment.BONFERRONI_CORRECTED_P_VALUE);
@@ -613,11 +725,8 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//write header line
-			if (multipleTestingParameter.isBonferroniCorrection()){
-				bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "Bonferroni Corrected P Value" + "\t" + "Enriched"  +  System.getProperty("line.separator"));			
-			}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
-				bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Enriched"  +  System.getProperty("line.separator"));			
-			}
+			bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "Empirical P Value" + "\t" + "Bonferroni Corrected P Value" + "\t" + "Bonferroni_Enriched"  + "\t" + "BH FDR Adjusted P Value (sorted w.r.t. this value)" + "\t" + "BH_Enriched"  + System.getProperty("line.separator"));			
+		
 			
 			
 			for(ElementAnnotationEnrichment e : augmentedElementList ){
@@ -629,18 +738,11 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 				}//End of for each rsID in the rsIDList
 				
 				bufferedWriter.write("\t");
-				
-				
-				if (multipleTestingParameter.isBonferroniCorrection()){
-					bufferedWriter.write(e.getBonferroniCorrectedPValue() + "\t" + e.enriched_Bonferroni_Correction+ System.getProperty("line.separator"));
-					
-				}else if (multipleTestingParameter.isBenjaminiHochbergFDR()){
-					bufferedWriter.write(e.getBHFDRAdjustedPValue() + "\t" + e.enriched_BH_FDR+ System.getProperty("line.separator"));
-				}
+								
+				bufferedWriter.write( df.format(e.getEmpiricalPValue())+ "\t" + df.format(e.getBonferroniCorrectedPValue()) + "\t" + e.enriched_Bonferroni_Correction + "\t" + df.format(e.getBHFDRAdjustedPValue()) + "\t" + e.enriched_BH_FDR + System.getProperty("line.separator"));
+					 
 				
 			}//End of for each element
-			
-			
 			
 			
 			bufferedWriter.close();
@@ -796,10 +898,14 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
 		//ENRICHMENT Element HashMaps ends
 
-		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();
+		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();		
+		Map<String,String> overlap2EQTLMap = new HashMap<String,String>();
 		
 		String inputFileName = "C:"+ System.getProperty("file.separator") +"Users" + System.getProperty("file.separator") + "burcakotlu" + System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "ENCODE Collaboration" + System.getProperty("file.separator") +"eqtl-gene-anno-all.txt";
 		
+		
+		String annotationResultsInputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName.txt";		
+		String annotationResultsWithRsIdsOutputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName_withRsIds_withEQTLs.txt";
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
@@ -812,7 +918,9 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		
 		//Fill the rsId 2 chrName_start_end HashMap
 		//Fill chrName_start_end 2 rsId  HashMap
-		readRSIDMap(inputFileName,overlap2RSIDMap);
+		readRSIDMap(inputFileName,overlap2RSIDMap,overlap2EQTLMap);
+		
+		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsOutputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
 		readAnnotationResults(outputFolder,dnaseElements,tfElements,histoneElements,exonBasedKEGGPathwayElements,regulationBasedKEGGPathwayElements,allBasedKEGGPathwayElements,tfExonBasedKEGGPathwayElements,tfRegulationBasedKEGGPathwayElements,tfAllBasedKEGGPathwayElements,tfCellLineExonBasedKEGGPathwayElements,tfCellLineRegulationBasedKEGGPathwayElements,tfCellLineAllBasedKEGGPathwayElements);
 		

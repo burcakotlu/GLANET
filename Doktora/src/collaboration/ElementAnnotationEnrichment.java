@@ -17,6 +17,7 @@ public class ElementAnnotationEnrichment {
 	String elementName;
 	boolean enriched_BH_FDR;
 	boolean enriched_Bonferroni_Correction;
+	Float empiricalPValue;
 	Float BonferroniCorrectedPValue;
 	Float BHFDRAdjustedPValue;
 	int numberofOverlaps;
@@ -26,6 +27,21 @@ public class ElementAnnotationEnrichment {
 	
 	
 	
+	
+
+	public Float getEmpiricalPValue() {
+		return empiricalPValue;
+	}
+
+
+
+
+	public void setEmpiricalPValue(Float empiricalPValue) {
+		this.empiricalPValue = empiricalPValue;
+	}
+
+
+
 
 	public boolean isEnriched_Bonferroni_Correction() {
 		return enriched_Bonferroni_Correction;

@@ -13,10 +13,18 @@ public class ElementEnrichment {
 	String elementName;
 	boolean enriched_BH_FDR;
 	boolean enriched_Bonferroni_Correction;
+	Float empiricalPValue;
 	Float BonferroniCorrectedPValue;
 	Float BHFDRAdjustedPValue;
 	
 	
+	
+	public Float getEmpiricalPValue() {
+		return empiricalPValue;
+	}
+	public void setEmpiricalPValue(Float empiricalPValue) {
+		this.empiricalPValue = empiricalPValue;
+	}
 	public String getElementName() {
 		return elementName;
 	}
@@ -52,11 +60,12 @@ public class ElementEnrichment {
 
 	public ElementEnrichment(String elementName, 
 			boolean enriched_Bonferroni_Correction, boolean enriched_BH_FDR,
-			Float bonferroniCorrectedPValue, Float bHFDRAdjustedPValue) {
+			Float empiricalPValue,Float bonferroniCorrectedPValue, Float bHFDRAdjustedPValue) {
 		super();
 		this.elementName = elementName;
 		this.enriched_Bonferroni_Correction = enriched_Bonferroni_Correction;
 		this.enriched_BH_FDR = enriched_BH_FDR;
-		BonferroniCorrectedPValue = bonferroniCorrectedPValue;
-		BHFDRAdjustedPValue = bHFDRAdjustedPValue;
+		this.empiricalPValue = empiricalPValue;
+		this.BonferroniCorrectedPValue = bonferroniCorrectedPValue;
+		this.BHFDRAdjustedPValue = bHFDRAdjustedPValue;
 	}}

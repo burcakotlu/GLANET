@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.MultipleTestingType;
 
 /**
@@ -26,7 +24,7 @@ import enumtypes.MultipleTestingType;
  */
 public class ElementVersusPhenotypeEnrichmentTableCreation {
 	
-	public static final int NUMBER_OF_PHENOTYPES = 19; 
+	public static final int NUMBER_OF_PHENOTYPES = 20; 
 
 	public static void readEnrichmentResults(String outputFolder, String phenoTypeName,float bonferroniCorrectionSignificanceLevel,String elementDirectory, ElementEnrichmentMap elementMap, List<String> elementNameList){
 		
@@ -50,6 +48,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 		int indexofTenthTab;
 		
 		String elementName = null;
+		float empiricalPValue;
 		float BonferroniCorrectedPValue;
 		float BHFDRAdjustedPValue;
 		boolean enriched_BH_FDR;
@@ -108,6 +107,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 											elementNameList.add(elementName);
 										}
 										
+										empiricalPValue = Float.parseFloat(strLine.substring(indexofSixthTab+1,indexofSeventhTab));		
 										BonferroniCorrectedPValue = Float.parseFloat(strLine.substring(indexofSeventhTab+1,indexofEigthTab));
 										BHFDRAdjustedPValue = Float.parseFloat(strLine.substring(indexofEigthTab+1,indexofNinethTab));
 										
@@ -125,7 +125,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 													
 										}
 										
-										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
+										element = new ElementEnrichment(elementName,enriched_Bonferroni_Correction,enriched_BH_FDR,empiricalPValue,BonferroniCorrectedPValue,BHFDRAdjustedPValue);
 										
 										elementMap.getElementEnrichmentMap().put(elementName, element);
 	
@@ -256,6 +256,9 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 		phenotypeDirectoryNames[16] = "Smoking";
 		phenotypeDirectoryNames[17] = "Triglycerides";
 		phenotypeDirectoryNames[18] = "VenousThrombosis";
+		phenotypeDirectoryNames[18] = "VenousThrombosis";
+		phenotypeDirectoryNames[19] = "CVD_381_snps_100000P";
+
 	}
 	
 	
