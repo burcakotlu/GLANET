@@ -23,50 +23,64 @@ public class GlanetRunner extends Thread{
 		
 		try {
 			
-			getMainView().setCurrentProcessInfo( "Preparation...");
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Preparation...");
 			Preparation.main( args);
-
-			getMainView().setCurrentProcessInfo( "InputDataProcess...");
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "InputDataProcess...");
 			InputDataProcess.main( args);
 			
 			/* In case of Enrichment remove overlaps and merge */
 			/* In case of only Annotation, do not remove overlaps and do not merge*/
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
-				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+				
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 				InputDataRemoveOverlaps.main( args);
 			}
-							
-			getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 			AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
 			
 			
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 				
-				getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 				AnnotatePermutationsWithNumbersWithChoices.main( args);
 				
-				getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 				CollectionofPermutationsResults.main( args);
 				
-				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 				AugmentationofEnrichedElementswithGivenInputData.main( args);
 				
-				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
 				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
 		
 				
 				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 					
-					getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+					if( getMainView() != null)
+						getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
 					GenerationofSequencesandMatricesforGivenIntervals.main( args);
-					getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
+					
+					if( getMainView() != null)
+						getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
 					RSATMatrixScanClient.main( args);
 				}
 			}
 			
 			//args[1]  already has file separator at the end
-			getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
-			getMainView().enableStartProcess( true);
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
+			if( getMainView() != null)
+				getMainView().enableStartProcess( true);
 			GlanetRunner.appendLog( "Execution has ended");
 		
 		} catch (SecurityException e) {

@@ -50,11 +50,12 @@ public class App
 	
     public static void main( String[] args) {
     	
-    	if( System.console() != null){
-    	//if( args[args.length-1].startsWith( "--c")) {
+    	//if( System.console() != null){
+    	if( args[args.length-1].startsWith( "--c")) {
     		int i = 0;
     		String argsForGlanetRunner[] = new String[22];
     		
+    		argsForGlanetRunner[i++] = args[args.length-23];
     		argsForGlanetRunner[i++] = args[args.length-22];
     		argsForGlanetRunner[i++] = args[args.length-21];
     		argsForGlanetRunner[i++] = args[args.length-20];
@@ -76,11 +77,13 @@ public class App
     		argsForGlanetRunner[i++] = args[args.length-4];
     		argsForGlanetRunner[i++] = args[args.length-3];
     		argsForGlanetRunner[i++] = args[args.length-2];
-    		argsForGlanetRunner[i++] = args[args.length-1];
     		
     		GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
     		
-    	} else if( !GraphicsEnvironment.isHeadless())
+    		GlanetRunner runner = new GlanetRunner();
+    		runner.start();
+    	} else if( !GraphicsEnvironment.isHeadless()) {
     		loadWindow();}
+    	}
 }

@@ -13067,7 +13067,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
-		int overlapDefinition = Integer.parseInt(args[3]);
+		int overlapDefinition = Integer.parseInt( args[3]);
 		
 		String inputFileName;
 		
