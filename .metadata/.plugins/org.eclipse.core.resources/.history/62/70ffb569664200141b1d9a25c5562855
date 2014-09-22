@@ -160,7 +160,8 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 			String[] phenotypeDirectoryNames,
 			ElementEnrichmentMap[] elementEnrichmentMapArray,
 			List<String> elementNameList){
-					
+		
+			
 			String outputDirectory = encodeCollaborationHeatMapDirectory + elementDirectory  + System.getProperty("file.separator") + extraFileName + "_EnrichmentTable.txt";
 			
 			FileWriter fileWriter = null;
@@ -176,8 +177,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 				//Write header line
 				bufferedWriter.write("ElementName" + "\t");
 				
-				for(int i=0; i<phenotypeDirectoryNames.length; i++){	
-					//not last phenotype
+				for(int i=0; i<phenotypeDirectoryNames.length; i++){				
 					if (i<phenotypeDirectoryNames.length-1){
 						bufferedWriter.write(phenotypeDirectoryNames[i] + "\t");
 					}
@@ -188,71 +188,46 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 				}//End of For: writing header line
 				
 				
-	
-				for(String elementName : elementNameList ){				
-					bufferedWriter.write(elementName+ "\t");						
 					
-//					int elementIndex = 0;
+				
+				
+				
+				for(String elementName : elementNameList ){
 					
-					for(int i=0; i<phenotypeDirectoryNames.length; i++){
+					bufferedWriter.write(elementName+ "\t");	
+					
+					int i = 0;
+					for(String phenotypeName: phenotypeDirectoryNames){
+						elementEnrichmentMap = elementEnrichmentMapArray[i++];
 						
-						elementEnrichmentMap = elementEnrichmentMapArray[i];
-						
-						//not last phenotype
-						if(i<(phenotypeDirectoryNames.length-1)){
-							if (elementEnrichmentMap.getElementEnrichmentMap().containsKey(elementName)){
-								
-								elementEnrichment = elementEnrichmentMap.getElementEnrichmentMap().get(elementName);
-								//Write its 1/0 enriched or not value
-								
-								if(multipleTestingParameter.isBonferroniCorrection()){
-									if (elementEnrichment.isEnriched_Bonferroni_Correction()){
-										bufferedWriter.write("1" + "\t");
-									}else{
-										bufferedWriter.write("0" + "\t");	
-									}		
-								}else if(multipleTestingParameter.isBenjaminiHochbergFDR()){
-									if (elementEnrichment.isEnriched_BH_FDR()){
-										bufferedWriter.write("1" + "\t");
-									}else{
-										bufferedWriter.write("0" + "\t");	
-									}
+						if (elementEnrichmentMap.getElementEnrichmentMap().containsKey(elementName)){
+							
+							elementEnrichment = elementEnrichmentMap.getElementEnrichmentMap().get(elementName);
+							//Write its 1/0 enriched or not value
+							
+							if(multipleTestingParameter.isBonferroniCorrection()){
+								if (elementEnrichment.isEnriched_Bonferroni_Correction()){
+									bufferedWriter.write("1" + "\t");
+								}else{
+									bufferedWriter.write("0" + "\t");	
+								}		
+							}else if(multipleTestingParameter.isBenjaminiHochbergFDR()){
+								if (elementEnrichment.isEnriched_BH_FDR()){
+									bufferedWriter.write("1" + "\t");
+								}else{
+									bufferedWriter.write("0" + "\t");	
 								}
-								
-							}else{
-								//Write 0
-								bufferedWriter.write("0" + "\t");	
 							}
+							
+						}else{
+							//Write 0
+							bufferedWriter.write("0" + "\t");	
 						}
-						//last phenotype
-						else if(i==(phenotypeDirectoryNames.length-1)){
-							if (elementEnrichmentMap.getElementEnrichmentMap().containsKey(elementName)){
-								
-								elementEnrichment = elementEnrichmentMap.getElementEnrichmentMap().get(elementName);
-								//Write its 1/0 enriched or not value
-								
-								if(multipleTestingParameter.isBonferroniCorrection()){
-									if (elementEnrichment.isEnriched_Bonferroni_Correction()){
-										bufferedWriter.write("1" + System.getProperty("line.separator"));
-									}else{
-										bufferedWriter.write("0" + System.getProperty("line.separator"));	
-									}		
-								}else if(multipleTestingParameter.isBenjaminiHochbergFDR()){
-									if (elementEnrichment.isEnriched_BH_FDR()){
-										bufferedWriter.write("1" + System.getProperty("line.separator"));
-									}else{
-										bufferedWriter.write("0" + System.getProperty("line.separator"));	
-									}
-								}
-								
-							}else{
-								//Write 0
-								bufferedWriter.write("0" + System.getProperty("line.separator"));	
-							}
-						}						
 						
-					}//End of for each phenotype in the phenotypeDirectoryNames			
-				}//End of for each elementName in the elementNameList
+					}//End of for each phenotype in the phenotypeDirectoryNames
+					
+					bufferedWriter.write(System.getProperty("line.separator"));
+				}//End of for each element Name in the elementNameList
 				
 				bufferedWriter.close();
 				fileWriter.close();
@@ -303,15 +278,16 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 			ElementEnrichmentMap[] elementEnrichmentMapArray,
 			List<String> elementNameList){
 		
+		int i = 0;
 		ElementEnrichmentMap elementEnrichmentMap = null;
 		
 		//for each phenotype in the phenotypeDirectoryNamesArray
-		//Read elementEnrichmentMap for that phenotype
+		//Read elementEnrichmentMap
 		//for the indicated elementType
 		//also fill the elementNameList while reading elementEnrichmentMap
-		for(int i = 0; i<phenotypeDirectoryNamesArray.length; i++){
-			elementEnrichmentMap = elementEnrichmentMapArray[i];
-			readEnrichmentResults(outputFolder,phenotypeDirectoryNamesArray[i], bonferroniCorrectionSignificanceLevel,elementDirectory,elementEnrichmentMap,elementNameList);
+		for(String phenoTypeName  : phenotypeDirectoryNamesArray){
+			elementEnrichmentMap = elementEnrichmentMapArray[i++];
+			readEnrichmentResults(outputFolder,phenoTypeName, bonferroniCorrectionSignificanceLevel,elementDirectory,elementEnrichmentMap,elementNameList);
 					
 		}//End of for each phenotype
 		
@@ -341,10 +317,10 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 		}
 
 
-		//Read elementEnrichmentMap for all phenotypes starts
+		//Read elementEnrichmentMap for 19 phenotypes starts
 		//Fill elementNameList while reading elementEnrichmentMaps for 19 phenotypes
 		readElementEnrichmentMapsforDifferentPhenotypes(outputFolder,bonferroniCorrectionSignificanceLevel,elementLongDirectory,phenotypeDirectoryNames,elementEnrichmentMapArray,elementNameList);
-		//Read elementEnrichmentMap for all phenotypes ends
+		//Read elementEnrichmentMap for 19 phenotypes ends
 
 		//According to the order in elementNameList
 		//Write EnrichmentTable filled with 1/0s for the selected multiple testing parameter for 19 phenotypes	
@@ -388,14 +364,13 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 		//Element Name List 
 		List<String> elementNameList  = null;
 		
-		//Order of phenotypes in elementEnrichmentMapArray and phenotypeDirectoryNames are the same
-		//For example elementEnrichmentMapArray[0] has the elementEnrichmentMapArray for the phenotypeDirectoryNames[0] phenotype.
 		//Element Enrichment Map Array
 		ElementEnrichmentMap[] elementEnrichmentMapArray = null;
-		//Fill array with all Phenotype directory names starts
+		
+		//Fill array with 19 Phenotype directory names starts
 		String[] phenotypeDirectoryNames = new String[NUMBER_OF_PHENOTYPES];
 		initializePhenotypeDirectoryNames(phenotypeDirectoryNames);		
-		//Fill array with all Phenotype directory names ends
+		//Fill array with 19 Phenotype directory names ends
 		
 	
 		
