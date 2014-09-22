@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ui.GlanetRunner;
 import annotate.intervals.parametric.PermutationNumberTfNameCellLineNameOverlap;
 import annotate.intervals.parametric.PermutationNumberTfNumberCellLineNumberOverlap;
 import annotate.intervals.parametric.PermutationNumberUcscRefSeqGeneNumberOverlap;
@@ -46,9 +47,7 @@ import annotate.intervals.parametric.TfNameandCellLineNameOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlap;
 import annotate.intervals.parametric.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.KeyOrder;
@@ -714,7 +713,7 @@ public class IntervalTree {
 			intervalTreeInfixTraversal(node.getLeft());
 		
 		if (node.getNodeName().isNotSentinel()){
-			System.out.println(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+			GlanetRunner.appendLog(node.getLow() + "\t"+ node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
 		}
 		
 		if (node.getRight().getNodeName().isNotSentinel())
@@ -934,10 +933,10 @@ public class IntervalTree {
 			if (parent.getNodeName().isNotSentinel()){
 				if (parent.getLeft()==node){
 					writeRouteFromRoottoThisNode(node.getParent());
-					System.out.println("Left");
+					GlanetRunner.appendLog("Left");
 				}else if (parent.getRight()==node){
 					writeRouteFromRoottoThisNode(node.getParent());
-					System.out.println("Right");
+					GlanetRunner.appendLog("Right");
 				}
 			}
 		}
@@ -959,7 +958,7 @@ public class IntervalTree {
 				castedNode = (OtherIntervalTreeNode) foundNode;
 			}
 			
-			System.out.println("Height: "+ castedNode.height);
+			GlanetRunner.appendLog("Height: "+ castedNode.height);
 			writeRouteFromRoottoThisNode(foundNode);
 		}
 		
@@ -969,7 +968,7 @@ public class IntervalTree {
 	public void findAllOverlappingIntervals(IntervalTreeNode node, Interval interval){
 		if (node.getNodeName().isNotSentinel()){
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
-					System.out.println("overlap" + node.getLow() + "\t" + node.getHigh());
+					GlanetRunner.appendLog("overlap" + node.getLow() + "\t" + node.getHigh());
 			}
 			
 			
@@ -991,7 +990,7 @@ public class IntervalTree {
 		if (root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				overlappedNodeList.add(root);
-//				System.out.println("overlap " + root.getLow() + "\t" + root.getHigh());
+//				GlanetRunner.appendLog("overlap " + root.getLow() + "\t" + root.getHigh());
 			}
 			
 						
@@ -1017,7 +1016,7 @@ public class IntervalTree {
 			
 			if (root.getNodeName().isNotSentinel()){
 				if (overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
-//						System.out.println(root.getLow() + "\t" + root.getHigh());						
+//						GlanetRunner.appendLog(root.getLow() + "\t" + root.getHigh());						
 						return root;
 						
 				}else{
@@ -4917,7 +4916,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		
 		while(itr.hasNext()){
 			IntervalTreeNode  node =(IntervalTreeNode) itr.next();			
-			System.out.println(node.getLow() + "\t" + node.getHigh());
+			GlanetRunner.appendLog(node.getLow() + "\t" + node.getHigh());
 			
 		}
 	}
@@ -4927,7 +4926,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		IntervalTreeNode node;
 		int numberofBlackNodes = 0;
 		
-		System.out.println("One Path Starts");
+		GlanetRunner.appendLog("One Path Starts");
 		
 		for(int i = 0; i<path.getNodeList().size(); i++){
 			node = path.getNodeList().get(i);
@@ -4935,12 +4934,12 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 			if (node.getColor() == Commons.BLACK)
 				numberofBlackNodes++;
 			
-			System.out.println("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getNodeName());
+			GlanetRunner.appendLog("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: "+node.getColor() +" Name: "+ node.getNodeName());
 			
 		}
 		
 		
-		System.out.println("--- Number of black nodes: " + numberofBlackNodes);
+		GlanetRunner.appendLog("--- Number of black nodes: " + numberofBlackNodes);
 		
 	}
 	
@@ -5087,26 +5086,26 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		IntervalTreeNode splicedOutNode;
 		
 		if (Commons.INSERT.equals(operation)){
-			System.out.println("After insert node (" + node.getLow() +"," + node.getHigh() +")");
+			GlanetRunner.appendLog("After insert node (" + node.getLow() +"," + node.getHigh() +")");
 			tree.intervalTreeInsert(tree, node);
-			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
-			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 			
 			
 		}else if(Commons.DELETE.equals(operation)){
-			System.out.println("After delete node (" + node.getLow() +"," + node.getHigh() +")");
+			GlanetRunner.appendLog("After delete node (" + node.getLow() +"," + node.getHigh() +")");
 			splicedOutNode = tree.intervalTreeDelete(tree, node);
 			splicedOutNode = null;
-			System.out.println("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 			tree.intervalTreeInfixTraversal(tree.getRoot());
 			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
-			System.out.println("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 			
 		}
 		
-		System.out.println("-------------------------------------------------------------------------------");
+		GlanetRunner.appendLog("-------------------------------------------------------------------------------");
 		
 		
 	}
@@ -5210,16 +5209,16 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 		
 		
 		//Deletion of erroneous data: non existing node
-//		System.out.println("After delete node (" + node15.getLow() +"," + node15.getHigh() +")");
+//		GlanetRunner.appendLog("After delete node (" + node15.getLow() +"," + node15.getHigh() +")");
 //		node = tree.intervalTreeDelete(tree, node15);
 //		node = null;
-//		System.out.println("Tree root name: "+ tree.getRoot().getNodeName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
+//		GlanetRunner.appendLog("Tree root name: "+ tree.getRoot().getNodeName() + " Tree Root color: " + tree.getRoot().getColor()+ " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " +tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName() );
 //		tree.intervalTreeInfixTraversal(tree.getRoot());
 		
 		
 		
 	
-//		System.out.println("Overlapping Intervals");
+//		GlanetRunner.appendLog("Overlapping Intervals");
 //		tree.findAllOverlappingIntervals(tree.getRoot(), new Interval(5,20));
 		
 //		tree.printOverlappingIntervalsList(resultList);

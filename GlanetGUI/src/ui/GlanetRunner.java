@@ -71,7 +71,7 @@ public class GlanetRunner extends Thread{
 		
 		} catch (SecurityException e) {
 			
-			GlanetRunner.appendLog("Pressed stop");
+			GlanetRunner.appendLog( "Pressed stop");
         }
 	}
 	
@@ -104,7 +104,7 @@ public class GlanetRunner extends Thread{
 		return mainView;
 	}
 
-	public static void setMainView(MainView mainView) {
+	public static void setMainView( MainView mainView) {
 		
 		GlanetRunner.mainView = mainView;
 	}

@@ -50,33 +50,32 @@ public class App
 	
     public static void main( String[] args) {
     	
-    	Console console = System.console();
-    	if( console != null){
-    		
+    	if( System.console() != null){
+    	//if( args[args.length-1].startsWith( "--c")) {
     		int i = 0;
     		String argsForGlanetRunner[] = new String[22];
     		
     		argsForGlanetRunner[i++] = args[args.length-22];
-    		argsForGlanetRunner[i++] = args[args.length-21];;
-    		argsForGlanetRunner[i++] = args[args.length-20];;
-    		argsForGlanetRunner[i++] = args[args.length-19];;
-    		argsForGlanetRunner[i++] = args[args.length-18];;
-    		argsForGlanetRunner[i++] = args[args.length-17];;
-    		argsForGlanetRunner[i++] = args[args.length-16];;
-    		argsForGlanetRunner[i++] = args[args.length-15];;
-    		argsForGlanetRunner[i++] = args[args.length-14];;
-    		argsForGlanetRunner[i++] = args[args.length-13];;
-    		argsForGlanetRunner[i++] = args[args.length-12];;
-    		argsForGlanetRunner[i++] = args[args.length-11];;
-    		argsForGlanetRunner[i++] = args[args.length-10];;
-    		argsForGlanetRunner[i++] = args[args.length-9];;
-    		argsForGlanetRunner[i++] = args[args.length-8];;
-    		argsForGlanetRunner[i++] = args[args.length-7];;
-    		argsForGlanetRunner[i++] = args[args.length-6];;
-    		argsForGlanetRunner[i++] = args[args.length-5];;
-    		argsForGlanetRunner[i++] = args[args.length-4];;
-    		argsForGlanetRunner[i++] = args[args.length-3];;
-    		argsForGlanetRunner[i++] = args[args.length-2];;
+    		argsForGlanetRunner[i++] = args[args.length-21];
+    		argsForGlanetRunner[i++] = args[args.length-20];
+    		argsForGlanetRunner[i++] = args[args.length-19];
+    		argsForGlanetRunner[i++] = args[args.length-18];
+    		argsForGlanetRunner[i++] = args[args.length-17];
+    		argsForGlanetRunner[i++] = args[args.length-16];
+    		argsForGlanetRunner[i++] = args[args.length-15];
+    		argsForGlanetRunner[i++] = args[args.length-14];
+    		argsForGlanetRunner[i++] = args[args.length-13];
+    		argsForGlanetRunner[i++] = args[args.length-12];
+    		argsForGlanetRunner[i++] = args[args.length-11];
+    		argsForGlanetRunner[i++] = args[args.length-10];
+    		argsForGlanetRunner[i++] = args[args.length-9];
+    		argsForGlanetRunner[i++] = args[args.length-8];
+    		argsForGlanetRunner[i++] = args[args.length-7];
+    		argsForGlanetRunner[i++] = args[args.length-6];
+    		argsForGlanetRunner[i++] = args[args.length-5];
+    		argsForGlanetRunner[i++] = args[args.length-4];
+    		argsForGlanetRunner[i++] = args[args.length-3];
+    		argsForGlanetRunner[i++] = args[args.length-2];
     		argsForGlanetRunner[i++] = args[args.length-1];
     		
     		GlanetRunner.setMainView( null);
