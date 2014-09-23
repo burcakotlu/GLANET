@@ -41,7 +41,6 @@
 <fullyQualifiedTypeName name="gov.nih.nlm.ncbi.snp.docsum.Rs.MergeHistory"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="common.Commons"/>
 <fullyQualifiedTypeName name="enumtypes.ChromosomeName"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
@@ -56,8 +55,9 @@
 <fullyQualifiedTypeName name="collaboration.ElementEnrichmentMap"/>
 <fullyQualifiedTypeName name="collaboration.ElementEnrichment"/>
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
-<fullyQualifiedTypeName name="ui.GlanetRunner"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="ui.GlanetRunner"/>
+<fullyQualifiedTypeName name="common.Commons"/>
 </qualifiedTypeNameHistroy>

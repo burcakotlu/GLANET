@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap" key="selection"/>
+		<item value="System.out.println(" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="System.out.println("/>
+			<item value="GenerationofSequencesandMatricesforGivenIntervals"/>
 			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
 			<item value="&gt;&gt;"/>
 			<item value="&lt;&lt;&lt;"/>
 			<item value="HEAD"/>
 			<item value="19"/>
 			<item value="GlanetRunner"/>
-			<item value="augmentAnnotationandEnrichmentResultsWithRSIds"/>
-			<item value="all"/>
 		</list>
 		<list key="replacehistory">
 			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
