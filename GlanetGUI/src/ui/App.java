@@ -51,7 +51,7 @@ public class App
     public static void main( String[] args) {
     	
     	//if( System.console() != null){
-    	if( args[args.length-1].startsWith( "--c")) {
+    	if( args.length > 0 && args[args.length-1].startsWith( "--c")) {
     		int i = 0;
     		String argsForGlanetRunner[] = new String[22];
     		
