@@ -1422,6 +1422,7 @@ public class Commons {
 	
 	/******************************HINTS****************************************/
 	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
+	public static final String GUI_HINT_JOB_NAME = "Job name is mendatory to create output folder. Please choose a shorter name";
 	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
 	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported assemblies";
 	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";

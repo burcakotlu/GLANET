@@ -276,7 +276,7 @@ public class MainView extends JPanel{
         cellLinesList = new JList<String>( listModel); //see the comment on the method definition (createCellLines())
         JScrollPane cellLinesScrollPane = new JScrollPane( cellLinesList);
         cellLinesList.setVisibleRowCount( 5);
-        annotationPanel.add( createBorderedPanel( "Cell Lines To Be Considered", cellLinesScrollPane));
+        //annotationPanel.add( createBorderedPanel( "Cell Lines To Be Considered", cellLinesScrollPane));
         
 		listPane.add( createBorderedPanel( "Annotation", annotationPanel));
 		
@@ -341,10 +341,14 @@ public class MainView extends JPanel{
         rsatOption.add( regulatorySequenceAnalysisUsingRSATCheck);
         enrichmentPanel.add( createBorderedPanel( "RSAT", createPanelWithHint(rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
         listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
-        
-        //jobName added to listPane
-        jobName = new JTextField();
-        listPane.add( createBorderedPanel( "Job Name", jobName));
+                
+        //jobNamePanel added to listPane
+		JPanel jobNamePanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+		
+		//jobName added to jobNamePanel
+		jobName = new JTextField(30);
+		jobNamePanel.add( createPanelWithHint( jobName, Commons.GUI_HINT_JOB_NAME));
+		listPane.add( createBorderedPanel( "Job Name", jobNamePanel));
         
         JPanel rsButtonPane = new JPanel( new FlowLayout());
         
