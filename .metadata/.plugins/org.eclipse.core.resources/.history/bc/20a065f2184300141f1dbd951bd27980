@@ -48,12 +48,11 @@ public class App
         frame.repaint();
 	}
 	
-	//args contains all arguments including memory arguments, jar files and class paths
-	//argsForGlanetRunner contains only the arguments required in the GUI
+	//args contains all arguments for jar files and class paths
+	//argsForGlanetRunner contains only the arguments in the GUI
     public static void main( String[] args) {
     	
-		//if Command Line
-    	//if last argument is --c
+		//Command Line
     	if( args.length > 0 && args[args.length-1].startsWith( "--c")) {
     		
     		String argsForGlanetRunner[] = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];

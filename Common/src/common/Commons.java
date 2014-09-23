@@ -1422,7 +1422,7 @@ public class Commons {
 	
 	/******************************HINTS****************************************/
 	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
-	public static final String GUI_HINT_JOB_NAME = "Job name is mendatory to create output folder. Please choose a shorter name";
+	public static final String GUI_HINT_JOB_NAME = "Job name is mandatory to create a specific output folder. Please choose a shorter job name for your convenience.";
 	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
 	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported assemblies";
 	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";
@@ -1433,12 +1433,12 @@ public class Commons {
 	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
 	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number of Permutations that will be carried out for Enrichment";
 	
-	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "CellLine Based DNase Annotation";
-	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "CellLine Based Histone Annotation";
-	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "CellLine Based Transcription Factor Annotation";
+	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "DNase Annotation (Cell Line Based)";
+	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
-	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Cell Line based Transcription Factor and KEGG Pathway Annotation";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation)";
 	
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	

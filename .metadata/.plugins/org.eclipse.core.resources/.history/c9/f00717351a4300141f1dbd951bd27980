@@ -246,26 +246,26 @@ public class MainView extends JPanel{
 		annotationOptions.add( createPanelWithHint(dnaseEnrichment, Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION));
 		
 		//histoneEnrichment added to annotationOptions
-		histoneEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION);
+		histoneEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
 		annotationOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
 		
 		//tfEnrichment added to annotationOptions
-		tfEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION);
+		tfEnrichment = new JCheckBox( "CellLine Based TF Annotation");
 		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
 		annotationOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION));
 		
 		//tfEnrichment added to annotationOptions
-        keggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION);
+        keggPathwayEnrichment = new JCheckBox( "KEGG Pathway Annotation");
         annotationOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION));
         
         //tfAndKeggPathwayEnrichment added to annotationOptions
-        tfAndKeggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION);
+        tfAndKeggPathwayEnrichment = new JCheckBox( "TF And KEGG Pathway Annotation");
         tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
         tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         annotationOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION));
         
         //cellLineBasedTfAndKeggPathwayEnrichment added to annotationOptions
-        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION);
+        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox( "CellLine Based TF And KEGG Pathway Annotation");
         cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
