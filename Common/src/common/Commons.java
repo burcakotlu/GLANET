@@ -34,6 +34,11 @@ public class Commons {
 	//Sub Folders, Internal Folders
 	public static final String RESULTS = "Results";
 	
+	//Number of program runtime arguments without counting the command line argument
+	//command line argument if exists will always be attached to the end of the existing arguments
+	//and it will increase the number of program runtime arguments by 1.
+	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 22;
+	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT = NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1;
 	
 	//EnumTye AnnotationType
 	public static final String DNASE_ANNOTATION 				= "DNASE_ANNOTATION";

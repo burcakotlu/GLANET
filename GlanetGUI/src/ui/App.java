@@ -9,6 +9,8 @@ import java.io.Console;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import common.Commons;
+
 /**
  * Hello world!
  *
@@ -48,35 +50,22 @@ public class App
         frame.repaint();
 	}
 	
+	//args contains all arguments for jar files and class paths
+	//argsForGlanetRunner contains only the arguments in the GUI
     public static void main( String[] args) {
     	
-    	//if( System.console() != null){
+    	//Command Line
     	if( args[args.length-1].startsWith( "--c")) {
-    		int i = 0;
-    		String argsForGlanetRunner[] = new String[22];
     		
-    		argsForGlanetRunner[i++] = args[args.length-23];
-    		argsForGlanetRunner[i++] = args[args.length-22];
-    		argsForGlanetRunner[i++] = args[args.length-21];
-    		argsForGlanetRunner[i++] = args[args.length-20];
-    		argsForGlanetRunner[i++] = args[args.length-19];
-    		argsForGlanetRunner[i++] = args[args.length-18];
-    		argsForGlanetRunner[i++] = args[args.length-17];
-    		argsForGlanetRunner[i++] = args[args.length-16];
-    		argsForGlanetRunner[i++] = args[args.length-15];
-    		argsForGlanetRunner[i++] = args[args.length-14];
-    		argsForGlanetRunner[i++] = args[args.length-13];
-    		argsForGlanetRunner[i++] = args[args.length-12];
-    		argsForGlanetRunner[i++] = args[args.length-11];
-    		argsForGlanetRunner[i++] = args[args.length-10];
-    		argsForGlanetRunner[i++] = args[args.length-9];
-    		argsForGlanetRunner[i++] = args[args.length-8];
-    		argsForGlanetRunner[i++] = args[args.length-7];
-    		argsForGlanetRunner[i++] = args[args.length-6];
-    		argsForGlanetRunner[i++] = args[args.length-5];
-    		argsForGlanetRunner[i++] = args[args.length-4];
-    		argsForGlanetRunner[i++] = args[args.length-3];
-    		argsForGlanetRunner[i++] = args[args.length-2];
+    		String argsForGlanetRunner[] = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
+    		
+    		for(int i =0; i<Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i++){
+    			argsForGlanetRunner[i] = args[args.length-Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT+i];
+    	    }//End of for
+    		
+    		
+//    		argsForGlanetRunner[i++] = args[args.length-23];
+//    		argsForGlanetRunner[i++] = args[args.length-2];
     		
     		GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
