@@ -192,6 +192,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 				for(String elementName : elementNameList ){				
 					bufferedWriter.write(elementName+ "\t");						
 					
+//					int elementIndex = 0;
 					
 					for(int i=0; i<phenotypeDirectoryNames.length; i++){
 						
