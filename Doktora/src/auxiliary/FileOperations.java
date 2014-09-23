@@ -165,7 +165,7 @@ public class FileOperations {
 		//Delete old files before new run 
 		File folder = new File(directoryName);
 		
-		 if(folder.isFile()){
+		 if(folder.isFile()){			 
 			 GlanetRunner.appendLog("Deleting " + folder.getAbsolutePath());	
 			 folder.delete();
 	     }else if(folder.isDirectory()) {	    		 
