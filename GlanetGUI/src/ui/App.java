@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.Console;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -54,8 +52,8 @@ public class App
 	//argsForGlanetRunner contains only the arguments in the GUI
     public static void main( String[] args) {
     	
-    	//Command Line
-    	if( args[args.length-1].startsWith( "--c")) {
+		//Command Line
+    	if( args.length > 0 && args[args.length-1].startsWith( "--c")) {
     		
     		String argsForGlanetRunner[] = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
     		
