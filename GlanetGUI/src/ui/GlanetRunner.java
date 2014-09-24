@@ -25,23 +25,27 @@ public class GlanetRunner extends Thread{
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Preparation...");
+			
 			Preparation.main( args);
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "InputDataProcess...");
+			
 			InputDataProcess.main( args);
 			
 			/* In case of Enrichment remove overlaps and merge */
-			/* In case of only Annotation, do not remove overlaps and do not merge*/
+			/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+				
 				InputDataRemoveOverlaps.main( args);
 			}
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+			
 			AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
 			
 			
@@ -49,18 +53,22 @@ public class GlanetRunner extends Thread{
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+				
 				AnnotatePermutationsWithNumbersWithChoices.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+				
 				CollectionofPermutationsResults.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+				
 				AugmentationofEnrichedElementswithGivenInputData.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+				
 				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
 		
 				

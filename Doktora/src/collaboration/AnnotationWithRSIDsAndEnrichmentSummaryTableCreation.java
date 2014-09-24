@@ -776,7 +776,7 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		List<ElementAnnotationEnrichment> tfCellLineRegulationBasedKEGGPathwayElements,
 		List<ElementAnnotationEnrichment> tfCellLineAllBasedKEGGPathwayElements){
 		
-		String encodeCollaborationSummaryTablesDirectory = outputFolder + System.getProperty("file.separator") + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") + Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES + System.getProperty("file.separator") ;
+		String encodeCollaborationSummaryTablesDirectory = outputFolder + System.getProperty("file.separator") + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") + Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES_FOR_EACH_PHENOTYPE + System.getProperty("file.separator") ;
 		
 		/****************************************************************************/
 		/**********************************DNASE starts******************************/
@@ -881,35 +881,38 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		//ANNOTATION Element ArrayLists ends
 		
 		//ENRICHMENT Element HashMaps starts
-		Map<String,ElementEnrichment> dnaseMap 	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> dnaseMap 		= new HashMap<String,ElementEnrichment>();
 		Map<String,ElementEnrichment> tfMap 		= new HashMap<String,ElementEnrichment>();
-		Map<String,ElementEnrichment> histoneMap = new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> histoneMap 	= new HashMap<String,ElementEnrichment>();
 		
-		Map<String,ElementEnrichment> exonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
-		Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> exonBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> regulationBasedKEGGPathwayMap		= new HashMap<String,ElementEnrichment>();
 		Map<String,ElementEnrichment> allBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
 
-		Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
-		Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfExonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfRegulationBasedKEGGPathwayMap	= new HashMap<String,ElementEnrichment>();
 		Map<String,ElementEnrichment> tfAllBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
 
 		Map<String,ElementEnrichment> tfCellLineExonBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
-		Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap = new HashMap<String,ElementEnrichment>();
-		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 		= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineRegulationBasedKEGGPathwayMap 	= new HashMap<String,ElementEnrichment>();
+		Map<String,ElementEnrichment> tfCellLineAllBasedKEGGPathwayMap 			= new HashMap<String,ElementEnrichment>();
 		//ENRICHMENT Element HashMaps ends
 
 		Map<String,String> overlap2RSIDMap = new HashMap<String,String>();		
 		Map<String,String> overlap2EQTLMap = new HashMap<String,String>();
 		
+		//File provided from Chen Yao
 		String inputFileName = "C:"+ System.getProperty("file.separator") +"Users" + System.getProperty("file.separator") + "burcakotlu" + System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "ENCODE Collaboration" + System.getProperty("file.separator") +"eqtl-gene-anno-all.txt";
 		
 		
-		String annotationResultsInputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName.txt";		
-		String annotationResultsWithRsIdsOutputFileName = "C:" + System.getProperty("file.separator") + "Users" +System.getProperty("file.separator")  +"burcakotlu" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Output" + System.getProperty("file.separator") + "cvd_test" + System.getProperty("file.separator") + "Annotation" + System.getProperty("file.separator") + "UCSC_GENE_ALTERNATE_NAME" + System.getProperty("file.separator") + "_geneAlternateName_withRsIds_withEQTLs.txt";
+		String annotationResultsInputFileName = outputFolder  + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty("file.separator") + "_" + Commons.HG19_REFSEQ_GENE + ".txt";		
+		String annotationResultsWithRsIdsWitheQTLSOutputFileName = outputFolder + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") + Commons.ANNOTATION + System.getProperty("file.separator")  + "_" + Commons.HG19_REFSEQ_GENE + "_withRsIds_withEQTLs.txt";
+		
+//		Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
-		String encodeCollaborationDirectoryName = outputFolder + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator") +Commons.ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES;
+		String encodeCollaborationDirectoryName = outputFolder + Commons.ENCODE_COLLABORATION + System.getProperty("file.separator");
 		
 		FileOperations.deleteOldFiles(encodeCollaborationDirectoryName);
 		/***********delete old files ends***********************************/
@@ -920,13 +923,16 @@ public class AnnotationWithRSIDsAndEnrichmentSummaryTableCreation {
 		//Fill chrName_start_end 2 rsId  HashMap
 		readRSIDMap(inputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
-		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsOutputFileName,overlap2RSIDMap,overlap2EQTLMap);
+		//augment hg19RefSeqGene annotation results with rsIDs
+		augmentAnnotationResultsWithRsIds(annotationResultsInputFileName,annotationResultsWithRsIdsWitheQTLSOutputFileName,overlap2RSIDMap,overlap2EQTLMap);
 		
+		//Read all annotation results except for hg19RefSeq Genes
 		readAnnotationResults(outputFolder,dnaseElements,tfElements,histoneElements,exonBasedKEGGPathwayElements,regulationBasedKEGGPathwayElements,allBasedKEGGPathwayElements,tfExonBasedKEGGPathwayElements,tfRegulationBasedKEGGPathwayElements,tfAllBasedKEGGPathwayElements,tfCellLineExonBasedKEGGPathwayElements,tfCellLineRegulationBasedKEGGPathwayElements,tfCellLineAllBasedKEGGPathwayElements);
 		
+		//Read all enrichment results except for hg19RefSeq Genes
 		readEnrichmentResults(outputFolder,bonferroniCorrectionSignificanceLevel,dnaseMap,tfMap,histoneMap,exonBasedKEGGPathwayMap,regulationBasedKEGGPathwayMap,allBasedKEGGPathwayMap,tfExonBasedKEGGPathwayMap,tfRegulationBasedKEGGPathwayMap,tfAllBasedKEGGPathwayMap,tfCellLineExonBasedKEGGPathwayMap,tfCellLineRegulationBasedKEGGPathwayMap,tfCellLineAllBasedKEGGPathwayMap);
 		
-		//Augment with rsIds
+		//Augment annotation results and enrichment results with rsIds
 		augmentAnnotationandEnrichmentResultsWithRSIds(overlap2RSIDMap,dnaseElements,tfElements,histoneElements,exonBasedKEGGPathwayElements,regulationBasedKEGGPathwayElements,allBasedKEGGPathwayElements,tfExonBasedKEGGPathwayElements,tfRegulationBasedKEGGPathwayElements,tfAllBasedKEGGPathwayElements,tfCellLineExonBasedKEGGPathwayElements,tfCellLineRegulationBasedKEGGPathwayElements,tfCellLineAllBasedKEGGPathwayElements,dnaseMap,tfMap,histoneMap,exonBasedKEGGPathwayMap,regulationBasedKEGGPathwayMap,allBasedKEGGPathwayMap,tfExonBasedKEGGPathwayMap,tfRegulationBasedKEGGPathwayMap,tfAllBasedKEGGPathwayMap,tfCellLineExonBasedKEGGPathwayMap,tfCellLineRegulationBasedKEGGPathwayMap,tfCellLineAllBasedKEGGPathwayMap);
 	
 		//Write required summary tables

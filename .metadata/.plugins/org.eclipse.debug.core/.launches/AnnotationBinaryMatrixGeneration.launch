@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/Doktora/src/annotate/intervals/parametric/AnnotationBinaryMatrixGeneration.java"/>
+<listEntry value="/Doktora/src/collaboration/AnnotationBinaryMatrixGeneration.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="annotate.intervals.parametric.AnnotationBinaryMatrixGeneration"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="collaboration.AnnotationBinaryMatrixGeneration"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\20_CVD_All\\CVD_all_snps_1_based_coordinates.txt&quot;&#13;&#10;&quot;C:\\Users\\burcakotlu\\GLANET\\&quot;&#13;&#10;&quot;1-based coordinates (End Inclusive)&quot;&#13;&#10;1&#13;&#10;&quot;DO_ENRICH&quot;&#13;&#10;&quot;With GC and Mappability&quot;&#13;&#10;&quot;Benjamini Hochberg FDR&quot;&#13;&#10;0.05&#13;&#10;0.05&#13;&#10;10000&#13;&#10;&quot;DO_DNASE_ENRICHMENT&quot;&#13;&#10;&quot;DO_HISTONE_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_ENRICHMENT&quot;&#13;&#10;&quot;DO_GENESET_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_GENESET_ENRICHMENT&quot;&#13;&#10;&quot;DO_TF_CELLLINE_GENESET_ENRICHMENT&quot;&#13;&#10;&quot;DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT&quot;&#13;&#10;CVD_381_snps&#13;&#10;&quot;DO_NOT_WRITE_GENERATED_RANDOM_DATA&quot; &#13;&#10;&quot;DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT&quot; &#13;&#10;&quot;DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT&quot;&#13;&#10;5000"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Doktora"/>
 </launchConfiguration>

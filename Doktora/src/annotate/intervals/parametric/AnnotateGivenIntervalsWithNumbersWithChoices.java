@@ -13164,7 +13164,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//TF
 		TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();	
 		
-		//Gene Alternate Name
+		//Hg19 RefSeq Genes
 		TIntIntMap geneAlternateNumber2KMap = new TIntIntHashMap();	
 			
 		//KEGGPathway
@@ -13276,24 +13276,24 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 	
 		/*******************************************************************************/
-		/************GENE*****ANNOTATION***starts***************************************/
+		/************HG19 Refseq GENE*****ANNOTATION***starts***************************/
 		/*******************************************************************************/	
-		GlanetRunner.appendLog("Gene annotation starts: " + new Date());
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
 		dateBefore = System.currentTimeMillis();
 		
 		searchGeneWithNumbers(dataFolder,outputFolder,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
 		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
 		dateAfter = System.currentTimeMillis();
 			
-		GlanetRunner.appendLog("Gene annotation ends: " + new Date());
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
 		    
-		GlanetRunner.appendLog("Gene annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
 		GlanetRunner.appendLog("**********************************************************");
 			
 		System.gc();
 		System.runFinalization();	
 		/*******************************************************************************/
-		/************GENE*****ANNOTATION***ends*****************************************/
+		/************HG19 RefSeq GENE*****ANNOTATION***ends*****************************/
 		/*******************************************************************************/	
 	 
 	    

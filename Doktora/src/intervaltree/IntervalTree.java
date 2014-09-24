@@ -768,7 +768,7 @@ public class IntervalTree {
 				}else if (Commons.HISTONE.equals(type)){
 					castedNodeTforHistone = (TforHistoneIntervalTreeNode) node;										
 					bufferedWriter.write(castedNodeTforHistone.getChromName().getChromosomeName()+ "\t" + castedNodeTforHistone.getLow()+"\t"+ castedNodeTforHistone.getHigh()+"\t" + castedNodeTforHistone.getTfbsorHistoneName()+"\t" + castedNodeTforHistone.getCellLineName()+"\t" + castedNodeTforHistone.getFileName()+System.getProperty("line.separator"));												
-				}else if(Commons.UCSC_GENE.equals(type)){
+				}else if(Commons.HG19_REFSEQ_GENE.equals(type)){
 					castedNodeUcscRefSeqGene = (UcscRefSeqGeneIntervalTreeNode) node;
 					bufferedWriter.write(castedNodeUcscRefSeqGene.getChromName().getChromosomeName()+ "\t" + castedNodeUcscRefSeqGene.getLow()+"\t"+ castedNodeUcscRefSeqGene.getHigh()+"\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName()+ "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId()+ "\t" + castedNodeUcscRefSeqGene.getIntervalName().getIntervalNameString()+ "\t" + castedNodeUcscRefSeqGene.getIntervalNumber() + "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol()+ System.getProperty("line.separator"));
 //					bufferedWriter.write(refSeqGeneIntervalList.get(j).getChromName()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalStart()+"\t"+ refSeqGeneIntervalList.get(j).getIntervalEnd()+"\t" +refSeqGeneIntervalList.get(j).getRefSeqGeneName()+ "\t" + refSeqGeneIntervalList.get(j).getGeneId()+ "\t" +refSeqGeneIntervalList.get(j).getIntervalName()+ "\t" + refSeqGeneIntervalList.get(j).getStrand() + "\t" + refSeqGeneIntervalList.get(j).getAlternateGeneName()+ System.getProperty("line.separator"));					
@@ -4083,7 +4083,7 @@ public class IntervalTree {
 	//NEW FUNCIONALITY
 		
 		
-	//@todo Gene Annotation with numbers starts
+	//@todo hg19 refseq Gene Annotation with numbers starts
 	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 			String outputFolder,
 			IntervalTreeNode node, 
@@ -4113,7 +4113,7 @@ public class IntervalTree {
 					
 					try {
 							if (bufferedWriter == null){
-								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME +"_" + "geneAlternateName" + ".txt",true);
+								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HG19_REFSEQ_GENE +"_" + Commons.HG19_REFSEQ_GENE + ".txt",true);
 								bufferedWriter = new BufferedWriter(fileWriter);
 								bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
 								bufferedWriter.flush();
@@ -4124,7 +4124,7 @@ public class IntervalTree {
 								geneAlternateNumber2OneorZeroMap.put(geneAlternateNumber, (short)1);
 							}
 							
-							bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName())+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber())+ "\t" + castedNode.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber())+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
+							bufferedWriter.write(chromName.getChromosomeName() + "\t" + interval.getLow() + "\t" + interval.getHigh()  + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName())+ "\t" +  castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber())+ "\t" + castedNode.getIntervalName().getIntervalNameString() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber())+ "\t"+ castedNode.getGeneEntrezId() +System.getProperty("line.separator"));
 							bufferedWriter.flush();	
 																			
 							

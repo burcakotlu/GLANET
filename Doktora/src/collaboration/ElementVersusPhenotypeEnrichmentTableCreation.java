@@ -377,7 +377,7 @@ public class ElementVersusPhenotypeEnrichmentTableCreation {
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
-		String encodeCollaborationHeatMapDirectory = outputFolder + System.getProperty("file.separator") + jobName + System.getProperty("file.separator") +  Commons.ENCODE_COLLABORATION +System.getProperty("file.separator") + Commons.ENRICHMENT_HEAT_MAP_FOR_ALL_PHENOTYPES + System.getProperty("file.separator");
+		String encodeCollaborationHeatMapDirectory = outputFolder + System.getProperty("file.separator") + jobName + System.getProperty("file.separator") +  Commons.ENCODE_COLLABORATION +System.getProperty("file.separator") + Commons.ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES + System.getProperty("file.separator");
 		
 		FileOperations.deleteOldFiles(encodeCollaborationHeatMapDirectory);
 		/***********delete old files ends***********************************/

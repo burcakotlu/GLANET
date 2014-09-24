@@ -590,7 +590,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			
 			
 //			write sorted list to file
-			refSeqGeneIntervalTree.intervalTreeInfixTraversal(refSeqGeneIntervalTree.getRoot(), bufferedWriter, Commons.UCSC_GENE);
+			refSeqGeneIntervalTree.intervalTreeInfixTraversal(refSeqGeneIntervalTree.getRoot(), bufferedWriter, Commons.HG19_REFSEQ_GENE);
 						
 			refSeqGeneIntervalTree = null;
 			refSeqGeneInterval = null;

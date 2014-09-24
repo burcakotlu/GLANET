@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;AnnotationBinaryMatrixGeneration.java&apos; to &apos;collaboration.ElementAnnotationEnrichment.java&apos;&#x0D;&#x0A;- Original project: &apos;Doktora&apos;&#x0D;&#x0A;- Destination element: &apos;collaboration.ElementAnnotationEnrichment.java&apos;&#x0D;&#x0A;- Original element: &apos;annotate.intervals.parametric.AnnotationBinaryMatrixGeneration.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;collaboration{ElementAnnotationEnrichment.java" element1="/src&lt;annotate.intervals.parametric{AnnotationBinaryMatrixGeneration.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1411551075793" units="1" version="1.0"/>
+</session>

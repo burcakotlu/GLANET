@@ -22,8 +22,8 @@ public class Commons {
 	
 	
 	public static final String ENCODE_COLLABORATION = "ENCODE_Collaboration";
-	public static final String ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES = "AnnotationWithRSIDsEnrichment";
-	public static final String ENRICHMENT_HEAT_MAP_FOR_ALL_PHENOTYPES = "EnrichmentTableForAllPhenotypes";
+	public static final String ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES_FOR_EACH_PHENOTYPE = "AnnotationWithRSIDsEnrichment";
+	public static final String ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES = "EnrichmentBinaryMatrixForAllPhenotypes";
 		
 
 	public static final String BYGLANET = "byGLANET";
@@ -906,7 +906,7 @@ public class Commons {
 	public static final String TF_KEGGPATHWAY = "TFKEGGPathway";
 	public static final String TF_CELLLINE_KEGGPATHWAY = "TFCellLineKEGGPathway";
 	
-	public static final String UCSC_GENE = "UCSCGene";
+	public static final String HG19_REFSEQ_GENE = "Hg19RefSeqGene";
 	public static final String NCBI_GENE_ID = "NCBIGeneID";
 	public static final String NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION = "NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION";
 	public static final String UCSC_GENE_ALTERNATE_NAME = "UCSC_GENE_ALTERNATE_NAME";
@@ -983,9 +983,12 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.DNASE + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HISTONE + System.getProperty("file.separator");
+	
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.NCBI_GENE_ID + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.UCSC_GENE_ALTERNATE_NAME + System.getProperty("file.separator");
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.UCSC_GENE_ALTERNATE_NAME+ System.getProperty("file.separator");
+	
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HG19_REFSEQ_GENE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty("file.separator");
 	
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY  + System.getProperty("file.separator");
