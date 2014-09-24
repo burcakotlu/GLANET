@@ -22,7 +22,9 @@ public class Commons {
 	
 	
 	public static final String ENCODE_COLLABORATION = "ENCODE_Collaboration";
-	public static final String ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES_FOR_EACH_PHENOTYPE = "AnnotationWithRSIDsEnrichment";
+	public static final String ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE = "AnnotationBinaryMatrixForOnePhenotype";
+	public static final String ANNOTATION_FOR_ONE_PHENOTYPE = "AnnotationForOnePhenotype";	
+	public static final String ANNOTATION_WITH_RS_IDS_ENRICHMENT_SUMMARY_TABLES_FOR_ONE_PHENOTYPE = "AnnotationWithRSIDsEnrichmentForOnePhenotype";
 	public static final String ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES = "EnrichmentBinaryMatrixForAllPhenotypes";
 		
 
@@ -1447,22 +1449,22 @@ public class Commons {
 	
 	
 	//Annotation Binary Matrices
-	public static final String ANNOTATIONBINARYMATRIX_DNASE = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "DnaseAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_TF = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_HISTONE = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "HistoneAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_DNASE = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "DnaseAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TF = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_HISTONE = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "HistoneAnnotationBinaryMatrix.txt";
 
-	public static final String ANNOTATIONBINARYMATRIX_EXONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "ExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_REGULATIONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "RegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_ALLBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "AllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_EXONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "ExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_REGULATIONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "RegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_ALLBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "AllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
 
 	
-	public static final String ANNOTATIONBINARYMATRIX_TFEXONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_TFREGULATIONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFRegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_TFALLBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFAllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFEXONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFREGULATIONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFRegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFALLBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFAllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
 
-	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEEXONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFCellLineExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEREGULATIONBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFCellLineRegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
-	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEALLBASEDKEGG = "AnnotationBinaryMatrix" + System.getProperty("file.separator") + "TFCellLineAllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEEXONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFCellLineExonBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEREGULATIONBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFCellLineRegulationBasedKEGGPathwayAnnotationBinaryMatrix.txt";
+	public static final String ANNOTATIONBINARYMATRIX_TFCELLLINEALLBASEDKEGG = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "TFCellLineAllBasedKEGGPathwayAnnotationBinaryMatrix.txt";
 	
 	//dbSNP orient
 	public static final String REVERSE = "reverse";
