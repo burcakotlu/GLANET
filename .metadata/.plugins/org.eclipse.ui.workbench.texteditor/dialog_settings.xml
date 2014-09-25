@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE" key="selection"/>
+		<item value="dnaseEnrichment" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="dnaseEnrichment"/>
+			<item value="22"/>
+			<item value="commonRSID"/>
 			<item value="&quot;AnnotationBinaryMatrix&quot;"/>
 			<item value="AnnotationBinaryMatrix"/>
 			<item value="menda"/>
 			<item value="&lt;&lt;"/>
 			<item value="&lt;&lt;&lt;&lt;"/>
-			<item value="&gt;&gt;"/>
-			<item value="merge"/>
-			<item value="System.out.println("/>
 		</list>
 		<list key="replacehistory">
 			<item value="ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE"/>
@@ -36,7 +36,7 @@
 		<item value="789" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="583" key="DIALOG_HEIGHT"/>
-		<item value="170" key="DIALOG_X_ORIGIN"/>
-		<item value="264" key="DIALOG_Y_ORIGIN"/>
+		<item value="1083" key="DIALOG_X_ORIGIN"/>
+		<item value="548" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
