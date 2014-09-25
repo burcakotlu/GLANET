@@ -13090,7 +13090,13 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
-		
+			
+//		//User Defined GeneSet Enrichment, DO or DO_NOT
+//		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+//		
+//		//User Defined Library Enrichment, DO or DO_NOT
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
+				
 		if (args[4].equals(Commons.DO_ENRICH)) {
 			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		}else {

@@ -1,0 +1,123 @@
+/**
+ * @author burcakotlu
+ * @date Sep 25, 2014 
+ * @time 11:23:36 AM
+ */
+package collaboration;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 
+ */
+public class AnalysisofRSATResultsForRSIDsInFigures {
+	
+	
+	public static void readRSIDs(String rsIdsInFiguresFileName,List<String> rsIDList){
+		
+		String strLine = null;
+		String rsID = null; 
+		
+		int indexofFirstTab;
+		
+		try {
+			FileReader fileReader = new FileReader(rsIdsInFiguresFileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				if (indexofFirstTab>=0){
+					System.out.println("There is a tab character in rsID input file");
+					rsID = strLine.substring(0, indexofFirstTab);
+				}else{
+					rsID = strLine;
+							
+				}
+				
+				rsIDList.add(rsID);
+				
+				
+			}//End of while
+			
+			bufferedReader.close();
+			fileReader.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+	public static void analyzeRSATResultsForGivenRSIDs(
+			List<String> rsIDList, 
+			String RSATResults_TF_AllBasedKEGGPathway_InputFileName,
+			String RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway_OutputFileName){
+		
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		List<String> rsIDList = new ArrayList<String>();
+		
+		/***********************************************************************/
+		/********************Ad hoc file addresses starts***********************/
+		/***********************************************************************/
+		String rsIdsInFiguresFileName = "C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\rsIDs_in_figures.txt";
+		
+		String RSATResults_TF_AllBasedKEGGPathway_InputFileName ="C:\\Users\\burcakotlu\\GLANET\\saved_Output_CVD_381_snps\\RegulatorySequenceAnalysis\\UsingRSAT\\RSAT_results_TF_AllBasedKEGGPathway.txt";
+		String RSATResults_TF_CellLine_AllBasedKEGGPathway_InputFileName ="C:\\Users\burcakotlu\\GLANET\\saved_Output_CVD_381_snps\\RegulatorySequenceAnalysis\\UsingRSAT\\RSAT_results_TF_CellLine_AllBasedKEGGPathway.txt";
+
+		String RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway_OutputFileName ="C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway.txt";
+		String RSATResultsForRSIDsInFigures_TF_CellLine_AllBasedKEGGPathway_OutputFileName ="C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\RSATResultsForRSIDsInFigures_TF_CellLine_AllBasedKEGGPathway.txt";
+		/***********************************************************************/
+		/********************Ad hoc file addresses ends*************************/
+		/***********************************************************************/
+		
+		/***********************************************************************/
+		/****************************Read RsIds starts**************************/
+		/***********************************************************************/
+		readRSIDs(rsIdsInFiguresFileName,rsIDList);
+		/***********************************************************************/
+		/****************************Read RsIds ends****************************/
+		/***********************************************************************/
+		
+		/***********************************************************************/
+		/************Analyze RSAT Results for rsIds in Figures starts***********/
+		/*********************TF All Based KEGG Pathway ************************/
+		/***********************************************************************/
+		analyzeRSATResultsForGivenRSIDs(rsIDList,RSATResults_TF_AllBasedKEGGPathway_InputFileName,RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway_OutputFileName);
+		/***********************************************************************/
+		/*********************TF All Based KEGG Pathway ************************/
+		/************Analyze RSAT Results for rsIds in Figures ends*************/
+		/***********************************************************************/
+	
+		
+		
+		/***********************************************************************/
+		/************Analyze RSAT Results for rsIds in Figures starts***********/
+		/*********************TF CellLine All Based KEGG Pathway ***************/
+		/***********************************************************************/
+		analyzeRSATResultsForGivenRSIDs(rsIDList,RSATResults_TF_CellLine_AllBasedKEGGPathway_InputFileName,RSATResultsForRSIDsInFigures_TF_CellLine_AllBasedKEGGPathway_OutputFileName);
+		/***********************************************************************/
+		/*********************TF CellLine All Based KEGG Pathway ***************/
+		/************Analyze RSAT Results for rsIds in Figures ends*************/
+		/***********************************************************************/
+	
+	}
+
+}

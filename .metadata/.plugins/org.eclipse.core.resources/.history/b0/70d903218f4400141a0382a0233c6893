@@ -1,0 +1,28 @@
+/**
+ * @author burcakotlu
+ * @date Sep 25, 2014 
+ * @time 11:23:36 AM
+ */
+package collaboration;
+
+/**
+ * 
+ */
+public class AnalysisofRSATResultsForRSIDsInFigures {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String rsIdsInFiguresFileName = "C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\rsIDs_in_figures.txt";
+		
+		String RSATResults_TF_AllBasedKEGGPathway_InputFileName ="C:\\Users\\burcakotlu\\GLANET\\saved_Output_CVD_381_snps\\RegulatorySequenceAnalysis\\UsingRSAT\\RSAT_results_TF_AllBasedKEGGPathway.txt";
+		String RSATResults_TF_CellLine_AllBasedKEGGPathway_InputFileName ="C:\\Users\burcakotlu\\GLANET\\saved_Output_CVD_381_snps\\RegulatorySequenceAnalysis\\UsingRSAT\\RSAT_results_TF_CellLine_AllBasedKEGGPathway.txt";
+
+		String RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway_OutputFileName ="C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\RSATResultsForRSIDsInFigures_TF_AllBasedKEGGPathway.txt";
+		String RSATResultsForRSIDsInFigures_TF_CellLine_AllBasedKEGGPathway_OutputFileName ="C:\\Users\\burcakotlu\\Desktop\\ENCODE Collaboration\\BurcakOtlu\\RSATResultsForRSIDsInFigures_TF_CellLine_AllBasedKEGGPathway.txt";
+
+	}
+
+}
