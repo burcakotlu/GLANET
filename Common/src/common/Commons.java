@@ -39,7 +39,7 @@ public class Commons {
 	//Number of program runtime arguments without counting the command line argument
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
-	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 22;
+	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 24;
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT = NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1;
 	
 	//EnumTye AnnotationType
@@ -1448,6 +1448,9 @@ public class Commons {
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation)";
+	
+	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined GeneSet Annotation";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
 	
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	

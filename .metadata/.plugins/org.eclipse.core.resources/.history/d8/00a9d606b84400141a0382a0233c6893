@@ -145,8 +145,8 @@ public class MainView extends JPanel{
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
 						numberOfPerInEachRun.getText(),
-						userDefinedGeneSetEnrichment.isSelected()?Commons.DO_USER_DEFINED_GENESET_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT,
-						userDefinedLibraryEnrichment.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
+						userDefinedGeneSetEnrichment,
+						userDefinedLibraryEnrichment,
 						cellLinesList.getSelectedValuesList().toArray(new String[0])
 				);
 				
@@ -275,17 +275,8 @@ public class MainView extends JPanel{
         cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
+        annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));
         
-        //userDefinedGeneSetEnrichment added to annotationOptions
-        userDefinedGeneSetEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
-        annotationOptions.add( createPanelWithHint(userDefinedGeneSetEnrichment, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
-    		
-        //userDefinedLibraryEnrichment added to annotationOptions
-        userDefinedLibraryEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
-        annotationOptions.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
-      
-        annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));        
-        	 
         //cellLinesScrollPane added to annotationPanel
         listModel = new DefaultListModel<>();
         cellLinesList = new JList<String>( listModel); //see the comment on the method definition (createCellLines())

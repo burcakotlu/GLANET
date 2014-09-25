@@ -2,8 +2,6 @@ package ui;
 
 import javax.swing.JPanel;
 
-import common.Commons;
-
 import ui.MainView.MainViewDelegate;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
@@ -132,7 +130,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String[] cellLinesToBeConsidered) {
 		
 		int i = 0;
-		String[] args = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+cellLinesToBeConsidered.length];
+		String[] args = new String[22+cellLinesToBeConsidered.length];
 		
 		args[i++] = inputFileName;
 		args[i++] = outputFolder;
@@ -156,12 +154,10 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = writePermutationBasedandParametricBasedAnnotationResultMode;
 		args[i++] = writePermutationBasedAnnotationResultMode;
 		args[i++] = numberOfPermutationsInEachRun;
-		args[i++] = userDefinedGeneSetEnrichment;
-		args[i++] = userDefinedLibraryEnrichment;
 		
 		//filling the rest with selected cell lines. 
-		for( i = Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i < args.length; i++)
-			args[i] = cellLinesToBeConsidered[i-Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
+		for( i = 22; i < args.length; i++)
+			args[i] = cellLinesToBeConsidered[i-22];
 		
 		runner = new GlanetRunner();
 		

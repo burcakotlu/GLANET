@@ -13100,7 +13100,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 //		//User Defined GeneSet Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
-		
+//		
 //		//User Defined Library Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
 				

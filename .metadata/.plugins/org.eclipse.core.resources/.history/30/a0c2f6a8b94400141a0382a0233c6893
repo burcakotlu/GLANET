@@ -13051,14 +13051,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//			--->			Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	//args[21]	--->	number of permutations for each run
-	//args[22]	--->	userDefinedGeneSetEnrichment
-	//			---> 	Commons.DO_USER_DEFINED_GENESET_ENRICHMENT
-	//			---> 	Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT	
-	//args[23]	--->	userDefinedLibraryEnrichment
-	//			---> 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
-	//			---> 	Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
 	public void annotate(String[] args){
 		
 		String glanetFolder = args[1];
@@ -13099,10 +13092,10 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
 			
 //		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
-		
+//		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+//		
 //		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
 				
 		if (args[4].equals(Commons.DO_ENRICH)) {
 			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
