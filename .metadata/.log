@@ -10059,3 +10059,9 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.jdt.core 4 967 2014-09-24 11:53:27.936
 !MESSAGE Operation not supported for specified element type(s):/GlanetGUI [in Doktora]
+
+!ENTRY org.eclipse.jdt.core 4 967 2014-09-24 17:13:29.383
+!MESSAGE Operation not supported for specified element type(s):/GlanetGUI [in Doktora]
+
+!ENTRY org.eclipse.jdt.core 4 967 2014-09-24 17:16:47.472
+!MESSAGE Operation not supported for specified element type(s):/GlanetGUI [in Doktora]

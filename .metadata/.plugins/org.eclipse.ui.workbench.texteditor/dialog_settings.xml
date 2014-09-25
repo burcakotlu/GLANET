@@ -6,22 +6,23 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="menda" key="selection"/>
+		<item value="ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&quot;AnnotationBinaryMatrix&quot;"/>
+			<item value="AnnotationBinaryMatrix"/>
 			<item value="menda"/>
 			<item value="&lt;&lt;"/>
 			<item value="&lt;&lt;&lt;&lt;"/>
 			<item value="&gt;&gt;"/>
 			<item value="merge"/>
 			<item value="System.out.println("/>
-			<item value="GenerationofSequencesandMatricesforGivenIntervals"/>
-			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE"/>
 			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
 			<item value="Map"/>
 			<item value="new HashMap&lt;String,Element&gt;()"/>
@@ -29,14 +30,13 @@
 			<item value="Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
 			<item value="Commons.RESULTS"/>
 			<item value="CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
-			<item value="&quot;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="789" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="583" key="DIALOG_HEIGHT"/>
-		<item value="971" key="DIALOG_X_ORIGIN"/>
-		<item value="626" key="DIALOG_Y_ORIGIN"/>
+		<item value="170" key="DIALOG_X_ORIGIN"/>
+		<item value="264" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
