@@ -98,8 +98,8 @@ public class HumanRefSeq2Gene {
 		String RNA_Nucleotide_Accession =null;
 		String RNA_Nucleotide_Accession_WithVersion = null;
 		
-		int numberofHuman_RNA_Nucleotide_Accession = 0;
-		int numberofHuman_RNA_Nucleotide_Accession_WithVersion = 0;
+		int numberofHumanRefSeq2Gene = 0;
+		int numberofRefSeqNames = 0;
 		
 		Set<RefSeq2Gene> refSeq2GeneSet = new HashSet<RefSeq2Gene>();
 		RefSeq2Gene refSeq2Gene = null;
@@ -123,48 +123,34 @@ public class HumanRefSeq2Gene {
 				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
 				
 				geneId = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-				//may be null (-)
-				RNA_Nucleotide_Accession_WithVersion = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+				refSeqNamewithDot = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 		
-				indexofDot = RNA_Nucleotide_Accession_WithVersion.indexOf('.');
-				RNA_Nucleotide_Accession = null;
+				indexofDot = refSeqNamewithDot.indexOf('.');
 				if (indexofDot>=0){
-					RNA_Nucleotide_Accession = RNA_Nucleotide_Accession_WithVersion.substring(0, indexofDot);
+					refSeqName = refSeqNamewithDot.substring(0, indexofDot);
 				}
 				
-				if (!(RNA_Nucleotide_Accession_WithVersion.equals(Commons.STRING_HYPHEN))){
-					
+				if (!(refSeqNamewithDot.equals("-"))){
 					refSeq2Gene = new RefSeq2Gene();
 					
 					refSeq2Gene.setGeneId(geneId);
-					
-					if (RNA_Nucleotide_Accession!=null){
-						refSeq2Gene.setRNA_Nucleotide_Accession(RNA_Nucleotide_Accession);		
-					}
-					
-					refSeq2Gene.setRNA_Nucleotide_Accession_WithVersion(RNA_Nucleotide_Accession_WithVersion);
+					refSeq2Gene.setRefSeqName(refSeqName);
+					refSeq2Gene.setRefSeqNamewithDot(refSeqNamewithDot);
 					
 					if (!(refSeq2GeneSet.contains(refSeq2Gene))){
-						
 						refSeq2GeneSet.add(refSeq2Gene);
-						
-						if(RNA_Nucleotide_Accession!=null){
-							bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator") );
-							numberofHuman_RNA_Nucleotide_Accession++;
-						}
-						
-						bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator") );
-						bufferedWriter2.write(RNA_Nucleotide_Accession_WithVersion + "\t" + geneId + System.getProperty("line.separator"));
-						numberofHuman_RNA_Nucleotide_Accession_WithVersion++;									
+						bufferedWriter.write(refSeqName + "\t" + geneId + System.getProperty("line.separator") );
+						bufferedWriter2.write(refSeqNamewithDot + "\t" + geneId + System.getProperty("line.separator"));
+						numberofHumanRefSeq2Gene++;									
 					}else{
 						refSeq2Gene= null;
 					}
 															
-				}//End of IF RNA_Nucleotide_Accession_WithVersion is not null (-)					
+				}							
 			} // End of While
 			
-			GlanetRunner.appendLog("Number of Human_RNA_Nucleotide_Accession lines " + numberofHuman_RNA_Nucleotide_Accession);			
-			GlanetRunner.appendLog("Number of Human_RNA_Nucleotide_Accession_WithVersion " + numberofHuman_RNA_Nucleotide_Accession_WithVersion);			
+			GlanetRunner.appendLog("Number of human refseq to gene lines " + numberofHumanRefSeq2Gene);			
+			GlanetRunner.appendLog("Number of refseq names " + numberofRefSeqNames);			
 			
 			bufferedWriter.close();
 			bufferedWriter2.close();

@@ -1,0 +1,52 @@
+package ncbi;
+
+
+public class RefSeq2Gene {
+	
+	//the unique identifier for a gene
+	Integer geneId;
+	
+	//genomic nucleotide accession.version without version
+	String RNA_Nucleotide_Accession;
+	
+	//genomic nucleotide accession.version
+	// may be null (-) if a RefSeq was provided after the genomic accession was submitted
+	String RNA_Nucleotide_Accession_WithVersion;
+	
+	
+	
+	
+	public Integer getGeneId() {
+		return geneId;
+	}
+	public void setGeneId(Integer geneId) {
+		this.geneId = geneId;
+	}
+	
+	
+//	overridden equals method
+	public boolean equals(Object obj){
+		boolean isEqual = false;
+		
+		if(obj!=null){
+			if (this.getClass() == obj.getClass()){
+				RefSeq2Gene  refSeq2Gene = (RefSeq2Gene) obj;
+				
+				if ((refSeq2Gene.getGeneId().equals(this.getGeneId())) && 
+				    (refSeq2Gene.getRefSeqName().equals(this.getRefSeqName())) &&
+				    (refSeq2Gene.getRefSeqNamewithDot().equals(this.getRefSeqNamewithDot()))){			
+					 	isEqual = true;
+					 	return isEqual;
+				}
+			}			
+		}
+		
+		return isEqual;		
+	}
+	
+	public int hashCode(){
+		return this.getRefSeqNamewithDot().hashCode();
+	}
+	
+
+}

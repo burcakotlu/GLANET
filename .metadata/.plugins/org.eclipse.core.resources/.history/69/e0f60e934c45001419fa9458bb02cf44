@@ -18,19 +18,12 @@
  *Best alteredSequence1 containing snp position  found at 5. result lines	R	10	18	CCCGCAACC	3.20E-02	-1.43E-01
  *
  *
- * from sequence above(29 base long); get the sequence between 10. and 18. bases (inclusive) 
+ * from sequence above sequence between 10. and 18. bases (inclusive) 
  * which is        GGTTGCGGG 
  * take complement CCAACGCCC
  * take reverse    CCCGCAACC
  * we got it
  * 
- * In addition to that
- * we read ..... found at 5. result lines R	10	18	CCCGCAACC .... as follows
- *  first base of (R	10	18	CCCGCAACC)  is the  18.th base of original (29 base long) sequence
- *  last base  of (R	10	18	CCCGCAACC) is the 10.th base of the original (29. base long) sequence
- * since we took the reverse of it
- * 
- * snp is always at the 15. th base position which is G in this case (R	10	18	CCCGCAACC)
  */
 package rsat;
 

@@ -179,6 +179,8 @@ public class Commons {
 	
 	public static final Integer ORIGINAL_DATA_PERMUTATION_NUMBER = new Integer(0);
 	public static final String PERMUTATION0 = "PERMUTATION0";
+	
+	public static final int HOMO_SAPIENS_TAX_ID = 9606;
 
 	public static Integer ZERO = new Integer(0); 
 	public static Integer ONE = new Integer(1); 

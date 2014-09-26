@@ -48,8 +48,8 @@ public class RefSeq2Gene {
 				RefSeq2Gene  refSeq2Gene = (RefSeq2Gene) obj;
 				
 				if ((refSeq2Gene.getGeneId().equals(this.getGeneId())) && 
-				    (refSeq2Gene.getRNA_Nucleotide_Accession().equals(this.getRNA_Nucleotide_Accession())) &&
-				    (refSeq2Gene.getRNA_Nucleotide_Accession_WithVersion().equals(this.getRNA_Nucleotide_Accession_WithVersion()))){			
+				    (refSeq2Gene.getRefSeqName().equals(this.getRefSeqName())) &&
+				    (refSeq2Gene.getRefSeqNamewithDot().equals(this.getRefSeqNamewithDot()))){			
 					 	isEqual = true;
 					 	return isEqual;
 				}
@@ -60,7 +60,7 @@ public class RefSeq2Gene {
 	}
 	
 	public int hashCode(){
-		return this.getRNA_Nucleotide_Accession_WithVersion().hashCode();
+		return this.getRefSeqNamewithDot().hashCode();
 	}
 	
 

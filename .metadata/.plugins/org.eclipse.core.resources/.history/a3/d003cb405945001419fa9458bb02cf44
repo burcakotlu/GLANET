@@ -133,26 +133,20 @@ public class HumanRefSeq2Gene {
 				}
 				
 				if (!(RNA_Nucleotide_Accession_WithVersion.equals(Commons.STRING_HYPHEN))){
-					
 					refSeq2Gene = new RefSeq2Gene();
 					
 					refSeq2Gene.setGeneId(geneId);
-					
 					if (RNA_Nucleotide_Accession!=null){
 						refSeq2Gene.setRNA_Nucleotide_Accession(RNA_Nucleotide_Accession);		
 					}
-					
 					refSeq2Gene.setRNA_Nucleotide_Accession_WithVersion(RNA_Nucleotide_Accession_WithVersion);
 					
 					if (!(refSeq2GeneSet.contains(refSeq2Gene))){
-						
 						refSeq2GeneSet.add(refSeq2Gene);
-						
 						if(RNA_Nucleotide_Accession!=null){
 							bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator") );
 							numberofHuman_RNA_Nucleotide_Accession++;
 						}
-						
 						bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator") );
 						bufferedWriter2.write(RNA_Nucleotide_Accession_WithVersion + "\t" + geneId + System.getProperty("line.separator"));
 						numberofHuman_RNA_Nucleotide_Accession_WithVersion++;									
