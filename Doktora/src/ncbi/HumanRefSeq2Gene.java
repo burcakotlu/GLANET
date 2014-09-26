@@ -153,7 +153,6 @@ public class HumanRefSeq2Gene {
 							numberofHuman_RNA_Nucleotide_Accession++;
 						}
 						
-						bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator") );
 						bufferedWriter2.write(RNA_Nucleotide_Accession_WithVersion + "\t" + geneId + System.getProperty("line.separator"));
 						numberofHuman_RNA_Nucleotide_Accession_WithVersion++;									
 					}else{

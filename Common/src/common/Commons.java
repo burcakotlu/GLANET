@@ -1057,10 +1057,10 @@ public class Commons {
 	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
 
 	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseq2gene.txt";
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseqRNANucleotideAccession2gene.txt";
 
 	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseq2gene2.txt";
+	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseqRNANucleotideAccessionWithVersion2gene.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
 //	They have been unzipped.

@@ -22,7 +22,7 @@ import common.Commons;
 
 public class HumanGenesAugmentation {
 	
-	public static void fillHumanGeneId2RefSeqGeneNameMap(String dataFolder,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
+	public static void fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(String dataFolder,Map<String,List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -35,9 +35,10 @@ public class HumanGenesAugmentation {
 		int indexofDot;
 		
 		String geneId;
-		String refSeqGeneName;
-		
-		List<String> refSeqGeneNameList;
+		String RNANucleotideAccessionWithVersion;
+		String RNANucleotideAccession;
+
+		List<String> refSeqRNANucleotideAccessionList;
 		
 		try {
 			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
@@ -54,26 +55,37 @@ public class HumanGenesAugmentation {
 				indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
 
 				geneId = strLine.substring(indexofFirstTab+1,indexofSecondTab);
-				refSeqGeneName = strLine.substring(indexofThirdTab+1,indexofFourthTab);
 				
-				indexofDot = refSeqGeneName.indexOf('.');
+				//RNA nucleotide accession.version:	may be null (-) for some genomes
+				RNANucleotideAccessionWithVersion = strLine.substring(indexofThirdTab+1,indexofFourthTab);
+				
+				indexofDot = RNANucleotideAccessionWithVersion.indexOf('.');
+				
+				RNANucleotideAccession =  null;
 				
 				if (indexofDot>= 0){
-					refSeqGeneName = refSeqGeneName.substring(0,indexofDot);
+					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring(0,indexofDot);
 				}
 				
-				refSeqGeneNameList =humanGeneId2RefSeqGeneNameListMap.get(geneId);
+				refSeqRNANucleotideAccessionList =humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get(geneId);
 				
-				if (!refSeqGeneName.equals("-")){
-					if(refSeqGeneNameList==null){
-						refSeqGeneNameList = new ArrayList<String>();
-						refSeqGeneNameList.add(refSeqGeneName);	
+				if (!RNANucleotideAccessionWithVersion.equals("-")){
+					if(refSeqRNANucleotideAccessionList==null){
+						refSeqRNANucleotideAccessionList = new ArrayList<String>();
 						
-						humanGeneId2RefSeqGeneNameListMap.put(geneId, refSeqGeneNameList);
-					}else{
-						if (!refSeqGeneNameList.contains(refSeqGeneName)){
-							refSeqGeneNameList.add(refSeqGeneName);	
+						if(RNANucleotideAccession!=null){
+							refSeqRNANucleotideAccessionList.add(RNANucleotideAccession);	
 						}
+						
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneId, refSeqRNANucleotideAccessionList);
+						
+					}else{
+						if (RNANucleotideAccession!=null && !refSeqRNANucleotideAccessionList.contains(RNANucleotideAccession)){
+							refSeqRNANucleotideAccessionList.add(RNANucleotideAccession);	
+						}
+						
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneId, refSeqRNANucleotideAccessionList);
+						
 					}
 				}
 				
@@ -90,7 +102,7 @@ public class HumanGenesAugmentation {
 	}
 	
 	
-	public static void fillHumanRefSeqGeneName2AlternateGeneNameMap(String dataFolder,Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap){
+	public static void fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(String dataFolder,Map<String,List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap){
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -110,7 +122,7 @@ public class HumanGenesAugmentation {
 		int indexofTwelfthTab;
 		int indexofThirteenthTab;
 		
-		String refSeqName;
+		String refSeqRNANucleotideAccession;
 		String alternateGeneName;
 		
 		List<String> alternateGeneNameList;
@@ -120,6 +132,9 @@ public class HumanGenesAugmentation {
 		try {
 			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES);
 			bufferedReader = new BufferedReader(fileReader);
+			
+			//skip header line
+			strLine = bufferedReader.readLine();
 			
 			while((strLine = bufferedReader.readLine())!=null) {
 				//header line
@@ -141,20 +156,22 @@ public class HumanGenesAugmentation {
 				indexofTwelfthTab = strLine.indexOf('\t',indexofEleventhTab+1);
 				indexofThirteenthTab = strLine.indexOf('\t',indexofTwelfthTab+1);
 				
-				refSeqName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
+				refSeqRNANucleotideAccession = strLine.substring(indexofFirstTab+1, indexofSecondTab);
 				alternateGeneName = strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab);
 				
-				alternateGeneNameList = humanRefSeqGeneName2AlternateGeneNameListMap.get(refSeqName);
+				alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get(refSeqRNANucleotideAccession);
 				
 				if (alternateGeneNameList == null){
 					alternateGeneNameList = new ArrayList<String>();
 					alternateGeneNameList.add(alternateGeneName);
 					
-					humanRefSeqGeneName2AlternateGeneNameListMap.put(refSeqName,alternateGeneNameList);
+					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put(refSeqRNANucleotideAccession,alternateGeneNameList);
 				} else{
 					if (!alternateGeneNameList.contains(alternateGeneName)){
 						alternateGeneNameList.add(alternateGeneName);
 					}
+					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put(refSeqRNANucleotideAccession,alternateGeneNameList);
+					
 				}
 				
 			}//End of WHILE
@@ -168,17 +185,17 @@ public class HumanGenesAugmentation {
 		}
 	}
 	
-	public static void augmentGeneIdWithRefSeqGeneName(List<String> keggPathwayGeneIdList, List<String>  keggPathwayRefSeqGeneNameList,Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap){
-		List<String> refSeqGeneNameList;
+	public static void augmentGeneIdWithRefSeqRNANucleotideAccession(List<String> keggPathwayGeneIdList, List<String>  keggPathwayRefSeqRNANucleotideAccessionList,Map<String,List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap){
+		List<String> refSeqRNANucleotideAccessionList;
 		
 		
 		for(String geneId: keggPathwayGeneIdList) {
-			refSeqGeneNameList = humanGeneId2RefSeqGeneNameListMap.get(geneId);
+			refSeqRNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get(geneId);
 			
-			if (refSeqGeneNameList!=null){
-				for(String refSeqGeneName: refSeqGeneNameList){
-					if (!keggPathwayRefSeqGeneNameList.contains(refSeqGeneName)){
-						keggPathwayRefSeqGeneNameList.add(refSeqGeneName);
+			if (refSeqRNANucleotideAccessionList!=null){
+				for(String refSeqRNANucleotideAccession: refSeqRNANucleotideAccessionList){
+					if (!keggPathwayRefSeqRNANucleotideAccessionList.contains(refSeqRNANucleotideAccession)){
+						keggPathwayRefSeqRNANucleotideAccessionList.add(refSeqRNANucleotideAccession);
 					}
 				}
 			}
@@ -187,11 +204,11 @@ public class HumanGenesAugmentation {
 		
 	}
 	
-	public static void augmentRefSeqGeneNamewithAlternateGeneName(List<String> keggPathwayRefSeqGeneNameList, List<String> keggPathwayAlternateGeneNameList,Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap){
+	public static void augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(List<String> keggPathwayRefSeqRNANucleotideAccessionList, List<String> keggPathwayAlternateGeneNameList,Map<String,List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap){
 		List<String> alternateGeneNameList;
 		
-		for(String refSeqGeneName: keggPathwayRefSeqGeneNameList){
-			alternateGeneNameList = humanRefSeqGeneName2AlternateGeneNameListMap.get(refSeqGeneName);
+		for(String refSeqRNANucleotideAccession: keggPathwayRefSeqRNANucleotideAccessionList){
+			alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get(refSeqRNANucleotideAccession);
 			
 			if (alternateGeneNameList!=null){
 				for(String alternateGeneName: alternateGeneNameList){
@@ -231,15 +248,15 @@ public class HumanGenesAugmentation {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+//		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 
 		
 		// for testing purposes
-		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String, List<String>>();
-		fillHumanGeneId2RefSeqGeneNameMap(outputFolder,humanGeneId2RefSeqGeneNameListMap);
+		Map<String,List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap = new HashMap<String, List<String>>();
+		fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(dataFolder,humanGeneId2ListofRefSeqRNANucleotideAccessionMap);
 		
-		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
-		fillHumanRefSeqGeneName2AlternateGeneNameMap(dataFolder,humanRefSeqGeneName2AlternateGeneNameListMap);
+		Map<String,List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap = new HashMap<String,List<String>>();
+		fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder,humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap);
 		
 		
 		List<String> keggPathwayGeneIdList = new ArrayList<String>();
@@ -253,12 +270,12 @@ public class HumanGenesAugmentation {
 		keggPathwayGeneIdList.add("2322");
 		keggPathwayGeneIdList.add("23533");
 		
-		List<String>  keggPathwayRefSeqGeneNameList =  new ArrayList<String>();
+		List<String>  keggPathwayRefSeqRNANucleotideAccessionList =  new ArrayList<String>();
 		List<String>  keggPathwayAlternateGeneNameList =  new ArrayList<String>();
 		
 		
-		augmentGeneIdWithRefSeqGeneName(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList,humanGeneId2RefSeqGeneNameListMap);		
-		augmentRefSeqGeneNamewithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
+		augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqRNANucleotideAccessionList,humanGeneId2ListofRefSeqRNANucleotideAccessionMap);		
+		augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqRNANucleotideAccessionList, keggPathwayAlternateGeneNameList, humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap);
 		
 		GlanetRunner.appendLog("come here");
 	}
