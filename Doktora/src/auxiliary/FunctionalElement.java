@@ -41,7 +41,7 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	int keggPathwayNumber;   	//202	
 	String keggPathwayEntry;	//hsa04974
 	String keggPathwayName; 	//Protein digestion and absorption - Homo sapiens (human)
-	List<String> keggPathwayGeneIdList;
+	List<Integer> keggPathwayGeneIdList;
 	List<String> keggPathwayRefSeqGeneNameList;
 	List<String> keggPathwayAlternateGeneNameList;
 		
@@ -153,15 +153,17 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 		this.numberofComparisons = numberofComparisons;
 	}
 
-	public List<String> getKeggPathwayGeneIdList() {
+	
+
+	
+
+	public List<Integer> getKeggPathwayGeneIdList() {
 		return keggPathwayGeneIdList;
 	}
 
-	public void setKeggPathwayGeneIdList(List<String> keggPathwayGeneIdList) {
+	public void setKeggPathwayGeneIdList(List<Integer> keggPathwayGeneIdList) {
 		this.keggPathwayGeneIdList = keggPathwayGeneIdList;
 	}
-
-	
 
 	public List<String> getKeggPathwayRefSeqGeneNameList() {
 		return keggPathwayRefSeqGeneNameList;

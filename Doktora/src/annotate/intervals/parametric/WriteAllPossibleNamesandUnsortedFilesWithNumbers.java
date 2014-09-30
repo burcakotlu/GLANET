@@ -17,9 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.IntervalName;
+import gnu.trove.map.TObjectShortMap;
+import gnu.trove.map.TShortObjectMap;
 
 
 
@@ -1205,6 +1208,52 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	}
 	
 	
+	//@todo starts
+	public static void readUserDefinedGeneSetNames(
+			String dataFolder,
+			String userDefinedGeneSetInputFile,
+			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
+			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap){
+		
+		String strLine;
+		int indexofFirstTab;
+		String GO_ID;
+		String geneSymbol;
+		
+		short numberofUserDefinedGeneSet = 0;
+	
+		try {
+			FileReader fileReader = FileOperations.createFileReader(userDefinedGeneSetInputFile);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				GO_ID = strLine.substring(0,indexofFirstTab);
+				geneSymbol = strLine.substring(indexofFirstTab+1);
+				
+				if (!(userDefinedGeneSetName2UserDefinedGeneSetNumberMap.containsKey(GO_ID))){
+					userDefinedGeneSetName2UserDefinedGeneSetNumberMap.put(GO_ID, numberofUserDefinedGeneSet);
+					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap.put(numberofUserDefinedGeneSet, GO_ID);
+					numberofUserDefinedGeneSet++;
+				}//End of IF
+				
+				
+			}//End of While
+			
+			
+			GlanetRunner.appendLog("Number of user defined genesets: " + numberofUserDefinedGeneSet);
+			bufferedReader.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	//@todo ends
+	
+	
 	public static void readKeggPathwayNames(String dataFolder,List<String> keggPathwayNameList, Map<String,Integer> keggPathwayName2KeggPathwayNumberMap,Map<Integer,String> keggPathwayNumber2KeggPathwayNameMap, String inputFileName){
 
 		String strLine;
@@ -1471,6 +1520,21 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		writeMapsInteger2String(dataFolder,keggPathwayNumber2KeggPathwayNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 
 	}
+	
+	//@todo writeAllPossibleUserDefinedGeneSetNames starts
+	public static void writeAllPossibleUserDefinedGeneSetNames(
+			String dataFolder,
+			String userDefinedGeneSetInputFile,
+			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
+			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap){
+		
+
+		readUserDefinedGeneSetNames(dataFolder,userDefinedGeneSetInputFile,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
+	
+	}
+	
+	
+	//@todo writeAllPossibleUserDefinedGeneSetNames ends
 	
 	
 	//args[0]	--->	Input File Name with folder

@@ -60,7 +60,7 @@ public class KeggPathwayAugmentation {
 		
 	}
 	
-	public static void fillKeggPathwayEntry2GeneIdListMap(String dataFolder,Map<String,List<String>> keggPathwayEntry2GeneIdListMap){
+	public static void fillKeggPathwayEntry2GeneIdListMap(String dataFolder,Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap){
 		
 		String strLine;
 		FileReader fileReader = null;
@@ -73,9 +73,9 @@ public class KeggPathwayAugmentation {
 		int indexofSecondColon 		= -1;
 		
 		String keggPathwayEntry;
-		String ncbiGeneId;
+		Integer ncbiGeneId;
 		
-		List<String> existingNcbiGeneIdList = null;
+		List<Integer> existingNcbiGeneIdList = null;
 			
 		try {
 			fileReader = new FileReader(dataFolder + Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
@@ -94,14 +94,14 @@ public class KeggPathwayAugmentation {
 				indexofSecondColon = strLine.indexOf(':',indexofFirstColon+1);
 				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 				
-				ncbiGeneId = strLine.substring(indexofSecondColon+1,indexofSecondTab);
+				ncbiGeneId = Integer.parseInt(strLine.substring(indexofSecondColon+1,indexofSecondTab));
 				
 				
 				//Fill keggPathway2NcbiGeneIdHashMap
 				//Hash Map does not contain this keggPathwayName
 				if(keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry)== null){
 					
-					List<String> ncbiGeneIdList = new ArrayList<String>();
+					List<Integer> ncbiGeneIdList = new ArrayList<Integer>();
 					ncbiGeneIdList.add(ncbiGeneId);
 					keggPathwayEntry2GeneIdListMap.put(keggPathwayEntry, ncbiGeneIdList);
 				} 
@@ -206,12 +206,12 @@ public class KeggPathwayAugmentation {
 			allLists.add(list3);		
 		}
 			
-		Map<String,List<String>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<String>>();
-		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String,List<String>>();
+		Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<Integer>>();
+		Map<Integer,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer,List<String>>();
 		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
 		
 		String keggPathwayEntry;
-		List<String> keggPathwayGeneIdList;
+		List<Integer> keggPathwayGeneIdList;
 		List<String> keggPathwayRefSeqGeneNameList;
 		List<String> keggPathwayAlternateGeneNameList;
 		
@@ -348,12 +348,12 @@ public class KeggPathwayAugmentation {
 			allLists.add(list3);		
 		}
 		
-		Map<String,List<String>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<String>>();
-		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String,List<String>>();
+		Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<Integer>>();
+		Map<Integer,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer,List<String>>();
 		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
 		
 		String keggPathwayEntry;
-		List<String> keggPathwayGeneIdList;
+		List<Integer> keggPathwayGeneIdList;
 		List<String> keggPathwayRefSeqGeneNameList;
 		List<String> keggPathwayAlternateGeneNameList;
 					
@@ -413,12 +413,12 @@ public class KeggPathwayAugmentation {
 				allLists.add(list3);		
 			}
 			
-			Map<String,List<String>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<String>>();
-			Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String,List<String>>();
+			Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<Integer>>();
+			Map<Integer,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer,List<String>>();
 			Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
 			
 			String keggPathwayEntry;
-			List<String> keggPathwayGeneIdList;
+			List<Integer> keggPathwayGeneIdList;
 			List<String> keggPathwayRefSeqGeneNameList;
 			List<String> keggPathwayAlternateGeneNameList;
 						
@@ -483,11 +483,11 @@ public class KeggPathwayAugmentation {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		// for testing purposes
-		Map<String,List<String>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<String>>();
-		Map<String,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<String,List<String>>();
+		Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<Integer>>();
+		Map<Integer,List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer,List<String>>();
 		Map<String,List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String,List<String>>();
 		
-		List<String> keggPathwayGeneIdList;
+		List<Integer> keggPathwayGeneIdList;
 		List<String> keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 		List<String> keggPathwayAlternateGeneNameList = new ArrayList<String>();
 		

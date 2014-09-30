@@ -42,6 +42,11 @@ public class Commons {
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 24;
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT = NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1;
 	
+	//EnumType UserDefinedGeneSetInputType
+	public static final String GENE_ID 					= "GENE_ID";
+	public static final String RNA_NUCLEOTIDE_ACCESSION = "RNA_NUCLEOTIDE_ACCESSION";
+	public static final String GENE_SYMBOL 				= "GENE_SYMBOL";
+
 	//EnumTye AnnotationType
 	public static final String DNASE_ANNOTATION 				= "DNASE_ANNOTATION";
 	public static final String TF_ANNOTATION 					= "TF_ANNOTATION";
@@ -734,6 +739,11 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_KEGG_Pathway_results.txt";
 	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_KEGG_Pathway_results.txt";
 	
+	public static final String ANNOTATE_INTERVALS_EXON_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION  + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_User_Defined_GeneSet_results.txt";
+	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_User_Defined_GeneSet_results.txt";
+	public static final String ANNOTATE_INTERVALS_ALL_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_User_Defined_GeneSet_results.txt";
+
+	
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_Exon_Based_KEGG_Pathway_results.txt";
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_Regulation_Based_KEGG_Pathway_results.txt";
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_All_Based_KEGG_Pathway_results.txt";
@@ -949,6 +959,11 @@ public class Commons {
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENAME_2_FILENUMBER_OUTPUT_FILENAME = "all_possible_encode_fileName_2_fileNumber_map.txt";
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_encode_fileNumber_2_fileName_map.txt";
 
+	
+	//USER DEFINED GENESET
+	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME = "all_possible_userDefinedGeneSet_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNAME_2_USERDEFINEDGENESETNUMBER_OUTPUT_FILENAME = "all_possible_userDefinedGeneSetName_2_userDefinedGeneSetNumber_map.txt";
+	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME = "all_possible_userDefinedGeneSetNumber_2_userDefinedGeneSetName_map.txt";
 
 	//KEGG PATHWAY
 	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";

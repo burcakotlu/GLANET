@@ -60,8 +60,12 @@ import java.util.Map;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
+import userdefined.geneset.UserDefinedGeneSetUtility;
+import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import empiricalpvalues.AllMaps;
 import empiricalpvalues.AllMapsWithNumbers;
@@ -72,6 +76,7 @@ import enumtypes.EnrichmentType;
 import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeType;
+import enumtypes.UserDefinedGeneSetInputType;
 
 /**
  * 
@@ -13074,6 +13079,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
+		//@todo we have to read it from program arguments
+		String userDefinedGeneSetInputFile = "";
+		
 		int overlapDefinition = Integer.parseInt( args[3]);
 		
 		String inputFileName;
@@ -13084,7 +13092,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		//Histone Enrichment, DO or DO_NOT
 		EnrichmentType histoneEnrichmentType = EnrichmentType.convertStringtoEnum(args[11]);
-		
 		
 		//Transcription Factor Enrichment, DO or DO_NOT
 		EnrichmentType tfEnrichmentType = EnrichmentType.convertStringtoEnum(args[12]);
@@ -13140,10 +13147,10 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		TShortObjectMap<String> fileNumber2FileNameMap 						= new TShortObjectHashMap<String>();
 		TShortObjectMap<String> histoneNumber2HistoneNameMap 				= new TShortObjectHashMap<String>();	
 		TShortObjectMap<String> tfNumber2TfNameMap 							= new TShortObjectHashMap<String>();	
-		TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap		= new TShortObjectHashMap<String>();		
-		TIntObjectMap<String> 	geneHugoSymbolNumber2GeneHugoSymbolNameMap 	= new TIntObjectHashMap<String>();
-		TIntObjectMap<String> 	refSeqGeneNumber2RefSeqGeneNameMap 			= new TIntObjectHashMap<String>();
+		TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap		= new TShortObjectHashMap<String>();	
 		
+		TIntObjectMap<String> 	geneHugoSymbolNumber2GeneHugoSymbolNameMap 	= new TIntObjectHashMap<String>();
+		TIntObjectMap<String> 	refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap 	= new TIntObjectHashMap<String>();
 		
 		fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
 		fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
@@ -13151,7 +13158,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);		
 		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);	
 		fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-		fillNumber2NameMap(refSeqGeneNumber2RefSeqGeneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
+		fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
 		/******************************************************/
 		/***************FILL NUMBER 2 NAME MAPS*****ends*******/
 		/******************************************************/
@@ -13159,9 +13166,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/******************************************************/
 		/***************FILL NAME 2 NUMBER MAPS******starts****/
 		/******************************************************/
-		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap 	= new TObjectShortHashMap<String>();
-		
-		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);
+		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap 				= new TObjectShortHashMap<String>();
+				
+		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);		
 		/******************************************************/
 		/***************FILL NAME 2 NUMBER MAPS*****ends*******/
 		/******************************************************/
@@ -13179,6 +13186,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		//Hg19 RefSeq Genes
 		TIntIntMap geneAlternateNumber2KMap = new TIntIntHashMap();	
+		
+		
+		TShortIntMap exonBasedUserDefinedGeneSet2KMap 			= new TShortIntHashMap();
+		TShortIntMap regulationBasedUserDefinedGeneSet2KMap 	= new TShortIntHashMap();
+		TShortIntMap allBasedUserDefinedGeneSet2KMap 			= new TShortIntHashMap();
 			
 		//KEGGPathway
 		TIntObjectMap<TShortArrayList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortArrayList>();
@@ -13291,10 +13303,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/
 		/************HG19 Refseq GENE*****ANNOTATION***starts***************************/
 		/*******************************************************************************/	
+		/****************This has been coded for Chen Yao*******************************/	
+		/*******************************************************************************/	
 		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
 		dateBefore = System.currentTimeMillis();
 		
-		searchGeneWithNumbers(dataFolder,outputFolder,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+		searchGeneWithNumbers(dataFolder,outputFolder,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
 		dateAfter = System.currentTimeMillis();
 			
@@ -13318,7 +13332,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());
 		
 		    dateBefore = System.currentTimeMillis();
-		   	searchKEGGPathwayWithNumbers(dataFolder,outputFolder,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+		   	searchKEGGPathwayWithNumbers(dataFolder,outputFolder,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 		   	writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
@@ -13338,32 +13352,53 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/*******************************************************************************/	
 		
 		
-//		/*******************************************************************************/
-//		/************USER DEFINED GENESET*****ANNOTATION***starts***********************/
-//		/*******************************************************************************/	
-//		if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
-//		    
-//			GlanetRunner.appendLog("User Defined GeneSet annotation starts: " + new Date());
-//		
-//		    dateBefore = System.currentTimeMillis();
-//		   	searchKEGGPathwayWithNumbers(dataFolder,outputFolder,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
-//		   	writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-//			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-//			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-//			dateAfter = System.currentTimeMillis();
-//			
-//			GlanetRunner.appendLog("User Defined GeneSet annotation ends: " + new Date());
-//		    
-//			GlanetRunner.appendLog("User Defined GeneSet annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
-//			GlanetRunner.appendLog("**********************************************************");
-//			
-//			System.gc();
-//			System.runFinalization();
-//
-//		}	
-//		/*******************************************************************************/
-//		/************USER DEFINED GENESET*****ANNOTATION***ends***********************/
-//		/*******************************************************************************/	
+		/*******************************************************************************/
+		/************USER DEFINED GENESET*****ANNOTATION***starts***********************/
+		/*******************************************************************************/	
+		if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
+		    
+			GlanetRunner.appendLog("User Defined GeneSet annotation starts: " + new Date());
+					
+		    dateBefore = System.currentTimeMillis();
+		    
+		    //used in write results
+		    TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap	= new TShortObjectHashMap<String>();	
+		    //used in filling geneId2ListofUserDefinedGeneSetNumberMap
+		    TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap 	= new TObjectShortHashMap<String>();
+
+		    //@todo userDefinedGeneSetInputFile has to be read from the program arguments
+		    userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		    //@todo UserDefinedGeneSetInputType has to be read from the program arguments
+		    UserDefinedGeneSetInputType userDefinedGeneSetInputType = UserDefinedGeneSetInputType.GENE_SYMBOL;
+		    
+//		    //Fill userDefinedGeneSetName2UserDefinedGeneSetNumber 
+//		    //Fill userDefinedGeneSetNumber2UserDefinedGeneSetName files
+//		    WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeAllPossibleUserDefinedGeneSetNames(dataFolder,userDefinedGeneSetInputFile,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
+		    
+		    //Check this
+		    //User Defined GeneSet
+			TIntObjectMap<TShortArrayList> geneId2ListofUserDefinedGeneSetNumberMap = new TIntObjectHashMap<TShortArrayList>();	
+			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder,userDefinedGeneSetInputFile,userDefinedGeneSetInputType,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,geneId2ListofUserDefinedGeneSetNumberMap);
+				    	
+			    
+		   	searchKEGGPathwayWithNumbers(dataFolder,outputFolder,exonBasedUserDefinedGeneSet2KMap,regulationBasedUserDefinedGeneSet2KMap,allBasedUserDefinedGeneSet2KMap,overlapDefinition,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,geneId2ListofUserDefinedGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
+		   	writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT);
+			dateAfter = System.currentTimeMillis();
+			
+			GlanetRunner.appendLog("User Defined GeneSet annotation ends: " + new Date());
+		    
+			GlanetRunner.appendLog("User Defined GeneSet annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
+			GlanetRunner.appendLog("**********************************************************");
+			
+			System.gc();
+			System.runFinalization();
+
+		}	
+		/*******************************************************************************/
+		/************USER DEFINED GENESET*****ANNOTATION***ends***********************/
+		/*******************************************************************************/	
 		
 		
 	    /*******************************************************************************/
@@ -13374,7 +13409,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
 		    
 		    dateBefore = System.currentTimeMillis();
-			searchTfKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+			searchTfKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
 			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
@@ -13411,7 +13446,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
 		    
 		    dateBefore = System.currentTimeMillis();
-		    searchTfCellLineKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+		    searchTfCellLineKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
 			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
@@ -13516,7 +13551,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			GlanetRunner.appendLog("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + new Date());
 		    			
 		    dateBefore = System.currentTimeMillis();
-			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);
+			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
 			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
