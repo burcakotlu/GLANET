@@ -43,6 +43,7 @@ public class App
         		super.windowClosing(e);
         	}
 		});
+        
         frame.setVisible(true);
         frame.pack();
         frame.repaint();
