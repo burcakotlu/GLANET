@@ -26,11 +26,15 @@ public class GlanetRunner extends Thread{
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Preparation...");
 			
+			if( Thread.interrupted())
+				return;
 			Preparation.main( args);
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "InputDataProcess...");
 			
+			if( Thread.interrupted())
+				return;
 			InputDataProcess.main( args);
 			
 			/* In case of Enrichment remove overlaps and merge */
@@ -40,12 +44,16 @@ public class GlanetRunner extends Thread{
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 				
+				if( Thread.interrupted())
+					return;
 				InputDataRemoveOverlaps.main( args);
 			}
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 			
+			if( Thread.interrupted())
+				return;
 			AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
 			
 			
@@ -54,21 +62,29 @@ public class GlanetRunner extends Thread{
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 				
+				if( Thread.interrupted())
+					return;
 				AnnotatePermutationsWithNumbersWithChoices.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 				
+				if( Thread.interrupted())
+					return;
 				CollectionofPermutationsResults.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 				
+				if( Thread.interrupted())
+					return;
 				AugmentationofEnrichedElementswithGivenInputData.main( args);
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
 				
+				if( Thread.interrupted())
+					return;
 				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
 		
 				
@@ -76,10 +92,16 @@ public class GlanetRunner extends Thread{
 					
 					if( getMainView() != null)
 						getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+					
+					if( Thread.interrupted())
+						return;
 					GenerationofSequencesandMatricesforGivenIntervals.main( args);
 					
 					if( getMainView() != null)
 						getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
+					
+					if( Thread.interrupted())
+						return;
 					RSATMatrixScanClient.main( args);
 				}
 			}
