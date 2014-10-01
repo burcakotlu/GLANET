@@ -1485,7 +1485,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	public static void writeAllPossibleGeneIds(String dataFolder){
 
 		List<String> geneIds = new ArrayList<String>();
-		readGeneIds(dataFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME );
+		readGeneIds(dataFolder, geneIds,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME +Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014 );
 		writeNames(dataFolder,geneIds,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME);		
 		
 	}
@@ -1493,7 +1493,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	public static void writeAllPossibleRNAAccessionVersions(String dataFolder){
 
 		List<String> rnaNucleotideAccessionVersions = new ArrayList<String>();
-		readRNAAccessionVersions(dataFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+		readRNAAccessionVersions(dataFolder,rnaNucleotideAccessionVersions,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
 		writeNames(dataFolder,rnaNucleotideAccessionVersions,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME);		
 		
 	}
@@ -1502,7 +1502,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	public static void writeAllPossibleUcscRefSeqGeneName2s(String dataFolder){
 
 		List<String> ucscRefSeqGeneName2s = new ArrayList<String>();
-		readUcscRefSeqGeneName2s(dataFolder,ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES);
+		readUcscRefSeqGeneName2s(dataFolder,ucscRefSeqGeneName2s,Commons.FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014);
 		writeNames(dataFolder,ucscRefSeqGeneName2s,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME);		
 		
 	}

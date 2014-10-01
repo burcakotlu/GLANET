@@ -38,8 +38,8 @@ public class HumanRefSeq2Gene {
 		int numberofHumanGene2RefseqLines = 0;
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_GENE_TO_REF_SEQ);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_GENE_TO_REF_SEQ_1_OCT_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
 		
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -105,9 +105,9 @@ public class HumanRefSeq2Gene {
 		RefSeq2Gene refSeq2Gene = null;
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME, Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME);
-			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME,Commons.NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_1_OCT_2014);
+			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_1_OCT_2014);
 			
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -123,7 +123,8 @@ public class HumanRefSeq2Gene {
 				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab+1);
 				
 				geneId = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-				//may be null (-)
+				
+				//RNA_Nucleotide_Accession_WithVersion may be null (-)
 				RNA_Nucleotide_Accession_WithVersion = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 		
 				indexofDot = RNA_Nucleotide_Accession_WithVersion.indexOf('.');

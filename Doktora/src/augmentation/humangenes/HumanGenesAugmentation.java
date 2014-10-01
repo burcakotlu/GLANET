@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import auxiliary.FileOperations;
 import common.Commons;
 
 
@@ -44,11 +45,10 @@ public class HumanGenesAugmentation {
 		String RNANucleotideAccessionWithVersion;
 		String RNANucleotideAccession;
 
-		List<String> RNANucleotideAccessionList;
 		List<Integer> geneIDList;
 		
 		try {
-			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -75,9 +75,6 @@ public class HumanGenesAugmentation {
 				
 				if (!RNANucleotideAccessionWithVersion.equals("-")){
 					
-					
-					
-					
 					//FILL RefSeqRNANucleotideAccession2ListofHumanGeneIdMap starts
 					if (RNANucleotideAccession!=null){
 						
@@ -86,8 +83,7 @@ public class HumanGenesAugmentation {
 						if(geneIDList==null){
 							geneIDList = new ArrayList<Integer>();
 							
-							geneIDList.add(geneID);	
-							
+							geneIDList.add(geneID);								
 							
 							RNANucleotideAccession2ListofGeneIdMap.put(RNANucleotideAccession, geneIDList);							
 						}else{
@@ -153,7 +149,7 @@ public class HumanGenesAugmentation {
 		
 		
 		try {
-			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			//skip header line
@@ -258,7 +254,7 @@ public class HumanGenesAugmentation {
 		
 		
 		try {
-			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES);
+			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			//skip header line
@@ -377,7 +373,7 @@ public class HumanGenesAugmentation {
 		List<Integer> geneIDList;
 		
 		try {
-			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -491,7 +487,7 @@ public class HumanGenesAugmentation {
 		List<String> refSeqRNANucleotideAccessionList;
 		
 		try {
-			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME);
+			fileReader =  new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null) {
@@ -580,7 +576,7 @@ public class HumanGenesAugmentation {
 		
 		
 		try {
-			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES);
+			fileReader = new FileReader(dataFolder + Commons.FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			//skip header line

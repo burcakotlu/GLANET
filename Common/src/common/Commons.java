@@ -735,14 +735,16 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_results.txt";
 	public static final String ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Histone_results.txt";
 	
-	public static final String ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION  + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_KEGG_Pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_KEGG_Pathway_results.txt";
-	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_KEGG_Pathway_results.txt";
+//	public static final String ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION  + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_"; KEGG_Pathway_results.txt";
+//	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_KEGG_Pathway_results.txt";
+//	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_KEGG_Pathway_results.txt";
 	
-	public static final String ANNOTATE_INTERVALS_EXON_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION  + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_User_Defined_GeneSet_results.txt";
-	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_User_Defined_GeneSet_results.txt";
-	public static final String ANNOTATE_INTERVALS_ALL_BASED_USER_DEFINED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_User_Defined_GeneSet_results.txt";
-
+	public static final String ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_";
+	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_";
+	public static final String ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_";
+	
+	public static final String USER_DEFINED_GENESET_RESULTS = "_User_Defined_GeneSet_results.txt";
+	public static final String GENESET_RESULTS = "_results.txt";
 	
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_Exon_Based_KEGG_Pathway_results.txt";
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_Regulation_Based_KEGG_Pathway_results.txt";
@@ -906,6 +908,10 @@ public class Commons {
 	public static final String DNASE = "Dnase";
 	public static final String TF = "TF";
 	public static final String HISTONE = "Histone";
+	
+	public static final String EXON_BASED = "ExonBased";
+	public static final String REGULATION_BASED = "RegulationBased";
+	public static final String ALL_BASED = "AllBased";
 
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBasedKEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBasedKEGGPathway";
@@ -1066,16 +1072,18 @@ public class Commons {
 	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_UCSC_REFSEQ_GENES_INTERVAL_TREE = "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_with_Interval_Tree_Infix_Traversal" + System.getProperty("file.separator") + "sorted_chrY_ucsc_refseq_genes_interval_tree.txt";
 			
 	//Downloaded from ncbi, gene2refseq.txt data
-	public static final String NCBI_GENE_TO_REF_SEQ = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
-	
+//	public static final String NCBI_GENE_TO_REF_SEQ = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
+	public static final String NCBI_GENE_TO_REF_SEQ_1_OCT_2014 = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq_1_OCT_2014.txt";	
+
 	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
+//	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014 ="human_gene2refseq_1_OCT_2014.txt";
 
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_FILENAME = "human_refseqRNANucleotideAccession2gene.txt";
+//	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID = "human_refseqRNANucleotideAccession2gene.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_1_OCT_2014 = "human_RNANucleotideAccession2GeneID_1_OCT_2014.txt";
 
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_REF_SEQ_TO_GENE_2_FILENAME = "human_refseqRNANucleotideAccessionWithVersion2gene.txt";
+//	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID = "human_refseqRNANucleotideAccessionWithVersion2gene.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_1_OCT_2014 = "human_RNANucleotideAccessionWithVersion2GeneID_1_OCT_2014.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
 //	They have been unzipped.
@@ -1096,7 +1104,8 @@ public class Commons {
 	public static final String SEARCH_OUTPUT_FILE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "using" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "SearchOutput.txt";
 	
 	
-	public static final String FTP_HG19_REFSEQ_GENES = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
+//	public static final String FTP_HG19_REFSEQ_GENES = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
+	public static final String FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014 = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes_1_OCT_2014.txt"; 
 	
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";

@@ -2494,6 +2494,13 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
 		
 		
+		//UserDefinedGeneSet Enrichement
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+		
+		//UserDefinedLibrary Enrichement
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
+	
+		
 		writeInformation();
 			
 		//Random Class for generating small values instead of zero valued p values
@@ -2538,16 +2545,22 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		
 		
 		/*********************************************************************************************/			
-		/*********************FILL GENEID 2 KEGG PATHWAY NUMBER  MAP STARTS***************************/		
+		/*********************FILL GENEID 2 KEGG PATHWAY NUMBER  MAP STARTS***************************/
 		//For efficiency
 		//Fill this map only once.
 		//NCBI Gene Id is Integer
 		TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();		
 		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectShortHashMap<String>();
-				
-		//all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
-		KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES+ System.getProperty("file.separator") ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
-		KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayName2KeggPathwayNumberMap);
+
+		if(keggPathwayEnrichmentType.isGeneSetEnrichment() ||
+			tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() ||
+			tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
+					
+			//all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
+			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES+ System.getProperty("file.separator") ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
+			KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayName2KeggPathwayNumberMap);
+
+		}
 		/*********************FILL GENEID 2 KEGG PATHWAY NUMBER  MAP  ENDS****************************/		
 		/*********************************************************************************************/			
 		
@@ -2589,6 +2602,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntIntMap originalTfbs2KMap 			= new TIntIntHashMap();
 			TIntIntMap originalHistone2KMap 		= new TIntIntHashMap();
 			
+			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap 		= new TIntIntHashMap();
+			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap 	= new TIntIntHashMap();
+			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap 			= new TIntIntHashMap();
+			
 			TIntIntMap originalExonBasedKeggPathway2KMap 		= new TIntIntHashMap();
 			TIntIntMap originalRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
 			TIntIntMap originalAllBasedKeggPathway2KMap 		= new TIntIntHashMap();
@@ -2615,6 +2632,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntObjectMap<TIntList> dnase2AllKMap 		= new TIntObjectHashMap<TIntList>();
 			TIntObjectMap<TIntList> histone2AllKMap 	= new TIntObjectHashMap<TIntList>();
 			TIntObjectMap<TIntList> tfbs2AllKMap 		= new TIntObjectHashMap<TIntList>();
+			
+			TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap 		= new TIntObjectHashMap<TIntList>();
+			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap 	= new TIntObjectHashMap<TIntList>();
+			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap 			= new TIntObjectHashMap<TIntList>();
 			
 			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap 			= new TIntObjectHashMap<TIntList>();
 			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap 		= new TIntObjectHashMap<TIntList>();
@@ -2669,6 +2690,21 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				
 				//Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runName);
+			}
+			
+			if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
+				
+//				public static final String 
+//				TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= 
+//				ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
+//
+//				ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
+//
+//				//Write to be collected files
+//				writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+//				writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+//				writeToBeCollectedNumberofOverlaps(outputFolder,originalAllBasedKeggPathway2KMap,allBasedKeggPathway2AllKMap,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,runName);
+			
 			}
 				
 			if (keggPathwayEnrichmentType.isGeneSetEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){

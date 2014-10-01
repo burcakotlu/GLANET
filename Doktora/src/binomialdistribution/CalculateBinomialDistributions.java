@@ -478,7 +478,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//exon based kegg pathway
-		fillHashMapwithOccurences(exonBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+		fillHashMapwithOccurences(exonBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
 		fillHashMapwithOccurences(exonBasedKeggPathwayWholeGenomeMap, outputFolder,Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison
@@ -500,7 +500,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//regulation based kegg pathway
-		fillHashMapwithOccurences(regulationBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+		fillHashMapwithOccurences(regulationBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
 		fillHashMapwithOccurences(regulationBasedKeggPathwayWholeGenomeMap, outputFolder,Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison

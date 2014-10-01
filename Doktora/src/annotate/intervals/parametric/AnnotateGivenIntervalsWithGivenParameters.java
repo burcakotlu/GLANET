@@ -8435,9 +8435,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		writeResults(tfCellLine2KMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
 		
-		writeResults(exonBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-		writeResults(regulationBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-		writeResults(allBasedKeggPathway2KMap,  outputFolder, Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+		writeResults(exonBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
+		writeResults(regulationBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
+		writeResults(allBasedKeggPathway2KMap,  outputFolder, Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
 		
 		writeResults(tfCellLineExonBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 		writeResults(tfCellLineRegulationBasedKeggPathway2KMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);

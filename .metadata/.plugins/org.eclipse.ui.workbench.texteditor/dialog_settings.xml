@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="keggPathwayName2KeggPathwayNumberMap" key="selection"/>
+		<item value="USER" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="keggPathwayName2KeggPathwayNumberMap"/>
-			<item value="userDefinedGeneSetName2UserDefinedGeneSetNumberMap"/>
-			<item value="userDefinedGeneSetNumber2UserDefinedGeneSetNameMap"/>
-			<item value="hyphen"/>
-			<item value="taxid"/>
-			<item value="dnaseEnrichment"/>
-			<item value="22"/>
-			<item value="commonRSID"/>
+			<item value="user"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap)"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value="searchGeneSetWithNumbers(outputFolder,ChromosomeName.CHROMOSOME1,bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedKeggPathwayNumber2KMap,regulationBasedKeggPathwayNumber2KMap,allBasedKeggPathwayNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value="searchKeggPathwayWithNumbers"/>
+			<item value="searchKeggPathwatWithNumbers"/>
 		</list>
 		<list key="replacehistory">
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap,geneSetName)"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value=",bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value="searchGeneSetWithNumbers(outputFolder,ChromosomeName.CHROMOSOME1,bufferedReader,ucscRefSeqGenesIntervalTree,exonBasedKeggPathwayBufferedWriterHashMap,regulationBasedKeggPathwayBufferedWriterHashMap,allBasedKeggPathwayBufferedWriterHashMap,exonBasedGeneSetNumber2KMap,regulationBasedGeneSetNumber2KMap,allBasedGeneSetNumber2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap);"/>
+			<item value="searchGeneSetWithNumbers"/>
 			<item value="ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE"/>
 			<item value="bufferedReader,ucscRefSeqGenesIntervalTree,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap"/>
-			<item value="Map"/>
-			<item value="new HashMap&lt;String,Element&gt;()"/>
-			<item value=""/>
-			<item value="Commons.CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
-			<item value="Commons.RESULTS"/>
-			<item value="CHROMOSOME_BASED_GIVEN_INPUT_CHR"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="789" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="583" key="DIALOG_HEIGHT"/>
-		<item value="732" key="DIALOG_X_ORIGIN"/>
-		<item value="630" key="DIALOG_Y_ORIGIN"/>
+		<item value="1143" key="DIALOG_X_ORIGIN"/>
+		<item value="52" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

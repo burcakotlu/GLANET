@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import common.Commons;
 
 /**
- * Hello world!
+ * GLANET GUI Application
  *
  */
 public class App 
@@ -19,8 +19,7 @@ public class App
 	private static JPanel mainPanel;
 	public static ViewController initialViewController;
 	
-	public static void setInitialViewController( ViewController viewController){
-		
+	public static void setInitialViewController( ViewController viewController){		
 		initialViewController = viewController;
 	}
 	
