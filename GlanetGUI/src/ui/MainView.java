@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import common.Commons;
-import dictionary.CellLine;
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;
 
@@ -168,14 +167,16 @@ public class MainView extends JPanel{
 	};
 	
 	ItemListener enableEnrichmentListener = new ItemListener() {
-	      public void itemStateChanged(ItemEvent itemEvent) {
+	      @Override
+		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
 	    	  enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
 	      }
 	};
 	
 	ItemListener enableRegulatorySequenceAnalysis = new ItemListener() {
-	      public void itemStateChanged(ItemEvent itemEvent) {
+	      @Override
+		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
 	    	  checkUsabilityOfRegulatorySequenceAnalysis();
 	      }
@@ -383,7 +384,7 @@ public class MainView extends JPanel{
         //logArea added to listPane
         logArea = new JTextArea( 5, 20);
         JScrollPane logAreaScrollPane = new JScrollPane( logArea);
-        logAreaScrollPane.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        logAreaScrollPane.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         logAreaScrollPane.setPreferredSize(new Dimension(250, 250));
         logArea.setEditable( false);
         logArea.setLineWrap(true);

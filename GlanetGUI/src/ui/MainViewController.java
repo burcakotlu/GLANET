@@ -1,9 +1,7 @@
 package ui;
 
 import javax.swing.JPanel;
-
 import common.Commons;
-
 import ui.MainView.MainViewDelegate;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
@@ -105,6 +103,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
 	//					give an out of boundry exception in a for loop with this approach.
 	
+	@Override
 	public void startRunActionsWithOptions( String inputFileName, 
 			   String outputFolder,
 			   String inputFileFormat,
@@ -159,6 +158,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = userDefinedGeneSetEnrichment;
 		args[i++] = userDefinedLibraryEnrichment;
 		
+		//for( i = 0; i < args.length; i++)
+			//System.out.println( args[i]);
+		
 		//filling the rest with selected cell lines. 
 		for( i = Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i < args.length; i++)
 			args[i] = cellLinesToBeConsidered[i-Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
@@ -171,6 +173,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		runner.start();
 	}
 	
+	@Override
 	public void stopCurrentProcess() {
 		
 		runner.interrupt();
