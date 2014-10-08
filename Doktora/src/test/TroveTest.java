@@ -23,6 +23,7 @@ public class TroveTest {
 		TIntObjectHashMap tIntIntMap = new TIntObjectHashMap();
 		tIntIntMap.put(100, 10000);
 		tIntIntMap.put(200, 20000);
+		tIntIntMap.put(20, 200);
 		
 	
 		
@@ -36,7 +37,6 @@ public class TroveTest {
 		for ( TIntObjectIterator it = tIntIntMap.iterator(); it.hasNext(); ) {
 		    it.advance();
 		    System.out.println(it.key() + "\t" + it.value() );
-		    
 		}
 		
 		//LIST

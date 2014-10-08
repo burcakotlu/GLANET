@@ -1225,17 +1225,17 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
 		 }
 		 
-		 if (tfEnrichment.isTfEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){
+		 if (tfEnrichment.isTfEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 		 }
 		 
-		 if (keggPathwayEnrichment.isGeneSetEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){
+		 if (keggPathwayEnrichment.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY);
 		 }
 		
-	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && !(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment())){	    	 
+	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){	    	 
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
@@ -1248,7 +1248,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	    	 readTfKeggPathwayAllAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS+ "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_ALL_BASED_KEGG_PATHWAY);			
 	     }
 		
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment() && !(tfKeggPathwayEnrichment.isTfGeneSetEnrichment())){
+	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);
@@ -1260,7 +1260,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	    	 readTfCellLineKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	     }
 	     
-	     if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
+	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY);

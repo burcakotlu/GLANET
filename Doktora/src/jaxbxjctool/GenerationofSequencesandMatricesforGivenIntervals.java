@@ -2682,7 +2682,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			}
 			
 								
-			if (tfKeggPathwayEnrichment.isTfGeneSetEnrichment()){
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched TfandKeggPathway
 				//Output dnaSequences for TfandKeggPathway
@@ -2692,7 +2692,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
 			}
 			
-			if(tfCellLineKeggPathwayEnrichment.isTfCellLineGeneSetEnrichment()){
+			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway

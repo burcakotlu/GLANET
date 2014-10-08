@@ -23,6 +23,107 @@ import common.Commons;
 
 public class HumanGenesAugmentation {
 	
+	
+	//read NCBI humanGene2RefSeq file
+	//fill map --> geneSymbol2ListofGeneIDMap: this map is ? 2 ? (? pairs)
+	public static void fillGeneSymbol2ListofGeneIDMap(String dataFolder,
+			Map<String,List<Integer>> geneSymbol2ListofGeneIdMap){
+		
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		String strLine;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		int indexofEleventhTab;
+		int indexofTwelfthTab;
+		int indexofThirteenthTab;
+		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+		
+		int geneID;
+		String geneSymbol;
+	
+		List<Integer> geneIDList;
+		
+		try {
+			fileReader =  FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null) {
+				//example line
+				//the second column is gene id column
+				//the fourth column is the refseq gene name column
+//				9606	1	REVIEWED	NM_130786.3	161377438	NP_570602.2	21071030	AC_000151.1	157718668	55167315	55174019	-	Alternate HuRef	-	-	A1BG
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+				indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+				indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+				indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+				indexofEigthTab = strLine.indexOf('\t',indexofSeventhTab+1);
+				indexofNinethTab = strLine.indexOf('\t',indexofEigthTab+1);
+				indexofTenthTab = strLine.indexOf('\t',indexofNinethTab+1);
+				indexofEleventhTab = strLine.indexOf('\t',indexofTenthTab+1);
+				indexofTwelfthTab = strLine.indexOf('\t',indexofEleventhTab+1);
+				indexofThirteenthTab= strLine.indexOf('\t',indexofTwelfthTab+1);
+				indexofFourteenthTab = strLine.indexOf('\t',indexofThirteenthTab+1);
+				indexofFifteenthTab = strLine.indexOf('\t',indexofFourteenthTab+1);
+				
+				geneID = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				
+				//geneSymbol the default symbol for the gene
+				geneSymbol= strLine.substring(indexofFifteenthTab+1);
+				
+				
+				if ((geneSymbol!=null) &&  !(geneSymbol.equals("-"))){
+					
+					//FILL geneSymbol2ListoGeneIdMap starts	
+					geneIDList = geneSymbol2ListofGeneIdMap.get(geneSymbol);
+				
+					if(geneIDList==null){
+						geneIDList = new ArrayList<Integer>();
+						geneIDList.add(geneID);								
+						geneSymbol2ListofGeneIdMap.put(geneSymbol, geneIDList);							
+					}else{
+						if (!geneIDList.contains(geneID)){
+							geneIDList.add(geneID);	
+						}
+						
+						//For debugging purposes
+						if(geneIDList.size()>1){
+							System.out.println("geneSymbol: " + geneSymbol + " geneIDList size: " + geneIDList.size());
+						}
+					
+						geneSymbol2ListofGeneIdMap.put(geneSymbol, geneIDList);							
+							
+					}
+					//FILL geneSymbol2ListoGeneIdMap ends	
+					
+									
+				}//End of IF: geneSymbol is not NULL
+				
+			}//End of while
+			
+			bufferedReader.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//@todo starts
 	//read NCBI humanGene2RefSeq file
 	//fill map --> RNANucleotideAccession2ListofGeneIDMap: this map is many 2 one (41065 pairs)

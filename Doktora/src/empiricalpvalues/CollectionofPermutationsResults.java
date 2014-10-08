@@ -59,7 +59,7 @@ public class CollectionofPermutationsResults {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//header line in output file
-			bufferedWriter.write("Element Number" + "\t" +  "Element Name" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons"  + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
+			bufferedWriter.write("Element Number" + "\t" +  "Element Name" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons for Bonferroni Correction" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons"  + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
 
 			Iterator<FunctionalElement> itr = list.iterator();
 			
@@ -67,9 +67,9 @@ public class CollectionofPermutationsResults {
 				element = itr.next();
 				
 				
-				if(	enrichmentType.isGeneSetEnrichment() ||
-					enrichmentType.isTfGeneSetEnrichment() ||
-					enrichmentType.isTfCellLineGeneSetEnrichment()){
+				if(	enrichmentType.isKeggPathwayEnrichment() ||
+					enrichmentType.isTfKeggPathwayEnrichment() ||
+					enrichmentType.isTfCellLineKeggPathwayEnrichment()){
 					
 					//line per element in output file
 					bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");
@@ -125,7 +125,7 @@ public class CollectionofPermutationsResults {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//header line in output file
-			bufferedWriter.write("Element Number" + "\t" + "Element Name" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
+			bufferedWriter.write("Element Number" + "\t" + "Element Name" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in " + numberofPermutations + " Permutations" + "\t"+ "Number of Permutations" + "\t" + "Number of comparisons for Bonferroni Correction" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValue for " +  numberofComparisons  + " comparisons" + "\t" + "BH FDR Adjusted P Value" + "\t" + "Reject Null Hypothesis for an FDR of " + FDR +System.getProperty("line.separator"));
 
 			Iterator<FunctionalElement> itr = list.iterator();
 			
@@ -133,9 +133,9 @@ public class CollectionofPermutationsResults {
 				element = itr.next();
 				
 				
-				if(	enrichmentType.isGeneSetEnrichment() ||
-					enrichmentType.isTfGeneSetEnrichment() ||
-					enrichmentType.isTfCellLineGeneSetEnrichment()){
+				if(	enrichmentType.isKeggPathwayEnrichment() ||
+					enrichmentType.isTfKeggPathwayEnrichment() ||
+					enrichmentType.isTfCellLineKeggPathwayEnrichment()){
 					
 					//line per element in output file
 					bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" +  element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t"+ numberofPermutations+ "\t" +numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() +"\t");					
@@ -248,7 +248,7 @@ public class CollectionofPermutationsResults {
 													 return histoneName + "_" + cellLineName;													
 												}
 			
-			case KEGGPATHWAYNUMBER:{	keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
+			case KEGGPATHWAYNUMBER:{	keggPathwayNumber = IntervalTree.getGeneSetNumber(number);
 									 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
 									 	return keggPathwayName;
 									}
@@ -256,7 +256,7 @@ public class CollectionofPermutationsResults {
 			case TFNUMBER_KEGGPATHWAYNUMBER:{		tfNumber = IntervalTree.getTforHistoneNumber(number,keyOrder);
 													tfName = tfNumber2NameMap.get(tfNumber);
 													
-													keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
+													keggPathwayNumber = IntervalTree.getGeneSetNumber(number);
 												 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
 												 	
 												 	return tfName  + "_" + keggPathwayName;	
@@ -268,7 +268,7 @@ public class CollectionofPermutationsResults {
 																cellLineNumber = IntervalTree.getCellLineNumber(number,keyOrder);
 																cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
 																
-																keggPathwayNumber = IntervalTree.getKeggPathwayNumber(number);
+																keggPathwayNumber = IntervalTree.getGeneSetNumber(number);
 															 	keggPathwayName = keggPathwayNumber2NameMap.get(keggPathwayNumber);
 															 	
 															 	return tfName + "_" + cellLineName + "_" + keggPathwayName;		 
@@ -399,7 +399,7 @@ public class CollectionofPermutationsResults {
 							
 							//in case of element contains a KEGG PATHWAY
 							if (keyOrder.isKeggPathwayNumber() || keyOrder.isTfNumberKeggPathwayNumber() || keyOrder.isTfNumberCellLineNumberKeggPathwayNumber()){
-								keggPathwayNumber = IntervalTree.getKeggPathwayNumber(mixedNumber);
+								keggPathwayNumber = IntervalTree.getGeneSetNumber(mixedNumber);
 								element.setKeggPathwayNumber(keggPathwayNumber);
 							}
 							//set keggPathwayNumber
@@ -473,7 +473,7 @@ public class CollectionofPermutationsResults {
 			
 			/**********************************************************************************/		
 			/*****************AUGMENT WITH KEGG PATHWAY INFORMATION STARTS*********************/		
-			if (enrichmentType.isGeneSetEnrichment()){
+			if (enrichmentType.isKeggPathwayEnrichment()){
 				
 				//Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry(keggPathwayNumber2KeggPathwayEntryMap,list);
@@ -482,13 +482,13 @@ public class CollectionofPermutationsResults {
 				//Augment with Kegg Pathway Gene List and Alternate Gene Name List
 				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList(dataFolder,outputFolder,list,null,null);
 
-			}else if (enrichmentType.isTfGeneSetEnrichment()){
+			}else if (enrichmentType.isTfKeggPathwayEnrichment()){
 				//Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry(keggPathwayNumber2KeggPathwayEntryMap,list);
 				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayName(dataFolder,list,null,null);
 				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList(dataFolder,outputFolder,list,null,null);
 
-			}else if (enrichmentType.isTfCellLineGeneSetEnrichment()){
+			}else if (enrichmentType.isTfCellLineKeggPathwayEnrichment()){
 				//Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry(keggPathwayNumber2KeggPathwayEntryMap,list);
 				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName(dataFolder,list,null,null);
@@ -611,7 +611,15 @@ public class CollectionofPermutationsResults {
 		EnrichmentType keggPathwayEnrichmentType 			= EnrichmentType.convertStringtoEnum(args[13]);
 		EnrichmentType tfKeggPathwayEnrichmentType 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
+
+		//@todo which argument to be used will be changed
+		//User Defined GeneSet Enrichment, DO or DO_NOT
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 				
+		//@todo which argument to be used will be changed
+		//User Defined Library Enrichment, DO or DO_NOT
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[23]);
+			
 		//set the number of permutations in each run
 		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
 			
@@ -631,69 +639,209 @@ public class CollectionofPermutationsResults {
 				
 		
 		if	(dnaseEnrichmentType.isDnaseEnrichment()){
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsDnase(),dnaseEnrichmentType,KeyOrder.DNASE_CELLLINENUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsDnase(),
+					dnaseEnrichmentType,
+					KeyOrder.DNASE_CELLLINENUMBER);
 		}
 		
 		if (histoneEnrichmentType.isHistoneEnrichment()){
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsHistone(),histoneEnrichmentType,KeyOrder.HISTONENUMBER_CELLLINENUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsHistone(),
+					histoneEnrichmentType,
+					KeyOrder.HISTONENUMBER_CELLLINENUMBER);
 		}
 		
 
-		if (tfEnrichmentType.isTfEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsHistone(),tfEnrichmentType,KeyOrder.TFNUMBER_CELLLINENUMBER);
+		if (tfEnrichmentType.isTfEnrichment() && 
+				!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && 
+				!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsTfbs(),
+					tfEnrichmentType,
+					KeyOrder.TFNUMBER_CELLLINENUMBER);
 		}
 		
-		if (keggPathwayEnrichmentType.isGeneSetEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsHistone(),keggPathwayEnrichmentType,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsHistone(),keggPathwayEnrichmentType,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsHistone(),keggPathwayEnrichmentType,KeyOrder.KEGGPATHWAYNUMBER);
+		if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsExonBasedUserDefinedGeneSet(),
+					userDefinedGeneSetEnrichmentType,
+					KeyOrder.USERDEFINEDGENESETNUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,outputFolder,
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsRegulationBasedUserDefinedGeneSet(),
+					userDefinedGeneSetEnrichmentType,
+					KeyOrder.USERDEFINEDGENESETNUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsAllBasedUserDefinedGeneSet(),
+					userDefinedGeneSetEnrichmentType,
+					KeyOrder.USERDEFINEDGENESETNUMBER);
+		
 		}
 		
-		if(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment()  && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment())){
+		if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && 
+				!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) 
+				&& !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),
+					keggPathwayEnrichmentType,
+					KeyOrder.KEGGPATHWAYNUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),
+					keggPathwayEnrichmentType,
+					KeyOrder.KEGGPATHWAYNUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, 
+					jobName,
+					numberofRuns,
+					numberofRemainders,
+					numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),
+					keggPathwayEnrichmentType,
+					KeyOrder.KEGGPATHWAYNUMBER);
+		}
+		
+		if(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()  && 
+				!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 	
 			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER);
 
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
 
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
-
-		}
-		
-		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment() && !(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment())){
-			
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER);
-
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
 
 		}
 		
-		if(tfKeggPathwayEnrichmentType.isTfGeneSetEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineGeneSetEnrichment()){
+		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment() && 
+				!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment())){
 			
 			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER);
 
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_GENESET_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
-			
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),EnrichmentType.DO_TF_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
 
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
-			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
 
 		}
+		
+		if(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && 
+				tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
+			
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER);
+
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsExonBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsRegulationBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsAllBasedKeggPathway(),EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT,KeyOrder.KEGGPATHWAYNUMBER);
+			
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfExonBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfRegulationBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfAllBasedKeggPathway(),EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_KEGGPATHWAYNUMBER);
+
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineExonBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineRegulationBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+			collectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, jobName, numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonTfCellLineAllBasedKeggPathway(),EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,KeyOrder.TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER);
+
+		}
+		
+		
 		
 	
 	}

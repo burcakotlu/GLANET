@@ -682,7 +682,11 @@ public class KeggPathwayUtility {
 	 *  Map<String,List<String>> ncbiGeneId2KeggPathwayHashMap will be created.
 	 * 
 	 */
-	public static void createNcbiGeneId2ListofKeggPathwayNumberMap(String dataFolder,String fileName, TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap, TIntObjectMap<TShortArrayList> ncbiGeneId2ListofKeggPathwayNumberHashMap){
+	public static void createNcbiGeneId2ListofKeggPathwayNumberMap(
+			String dataFolder,
+			String fileName, 
+			TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap, 
+			TIntObjectMap<TShortList> ncbiGeneId2ListofKeggPathwayNumberHashMap){
 		
 		String strLine;
 		FileReader fileReader = null;
@@ -699,7 +703,7 @@ public class KeggPathwayUtility {
 		short keggPathwayNumber;
 		int ncbiGeneId;
 		
-		TShortArrayList existingKeggPathwayNumberList = null;
+		TShortList existingKeggPathwayNumberList = null;
 		
 		try {
 			fileReader = new FileReader(dataFolder + fileName);

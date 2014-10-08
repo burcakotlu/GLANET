@@ -1,0 +1,13 @@
+/**
+ * @author burcakotlu
+ * @date Oct 1, 2014 
+ * @time 5:20:27 PM
+ */
+package enumtypes;
+
+/**
+ * 
+ */
+public enum GeneSetAnalysisType {
+
+}

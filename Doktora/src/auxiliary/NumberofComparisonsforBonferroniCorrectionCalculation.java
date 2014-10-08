@@ -8,9 +8,12 @@
  */
 package auxiliary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import annotate.intervals.parametric.WriteAllPossibleNamesandUnsortedFilesWithNumbers;
 import binomialdistribution.CalculateBinomialDistributions;
 
 import common.Commons;
@@ -25,6 +28,8 @@ public class NumberofComparisonsforBonferroniCorrectionCalculation {
 		Map<String,Integer> exonBasedKeggPathwayHashMap = new HashMap<String,Integer>();
 		Map<String,Integer> regulationBasedKeggPathwayHashMap = new HashMap<String,Integer>();
 		Map<String,Integer> allBasedKeggPathwayHashMap = new HashMap<String,Integer>();
+		
+		List<String> nameList = new ArrayList<String>();
 		
 		//Bonferroni Correction
 		//Dnase		
@@ -66,7 +71,16 @@ public class NumberofComparisonsforBonferroniCorrectionCalculation {
 		numberofComparisons.setNumberofComparisonTfExonBasedKeggPathway(40081);
 		numberofComparisons.setNumberofComparisonTfRegulationBasedKeggPathway(40081);
 		numberofComparisons.setNumberofComparisonTfAllBasedKeggPathway(40081);
+		
+		//User Defined GeneSet 
+		nameList.clear();
+		WriteAllPossibleNamesandUnsortedFilesWithNumbers.readNames(dataFolder,nameList, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
+		numberofComparisons.setNumberofComparisonsExonBasedUserDefinedGeneSet(nameList.size());
+		numberofComparisons.setNumberofComparisonsRegulationBasedUserDefinedGeneSet(nameList.size());
+		numberofComparisons.setNumberofComparisonsAllBasedUserDefinedGeneSet(nameList.size());
+
 	}
+	
 
 	
 	

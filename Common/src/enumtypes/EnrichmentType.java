@@ -13,16 +13,16 @@ public enum EnrichmentType {
 	DO_HISTONE_ENRICHMENT(5),
 	DO_NOT_HISTONE_ENRICHMENT(6),
 	
-	DO_GENESET_ENRICHMENT(7),
-	DO_NOT_GENESET_ENRICHMENT(8),
+	DO_KEGGPATHWAY_ENRICHMENT(7),
+	DO_NOT_KEGGPATHWAY_ENRICHMENT(8),
 	
-	DO_TF_GENESET_ENRICHMENT(9),
-	DO_NOT_TF_GENESET_ENRICHMENT(10),
+	DO_TF_KEGGPATHWAY_ENRICHMENT(9),
+	DO_NOT_TF_KEGGPATHWAY_ENRICHMENT(10),
 	
-	DO_TF_CELLLINE_GENESET_ENRICHMENT(11),
-	DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT(12),
+	DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT(11),
+	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT(12),
 	
-	BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT(13),
+	BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT(13),
 	
 	DO_USER_DEFINED_GENESET_ENRICHMENT(14),
 	DO_NOT_USER_DEFINED_GENESET_ENRICHMENT(15),
@@ -59,20 +59,20 @@ public enum EnrichmentType {
     		return DO_HISTONE_ENRICHMENT;
     	}else if  (Commons.DO_NOT_HISTONE_ENRICHMENT.equals(enrichmentType)){
     		return DO_NOT_HISTONE_ENRICHMENT;
-    	}else if  (Commons.DO_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_GENESET_ENRICHMENT;
-    	}else if  (Commons.DO_NOT_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_NOT_GENESET_ENRICHMENT;
-    	}else if  (Commons.DO_TF_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_TF_GENESET_ENRICHMENT;
-    	}else if  (Commons.DO_NOT_TF_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_NOT_TF_GENESET_ENRICHMENT;
-    	}else if  (Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_TF_CELLLINE_GENESET_ENRICHMENT;
-    	}else if  (Commons.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT;
-    	}else if (Commons.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT.equals(enrichmentType)){
-    		return BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
+    	}else if  (Commons.DO_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_KEGGPATHWAY_ENRICHMENT;
+    	}else if  (Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_NOT_KEGGPATHWAY_ENRICHMENT;
+    	}else if  (Commons.DO_TF_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_TF_KEGGPATHWAY_ENRICHMENT;
+    	}else if  (Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_NOT_TF_KEGGPATHWAY_ENRICHMENT;
+    	}else if  (Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
+    	}else if  (Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
+    	}else if (Commons.BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT.equals(enrichmentType)){
+    		return BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
     	}else if (Commons.DO_USER_DEFINED_GENESET_ENRICHMENT.equals(enrichmentType)){
     		return DO_USER_DEFINED_GENESET_ENRICHMENT;	
     	}else if (Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT.equals(enrichmentType)){
@@ -101,23 +101,23 @@ public enum EnrichmentType {
     	else if (this.equals(EnrichmentType.DO_NOT_TF_ENRICHMENT))
     		return Commons.DO_NOT_TF_ENRICHMENT;
     	
-    	else if (this.equals(EnrichmentType.DO_GENESET_ENRICHMENT))
-    		return Commons.DO_GENESET_ENRICHMENT;
-    	else if (this.equals(EnrichmentType.DO_NOT_GENESET_ENRICHMENT))
-    		return Commons.DO_NOT_GENESET_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_KEGGPATHWAY_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_NOT_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT;
     	
-    	else if (this.equals(EnrichmentType.DO_TF_GENESET_ENRICHMENT))
-    		return Commons.DO_TF_GENESET_ENRICHMENT;
-    	else if (this.equals(EnrichmentType.DO_NOT_TF_GENESET_ENRICHMENT))
-    		return Commons.DO_NOT_TF_GENESET_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_TF_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_TF_KEGGPATHWAY_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT;
     	
-    	else if (this.equals(EnrichmentType.DO_TF_CELLLINE_GENESET_ENRICHMENT))
-    		return Commons.DO_TF_CELLLINE_GENESET_ENRICHMENT;
-    	else if (this.equals(EnrichmentType.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT))
-    		return Commons.DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
     	
-    	else if (this.equals(EnrichmentType.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT))
-    		return Commons.BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
+    	else if (this.equals(EnrichmentType.BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT))
+    		return Commons.BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
     	
     	else if (this.equals(EnrichmentType.DO_USER_DEFINED_GENESET_ENRICHMENT))
     		return Commons.DO_USER_DEFINED_GENESET_ENRICHMENT;
@@ -152,23 +152,23 @@ public enum EnrichmentType {
     }
     
     /** An added method.  */
-    public boolean isGeneSetEnrichment() {
-        return  this == DO_GENESET_ENRICHMENT;
+    public boolean isKeggPathwayEnrichment() {
+        return  this == DO_KEGGPATHWAY_ENRICHMENT;
     }
     
     /** An added method.  */
-    public boolean isTfGeneSetEnrichment() {
-        return  this == DO_TF_GENESET_ENRICHMENT;
+    public boolean isTfKeggPathwayEnrichment() {
+        return  this == DO_TF_KEGGPATHWAY_ENRICHMENT;
     }
     
     /** An added method.  */
-    public boolean isTfCellLineGeneSetEnrichment() {
-        return  this == DO_TF_CELLLINE_GENESET_ENRICHMENT;
+    public boolean isTfCellLineKeggPathwayEnrichment() {
+        return  this == DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
     }
     
     /** An added method.  */
-    public boolean isBothTfGeneSetAndTfCellLineGeneSetEnrichment() {
-        return  this == BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT;
+    public boolean isBothTfKeggPathwayAndTfCellLineKeggPathwayEnrichment() {
+        return  this == BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
     }
     
     

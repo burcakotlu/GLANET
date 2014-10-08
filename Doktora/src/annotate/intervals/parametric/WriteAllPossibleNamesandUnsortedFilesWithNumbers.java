@@ -17,10 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.IntervalName;
+import gnu.trove.iterator.TIntIterator;
+import gnu.trove.iterator.TObjectShortIterator;
+import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 
@@ -1208,50 +1210,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	}
 	
 	
-	//@todo starts
-	public static void readUserDefinedGeneSetNames(
-			String dataFolder,
-			String userDefinedGeneSetInputFile,
-			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
-			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap){
-		
-		String strLine;
-		int indexofFirstTab;
-		String GO_ID;
-		String geneSymbol;
-		
-		short numberofUserDefinedGeneSet = 0;
-	
-		try {
-			FileReader fileReader = FileOperations.createFileReader(userDefinedGeneSetInputFile);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null){
-				
-				indexofFirstTab = strLine.indexOf('\t');
-				GO_ID = strLine.substring(0,indexofFirstTab);
-				geneSymbol = strLine.substring(indexofFirstTab+1);
-				
-				if (!(userDefinedGeneSetName2UserDefinedGeneSetNumberMap.containsKey(GO_ID))){
-					userDefinedGeneSetName2UserDefinedGeneSetNumberMap.put(GO_ID, numberofUserDefinedGeneSet);
-					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap.put(numberofUserDefinedGeneSet, GO_ID);
-					numberofUserDefinedGeneSet++;
-				}//End of IF
-				
-				
-			}//End of While
-			
-			
-			GlanetRunner.appendLog("Number of user defined genesets: " + numberofUserDefinedGeneSet);
-			bufferedReader.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	//@todo ends
+
 	
 	
 	public static void readKeggPathwayNames(String dataFolder,List<String> keggPathwayNameList, Map<String,Integer> keggPathwayName2KeggPathwayNumberMap,Map<Integer,String> keggPathwayNumber2KeggPathwayNameMap, String inputFileName){
@@ -1301,6 +1260,59 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		}
 							
 	}
+	
+	//todo starts
+	public static void readNames(String dataFolder,List<String> nameList, String inputDirectoryName, String inputFileName){
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;	
+		
+		String strLine;
+		
+		try {
+			
+			fileReader = FileOperations.createFileReader(dataFolder + inputDirectoryName,inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine= bufferedReader.readLine())!=null){
+				if (!nameList.contains(strLine)){
+					nameList.add(strLine);
+				}
+			}//End of While
+		
+			
+			bufferedReader.close();
+			fileReader.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	//todo ends
+	
+	public static void writeNames(String dataFolder,TObjectShortMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+		
+			for ( TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key()+ System.getProperty("line.separator"));		    
+				}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	
 
 	
 	public static void writeNames(String dataFolder,List<String> nameList, String outputDirectoryName, String outputFileName){
@@ -1326,7 +1338,6 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 			e.printStackTrace();
 		}
 					
-	
 	}
 	
 	
@@ -1355,6 +1366,60 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 					
 	
 	}
+	
+	//Write String2ShortMap starts
+	public static void writeMapsString2Short(String dataFolder,TObjectShortMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			
+			for ( TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+			   it.advance();
+			   bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}	
+	//Write String2ShortMap ends
+	
+	
+	//Write Short2StringMap starts
+	public static void writeMapsShort2String(String dataFolder,TShortObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for ( TShortObjectIterator<String> it = number2NameMap.iterator(); it.hasNext(); ) {
+			   it.advance();
+			   bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}	
+	//Write Short2StringMap ends
 	
 	public static void writeMapsString2Integer(String dataFolder,Map<String,Integer> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName){
 		
@@ -1521,18 +1586,20 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 
 	}
 	
-	//@todo writeAllPossibleUserDefinedGeneSetNames starts
+	//userDefinedGeneSetName2UserDefinedGeneSetNumberMap is already full
+	//userDefinedGeneSetNumber2UserDefinedGeneSetNameMap is already full
+	//Write them to name2NumberMap and number2NameMap
 	public static void writeAllPossibleUserDefinedGeneSetNames(
 			String dataFolder,
-			String userDefinedGeneSetInputFile,
 			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
 			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap){
 		
-
-		readUserDefinedGeneSetNames(dataFolder,userDefinedGeneSetInputFile,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
+		writeNames(dataFolder,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);		
+		writeMapsString2Short(dataFolder,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNAME_2_USERDEFINEDGENESETNUMBER_OUTPUT_FILENAME);
+		writeMapsShort2String(dataFolder,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME);
 	
 	}
-	
+
 	
 	//@todo writeAllPossibleUserDefinedGeneSetNames ends
 	

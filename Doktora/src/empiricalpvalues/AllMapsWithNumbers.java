@@ -19,6 +19,10 @@ public class AllMapsWithNumbers {
 	TLongIntMap permutationNumberTfNumberCellLineNumber2KMap;
 	TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap;
 	
+	TIntIntMap permutationNumberExonBasedUserDefinedGeneSet2KMap;
+	TIntIntMap permutationNumberRegulationBasedUserDefinedGeneSet2KMap;
+	TIntIntMap permutationNumberAllBasedUserDefinedGeneSet2KMap;
+	
 	TIntIntMap permutationNumberExonBasedKeggPathway2KMap;
 	TIntIntMap permutationNumberRegulationBasedKeggPathway2KMap;
 	TIntIntMap permutationNumberAllBasedKeggPathway2KMap;
@@ -33,12 +37,68 @@ public class AllMapsWithNumbers {
 	
 	
 	
-	
+
+	public TIntIntMap getPermutationNumberExonBasedUserDefinedGeneSet2KMap() {
+		return permutationNumberExonBasedUserDefinedGeneSet2KMap;
+	}
 
 
 
 
-	
+
+
+
+
+	public void setPermutationNumberExonBasedUserDefinedGeneSet2KMap(
+			TIntIntMap permutationNumberExonBasedUserDefinedGeneSet2KMap) {
+		this.permutationNumberExonBasedUserDefinedGeneSet2KMap = permutationNumberExonBasedUserDefinedGeneSet2KMap;
+	}
+
+
+
+
+
+
+
+
+	public TIntIntMap getPermutationNumberRegulationBasedUserDefinedGeneSet2KMap() {
+		return permutationNumberRegulationBasedUserDefinedGeneSet2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberRegulationBasedUserDefinedGeneSet2KMap(
+			TIntIntMap permutationNumberRegulationBasedUserDefinedGeneSet2KMap) {
+		this.permutationNumberRegulationBasedUserDefinedGeneSet2KMap = permutationNumberRegulationBasedUserDefinedGeneSet2KMap;
+	}
+
+
+
+
+
+
+
+
+	public TIntIntMap getPermutationNumberAllBasedUserDefinedGeneSet2KMap() {
+		return permutationNumberAllBasedUserDefinedGeneSet2KMap;
+	}
+
+
+
+
+
+
+
+
+	public void setPermutationNumberAllBasedUserDefinedGeneSet2KMap(
+			TIntIntMap permutationNumberAllBasedUserDefinedGeneSet2KMap) {
+		this.permutationNumberAllBasedUserDefinedGeneSet2KMap = permutationNumberAllBasedUserDefinedGeneSet2KMap;
+	}
 
 
 

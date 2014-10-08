@@ -13,9 +13,10 @@ public enum KeyOrder {
 	DNASE_CELLLINENUMBER(1),
 	TFNUMBER_CELLLINENUMBER(2),
 	HISTONENUMBER_CELLLINENUMBER(3),
-	KEGGPATHWAYNUMBER(4),
-	TFNUMBER_KEGGPATHWAYNUMBER(5),
-	TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER(6);
+	USERDEFINEDGENESETNUMBER(4),
+	KEGGPATHWAYNUMBER(5),
+	TFNUMBER_KEGGPATHWAYNUMBER(6),
+	TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER(7);
 	
 	 private final int keyOrder;
 		
@@ -52,6 +53,13 @@ public enum KeyOrder {
     public boolean isHistoneNumberCellLineNumber() {
         return  this == HISTONENUMBER_CELLLINENUMBER;
     }
+    
+    
+	/** An added method.  */
+    public boolean isUserDefinedGeneSetNumber() {
+        return  this == USERDEFINEDGENESETNUMBER;
+    }
+    
     
     /** An added method.  */
     public boolean isKeggPathwayNumber() {

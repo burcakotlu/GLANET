@@ -6,6 +6,7 @@
 package annotate.intervals.parametric;
 
 import enumtypes.IntervalName;
+import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TShortArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class UcscRefSeqGeneOverlapWithNumbers {
 	int geneHugoSymbolNumber;
 	int geneEntrezId;
 	
-	TShortArrayList keggPathwayNumberList;
+	TShortList keggPathwayNumberList;
 	
 	IntervalName intervalName;
 	int intervalNumber;
@@ -47,10 +48,12 @@ public class UcscRefSeqGeneOverlapWithNumbers {
 	public void setGeneEntrezId(int geneEntrezId) {
 		this.geneEntrezId = geneEntrezId;
 	}
-	public TShortArrayList getKeggPathwayNumberList() {
+	
+	
+	public TShortList getKeggPathwayNumberList() {
 		return keggPathwayNumberList;
 	}
-	public void setKeggPathwayNumberList(TShortArrayList keggPathwayNumberList) {
+	public void setKeggPathwayNumberList(TShortList keggPathwayNumberList) {
 		this.keggPathwayNumberList = keggPathwayNumberList;
 	}
 	public IntervalName getIntervalName() {
@@ -80,7 +83,7 @@ public class UcscRefSeqGeneOverlapWithNumbers {
 	public UcscRefSeqGeneOverlapWithNumbers(int refSeqGeneNumber,
 			int geneHugoSymbolNumber, 
 			int geneEntrezId,
-			TShortArrayList keggPathwayNumberList, 
+			TShortList keggPathwayNumberList, 
 			IntervalName intervalName,
 			int intervalNumber, 
 			int low, 

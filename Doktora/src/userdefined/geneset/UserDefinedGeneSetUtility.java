@@ -6,6 +6,7 @@
 package userdefined.geneset;
 
 import enumtypes.UserDefinedGeneSetInputType;
+import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectShortMap;
@@ -21,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ui.GlanetRunner;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 
@@ -35,21 +35,21 @@ public class UserDefinedGeneSetUtility {
 	
 	public static void updateMap(
 			List<Integer> geneInformation2ListofGeneIDs,
-			TIntObjectMap<TShortArrayList> geneId2ListofUserDefinedGeneSetNumberMap,
+			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap,
 			short currentUserDefinedGeneSetNumber,
 			String GO_ID,
 			String geneInformation,
 			BufferedWriter bufferedWriter){
 		
-		TShortArrayList existingUserDefinedGeneSetNumberList = null;
-
+		TShortList userDefinedGeneSetNumberList = null;
+		TShortList existingUserDefinedGeneSetNumberList = null;
 		
 		try {
 			for(int geneID:geneInformation2ListofGeneIDs){
 				//fill geneId2ListofUserDefinedGenesetHashMap
 				//Hash Map does not contain this ncbiGeneId
 				if (!geneId2ListofUserDefinedGeneSetNumberMap.containsKey(geneID)){					
-						TShortArrayList userDefinedGeneSetNumberList = new TShortArrayList();
+						userDefinedGeneSetNumberList = new TShortArrayList();
 						userDefinedGeneSetNumberList.add(currentUserDefinedGeneSetNumber);
 						geneId2ListofUserDefinedGeneSetNumberMap.put(geneID, userDefinedGeneSetNumberList);
 						bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation +"\t" + geneID + System.getProperty("line.separator"));
@@ -94,7 +94,7 @@ public class UserDefinedGeneSetUtility {
 			UserDefinedGeneSetInputType userDefinedGeneSetInputType,
 			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
 			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,
-			TIntObjectMap<TShortArrayList> geneId2ListofUserDefinedGeneSetNumberMap){
+			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap){
 		
 		//Read the user defined geneset inputFile
 		String strLine;
@@ -106,39 +106,38 @@ public class UserDefinedGeneSetUtility {
 		short currentUserDefinedGeneSetNumber = 0;
 		
 		//In case of need: First fill these conversion maps
-		Map<String,List<String>> geneSymbol2ListofRNANucleotideAccessionMap = null;
-		Map<String,List<Integer>> RNANucleotideAccession2ListofGeneIdMap = null;
+		Map<String,List<Integer>> geneSymbol2ListofGeneIDMap = null;
+		Map<String,List<Integer>> RNANucleotideAccession2ListofGeneIDMap = null;
 		
 		List<String> listofUnconvertedGeneInformation = new ArrayList<String>();
 		List<String> listofGeneInformation =  new ArrayList<String>();
  		
-		List<String> RNANucleotideAccessionList = null;
 		List<Integer> geneIDList = null;
 		
 		List<Integer> geneInformation2ListofGeneIDs = new ArrayList<Integer>();
 		
 		int numberofReadLines= 0;
 		
-		//Fill these maps only once starts
+		//Fill these conversion maps only once starts
 		 if(userDefinedGeneSetInputType.isGeneSymbol()){
-	    	geneSymbol2ListofRNANucleotideAccessionMap = new HashMap<String,List<String>>();	    	
-	    	RNANucleotideAccession2ListofGeneIdMap = new HashMap<String,List<Integer>>();
-	    	
-	    	HumanGenesAugmentation.fillGeneSymbol2ListofRNANucleotideAccessionMap(dataFolder,geneSymbol2ListofRNANucleotideAccessionMap);
-	    	HumanGenesAugmentation.fillRNANucleotideAccession2ListofGeneIdMap(dataFolder,RNANucleotideAccession2ListofGeneIdMap);
-	    	
+			geneSymbol2ListofGeneIDMap = new HashMap<String,List<Integer>>();		
+			HumanGenesAugmentation.fillGeneSymbol2ListofGeneIDMap(dataFolder,geneSymbol2ListofGeneIDMap);		 
 	    }else if (userDefinedGeneSetInputType.isRNANucleotideAccession()){
-	    	RNANucleotideAccession2ListofGeneIdMap = new HashMap<String,List<Integer>>();	    	
-	      	
-	    	HumanGenesAugmentation.fillRNANucleotideAccession2ListofGeneIdMap(dataFolder,RNANucleotideAccession2ListofGeneIdMap);   
+	    	RNANucleotideAccession2ListofGeneIDMap = new HashMap<String,List<Integer>>();	    	
+	    	HumanGenesAugmentation.fillRNANucleotideAccession2ListofGeneIdMap(dataFolder,RNANucleotideAccession2ListofGeneIDMap);   
 	    }
 		//Fill these maps only once ends
 
 	
+		//Start reading user defined geneset file
+		//This user defined geneset file has to be tab separated file
+		//First column genesetName tab second column geneInformation per line
+		//Fill name2number and number2name maps here
 		try {
 			FileReader fileReader = FileOperations.createFileReader(userDefinedGeneSetInputFile);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
+			//For debugging purposes
 			FileWriter fileWriter = FileOperations.createFileWriter("E:\\DOKTORA_DATA\\GO\\control_GO_gene_associations_human_ref.txt");
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
@@ -169,7 +168,6 @@ public class UserDefinedGeneSetUtility {
 					//Increment UserDefinedGeneSetNumber
 					userDefinedGeneSetNumber++;
 					
-				
 				}//End of IF
 				//Fill name2number and number2name maps ends
 	
@@ -177,36 +175,25 @@ public class UserDefinedGeneSetUtility {
 				//Get the current userDefinedGeneSet number
 				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2UserDefinedGeneSetNumberMap.get(GO_ID);
 				
+				//For each readLine
 				geneInformation2ListofGeneIDs.clear();
 				
 				if (userDefinedGeneSetInputType.isGeneSymbol()){
 					
 					//geneInformation contains geneSymbol
 					//Convert geneSymbol to geneID
-					RNANucleotideAccessionList = geneSymbol2ListofRNANucleotideAccessionMap.get(geneInformation);
+					geneIDList = geneSymbol2ListofGeneIDMap.get(geneInformation);
 					
-					if (RNANucleotideAccessionList!=null){
-							for(String RNANucleotideAccession:RNANucleotideAccessionList ){
-							geneIDList = RNANucleotideAccession2ListofGeneIdMap.get(RNANucleotideAccession);
-							if(geneIDList!=null){							
-								for(int geneID: geneIDList){
-									
-									//For testing purposes starts
-									if (geneID == 51435){
-										System.out.println("geneID <--> " + geneID + "geneSymbol" + geneInformation);
-									}
-									//For testing purposes ends
-									
-									
-									if(!geneInformation2ListofGeneIDs.contains(geneID)){
-										geneInformation2ListofGeneIDs.add(geneID);
-									}
-									
-								}//End of For: each geneID in the geneIDList
-							}//End of IF: geneIDList is not null	
+					if(geneIDList!=null){							
+						for(int geneID: geneIDList){
+														
+							if(!geneInformation2ListofGeneIDs.contains(geneID)){
+								geneInformation2ListofGeneIDs.add(geneID);
+							}
 							
-						}//End of For:  each RNANucleotideAccession in the RNANucleotideAccessionList
-					}//End of IF: RNANucleotideAccessionList is not null
+						}//End of For: each geneID in the geneIDList
+					}//End of IF: geneIDList is not null	
+							
 					
 					//No conversion is possible
 					if (geneInformation2ListofGeneIDs.isEmpty()){
@@ -222,7 +209,7 @@ public class UserDefinedGeneSetUtility {
 					//geneInformation contains RNANucleotideAccession
 					//Convert RNANucleotideAccession to geneID
 					
-					geneIDList = RNANucleotideAccession2ListofGeneIdMap.get(geneInformation);
+					geneIDList = RNANucleotideAccession2ListofGeneIDMap.get(geneInformation);
 					
 					if (geneIDList!=null){
 						for(Integer geneID: geneIDList){
@@ -255,8 +242,6 @@ public class UserDefinedGeneSetUtility {
 							
 			}//End of While
 					
-//			GlanetRunner.appendLog("Number of user defined genesets: " + userDefinedGeneSetNumber);
-//			GlanetRunner.appendLog("Number of Read Lines: " + numberofReadLines);
 				
 			bufferedReader.close();
 			bufferedWriter.close();

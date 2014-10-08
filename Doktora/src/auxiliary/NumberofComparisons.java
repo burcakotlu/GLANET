@@ -32,7 +32,35 @@ public class NumberofComparisons {
 	int numberofComparisonTfCellLineRegulationBasedKeggPathway;
 	int numberofComparisonTfCellLineAllBasedKeggPathway;
 		
+	//8 October 2014
+	int numberofComparisonsExonBasedUserDefinedGeneSet;
+	int numberofComparisonsRegulationBasedUserDefinedGeneSet;
+	int numberofComparisonsAllBasedUserDefinedGeneSet;
+	
+	
+	
 		
+	public int getNumberofComparisonsExonBasedUserDefinedGeneSet() {
+		return numberofComparisonsExonBasedUserDefinedGeneSet;
+	}
+	public void setNumberofComparisonsExonBasedUserDefinedGeneSet(
+			int numberofComparisonsExonBasedUserDefinedGeneSet) {
+		this.numberofComparisonsExonBasedUserDefinedGeneSet = numberofComparisonsExonBasedUserDefinedGeneSet;
+	}
+	public int getNumberofComparisonsRegulationBasedUserDefinedGeneSet() {
+		return numberofComparisonsRegulationBasedUserDefinedGeneSet;
+	}
+	public void setNumberofComparisonsRegulationBasedUserDefinedGeneSet(
+			int numberofComparisonsRegulationBasedUserDefinedGeneSet) {
+		this.numberofComparisonsRegulationBasedUserDefinedGeneSet = numberofComparisonsRegulationBasedUserDefinedGeneSet;
+	}
+	public int getNumberofComparisonsAllBasedUserDefinedGeneSet() {
+		return numberofComparisonsAllBasedUserDefinedGeneSet;
+	}
+	public void setNumberofComparisonsAllBasedUserDefinedGeneSet(
+			int numberofComparisonsAllBasedUserDefinedGeneSet) {
+		this.numberofComparisonsAllBasedUserDefinedGeneSet = numberofComparisonsAllBasedUserDefinedGeneSet;
+	}
 	public int getNumberofComparisonTfExonBasedKeggPathway() {
 		return numberofComparisonTfExonBasedKeggPathway;
 	}

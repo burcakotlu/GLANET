@@ -51,10 +51,11 @@ public class Commons {
 	public static final String DNASE_ANNOTATION 				= "DNASE_ANNOTATION";
 	public static final String TF_ANNOTATION 					= "TF_ANNOTATION";
 	public static final String HISTONE_ANNOTATION 				= "HISTONE_ANNOTATION";
-	public static final String GENE_SET_ANNOTATION 				= "GENE_SET_ANNOTATION";
-	public static final String TF_GENE_SET_ANNOTATION 			= "TF_GENE_SET_ANNOTATION";
-	public static final String TF_CELLLINE_GENE_SET_ANNOTATION 	= "TF_CELLLINE_GENE_SET_ANNOTATION";
-	public static final String BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION = "BOTH_TF_GENESET_AND_TF_CELLLINE_GENESET_ANNOTATION";
+	public static final String USER_DEFINED_GENE_SET_ANNOTATION = "USER_DEFINED_GENE_SET_ANNOTATION";
+	public static final String KEGG_PATHWAY_ANNOTATION 				= "KEGG_PATHWAY_ANNOTATION";
+	public static final String TF_KEGG_PATHWAY_ANNOTATION 			= "TF_KEGG_PATHWAY_ANNOTATION";
+	public static final String TF_CELLLINE_KEGG_PATHWAY_ANNOTATION 	= "TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
+	public static final String BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION = "BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
 	
 	//EnumType WriteGeneratedRandomDataMode
 	public static final String WRITE_GENERATED_RANDOM_DATA = "WRITE_GENERATED_RANDOM_DATA";
@@ -110,13 +111,15 @@ public class Commons {
 	public static final String DO_NOT_HISTONE_ENRICHMENT 	= "DO_NOT_HISTONE_ENRICHMENT";
 	public static final String DO_TF_ENRICHMENT 		= "DO_TF_ENRICHMENT";
 	public static final String DO_NOT_TF_ENRICHMENT 	= "DO_NOT_TF_ENRICHMENT";
-	public static final String DO_GENESET_ENRICHMENT 		= "DO_GENESET_ENRICHMENT";
-	public static final String DO_NOT_GENESET_ENRICHMENT 	= "DO_NOT_GENESET_ENRICHMENT";
-	public static final String DO_TF_GENESET_ENRICHMENT 	= "DO_TF_GENESET_ENRICHMENT";
-	public static final String DO_NOT_TF_GENESET_ENRICHMENT = "DO_NOT_TF_GENESET_ENRICHMENT";	
-	public static final String DO_TF_CELLLINE_GENESET_ENRICHMENT 		= "DO_TF_CELLLINE_GENESET_ENRICHMENT";
-	public static final String DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_GENESET_ENRICHMENT";
-	public static final String BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT = "BOTH_DO_TF_GENESET_AND_TF_CELLLINE_GENESET_ENRICHMENT";
+	
+	public static final String DO_KEGGPATHWAY_ENRICHMENT 		= "DO_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_NOT_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_TF_KEGGPATHWAY_ENRICHMENT 	= "DO_TF_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_NOT_TF_KEGGPATHWAY_ENRICHMENT = "DO_NOT_TF_KEGGPATHWAY_ENRICHMENT";	
+	public static final String DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 		= "DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT 	= "DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
+	public static final String BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT = "BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
+	
 	public static final String DO_USER_DEFINED_GENESET_ENRICHMENT 		= "DO_USER_DEFINED_GENESET_ENRICHMENT";
 	public static final String DO_NOT_USER_DEFINED_GENESET_ENRICHMENT 	= "DO_NOT_USER_DEFINED_GENESET_ENRICHMENT";
 	public static final String DO_USER_DEFINED_LIBRARY_ENRICHMENT 		= "DO_USER_DEFINED_LIBRARY_ENRICHMENT";
@@ -182,7 +185,7 @@ public class Commons {
 			
 	public static final String RSERVE =  System.getProperty("user.home") + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator") + "Rserve" + System.getProperty("file.separator");
 	
-	public static final Integer ORIGINAL_DATA_PERMUTATION_NUMBER = new Integer(0);
+	public static final Integer ORIGINAL_DATA_PERMUTATION_NUMBER = 0;
 	public static final String PERMUTATION0 = "PERMUTATION0";
 	
 	public static final int HOMO_SAPIENS_TAX_ID = 9606;
@@ -850,6 +853,10 @@ public class Commons {
 	public static final String TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.HISTONE + System.getProperty("file.separator") + Commons.HISTONE;
 	public static final String TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS		= ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + Commons.TF;
 	
+	public static final String TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET ;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
+	public static final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET ;
+	
 	public static final String TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
 	public static final String TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY ;
 	public static final String TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY;
@@ -912,6 +919,10 @@ public class Commons {
 	public static final String EXON_BASED = "ExonBased";
 	public static final String REGULATION_BASED = "RegulationBased";
 	public static final String ALL_BASED = "AllBased";
+	
+	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBasedUserDefinedGeneSet";
+	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBasedUserDefinedGeneSet";
+	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBasedUserDefinedGeneSet";
 
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBasedKEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBasedKEGGPathway";
@@ -925,6 +936,7 @@ public class Commons {
 	public static final String TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY = "TFCellLineRegulationBasedKEGGPathway";
 	public static final String TF_CELLLINE_ALL_BASED_KEGG_PATHWAY = "TFCellLineAllBasedKEGGPathway";
 	
+	public static final String USER_DEFINED_GENESET = "UserDefinedGeneSet";
 	
 	public static final String KEGG_PATHWAY = "KEGGPathway";
 	public static final String TF_KEGGPATHWAY = "TFKEGGPathway";
