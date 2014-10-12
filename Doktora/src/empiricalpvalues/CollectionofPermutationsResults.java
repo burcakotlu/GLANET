@@ -30,7 +30,9 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
+
 import enumtypes.EnrichmentType;
 import enumtypes.KeyOrder;
 import enumtypes.MultipleTestingType;

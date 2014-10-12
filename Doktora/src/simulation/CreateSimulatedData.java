@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+
 import ui.GlanetRunner;
 
 public class CreateSimulatedData {
 	
 	int numberofCaseandControl = 2;
-	ArrayList referenceSNPs = new ArrayList();
+	ArrayList<String> referenceSNPs = new ArrayList<String>();
 	int[][] caseandcontrolArray = new int[numberofCaseandControl][];
 	
 	public void writeSimulatedData(){

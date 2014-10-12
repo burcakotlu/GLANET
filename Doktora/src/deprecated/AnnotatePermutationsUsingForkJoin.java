@@ -8,19 +8,6 @@
  */
 package deprecated;
 
-import empiricalpvalues.AllMaps;
-import empiricalpvalues.AnnotationTask;
-import empiricalpvalues.GCCharArray;
-import empiricalpvalues.InputLine;
-import empiricalpvalues.MapabilityFloatArray;
-import enumtypes.AnnotationType;
-import enumtypes.ChromosomeName;
-import enumtypes.GenerateRandomDataMode;
-import enumtypes.MultipleTestingType;
-import enumtypes.WriteGeneratedRandomDataMode;
-import enumtypes.WritePermutationBasedAnnotationResultMode;
-import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
-import generate.randomdata.RandomDataGenerator;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 
@@ -45,13 +32,28 @@ import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedMapabilityArray;
 import multipletesting.BenjaminiandHochberg;
+import ui.GlanetRunner;
 import augmentation.keggpathway.KeggPathwayAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import binomialdistribution.CalculateBinomialDistributions;
-import ui.GlanetRunner;
+
 import common.Commons;
+
+import empiricalpvalues.AllMaps;
+import empiricalpvalues.AnnotationTask;
+import empiricalpvalues.GCCharArray;
+import empiricalpvalues.InputLine;
+import empiricalpvalues.MapabilityFloatArray;
+import enumtypes.AnnotationType;
+import enumtypes.ChromosomeName;
+import enumtypes.GenerateRandomDataMode;
+import enumtypes.MultipleTestingType;
+import enumtypes.WriteGeneratedRandomDataMode;
+import enumtypes.WritePermutationBasedAnnotationResultMode;
+import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
+import generate.randomdata.RandomDataGenerator;
 
 
 public class AnnotatePermutationsUsingForkJoin {

@@ -8,8 +8,6 @@ package annotate.intervals.parametric;
 import enumtypes.IntervalName;
 import gnu.trove.list.TShortList;
 
-import java.util.List;
-
 /**
  * 
  */

@@ -53,7 +53,9 @@ import RSATWS.MatrixScanResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.EnrichmentType;
 import enumtypes.RegulatorySequenceAnalysisType;
 

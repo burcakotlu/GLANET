@@ -20,12 +20,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ui.GlanetRunner;
+
 import common.Commons;
+
 import empiricalpvalues.GCCharArray;
 import empiricalpvalues.InputLine;
 import empiricalpvalues.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
-import ui.GlanetRunner;
 
 public class Mapability {
 	

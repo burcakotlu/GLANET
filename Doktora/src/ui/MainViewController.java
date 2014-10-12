@@ -1,8 +1,10 @@
 package ui;
 
 import javax.swing.JPanel;
-import common.Commons;
+
 import ui.MainView.MainViewDelegate;
+
+import common.Commons;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	

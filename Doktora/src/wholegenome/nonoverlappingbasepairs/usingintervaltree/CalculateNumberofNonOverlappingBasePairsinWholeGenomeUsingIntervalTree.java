@@ -35,9 +35,11 @@ import java.util.Map;
 import java.util.Set;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
-import auxiliary.FileOperations;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.IntervalName;
 import enumtypes.NodeType;

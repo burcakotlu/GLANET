@@ -33,9 +33,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import auxiliary.FileOperations;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import enumtypes.ChromosomeName;
 import enumtypes.IntervalName;

@@ -32,12 +32,13 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.EnrichmentType;
 import enumtypes.GenerateRandomDataMode;
-import enumtypes.KeyOrder;
 import enumtypes.UserDefinedGeneSetInputType;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
@@ -49,7 +50,6 @@ import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;

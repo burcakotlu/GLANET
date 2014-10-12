@@ -10,8 +10,10 @@ package jaxbxjctool;
 import generated.ESearchResult;
 import generated.Id;
 import generated.IdList;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
@@ -19,6 +21,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
+
 import ui.GlanetRunner;
 /**
  * 
