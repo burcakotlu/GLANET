@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move package &apos;auxiliary&apos; to &apos;Doktora/src&apos;&#x0D;&#x0A;- Original project: &apos;Auxiliary&apos;&#x0D;&#x0A;- Destination element: &apos;Doktora/src&apos;&#x0D;&#x0A;- Original element: &apos;Auxiliary/src/auxiliary&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=Doktora/src" element1="/src&lt;auxiliary" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1399468449946" version="1.0"/>
-</session>

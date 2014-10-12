@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;jaxbxjctool.EntrezEUtilities&apos; to &apos;AugmentationofGivenRsIds&apos;&#x0D;&#x0A;- Original project: &apos;Doktora&apos;&#x0D;&#x0A;- Original element: &apos;jaxbxjctool.EntrezEUtilities&apos;&#x0D;&#x0A;- Renamed element: &apos;jaxbxjctool.AugmentationofGivenRsIds&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;EntrezEUtilities&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;jaxbxjctool{EntrezEUtilities.java[EntrezEUtilities" matchStrategy="1" name="AugmentationofGivenRsIds" qualified="false" references="true" similarDeclarations="false" stamp="1395153241356" textual="false" version="1.0"/>
-</session>
