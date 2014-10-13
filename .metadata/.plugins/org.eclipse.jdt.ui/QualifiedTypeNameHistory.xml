@@ -44,20 +44,20 @@
 <fullyQualifiedTypeName name="collaboration.ElementEnrichment"/>
 <fullyQualifiedTypeName name="enumtypes.MultipleTestingType"/>
 <fullyQualifiedTypeName name="collaboration.AnnotationWithRSIDsAndEnrichmentSummaryTableCreation"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="common.Commons"/>
-<fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNamesandUnsortedFilesWithNumbers"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="ui.GlanetRunner"/>
 <fullyQualifiedTypeName name="javax.jws.soap.SOAPBinding.Use"/>
 <fullyQualifiedTypeName name="userdefined.geneset.UserDefinedGeneSetUtility"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="auxiliary.FileOperations"/>
 <fullyQualifiedTypeName name="enumtypes.UserDefinedGeneSetInputType"/>
 <fullyQualifiedTypeName name="enumtypes.EnrichmentType"/>
 <fullyQualifiedTypeName name="enumtypes.AnnotationType"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="annotate.intervals.parametric.WriteAllPossibleNamesandUnsortedFilesWithNumbers"/>
 </qualifiedTypeNameHistroy>
