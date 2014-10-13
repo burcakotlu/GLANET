@@ -9,7 +9,8 @@ import common.Commons;
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
 	private MainView mainView;
-	private GlanetRunner runner;
+	private Thread glanetThread;
+	GlanetRunner runner;
 	
 	public MainViewController( JPanel contentPanel) {
 		super(contentPanel);
@@ -169,15 +170,20 @@ public class MainViewController extends ViewController implements MainViewDelega
 		
 		runner = new GlanetRunner();
 		
-		GlanetRunner.setArgs( args);
+		runner.setArgs( args);
 		GlanetRunner.setMainView( mainView);
 		
-		runner.start();
+		glanetThread = new Thread(runner);
+		glanetThread.start();
 	}
 	
 	@Override
 	public void stopCurrentProcess() {
 		
-		runner.interrupt();
+		glanetThread.interrupt();
+		
+		if( mainView != null)
+			mainView.setCurrentProcessInfo( "Process Stopped");
+		System.out.println("aslkdaskdk");
 	}
 }
