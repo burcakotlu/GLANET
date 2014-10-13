@@ -18,15 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.IntervalName;
-import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
-
-
 
 public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	

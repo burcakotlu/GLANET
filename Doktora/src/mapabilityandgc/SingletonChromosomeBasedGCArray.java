@@ -9,6 +9,7 @@
 package mapabilityandgc;
 
 import common.Commons;
+
 import empiricalpvalues.GCCharArray;
 import enumtypes.ChromosomeName;
 

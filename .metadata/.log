@@ -500,3 +500,136 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:57:06.583
+!MESSAGE Failed to refresh projects from index changes
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Errors occurred while refreshing resources with the local file system.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refreshResource(FileSystemResourceManager.java:923)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refresh(FileSystemResourceManager.java:904)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1699)
+	at org.eclipse.egit.ui.Activator$ResourceRefreshJob.run(Activator.java:356)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'GlanetGUI' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SUBENTRY 1 org.eclipse.core.resources 4 271 2014-10-13 10:57:06.608
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2014-10-13 10:57:06.608
+!MESSAGE The project description file (.project) for 'GlanetGUI' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:57:06.610
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-10-13 10:57:06.761
+!MESSAGE Exception while updating project references
+!STACK 1
+org.eclipse.core.runtime.CoreException: Problems encountered while setting project description.
+	at org.eclipse.core.internal.resources.Project.setDescription(Project.java:1363)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange$1.run(ProjectReferenceChange.java:108)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2345)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange.updateProjectReferencesIfNecessary(ProjectReferenceChange.java:111)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2140)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:471)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastBuildEvent(Workspace.java:382)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:139)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'GlanetGUI' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 568 2014-10-13 10:57:06.761
+!MESSAGE Problems encountered while setting project description.
+!SUBENTRY 2 org.eclipse.core.resources 2 234 2014-10-13 10:57:06.761
+!MESSAGE The project description file (.project) for 'GlanetGUI' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:58:03.620
+!MESSAGE Failed to refresh projects from index changes
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Errors occurred while refreshing resources with the local file system.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refreshResource(FileSystemResourceManager.java:923)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refresh(FileSystemResourceManager.java:904)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1699)
+	at org.eclipse.egit.ui.Activator$ResourceRefreshJob.run(Activator.java:356)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'RSAT' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SUBENTRY 1 org.eclipse.core.resources 4 271 2014-10-13 10:58:03.620
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2014-10-13 10:58:03.620
+!MESSAGE The project description file (.project) for 'RSAT' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:58:03.621
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-10-13 10:58:03.768
+!MESSAGE Exception while updating project references
+!STACK 1
+org.eclipse.core.runtime.CoreException: Problems encountered while setting project description.
+	at org.eclipse.core.internal.resources.Project.setDescription(Project.java:1363)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange$1.run(ProjectReferenceChange.java:108)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2345)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange.updateProjectReferencesIfNecessary(ProjectReferenceChange.java:111)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2140)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:471)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastBuildEvent(Workspace.java:382)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:139)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'RSAT' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 568 2014-10-13 10:58:03.769
+!MESSAGE Problems encountered while setting project description.
+!SUBENTRY 2 org.eclipse.core.resources 2 234 2014-10-13 10:58:03.769
+!MESSAGE The project description file (.project) for 'RSAT' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:58:05.139
+!MESSAGE Failed to refresh projects from index changes
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Errors occurred while refreshing resources with the local file system.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refreshResource(FileSystemResourceManager.java:923)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.refresh(FileSystemResourceManager.java:904)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1699)
+	at org.eclipse.egit.ui.Activator$ResourceRefreshJob.run(Activator.java:356)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'Rserve' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SUBENTRY 1 org.eclipse.core.resources 4 271 2014-10-13 10:58:05.140
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2014-10-13 10:58:05.140
+!MESSAGE The project description file (.project) for 'Rserve' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+
+!ENTRY org.eclipse.egit.ui 4 0 2014-10-13 10:58:05.140
+!MESSAGE Errors occurred while refreshing resources with the local file system.
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-10-13 10:58:05.787
+!MESSAGE Exception while updating project references
+!STACK 1
+org.eclipse.core.runtime.CoreException: Problems encountered while setting project description.
+	at org.eclipse.core.internal.resources.Project.setDescription(Project.java:1363)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange$1.run(ProjectReferenceChange.java:108)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2345)
+	at org.eclipse.jdt.internal.core.ProjectReferenceChange.updateProjectReferencesIfNecessary(ProjectReferenceChange.java:111)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2140)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:471)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastBuildEvent(Workspace.java:382)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:139)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: The project description file (.project) for 'Rserve' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 568 2014-10-13 10:58:05.787
+!MESSAGE Problems encountered while setting project description.
+!SUBENTRY 2 org.eclipse.core.resources 2 234 2014-10-13 10:58:05.787
+!MESSAGE The project description file (.project) for 'Rserve' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.core.resources 2 2 2014-10-13 10:58:44.018
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2014-10-13 10:58:44.018
+!MESSAGE The project description file (.project) for 'GlanetGUI' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2014-10-13 10:58:44.018
+!MESSAGE The project description file (.project) for 'Rserve' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.

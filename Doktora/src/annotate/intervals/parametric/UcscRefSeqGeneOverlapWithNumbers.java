@@ -7,7 +7,6 @@ package annotate.intervals.parametric;
 
 import enumtypes.IntervalName;
 import gnu.trove.list.TShortList;
-import gnu.trove.list.array.TShortArrayList;
 
 /**
  * 

@@ -9,9 +9,12 @@
 package mapabilityandgc;
 
 import intervaltree.IntervalTree;
-import common.Commons;
 import enumtypes.ChromosomeName;
 
+/**
+ * @author Can
+ *
+ */
 public class ChromosomeBasedMapabilityIntervalTree {
 	
 	

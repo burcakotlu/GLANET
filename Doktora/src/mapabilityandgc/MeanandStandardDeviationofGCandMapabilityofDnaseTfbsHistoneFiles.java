@@ -24,14 +24,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import ui.GlanetRunner;
+
 import common.Commons;
+
 import create.encode.CellLineDnase;
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
 import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
 import empiricalpvalues.GCCharArray;
 import enumtypes.ChromosomeName;
-import ui.GlanetRunner;
 
 public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 

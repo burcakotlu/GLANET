@@ -18,8 +18,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import auxiliary.FileOperations;
+
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
 
 public class HumanRefSeq2Gene {

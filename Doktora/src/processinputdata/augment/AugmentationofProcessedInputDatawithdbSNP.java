@@ -32,9 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import auxiliary.FileOperations;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import dbSNP.CreationofChromosomeBasedSNPIntervalTrees;
 import enumtypes.ChromosomeName;
 

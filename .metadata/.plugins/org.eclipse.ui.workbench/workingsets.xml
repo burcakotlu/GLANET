@@ -3,9 +3,6 @@
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1403170536616_72" label="GLANET_WORKING_SET" name="GLANET_WORKING_SET">
 <item elementID="=Common" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=Doktora" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=GlanetGUI" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=RSAT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Rserve" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1394543037769_0" label="Window Working Set" name="Aggregate for window 1394543037769"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1394543087758_1" label="Window Working Set" name="Aggregate for window 1394543087758"/>

@@ -19,7 +19,6 @@ import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.TforHistoneIntervalTreeNode;
-import ui.GlanetRunner;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -32,7 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import ui.GlanetRunner;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import enumtypes.ChromosomeName;
 import enumtypes.NodeType;

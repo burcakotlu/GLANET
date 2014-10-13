@@ -40,7 +40,11 @@ public class ChromosomeBasedGCArray {
 			case CHROMOSOME21 : return getChr21GC(dataFolder,chromSize);
 			case CHROMOSOME22 : return getChr22GC(dataFolder,chromSize);
 			case CHROMOSOMEX  : return getChrXGC(dataFolder,chromSize);
-			case CHROMOSOMEY  : return getChrYGC(dataFolder,chromSize);						
+			case CHROMOSOMEY  : return getChrYGC(dataFolder,chromSize);
+		case CHROMOSOMEWITHDIFFERENTNAME:
+			break;
+		default:
+			break;						
 		}
 		
 		return null;
