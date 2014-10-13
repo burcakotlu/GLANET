@@ -1030,7 +1030,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 					
 
 						//Write unsorted ucsc refseq gene files with numbers
-						bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName.getIntervalNameString() + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2GeneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
+						bufferedWriter.write(chrNameLowHigh + "\t" + refseqGeneName2RefseqGeneNameNumberMap.get(refseqGeneName) + "\t" + entrezGeneId + "\t" + intervalName.convertEnumtoString() + "\t" + intervalNumber +"\t" + strand + "\t" + geneHugoSymbol2GeneHugoSymbolNumberMap.get(geneHugoSymbol) + System.getProperty("line.separator"));
 
 						
 				}// End of While			

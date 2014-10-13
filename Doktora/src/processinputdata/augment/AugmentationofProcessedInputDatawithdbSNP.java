@@ -163,7 +163,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 //						bufferedWriter.write("OverlapNodeListSize: " + overlappedNodeList.size() + "\n");
 						
 						for(IntervalTreeNode overlapNode:overlappedNodeList){
-							bufferedWriter.write(((OtherIntervalTreeNode) overlapNode).getRsId() + "\t" + chrName.getChromosomeName() + "\t" + snpPosition.getStartZeroBased() + "\t");
+							bufferedWriter.write(((OtherIntervalTreeNode) overlapNode).getRsId() + "\t" + chrName.convertEnumtoString() + "\t" + snpPosition.getStartZeroBased() + "\t");
 							
 							for(String observedAllele :((OtherIntervalTreeNode)overlapNode).getObservedVariationAlleles()){
 								bufferedWriter.write(observedAllele +"\t");

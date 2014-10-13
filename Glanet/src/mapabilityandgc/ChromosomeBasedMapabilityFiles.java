@@ -67,9 +67,9 @@ public class ChromosomeBasedMapabilityFiles {
 					
 					correspondingBufferedWriter = chromName2BufferedWriterHashMap.get(chromName);
 					if (correspondingBufferedWriter== null){
-						GlanetRunner.appendLog(chromName.getChromosomeName());
+						GlanetRunner.appendLog(chromName.convertEnumtoString());
 					}else{
-						correspondingBufferedWriter.write(chromName.getChromosomeName() + "\t" + low + "\t"  + high + "\t" + mapability + "\n");
+						correspondingBufferedWriter.write(chromName.convertEnumtoString() + "\t" + low + "\t"  + high + "\t" + mapability + "\n");
 					}
 					
 				}

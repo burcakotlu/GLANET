@@ -355,7 +355,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 						intervalName = strLine.substring(indexofFifthTab+1, indexofSixthTab);
 						geneHugoSymbol = strLine.substring(indexofSeventhTab+1);
 
-						bw.write("ucscRefSeqGene" + "\t" + chromName.getChromosomeName()+ "\t" +  startPosition + "\t" + endPosition + "\t" + ucscRefSeqGeneName+ "\t" + intervalName + "\t" + geneHugoSymbol+ "\t"+ geneEntrezId +"\n");
+						bw.write("ucscRefSeqGene" + "\t" + chromName.convertEnumtoString()+ "\t" +  startPosition + "\t" + endPosition + "\t" + ucscRefSeqGeneName+ "\t" + intervalName + "\t" + geneHugoSymbol+ "\t"+ geneEntrezId +"\n");
 						bw.flush();
 
 					}
@@ -897,7 +897,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 						cellLineName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
 						fileName = strLine.substring(indexofFourthTab+1);
 
-						bw.write("dnase" + "\t" + chromName.getChromosomeName()+ "\t"  + startPosition + "\t" + endPosition + "\t" + cellLineName + "\t" + fileName +"\n");
+						bw.write("dnase" + "\t" + chromName.convertEnumtoString()+ "\t"  + startPosition + "\t" + endPosition + "\t" + cellLineName + "\t" + fileName +"\n");
 						bw.flush();
 
 					}
@@ -936,7 +936,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();				
 				searchforUcscRefSeqGenesintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -974,7 +974,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();				
 				searchforHistoneintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -1012,7 +1012,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 								
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();												
 				searchforTfbsintheGivenRegionofInterest(chromName, interval,bufferedWriter);
 
@@ -1050,7 +1050,7 @@ public class SearchChromosomeIntervalsUsingLinearSearch {
 					high = low;
 				
 				Interval interval = new Interval(low,high);
-				bufferedWriter.write("Searched for" + "\t" + chromName.getChromosomeName() + "\t" + low + "\t" + high + "\n");
+				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + low + "\t" + high + "\n");
 				bufferedWriter.flush();								
 				searchforDnaseintheGivenRegionofInterest(chromName, interval, bufferedWriter);
 

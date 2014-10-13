@@ -493,7 +493,7 @@ public class RserveUtilization {
 			
 			//todo use my own get sequence code for the software 
 			c.assign("intervalStrand", _strand);
-			c.assign("chrom", chromNumber.getChromosomeName());
+			c.assign("chrom", chromNumber.convertEnumtoString());
 			c.assign("startandEnd",_startandEnd);
 			return c.eval("seq_sd1 <- getSeq( Hsapiens, chrom, start=startandEnd[1], end=startandEnd[2], strand = intervalStrand, as.character=TRUE)").asString();
 
@@ -652,12 +652,12 @@ public class RserveUtilization {
 					cellLineName = tfNameCellLineName.substring(indexofUnderscore+1);
 					
 					
-					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased;
-					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpChromNumberSnpLocus = tfNameKeggPathwayName+ "_" + "snp" + "_" + chromNumber.convertEnumtoString() + "_" + snpLocus_ZeroBased;
+					snpChromNumberSnpLocusTfNameKeggPathwayName = "snp" + "_" + chromNumber.convertEnumtoString() + "_" + snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
 					
 					peakName = "peak" + "_" +tfNameCellLineName + "_" +tfStart_ZeroBased + "_" +tfEnd_ZeroBased + "_" + tfNameKeggPathwayName;
-					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chromNumber.getChromosomeName() + snpLocus_ZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
-					peaksFileName = "peaks" +  "_" + chromNumber.getChromosomeName() + "_" +snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
+					tfNameKeggPathwayNameSnpPeak = tfNameKeggPathwayName + chromNumber.convertEnumtoString() + snpLocus_ZeroBased + tfNameCellLineName + tfStart_ZeroBased + tfEnd_ZeroBased;
+					peaksFileName = "peaks" +  "_" + chromNumber.convertEnumtoString() + "_" +snpLocus_ZeroBased + "_" + tfNameKeggPathwayName;
 					
 					
 					//create tfNameKeggPathwayName based directory  if no directory has been already created
@@ -671,7 +671,7 @@ public class RserveUtilization {
 					//get snp sequence
 					//write snp sequence to a file under snp directory
 					if (snp2FalseorTrueMap.get(tfNameKeggPathwayNameSnpChromNumberSnpLocus)==null){
-						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chromNumber.getChromosomeName() + "_" + snpLocus_ZeroBased;
+						tfNameKeggPathwayNameBased_SnpDirectory = tfNameKeggPathwayName + "\\snp_"+ chromNumber.convertEnumtoString() + "_" + snpLocus_ZeroBased;
 						
 						directoryBase = createDirectory(tfNameKeggPathwayNameBased_SnpDirectory, enrichmentType);
 			

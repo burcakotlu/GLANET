@@ -16,6 +16,11 @@ public enum GeneSetAnalysisType {
 	
 	private final int geneSetAnalysisType;
 	
+	public int getGeneSetAnalysisType() {
+		return geneSetAnalysisType;
+	}
+
+
 	// Constructor
 	private GeneSetAnalysisType(int geneSetAnalysisType){
       this.geneSetAnalysisType = geneSetAnalysisType;

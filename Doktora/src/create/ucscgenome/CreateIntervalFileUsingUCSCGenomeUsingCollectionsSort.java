@@ -370,13 +370,13 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 		
 		
 		try {
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_ONE.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_TWO.getIntervalNameString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_D.getIntervalNameString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p1Start() + "\t" + primes.get_5p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_ONE.convertEnumtoString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5p2Start() + "\t" + primes.get_5p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_P_TWO.convertEnumtoString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_5dStart() + "\t" + primes.get_5dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.FIVE_D.convertEnumtoString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
 
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_ONE.getIntervalNameString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_TWO.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_D.getIntervalNameString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p1Start() + "\t" + primes.get_3p1End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_ONE.convertEnumtoString() + "\t" + "0"  + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3p2Start() + "\t" + primes.get_3p2End() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_P_TWO.convertEnumtoString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + primes.get_3dStart()+ "\t" + primes.get_3dEnd() + "\t" + refSeqGene.getRefSeqGeneName() + "\t" + refSeqGene.getGeneId() + "\t" + IntervalName.THREE_D.convertEnumtoString() + "\t" + "0" + "\t" + strand + "\t"+ refSeqGene.getAlternateGeneName()+"\n");
 
 			bufferedWriter.flush();
 
@@ -397,12 +397,12 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 			//Write exon and intron intervals 			
 			for( j =0; j< refSeqGene.getExonCounts()-1; j++){
 							
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.EXON.getIntervalNameString() +"\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");			
-				bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.INTRON.getIntervalNameString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+"\n");
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.EXON.convertEnumtoString() +"\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");			
+				bufferedWriter.write(refSeqGene.getChromName() + "\t" + (refSeqGene.getExonEnds().get(j)+1) + "\t" + (refSeqGene.getExonStarts().get(j+1)-1) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.INTRON.convertEnumtoString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" + refSeqGene.getAlternateGeneName()+"\n");
 				bufferedWriter.flush();
 			}
 			//Write the last exon which is not written in the for loop
-			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.EXON.getIntervalNameString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");
+			bufferedWriter.write(refSeqGene.getChromName() + "\t" + refSeqGene.getExonStarts().get(j) + "\t" + refSeqGene.getExonEnds().get(j) + "\t" + refSeqGene.getRefSeqGeneName() + "\t"+ refSeqGene.getGeneId() + "\t" + IntervalName.EXON.convertEnumtoString() + "\t" + (j+1) + "\t"+ refSeqGene.getStrand() + "\t" +refSeqGene.getAlternateGeneName()+"\n");
 			bufferedWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

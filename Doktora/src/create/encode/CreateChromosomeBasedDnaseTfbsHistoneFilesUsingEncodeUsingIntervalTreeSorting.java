@@ -51,7 +51,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 	   try {
 		   
 			 bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(dnase.getChromName(), bufferedWriterList);		 
-			 bufferedWriter.write(dnase.getChromName().getChromosomeName() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+System.getProperty("line.separator"));
+			 bufferedWriter.write(dnase.getChromName().convertEnumtoString() + "\t" + dnase.getStartPos() + "\t" + dnase.getEndPos() + "\t" + dnase.getCellLineName()+ "\t"+ dnase.getFileName()+System.getProperty("line.separator"));
 
 		   		   
 			if(dnase.getChromName().isCHROMOSOME1()){
@@ -118,7 +118,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(histone.getChromName() , bufferedWriterList);
-			bufferedWriter.write(histone.getChromName().getChromosomeName() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+System.getProperty("line.separator"));
+			bufferedWriter.write(histone.getChromName().convertEnumtoString() + "\t" + histone.getStartPos() + "\t" + histone.getEndPos() + "\t" + histone.getHistoneName()+ "\t" + histone.getCellLineName()+ "\t"+ histone.getFileName()+System.getProperty("line.separator"));
 
 			if(histone.getChromName().isCHROMOSOME1()){
 				numberofDNAElements.setNumberofHistoneinChr1(numberofDNAElements.getNumberofHistoneinChr1()+1);
@@ -185,7 +185,7 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 		try {
 			
 			BufferedWriter bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(tfbs.getChromName(), bufferedWriterList);
-			bufferedWriter.write(tfbs.getChromName().getChromosomeName() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ System.getProperty("line.separator"));
+			bufferedWriter.write(tfbs.getChromName().convertEnumtoString() + "\t" + tfbs.getStartPos() + "\t" + tfbs.getEndPos() + "\t" + tfbs.getTranscriptionFactorName()+ "\t" + tfbs.getCellLineName()+ "\t"+ tfbs.getFileName()+ System.getProperty("line.separator"));
 			
 			if(tfbs.getChromName().isCHROMOSOME1()){
 				numberofDNAElements.setNumberofTfbsinChr1(numberofDNAElements.getNumberofTfbsinChr1()+1);
