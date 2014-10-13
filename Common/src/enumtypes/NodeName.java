@@ -26,6 +26,17 @@ public enum NodeName {
 		 return nodeName; 
 	}
 	 
+	 
+	 public String convertEnumtoString(){
+	    	if (this.equals(NodeName.SENTINEL))
+	    		return Commons.SENTINEL;
+	    	else if (this.equals(NodeName.NOT_SENTINEL))
+	    		return Commons.NOT_SENTINEL;
+	    	else
+	    		return null;
+	 }
+	   
+	 
 	 @Override public String toString(){
 	      /*
 	      * Either name() or super.toString() may be called here.

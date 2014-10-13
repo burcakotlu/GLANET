@@ -502,8 +502,7 @@ public class KeggPathwayAugmentation {
 		HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
 		
-		GlanetRunner.appendLog("Stop here");
-
+		
 	}
 
 }

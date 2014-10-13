@@ -146,8 +146,8 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);					 					
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
-					 					      
-				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.toString());	
+					 
+					 GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.convertEnumtoString());	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
@@ -308,7 +308,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" + chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
@@ -607,7 +607,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.toString() + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
 				     //WITHOUT IO
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
@@ -1879,7 +1879,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
 							
 			if (chromosomeBaseOriginalInputLines!=null){
@@ -2125,7 +2125,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 
 			    long endTime = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
+				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
 				GlanetRunner.appendLog("Generate Random Data and Annotate has ended.");
 			
 				GlanetRunner.appendLog("Deletion of the tasks has started.");

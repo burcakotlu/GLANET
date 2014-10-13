@@ -162,9 +162,6 @@ public class CalculateBinomialDistributions {
 		int searchInputSize = element.getSearchInputSize();
 		double pValue = 0.0;
 		
-//		if (element.getName().equals("H3K27AC")){
-//			GlanetRunner.appendLog("here");
-//		}
 		
 		for(int k = numberofOccurrencesinSearchInputData ; k<= searchInputSize; k++){
 			pValue = pValue +  FastMath.pow(FastMath.E, func(k,searchInputSize,probability));

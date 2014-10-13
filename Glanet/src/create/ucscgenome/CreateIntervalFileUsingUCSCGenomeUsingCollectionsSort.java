@@ -215,9 +215,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 			
 //			Consume first line since first line contains column names
 			strLine = bufferedReader.readLine();
-			if (strLine!=null){
-//				GlanetRunner.appendLog(strLine);				
-			}
+			
 			
 			while ((strLine = bufferedReader.readLine()) != null)   {	
 				RefSeqGene refSeqGene = new RefSeqGene();				
@@ -425,7 +423,6 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 
 			//Pay attention, bufferedWriter is null for such refseq genes
 			//chr6_ssto_hap7	LY6G5B
-			//GlanetRunner.appendLog(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
 		
 			if(bufferedWriter!=null){
 				createExonIntronIntervals(refSeqGene,i,bufferedWriter);			
@@ -505,11 +502,6 @@ public class CreateIntervalFileUsingUCSCGenomeUsingCollectionsSort {
 			
 			//sort the data
 			Collections.sort(refSeqGeneIntervalList, RefSeqGeneInterval.START_POSITION_ORDER);
-			
-			
-//			//for debug purposes
-//				GlanetRunner.appendLog("chr" + i+  " high: " + refSeqGeneIntervalList.get(refSeqGeneIntervalList.size()-1).getIntervalEnd());
-//			//for debug purposes
 			
 
 //			write sorted list to file

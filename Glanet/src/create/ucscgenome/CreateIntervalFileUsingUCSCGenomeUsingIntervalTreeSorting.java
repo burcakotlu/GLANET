@@ -254,9 +254,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			
 //			Consume first line since first line contains column names
 			strLine = bufferedReader.readLine();
-			if (strLine!=null){
-//				GlanetRunner.appendLog(strLine);				
-			}
+			
 			
 			while ((strLine = bufferedReader.readLine()) != null)   {	
 				RefSeqGene refSeqGene = new RefSeqGene();	
@@ -492,8 +490,7 @@ public class CreateIntervalFileUsingUCSCGenomeUsingIntervalTreeSorting {
 			bufferedWriter = ChromosomeBasedFilesandOperations.getBufferedWriter(chromName, bufferedWriterList);
 			//Pay attention, bufferedWriter is null for such refseq genes
 			//chr6_ssto_hap7	LY6G5B
-			//GlanetRunner.appendLog(refSeqGene.getChromName() + "\t"+refSeqGene.getAlternateGeneName() );
-		
+			
 			
 			if (bufferedWriter!=null){
 				createExonIntronIntervals(refSeqGene,i,bufferedWriter,information);			

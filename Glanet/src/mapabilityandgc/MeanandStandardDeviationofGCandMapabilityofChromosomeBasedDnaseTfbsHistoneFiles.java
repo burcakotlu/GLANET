@@ -411,7 +411,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			
 			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 			
@@ -457,7 +457,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			
 			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder,chromName, chromSize);
 

@@ -638,7 +638,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 							e.printStackTrace();
 						}			 
 		        	}//Check for each file and read each file		        	
-//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	  
 		        
 				GlanetRunner.appendLog("number of Intervals In Dnase Files:  " + numberofIntervalsInDnaseFiles);
@@ -718,9 +717,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            GlanetRunner.appendLog(files[i]);		            
-		         
-		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
 				GlanetRunner.appendLog("number of Intervals In Histone Files: " + numberofIntervalsInHistoneFiles);
@@ -797,9 +793,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalT
 
 		        	}//Check for each file and read each file
 		        	
-//		            GlanetRunner.appendLog(files[i]);		            
-		         
-		           		            
 		        }	// End of For -----reading each file in the directory
 	        	
 		        
