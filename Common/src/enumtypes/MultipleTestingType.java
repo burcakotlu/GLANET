@@ -27,6 +27,7 @@ public enum MultipleTestingType {
     */
     private MultipleTestingType(int multipleTestingType) {
     	this.multipleTestingType = multipleTestingType;
+    	System.out.println(this.multipleTestingType);
 	}
 	
     public String getMultipleTestingType(){
