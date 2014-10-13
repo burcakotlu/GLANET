@@ -10,28 +10,32 @@ import rsat.RSATMatrixScanClient;
 import annotate.intervals.parametric.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
 import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
-
 import common.Commons;
 
-public class GlanetRunner extends Thread{
+public class GlanetRunner implements Runnable{
 	
-	private static String args[];
+	private String args[];
 	private static MainView mainView;
-
-	@Override
+	
 	public void run(){
 		
-		try {
-			
+		for( int i = 0; i < args.length; i++)
+		System.out.println(args[i]);
+		
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Preparation...");
 			
-			Preparation.main( args);
+			if( !Thread.currentThread().isInterrupted())
+				Preparation.main( args);
+			else
+				return;
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "InputDataProcess...");
 			
-			InputDataProcess.main( args);
+			if( !Thread.currentThread().isInterrupted())
+				InputDataProcess.main( args);
+			else return;
 			
 			/* In case of Enrichment remove overlaps and merge */
 			/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
@@ -40,35 +44,47 @@ public class GlanetRunner extends Thread{
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 				
-				InputDataRemoveOverlaps.main( args);
+				if( !Thread.currentThread().isInterrupted())
+					InputDataRemoveOverlaps.main( args);
+				else return;
 			}
 			
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 			
-			AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
+			if( !Thread.currentThread().isInterrupted())
+				AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
+			else return;
 			
 			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 				
-				AnnotatePermutationsWithNumbersWithChoices.main( args);
+				if( !Thread.currentThread().isInterrupted())
+					AnnotatePermutationsWithNumbersWithChoices.main( args);
+				else return;
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 				
-				CollectionofPermutationsResults.main( args);
+				if( !Thread.currentThread().isInterrupted())
+					CollectionofPermutationsResults.main( args);
+				else return;
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 				
-				AugmentationofEnrichedElementswithGivenInputData.main( args);
+				if( !Thread.currentThread().isInterrupted())
+					AugmentationofEnrichedElementswithGivenInputData.main( args);
+				else return;
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
 				
-				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+				if( !Thread.currentThread().isInterrupted())
+					CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+				else return;
 		
 				
 				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
@@ -76,12 +92,16 @@ public class GlanetRunner extends Thread{
 					if( getMainView() != null)
 						getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
 					
-					GenerationofSequencesandMatricesforGivenIntervals.main( args);
+					if( !Thread.currentThread().isInterrupted())
+						GenerationofSequencesandMatricesforGivenIntervals.main( args);
+					else return;
 					
 					if( getMainView() != null)
 						getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
 					
-					RSATMatrixScanClient.main( args);
+					if( !Thread.currentThread().isInterrupted())
+						RSATMatrixScanClient.main( args);
+					else return;
 				}
 			}
 			
@@ -91,11 +111,6 @@ public class GlanetRunner extends Thread{
 			if( getMainView() != null)
 				getMainView().enableStartProcess( true);
 			GlanetRunner.appendLog( "Execution has ended");
-		
-		} catch (SecurityException e) {
-			
-			GlanetRunner.appendLog( "Pressed stop");
-        }
 	}
 	
 	public static void appendLog( String log) {
@@ -132,15 +147,15 @@ public class GlanetRunner extends Thread{
 		GlanetRunner.mainView = mainView;
 	}
 
-	public static String[] getArgs() {
+	public String[] getArgs() {
 		
 		return args;
 	}
 
-	public static void setArgs( String args[]) {
+	public void setArgs( String args[]) {
 		
-		GlanetRunner.args = new String[args.length];
+		args = new String[args.length];
 		for( int i = 0; i < args.length; i++) 
-			GlanetRunner.args[i] = args[i];
+			args[i] = args[i];
 	}
 }

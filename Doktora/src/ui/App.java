@@ -69,11 +69,12 @@ public class App
     		//for( int i = 0; i < argsForGlanetRunner.length; i++)
     			//System.out.println( argsForGlanetRunner);
     		
-    		GlanetRunner.setMainView( null);
-    		GlanetRunner.setArgs( argsForGlanetRunner);
-    		
     		GlanetRunner runner = new GlanetRunner();
-    		runner.start();
+    		
+    		GlanetRunner.setMainView( null);
+    		runner.setArgs( argsForGlanetRunner);
+    		
+    		new Thread(runner).start();
     	} else if( !GraphicsEnvironment.isHeadless()) {
     		loadWindow();
     	}
