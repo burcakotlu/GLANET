@@ -18,6 +18,8 @@ public enum MultipleTestingType {
 	
 	private final int multipleTestingType;
 	
+	
+	
 	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
@@ -27,10 +29,14 @@ public enum MultipleTestingType {
     */
     private MultipleTestingType(int multipleTestingType) {
     	this.multipleTestingType = multipleTestingType;
-    	System.out.println(this.multipleTestingType);
-	}
+   }
+    
+    
+    public int getMultipleTestingType(){  	
+    		return multipleTestingType;		    		
+    }
 	
-    public String getMultipleTestingType(){
+    public String convertEnumtoString(){
     	if (this.equals(MultipleTestingType.EMPIRICAL_P_VALUE))
     		return Commons.EMPIRICAL_P_VALUE;
     	else if (this.equals(MultipleTestingType.BONFERRONI_CORRECTION))

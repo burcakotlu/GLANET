@@ -16,6 +16,14 @@ public enum KeggPathwayAnalysisType {
 	
 	private final int keggPathwayAnalysisType;
 	
+	
+	
+	public int getKeggPathwayAnalysisType() {
+		return keggPathwayAnalysisType;
+	}
+
+
+
 	// Constructor
 	private KeggPathwayAnalysisType(int keggPathwayAnalysisType){
       this.keggPathwayAnalysisType = keggPathwayAnalysisType;

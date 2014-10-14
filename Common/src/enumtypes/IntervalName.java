@@ -36,7 +36,13 @@ public enum IntervalName {
 	private final int intervalName;
 	
 	
-  /* 
+	
+	public int getIntervalName() {
+		return intervalName;
+	}
+
+
+	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
     * to use such a constructor outside the enum.
@@ -48,7 +54,7 @@ public enum IntervalName {
 	}
 		
     
-    public String getIntervalNameString(){
+    public String convertEnumtoString(){
     	if (this.equals(IntervalName.EXON))
     		return Commons.EXON;
     	else if (this.equals(IntervalName.INTRON))

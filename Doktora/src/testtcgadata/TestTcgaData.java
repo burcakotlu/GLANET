@@ -88,7 +88,7 @@ public class TestTcgaData {
 //				chrX	181384	271383	NR_027231	283981	5	+	LINC00685
 
 
-				searchString = "Searched for " + chromName.getChromosomeName() +"\t"+ startPositionofRegionofInterest + "\t" + endPositionofRegionofInterest+ "\t" + searchedAlternateGeneName + "\t" + searchedGeneId + "\n";
+				searchString = "Searched for " + chromName.convertEnumtoString() +"\t"+ startPositionofRegionofInterest + "\t" + endPositionofRegionofInterest+ "\t" + searchedAlternateGeneName + "\t" + searchedGeneId + "\n";
 				
 				while ((strLine = br.readLine()) != null)   {
 					
@@ -130,7 +130,7 @@ public class TestTcgaData {
 //						strand =strLine.substring(indexofSixthTab+1,indexofSeventhTab).charAt(0);
 						alternateGeneName = strLine.substring(indexofSeventhTab+1);
 						
-						outputString = outputString.concat("Found" + "\t" + chromName.getChromosomeName() + "\t" + startPosition + "\t" + endPosition + "\t"  + intervalName + "\t" +refSeqGeneName + "\t" + geneId + "\t" + alternateGeneName + "\n");						
+						outputString = outputString.concat("Found" + "\t" + chromName.convertEnumtoString() + "\t" + startPosition + "\t" + endPosition + "\t"  + intervalName + "\t" +refSeqGeneName + "\t" + geneId + "\t" + alternateGeneName + "\n");						
 					}
 				} // End of While
 				

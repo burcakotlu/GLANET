@@ -17,6 +17,13 @@ public enum WritePermutationBasedAnnotationResultMode {
 	
 	private final int writePermutationBasedAnnotationResultMode;
 	
+	
+	
+	public int getWritePermutationBasedAnnotationResultMode() {
+		return writePermutationBasedAnnotationResultMode;
+	}
+
+
 	private WritePermutationBasedAnnotationResultMode(int writePermutationBasedAnnotationResultMode) {
     	this.writePermutationBasedAnnotationResultMode = writePermutationBasedAnnotationResultMode;
 	}
@@ -32,7 +39,7 @@ public enum WritePermutationBasedAnnotationResultMode {
     		return null;
 	}
 	
-	public String getWritePermutationBasedAnnotationResultMode(){
+	public String convertEnumtoString(){
     	if (this.equals(WritePermutationBasedAnnotationResultMode.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT))
     		return Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     	else if (this.equals(WritePermutationBasedAnnotationResultMode.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT))

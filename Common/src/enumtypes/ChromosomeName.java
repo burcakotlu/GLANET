@@ -51,9 +51,12 @@ public enum ChromosomeName {
     	this.chromosomeName = chromosomeName;
 	}
 	   
-    
-    //@todo
-    public String getChromosomeName(){
+    public int getChromosomeName(){
+    	return chromosomeName;
+    }
+        
+ 
+    public String convertEnumtoString(){
     	if (this.equals(ChromosomeName.CHROMOSOME1))
     		return Commons.CHROMOSOME1;
     	else if (this.equals(ChromosomeName.CHROMOSOME2))
@@ -105,8 +108,7 @@ public enum ChromosomeName {
     	else if (this.equals(ChromosomeName.CHROMOSOMEWITHDIFFERENTNAME))
     		return Commons.CHROMOSOMEWITHDIFFERENTNAME;
     	else return null;
-    				
-    		
+    	
     }
     
     public static ChromosomeName convertStringtoEnum(String chrName){
@@ -332,7 +334,7 @@ public static String convertEnumtoString(ChromosomeName  chrName){
 		ChromosomeName chrName = CHROMOSOMEY;
 		System.out.println(chrName.toString());
 		System.out.println(chrName.name());
-		System.out.println(chrName.getChromosomeName());
+		System.out.println(chrName.convertEnumtoString());
 
 	}
 }

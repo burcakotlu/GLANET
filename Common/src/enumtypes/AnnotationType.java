@@ -34,6 +34,11 @@ public enum AnnotationType {
     	this.annotationType = annotationType;
 	}
     
+    public int getAnnotationType(){
+    	return annotationType;
+    }
+        
+    
     public static AnnotationType convertStringtoEnum(String annotationType){
     	
     	if (Commons.DNASE_ANNOTATION.equals(annotationType)){
@@ -56,7 +61,7 @@ public enum AnnotationType {
     		return null;
     }
     
-    public String getAnnotationType(){
+    public String convertEnumtoString(){
     	if (this.equals(AnnotationType.DNASE_ANNOTATION))
     		return Commons.DNASE_ANNOTATION;
     	else if (this.equals(AnnotationType.HISTONE_ANNOTATION))	

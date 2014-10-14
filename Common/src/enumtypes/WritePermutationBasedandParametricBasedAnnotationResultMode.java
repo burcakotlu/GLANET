@@ -17,6 +17,12 @@ public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
 	
 	private final int writePermutationBasedandParametricBasedAnnotationResultMode;
 	
+	
+	
+	public int getWritePermutationBasedandParametricBasedAnnotationResultMode() {
+		return writePermutationBasedandParametricBasedAnnotationResultMode;
+	}
+
 	private WritePermutationBasedandParametricBasedAnnotationResultMode(int writePermutationBasedandParametricBasedAnnotationResultMode) {
     	this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
 	}
@@ -31,7 +37,7 @@ public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
     		return null;
 	}
 	
-	public String getWritePermutationBasedandParametricBasedAnnotationResultMode(){
+	public String convertEnumtoString(){
     	if (this.equals(WritePermutationBasedandParametricBasedAnnotationResultMode.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT))
     		return Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     	else if (this.equals(WritePermutationBasedandParametricBasedAnnotationResultMode.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT))

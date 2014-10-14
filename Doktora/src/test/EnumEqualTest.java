@@ -34,7 +34,7 @@ public class EnumEqualTest {
 			
 		}
 		
-		System.out.println("1" + name2.getChromosomeName());
+		System.out.println("1" + name2.convertEnumtoString());
 		System.out.println("2" + name2.toString());
 		
 		

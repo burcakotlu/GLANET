@@ -567,7 +567,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 							e.printStackTrace();
 						}			 
 		        	}//Check for each file and read each file		        	
-//		            GlanetRunner.appendLog(files[i]);		            		         		           		            
 		        }	// End of For -----reading each file in the directory	        	
 	        } //For all files in this directory
 		
@@ -640,7 +639,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 
 		        	}//Check for each file and read each file
 		        	
-//		            GlanetRunner.appendLog(files[i]);		            
 		         
 		           		            
 		        }	// End of For -----reading each file in the directory
@@ -815,10 +813,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 					//sort the data
 					Collections.sort(histoneList, Histone.START_POSITION_ORDER);
 					
-//					//for debug purposes
-//					GlanetRunner.appendLog("histone chr" + i + " low: "+ histoneList.get(histoneList.size()-1).startPos + " high: "+histoneList.get(histoneList.size()-1).endPos);
-//					//for debug purposes
-
 //					write sorted histone list to file
 					for(int j= 0; j <histoneList.size(); j++){
 						bw.write(histoneList.get(j).getChromName()+ "\t" +histoneList.get(j).getStartPos()+"\t"+ histoneList.get(j).getEndPos()+"\t" +histoneList.get(j).getHistoneName()+"\t" +histoneList.get(j).getCellLineName()+"\t" + histoneList.get(j).getFileName()+"\n");												
@@ -904,9 +898,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 					//sort the data
 					Collections.sort(dnaseList, Dnase.START_POSITION_ORDER);
 					
-//					//for debug purposes
-//					GlanetRunner.appendLog("dnase chr" + i + " low: "+ dnaseList.get(dnaseList.size()-1).startPos + " high: "+dnaseList.get(dnaseList.size()-1).endPos);
-//					//for debug purposes
 
 //					write sorted dnase list to file
 					for(int j= 0; j <dnaseList.size(); j++){
@@ -997,9 +988,6 @@ public class CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingCollectio
 					//sort the data
 					Collections.sort(tfbsList, TranscriptionFactorBindingSite.START_POSITION_ORDER);
 					
-//					//for debug purposes
-//					GlanetRunner.appendLog("tfbs chr" + i + " low: "+ tfbsList.get(tfbsList.size()-1).startPos + " high: "+tfbsList.get(tfbsList.size()-1).endPos);
-//					//for debug purposes
 
 //					write sorted tfbs list to file
 					for(int j= 0; j <tfbsList.size(); j++){

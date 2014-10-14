@@ -146,8 +146,8 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);					 					
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
-					 					      
-				     GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.toString());	
+					 
+					 GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.convertEnumtoString());	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 				      
@@ -308,7 +308,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" + chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
 				     //NEW FUNCTIONALITY HAS BEEN ADDED
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
@@ -607,7 +607,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.toString() + "\t" + annotationType);	
+				     GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
 				     //WITHOUT IO
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
@@ -1879,7 +1879,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
     		chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i-1);
 			
-			GlanetRunner.appendLog("chromosome name:" + chromName + " chromosome size: " + chromSize);
+			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			chromosomeBaseOriginalInputLines 	= originalInputLinesMap.get(chromName);
 							
 			if (chromosomeBaseOriginalInputLines!=null){
@@ -2125,7 +2125,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 
 			    long endTime = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
+				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
 				GlanetRunner.appendLog("Generate Random Data and Annotate has ended.");
 			
 				GlanetRunner.appendLog("Deletion of the tasks has started.");
@@ -2194,49 +2194,49 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			if(dnaseEnrichmentType.isDnaseEnrichment()){
 				//Dnase
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(),permutationNumber2DnaseBufferedWriterHashMap, AnnotationType.DNASE_ANNOTATION.getAnnotationType() + System.getProperty("file.separator")  , Commons.DNASE);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(),permutationNumber2DnaseBufferedWriterHashMap, AnnotationType.DNASE_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator")  , Commons.DNASE);
 				closeBufferedWriters(permutationNumber2DnaseBufferedWriterHashMap);
 			}
 			
 			if(histoneEnrichmentType.isHistoneEnrichment()){
 				//Histone
-				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap(),permutationNumber2HistoneBufferedWriterHashMap,AnnotationType.HISTONE_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") , Commons.HISTONE);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap(),permutationNumber2HistoneBufferedWriterHashMap,AnnotationType.HISTONE_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") , Commons.HISTONE);
 				closeBufferedWriters(permutationNumber2HistoneBufferedWriterHashMap);
 			}
 			
 			
 			if(tfEnrichmentType.isTfEnrichment()  && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){					
 				//Transcription Factor 
-				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") , Commons.TF);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);					
 			}
 			
 		
 			if(userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){					
 				//Exon Based User Defined GeneSet
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSet2KMap(),permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSet2KMap(),permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED);
 				closeBufferedWriters(permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap);
 				
 				//Regulation Based User Defined GeneSet
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSet2KMap(),permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSet2KMap(),permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED);
 				closeBufferedWriters(permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap);
 				
 				//All Based User Defined GeneSet
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSet2KMap(),permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSet2KMap(),permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap, AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED);
 				closeBufferedWriters(permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap);
 			}
 	
 			if(keggPathwayEnrichmentType.isKeggPathwayEnrichment()  && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){					
 				//Exon Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//All Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);
 			}
 			
@@ -2245,106 +2245,106 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			if(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 				
 				//Tfbs
-				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") , Commons.TF);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(outputFolder,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);				
 				
 				//Exon Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//All Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Tf and Exon Based Kegg Pathway
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Regulation Based Kegg Pathway
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and All Based Kegg Pathway
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);			
 				
 				
 			}else if(!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment())  &&   tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
 										
 				//Tfbs
-				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") , Commons.TF);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);
 				
 				//Exon Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "exonBased" + System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator"), Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator"), Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//All Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator"), Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator"), Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);			
 				
 				//Tf and Cell Line and Exon Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Cell Line and Regulation Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf and Cell Line and All Based Kegg Pathway
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
 				
 		
 			}else if (tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
 				
 				//TF
-				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") , Commons.TF);
+				writeAnnotationstoFiles_ElementNumberCellLineNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),permutationNumber2TfbsBufferedWriterHashMap, AnnotationType.TF_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") , Commons.TF);
 				closeBufferedWriters(permutationNumber2TfbsBufferedWriterHashMap);				
 				
 				//ExonKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathway2KMap(),permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap,AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "exonBased" +System.getProperty("file.separator") , Commons.EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap);
 				
 				//RegulationKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathway2KMap(),permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "regulationBased" + System.getProperty("file.separator") , Commons.REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2RegulationBasedKeggPathwayBufferedWriterHashMap);
 				
 				//AllKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathway2KMap(),permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "allBased" + System.getProperty("file.separator") , Commons.ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2AllBasedKeggPathwayBufferedWriterHashMap);
 				
 				//TF ExonKEGG
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfExonBasedKeggPathway2KMap(),permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfExonBased" + System.getProperty("file.separator") , Commons.TF_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//TF RegulationKEGG
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfRegulationBasedKeggPathway2KMap(),permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfRegulationBased" + System.getProperty("file.separator") , Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//TF AllKEGG
-				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles_ElementNumberKeggPathwayNumber(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfAllBasedKeggPathway2KMap(),permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator")+ "tfAllBased" + System.getProperty("file.separator") , Commons.TF_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfAllBasedKeggPathwayBufferedWriterHashMap);			
 		
 				
 				//TF CellLine ExonKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineExonBasedKeggPathway2KMap(),permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineExonBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap);
 		
 				//TF CellLine RegulationKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineRegulationBasedKeggPathway2KMap(),permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineRegulationBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap);
 		
 				//Tf CellLine AllKEGG
-				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.getAnnotationType() + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberTfCellLineAllBasedKeggPathway2KMap(),permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap, AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator") + "tfCellLineAllBased" + System.getProperty("file.separator") , Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 				closeBufferedWriters(permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap);
 			
 			}

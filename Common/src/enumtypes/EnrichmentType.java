@@ -33,6 +33,10 @@ public enum EnrichmentType {
 	
 	private final int enrichmentType;
 	
+	public int getEnrichmentType(){
+	    return enrichmentType;
+	}
+	
 	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
@@ -85,7 +89,7 @@ public enum EnrichmentType {
     		return null;
     }
     
-    public String getEnrichmentType(){
+    public String convertEnumtoString(){
     	if (this.equals(EnrichmentType.DO_DNASE_ENRICHMENT))
     		return Commons.DO_DNASE_ENRICHMENT;
     	else if (this.equals(EnrichmentType.DO_NOT_DNASE_ENRICHMENT))

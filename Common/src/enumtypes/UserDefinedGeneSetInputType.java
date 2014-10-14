@@ -18,6 +18,11 @@ public enum UserDefinedGeneSetInputType {
 	
 	private final int userDefinedGeneSetInputType;
 	
+		
+	public int getUserDefinedGeneSetInputType() {
+		return userDefinedGeneSetInputType;
+	}
+
 	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
@@ -41,7 +46,7 @@ public enum UserDefinedGeneSetInputType {
     		return null;
     }
     
-    public String getUserDefinedGeneSetInputType(){
+    public String convertEnumtoString(){
     	if (this.equals(UserDefinedGeneSetInputType.GENE_ID))
     		return Commons.GENE_ID;
     	else if (this.equals(UserDefinedGeneSetInputType.RNA_NUCLEOTIDE_ACCESSION))	

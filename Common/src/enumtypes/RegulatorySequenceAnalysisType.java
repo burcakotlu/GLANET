@@ -18,6 +18,12 @@ public enum RegulatorySequenceAnalysisType {
 	
 	private final int regulatorySequenceAnalysisType;
 	
+	
+	
+	public int getRegulatorySequenceAnalysisType() {
+		return regulatorySequenceAnalysisType;
+	}
+
 	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
@@ -39,7 +45,7 @@ public enum RegulatorySequenceAnalysisType {
     		return null;
     }
 	
-    public String getRegulatorySequenceAnalysisType(){
+    public String convertEnumtoString(){
     	if (this.equals(RegulatorySequenceAnalysisType.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT))
     		return Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT;
     	else if (this.equals(RegulatorySequenceAnalysisType.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT))

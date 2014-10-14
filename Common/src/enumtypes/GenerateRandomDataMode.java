@@ -17,6 +17,11 @@ public enum GenerateRandomDataMode {
 	
 	private final int generateRandomDataMode;
 	
+	
+	 public int getGenerateRandomDataMode(){
+	    	return generateRandomDataMode;			   		
+	 }
+	    
 	/* 
     * This constructor is private.
     * Legal to declare a non-private constructor, but not legal
@@ -38,7 +43,7 @@ public enum GenerateRandomDataMode {
     		return null;
     }
     
-    public String getGenerateRandomDataMode(){
+    public String convertEnumtoString(){
     	if (this.equals(GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT))
     		return Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
     	else if (this.equals(GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT))
