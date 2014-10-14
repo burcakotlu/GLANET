@@ -1,6 +1,0 @@
-
-!ENTRY org.eclipse.ui 4 4 2014-10-13 15:46:55.028
-!MESSAGE Unable to find Action Set: org.eclipse.mylyn.context.ui.actionSet
-
-!ENTRY org.eclipse.ui 4 4 2014-10-13 15:46:55.029
-!MESSAGE Unable to find Action Set: org.eclipse.mylyn.tasks.ui.navigation
