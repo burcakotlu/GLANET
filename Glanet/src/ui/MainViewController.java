@@ -9,6 +9,7 @@ import common.Commons;
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
 	private MainView mainView;
+	private Thread runnerThread;
 	private GlanetRunner runner;
 	
 	public MainViewController( JPanel contentPanel) {
@@ -161,7 +162,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = userDefinedLibraryEnrichment;
 		
 		//for( i = 0; i < args.length; i++)
-			//System.out.println( args[i]);
+		//	System.out.println( args[i]);
 		
 		//filling the rest with selected cell lines. 
 		for( i = Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i < args.length; i++)
@@ -172,12 +173,13 @@ public class MainViewController extends ViewController implements MainViewDelega
 		GlanetRunner.setArgs( args);
 		GlanetRunner.setMainView( mainView);
 		
-		runner.start();
+		runnerThread = new Thread(runner);
+		runnerThread.start();
 	}
 	
 	@Override
 	public void stopCurrentProcess() {
 		
-		runner.interrupt();
+		runnerThread.interrupt();
 	}
 }

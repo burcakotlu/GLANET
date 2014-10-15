@@ -52,30 +52,22 @@ public class App
 	//args contains all arguments including memory arguments, jar files and class paths
 	//argsForGlanetRunner contains only the arguments required in the GUI
 	public static void main(String args[]) {
-    	 
+		
 		//if Command Line
-    	//if last argument is --c
     	if( args.length > 0 && args[args.length-1].startsWith( "--c")) {
     		
-    		String argsForGlanetRunner[] = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
+    		String[] argsForGlanetRunner = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
     		
-    		for(int i = 0; i < Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i++){
-    			argsForGlanetRunner[i] = args[args.length-Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT+i];
-    	    }//End of for
-    		
-//    		argsForGlanetRunner[i++] = args[args.length-23];
-//    		argsForGlanetRunner[i++] = args[args.length-2];
-    		
-    		//for( int i = 0; i < argsForGlanetRunner.length; i++)
-    			//System.out.println( argsForGlanetRunner);
+    		for(int i = 0; i < Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i++) {
+    			argsForGlanetRunner[i] = args[args.length-(Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1)+i];
+    		}
     		
     		GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
     		
     		GlanetRunner runner = new GlanetRunner();
-    		runner.start();
-    	} else if( !GraphicsEnvironment.isHeadless()) {
+    		new Thread( runner).start();
+    	} else if( !GraphicsEnvironment.isHeadless())
     		loadWindow();
-    	}
 	}
 }

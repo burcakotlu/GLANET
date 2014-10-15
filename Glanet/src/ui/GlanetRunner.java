@@ -10,10 +10,9 @@ import rsat.RSATMatrixScanClient;
 import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
 import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
 import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
-
 import common.Commons;
 
-public class GlanetRunner extends Thread{
+public class GlanetRunner implements Runnable{
 	
 	private static String args[];
 	private static MainView mainView;
@@ -21,81 +20,94 @@ public class GlanetRunner extends Thread{
 	@Override
 	public void run(){
 		
-		try {
-			
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Preparation...");
-			
-			Preparation.main( args);
-			
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "InputDataProcess...");
-			
-			InputDataProcess.main( args);
-			
-			/* In case of Enrichment remove overlaps and merge */
-			/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
-			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
-				
-				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-				
-				InputDataRemoveOverlaps.main( args);
-			}
-			
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
-			
-			AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
-			
-			if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
-				
-				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
-				
-				AnnotatePermutationsWithNumbersWithChoices.main( args);
-				
-				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
-				
-				CollectionofPermutationsResults.main( args);
-				
-				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
-				
-				AugmentationofEnrichedElementswithGivenInputData.main( args);
-				
-				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
-				
-				CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "Preparation...");
 		
-				
-				if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
-					
-					if( getMainView() != null)
-						getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
-					
-					GenerationofSequencesandMatricesforGivenIntervals.main( args);
-					
-					if( getMainView() != null)
-						getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
-					
-					RSATMatrixScanClient.main( args);
-				}
-			}
-			
-			//args[1]  already has file separator at the end
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
-			if( getMainView() != null)
-				getMainView().enableStartProcess( true);
-			GlanetRunner.appendLog( "Execution has ended");
+		if( Thread.currentThread().isInterrupted())
+			return;
+		Preparation.main( args);
 		
-		} catch (SecurityException e) {
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "InputDataProcess...");
+		
+		if( Thread.currentThread().isInterrupted())
+			return;
+		InputDataProcess.main( args);
+		
+		/* In case of Enrichment remove overlaps and merge */
+		/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
-			GlanetRunner.appendLog( "Pressed stop");
-        }
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			InputDataRemoveOverlaps.main( args);
+		}
+		
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
+		
+		if( Thread.currentThread().isInterrupted())
+			return;
+		AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
+		
+		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			AnnotatePermutationsWithNumbersWithChoices.main( args);
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			CollectionofPermutationsResults.main( args);
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			AugmentationofEnrichedElementswithGivenInputData.main( args);
+			
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+	
+			
+			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+				
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
+				
+				if( Thread.currentThread().isInterrupted())
+					return;
+				GenerationofSequencesandMatricesforGivenIntervals.main( args);
+				
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "RSATMatrixScanClient...");
+				
+				if( Thread.currentThread().isInterrupted())
+					return;
+				RSATMatrixScanClient.main( args);
+			}
+		}
+		
+		//args[1]  already has file separator at the end
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
+		if( getMainView() != null)
+			getMainView().enableStartProcess( true);
+		GlanetRunner.appendLog( "Execution has ended");
 	}
 	
 	public static void appendLog( String log) {

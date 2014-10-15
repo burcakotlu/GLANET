@@ -40,7 +40,6 @@ public class Commons {
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 24;
-	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT = NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1;
 	
 	//EnumType UserDefinedGeneSetInputType
 	public static final String GENE_ID 					= "GENE_ID";
