@@ -49,6 +49,16 @@ public class App
         frame.repaint();
 	}
 	
+	//it reads args and tries to find the values that are
+	//defined in constants in a order. This order is
+	//defined in MainViewController as a comment just above
+	//startRunActionsWithOptions(...) method. This order
+	//is the convention for the rest of the program. Therefore,
+	//fillArgumentsInOrder(..) tries to find the specific values for
+	//each of the index of argsInOrder[] array. It returns true if everything is
+	//okay. It returns false, if the list of the arguments is wrong
+	//(e.g. same argument is specified for multiple times, or a required
+	//argument is not specified such as glanet folder location)
 	static boolean fillArgumentsInOrder( String[] args, String[] argsInOrder){
 		
 		//Initializing argsInOrder array.
@@ -434,7 +444,7 @@ public class App
 //    		
 //    		GlanetRunner runner = new GlanetRunner();
 //    		new Thread( runner).start();
-//    	} 
+//    	}
 		if( args.length > 0 && isCommandLineEnabled( args)){
 			
 			String[] argsForGlanetRunner = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
