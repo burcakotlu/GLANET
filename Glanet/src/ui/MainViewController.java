@@ -9,6 +9,7 @@ import common.Commons;
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
 	private MainView mainView;
+	private Thread runnerThread;
 	private GlanetRunner runner;
 	
 	public MainViewController( JPanel contentPanel) {
@@ -61,10 +62,10 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//			--->	default	Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT
 	//			--->			Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT	
 	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respect to this parameter
-	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE
-	//			--->			Commons.BONFERRONI_CORRECTED_P_VALUE
+	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR
+	//			--->			Commons.BONFERRONI_CORRECTION
 	//args[7]	--->	Bonferroni Correction Significance Level, default 0.05
-	//args[8]	--->	Benjamini Hochberg FDR, default 0.05
+	//args[8]	--->	Bonferroni Correction Significance Criteria, default 0.05
 	//args[9]	--->	Number of permutations, default 5000
 	//args[10]	--->	Dnase Enrichment
 	//			--->	default Commons.DO_NOT_DNASE_ENRICHMENT
@@ -98,7 +99,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//args[21]  --->    number of permutations in each run. Default is 2000
-	//args[22] - args[args.length-1]  --->	Note that the selected cell lines are
+	//args[22]  --->	user defined geneset
+	//args[23]  --->	user defined library
+	//args[24] - args[args.length-1]  --->	Note that the selected cell lines are
 	//					always inserted at the end of the args array because it's size
 	//					is not fixed. So for not (until the next change on args array) the selected cell
 	//					lines can be reached starting from 22th index up until (args.length-1)th index.
@@ -161,7 +164,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = userDefinedLibraryEnrichment;
 		
 		//for( i = 0; i < args.length; i++)
-			//System.out.println( args[i]);
+		//	System.out.println( args[i]);
 		
 		//filling the rest with selected cell lines. 
 		for( i = Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i < args.length; i++)
@@ -172,12 +175,13 @@ public class MainViewController extends ViewController implements MainViewDelega
 		GlanetRunner.setArgs( args);
 		GlanetRunner.setMainView( mainView);
 		
-		runner.start();
+		runnerThread = new Thread(runner);
+		runnerThread.start();
 	}
 	
 	@Override
 	public void stopCurrentProcess() {
 		
-		runner.interrupt();
+		runnerThread.interrupt();
 	}
 }

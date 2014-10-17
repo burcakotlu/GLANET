@@ -40,7 +40,6 @@ public class Commons {
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 24;
-	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS_INCLUDING_COMMAND_LINE_ARGUMENT = NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1;
 	
 	//EnumType UserDefinedGeneSetInputType
 	public static final String GENE_ID 					= "GENE_ID";
@@ -1516,5 +1515,34 @@ public class Commons {
 	//dbSNP orient
 	public static final String REVERSE = "reverse";
 	public static final String FORWARD = "forward";
-
+	
+	//command line arguments
+	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
+	
+	public static final String ARG_INPUT_FILE = "-i";
+	public static final String ARG_GLANET_FOLDER = "-g";
+	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
+	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
+	public static final String ARG_INPUT_FORMAT_BED = "-fbad";
+	public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
+	public static final String ARG_NUMBER_OF_BASES = "-b";
+	public static final String ARG_PERFORM_ENRICHMENT = "-e";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
+	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbenjamini";
+	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbonferroni";
+	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
+	public static final String ARG_SIGNIFICANCE_CRITERIA = "-sc";
+	public static final String ARG_NUMBER_OF_PERMUTATIONS = "-p";
+	public static final String ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "-pe";
+	public static final String ARG_DNASE_ANNOTATION = "-dnase";
+	public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
+	public static final String ARG_TF_ANNOTATION = "-tf";
+	public static final String ARG_KEGG_ANNOTATION = "-kegg";
+	public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
+	public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-celltfkegg";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udgeneset";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udlibrary";
+	public static final String ARG_JOB_NAME = "-j";
+	public static final String ARG_RSAT = "-rsat";
 }
