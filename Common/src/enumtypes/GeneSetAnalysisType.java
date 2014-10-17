@@ -26,8 +26,7 @@ public enum GeneSetAnalysisType {
       this.geneSetAnalysisType = geneSetAnalysisType;
    }
 	
-	
-	 
+ 
     /** An added method.  */
     public boolean isExonBasedGeneSetAnalysis() {
      return  this == EXONBASEDGENESETANALYSIS;
@@ -42,4 +41,7 @@ public enum GeneSetAnalysisType {
     public boolean isAllBasedGeneSetAnalysis() {
      return  this == ALLBASEDGENESETANALYSIS;
     }
+    
+   
+    
 }

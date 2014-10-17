@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package enumtypes;
+
+/**
+ * @author burcakotlu
+ *
+ */
+public enum GeneSetType {
+
+}

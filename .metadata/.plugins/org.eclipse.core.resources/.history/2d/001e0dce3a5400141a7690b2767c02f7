@@ -1,0 +1,86 @@
+/**
+ * @author burcakotlu
+ * @date May 15, 2014 
+ * @time 9:43:28 AM
+ */
+package enumtypes;
+
+/**
+ * 
+ */
+public enum GeneratedMixedNumberDescriptionOrderLength {
+	
+	DNASE_CELLLINENUMBER(1),
+	TFNUMBER_CELLLINENUMBER(2),
+	HISTONENUMBER_CELLLINENUMBER(3),
+	USERDEFINEDGENESETNUMBER(4),
+	KEGGPATHWAYNUMBER(5),
+	TFNUMBER_KEGGPATHWAYNUMBER(6),
+	TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER(7),
+	FIRSTFIVEDIGITS_PERMUTATIONNUMBER_LASTFIVEDIGITS_USERDEFINEDGENESETNUMBER(8),
+	NO_DESCRIPTION_NO_ORDER_NO_LENGTH(9);
+	
+	 private final int generatedMixedNumberDescriptionOrderLength;
+		
+
+	 /* 
+    * This constructor is private.
+    * Legal to declare a non-private constructor, but not legal
+    * to use such a constructor outside the enum.
+    * Can never use "new" with any enum, even inside the enum 
+    * class itself.
+    */
+    private GeneratedMixedNumberDescriptionOrderLength(int generatedMixedNumberDescriptionOrderLength) {
+    	this.generatedMixedNumberDescriptionOrderLength = generatedMixedNumberDescriptionOrderLength;
+	}
+    
+    
+	public int getGeneratedMixedNumberDescriptionOrderLength(){ 
+		 return generatedMixedNumberDescriptionOrderLength; 
+	}
+	
+	public boolean isFIRSTFIVEDIGITS_PERMUTATIONNUMBER_LASTFIVEDIGITS_USERDEFINEDGENESETNUMBER(){
+        return  this == FIRSTFIVEDIGITS_PERMUTATIONNUMBER_LASTFIVEDIGITS_USERDEFINEDGENESETNUMBER;
+
+	}
+	
+	/** An added method.  */
+    public boolean isDnaseCellLineNumber() {
+        return  this == DNASE_CELLLINENUMBER;
+    }
+		
+    
+	/** An added method.  */
+    public boolean isTfNumberCellLineNumber() {
+        return  this == TFNUMBER_CELLLINENUMBER;
+    }
+    
+
+	/** An added method.  */
+    public boolean isHistoneNumberCellLineNumber() {
+        return  this == HISTONENUMBER_CELLLINENUMBER;
+    }
+    
+    
+	/** An added method.  */
+    public boolean isUserDefinedGeneSetNumber() {
+        return  this == USERDEFINEDGENESETNUMBER;
+    }
+    
+    
+    /** An added method.  */
+    public boolean isKeggPathwayNumber() {
+        return  this == KEGGPATHWAYNUMBER;
+    }
+	
+    
+    /** An added method.  */
+    public boolean isTfNumberKeggPathwayNumber() {
+        return  this == TFNUMBER_KEGGPATHWAYNUMBER;
+    }
+    
+    /** An added method.  */
+    public boolean isTfNumberCellLineNumberKeggPathwayNumber() {
+        return  this == TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER;
+    }
+}

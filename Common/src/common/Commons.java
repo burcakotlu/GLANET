@@ -190,15 +190,17 @@ public class Commons {
 	
 	public static final int HOMO_SAPIENS_TAX_ID = 9606;
 
-	public static Integer ZERO = new Integer(0); 
-	public static Integer ONE = new Integer(1); 
+	public static Integer ZERO 		= 0; 
+	public static Integer ONE 		= 1; 
+	public static Integer MINUS_ONE	= -1; 
+
 //	public static int NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = 2000;
 	
-	public static Float FLOAT_ZERO = new Float(0.0f); 
-	public static Float FLOAT_TEN_QUADRILLION = new Float(10000000000000000f); 
+	public static Float FLOAT_ZERO = 0.0f; 
+	public static Float FLOAT_TEN_QUADRILLION = 10000000000000000f; 
 	
-	public static Long LONG_ZERO = new Long(0); 
-	public static Long LONG_ONE = new Long(1); 
+	public static Long LONG_ZERO = (long) 0; 
+	public static Long LONG_ONE = (long) 1; 
 	
 	public static final String GC = "GC";
 	public static final String MAPABILITY = "MAPABILITY";

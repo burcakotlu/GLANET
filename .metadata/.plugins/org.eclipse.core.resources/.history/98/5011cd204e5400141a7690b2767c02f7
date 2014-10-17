@@ -1,0 +1,100 @@
+/**
+ * @author burcakotlu
+ * @date May 15, 2014 
+ * @time 9:43:28 AM
+ */
+package enumtypes;
+
+/**
+ * 
+ */
+public enum GeneratedMixedNumberDescriptionOrderLength {
+	
+	DNASE_CELLLINENUMBER(1),
+	TFNUMBER_CELLLINENUMBER(2),
+	HISTONENUMBER_CELLLINENUMBER(3),
+	USERDEFINEDGENESETNUMBER(4),
+	KEGGPATHWAYNUMBER(5),
+	TFNUMBER_KEGGPATHWAYNUMBER(6),
+	TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER(7),
+	FIRST_5_DIGITS_PERMUTATIONNUMBER_LAST_5_DIGITS_USERDEFINEDGENESETNUMBER(8),
+	FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER(9),
+	FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_CELLLINENUMBER(10),
+	NO_DESCRIPTION_NO_ORDER_NO_LENGTH(11);
+	
+	 private final int generatedMixedNumberDescriptionOrderLength;
+		
+
+	 /* 
+    * This constructor is private.
+    * Legal to declare a non-private constructor, but not legal
+    * to use such a constructor outside the enum.
+    * Can never use "new" with any enum, even inside the enum 
+    * class itself.
+    */
+    private GeneratedMixedNumberDescriptionOrderLength(int generatedMixedNumberDescriptionOrderLength) {
+    	this.generatedMixedNumberDescriptionOrderLength = generatedMixedNumberDescriptionOrderLength;
+	}
+    
+    
+	public int getGeneratedMixedNumberDescriptionOrderLength(){ 
+		 return generatedMixedNumberDescriptionOrderLength; 
+	}
+	
+	public boolean isFIRST_5_DIGITS_PERMUTATIONNUMBER_LAST_5_DIGITS_USERDEFINEDGENESETNUMBER(){
+        return  this == FIRST_5_DIGITS_PERMUTATIONNUMBER_LAST_5_DIGITS_USERDEFINEDGENESETNUMBER;
+	}
+	
+	public boolean isFIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER(){
+        return  this == FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER;
+	}
+	
+	public boolean isFIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_CELLLINENUMBER(){
+        return  this == FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_CELLLINENUMBER;
+	}
+	
+	public boolean isNODESCRIPTION_NOORDER_NOLENGTH(){
+        return  this == NO_DESCRIPTION_NO_ORDER_NO_LENGTH;
+	}
+
+	
+	/** An added method.  */
+    public boolean isDnaseCellLineNumber() {
+        return  this == DNASE_CELLLINENUMBER;
+    }
+		
+    
+	/** An added method.  */
+    public boolean isTfNumberCellLineNumber() {
+        return  this == TFNUMBER_CELLLINENUMBER;
+    }
+    
+
+	/** An added method.  */
+    public boolean isHistoneNumberCellLineNumber() {
+        return  this == HISTONENUMBER_CELLLINENUMBER;
+    }
+    
+    
+	/** An added method.  */
+    public boolean isUserDefinedGeneSetNumber() {
+        return  this == USERDEFINEDGENESETNUMBER;
+    }
+    
+    
+    /** An added method.  */
+    public boolean isKeggPathwayNumber() {
+        return  this == KEGGPATHWAYNUMBER;
+    }
+	
+    
+    /** An added method.  */
+    public boolean isTfNumberKeggPathwayNumber() {
+        return  this == TFNUMBER_KEGGPATHWAYNUMBER;
+    }
+    
+    /** An added method.  */
+    public boolean isTfNumberCellLineNumberKeggPathwayNumber() {
+        return  this == TFNUMBER_CELLLINENUMBER_KEGGPATHWAYNUMBER;
+    }
+}
