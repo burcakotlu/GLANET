@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER" key="selection"/>
+		<item value="Annotate Random Data For Permutation: " key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Annotate Random Data For Permutation: "/>
+			<item value="permutationNumberCellLineNumberOrKeggPathwayNumber"/>
 			<item value="FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_CELLLINENUMBER"/>
 			<item value="FIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER"/>
 			<item value="FIRST_5_DIGITS_PERMUTATIONNUMBER_LAST_5_DIGITS_USERDEFINEDGENESETNUMBER"/>
 			<item value="FIRST_7_DIGITS_PERMUTATIONNUMBER_FIRSTMIDDLE_4_DIGITS_ELEMENTNUMBER_LASTMIDDLE_4_DIGITS_CELLLINENUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER"/>
 			<item value="FIRST_15_DIGITS_HISTONENUMBER_LAST_4_DIGITS_CELLLINENUMBER"/>
 			<item value="FIRST_15_DIGITS_TFNUMBER_LAST_4_DIGITS_CELLLINENUMBER"/>
-			<item value="LAST_4_DIGITS_DNASE_CELLLINENUMBER"/>
-			<item value="isFIRST_6_DIGITS_PERMUTATIONNUMBER_LAST_4_DIGITS_KEGGPATHWAYNUMBER"/>
 		</list>
 		<list key="replacehistory">
 			<item value="INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER"/>
@@ -36,7 +36,7 @@
 		<item value="1343" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="513" key="DIALOG_HEIGHT"/>
-		<item value="178" key="DIALOG_X_ORIGIN"/>
-		<item value="149" key="DIALOG_Y_ORIGIN"/>
+		<item value="380" key="DIALOG_X_ORIGIN"/>
+		<item value="300" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
