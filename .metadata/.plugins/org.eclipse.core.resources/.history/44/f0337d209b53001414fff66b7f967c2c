@@ -1,0 +1,63 @@
+/**
+ * @author burcakotlu
+ * @date Oct 1, 2014 
+ * @time 5:20:27 PM
+ */
+package enumtypes;
+
+/**
+ * 
+ */
+public enum GeneSetAnalysisType {
+
+	EXONBASEDUSERDEFINEDGENESETANALYSIS(1),
+	REGULATIONBASEDUSERDEFINEDGENESETANALYSIS(2),
+	ALLBASEDUSERDEFINEDGENESETANALYSIS(3),
+	EXONBASEDKEGGPATHWAYANALYSIS(4),
+	REGULATIONBASEDKEGGPATHWAYANALYSIS(5),
+	ALLBASEDKEGGPATHWAYANALYSIS(6);
+
+	private final int geneSetAnalysisType;
+	
+	public int getGeneSetAnalysisType() {
+		return geneSetAnalysisType;
+	}
+
+
+	// Constructor
+	private GeneSetAnalysisType(int geneSetAnalysisType){
+      this.geneSetAnalysisType = geneSetAnalysisType;
+   }
+	
+ 
+    /** An added method.  */
+    public boolean isExonBasedUserDefinedGeneSetAnalysis() {
+     return  this == EXONBASEDUSERDEFINEDGENESETANALYSIS;
+    }
+
+    /** An added method.  */
+    public boolean isRegulationBasedUserDefinedGeneSetAnalysis() {
+     return  this == REGULATIONBASEDUSERDEFINEDGENESETANALYSIS;
+    }
+    
+    /** An added method.  */
+    public boolean isAllBasedUserDefinedGeneSetAnalysis() {
+     return  this == ALLBASEDUSERDEFINEDGENESETANALYSIS;
+    }
+    
+    /** An added method.  */
+    public boolean isExonBasedKeggPathwayAnalysis() {
+     return  this == EXONBASEDKEGGPATHWAYANALYSIS;
+    }
+
+    /** An added method.  */
+    public boolean isRegulationBasedKeggPathwayAnalysis() {
+     return  this == REGULATIONBASEDKEGGPATHWAYANALYSIS;
+    }
+    
+    /** An added method.  */
+    public boolean isAllBasedKeggPathwayAnalysis() {
+     return  this == ALLBASEDKEGGPATHWAYANALYSIS;
+    }
+    
+}

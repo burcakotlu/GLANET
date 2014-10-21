@@ -376,6 +376,10 @@ public class AllMapsWithNumbers {
 		this.permutationNumberTfNumberCellLineNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberHistoneNumberCellLineNumber2KMap 	= new TLongIntHashMap();
 		
+		this.permutationNumberExonBasedUserDefinedGeneSet2KMap 		= new TIntIntHashMap();
+		this.permutationNumberRegulationBasedUserDefinedGeneSet2KMap= new TIntIntHashMap();
+		this.permutationNumberAllBasedUserDefinedGeneSet2KMap		= new TIntIntHashMap();
+		
 		this.permutationNumberExonBasedKeggPathway2KMap 		= new TIntIntHashMap();
 		this.permutationNumberRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
 		this.permutationNumberAllBasedKeggPathway2KMap 			= new TIntIntHashMap();

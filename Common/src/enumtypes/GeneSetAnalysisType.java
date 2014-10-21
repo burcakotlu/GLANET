@@ -5,6 +5,8 @@
  */
 package enumtypes;
 
+import common.Commons;
+
 /**
  * 
  */
@@ -26,8 +28,7 @@ public enum GeneSetAnalysisType {
       this.geneSetAnalysisType = geneSetAnalysisType;
    }
 	
-	
-	 
+ 
     /** An added method.  */
     public boolean isExonBasedGeneSetAnalysis() {
      return  this == EXONBASEDGENESETANALYSIS;
@@ -42,4 +43,19 @@ public enum GeneSetAnalysisType {
     public boolean isAllBasedGeneSetAnalysis() {
      return  this == ALLBASEDGENESETANALYSIS;
     }
+
+    public static String convertEnumtoString(GeneSetAnalysisType  geneSetAnalysisType){
+    	
+    	if (GeneSetAnalysisType.EXONBASEDGENESETANALYSIS.equals(geneSetAnalysisType)){
+    		return Commons.EXON_BASED;
+    	}else if (GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS.equals(geneSetAnalysisType)){
+    		return Commons.REGULATION_BASED;
+    	}else if (GeneSetAnalysisType.ALLBASEDGENESETANALYSIS.equals(geneSetAnalysisType)){
+    		return Commons.ALL_BASED;
+    	}else
+    		return null;
+    }
+
+   
+    
 }
