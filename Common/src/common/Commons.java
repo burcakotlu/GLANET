@@ -1521,7 +1521,7 @@ public class Commons {
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
-	public static final String ARG_INPUT_FORMAT_BED = "-fbad";
+	public static final String ARG_INPUT_FORMAT_BED = "-fbed";
 	public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
 	public static final String ARG_NUMBER_OF_BASES = "-b";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
