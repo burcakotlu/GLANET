@@ -565,8 +565,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		this.annotationType = annotationType;	
 		this.tfandKeggPathwayEnrichmentType = tfandKeggPathwayEnrichmentType;
 		
-		//geneId2KeggPathwayMap
-		//sent full when annotation for tf and ucsc refseq genes will be done
+		//geneId2ListofGeneSetNumberMap
+		//sent full when annotation for TF and KEGGPathway will be done
+		//sent full when annotation for KEGGPathway or UserDefinedGeneSet will be done
 		//otherwise sent null
 		this.geneId2ListofGeneSetNumberMap = geneId2ListofGeneSetNumberMap;
 		
@@ -622,7 +623,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				     }						
 				}//End of FOR
 					
+				
 				combineListofAllMapsWithNumbers(listofAllMapsWithNumbers,allMapsWithNumbers);
+				
+			
 				listofAllMapsWithNumbers = null;
 				return allMapsWithNumbers;
 				
@@ -1899,9 +1903,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 				/******************************************************************************************************/		
 				/******************************GENERATE ANNOTATION TASKS STARTS****************************************/						
-				GlanetRunner.appendLog("Generate annotation tasks has started.");
+				GlanetRunner.appendLog("Generation of annotation tasks has started.");
 				generateAnnotationTasks(chromName,listofAnnotationTasks,runNumber,numberofPermutationsinThisRun,numberofPermutationsinEachRun);
-				GlanetRunner.appendLog("Generate annotation tasks has ended.");
+				GlanetRunner.appendLog("Generation of annotation tasks has ended.");
 				/********************************GENERATE ANNOTATION TASKS ENDS****************************************/						
 				/******************************************************************************************************/		
 
@@ -1919,15 +1923,13 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				
 				/******************************************************************************************************/		
 				/**********************************GENERATE RANDOM DATA STARTS*****************************************/						
-				GlanetRunner.appendLog("Generate Random Data and Annotate has started.");	
-			    long startTime = System.currentTimeMillis();
+			   long startTime = System.currentTimeMillis();
 			    
-			    GlanetRunner.appendLog("First Generate Random Data");
-			    GlanetRunner.appendLog("Generate Random Data has started.");
+			    GlanetRunner.appendLog("Generate Random Data for permutations has started.");
  			    //First generate Random Data
 			    generateRandomData = new GenerateRandomData(outputFolder,chromSize,chromName,chromosomeBaseOriginalInputLines,generateRandomDataMode,writeGeneratedRandomDataMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,gcCharArray,mapabilityFloatArray);
 			    permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
-			    GlanetRunner.appendLog("Generate Random Data has ended.");
+			    GlanetRunner.appendLog("Generate Random Data for permutations has ended.");
 			    /**********************************GENERATE RANDOM DATA ENDS*****************************************/						
 			    /******************************************************************************************************/		
 			    
@@ -1965,7 +1967,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				
 				/******************************************************************************************************/		
 				/*****************************ANNOTATE PERMUTATIONS STARTS*********************************************/					
-				GlanetRunner.appendLog("Annotate has started.");
+				GlanetRunner.appendLog("Annotation of Permutations has started.");
 				
 				if (dnaseEnrichmentType.isDnaseEnrichment()){			
 					//dnase
@@ -2126,18 +2128,22 @@ public class AnnotatePermutationsWithNumbersWithChoices {
       			  System.runFinalization();
     			}
 				
-				GlanetRunner.appendLog("Annotate has ended.");
+				GlanetRunner.appendLog("Annotation of Permutations has ended.");
 				/*****************************ANNOTATE PERMUTATIONS ENDS***********************************************/					
 				/******************************************************************************************************/		
 
 
 			    long endTime = System.currentTimeMillis();
 				GlanetRunner.appendLog("RunNumber: " + runNumber  + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
-				GlanetRunner.appendLog("Generate Random Data and Annotate has ended.");
-			
-				GlanetRunner.appendLog("Deletion of the tasks has started.");
+
+				/******************************************************************************************************/		
+				/*****************************DELETION OF ANNOTATION TASKS STARTSS*************************************/						
+				GlanetRunner.appendLog("Deletion of the annotation tasks has started.");
 				deleteAnnotationTasks(listofAnnotationTasks);
-				GlanetRunner.appendLog("Deletion of the tasks has ended.");
+				GlanetRunner.appendLog("Deletion of the annotation tasks has ended.");
+				/*****************************DELETION OF ANNOTATION TASKS ENDS****************************************/					
+				/******************************************************************************************************/		
+
 		
 			    permutationNumber2RandomlyGeneratedDataHashMap.clear();
 			    permutationNumber2RandomlyGeneratedDataHashMap= null;
@@ -2157,8 +2163,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
     	pool.shutdown();
 		
 		if (pool.isTerminated()){
-			GlanetRunner.appendLog("ForkJoinPool is terminated ");
-			
+			GlanetRunner.appendLog("ForkJoinPool is terminated ");	
 		}   	
 		
 		long endTimeAllPermutations = System.currentTimeMillis();
@@ -2607,8 +2612,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		String userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 		
 		//@todo userDefinedGeneSetName has to filled from GLANET GUI
+		//@todo userDefinedGeneSetName has to be read from the program arguments
 		String userDefinedGeneSetName = "GO";
-		
+	   	
 		//@todo userDefinedGeneSetInputType has to filled from GLANET GUI
 		UserDefinedGeneSetInputType  userDefinedGeneSetInputType = UserDefinedGeneSetInputType.GENE_SYMBOL;
 				
@@ -2793,7 +2799,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			/*********************************************************************************************/			
 			/**************************ANNOTATE PERMUTATIONS STARTS***************************************/		
-			GlanetRunner.appendLog("Concurrent programming has been started.");				
+			GlanetRunner.appendLog("Concurrent programming has started.");				
 			//concurrent programming
 			//generate random data
 			//then annotate permutations concurrently
@@ -2804,7 +2810,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap,exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, userDefinedGeneSetEnrichmentType,keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap);		
 				
 			}
-			GlanetRunner.appendLog("Concurrent programming has been ended.");				
+			GlanetRunner.appendLog("Concurrent programming has ended.");				
 			/**************************ANNOTATE PERMUTATIONS ENDS*****************************************/
 			/*********************************************************************************************/			
 			
@@ -2830,10 +2836,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
 				
-				final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXON_BASED + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXON_BASED + userDefinedGeneSetName ;
-				final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + userDefinedGeneSetName ;
-				final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + userDefinedGeneSetName ;
-
+				final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				
 				//Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedKeggPathway2KMap,exonBasedKeggPathway2AllKMap,TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS,runName);
 				writeToBeCollectedNumberofOverlaps(outputFolder,originalRegulationBasedKeggPathway2KMap,regulationBasedKeggPathway2AllKMap,TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS,runName);

@@ -30,9 +30,7 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
-
 import common.Commons;
-
 import enumtypes.EnrichmentType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.MultipleTestingType;
@@ -215,7 +213,14 @@ public class CollectionofPermutationsResults {
 	}
 	
 	
-	public static String convertGeneratedMixedNumberToName(long modifiedMixedNumber,GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength, Map<Integer,String> cellLineNumber2NameMap,Map<Integer,String> tfNumber2NameMap,Map<Integer,String> histoneNumber2NameMap, Map<Integer,String> keggPathwayNumber2NameMap){
+	public static String convertGeneratedMixedNumberToName(
+			long modifiedMixedNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength, 
+			Map<Integer,String> cellLineNumber2NameMap,
+			Map<Integer,String> tfNumber2NameMap,
+			Map<Integer,String> histoneNumber2NameMap, 
+			Map<Integer,String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
+			Map<Integer,String> keggPathwayNumber2NameMap){
 	
 		int cellLineNumber;
 		int tfNumber;
@@ -235,11 +240,9 @@ public class CollectionofPermutationsResults {
 												cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
 												return cellLineName;	
 										}
-			case INT_4DIGIT_USERDEFINEDGENESETNUMBER:{
+			case INT_5DIGIT_USERDEFINEDGENESETNUMBER:{
 											userDefinedGeneSetNumber =  IntervalTree.getGeneSetNumber(modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
-											
-											//@todo userDefinedGeneSetNumber2UserDefinedGeneSetNameMap is needed
-											userDefinedGeneSetName = String.valueOf(userDefinedGeneSetNumber);
+											userDefinedGeneSetName = userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap.get(userDefinedGeneSetNumber);
 											return userDefinedGeneSetName;
 											
 										}
@@ -358,12 +361,16 @@ public class CollectionofPermutationsResults {
 		Map<Integer,String> histoneNumber2HistoneNameMap = new HashMap<Integer,String>();
 		Map<Integer,String> geneHugoSymbolNumber2GeneHugoSymbolNameMap = new HashMap<Integer,String>();
 		Map<Integer,String> keggPathwayNumber2KeggPathwayEntryMap = new HashMap<Integer,String>();
+		Map<Integer,String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new HashMap<Integer,String>();
+		
 		
 		fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
 		fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
 		fillNumberToNameMaps(histoneNumber2HistoneNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);
 		fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-		fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);		
+		fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+		fillNumberToNameMaps(userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME);
+		
 		//@todo
 	
 	
@@ -392,7 +399,7 @@ public class CollectionofPermutationsResults {
 
 //						mixedNumber can be in one of these formats
 //						INT_4DIGIT_DNASECELLLINENUMBER
-//						INT_4DIGIT_USERDEFINEDGENESETNUMBER
+//						INT_5DIGIT_USERDEFINEDGENESETNUMBER
 //						INT_4DIGIT_KEGGPATHWAYNUMBER
 //						INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
 //						INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER
@@ -424,7 +431,7 @@ public class CollectionofPermutationsResults {
 							
 							element.setNumber(mixedNumber);
 							
-							tforHistoneNameCellLineNameKeggPathwayName = convertGeneratedMixedNumberToName(mixedNumber,generatedMixedNumberDescriptionOrderLength,cellLineNumber2CellLineNameMap,tfNumber2TfNameMap,histoneNumber2HistoneNameMap,keggPathwayNumber2KeggPathwayEntryMap);
+							tforHistoneNameCellLineNameKeggPathwayName = convertGeneratedMixedNumberToName(mixedNumber,generatedMixedNumberDescriptionOrderLength,cellLineNumber2CellLineNameMap,tfNumber2TfNameMap,histoneNumber2HistoneNameMap,userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,keggPathwayNumber2KeggPathwayEntryMap);
 							element.setName(tforHistoneNameCellLineNameKeggPathwayName);
 							
 							//in case of element contains a KEGG PATHWAY
@@ -654,6 +661,10 @@ public class CollectionofPermutationsResults {
 			
 		//set the number of permutations in each run
 		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
+		
+		//@todo userDefinedGeneSetName has to be read from the program arguments
+	    String userDefinedGeneSetName = "GO";
+	  
 			
 		int numberofRuns = 0;
 		int numberofRemainders = 0;
@@ -736,13 +747,13 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + "_" + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET  +"_" + userDefinedGeneSetName,					
 					jobName,
 					numberofRuns,
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsExonBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 			
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -750,13 +761,13 @@ public class CollectionofPermutationsResults {
 					FDR,
 					multipleTestingParameter,
 					dataFolder,outputFolder,
-					Commons.TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + "_" + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET  +"_" + userDefinedGeneSetName,					
 					jobName,
 					numberofRuns,
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsRegulationBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 			
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -765,13 +776,13 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + "_" + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET  +"_" + userDefinedGeneSetName,					
 					jobName,
 					numberofRuns,
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsAllBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 		
 		}
 		
@@ -825,7 +836,7 @@ public class CollectionofPermutationsResults {
 		}
 		
 		if(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()  && 
-				!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+			!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 	
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 
@@ -840,7 +851,7 @@ public class CollectionofPermutationsResults {
 		}
 		
 		if (tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment() && 
-				!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment())){
+			!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment())){
 			
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun,bonferroniCorrectionSignificanceLevel,FDR,multipleTestingParameter,dataFolder,outputFolder,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,  jobName,numberofRuns,numberofRemainders,numberofComparisons.getNumberofComparisonsTfbs(),EnrichmentType.DO_TF_ENRICHMENT,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 

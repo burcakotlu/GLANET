@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
 <typeInfo handle="=Common/src&lt;common{Commons.java[Commons" modifiers="1" timestamp="1413556031840"/>
-<typeInfo handle="=Glanet/src&lt;intervaltree{IntervalTree.java[IntervalTree" modifiers="1" timestamp="1413549138758"/>
 <typeInfo handle="=Glanet/src&lt;enrichment{AnnotatePermutationsWithNumbersWithChoices.java[AnnotatePermutationsWithNumbersWithChoices" modifiers="1" timestamp="1413555480742"/>
 <typeInfo handle="=Glanet/src&lt;annotation{AnnotateGivenIntervalsWithNumbersWithChoices.java[AnnotateGivenIntervalsWithNumbersWithChoices" modifiers="1" timestamp="1413464593797"/>
 <typeInfo handle="=Glanet/src&lt;enrichment{CollectionofPermutationsResults.java[CollectionofPermutationsResults" modifiers="1" timestamp="1413548522632"/>
 <typeInfo handle="=Glanet/src&lt;ui{App.java[App" modifiers="1" timestamp="1413556031727"/>
+<typeInfo handle="=Glanet/src&lt;ui{GlanetRunner.java[GlanetRunner" modifiers="1" timestamp="1413556031728"/>
+<typeInfo handle="=Glanet/src&lt;intervaltree{IntervalTree.java[IntervalTree" modifiers="1" timestamp="1413549138758"/>
 </typeInfoHistroy>

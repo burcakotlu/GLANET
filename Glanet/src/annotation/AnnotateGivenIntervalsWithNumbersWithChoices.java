@@ -4899,7 +4899,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	
 	//GeneSetType added 14.10.2014
 	//Empirical P Value Calculation
-	//Search keggPathway
+	//Search GeneSet
 	//without IO
 	//with Numbers
 	public static  void searchUcscRefSeqGeneswithoutIOwithNumbers(
@@ -4919,8 +4919,9 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 		int high;
 		
 		for(int i=0; i<inputLines.size(); i++){
+			
 				
-				TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap = new TIntIntHashMap();				
+				TIntIntMap permutationNumberGeneSetNumber2OneorZeroMap = new TIntIntHashMap();				
 				
 				inputLine = inputLines.get(i);
 				
@@ -4930,12 +4931,12 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 				
 
 				if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap,type,geneSetAnalysisType,geneSetType,overlapDefinition);					
+					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(permutationNumber,ucscRefSeqGenesIntervalTree.getRoot(),interval,chromName, geneId2ListofGeneSetNumberMap, permutationNumberGeneSetNumber2OneorZeroMap,type,geneSetAnalysisType,geneSetType,overlapDefinition);					
 				}
 				
 				
 				//accumulate search results of keggPathway2OneorZeroMap in keggPathway2KMap
-				for(TIntIntIterator it =permutationNumberKeggPathwayNumber2OneorZeroMap.iterator(); it.hasNext();){
+				for(TIntIntIterator it =permutationNumberGeneSetNumber2OneorZeroMap.iterator(); it.hasNext();){
 					
 					  it.advance();
 					 
@@ -13402,8 +13403,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 
 		    //@todo userDefinedGeneSetInputFile has to be read from the program arguments
 		    userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		    
 		    //@todo userDefinedGeneSetName has to be read from the program arguments
+		    //"GO" must be read from keyboard
 		    userDefinedGeneSetName = "GO";
+		    userDefinedGeneSetName = Commons.USER_DEFINED_GENESET + "_" + userDefinedGeneSetName;
+			   
 		    //@todo UserDefinedGeneSetInputType has to be read from the program arguments
 		    userDefinedGeneSetInputType = UserDefinedGeneSetInputType.GENE_SYMBOL;
 		    
@@ -13417,11 +13422,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 				    
 		    WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeAllPossibleUserDefinedGeneSetNames(dataFolder,userDefinedGeneSetName2UserDefinedGeneSetNumberMap,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
 
-			searchGeneSetWithNumbers(dataFolder,outputFolder,exonBasedUserDefinedGeneSet2KMap,regulationBasedUserDefinedGeneSet2KMap,allBasedUserDefinedGeneSet2KMap,overlapDefinition,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,geneId2ListofUserDefinedGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,userDefinedGeneSetName);
+			searchGeneSetWithNumbers(dataFolder,outputFolder,exonBasedUserDefinedGeneSet2KMap,regulationBasedUserDefinedGeneSet2KMap,allBasedUserDefinedGeneSet2KMap,overlapDefinition,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,geneId2ListofUserDefinedGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap, userDefinedGeneSetName);
 			
-		   	writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName + Commons.USER_DEFINED_GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName +Commons.USER_DEFINED_GENESET_RESULTS );
-			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName  + Commons.USER_DEFINED_GENESET_RESULTS);
+		   	writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName + Commons.GENESET_RESULTS);
+			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName +Commons.GENESET_RESULTS );
+			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName  + Commons.GENESET_RESULTS);
 			
 			dateAfter = System.currentTimeMillis();
 			
@@ -14619,7 +14624,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					allMapsWithNumbers.setPermutationNumberHistoneNumberCellLineNumber2KMap(permutationNumberHistoneNumberCellLineNumber2KMap);
 					
 				}else if (annotationType.isUserDefinedGeneSetAnnotation()){
-					
+						
 					//USER DEFINED GENESET 
 					//Search input interval files for USER DEFINED GENESET 
 						

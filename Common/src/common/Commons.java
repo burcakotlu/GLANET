@@ -271,6 +271,10 @@ public class Commons {
 	public static final String AUGMENTED_DNASE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedDnaseResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
 	public static final String AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES = Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedHistoneResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
 	public static final String AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY+ "AugmentedTranscriptionFactorResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
+
+	public static final String AUGMENTED_EXON_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedExonBasedUserDefinedGeneSetResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
+	public static final String AUGMENTED_REGULATION_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedRegulationBasedUserDefinedGeneSetResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
+	public static final String AUGMENTED_ALL_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedAllBasedUserDefinedGeneSetResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";	
 	
 	public static final String AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 		= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedExonBasedKeggPathwayResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
 	public static final String AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES 	= Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY + "AugmentedRegulationBasedKeggPathwayResults_0BasedStart_1BasedEnd_GRCh37_coordinates.txt";
@@ -747,7 +751,7 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_";
 	public static final String ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_";
 	
-	public static final String USER_DEFINED_GENESET_RESULTS = "_User_Defined_GeneSet_results.txt";
+//	public static final String USER_DEFINED_GENESET_RESULTS = "_User_Defined_GeneSet_results.txt";
 	public static final String GENESET_RESULTS = "_results.txt";
 	
 	public static final String ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_CellLine_Exon_Based_KEGG_Pathway_results.txt";
@@ -853,14 +857,17 @@ public class Commons {
 	public static final String TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.DNASE + System.getProperty("file.separator") +  Commons.DNASE ;
 	public static final String TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.HISTONE + System.getProperty("file.separator") + Commons.HISTONE;
 	public static final String TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS		= ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + Commons.TF;
+
+	//Use these constants in Enrichment and AugmentationofEnrichedElementswithGivenInputData
+	public static final String ENRICHMENT_USERDEFINED_GENESET_COMMON = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + "_"; 			
 	
-	public static final String TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET ;
-	public static final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
-	public static final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET ;
-	
-	public static final String TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY;
+	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET ;
+	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
+	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET;
+		
+	public static final String TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY ;
+	public static final String TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY;
 	
 	public static final String TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY  + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY;
 	public static final String TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY ;
@@ -921,13 +928,13 @@ public class Commons {
 	public static final String REGULATION_BASED = "RegulationBased";
 	public static final String ALL_BASED = "AllBased";
 	
-	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBasedUserDefinedGeneSet";
-	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBasedUserDefinedGeneSet";
-	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBasedUserDefinedGeneSet";
+	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UserDefinedGeneSet";
+	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UserDefinedGeneSet";
+	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UserDefinedGeneSet";
 
-	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBasedKEGGPathway";
-	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBasedKEGGPathway";
-	public static final String ALL_BASED_KEGG_PATHWAY = "AllBasedKEGGPathway";
+	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
+	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";
+	public static final String ALL_BASED_KEGG_PATHWAY = "AllBased_KEGGPathway";
 	
 	public static final String TF_EXON_BASED_KEGG_PATHWAY = "TFExonBasedKEGGPathway";
 	public static final String TF_REGULATION_BASED_KEGG_PATHWAY = "TFRegulationBasedKEGGPathway";
@@ -1031,10 +1038,20 @@ public class Commons {
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.UCSC_GENE_ALTERNATE_NAME+ System.getProperty("file.separator");
 	
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HG19_REFSEQ_GENE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty("file.separator");
+
+	//starts
+	//UserDefined GeneSet
+	public static final String AUGMENTATION_USERDEFINED_GENESET_COMMON = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + "_" ;
 	
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY  + System.getProperty("file.separator");
-	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY  + System.getProperty("file.separator");
+	public static final String AUGMENTATION_EXONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED;
+	public static final String AUGMENTATION_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED;
+	public static final String AUGMENTATION_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED;
+	//ends
+	
+	//KEGG Pathway
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED;
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED;
+	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED;
 	
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator");

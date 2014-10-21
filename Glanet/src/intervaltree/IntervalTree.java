@@ -2268,14 +2268,19 @@ public class IntervalTree {
 		switch(generatedMixedNumberDescriptionOrderLength){
 		
 			case INT_4DIGIT_KEGGPATHWAYNUMBER:
-			case INT_4DIGIT_USERDEFINEDGENESETNUMBER:
 			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
 						{
 							geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
 							break;
-						}				
+						}
+			case INT_5DIGIT_USERDEFINEDGENESETNUMBER:
+						{
+							geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
+							break;
+				
+						}
 			default:
 						{
 							break;
@@ -3420,6 +3425,7 @@ public class IntervalTree {
 										
 										if(geneSetType.isUserDefinedGeneSet()){
 											permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber, GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+											
 																		
 										}else if (geneSetType.isKeggPathway()){
 											permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber,GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
@@ -3455,6 +3461,8 @@ public class IntervalTree {
 										
 										if(geneSetType.isUserDefinedGeneSet()){
 											permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber, GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);							
+											
+											
 										}else if (geneSetType.isKeggPathway()){
 											permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber,GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 										}
@@ -3481,7 +3489,10 @@ public class IntervalTree {
 									
 									
 									if(geneSetType.isUserDefinedGeneSet()){
-										permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber,GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);							
+										permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber,GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+										
+
+										
 									}else if (geneSetType.isKeggPathway()){
 										permutationNumberGeneSetNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber,geneSetNumber, GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 									}
@@ -4416,7 +4427,7 @@ public class IntervalTree {
 					
 					try {
 												
-						//write exon based kegg pathway results
+						//write EXON based GeneSet results
 						if (castedNode.getIntervalName().isExon()){
 							
 							if(geneSetNumberListContainingThisGeneId!=null){
@@ -4427,7 +4438,7 @@ public class IntervalTree {
 									bufferedWriter = exonBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);										
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED + geneSetName + System.getProperty("file.separator") +"_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 																				
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
@@ -4449,7 +4460,7 @@ public class IntervalTree {
 						}// End of If: Exon Based Kegg Pathway Analysis, Overlapped node is an exon
 
 						
-						//write regulation based kegg pathway results
+						//write REGULATION based GeneSet results
 						if (castedNode.getIntervalName().isIntron() ||
 							castedNode.getIntervalName().isFivePOne() ||
 							castedNode.getIntervalName().isFivePTwo() ||
@@ -4465,7 +4476,7 @@ public class IntervalTree {
 									bufferedWriter = regulationBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + geneSetName + System.getProperty("file.separator") +"_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										regulationBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4485,7 +4496,7 @@ public class IntervalTree {
 						}//End of If: Regulation Based kegg pathway Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 						
-						//write all results
+						//write ALL Based GeneSet results
 						if(geneSetNumberListContainingThisGeneId!=null){
 							
 							
@@ -4495,7 +4506,7 @@ public class IntervalTree {
 								bufferedWriter = allBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 																
 								if (bufferedWriter==null){
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + geneSetName + System.getProperty("file.separator") +"_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									allBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 									bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));

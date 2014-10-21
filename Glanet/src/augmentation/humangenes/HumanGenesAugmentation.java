@@ -101,10 +101,11 @@ public class HumanGenesAugmentation {
 							geneIDList.add(geneID);	
 						}
 						
-						//For debugging purposes
-						if(geneIDList.size()>1){
-							System.out.println("geneSymbol: " + geneSymbol + " geneIDList size: " + geneIDList.size());
-						}
+//						//For debugging purposes starts
+//						if(geneIDList.size()>1){
+//							System.out.println("geneSymbol: " + geneSymbol + " geneIDList size: " + geneIDList.size());
+//						}
+//						//For debugging purposes ends
 					
 						geneSymbol2ListofGeneIdMap.put(geneSymbol, geneIDList);							
 							
