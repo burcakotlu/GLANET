@@ -12,7 +12,7 @@ import common.Commons;
  */
 public enum WritePermutationBasedAnnotationResultMode {
 	
-	WRITE_PERMUTATION_BASED_ANNOTATION_RESULT(1),
+	DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT(1),
 	DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT(2);
 	
 	private final int writePermutationBasedAnnotationResultMode;
@@ -31,8 +31,8 @@ public enum WritePermutationBasedAnnotationResultMode {
 
 	public static WritePermutationBasedAnnotationResultMode convertStringtoEnum(String writePermutationBasedAnnotationResultMode){
     	
-    	if (Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT.equals(writePermutationBasedAnnotationResultMode)){
-    		return WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
+    	if (Commons.DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT.equals(writePermutationBasedAnnotationResultMode)){
+    		return DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     	}else if  (Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT.equals(writePermutationBasedAnnotationResultMode)){
     		return DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     	}else
@@ -40,8 +40,8 @@ public enum WritePermutationBasedAnnotationResultMode {
 	}
 	
 	public String convertEnumtoString(){
-    	if (this.equals(WritePermutationBasedAnnotationResultMode.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT))
-    		return Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
+    	if (this.equals(WritePermutationBasedAnnotationResultMode.DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT))
+    		return Commons.DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     	else if (this.equals(WritePermutationBasedAnnotationResultMode.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT))
     		return Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     	else
@@ -51,7 +51,7 @@ public enum WritePermutationBasedAnnotationResultMode {
 	
 	/** An added method.  */
     public boolean isWritePermutationBasedAnnotationResultMode() {
-        return  this == WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
+        return  this == DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT;
     }
 	
 }

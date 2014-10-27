@@ -99,15 +99,28 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	//args[21]  --->    number of permutations in each run. Default is 2000
-	//args[22]  --->	user defined geneset
-	//args[23]  --->	user defined library
-	//args[24] - args[args.length-1]  --->	Note that the selected cell lines are
+	//args[22]  --->	User Defined GeneSet Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+	//							Commons.DO_USER_DEFINED_GENESET_ENRICHMENT
+	//args[23]	--->	User Defined GeneSet InputFile 
+	//args[24]	--->	User Defined GeneSet GeneInformationType
+	//					default Commons.GENE_ID
+	//							Commons.GENE_SYMBOL
+	//							Commons.RNA_NUCLEOTIDE_ACCESSION
+	//args[25]	--->	User Defined GeneSet Name such as "GO"
+	//					default Commons.NO_DESCRIPTION
+	//args[26]	--->	Optional UserDefinedGeneSet Description InputFile
+	//					default Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+	//args[27]  --->	User Defined Library Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+	//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
+	//args[28]  --->	User Defined Library InputFile
+	//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
 	//					always inserted at the end of the args array because it's size
 	//					is not fixed. So for not (until the next change on args array) the selected cell
 	//					lines can be reached starting from 22th index up until (args.length-1)th index.
 	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
 	//					give an out of boundry exception in a for loop with this approach.
-	
 	@Override
 	public void startRunActionsWithOptions( String inputFileName, 
 			   String outputFolder,

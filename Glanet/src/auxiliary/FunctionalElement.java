@@ -25,6 +25,9 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	long number;
 	String name;
 	
+	//23 OCT 2014
+	String userDefinedGeneSetDescription;
+	
 	
 	//18 FEB 2014 
 	int originalNumberofOverlaps;
@@ -47,7 +50,17 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	List<String> keggPathwayAlternateGeneNameList;
 		
 	
+	
 		
+
+	public String getUserDefinedGeneSetDescription() {
+		return userDefinedGeneSetDescription;
+	}
+
+	public void setUserDefinedGeneSetDescription(
+			String userDefinedGeneSetDescription) {
+		this.userDefinedGeneSetDescription = userDefinedGeneSetDescription;
+	}
 
 	public long getNumber() {
 		return number;

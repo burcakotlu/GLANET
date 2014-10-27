@@ -106,7 +106,7 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode{
 		this.geneEntrezId = geneEntrezId;
 		this.intervalName = intervalName;
 		this.strand = strand;
-		this.geneHugoSymbolNumber = this.geneHugoSymbolNumber;
+		this.geneHugoSymbolNumber = geneHugoSymbolNumber;
 		
 		
 		

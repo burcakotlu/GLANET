@@ -12,7 +12,7 @@ import common.Commons;
  */
 public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
 	
-	WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT(1),
+	DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT(1),
 	DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT(2);
 	
 	private final int writePermutationBasedandParametricBasedAnnotationResultMode;
@@ -29,8 +29,8 @@ public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
 	
 	public static WritePermutationBasedandParametricBasedAnnotationResultMode convertStringtoEnum(String writePermutationBasedandParametricBasedAnnotationResultMode){
     	
-    	if (Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
-    		return WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
+    	if (Commons.DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
+    		return DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     	}else if  (Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT.equals(writePermutationBasedandParametricBasedAnnotationResultMode)){
     		return DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     	}else
@@ -38,8 +38,8 @@ public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
 	}
 	
 	public String convertEnumtoString(){
-    	if (this.equals(WritePermutationBasedandParametricBasedAnnotationResultMode.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT))
-    		return Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
+    	if (this.equals(WritePermutationBasedandParametricBasedAnnotationResultMode.DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT))
+    		return Commons.DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     	else if (this.equals(WritePermutationBasedandParametricBasedAnnotationResultMode.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT))
     		return Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     	else
@@ -49,7 +49,7 @@ public enum WritePermutationBasedandParametricBasedAnnotationResultMode {
 	
 	 /** An added method.  */
     public boolean isWritePermutationBasedandParametricBasedAnnotationResultMode() {
-        return  this == WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
+        return  this == DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT;
     }
 
     /** An added method.  */

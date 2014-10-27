@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename compilation unit &apos;enumtypes.KeyOrder.java&apos; to &apos;GeneratedMixedNumberDescriptionOrderLength.java&apos;&#x0D;&#x0A;- Original project: &apos;Common&apos;&#x0D;&#x0A;- Original element: &apos;enumtypes.KeyOrder.java&apos;&#x0D;&#x0A;- Renamed element: &apos;enumtypes.GeneratedMixedNumberDescriptionOrderLength.java&apos;" description="Rename compilation unit &apos;KeyOrder.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;enumtypes{KeyOrder.java" name="GeneratedMixedNumberDescriptionOrderLength.java" references="false" stamp="1413295721237" version="1.0"/>
-</session>

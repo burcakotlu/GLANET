@@ -96,7 +96,6 @@ public class CalculateBinomialDistributions {
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
-		String strLine;
 		int count = 0;
 		
 		try {
@@ -104,7 +103,7 @@ public class CalculateBinomialDistributions {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			while((strLine = bufferedReader.readLine())!=null){
+			while((bufferedReader.readLine())!=null){
 				count++;
 			}
 			

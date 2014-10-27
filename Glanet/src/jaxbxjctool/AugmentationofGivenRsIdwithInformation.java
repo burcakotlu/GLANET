@@ -38,7 +38,7 @@ import ui.GlanetRunner;
 public class AugmentationofGivenRsIdwithInformation {
 	
 	private Unmarshaller unmarshaller;
-	private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory _fool_javac=null;
+//	private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory _fool_javac=null;
 	private  XMLInputFactory xmlInputFactory=null;
 	
 		

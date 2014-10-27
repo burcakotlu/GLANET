@@ -424,8 +424,6 @@ public class KeggPathwayAugmentation {
 			List<String> keggPathwayRefSeqGeneNameList;
 			List<String> keggPathwayAlternateGeneNameList;
 						
-			String tfName_keggPathwayEntry;
-			int indexofFirstUnderscore;
 			
 			KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder,keggPathwayEntry2GeneIdListMap);
 			HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(dataFolder,humanGeneId2RefSeqGeneNameListMap);

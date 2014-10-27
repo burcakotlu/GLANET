@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.EnrichmentType;
 import enumtypes.MultipleTestingType;
 
@@ -505,9 +507,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					
 			}//end of while : reading enriched tf and kegg Pathway file line by line.
 			
-			//for debug purposes start
-			int numberofEnrichedTfExonBasedKeggPathwayElements = 0;
-			//for debug purposes end
 			
 			for(Map.Entry<String,List<String>> entry: enrichedKeggPathways.entrySet()){
 				keggPathwayNameandDescription = entry.getKey();
@@ -516,7 +515,6 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				
 				lines = entry.getValue();
 				
-				numberofEnrichedTfExonBasedKeggPathwayElements += lines.size();
 				
 				bufferedWriter.write("**************\t" + keggPathwayNameandDescription + "\t**************" + System.getProperty("line.separator"));
 							
@@ -873,7 +871,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		int indexofEleventhTab;
 		
 		
-		int indexofUnderscore;
+		int indexofFirstUnderscore;
+		int indexofSecondUnderscore;
 						
 		String keggPathwayName;
 		String keggPathwayDescription;
@@ -909,6 +908,9 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 //			Element	OriginalNumberofOverlaps	NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualTo in 8 Permutations	Number of Permutations	Number of comparisons	empiricalPValue	BonfCorrPValue for 269 comparisons	BH FDR Adjusted P Value	Reject Null Hypothesis for an FDR of 0.05			
 			strLine1= bufferedReader.readLine();
 			
+			
+			/******************************************************************************/
+			/*******************Get the Enriched Elements starts***************************/
 			while ((strLine1= bufferedReader.readLine())!=null ){
 			
 				
@@ -937,7 +939,18 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				bonfCorrectedPValue= Float.parseFloat(strLine1.substring(indexofSeventhTab+1, indexofEigthTab));
 				bhFDRAdjustedPValue = Float.parseFloat(strLine1.substring(indexofEigthTab+1, indexofNinethTab));
 				
-				keggPathwayDescription = strLine1.substring(indexofTenthTab+1, indexofEleventhTab);
+				//KeggPathway Case
+				if (indexofTenthTab>0 && indexofEleventhTab>0){
+					keggPathwayDescription = strLine1.substring(indexofTenthTab+1, indexofEleventhTab);		
+				}
+				//UserDefinedGeneSet Case
+				else if (indexofTenthTab>0){
+					
+					keggPathwayDescription = strLine1.substring(indexofTenthTab+1);		
+				}
+				else{
+					keggPathwayDescription =  Commons.NO_DESCRIPTION;
+				}
 				
 				if(multipleTestingParameter.isBenjaminiHochbergFDR()){
 					if (bhFDRAdjustedPValue <= FDR){											
@@ -949,35 +962,45 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					}					
 				}												
 			}//end of while : reading enriched kegg Pathway file line by line.
+			/******************************************************************************/
+			/*******************Get the Enriched Elements ends***************************/
+
 			
-			//starts
+		
+			/**********************************************************************************************/
+			/*******************Augment each Enriched Element with Annotation Results starts****************/
 			for(String enrichedKeggPathwayNameandDescription: enrichedKeggPathways){
 				
 				bufferedWriter.write("**************" + "\t" + enrichedKeggPathwayNameandDescription + "\t" + "**************" +  System.getProperty("line.separator"));
 				
-				indexofUnderscore = enrichedKeggPathwayNameandDescription.indexOf('_');
-				keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofUnderscore);
-				
+				indexofFirstUnderscore = enrichedKeggPathwayNameandDescription.indexOf('_');
+				indexofSecondUnderscore = (indexofFirstUnderscore>0)? enrichedKeggPathwayNameandDescription.indexOf('_',indexofFirstUnderscore+1):-1;
 				
 				//KEGG PATHWAY
 				if (type.equals(Commons.EXON_BASED_KEGG_PATHWAY)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_KEGG_PATHWAY)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_KEGG_PATHWAY)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 				}
 				
 				//USERDEFINED GENESET
 				else if (type.equals(Commons.EXON_BASED_USER_DEFINED_GENESET)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_EXONBASED_USERDEFINED_GENESET  + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_USER_DEFINED_GENESET)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_REGULATIONBASED_USERDEFINED_GENESET  +"_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_USER_DEFINED_GENESET)){
+					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_ALLBASED_USERDEFINED_GENESET  +"_" + keggPathwayName + ".txt");						
 				}
 				
@@ -1029,10 +1052,12 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				}//End of while					
 				
 			}//End of for	
-			//ends
-			
+			/**********************************************************************************************/
+			/*******************Augment each Enriched Element with Annotation Results ends****************/
+
 				
-		
+			/***************************************************************************/
+			/*******************Close BufferedReaders and Writers starts****************/
 			bufferedReader.close();
 			bufferedWriter.close();
 			
@@ -1040,6 +1065,9 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				keggPathwayOriginalOverlapsBufferedReader.close();
 				
 			}
+			/***************************************************************************/
+			/*******************Close BufferedReaders and Writers ends******************/
+			
 				
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -1248,12 +1276,13 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		 
 		 if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
 			 
-//			final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
-//			final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+			final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+			final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
 			final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
 	
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName,Commons.AUGMENTED_EXON_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.EXON_BASED_USER_DEFINED_GENESET,userDefinedGeneSetName);
+			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName,Commons.AUGMENTED_REGULATION_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_USER_DEFINED_GENESET,userDefinedGeneSetName);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName,Commons.AUGMENTED_ALL_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.ALL_BASED_USER_DEFINED_GENESET,userDefinedGeneSetName);
-	
 		 }
 		 
 		 if (keggPathwayEnrichment.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
@@ -1314,18 +1343,19 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	//			--->			Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE	
-	//args[3]	--->	Annotation, overlap definition, number of bases, default 1
-	//args[4]	--->	Enrichment parameter
+	//args[3]	--->	Annotation, overlap definition, number of bases, 
+	//					default 1
+	//args[4]	--->	Perform Enrichment parameter
 	//			--->	default	Commons.DO_ENRICH
 	//			--->			Commons.DO_NOT_ENRICH	
 	//args[5]	--->	Generate Random Data Mode
 	//			--->	default	Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT
 	//			--->			Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT	
-	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respest to this parameter
+	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respect to this parameter
 	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR
 	//			--->			Commons.BONFERRONI_CORRECTION
 	//args[7]	--->	Bonferroni Correction Significance Level, default 0.05
-	//args[8]	--->	Benjamini Hochberg FDR, default 0.05
+	//args[8]	--->	Bonferroni Correction Significance Criteria, default 0.05
 	//args[9]	--->	Number of permutations, default 5000
 	//args[10]	--->	Dnase Enrichment
 	//			--->	default Commons.DO_NOT_DNASE_ENRICHMENT
@@ -1357,7 +1387,28 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 	//			--->			Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
+	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//args[21]  --->    number of permutations in each run. Default is 2000
+	//args[22]  --->	UserDefinedGeneSet Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+	//							Commons.DO_USER_DEFINED_GENESET_ENRICHMENT
+	//args[23]	--->	UserDefinedGeneSet InputFile 
+	//args[24]	--->	UserDefinedGeneSet GeneInformationType
+	//					default Commons.GENE_ID
+	//							Commons.GENE_SYMBOL
+	//							Commons.RNA_NUCLEOTIDE_ACCESSION
+	//args[25]	--->	UserDefinedGeneSet	Name
+	//args[26]	--->	UserDefinedGeneSet 	Optional GeneSet Description InputFile
+	//args[27]  --->	UserDefinedLibrary Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+	//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
+	//args[28]  --->	UserDefinedLibrary InputFile
+	//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
+	//					always inserted at the end of the args array because it's size
+	//					is not fixed. So for not (until the next change on args array) the selected cell
+	//					lines can be reached starting from 22th index up until (args.length-1)th index.
+	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
+	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
@@ -1365,7 +1416,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		//jobName starts
 		String jobName = args[17].trim();
 		if (jobName.isEmpty()){
-			jobName = "noname";
+			jobName = Commons.NO_NAME;
 		}
 		//jobName ends
 							
@@ -1382,13 +1433,30 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
 		
-		//UserDefinedGeneSet Enrichement
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
-	
-		//@todo userDefinedGeneSetName has to filled from GLANET GUI
-		//@todo userDefinedGeneSetName has to be read from the program arguments
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+		
+		/*********************************************************************************/
+		/**************************USER DEFINED GENESET***********************************/	
+//		String userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+//		String userDefinedGeneSetInputFile = args[23];
+		  
+//		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
+//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
+		
 		String userDefinedGeneSetName = "GO";
-			   	
+//		String userDefinedGeneSetName = args[25];
+
+//		String userDefinedGeneSetDescriptionInputFie =args[26];		
+		/**************************USER DEFINED GENESET***********************************/
+		/*********************************************************************************/
+		
+		/*********************************************************************************/
+		/**************************USER DEFINED LIBRARY***********************************/	
+//		String userDefinedLibraryInputFile = args[28];
+		/**************************USER DEFINED LIBRARY***********************************/	
+		/*********************************************************************************/
+		   	
 		//delete old files starts 
 		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);
 		//delete old files ends

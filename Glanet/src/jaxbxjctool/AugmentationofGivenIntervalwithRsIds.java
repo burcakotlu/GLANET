@@ -29,7 +29,7 @@ import ui.GlanetRunner;
 public class AugmentationofGivenIntervalwithRsIds {
 	
 	private Unmarshaller unmarshaller;
-	private static generated.ObjectFactory _fool_javac=null;
+//	private static generated.ObjectFactory _fool_javac=null;
 	private  XMLInputFactory xmlInputFactory=null;
 	
 	

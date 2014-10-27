@@ -36,6 +36,16 @@ public class Commons {
 	//Sub Folders, Internal Folders
 	public static final String RESULTS = "Results";
 	
+	//When there is no name given for GLANET job
+	public static final String NO_NAME = "NoName";
+	
+	//When there is no KeggPathwayDescription provided for a KeggPathway
+	//When there is no UserDefinedGeneSetDescription provided for a UserDefinedGeneSety
+	public static final String NO_DESCRIPTION = "NoDescription";
+		
+	//When there is no Optional UserDefinedGeneSet Description file is provided for a UserDefinedGeneSet Enrichment
+	public static final String NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED = "NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED";
+
 	//Number of program runtime arguments without counting the command line argument
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
@@ -57,15 +67,15 @@ public class Commons {
 	public static final String BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION = "BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION";
 	
 	//EnumType WriteGeneratedRandomDataMode
-	public static final String WRITE_GENERATED_RANDOM_DATA = "WRITE_GENERATED_RANDOM_DATA";
+	public static final String DO_WRITE_GENERATED_RANDOM_DATA = "DO_WRITE_GENERATED_RANDOM_DATA";
 	public static final String DO_NOT_WRITE_GENERATED_RANDOM_DATA = "DO_NOT_WRITE_GENERATED_RANDOM_DATA";
 	
 	//EnumType WritePermutationBasedandParametricBasedAnnotationResultMode	
-	public static final String WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
+	public static final String DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "DO_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
 	public static final String DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT";
 	
 	//EnumType WritePermutationBasedAnnotationResultMode
-	public static final String WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
+	public static final String DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 	public static final String DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT = "DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT";
 
 	//Enum type GenerateRandomDataMode
@@ -832,6 +842,10 @@ public class Commons {
 	public static final String ANNOTATE_PERMUTATIONS_FOR_TFBS	= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator");
 	public static final String ANNOTATE_PERMUTATIONS_FOR_HISTONE= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.HISTONE + System.getProperty("file.separator");
 	
+	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_USERDEFINED_GENESET_ANALYSIS 		= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET + System.getProperty("file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_USERDEFINED_GENESET_ANALYSIS 		= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET  + System.getProperty("file.separator");
+	
 	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS 		= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS 		= Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator");
@@ -1540,7 +1554,7 @@ public class Commons {
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
-	public static final String ARG_INPUT_FORMAT_BED = "-fbed";
+	public static final String ARG_INPUT_FORMAT_BED = "-fbad";
 	public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
 	public static final String ARG_NUMBER_OF_BASES = "-b";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";

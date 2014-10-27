@@ -1,2 +1,0 @@
-eclipse.preferences.version=1
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + &quot;_&quot; +jobName + withRespectToFileName"/>\r\n<expression enabled\="true" text\="outputFolder + outputFileName"/>\r\n<expression enabled\="true" text\="outputFolder + inputFileName"/>\r\n</watchExpressions>\r\n

@@ -8,9 +8,6 @@
  */
 package generate.randomdata;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -51,10 +48,10 @@ public class RandomDataGenerator {
 		int counterThreshold;
 		
 		//for logging purposes
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter =null;
+//		FileWriter fileWriter;
+//		BufferedWriter bufferedWriter =null;
 		
-		DecimalFormat df = new DecimalFormat("#.######");
+//		DecimalFormat df = new DecimalFormat("#.######");
 	      
 		
 		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
