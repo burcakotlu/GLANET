@@ -1,0 +1,140 @@
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr11_47600437\pfmMatrices_BCLAF1M33.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr11_47600437\snp_chr11_47600437_BCLAF1M33_hsa05016.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr11_47600437\peaks_chr11_47600437_BCLAF1M33_hsa05016.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr11_47600437\altered1_snp_chr11_47600437_BCLAF1M33_hsa05016.txt
+Best snp sequence containing snp position: snp_chr11_47600437_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.3	D	7	20	AGCTAGGACCACGC	1.8	3.1e-02	-3.465	1.505	2	1
+Best peak sequence: peak_BCLAF1M33_K562_47600418_47600641_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.2	R	104	113	GCCGGAAGCG	6.9	6.8e-06	-11.897	5.167	1	1
+Peak result line containing snp position at 149. peak result line : peak_BCLAF1M33_K562_47600418_47600641_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.3	D	12	25	AGCTAGGACCACGC	1.8	3.1e-02	-3.465	1.505	149	45
+Best altered snp sequence containing snp position: altered1_snp_chr11_47600437_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.4	R	13	22	GAGCGTGATC	1.4	5.3e-02	-2.942	1.278	4	3
+log ratio of reference snp sequence to the variation snp sequence is : -2.329142E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr6_170862335\pfmMatrices_BCLAF1M33.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr6_170862335\snp_chr6_170862335_BCLAF1M33_hsa05016.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr6_170862335\peaks_chr6_170862335_BCLAF1M33_hsa05016.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\BCLAF1M33_hsa05016\snp_chr6_170862335\altered1_snp_chr6_170862335_BCLAF1M33_hsa05016.txt
+Best snp sequence containing snp position: snp_chr6_170862335_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.5	D	15	28	GGCTGCGCCTGCGG	4.8	4.2e-06	-12.391	5.381	1	1
+Best peak sequence: peak_BCLAF1M33_GM12878_170862295_170862544_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.2	R	108	117	GCCGGAAGTG	7.7	1.7e-06	-13.269	5.762	1	1
+Peak result line containing snp position at 2. peak result line : peak_BCLAF1M33_GM12878_170862295_170862544_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.5	D	41	54	GGCTGCGCCTGCGG	4.8	4.2e-06	-12.391	5.381	2	1
+Best altered snp sequence containing snp position: altered1_snp_chr6_170862335_BCLAF1M33_hsa05016	site	matrix-scan-matrix_2014-03-11.5	R	14	27	CGCAGGCGCAGCTG	4.3	8.3e-05	-9.401	4.083	1	1
+log ratio of reference snp sequence to the variation snp sequence is : -1.295829E0
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr13_111365588\pfmMatrices_ELK4.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr13_111365588\snp_chr13_111365588_ELK4_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr13_111365588\peaks_chr13_111365588_ELK4_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr13_111365588\altered1_snp_chr13_111365588_ELK4_hsa00970.txt
+Best snp sequence containing snp position: snp_chr13_111365588_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	13	23	GCTCTGTGGGG	1.1	6.1e-02	-2.797	1.215	1	1
+Best peak sequence: peak_ELK4_HEK293B_111365219_111365602_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	175	185	CCACTTCCGCC	6.6	7.8e-06	-11.765	5.109	1	1
+Peak result line containing snp position at 206. peak result line : peak_ELK4_HEK293B_111365219_111365602_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	368	378	GCTCTGTGGGG	1.1	6.1e-02	-2.797	1.215	206	78
+Best altered snp sequence containing snp position: altered1_snp_chr13_111365588_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	13	23	GCGCTGTGGGG	1.7	3.4e-02	-3.392	1.473	1	1
+log ratio of reference snp sequence to the variation snp sequence is : 2.538509E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr5_167913602\pfmMatrices_ELK4.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr5_167913602\snp_chr5_167913602_ELK4_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr5_167913602\peaks_chr5_167913602_ELK4_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\ELK4_hsa00970\snp_chr5_167913602\altered1_snp_chr5_167913602_ELK4_hsa00970.txt
+Best snp sequence containing snp position: snp_chr5_167913602_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	11	21	CTGACTCCTGC	2.4	1.5e-02	-4.186	1.818	1	1
+Best peak sequence: peak_ELK4_HELAS3_167913300_167913663_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	138	148	CCGCTTCCGGG	6.9	3.5e-06	-12.558	5.454	1	1
+Peak result line containing snp position at 52. peak result line : peak_ELK4_HELAS3_167913300_167913663_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	299	309	CTGACTCCTGC	2.4	1.5e-02	-4.186	1.818	52	21
+Best altered snp sequence containing snp position: altered1_snp_chr5_167913602_ELK4_hsa00970	site	matrix-scan-matrix_2014-03-11.2	D	11	21	CTGATTCCTGC	4.0	1.7e-03	-6.393	2.777	1	1
+log ratio of reference snp sequence to the variation snp sequence is : 9.456423E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr13_111365588\pfmMatrices_HEY1.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr13_111365588\snp_chr13_111365588_HEY1_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr13_111365588\peaks_chr13_111365588_HEY1_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr13_111365588\altered1_snp_chr13_111365588_HEY1_hsa00970.txt
+Best snp sequence containing snp position: snp_chr13_111365588_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.3	D	11	26	CTGCTCTGTGGGGCGG	2.9	5.1e-03	-5.274	2.290	1	1
+Best peak sequence: peak_HEY1_K562_111365502_111365822_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.3	D	208	223	CAGGCCGCTCCCCTGC	4.4	1.2e-04	-9.006	3.911	1	1
+Peak result line containing snp position at 23. peak result line : peak_HEY1_K562_111365502_111365822_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.3	D	83	98	CTGCTCTGTGGGGCGG	2.9	5.1e-03	-5.274	2.290	23	21
+Best altered snp sequence containing snp position: altered1_snp_chr13_111365588_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.3	D	11	26	CTGCGCTGTGGGGCGG	3.8	6.8e-04	-7.297	3.169	1	1
+log ratio of reference snp sequence to the variation snp sequence is : 8.750613E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr5_167913602\pfmMatrices_HEY1.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr5_167913602\snp_chr5_167913602_HEY1_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr5_167913602\peaks_chr5_167913602_HEY1_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\HEY1_hsa00970\snp_chr5_167913602\altered1_snp_chr5_167913602_HEY1_hsa00970.txt
+Best snp sequence containing snp position: snp_chr5_167913602_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.4	D	13	22	GACTCCTGCC	4.1	1.3e-03	-6.631	2.880	1	1
+Best peak sequence: peak_HEY1_K562_167913388_167913639_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.3	R	143	158	GCTGCAGCAGCCGCGC	5.0	9.3e-06	-11.588	5.032	1	1
+Peak result line containing snp position at 8. peak result line : peak_HEY1_K562_167913388_167913639_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.4	D	213	222	GACTCCTGCC	4.1	1.3e-03	-6.631	2.880	8	1
+Best altered snp sequence containing snp position: altered1_snp_chr5_167913602_HEY1_hsa00970	site	matrix-scan-matrix_2014-03-11.4	D	13	22	GATTCCTGCC	2.5	1.3e-02	-4.329	1.880	1	1
+log ratio of reference snp sequence to the variation snp sequence is : -1E0
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr13_111365588\pfmMatrices_POL2B.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr13_111365588\snp_chr13_111365588_POL2B_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr13_111365588\peaks_chr13_111365588_POL2B_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr13_111365588\altered1_snp_chr13_111365588_POL2B_hsa00970.txt
+Best snp sequence containing snp position: snp_chr13_111365588_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	15	28	TCTGTGGGGCGGGG	2.9	7.2e-03	-4.941	2.146	2	2
+Best peak sequence: peak_POL2B_HUVEC_111365507_111365826_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	R	206	219	CGCAGGGGAGCGGC	4.3	5.2e-04	-7.560	3.283	1	1
+Peak result line containing snp position at 13. peak result line : peak_POL2B_HUVEC_111365507_111365826_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	82	95	TCTGTGGGGCGGGG	2.9	7.2e-03	-4.941	2.146	13	13
+Best altered snp sequence containing snp position: altered1_snp_chr13_111365588_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	15	28	GCTGTGGGGCGGGG	4.0	1.0e-03	-6.885	2.990	1	1
+log ratio of reference snp sequence to the variation snp sequence is : 8.573325E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr5_167913602\pfmMatrices_POL2B.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr5_167913602\snp_chr5_167913602_POL2B_hsa00970.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr5_167913602\peaks_chr5_167913602_POL2B_hsa00970.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\POL2B_hsa00970\snp_chr5_167913602\altered1_snp_chr5_167913602_POL2B_hsa00970.txt
+Best snp sequence containing snp position: snp_chr5_167913602_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	2	15	GAGCAGGCTCTGAC	5.1	7.8e-05	-9.454	4.106	1	1
+Best peak sequence: peak_POL2B_K562_167913383_167913738_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	207	220	GAGCAGGCTCTGAC	5.1	7.8e-05	-9.454	4.106	1	1
+Peak result line containing snp position at 1. peak result line : peak_POL2B_K562_167913383_167913738_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	207	220	GAGCAGGCTCTGAC	5.1	7.8e-05	-9.454	4.106	1	1
+Best altered snp sequence containing snp position: altered1_snp_chr5_167913602_POL2B_hsa00970	site	matrix-scan-matrix_2014-03-11	D	2	15	GAGCAGGCTCTGAT	4.1	8.2e-04	-7.109	3.087	1	1
+log ratio of reference snp sequence to the variation snp sequence is : -1.021719E0
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr5_137805651\pfmMatrices_TAF7SQ8.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr5_137805651\snp_chr5_137805651_TAF7SQ8_hsa05166.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr5_137805651\peaks_chr5_137805651_TAF7SQ8_hsa05166.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr5_137805651\altered1_snp_chr5_137805651_TAF7SQ8_hsa05166.txt
+Best snp sequence containing snp position: snp_chr5_137805651_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.5	R	10	19	GGACCTGGGG	2.6	8.5e-03	-4.765	2.070	1	1
+Best peak sequence: peak_TAF7SQ8_H1HESC_137805637_137805766_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.3	D	72	79	AAGCCAAG	4.0	1.8e-03	-6.307	2.739	1	1
+Peak result line containing snp position at 10. peak result line : peak_TAF7SQ8_H1HESC_137805637_137805766_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.5	R	10	19	GGACCTGGGG	2.6	8.5e-03	-4.765	2.070	10	1
+Best altered snp sequence containing snp position: altered1_snp_chr5_137805651_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.7	R	1	15	ATGGGGAATGGGAGG	3.1	4.1e-03	-5.496	2.387	1	1
+log ratio of reference snp sequence to the variation snp sequence is : 3.166351E-1
+********************************************
+This script illustrates a request to RSATMatrixScan ...
+pfmMatricesFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr6_170862335\pfmMatrices_TAF7SQ8.txt
+Matrix-scan: sending request to the server for snp sequence...
+snpFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr6_170862335\snp_chr6_170862335_TAF7SQ8_hsa05166.txt
+Matrix-scan: sending request to the server for peak sequences...
+peakFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr6_170862335\peaks_chr6_170862335_TAF7SQ8_hsa05166.txt
+Matrix-scan: sending request to the server for altered SNP sequences...
+alteredSNPFile: C:\eclipse_juno_workspace\Rserve\src\rserve\output\TfKeggPathway\TfRegulationBasedKeggPathway\TAF7SQ8_hsa05166\snp_chr6_170862335\altered1_snp_chr6_170862335_TAF7SQ8_hsa05166.txt
+Best snp sequence containing snp position: snp_chr6_170862335_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.5	R	14	23	GGCGCAGCCG	4.8	3.2e-05	-10.364	4.501	1	1
+Best peak sequence: peak_TAF7SQ8_K562_170862152_170862355_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.7	D	29	43	GGCGAAAGTGAAAGC	5.3	2.5e-05	-10.606	4.606	1	1
+Peak result line containing snp position at 2. peak result line : peak_TAF7SQ8_K562_170862152_170862355_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.5	R	183	192	GGCGCAGCCG	4.8	3.2e-05	-10.364	4.501	2	1
+Best altered snp sequence containing snp position: altered1_snp_chr6_170862335_TAF7SQ8_hsa05166	site	matrix-scan-matrix_2014-03-11.5	R	14	23	GGCGCAGCTG	4.4	1.2e-04	-9.020	3.917	1	1
+log ratio of reference snp sequence to the variation snp sequence is : -5.740313E-1
