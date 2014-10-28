@@ -3,7 +3,13 @@
  */
 package userdefined;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
+
+import auxiliary.FileOperations;
+
+
 
 /**
  * @author burcakotlu
@@ -14,8 +20,17 @@ public class UserDefinedLibraryInputFileGeneration {
 
 	public static void readFileNamesUnderGivenDirectoryAndCreateInputFile(String dnaseDirectory1,String elementType, String userDefinedLibraryInputFile){
 	
-		FileWriter fileWriter = new FileWriter(userDefinedLibraryInputFile,true);
-		BufferedWriter bufferedWR
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		try{
+			fileWriter = new FileOperations.createFileWriter(userDefinedLibraryInputFile,true);
+			bufferedWriter = new BufferedWriter(fileWriter);
+
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
