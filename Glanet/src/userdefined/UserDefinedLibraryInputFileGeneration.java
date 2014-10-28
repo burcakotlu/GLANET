@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
 import auxiliary.FileOperations;
 
 
@@ -24,7 +25,7 @@ public class UserDefinedLibraryInputFileGeneration {
 		BufferedWriter bufferedWriter = null;
 		
 		try{
-			fileWriter = new FileOperations.createFileWriter(userDefinedLibraryInputFile,true);
+			fileWriter = FileOperations.createFileWriter(userDefinedLibraryInputFile,true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 		}catch (IOException e) {

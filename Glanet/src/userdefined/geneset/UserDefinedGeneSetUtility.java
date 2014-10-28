@@ -200,7 +200,7 @@ public class UserDefinedGeneSetUtility {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
 			//For debugging purposes
-			FileWriter fileWriter = FileOperations.createFileWriter("E:\\DOKTORA_DATA\\GO\\control_GO_gene_associations_human_ref.txt");
+			FileWriter fileWriter = FileOperations.createFileWriter("G:\\DOKTORA_DATA\\GO\\control_GO_gene_associations_human_ref.txt");
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
 			
