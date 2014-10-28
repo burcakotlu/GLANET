@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -51,7 +52,10 @@ public class MainView extends JPanel{
 	private JTextField falseDiscoveryRate;
 	private JTextField signifanceCriteria;
 	private JTextField numberOfBases;
-	private JTextField numberOfPerInEachRun;
+	private JTextField userDefinedGeneSetInput;
+	private JTextField userDefinedGeneSetName;
+	private JTextField userDefinedGeneSetDescriptionFile;
+	private JTextField userDefinedLibraryInput;
 	private JLabel currentWorkLabel;
 	private JPanel listPane;
 	private JButton runButton;
@@ -59,8 +63,10 @@ public class MainView extends JPanel{
 	private JComboBox<String> generateRandomDataModeCombo;
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
+	private JComboBox<String> numberOfPerInEachRun;
 	private JComboBox<String> inputFormatCombo;
 	private JComboBox<String> inputAssembly;
+	private JComboBox<String> userDefinedGeneSetGeneInformation;
 	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
 	private JCheckBox dnaseEnrichment;
@@ -100,7 +106,12 @@ public class MainView extends JPanel{
 											   String writePermutationBasedAnnotationResultMode,
 											   String numberOfPermutationsInEachRun,
 											   String userDefinedGeneSetEnrichment,
+											   String userDefinedGeneSetInputFile,
+											   String userDefinedGeneSetGeneInformation,
+											   String userDefinedGeneSetName,
+											   String userDefinedGeneSetDescription,
 											   String userDefinedLibraryEnrichment,
+											   String userDefinedLibraryInputFile,
 											   String[] cellLinesToBeConsidered);
 		
 		public void stopCurrentProcess();
@@ -173,10 +184,15 @@ public class MainView extends JPanel{
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
-						numberOfPerInEachRun.getText(),
+						numberOfPerInEachRun.getSelectedItem().toString(),
 						userDefinedGeneSetEnrichment.isSelected()?Commons.DO_USER_DEFINED_GENESET_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT,
+						userDefinedGeneSetInput.getText(),
+						userDefinedGeneSetGeneInformation.getSelectedItem().toString(),
+						(userDefinedGeneSetName.getText().length()!=0)?userDefinedGeneSetName.getText():Commons.NO_DESCRIPTION,
+						(userDefinedGeneSetDescriptionFile.getText().length()!=0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
 						userDefinedLibraryEnrichment.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
-						cellLinesList.getSelectedValuesList().toArray(new String[0])
+						userDefinedLibraryInput.getText(),
+						cellLinesList.getSelectedValuesList().toArray( new String[0])
 				);
 				
 				enableStartProcess( false);
@@ -276,7 +292,8 @@ public class MainView extends JPanel{
 		annotationPanel.add( numberOfBasesPanel);
 		
 		//annotationOptions added to annotationPanel
-		JPanel annotationOptions = new JPanel( new GridLayout(0, 1));
+		JPanel annotationOptions = new JPanel();
+		annotationOptions.setLayout( new BoxLayout(annotationOptions, BoxLayout.PAGE_AXIS));
 		
 		//dnaseEnrichment added to annotationOptions
 		dnaseEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION);
@@ -307,20 +324,62 @@ public class MainView extends JPanel{
         cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
         annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
         
-        //userDefinedGeneSetEnrichment added to annotationOptions
+        //userDefinedGeneSetPanel added to annotationOptions
+        JPanel userDefinedGeneSetPanel = new JPanel();
+        userDefinedGeneSetPanel.setLayout( new BoxLayout(userDefinedGeneSetPanel, BoxLayout.PAGE_AXIS));
+        
+        //userDefinedGeneSetEnrichment added to userDefinedGeneSetPanel
         userDefinedGeneSetEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
-        annotationOptions.add( createPanelWithHint(userDefinedGeneSetEnrichment, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
-    		
-        //userDefinedLibraryEnrichment added to annotationOptions
+        userDefinedGeneSetPanel.add( createPanelWithHint(userDefinedGeneSetEnrichment, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
+        
+        //userDefinedGeneSetUpperPanel added to userDefinedGeneSetPanel
+        JPanel userDefinedGeneSetUpperPanel = new JPanel( new GridLayout(1, 2));
+        
+        //userDefinedGeneSetInput added to userDefinedGeneSetUpperPanel
+      	userDefinedGeneSetInput = new JTextField(30);
+      	userDefinedGeneSetUpperPanel.add( createBrowseFileArea( "Input File", userDefinedGeneSetInput, Commons.GUI_HINT_USER_DEFINED_GENESET_INPUTFILE));
+      	
+      	//userDefinedGeneSetGeneInformation added to userDefinedGeneSetUpperPanel
+      	String[] geneInformation = { Commons.GENE_ID, Commons.GENE_SYMBOL, Commons.RNA_NUCLEOTIDE_ACCESSION};
+      		
+      	userDefinedGeneSetGeneInformation = new JComboBox<String>( geneInformation);
+      	userDefinedGeneSetUpperPanel.add( createBorderedPanel( "Gene Information Type", createPanelWithHint( userDefinedGeneSetGeneInformation, Commons.GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE)));
+      	
+      	//userDefinedGeneSetLowerPanel added to userDefinedGeneSetPanel
+      	JPanel userDefinedGeneSetLowerPanel = new JPanel( new GridLayout(1, 2));
+      	
+      	//userDefinedGeneSetName added to userDefinedGeneSetLowerPanel
+      	userDefinedGeneSetName = new JTextField(20);
+      	userDefinedGeneSetLowerPanel.add(createBorderedPanel( "Name", createPanelWithHint(userDefinedGeneSetName, Commons.GUI_HINT_USER_DEFINED_GENESET_NAME)));
+      	
+      	//userDefinedGeneSetDescriptionFile added to userDefinedGeneSetLowerPanel
+      	userDefinedGeneSetDescriptionFile = new JTextField(30);
+      	userDefinedGeneSetLowerPanel.add( createBrowseFileArea( "Description File", userDefinedGeneSetDescriptionFile, Commons.GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE));
+		
+      	userDefinedGeneSetPanel.add( userDefinedGeneSetUpperPanel);
+      	userDefinedGeneSetPanel.add( userDefinedGeneSetLowerPanel);
+      	
+        annotationOptions.add( createBorderedPanel( "User Defined GeneSet", userDefinedGeneSetPanel));
+        
+        //userDefinedLibraryPanel added to annotationOptions
+        JPanel userDefinedLibraryPanel = new JPanel();
+        userDefinedLibraryPanel.setLayout( new BoxLayout(userDefinedLibraryPanel, BoxLayout.PAGE_AXIS));
+        
+        //userDefinedLibraryEnrichment added to userDefinedLibraryPanel
         userDefinedLibraryEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
-        annotationOptions.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
-      
+        userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
+        
+        //userDefinedLibraryInput added to userDefinedLibraryPanel
+        userDefinedLibraryInput = new JTextField(30);
+        userDefinedLibraryPanel.add( createBrowseFileArea( "Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
+		
+        annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
         annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));        
         	 
         //cellLinesScrollPane added to annotationPanel
         listModel = new DefaultListModel<>();
         cellLinesList = new JList<String>( listModel); //see the comment on the method definition (createCellLines())
-        JScrollPane cellLinesScrollPane = new JScrollPane( cellLinesList);
+        //JScrollPane cellLinesScrollPane = new JScrollPane( cellLinesList);
         cellLinesList.setVisibleRowCount( 5);
         //annotationPanel.add( createBorderedPanel( "Cell Lines To Be Considered", cellLinesScrollPane));
         
@@ -373,8 +432,8 @@ public class MainView extends JPanel{
 		permutationPanel.add( createBorderedPanel( "Number of Permutations", createPanelWithHint(numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 		
 		//numberOfPerInEachRun added to permutationPanel
-		numberOfPerInEachRun = new JTextField(30);
-		numberOfPerInEachRun.setText("2000");
+		String[] numberOfPermutationsInEachRun = { "1000", "5000", "10000" };
+		numberOfPerInEachRun = new JComboBox<String>( numberOfPermutationsInEachRun);
 		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_FDR)));
 		
 		enrichmentPanel.add( permutationPanel);
