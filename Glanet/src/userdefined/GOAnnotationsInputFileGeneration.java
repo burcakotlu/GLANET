@@ -89,8 +89,8 @@ public class GOAnnotationsInputFileGeneration {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String GOAnnotationsInputFileName = "E:\\DOKTORA_DATA\\GO\\gene_association.goa_ref_human";
-		String GOAnnotationsOutputFileName =  "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		String GOAnnotationsInputFileName = "G:\\DOKTORA_DATA\\GO\\gene_association.goa_ref_human";
+		String GOAnnotationsOutputFileName =  "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 		
 		
 		readGOAnnotatiosInputFileAndWriteGOAnnotationsOutputFile(GOAnnotationsInputFileName,GOAnnotationsOutputFileName);

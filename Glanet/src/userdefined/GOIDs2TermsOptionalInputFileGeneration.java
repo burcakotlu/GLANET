@@ -68,8 +68,8 @@ public class GOIDs2TermsOptionalInputFileGeneration {
 
 	public static void main(String[] args) {
 		
-		String GOIDs2TermsInputFileName = "E:\\DOKTORA_DATA\\GO\\GO.terms_and_ids";
-		String GOIDs2TermsOutputFileName =  "E:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
+		String GOIDs2TermsInputFileName = "G:\\DOKTORA_DATA\\GO\\GO.terms_and_ids";
+		String GOIDs2TermsOutputFileName =  "G:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
 		
 		
 		readGOIDs2TermsInputFileAndWriteGOIDs2TermsOutputFile(GOIDs2TermsInputFileName,GOIDs2TermsOutputFileName);

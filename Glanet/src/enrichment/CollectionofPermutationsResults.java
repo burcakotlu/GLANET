@@ -676,7 +676,7 @@ public class CollectionofPermutationsResults {
 		//User Defined GeneSet Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
-//		String userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+//		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 //		String userDefinedGeneSetInputFile = args[23];
 		  
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
@@ -685,7 +685,7 @@ public class CollectionofPermutationsResults {
 		String userDefinedGeneSetName = "GO";
 //		String userDefinedGeneSetName = args[25];
 
-		String userDefinedGeneSetOptionalDescriptionInputFile = "E:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
+		String userDefinedGeneSetOptionalDescriptionInputFile = "G:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
 //		String userDefinedGeneSetOptionalDescriptionInputFile =args[26];		
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/

@@ -11342,7 +11342,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//User Defined GeneSet Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
-		String userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 //		String userDefinedGeneSetInputFile = args[23];
 		  
 		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
@@ -11351,7 +11351,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String userDefinedGeneSetName = "GO";
 //		String userDefinedGeneSetName = args[25];
 
-//		String userDefinedGeneSetDescriptionOptionalInputFile = "E:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
+//		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 //		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/

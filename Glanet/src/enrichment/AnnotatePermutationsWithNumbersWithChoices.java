@@ -2331,7 +2331,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
-		String userDefinedGeneSetInputFile = "E:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 //		String userDefinedGeneSetInputFile = args[23];
 		  
 		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;

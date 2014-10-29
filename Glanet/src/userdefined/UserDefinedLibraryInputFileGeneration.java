@@ -39,12 +39,12 @@ public class UserDefinedLibraryInputFileGeneration {
 		//Read the given directories
 		//Create UserDefinedLibraryInputFile
 		
-		String dnaseDirectory1 	= 	"E:\\DOKTORA_DATA\\ENCODE\\dnase";
-		String dnaseDirectory2 	=	"E:\\DOKTORA_DATA\\ENCODE\\dnase_jul2010";
-		String histoneDirectory	=	"E:\\DOKTORA_DATA\\ENCODE\\histone_macs";
-		String tfDirectory 		=	"E:\\DOKTORA_DATA\\ENCODE\\transcription_factors";
+		String dnaseDirectory1 	= 	"G:\\DOKTORA_DATA\\ENCODE\\dnase";
+		String dnaseDirectory2 	=	"G:\\DOKTORA_DATA\\ENCODE\\dnase_jul2010";
+		String histoneDirectory	=	"G:\\DOKTORA_DATA\\ENCODE\\histone_macs";
+		String tfDirectory 		=	"G:\\DOKTORA_DATA\\ENCODE\\transcription_factors";
 		
-		String userDefinedLibraryInputFile = "E:\\DOKTORA_DATA\\UserDefinedLibrary\\UserDefinedLibraryInputFile.txt";
+		String userDefinedLibraryInputFile = "G:\\DOKTORA_DATA\\UserDefinedLibrary\\UserDefinedLibraryInputFile.txt";
 		
 		
 		readFileNamesUnderGivenDirectoryAndCreateInputFile(dnaseDirectory1,"DNASE",userDefinedLibraryInputFile);
