@@ -32,9 +32,7 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.EnrichmentType;
@@ -2320,33 +2318,35 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
 		
 		
-		//UserDefinedGeneSet Enrichment
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
-		
-		//UserDefinedLibrary Enrichment
-//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
-				
-			
-		 	
 			
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
-		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-//		String userDefinedGeneSetInputFile = args[23];
-		  
-		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
-//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
-		
-		String userDefinedGeneSetName = "GO";
-//		String userDefinedGeneSetName = args[25];
+		//User Defined GeneSet Enrichment, DO or DO_NOT
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
-//		String userDefinedGeneSetOptionalDescriptionInputFile =args[26];		
+		String userDefinedGeneSetInputFile = args[23];
+//		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		  
+		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
+//		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
+		
+		String userDefinedGeneSetName = args[25];
+//		String userDefinedGeneSetName = "GO";
+
+		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
+//		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
 		
+	
 		/*********************************************************************************/
-		/**************************USER DEFINED LIBRARY***********************************/	
-//		String userDefinedLibraryInputFile = args[28];
+		/**************************USER DEFINED LIBRARY***********************************/
+		//User Defined Library Enrichment, DO or DO_NOT
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
+
+		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 	

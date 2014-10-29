@@ -31,10 +31,9 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
-
 import common.Commons;
-
 import enumtypes.EnrichmentType;
+import enumtypes.GeneInformationType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.MultipleTestingType;
 
@@ -676,26 +675,29 @@ public class CollectionofPermutationsResults {
 		//User Defined GeneSet Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
+		String userDefinedGeneSetInputFile = args[23];
 //		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-//		String userDefinedGeneSetInputFile = args[23];
 		  
+		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
-//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
 		
-		String userDefinedGeneSetName = "GO";
-//		String userDefinedGeneSetName = args[25];
+		String userDefinedGeneSetName = args[25];
+//		String userDefinedGeneSetName = "GO";
 
-		String userDefinedGeneSetOptionalDescriptionInputFile = "G:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
-//		String userDefinedGeneSetOptionalDescriptionInputFile =args[26];		
+		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
+//		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
 		
+	
 		/*********************************************************************************/
-		/**************************USER DEFINED LIBRARY***********************************/	
+		/**************************USER DEFINED LIBRARY***********************************/
 		//User Defined Library Enrichment, DO or DO_NOT
-//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
-//		String userDefinedLibraryInputFile = args[28];
+		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 		
@@ -810,7 +812,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsExonBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					userDefinedGeneSetOptionalDescriptionInputFile,
+					userDefinedGeneSetDescriptionOptionalInputFile,
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 			
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -825,7 +827,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsRegulationBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					userDefinedGeneSetOptionalDescriptionInputFile,
+					userDefinedGeneSetDescriptionOptionalInputFile,
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 			
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -841,7 +843,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders,
 					numberofComparisons.getNumberofComparisonsAllBasedUserDefinedGeneSet(),
 					userDefinedGeneSetEnrichmentType,
-					userDefinedGeneSetOptionalDescriptionInputFile,
+					userDefinedGeneSetDescriptionOptionalInputFile,
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
 		
 		}
