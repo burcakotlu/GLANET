@@ -41,7 +41,7 @@ public class Commons {
 	
 	//When there is no KeggPathwayDescription provided for a KeggPathway
 	//When there is no UserDefinedGeneSetDescription provided for a UserDefinedGeneSety
-	public static final String NO_DESCRIPTION = "NoDescription";
+	public static final String NO_DESCRIPTION_AVAILABLE = "NoDescriptionAvailable";
 		
 	//When there is no Optional UserDefinedGeneSet Description file is provided for a UserDefinedGeneSet Enrichment
 	public static final String NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED = "NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED";

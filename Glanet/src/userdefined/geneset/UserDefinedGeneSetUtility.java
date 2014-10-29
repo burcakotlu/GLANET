@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import common.Commons;
+
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
@@ -134,7 +136,13 @@ public class UserDefinedGeneSetUtility {
 			userDefinedGeneSetID = element.getName();
 			userDefinedGeneSetTerm = ID2TermMap.get(userDefinedGeneSetID);
 			
-			element.setUserDefinedGeneSetDescription(userDefinedGeneSetTerm);
+			if (userDefinedGeneSetTerm==null){
+				element.setUserDefinedGeneSetDescription(Commons.NO_DESCRIPTION_AVAILABLE);
+			}else{
+				element.setUserDefinedGeneSetDescription(userDefinedGeneSetTerm);
+
+			}
+			
 		}//End of for each element
 	
 	

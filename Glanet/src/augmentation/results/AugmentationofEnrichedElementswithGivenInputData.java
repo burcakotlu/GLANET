@@ -944,11 +944,10 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				}
 				//UserDefinedGeneSet Case
 				else if (indexofTenthTab>0){
-					
 					keggPathwayDescription = strLine1.substring(indexofTenthTab+1);		
 				}
 				else{
-					keggPathwayDescription =  Commons.NO_DESCRIPTION;
+					keggPathwayDescription =  Commons.NO_DESCRIPTION_AVAILABLE;
 				}
 				
 				if(multipleTestingParameter.isBenjaminiHochbergFDR()){

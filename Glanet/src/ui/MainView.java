@@ -210,7 +210,7 @@ public class MainView extends JPanel{
 						userDefinedGeneSetEnrichment.isSelected()?Commons.DO_USER_DEFINED_GENESET_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT,
 						userDefinedGeneSetInput.getText(),
 						userDefinedGeneSetGeneInformation.getSelectedItem().toString(),
-						(userDefinedGeneSetName.getText().length()!=0)?userDefinedGeneSetName.getText():Commons.NO_DESCRIPTION,
+						(userDefinedGeneSetName.getText().length()!=0)?userDefinedGeneSetName.getText():Commons.NO_NAME,
 						(userDefinedGeneSetDescriptionFile.getText().length()!=0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
 						userDefinedLibraryEnrichment.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
 						userDefinedLibraryInput.getText(),
