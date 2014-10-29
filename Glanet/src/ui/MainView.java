@@ -123,12 +123,29 @@ public class MainView extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			
 			JFileChooser fc = new JFileChooser();
+			int returnVal;
+			
 			if( e.getActionCommand() == "Glanet Folder")
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			else if( e.getActionCommand() == "Input File Name")
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			else if( e.getActionCommand() == "User Defined GeneSet Input File"){
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if( !userDefinedGeneSetEnrichment.isSelected())
+					return;
+			}
+			else if( e.getActionCommand() == "Description File"){
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if( !userDefinedGeneSetEnrichment.isSelected())
+					return;
+			}
+			else if( e.getActionCommand() == "User Defined Library Input File"){
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if( !userDefinedLibraryEnrichment.isSelected())
+					return;
+			}
 			
-			int returnVal = fc.showOpenDialog(MainView.this);
+			returnVal = fc.showOpenDialog(MainView.this);
 
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
@@ -145,7 +162,12 @@ public class MainView extends JPanel{
 	            }
 	            else if( e.getActionCommand() == "Input File Name")
 	            	inputTextField.setText( file.getPath() + System.getProperty("file.separator"));
-	            
+	            else if( e.getActionCommand() == "User Defined GeneSet Input File")
+	            	userDefinedGeneSetInput.setText( file.getPath() + System.getProperty("file.separator"));
+	            else if( e.getActionCommand() == "Description File")
+	            	userDefinedGeneSetDescriptionFile.setText( file.getPath() + System.getProperty("file.separator"));
+	            else if( e.getActionCommand() == "User Defined Library Input File")
+	            	userDefinedLibraryInput.setText( file.getPath() + System.getProperty("file.separator"));
 	        }
 		}
 	};
@@ -225,6 +247,22 @@ public class MainView extends JPanel{
 		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
 	    	  checkUsabilityOfRegulatorySequenceAnalysis();
+	      }
+	};
+	
+	ItemListener enableUserDefinedGeneSet = new ItemListener() {
+	      @Override
+		public void itemStateChanged(ItemEvent itemEvent) {
+	    	  
+	    	  enableUserDefinedGeneSetOptions( userDefinedGeneSetEnrichment.isSelected());
+	      }
+	};
+	
+	ItemListener enableUserDefinedLibrary = new ItemListener() {
+	      @Override
+		public void itemStateChanged(ItemEvent itemEvent) {
+	    	  
+	    	  enableUserDefinedLibraryOptions( userDefinedLibraryEnrichment.isSelected());
 	      }
 	};
 	
@@ -330,6 +368,8 @@ public class MainView extends JPanel{
         
         //userDefinedGeneSetEnrichment added to userDefinedGeneSetPanel
         userDefinedGeneSetEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
+        userDefinedGeneSetEnrichment.addItemListener( enableUserDefinedGeneSet);
+        
         userDefinedGeneSetPanel.add( createPanelWithHint(userDefinedGeneSetEnrichment, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
         
         //userDefinedGeneSetUpperPanel added to userDefinedGeneSetPanel
@@ -337,7 +377,7 @@ public class MainView extends JPanel{
         
         //userDefinedGeneSetInput added to userDefinedGeneSetUpperPanel
       	userDefinedGeneSetInput = new JTextField(30);
-      	userDefinedGeneSetUpperPanel.add( createBrowseFileArea( "Input File", userDefinedGeneSetInput, Commons.GUI_HINT_USER_DEFINED_GENESET_INPUTFILE));
+      	userDefinedGeneSetUpperPanel.add( createBrowseFileArea( "User Defined GeneSet Input File", userDefinedGeneSetInput, Commons.GUI_HINT_USER_DEFINED_GENESET_INPUTFILE));
       	
       	//userDefinedGeneSetGeneInformation added to userDefinedGeneSetUpperPanel
       	String[] geneInformation = { Commons.GENE_ID, Commons.GENE_SYMBOL, Commons.RNA_NUCLEOTIDE_ACCESSION};
@@ -367,11 +407,13 @@ public class MainView extends JPanel{
         
         //userDefinedLibraryEnrichment added to userDefinedLibraryPanel
         userDefinedLibraryEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
+        userDefinedLibraryEnrichment.addItemListener( enableUserDefinedLibrary);
+        
         userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
         
         //userDefinedLibraryInput added to userDefinedLibraryPanel
         userDefinedLibraryInput = new JTextField(30);
-        userDefinedLibraryPanel.add( createBrowseFileArea( "Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
+        userDefinedLibraryPanel.add( createBrowseFileArea( "User Defined Library Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
 		
         annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
         annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));        
@@ -490,6 +532,8 @@ public class MainView extends JPanel{
         //all control operations are done after the gui is completely set
         enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
         checkUsabilityOfRegulatorySequenceAnalysis();
+        enableUserDefinedGeneSetOptions( userDefinedGeneSetEnrichment.isSelected());
+        enableUserDefinedLibraryOptions( userDefinedLibraryEnrichment.isSelected());
         
         revalidate();
 	}
@@ -593,6 +637,23 @@ public class MainView extends JPanel{
 		signifanceCriteria.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
 		numberOfPerInEachRun.setEnabled( shouldEnable);
+		
+		revalidate();
+	}
+	
+	public void enableUserDefinedGeneSetOptions( boolean shouldEnable){
+			
+			userDefinedGeneSetInput.setEnabled( shouldEnable);
+			userDefinedGeneSetDescriptionFile.setEnabled( shouldEnable);
+			userDefinedGeneSetGeneInformation.setEnabled( shouldEnable);
+			userDefinedGeneSetName.setEnabled( shouldEnable);
+			
+			revalidate();
+		}
+
+	public void enableUserDefinedLibraryOptions( boolean shouldEnable){
+		
+		userDefinedLibraryInput.setEnabled( shouldEnable);
 		
 		revalidate();
 	}
