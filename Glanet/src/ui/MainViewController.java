@@ -145,7 +145,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String writePermutationBasedAnnotationResultMode,
 			   String numberOfPermutationsInEachRun,
 			   String userDefinedGeneSetEnrichment,
+			   String userDefinedGeneSetInputFile,
+			   String userDefinedGeneSetGeneInformation,
+			   String userDefinedGeneSetName,
+			   String userDefinedGeneSetDescription,
 			   String userDefinedLibraryEnrichment,
+			   String userDefinedLibraryInputFile,
 			   String[] cellLinesToBeConsidered) {
 		
 		int i = 0;
@@ -174,7 +179,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = writePermutationBasedAnnotationResultMode;
 		args[i++] = numberOfPermutationsInEachRun;
 		args[i++] = userDefinedGeneSetEnrichment;
+		args[i++] = userDefinedGeneSetInputFile;
+		args[i++] = userDefinedGeneSetGeneInformation;
+		args[i++] = userDefinedGeneSetName;
+		args[i++] = userDefinedGeneSetDescription;
 		args[i++] = userDefinedLibraryEnrichment;
+		args[i++] = userDefinedLibraryInputFile;
 		
 		//for( i = 0; i < args.length; i++)
 		//	System.out.println( args[i]);

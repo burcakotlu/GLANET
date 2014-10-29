@@ -49,7 +49,7 @@ public class Commons {
 	//Number of program runtime arguments without counting the command line argument
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
-	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 24;
+	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 29;
 	
 	//EnumType UserDefinedGeneSetInputType
 	public static final String GENE_ID 					= "GENE_ID";
@@ -1511,17 +1511,19 @@ public class Commons {
 	public static final String GUI_HINT_FDR = "False Discovery Rate";
 	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
 	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number of Permutations that will be carried out for Enrichment";
-	
 	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "DNase Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation)";
-	
 	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined GeneSet Annotation";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE = "Gene Information Type";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_INPUTFILE = "Input File";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_NAME = "User Defined GeneSet Name";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined GeneSet Description File (Optional)";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
-	
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	
 	
