@@ -235,9 +235,7 @@ public class Commons {
 	public static final String TEST_INPUT_FILE_GFF3_FORMAT = "";
 	public static final String TEST_INPUT_FILE_0_BASED_COORDINATES_FORMAT = "";
 	public static final String TEST_INPUT_FILE_DBSNP_IDS_FORMAT = "";
-	
-							
-	
+		
 	//RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = "RefSeqIdsforGRCh37" + System.getProperty("file.separator") + "GCF_000001405.25.assembly.txt";
 	public static final String REFSEQ_IDS_FOR_GRCH38_INPUT_FILE = "RefSeqIdsforGRCh38" + System.getProperty("file.separator") + "GCF_000001405.26.assembly.txt";
@@ -1578,4 +1576,6 @@ public class Commons {
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udlibrary";
 	public static final String ARG_JOB_NAME = "-j";
 	public static final String ARG_RSAT = "-rsat";
+	
+	
 }
