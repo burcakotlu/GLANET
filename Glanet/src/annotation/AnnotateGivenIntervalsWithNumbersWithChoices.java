@@ -20,6 +20,7 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TIntShortMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortIntMap;
 import gnu.trove.map.TShortObjectMap;
@@ -29,6 +30,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TIntShortHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
 import gnu.trove.map.hash.TShortIntHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
@@ -58,8 +60,11 @@ import java.util.Map;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
+import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
@@ -11689,8 +11694,67 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 
 		}	
 		/*******************************************************************************/
-		/************USER DEFINED GENESET*****ANNOTATION***ends***********************/
+		/************USER DEFINED GENESET*****ANNOTATION***ends*************************/
 		/*******************************************************************************/	
+		
+		
+		
+		/*******************************************************************************/
+		/************USER DEFINED LIBRARY*****ANNOTATION***starts***********************/
+		/*******************************************************************************/
+		if (userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
+		    
+			GlanetRunner.appendLog("**********************************************************");
+			GlanetRunner.appendLog("User Defined Library Annotation starts: " + new Date());
+					
+		    dateBefore = System.currentTimeMillis();
+		    
+		    //used in write results
+		    TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap	= new TObjectIntHashMap<String>();	
+		    TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap	= new TIntObjectHashMap<String>();	
+
+		    TObjectIntMap<String> userDefinedLibraryElementName2ElementNumberMap		= new TObjectIntHashMap<String>();	
+		    TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap		= new TIntObjectHashMap<String>();	
+
+		    TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap		= new TObjectIntHashMap<String>();	
+		    TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap		= new TIntObjectHashMap<String>();	
+	    
+			//User Defined Library
+		    //Read UserDefinedLibraryInputFile
+		    //Read each file listed in UserDefinedLibraryInputFile
+
+		    //FileName FileNumber
+		    //Fill userDefinedLibraryFileName2UserDefinedLibraryFileNumber Map
+		    //Fill userDefinedLibraryFileNumber2UserDefinedLibraryFileName Map
+
+		    //ElementName ElementNumber
+		    //Fill userDefinedLibraryElementName2UserDefinedLibraryElementNumber Map
+		    //Fill userDefinedLibraryElementNumber2UserDefinedLibraryElementName Map
+
+		    //ElementTypeName ElementTypeNumber
+		    //Fill userDefinedLibraryElementType2UserDefinedLibraryElementTypeNumber Map
+		    //Fill userDefinedLibraryElementTypeNumber2UserDefinedLibraryElementType Map
+		    
+		    //For each elementType
+		    //Create UserDefinedLibrary unsorted chromosome based interval files
+		    
+		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesAndFillMaps(dataFolder,userDefinedLibraryInputFile,userDefinedLibraryElementType2ElementTypeNumberMap,userDefinedLibraryElementTypeNumber2ElementTypeMap,userDefinedLibraryElementName2ElementNumberMap,userDefinedLibraryElementNumber2ElementNameMap,userDefinedLibraryFileName2FileNumberMap,userDefinedLibraryFileNumber2FileNameMap);
+		    	
+			dateAfter = System.currentTimeMillis();
+			
+			GlanetRunner.appendLog("User Defined Library annotation ends: " + new Date());
+		    
+			GlanetRunner.appendLog("User Defined Library annotation took: " + (float)((dateAfter - dateBefore)/1000) + " seconds");
+			GlanetRunner.appendLog("**********************************************************");
+			
+			System.gc();
+			System.runFinalization();
+
+		}	
+		/*******************************************************************************/
+		/************USER DEFINED LIBRARY*****ANNOTATION***ends*************************/
+		/*******************************************************************************/	
+
 		
 		
 	    /*******************************************************************************/

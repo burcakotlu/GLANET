@@ -99,7 +99,7 @@ public class UserDefinedLibraryInputFileGeneration {
 			    				//Get the cell line name and transcription factor name from file name
 			    				CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,fileName);
 		    					
-			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineandTranscriptionFactorName.getTranscriptionFactorName() + "_" + cellLineandTranscriptionFactorName.getCellLineName() + "\t"  + System.getProperty("line.separator"));
+			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineandTranscriptionFactorName.getTranscriptionFactorName() + "_" + cellLineandTranscriptionFactorName.getCellLineName()   + System.getProperty("line.separator"));
 			    				
 		    					cellLineandTranscriptionFactorName = null;
 
@@ -111,7 +111,7 @@ public class UserDefinedLibraryInputFileGeneration {
 			    				//Get the cell line name and histone name from file name
 			    				CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandHistoneName(cellLineNameHistoneName, fileName);
 
-			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineNameHistoneName.getHistoneName() + "_" + cellLineNameHistoneName.getCellLineName() + "\t"  + System.getProperty("line.separator"));
+			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineNameHistoneName.getHistoneName() + "_" + cellLineNameHistoneName.getCellLineName()  + System.getProperty("line.separator"));
 						    	
 			    				cellLineNameHistoneName = null;
 			    			}

@@ -76,91 +76,92 @@ public class FileOperations {
 		return new FileReader(directoryNameandfileName);
 	}
 	
-	//attention gives java.nio.file.FileSystemException
-	//The process cannot access the file because it is being used by another process.
-	//Delete all directories under this base directory name
-	//Unless any directory name is in list of notToBeDeleted 
-	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName,List<String> notToBeDeleted){
-		File folder = new File(baseDirectoryName);
-		if (folder.exists()){
-			for(File file:folder.listFiles()){
-							
-				if (!(notToBeDeleted.contains(file.getName()))){
-					deleteDirectoriesandFiles(file.getPath());
-					
-				}
-				
-			}
-		}
-		
-		
-		
-	}
+//	//attention gives java.nio.file.FileSystemException
+//	//The process cannot access the file because it is being used by another process.
+//	//Delete all directories under this base directory name
+//	//Unless any directory name is in list of notToBeDeleted 
+//	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName,List<String> notToBeDeleted){
+//		File folder = new File(baseDirectoryName);
+//		if (folder.exists()){
+//			for(File file:folder.listFiles()){
+//							
+//				if (!(notToBeDeleted.contains(file.getName()))){
+//					deleteDirectoriesandFiles(file.getPath());
+//					
+//				}
+//				
+//			}
+//		}
+//		
+//		
+//		
+//	}
+//	
+//	
+//	//attention gives java.nio.file.FileSystemException
+//	//The process cannot access the file because it is being used by another process.
+//	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){
+//		File folder = new File(baseDirectoryName);
+//		
+//		if (folder.exists()){
+//			for(File file:folder.listFiles()){
+//				deleteDirectoriesandFiles(file.getPath());
+//			}
+//		}
+//				
+//	}
+//	
+//	//attention gives java.nio.file.FileSystemException
+//	//The process cannot access the file because it is being used by another process.
+//	public static void deleteDirectoriesandFilesUnderThisDirectory(String outputFolder, String baseDirectoryName){
+//		File folder = new File(outputFolder + baseDirectoryName);
+//		
+//		if (folder.exists()){
+//			for(File file:folder.listFiles()){
+//				deleteDirectoriesandFiles(file.getPath());
+//			}
+//		}
+//				
+//	}
+//	
+//	//attention gives java.nio.file.FileSystemException
+//	//The process cannot access the file because it is being used by another process.
+//	public static void deleteDirectoriesandFiles(String baseDirectoryName){
+//		
+//		Path dir = Paths.get(baseDirectoryName);
+//		try {
+//		  Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+//		 
+//		      @Override
+//		      public FileVisitResult visitFile(Path file,
+//		              BasicFileAttributes attrs) throws IOException {
+//		 
+//		          GlanetRunner.appendLog("Deleting file: " + file);
+//		          Files.delete(file);
+//		          return FileVisitResult.CONTINUE;
+//		      }
+//		 
+//		      @Override
+//		      public FileVisitResult postVisitDirectory(Path dir,
+//		              IOException exc) throws IOException {
+//		 
+//		          GlanetRunner.appendLog("Deleting dir: " + dir);
+//		          if (exc == null) {
+//		              Files.delete(dir);
+//		              return FileVisitResult.CONTINUE;
+//		          } else {
+//		              throw exc;
+//		          }
+//		      }
+//		 
+//		  });
+//		} catch (IOException e) {
+//		  e.printStackTrace();
+//		}
+//		
+//	}
 	
-	
-	//attention gives java.nio.file.FileSystemException
-	//The process cannot access the file because it is being used by another process.
-	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){
-		File folder = new File(baseDirectoryName);
-		
-		if (folder.exists()){
-			for(File file:folder.listFiles()){
-				deleteDirectoriesandFiles(file.getPath());
-			}
-		}
-				
-	}
-	
-	//attention gives java.nio.file.FileSystemException
-	//The process cannot access the file because it is being used by another process.
-	public static void deleteDirectoriesandFilesUnderThisDirectory(String outputFolder, String baseDirectoryName){
-		File folder = new File(outputFolder + baseDirectoryName);
-		
-		if (folder.exists()){
-			for(File file:folder.listFiles()){
-				deleteDirectoriesandFiles(file.getPath());
-			}
-		}
-				
-	}
-	
-	//attention gives java.nio.file.FileSystemException
-	//The process cannot access the file because it is being used by another process.
-	public static void deleteDirectoriesandFiles(String baseDirectoryName){
-		
-		Path dir = Paths.get(baseDirectoryName);
-		try {
-		  Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
-		 
-		      @Override
-		      public FileVisitResult visitFile(Path file,
-		              BasicFileAttributes attrs) throws IOException {
-		 
-		          GlanetRunner.appendLog("Deleting file: " + file);
-		          Files.delete(file);
-		          return FileVisitResult.CONTINUE;
-		      }
-		 
-		      @Override
-		      public FileVisitResult postVisitDirectory(Path dir,
-		              IOException exc) throws IOException {
-		 
-		          GlanetRunner.appendLog("Deleting dir: " + dir);
-		          if (exc == null) {
-		              Files.delete(dir);
-		              return FileVisitResult.CONTINUE;
-		          } else {
-		              throw exc;
-		          }
-		      }
-		 
-		  });
-		} catch (IOException e) {
-		  e.printStackTrace();
-		}
-		
-	}
-	
+	//Called from GLANET 
 	public static void deleteOldFiles(String directoryName){
 		//Delete old files before new run 
 		File folder = new File(directoryName);
@@ -200,17 +201,7 @@ public class FileOperations {
 	
 	
 	
-	public static void deleteOldFiles(File folder){
-		File[] files = folder.listFiles();
-		 
-	    for(File file: files){
-	        if(file.isFile()){
-	            file.delete();
-	        }else if(file.isDirectory()) {
-	         		deleteOldFiles(file);
-	        }  
-	    }
-	}
+
 	
 	public static void deleteFile(String outputFolder,String fileName){
 		
