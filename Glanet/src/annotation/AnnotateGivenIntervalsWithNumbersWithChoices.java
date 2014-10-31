@@ -9254,6 +9254,27 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	
 	//Annotation
 	//With Numbers
+	public void searchUserDefinedLibraryWithNumbers(
+			String dataFolder, 
+			String outputFolder, 
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap, 
+			int overlapDefinition,  
+			TIntObjectMap<String> elementTypeNumber2ElementTypeMap, 
+			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap) {
+		
+
+		BufferedReader bufferedReader =null ;
+				
+		IntervalTree userDefinedLibraryIntervalTree;
+		
+		TIntObjectMap<BufferedWriter> transcriptionFactorBufferedWriterHashMap = new TIntObjectHashMap<BufferedWriter>(); 				
+	
+		
+	}
+	
+	//Annotation
+	//With Numbers
 	public void searchTranscriptionFactorWithNumbers(String dataFolder,String outputFolder, TIntIntMap tfNumberCellLineNumber2KMap,int overlapDefinition,TShortObjectMap<String> tfNumber2TFNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap) {
 		
 		BufferedReader bufferedReader =null ;
@@ -11713,32 +11734,52 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap	= new TObjectIntHashMap<String>();	
 		    TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap	= new TIntObjectHashMap<String>();	
 
-		    TObjectIntMap<String> userDefinedLibraryElementName2ElementNumberMap		= new TObjectIntHashMap<String>();	
-		    TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap		= new TIntObjectHashMap<String>();	
+		    //This has to be ElementType Specific for Bonferroni Correction 
+		    TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap = new  TIntObjectHashMap<TObjectIntMap<String>>();
+		    TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap = new  TIntObjectHashMap<TIntObjectMap<String>>();
 
 		    TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap		= new TObjectIntHashMap<String>();	
 		    TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap		= new TIntObjectHashMap<String>();	
 	    
-			//User Defined Library
+			//UserDefinedLibrary
 		    //Read UserDefinedLibraryInputFile
-		    //Read each file listed in UserDefinedLibraryInputFile
-
+		    //Read each file written in UserDefinedLibraryInputFile
 		    //FileName FileNumber
 		    //Fill userDefinedLibraryFileName2UserDefinedLibraryFileNumber Map
 		    //Fill userDefinedLibraryFileNumber2UserDefinedLibraryFileName Map
-
-		    //ElementName ElementNumber
-		    //Fill userDefinedLibraryElementName2UserDefinedLibraryElementNumber Map
-		    //Fill userDefinedLibraryElementNumber2UserDefinedLibraryElementName Map
-
-		    //ElementTypeName ElementTypeNumber
-		    //Fill userDefinedLibraryElementType2UserDefinedLibraryElementTypeNumber Map
-		    //Fill userDefinedLibraryElementTypeNumber2UserDefinedLibraryElementType Map
-		    
+		    //ElementType ElementTypeNumber
+		    //Fill userDefinedLibraryElementType2ElementTypeNumber Map
+		    //Fill userDefinedLibraryElementTypeNumber2ElementType Map
+		    //Fill ElementTypeNumber specific ElementName2ElementNumber
+		    //Fill ElementTypeNumber specific ElementNumber2ElementName
 		    //For each elementType
-		    //Create UserDefinedLibrary unsorted chromosome based interval files
+		    //Create UserDefinedLibrary unsorted chromosome based interval files with numbers
 		    
-		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesWithNumbersAndFillMaps(dataFolder,userDefinedLibraryInputFile,userDefinedLibraryElementType2ElementTypeNumberMap,userDefinedLibraryElementTypeNumber2ElementTypeMap,userDefinedLibraryElementName2ElementNumberMap,userDefinedLibraryElementNumber2ElementNameMap,userDefinedLibraryFileName2FileNumberMap,userDefinedLibraryFileNumber2FileNameMap);
+		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
+		    		dataFolder,
+		    		userDefinedLibraryInputFile,
+		    		userDefinedLibraryElementType2ElementTypeNumberMap,
+		    		userDefinedLibraryElementTypeNumber2ElementTypeMap,
+		    		elementTypeNumber2ElementName2ElementNumberMapMap,
+		    		elementTypeNumber2ElementNumber2ElementNameMapMap,
+		    		userDefinedLibraryFileName2FileNumberMap,
+		    		userDefinedLibraryFileNumber2FileNameMap);
+		    
+		    
+		    
+//			
+		    
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap = new TIntObjectHashMap<TIntIntMap>();
+			
+			//Initialize
+			for(TIntObjectIterator it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator();it.hasNext();){
+				it.advance();
+				TIntIntMap map = new TIntIntHashMap();
+				elementTypeNumber2ElementNumber2KMapMap.put(it.key(), map);	
+			}//End of for each elementTypeNumber initialize elementNumber2KMap 
+			
+			searchUserDefinedLibraryWithNumbers(dataFolder,outputFolder,elementTypeNumber2ElementNumber2KMapMap,overlapDefinition,userDefinedLibraryElementTypeNumber2ElementTypeMap,elementTypeNumber2ElementNumber2ElementNameMapMap,userDefinedLibraryFileNumber2FileNameMap);
+			
 		    	
 			dateAfter = System.currentTimeMillis();
 			

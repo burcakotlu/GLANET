@@ -5,23 +5,21 @@ package userdefined.library;
 
 import enumtypes.ChromosomeName;
 import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import annotation.WriteAllPossibleNamesandUnsortedFilesWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -41,7 +39,7 @@ public class UserDefinedLibraryUtility {
 			String elementType,
 			TObjectIntMap<String> elementType2ElementTypeNumberMap,
 			String elementName, 
-			TObjectIntMap<String> elementName2ElementNumberMap,
+			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap,
 			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList){
 		
 		FileReader fileReader = null;
@@ -59,6 +57,9 @@ public class UserDefinedLibraryUtility {
 		BufferedWriter bufferedWriter = null;
 		List<BufferedWriter> bufferedWriterList = null;
 		int elementTypeNumber = Integer.MIN_VALUE;
+		
+		
+		TObjectIntMap<String> elementName2ElementNumberMap = null;
 		
 		try {
 			
@@ -94,6 +95,9 @@ public class UserDefinedLibraryUtility {
 				elementTypeNumber = elementType2ElementTypeNumberMap.get(elementType);
 				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
 				
+				//Get elementName2ElementNumberMap for a certain elementTypeNumber
+				elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(elementTypeNumber);
+				
 				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chrName),bufferedWriterList);
 				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" + elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
 			}
@@ -112,13 +116,15 @@ public class UserDefinedLibraryUtility {
 	
 	
    
-    public static void readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesWithNumbersAndFillMaps(
+    public static void readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
     		String dataFolder,
     		String userDefinedLibraryInputFile,
     		TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap,
     		TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap,
-    		TObjectIntMap<String> userDefinedLibraryElementName2ElementNumberMap,
-    		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
+   
+    		TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap,
+    		TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
+    		
     		TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap,
     		TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap){
     	
@@ -137,15 +143,22 @@ public class UserDefinedLibraryUtility {
     	
     	String fileName;
     	
-    	int elementNumber = 1;
     	int elementTypeNumber = 1;
     	int fileNumber = 1;
     	
+    	int currentElementTypeNumber;
+    	int currentElementNumber;
     	
     	TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap = new TIntObjectHashMap<List<BufferedWriter>>();
 
     	
+    	TObjectIntMap<String> elementName2ElementNumberMap = null;
+    	TIntObjectMap<String> elementNumber2ElementNameMap = null;
+    	
+    	
     	try {
+    		
+    		//Read UserDefinedLibraryInputFile
 			fileReader = FileOperations.createFileReader(userDefinedLibraryInputFile);
 			bufferedReader = new BufferedReader(fileReader);
 			
@@ -158,10 +171,12 @@ public class UserDefinedLibraryUtility {
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t',indexofFirstTab+1) : -1;
 					indexofThirdTab  = (indexofSecondTab>0)? strLine.indexOf('\t',indexofSecondTab+1): -1;
 					
-					/*******************************************************************/
-					//FileName 2 FileNumber
-					//FileNumber 2 FileNamee
+					/***********************************************************************************************/
+					/***********************FileName 2 FileNumber starts********************************************/
+					/***********************FileNumber 2 FileName starts********************************************/
 					filePathFileName = strLine.substring(0, indexofFirstTab);
+					//Trim
+					filePathFileName = filePathFileName.trim();
 					File file = new File(filePathFileName);
 					fileName= file.getName();
 					if(!userDefinedLibraryFileName2FileNumberMap.containsKey(fileName)){
@@ -170,14 +185,18 @@ public class UserDefinedLibraryUtility {
 						fileNumber++;
 					}
 					file = null;
-					/*******************************************************************/
+					/***********************FileName 2 FileNumber ends**********************************************/
+					/***********************FileNumber 2 FileName ends**********************************************/
+					/***********************************************************************************************/
 
 					
 					
-					/*******************************************************************/
-					//ElementType 2 ElementTypeNumber
-					//ElementTypeNumber 2 ElementType
+					/*********************************************************************************************************/
+					/***********************ElementType 2 ElementTypeNumber starts********************************************/
+					/***********************ElementTypeNumber 2 ElementType starts********************************************/
 					elementType =  strLine.substring(indexofFirstTab+1, indexofSecondTab);
+					//trim
+					elementType = elementType.trim();
 					if(!userDefinedLibraryElementType2ElementTypeNumberMap.containsKey(elementType)){
 						userDefinedLibraryElementType2ElementTypeNumberMap.put(elementType, elementTypeNumber);
 						userDefinedLibraryElementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
@@ -187,15 +206,16 @@ public class UserDefinedLibraryUtility {
 						
 						elementTypeNumber++;
 					}
+					/***********************ElementType 2 ElementTypeNumber ends**********************************************/
+					/***********************ElementTypeNumber 2 ElementType ends**********************************************/
+					/*********************************************************************************************************/
 					
 					
-					/*******************************************************************/
 					
-					
-					
-					/*******************************************************************/
-					//ElementName 2 ElementNumber
-					//ElementNumber 2 ElementName
+					/*********************************************************************************************************/
+					/***************ElementTypeNumber Specific****************************************************************/
+					/***************ElementName 2 ElementNumber starts********************************************************/
+					/***************ElementNumber 2 ElementName starts********************************************************/
 					if (indexofThirdTab>0){
 						elementName =  strLine.substring(indexofSecondTab+1, indexofThirdTab);
 						intervalAroundSummit = Integer.parseInt(strLine.substring(indexofThirdTab+1));
@@ -203,24 +223,48 @@ public class UserDefinedLibraryUtility {
 						elementName =  strLine.substring(indexofSecondTab+1);
 						intervalAroundSummit = Integer.MIN_VALUE;
 					}		
-					if(!userDefinedLibraryElementName2ElementNumberMap.containsKey(elementName)){
-						userDefinedLibraryElementName2ElementNumberMap.put(elementName, elementNumber);
-						userDefinedLibraryElementNumber2ElementNameMap.put(elementNumber, elementName);
-						elementNumber++;
+					
+					//trim
+					elementName = elementName.trim();
+					
+					currentElementTypeNumber = userDefinedLibraryElementType2ElementTypeNumberMap.get(elementType);
+					
+					elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(currentElementTypeNumber);
+					
+					if(elementName2ElementNumberMap==null){
+						elementName2ElementNumberMap  = new TObjectIntHashMap<String>();
+						elementTypeNumber2ElementName2ElementNumberMapMap.put(currentElementTypeNumber, elementName2ElementNumberMap);
 					}
-					/*******************************************************************/
+					
+					elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(currentElementTypeNumber);
+					
+					if(elementNumber2ElementNameMap==null){
+						elementNumber2ElementNameMap =  new TIntObjectHashMap<String>();
+						elementTypeNumber2ElementNumber2ElementNameMapMap.put(currentElementTypeNumber, elementNumber2ElementNameMap);
+					}
+							
+					if(!elementName2ElementNumberMap.containsKey(elementName)){
+						currentElementNumber = elementName2ElementNumberMap.size()+1;
+						elementName2ElementNumberMap.put(elementName, currentElementNumber);
+						elementNumber2ElementNameMap.put(currentElementNumber, elementName);
+					
+					}
+					/***************ElementTypeNumber Specific****************************************************************/
+					/***************ElementName 2 ElementNumber ends**********************************************************/
+					/***************ElementNumber 2 ElementName ends**********************************************************/
+					/*********************************************************************************************************/
 					
 				
 					//Process each file written in UserDefinedLibraryInputFile
-					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,userDefinedLibraryElementName2ElementNumberMap,elementTypeNumber2ListofBufferedWritersMap);
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line
 				
 					
 			
-			}//End of while
+			}//End of while: We have read all the listed files in userDefinedLibraryInputFile
 			
-			//Close UserDefinedLibrary InputFile
+			//Close UserDefinedLibraryInputFile
 			bufferedReader.close();
 			
 			
@@ -235,20 +279,37 @@ public class UserDefinedLibraryUtility {
 			
 			//Write AllPossibleNames for UserDefinedLibraryLibrary
 			//Write userDefinedLibraryElementType2ElementTypeNumberMap
-	  		//Write userDefinedLibraryElementTypeNumber2ElementTypeMap,
-    		//Write userDefinedLibraryElementName2ElementNumberMap,
-			//Write userDefinedLibraryElementNumber2ElementNameMap,
-    		//Write userDefinedLibraryFileName2FileNumberMap,
-    		//Write userDefinedLibraryFileNumber2FileNameMap){
+	  		//Write userDefinedLibraryElementTypeNumber2ElementTypeMap
+    		//Write userDefinedLibraryFileName2FileNumberMap
+    		//Write userDefinedLibraryFileNumber2FileNameMap
 			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryElementType2ElementTypeNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_2_ELEMENTTYPENUMBER_OUTPUT_FILENAME);
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryElementName2ElementNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME);
 			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryFileName2FileNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENAME_2_FILENUMBER_OUTPUT_FILENAME);
 		
 			
 			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryElementNumber2ElementNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
 			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryFileNumber2FileNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
 	
+			//Write elementType Based 
+			//userDefinedLibraryElementName2ElementNumberMap
+				for ( TIntObjectIterator<TObjectIntMap<String>> it = elementTypeNumber2ElementName2ElementNumberMapMap.iterator(); it.hasNext(); ) {
+			    it.advance();
+//			    ElementType
+			    elementType = userDefinedLibraryElementTypeNumber2ElementTypeMap.get(it.key());
+			   WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME);
+			}//End for each elementTypeSpecific elementName2ElementNumberMap
+			
+			
+			//Write elementType Based 
+			//userDefinedLibraryElementNumber2ElementNameMap
+			for ( TIntObjectIterator<TIntObjectMap<String>> it = elementTypeNumber2ElementNumber2ElementNameMapMap.iterator(); it.hasNext(); ) {
+			    it.advance();
+//			    ElementType
+			    elementType = userDefinedLibraryElementTypeNumber2ElementTypeMap.get(it.key());
+			   WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
+			}//End for each elementTypeSpecific elementNumber2ElementNameMap
+	
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
