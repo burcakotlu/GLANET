@@ -3,6 +3,8 @@
  */
 package userdefined.library;
 
+import enumtypes.ChromosomeName;
+import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -26,7 +28,18 @@ import common.Commons;
 public class UserDefinedLibraryUtility {
 	
 	
-	public static void readFileAndWritelementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(String filePathFileName, String ElementType,List<BufferedWriter> bufferedWriterlist){
+	
+	
+	
+	public static void readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(
+			String filePathFileName, 
+			String fileName,
+			TObjectIntMap<String> fileName2FileNumberMap,
+			String elementType,
+			TObjectIntMap<String> elementType2ElementTypeNumberMap,
+			String elementName, 
+			TObjectIntMap<String> elementName2ElementNumberMap,
+			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -36,18 +49,23 @@ public class UserDefinedLibraryUtility {
 		int indexofSecondTab;
 		int indexofThirdTab;
 		
-		String chrName;
-		int start;
-		int end;
+		String chrName = null;
+		int start = Integer.MIN_VALUE;
+		int end = Integer.MIN_VALUE;
 		
+		BufferedWriter bufferedWriter = null;
+		List<BufferedWriter> bufferedWriterList = null;
+		int elementTypeNumber = Integer.MIN_VALUE;
 		
 		try {
+			
+			//Read each file written in UserDefinedLibraryInputFile
 			fileReader = FileOperations.createFileReader(filePathFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine= bufferedReader.readLine())!=null){
 				
-				//example strLine
+				//example strLine 
 				//chr1	91852781	91853156	1	1	.	1728.25	7.867927	7.867927	187
 				
 				indexofFirstTab = strLine.indexOf('\t');
@@ -69,10 +87,17 @@ public class UserDefinedLibraryUtility {
 				}
 				
 				
+				//Get the bufferedWriterList for a certain elementTypeNumber
+				elementTypeNumber = elementType2ElementTypeNumberMap.get(elementType);
+				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
+				
+				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chrName),bufferedWriterList);
+				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" + elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
 			}
-			
-			
+					
+			//Close each file written in UserDefinedLibraryInputFile
 			bufferedReader.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,44 +106,10 @@ public class UserDefinedLibraryUtility {
 	}
 	
 	
-	public static void 	createChromosomeBasedListofBufferedWriters(
-			String elementType,
-			int elementTypeNumber,
-			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap,
-			String baseDirectoryName){
-		
-		
-			try {
-				FileWriter fileWriter1 = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.UNSORTED_CHR1_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS);
-				FileWriter fileWriter2 = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.UNSORTED_CHR2_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS);
-				FileWriter fileWriter3 = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.UNSORTED_CHR3_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS);
-		
-				
-				BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
-				BufferedWriter bufferedWriter2 = new BufferedWriter(fileWriter2);
-				BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
-				
-				List<BufferedWriter> listofBufferedWriter = new ArrayList<BufferedWriter>();
-				
-				listofBufferedWriter.add(bufferedWriter1);
-				listofBufferedWriter.add(bufferedWriter2);
-				listofBufferedWriter.add(bufferedWriter3);
-				
-				elementTypeNumber2ListofBufferedWritersMap.put(elementTypeNumber,listofBufferedWriter);
-				
-					
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		
-		
-		
-	}
+	
 	
    
-    public static void readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesAndFillMaps(
+    public static void readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesWithNumbersAndFillMaps(
     		String dataFolder,
     		String userDefinedLibraryInputFile,
     		TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap,
@@ -189,7 +180,7 @@ public class UserDefinedLibraryUtility {
 						userDefinedLibraryElementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
 						
 						//Create Chromosome Based BufferedWritwers
-						createChromosomeBasedListofBufferedWriters(elementType,elementTypeNumber,elementTypeNumber2ListofBufferedWritersMap,dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") );
+						FileOperations.createChromosomeBasedListofBufferedWriters(elementType,elementTypeNumber,elementTypeNumber2ListofBufferedWritersMap,dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") );
 						
 						elementTypeNumber++;
 					}
@@ -217,8 +208,8 @@ public class UserDefinedLibraryUtility {
 					/*******************************************************************/
 					
 				
-					//Process element file
-					readFileAndWritelementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,elementType,elementTypeNumber2ListofBufferedWritersMap.get(elementTypeNumber));
+					//Process each file written in UserDefinedLibraryInputFile
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,userDefinedLibraryElementName2ElementNumberMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line
 				
@@ -226,7 +217,27 @@ public class UserDefinedLibraryUtility {
 			
 			}//End of while
 			
+			//Close UserDefinedLibrary InputFile
 			bufferedReader.close();
+			
+			
+			//Close ElementTypeBased ChromosomeBased BufferedWriters 
+			//elementTypeNumber2ListofBufferedWritersMap
+			//MAP
+			// accessing keys/values through an iterator:
+			for ( TIntObjectIterator<List<BufferedWriter>> it = elementTypeNumber2ListofBufferedWritersMap.iterator(); it.hasNext(); ) {
+			    it.advance();
+			    FileOperations.closeChromosomeBasedBufferedWriters((List<BufferedWriter>) it.value());
+			}
+			
+			//Write AllPossibleNames for UserDefinedLibraryLibrary
+			//Write userDefinedLibraryElementType2ElementTypeNumberMap
+	  		//Write userDefinedLibraryElementTypeNumber2ElementTypeMap,
+    		//Write userDefinedLibraryElementName2ElementNumberMap,
+			//Write userDefinedLibraryElementNumber2ElementNameMap,
+    		//Write userDefinedLibraryFileName2FileNumberMap,
+    		//Write userDefinedLibraryFileNumber2FileNameMap){
+ 
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

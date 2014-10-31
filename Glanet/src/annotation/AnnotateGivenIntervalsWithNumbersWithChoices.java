@@ -11738,7 +11738,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    //For each elementType
 		    //Create UserDefinedLibrary unsorted chromosome based interval files
 		    
-		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesAndFillMaps(dataFolder,userDefinedLibraryInputFile,userDefinedLibraryElementType2ElementTypeNumberMap,userDefinedLibraryElementTypeNumber2ElementTypeMap,userDefinedLibraryElementName2ElementNumberMap,userDefinedLibraryElementNumber2ElementNameMap,userDefinedLibraryFileName2FileNumberMap,userDefinedLibraryFileNumber2FileNameMap);
+		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileAndCreateUnsortedChromosomeBasedFilesWithNumbersAndFillMaps(dataFolder,userDefinedLibraryInputFile,userDefinedLibraryElementType2ElementTypeNumberMap,userDefinedLibraryElementTypeNumber2ElementTypeMap,userDefinedLibraryElementName2ElementNumberMap,userDefinedLibraryElementNumber2ElementNameMap,userDefinedLibraryFileName2FileNumberMap,userDefinedLibraryFileNumber2FileNameMap);
 		    	
 			dateAfter = System.currentTimeMillis();
 			

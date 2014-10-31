@@ -1674,7 +1674,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 					
 		
 		//Write all possible ENCODE cell line names	
-		//Using unsorted dnase txt files under C:\eclipse_ganymede\workspace\Doktora1\src\annotate\encode\input_output\dnase 
+		//Using unsorted chromosoe based dnase files
 		//Also write unsorted dnase files with numbers
 		WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeAllPossibleEncodeCellLineNames(dataFolder,cellLineNameNumber, cellLineNames, cellLineName2CellLineNumberMap, cellLineNumber2CellLineNameMap, fileNameNumber, fileNames,fileName2FileNumberMap,fileNumber2FileNameMap);
 		

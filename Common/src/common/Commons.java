@@ -50,6 +50,11 @@ public class Commons {
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
 	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 29;
+
+	
+	public static final String CHR 					= "chr";
+	public static final String X 					= "X";
+	public static final String Y 					= "Y";
 	
 	//EnumType UserDefinedGeneSetInputType
 	public static final String GENE_ID 					= "GENE_ID";
@@ -1495,33 +1500,9 @@ public class Commons {
 	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 	
 	
-	/*********************************USER DEFINED LIBRARY***********************************/
-	//Unsorted Chromosome Based USERDEFINEDLIBRARY filenames with numbers
-	public static final String UNSORTED_CHR1_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr1_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR2_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr2_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR3_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr3_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR4_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr4_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR5_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr5_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR6_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr6_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR7_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr7_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR8_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr8_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR9_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr9_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR10_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr10_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR11_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr11_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR12_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr12_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR13_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr13_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR14_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr14_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR15_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr15_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR16_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr16_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR17_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr17_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR18_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr18_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR19_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr19_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR20_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr20_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR21_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr21_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHR22_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chr22_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHRX_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chrX_userDefinedLibrary_with_numbers.txt";
-	public static final String UNSORTED_CHRY_USERDEFINEDLIBRARY_FILENAME_WITH_NUMBERS = "unsorted_chrY_userDefinedLibrary_with_numbers.txt";
-	/*********************************USER DEFINED LIBRARY***********************************/
+	/*************************UNSORTED CHROMOSOME BASED USER DEFINED LIBRARY FILES WITH NUMBERS STARTS***********************************/
+	public static final String UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS = "_unsorted_userDefinedLibrary_file_with_numbers.txt";
+	/*************************UNSORTED CHROMOSOME BASED USER DEFINED LIBRARY FILES WITH NUMBERS ENDS*************************************/
 	
 	
 	
