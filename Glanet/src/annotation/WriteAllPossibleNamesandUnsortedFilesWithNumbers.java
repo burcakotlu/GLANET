@@ -22,8 +22,12 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 import enumtypes.IntervalName;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 
@@ -1313,6 +1317,57 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	}
 	
 
+	//Added 31.OCT.2014
+	public static void writeTroveMapString2Integer(String dataFolder,TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+		
+			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key()+ "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	
+	
+	//Added 31.OCT.2014
+	public static void writeTroveMapInteger2String(String dataFolder,TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for ( TIntObjectIterator<String> it = number2NameMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key()+ "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+			
+	}
+	
 	
 	public static void writeNames(String dataFolder,List<String> nameList, String outputDirectoryName, String outputFileName){
 		FileWriter fileWriter = null;

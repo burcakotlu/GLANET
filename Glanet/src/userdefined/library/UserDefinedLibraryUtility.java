@@ -5,8 +5,10 @@ package userdefined.library;
 
 import enumtypes.ChromosomeName;
 import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.BufferedReader;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import annotation.WriteAllPossibleNamesandUnsortedFilesWithNumbers;
 import auxiliary.FileOperations;
 import common.Commons;
 
@@ -237,8 +240,15 @@ public class UserDefinedLibraryUtility {
 			//Write userDefinedLibraryElementNumber2ElementNameMap,
     		//Write userDefinedLibraryFileName2FileNumberMap,
     		//Write userDefinedLibraryFileNumber2FileNameMap){
- 
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryElementType2ElementTypeNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_2_ELEMENTTYPENUMBER_OUTPUT_FILENAME);
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryElementName2ElementNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME);
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryFileName2FileNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENAME_2_FILENUMBER_OUTPUT_FILENAME);
+		
 			
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryElementNumber2ElementNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
+			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryFileNumber2FileNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
+	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
