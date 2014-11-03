@@ -1,0 +1,61 @@
+/**
+ * 
+ */
+package enumtypes;
+
+import common.Commons;
+
+/**
+ * @author Burçak Otlu
+ * @date Nov 3, 2014
+ * @project Common 
+ *
+ */
+public enum UserDefinedLibraryDataFormat {
+	
+	USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE(1),
+	USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE(2),
+	USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE(3),
+	USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE(4);
+	
+	private final int userDefinedLibraryDataFormat;
+	
+	public int getUserDefinedLibraryDataFormat() {
+		return userDefinedLibraryDataFormat;
+	}
+
+	private UserDefinedLibraryDataFormat(int userDefinedLibraryDataFormat) {
+    	this.userDefinedLibraryDataFormat = userDefinedLibraryDataFormat;
+	}
+	
+	 public static UserDefinedLibraryDataFormat convertStringtoEnum(String userDefinedLibraryDataFormat){
+	    	
+	    	if (Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+	    	}else if  (Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+	    	}else if (Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;	
+	    	}else if (Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+	    	}else
+	    		return null;
+	 }
+	
+	 
+	 public static String convertEnumtoString(UserDefinedLibraryDataFormat userDefinedLibraryDataFormat){
+	    	
+	    	if (USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+	    	}else if  (USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+	    	}else if (USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;	
+	    	}else if (USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE.equals(userDefinedLibraryDataFormat)){
+	    		return Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+	    	}else
+	    		return null;
+	 }
+	
+
+}

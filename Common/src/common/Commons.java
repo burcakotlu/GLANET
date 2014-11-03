@@ -226,11 +226,22 @@ public class Commons {
 	//INPUT DATA PROCESS	
 	public static final String TEST_INPUT_DATA_DBSNP_IDS = "TEST_INPUT_DATA" + System.getProperty("file.separator") + "Test_dbSNP_ids.txt";
 	
+	//GIVEN INPUT DATA
+	//INPUT FILE DATA FORMAT starts
 	public static final String INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "dbSNP IDs";
 	public static final String INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "BED";
 	public static final String INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "GFF3";
 	public static final String INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
 	public static final String INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
+	//INPUT FILE DATA FORMAT ends
+	
+	//USER DEFINED LIBRARY DATA FORMAT starts
+	public static final String USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "0-based coordinates (End Inclusive)";
+	public static final String USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "0-based coordinates (End Exclusive)";
+	public static final String USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE = "1-based coordinates (End Inclusive)";
+	public static final String USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE = "1-based coordinates (End Exclusive)";
+	//USER DEFINED LIBRARY DATA FORMAT ends
+	
 	
 	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
 			

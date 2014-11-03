@@ -14,8 +14,8 @@ import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.GivenIntervalsInputFileDataFormat;
 /**
  * @author burcakotlu
  * @date Mar 24, 2014 
@@ -510,7 +510,7 @@ public class InputDataProcess {
 		
 		String inputFileName = args[0];
 		String glanetFolder = args[1];
-		String inputFileFormat = args[2];
+		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[2]);
 		
 		//jobName starts
 		String jobName = args[17].trim();
@@ -522,17 +522,26 @@ public class InputDataProcess {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
 		
-		if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readDBSNPIDs(inputFileName,outputFolder);	
-		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE)){
-			readBEDFile(inputFileName,outputFolder);
-		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readGFF3File(inputFileName,outputFolder);
-		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readZeroBasedCoordinates(inputFileName,outputFolder);
-		}else if (inputFileFormat.equals(Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE)){
-			readOneBasedCoordinates(inputFileName,outputFolder);
-		}
+		switch(inputFileFormat){
+			case	INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
+				readZeroBasedCoordinates(inputFileName,outputFolder);
+				break;
+			case	INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
+				readOneBasedCoordinates(inputFileName,outputFolder);
+				break;
+			case	INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
+				readDBSNPIDs(inputFileName,outputFolder);	
+				break;
+			case	INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE:
+				readBEDFile(inputFileName,outputFolder);
+				break;
+			case	INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
+				readGFF3File(inputFileName,outputFolder);
+				break;
+				
+		}//End of SWITCH
+		
+		
 	}
 	
 	

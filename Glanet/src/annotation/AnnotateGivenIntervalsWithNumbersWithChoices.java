@@ -63,7 +63,9 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import create.ChromosomeBasedFilesandOperations;
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
@@ -78,6 +80,7 @@ import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeType;
+import enumtypes.UserDefinedLibraryDataFormat;
 
 /**
  * 
@@ -11525,6 +11528,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 	//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
 	//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
 	//args[28]  --->	UserDefinedLibrary InputFile
+	//args[29]	--->	User Defined Library DataFormat
+	//					default	Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE	
 	//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
 	//					always inserted at the end of the args array because it's size
 	//					is not fixed. So for not (until the next change on args array) the selected cell
@@ -11575,9 +11583,13 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//User Defined Library Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
+		
 
 		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
+		
+//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
+		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 		
@@ -11944,6 +11956,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
 		    		dataFolder,
 		    		userDefinedLibraryInputFile,
+		    		userDefinedLibraryDataFormat,
 		    		userDefinedLibraryElementType2ElementTypeNumberMap,
 		    		userDefinedLibraryElementTypeNumber2ElementTypeMap,
 		    		elementTypeNumber2ElementName2ElementNumberMapMap,
@@ -12851,7 +12864,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
 		//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
 		//args[28]  --->	UserDefinedLibrary InputFile
-		//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
+		//args[29]	--->	UserDefinedLibrary DataFormat
+		//					default	Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+		//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+		//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+		//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+		//args[30] - args[args.length-1]  --->	Note that the selected cell lines are
 		//					always inserted at the end of the args array because it's size
 		//					is not fixed. So for not (until the next change on args array) the selected cell
 		//					lines can be reached starting from 22th index up until (args.length-1)th index.

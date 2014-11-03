@@ -4,6 +4,7 @@
 package userdefined.library;
 
 import enumtypes.ChromosomeName;
+import enumtypes.UserDefinedLibraryDataFormat;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
@@ -35,6 +36,7 @@ public class UserDefinedLibraryUtility {
 	public static void readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(
 			String filePathFileName, 
 			String fileName,
+			UserDefinedLibraryDataFormat userDefinedLibraryDataFormat,
 			TObjectIntMap<String> fileName2FileNumberMap,
 			String elementType,
 			TObjectIntMap<String> elementType2ElementTypeNumberMap,
@@ -91,6 +93,24 @@ public class UserDefinedLibraryUtility {
 				}
 				
 				
+				//starts
+				switch(userDefinedLibraryDataFormat){
+					case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE: 
+						end = end-1; 
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE: 
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE:  
+						start = start-1; 
+						end= end-2;
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE: 
+						start = start-1; 
+						end = end-1; 
+						break;
+				}
+				//ends
+				
 				//Get the bufferedWriterList for a certain elementTypeNumber
 				elementTypeNumber = elementType2ElementTypeNumberMap.get(elementType);
 				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
@@ -119,6 +139,7 @@ public class UserDefinedLibraryUtility {
     public static void readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
     		String dataFolder,
     		String userDefinedLibraryInputFile,
+    		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat,
     		TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap,
     		TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap,
    
@@ -257,7 +278,7 @@ public class UserDefinedLibraryUtility {
 				
 					//Process each file written in UserDefinedLibraryInputFile
 					//Write ElementTypeBased ChromosomeBased Unsorted With Numbers Files 
-					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line
 				

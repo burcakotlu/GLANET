@@ -48,7 +48,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
-	//args[2]	--->	Input File Format	
+	//args[2]	--->	Given Interval Input File Data Format	
 	//			--->	default	Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
@@ -115,7 +115,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 	//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
 	//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
 	//args[28]  --->	User Defined Library InputFile
-	//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
+	//args[29]	--->	User Defined Library DataFormat
+	//					default	Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
+	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+	//args[30] - args[args.length-1]  --->	Note that the selected cell lines are
 	//					always inserted at the end of the args array because it's size
 	//					is not fixed. So for not (until the next change on args array) the selected cell
 	//					lines can be reached starting from 22th index up until (args.length-1)th index.
