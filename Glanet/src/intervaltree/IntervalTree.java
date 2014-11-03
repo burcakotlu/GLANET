@@ -1743,34 +1743,6 @@ public class IntervalTree {
 			
 		}
 
-//		//Empirical P Value Calculation
-//		//without IO
-//		//with overlappedNodeList
-//		public void findAllOverlappingTfbsIntervals(int repeatNumber,int permutationNumber,int NUMBER_OF_PERMUTATIONS,IntervalTreeNode node, Interval interval, String chromName, Map<String,Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,List<IntervalTreeNode> overlappingNodeList){
-//			String permutationNumberTfbsNameCellLineName;
-//			
-//				if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
-//					
-//					overlappingNodeList.add(node);
-//						
-//					permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + (((repeatNumber-1)*NUMBER_OF_PERMUTATIONS) + permutationNumber)+ "_" + node.getTfbsorHistoneName() + "_" + node.getCellLineName();			
-//						
-//					if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfbsNameCellLineName)==null){
-//						permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfbsNameCellLineName, 1);
-//					}
-//				}
-//				
-//				
-//				if((node.getLeft().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax()) && (node.getLeft().getMin()<= interval.getHigh())){
-//					findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getLeft(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlappingNodeList);	
-//				}
-//				
-//				if((node.getRight().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getRight().getMin()<=interval.getHigh())){
-//					findAllOverlappingTfbsIntervals(repeatNumber,permutationNumber,NUMBER_OF_PERMUTATIONS,node.getRight(),interval,chromName,permutationNumberTfbsNameCellLineName2ZeroorOneMap,overlappingNodeList);	
-//					
-//				}
-//				
-//		}
 
 		//@todo
 		//with Numbers starts
@@ -1899,6 +1871,70 @@ public class IntervalTree {
 				
 			}		
 	}
+	
+	
+	//Starts
+	//Annotation With Numbers
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(String outputFolder,
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntObjectMap<BufferedWriter> userDefinedLibraryBufferedWriterHashMap,  
+			TIntShortMap elementNumber2ZeroorOneMap, 
+			int overlapDefinition, 
+			String elementType,
+			TIntObjectMap<String> elementNumber2ElementNameMap,
+			TIntObjectMap<String> fileNumber2FileNameMap){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		int elementNumber;
+		
+		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
+		
+		if (node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+			castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers) node;
+		}
+		
+		elementNumber = castedNode.getElementNumber();
+		
+		if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+			try {
+				
+				bufferedWriter = userDefinedLibraryBufferedWriterHashMap.get(elementNumber);
+													
+				if (bufferedWriter==null){						
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION_USERDEFINEDLIBRARY + elementType + System.getProperty("file.separator") +   "_" + elementNumber2ElementNameMap.get(elementNumber) + ".txt",true);
+					bufferedWriter = new BufferedWriter(fileWriter);
+					userDefinedLibraryBufferedWriterHashMap.put(elementNumber,bufferedWriter);
+					bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "UserDefinedLibraryNode ChromName"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Element Name" + "\t"  + "node FileName" +System.getProperty("line.separator"));
+					bufferedWriter.flush();
+				}
+					
+				if(!elementNumber2ZeroorOneMap.containsKey(elementNumber)){
+					elementNumber2ZeroorOneMap.put(elementNumber, (short)1);
+				}
+				
+				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName())+ "\t"  + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) +System.getProperty("line.separator"));
+				bufferedWriter.flush();
+				
+				
+				} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}					
+		}
+		
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName, userDefinedLibraryBufferedWriterHashMap,elementNumber2ZeroorOneMap,overlapDefinition,elementType,elementNumber2ElementNameMap,fileNumber2FileNameMap);	
+		}
+		
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName, userDefinedLibraryBufferedWriterHashMap,elementNumber2ZeroorOneMap,overlapDefinition,elementType,elementNumber2ElementNameMap,fileNumber2FileNameMap);	
+		}		
+		
+	}
+	//Ends
 
 	//Annotation with Numbers starts
 	public void findAllOverlappingTfbsIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap tfNumberCellLineNumber2ZeroorOneMap,int overlapDefinition,TShortObjectMap<String> tfNumber2TfNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){

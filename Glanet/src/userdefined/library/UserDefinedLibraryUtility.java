@@ -202,7 +202,7 @@ public class UserDefinedLibraryUtility {
 						userDefinedLibraryElementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
 						
 						//Create Chromosome Based BufferedWritwers
-						FileOperations.createChromosomeBasedListofBufferedWriters(elementType,elementTypeNumber,elementTypeNumber2ListofBufferedWritersMap,dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") );
+						FileOperations.createChromosomeBasedListofBufferedWriters(elementType,elementTypeNumber,elementTypeNumber2ListofBufferedWritersMap,dataFolder + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") );
 						
 						elementTypeNumber++;
 					}
@@ -256,6 +256,7 @@ public class UserDefinedLibraryUtility {
 					
 				
 					//Process each file written in UserDefinedLibraryInputFile
+					//Write ElementTypeBased ChromosomeBased Unsorted With Numbers Files 
 					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line

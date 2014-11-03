@@ -87,21 +87,7 @@ public class IntervalTreeNode{
 	
 	
 
-//	public boolean isSentinel(){
-//		if (Commons.SENTINEL.equals(this.getName())){
-//			return true;
-//		}else 
-//			return false;
-//		
-//	}
-//	
-//	public boolean isNotSentinel(){
-//		if (NodeName.NOT_SENTINEL.equals(this.getName())){
-//			return true;
-//		}else 
-//			return false;
-//		
-//	}
+
 	
 	
 	
@@ -157,11 +143,7 @@ public class IntervalTreeNode{
 	}
 	
 	
-	
-	
-	
-
-	
+		
 	
 	//SENTINEL node
 	public IntervalTreeNode(){

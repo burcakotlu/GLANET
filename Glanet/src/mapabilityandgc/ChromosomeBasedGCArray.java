@@ -17,6 +17,7 @@ public class ChromosomeBasedGCArray {
 	
 	public static GCCharArray getChromosomeGCArray(String dataFolder,ChromosomeName chromName, int chromSize){
 		switch(chromName){
+		
 			case CHROMOSOME1 :  return getChr1GC(dataFolder,chromSize); 
 			case CHROMOSOME2 :  return getChr2GC(dataFolder,chromSize);
 			case CHROMOSOME3 :  return getChr3GC(dataFolder,chromSize);
@@ -41,10 +42,7 @@ public class ChromosomeBasedGCArray {
 			case CHROMOSOME22 : return getChr22GC(dataFolder,chromSize);
 			case CHROMOSOMEX  : return getChrXGC(dataFolder,chromSize);
 			case CHROMOSOMEY  : return getChrYGC(dataFolder,chromSize);
-		case CHROMOSOMEWITHDIFFERENTNAME:
-			break;
-		default:
-			break;						
+			default:	break;						
 		}
 		
 		return null;

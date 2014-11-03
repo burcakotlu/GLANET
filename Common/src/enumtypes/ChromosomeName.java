@@ -34,8 +34,8 @@ public enum ChromosomeName {
 	CHROMOSOME21(21),
 	CHROMOSOME22(22),
 	CHROMOSOMEX(23),
-	CHROMOSOMEY(24),
-	CHROMOSOMEWITHDIFFERENTNAME(25);
+	CHROMOSOMEY(24);
+	
 
 	
 	 private final int chromosomeName;
@@ -105,8 +105,6 @@ public enum ChromosomeName {
     		return Commons.CHROMOSOMEX;
     	else if (this.equals(ChromosomeName.CHROMOSOMEY))
     		return Commons.CHROMOSOMEY;    	
-    	else if (this.equals(ChromosomeName.CHROMOSOMEWITHDIFFERENTNAME))
-    		return Commons.CHROMOSOMEWITHDIFFERENTNAME;
     	else return null;
     	
     }
@@ -162,8 +160,7 @@ public enum ChromosomeName {
     	}else if  (Commons.CHROMOSOMEY.equals(chrName)){
     		return CHROMOSOMEY;
     	}else 
-    		return CHROMOSOMEWITHDIFFERENTNAME;
-    	
+    		return null;
     }
 	
 
@@ -218,8 +215,6 @@ public static String convertEnumtoString(ChromosomeName  chrName){
     		return Commons.CHROMOSOMEX;
     	}else if  (ChromosomeName.CHROMOSOMEY.equals(chrName)){
     		return Commons.CHROMOSOMEY;
-    	}else if (ChromosomeName.CHROMOSOMEWITHDIFFERENTNAME.equals(chrName)){
-    		return Commons.CHROMOSOMEWITHDIFFERENTNAME;
     	}else
     		return null;
     }
@@ -325,11 +320,7 @@ public static String convertEnumtoString(ChromosomeName  chrName){
 	    return  this == CHROMOSOMEY;
 	}
 	
-	/** An added method.  */
-	public boolean isCHROMOSOMEWITHDIFFERENTNAME() {
-	    return  this == CHROMOSOMEWITHDIFFERENTNAME;
-	}
-
+	
 	public static void main(String[] args){
 		ChromosomeName chrName = CHROMOSOMEY;
 		System.out.println(chrName.toString());

@@ -168,6 +168,8 @@ public class Commons {
 	public static final String CHROMOSOMEWITHDIFFERENTNAME = "chrWithDifferentName"; 
 	
 	//ChromosomeBased Given Input Files starts
+	public static final String CHROMOSOME_BASED_GIVEN_INPUT = "_input_file.txt";
+	
 	public static final String CHROMOSOME_BASED_GIVEN_INPUT_CHR1 = "chr1_input_file.txt";
 	public static final String CHROMOSOME_BASED_GIVEN_INPUT_CHR2 = "chr2_input_file.txt";
 	public static final String CHROMOSOME_BASED_GIVEN_INPUT_CHR3 = "chr3_input_file.txt";
@@ -1074,6 +1076,10 @@ public class Commons {
 	public static final String AUGMENTATION_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED;
 	public static final String AUGMENTATION_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED;
 	//ends
+	
+	//USER_DEFINED_LIBRARY
+	public static final String ANNOTATION_USERDEFINEDLIBRARY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator");
+	
 	
 	//KEGG Pathway
 	public static final String ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED;

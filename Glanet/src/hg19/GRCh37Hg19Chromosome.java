@@ -359,7 +359,6 @@ public class GRCh37Hg19Chromosome {
 										break;
 			case CHROMOSOMEY:  fillDnaSequenceArrayfromFastaFile(chromSize,Commons.GC_HG19_CHRY_FASTA_FILE,dnaSequenceArray);
 										break;
-			case CHROMOSOMEWITHDIFFERENTNAME: break;							
 		}
 		
 	}
