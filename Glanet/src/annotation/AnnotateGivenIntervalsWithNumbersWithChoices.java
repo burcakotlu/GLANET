@@ -9445,7 +9445,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 			TIntIntMap elementNumber2KMap = elementTypeNumber2ElementNumber2KMapMap.get(elementTypeNumber);
 			TIntObjectMap<String> elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(elementTypeNumber);
 			
-			
+			//For each ChromosomeName
 			for (ChromosomeName chrName:ChromosomeName.values()){
 			       
 			       userDefinedLibraryIntervalTree = createUserDefinedIntervalTreeWithNumbers(dataFolder, elementTypeNumber,elementType,chrName);
@@ -11554,8 +11554,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
-		
-		
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT
@@ -11976,7 +11974,14 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 				elementTypeNumber2ElementNumber2KMapMap.put(it.key(), map);	
 			}//End of for each elementTypeNumber initialize elementNumber2KMap 
 			
-			searchUserDefinedLibraryWithNumbers(dataFolder,outputFolder,overlapDefinition,elementTypeNumber2ElementNumber2KMapMap,elementTypeNumber2ElementNumber2ElementNameMapMap,userDefinedLibraryElementTypeNumber2ElementTypeMap,userDefinedLibraryFileNumber2FileNameMap);
+			searchUserDefinedLibraryWithNumbers(
+					dataFolder,
+					outputFolder,
+					overlapDefinition,
+					elementTypeNumber2ElementNumber2KMapMap,
+					elementTypeNumber2ElementNumber2ElementNameMapMap,
+					userDefinedLibraryElementTypeNumber2ElementTypeMap,
+					userDefinedLibraryFileNumber2FileNameMap);
 			
 			dateAfter = System.currentTimeMillis();
 			

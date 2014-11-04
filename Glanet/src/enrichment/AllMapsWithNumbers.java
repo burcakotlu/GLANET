@@ -15,22 +15,30 @@ import gnu.trove.map.hash.TLongIntHashMap;
  */
 public class AllMapsWithNumbers {
 	
+	//DNASE TF HISTONE
 	TIntIntMap  permutationNumberDnaseCellLineNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumber2KMap;
 	TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap;
 	
+	//UserDefinedGeneset
 	TLongIntMap permutationNumberExonBasedUserDefinedGeneSetNumber2KMap;
 	TLongIntMap permutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap;
 	TLongIntMap permutationNumberAllBasedUserDefinedGeneSetNumber2KMap;
 	
+	//UserDefinedLibrary
+	TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap;
+	
+	//KEGG Pathway
 	TIntIntMap permutationNumberExonBasedKeggPathwayNumber2KMap;
 	TIntIntMap permutationNumberRegulationBasedKeggPathwayNumber2KMap;
 	TIntIntMap permutationNumberAllBasedKeggPathwayNumber2KMap;
 	
+	//TF and KEGG Pathway
 	TLongIntMap permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap;
 	
+	//TF and CellLine and KEGG Pathway
 	TLongIntMap permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap;
@@ -39,8 +47,31 @@ public class AllMapsWithNumbers {
 	
 	
 	
+	
+	
 
 	
+	public TLongIntMap getPermutationNumberElementTypeNumberElementNumber2KMap() {
+		return permutationNumberElementTypeNumberElementNumber2KMap;
+	}
+
+
+
+
+
+
+
+	public void setPermutationNumberElementTypeNumberElementNumber2KMap(
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap) {
+		this.permutationNumberElementTypeNumberElementNumber2KMap = permutationNumberElementTypeNumberElementNumber2KMap;
+	}
+
+
+
+
+
+
+
 	public TIntIntMap getPermutationNumberDnaseCellLineNumber2KMap() {
 		return permutationNumberDnaseCellLineNumber2KMap;
 	}
@@ -359,22 +390,30 @@ public class AllMapsWithNumbers {
 	public AllMapsWithNumbers() {
 		super();
 		
+		//DNase TF HISTONE
 		this.permutationNumberDnaseCellLineNumber2KMap 			= new TIntIntHashMap();
 		this.permutationNumberTfNumberCellLineNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberHistoneNumberCellLineNumber2KMap 	= new TLongIntHashMap();
 		
+		//UserDefinedGeneset
 		this.permutationNumberExonBasedUserDefinedGeneSetNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap	= new TLongIntHashMap();
 		this.permutationNumberAllBasedUserDefinedGeneSetNumber2KMap			= new TLongIntHashMap();
 		
+		//UserDefinedLibrary
+		this.permutationNumberElementTypeNumberElementNumber2KMap	= new TLongIntHashMap();
+		
+		//KEGG Pathway
 		this.permutationNumberExonBasedKeggPathwayNumber2KMap 			= new TIntIntHashMap();
 		this.permutationNumberRegulationBasedKeggPathwayNumber2KMap 	= new TIntIntHashMap();
 		this.permutationNumberAllBasedKeggPathwayNumber2KMap 			= new TIntIntHashMap();
 		
+		//TF and KEGG Pathway
 		this.permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap = new TLongIntHashMap();
 		this.permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap 		= new TLongIntHashMap();
 		
+		//TF and CellLine and KEGG Pathway
 		this.permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap 		= new TLongIntHashMap();
 		this.permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap 	= new TLongIntHashMap();
 		this.permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 			= new TLongIntHashMap();	

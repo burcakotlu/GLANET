@@ -23,13 +23,14 @@ public class TestCallingPerlScrit {
 		Process proc =null;
 		
 		try {
-//			proc = Runtime.getRuntime().exec("perl C:\\Users\\burcakotlu\\Downloads\\remap_api.pl batches");
+			
+			proc = Runtime.getRuntime().exec("perl C:\\Users\\Burçak\\Downloads\\remap_api.pl batches");
 			
 //			proc = Runtime.getRuntime().exec("perl C:\\Users\\burcakotlu\\Downloads\\remap_api.pl --mode asm-rsg --from GCF_000001405.13 --dest RefSeqGene --annotation test.bed");
 			
 //			proc = Runtime.getRuntime().exec("perl C:\\Users\\burcakotlu\\Downloads\\remap_api.pl --mode asm-rsg --from GRC_000001405.13 --dest RefSeqGene --annotation burcak.bed --annot_out burcak_out.bed");
 
-			proc = Runtime.getRuntime().exec("perl C:\\Users\\burcakotlu\\Downloads\\test.pl");
+//			proc = Runtime.getRuntime().exec("perl C:\\Users\\burcakotlu\\Downloads\\test.pl");
 				
 			proc.waitFor();
 		} catch (IOException e) {

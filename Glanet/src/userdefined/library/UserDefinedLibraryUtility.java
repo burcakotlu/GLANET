@@ -20,7 +20,6 @@ import java.util.List;
 
 import annotation.WriteAllPossibleNamesandUnsortedFilesWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -30,6 +29,43 @@ import common.Commons;
 public class UserDefinedLibraryUtility {
 	
 	
+	public static void fillElementTypeNumber2ElementTypeMap(
+			TIntObjectMap<String> elementTypeNumber2ElementTypeMap,
+			String		dataFolder,
+			String directoryName,
+			String fileName){
+
+		
+		String strLine;
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		
+		int elementTypeNumber;
+		String elementType;
+		int indexofFirstTab;
+		
+		try {
+			fileReader = FileOperations.createFileReader(dataFolder + directoryName + fileName);			
+			bufferedReader = new BufferedReader(fileReader);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				elementTypeNumber = Integer.parseInt(strLine.substring(0,indexofFirstTab));
+				elementType = strLine.substring(indexofFirstTab+1);
+				
+				elementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
+				
+			}
+			
+			bufferedReader.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

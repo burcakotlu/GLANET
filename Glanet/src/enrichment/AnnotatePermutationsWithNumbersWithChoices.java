@@ -27,24 +27,29 @@ import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedMapabilityArray;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
+import userdefined.library.UserDefinedLibraryUtility;
 import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
 import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.EnrichmentType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
 import generate.randomdata.RandomDataGenerator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
+import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
@@ -1408,6 +1413,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap,
 			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap,
 			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap,
+			TIntObjectMap<TIntObjectMap<TIntList>> elementTypeNumber2ElementNumber2AllKMapMap,
 			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap,
 			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap,
 			TIntObjectMap<TIntList> allBasedKeggPathway2AllKMap,
@@ -1426,7 +1432,8 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntIntMap originalHistone2KMap,
 			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap,
 			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap,
-			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap, 
+			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap,
+			TIntObjectMap<TIntIntMap> elementTypeNumber2OriginalElementNumber2KMapMap,
 			TIntIntMap originalExonBasedKeggPathway2KMap,
 			TIntIntMap originalRegulationBasedKeggPathway2KMap,
 			TIntIntMap originalAllBasedKeggPathway2KMap, 
@@ -1440,6 +1447,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			EnrichmentType histoneEnrichmentType, 
 			EnrichmentType tfEnrichmentType, 
 			EnrichmentType userDefinedGeneSetEnrichmentType,
+			EnrichmentType userDefinedLibraryEnrichmentType,
 			EnrichmentType keggPathwayEnrichmentType, 
 			EnrichmentType tfKeggPathwayEnrichmentType, 
 			EnrichmentType tfCellLineKeggPathwayEnrichmentType,
@@ -1470,6 +1478,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		accumulatedAllMapsWithNumbers.setPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
 		accumulatedAllMapsWithNumbers.setPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
 		accumulatedAllMapsWithNumbers.setPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
+		
+		//UserDefinedLibrary
+		accumulatedAllMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap(new TLongIntHashMap());
 	
 		//KEGG Pathway
 		accumulatedAllMapsWithNumbers.setPermutationNumberExonBasedKeggPathwayNumber2KMap(new TIntIntHashMap());
@@ -1499,6 +1510,11 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		Map<Integer,BufferedWriter> permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap = new HashMap<Integer,BufferedWriter>();
 		Map<Integer,BufferedWriter> permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap = new HashMap<Integer,BufferedWriter>();
 		Map<Integer,BufferedWriter> permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap = new HashMap<Integer,BufferedWriter>();
+		
+		//UserDefinedLibrary
+		//@todo better naming is necesssary
+		Map<Integer,BufferedWriter> permutationNumber2ElementTypeElementNameBufferedWriterHashMap = new HashMap<Integer,BufferedWriter>();
+		
 				
 		//KEGG Pathway
 		Map<Integer,BufferedWriter> permutationNumber2ExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<Integer,BufferedWriter>();
@@ -1718,6 +1734,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
     				System.runFinalization();			
 				}
 				
+				
+				//UserDefinedLibrary starts
+				//left here
+				//UserDefinedLibrary ends
 				
 				if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 					//ucsc RefSeq Genes
@@ -2347,6 +2367,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
+		
+		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 	
@@ -2427,7 +2450,22 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 		}
 		/*********************FILL GENEID 2 KEGG PATHWAY NUMBER  MAP  ENDS****************************/		
+		/*********************************************************************************************/		
+		
+		
 		/*********************************************************************************************/			
+		/******************************USER DEFINED LIBRARY*******************************************/			
+		/*********************FILL ElementTypeNumber2ElementTypeMap STARTS****************************/
+		TIntObjectMap<String> elementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
+		UserDefinedLibraryUtility.fillElementTypeNumber2ElementTypeMap(
+				elementTypeNumber2ElementTypeMap,
+				dataFolder,
+				Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES +  System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"),
+				Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
+		/*********************FILL ElementTypeNumber2ElementTypeMap ENDS******************************/
+		/******************************USER DEFINED LIBRARY*******************************************/			
+		/*********************************************************************************************/			
+		
 		
 	
 		/*********************************************************************************************/			
@@ -2473,6 +2511,15 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap 	= new TIntIntHashMap();
 			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap 			= new TIntIntHashMap();
 			
+			//UserDefinedLibrary starts
+			TIntObjectMap<TIntIntMap> elementTypeNumber2OriginalElementNumber2KMapMap = new TIntObjectHashMap<TIntIntMap>();
+			//Initialize TIntIntMap for each elementTypeNumber
+			for(TIntObjectIterator<String> it = elementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
+				it.advance();
+				elementTypeNumber2OriginalElementNumber2KMapMap.put(it.key(), new TIntIntHashMap());
+			}
+			//UserDefinedLibrary ends
+			
 			//KEGG Pathway
 			TIntIntMap originalExonBasedKeggPathway2KMap 		= new TIntIntHashMap();
 			TIntIntMap originalRegulationBasedKeggPathway2KMap 	= new TIntIntHashMap();
@@ -2506,6 +2553,15 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap 	= new TIntObjectHashMap<TIntList>();
 			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap 			= new TIntObjectHashMap<TIntList>();
 			
+			
+			//UserDefinedLibrary starts
+			TIntObjectMap<TIntObjectMap<TIntList>> elementTypeNumber2ElementNumber2AllKMapMap = new TIntObjectHashMap<TIntObjectMap<TIntList>>();
+			for(TIntObjectIterator<String> it = elementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
+				it.advance();
+				elementTypeNumber2ElementNumber2AllKMapMap.put(it.key(), new TIntObjectHashMap<TIntList>());
+			}
+			//UserDefinedLibrary ends
+			
 			//KEGG Pathway
 			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap 			= new TIntObjectHashMap<TIntList>();
 			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap 		= new TIntObjectHashMap<TIntList>();
@@ -2533,9 +2589,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			//then annotate permutations concurrently
 			//elementName2AllKMap and originalElementName2KMap will be filled here
 			if ((runNumber == numberofRuns) && (numberofRemainedPermutations >0)){
-				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap,exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,userDefinedGeneSetEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap);						
+				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap,exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap, elementTypeNumber2ElementNumber2AllKMapMap,exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,elementTypeNumber2OriginalElementNumber2KMapMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap);						
 			}else {
-				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap,exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, userDefinedGeneSetEnrichmentType,keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap);		
+				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap,elementTypeNumber2ElementNumber2AllKMapMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,elementTypeNumber2OriginalElementNumber2KMapMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap);		
 				
 			}
 			GlanetRunner.appendLog("Concurrent programming has ended.");				
