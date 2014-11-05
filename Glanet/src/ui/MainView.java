@@ -67,6 +67,7 @@ public class MainView extends JPanel{
 	private JComboBox<String> inputFormatCombo;
 	private JComboBox<String> inputAssembly;
 	private JComboBox<String> userDefinedGeneSetGeneInformation;
+	private JComboBox<String> userDefinedLibraryDataFormatCombo;
 	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
 	private JCheckBox dnaseEnrichment;
@@ -112,6 +113,7 @@ public class MainView extends JPanel{
 											   String userDefinedGeneSetDescription,
 											   String userDefinedLibraryEnrichment,
 											   String userDefinedLibraryInputFile,
+											   String userDefinedLibraryDataFormat,
 											   String[] cellLinesToBeConsidered);
 		
 		public void stopCurrentProcess();
@@ -214,6 +216,7 @@ public class MainView extends JPanel{
 						(userDefinedGeneSetDescriptionFile.getText().length()!=0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
 						userDefinedLibraryEnrichment.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
 						userDefinedLibraryInput.getText(),
+						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
 						cellLinesList.getSelectedValuesList().toArray( new String[0])
 				);
 				
@@ -289,10 +292,9 @@ public class MainView extends JPanel{
 		//inputFormatCombo added to inputBrowseAndOptionPane
 		String[] inputFormat = {Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
 								Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
-				Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
-				Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
-//				Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
-				};
+								Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
+								Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+								};
 		
 		inputFormatCombo = new JComboBox<String>( inputFormat);
 		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
@@ -403,18 +405,32 @@ public class MainView extends JPanel{
         
         //userDefinedLibraryPanel added to annotationOptions
         JPanel userDefinedLibraryPanel = new JPanel();
-        userDefinedLibraryPanel.setLayout( new BoxLayout(userDefinedLibraryPanel, BoxLayout.PAGE_AXIS));
+        userDefinedLibraryPanel.setLayout( new BoxLayout( userDefinedLibraryPanel, BoxLayout.PAGE_AXIS));
         
         //userDefinedLibraryEnrichment added to userDefinedLibraryPanel
-        userDefinedLibraryEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
+        userDefinedLibraryEnrichment = new JCheckBox( Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
         userDefinedLibraryEnrichment.addItemListener( enableUserDefinedLibrary);
         
         userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
         
-        //userDefinedLibraryInput added to userDefinedLibraryPanel
+        //userDefinedLibraryLowerPanel added to userDefinedLibraryPanel
+        JPanel userDefinedLibraryLowerPanel = new JPanel( new GridLayout(1, 2));
+        
+        //userDefinedLibraryInput added to userDefinedLibraryLowerPanel
         userDefinedLibraryInput = new JTextField(30);
-        userDefinedLibraryPanel.add( createBrowseFileArea( "User Defined Library Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
+        userDefinedLibraryLowerPanel.add( createBrowseFileArea( "User Defined Library Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
+        
+        //inputFormatCombo added to inputBrowseAndOptionPane
+      	String[] udlDataFormat = {	Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
+      								Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+      								Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
+      								Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+      								};
+      		
+      	userDefinedLibraryDataFormatCombo = new JComboBox<String>( udlDataFormat);
+      	userDefinedLibraryLowerPanel.add( createBorderedPanel( "User Defined Library Data Format", createPanelWithHint( userDefinedLibraryDataFormatCombo, Commons.GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT)));
 		
+        userDefinedLibraryPanel.add( userDefinedLibraryLowerPanel);
         annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
         annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));        
         	 

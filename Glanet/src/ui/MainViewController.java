@@ -156,6 +156,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String userDefinedGeneSetDescription,
 			   String userDefinedLibraryEnrichment,
 			   String userDefinedLibraryInputFile,
+			   String userDefinedLibraryDataFormat,
 			   String[] cellLinesToBeConsidered) {
 		
 		int i = 0;
@@ -190,6 +191,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[i++] = userDefinedGeneSetDescription;
 		args[i++] = userDefinedLibraryEnrichment;
 		args[i++] = userDefinedLibraryInputFile;
+		args[i++] = userDefinedLibraryDataFormat;
 		
 		//for( i = 0; i < args.length; i++)
 		//	System.out.println( args[i]);

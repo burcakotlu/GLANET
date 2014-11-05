@@ -1567,6 +1567,7 @@ public class Commons {
 	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined GeneSet Description File (Optional)";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "User Defined Library Format";
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	
 	
