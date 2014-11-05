@@ -49,7 +49,7 @@ public class Commons {
 	//Number of program runtime arguments without counting the command line argument
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
-	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 29;
+	public static final Integer NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS = 30;
 
 	
 	public static final String CHR 					= "chr";
@@ -1567,7 +1567,7 @@ public class Commons {
 	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined GeneSet Description File (Optional)";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
-	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "User Defined Library Format";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Please Indicate User Defined Library Input File Data Format";
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	
 	
