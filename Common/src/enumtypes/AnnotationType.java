@@ -16,10 +16,11 @@ public enum AnnotationType {
 	TF_ANNOTATION(2),
 	HISTONE_ANNOTATION(3),
 	USER_DEFINED_GENE_SET_ANNOTATION(4),
-	KEGG_PATHWAY_ANNOTATION(5),
-	TF_KEGG_PATHWAY_ANNOTATION(6),
-	TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(7),
-	BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(8);
+	USER_DEFINED_LIBRARY_ANNOTATION(5),
+	KEGG_PATHWAY_ANNOTATION(6),
+	TF_KEGG_PATHWAY_ANNOTATION(7),
+	TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(8),
+	BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(9);
 	
 	private final int annotationType;
 	
@@ -49,6 +50,8 @@ public enum AnnotationType {
     		return TF_ANNOTATION;
     	}else if (Commons.USER_DEFINED_GENE_SET_ANNOTATION.equals(annotationType)){
     		return USER_DEFINED_GENE_SET_ANNOTATION;
+    	}else if (Commons.USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
+    		return USER_DEFINED_LIBRARY_ANNOTATION;
     	}else if  (Commons.KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
     		return KEGG_PATHWAY_ANNOTATION; 		
     	}else if  (Commons.TF_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
@@ -70,6 +73,8 @@ public enum AnnotationType {
     		return Commons.TF_ANNOTATION;
     	else if (this.equals(AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION))
     		return Commons.USER_DEFINED_GENE_SET_ANNOTATION;
+    	else if (this.equals(AnnotationType.USER_DEFINED_LIBRARY_ANNOTATION))
+    		return Commons.USER_DEFINED_LIBRARY_ANNOTATION;
     	else if (this.equals(AnnotationType.KEGG_PATHWAY_ANNOTATION))
     		return Commons.KEGG_PATHWAY_ANNOTATION;    	
     	else if (this.equals(AnnotationType.TF_KEGG_PATHWAY_ANNOTATION))
@@ -99,6 +104,11 @@ public enum AnnotationType {
     
     public boolean isUserDefinedGeneSetAnnotation(){
     	return  this == USER_DEFINED_GENE_SET_ANNOTATION;
+    }
+    
+    
+    public boolean isUserDefinedLibraryAnnotation(){
+    	return  this == USER_DEFINED_LIBRARY_ANNOTATION;
     }
     
     /** An added method.  */

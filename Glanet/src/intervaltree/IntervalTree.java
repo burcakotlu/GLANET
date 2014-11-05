@@ -1873,6 +1873,50 @@ public class IntervalTree {
 	}
 	
 	
+	//4 NOV 2014
+	//Enrichment 
+	//With Numbers
+	//Without IO
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName, 
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,
+			int overlapDefinition){
+		
+		
+		long permutationNumberElementTypeNumberElementNumber;
+		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
+				
+			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				
+				if (node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+					castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers) node;
+				}
+										
+				permutationNumberElementTypeNumberElementNumber = generateMixedNumber(permutationNumber, castedNode.getElementTypeNumber(),castedNode.getElementNumber(), GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+				
+				
+				if(!(permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.containsKey(permutationNumberElementTypeNumberElementNumber))){
+					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.put(permutationNumberElementTypeNumberElementNumber, 1);
+				}																				
+			}
+						
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
+				findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(permutationNumber,node.getLeft(),interval,chromName,permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,overlapDefinition);	
+			}
+			
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
+				findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(permutationNumber,node.getRight(),interval,chromName,permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,overlapDefinition);	
+				
+			}
+			
+		
+	}
+			
+	
+	
 	//Starts
 	//Annotation With Numbers
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(String outputFolder,
@@ -2623,6 +2667,36 @@ public class IntervalTree {
 		
 	}
 	
+	//Enrichment
+	//WithoutIO WithNumbers
+	//PermutationNumber ElementTypeNumber ElementNumber
+	public static long generateMixedNumber(int permutationNumber, int elementTypeNumber, int elementNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+		
+		long mixedNumber = Long.MIN_VALUE;
+		
+		long _permutationNumber;
+		long _elementTypeNumber;
+		long _elementNumber;
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			//PermutationNumber ElementTypeNumber ElementNumber
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				_permutationNumber 	= permutationNumber	* 10000000000L;	
+				_elementTypeNumber 	= elementTypeNumber		* 1000000L;		
+				_elementNumber		= elementNumber	* 1L; 			
+				
+				mixedNumber = _permutationNumber + _elementTypeNumber + _elementNumber;
+				break;
+			default:
+				break;
+				
+		}//End of SWITCH
+	
+		return mixedNumber;
+	}
+	
+
 	//Enrichment
 	//AnnotatePermutations withoutIO withNumbers
 	//AnnotatePermutations withIO withNumbers

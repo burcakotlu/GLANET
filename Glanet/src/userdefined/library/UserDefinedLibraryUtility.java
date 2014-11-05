@@ -74,7 +74,7 @@ public class UserDefinedLibraryUtility {
 			String fileName,
 			UserDefinedLibraryDataFormat userDefinedLibraryDataFormat,
 			TObjectIntMap<String> fileName2FileNumberMap,
-			String elementType,
+			int elementTypeNumber,
 			TObjectIntMap<String> elementType2ElementTypeNumberMap,
 			String elementName, 
 			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap,
@@ -94,7 +94,6 @@ public class UserDefinedLibraryUtility {
 		
 		BufferedWriter bufferedWriter = null;
 		List<BufferedWriter> bufferedWriterList = null;
-		int elementTypeNumber = Integer.MIN_VALUE;
 		
 		
 		TObjectIntMap<String> elementName2ElementNumberMap = null;
@@ -148,14 +147,13 @@ public class UserDefinedLibraryUtility {
 				//ends
 				
 				//Get the bufferedWriterList for a certain elementTypeNumber
-				elementTypeNumber = elementType2ElementTypeNumberMap.get(elementType);
 				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
 				
 				//Get elementName2ElementNumberMap for a certain elementTypeNumber
 				elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(elementTypeNumber);
 				
 				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chrName),bufferedWriterList);
-				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" + elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
+				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" +  elementTypeNumber + "\t"+ elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
 			}
 					
 			//Close each file written in UserDefinedLibraryInputFile
@@ -211,7 +209,6 @@ public class UserDefinedLibraryUtility {
     	
     	TObjectIntMap<String> elementName2ElementNumberMap = null;
     	TIntObjectMap<String> elementNumber2ElementNameMap = null;
-    	
     	
     	try {
     		
@@ -287,25 +284,28 @@ public class UserDefinedLibraryUtility {
 					currentElementTypeNumber = userDefinedLibraryElementType2ElementTypeNumberMap.get(elementType);
 					
 					elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(currentElementTypeNumber);
+					elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(currentElementTypeNumber);
 					
+					
+					//Initialize elementName2ElementNumberMap
 					if(elementName2ElementNumberMap==null){
 						elementName2ElementNumberMap  = new TObjectIntHashMap<String>();
 						elementTypeNumber2ElementName2ElementNumberMapMap.put(currentElementTypeNumber, elementName2ElementNumberMap);
 					}
-					
-					elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(currentElementTypeNumber);
-					
+									
+					//Initialize elementNumber2ElementNameMap
 					if(elementNumber2ElementNameMap==null){
 						elementNumber2ElementNameMap =  new TIntObjectHashMap<String>();
 						elementTypeNumber2ElementNumber2ElementNameMapMap.put(currentElementTypeNumber, elementNumber2ElementNameMap);
 					}
-							
+					
+					//Fill elementName2ElementNumberMap 
+					//Fill elementNumber2ElementNameMap
 					if(!elementName2ElementNumberMap.containsKey(elementName)){
 						currentElementNumber = elementName2ElementNumberMap.size()+1;
 						elementName2ElementNumberMap.put(elementName, currentElementNumber);
 						elementNumber2ElementNameMap.put(currentElementNumber, elementName);
-					
-					}
+					}					
 					/***************ElementTypeNumber Specific****************************************************************/
 					/***************ElementName 2 ElementNumber ends**********************************************************/
 					/***************ElementNumber 2 ElementName ends**********************************************************/
@@ -314,7 +314,7 @@ public class UserDefinedLibraryUtility {
 				
 					//Process each file written in UserDefinedLibraryInputFile
 					//Write ElementTypeBased ChromosomeBased Unsorted With Numbers Files 
-					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,elementType,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,currentElementTypeNumber,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line
 				

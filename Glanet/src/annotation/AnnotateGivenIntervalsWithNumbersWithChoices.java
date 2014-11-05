@@ -623,10 +623,12 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 		int indexofSecondTab = 0;
 		int indexofThirdTab = 0;
 		int indexofFourthTab = 0;
+		int indexofFifthTab = 0;
 		
 		ChromosomeName chromName;
 		int startPosition = 0;
 		int endPosition = 0;
+		int elementTypeNumber;
 		int elementNumber;
 		int fileNumber;
 		
@@ -635,23 +637,25 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 		try {
 			while((strLine = bufferedReader.readLine())!=null){
 //			example strLine
-//			chr6	133593985	133594135	1	1
-//			chrX	109134213	109134446	1	343
+//			chr6	133593985	133594135	1	1	1
+//			chrX	109134213	109134446	1	1	343
 			
 				indexofFirstTab  = strLine.indexOf('\t');
 				indexofSecondTab = (indexofFirstTab>0)?strLine.indexOf('\t', indexofFirstTab+1):-1;
 				indexofThirdTab  = (indexofSecondTab>0)?strLine.indexOf('\t', indexofSecondTab+1):-1;
 				indexofFourthTab = (indexofThirdTab>0) ?strLine.indexOf('\t', indexofThirdTab+1):-1;
+				indexofFifthTab = (indexofFourthTab>0) ?strLine.indexOf('\t', indexofFourthTab+1):-1;
 					
 				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				
 				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
 				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-				elementNumber = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
-				fileNumber 	= Integer.parseInt(strLine.substring(indexofFourthTab+1));
+				elementTypeNumber = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+				elementNumber = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				fileNumber 	= Integer.parseInt(strLine.substring(indexofFifthTab+1));
 				 
 //				Creating millions of nodes with six attributes causes out of memory error
-				UserDefinedLibraryIntervalTreeNodeWithNumbers node = new UserDefinedLibraryIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,elementNumber,fileNumber,NodeType.ORIGINAL);
+				UserDefinedLibraryIntervalTreeNodeWithNumbers node = new UserDefinedLibraryIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,elementTypeNumber,elementNumber,fileNumber,NodeType.ORIGINAL);
 				userDefinedLibraryIntervalTree.intervalTreeInsert(userDefinedLibraryIntervalTree, node);					
 				
 				chromName = null;
@@ -1889,6 +1893,9 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	
 	}
 	//@todo
+	
+	
+	
 	
 	public static IntervalTree createUcscRefSeqGenesIntervalTree(String dataFolder,ChromosomeName chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
@@ -4369,6 +4376,57 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	
 	
 
+	//4 NOV 2014
+	//Enrichment
+	//Without IO
+	//With Numbers
+	public static void searchUserDefinedLibraryWithoutIOWithNumbers(
+			int permutationNumber, 
+			ChromosomeName chromName, 
+			List<InputLine> inputLines, 
+			IntervalTree userDefinedLibraryIntervalTree, 
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap,
+			int overlapDefinition){
+		
+		
+		InputLine inputLine;	
+		int low;
+		int high;
+		
+
+			for(int i=0; i<inputLines.size(); i++){
+				
+				TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = new TLongIntHashMap();
+				
+				inputLine = inputLines.get(i);
+				
+				low = inputLine.getLow();
+				high = inputLine.getHigh();
+				
+				Interval interval = new Interval(low,high);
+
+				if(userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
+					userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(permutationNumber,userDefinedLibraryIntervalTree.getRoot(),interval,chromName,permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,overlapDefinition);
+				}
+								
+				//accumulate search results of dnaseCellLine2OneorZeroMap in dnaseCellLine2KMap
+				for(TLongIntIterator it = permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.iterator(); it.hasNext();){
+					
+					it.advance();
+					 
+					if (!(permutationNumberElementTypeNumberElementNumber2KMap.containsKey(it.key()))){
+						permutationNumberElementTypeNumberElementNumber2KMap.put(it.key(), it.value());
+					}else{
+						permutationNumberElementTypeNumberElementNumber2KMap.put(it.key(), permutationNumberElementTypeNumberElementNumber2KMap.get(it.key())+it.value());
+						
+					}
+	
+				}//End of for
+				
+			}//End of for each inputLine
+		
+	}
+	
 	
 	//Enrichment
 	//Without IO
@@ -6582,6 +6640,40 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 		}
 	}	
 	//@todo ends
+	
+	//starts
+	public void writeResultsWithNumbers(
+			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap,
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap,
+			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
+			String outputFolder, 
+			String directoryName, 
+			String fileName){
+		
+		String elementType;
+		int elementTypeNumber;
+		
+		TIntIntMap elementNumber2KMap;
+		TIntObjectMap<String> elementNumber2ElementNameMap;
+		
+		
+		//For each elementTypeNumber
+		for(TIntObjectIterator<String> it =userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
+			it.advance();
+			
+			elementTypeNumber 	= it.key();
+			elementType 		= it.value();
+			
+			//Write these results
+			elementNumber2KMap = elementTypeNumber2ElementNumber2KMapMap.get(elementTypeNumber);
+			elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(elementTypeNumber);
+			
+			writeResultsWithNumbers(elementNumber2KMap,elementNumber2ElementNameMap, outputFolder + directoryName, elementType + fileName);
+				
+		}//End of for each elementTypeNumber
+		
+	}
+	//ends
 	
 	//@todo starts
 	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, String outputFolder , String outputFileName){
@@ -11983,6 +12075,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					userDefinedLibraryElementTypeNumber2ElementTypeMap,
 					userDefinedLibraryFileNumber2FileNameMap);
 			
+			
+			//UserDefinedLibrary
+			//@todo
+			writeResultsWithNumbers(userDefinedLibraryElementTypeNumber2ElementTypeMap,elementTypeNumber2ElementNumber2KMapMap,elementTypeNumber2ElementNumber2ElementNameMapMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
+		
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("User Defined Library annotation ends: " + new Date());
@@ -12660,6 +12757,12 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 					allMapsWithNumbers.setPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(permutationNumberAllBasedUserDefinedGeneSetNumber2KMap);
 
 					
+				}else if (annotationType.isUserDefinedLibraryAnnotation()){
+					//USER DEFINED LIBRARY
+					TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap = new TLongIntHashMap();	
+					searchUserDefinedLibraryWithoutIOWithNumbers(permutationNumber, chrName, randomlyGeneratedData, intervalTree, permutationNumberElementTypeNumberElementNumber2KMap,overlapDefinition);
+					allMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap(permutationNumberElementTypeNumberElementNumber2KMap);
+				
 				}else if (annotationType.isKeggPathwayAnnotation()){
 					//KEGG PATHWAY
 					//Search input interval files for kegg Pathway

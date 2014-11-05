@@ -17,6 +17,7 @@ public class UserDefinedLibraryIntervalTreeNodeWithNumbers extends IntervalTreeN
 //	new UserDefinedLibraryIntervalTreeNodeWithNumbers(chromName,startPosition,endPosition,elementNumber,fileNumber,NodeType.ORIGINAL);
 	
 	//Just for search UserDefinedLibrary Output
+	int elementTypeNumber;
 	int elementNumber;
 	int fileNumber;
 	
@@ -36,13 +37,21 @@ public class UserDefinedLibraryIntervalTreeNodeWithNumbers extends IntervalTreeN
 	}
 	
 	
+	
+	
+	public int getElementTypeNumber() {
+		return elementTypeNumber;
+	}
+	public void setElementTypeNumber(int elementTypeNumber) {
+		this.elementTypeNumber = elementTypeNumber;
+	}
 	public UserDefinedLibraryIntervalTreeNodeWithNumbers(
-			ChromosomeName chromName, int low, int high, int elementNumber,
+			ChromosomeName chromName, int low, int high,int elementTypeNumber, int elementNumber,
 			int fileNumber, NodeType nodeType) {
 	
 		super(chromName,low,high,nodeType);
 		
-		
+		this.elementTypeNumber = elementTypeNumber;
 		this.elementNumber = elementNumber;
 		this.fileNumber = fileNumber;
 	}
