@@ -336,12 +336,12 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					 System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" + chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());				
 //					 GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
-				     //WITHOUT IO
+				     //WITHOUT IO WithNumbers
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
 				    	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithNumbersWithChoices.annotatePermutationWithoutIOWithNumbers(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
 				     }
 				     
-				     //WITH IO
+				     //WITH IO WithNumbers
 				     else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
 				     	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithNumbersWithChoices.annotatePermutationWithIOWithNumbers(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
 				     }						
@@ -2471,7 +2471,6 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		
 		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
-//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 	

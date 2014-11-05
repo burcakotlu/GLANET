@@ -2147,6 +2147,56 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 			
 	}
 	
+	
+	//Enrichment
+	//With IO
+	//With Numbers
+	//Empirical P Value Calculation
+	public static void searchUserDefinedLibraryWithIOWithNumbers(
+			String outputFolder,
+			int permutationNumber,
+			ChromosomeName chromName,
+			List<InputLine> inputLines,
+			IntervalTree intervalTree,
+			TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap,
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap,
+			int overlapDefinition){
+		
+		InputLine inputLine;
+		int low;
+		int high;
+		
+		for(int i= 0; i<inputLines.size(); i++){
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = new TLongIntHashMap();
+		
+			inputLine = inputLines.get(i);
+			
+			low = inputLine.getLow();
+			high = inputLine.getHigh();
+			Interval interval = new Interval(low,high);
+			
+			if(intervalTree.getRoot().getNodeName().isNotSentinel()){
+				intervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(outputFolder,permutationNumber,intervalTree.getRoot(),interval,chromName,permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap,permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,overlapDefinition);
+			}
+			
+			//accumulate search results of tfbsNameandCellLineName2ZeroorOneMap in tfbsNameandCellLineName2KMap
+			for(TLongIntIterator it = permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.iterator(); it.hasNext(); ){
+				 
+				it.advance();
+				
+				if (!(permutationNumberElementTypeNumberElementNumber2KMap.containsKey(it.key()))){
+					permutationNumberElementTypeNumberElementNumber2KMap.put(it.key(), it.value());
+				}else{
+					permutationNumberElementTypeNumberElementNumber2KMap.put(it.key(), permutationNumberElementTypeNumberElementNumber2KMap.get(it.key())+it.value());
+					
+				}
+
+			}//End of for
+		}//End of for
+		
+	}
+	
+	
 	//Enrichment
 	//With IO
 	//With Numbers
@@ -11679,7 +11729,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		
 		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
-//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 		
@@ -12467,6 +12516,15 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			closeBufferedWritersWithNumbers(permutationNumberAllBasedUserDefinedGeneSetNumber2BufferedWriterMap);
 			allMapsWithNumbers.setPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(permutationNumberAllBasedUserDefinedGeneSetNumber2KMap);
 
+		}else if (annotationType.isUserDefinedLibraryAnnotation()){
+			
+			//USER DEFINED LIBRARY
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap = new TLongIntHashMap();	
+			TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap = new TLongObjectHashMap<BufferedWriter>(); 
+			searchUserDefinedLibraryWithIOWithNumbers(outputFolder,permutationNumber,chrName,randomlyGeneratedData,intervalTree,permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap,permutationNumberElementTypeNumberElementNumber2KMap,overlapDefinition);
+			closeBufferedWritersWithNumbers(permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap);
+			allMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap(permutationNumberElementTypeNumberElementNumber2KMap);
+			
 		}else if (annotationType.isKeggPathwayAnnotation()){
 			//KEGG PATHWAY
 			//Search input interval files for kegg Pathway
