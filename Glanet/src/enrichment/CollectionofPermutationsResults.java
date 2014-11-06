@@ -851,6 +851,22 @@ public class CollectionofPermutationsResults {
 		/**************************************************************************/
 		
 		
+		
+		
+		
+		/**************************************************************************/
+		/************Collection of UserDefinedLibrary RESULTS starts***************/
+		if (userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
+			
+			//For each element type
+			
+		}
+		/************Collection of UserDefinedLibrary RESULTS ends*****************/
+		/**************************************************************************/
+		
+		
+		
+		
 		/**************************************************************************/
 		/************Collection of KEGG Pathway RESULTS starts*********************/
 		if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && 

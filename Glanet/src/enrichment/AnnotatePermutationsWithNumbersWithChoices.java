@@ -381,7 +381,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TLongIntMap leftPermutationNumberHistoneNumberCellLineNumber2KMap 	= leftAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap();
 			
 			//USERDEFINED GENESET
-			TLongIntMap leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap 		= leftAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
 			TLongIntMap leftPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap 	= leftAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap();
 			TLongIntMap leftPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap();
 			
@@ -389,7 +389,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TLongIntMap leftPermutationNumberElementTypeNumberElementNumber2KMap	=  leftAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap();
 			
 			//KEGG Pathway
-			TIntIntMap leftPermutationNumberExonBasedKeggPathwayNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
+			TIntIntMap leftPermutationNumberExonBasedKeggPathwayNumber2KMap 		= leftAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
 			TIntIntMap leftPermutationNumberRegulationBasedKeggPathwayNumber2KMap 	= leftAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap();
 			TIntIntMap leftPermutationNumberAllBasedKeggPathwayNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap();
 			
@@ -399,9 +399,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TLongIntMap leftPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap 		= leftAllMapsWithNumbers.getPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap();
 
 			//TF CellLine KEGGPathway
-			TLongIntMap leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap 		= leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap();
 			TLongIntMap leftPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap 	= leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap();
-			TLongIntMap leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 		= leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 			= leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
 			
 		
 			//RIGHT ALL MAPS WITH NUMBERS
@@ -415,17 +415,17 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			TLongIntMap rightPermutationNumberHistoneNumberCellLineNumber2KMap 	= rightAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap();
 			
 			//USERDEFINED GENESET
-			TLongIntMap rightPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap 			= rightAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap rightPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
 			TLongIntMap rightPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap 	= rightAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap();
-			TLongIntMap rightPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap 			= rightAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap rightPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap();
 				
 			//USERDEFINED LIBRARY
 			TLongIntMap rightPermutationNumberElementTypeNumberElementNumber2KMap	=  rightAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap();
 	
 			//KEGG Pathway
-			TIntIntMap rightPermutationNumberExonBasedKeggPathwayNumber2KMap 			= rightAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
+			TIntIntMap rightPermutationNumberExonBasedKeggPathwayNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
 			TIntIntMap rightPermutationNumberRegulationBasedKeggPathwayNumber2KMap 	= rightAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap();
-			TIntIntMap rightPermutationNumberAllBasedKeggPathwayNumber2KMap 			= rightAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap();
+			TIntIntMap rightPermutationNumberAllBasedKeggPathwayNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap();
 			
 			//TF KEGGPathway
 			TLongIntMap rightPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap();
@@ -434,8 +434,8 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 			//TF CellLine KEGGPathway
 			TLongIntMap rightPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap();
-			TLongIntMap rightPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap();
-			TLongIntMap rightPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 		= rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap 	= rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap 			= rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
 							
 			//DNASE
 			if (leftPermutationNumberDnaseCellLineNumber2KMap!=null){
@@ -717,12 +717,11 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		
 		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
 		Integer permutationNumber;		
-		Integer elementNumberCellLineNumberOrKeggPathwayNumber;
+		Integer permutationNumberRemovedMixedNumber;
 		
 		Integer numberofOverlaps;
 				
 		TIntList list;
-		
 		
 		for(TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext(); ){
 			
@@ -735,27 +734,27 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			permutationNumber = IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 						
-			elementNumberCellLineNumberOrKeggPathwayNumber = IntervalTree.getElementNumberCellLineNumberOrKeggPathwayNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+			permutationNumberRemovedMixedNumber = IntervalTree.getPermutationNumberRemovedMixedNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 			
 			//example permutationNumber PERMUTATION0
 				
 			//@todo check this zero value for permutation of original data
 			if (Commons.ZERO.equals(permutationNumber)){
-				elementNumber2OriginalKMap.put(elementNumberCellLineNumberOrKeggPathwayNumber, numberofOverlaps);
+				elementNumber2OriginalKMap.put(permutationNumberRemovedMixedNumber, numberofOverlaps);
 			}else{
-				list =elementNumber2AllKMap.get(elementNumberCellLineNumberOrKeggPathwayNumber);
+				list =elementNumber2AllKMap.get(permutationNumberRemovedMixedNumber);
 				
 				if(list ==null){
 					list = new TIntArrayList();
 					list.add(numberofOverlaps);
-					elementNumber2AllKMap.put(elementNumberCellLineNumberOrKeggPathwayNumber, list);
+					elementNumber2AllKMap.put(permutationNumberRemovedMixedNumber, list);
 				}else{
 					list.add(numberofOverlaps);
-					elementNumber2AllKMap.put(elementNumberCellLineNumberOrKeggPathwayNumber, list);					
+					elementNumber2AllKMap.put(permutationNumberRemovedMixedNumber, list);					
 				}
 			}			
-		}
-		//yeni ends
+		}//End of for
+		
 		
 	}
 	//TLongIntMap TIntObjectMap<TIntList> TIntIntMap ends
@@ -841,7 +840,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			permutationNumber = IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 						
-			elementNumberCellLineNumberKeggPathwayNumberr = IntervalTree.removePermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+			elementNumberCellLineNumberKeggPathwayNumberr = IntervalTree.getPermutationNumberRemovedLongMixedNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 			
 			//example permutationNumber PERMUTATION0
 				
@@ -1223,13 +1222,21 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 					
 	}
 	
-	public static void writeAnnotationstoFiles(String outputFolder,TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap, Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName, String extraFileName, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+	public static void writeAnnotationstoFiles(
+			String outputFolder,
+			TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap, 
+			Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap, 
+			String folderName, 
+			String extraFileName,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
 		
 		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
+		
 		Integer permutationNumber;
 		Integer elementNumber;
 		Integer cellLineNumber;
 		Integer keggPathwayNumber;
+		Integer elementTypeNumber;
 		
 		Integer numberofOverlaps;
 		
@@ -1244,13 +1251,20 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
 			numberofOverlaps = it.value();
 			
-			permutationNumber 	= IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-			elementNumber 		= IntervalTree.getElementNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
-			cellLineNumber 		= IntervalTree.getCellLineNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-			keggPathwayNumber 	= IntervalTree.getGeneSetNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+			//Initialize before each mixed number resolution
+			permutationNumber 	= Integer.MIN_VALUE;
+			elementNumber  		= Integer.MIN_VALUE;
+			cellLineNumber 		= Integer.MIN_VALUE;
+			keggPathwayNumber 	= Integer.MIN_VALUE;
+			elementTypeNumber 	= Integer.MIN_VALUE;
 			
-					
+			//Get permutation number starts
+			permutationNumber 	= IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+			//Get permutation number ends
+			
+			//Get bufferedWriter starts
 			bufferedWriter = permutationNumber2BufferedWriterHashMap.get(permutationNumber) ;
+			//Get bufferedWriter ends
 			
 			try {
 				
@@ -1258,25 +1272,64 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 						fileWriter = FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION +permutationNumber +  "_" + extraFileName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						
-						bufferedWriter.write("TfNumber" + "\t" + "CellLineNumber" + "\t" + "KeggPathwayNumber" +"\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+						//Set header line starts
+						switch(generatedMixedNumberDescriptionOrderLength){
+						
+							//User Defined Library
+							case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+								bufferedWriter.write("ElementTypeNumber" + "\t" + "ElementNumber" + "\t" + "NumberofOverlaps" + System.getProperty("line.separator"));				
+								break;
+								
+							//User Defined Geneset	
+							case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
+								bufferedWriter.write("UserDefinedGeneSetNumber"  +"\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+								break;
+								
+							//PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber	
+							case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+								bufferedWriter.write("TfNumber" + "\t" + "CellLineNumber" + "\t" + "KeggPathwayNumber" +"\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
+								break;
+								
+							default:
+								break;
+						}//End of SWITCH
+						//Set header line ends
+						
 						
 						permutationNumber2BufferedWriterHashMap.put(permutationNumber, bufferedWriter);							
-				}
+				}//End of if bufferedWriter is NULL
 				
-				if (elementNumber>0){
-					bufferedWriter.write(elementNumber +"\t");
-				}
 				
-				if (cellLineNumber>0){
-					bufferedWriter.write(cellLineNumber +"\t");					
-				}
+				//mixed number resolution and write to bufferedWriter starts
+				switch(generatedMixedNumberDescriptionOrderLength){
 				
-				if (keggPathwayNumber>0){
-					bufferedWriter.write(keggPathwayNumber +"\t");		
-				}
-				
-				bufferedWriter.write(numberofOverlaps +System.getProperty("line.separator"));
-				
+					//User Defined Library
+					case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+						elementTypeNumber =IntervalTree.getElementTypeNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+						elementNumber = IntervalTree.getElementNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write(elementTypeNumber + "\t" + elementNumber + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+						break;
+						
+					//User Defined Geneset	
+					case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
+						keggPathwayNumber 	= IntervalTree.getGeneSetNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write(keggPathwayNumber  +"\t" + numberofOverlaps + System.getProperty("line.separator"));
+	
+						break;
+						
+					//PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber	
+					case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+						elementNumber 		= IntervalTree.getElementNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+						cellLineNumber 		= IntervalTree.getCellLineNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+						keggPathwayNumber 	= IntervalTree.getGeneSetNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write(elementNumber+ "\t" + cellLineNumber + "\t" + keggPathwayNumber +"\t" + numberofOverlaps + System.getProperty("line.separator"));
+						break;
+						
+					default:
+						break;
+				}//End of SWITCH
+				//mixed number resolution  and write to bufferedWriter ends
+		
 			
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -1970,7 +2023,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		//Here elementNumber refers to the permutationNumber removed from augmented mixed number
 		//Also other unnecessary numbers are removed.
 		//Therefore "elementNumber" does not has the same [length and order] as the number coming from accumulatedAllMapsWithNumbers
-		//So we no more has GeneratedMixedNumberDescriptionOrderLength
+		//So we have a GeneratedMixedNumberDescriptionOrderLength
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(),dnase2AllKMap,originalDnase2KMap,GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),tfbs2AllKMap,originalTfbs2KMap,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap(),histone2AllKMap,originalHistone2KMap,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
@@ -1978,6 +2031,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap(),exonBasedUserDefinedGeneSet2AllKMap,originalExonBasedUserDefinedGeneSet2KMap,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap(),regulationBasedUserDefinedGeneSet2AllKMap,originalRegulationBasedUserDefinedGeneSet2KMap,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(),allBasedUserDefinedGeneSet2AllKMap,originalAllBasedUserDefinedGeneSet2KMap,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+		
+		//UserDefinedLibrary
+		convert(accumulatedAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap(),elementTypeNumberElementNumber2AllKMap, originalElementTypeNumberElementNumber2KMap, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+		//UserDefinedLibrary
 		
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),exonBasedKeggPathway2AllKMap,originalExonBasedKeggPathway2KMap,GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap(),regulationBasedKeggPathway2AllKMap,originalRegulationBasedKeggPathway2KMap,GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
@@ -2036,7 +2093,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			}
 			
 			if(userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
-				//@todo
+				//UserDefinedLibrary
+				writeAnnotationstoFiles(permutationBasedResultDirectory,accumulatedAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap(), permutationNumber2ElementTypeElementNameBufferedWriterHashMap, AnnotationType.USER_DEFINED_LIBRARY_ANNOTATION.convertEnumtoString() + System.getProperty("file.separator"), Commons.USER_DEFINED_LIBRARY, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+				closeBufferedWriters(permutationNumber2ElementTypeElementNameBufferedWriterHashMap);
 			}
 	
 			if(keggPathwayEnrichmentType.isKeggPathwayEnrichment()  && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){					
@@ -2175,7 +2234,13 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 	
 	//TIntIntMap TIntObjectMap<TIntList> version starts
-	public static void writeToBeCollectedNumberofOverlaps(String outputFolder,TIntIntMap  originalPermutationNumberRemovedMixedNumber2KMap, TIntObjectMap<TIntList> permutationNumberRemovedMixedNumber2AllKMap,String toBePolledDirectoryName, String runNumber){
+	public static void writeToBeCollectedNumberofOverlaps(
+			String outputFolder,
+			TIntIntMap  originalPermutationNumberRemovedMixedNumber2KMap, 
+			TIntObjectMap<TIntList> permutationNumberRemovedMixedNumber2AllKMap,
+			String toBePolledDirectoryName, 
+			String runNumber){
+		
 		int permutationNumberRemovedMixedNumber;
 		int originalNumberofOverlaps;
 		
@@ -2713,6 +2778,8 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				writeToBeCollectedNumberofOverlaps(outputFolder,originalTfbs2KMap,tfbs2AllKMap,Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,runName);
 			}
 			
+			
+			//UserDefinedGeneset
 			if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
 				
 				final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
@@ -2726,8 +2793,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			}
 			
+			
+			//UserDefinedLibrary
 			if(userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
-				//@todo
+				writeToBeCollectedNumberofOverlaps(outputFolder, originalElementTypeNumberElementNumber2KMap, elementTypeNumberElementNumber2AllKMap, Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS, runName);
 			}
 				
 			if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){

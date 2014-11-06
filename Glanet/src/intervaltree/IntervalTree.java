@@ -2555,6 +2555,28 @@ public class IntervalTree {
 		return elementNumber;
 	}
 	
+	//6 NOV 2014
+	public static int getElementTypeNumber(
+			long mixedNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+		
+		long permutationNumberElementTypeNumber = Long.MIN_VALUE;
+		int elementTypeNumber = Integer.MIN_VALUE;
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				permutationNumberElementTypeNumber = mixedNumber / 1000000L ;
+				elementTypeNumber = (int) (permutationNumberElementTypeNumber% 10000L);
+				break;
+				
+			default:
+				break;
+				
+		}//End of SWITCH
+		
+		return elementTypeNumber;
+	}
 	
 	
 	//17.OCT.2014
@@ -2587,7 +2609,15 @@ public class IntervalTree {
 												permutationNumberElementNumber = mixedNumber / 100000000L;
 												elementNumber = (int) (permutationNumberElementNumber % 10000L);
 												break;
-										}							
+										}	
+										
+										
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: 
+										{
+											elementNumber = (int) (mixedNumber % 1000000L);
+											break;
+										}
+				
 			default: 
 										{
 											break;
@@ -2607,18 +2637,42 @@ public class IntervalTree {
 	//17.OCT.2014
 	//Called from convert methods in AnnotatePermutations
 	//Get ElementNumberCellLineNumberOrKeggPathwayNumber from mixed number
-	public static int getElementNumberCellLineNumberOrKeggPathwayNumber(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
-		int elementNumberCellLineNumberOrKeggPathwayNumber = 0;
+	public static int getPermutationNumberRemovedMixedNumber(long permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
 		
-		int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-		int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-		int keggPathwayNumber = getGeneSetNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+		int elementNumberCellLineNumberOrKeggPathwayNumber = Integer.MIN_VALUE;
+		int elementTypeNumberElementNumber = Integer.MIN_VALUE;
+		int userDefinedGeneSetNumber = Integer.MIN_VALUE;
 		
-		if (cellLineNumber>0){
-			elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber*10000 + cellLineNumber;
-		}else if (keggPathwayNumber>0){
-			elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber*10000 + keggPathwayNumber;	
-		}
+		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
+		
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
+					userDefinedGeneSetNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000L);
+					return userDefinedGeneSetNumber;
+					
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: 
+					int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+					int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+					int keggPathwayNumber = getGeneSetNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
+								
+					if (cellLineNumber>0){
+						elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber*10000 + cellLineNumber;
+					}else if (keggPathwayNumber>0){
+						elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber*10000 + keggPathwayNumber;	
+					}
+					return elementNumberCellLineNumberOrKeggPathwayNumber;
+								
+					
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+					elementTypeNumberElementNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L); 
+					return elementTypeNumberElementNumber;
+			default:
+					break;
+			
+		
+		}//End of switch
 		
 		return elementNumberCellLineNumberOrKeggPathwayNumber;
 	}
@@ -2627,7 +2681,7 @@ public class IntervalTree {
 	//17.OCT.2014
 	//Called from convert methods in AnnotatePermutations
 	//Get PermutationNumber from mixed number
-	public static long removePermutationNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+	public static long getPermutationNumberRemovedLongMixedNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
 		
 		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 	
@@ -2680,7 +2734,7 @@ public class IntervalTree {
 	//Called from writeAnnotationstoFiles method in AnnotatePermutations
 	//Called from writeAnnotationstoFiles_ElementNumberKeggPathwayNumber method in AnnotatePermutations
 	//Get PermutationNumber from mixed number
-	public static int getPermutationNumber(long PermutationNumberElementNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+	public static int getPermutationNumber(long permutationNumberElementNumberCellLineNumberKeggPathwayNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
 		
 		//Long.MAX_VALUE	 9223372_0368_5477_5807
 		//Long.MIN_VALUE	-9223372_0368_5477_5808
@@ -2690,12 +2744,17 @@ public class IntervalTree {
 		switch(generatedMixedNumberDescriptionOrderLength){
 			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: 
 				{	
-					permutationNumber = (int) (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber / 100000L);
+					permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 100000L);
 					break;
-					}
+				}
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: 
 				{
-					permutationNumber = (int) (PermutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
+					permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
+					break;
+				}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				{
+					permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
 					break;
 				}
 			default: 
