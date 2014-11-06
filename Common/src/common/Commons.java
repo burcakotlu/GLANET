@@ -766,13 +766,9 @@ public class Commons {
 	
 	
 	//ANNOTATION Results starts
-	public static final String ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Dnase_results.txt";
-	public static final String ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_TF_results.txt";
-	public static final String ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Histone_results.txt";
-	
-//	public static final String ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION  + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_"; KEGG_Pathway_results.txt";
-//	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_KEGG_Pathway_results.txt";
-//	public static final String ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_All_Based_KEGG_Pathway_results.txt";
+	public static final String ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_DNASE 		=  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_Dnase_results.txt";
+	public static final String ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF 		=  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_TF_results.txt";
+	public static final String ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_HISTONE 	=  Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_Histone_results.txt";
 	
 	public static final String ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Exon_Based_";
 	public static final String ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT =  Commons.ANNOTATION + System.getProperty("file.separator") +Commons.RESULTS + System.getProperty("file.separator") + "number_of_k_out_of_n_search_input_lines_Regulation_Based_";

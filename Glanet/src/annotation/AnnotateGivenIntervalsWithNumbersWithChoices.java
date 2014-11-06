@@ -11757,12 +11757,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
 			
 		
-				
-		if (args[4].equals(Commons.DO_ENRICH)) {
-			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
-		}else {
-			inputFileName = outputFolder + Commons.PROCESSED_INPUT_FILE;
-		}
+					
 		
 		/********************************************************************/
 		/***********delete old files starts**********************************/
@@ -11772,6 +11767,11 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/***********delete old files ends***********************************/
 		/******************************************************************/
 		
+		
+		
+		/*****************************************************************************************/
+		/*************************GIVEN INPUT DATA starts*****************************************/
+			inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 		
 		List<FileWriter> fileWriterList = new ArrayList<FileWriter>();	
 		
@@ -11785,11 +11785,14 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 		//Close Buffered Writers
 		closeBufferedWriterList(fileWriterList,bufferedWriterList);	
-		/*********************************************/
+		/*************************GIVEN INPUT DATA ends*******************************************/
+		/*****************************************************************************************/
 		
-		/******************************************************/
-		/***************FILL NUMBER 2 NAME MAPS*****starts*****/
-		/******************************************************/
+		
+				
+		/*****************************************************************************************************/
+		/***************FILL NUMBER 2 NAME MAPS*****starts****************************************************/
+		/*****************************************************************************************************/
 		TShortObjectMap<String> cellLineNumber2CellLineNameMap 				= new TShortObjectHashMap<String>();
 		TShortObjectMap<String> fileNumber2FileNameMap 						= new TShortObjectHashMap<String>();
 		TShortObjectMap<String> histoneNumber2HistoneNameMap 				= new TShortObjectHashMap<String>();	
@@ -11806,9 +11809,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);	
 		fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
 		fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
-		/******************************************************/
-		/***************FILL NUMBER 2 NAME MAPS*****ends*******/
-		/******************************************************/
+		/****************************************************************************************************/
+		/***************FILL NUMBER 2 NAME MAPS*****ends*****************************************************/
+		/****************************************************************************************************/
 		
 		/******************************************************/
 		/***************FILL NAME 2 NUMBER MAPS******starts****/
@@ -11877,7 +11880,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    dateBefore = System.currentTimeMillis();
 		    
 			searchDnaseWithNumbers(dataFolder,outputFolder,dnaseCellLineNumber2KMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(dnaseCellLineNumber2KMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_DNASE_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(dnaseCellLineNumber2KMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_DNASE);
+			
+	
 			
 			dateAfter = System.currentTimeMillis();
 			
@@ -11905,7 +11910,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    
 		    dateBefore = System.currentTimeMillis();
 		   	searchHistoneWithNumbers(dataFolder,outputFolder,histoneNumberCellLineNumber2KMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_HISTONE_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_HISTONE);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
@@ -11933,7 +11938,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    
 		    dateBefore = System.currentTimeMillis();
 			searchTranscriptionFactorWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
@@ -12126,7 +12131,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 			
 			//UserDefinedLibrary
-			//@todo
 			writeResultsWithNumbers(userDefinedLibraryElementTypeNumber2ElementTypeMap,elementTypeNumber2ElementNumber2KMapMap,elementTypeNumber2ElementNumber2ElementNameMapMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
 		
 			dateAfter = System.currentTimeMillis();
@@ -12158,7 +12162,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			searchTfKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
 			
 			//KEGGPathway
 			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
@@ -12196,7 +12200,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    searchTfCellLineKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
 			
 			//KEGGPathway
 			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
@@ -12302,7 +12306,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_TF_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
 			
 			//KEGGPathway
 			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
@@ -12334,6 +12338,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		/************Search input interval files for TF AND KEGG PATHWAY****************/
 		/************Search input interval files for TF AND CELLLINE AND KEGG PATHWAY***/
 		/*******************************************************************************/	
+		
+		
+		
 
 	}
 	
@@ -12748,9 +12755,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			
 		return allMapsWithNumbers;
 		
-	}
-	
-	
+	}	
 	//Tf and KeggPathway Enrichment or
 	//Tf and CellLine and KeggPathway Enrichment ends
 	//with number ends

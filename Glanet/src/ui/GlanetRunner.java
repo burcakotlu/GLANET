@@ -20,70 +20,101 @@ public class GlanetRunner implements Runnable{
 	@Override
 	public void run(){
 		
+		/************************Preparation starts********************************************/
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( "Preparation...");
 		
 		if( Thread.currentThread().isInterrupted())
 			return;
 		Preparation.main( args);
+		/************************Preparation ends**********************************************/
 		
+		
+		/************************InputDataProcess starts***************************************/
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( "InputDataProcess...");
 		
 		if( Thread.currentThread().isInterrupted())
 			return;
 		InputDataProcess.main( args);
+		/************************InputDataProcess ends*****************************************/
+
+
+		/************************RemoveOverlaps starts******************************************/
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
 		
-		/* In case of Enrichment remove overlaps and merge */
-		/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
-		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
-			
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
-			
-			if( Thread.currentThread().isInterrupted())
-				return;
-			InputDataRemoveOverlaps.main( args);
-		}
+		if( Thread.currentThread().isInterrupted())
+			return;
+		InputDataRemoveOverlaps.main( args);
+		/************************RemoveOverlaps ends********************************************/
+
 		
+//		/* In case of Enrichment remove overlaps and merge */
+//		/* In case of only Annotation with Enrichment, do not remove overlaps and do not merge*/
+//		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
+//			
+//			if( getMainView() != null)
+//				getMainView().setCurrentProcessInfo( "RemoveOverlaps...");
+//			
+//			if( Thread.currentThread().isInterrupted())
+//				return;
+//			InputDataRemoveOverlaps.main( args);
+//		}
+		
+		/************************Annotation starts***********************************************/
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( "Annotate Given Input Data...");
 		
 		if( Thread.currentThread().isInterrupted())
 			return;
 		AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
+		/************************Annotation ends*************************************************/
 		
+		/************************Enrichment starts***********************************************/
 		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
+			/************************Annotate Permutations starts****************************/
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			AnnotatePermutationsWithNumbersWithChoices.main( args);
+			/************************Annotate Permutations ends******************************/
+
 			
+			/*******************Collection of Permutations Results starts*******************/
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Collection of Permutations Results...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			CollectionofPermutationsResults.main( args);
+			/*******************Collection of Permutations Results ends*********************/
+
 			
+			/************Augmentation of Enriched Elements with Given Input Data starts*****/
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			AugmentationofEnrichedElementswithGivenInputData.main( args);
+			/************Augmentation of Enriched Elements with Given Input Data ends*******/
+						
 			
+			/************Creation of NCBI Remap input files starts*************************/
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
-	
+			/************Creation of NCBI Remap input files ends***************************/
+
 			
+			/**********************************RSAT starts*********************************/
 			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 				
 				if( getMainView() != null)
@@ -100,14 +131,20 @@ public class GlanetRunner implements Runnable{
 					return;
 				RSATMatrixScanClient.main( args);
 			}
+			/**********************************RSAT ends***********************************/
+			
 		}
+		/************************Enrichment ends*******************************************************/
 		
+		/************************GLANET execution ends*************************************************/
 		//args[1]  already has file separator at the end
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[1]  + "Output");
 		if( getMainView() != null)
 			getMainView().enableStartProcess( true);
 		GlanetRunner.appendLog( "Execution has ended");
+		/************************GLANET execution ends*************************************************/
+
 	}
 	
 	public static void appendLog( String log) {

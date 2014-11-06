@@ -881,19 +881,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		}
 	}
 	
-//	public void annotateOriginalInputData(String inputDataFileName,Map<String,Integer> originalDnase2KMap, Map<String,Integer> originalTfbs2KMap, Map<String,Integer> originalHistone2KMap, Map<String,Integer> originalExonBasedKeggPathway2KMap, Map<String,Integer> originalRegulationBasedKeggPathway2KMap){
-//		AnnotateGivenIntervalsWithGivenParameters annotateIntervals = new AnnotateGivenIntervalsWithGivenParameters();
-//		
-//		AllName2KMaps name2KMap = annotateIntervals.annotateOriginalData(inputDataFileName);
-//		
-//		fillMapfromMap(originalDnase2KMap, name2KMap.getDnaseCellLineName2NumberofOverlapsMap());
-//		fillMapfromMap(originalTfbs2KMap, name2KMap.getTfbsNameandCellLineName2NumberofOverlapsMap());
-//		fillMapfromMap(originalHistone2KMap, name2KMap.getHistoneNameandCellLineName2NumberofOverlapsMap());
-//		fillMapfromMap(originalExonBasedKeggPathway2KMap, name2KMap.getExonBasedKeggPathway2NumberofOverlapsMap());
-//		fillMapfromMap(originalRegulationBasedKeggPathway2KMap, name2KMap.getRegulationBasedKeggPathway2NumberofOverlapsMap());
-//		
-//		
-//	}
+
 	
 
 
@@ -2399,8 +2387,6 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
 		
 		
-		//SET the Input Data File
-		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
 				
 		//Set the Generate Random Data Mode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[5]);
@@ -2481,7 +2467,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		//Random random = new Random();
 		
 		/*********************************************************************************************/			
-		/**************************READ ORIGINAL INPUT LINES STARTS***********************************/		
+		/**************************READ ORIGINAL INPUT LINES STARTS***********************************/	
+		//SET the Input Data File
+		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+				
 		List<InputLine> originalInputLines = new ArrayList<InputLine>();
 		
 		//Read original input data lines in to a list
@@ -2685,6 +2674,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 
 							
 			
+			
 			/*********************************************************************************************/			
 			/**************************ANNOTATE PERMUTATIONS STARTS***************************************/		
 			GlanetRunner.appendLog("Concurrent programming has started.");				
@@ -2701,6 +2691,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			GlanetRunner.appendLog("Concurrent programming has ended.");				
 			/**************************ANNOTATE PERMUTATIONS ENDS*****************************************/
 			/*********************************************************************************************/			
+			
 			
 			
 			/*********************************************************************************************/			
