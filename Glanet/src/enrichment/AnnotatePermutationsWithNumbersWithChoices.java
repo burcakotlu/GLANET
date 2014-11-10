@@ -1955,7 +1955,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
     				tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder,chromName);
     				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);
     				
-    				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,AnnotationType.BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,EnrichmentType.BOTH_DO_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,geneId2ListofKeggPathwayNumberMap,overlapDefinition);
+    				annotateWithNumbers = new AnnotateWithNumbers(outputFolder,chromSize,chromName,permutationNumber2RandomlyGeneratedDataHashMap,runNumber,numberofPermutationsinThisRun,writePermutationBasedandParametricBasedAnnotationResultMode,Commons.ZERO, listofAnnotationTasks.size(),listofAnnotationTasks,tfIntervalTree,ucscRefSeqGenesIntervalTree,AnnotationType.BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION,EnrichmentType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,geneId2ListofKeggPathwayNumberMap,overlapDefinition);
     				allMapsWithNumbers = pool.invoke(annotateWithNumbers);    
       				
     				accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.TF_KEGG_PATHWAY_ANNOTATION);	
@@ -2233,6 +2233,59 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 	
 
 	
+	public static void writeToBeCollectedNumberofOverlapsForUserDefinedLibrary(
+			String outputFolder, 
+			TIntObjectMap<String> elementTypeNumber2ElementTypeMap,
+			TIntIntMap originalElementTypeNumberElementNumber2KMap,
+			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap,
+			String runName){
+		
+		String elementType;
+		int elementTypeNumber;
+		
+		TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMap  = new TIntObjectHashMap<TIntIntMap>();
+		TIntObjectMap<TIntObjectMap<TIntList>> elementTypeNumber2ElementNumber2AllKMap  = new TIntObjectHashMap<TIntObjectMap<TIntList>>();
+		
+		
+		//Initialization
+		for(TIntObjectIterator<String> it = elementTypeNumber2ElementTypeMap.iterator();it.hasNext();){
+			
+			it.advance();
+			
+			elementTypeNumber = it.key();
+			elementType = it.value();
+			
+			elementTypeNumber2ElementNumber2KMap.put(elementTypeNumber, new TIntIntHashMap());
+			
+			//Pay attention
+			//We didn't initialize TIntList
+			elementTypeNumber2ElementNumber2AllKMap.put(elementTypeNumber, new TIntObjectHashMap<TIntList>());
+			
+			
+		}//End of each elementTypeNumber
+		
+		
+		//Fill the first argument using the second argument
+		//Fill elementTypeBased elementNumber2KMap and elementNumber2AllKMap
+		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps(elementTypeNumber2ElementNumber2KMap,originalElementTypeNumberElementNumber2KMap);
+		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps(elementTypeNumber2ElementNumber2AllKMap,elementTypeNumberElementNumber2AllKMap);
+		
+		
+		//For each elementTypeNumber map write
+		for(TIntObjectIterator<TIntIntMap> it= elementTypeNumber2ElementNumber2KMap.iterator();it.hasNext();){
+			it.advance();
+			
+			 elementTypeNumber = it.key();
+			 TIntIntMap elementNumber2KMap = it.value();
+			 
+			 TIntObjectMap<TIntList> elementNumber2AllKMap = elementTypeNumber2ElementNumber2AllKMap.get(elementTypeNumber);
+			 
+			writeToBeCollectedNumberofOverlaps(outputFolder, elementNumber2KMap, elementNumber2AllKMap, Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeNumber + System.getProperty("file.separator"), runName);
+			
+		}//End of each elementTypeNumberMap
+		
+	}
+
 	//TIntIntMap TIntObjectMap<TIntList> version starts
 	public static void writeToBeCollectedNumberofOverlaps(
 			String outputFolder,
@@ -2618,7 +2671,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			elementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
 			
 			
-			UserDefinedLibraryUtility.fillElementTypeNumber2ElementTypeMap(
+			UserDefinedLibraryUtility.fillNumber2NameMap(
 					elementTypeNumber2ElementTypeMap,
 					dataFolder,
 					Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES +  System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"),
@@ -2796,7 +2849,15 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			//UserDefinedLibrary
 			if(userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalElementTypeNumberElementNumber2KMap, elementTypeNumberElementNumber2AllKMap, Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS, runName);
+				
+				writeToBeCollectedNumberofOverlapsForUserDefinedLibrary(
+						outputFolder, 
+						elementTypeNumber2ElementTypeMap, 
+						originalElementTypeNumberElementNumber2KMap,
+						elementTypeNumberElementNumber2AllKMap,
+						runName);
+
+			
 			}
 				
 			if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){

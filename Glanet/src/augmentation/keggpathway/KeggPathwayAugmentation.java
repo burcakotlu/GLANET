@@ -8,6 +8,8 @@
  */
 package augmentation.keggpathway;
 
+import gnu.trove.map.TIntObjectMap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -133,12 +135,11 @@ public class KeggPathwayAugmentation {
 	}
 	
 	
-	//@todo
-	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(Map<Integer,String> keggPathwayNumber2KeggPathwayEntryMap,List<FunctionalElement> list){
+	
+	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(TIntObjectMap<String> keggPathwayNumber2KeggPathwayEntryMap,List<FunctionalElement> list){
 		
 		int keggPathwayNumber;
 		String keggPathwayEntry;
-		
 		
 		for(FunctionalElement element : list){
 			
@@ -146,11 +147,10 @@ public class KeggPathwayAugmentation {
 			keggPathwayEntry = keggPathwayNumber2KeggPathwayEntryMap.get(keggPathwayNumber);
 			
 			element.setKeggPathwayEntry(keggPathwayEntry);
-			
 		}		
 		
 	}
-	//@todo
+	
 	
 	//example hsa05016
 	//augment KeggPathwayEntry with KeggPathwayName

@@ -4,12 +4,19 @@
 package userdefined.library;
 
 import enumtypes.ChromosomeName;
+import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.UserDefinedLibraryDataFormat;
+import gnu.trove.iterator.TIntIntIterator;
+import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
+import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,9 +35,72 @@ import common.Commons;
  */
 public class UserDefinedLibraryUtility {
 	
+	//Fill the first argument using the second argument
+	//Fill target from source
+	public static void fillElementTypeNumberBasedMaps(TIntObjectMap<TIntObjectMap<TIntList>> elementTypeNumber2ElementNumber2AllKMap, TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap){
+		
+		int elementTypeNumberElementNumber;
+		int elementTypeNumber;
+		int elementNumber;
+		TIntList existingAllK;
+		
+		for(TIntObjectIterator<TIntList> it = elementTypeNumberElementNumber2AllKMap.iterator();it.hasNext();){
+			
+			it.advance();
+			
+			elementTypeNumberElementNumber = it.key();
+			existingAllK = it.value();
+			
+			elementTypeNumber = IntervalTree.getElementTypeNumber(elementTypeNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			elementNumber = IntervalTree.getElementNumber(elementTypeNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+		
+			TIntObjectMap<TIntList> elementNumber2AllKMap = elementTypeNumber2ElementNumber2AllKMap.get(elementTypeNumber);
+			
+			//Now we initialize TIntList
+			TIntList allK = new TIntArrayList();
+			
+			//Fill allK
+			for(TIntIterator it2 =existingAllK.iterator(); it2.hasNext();){
+				allK.add(it2.next());
+			}
+			
+			elementNumber2AllKMap.put(elementNumber, allK);
+		}
+	}
 	
-	public static void fillElementTypeNumber2ElementTypeMap(
-			TIntObjectMap<String> elementTypeNumber2ElementTypeMap,
+	
+	//Fill the first argument using the second argument
+	//Fill elementTypeNumber2ElementNumber2KMap using originalElementTypeNumberElementNumber2KMap
+	public static void fillElementTypeNumberBasedMaps(TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMap, TIntIntMap originalElementTypeNumberElementNumber2KMap){
+		
+		int elementTypeNumberElementNumber;
+		int elementTypeNumber;
+		int elementNumber;
+		int numberofOverlaps;
+		
+		//For each elementTypeNumberElementNumber
+		for(TIntIntIterator it = originalElementTypeNumberElementNumber2KMap.iterator();it.hasNext();){
+
+			it.advance();
+			
+			elementTypeNumberElementNumber = it.key();
+			numberofOverlaps = it.value();
+			
+			elementTypeNumber = IntervalTree.getElementTypeNumber(elementTypeNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			elementNumber = IntervalTree.getElementNumber(elementTypeNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			
+			TIntIntMap elementNumber2KMap = elementTypeNumber2ElementNumber2KMap.get(elementTypeNumber);
+			
+			elementNumber2KMap.put(elementNumber, numberofOverlaps);
+		}//End of for each elementTypeNumberElementNumber
+			
+	}
+	
+	
+	
+	
+	public static void fillNumber2NameMap(
+			TIntObjectMap<String> number2NameMap,
 			String		dataFolder,
 			String directoryName,
 			String fileName){
@@ -55,7 +125,7 @@ public class UserDefinedLibraryUtility {
 				elementTypeNumber = Integer.parseInt(strLine.substring(0,indexofFirstTab));
 				elementType = strLine.substring(indexofFirstTab+1);
 				
-				elementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
+				number2NameMap.put(elementTypeNumber, elementType);
 				
 			}
 			

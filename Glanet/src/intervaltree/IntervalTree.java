@@ -2578,6 +2578,49 @@ public class IntervalTree {
 		return elementTypeNumber;
 	}
 	
+	//8 NOV 2014
+	public static int getElementTypeNumber(
+			int elementTypeNumberElementNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+		
+		int elementTypeNumber = Integer.MIN_VALUE;
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementTypeNumber = (int) (elementTypeNumberElementNumber / 1000000);
+				break;
+				
+			default:
+				break;
+				
+		}//End of SWITCH
+		
+		return elementTypeNumber;
+	}
+	
+	//8 NOV 2014 
+	public static int getElementNumber(
+			int elementTypeNumberElementNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+		
+		int elementNumber = Integer.MIN_VALUE;
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementNumber = (int) (elementTypeNumberElementNumber % 1000000);
+				break;
+				
+			default:
+				break;
+				
+		}//End of SWITCH
+		
+		return elementNumber;
+	}
+	
+	
 	
 	//17.OCT.2014
 	//called from convert methods in AnnotatePermutations
@@ -2613,6 +2656,12 @@ public class IntervalTree {
 										
 										
 			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: 
+										{
+											elementNumber = (int) (mixedNumber % 1000000L);
+											break;
+										}
+										
+			case INT_6DIGIT_ELEMENTNUMBER:
 										{
 											elementNumber = (int) (mixedNumber % 1000000L);
 											break;
