@@ -30,6 +30,7 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	
@@ -840,7 +841,22 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	}
 	
 	
-	public static void readTforHistoneNames(String dataFolder,List<String> tfbsorHistoneNames,Map<String,Integer> elementName2ElementNumberMap,Map<Integer,String> elementNumber2ElementNameMap,String tfbsorHistone,Number cellLineNameNumber,List<String> cellLineNames,Map<String,Integer> cellLineName2CellLineNumberMap, Map<Integer,String> cellLineNumber2CellLineNameMap,Number fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
+	public static void readTforHistoneNames(
+			String dataFolder,
+			List<String> tfbsorHistoneNames,
+			Map<String,Integer> elementName2ElementNumberMap,
+			Map<Integer,String> elementNumber2ElementNameMap,
+			TIntObjectMap<String> tfCellLineNumber2TfNameCelllineNameMap,
+			String tfbsorHistone,
+			Number cellLineNameNumber,
+			List<String> cellLineNames,
+			Map<String,Integer> cellLineName2CellLineNumberMap, 
+			Map<Integer,String> cellLineNumber2CellLineNameMap,
+			Number fileNameNumber, 
+			List<String> fileNames,
+			Map<String,Integer> fileName2FileNumberMap, 
+			Map<Integer,String> fileNumber2FileNameMap){
+		
 		List<BufferedReader> bufferedReaderList = new ArrayList<BufferedReader>();
 		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		
@@ -869,8 +885,11 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		String chrNameLowHigh;
 		String tfbsorHistoneName;
 		String cellLineName;
+		String tfbsorHistoneNameCellLineName;
 		String fileName;
 		int elementNumber = 1;
+		
+		int elementCellLineNumber = 1;
 		
 		
 		try {
@@ -896,6 +915,8 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 						cellLineName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 						fileName = strLine.substring(indexofFifthTab+1);
 						
+						tfbsorHistoneNameCellLineName = tfbsorHistoneName + "_" + cellLineName;
+						
 						if(!(tfbsorHistoneNames.contains(tfbsorHistoneName))){
 							tfbsorHistoneNames.add(tfbsorHistoneName);
 							
@@ -913,6 +934,12 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 							cellLineNumber2CellLineNameMap.put(cellLineNameNumber.getNumber(), cellLineName);
 							
 							cellLineNameNumber.setNumber(cellLineNameNumber.getNumber()+1);;
+						}
+						
+						
+						if(!tfCellLineNumber2TfNameCelllineNameMap.containsValue(tfbsorHistoneNameCellLineName)){
+							tfCellLineNumber2TfNameCelllineNameMap.put(elementCellLineNumber, tfbsorHistoneNameCellLineName);
+							elementCellLineNumber++;
 						}
 						
 						if (!(fileNames.contains(fileName))){
@@ -1264,34 +1291,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 							
 	}
 	
-	//todo starts
-	public static void readNames(String dataFolder,List<String> nameList, String inputDirectoryName, String inputFileName){
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;	
-		
-		String strLine;
-		
-		try {
-			
-			fileReader = FileOperations.createFileReader(dataFolder + inputDirectoryName,inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine= bufferedReader.readLine())!=null){
-				if (!nameList.contains(strLine)){
-					nameList.add(strLine);
-				}
-			}//End of While
-		
-			
-			bufferedReader.close();
-			fileReader.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-					
-	}
-	//todo ends
+	
 	
 	public static void writeNames(String dataFolder,TObjectShortMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
 		FileWriter fileWriter = null;
@@ -1499,6 +1499,30 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	}
 	
 	
+	public static void writeMapsInteger2String(String dataFolder, TIntObjectMap<String> elementCellLineNumber2ElementNameCelllineNameMap,String outputDirectoryName, String outputFileName){
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(TIntObjectIterator<String> it = elementCellLineNumber2ElementNameCelllineNameMap.iterator(); it.hasNext();){
+				it.advance();
+				
+				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 	public static void writeMapsInteger2String(String dataFolder,Map<Integer,String> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName){
 		
 		FileWriter fileWriter = null;
@@ -1536,12 +1560,16 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		List<String> tfNames = new ArrayList<String>();
 		Map<String,Integer> tfName2TfNumberMap = new HashMap<String,Integer>();
 		Map<Integer,String> tfNumber2TfNameMap = new HashMap<Integer,String>();
+		
+		TIntObjectMap<String> tfCellLineNumber2TfNameCelllineNameMap = new TIntObjectHashMap<String>();
 
-		readTforHistoneNames(dataFolder,tfNames, tfName2TfNumberMap, tfNumber2TfNameMap,Commons.TF,cellLineNameNumber,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
+		readTforHistoneNames(dataFolder,tfNames, tfName2TfNumberMap, tfNumber2TfNameMap,tfCellLineNumber2TfNameCelllineNameMap,Commons.TF,cellLineNameNumber,cellLineNames,cellLineName2CellLineNumberMap,cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
 		writeNames(dataFolder,tfNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME);		
 		writeMapsString2Integer(dataFolder,tfName2TfNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNAME_2_TFNUMBER_OUTPUT_FILENAME);
 		writeMapsInteger2String(dataFolder,tfNumber2TfNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
 	
+		writeMapsInteger2String(dataFolder,tfCellLineNumber2TfNameCelllineNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME);
+
 	}
 
 	public static void writeAllPossibleEncodeHistoneNames(String dataFolder,Number cellLineNameNumber, List<String> cellLineNames, Map<String,Integer> cellLineName2CellLineNumberMap,  Map<Integer,String>  cellLineNumber2CellLineNameMap,Number fileNameNumber, List<String> fileNames,Map<String,Integer> fileName2FileNumberMap, Map<Integer,String> fileNumber2FileNameMap){
@@ -1550,10 +1578,14 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 		Map<String,Integer> histoneName2HistoneNumberMap = new HashMap<String,Integer>();
 		Map<Integer,String> histoneNumber2HistoneNameMap = new HashMap<Integer,String>();
 
-		readTforHistoneNames(dataFolder,histoneNames,histoneName2HistoneNumberMap,histoneNumber2HistoneNameMap,Commons.HISTONE, cellLineNameNumber, cellLineNames, cellLineName2CellLineNumberMap, cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
+		TIntObjectMap<String> histoneCellLineNumber2HistoneNameCelllineNameMap = new TIntObjectHashMap<String>();
+
+		readTforHistoneNames(dataFolder,histoneNames,histoneName2HistoneNumberMap,histoneNumber2HistoneNameMap,histoneCellLineNumber2HistoneNameCelllineNameMap,Commons.HISTONE, cellLineNameNumber, cellLineNames, cellLineName2CellLineNumberMap, cellLineNumber2CellLineNameMap,fileNameNumber, fileNames,fileName2FileNumberMap, fileNumber2FileNameMap);
 		writeNames(dataFolder,histoneNames,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME);		
 		writeMapsString2Integer(dataFolder,histoneName2HistoneNumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENAME_2_HISTONENUMBER_OUTPUT_FILENAME);
 		writeMapsInteger2String(dataFolder,histoneNumber2HistoneNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);
+
+		writeMapsInteger2String(dataFolder,histoneCellLineNumber2HistoneNameCelllineNameMap,Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_CELLLINENUMBER_2_HISTONENAME_CELLLINENAME_OUTPUT_FILENAME);
 
 	}
 	

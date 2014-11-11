@@ -32,8 +32,9 @@ import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.NumberofComparisons;
-import auxiliary.NumberofComparisonsforBonferroniCorrectionCalculation;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.EnrichmentType;
@@ -2598,17 +2599,6 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 	
 		
 		
-		/*********************************************************************************************/			
-		/**********GET NUMBER OF COMPARISONS FOR BONFERRONI CORRECTION STARTS*************************/		
-		//For Bonferroni Correction 
-		//Set the number of comparisons for DNase, Tfbs, Histone
-		//Set the number of comparisons for ExonBasedKeggPathway, RegulationBasedKeggPathway, AllBasedKeggPathway
-		//Set the number of comparisons for TfCellLineExonBasedKeggPathway, TfCellLineRegulationBasedKeggPathway, TfCellLineAllBasedKeggPathway
-		//Set the number of comparisons for TfExonBasedKeggPathway, TfRegulationBasedKeggPathway, TfAllBasedKeggPathway
-		NumberofComparisons  numberofComparisons = new NumberofComparisons();
-		NumberofComparisonsforBonferroniCorrectionCalculation.getNumberofComparisonsforBonferroniCorrection(dataFolder,numberofComparisons);
-		/**********GET NUMBER OF COMPARISONS FOR BONFERRONI CORRECTION ENDS***************************/		
-		/*********************************************************************************************/			
 		
 		
 		/*********************************************************************************************/			
