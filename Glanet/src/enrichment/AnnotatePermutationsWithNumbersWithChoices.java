@@ -2279,9 +2279,11 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			 elementTypeNumber = it.key();
 			 TIntIntMap elementNumber2KMap = it.value();
 			 
+			 elementType = elementTypeNumber2ElementTypeMap.get(elementTypeNumber);
+			 
 			 TIntObjectMap<TIntList> elementNumber2AllKMap = elementTypeNumber2ElementNumber2AllKMap.get(elementTypeNumber);
 			 
-			writeToBeCollectedNumberofOverlaps(outputFolder, elementNumber2KMap, elementNumber2AllKMap, Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeNumber + System.getProperty("file.separator"), runName);
+			writeToBeCollectedNumberofOverlaps(outputFolder, elementNumber2KMap, elementNumber2AllKMap, Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementType + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY, runName);
 			
 		}//End of each elementTypeNumberMap
 		
@@ -2699,7 +2701,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			
 			GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
 			
-			runName = jobName + "_" +runNumber;
+			runName = jobName + "_" + Commons.RUN + runNumber;
 			
 			/*********************************************************************************************/		
 			/**********************INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA STARTS***************/		

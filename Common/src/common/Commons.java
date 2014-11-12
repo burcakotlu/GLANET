@@ -887,36 +887,66 @@ public class Commons {
 	//Results to be Collected
 	public static final String ENRICHMENT_DIRECTORY 	=  Commons.ENRICHMENT + System.getProperty("file.separator");
 	
-	public static final String ALL 						= "_all";
 	
-	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE 	= Commons.ALL + "_wrt_BH_FDR_adjusted_pValue.txt";
-	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE 	= Commons.ALL + "_wrt_Bonf_corrected_pValue.txt";
+	public static final String RUN	= "run";
+	public static final String RUNS_DIRECTORY 	= "runs" + System.getProperty("file.separator");
+		
+	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE 	=  "_wrt_BH_FDR_adjusted_pValue.txt";
+	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE 	=  "_wrt_Bonf_corrected_pValue.txt";
 	
 	//Enrichment Results starts
-	public static final String TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.DNASE + System.getProperty("file.separator") +  Commons.DNASE ;
-	public static final String TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.HISTONE + System.getProperty("file.separator") + Commons.HISTONE;
-	public static final String TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS		= ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + Commons.TF;
-
+	public static final String TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.DNASE + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.DNASE ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE 	= ENRICHMENT_DIRECTORY + Commons.DNASE + System.getProperty("file.separator")  + Commons.DNASE ;
+	
+	
+	public static final String TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.HISTONE + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.HISTONE;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE 	= ENRICHMENT_DIRECTORY + Commons.HISTONE + System.getProperty("file.separator") + Commons.HISTONE;
+	
+	public static final String TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS		= ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + RUNS_DIRECTORY+  Commons.TF;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF 	= ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + Commons.TF;
+	
 	//Use these constants in Enrichment and AugmentationofEnrichedElementswithGivenInputData
 	public static final String ENRICHMENT_USERDEFINED_GENESET_COMMON = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + "_"; 			
+
+	//starts
+	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET ;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator")  + Commons.EXON_BASED_USER_DEFINED_GENESET ;
+
+	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
 	
-	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET ;
-	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET ;
-	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET;
-		
+	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED  +  System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET = System.getProperty("file.separator") + Commons.ALL_BASED  +  System.getProperty("file.separator")  + Commons.ALL_BASED_USER_DEFINED_GENESET;
+	//ends
+	
 	public static final String TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS =   ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator");
 	
-	public static final String TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_KEGG_PATHWAY;
+	public static final String TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator")  + Commons.EXON_BASED_KEGG_PATHWAY ;
 	
-	public static final String TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY  + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY;
-	public static final String TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_ALL_BASED_KEGG_PATHWAY ;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY = ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_KEGG_PATHWAY ;
 	
-	public static final String TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY ;
-	public static final String TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY;
+	public static final String TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + RUNS_DIRECTORY +  Commons.ALL_BASED_KEGG_PATHWAY;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY 		= ENRICHMENT_DIRECTORY + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") +  Commons.ALL_BASED_KEGG_PATHWAY;
+	
+	public static final String TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY  + System.getProperty("file.separator") + RUNS_DIRECTORY +Commons.TF_EXON_BASED_KEGG_PATHWAY;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_EXON_BASED_KEGG_PATHWAY		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY  + System.getProperty("file.separator")  +Commons.TF_EXON_BASED_KEGG_PATHWAY;
+	
+	public static final String TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 	= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + RUNS_DIRECTORY +  Commons.TF_REGULATION_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY 	= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator")  +  Commons.TF_REGULATION_BASED_KEGG_PATHWAY ;
+	
+	public static final String TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + RUNS_DIRECTORY+  Commons.TF_ALL_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_ALL_BASED_KEGG_PATHWAY 		= ENRICHMENT_DIRECTORY + Commons.TF_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") +  Commons.TF_ALL_BASED_KEGG_PATHWAY ;
+	
+	public static final String TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY ;
+	
+	public static final String TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY ;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY = ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY ;
+	
+	public static final String TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY 		= ENRICHMENT_DIRECTORY + Commons.TF_CELLLINE_KEGGPATHWAY + System.getProperty("file.separator") + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY;
 	//Enrichment Results ends
 	
 	
