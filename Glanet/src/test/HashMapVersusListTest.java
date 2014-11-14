@@ -107,7 +107,7 @@ public class HashMapVersusListTest {
 				if (bufferedWriter == null){
 					FileWriter fileWriter;
 					
-					fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
+					fileWriter = new FileWriter(Commons.NCBI_RNA_ANNOTATION_DIRECTORY +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
 					
 					bufferedWriter = new BufferedWriter(fileWriter);
 					listwithString.add(new StringandBufferedWriter(String.valueOf(ncbiRnaList.get(i)), bufferedWriter));							
@@ -126,7 +126,7 @@ public class HashMapVersusListTest {
 				if (bufferedWriter == null){
 					FileWriter fileWriter;
 					
-					fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
+					fileWriter = new FileWriter(Commons.NCBI_RNA_ANNOTATION_DIRECTORY +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
 					
 					bufferedWriter = new BufferedWriter(fileWriter);
 					listwithCharArray.add(new CharArrayandBufferedWriter(ncbiRnaList.get(i), bufferedWriter));							
@@ -145,7 +145,7 @@ public class HashMapVersusListTest {
 				if (bufferedWriter == null){
 					FileWriter fileWriter;
 					
-					fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
+					fileWriter = new FileWriter(Commons.NCBI_RNA_ANNOTATION_DIRECTORY +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
 					
 					bufferedWriter = new BufferedWriter(fileWriter);
 					mapwithString.put(ncbiRnaList.get(i), bufferedWriter);							
@@ -166,7 +166,7 @@ public class HashMapVersusListTest {
 				if (bufferedWriter == null){
 					FileWriter fileWriter;
 					
-					fileWriter = new FileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
+					fileWriter = new FileWriter(Commons.NCBI_RNA_ANNOTATION_DIRECTORY +"_" + String.valueOf(ncbiRnaList.get(i)) + ".txt");
 					
 					bufferedWriter = new BufferedWriter(fileWriter);
 					mapwithCharArray.put(ncbiRnaList.get(i), bufferedWriter);							

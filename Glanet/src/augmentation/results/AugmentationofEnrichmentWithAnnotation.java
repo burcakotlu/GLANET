@@ -29,12 +29,12 @@ import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
-public class AugmentationofEnrichedElementswithGivenInputData {
+public class AugmentationofEnrichmentWithAnnotation {
 
 	/**
 	 * 
 	 */
-	public AugmentationofEnrichedElementswithGivenInputData() {
+	public AugmentationofEnrichmentWithAnnotation() {
 	}
 	
 	//Read C:\Users\burcakotlu\GLANET\Output\Doktora\empiricalpvalues\toBeCollected\Histone
@@ -140,7 +140,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				
 				bufferedWriter.write("**************" + "\t" + histoneElementName + "\t" + "**************" +  System.getProperty("line.separator"));
 												
-					histoneOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE + "_" + histoneElementName + ".txt");						
+					histoneOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + histoneElementName + ".txt");						
 					histoneOriginalOverlapsBufferedReader = new BufferedReader(histoneOriginalOverlapsFileReader);
 							
 					//Get all the lines of the original data annotation for the enriched Histone elements 
@@ -312,7 +312,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				
 				bufferedWriter.write("**************" + "\t" + elementName + "\t" + "**************" +  System.getProperty("line.separator"));
 												
-				userDefinedLibraryAnnotationFileReader = FileOperations.createFileReader(outputFolder + Commons.ANNOTATION_USERDEFINEDLIBRARY + userDefinedLibraryElementType + System.getProperty("file.separator")+ "_" + elementName + ".txt");						
+				userDefinedLibraryAnnotationFileReader = FileOperations.createFileReader(outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + userDefinedLibraryElementType + System.getProperty("file.separator") + elementName + ".txt");						
 				userDefinedLibraryAnnotationBufferedReader = new BufferedReader(userDefinedLibraryAnnotationFileReader);
 							
 					//Get all the lines of the original data annotation for the enriched UserDefinedLibrary
@@ -485,7 +485,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				
 				bufferedWriter.write("**************" + "\t" + dnaseName + "\t" + "**************" +  System.getProperty("line.separator"));
 												
-					dnaseOriginalOverlapFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE + "_" + dnaseName + ".txt");						
+					dnaseOriginalOverlapFileReader = new FileReader(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY  + dnaseName + ".txt");						
 					dnaseOriginalOverlapBufferedReader = new BufferedReader(dnaseOriginalOverlapFileReader);
 							
 					//Get all the lines of the original data annotation for the enriched Dnase
@@ -699,11 +699,11 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					tfName_keggPathwayName = strLine.substring(0,indexofFirstTab);
 					
 					if(Commons.TF_EXON_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
+						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfName_keggPathwayName + ".txt");						
 					}else if (Commons.TF_REGULATION_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");						
+						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION  + tfName_keggPathwayName + ".txt");						
 					}else if (Commons.TF_ALL_BASED_KEGG_PATHWAY.equals(type)){
-						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY + "_" + tfName_keggPathwayName + ".txt");					
+						tfandKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfName_keggPathwayName + ".txt");					
 					}
 					
 					tfandKeggPathwayOriginalOverlapsBufferedReader = new BufferedReader(tfandKeggPathwayOriginalOverlapsFileReader);
@@ -935,13 +935,13 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 					
 					//Get the original data annotation results
 					if(Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}else if (Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION  + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}else if (Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY.equals(type)){
-						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY + "_" + tfName_cellLineName_keggPathwayName + ".txt");
+						tfCellLineKeggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfName_cellLineName_keggPathwayName + ".txt");
 						
 					}
 					
@@ -1154,29 +1154,29 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				//KEGG PATHWAY
 				if (type.equals(Commons.EXON_BASED_KEGG_PATHWAY)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.EXON_BASED_KEGG_PATHWAY_ANNOTATION + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_KEGG_PATHWAY)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_KEGG_PATHWAY)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");						
 				}
 				
 				//USERDEFINED GENESET
 				else if (type.equals(Commons.EXON_BASED_USER_DEFINED_GENESET)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_EXONBASED_USERDEFINED_GENESET  + "_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXONBASED_USERDEFINED_GENESET_ANNOTATION  + "_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.REGULATION_BASED_USER_DEFINED_GENESET)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_REGULATIONBASED_USERDEFINED_GENESET  +"_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.REGULATIONBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
 					
 				}else if (type.equals(Commons.ALL_BASED_USER_DEFINED_GENESET)){
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.AUGMENTATION_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + Commons.AUGMENTATION_ALLBASED_USERDEFINED_GENESET  +"_" + keggPathwayName + ".txt");						
+					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.ALLBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
 				}
 				
 				keggPathwayOriginalOverlapsBufferedReader = new BufferedReader(keggPathwayOriginalOverlapsFileReader);
@@ -1351,7 +1351,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 				
 				bufferedWriter.write("**************" + "\t" + tfElementName + "\t" + "**************" +  System.getProperty("line.separator"));
 												
-					tfOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS + "_" + tfElementName + ".txt");						
+					tfOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.TF_ANNOTATION_DIRECTORY  + tfElementName + ".txt");						
 					tfOriginalOverlapsBufferedReader = new BufferedReader(tfOriginalOverlapsFileReader);
 							
 					//Get all the lines of the original data annotation for the enriched Tf elements
@@ -1458,8 +1458,8 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		 /******************************************************************************/
 		 /*********************HISTONE starts*******************************************/
 		if (histoneEnrichment.isHistoneEnrichment()){
-		 }			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-
+		 			 readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
+		}
 		 /*********************HISTONE ends*********************************************/
 		 /******************************************************************************/
 		
@@ -1481,9 +1481,9 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		 /*********************USER DEFINED GENESET starts******************************/
 		 if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
 			 
-			final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
-			final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
-			final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+			final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+			final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+			final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
 	
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName,Commons.AUGMENTED_EXON_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.EXON_BASED_USER_DEFINED_GENESET,userDefinedGeneSetName);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" +jobName + withRespectToFileName,Commons.AUGMENTED_REGULATION_BASED_USERDEFINED_GENESET_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.REGULATION_BASED_USER_DEFINED_GENESET,userDefinedGeneSetName);
@@ -1745,7 +1745,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_DIRECTORY);
 		//delete old files ends
 					
-		AugmentationofEnrichedElementswithGivenInputData.readandWriteFiles(outputFolder,dataFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,userDefinedGeneSetEnrichmentType,userDefinedGeneSetName,userDefinedLibraryEnrichmentType,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		AugmentationofEnrichmentWithAnnotation.readandWriteFiles(outputFolder,dataFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,userDefinedGeneSetEnrichmentType,userDefinedGeneSetName,userDefinedLibraryEnrichmentType,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 		
 
 	}

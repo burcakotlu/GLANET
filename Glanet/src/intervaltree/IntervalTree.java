@@ -1302,6 +1302,7 @@ public class IntervalTree {
 	}
 	
 	//Annotation 
+	//HISTONE
 	//With Numbers
 	//Search2 For finding the number of each histoneNameandCellLineName: k for the given search input size: n
 	//For each search input line, each histoneNameandCellLineName will have value 1 or 0
@@ -1337,7 +1338,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(histoneNumberCellLineNumber);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE +"_" + histoneName + "_" + cellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + histoneName + "_" + cellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(histoneNumberCellLineNumber,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t"  + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t"  + "node Low" + "\t" + "node high" + "\t" + "node HistoneName" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -1394,7 +1395,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(histoneNameandCellLine);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HISTONE +"_" + histoneNameandCellLine + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY +"_" + histoneNameandCellLine + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(histoneNameandCellLine,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t"  + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t"  + "node Low" + "\t" + "node high" + "\t" + "node Histone Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -1844,7 +1845,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 					
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt");
+						fileWriter = FileOperations.createFileWriter(Commons.TF_ANNOTATION_DIRECTORY  + tfbsNameandCellLineName + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(tfbsNameandCellLineName,bufferedWriter);
 					}
@@ -2021,7 +2022,7 @@ public class IntervalTree {
 				bufferedWriter = userDefinedLibraryBufferedWriterHashMap.get(elementNumber);
 													
 				if (bufferedWriter==null){						
-					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION_USERDEFINEDLIBRARY + elementType + System.getProperty("file.separator") +   "_" + elementNumber2ElementNameMap.get(elementNumber) + ".txt",true);
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + elementType + System.getProperty("file.separator") + elementNumber2ElementNameMap.get(elementNumber) + ".txt",true);
 					bufferedWriter = new BufferedWriter(fileWriter);
 					userDefinedLibraryBufferedWriterHashMap.put(elementNumber,bufferedWriter);
 					bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "UserDefinedLibraryNode ChromName"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Element Name" + "\t"  + "node FileName" +System.getProperty("line.separator"));
@@ -2055,7 +2056,8 @@ public class IntervalTree {
 
 
 
-	//Annotation with Numbers starts
+	//Annotation 
+	//TF with Numbers starts
 	public void findAllOverlappingTfbsIntervalsWithNumbers(String outputFolder,IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntShortMap tfNumberCellLineNumber2ZeroorOneMap,int overlapDefinition,TShortObjectMap<String> tfNumber2TfNameMap,TShortObjectMap<String> cellLineNumber2CellLineNameMap,TShortObjectMap<String> fileNumber2FileNameMap){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -2076,7 +2078,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(elementNumberCellLineNumber);
 														
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(elementNumberCellLineNumber,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -2129,7 +2131,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(elementNumberCellLineNumber);
 														
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ANNOTATION_DIRECTORY  + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(elementNumberCellLineNumber,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -2184,7 +2186,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 														
 					if (bufferedWriter==null){						
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TFBS +"_" + tfbsNameandCellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfbsNameandCellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(tfbsNameandCellLineName,bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" +"\t" + "tfbs node Chrom Name"+ "\t"  + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -3073,6 +3075,7 @@ public class IntervalTree {
 
 	
 	//Annotation 
+	//DNASE
 	//with Numbers
 	//Search2 For finding the number of each dnase cell line:k for the given search input size: n
 	//For each search input line, each dnase cell line will have value 1 or 0
@@ -3101,7 +3104,7 @@ public class IntervalTree {
 					bufferedWriter = (BufferedWriter)dnaseCellLineNumber2bufferedWriterHashMap.get(castedNode.getCellLineNumber());
 					
 					if (bufferedWriter==null){
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + cellLineName + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt",true);
 						bufferedWriter = new BufferedWriter(fileWriter);
 						dnaseCellLineNumber2bufferedWriterHashMap.put(castedNode.getCellLineNumber(),bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "given interval low" + "\t" + 	"given interval high"+ "\t" + "dnase overlap chrom name" + "\t"  + "node low" + "\t" + "node high" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));												
@@ -3155,7 +3158,7 @@ public class IntervalTree {
 					bufferedWriter = bufferedWriterHashMap.get(castedNode.getCellLineName());
 					
 					if (bufferedWriter==null){
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE +"_" + castedNode.getCellLineName() + ".txt");
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY +"_" + castedNode.getCellLineName() + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(castedNode.getCellLineName(),bufferedWriter);
 						bufferedWriter.write("Searched for chr" + "\t" + "given interval low" + "\t" + 	"given interval high"+ "\t" + "dnase overlap chrom name" + "\t"  + "node low" + "\t" + "node high" + "\t" + "node CellLineName" + "\t" + "node FileName" +System.getProperty("line.separator"));
@@ -4672,7 +4675,7 @@ public class IntervalTree {
 
 	//NEW FUNCIONALITY
 		
-		
+	//Annotation	
 	//hg19 refseq Gene Annotation with numbers starts
 	//Implemented for Chen Yao Paper
 	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
@@ -4704,7 +4707,7 @@ public class IntervalTree {
 					
 					try {
 							if (bufferedWriter == null){
-								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_HG19_REFSEQ_GENE +"_" + Commons.HG19_REFSEQ_GENE + ".txt",true);
+								fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY  + Commons.HG19_REFSEQ_GENE + ".txt",true);
 								bufferedWriter = new BufferedWriter(fileWriter);
 								bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
 								bufferedWriter.flush();
@@ -4786,7 +4789,7 @@ public class IntervalTree {
 									bufferedWriter = exonBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);										
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 																				
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
@@ -4824,7 +4827,7 @@ public class IntervalTree {
 									bufferedWriter = regulationBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										regulationBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4854,7 +4857,7 @@ public class IntervalTree {
 								bufferedWriter = allBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 																
 								if (bufferedWriter==null){
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									allBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 									bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4890,7 +4893,8 @@ public class IntervalTree {
 		
 		
 		
-	//@todo for Annotation with Numbers with OverlapList starts
+	//Annotation 
+	//with Numbers with OverlapList starts
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 			String outputFolder,
 			IntervalTreeNode node, 
@@ -4944,7 +4948,7 @@ public class IntervalTree {
 									bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayNumber);										
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.EXON_BASED_KEGG_PATHWAY_ANNOTATION +"_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4983,7 +4987,7 @@ public class IntervalTree {
 									bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayNumber);
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_ANNOTATION +"_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										regulationBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -5017,7 +5021,7 @@ public class IntervalTree {
 								
 								
 								if (bufferedWriter==null){
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 									bufferedWriter = new BufferedWriter(fileWriter);
 									allBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayNumber, bufferedWriter);
 									bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -5051,9 +5055,10 @@ public class IntervalTree {
 			}
 	}
 	//New Functionality ends	
-	//@todo for Annotation with Numbers with OverlapList ends	
+	//Annotation with Numbers with OverlapList ends	
 		
 		
+	//Is it used?
 	//New Functionality starts
 	//Search2 Kegg Pathway
 	//Search for TF
@@ -5095,7 +5100,7 @@ public class IntervalTree {
 										bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);										
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt",true);
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.EXON_BASED_KEGG_PATHWAY_ANNOTATION +"_exonBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											exonBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -5139,7 +5144,7 @@ public class IntervalTree {
 										bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt",true);
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_ANNOTATION +"_regulationBased_" + keggPathwayName + ".txt",true);
 											bufferedWriter = new BufferedWriter(fileWriter);
 											regulationBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -5178,7 +5183,7 @@ public class IntervalTree {
 									
 									
 									if (bufferedWriter==null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt",true);
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_allBased_" + keggPathwayName + ".txt",true);
 										bufferedWriter = new BufferedWriter(fileWriter);
 										allBasedKeggPathwayBufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -5218,7 +5223,7 @@ public class IntervalTree {
 	//New Functionality ends	
 	//Search2 Kegg Pathway	
 	
-	
+	//Is it used?
 	//Search2 KeggPathway
 	//For finding the number of each keggpathway:k for the given search input size: n
 	//For each search input line, each kegg pathway will have a value of 1 or 0
@@ -5259,7 +5264,7 @@ public class IntervalTree {
 											bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 											
 											if (bufferedWriter == null){
-												fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS +"_exonBased_" + keggPathwayName + ".txt");
+												fileWriter = FileOperations.createFileWriter(Commons.EXON_BASED_KEGG_PATHWAY_ANNOTATION +"_exonBased_" + keggPathwayName + ".txt");
 												bufferedWriter = new BufferedWriter(fileWriter);
 												bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 												
@@ -5299,7 +5304,7 @@ public class IntervalTree {
 											bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 											
 											if (bufferedWriter == null){
-												fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS +"_regulationBased_" + keggPathwayName + ".txt");
+												fileWriter = FileOperations.createFileWriter(Commons.REGULATION_BASED_KEGG_PATHWAY_ANNOTATION +"_regulationBased_" + keggPathwayName + ".txt");
 												bufferedWriter = new BufferedWriter(fileWriter);
 												bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 												
@@ -5332,7 +5337,7 @@ public class IntervalTree {
 										bufferedWriter = bufferedWriterHashMap.get(keggPathwayName);
 										
 										if (bufferedWriter == null){
-											fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_all_" + keggPathwayName + ".txt");
+											fileWriter = FileOperations.createFileWriter(Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS +"_all_" + keggPathwayName + ".txt");
 											bufferedWriter = new BufferedWriter(fileWriter);
 											bufferedWriterHashMap.put(keggPathwayName, bufferedWriter);
 											
@@ -5395,7 +5400,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 					count =  nameorIdHashMap.get(castedNode.getGeneEntrezId().toString());
 					
 					if (bufferedWriter == null){
-						fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_GENE_ID +"_" +String.valueOf(castedNode.getGeneEntrezId()) + ".txt");
+						fileWriter = FileOperations.createFileWriter(Commons.NCBI_GENE_ID_ANNOTATION_DIRECTORY +"_" +String.valueOf(castedNode.getGeneEntrezId()) + ".txt");
 						bufferedWriter = new BufferedWriter(fileWriter);
 						bufferedWriterHashMap.put(castedNode.getGeneEntrezId().toString(), bufferedWriter);
 					
@@ -5416,7 +5421,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 						count =  nameorIdHashMap.get(castedNode.getRefSeqGeneName());
 						
 						if (bufferedWriter == null){
-							fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_NCBI_RNA +"_" + castedNode.getRefSeqGeneName() + ".txt");
+							fileWriter = FileOperations.createFileWriter(Commons.NCBI_RNA_ANNOTATION_DIRECTORY +"_" + castedNode.getRefSeqGeneName() + ".txt");
 							bufferedWriter = new BufferedWriter(fileWriter);
 							bufferedWriterHashMap.put(castedNode.getRefSeqGeneName(), bufferedWriter);							
 						}
@@ -5435,7 +5440,7 @@ public void findAllOverlappingUcscRefSeqGenesIntervals(IntervalTreeNode node, In
 						count =  nameorIdHashMap.get(castedNode.getGeneHugoSymbol());
 						
 						if (bufferedWriter == null){
-							fileWriter = FileOperations.createFileWriter(Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_UCSC_GENE_ALTERNATE_NAME +"_" + castedNode.getGeneHugoSymbol() + ".txt");
+							fileWriter = FileOperations.createFileWriter(Commons.UCSC_GENE_ALTERNATE_NAME_ANNOTATION_DIRECTORY +"_" + castedNode.getGeneHugoSymbol() + ".txt");
 							bufferedWriter = new BufferedWriter(fileWriter);
 							bufferedWriterHashMap.put(castedNode.getGeneHugoSymbol(), bufferedWriter);							
 						}

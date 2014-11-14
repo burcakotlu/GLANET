@@ -407,7 +407,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//Dnase		
-		fillHashMapwithOccurences(dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_DNASE);
+		fillHashMapwithOccurences(dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_DNASE);
 		fillHashMapwithOccurences(dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder,Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison
@@ -429,7 +429,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//Tfbs
-		fillHashMapwithOccurences(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
+		fillHashMapwithOccurences(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_TF);
 		fillHashMapwithOccurences(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder,Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison
@@ -452,7 +452,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//histone
-		fillHashMapwithOccurences(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_HISTONE);
+		fillHashMapwithOccurences(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_HISTONE);
 		fillHashMapwithOccurences(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder,Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison
@@ -475,7 +475,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//exon based kegg pathway
-		fillHashMapwithOccurences(exonBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
+		fillHashMapwithOccurences(exonBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
 		fillHashMapwithOccurences(exonBasedKeggPathwayWholeGenomeMap, outputFolder,Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison
@@ -497,7 +497,7 @@ public class CalculateBinomialDistributions {
 		
 		/*---------------------------------------------------------*/	
 		//regulation based kegg pathway
-		fillHashMapwithOccurences(regulationBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
+		fillHashMapwithOccurences(regulationBasedKeggPathwaySearchInputMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
 		fillHashMapwithOccurences(regulationBasedKeggPathwayWholeGenomeMap, outputFolder,Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 		
 		//set number of comparison

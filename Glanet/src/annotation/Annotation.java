@@ -63,9 +63,7 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import create.ChromosomeBasedFilesandOperations;
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
@@ -83,9 +81,9 @@ import enumtypes.NodeType;
 import enumtypes.UserDefinedLibraryDataFormat;
 
 /**
- * 
+ * Annotate given intervals with annotation options with numbers
  */
-public class AnnotateGivenIntervalsWithNumbersWithChoices {
+public class Annotation {
 
 	//Empirical P value Calculation
 	//For Thread Version for 
@@ -2753,7 +2751,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											
 											//first open
 											if (bufferedWriter==null){																
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber)  + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber)  + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberExonBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -2791,7 +2789,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											
 											
 											if (bufferedWriter==null){						
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -2830,7 +2828,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											
 											
 											if (bufferedWriter==null){						
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3148,7 +3146,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											
 													
 											if (bufferedWriter==null){
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber)  + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber)  + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberCellLineNumberExonBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3187,7 +3185,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											
 											//first open	
 											if (bufferedWriter==null){
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberCellLineNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3225,7 +3223,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 											bufferedWriter = tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.get(tfNumberCellLineNumberKeggPathwayNumber);
 																
 											if (bufferedWriter==null){		
-												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+												fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 												bufferedWriter = new BufferedWriter(fileWriter);
 												tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter);
 												bufferedWriter.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3564,7 +3562,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 												
 										if (bufferedWriter1==null){
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber)  + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber)  + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfNumberCellLineNumberExonBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3583,7 +3581,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										//first open
 										if (bufferedWriter2==null){																
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber)  + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber)  + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfNumberExonBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3623,7 +3621,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										//first open	
 										if (bufferedWriter1==null){
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION  + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfNumberCellLineNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3641,7 +3639,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										
 										if (bufferedWriter2==null){						
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3681,7 +3679,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										bufferedWriter1 = tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.get(tfNumberCellLineNumberKeggPathwayNumber);
 															
 										if (bufferedWriter1==null){		
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberCellLineNumberKeggPathwayNumber,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3699,7 +3697,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										
 										if (bufferedWriter2==null){						
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY +"_" + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get(tfNumber) + "_" +keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfNumberAllBasedKeggPathwayNumberBufferedWriterHashMap.put(tfNumberKeggPathwayNumber,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -3870,6 +3868,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 	}
 	//@todo Annotation with Numbers ends
 	
+	//Is it used?
 	//New Functionality
 	//TF and Kegg Pathway
 	//TF and CellLine and KeggPathway
@@ -4083,7 +4082,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 												
 										if (bufferedWriter1==null){
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY +"_" + tfNameCellLineNameKeggPathwayName + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNameCellLineNameKeggPathwayName + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfCellLineExonBasedKeggPathwayBufferedWriterHashMap.put(tfNameCellLineNameKeggPathwayName,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -4102,7 +4101,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										//first open
 										if (bufferedWriter2==null){																
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_EXON_BASED_KEGG_PATHWAY +"_" + tfNameKeggPathwayName + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION  + tfNameKeggPathwayName + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfExonBasedKeggPathwayBufferedWriterHashMap.put(tfNameKeggPathwayName,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -4142,7 +4141,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										//first open	
 										if (bufferedWriter1==null){
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNameCellLineNameKeggPathwayName + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION  + tfNameCellLineNameKeggPathwayName + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap.put(tfNameCellLineNameKeggPathwayName,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -4160,7 +4159,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										
 										if (bufferedWriter2==null){						
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_REGULATION_BASED_KEGG_PATHWAY +"_" + tfNameKeggPathwayName + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNameKeggPathwayName + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfRegulationBasedKeggPathwayBufferedWriterHashMap.put(tfNameKeggPathwayName,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -4201,7 +4200,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										bufferedWriter1 = tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.get(tfNameCellLineNameKeggPathwayName);
 															
 										if (bufferedWriter1==null){		
-											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY +"_" + tfNameCellLineNameKeggPathwayName + ".txt",true);
+											fileWriter1 = FileOperations.createFileWriter(outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfNameCellLineNameKeggPathwayName + ".txt",true);
 											bufferedWriter1 = new BufferedWriter(fileWriter1);
 											tfCellLineAllBasedKeggPathwayBufferedWriterHashMap.put(tfNameCellLineNameKeggPathwayName,bufferedWriter1);
 											bufferedWriter1.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -4219,7 +4218,7 @@ public class AnnotateGivenIntervalsWithNumbersWithChoices {
 										
 										
 										if (bufferedWriter2==null){						
-											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_TF_ALL_BASED_KEGG_PATHWAY +"_" + tfNameKeggPathwayName + ".txt",true);
+											fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION  + tfNameKeggPathwayName + ".txt",true);
 											bufferedWriter2 = new BufferedWriter(fileWriter2);
 											tfAllBasedKeggPathwayBufferedWriterHashMap.put(tfNameKeggPathwayName,bufferedWriter2);
 											bufferedWriter2.write("Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" +"\t" + "tfbs"  + "\t"  + "tfbs low" + "\t" + "tfbs high"  + "\t" + 	"refseq gene name" + "\t"  + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high"  + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id"+ "\t" + "keggPathwayName" + System.getProperty("line.separator"));
@@ -11880,7 +11879,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    dateBefore = System.currentTimeMillis();
 		    
 			searchDnaseWithNumbers(dataFolder,outputFolder,dnaseCellLineNumber2KMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(dnaseCellLineNumber2KMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_DNASE);
+			writeResultsWithNumbers(dnaseCellLineNumber2KMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_FOR_DNASE);
 			
 	
 			
@@ -11910,7 +11909,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    
 		    dateBefore = System.currentTimeMillis();
 		   	searchHistoneWithNumbers(dataFolder,outputFolder,histoneNumberCellLineNumber2KMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_HISTONE);
+			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_FOR_HISTONE);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
@@ -11938,7 +11937,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    
 		    dateBefore = System.currentTimeMillis();
 			searchTranscriptionFactorWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, outputFolder , Commons.ANNOTATION_RESULTS_FOR_TF);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
@@ -11992,9 +11991,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    dateBefore = System.currentTimeMillis();
 		    searchGeneSetWithNumbers(dataFolder,outputFolder,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,overlapDefinition,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,Commons.KEGG_PATHWAY);
 		   	
-		    writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
+		    writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.	ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 			
 			dateAfter = System.currentTimeMillis();
 			
@@ -12027,9 +12026,6 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    //used in filling geneId2ListofUserDefinedGeneSetNumberMap
 		    TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap 	= new TObjectShortHashMap<String>();
 
-		    userDefinedGeneSetName = Commons.USER_DEFINED_GENESET + "_" + userDefinedGeneSetName;
-			   
-		    
 		    //User Defined GeneSet
 		    //Fill userDefinedGeneSetName2UserDefinedGeneSetNumber 
 		    //Fill userDefinedGeneSetNumber2UserDefinedGeneSetName files
@@ -12041,9 +12037,9 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 
 			searchGeneSetWithNumbers(dataFolder,outputFolder,exonBasedUserDefinedGeneSet2KMap,regulationBasedUserDefinedGeneSet2KMap,allBasedUserDefinedGeneSet2KMap,overlapDefinition,userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,geneId2ListofUserDefinedGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap, userDefinedGeneSetName);
 			
-		   	writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName +Commons.GENESET_RESULTS );
-			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + userDefinedGeneSetName  + Commons.GENESET_RESULTS);
+		   	writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY +  userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE );
+			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName  + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 			
 			dateAfter = System.currentTimeMillis();
 			
@@ -12162,17 +12158,17 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			searchTfKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_TF);
 			
 			//KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);		
+			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);		
 			
 			//TF KEGGPathway
-			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap,tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder,Commons.ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
+			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap,tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("TF KEGGPathway annotation ends: " + new Date());
@@ -12200,17 +12196,17 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		    searchTfCellLineKEGGPathwayWithNumbers(dataFolder,outputFolder,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneId2ListofKeggPathwayNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_TF);
 			
 			//KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);		
+			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);		
 			
 			//TF CellLine KEGGPathway
-			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation ends: " + new Date());
@@ -12306,22 +12302,24 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 			searchTfandKeggPathwayWithNumbers(dataFolder,outputFolder,geneId2ListofKeggPathwayNumberMap,tfNumberCellLineNumber2KMap,exonBasedKeggPathway2KMap,regulationBasedKeggPathway2KMap,allBasedKeggPathway2KMap,tfCellLineExonBasedKeggPathway2KMap,tfCellLineRegulationBasedKeggPathway2KMap,tfCellLineAllBasedKeggPathway2KMap,tfExonBasedKeggPathway2KMap,tfRegulationBasedKeggPathway2KMap,tfAllBasedKeggPathway2KMap, overlapDefinition,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap,keggPathwayNumber2KeggPathwayNameMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap);
 			
 			//TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_K_OUT_OF_N_GIVEN_INTERVALS_FOR_TF);
+			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_TF);
 			
 			//KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_EXON_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_REGULATION_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATE_INTERVALS_ALL_BASED_GENESET_RESULTS_GIVEN_SEARCH_INPUT + Commons.KEGG_PATHWAY + Commons.GENESET_RESULTS);		
-			
-			//TF CellLine KEGGPathway
-			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATE_INTERVALS_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2KeggPathwayNameMap,outputFolder , Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);		
 			
 			//TF KEGGPathway
-			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATE_INTERVALS_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap,tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder,Commons.ANNOTATE_INTERVALS_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
+			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap,tfNumber2TfNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder,Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
+			
+			
+			//TF CellLine KEGGPathway
+			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap,tfNumber2TfNameMap,cellLineNumber2CellLineNameMap,keggPathwayNumber2KeggPathwayNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+			
 			dateAfter = System.currentTimeMillis();
 			
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
@@ -13048,7 +13046,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		//					give an out of boundry exception in a for loop with this approach.
 		public static void main(String[] args) {
 		
-			AnnotateGivenIntervalsWithNumbersWithChoices annotateIntervals = new AnnotateGivenIntervalsWithNumbersWithChoices();
+			Annotation annotateIntervals = new Annotation();
 			annotateIntervals.annotate(args);
 		}
 

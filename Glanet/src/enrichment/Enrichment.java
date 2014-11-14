@@ -28,10 +28,9 @@ import mapabilityandgc.ChromosomeBasedMapabilityArray;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
-import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
+import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-import auxiliary.NumberofComparisons;
 
 import common.Commons;
 
@@ -67,9 +66,9 @@ import gnu.trove.map.hash.TObjectShortHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
 
 /**
- * 
+ * Annotate Permutations With Numbers With Choices
  */
-public class AnnotatePermutationsWithNumbersWithChoices {
+public class Enrichment {
 
 
 	
@@ -339,12 +338,12 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				     
 				     //WITHOUT IO WithNumbers
 				     if(writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
-				    	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithNumbersWithChoices.annotatePermutationWithoutIOWithNumbers(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
+				    	 listofAllMapsWithNumbers.add(Annotation.annotatePermutationWithoutIOWithNumbers(permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
 				     }
 				     
 				     //WITH IO WithNumbers
 				     else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
-				     	 listofAllMapsWithNumbers.add(AnnotateGivenIntervalsWithNumbersWithChoices.annotatePermutationWithIOWithNumbers(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
+				     	 listofAllMapsWithNumbers.add(Annotation.annotatePermutationWithIOWithNumbers(outputFolder,permutationNumber,chromName,randomlyGeneratedDataMap.get(permutationNumber), intervalTree,ucscRefSeqGenesIntervalTree,annotationType,tfandKeggPathwayEnrichmentType,geneId2ListofGeneSetNumberMap,overlapDefinition));
 				     }						
 				}//End of FOR
 					
@@ -966,37 +965,37 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 	
 	//Enrichment
 	public static IntervalTree generateDnaseIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createDnaseIntervalTreeWithNumbers(dataFolder,chromName);	
+		return Annotation.createDnaseIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
 	public static IntervalTree generateTfbsIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createTfbsIntervalTree(dataFolder,chromName);	
+		return Annotation.createTfbsIntervalTree(dataFolder,chromName);	
 	}
 	
 	public static IntervalTree generateTfbsIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createTfbsIntervalTreeWithNumbers(dataFolder,chromName);	
+		return Annotation.createTfbsIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
 	public static IntervalTree generateHistoneIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createHistoneIntervalTree(dataFolder,chromName);	
+		return Annotation.createHistoneIntervalTree(dataFolder,chromName);	
 	}
 	
 	
 	public static IntervalTree generateHistoneIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createHistoneIntervalTreeWithNumbers(dataFolder,chromName);	
+		return Annotation.createHistoneIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
 	public static IntervalTree generateUcscRefSeqGeneIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createUcscRefSeqGenesIntervalTree(dataFolder,chromName);	
+		return Annotation.createUcscRefSeqGenesIntervalTree(dataFolder,chromName);	
 	}
 	
 	public static IntervalTree generateUcscRefSeqGeneIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,chromName);	
+		return Annotation.createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
 	
 	public static IntervalTree generateUserDefinedLibraryIntervalTreeWithNumbers(String dataFolder,int elementTypeNumber, String elementType,ChromosomeName chromName){		
-		return AnnotateGivenIntervalsWithNumbersWithChoices.createUserDefinedIntervalTreeWithNumbers(dataFolder,elementTypeNumber,elementType,chromName);	
+		return Annotation.createUserDefinedIntervalTreeWithNumbers(dataFolder,elementTypeNumber,elementType,chromName);	
 	}
 	
 	public void generateIntervalTrees(String outputFolder,ChromosomeName chromName, List<IntervalTree> listofIntervalTrees){
@@ -1006,10 +1005,10 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		IntervalTree ucscRefSeqGeneIntervalTree;
 		
 				
-		dnaseIntervalTree			= AnnotateGivenIntervalsWithNumbersWithChoices.createDnaseIntervalTree(outputFolder,chromName);
-		tfbsIntervalTree 			= AnnotateGivenIntervalsWithNumbersWithChoices.createTfbsIntervalTree(outputFolder,chromName);
-		histoneIntervalTree  		= AnnotateGivenIntervalsWithNumbersWithChoices.createHistoneIntervalTree(outputFolder,chromName);
-		ucscRefSeqGeneIntervalTree 	= AnnotateGivenIntervalsWithNumbersWithChoices.createUcscRefSeqGenesIntervalTree(outputFolder,chromName);
+		dnaseIntervalTree			= Annotation.createDnaseIntervalTree(outputFolder,chromName);
+		tfbsIntervalTree 			= Annotation.createTfbsIntervalTree(outputFolder,chromName);
+		histoneIntervalTree  		= Annotation.createHistoneIntervalTree(outputFolder,chromName);
+		ucscRefSeqGeneIntervalTree 	= Annotation.createUcscRefSeqGenesIntervalTree(outputFolder,chromName);
 		
 		//order is important
 		listofIntervalTrees.add(dnaseIntervalTree);
@@ -2595,7 +2594,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 		List<InputLine> originalInputLines = new ArrayList<InputLine>();
 		
 		//Read original input data lines in to a list
-		AnnotatePermutationsWithNumbersWithChoices.readOriginalInputDataLines(originalInputLines, inputDataFileName);
+		Enrichment.readOriginalInputDataLines(originalInputLines, inputDataFileName);
 		/**************************READ ORIGINAL INPUT LINES ENDS*************************************/		
 		/*********************************************************************************************/			
 	
@@ -2793,9 +2792,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			//then annotate permutations concurrently
 			//elementName2AllKMap and originalElementName2KMap will be filled here
 			if ((runNumber == numberofRuns) && (numberofRemainedPermutations >0)){
-				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap,exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap,exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalElementTypeNumberElementNumber2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap,elementTypeNumber2ElementTypeMap);						
+				Enrichment.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofRemainedPermutations,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap,exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap,exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalElementTypeNumberElementNumber2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType,userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType,tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap,elementTypeNumber2ElementTypeMap);						
 			}else {
-				AnnotatePermutationsWithNumbersWithChoices.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap,elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalElementTypeNumberElementNumber2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap,elementTypeNumber2ElementTypeMap);		
+				Enrichment.annotateAllPermutationsInThreads(outputFolder,dataFolder,NUMBER_OF_AVAILABLE_PROCESSORS,runNumber,numberofPermutationsInEachRun,numberofPermutationsInEachRun,originalInputLines,dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,regulationBasedUserDefinedGeneSet2AllKMap,allBasedUserDefinedGeneSet2AllKMap,elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap,allBasedKeggPathway2AllKMap,tfExonBasedKeggPathway2AllKMap,tfRegulationBasedKeggPathway2AllKMap,tfAllBasedKeggPathway2AllKMap,tfCellLineExonBasedKeggPathway2AllKMap,tfCellLineRegulationBasedKeggPathway2AllKMap,tfCellLineAllBasedKeggPathway2AllKMap,generateRandomDataMode,writeGeneratedRandomDataMode,writePermutationBasedandParametricBasedAnnotationResultMode,writePermutationBasedAnnotationResultMode,originalDnase2KMap,originalTfbs2KMap,originalHistone2KMap,originalExonBasedUserDefinedGeneSet2KMap,originalRegulationBasedUserDefinedGeneSet2KMap,originalAllBasedUserDefinedGeneSet2KMap,originalElementTypeNumberElementNumber2KMap,originalExonBasedKeggPathway2KMap,originalRegulationBasedKeggPathway2KMap,originalAllBasedKeggPathway2KMap,originalTfExonBasedKeggPathway2KMap,originalTfRegulationBasedKeggPathway2KMap,originalTfAllBasedKeggPathway2KMap,originalTfCellLineExonBasedKeggPathway2KMap,originalTfCellLineRegulationBasedKeggPathway2KMap,originalTfCellLineAllBasedKeggPathway2KMap,dnaseEnrichmentType,histoneEnrichmentType,tfEnrichmentType, userDefinedGeneSetEnrichmentType,userDefinedLibraryEnrichmentType,keggPathwayEnrichmentType, tfKeggPathwayEnrichmentType,tfCellLineKeggPathwayEnrichmentType,overlapDefinition,geneId2KeggPathwayNumberMap,geneId2ListofUserDefinedGeneSetNumberMap,elementTypeNumber2ElementTypeMap);		
 				
 			}
 			GlanetRunner.appendLog("Concurrent programming has ended.");				
@@ -2827,9 +2826,9 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 			//UserDefinedGeneset
 			if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
 				
-				final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
-				final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
-				final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  +  System.getProperty("file.separator") + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
+				final String  TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
 				
 				//Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder,originalExonBasedUserDefinedGeneSet2KMap,exonBasedUserDefinedGeneSet2AllKMap,TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS,runName);

@@ -1,14 +1,14 @@
 package ui;
 
-import enrichment.AnnotatePermutationsWithNumbersWithChoices;
+import enrichment.Enrichment;
 import enrichment.CollectionofPermutationsResults;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
-import annotation.AnnotateGivenIntervalsWithNumbersWithChoices;
-import augmentation.results.AugmentationofEnrichedElementswithGivenInputData;
+import annotation.Annotation;
+import augmentation.results.AugmentationofEnrichmentWithAnnotation;
 import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
 import common.Commons;
 
@@ -68,7 +68,7 @@ public class GlanetRunner implements Runnable{
 		
 		if( Thread.currentThread().isInterrupted())
 			return;
-		AnnotateGivenIntervalsWithNumbersWithChoices.main( args);
+		Annotation.main( args);
 		/************************Annotation ends*************************************************/
 		
 		/************************Enrichment starts***********************************************/
@@ -80,7 +80,7 @@ public class GlanetRunner implements Runnable{
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
-			AnnotatePermutationsWithNumbersWithChoices.main( args);
+			Enrichment.main( args);
 			/************************Annotate Permutations ends******************************/
 
 			
@@ -100,7 +100,7 @@ public class GlanetRunner implements Runnable{
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
-			AugmentationofEnrichedElementswithGivenInputData.main( args);
+			AugmentationofEnrichmentWithAnnotation.main( args);
 			/************Augmentation of Enriched Elements with Given Input Data ends*******/
 						
 			
