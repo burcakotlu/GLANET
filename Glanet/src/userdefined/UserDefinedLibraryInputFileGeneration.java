@@ -10,11 +10,12 @@ import java.io.IOException;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
-import create.encode.CellLineDnase;
+
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
-import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
+import create.encode.CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles;
 
 
 
@@ -83,12 +84,12 @@ public class UserDefinedLibraryInputFileGeneration {
 			    			
 			    			if (Commons.DNASE.equals(elementType)){
 			    				
-			    				CellLineDnase cellLineDnase = new CellLineDnase();
+			    				String  cellLineDnase = null;
 			    				
 			    				//Get the cell line name from file name
-			    				CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineName(cellLineDnase,fileName);
+			    				cellLineDnase= CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineName(fileName);
 			    				  
-				    			bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineDnase.getCellLineName() + System.getProperty("line.separator"));
+				    			bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineDnase + System.getProperty("line.separator"));
 				    		
 			    				cellLineDnase = null;
 
@@ -97,7 +98,7 @@ public class UserDefinedLibraryInputFileGeneration {
 			    				CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
 
 			    				//Get the cell line name and transcription factor name from file name
-			    				CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,fileName);
+			    				CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,fileName);
 		    					
 			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineandTranscriptionFactorName.getTranscriptionFactorName() + "_" + cellLineandTranscriptionFactorName.getCellLineName()   + System.getProperty("line.separator"));
 			    				
@@ -109,7 +110,7 @@ public class UserDefinedLibraryInputFileGeneration {
 			    				CellLineHistone cellLineNameHistoneName  = new CellLineHistone();
 			    				
 			    				//Get the cell line name and histone name from file name
-			    				CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandHistoneName(cellLineNameHistoneName, fileName);
+			    				CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandHistoneName(cellLineNameHistoneName, fileName);
 
 			    				bufferedWriter.write(filePath + "\t" + elementType + "\t"+ cellLineNameHistoneName.getHistoneName() + "_" + cellLineNameHistoneName.getCellLineName()  + System.getProperty("line.separator"));
 						    	

@@ -758,7 +758,7 @@ public class MainView extends JPanel{
 		
 		try {
 			
-			File file = new File( outputTextField.getText() + Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES);
+			File file = new File( outputTextField.getText() + Commons.DATA + System.getProperty("file.separator") + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME  + Commons.ENCODE + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME);
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader( fileReader);
 			String line;

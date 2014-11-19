@@ -418,7 +418,7 @@ public class Mapability {
 		ChromosomeName chromName = ChromosomeName.CHROMOSOME17;
     	int chromSize = hg19ChromosomeSizes.get(16);
     	
-    	GCCharArray gcCharArray=null;
+    	GCCharArray gcCharArray = null;
     	MapabilityFloatArray mapabilityFloatArray = null;
     	IntervalTree mapabilityIntervalTree=null;
     	
@@ -435,6 +435,7 @@ public class Mapability {
 		GlanetRunner.appendLog("Using Interval Tree "+ inputLine.getMapability());
 		Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
 		GlanetRunner.appendLog("Using Double Array: "+ inputLine.getMapability());
+		
 		
     	
     }

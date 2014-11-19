@@ -1,3 +1,4 @@
+
 /**
  * @author Burcak Otlu
  *
@@ -2694,7 +2695,6 @@ public class IntervalTree {
 		int elementTypeNumberElementNumber = Integer.MIN_VALUE;
 		int userDefinedGeneSetNumber = Integer.MIN_VALUE;
 		
-		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 		
 		
 		switch(generatedMixedNumberDescriptionOrderLength){

@@ -9,7 +9,6 @@
 package mapabilityandgc;
 
 import enrichment.MapabilityFloatArray;
-import common.Commons;
 import enumtypes.ChromosomeName;
 
 public class ChromosomeBasedMapabilityArray {

@@ -8,26 +8,25 @@
  */
 package auxiliary;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import common.Commons;
-
-import enumtypes.ChromosomeName;
-import gnu.trove.map.TIntObjectMap;
 import ui.GlanetRunner;
+import common.Commons;
+import enumtypes.ChromosomeName;
+import enumtypes.ElementType;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TObjectIntIterator;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
 
 public class FileOperations {
 	
@@ -83,90 +82,22 @@ public class FileOperations {
 		return new FileReader(directoryNameandfileName);
 	}
 	
-//	//attention gives java.nio.file.FileSystemException
-//	//The process cannot access the file because it is being used by another process.
-//	//Delete all directories under this base directory name
-//	//Unless any directory name is in list of notToBeDeleted 
-//	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName,List<String> notToBeDeleted){
-//		File folder = new File(baseDirectoryName);
-//		if (folder.exists()){
-//			for(File file:folder.listFiles()){
-//							
-//				if (!(notToBeDeleted.contains(file.getName()))){
-//					deleteDirectoriesandFiles(file.getPath());
-//					
-//				}
-//				
-//			}
-//		}
-//		
-//		
-//		
-//	}
-//	
-//	
-//	//attention gives java.nio.file.FileSystemException
-//	//The process cannot access the file because it is being used by another process.
-//	public static void deleteDirectoriesandFilesUnderThisDirectory(String baseDirectoryName){
-//		File folder = new File(baseDirectoryName);
-//		
-//		if (folder.exists()){
-//			for(File file:folder.listFiles()){
-//				deleteDirectoriesandFiles(file.getPath());
-//			}
-//		}
-//				
-//	}
-//	
-//	//attention gives java.nio.file.FileSystemException
-//	//The process cannot access the file because it is being used by another process.
-//	public static void deleteDirectoriesandFilesUnderThisDirectory(String outputFolder, String baseDirectoryName){
-//		File folder = new File(outputFolder + baseDirectoryName);
-//		
-//		if (folder.exists()){
-//			for(File file:folder.listFiles()){
-//				deleteDirectoriesandFiles(file.getPath());
-//			}
-//		}
-//				
-//	}
-//	
-//	//attention gives java.nio.file.FileSystemException
-//	//The process cannot access the file because it is being used by another process.
-//	public static void deleteDirectoriesandFiles(String baseDirectoryName){
-//		
-//		Path dir = Paths.get(baseDirectoryName);
-//		try {
-//		  Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
-//		 
-//		      @Override
-//		      public FileVisitResult visitFile(Path file,
-//		              BasicFileAttributes attrs) throws IOException {
-//		 
-//		          GlanetRunner.appendLog("Deleting file: " + file);
-//		          Files.delete(file);
-//		          return FileVisitResult.CONTINUE;
-//		      }
-//		 
-//		      @Override
-//		      public FileVisitResult postVisitDirectory(Path dir,
-//		              IOException exc) throws IOException {
-//		 
-//		          GlanetRunner.appendLog("Deleting dir: " + dir);
-//		          if (exc == null) {
-//		              Files.delete(dir);
-//		              return FileVisitResult.CONTINUE;
-//		          } else {
-//		              throw exc;
-//		          }
-//		      }
-//		 
-//		  });
-//		} catch (IOException e) {
-//		  e.printStackTrace();
-//		}
-//		
-//	}
+	//Added 18 NOV 2014
+	public static BufferedReader createBufferedReader(String outputFolder, String fileName){
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		try {
+			fileReader = new FileReader(outputFolder + fileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return bufferedReader;
+	}
+	
 	
 	//Called from GLANET 
 	public static void deleteOldFiles(String directoryName){
@@ -221,8 +152,12 @@ public class FileOperations {
 		}
 		
 	}
+	
+
+	
 
 	//Added method 31.OCT.2014
+	//GET Chromosome Based BufferedWriter
 	public static BufferedWriter getChromosomeBasedBufferedWriter(ChromosomeName chromName,List<BufferedWriter> bufferedWriterList){
 		BufferedWriter bufferedWriter = null;
 		
@@ -294,6 +229,65 @@ public class FileOperations {
 		}		
 	}
 	
+	//Added 15 NOV 2014
+	public static void createUnsortedChromosomeBasedWithNumbersBufferedWriters(
+			String dataFolder,
+			ElementType elementType, 
+			List<BufferedWriter> bufferedWriterList){
+		
+		String baseDirectoryName = null;
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String fileEnd = null;
+		
+		switch(elementType) {
+			case DNASE:  	baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
+							fileEnd = 		Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS; 
+							break;
+										
+			case TF:  	baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
+						fileEnd = 		Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS; 
+						break;
+										
+			case HISTONE:  	baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
+							fileEnd = 	Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS; 
+							break;
+										
+			case HG19_REFSEQ_GENE: 		baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.UCSCGENOME + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
+										fileEnd = Commons.UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS;
+										break;
+		}//End of SWITCH
+				
+			
+		try {
+		
+			for(int i=1; i<=24 ;i++){
+				
+				//Chromosome X
+				if(i == 23){
+					fileWriter = FileOperations.createFileWriter(baseDirectoryName  + System.getProperty("file.separator") + Commons.CHR + Commons.X + fileEnd);
+				}
+				//Chromosome Y
+				else if (i == 24){
+					fileWriter = FileOperations.createFileWriter(baseDirectoryName  + System.getProperty("file.separator") + Commons.CHR + Commons.Y + fileEnd);
+				}
+				//Chromosome1..22
+				else{
+					fileWriter = FileOperations.createFileWriter(baseDirectoryName + System.getProperty("file.separator") + Commons.CHR + i + fileEnd);
+				}
+				
+				bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriterList.add(bufferedWriter);
+			}//End of FOR
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
 	//Added 31.OCT.2014
 	public static void 	createChromosomeBasedListofBufferedWriters(
 			String elementType,
@@ -341,6 +335,80 @@ public class FileOperations {
 			}
 				
 	}
+	
+	
+	//Added 31.OCT.2014
+	public static void writeName(String dataFolder,TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+		
+			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	
+	//Added 31.OCT.2014
+	public static void writeName2NumberMap(String dataFolder,TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+		
+			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key()+ "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	
+	
+	//Added 31.OCT.2014
+	public static void writeNumber2NameMap(String dataFolder,TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for ( TIntObjectIterator<String> it = number2NameMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.key()+ "\t" + it.value() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
 	
 	/**
 	 * 

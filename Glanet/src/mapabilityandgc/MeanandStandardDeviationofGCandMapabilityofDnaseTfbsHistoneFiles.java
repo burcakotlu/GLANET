@@ -28,10 +28,9 @@ import ui.GlanetRunner;
 
 import common.Commons;
 
-import create.encode.CellLineDnase;
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
-import create.encode.CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting;
+import create.encode.CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles;
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
 
@@ -403,20 +402,21 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			   if(Commons.DNASE.equals(functionalElementType)){
 //	        		Get the cell line name from file name
-					CellLineDnase cellLineDnase = new CellLineDnase();
-					CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineName(cellLineDnase,inputFileName);
-					meanandStdDev.setName(cellLineDnase.getCellLineName());
+					String cellLineDnase = null;
+					cellLineDnase = CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineName(inputFileName);
+					meanandStdDev.setName(cellLineDnase);
+					cellLineDnase = null;
 
 			   }else if(Commons.TF.equals(functionalElementType)){
 //	       			Get the cell line name and transcription factor name from file name		
 				   CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
-				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
+				   CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
 				   meanandStdDev.setName(cellLineandTranscriptionFactorName.getCellLineName() + "_" +cellLineandTranscriptionFactorName.getTranscriptionFactorName());
 			   
 			   }else if(Commons.HISTONE.equals(functionalElementType)){
 //	       			Get the cell line name and histone name from file name
 				   CellLineHistone cellLineNameHistoneName  = new CellLineHistone();
-				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandHistoneName(cellLineNameHistoneName,inputFileName);
+				   CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandHistoneName(cellLineNameHistoneName,inputFileName);
 				   meanandStdDev.setName(cellLineNameHistoneName.getCellLineName() + "_" + cellLineNameHistoneName.getHistoneName());
 			   }
 				
@@ -486,21 +486,25 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 			    
 			   if(Commons.DNASE.equals(functionalElementType)){
 //	        		Get the cell line name from file name
-					CellLineDnase cellLineDnase = new CellLineDnase();
-					CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineName(cellLineDnase,inputFileName);
-					meanandStdDev.setName(cellLineDnase.getCellLineName());
+					String cellLineDnase = null;
+					cellLineDnase = CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineName(inputFileName);
+					meanandStdDev.setName(cellLineDnase);
+					cellLineDnase = null;
 
 			   }else if(Commons.TF.equals(functionalElementType)){
+				   
 //	       			Get the cell line name and transcription factor name from file name		
 				   CellLineTranscriptionFactor cellLineandTranscriptionFactorName  = new CellLineTranscriptionFactor();
-				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
+				   CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandTranscriptionFactorName(cellLineandTranscriptionFactorName,inputFileName);
 				   meanandStdDev.setName(cellLineandTranscriptionFactorName.getCellLineName() + "_" +cellLineandTranscriptionFactorName.getTranscriptionFactorName());
-			   
+				   cellLineandTranscriptionFactorName = null;
+				   
 			   }else if(Commons.HISTONE.equals(functionalElementType)){
 //	       			Get the cell line name and histone name from file name
 				   CellLineHistone cellLineNameHistoneName  = new CellLineHistone();
-				   CreateChromosomeBasedDnaseTfbsHistoneFilesUsingEncodeUsingIntervalTreeSorting.getCellLineNameandHistoneName(cellLineNameHistoneName,inputFileName);
+				   CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles.getCellLineNameandHistoneName(cellLineNameHistoneName,inputFileName);
 				   meanandStdDev.setName(cellLineNameHistoneName.getCellLineName() + "_" + cellLineNameHistoneName.getHistoneName());
+				   cellLineNameHistoneName = null;
 			   }
 				
 				  

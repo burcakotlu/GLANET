@@ -40,7 +40,6 @@ import enumtypes.EnrichmentType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
-import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
@@ -968,26 +967,20 @@ public class Enrichment {
 		return Annotation.createDnaseIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
-	public static IntervalTree generateTfbsIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return Annotation.createTfbsIntervalTree(dataFolder,chromName);	
-	}
+	
 	
 	public static IntervalTree generateTfbsIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
 		return Annotation.createTfbsIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
-	public static IntervalTree generateHistoneIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return Annotation.createHistoneIntervalTree(dataFolder,chromName);	
-	}
+	
 	
 	
 	public static IntervalTree generateHistoneIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
 		return Annotation.createHistoneIntervalTreeWithNumbers(dataFolder,chromName);	
 	}
 	
-	public static IntervalTree generateUcscRefSeqGeneIntervalTree(String dataFolder,ChromosomeName chromName){		
-		return Annotation.createUcscRefSeqGenesIntervalTree(dataFolder,chromName);	
-	}
+	
 	
 	public static IntervalTree generateUcscRefSeqGeneIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){		
 		return Annotation.createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder,chromName);	
@@ -998,25 +991,7 @@ public class Enrichment {
 		return Annotation.createUserDefinedIntervalTreeWithNumbers(dataFolder,elementTypeNumber,elementType,chromName);	
 	}
 	
-	public void generateIntervalTrees(String outputFolder,ChromosomeName chromName, List<IntervalTree> listofIntervalTrees){
-		IntervalTree dnaseIntervalTree;
-		IntervalTree tfbsIntervalTree ;
-		IntervalTree histoneIntervalTree;
-		IntervalTree ucscRefSeqGeneIntervalTree;
-		
-				
-		dnaseIntervalTree			= Annotation.createDnaseIntervalTree(outputFolder,chromName);
-		tfbsIntervalTree 			= Annotation.createTfbsIntervalTree(outputFolder,chromName);
-		histoneIntervalTree  		= Annotation.createHistoneIntervalTree(outputFolder,chromName);
-		ucscRefSeqGeneIntervalTree 	= Annotation.createUcscRefSeqGenesIntervalTree(outputFolder,chromName);
-		
-		//order is important
-		listofIntervalTrees.add(dnaseIntervalTree);
-		listofIntervalTrees.add(tfbsIntervalTree);
-		listofIntervalTrees.add(histoneIntervalTree);
-		listofIntervalTrees.add(ucscRefSeqGeneIntervalTree);
-		
-	}
+	
 
 	public static void closeBufferedWriters(Map<Integer,BufferedWriter> permutationNumber2BufferedWriterHashMap){
 		
@@ -2561,7 +2536,7 @@ public class Enrichment {
 		String userDefinedGeneSetName = args[25];
 //		String userDefinedGeneSetName = "GO";
 
-		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
+//		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
 //		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
@@ -2573,10 +2548,10 @@ public class Enrichment {
 		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
-		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		
-		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
+//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 	
@@ -3013,4 +2988,3 @@ public class Enrichment {
 	}//End of main function
 
 }
-

@@ -1552,7 +1552,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String tfCellLineGivenIntervalKey;
 		String tfCellLineTfIntervalKey;
 		String snpKey;	
-		String givenIntervalKey;
+//		String givenIntervalKey;
 		
 		String givenIntervalName;
 		
@@ -1865,7 +1865,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//get the minStartZeroBased and maxEndZeroBased coordinates from these list of overlapping tf intervals
 			//get the extended peak sequence starting at minStartZeroBased and ending at maxEndZeroBased for this snp Based tf intervals 
 			for(Map.Entry<String, TfCellLineGivenInterval> entry: tfCellLineBasedGivenIntervalMap.entrySet()){
-				givenIntervalKey = entry.getKey();
+//				givenIntervalKey = entry.getKey();
 				givenInterval = entry.getValue();
 				
 				givenIntervalName = givenInterval.getGivenIntervalName();
@@ -2018,7 +2018,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String tfKeggPathwayGivenIntervalKey;
 		String tfKeggPathwayTfIntervalKey;
 		String snpKey;	
-		String givenIntervalKey;
+//		String givenIntervalKey;
 		
 		String givenIntervalName;
 		
@@ -2334,7 +2334,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//get the minStartZeroBased and maxEndZeroBased coordinates from these list of overlapping tf intervals
 			//get the extended peak sequence starting at minStartZeroBased and ending at maxEndZeroBased for this snp Based tf intervals 
 			for(Map.Entry<String, TfKeggPathwayGivenInterval> entry: tfKeggPathwayBasedGivenIntervalMap.entrySet()){
-				givenIntervalKey = entry.getKey();
+//				givenIntervalKey = entry.getKey();
 				givenInterval = entry.getValue();
 				
 				givenIntervalName = givenInterval.getGivenIntervalName();
