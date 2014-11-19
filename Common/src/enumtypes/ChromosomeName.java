@@ -54,8 +54,7 @@ public enum ChromosomeName {
     public int getChromosomeName(){
     	return chromosomeName;
     }
-        
- 
+    
     public String convertEnumtoString(){
     	if (this.equals(ChromosomeName.CHROMOSOME1))
     		return Commons.CHROMOSOME1;

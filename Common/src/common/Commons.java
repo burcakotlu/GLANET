@@ -1434,34 +1434,55 @@ public class Commons {
 	public static final String FORWARD = "forward";
 	
 	//command line arguments
-	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
+		public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
+		public static final String ARG_INPUT_FILE = "-i";
+		public static final String ARG_GLANET_FOLDER = "-g";
+		public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
+		public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
+		public static final String ARG_INPUT_FORMAT_BED = "-fbad";
+		public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
+		public static final String ARG_NUMBER_OF_BASES = "-b";
+		public static final String ARG_PERFORM_ENRICHMENT = "-e";
+		public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
+		public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
+		public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbenjamini";
+		public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbonferroni";
+		public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
+		public static final String ARG_SIGNIFICANCE_CRITERIA = "-sc";
+		public static final String ARG_NUMBER_OF_PERMUTATIONS = "-p";
+		public static final String ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "-pe";
+		public static final String ARG_DNASE_ANNOTATION = "-dnase";
+		public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
+		public static final String ARG_TF_ANNOTATION = "-tf";
+		public static final String ARG_KEGG_ANNOTATION = "-kegg";
+		public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
+		public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-celltfkegg";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udg";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_INPUT = "-udginput";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID = "-udgeinfoid";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udgeinfosymbol";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udgeinforna";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENESET_NAME = "-udgname";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgfile";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_INPUT = "-udlinput";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE= "-udldataformat0exc";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE = "-udldataformat0inc";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE = "-udldataformat1exc";
+		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udldataformat1inc";
+		public static final String ARG_JOB_NAME = "-j";
+		public static final String ARG_RSAT = "-rsat";
 	
-	public static final String ARG_INPUT_FILE = "-i";
-	public static final String ARG_GLANET_FOLDER = "-g";
-	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
-	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
-	public static final String ARG_INPUT_FORMAT_BED = "-fbad";
-	public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
-	public static final String ARG_NUMBER_OF_BASES = "-b";
-	public static final String ARG_PERFORM_ENRICHMENT = "-e";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
-	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbenjamini";
-	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbonferroni";
-	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
-	public static final String ARG_SIGNIFICANCE_CRITERIA = "-sc";
-	public static final String ARG_NUMBER_OF_PERMUTATIONS = "-p";
-	public static final String ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "-pe";
-	public static final String ARG_DNASE_ANNOTATION = "-dnase";
-	public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
-	public static final String ARG_TF_ANNOTATION = "-tf";
-	public static final String ARG_KEGG_ANNOTATION = "-kegg";
-	public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
-	public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-celltfkegg";
-	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udgeneset";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udlibrary";
-	public static final String ARG_JOB_NAME = "-j";
-	public static final String ARG_RSAT = "-rsat";
-	
-	
+	//Enum type NumberOfBases
+		public static final String NUMBER_BASES_DEFAULT = "1";
+		//Enum type SignificanceCriteria
+		public static final String SIGNIFICANCE_CRITERIA_DEFAULT = "0.05";
+		//Enum type FalseDiscoveryRate
+		public static final String FDR_DEFAULT = "0.05";
+		//Enum type NumberOfPermutations
+		public static final String NUMBER_OF_PERMUTATIONS_DEFAULT = "5000";
+		//Enum type NumberOfPermutationsInEachRun
+		public static final String NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT = "2000";
+		//Enum type JobName
+		public static final String JOB_NAME_DEFAULT = "UntitledJob";
 }
