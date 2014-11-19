@@ -4,6 +4,7 @@
 package auxiliary;
 
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,6 +49,7 @@ public class CommonUtilities {
 	}
 
 	
+	
 	public static void fillNumberToNameMaps(TIntObjectMap<String> number2NameMap,String directoryName, String fileName){
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -66,13 +68,40 @@ public class CommonUtilities {
 			while ((strLine = bufferedReader.readLine())!=null){
 				indexofFirstTab = strLine.indexOf('\t');
 				
-				number = Integer.parseInt(strLine.substring(0,indexofFirstTab));
-				name = strLine.substring(indexofFirstTab+1);
+				number	= Integer.parseInt(strLine.substring(0,indexofFirstTab));
+				name 	= strLine.substring(indexofFirstTab+1);
 				
-				number2NameMap.put(number, name);
+				number2NameMap.put(number,name);
 			}
 			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void fillNameToNumberMaps(TObjectIntMap<String> name2NumberMap,String directoryName, String fileName){
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		
+		
+		String strLine;
+		Integer number;
+		String name;
+		
+		int indexofFirstTab;		
+		
+		try {
+			fileReader = FileOperations.createFileReader(directoryName +fileName);
+			bufferedReader = new BufferedReader(fileReader);
 			
+			while ((strLine = bufferedReader.readLine())!=null){
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				name 	= strLine.substring(0,indexofFirstTab);
+				number 	= Integer.parseInt(strLine.substring(indexofFirstTab+1));
+				
+				name2NumberMap.put(name, number);
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

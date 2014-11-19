@@ -17,7 +17,7 @@ public class Commons {
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
 	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String From_ANNOTATION = "fromAnnotation";
-	public static final String ALL_POSSIBLE_NAMES = "fromWriteAllPossibleNames";
+	public static final String ALL_POSSIBLE_NAMES = "AllPossibleNames";
 	public static final String AUGMENTATION = "Augmentation";
 	
 	
@@ -28,8 +28,13 @@ public class Commons {
 	public static final String ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES = "EnrichmentBinaryMatrixForAllPhenotypes";
 		
 
-	public static final String BYGLANET = "byGLANET";
-			
+	public static final String BYGLANET 	= "byGLANET";
+	public static final String LOCAL_DISK_G_DOKTORA_DATA = "G:" + System.getProperty("file.separator") + "DOKTORA_DATA" + System.getProperty("file.separator");
+	public static final String ENCODE 		= "ENCODE";
+	public static final String UCSCGENOME 	= "UCSCGENOME";
+	public static final String NCBI 		= "NCBI";	
+	public static final String FTP 		= "FTP";
+	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
 	
@@ -753,12 +758,13 @@ public class Commons {
 	public static final String PROCESS_INPUT_DATA_REMOVE_OVERLAPS = "PROCESS_INPUT_DATA_REMOVE_OVERLAPS";
 	
 		
-	public static final String ENCODE_DNASE_DIRECTORY1 	= "ENCODE" + System.getProperty("file.separator") + "dnase";
-	public static final String ENCODE_DNASE_DIRECTORY2 	= "ENCODE" + System.getProperty("file.separator") + "dnase_jul2010";
-	public static final String ENCODE_TFBS_DIRECTORY 	= "ENCODE" + System.getProperty("file.separator") + "transcription_factors";
-	public static final String ENCODE_HISTONE_DIRECTORY = "ENCODE" + System.getProperty("file.separator") + "histone_macs";
+	public static final String ENCODE_DNASE_DIRECTORY1 	=  Commons.ENCODE + System.getProperty("file.separator") + "dnase";
+	public static final String ENCODE_DNASE_DIRECTORY2 	=  Commons.ENCODE + System.getProperty("file.separator") + "dnase_jul2010";
+	public static final String ENCODE_TFBS_DIRECTORY 	=  Commons.ENCODE + System.getProperty("file.separator") + "transcription_factors";
+	public static final String ENCODE_HISTONE_DIRECTORY =  Commons.ENCODE + System.getProperty("file.separator") + "histone_macs";
 	
 	public static final String STRING_HYPHEN = "-";
+	public static final String UNDERSCORE = "_";
 	
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH ="Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";
@@ -766,7 +772,7 @@ public class Commons {
 	public static int NUMBER_OF_CHROMOSOMES_HG19 = 24;
 	
 //	Calculations
-	public static final String HG19_CHROMOSOME_SIZES_INPUT_FILE = "FTP" + System.getProperty("file.separator") + "HG19_CHROM_SIZES" + System.getProperty("file.separator") + "hg19.chrom.sizes.txt";
+	public static final String HG19_CHROMOSOME_SIZES_INPUT_FILE = Commons.FTP + System.getProperty("file.separator") + "HG19_CHROM_SIZES" + System.getProperty("file.separator") + "hg19.chrom.sizes.txt";
 	
 	
 	//ANNOTATION 
@@ -1041,18 +1047,32 @@ public class Commons {
 	
 	
 	//All possible names	
-		
+	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
 	
-	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator");
+	//ENCODE DNASE CELLLINE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Name_2_Number.txt";
+	//ENCODE CELLLINE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_CellLine_Name_2_Number.txt";
+	//ENCODE TF
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_TF_Name_2_Number.txt";
+	//ENCODE TF CELLLINE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_TF_CellLine_Name_2_Number.txt";
+	//ENCODE HISTONE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_Name_2_Number.txt";
+	//ENCODE HISTONE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_CELLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_CellLine_Name_2_Number.txt";
+	//ENCODE  FILENAME
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_FILE_Name_2_Number.txt";
+	
+	//ENCODE CELLLINE NAME
+	public static final String ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME = "all_possible_ENCODE_CellLine_Names.txt";
+		
 	
 	//ENCODE CELL LINE
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME = "all_possible_encode_cell_lines_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME = "all_possible_encode_cellLineName_2_cellLineNumber_map.txt";
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_cellLineNumber_2_cellLineName_map.txt";
 	
 	//ENCODE TF
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_NAMES_OUTPUT_FILENAME = "all_possible_encode_tf_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNAME_2_TFNUMBER_OUTPUT_FILENAME = "all_possible_encode_tfName_2_tfNumber_map.txt";
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_2_tfName_map.txt";	
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_cellLineNumber_2_tfName_cellLineName_map.txt";
 
@@ -1064,7 +1084,6 @@ public class Commons {
 
 	//ENCODE  FILENAME
 	public static final String WRITE_ALL_ENCODE_FILE_NAMES_OUTPUT_FILENAME = "all_possible_encode_file_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENAME_2_FILENUMBER_OUTPUT_FILENAME = "all_possible_encode_fileName_2_fileNumber_map.txt";
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_encode_fileNumber_2_fileName_map.txt";
 
 	
@@ -1116,7 +1135,7 @@ public class Commons {
 	
 
 	//Annotate intervals using interval tree
-	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS = "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
+	public static final String TCGA_INPUT_DATA_WITH_NON_BLANKS_SNP_IDS_WITH_OVERLAPS = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
 	
 	//ANNOTATION starts	
 	//AnnotateGivenIntervals starts
@@ -1157,11 +1176,11 @@ public class Commons {
 	//ANNOTATION ends
 	
 //	Search using Linear search
-	public static final String SEARCH_USING_LINEAR_SEARCH_INPUT_FILE ="FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputforTCGATestData_three_columns.txt";
+	public static final String SEARCH_USING_LINEAR_SEARCH_INPUT_FILE =Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputforTCGATestData_three_columns.txt";
 	public static final String SEARCH_USING_LINEAR_SEARCH_OUTPUT_FILE = "Doktora" + System.getProperty("file.separator") + "search" + System.getProperty("file.separator") + "encodeucscgenome" + System.getProperty("file.separator") + "SearchOutput_Using_LinearSearch.txt";	
 	
 // 	Searching using IntervalTree 	
-//	public static final String SEARCH_USING_INTERVAL_TREE_INPUT_FILE = "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
+//	public static final String SEARCH_USING_INTERVAL_TREE_INPUT_FILE = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
 	public static final String SEARCH_USING_INTERVAL_TREE_OUTPUT_FILE = "Doktora" + System.getProperty("file.separator") + "search" + System.getProperty("file.separator") + "encodeucscgenome" + System.getProperty("file.separator") + "SearchOutput_Using_IntervalTreeSearch.txt";
 	
 	
@@ -1195,19 +1214,14 @@ public class Commons {
 	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRX_UCSC_REFSEQ_GENES_INTERVAL_TREE = "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_with_Interval_Tree_Infix_Traversal" + System.getProperty("file.separator") + "sorted_chrX_ucsc_refseq_genes_interval_tree.txt";
 	public static final String C_ECLIPSE_WORKSPACE_DOKTORA_CREATE_UCSCGENOME_SORTED_CHRY_UCSC_REFSEQ_GENES_INTERVAL_TREE = "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator") + "sorted_with_Interval_Tree_Infix_Traversal" + System.getProperty("file.separator") + "sorted_chrY_ucsc_refseq_genes_interval_tree.txt";
 			
-	//Downloaded from ncbi, gene2refseq.txt data
-//	public static final String NCBI_GENE_TO_REF_SEQ = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq.txt";	
-	public static final String NCBI_GENE_TO_REF_SEQ_1_OCT_2014 = "FTP" + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq" + System.getProperty("file.separator") + "gene2refseq_1_OCT_2014.txt";	
+	//Downloaded from NCBI, gene2refseq.txt data
+	public static final String NCBI_GENE_TO_REF_SEQ_18_NOV_2014 = Commons.FTP + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq_18_NOV_2014.txt";	
 
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromNCBI" + System.getProperty("file.separator");
-//	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME ="human_gene2refseq.txt";
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014 ="human_gene2refseq_1_OCT_2014.txt";
-
-//	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID = "human_refseqRNANucleotideAccession2gene.txt";
-	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_1_OCT_2014 = "human_RNANucleotideAccession2GeneID_1_OCT_2014.txt";
-
-//	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID = "human_refseqRNANucleotideAccessionWithVersion2gene.txt";
-	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_1_OCT_2014 = "human_RNANucleotideAccessionWithVersion2GeneID_1_OCT_2014.txt";
+	//These files are prepared by HumanRefSeq2Gene.java
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.NCBI + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014 = "human_gene2refseq_18_NOV_2014.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccession2GeneID_18_NOV_2014.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccessionWithVersion2GeneID_18_NOV_2014.txt";
 		
 //	These files have been downloaded from ftp.ebi.ac.uk
 //	They have been unzipped.
@@ -1219,8 +1233,8 @@ public class Commons {
 	public static final String DNASE_FILES_DIRECTORY = "C:" + System.getProperty("file.separator") + "eclipse_ganymede" + System.getProperty("file.separator") + "workspace" + System.getProperty("file.separator") + "ftp_encode" + System.getProperty("file.separator") + "dnase";
 	
 	
-	public static final String SEARCH_INPUT_FILE_WITH_NON_BLANK_SNP_IDS = "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputWithNonBlankSNPIDs.txt";
-	public static final String SEARCH_INPUT_FILE_FOR_TCGA_TEST_DATA = "FTP" + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputforTCGATestData.txt";
+	public static final String SEARCH_INPUT_FILE_WITH_NON_BLANK_SNP_IDS = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputWithNonBlankSNPIDs.txt";
+	public static final String SEARCH_INPUT_FILE_FOR_TCGA_TEST_DATA = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputforTCGATestData.txt";
 	public static final String SEARCH_INPUT_FILE_FOR_TCGA_DATA_WITH_NON_BLANK_SNP_ROWS = "Doktora" + System.getProperty("file.separator") + "testtcgadata" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";
 	public static final String SEARCH_OUTPUT_FILE_FOR_TCGA_TEST_DATA = "Doktora" + System.getProperty("file.separator") + "testtcgadata" + System.getProperty("file.separator") + "SearchOutputforTCGATestData.txt";
 	
@@ -1228,8 +1242,9 @@ public class Commons {
 	public static final String SEARCH_OUTPUT_FILE = "Doktora" + System.getProperty("file.separator") + "annotate" + System.getProperty("file.separator") + "using" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "SearchOutput.txt";
 	
 	
-//	public static final String FTP_HG19_REFSEQ_GENES = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
-	public static final String FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014 = "FTP" + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes_1_OCT_2014.txt"; 
+//	public static final String FTP_HG19_REFSEQ_GENES = Commons.FTP + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes.txt"; 
+//	public static final String FTP_HG19_REFSEQ_GENES_DOWNLOADED_1_OCT_2014 = Commons.FTP + System.getProperty("file.separator") + "HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "hg19_refseq_genes_1_OCT_2014.txt"; 
+	public static final String UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014 = Commons.FTP + System.getProperty("file.separator") + "UCSCGENOME_HG19_REFSEQ_GENES" + System.getProperty("file.separator") + "UCSCGenome_HG19_RefSeqGenes_18_NOV_2014.txt"; 
 	
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "ucscgenome" + System.getProperty("file.separator");
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";
@@ -1322,259 +1337,40 @@ public class Commons {
 	public static final String SORTED_CHRY_REFSEQ_GENES = "sorted_chrY_refseq_genes.txt";
 	
 	
-	//Create Encode DNASE Directory
-	public static final String CREATE_ENCODE_DNASE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "dnase" + System.getProperty("file.separator");
 		
-	//Create Encode Unsorted Chromosome Based DNASE Filenames
-	public static final String UNSORTED_CHR1_DNASE_FILENAME = "unsorted_chr1_dnase.txt";
-	public static final String UNSORTED_CHR2_DNASE_FILENAME = "unsorted_chr2_dnase.txt";
-	public static final String UNSORTED_CHR3_DNASE_FILENAME = "unsorted_chr3_dnase.txt";
-	public static final String UNSORTED_CHR4_DNASE_FILENAME = "unsorted_chr4_dnase.txt";
-	public static final String UNSORTED_CHR5_DNASE_FILENAME = "unsorted_chr5_dnase.txt";
-	public static final String UNSORTED_CHR6_DNASE_FILENAME = "unsorted_chr6_dnase.txt";
-	public static final String UNSORTED_CHR7_DNASE_FILENAME = "unsorted_chr7_dnase.txt";
-	public static final String UNSORTED_CHR8_DNASE_FILENAME = "unsorted_chr8_dnase.txt";
-	public static final String UNSORTED_CHR9_DNASE_FILENAME = "unsorted_chr9_dnase.txt";
-	public static final String UNSORTED_CHR10_DNASE_FILENAME = "unsorted_chr10_dnase.txt";
-	public static final String UNSORTED_CHR11_DNASE_FILENAME = "unsorted_chr11_dnase.txt";
-	public static final String UNSORTED_CHR12_DNASE_FILENAME = "unsorted_chr12_dnase.txt";
-	public static final String UNSORTED_CHR13_DNASE_FILENAME = "unsorted_chr13_dnase.txt";
-	public static final String UNSORTED_CHR14_DNASE_FILENAME = "unsorted_chr14_dnase.txt";
-	public static final String UNSORTED_CHR15_DNASE_FILENAME = "unsorted_chr15_dnase.txt";
-	public static final String UNSORTED_CHR16_DNASE_FILENAME = "unsorted_chr16_dnase.txt";
-	public static final String UNSORTED_CHR17_DNASE_FILENAME = "unsorted_chr17_dnase.txt";
-	public static final String UNSORTED_CHR18_DNASE_FILENAME = "unsorted_chr18_dnase.txt";
-	public static final String UNSORTED_CHR19_DNASE_FILENAME = "unsorted_chr19_dnase.txt";
-	public static final String UNSORTED_CHR20_DNASE_FILENAME = "unsorted_chr20_dnase.txt";
-	public static final String UNSORTED_CHR21_DNASE_FILENAME = "unsorted_chr21_dnase.txt";
-	public static final String UNSORTED_CHR22_DNASE_FILENAME = "unsorted_chr22_dnase.txt";
-	public static final String UNSORTED_CHRX_DNASE_FILENAME = "unsorted_chrX_dnase.txt";
-	public static final String UNSORTED_CHRY_DNASE_FILENAME = "unsorted_chrY_dnase.txt";
-	
-	
-	//Create Encode Unsorted Chromosome Based DNASE Filenames
-	public static final String UNSORTED_CHR1_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr1_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR2_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr2_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR3_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr3_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR4_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr4_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR5_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr5_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR6_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr6_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR7_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr7_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR8_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr8_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR9_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr9_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR10_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr10_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR11_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr11_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR12_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr12_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR13_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr13_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR14_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr14_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR15_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr15_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR16_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr16_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR17_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr17_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR18_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr18_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR19_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr19_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR20_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr20_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR21_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr21_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHR22_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chr22_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHRX_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chrX_dnase_with_numbers.txt";
-	public static final String UNSORTED_CHRY_DNASE_FILENAME_WITH_NUMBERS = "unsorted_chrY_dnase_with_numbers.txt";
+		
 	
 	
 	
-	//Sorted Chromosome Based DNASE File names
-	public static final String SORTED_CHR1_DNASE_FILENAME = "sorted_chr1_dnase.txt";
-	public static final String SORTED_CHR2_DNASE_FILENAME = "sorted_chr2_dnase.txt";
-	public static final String SORTED_CHR3_DNASE_FILENAME = "sorted_chr3_dnase.txt";
-	public static final String SORTED_CHR4_DNASE_FILENAME = "sorted_chr4_dnase.txt";
-	public static final String SORTED_CHR5_DNASE_FILENAME = "sorted_chr5_dnase.txt";
-	public static final String SORTED_CHR6_DNASE_FILENAME = "sorted_chr6_dnase.txt";
-	public static final String SORTED_CHR7_DNASE_FILENAME = "sorted_chr7_dnase.txt";
-	public static final String SORTED_CHR8_DNASE_FILENAME = "sorted_chr8_dnase.txt";
-	public static final String SORTED_CHR9_DNASE_FILENAME = "sorted_chr9_dnase.txt";
-	public static final String SORTED_CHR10_DNASE_FILENAME = "sorted_chr10_dnase.txt";
-	public static final String SORTED_CHR11_DNASE_FILENAME = "sorted_chr11_dnase.txt";
-	public static final String SORTED_CHR12_DNASE_FILENAME = "sorted_chr12_dnase.txt";
-	public static final String SORTED_CHR13_DNASE_FILENAME = "sorted_chr13_dnase.txt";
-	public static final String SORTED_CHR14_DNASE_FILENAME = "sorted_chr14_dnase.txt";
-	public static final String SORTED_CHR15_DNASE_FILENAME = "sorted_chr15_dnase.txt";
-	public static final String SORTED_CHR16_DNASE_FILENAME = "sorted_chr16_dnase.txt";
-	public static final String SORTED_CHR17_DNASE_FILENAME = "sorted_chr17_dnase.txt";
-	public static final String SORTED_CHR18_DNASE_FILENAME = "sorted_chr18_dnase.txt";
-	public static final String SORTED_CHR19_DNASE_FILENAME = "sorted_chr19_dnase.txt";
-	public static final String SORTED_CHR20_DNASE_FILENAME = "sorted_chr20_dnase.txt";
-	public static final String SORTED_CHR21_DNASE_FILENAME = "sorted_chr21_dnase.txt";
-	public static final String SORTED_CHR22_DNASE_FILENAME = "sorted_chr22_dnase.txt";
-	public static final String SORTED_CHRX_DNASE_FILENAME = "sorted_chrX_dnase.txt";
-	public static final String SORTED_CHRY_DNASE_FILENAME = "sorted_chrY_dnase.txt";
+	
 	
 	
 	//for debug sliding window versus interval tree
 	public static final String BURCAK_DEBUG_ENCODE_SORTED_CHR1_HISTONE = "Doktora" + System.getProperty("file.separator") + "create" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator") + "burcak_debug_sorted_chr1_histone.txt";
+	
+	//Create Encode DNASE Directory
+	public static final String BYGLANET_ENCODE_DNASE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE  + System.getProperty("file.separator") +  Commons.DNASE  + System.getProperty("file.separator");
 		
 	//CREATE ENCODE HISTONE directory
-	public static final String CREATE_ENCODE_HISTONE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "histone" + System.getProperty("file.separator");
-	
-	 //Unsorted Chromosome Based HISTONE File names
-	 public static final String UNSORTED_CHR1_HISTONE_FILENAME = "unsorted_chr1_histone.txt";
-	 public static final String UNSORTED_CHR2_HISTONE_FILENAME = "unsorted_chr2_histone.txt";
-	 public static final String UNSORTED_CHR3_HISTONE_FILENAME = "unsorted_chr3_histone.txt";
-	 public static final String UNSORTED_CHR4_HISTONE_FILENAME = "unsorted_chr4_histone.txt";
-	 public static final String UNSORTED_CHR5_HISTONE_FILENAME = "unsorted_chr5_histone.txt";
-	 public static final String UNSORTED_CHR6_HISTONE_FILENAME = "unsorted_chr6_histone.txt";
-	 public static final String UNSORTED_CHR7_HISTONE_FILENAME = "unsorted_chr7_histone.txt";
-	 public static final String UNSORTED_CHR8_HISTONE_FILENAME = "unsorted_chr8_histone.txt";
-	 public static final String UNSORTED_CHR9_HISTONE_FILENAME = "unsorted_chr9_histone.txt";
-	 public static final String UNSORTED_CHR10_HISTONE_FILENAME = "unsorted_chr10_histone.txt";
-	 public static final String UNSORTED_CHR11_HISTONE_FILENAME = "unsorted_chr11_histone.txt";
-	 public static final String UNSORTED_CHR12_HISTONE_FILENAME = "unsorted_chr12_histone.txt";
-	 public static final String UNSORTED_CHR13_HISTONE_FILENAME = "unsorted_chr13_histone.txt";
-	 public static final String UNSORTED_CHR14_HISTONE_FILENAME = "unsorted_chr14_histone.txt";
-	 public static final String UNSORTED_CHR15_HISTONE_FILENAME = "unsorted_chr15_histone.txt";
-	 public static final String UNSORTED_CHR16_HISTONE_FILENAME = "unsorted_chr16_histone.txt";
-	 public static final String UNSORTED_CHR17_HISTONE_FILENAME = "unsorted_chr17_histone.txt";
-	 public static final String UNSORTED_CHR18_HISTONE_FILENAME = "unsorted_chr18_histone.txt";
-	 public static final String UNSORTED_CHR19_HISTONE_FILENAME = "unsorted_chr19_histone.txt";
-	 public static final String UNSORTED_CHR20_HISTONE_FILENAME = "unsorted_chr20_histone.txt";
-	 public static final String UNSORTED_CHR21_HISTONE_FILENAME = "unsorted_chr21_histone.txt";
-	 public static final String UNSORTED_CHR22_HISTONE_FILENAME = "unsorted_chr22_histone.txt";
-	 public static final String UNSORTED_CHRX_HISTONE_FILENAME = "unsorted_chrX_histone.txt";
-	 public static final String UNSORTED_CHRY_HISTONE_FILENAME = "unsorted_chrY_histone.txt";
-	 
-	 
-	//Unsorted Chromosome Based HISTONE File names with numbers 
-	 public static final String UNSORTED_CHR1_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr1_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR2_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr2_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR3_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr3_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR4_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr4_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR5_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr5_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR6_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr6_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR7_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr7_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR8_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr8_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR9_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr9_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR10_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr10_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR11_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr11_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR12_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr12_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR13_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr13_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR14_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr14_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR15_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr15_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR16_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr16_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR17_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr17_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR18_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr18_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR19_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr19_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR20_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr20_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR21_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr21_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHR22_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chr22_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHRX_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chrX_histone_with_numbers.txt";
-	 public static final String UNSORTED_CHRY_HISTONE_FILENAME_WITH_NUMBERS = "unsorted_chrY_histone_with_numbers.txt";
-		
-	//Sorted Chromosome Base HISTONE File names
-	public static final String SORTED_CHR1_HISTONE_FILENAME = "sorted_chr1_histone.txt";
-	public static final String SORTED_CHR2_HISTONE_FILENAME = "sorted_chr2_histone.txt";
-	public static final String SORTED_CHR3_HISTONE_FILENAME = "sorted_chr3_histone.txt";
-	public static final String SORTED_CHR4_HISTONE_FILENAME = "sorted_chr4_histone.txt";
-	public static final String SORTED_CHR5_HISTONE_FILENAME = "sorted_chr5_histone.txt";
-	public static final String SORTED_CHR6_HISTONE_FILENAME = "sorted_chr6_histone.txt";
-	public static final String SORTED_CHR7_HISTONE_FILENAME = "sorted_chr7_histone.txt";
-	public static final String SORTED_CHR8_HISTONE_FILENAME = "sorted_chr8_histone.txt";
-	public static final String SORTED_CHR9_HISTONE_FILENAME = "sorted_chr9_histone.txt";
-	public static final String SORTED_CHR10_HISTONE_FILENAME = "sorted_chr10_histone.txt";
-	public static final String SORTED_CHR11_HISTONE_FILENAME = "sorted_chr11_histone.txt";
-	public static final String SORTED_CHR12_HISTONE_FILENAME = "sorted_chr12_histone.txt";
-	public static final String SORTED_CHR13_HISTONE_FILENAME = "sorted_chr13_histone.txt";
-	public static final String SORTED_CHR14_HISTONE_FILENAME = "sorted_chr14_histone.txt";
-	public static final String SORTED_CHR15_HISTONE_FILENAME = "sorted_chr15_histone.txt";
-	public static final String SORTED_CHR16_HISTONE_FILENAME = "sorted_chr16_histone.txt";
-	public static final String SORTED_CHR17_HISTONE_FILENAME = "sorted_chr17_histone.txt";
-	public static final String SORTED_CHR18_HISTONE_FILENAME = "sorted_chr18_histone.txt";
-	public static final String SORTED_CHR19_HISTONE_FILENAME = "sorted_chr19_histone.txt";
-	public static final String SORTED_CHR20_HISTONE_FILENAME = "sorted_chr20_histone.txt";
-	public static final String SORTED_CHR21_HISTONE_FILENAME = "sorted_chr21_histone.txt";
-	public static final String SORTED_CHR22_HISTONE_FILENAME = "sorted_chr22_histone.txt";
-	public static final String SORTED_CHRX_HISTONE_FILENAME = "sorted_chrX_histone.txt";
-	public static final String SORTED_CHRY_HISTONE_FILENAME = "sorted_chrY_histone.txt";
-		
+	public static final String BYGLANET_ENCODE_HISTONE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE + System.getProperty("file.separator") + Commons.HISTONE + System.getProperty("file.separator");
 			
-	//CREATE ENCODE TFBS directory
-	public static final String CREATE_ENCODE_TFBS_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") + "fromCreate" + System.getProperty("file.separator") + "encode" + System.getProperty("file.separator") + "tfbs" + System.getProperty("file.separator");
+	//CREATE ENCODE TF directory
+	public static final String BYGLANET_ENCODE_TFBS_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator");
 	
-	//Unsorted Chromosome Based TFBS filenames
-	public static final String UNSORTED_CHR1_TFBS_FILENAME = "unsorted_chr1_tfbs.txt";
-	public static final String UNSORTED_CHR2_TFBS_FILENAME = "unsorted_chr2_tfbs.txt";
-	public static final String UNSORTED_CHR3_TFBS_FILENAME = "unsorted_chr3_tfbs.txt";
-	public static final String UNSORTED_CHR4_TFBS_FILENAME = "unsorted_chr4_tfbs.txt";
-	public static final String UNSORTED_CHR5_TFBS_FILENAME = "unsorted_chr5_tfbs.txt";
-	public static final String UNSORTED_CHR6_TFBS_FILENAME = "unsorted_chr6_tfbs.txt";
-	public static final String UNSORTED_CHR7_TFBS_FILENAME = "unsorted_chr7_tfbs.txt";
-	public static final String UNSORTED_CHR8_TFBS_FILENAME = "unsorted_chr8_tfbs.txt";
-	public static final String UNSORTED_CHR9_TFBS_FILENAME = "unsorted_chr9_tfbs.txt";
-	public static final String UNSORTED_CHR10_TFBS_FILENAME = "unsorted_chr10_tfbs.txt";
-	public static final String UNSORTED_CHR11_TFBS_FILENAME = "unsorted_chr11_tfbs.txt";
-	public static final String UNSORTED_CHR12_TFBS_FILENAME = "unsorted_chr12_tfbs.txt";
-	public static final String UNSORTED_CHR13_TFBS_FILENAME = "unsorted_chr13_tfbs.txt";
-	public static final String UNSORTED_CHR14_TFBS_FILENAME = "unsorted_chr14_tfbs.txt";
-	public static final String UNSORTED_CHR15_TFBS_FILENAME = "unsorted_chr15_tfbs.txt";
-	public static final String UNSORTED_CHR16_TFBS_FILENAME = "unsorted_chr16_tfbs.txt";
-	public static final String UNSORTED_CHR17_TFBS_FILENAME = "unsorted_chr17_tfbs.txt";
-	public static final String UNSORTED_CHR18_TFBS_FILENAME = "unsorted_chr18_tfbs.txt";
-	public static final String UNSORTED_CHR19_TFBS_FILENAME = "unsorted_chr19_tfbs.txt";
-	public static final String UNSORTED_CHR20_TFBS_FILENAME = "unsorted_chr20_tfbs.txt";
-	public static final String UNSORTED_CHR21_TFBS_FILENAME = "unsorted_chr21_tfbs.txt";
-	public static final String UNSORTED_CHR22_TFBS_FILENAME = "unsorted_chr22_tfbs.txt";
-	public static final String UNSORTED_CHRX_TFBS_FILENAME = "unsorted_chrX_tfbs.txt";
-	public static final String UNSORTED_CHRY_TFBS_FILENAME = "unsorted_chrY_tfbs.txt";
+
 	
 	
-	//Unsorted Chromosome Based TFBS filenames with numbers
-	public static final String UNSORTED_CHR1_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr1_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR2_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr2_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR3_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr3_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR4_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr4_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR5_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr5_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR6_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr6_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR7_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr7_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR8_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr8_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR9_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr9_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR10_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr10_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR11_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr11_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR12_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr12_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR13_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr13_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR14_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr14_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR15_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr15_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR16_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr16_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR17_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr17_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR18_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr18_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR19_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr19_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR20_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr20_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR21_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr21_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHR22_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chr22_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHRX_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chrX_tfbs_with_numbers.txt";
-	public static final String UNSORTED_CHRY_TFBS_FILENAME_WITH_NUMBERS = "unsorted_chrY_tfbs_with_numbers.txt";
 	
-	// Sorted Chromosome Base TFBS File names
-	public static final String SORTED_CHR1_TFBS_FILENAME = "sorted_chr1_tfbs.txt";
-	public static final String SORTED_CHR2_TFBS_FILENAME = "sorted_chr2_tfbs.txt";
-	public static final String SORTED_CHR3_TFBS_FILENAME = "sorted_chr3_tfbs.txt";
-	public static final String SORTED_CHR4_TFBS_FILENAME = "sorted_chr4_tfbs.txt";
-	public static final String SORTED_CHR5_TFBS_FILENAME = "sorted_chr5_tfbs.txt";
-	public static final String SORTED_CHR6_TFBS_FILENAME = "sorted_chr6_tfbs.txt";
-	public static final String SORTED_CHR7_TFBS_FILENAME = "sorted_chr7_tfbs.txt";
-	public static final String SORTED_CHR8_TFBS_FILENAME = "sorted_chr8_tfbs.txt";
-	public static final String SORTED_CHR9_TFBS_FILENAME = "sorted_chr9_tfbs.txt";
-	public static final String SORTED_CHR10_TFBS_FILENAME = "sorted_chr10_tfbs.txt";
-	public static final String SORTED_CHR11_TFBS_FILENAME = "sorted_chr11_tfbs.txt";
-	public static final String SORTED_CHR12_TFBS_FILENAME = "sorted_chr12_tfbs.txt";
-	public static final String SORTED_CHR13_TFBS_FILENAME = "sorted_chr13_tfbs.txt";
-	public static final String SORTED_CHR14_TFBS_FILENAME = "sorted_chr14_tfbs.txt";
-	public static final String SORTED_CHR15_TFBS_FILENAME = "sorted_chr15_tfbs.txt";
-	public static final String SORTED_CHR16_TFBS_FILENAME = "sorted_chr16_tfbs.txt";
-	public static final String SORTED_CHR17_TFBS_FILENAME = "sorted_chr17_tfbs.txt";
-	public static final String SORTED_CHR18_TFBS_FILENAME = "sorted_chr18_tfbs.txt";
-	public static final String SORTED_CHR19_TFBS_FILENAME = "sorted_chr19_tfbs.txt";
-	public static final String SORTED_CHR20_TFBS_FILENAME = "sorted_chr20_tfbs.txt";
-	public static final String SORTED_CHR21_TFBS_FILENAME = "sorted_chr21_tfbs.txt";
-	public static final String SORTED_CHR22_TFBS_FILENAME = "sorted_chr22_tfbs.txt";
-	public static final String SORTED_CHRX_TFBS_FILENAME = "sorted_chrX_tfbs.txt";
-	public static final String SORTED_CHRY_TFBS_FILENAME = "sorted_chrY_tfbs.txt";
 	
+	/*************************UNSORTED CHROMOSOME BASED ENCODE  FILES WITH NUMBERS STARTS***********************************/
+	public static final String UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS 		= "_unsorted_ENCODE_DNASE_file_with_numbers.txt";
+	public static final String UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS 		= "_unsorted_ENCODE_TF_file_with_numbers.txt";
+	public static final String UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS 	= "_unsorted_ENCODE_HISTONE_file_with_numbers.txt";
+	/*************************UNSORTED CHROMOSOME BASED ENCODE FILES WITH NUMBERS ENDS*************************************/
+	
+	/*************************UNSORTED CHROMOSOME BASED UCSCGENOME_HG19_REFSEQ_GENES FILES WITH NUMBERS STARTS***********************************/
+	public static final String UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS 		= "_unsorted_UCSCGENOME_HG19_REFSEQ_GENES_file_with_numbers.txt";
+	/*************************UNSORTED CHROMOSOME BASED UCSCGENOME_HG19_REFSEQ_GENES FILES WITH NUMBERS ENDS*************************************/
 	
 	/*************************UNSORTED CHROMOSOME BASED USER DEFINED LIBRARY FILES WITH NUMBERS STARTS***********************************/
 	public static final String UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS = "_unsorted_userDefinedLibrary_file_with_numbers.txt";
@@ -1582,8 +1378,6 @@ public class Commons {
 	
 	
 	
-	//all_possible_encode_cell_lines_names
-	public static final String ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES = Commons.DATA + System.getProperty("file.separator") + Commons.BYGLANET + System.getProperty("file.separator") + "fromWriteAllPossibleNames" + System.getProperty("file.separator") + "all_possible_encode_cell_lines_names.txt";
 	
 	
 	/******************************HINTS****************************************/

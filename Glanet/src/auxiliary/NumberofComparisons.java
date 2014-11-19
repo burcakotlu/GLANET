@@ -11,13 +11,16 @@ package auxiliary;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import userdefined.library.UserDefinedLibraryUtility;
+
 import common.Commons;
 
 public class NumberofComparisons {
@@ -215,61 +218,59 @@ public class NumberofComparisons {
 		
  		NumberofComparisons numberofComparisons = new NumberofComparisons();
  		
-		TIntObjectMap<String> cellLineNumber2CellLineNameMap = new TIntObjectHashMap<String>();		
-		TIntObjectMap<String> tfNumber2TfNameMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> tfNumberCellLineNumber2TfNameCellLineNameMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> histoneNumberCellLineNumber2HistoneNameCellLineNameMap = new TIntObjectHashMap<String>();		
-		TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap = new TIntObjectHashMap<String>();
+ 		TObjectIntMap<String> dnaseCellLineName2NumberMap = new TObjectIntHashMap<String>();		
+		
+ 		TObjectIntMap<String> tfName2NumberMap = new TObjectIntHashMap<String>();
+ 		TObjectIntMap<String> tfNumberCellLineName2NumberMap = new TObjectIntHashMap<String>();
+		
+ 		TObjectIntMap<String> histoneNumberCellLineName2NumberMap = new TObjectIntHashMap<String>();
+		
+ 		TObjectIntMap<String> keggPathwayName2NumberMap = new TObjectIntHashMap<String>();
 		
 		
 		//Bonferroni Correction
 		//Dnase		
-//		Old code commented just for recall		
-//		CalculateBinomialDistributions.fillHashMapwithOccurences(dnaseCellLineHashMap,dataFolder, Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
-//		numberofComparisons.setNumberofComparisonsDnase(dnaseCellLineHashMap.size());
-		CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-		numberofComparisons.setDnaseCellLineNumberofComparison(cellLineNumber2CellLineNameMap.size());
+		CommonUtilities.fillNameToNumberMaps(dnaseCellLineName2NumberMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME);
+		numberofComparisons.setDnaseCellLineNumberofComparison(dnaseCellLineName2NumberMap.size());
 		
 		//TF
-		//@todo 
-		CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
-		CommonUtilities.fillNumberToNameMaps(tfNumberCellLineNumber2TfNameCellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME);
-		numberofComparisons.setTfNumberofComparison(tfNumber2TfNameMap.size());
-		numberofComparisons.setTfCellLineNumberofComparison(tfNumberCellLineNumber2TfNameCellLineNameMap.size());
+		CommonUtilities.fillNameToNumberMaps(tfName2NumberMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+		CommonUtilities.fillNameToNumberMaps(tfNumberCellLineName2NumberMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME);
+		numberofComparisons.setTfNumberofComparison(tfName2NumberMap.size());
+		numberofComparisons.setTfCellLineNumberofComparison(tfNumberCellLineName2NumberMap.size());
 		
 		//HISTONE
-		//@todo
-		CommonUtilities.fillNumberToNameMaps(histoneNumberCellLineNumber2HistoneNameCellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_CELLLINENUMBER_2_HISTONENAME_CELLLINENAME_OUTPUT_FILENAME);
-		numberofComparisons.setHistoneCellLineNumberofComparison(histoneNumberCellLineNumber2HistoneNameCellLineNameMap.size());
+		CommonUtilities.fillNameToNumberMaps(histoneNumberCellLineName2NumberMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_CELLLINENUMBER_2_HISTONENAME_CELLLINENAME_OUTPUT_FILENAME);
+		numberofComparisons.setHistoneCellLineNumberofComparison(histoneNumberCellLineName2NumberMap.size());
 		
 		//KEGG PATHWAY	
 		//Important ASK
 		//QUESTION:Should we use the number of annotated Exon Based KEGG Pathways or the number of KEGG Pathways? 
-		CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+		CommonUtilities.fillNameToNumberMaps(keggPathwayName2NumberMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 		//EXON BASED KEGG PATHWAY
-		numberofComparisons.setExonBasedKEGGPathwayNumberofComparison(keggPathwayNumber2KeggPathwayNameMap.size());
+		numberofComparisons.setExonBasedKEGGPathwayNumberofComparison(keggPathwayName2NumberMap.size());
 		//REGULATION BASED KEGG PATHWAY
-		numberofComparisons.setRegulationBasedKEGGPathwayNumberofComparison(keggPathwayNumber2KeggPathwayNameMap.size());
+		numberofComparisons.setRegulationBasedKEGGPathwayNumberofComparison(keggPathwayName2NumberMap.size());
 		//ALL BASED KEGG PATHWAY
-		numberofComparisons.setAllBasedKEGGPathwayNumberofComparison(keggPathwayNumber2KeggPathwayNameMap.size());
+		numberofComparisons.setAllBasedKEGGPathwayNumberofComparison(keggPathwayName2NumberMap.size());
 		
 	
 		//TF KEGGPathway
 		//Number of Different Tf 149
 		//Number of Different Kegg Pathways 269
 		//149 * 269 = 40081
-		numberofComparisons.setTfExonBasedKEGGPathwayNumberofComparison(tfNumber2TfNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
-		numberofComparisons.setTfRegulationBasedKEGGPathwayNumberofComparison(tfNumber2TfNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
-		numberofComparisons.setTfAllBasedKEGGPathwayNumberofComparison(tfNumber2TfNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
+		numberofComparisons.setTfExonBasedKEGGPathwayNumberofComparison(tfName2NumberMap.size() * keggPathwayName2NumberMap.size());
+		numberofComparisons.setTfRegulationBasedKEGGPathwayNumberofComparison(tfName2NumberMap.size() * keggPathwayName2NumberMap.size());
+		numberofComparisons.setTfAllBasedKEGGPathwayNumberofComparison(tfName2NumberMap.size() * keggPathwayName2NumberMap.size());
 	
 		
 		//TF CellLine KEGGPathway
 		//Number of Different Tf Cell Line Combinations 406
 		//Number of Different Kegg Pathways 269
 		//406 * 269 = 109214
-		numberofComparisons.setTfCellLineExonBasedKEGGPathwayNumberofComparison(tfNumberCellLineNumber2TfNameCellLineNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
-		numberofComparisons.setTfCellLineRegulationBasedKEGGPathwayNumberofComparison(tfNumberCellLineNumber2TfNameCellLineNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
-		numberofComparisons.setTfCellLineAllBasedKEGGPathwayNumberofComparison(tfNumberCellLineNumber2TfNameCellLineNameMap.size() * keggPathwayNumber2KeggPathwayNameMap.size());
+		numberofComparisons.setTfCellLineExonBasedKEGGPathwayNumberofComparison(tfNumberCellLineName2NumberMap.size() * keggPathwayName2NumberMap.size());
+		numberofComparisons.setTfCellLineRegulationBasedKEGGPathwayNumberofComparison(tfNumberCellLineName2NumberMap.size() * keggPathwayName2NumberMap.size());
+		numberofComparisons.setTfCellLineAllBasedKEGGPathwayNumberofComparison(tfNumberCellLineName2NumberMap.size() * keggPathwayName2NumberMap.size());
 
 	
 		//User Defined GeneSet

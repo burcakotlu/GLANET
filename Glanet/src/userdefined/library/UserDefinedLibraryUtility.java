@@ -25,8 +25,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import annotation.WriteAllPossibleNamesandUnsortedFilesWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -348,6 +348,11 @@ public class UserDefinedLibraryUtility {
 						intervalAroundSummit = Integer.MIN_VALUE;
 					}		
 					
+					
+					if(intervalAroundSummit>0){
+						//@todo				
+					}
+					
 					//trim
 					elementName = elementName.trim();
 					
@@ -355,7 +360,6 @@ public class UserDefinedLibraryUtility {
 					
 					elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(currentElementTypeNumber);
 					elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(currentElementTypeNumber);
-					
 					
 					//Initialize elementName2ElementNumberMap
 					if(elementName2ElementNumberMap==null){
@@ -387,14 +391,11 @@ public class UserDefinedLibraryUtility {
 					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,currentElementTypeNumber,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
 					
 				}//End of if it is not a comment line
-				
-					
 			
 			}//End of while: We have read all the listed files in userDefinedLibraryInputFile
 			
 			//Close UserDefinedLibraryInputFile
 			bufferedReader.close();
-			
 			
 			//Close ElementTypeBased ChromosomeBased BufferedWriters 
 			//elementTypeNumber2ListofBufferedWritersMap
@@ -410,12 +411,12 @@ public class UserDefinedLibraryUtility {
 	  		//Write userDefinedLibraryElementTypeNumber2ElementTypeMap
     		//Write userDefinedLibraryFileName2FileNumberMap
     		//Write userDefinedLibraryFileNumber2FileNameMap
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryElementType2ElementTypeNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_2_ELEMENTTYPENUMBER_OUTPUT_FILENAME);
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,userDefinedLibraryFileName2FileNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENAME_2_FILENUMBER_OUTPUT_FILENAME);
+			FileOperations.writeName2NumberMap(dataFolder,userDefinedLibraryElementType2ElementTypeNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_2_ELEMENTTYPENUMBER_OUTPUT_FILENAME);
+			FileOperations.writeName2NumberMap(dataFolder,userDefinedLibraryFileName2FileNumberMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENAME_2_FILENUMBER_OUTPUT_FILENAME);
 		
 			
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
-			WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,userDefinedLibraryFileNumber2FileNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
+			FileOperations.writeNumber2NameMap(dataFolder,userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
+			FileOperations.writeNumber2NameMap(dataFolder,userDefinedLibraryFileNumber2FileNameMap, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
 	
 			//Write elementType Based 
 			//userDefinedLibraryElementName2ElementNumberMap
@@ -423,7 +424,7 @@ public class UserDefinedLibraryUtility {
 			    it.advance();
 //			    ElementType
 			    elementType = userDefinedLibraryElementTypeNumber2ElementTypeMap.get(it.key());
-			   WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapString2Integer(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME);
+			    FileOperations.writeName2NumberMap(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME);
 			}//End for each elementTypeSpecific elementName2ElementNumberMap
 			
 			
@@ -433,7 +434,7 @@ public class UserDefinedLibraryUtility {
 			    it.advance();
 //			    ElementType
 			    elementType = userDefinedLibraryElementTypeNumber2ElementTypeMap.get(it.key());
-			   WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeTroveMapInteger2String(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
+			    FileOperations.writeNumber2NameMap(dataFolder,it.value(), Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"), Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
 			}//End for each elementTypeSpecific elementNumber2ElementNameMap
 	
 			

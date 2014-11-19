@@ -40,8 +40,8 @@ public class HumanRefSeq2Gene {
 		int numberofHumanGene2RefseqLines = 0;
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_GENE_TO_REF_SEQ_1_OCT_2014);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
+			fileReader = FileOperations.createFileReader(Commons.LOCAL_DISK_G_DOKTORA_DATA + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
 		
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -74,12 +74,9 @@ public class HumanRefSeq2Gene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 	
-	public static void humanRefSeq2Gene(String dataFolder){
+	public static void humanRNANucleotideAccession2GeneID(String dataFolder){
 		
 		FileReader fileReader;
 		FileWriter fileWriter;
@@ -107,9 +104,9 @@ public class HumanRefSeq2Gene {
 		RefSeq2Gene refSeq2Gene = null;
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_1_OCT_2014);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_1_OCT_2014);
-			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_1_OCT_2014);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014);
+			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014);
 			
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -241,7 +238,7 @@ public class HumanRefSeq2Gene {
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		
 		humanGene2RefSeq(dataFolder);
-		humanRefSeq2Gene(dataFolder);
+		humanRNANucleotideAccession2GeneID(dataFolder);
 
 	}
 

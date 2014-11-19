@@ -36,7 +36,6 @@ import auxiliary.NumberofComparisons;
 import common.Commons;
 
 import enumtypes.EnrichmentType;
-import enumtypes.GeneInformationType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -747,10 +746,10 @@ public class CollectionofPermutationsResults {
 		//User Defined GeneSet Enrichment, DO or DO_NOT
 		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
-		String userDefinedGeneSetInputFile = args[23];
+//		String userDefinedGeneSetInputFile = args[23];
 //		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 		  
-		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
+//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
 		
 		String userDefinedGeneSetName = args[25];
@@ -768,7 +767,7 @@ public class CollectionofPermutationsResults {
 		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
-		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
