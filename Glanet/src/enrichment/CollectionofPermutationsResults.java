@@ -331,40 +331,40 @@ public class CollectionofPermutationsResults {
 		
 			case DO_DNASE_ENRICHMENT:	{
 											cellLineNumber2CellLineNameMap = new TIntObjectHashMap<String>();
-											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
 											break;
 										}
 			
 			case DO_TF_ENRICHMENT:		{
 											cellLineNumber2CellLineNameMap = new TIntObjectHashMap<String>();
 											tfNumber2TfNameMap = new TIntObjectHashMap<String>();
-											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-											CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+											CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
 											break;
 										}
 			
 			case DO_HISTONE_ENRICHMENT:{
 											cellLineNumber2CellLineNameMap = new TIntObjectHashMap<String>();
 											histoneNumber2HistoneNameMap = new TIntObjectHashMap<String>();
-											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-											CommonUtilities.fillNumberToNameMaps(histoneNumber2HistoneNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);
+											CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+											CommonUtilities.fillNumberToNameMaps(histoneNumber2HistoneNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);
 											break;
 										}
 			
 			case DO_KEGGPATHWAY_ENRICHMENT:	{
 												geneHugoSymbolNumber2GeneHugoSymbolNameMap = new TIntObjectHashMap<String>();
 												keggPathwayNumber2KeggPathwayEntryMap = new TIntObjectHashMap<String>();
-												CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-												CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+												CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+												CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 												break;
 											}
 			case DO_TF_KEGGPATHWAY_ENRICHMENT:	{
 													tfNumber2TfNameMap = new TIntObjectHashMap<String>();
 													geneHugoSymbolNumber2GeneHugoSymbolNameMap = new TIntObjectHashMap<String>();
 													keggPathwayNumber2KeggPathwayEntryMap = new TIntObjectHashMap<String>();
-													CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
-													CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-													CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+													CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+													CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+													CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 													break;
 												}
 			
@@ -373,10 +373,10 @@ public class CollectionofPermutationsResults {
 															tfNumber2TfNameMap = new TIntObjectHashMap<String>();
 															geneHugoSymbolNumber2GeneHugoSymbolNameMap = new TIntObjectHashMap<String>();
 															keggPathwayNumber2KeggPathwayEntryMap = new TIntObjectHashMap<String>();
-															CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-															CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
-															CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-															CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+															CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+															CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+															CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+															CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 															break;
 														}
 			case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:{
@@ -384,15 +384,15 @@ public class CollectionofPermutationsResults {
 																						tfNumber2TfNameMap = new TIntObjectHashMap<String>();
 																						geneHugoSymbolNumber2GeneHugoSymbolNameMap = new TIntObjectHashMap<String>();
 																						keggPathwayNumber2KeggPathwayEntryMap = new TIntObjectHashMap<String>();
-																						CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-																						CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
-																						CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-																						CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
+																						CommonUtilities.fillNumberToNameMaps(cellLineNumber2CellLineNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+																						CommonUtilities.fillNumberToNameMaps(tfNumber2TfNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);
+																						CommonUtilities.fillNumberToNameMaps(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+																						CommonUtilities.fillNumberToNameMaps(keggPathwayNumber2KeggPathwayEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);
 																						break;
 																				}
 			case DO_USER_DEFINED_GENESET_ENRICHMENT:{
 														userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new TIntObjectHashMap<String>();
-														CommonUtilities.fillNumberToNameMaps(userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME);
+														CommonUtilities.fillNumberToNameMaps(userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME);
 														break;
 													}
 			

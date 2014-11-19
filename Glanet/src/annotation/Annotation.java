@@ -8232,13 +8232,13 @@ public class Annotation {
 		TIntObjectMap<String> 	geneHugoSymbolNumber2GeneHugoSymbolNameMap 	= new TIntObjectHashMap<String>();
 		TIntObjectMap<String> 	refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap 	= new TIntObjectHashMap<String>();
 		
-		fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-		fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
-		fillNumber2NameMap(histoneNumber2HistoneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);		
-		fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);		
-		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);	
-		fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-		fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
+		fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
+		fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
+		fillNumber2NameMap(histoneNumber2HistoneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);		
+		fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);		
+		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);	
+		fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
+		fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
 		/****************************************************************************************************/
 		/***************FILL NUMBER 2 NAME MAPS*****ends*****************************************************/
 		/****************************************************************************************************/
@@ -8248,7 +8248,7 @@ public class Annotation {
 		/******************************************************/
 		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap 				= new TObjectShortHashMap<String>();
 				
-		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);		
+		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);		
 		/******************************************************/
 		/***************FILL NAME 2 NUMBER MAPS*****ends*******/
 		/******************************************************/
