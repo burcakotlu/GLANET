@@ -1047,7 +1047,9 @@ public class Commons {
 	
 	
 	//All possible names	
-	public static final String WRITE_ALL_POSSIBLE_NAMES_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.UCSCGENOME + System.getProperty("file.separator");
+	public static final String WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_LIBRARY+ System.getProperty("file.separator");
 	
 	//ENCODE DNASE CELLLINE
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Name_2_Number.txt";

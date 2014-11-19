@@ -481,6 +481,13 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCREFSEQGenesFiles {
 		//Write Unsorted Chromosome Based With Numbers UCSC HG19 REFSEQ Genes File
 		readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(UCSC_GENOME_HG19_REFSEQ_GENES_FILE,UCSCGENOMERefSeqGenesBufferedWriterList,rnaNucleotideAccession2GeneIDMap, UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap);
 		
+		//Write UCSCGENOME HG19 REFSEQ GENES
+		//Write name2Number maps
+		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME);
+		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME);
+		
+				
+		
 		//Close BufferedWriters
 		FileOperations.closeChromosomeBasedBufferedWriters(UCSCGENOMERefSeqGenesBufferedWriterList);
 	}
