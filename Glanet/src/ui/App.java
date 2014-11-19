@@ -430,21 +430,6 @@ public class App
 	//argsForGlanetRunner contains only the arguments required in the GUI
 	public static void main(String args[]) {
 		
-		//if Command Line
-//    	if( args.length > 0 && args[args.length-1].startsWith( "--c")) {
-//    		
-//    		String[] argsForGlanetRunner = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
-//    		
-//    		for(int i = 0; i < Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS; i++) {
-//    			argsForGlanetRunner[i] = args[args.length-(Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS+1)+i];
-//    		}
-//    		
-//    		GlanetRunner.setMainView( null);
-//    		GlanetRunner.setArgs( argsForGlanetRunner);
-//    		
-//    		GlanetRunner runner = new GlanetRunner();
-//    		new Thread( runner).start();
-//    	}
 		if( args.length > 0 && isCommandLineEnabled( args)){
 			
 			String[] argsForGlanetRunner = new String[Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];

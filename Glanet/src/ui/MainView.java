@@ -70,14 +70,14 @@ public class MainView extends JPanel{
 	private JComboBox<String> userDefinedLibraryDataFormatCombo;
 	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
-	private JCheckBox dnaseEnrichment;
-	private JCheckBox histoneEnrichment;
-	private JCheckBox tfAndKeggPathwayEnrichment;
-	private JCheckBox tfEnrichment;
-	private JCheckBox keggPathwayEnrichment;
-	private JCheckBox cellLineBasedTfAndKeggPathwayEnrichment;
-	private JCheckBox userDefinedGeneSetEnrichment;
-	private JCheckBox userDefinedLibraryEnrichment;
+	private JCheckBox dnaseAnnotation;
+	private JCheckBox histoneAnnotation;
+	private JCheckBox tfAndKeggPathwayAnnotation;
+	private JCheckBox tfAnnotation;
+	private JCheckBox keggPathwayAnnotation;
+	private JCheckBox cellLineBasedTfAndKeggPathwayAnnotation;
+	private JCheckBox userDefinedGeneSetAnnotation;
+	private JCheckBox userDefinedLibraryAnnotation;
 	private JTextArea logArea;
 	private JList<String> cellLinesList;
 	private DefaultListModel<String> listModel;
@@ -133,17 +133,17 @@ public class MainView extends JPanel{
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			else if( e.getActionCommand() == "User Defined GeneSet Input File"){
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				if( !userDefinedGeneSetEnrichment.isSelected())
+				if( !userDefinedGeneSetAnnotation.isSelected())
 					return;
 			}
 			else if( e.getActionCommand() == "Description File"){
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				if( !userDefinedGeneSetEnrichment.isSelected())
+				if( !userDefinedGeneSetAnnotation.isSelected())
 					return;
 			}
 			else if( e.getActionCommand() == "User Defined Library Input File"){
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				if( !userDefinedLibraryEnrichment.isSelected())
+				if( !userDefinedLibraryAnnotation.isSelected())
 					return;
 			}
 			
@@ -197,24 +197,24 @@ public class MainView extends JPanel{
 						signifanceCriteria.getText(),
 						falseDiscoveryRate.getText(),
 						numberOfPerCombo.getSelectedItem().toString(),
-						dnaseEnrichment.isSelected()?Commons.DO_DNASE_ENRICHMENT:Commons.DO_NOT_DNASE_ENRICHMENT,
-						histoneEnrichment.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
-						tfEnrichment.isSelected()?Commons.DO_TF_ENRICHMENT:Commons.DO_NOT_TF_ENRICHMENT,
-						keggPathwayEnrichment.isSelected()?Commons.DO_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT,
-						tfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
-						cellLineBasedTfAndKeggPathwayEnrichment.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
+						dnaseAnnotation.isSelected()?Commons.DO_DNASE_ENRICHMENT:Commons.DO_NOT_DNASE_ENRICHMENT,
+						histoneAnnotation.isSelected()?Commons.DO_HISTONE_ENRICHMENT:Commons.DO_NOT_HISTONE_ENRICHMENT,
+						tfAnnotation.isSelected()?Commons.DO_TF_ENRICHMENT:Commons.DO_NOT_TF_ENRICHMENT,
+						keggPathwayAnnotation.isSelected()?Commons.DO_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_KEGGPATHWAY_ENRICHMENT,
+						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
+						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
 						jobName.getText(),
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
 						numberOfPerInEachRun.getSelectedItem().toString(),
-						userDefinedGeneSetEnrichment.isSelected()?Commons.DO_USER_DEFINED_GENESET_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT,
+						userDefinedGeneSetAnnotation.isSelected()?Commons.DO_USER_DEFINED_GENESET_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT,
 						userDefinedGeneSetInput.getText(),
 						userDefinedGeneSetGeneInformation.getSelectedItem().toString(),
 						(userDefinedGeneSetName.getText().length()!=0)?userDefinedGeneSetName.getText():Commons.NO_NAME,
 						(userDefinedGeneSetDescriptionFile.getText().length()!=0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
-						userDefinedLibraryEnrichment.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
+						userDefinedLibraryAnnotation.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
 						userDefinedLibraryInput.getText(),
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
 						cellLinesList.getSelectedValuesList().toArray( new String[0])
@@ -241,6 +241,15 @@ public class MainView extends JPanel{
 	      @Override
 		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
+	    	  checkUsabilityOfEnrichmentOptions();
+	    	  enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+	      }
+	};
+	
+	ItemListener enableEnrichmentOptionsListener = new ItemListener() {
+	      @Override
+		public void itemStateChanged(ItemEvent itemEvent) {
+	    	  
 	    	  enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
 	      }
 	};
@@ -257,7 +266,7 @@ public class MainView extends JPanel{
 	      @Override
 		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
-	    	  enableUserDefinedGeneSetOptions( userDefinedGeneSetEnrichment.isSelected());
+	    	  enableUserDefinedGeneSetOptions( userDefinedGeneSetAnnotation.isSelected());
 	      }
 	};
 	
@@ -265,7 +274,7 @@ public class MainView extends JPanel{
 	      @Override
 		public void itemStateChanged(ItemEvent itemEvent) {
 	    	  
-	    	  enableUserDefinedLibraryOptions( userDefinedLibraryEnrichment.isSelected());
+	    	  enableUserDefinedLibraryOptions( userDefinedLibraryAnnotation.isSelected());
 	      }
 	};
 	
@@ -290,10 +299,11 @@ public class MainView extends JPanel{
 		inputBrowseAndOptionPane.add( createBrowseFileArea( "Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
 		
 		//inputFormatCombo added to inputBrowseAndOptionPane
-		String[] inputFormat = {Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
-								Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
-								Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
-								Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
+		String[] inputFormat = {	Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE,
+									Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 								};
 		
 		inputFormatCombo = new JComboBox<String>( inputFormat);
@@ -335,44 +345,51 @@ public class MainView extends JPanel{
 		JPanel annotationOptions = new JPanel();
 		annotationOptions.setLayout( new BoxLayout(annotationOptions, BoxLayout.PAGE_AXIS));
 		
-		//dnaseEnrichment added to annotationOptions
-		dnaseEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION);
-		annotationOptions.add( createPanelWithHint(dnaseEnrichment, Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION));
+		//dnaseAnnotation added to annotationOptions
+		dnaseAnnotation = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION);
+		dnaseAnnotation.addItemListener(enableEnrichmentListener);
+		annotationOptions.add( createPanelWithHint(dnaseAnnotation, Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION));
 		
-		//histoneEnrichment added to annotationOptions
-		histoneEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION);
-		annotationOptions.add( createPanelWithHint(histoneEnrichment, Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
+		//histoneAnnotation added to annotationOptions
+		histoneAnnotation = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION);
+		histoneAnnotation.addItemListener(enableEnrichmentListener);
+		annotationOptions.add( createPanelWithHint(histoneAnnotation, Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
 		
-		//tfEnrichment added to annotationOptions
-		tfEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION);
-		tfEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-		annotationOptions.add( createPanelWithHint(tfEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION));
+		//tfAnnotation added to annotationOptions
+		tfAnnotation = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION);
+		tfAnnotation.addItemListener(enableEnrichmentListener);
+		tfAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
+		annotationOptions.add( createPanelWithHint(tfAnnotation, Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION));
 		
-		//tfEnrichment added to annotationOptions
-        keggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION);
-        annotationOptions.add( createPanelWithHint(keggPathwayEnrichment, Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION));
+		//keggPathwayAnnotation added to annotationOptions
+        keggPathwayAnnotation = new JCheckBox(Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION);
+        keggPathwayAnnotation.addItemListener(enableEnrichmentListener);
+        annotationOptions.add( createPanelWithHint(keggPathwayAnnotation, Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION));
         
-        //tfAndKeggPathwayEnrichment added to annotationOptions
-        tfAndKeggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION);
-        tfAndKeggPathwayEnrichment.setName( "TFAndKEGGPathwayEnrichment");
-        tfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-        annotationOptions.add( createPanelWithHint(tfAndKeggPathwayEnrichment, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION));
+        //tfAndKeggPathwayAnnotation added to annotationOptions
+        tfAndKeggPathwayAnnotation = new JCheckBox(Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION);
+        tfAndKeggPathwayAnnotation.addItemListener(enableEnrichmentListener);
+        tfAndKeggPathwayAnnotation.setName( "TFAndKEGGPathwayEnrichment");
+        tfAndKeggPathwayAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
+        annotationOptions.add( createPanelWithHint(tfAndKeggPathwayAnnotation, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION));
         
-        //cellLineBasedTfAndKeggPathwayEnrichment added to annotationOptions
-        cellLineBasedTfAndKeggPathwayEnrichment = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION);
-        cellLineBasedTfAndKeggPathwayEnrichment.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
-        cellLineBasedTfAndKeggPathwayEnrichment.addItemListener( enableRegulatorySequenceAnalysis);
-        annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayEnrichment, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
+        //cellLineBasedTfAndKeggPathwayAnnotation added to annotationOptions
+        cellLineBasedTfAndKeggPathwayAnnotation = new JCheckBox(Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION);
+        cellLineBasedTfAndKeggPathwayAnnotation.addItemListener(enableEnrichmentListener);
+        cellLineBasedTfAndKeggPathwayAnnotation.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
+        cellLineBasedTfAndKeggPathwayAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
+        annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayAnnotation, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
         
         //userDefinedGeneSetPanel added to annotationOptions
         JPanel userDefinedGeneSetPanel = new JPanel();
         userDefinedGeneSetPanel.setLayout( new BoxLayout(userDefinedGeneSetPanel, BoxLayout.PAGE_AXIS));
         
-        //userDefinedGeneSetEnrichment added to userDefinedGeneSetPanel
-        userDefinedGeneSetEnrichment = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
-        userDefinedGeneSetEnrichment.addItemListener( enableUserDefinedGeneSet);
+        //userDefinedGeneSetAnnotation added to userDefinedGeneSetPanel
+        userDefinedGeneSetAnnotation = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
+        userDefinedGeneSetAnnotation.addItemListener(enableEnrichmentListener);
+        userDefinedGeneSetAnnotation.addItemListener( enableUserDefinedGeneSet);
         
-        userDefinedGeneSetPanel.add( createPanelWithHint(userDefinedGeneSetEnrichment, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
+        userDefinedGeneSetPanel.add( createPanelWithHint(userDefinedGeneSetAnnotation, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
         
         //userDefinedGeneSetUpperPanel added to userDefinedGeneSetPanel
         JPanel userDefinedGeneSetUpperPanel = new JPanel( new GridLayout(1, 2));
@@ -407,11 +424,12 @@ public class MainView extends JPanel{
         JPanel userDefinedLibraryPanel = new JPanel();
         userDefinedLibraryPanel.setLayout( new BoxLayout( userDefinedLibraryPanel, BoxLayout.PAGE_AXIS));
         
-        //userDefinedLibraryEnrichment added to userDefinedLibraryPanel
-        userDefinedLibraryEnrichment = new JCheckBox( Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
-        userDefinedLibraryEnrichment.addItemListener( enableUserDefinedLibrary);
+        //userDefinedLibraryAnnotation added to userDefinedLibraryPanel
+        userDefinedLibraryAnnotation = new JCheckBox( Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
+        dnaseAnnotation.addItemListener(enableEnrichmentListener);
+        userDefinedLibraryAnnotation.addItemListener( enableUserDefinedLibrary);
         
-        userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryEnrichment, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
+        userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryAnnotation, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
         
         //userDefinedLibraryLowerPanel added to userDefinedLibraryPanel
         JPanel userDefinedLibraryLowerPanel = new JPanel( new GridLayout(1, 2));
@@ -450,7 +468,7 @@ public class MainView extends JPanel{
         //enableEnrichmentCheckBox added to enrichmentPanel
         JPanel performEnrichmentPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
         performEnrichmentCheckBox = new JCheckBox( "Perform Enrichment");
-        performEnrichmentCheckBox.addItemListener( enableEnrichmentListener);
+        performEnrichmentCheckBox.addItemListener( enableEnrichmentOptionsListener);
         performEnrichmentCheckBox.addItemListener( enableRegulatorySequenceAnalysis);
 		
         performEnrichmentPanel.add( performEnrichmentCheckBox);
@@ -547,9 +565,10 @@ public class MainView extends JPanel{
         
         //all control operations are done after the gui is completely set
         enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+        checkUsabilityOfEnrichmentOptions();
         checkUsabilityOfRegulatorySequenceAnalysis();
-        enableUserDefinedGeneSetOptions( userDefinedGeneSetEnrichment.isSelected());
-        enableUserDefinedLibraryOptions( userDefinedLibraryEnrichment.isSelected());
+        enableUserDefinedGeneSetOptions( userDefinedGeneSetAnnotation.isSelected());
+        enableUserDefinedLibraryOptions( userDefinedLibraryAnnotation.isSelected());
         
         revalidate();
 	}
@@ -645,6 +664,21 @@ public class MainView extends JPanel{
 		revalidate();
 	}
 	
+	public void checkUsabilityOfEnrichmentOptions() {
+		
+		if( dnaseAnnotation.isSelected() || histoneAnnotation.isSelected() ||
+				tfAnnotation.isSelected() || keggPathwayAnnotation.isSelected() ||
+				tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ||
+				userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected() ) {
+			
+			performEnrichmentCheckBox.setEnabled( true);
+		} else {
+			
+			performEnrichmentCheckBox.setSelected( false);
+			performEnrichmentCheckBox.setEnabled( false);
+		}
+	}
+	
 	public void enableEnrichmentOptions( boolean shouldEnable){
 		
 		generateRandomDataModeCombo.setEnabled( shouldEnable);
@@ -676,7 +710,7 @@ public class MainView extends JPanel{
 	
 	public void checkUsabilityOfRegulatorySequenceAnalysis(){
 		
-		if( tfEnrichment.isSelected() || tfAndKeggPathwayEnrichment.isSelected() || cellLineBasedTfAndKeggPathwayEnrichment.isSelected()){
+		if( tfAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected()){
 			if( performEnrichmentCheckBox.isSelected())
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
 			else
