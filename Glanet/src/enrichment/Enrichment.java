@@ -40,7 +40,6 @@ import enumtypes.EnrichmentType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
-import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
@@ -2537,7 +2536,7 @@ public class Enrichment {
 		String userDefinedGeneSetName = args[25];
 //		String userDefinedGeneSetName = "GO";
 
-		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
+//		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
 //		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
@@ -2549,10 +2548,10 @@ public class Enrichment {
 		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
-		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		
-		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
+//		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 	

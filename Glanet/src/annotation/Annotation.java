@@ -66,7 +66,6 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
-import create.ChromosomeBasedFilesandOperations;
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -1309,23 +1308,25 @@ public class Annotation {
 	
 
 	
-
-	
-	//@todo
 	public static IntervalTree createUcscRefSeqGenesIntervalTreeWithNumbers(String dataFolder,ChromosomeName chromName){
 		IntervalTree  ucscRefSeqGenesIntervalTree =null;
 		FileReader fileReader =null;
 		BufferedReader bufferedReader = null;
 		
-		fileReader = ChromosomeBasedFilesandOperations.getUnsortedRefSeqGenesFileReaderWithNumbers(dataFolder,chromName);		
-		bufferedReader = new BufferedReader(fileReader);
-		
-		ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
-		
+		try {
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.UCSCGENOME + System.getProperty("file.separator"),chromName.convertEnumtoString() + Commons.UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS);
+			bufferedReader = new BufferedReader(fileReader);
+			ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+
 		return ucscRefSeqGenesIntervalTree;	
 	
 	}
-	//@todo
+	
 	
 	
 	

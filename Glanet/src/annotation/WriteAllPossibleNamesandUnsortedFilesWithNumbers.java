@@ -6,10 +6,8 @@
 
 package annotation;
 
-import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
-import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 
