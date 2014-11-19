@@ -88,6 +88,19 @@ public class Commons {
 	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
 	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
 	
+	//Enum type NumberOfBases
+	public static final String NUMBER_BASES_DEFAULT = "1";
+	//Enum type SignificanceCriteria
+	public static final String SIGNIFICANCE_CRITERIA_DEFAULT = "0.05";
+	//Enum type FalseDiscoveryRate
+	public static final String FDR_DEFAULT = "0.05";
+	//Enum type NumberOfPermutations
+	public static final String NUMBER_OF_PERMUTATIONS_DEFAULT = "5000";
+	//Enum type NumberOfPermutationsInEachRun
+	public static final String NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT = "2000";
+	//Enum type JobName
+	public static final String JOB_NAME_DEFAULT = "UntitledJob";
+	
 	//EnumType RegulatorySequenceAnalysisType
 	//RSAT PARAMETER
 	public static final String DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
@@ -1639,7 +1652,6 @@ public class Commons {
 	
 	//command line arguments
 	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
-	
 	public static final String ARG_INPUT_FILE = "-i";
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
@@ -1662,10 +1674,19 @@ public class Commons {
 	public static final String ARG_KEGG_ANNOTATION = "-kegg";
 	public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
 	public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-celltfkegg";
-	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udgeneset";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udlibrary";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udg";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_INPUT = "-udginput";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID = "-udgeinfoid";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udgeinfosymbol";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udgeinforna";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENESET_NAME = "-udgname";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgfile";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_INPUT = "-udlinput";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE= "-udldataformat0exc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE = "-udldataformat0inc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE = "-udldataformat1exc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udldataformat1inc";
 	public static final String ARG_JOB_NAME = "-j";
 	public static final String ARG_RSAT = "-rsat";
-	
-	
 }
