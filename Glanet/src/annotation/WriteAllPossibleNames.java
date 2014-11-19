@@ -26,7 +26,7 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
-public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
+public class WriteAllPossibleNames {
 	
 	
 	
@@ -347,7 +347,7 @@ public class WriteAllPossibleNamesandUnsortedFilesWithNumbers {
 	
 		//Write all possible kegg pathway names		
 		//Using pathway_hsa.list under C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
-		WriteAllPossibleNamesandUnsortedFilesWithNumbers.writeAllPossibleKeggPathwayNames(dataFolder);
+		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames(dataFolder);
 		
 		
 	}

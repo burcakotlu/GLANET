@@ -376,14 +376,14 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	    							//Encode data 
 	    							//start 0-based inclusive
 	    							//end exclusive
-	    							//my convention is
+	    							//GLANET convention is
 	    							//start 0-based inclusive
 	    							//end 0-based inclusive
 	    							endInclusive = end-1;
 	    		    				
 	    							//Write to Unsorted Chromosome Based files with numbers
 	    							bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chromosomeName),bufferedWriterList);
-	    							bufferedWriter.write(chromosomeName+ "\t" + start + "\t" + endInclusive + "\t" +  tforHistoneName2NumberMap.get(tforHistone) + "\t"+  tforHistoneCellLineName2NumberMap.get(tforHistoneCellLine) + "\t" + encodeFileName2NumberMap.get(fileName)  + System.getProperty("line.separator") );
+	    							bufferedWriter.write(chromosomeName+ "\t" + start + "\t" + endInclusive + "\t" +  tforHistoneName2NumberMap.get(tforHistone) + "\t"+  cellLineName2NumberMap.get(cellLine) + "\t" + encodeFileName2NumberMap.get(fileName)  + System.getProperty("line.separator") );
 	    					
 	    							
 	    						}//End of while
@@ -486,7 +486,7 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		    			
 		    			 // Open the file that is the first 		    			  		    			  
 		    			try {
-//				        		Get the cell line name from file name
+		    				//Get the cell line name from file name
 		    				cellLineDnase = getCellLineName(fileName);
 		    					
 		    					if(!dnaseCellLineName2NumberMap.containsKey(cellLineDnase)){
@@ -533,7 +533,7 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		    							//Encode data 
 		    							//start 0-based inclusive
 		    							//end exclusive
-		    							//my convention is
+		    							//GLANET convention is
 		    							//start 0-based inclusive
 		    							//end 0-based inclusive
 		    							endInclusive = end-1;
@@ -613,7 +613,6 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		TObjectIntMap<String> encodeHistoneCellLineName2NumberMap = new TObjectIntHashMap<String>();
 		
 		
-
 		ENCODENumbers encodeNumbers = new ENCODENumbers();
 		
 		//Create BufferedWriters

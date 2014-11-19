@@ -1046,14 +1046,17 @@ public class Commons {
 	public static final String FIND_FIRST = "FIND_FIRST";
 	
 	
-	//All possible names	
+	//All possible names Output Directories
 	public static final String WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.UCSCGENOME + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_LIBRARY+ System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_GENESET+ System.getProperty("file.separator");
 	
-	//ENCODE DNASE CELLLINE
+	/**************************************************************************************************/
+	/**********************************ENCODE ALL POSSIBLE NAMES starts********************************/
+	/**************************************************************************************************/
+	//ENCODE DNASE CELLLINE NAME2NUMBER
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Name_2_Number.txt";
 	//ENCODE CELLLINE
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_CellLine_Name_2_Number.txt";
@@ -1070,10 +1073,22 @@ public class Commons {
 	
 	//ENCODE CELLLINE NAME
 	public static final String ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME = "all_possible_ENCODE_CellLine_Names.txt";
+	/**************************************************************************************************/
+	/**********************************ENCODE ALL POSSIBLE NAMES ends**********************************/
+	/**************************************************************************************************/
 		
 	
+	/**************************************************************************************************/
+	/**********************************UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES starts**************/
+	/**************************************************************************************************/
+	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Name_2_Number.txt" ;
+	/**************************************************************************************************/
+	/**********************************UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES ends****************/
+	/**************************************************************************************************/
+	
+	
 	//ENCODE CELL LINE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELL_LINE_NAMES_OUTPUT_FILENAME = "all_possible_encode_cell_lines_names.txt";
 	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_cellLineNumber_2_cellLineName_map.txt";
 	
 	//ENCODE TF

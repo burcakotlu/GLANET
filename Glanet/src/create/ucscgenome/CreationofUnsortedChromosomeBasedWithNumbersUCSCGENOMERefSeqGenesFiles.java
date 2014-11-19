@@ -31,7 +31,7 @@ import common.Commons;
  * @project Glanet 
  *
  */
-public class CreationofUnsortedChromosomeBasedWithNumbersUCSCREFSEQGenesFiles {
+public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFiles {
 	
 	
 	public static void createRNANucleotideAccession2GeneIDMap(String fileName,TObjectIntMap<String> rnaNucleotideAccession2GeneIDMap){
@@ -483,8 +483,8 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCREFSEQGenesFiles {
 		
 		//Write UCSCGENOME HG19 REFSEQ GENES
 		//Write name2Number maps
-		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME);
-		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME);
+		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NAME_2_NUMBER_OUTPUT_FILENAME);
+		FileOperations.writeName2NumberMap(dataFolder,UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap,Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,Commons.WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NAME_2_NUMBER_OUTPUT_FILENAME);
 		
 				
 		
