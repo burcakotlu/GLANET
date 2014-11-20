@@ -2619,7 +2619,7 @@ public class Enrichment {
 			tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
 					
 			//all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
-			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES+ System.getProperty("file.separator") ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
+			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
 			KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayName2KeggPathwayNumberMap);
 
 		}
@@ -2640,7 +2640,7 @@ public class Enrichment {
 			UserDefinedLibraryUtility.fillNumber2NameMap(
 					elementTypeNumber2ElementTypeMap,
 					dataFolder,
-					Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES +  System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"),
+					Commons.WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
 					Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
 			
 		}

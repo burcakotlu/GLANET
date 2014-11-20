@@ -1237,7 +1237,7 @@ public class Annotation {
 		
 		try {			
 				
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator"),chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS);				
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET_ENCODE_DNASE_DIRECTORY,chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS);				
 			bufferedReader = new BufferedReader(fileReader);
 			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader);
 			
@@ -1265,7 +1265,7 @@ public class Annotation {
 		
 		try {		
 			
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator"),chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS);	
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET_ENCODE_TF_DIRECTORY,chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS);	
 			bufferedReader = new BufferedReader(fileReader);
 			tfbsIntervalTree = generateEncodeTfbsIntervalTreeWithNumbers(bufferedReader);
 			
@@ -1291,7 +1291,7 @@ public class Annotation {
 		
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator"),chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET_ENCODE_HISTONE_DIRECTORY,chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS);
 			bufferedReader = new BufferedReader(fileReader);
 			histoneIntervalTree = generateEncodeHistoneIntervalTreeWithNumbers(bufferedReader);
 			
@@ -5002,180 +5002,7 @@ public class Annotation {
 	//@todo
 	
 		
-	//@todo starts
-	public void fillName2NumberMap(TObjectShortMap<String> name2NumberMap,String dataFolder, String inputFileName){
-		String strLine;
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		int indexofFirstTab;
-		short number;
-		String name;
 		
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				name = strLine.substring(0,indexofFirstTab);
-				number = Short.parseShort(strLine.substring(indexofFirstTab+1));
-				name2NumberMap.put(name, number);
-				strLine = null;
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedReader.close();
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
-	}
-	
-	//@todo ends
-	
-	//@todo starts
-	public void fillNumber2NameMap(TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
-		String strLine;
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		int indexofFirstTab;
-		
-		int number;
-		String name;
-		
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				number = Integer.parseInt(strLine.substring(0,indexofFirstTab));
-				name = strLine.substring(indexofFirstTab+1);
-				number2NameMap.put(number, name);
-				strLine = null;
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedReader.close();
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
-	}	
-	//@todo ends
-	
-	//@todo starts
-	public void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
-		String strLine;
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		int indexofFirstTab;
-		short number;
-		String name;
-		
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				number = Short.parseShort(strLine.substring(0,indexofFirstTab));
-				name = strLine.substring(indexofFirstTab+1);
-				number2NameMap.put(number, name);
-				strLine = null;
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedReader.close();
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
-	}	
-	//@todo ends
-	
-	
-	public void fillList(List<String> list, String dataFolder, String inputFileName){
-		String strLine;
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {			
-				list.add(strLine);
-				strLine = null;
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedReader.close();
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
-	}
-
-	
-	public static void fillHashMap(Map<String,Integer> hashMap, String inputFileName){
-		String strLine;
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		
-		try {
-			fileReader = new FileReader(inputFileName);			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				hashMap.put(strLine, Commons.ZERO);
-				
-				strLine = null;
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedReader.close();
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
-	}
-	
 	//@todo starts
 	public void writeResultsWithNumbers(TShortIntMap number2KMap, TShortObjectMap<String> number2NameMap, String outputFolder, String outputFileName){
 		FileWriter fileWriter;
@@ -8232,13 +8059,13 @@ public class Annotation {
 		TIntObjectMap<String> 	geneHugoSymbolNumber2GeneHugoSymbolNameMap 	= new TIntObjectHashMap<String>();
 		TIntObjectMap<String> 	refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap 	= new TIntObjectHashMap<String>();
 		
-		fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME);
-		fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME);
-		fillNumber2NameMap(histoneNumber2HistoneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME);		
-		fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME);		
-		fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME);	
-		fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME);
-		fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(cellLineNumber2CellLineNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(fileNumber2FileNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(histoneNumber2HistoneNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME);		
+		FileOperations.fillNumber2NameMap(tfNumber2TfNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);		
+		FileOperations.fillNumber2NameMap(keggPathwayNumber2KeggPathwayNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);	
+		FileOperations.fillNumber2NameMap(geneHugoSymbolNumber2GeneHugoSymbolNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2RefSeqRNANucleotideAccessionNameMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME);
 		/****************************************************************************************************/
 		/***************FILL NUMBER 2 NAME MAPS*****ends*****************************************************/
 		/****************************************************************************************************/
@@ -8248,7 +8075,7 @@ public class Annotation {
 		/******************************************************/
 		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap 				= new TObjectShortHashMap<String>();
 				
-		fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME);		
+		FileOperations.fillName2NumberMap(keggPathwayName2KeggPathwayNumberMap,dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);		
 		/******************************************************/
 		/***************FILL NAME 2 NUMBER MAPS*****ends*******/
 		/******************************************************/
@@ -9478,6 +9305,5 @@ public class Annotation {
 			Annotation annotateIntervals = new Annotation();
 			annotateIntervals.annotate(args);
 		}
-
 
 }

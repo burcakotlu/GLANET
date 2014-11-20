@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import ui.GlanetRunner;
 import common.Commons;
@@ -27,6 +28,8 @@ import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.TObjectShortMap;
+import gnu.trove.map.TShortObjectMap;
 
 public class FileOperations {
 	
@@ -230,6 +233,10 @@ public class FileOperations {
 	}
 	
 	//Added 15 NOV 2014
+	//ENCODE DNASE
+	//ENCODE TF
+	//ENCODE HISTONE
+	//UCSCGENOME REFSEQ GENE
 	public static void createUnsortedChromosomeBasedWithNumbersBufferedWriters(
 			String dataFolder,
 			ElementType elementType, 
@@ -289,6 +296,7 @@ public class FileOperations {
 	}
 		
 	//Added 31.OCT.2014
+	//UserDefinedLibrary
 	public static void 	createChromosomeBasedListofBufferedWriters(
 			String elementType,
 			int elementTypeNumber,
@@ -349,7 +357,7 @@ public class FileOperations {
 		
 			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
 				   it.advance();
-				   bufferedWriter.write(it.key() + System.getProperty("line.separator"));		    
+				   bufferedWriter.write(it.value() + System.getProperty("line.separator"));		    
 			}
 			
 			bufferedWriter.close();
@@ -410,6 +418,230 @@ public class FileOperations {
 	}
 
 	
+	//Added 20.NOV.2014
+	public static void writeNumber2NameMap(String dataFolder,TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;		
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName,outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
+				   it.advance();
+				   bufferedWriter.write(it.value()+ "\t" + it.key() + System.getProperty("line.separator"));		    
+			}
+			
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	
+		public static void fillName2NumberMap(TObjectShortMap<String> name2NumberMap,String dataFolder, String inputFileName){
+			String strLine;
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			int indexofFirstTab;
+			short number;
+			String name;
+			
+			try {
+				fileReader = new FileReader(dataFolder + inputFileName);			
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine = bufferedReader.readLine())!=null) {
+					indexofFirstTab = strLine.indexOf('\t');
+					name = strLine.substring(0,indexofFirstTab);
+					number = Short.parseShort(strLine.substring(indexofFirstTab+1));
+					name2NumberMap.put(name, number);
+					strLine = null;
+				}
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				bufferedReader.close();
+				fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+		
+		
+		public static void fillNumber2NameMap(TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
+			String strLine;
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			int indexofFirstTab;
+			
+			int number;
+			String name;
+			
+			try {
+				fileReader = new FileReader(dataFolder + inputFileName);			
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine = bufferedReader.readLine())!=null) {
+					indexofFirstTab = strLine.indexOf('\t');
+					number = Integer.parseInt(strLine.substring(0,indexofFirstTab));
+					name = strLine.substring(indexofFirstTab+1);
+					number2NameMap.put(number, name);
+					strLine = null;
+				}
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				bufferedReader.close();
+				fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}	
+		
+		
+		
+		public static void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName){
+			String strLine;
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			int indexofFirstTab;
+			short number;
+			String name;
+			
+			try {
+				fileReader = new FileReader(dataFolder + inputFileName);			
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine = bufferedReader.readLine())!=null) {
+					indexofFirstTab = strLine.indexOf('\t');
+					number = Short.parseShort(strLine.substring(0,indexofFirstTab));
+					name = strLine.substring(indexofFirstTab+1);
+					number2NameMap.put(number, name);
+					strLine = null;
+				}
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				bufferedReader.close();
+				fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}	
+		
+		
+		
+		public static void fillList(List<String> list, String dataFolder, String inputFileName){
+			String strLine;
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			
+			try {
+				fileReader = new FileReader(dataFolder + inputFileName);			
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine = bufferedReader.readLine())!=null) {			
+					list.add(strLine);
+					strLine = null;
+				}
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				bufferedReader.close();
+				fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+
+		
+		public static void fillHashMap(Map<String,Integer> hashMap, String inputFileName){
+			String strLine;
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			
+			try {
+				fileReader = new FileReader(inputFileName);			
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine = bufferedReader.readLine())!=null) {
+					hashMap.put(strLine, Commons.ZERO);
+					
+					strLine = null;
+				}
+				
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				bufferedReader.close();
+				fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+
+	
+		public static void readNames(String dataFolder,List<String> nameList, String inputDirectoryName, String inputFileName){
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;	
+			
+			String strLine;
+			
+			try {
+				
+				fileReader = FileOperations.createFileReader(dataFolder + inputDirectoryName,inputFileName);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				while((strLine= bufferedReader.readLine())!=null){
+					if (!nameList.contains(strLine)){
+						nameList.add(strLine);
+					}
+				}//End of While
+			
+				
+				bufferedReader.close();
+				fileReader.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+						
+		}
+
+		
 	/**
 	 * 
 	 */

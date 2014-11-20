@@ -1046,30 +1046,38 @@ public class Commons {
 	public static final String FIND_FIRST = "FIND_FIRST";
 	
 	
+	
+	/**************************************************************************************************/
+	/****************************ALL POSSIBLE NAMES Directories starts*********************************/
+	/**************************************************************************************************/
 	//All possible names Output Directories
 	public static final String WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.UCSCGENOME + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_LIBRARY+ System.getProperty("file.separator");
 	public static final String WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_GENESET+ System.getProperty("file.separator");
+	/**************************************************************************************************/
+	/****************************ALL POSSIBLE NAMES Directories ends***********************************/
+	/**************************************************************************************************/
+
 	
 	/**************************************************************************************************/
 	/**********************************ENCODE ALL POSSIBLE NAMES starts********************************/
 	/**************************************************************************************************/
 	//ENCODE DNASE CELLLINE NAME2NUMBER
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Number_2_Name.txt";
 	//ENCODE CELLLINE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENAME_2_CELLLINENUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_CellLine_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_CellLine_Number_2_Name.txt";
 	//ENCODE TF
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_TF_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_TF_Number_2_Name.txt";
 	//ENCODE TF CELLLINE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_TF_CellLine_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_TF_CellLine_Number_2_Name.txt";
 	//ENCODE HISTONE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_Number_2_Name.txt";
 	//ENCODE HISTONE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_CELLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_CellLine_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_HISTONE_CellLine_Number_2_Name.txt";
 	//ENCODE  FILENAME
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_FILE_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_FILE_Number_2_Name.txt";
 	
 	//ENCODE CELLLINE NAME
 	public static final String ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME = "all_possible_ENCODE_CellLine_Names.txt";
@@ -1081,36 +1089,41 @@ public class Commons {
 	/**************************************************************************************************/
 	/**********************************UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES starts**************/
 	/**************************************************************************************************/
-	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_Name_2_Number.txt";
-	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Name_2_Number.txt" ;
+	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_Number_2_Name.txt";
+	public static final String WRITE_ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Number_2_Name.txt" ;
 	/**************************************************************************************************/
 	/**********************************UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES ends****************/
 	/**************************************************************************************************/
 	
 	
-	//ENCODE CELL LINE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_cellLineNumber_2_cellLineName_map.txt";
 	
-	//ENCODE TF
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_2_tfName_map.txt";	
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_cellLineNumber_2_tfName_cellLineName_map.txt";
-
-	//ENCODE HISTONE
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_encode_histone_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENAME_2_HISTONENUMBER_OUTPUT_FILENAME = "all_possible_encode_histoneName_2_histoneNumber_map.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME = "all_possible_encode_histoneNumber_2_histoneName_map.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_CELLLINENUMBER_2_HISTONENAME_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_histoneNumber_cellLineNumber_2_histoneName_cellLineName_map.txt";
-
-	//ENCODE  FILENAME
-	public static final String WRITE_ALL_ENCODE_FILE_NAMES_OUTPUT_FILENAME = "all_possible_encode_file_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_encode_fileNumber_2_fileName_map.txt";
-
+	/**************************************************************************************************/
+	/**********************************KEGG PATHWAY ALL POSSIBLE NAMES starts**************************/
+	/**************************************************************************************************/
+	//KEGG PATHWAY
+	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_keggPathway_Name_2_Number.txt";
+	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_keggPathway_Number_2_Name.txt";		
+	/**************************************************************************************************/
+	/**********************************KEGG PATHWAY ALL POSSIBLE NAMES ends****************************/
+	/**************************************************************************************************/
 	
+	
+	/**************************************************************************************************/
+	/**********************************USER DEFINED GENESET ALL POSSIBLE NAMES starts******************/
+	/**************************************************************************************************/
 	//USER DEFINED GENESET
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME = "all_possible_userDefinedGeneSet_names.txt";
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNAME_2_USERDEFINEDGENESETNUMBER_OUTPUT_FILENAME = "all_possible_userDefinedGeneSetName_2_userDefinedGeneSetNumber_map.txt";
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDGENESETNUMBER_2_USERDEFINEDGENESETNAME_OUTPUT_FILENAME = "all_possible_userDefinedGeneSetNumber_2_userDefinedGeneSetName_map.txt";
-
+	/**************************************************************************************************/
+	/**********************************USER DEFINED GENESET ALL POSSIBLE NAMES ends********************/
+	/**************************************************************************************************/
+	
+	
+	/**************************************************************************************************/
+	/**********************************USER DEFINED LIBRARY ALL POSSIBLE NAMES starts******************/
+	/**************************************************************************************************/
 	//USER DEFINED LIBRARY
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_2_ELEMENTTYPENUMBER_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_elementType_2_elementTypeNumber.txt";
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNAME_2_ELEMENTNUMBER_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_elementName_2_elementNumber.txt";
@@ -1118,34 +1131,52 @@ public class Commons {
 
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_elementTypeNumber_2_elementType.txt";
 	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_elementNumber_2_elementName.txt";
-	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_fileNumber_2_fileName.txt";
+	public static final String WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_userDefinedLibrary_fileNumber_2_fileName.txt";		
+	/**************************************************************************************************/
+	/**********************************USER DEFINED LIBRARY ALL POSSIBLE NAMES ends********************/
+	/**************************************************************************************************/
+
 	
-	//KEGG PATHWAY
-	public static final String WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME = "all_possible_kegg_pathway_names.txt";
-	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_OUTPUT_FILENAME = "all_possible_keggPathwayName_2_keggPathwayNumber_map.txt";
-	public static final String WRITE_ALL_POSSIBLE_KEGGPATHWAYNUMBER_2_KEGGPATHWAYNAME_OUTPUT_FILENAME = "all_possible_keggPathwayNumber_2_keggPathwayName_map.txt";
-	
-	
+	/**************************************************************************************************/
+	/**********************************TO BE DELETED starts********************************************/
+	/**************************************************************************************************/
+//ENCODE CELL LINE
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_CELLLINENUMBER_2_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_cellLineNumber_2_cellLineName_map.txt";
+	//ENCODE TF
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_2_TFNAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_2_tfName_map.txt";	
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_TFNUMBER_CELLLINENUMBER_2_TFNAME_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_tfNumber_cellLineNumber_2_tfName_cellLineName_map.txt";
+	//ENCODE HISTONE
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONE_NAMES_OUTPUT_FILENAME = "all_possible_encode_histone_names.txt";
+	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENAME_2_HISTONENUMBER_OUTPUT_FILENAME = "all_possible_encode_histoneName_2_histoneNumber_map.txt";
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_2_HISTONENAME_OUTPUT_FILENAME = "all_possible_encode_histoneNumber_2_histoneName_map.txt";
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_HISTONENUMBER_CELLLINENUMBER_2_HISTONENAME_CELLLINENAME_OUTPUT_FILENAME = "all_possible_encode_histoneNumber_cellLineNumber_2_histoneName_cellLineName_map.txt";
+	//ENCODE  FILENAME
+	public static final String WRITE_ALL_ENCODE_FILE_NAMES_OUTPUT_FILENAME = "all_possible_encode_file_names.txt";
+//	public static final String WRITE_ALL_POSSIBLE_ENCODE_FILENUMBER_2_FILENAME_OUTPUT_FILENAME = "all_possible_encode_fileNumber_2_fileName_map.txt";
+
 	//UCSC Genome Browser RefSeq Genes
 	public static final String WRITE_ALL_UCSC_REF_SEQ_GENES_ENTREZ_GENE_IDS = "all_possible_ucsc_refseq_genes_entrez_geneIds.txt";
 	
 	//UCSC Genome Browser RefSeq Gene Names
 	public static final String WRITE_ALL_UCSC_REF_SEQ_GENE_NAMES = "all_possible_ucsc_refseq_gene_names.txt";
 	public static final String WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_2_REFSEQ_GENE_NAME_NUMBER_OUTPUT_FILENAME = "all_possible_ucsc_refseqGeneName_2_refseqGeneNameNumber_map.txt";
-	public static final String WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME = "all_possible_ucsc_refseqGeneNameNumber_2_refseqGeneName_map.txt";
+//	public static final String WRITE_ALL_POSSIBLE_UCSC_REFSEQ_GENE_NAME_NUMBER_2_REFSEQ_GENE_NAME_OUTPUT_FILENAME = "all_possible_ucsc_refseqGeneNameNumber_2_refseqGeneName_map.txt";
 	
 	//UCSC Genome Browser Gene Hugo Symbols
 	public static final String WRITE_ALL_UCSC_GENE_HUGO_SYMBOLS_NAMES = "all_possible_ucsc_gene_hugo_symbols.txt";
 	public static final String WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_2_GENE_HUGO_SYMBOL_NUMBER_OUTPUT_FILENAME = "all_possible_ucsc_geneHugoSymbol_2_geneHugoSymbolNumber_map.txt";
-	public static final String WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME = "all_possible_ucsc_geneHugoSymbolNumber_2_geneHugoSymbol_map.txt";
+//	public static final String WRITE_ALL_POSSIBLE_UCSC_GENE_HUGO_SYMBOL_NUMBER_2_GENE_HUGO_SYMBOL_OUTPUT_FILENAME = "all_possible_ucsc_geneHugoSymbolNumber_2_geneHugoSymbol_map.txt";
 	
 	public static final String WRITE_ALL_POSSIBLE_GENE_IDS_OUTPUT_FILENAME =  "all_possible_gene_ids.txt";	
 	
 	public static final String WRITE_ALL_POSSIBLE_RNA_NUCLEUOTIDE_ACCESSION_VERSIONS_OUTPUT_FILENAME = "all_possible_rna_nucleotide_accession_versions.txt";	
 	
 	public static final String WRITE_ALL_POSSIBLE_ALTERNATE_GENE_NAMES_OUTPUT_FILENAME = "all_possible_alternate_gene_names.txt";	
-	
+	/**************************************************************************************************/
+	/**********************************TO BE DELETED ends**********************************************/
+	/**************************************************************************************************/
 
+	
 //	Kegg Pathway to Ncbi Ref Seq Gene Ids
 	public static final String KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE = "KEGG" + System.getProperty("file.separator") + "list_pathway_hsa.txt";
 	public static final String KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE = "KEGG" + System.getProperty("file.separator") + "pathway_hsa.list";
@@ -1374,7 +1405,7 @@ public class Commons {
 	public static final String BYGLANET_ENCODE_HISTONE_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE + System.getProperty("file.separator") + Commons.HISTONE + System.getProperty("file.separator");
 			
 	//CREATE ENCODE TF directory
-	public static final String BYGLANET_ENCODE_TFBS_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator");
+	public static final String BYGLANET_ENCODE_TF_DIRECTORY = Commons.BYGLANET + System.getProperty("file.separator") +  Commons.ENCODE + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator");
 	
 
 	
