@@ -3697,7 +3697,7 @@ public class IntervalTree {
 											
 											//Debug starts
 											if (permutationNumberKeggPathwayNumber<0){
-												System.out.println("there is a situation");
+												System.out.println("there is a situation 4");
 											}
 											//Debug end
 																								
@@ -3715,7 +3715,7 @@ public class IntervalTree {
 												
 											//Debug starts
 											if (permutationNumberUserDefinedGeneSetNumber<0){
-												System.out.println("there is a situation");
+												System.out.println("there is a situation 5");
 											}
 											//Debug end
 																								
@@ -3760,7 +3760,7 @@ public class IntervalTree {
 											
 											//Debug starts
 											if (permutationNumberKeggPathwayNumber<0){
-												System.out.println("there is a situation");
+												System.out.println("there is a situation 6");
 											}
 											//Debug end
 											
@@ -3779,7 +3779,7 @@ public class IntervalTree {
 											
 											//Debug starts
 											if (permutationNumberUserDefinedGeneSetNumber<0){
-												System.out.println("there is a situation");
+												System.out.println("there is a situation 7");
 											}
 											//Debug end
 											
@@ -3818,7 +3818,7 @@ public class IntervalTree {
 										
 										//Debug starts
 										if (permutationNumberKeggPathwayNumber<0){
-											System.out.println("there is a situation");
+											System.out.println("there is a situation 8");
 										}
 										//Debug end
 										
@@ -3838,7 +3838,7 @@ public class IntervalTree {
 										
 										//Debug starts
 										if (permutationNumberUserDefinedGeneSetNumber<0){
-											System.out.println("there is a situation");
+											System.out.println("there is a situation 9");
 										}
 										//Debug end
 										

@@ -148,7 +148,7 @@ public class Enrichment {
 					 
 					 permutationNumber = annotationTask.getPermutationNumber();
 					 
-					 System.out.println("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.convertEnumtoString());	
+//					 System.out.println("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.convertEnumtoString());	
 //					 GlanetRunner.appendLog("Generate Random Data For Permutation: " + permutationNumber.toString() + "\t" +chromName.convertEnumtoString());	
 				     
 				     randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,mapabilityFloatArray,chromSize, chromName,chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
@@ -332,7 +332,7 @@ public class Enrichment {
 					 annotationTask = listofAnnotationTasks.get(i);
 					 permutationNumber = annotationTask.getPermutationNumber();
 					      
-					 System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" + chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());				
+//					 System.out.println("Annotate Random Data For Permutation: " + permutationNumber + "\t" + chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());				
 //					 GlanetRunner.appendLog("Annotate Random Data For Permutation: " + permutationNumber + "\t" +chromName.convertEnumtoString() + "\t" + annotationType.convertEnumtoString());	
 				     
 				     //WITHOUT IO WithNumbers
@@ -787,7 +787,7 @@ public class Enrichment {
 			
 			//debug starts
 			if (cellLineNumberOrGeneSetNumber<0){
-				System.out.println("there is a situation");
+				System.out.println("there is a situation 2");
 			}
 			//debug ends
 			
@@ -2291,7 +2291,7 @@ public class Enrichment {
 				
 				//debug starts
 				if (permutationNumberRemovedMixedNumber<0){
-					System.out.println("there is a situation");
+					System.out.println("there is a situation 3");
 				}
 				//debug ends
 				
@@ -2619,7 +2619,7 @@ public class Enrichment {
 			tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
 					
 			//all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
-			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME ,  Commons.ALL_POSSIBLE_KEGGPATHWAYNAME_2_KEGGPATHWAYNUMBER_FILE, keggPathwayName2KeggPathwayNumberMap);
+			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME ,  Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME, keggPathwayName2KeggPathwayNumberMap);
 			KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder,Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap,keggPathwayName2KeggPathwayNumberMap);
 
 		}

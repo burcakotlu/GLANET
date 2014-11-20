@@ -449,8 +449,7 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		/***************************SOURCE FILES starts***************************************************/
 		/*************************************************************************************************/
 		//Downloaded from UCSC Genome Table Browser contains RNA_NUCLEOTIDE_ACCESSION and GENE_SYMBOL
-		//THIS FILE IS IN LOCAL DISK
-		String UCSC_GENOME_HG19_REFSEQ_GENES_FILE = Commons.LOCAL_DISK_G_DOKTORA_DATA + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014;
+		String UCSC_GENOME_HG19_REFSEQ_GENES_FILE = dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014;
 				
 		//THIS FILE IS IN GLANET DATA
 		//This file is prepared by HumanRefSeq2Gene.java  which uses the downloaded file gene2RefSeq.txt from NCBI. 

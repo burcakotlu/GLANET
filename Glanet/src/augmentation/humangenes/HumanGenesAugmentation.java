@@ -220,105 +220,105 @@ public class HumanGenesAugmentation {
 	//@todo ends
 	
 	
-	//read UCSC HG19 RefSeq Genes file
-	//fill map --> geneSymbol2ListofRNANucleotideAccessionMap: this map is one 2 many (23732 pairs)
-	public static void fillGeneSymbol2ListofRNANucleotideAccessionMap(
-			String dataFolder,
-			Map<String,List<String>> geneSymbol2ListofRNANucleotideAccessionMap){
-		
-		
-		FileReader fileReader;
-		BufferedReader bufferedReader;
-		String strLine;
-		
-		int indexofFirstTab;
-		int indexofSecondTab;
-		int indexofThirdTab;
-		int indexofFourthTab;
-		int indexofFifthTab;
-		int indexofSixthTab;
-		int indexofSeventhTab;
-		int indexofEighthTab;
-		int indexofNinethTab;
-		int indexofTenthTab;
-		int indexofEleventhTab;
-		int indexofTwelfthTab;
-		int indexofThirteenthTab;
-		
-		String RNANucleotideAccession;
-		String alternateGeneName;
-		
-		List<String> RNANucleotideAccessionList;
-		
-		
-		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
-			
-			//skip header line
-			strLine = bufferedReader.readLine();
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				//header line
-				//#bin	name	chrom	strand	txStart	txEnd	cdsStart	cdsEnd	exonCount	exonStarts	exonEnds	score	name2	cdsStartStat	cdsEndStat	exonFrames
-				//example line
-				//0	NM_032291	chr1	+	66999824	67210768	67000041	67208778	25	66999824,67091529,67098752,67101626,67105459,67108492,67109226,67126195,67133212,67136677,67137626,67138963,67142686,67145360,67147551,67154830,67155872,67161116,67184976,67194946,67199430,67205017,67206340,67206954,67208755,	67000051,67091593,67098777,67101698,67105516,67108547,67109402,67126207,67133224,67136702,67137678,67139049,67142779,67145435,67148052,67154958,67155999,67161176,67185088,67195102,67199563,67205220,67206405,67207119,67210768,	0	SGIP1	cmpl	cmpl	0,1,2,0,0,0,1,0,0,0,1,2,1,1,1,1,0,1,1,2,2,0,2,1,1,
-				
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
-				indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
-				indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
-				indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
-				indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
-				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
-				indexofEighthTab = strLine.indexOf('\t',indexofSeventhTab+1);
-				indexofNinethTab = strLine.indexOf('\t',indexofEighthTab+1);
-				indexofTenthTab = strLine.indexOf('\t',indexofNinethTab+1);
-				indexofEleventhTab = strLine.indexOf('\t',indexofTenthTab+1);
-				indexofTwelfthTab = strLine.indexOf('\t',indexofEleventhTab+1);
-				indexofThirteenthTab = strLine.indexOf('\t',indexofTwelfthTab+1);
-				
-				RNANucleotideAccession = strLine.substring(indexofFirstTab+1, indexofSecondTab);
-				alternateGeneName = strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab);
-				
-				
-				
-				/****************************************************************************/
-				RNANucleotideAccessionList = geneSymbol2ListofRNANucleotideAccessionMap.get(alternateGeneName);
-				
-				if (RNANucleotideAccessionList == null){
-					RNANucleotideAccessionList = new ArrayList<String>();
-					RNANucleotideAccessionList.add(RNANucleotideAccession);
-					
-					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName,RNANucleotideAccessionList);
-				} else{
-					
-					if (!RNANucleotideAccessionList.contains(RNANucleotideAccession)){
-						RNANucleotideAccessionList.add(RNANucleotideAccession);
-					}
-					
-//						if (RNANucleotideAccessionList.size()>1){
-//							System.out.println("RNANucleotideAccessionList size: " + RNANucleotideAccessionList.size());
-//						}
-									
-					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName,RNANucleotideAccessionList);
-				}
-				/****************************************************************************/
-				
-				
-				
-			}//End of WHILE
-			
-			bufferedReader.close();
-			
-		} catch (FileNotFoundException e) {
-				e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		
-	}
+//	//read UCSC GENOME HG19 RefSeq Genes file
+//	//fill map --> geneSymbol2ListofRNANucleotideAccessionMap: this map is one 2 many (23732 pairs)
+//	public static void fillGeneSymbol2ListofRNANucleotideAccessionMap(
+//			String dataFolder,
+//			Map<String,List<String>> geneSymbol2ListofRNANucleotideAccessionMap){
+//		
+//		
+//		FileReader fileReader;
+//		BufferedReader bufferedReader;
+//		String strLine;
+//		
+//		int indexofFirstTab;
+//		int indexofSecondTab;
+//		int indexofThirdTab;
+//		int indexofFourthTab;
+//		int indexofFifthTab;
+//		int indexofSixthTab;
+//		int indexofSeventhTab;
+//		int indexofEighthTab;
+//		int indexofNinethTab;
+//		int indexofTenthTab;
+//		int indexofEleventhTab;
+//		int indexofTwelfthTab;
+//		int indexofThirteenthTab;
+//		
+//		String RNANucleotideAccession;
+//		String alternateGeneName;
+//		
+//		List<String> RNANucleotideAccessionList;
+//		
+//		
+//		try {
+//			fileReader = FileOperations.createFileReader(dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
+//			bufferedReader = new BufferedReader(fileReader);
+//			
+//			//skip header line
+//			strLine = bufferedReader.readLine();
+//			
+//			while((strLine = bufferedReader.readLine())!=null) {
+//				//header line
+//				//#bin	name	chrom	strand	txStart	txEnd	cdsStart	cdsEnd	exonCount	exonStarts	exonEnds	score	name2	cdsStartStat	cdsEndStat	exonFrames
+//				//example line
+//				//0	NM_032291	chr1	+	66999824	67210768	67000041	67208778	25	66999824,67091529,67098752,67101626,67105459,67108492,67109226,67126195,67133212,67136677,67137626,67138963,67142686,67145360,67147551,67154830,67155872,67161116,67184976,67194946,67199430,67205017,67206340,67206954,67208755,	67000051,67091593,67098777,67101698,67105516,67108547,67109402,67126207,67133224,67136702,67137678,67139049,67142779,67145435,67148052,67154958,67155999,67161176,67185088,67195102,67199563,67205220,67206405,67207119,67210768,	0	SGIP1	cmpl	cmpl	0,1,2,0,0,0,1,0,0,0,1,2,1,1,1,1,0,1,1,2,2,0,2,1,1,
+//				
+//				indexofFirstTab = strLine.indexOf('\t');
+//				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+//				indexofThirdTab = strLine.indexOf('\t',indexofSecondTab+1);
+//				indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+//				indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+1);
+//				indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+//				indexofSeventhTab = strLine.indexOf('\t',indexofSixthTab+1);
+//				indexofEighthTab = strLine.indexOf('\t',indexofSeventhTab+1);
+//				indexofNinethTab = strLine.indexOf('\t',indexofEighthTab+1);
+//				indexofTenthTab = strLine.indexOf('\t',indexofNinethTab+1);
+//				indexofEleventhTab = strLine.indexOf('\t',indexofTenthTab+1);
+//				indexofTwelfthTab = strLine.indexOf('\t',indexofEleventhTab+1);
+//				indexofThirteenthTab = strLine.indexOf('\t',indexofTwelfthTab+1);
+//				
+//				RNANucleotideAccession = strLine.substring(indexofFirstTab+1, indexofSecondTab);
+//				alternateGeneName = strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab);
+//				
+//				
+//				
+//				/****************************************************************************/
+//				RNANucleotideAccessionList = geneSymbol2ListofRNANucleotideAccessionMap.get(alternateGeneName);
+//				
+//				if (RNANucleotideAccessionList == null){
+//					RNANucleotideAccessionList = new ArrayList<String>();
+//					RNANucleotideAccessionList.add(RNANucleotideAccession);
+//					
+//					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName,RNANucleotideAccessionList);
+//				} else{
+//					
+//					if (!RNANucleotideAccessionList.contains(RNANucleotideAccession)){
+//						RNANucleotideAccessionList.add(RNANucleotideAccession);
+//					}
+//					
+////						if (RNANucleotideAccessionList.size()>1){
+////							System.out.println("RNANucleotideAccessionList size: " + RNANucleotideAccessionList.size());
+////						}
+//									
+//					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName,RNANucleotideAccessionList);
+//				}
+//				/****************************************************************************/
+//				
+//				
+//				
+//			}//End of WHILE
+//			
+//			bufferedReader.close();
+//			
+//		} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		
+//	}
 	
 	
 	//read UCSC HG19 RefSeq Genes file

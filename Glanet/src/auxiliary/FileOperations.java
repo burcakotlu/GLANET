@@ -642,6 +642,29 @@ public class FileOperations {
 		}
 
 		
+		
+	public static void createChromBaseSeachInputFiles(String outputFolder,List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList){
+		try {
+			
+			
+			//For each ChromosomeName
+			for (ChromosomeName chrName:ChromosomeName.values()){
+				   
+				FileWriter fileWriter 	= FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+				fileWriterList.add(fileWriter);
+				
+				BufferedWriter bufferedWriter 	= new BufferedWriter(fileWriter);
+				bufferedWriterList.add(bufferedWriter);
+				
+			}//End of for each chromosomeName
+	
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
+		
 	/**
 	 * 
 	 */

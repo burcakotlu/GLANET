@@ -443,7 +443,7 @@ public class CollectionofPermutationsResults {
 						
 						//debug starts
 						if (mixedNumber<0){
-							System.out.println("there is a situation");
+							System.out.println("there is a situation 1");
 						}
 						//debug ends
 							
