@@ -225,23 +225,23 @@ public class NumberofComparisons {
 		
 		//Bonferroni Correction
 		//Dnase		
-		FileOperations.fillNumber2NameMap(dnaseCellLineNumber2NameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(dnaseCellLineNumber2NameMap,dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
 		numberofComparisons.setDnaseCellLineNumberofComparison(dnaseCellLineNumber2NameMap.size());
 		
 		//TF
-		FileOperations.fillNumber2NameMap(tfNumber2NameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(tfNumber2NameMap,dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap,dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
 		numberofComparisons.setTfNumberofComparison(tfNumber2NameMap.size());
 		numberofComparisons.setTfCellLineNumberofComparison(tfCellLineNumber2NameMap.size());
 		
 		//HISTONE
-		FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap,dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
 		numberofComparisons.setHistoneCellLineNumberofComparison(histoneCellLineNumber2NameMap.size());
 		
 		//KEGG PATHWAY	
 		//Important ASK
 		//QUESTION:Should we use the number of annotated Exon Based KEGG Pathways or the number of KEGG Pathways? 
-		FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap,dataFolder + Commons.WRITE_ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap,dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
 		//EXON BASED KEGG PATHWAY
 		numberofComparisons.setExonBasedKEGGPathwayNumberofComparison(keggPathwayNumber2NameMap.size());
 		//REGULATION BASED KEGG PATHWAY
@@ -271,7 +271,7 @@ public class NumberofComparisons {
 		//User Defined GeneSet
 		List<String> nameList = new ArrayList<String>();
 		
-		FileOperations.readNames(dataFolder,nameList, Commons.WRITE_ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.WRITE_ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
+		FileOperations.readNames(dataFolder,nameList, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
 		numberofComparisons.setExonBasedUserDefinedGeneSetNumberofComparison(nameList.size());
 		numberofComparisons.setRegulationBasedUserDefinedGeneSetNumberofComparison(nameList.size());
 		numberofComparisons.setAllBasedUserDefinedGeneSetNumberofComparison(nameList.size());
@@ -286,8 +286,8 @@ public class NumberofComparisons {
 		
 		UserDefinedLibraryUtility.fillNumber2NameMap(userDefinedLibraryElementTypeNumber2ElementTypeMap,
 				dataFolder,
-				Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES +  System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"),
-				Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPENUMBER_2_ELEMENTTYPE_OUTPUT_FILENAME);
+				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
 		 
 		
 		//For each elementTypeNumber starts
@@ -300,8 +300,8 @@ public class NumberofComparisons {
 			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
 			UserDefinedLibraryUtility.fillNumber2NameMap(userDefinedLibraryElementNumber2ElementNameMap,
 					dataFolder,
-					Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES +  System.getProperty("file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator") + elementType + System.getProperty("file.separator"),
-					Commons.WRITE_ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTNUMBER_2_ELEMENTNAME_OUTPUT_FILENAME);
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty("file.separator"),
+					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
 			
 			userDefinedLibraryElementTypeNumber2NumberofComparisonMap.put(elementTypeNumber, userDefinedLibraryElementNumber2ElementNameMap.size());
 		}

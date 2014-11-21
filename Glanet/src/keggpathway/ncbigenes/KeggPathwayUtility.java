@@ -12,10 +12,8 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectShortMap;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,66 +110,66 @@ public class KeggPathwayUtility {
 	}
 	
 	
-	public void writeKeggPathway2NcbiGeneIdFiles(Set<KeggPathway> keggPathwaySet){
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-		
-		Iterator<KeggPathway> itr = keggPathwaySet.iterator();
-		try {
-
-			while(itr.hasNext()){
-				KeggPathway keggPathway = (KeggPathway)itr.next();
-				fileWriter = new FileWriter(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_OUTPUT_FILE_PATH + keggPathway.getKeggPathwayName() + "_to_NcbiGeneList.txt");
-				bufferedWriter = new BufferedWriter(fileWriter);
-				
-				for(int i = 0; i<keggPathway.getGeneIdList().size(); i++){
-					bufferedWriter.write(keggPathway.getGeneIdList().get(i)+ "\n");
-					bufferedWriter.flush();
-				}
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedWriter.close();
-			fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}								
-	}
+//	public void writeKeggPathway2NcbiGeneIdFiles(Set<KeggPathway> keggPathwaySet){
+//		FileWriter fileWriter = null;
+//		BufferedWriter bufferedWriter = null;
+//		
+//		Iterator<KeggPathway> itr = keggPathwaySet.iterator();
+//		try {
+//
+//			while(itr.hasNext()){
+//				KeggPathway keggPathway = (KeggPathway)itr.next();
+//				fileWriter = new FileWriter(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_OUTPUT_FILE_PATH + keggPathway.getKeggPathwayName() + "_to_NcbiGeneList.txt");
+//				bufferedWriter = new BufferedWriter(fileWriter);
+//				
+//				for(int i = 0; i<keggPathway.getGeneIdList().size(); i++){
+//					bufferedWriter.write(keggPathway.getGeneIdList().get(i)+ "\n");
+//					bufferedWriter.flush();
+//				}
+//			}
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		try {
+//			bufferedWriter.close();
+//			fileWriter.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}								
+//	}
 	
-	public void writeAllPossibleKeggPathwayNamesFile(Set<KeggPathway> keggPathwaySet){
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-		
-		Iterator<KeggPathway> itr = keggPathwaySet.iterator();
-		try {
-
-			fileWriter = new FileWriter(Commons.ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);
-			bufferedWriter = new BufferedWriter(fileWriter);
-		
-			while(itr.hasNext()){
-				KeggPathway keggPathway = (KeggPathway)itr.next();
-								
-				bufferedWriter.write(keggPathway.getKeggPathwayName()+ "\n");
-				bufferedWriter.flush();				
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			bufferedWriter.close();
-			fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}									
-	}
+//	public void writeAllPossibleKeggPathwayNamesFile(Set<KeggPathway> keggPathwaySet){
+//		FileWriter fileWriter = null;
+//		BufferedWriter bufferedWriter = null;
+//		
+//		Iterator<KeggPathway> itr = keggPathwaySet.iterator();
+//		try {
+//
+//			fileWriter = new FileWriter(Commons.ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);
+//			bufferedWriter = new BufferedWriter(fileWriter);
+//		
+//			while(itr.hasNext()){
+//				KeggPathway keggPathway = (KeggPathway)itr.next();
+//								
+//				bufferedWriter.write(keggPathway.getKeggPathwayName()+ "\n");
+//				bufferedWriter.flush();				
+//			}
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		try {
+//			bufferedWriter.close();
+//			fileWriter.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}									
+//	}
 	
 	
 	public static void fillHashMap(Map<String,Integer> hashMap, String inputFileName){
@@ -853,8 +851,8 @@ public class KeggPathwayUtility {
 		
 		KeggPathwayUtility keggPathwayUtility = new KeggPathwayUtility();
 		keggPathwayUtility.readKeggPathwayHsaList(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, keggPathwaySet);
-		keggPathwayUtility.writeKeggPathway2NcbiGeneIdFiles(keggPathwaySet);
-		keggPathwayUtility.writeAllPossibleKeggPathwayNamesFile(keggPathwaySet);
+//		keggPathwayUtility.writeKeggPathway2NcbiGeneIdFiles(keggPathwaySet);
+//		keggPathwayUtility.writeAllPossibleKeggPathwayNamesFile(keggPathwaySet);
 		
 		
 		Map<String,List<String>> keggPathway2GeneIdHashMap = new HashMap<String, List<String>>();
