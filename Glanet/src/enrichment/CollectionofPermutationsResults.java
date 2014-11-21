@@ -325,7 +325,7 @@ public class CollectionofPermutationsResults {
 		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap 		= null;
 		
 		
-		//Here using same variable name "cellLineNumber2NameMap" for case DO_DNASE_ENRICHMENT and DO_TF_ENRICHMENT is not important
+		//Here using same variable name "cellLineNumber2NameMap" for case DO_DNASE_ENRICHMENT and case DO_TF_ENRICHMENT is not important
 		//How it is filled is important, I mean its source
 		//For example in case DO_DNASE_ENRICHMENT cellLineNumber2NameMap is filled by using ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME 
 		//For example in case DO_TF_ENRICHMENT cellLineNumber2NameMap is filled by using ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME 
@@ -743,7 +743,6 @@ public class CollectionofPermutationsResults {
 		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
 
 				
-		
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT

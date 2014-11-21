@@ -453,7 +453,7 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 				
 		//THIS FILE IS IN GLANET DATA
 		//This file is prepared by HumanRefSeq2Gene.java  which uses the downloaded file gene2RefSeq.txt from NCBI. 
-		String NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE = dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME + Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014;
+		String NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE = dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014;
 		/*************************************************************************************************/
 		/***************************SOURCE FILES ends*****************************************************/
 		/*************************************************************************************************/

@@ -959,6 +959,7 @@ public class Commons {
 	//All possible names Output Directories
 	public static final String ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.ENCODE + System.getProperty("file.separator");
 	public static final String ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.UCSCGENOME + System.getProperty("file.separator");
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.NCBI + System.getProperty("file.separator");
 	public static final String ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.KEGG_PATHWAY + System.getProperty("file.separator");
 	public static final String ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_LIBRARY+ System.getProperty("file.separator");
 	public static final String ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty("file.separator")+  Commons.USER_DEFINED_GENESET+ System.getProperty("file.separator");
@@ -999,6 +1000,17 @@ public class Commons {
 	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Number_2_Name.txt" ;
 	/**************************************************************************************************/
 	/**********************************UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES ends****************/
+	/**************************************************************************************************/
+	
+	/**************************************************************************************************/
+	/**********************************NCBI HUMAN GENE 2 REFSEQ ALL POSSIBLE NAMES starts**************/
+	/**************************************************************************************************/
+	//These files are prepared by HumanRefSeq2Gene.java
+	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014 = "human_gene2refseq_18_NOV_2014.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccession2GeneID_18_NOV_2014.txt";
+	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccessionWithVersion2GeneID_18_NOV_2014.txt";
+	/**************************************************************************************************/
+	/**********************************NCBI HUMAN GENE 2 REFSEQ ALL POSSIBLE NAMES ends****************/
 	/**************************************************************************************************/
 	
 	
@@ -1104,13 +1116,7 @@ public class Commons {
 	//Downloaded from NCBI, gene2refseq.txt data
 	public static final String NCBI_GENE_TO_REF_SEQ_18_NOV_2014 = Commons.FTP + System.getProperty("file.separator") + "GENE_2_REFSEQ" + System.getProperty("file.separator") + "gene2refseq_18_NOV_2014.txt";	
 
-	//These files are prepared by HumanRefSeq2Gene.java
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME = Commons.BYGLANET + System.getProperty("file.separator") + Commons.NCBI + System.getProperty("file.separator");
-	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014 = "human_gene2refseq_18_NOV_2014.txt";
-	public static final String NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccession2GeneID_18_NOV_2014.txt";
-	public static final String NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014 = "human_RNANucleotideAccessionWithVersion2GeneID_18_NOV_2014.txt";
-		
-	
+
 	public static final String SEARCH_INPUT_FILE_WITH_NON_BLANK_SNP_IDS = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputWithNonBlankSNPIDs.txt";
 	public static final String SEARCH_INPUT_FILE_FOR_TCGA_TEST_DATA = Commons.FTP + System.getProperty("file.separator") + "TCGA" + System.getProperty("file.separator") + "SearchInputforTCGATestData.txt";
 	public static final String SEARCH_INPUT_FILE_FOR_TCGA_DATA_WITH_NON_BLANK_SNP_ROWS = "Doktora" + System.getProperty("file.separator") + "testtcgadata" + System.getProperty("file.separator") + "SearchInputTCGADataWithNonBlankSNPRows.txt";

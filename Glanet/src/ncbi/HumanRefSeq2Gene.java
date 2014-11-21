@@ -41,7 +41,7 @@ public class HumanRefSeq2Gene {
 		
 		try {
 			fileReader = FileOperations.createFileReader(Commons.LOCAL_DISK_G_DOKTORA_DATA + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
 		
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -104,9 +104,9 @@ public class HumanRefSeq2Gene {
 		RefSeq2Gene refSeq2Gene = null;
 		
 		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014);
-			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_DIRECTORYNAME,Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014);
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014);
+			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014);
 			
 			bufferedReader = new BufferedReader(fileReader);
 			bufferedWriter = new BufferedWriter(fileWriter);

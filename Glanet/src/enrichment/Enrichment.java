@@ -2482,7 +2482,6 @@ public class Enrichment {
 		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
 		
 		
-				
 		//Set the Generate Random Data Mode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[5]);
 		

@@ -13,9 +13,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.EnrichmentType;
-import enumtypes.GeneInformationType;
 
 /**
  * 
@@ -315,18 +316,18 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+//		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
 
-		String userDefinedGeneSetInputFile = args[23];
+//		String userDefinedGeneSetInputFile = args[23];
 //		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 		  
-		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
+//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
 		
-		String userDefinedGeneSetName = args[25];
+//		String userDefinedGeneSetName = args[25];
 //		String userDefinedGeneSetName = "GO";
 
-		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
+//		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
 //		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
@@ -335,10 +336,10 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 		/*********************************************************************************/
 		/**************************USER DEFINED LIBRARY***********************************/
 		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
-		String userDefinedLibraryInputFile = args[28];
+//		String userDefinedLibraryInputFile = args[28];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
