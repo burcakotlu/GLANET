@@ -4757,7 +4757,8 @@ public class IntervalTree {
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
-			String geneSetName){
+			String geneSetName,
+			GeneSetType geneSetType){
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -4789,7 +4790,14 @@ public class IntervalTree {
 									bufferedWriter = exonBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);										
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										
+										switch(geneSetType){
+											case USERDEFINEDGENESET:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+																		break;
+											case KEGGPATHWAY:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.EXON_BASED  + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+																break;
+										
+										}//End of switch
 																				
 										bufferedWriter = new BufferedWriter(fileWriter);
 										exonBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
@@ -4827,7 +4835,14 @@ public class IntervalTree {
 									bufferedWriter = regulationBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 									
 									if (bufferedWriter == null){
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+										
+										switch(geneSetType){
+											case USERDEFINEDGENESET:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+																		break;
+											case KEGGPATHWAY:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED  + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+																break;
+										}//End of SWITCH
+										
 										bufferedWriter = new BufferedWriter(fileWriter);
 										regulationBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 										bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4857,7 +4872,14 @@ public class IntervalTree {
 								bufferedWriter = allBasedGeneSetBufferedWriterHashMap.get(geneSetNumber);
 																
 								if (bufferedWriter==null){
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+									
+									switch(geneSetType){
+										case USERDEFINEDGENESET:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.USER_DEFINED_GENESET + System.getProperty("file.separator")  + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+																	break;
+										case KEGGPATHWAY:	fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") +  Commons.KEGG_PATHWAY + System.getProperty("file.separator")  + Commons.ALL_BASED  + System.getProperty("file.separator") + Commons.ALL_BASED+ "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",true);
+															break;
+									}//End of  switch
+									
 									bufferedWriter = new BufferedWriter(fileWriter);
 									allBasedGeneSetBufferedWriterHashMap.put(geneSetNumber, bufferedWriter);
 									bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" +  "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName"+ "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol"+ "\t"+ "node GeneEntrezId" +System.getProperty("line.separator"));
@@ -4881,11 +4903,11 @@ public class IntervalTree {
 			} //End of If: type is NCBI_GENE_ID
 				
 			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getLeft().getMax())){
-				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,exonBasedGeneSetBufferedWriterHashMap, regulationBasedGeneSetBufferedWriterHashMap,allBasedGeneSetBufferedWriterHashMap,exonBasedGeneSet2OneorZeroMap,regulationBasedGeneSet2OneorZeroMap,allBasedGeneSet2OneorZeroMap,type,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap,geneSetName);	
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getLeft(),interval,chromName,exonBasedGeneSetBufferedWriterHashMap, regulationBasedGeneSetBufferedWriterHashMap,allBasedGeneSetBufferedWriterHashMap,exonBasedGeneSet2OneorZeroMap,regulationBasedGeneSet2OneorZeroMap,allBasedGeneSet2OneorZeroMap,type,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap,geneSetName,geneSetType);	
 			}
 			
 			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow()<=node.getRight().getMax()) && (node.getLow()<=interval.getHigh())){
-				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,exonBasedGeneSetBufferedWriterHashMap, regulationBasedGeneSetBufferedWriterHashMap,allBasedGeneSetBufferedWriterHashMap, exonBasedGeneSet2OneorZeroMap,regulationBasedGeneSet2OneorZeroMap,allBasedGeneSet2OneorZeroMap,type,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap,geneSetName);	
+				findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,node.getRight(),interval,chromName,exonBasedGeneSetBufferedWriterHashMap, regulationBasedGeneSetBufferedWriterHashMap,allBasedGeneSetBufferedWriterHashMap, exonBasedGeneSet2OneorZeroMap,regulationBasedGeneSet2OneorZeroMap,allBasedGeneSet2OneorZeroMap,type,overlapDefinition,geneSetNumber2GeneSetNameMap,geneId2ListofGeneSetNumberMap,geneHugoSymbolNumber2GeneHugoSymbolNameMap,refSeqGeneNumber2RefSeqGeneNameMap,geneSetName,geneSetType);	
 				
 			}
 	}

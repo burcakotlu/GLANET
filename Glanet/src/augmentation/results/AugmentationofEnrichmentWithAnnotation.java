@@ -364,7 +364,10 @@ public class AugmentationofEnrichmentWithAnnotation {
 				
 			}//End of For each enriched UserDefinedLibrary Element
 	
-				
+			
+			//Close bufferedReader and bufferedWriter
+			bufferedReader.close();
+			bufferedWriter.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -1168,16 +1171,37 @@ public class AugmentationofEnrichmentWithAnnotation {
 				
 				//USERDEFINED GENESET
 				else if (type.equals(Commons.EXON_BASED_USER_DEFINED_GENESET)){
-					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXONBASED_USERDEFINED_GENESET_ANNOTATION  + "_" + keggPathwayName + ".txt");						
+					
+					if (indexofSecondUnderscore>0){
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXONBASED_USERDEFINED_GENESET_ANNOTATION  + "_" + keggPathwayName + ".txt");						
+					}else{
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.EXONBASED_USERDEFINED_GENESET_ANNOTATION  + "_" + keggPathwayName + ".txt");						
+					}
 					
 				}else if (type.equals(Commons.REGULATION_BASED_USER_DEFINED_GENESET)){
-					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.REGULATIONBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
 					
+					if(indexofSecondUnderscore>0){
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.REGULATIONBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
+	
+					}else{
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.REGULATIONBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
+					}
+				
 				}else if (type.equals(Commons.ALL_BASED_USER_DEFINED_GENESET)){
-					keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
-					keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.ALLBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
+					
+					if(indexofSecondUnderscore>0){
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofSecondUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.ALLBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
+
+					}else{
+						keggPathwayName = enrichedKeggPathwayNameandDescription.substring(0,indexofFirstUnderscore);
+						keggPathwayOriginalOverlapsFileReader = new FileReader(outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") +Commons.ALLBASED_USERDEFINED_GENESET_ANNOTATION  +"_" + keggPathwayName + ".txt");						
+
+					}
 				}
 				
 				keggPathwayOriginalOverlapsBufferedReader = new BufferedReader(keggPathwayOriginalOverlapsFileReader);
@@ -1435,7 +1459,6 @@ public class AugmentationofEnrichmentWithAnnotation {
 		
 		String withRespectToFileName = null;
 		
-//		int userDefinedLibraryElementTypeNumber;
 		String userDefinedLibraryElementType;
 		
 		//set the file end String
@@ -1709,7 +1732,6 @@ public class AugmentationofEnrichmentWithAnnotation {
 		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[13]);
 		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
-		
 		
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
