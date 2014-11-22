@@ -106,12 +106,12 @@ public enum CommandLineArguments {
 	WritePermutationBasedAnnotationResultMode(20, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT),
 	NumberOfPerInEachRun(21, Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT),
 	UserDefinedGeneSetAnnotation(22, Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT),
-	UserDefinedGeneSetInput(23),
+	UserDefinedGeneSetInput(23, Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED),
 	UserDefinedGeneSetGeneInformation(24, Commons.GENE_ID),
 	UserDefinedGeneSetName(25, Commons.NO_NAME),
 	UserDefinedGeneSetDescriptionFile(26, Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED),
 	UserDefinedLibraryAnnotation(27, Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT),
-	UserDefinedLibraryInput(28),
+	UserDefinedLibraryInput(28, Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED),
 	UserDefinedLibraryDataFormat(29, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE),
 	NumberOfArguments(30);
 	

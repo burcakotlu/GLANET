@@ -50,7 +50,8 @@ public class Commons {
 		
 	//When there is no Optional UserDefinedGeneSet Description file is provided for a UserDefinedGeneSet Enrichment
 	public static final String NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED = "NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED";
-
+	public static final String NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED = "NoFile";
+	public static final String NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED = NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED;
 	//Number of program runtime arguments without counting the command line argument
 	//command line argument if exists will always be attached to the end of the existing arguments
 	//and it will increase the number of program runtime arguments by 1.
