@@ -85,8 +85,26 @@ public class App
 		//parsing input file location
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FILE))
-				if( argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()].equals( notSet))
+				if( argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()].equals( notSet)) {
+					
+//					String inputString = args[i+1];
+//					if( inputString.charAt(inputString.length()-1) != '"'){
+//						
+//						int j = i+1;
+//						while( args[j].charAt(args[j].length()-1) != '"' || j < args.length)
+//							inputString.concat(args[j++]);
+//						
+//						if( j < args.length) {
+//							inputString.concat( args[j]);
+//							i = j;
+//						}
+//						else{
+//							System.out.println("Input file location is not specified properly. Exiting...");
+//							return false;
+//						}
+//					}
 					argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()] = args[i+1];
+				}
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -98,8 +116,27 @@ public class App
 		//parsing glanet folder location
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_GLANET_FOLDER))
-				if( argsInOrder[CommandLineArguments.GlanetFolder.value()].equals( notSet))
+				if( argsInOrder[CommandLineArguments.GlanetFolder.value()].equals( notSet)) {
+					
+//					String glanetString = args[i+1];
+//					if( glanetString.charAt(glanetString.length()-1) != '"'){
+//						
+//						int j = i+1;
+//						while( args[j].charAt(args[j].length()-1) != '"' || j < args.length)
+//							glanetString.concat(args[j++]);
+//						
+//						if( j < args.length) {
+//							glanetString.concat( args[j]);
+//							i = j;
+//						}
+//						else{
+//							System.out.println("Glanet folder location is not specified properly. Exiting...");
+//							return false;
+//						}
+//					}
+					
 					argsInOrder[CommandLineArguments.GlanetFolder.value()] = args[i+1];
+				}
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -259,6 +296,12 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedGeneSetInput) && 
 				argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT))
 			return false;
+		else if( argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) &&
+				argsInOrder[CommandLineArguments.UserDefinedGeneSetInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED)) {
+			
+			System.out.println( CommandLineArguments.UserDefinedGeneSetInput + " not specified, exiting...");
+			return false;
+		}
 		
 		for( int i = 0; i < args.length; i++) {
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID))
@@ -336,6 +379,12 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedLibraryInput) && 
 				argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT))
 			return false;
+		else if( argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT) &&
+				argsInOrder[CommandLineArguments.UserDefinedLibraryInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED)) {
+			
+			System.out.println( CommandLineArguments.UserDefinedLibraryInput + " not specified, exiting...");
+			return false;
+		}
 		
 		for( int i = 0; i < args.length; i++) {
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE))
@@ -552,8 +601,8 @@ public class App
 			if( !fillArgumentsInOrder( args, argsForGlanetRunner))
 				return;
 			
-//			for( int i = 0; i < argsForGlanetRunner.length; i++)
-//				System.out.println( argsForGlanetRunner[i]);
+			for( int i = 0; i < argsForGlanetRunner.length; i++)
+				System.out.println( argsForGlanetRunner[i]);
 			
 			GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
