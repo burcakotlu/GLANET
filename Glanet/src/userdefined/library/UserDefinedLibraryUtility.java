@@ -5,6 +5,7 @@
 package userdefined.library;
 
 import enumtypes.ChromosomeName;
+import enumtypes.FileFormatType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.UserDefinedLibraryDataFormat;
 import gnu.trove.iterator.TIntIntIterator;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -149,7 +149,9 @@ public class UserDefinedLibraryUtility {
 			TObjectIntMap<String> elementType2ElementTypeNumberMap,
 			String elementName, 
 			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap,
-			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList){
+			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList,
+			int windowAroundSummit,
+			FileFormatType fileFormatType){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -159,9 +161,25 @@ public class UserDefinedLibraryUtility {
 		int indexofSecondTab;
 		int indexofThirdTab;
 		
+		//For getting summit position
+		//in case of fileFormatType is narrowPeak file and windowAroundSummit is greater than zero
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		
+		
 		String chrName = null;
 		int start = Integer.MIN_VALUE;
 		int end = Integer.MIN_VALUE;
+		int summitPositionWRTStart = Integer.MIN_VALUE;
+		int summitPosition = Integer.MIN_VALUE;
+		
+		int windowStart = Integer.MIN_VALUE;
+		int windowEnd = Integer.MIN_VALUE;
+		
 		
 		BufferedWriter bufferedWriter = null;
 		List<BufferedWriter> bufferedWriterList = null;
@@ -197,9 +215,8 @@ public class UserDefinedLibraryUtility {
 				}else if (indexofSecondTab>0){
 					end = Integer.parseInt(strLine.substring(indexofSecondTab+1));			
 				}
-				
-				
-				//starts
+
+				//SET startPosition and endPosition starts
 				switch(userDefinedLibraryDataFormat){
 					case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE: 
 						end = end-1; 
@@ -215,13 +232,50 @@ public class UserDefinedLibraryUtility {
 						end = end-1; 
 						break;
 				}
-				//ends
+				//SET startPosition and endPosition ends
+
+				
+				//Consider intervalAroundSummit if fileFormatType is narrowPeak
+				//And windowAroundSummit > 0
+				//Otherwise don't care windowAroundSummit
+				if (fileFormatType.isNarrowPeak() && windowAroundSummit>0){
+					
+					//get summit position
+					indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t',indexofThirdTab+1) : -1;
+					indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t',indexofFourthTab+1) : -1;
+					indexofSixthTab 	= (indexofFifthTab>0) ? strLine.indexOf('\t',indexofFifthTab+1) : -1;
+					indexofSeventhTab 	= (indexofSixthTab>0) ? strLine.indexOf('\t',indexofSixthTab+1) : -1;
+					indexofEigthTab 	= (indexofSeventhTab>0) ? strLine.indexOf('\t',indexofSeventhTab+1) : -1;
+					indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t',indexofEigthTab+1) : -1;
+					
+					summitPositionWRTStart = Integer.parseInt(strLine.substring(indexofNinethTab+1));
+					summitPosition = start + summitPositionWRTStart;
+					
+					windowStart = summitPosition - windowAroundSummit;
+					windowEnd = summitPosition + windowAroundSummit;
+					
+					//SET new startPosition and endPosition starts
+					if(windowStart > start){
+						start = windowStart;
+					}
+					
+					if(windowEnd < end){
+						end = windowEnd;
+					}
+					//SET new startPosition and endPosition ends
+					
+				}//End of if fileFormatType is narrowPeak and windowAroundSummit is greater than zero
+				
+				
+				
 				
 				//Get the bufferedWriterList for a certain elementTypeNumber
 				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
 				
 				//Get elementName2ElementNumberMap for a certain elementTypeNumber
 				elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(elementTypeNumber);
+				
+				//@todo left here
 				
 				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chrName),bufferedWriterList);
 				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" +  elementTypeNumber + "\t"+ elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
@@ -265,9 +319,10 @@ public class UserDefinedLibraryUtility {
     	String filePathFileName = null;
     	String elementType = null;
     	String elementName = null;
-    	int intervalAroundSummit = 0;
+    	int windowAroundSummit = Integer.MIN_VALUE;
     	
     	String fileName;
+    	FileFormatType fileFormatType;
     	
     	int elementTypeNumber = 1;
     	int fileNumber = 1;
@@ -343,16 +398,24 @@ public class UserDefinedLibraryUtility {
 					/***************ElementNumber 2 ElementName starts********************************************************/
 					if (indexofThirdTab>0){
 						elementName =  strLine.substring(indexofSecondTab+1, indexofThirdTab);
-						intervalAroundSummit = Integer.parseInt(strLine.substring(indexofThirdTab+1));
+						windowAroundSummit = Integer.parseInt(strLine.substring(indexofThirdTab+1));
 					} else{
 						elementName =  strLine.substring(indexofSecondTab+1);
-						intervalAroundSummit = Integer.MIN_VALUE;
+						windowAroundSummit = Integer.MIN_VALUE;
 					}		
 					
 					
-					if(intervalAroundSummit>0){
-						//@todo				
+					//Consider windowAroundSummit if fileFormatType is narrowPeak
+					//And windowAroundSummit > 0
+					//Otherwise don't care windowAroundSummit
+					if (fileName.endsWith(Commons.NARROWPEAK)){
+						fileFormatType = FileFormatType.NARROWPEAK;
+					} else if (fileName.endsWith(Commons.BED)){
+						fileFormatType = FileFormatType.BED;
+					}else {
+						fileFormatType = FileFormatType.FILE_FORMAT_TYPE_OTHER;	
 					}
+				
 					
 					//trim
 					elementName = elementName.trim();
@@ -389,7 +452,7 @@ public class UserDefinedLibraryUtility {
 				
 					//Process each file written in UserDefinedLibraryInputFile
 					//Write ElementTypeBased ChromosomeBased Unsorted With Numbers Files 
-					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,currentElementTypeNumber,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap);
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(filePathFileName,fileName,userDefinedLibraryDataFormat,userDefinedLibraryFileName2FileNumberMap,currentElementTypeNumber,userDefinedLibraryElementType2ElementTypeNumberMap,elementName,elementTypeNumber2ElementName2ElementNumberMapMap,elementTypeNumber2ListofBufferedWritersMap,windowAroundSummit,fileFormatType);
 					
 				}//End of if it is not a comment line
 			

@@ -61,12 +61,18 @@ public class Commons {
 	public static final String X 					= "X";
 	public static final String Y 					= "Y";
 	
+	//Enum FileFormatType
+	public static final String NARROWPEAK 	= "narrowPeak";
+	public static final String BED = "bed";
+	public static final String FILE_FORMAT_TYPE_OTHER = "fileFormatTypeOther";
+	
+	
 	//EnumType UserDefinedGeneSetInputType
 	public static final String GENE_ID 					= "GENE_ID";
 	public static final String RNA_NUCLEOTIDE_ACCESSION = "RNA_NUCLEOTIDE_ACCESSION";
 	public static final String GENE_SYMBOL 				= "GENE_SYMBOL";
 
-	//EnumTye AnnotationType
+	//EnumType AnnotationType
 	public static final String DNASE_ANNOTATION 				= "DNASE_ANNOTATION";
 	public static final String TF_ANNOTATION 					= "TF_ANNOTATION";
 	public static final String HISTONE_ANNOTATION 				= "HISTONE_ANNOTATION";
