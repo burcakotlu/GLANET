@@ -5184,6 +5184,10 @@ public class Annotation {
 			searchDnaseWithNumbers(outputFolder,chrName,bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap, dnaseCellLineNumber2KMap,overlapDefinition,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			emptyIntervalTree(dnaseIntervalTree.getRoot());				
 			dnaseIntervalTree = null;
+	
+			System.gc();
+			System.runFinalization();
+	
 			
 			try {
 				//close bufferedReader
@@ -5226,6 +5230,10 @@ public class Annotation {
 		
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
+	
 			
 			try {
 				bufferedReader.close();
@@ -5275,6 +5283,9 @@ public class Annotation {
 				
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
 
 			try {
 				bufferedReader.close();
@@ -5343,6 +5354,10 @@ public class Annotation {
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 			
+			System.gc();
+			System.runFinalization();
+	
+			
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
@@ -5407,6 +5422,10 @@ public class Annotation {
 			tfbsIntervalTree = null;
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
+	
 
 			try {
 				bufferedReader.close();
@@ -5481,6 +5500,10 @@ public class Annotation {
 			tfbsIntervalTree = null;
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
+	
 
 			try {
 				bufferedReader.close();
@@ -5534,6 +5557,10 @@ public class Annotation {
 			       emptyIntervalTree(userDefinedLibraryIntervalTree.getRoot());
 			       userDefinedLibraryIntervalTree = null;
 			       
+					System.gc();
+					System.runFinalization();
+			
+			       
 			       try {
 			    	   bufferedReader.close();
 					} catch (IOException e) {
@@ -5566,6 +5593,10 @@ public class Annotation {
 			searchTranscriptionFactorWithNumbers(outputFolder, chrName,bufferedReader, transcriptionFactorIntervalTree, transcriptionFactorBufferedWriterHashMap, tfNumberCellLineNumber2KMap,overlapDefinition,tfNumber2TFNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			emptyIntervalTree(transcriptionFactorIntervalTree.getRoot());
 			transcriptionFactorIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
+	
 
 			try {
 				bufferedReader.close();
@@ -5595,6 +5626,10 @@ public class Annotation {
 			searchHistoneWithNumbers(outputFolder, chrName,bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNumberCellLineNumber2KMap,overlapDefinition,histoneNumber2HistoneNameMap,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
 			emptyIntervalTree(histoneIntervalTree.getRoot());
 			histoneIntervalTree = null;
+			
+			System.gc();
+			System.runFinalization();
+	
 			
 			try {
 				bufferedReader.close();

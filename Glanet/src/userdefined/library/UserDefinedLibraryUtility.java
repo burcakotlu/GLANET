@@ -255,11 +255,11 @@ public class UserDefinedLibraryUtility {
 					windowEnd = summitPosition + windowAroundSummit;
 					
 					//SET new startPosition and endPosition starts
-					if(windowStart > start){
+					if( (windowStart > start) && (windowStart <=end)){
 						start = windowStart;
 					}
 					
-					if(windowEnd < end){
+					if((windowEnd < end) && (windowEnd >= start)){
 						end = windowEnd;
 					}
 					//SET new startPosition and endPosition ends

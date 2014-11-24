@@ -170,11 +170,11 @@ public class UserDefinedGeneSetUtility {
 		//Read the user defined geneset inputFile
 		String strLine;
 		int indexofFirstTab;
-		String GO_ID;
+		String geneSetName;
 		String geneInformation;
 		
-		short userDefinedGeneSetNumber = 0;
-		short currentUserDefinedGeneSetNumber = 0;
+		short userDefinedGeneSetNumber = 1;
+		short currentUserDefinedGeneSetNumber = Short.MIN_VALUE;
 		
 		//In case of need: First fill these conversion maps
 		Map<String,List<Integer>> geneSymbol2ListofGeneIDMap = null;
@@ -216,9 +216,9 @@ public class UserDefinedGeneSetUtility {
 				
 				
 				indexofFirstTab = strLine.indexOf('\t');
-				GO_ID = strLine.substring(0,indexofFirstTab);
+				geneSetName = strLine.substring(0,indexofFirstTab);
 				
-				GO_ID = removeIllegalCharacters(GO_ID);
+				geneSetName = removeIllegalCharacters(geneSetName);
 				
 				//geneInformation can be geneID, geneSymbol or RNANucleotideAccession
 				geneInformation = strLine.substring(indexofFirstTab+1);
@@ -230,9 +230,9 @@ public class UserDefinedGeneSetUtility {
 				}
 				
 				//Fill name2number and number2name maps starts
-				if (!(userDefinedGeneSetName2UserDefinedGeneSetNumberMap.containsKey(GO_ID))){
-					userDefinedGeneSetName2UserDefinedGeneSetNumberMap.put(GO_ID, userDefinedGeneSetNumber);
-					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap.put(userDefinedGeneSetNumber, GO_ID);
+				if (!(userDefinedGeneSetName2UserDefinedGeneSetNumberMap.containsKey(geneSetName))){
+					userDefinedGeneSetName2UserDefinedGeneSetNumberMap.put(geneSetName, userDefinedGeneSetNumber);
+					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap.put(userDefinedGeneSetNumber, geneSetName);
 					
 					//Increment UserDefinedGeneSetNumber
 					userDefinedGeneSetNumber++;
@@ -242,7 +242,7 @@ public class UserDefinedGeneSetUtility {
 	
 				
 				//Get the current userDefinedGeneSet number
-				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2UserDefinedGeneSetNumberMap.get(GO_ID);
+				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2UserDefinedGeneSetNumberMap.get(geneSetName);
 				
 				//For each readLine
 				geneInformation2ListofGeneIDs.clear();
@@ -269,10 +269,10 @@ public class UserDefinedGeneSetUtility {
 						if (!listofUnconvertedGeneInformation.contains(geneInformation)){
 							listofUnconvertedGeneInformation.add(geneInformation);
 						}
-						bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation +"\t" + null + System.getProperty("line.separator"));
+						bufferedWriter.write(geneSetName + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation +"\t" + null + System.getProperty("line.separator"));
 					}//End of IF: No conversion is possible
 					
-					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,GO_ID,geneInformation,bufferedWriter);									
+					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,geneSetName,geneInformation,bufferedWriter);									
 					
 				}else if (geneInformationType.is_RNA_NUCLEOTIDE_ACCESSION()){
 					//geneInformation contains RNANucleotideAccession
@@ -293,17 +293,17 @@ public class UserDefinedGeneSetUtility {
 						if (!listofUnconvertedGeneInformation.contains(geneInformation)){
 							listofUnconvertedGeneInformation.add(geneInformation);
 						}
-						bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation +"\t" + null + System.getProperty("line.separator"));
+						bufferedWriter.write(geneSetName + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation +"\t" + null + System.getProperty("line.separator"));
 					}//End of IF: No conversion is possible
 					
-					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,GO_ID,geneInformation,bufferedWriter);		
+					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,geneSetName,geneInformation,bufferedWriter);		
 					
 				}else if (geneInformationType.is_GENE_ID()){
 					//geneInformation contains geneID
 					//No conversion is needed
 					int geneID = Integer.parseInt(geneInformation);
 					geneInformation2ListofGeneIDs.add(geneID);
-					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,GO_ID,geneInformation,bufferedWriter);
+					updateMap(geneInformation2ListofGeneIDs,geneId2ListofUserDefinedGeneSetNumberMap,currentUserDefinedGeneSetNumber,geneSetName,geneInformation,bufferedWriter);
 					
 				}
 							
