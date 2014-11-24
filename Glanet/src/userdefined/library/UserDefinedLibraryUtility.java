@@ -266,17 +266,13 @@ public class UserDefinedLibraryUtility {
 					
 				}//End of if fileFormatType is narrowPeak and windowAroundSummit is greater than zero
 				
-				
-				
-				
+							
 				//Get the bufferedWriterList for a certain elementTypeNumber
 				bufferedWriterList = elementTypeNumber2BufferedWriterList.get(elementTypeNumber);
 				
 				//Get elementName2ElementNumberMap for a certain elementTypeNumber
 				elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(elementTypeNumber);
-				
-				//@todo left here
-				
+								
 				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chrName),bufferedWriterList);
 				bufferedWriter.write(chrName+ "\t" + start + "\t" + end + "\t" +  elementTypeNumber + "\t"+ elementName2ElementNumberMap.get(elementName) + "\t" + fileName2FileNumberMap.get(fileName) + System.getProperty("line.separator") );
 			}
@@ -408,9 +404,9 @@ public class UserDefinedLibraryUtility {
 					//Consider windowAroundSummit if fileFormatType is narrowPeak
 					//And windowAroundSummit > 0
 					//Otherwise don't care windowAroundSummit
-					if (fileName.endsWith(Commons.NARROWPEAK)){
+					if (fileName.toLowerCase().endsWith(Commons.NARROWPEAK)){
 						fileFormatType = FileFormatType.NARROWPEAK;
-					} else if (fileName.endsWith(Commons.BED)){
+					} else if (fileName.toLowerCase().endsWith(Commons.BED)){
 						fileFormatType = FileFormatType.BED;
 					}else {
 						fileFormatType = FileFormatType.FILE_FORMAT_TYPE_OTHER;	

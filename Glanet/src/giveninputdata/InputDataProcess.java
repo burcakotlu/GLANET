@@ -7,14 +7,18 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.GivenIntervalsInputFileDataFormat;
 /**
  * @author burcakotlu
@@ -59,6 +63,7 @@ public class InputDataProcess {
 		BufferedWriter bufferedWriter = null;
 					
 		String rsId = null;
+		List<String> rsIdList = new ArrayList<String>();
 		
 		try {
 			
@@ -79,10 +84,20 @@ public class InputDataProcess {
 				
 				//Skip comment lines
 				if(!(rsId.startsWith("#"))){
-					RsInformation rsInformation = app.getInformationforGivenRsId(rsId);
-					bufferedWriter.write( "chr" + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
+					if (!rsIdList.contains(rsId)){
+						rsIdList.add(rsId);
+					}
+//					RsInformation rsInformation = app.getInformationforGivenRsId(rsId);
+//					bufferedWriter.write( "chr" + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 				}//End of if not comment line							
 			}
+			
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
+			
+			//for debug purposes starts
+			System.out.println("test rsInformationList size:  " +  rsInformationList.size());
+			//for debug purposes ends
+			
 			
 //			//for debug start
 //			GlanetRunner.appendLog("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());

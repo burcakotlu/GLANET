@@ -1730,7 +1730,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" +"rs" +rsId;
+										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" + Commons.RS +rsId;
 										
 										SNP snp = snpMap.get(snpKey);
 										
@@ -2197,7 +2197,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" +"rs" +rsId;
+										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" + Commons.RS +rsId;
 
 										SNP snp = snpMap.get(snpKey);
 										

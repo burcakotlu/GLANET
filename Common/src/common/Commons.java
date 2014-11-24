@@ -16,10 +16,8 @@ public class Commons {
 	public static final String GENERATED_SEQUENCES_AND_MATRICES_FOR_RSAT = "forRSAT";	
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
 	public static final String USING_RSAT = "UsingRSAT";	
-//	public static final String From_ANNOTATION = "fromAnnotation";
 	public static final String ALL_POSSIBLE_NAMES = "AllPossibleNames";
 	public static final String AUGMENTATION = "Augmentation";
-	
 	
 	public static final String ENCODE_COLLABORATION = "ENCODE_Collaboration";
 	public static final String ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE = "AnnotationBinaryMatrixForOnePhenotype";
@@ -44,6 +42,11 @@ public class Commons {
 	//When there is no name given for GLANET job
 	public static final String NO_NAME = "NoName";
 	
+	//dbSNP rs Prefix
+	public static final String RS = "rs";
+	public static final String COMMA = ",";
+	
+	
 	//When there is no KeggPathwayDescription provided for a KeggPathway
 	//When there is no UserDefinedGeneSetDescription provided for a UserDefinedGeneSety
 	public static final String NO_DESCRIPTION_AVAILABLE = "NoDescriptionAvailable";
@@ -63,7 +66,7 @@ public class Commons {
 	public static final String Y 					= "Y";
 	
 	//Enum FileFormatType
-	public static final String NARROWPEAK 	= "narrowPeak";
+	public static final String NARROWPEAK 	= "narrowpeak";
 	public static final String BED = "bed";
 	public static final String FILE_FORMAT_TYPE_OTHER = "fileFormatTypeOther";
 	
