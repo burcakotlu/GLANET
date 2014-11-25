@@ -128,7 +128,6 @@ public class AugmentationofGivenRsIdwithInformation {
 	//24 Nov 2014
 	public  List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList){
 		
-		int i= 1;
 		RsInformation rsInformation;
 		int numberofBasesInTheSNPAtMost = Integer.MIN_VALUE;
 		List<RsInformation> rsInformationList = new ArrayList<RsInformation>();

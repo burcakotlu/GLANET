@@ -664,6 +664,65 @@ public class FileOperations {
 		}
 	}
 		
+	//25 NOV 2014
+	public static void readFromBedFileWriteToGlanetFile(String folderName, String inputFileName,String outputFileName){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		FileWriter fileWriter= null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine;
+		
+		String chrName;
+		int start_0Based;
+		int endExclusive_0Based;
+		int endInclusive_0Based;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		
+
+		try {
+			fileReader = createFileReader(folderName,inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			fileWriter = createFileWriter(folderName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				//If not comment line
+				if (!strLine.startsWith("#") && !(strLine.startsWith("track"))){
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab>0)? (strLine.indexOf('\t',indexofFirstTab+1)): -1;
+					
+					chrName = strLine.substring(0, indexofFirstTab);
+					if (ChromosomeName.convertStringtoEnum(chrName) != null){
+						start_0Based = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+						endExclusive_0Based = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+
+						//Set endInclusive_0Based
+						endInclusive_0Based = endExclusive_0Based-1;
+						
+						bufferedWriter.write(chrName + "\t" + start_0Based + "\t" + endInclusive_0Based + System.getProperty("line.separator"));
+
+					}//End of IF a valid ChromosomeName
+				}//End of IF
+				
+			}//End of While
+			
+			//Close bufferedReader and bufferedWriter
+			bufferedReader.close();
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 		
 	/**
 	 * 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
+import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
@@ -52,7 +53,7 @@ public class InputDataProcess {
 	
 	
 	//eutil efetch returns 0-based coordinates for given dbSNP ids 
-	public static void 	readDBSNPIDs(String inputFileName, String outputFolder){
+	public static void 	readDBSNPIDs(String dataFolder, String inputFileName, String outputFolder){
 		
 		//read the file line by line
 		FileReader fileReader = null;
@@ -73,10 +74,10 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_START_END_HG38);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_START_END_HG38_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 			
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_START_END_HG38);
+			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE);
 			bufferedWriter2 = new BufferedWriter(fileWriter2);			
 			
 		
@@ -100,7 +101,7 @@ public class InputDataProcess {
 			for (RsInformation rsInformation: rsInformationList){
 				if (rsInformation!=null){
 					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
-					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
+					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + (rsInformation.getEndZeroBased()+1) + System.getProperty("line.separator"));
 				}
 				else {
 					bufferedWriter.write("null" + System.getProperty("line.separator"));
@@ -119,7 +120,14 @@ public class InputDataProcess {
 			bufferedReader.close();
 			
 			//convert hg38 to hg19
-			//then continue as usual
+			//GCF_000001405.26 <---> GRCh38 <----> hg38
+			//GCF_000001405.25 <---> GRCh37.p13 <----> hg19
+			Remap.remap(dataFolder,"GCF_000001405.26", "GCF_000001405.25", outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
+		
+			//@todo to be tested
+			//Read from hg19 bed file
+			//Write to usual processed input file
+			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,Commons.PROCESSED_INPUT_FILE);
 				
 			
 		} catch (IOException e) {
@@ -548,6 +556,7 @@ public class InputDataProcess {
 		//jobName ends
 		
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 		
 		
 		switch(inputFileFormat){
@@ -558,7 +567,7 @@ public class InputDataProcess {
 				readOneBasedCoordinates(inputFileName,outputFolder);
 				break;
 			case	INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
-				readDBSNPIDs(inputFileName,outputFolder);	
+				readDBSNPIDs(dataFolder,inputFileName,outputFolder);	
 				break;
 			case	INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE:
 				readBEDFile(inputFileName,outputFolder);

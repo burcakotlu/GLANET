@@ -1,0 +1,194 @@
+#batch_id	query_species	query_name	query_ucsc	query_acc	target_species	target_name	target_ucsc	target_acc	alignment_date
+12531	Macaca fascicularis	CE_1.0		GCA_000230815.1	Macaca fascicularis	Macaca_fascicularis_5.0		GCF_000364345.1	10/18/2014
+12541	Ciona intestinalis	KH		GCF_000224145.1	Ciona intestinalis	KH		GCF_000224145.2	10/18/2014
+12551	Macaca mulatta	CR_1.0	rheMac3	GCA_000230795.1	Macaca mulatta	Mmul_051212		GCF_000002255.3	10/18/2014
+12611	Macaca fascicularis	MacFas_Jun2011		GCA_000222185.1	Macaca fascicularis	Macaca_fascicularis_5.0		GCF_000364345.1	10/18/2014
+85153	Arabidopsis thaliana	TAIR9		GCF_000001735.2	Arabidopsis thaliana	TAIR10		GCF_000001735.3	09/20/2014
+85163	Arabidopsis thaliana	TAIR8		GCF_000001735.1	Arabidopsis thaliana	TAIR10		GCF_000001735.3	09/20/2014
+85173	Drosophila melanogaster	Release 6 plus MT		GCF_000001215.3	Drosophila melanogaster	Release 6 plus ISO1 MT		GCF_000001215.4	09/20/2014
+85183	Drosophila melanogaster	Release 5		GCF_000001215.2	Drosophila melanogaster	Release 6 plus ISO1 MT		GCF_000001215.4	09/20/2014
+85193	Drosophila melanogaster	Release 5		GCF_000001215.2	Drosophila melanogaster	Release 6 plus MT		GCF_000001215.3	09/20/2014
+85203	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85213	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85223	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85233	Homo sapiens	NCBI35	hg17	GCF_000001405.11	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85253	Homo sapiens	GRCh37	hg19	GCF_000001405.13	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85263	Homo sapiens	GRCh37.p2		GCF_000001405.14	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85273	Homo sapiens	NCBI36	hg18	GCF_000001405.12	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85283	Homo sapiens	GRCh37.p11		GCF_000001405.23	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85293	Homo sapiens	GRCh37.p10		GCF_000001405.22	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85303	Homo sapiens	GRCh37.p13		GCF_000001405.25	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85313	Homo sapiens	GRCh37.p12		GCF_000001405.24	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85323	Homo sapiens	GRCh37.p5		GCF_000001405.17	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85333	Homo sapiens	GRCh37.p9		GCF_000001405.21	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85343	Homo sapiens	HuRef		GCF_000002125.1	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85353	Homo sapiens	YH_2.0		GCA_000004845.2	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85363	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85373	Homo sapiens	CHM1_1.1		GCF_000306695.2	Homo sapiens	GRCh38	hg38	GCF_000001405.26	09/20/2014
+85413	Caenorhabditis elegans	WS195		GCF_000002985.4	Caenorhabditis elegans	WBcel215	ce10	GCF_000002985.5	09/23/2014
+85423	Caenorhabditis elegans	WBcel215	ce10	GCF_000002985.5	Caenorhabditis elegans	WBcel235		GCF_000002985.6	09/23/2014
+85433	Caenorhabditis elegans	WS190		GCF_000002985.1	Caenorhabditis elegans	WBcel215	ce10	GCF_000002985.5	09/23/2014
+85443	Caenorhabditis elegans	WS195		GCF_000002985.4	Caenorhabditis elegans	WBcel235		GCF_000002985.6	09/23/2014
+85453	Caenorhabditis elegans	WS190		GCF_000002985.1	Caenorhabditis elegans	WBcel235		GCF_000002985.6	09/23/2014
+85463	Nasonia vitripennis	Nvit_1.0		GCF_000002325.1	Nasonia vitripennis	Nvit_2.0		GCF_000002325.2	09/23/2014
+85473	Nasonia vitripennis	Nvit_1.0		GCF_000002325.1	Nasonia vitripennis	Nvit_2.1		GCF_000002325.3	09/23/2014
+85483	Nasonia vitripennis	Nvit_2.0		GCF_000002325.2	Nasonia vitripennis	Nvit_2.1		GCF_000002325.3	09/23/2014
+85493	Cucumis sativus	CSB10A_v1		GCF_000224045.1	Cucumis sativus	CucSat_1.0		GCF_000004075.1	09/23/2014
+85503	Nasonia longicornis	Nlon_1.0		GCA_000004795.1	Nasonia vitripennis	Nvit_2.1		GCF_000002325.3	09/23/2014
+85513	Nasonia giraulti	Ngir_1.0		GCA_000004775.1	Nasonia vitripennis	Nvit_2.1		GCF_000002325.3	09/23/2014
+85523	Acyrthosiphon pisum	Acyr_1.0		GCF_000142985.1	Acyrthosiphon pisum	Acyr_2.0		GCF_000142985.2	09/23/2014
+85533	Apis mellifera	Amel_2.0		GCF_000002195.1	Apis mellifera	Amel_4.5		GCF_000002195.4	09/23/2014
+85543	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	NCBI36	hg18	GCF_000001405.12	09/23/2014
+85613	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+85623	Homo sapiens	GRCh37.p9		GCF_000001405.21	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+85633	Mustela putorius furo	MusPutFurMale1.0		GCF_000239315.1	Mustela putorius furo	MusPutFur1.0	musFur1	GCF_000215625.1	09/23/2014
+85643	Homo sapiens	HuRef		GCF_000002125.1	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+85653	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+85663	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	CHM1_1.1		GCF_000306695.2	09/23/2014
+85673	Homo sapiens	HuRef		GCF_000002125.1	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+85683	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+85693	Homo sapiens	YH_2.0		GCA_000004845.2	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+85703	Sus scrofa	Sscrofa10		GCF_000003025.4	Sus scrofa	Sscrofa10.2	susScr3	GCF_000003025.5	09/23/2014
+85713	Sus scrofa	Sscrofa5		GCF_000003025.2	Sus scrofa	Sscrofa10		GCF_000003025.4	09/23/2014
+85723	Sus scrofa	Sscrofa5		GCF_000003025.2	Sus scrofa	Sscrofa10.2	susScr3	GCF_000003025.5	09/23/2014
+85733	Bos taurus	Btau_3.1		GCF_000003205.1	Bos taurus	Btau_4.2		GCF_000003205.4	09/23/2014
+85743	Bos taurus	Btau_4.2		GCF_000003205.4	Bos taurus	Bos_taurus_UMD_3.1.1		GCF_000003055.5	09/23/2014
+85753	Sus scrofa	Sscrofa9.2		GCF_000003025.3	Sus scrofa	Sscrofa10.2	susScr3	GCF_000003025.5	09/23/2014
+85763	Bos taurus	Btau_4.0	bosTau4	GCF_000003205.2	Bos taurus	Bos_taurus_UMD_3.1.1		GCF_000003055.5	09/23/2014
+85773	Bos taurus	Btau_4.6.1	bosTau7	GCF_000003205.5	Bos taurus	Bos_taurus_UMD_3.1.1		GCF_000003055.5	09/23/2014
+85783	Bos taurus	Btau_3.1		GCF_000003205.1	Bos taurus	Bos_taurus_UMD_3.1.1		GCF_000003055.5	09/23/2014
+85823	Homo sapiens	CHM1_1.1		GCF_000306695.2	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+85833	Sus scrofa	Sscrofa9.2		GCF_000003025.3	Sus scrofa	Sscrofa10		GCF_000003025.4	09/23/2014
+85843	Mus musculus	MGSCv37	mm9	GCF_000001635.18	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+85853	Mus musculus	MGSCv34		GCF_000001635.13	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+85863	Mus musculus	MGSCv34		GCF_000001635.13	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85873	Mus musculus	MGSCv3		GCF_000001635.12	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+85883	Mus musculus	MGSCv3		GCF_000001635.12	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+85893	Mus musculus	Mm_Celera		GCF_000002165.2	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+85903	Mus musculus	Mm_Celera		GCF_000002165.1	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+85913	Homo sapiens	CHM1_1.1		GCF_000306695.2	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+85923	Mus musculus	Mm_Celera		GCF_000002165.2	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+85933	Mus musculus	Mm_Celera		GCF_000002165.1	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+85943	Mus musculus	MGSCv37	mm9	GCF_000001635.18	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85953	Mus musculus	MGSCv36	mm8	GCF_000001635.15	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85963	Mus musculus	MGSCv35	mm7	GCF_000001635.14	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85973	Mus musculus	MGSCv3		GCF_000001635.12	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85983	Mus musculus	GRCm38	mm10	GCF_000001635.20	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+85993	Mus musculus	GRCm38.p1		GCF_000001635.21	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+86003	Homo sapiens	CHM1_1.1		GCF_000306695.2	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86013	Mus musculus	MGSCv36	mm8	GCF_000001635.15	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86023	Mus musculus	mm129svJae1.0		GCA_000350445.1	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+86033	Mus musculus	MmusALLPATHS2		GCA_000185105.2	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+86043	Oryza sativa Japonica Group	IRGSP_3.0		GCF_000005425.1	Oryza sativa Japonica Group	Build 4.0		GCF_000005425.2	09/23/2014
+86053	Vitis vinifera	8x_WGS		GCF_000003745.1	Vitis vinifera	12X		GCF_000003745.2	09/23/2014
+86063	Mus musculus	MGSCv35	mm7	GCF_000001635.14	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86073	Rattus norvegicus	Rn_Celera		GCF_000002265.1	Rattus norvegicus	Rn_Celera		GCF_000002265.2	09/23/2014
+86083	Mus musculus	GRCm38.p1		GCF_000001635.21	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86093	Mus musculus	GRCm38	mm10	GCF_000001635.20	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86103	Apis mellifera	Amel_4.0		GCF_000002195.3	Apis mellifera	Amel_4.5		GCF_000002195.4	09/23/2014
+86113	Mus musculus	GRCm38.p2		GCF_000001635.22	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86123	Oreochromis niloticus	Orenil1.0		GCF_000188235.1	Oreochromis niloticus	Orenil1.1	oreNil2	GCF_000188235.2	09/23/2014
+86133	Mus musculus	mm129svJae1.0		GCA_000350445.1	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86143	Mus musculus	MmusALLPATHS2		GCA_000185105.2	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86153	Mus musculus	Mm_Celera		GCF_000002165.2	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+86163	Danio rerio	Zv7	danRer5	GCF_000002035.1	Danio rerio	Zv9	danRer7	GCF_000002035.4	09/23/2014
+86173	Mus musculus	MGSCv37	mm9	GCF_000001635.18	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86183	Mus musculus	MGSCv34		GCF_000001635.13	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86193	Danio rerio	Zv8		GCF_000002035.3	Danio rerio	Zv9	danRer7	GCF_000002035.4	09/23/2014
+86203	Homo sapiens	HuRefPrime		GCA_000212995.1	Homo sapiens	HuRef		GCF_000002125.1	09/23/2014
+86213	Pan troglodytes	Pan_troglodytes-2.1.3	panTro3	GCA_000001515.3	Pan troglodytes	Pan_troglodytes-2.1.4	panTro4	GCF_000001515.6	09/23/2014
+86223	Strongylocentrotus purpuratus	Spur_2.6		GCA_000002235.1	Strongylocentrotus purpuratus	Spur_3.1		GCF_000002235.3	09/23/2014
+86233	Strongylocentrotus purpuratus	Spur_v2.1	strPur2	GCF_000002235.2	Strongylocentrotus purpuratus	Spur_3.1		GCF_000002235.3	09/23/2014
+86243	Gallus gallus	Gallus_gallus-2.1	galGal3	GCF_000002315.2	Gallus gallus	Gallus_gallus-4.0	galGal4	GCF_000002315.3	09/23/2014
+86253	Pan troglodytes	Pan_troglodytes-2.1.3		GCF_000001515.2	Pan troglodytes	Pan_troglodytes-2.1.4	panTro4	GCF_000001515.6	09/23/2014
+86273	Strongylocentrotus purpuratus	Spur_0.5		GCF_000002235.1	Strongylocentrotus purpuratus	Spur_3.1		GCF_000002235.3	09/23/2014
+86283	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	NCBI35	hg17	GCF_000001405.11	09/23/2014
+86293	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	NCBI35	hg17	GCF_000001405.11	09/23/2014
+86303	Mus musculus	Mm_Celera		GCF_000002165.1	Mus musculus	GRCm38.p2		GCF_000001635.22	09/23/2014
+86323	Xenopus (Silurana) tropicalis	v4.2	xenTro3	GCF_000004195.1	Xenopus (Silurana) tropicalis	Xtropicalis_v7		GCF_000004195.2	09/23/2014
+86333	Homo sapiens	NCBI35	hg17	GCF_000001405.11	Homo sapiens	NCBI36	hg18	GCF_000001405.12	09/23/2014
+86353	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	NCBI36	hg18	GCF_000001405.12	09/23/2014
+86363	Mus musculus	MGSCv3		GCF_000001635.12	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86373	Homo sapiens	NCBI36	hg18	GCF_000001405.12	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86383	Homo sapiens	NCBI35	hg17	GCF_000001405.11	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86393	Chrysemys picta bellii	Chrysemys_picta_bellii-3.0.1	chrPic1	GCF_000241765.2	Chrysemys picta bellii	Chrysemys_picta_bellii-3.0.3		GCF_000241765.3	09/23/2014
+86403	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86413	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86423	Homo sapiens	NCBI35	hg17	GCF_000001405.11	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+86433	Mus musculus	Mm_Celera		GCF_000002165.1	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86443	Homo sapiens	NCBI36	hg18	GCF_000001405.12	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86453	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+86463	Homo sapiens	NCBI35	hg17	GCF_000001405.11	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86473	Homo sapiens	NCBI36	hg18	GCF_000001405.12	Homo sapiens	GRCh37.p10		GCF_000001405.22	09/23/2014
+86493	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86513	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86523	Mus musculus	Mm_Celera		GCF_000002165.2	Mus musculus	GRCm38.p3		GCF_000001635.23	09/23/2014
+86533	Homo sapiens	YH_2.0		GCA_000004845.2	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86553	Homo sapiens	GRCh37.p10		GCF_000001405.22	Homo sapiens	GRCh37.p13		GCF_000001405.25	09/23/2014
+86563	Canis lupus familiaris	CanFam2.0	canFam2	GCF_000002285.2	Canis lupus familiaris	CanFam3.1	canFam3	GCF_000002285.3	09/23/2014
+86573	Bos taurus	Bos_taurus_UMD_3.1		GCF_000003055.4	Bos taurus	Bos_taurus_UMD_3.1.1		GCF_000003055.5	09/23/2014
+86583	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86593	Homo sapiens	HuRef		GCF_000002125.1	Homo sapiens	GRCh37	hg19	GCF_000001405.13	09/23/2014
+86613	Bos taurus	Btau_4.0	bosTau4	GCF_000003205.2	Bos taurus	Btau_4.2		GCF_000003205.4	09/23/2014
+86623	Homo sapiens	CHM1_1.0		GCF_000306695.1	Homo sapiens	HuRef		GCF_000002125.1	09/23/2014
+86633	Cricetulus griseus	Cgr1.0		GCA_000448345.1	Cricetulus griseus	CriGri_1.0		GCF_000223135.1	09/23/2014
+86643	Cricetulus griseus	C_griseus_v1.0		GCF_000419365.1	Cricetulus griseus	CriGri_1.0		GCF_000223135.1	09/23/2014
+86653	Homo sapiens	CHM1_1.1		GCF_000306695.2	Homo sapiens	HuRef		GCF_000002125.1	09/23/2014
+86663	Bos taurus	Btau_4.2		GCF_000003205.4	Bos taurus	Btau_4.6.1	bosTau7	GCF_000003205.5	09/23/2014
+86673	Bos taurus	Btau_4.0	bosTau4	GCF_000003205.2	Bos taurus	Btau_4.6.1	bosTau7	GCF_000003205.5	09/23/2014
+86693	Mus musculus	Mm_Celera		GCF_000002165.1	Mus musculus	Mm_Celera		GCF_000002165.2	09/23/2014
+86703	Bos taurus	Btau_3.1		GCF_000003205.1	Bos taurus	Btau_4.6.1	bosTau7	GCF_000003205.5	09/23/2014
+86713	Mus musculus	MGSCv35	mm7	GCF_000001635.14	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+86723	Mus musculus	MGSCv35	mm7	GCF_000001635.14	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+86733	Mus musculus	MGSCv34		GCF_000001635.13	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+86743	Mus musculus	MGSCv36	mm8	GCF_000001635.15	Mus musculus	MGSCv37	mm9	GCF_000001635.18	09/23/2014
+86753	Mus musculus	MGSCv36	mm8	GCF_000001635.15	Mus musculus	GRCm38	mm10	GCF_000001635.20	09/23/2014
+86763	Nomascus leucogenys	Nleu1.0		GCF_000146795.1	Nomascus leucogenys	Nleu_3.0	nomLeu3	GCF_000146795.2	09/24/2014
+86773	Rattus norvegicus	Rn_Celera		GCF_000002265.2	Rattus norvegicus	Rnor_5.0	rn5	GCF_000001895.4	09/24/2014
+86783	Rattus norvegicus	Rnor_5.0	rn5	GCF_000001895.4	Rattus norvegicus	Rnor_6.0	rn6	GCF_000001895.5	09/24/2014
+86793	Rattus norvegicus	RGSC_v3.4		GCF_000001895.3	Rattus norvegicus	Rnor_5.0	rn5	GCF_000001895.4	09/24/2014
+86803	Pan troglodytes	Pan_troglodytes-2.1.4		GCF_000001515.5	Pan troglodytes	Pan_troglodytes-2.1.4	panTro4	GCF_000001515.6	09/24/2014
+86813	Rattus norvegicus	Rn_Celera		GCF_000002265.1	Rattus norvegicus	Rnor_5.0	rn5	GCF_000001895.4	09/24/2014
+86823	Rattus norvegicus	Rn_Celera		GCF_000002265.2	Rattus norvegicus	Rnor_6.0	rn6	GCF_000001895.5	09/24/2014
+86833	Rattus norvegicus	Rn_Celera		GCF_000002265.1	Rattus norvegicus	Rnor_6.0	rn6	GCF_000001895.5	09/24/2014
+86843	Rattus norvegicus	RGSC_v3.4		GCF_000001895.3	Rattus norvegicus	Rnor_6.0	rn6	GCF_000001895.5	09/24/2014
+86853	Pan troglodytes	Pan_troglodytes-2.1		GCF_000001515.3	Pan troglodytes	Pan_troglodytes-2.1.4	panTro4	GCF_000001515.6	09/24/2014
+86863	Felis catus	catChrV17e	felCat4	GCA_000003115.1	Felis catus	Felis_catus-6.2	felCat5	GCF_000181335.1	09/24/2014
+86883	Homo sapiens	NCBI34		GCF_000001405.9	Homo sapiens	NCBI34	hg16	GCF_000001405.10	09/24/2014
+86893	Drosophila simulans	dsim_caf1		GCF_000259055.1	Drosophila simulans	ASM75419v2		GCA_000754195.2	09/24/2014
+86903	Homo sapiens	NCBI33		GCF_000001405.8	Homo sapiens	NCBI34	hg16	GCF_000001405.10	09/24/2014
+86913	Heterocephalus glaber	HetGla_1.0		GCF_000230445.1	Heterocephalus glaber	HetGla_female_1.0	hetGla2	GCF_000247695.1	09/24/2014
+86923	Rattus norvegicus	Rn_Celera		GCF_000002265.2	Rattus norvegicus	RGSC_v3.4		GCF_000001895.3	09/24/2014
+86933	Rattus norvegicus	Rn_Celera		GCF_000002265.1	Rattus norvegicus	RGSC_v3.4		GCF_000001895.3	09/24/2014
+86983	Danio rerio	Zv9	danRer7	GCF_000002035.4	Danio rerio	GRCz10		GCF_000002035.5	09/24/2014
+86993	Drosophila pseudoobscura pseudoobscura	Dpse_2.0		GCF_000001765.2	Drosophila pseudoobscura pseudoobscura	Dpse_3.0		GCF_000001765.3	09/25/2014
+87013	Bos taurus	Btau_4.0	bosTau4	GCF_000003205.2	Bos taurus	Bos_taurus_UMD_3.1		GCF_000003055.4	09/25/2014
+87023	Bos taurus	Btau_4.2		GCF_000003205.4	Bos taurus	Bos_taurus_UMD_3.1		GCF_000003055.4	09/25/2014
+87033	Bos taurus	Btau_4.6.1	bosTau7	GCF_000003205.5	Bos taurus	Bos_taurus_UMD_3.1		GCF_000003055.4	09/25/2014
+87043	Bos taurus	Btau_3.1		GCF_000003205.1	Bos taurus	Bos_taurus_UMD_3.1		GCF_000003055.4	09/25/2014
+87063	Pan troglodytes verus	CCYSCv1		GCF_000002175.1	Pan troglodytes	Pan_troglodytes-2.1.4	panTro4	GCF_000001515.6	09/26/2014
+87123	Danio rerio	Zv7	danRer5	GCF_000002035.1	Danio rerio	GRCz10		GCF_000002035.5	09/30/2014
+87133	Danio rerio	Zv8		GCF_000002035.3	Danio rerio	GRCz10		GCF_000002035.5	09/30/2014
+87263	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	NCBI34	hg16	GCF_000001405.10	10/03/2014
+87273	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	GRCh37	hg19	GCF_000001405.13	10/03/2014
+87283	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	GRCh37.p10		GCF_000001405.22	10/03/2014
+87293	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	GRCh37.p13		GCF_000001405.25	10/03/2014
+87303	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	NCBI35	hg17	GCF_000001405.11	10/03/2014
+87323	Arabidopsis thaliana	TAIR7		GCF_000463295.1	Arabidopsis thaliana	TAIR10		GCF_000001735.3	10/03/2014
+87333	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	NCBI36	hg18	GCF_000001405.12	10/03/2014
+87343	Ciona intestinalis	v1.0		GCF_000183065.1	Ciona intestinalis	KH		GCF_000224145.1	10/03/2014
+87353	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	HuRef		GCF_000002125.1	10/03/2014
+87363	Homo sapiens	CRA_TCAGchr7v2		GCF_000002135.2	Homo sapiens	CHM1_1.1		GCF_000306695.2	10/03/2014
+87373	Homo sapiens	Hs_Celera		GCF_000002115.2	Homo sapiens	GRCh37	hg19	GCF_000001405.13	10/03/2014
+87393	Homo sapiens	Hs_Celera		GCF_000002115.2	Homo sapiens	GRCh37.p13		GCF_000001405.25	10/03/2014
+87403	Hydra vulgaris	h7		GCF_000219015.2	Hydra vulgaris	Hydra_RP_1.0		GCF_000004095.1	10/03/2014
+87423	Homo sapiens	Hs_Celera		GCF_000002115.2	Homo sapiens	GRCh38	hg38	GCF_000001405.26	10/03/2014
+87663	Saccharomyces cerevisiae S288c	SacCer_May2010		GCF_000146045.1	Saccharomyces cerevisiae S288c	R64-1-1	sacCer3	GCF_000146045.2	10/10/2014
+87733	Saccharomyces cerevisiae W303	ASM29281v1		GCA_000292815.1	Saccharomyces cerevisiae S288c	R64-1-1	sacCer3	GCF_000146045.2	10/11/2014
+88113	Ciona intestinalis	v1.0		GCF_000183065.1	Ciona intestinalis	KH		GCF_000224145.2	11/02/2014
+88563	Solanum lycopersicum	SL2.40		GCF_000188115.2	Solanum lycopersicum	SL2.50		GCF_000188115.3	11/14/2014
+88573	Solanum lycopersicum	SL2.40		GCF_000188115.1	Solanum lycopersicum	SL2.50		GCF_000188115.3	11/14/2014
+0	Homo sapiens	NCBI36	hg18	GCF_000001405.12	Homo sapiens	RefSeqGene		RefSeqGene
+0	Homo sapiens	GRCh37	hg19	GCF_000001405.13	Homo sapiens	RefSeqGene		RefSeqGene
+0	Homo sapiens	GRCh37.p13		GCF_000001405.25	Homo sapiens	RefSeqGene		RefSeqGene
+0	Homo sapiens	GRCh38	hg38	GCF_000001405.26	Homo sapiens	RefSeqGene		RefSeqGene

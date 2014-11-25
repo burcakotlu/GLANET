@@ -32,6 +32,7 @@ public class Commons {
 	public static final String UCSCGENOME 	= "UCSCGENOME";
 	public static final String NCBI 		= "NCBI";	
 	public static final String FTP 		= "FTP";
+	public static final String NCBI_REMAP = "REMAP";
 	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
@@ -240,8 +241,9 @@ public class Commons {
 	
 	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
 		
-	public static final String RSID_CHRNAME_START_END_HG38 =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"rsID_chrName_0BasedStart_0BasedEnd_hg38_coordinates.txt";
-	public static final String CHRNAME_START_END_HG38 =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0BasedStart_0BasedEnd_hg38_coordinates.txt";
+	public static final String RSID_CHRNAME_START_END_HG38_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"rsID_chrName_0BasedStart_0BasedEnd_hg38_coordinates.txt";
+	public static final String CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed";
+	public static final String CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed";
 	
 	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_0_Based_hg19_coordinates.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt";
