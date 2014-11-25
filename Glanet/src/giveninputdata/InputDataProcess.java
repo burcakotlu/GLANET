@@ -60,7 +60,10 @@ public class InputDataProcess {
 		
 		//write to output file line by line 
 		FileWriter fileWriter = null;
+		FileWriter fileWriter2 = null;
+		
 		BufferedWriter bufferedWriter = null;
+		BufferedWriter bufferedWriter2 = null;
 					
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
@@ -70,43 +73,53 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_START_END_HG38);
 			bufferedWriter = new BufferedWriter(fileWriter);			
+			
+			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_START_END_HG38);
+			bufferedWriter2 = new BufferedWriter(fileWriter2);			
+			
 		
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 						
-			//for debug
-//			List<String> searched = new ArrayList<String>();
-//			List<String> found = new ArrayList<String>();
-			//for debug
 			
 			while((rsId = bufferedReader.readLine())!=null){
 				
 				//Skip comment lines
 				if(!(rsId.startsWith("#"))){
+					
+					//Remove rs prefix
 					if (!rsIdList.contains(rsId)){
 						rsIdList.add(rsId);
 					}
-//					RsInformation rsInformation = app.getInformationforGivenRsId(rsId);
-//					bufferedWriter.write( "chr" + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 				}//End of if not comment line							
-			}
+			}//End of WHILE
 			
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
 			
+			for (RsInformation rsInformation: rsInformationList){
+				if (rsInformation!=null){
+					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
+					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
+				}
+				else {
+					bufferedWriter.write("null" + System.getProperty("line.separator"));
+//					bufferedWriter2.write("null" + System.getProperty("line.separator"));
+				}
+			}
+			
 			//for debug purposes starts
-			System.out.println("test rsInformationList size:  " +  rsInformationList.size());
+			System.out.println("rsInformationList size:  " +  rsInformationList.size());
 			//for debug purposes ends
 			
-			
-//			//for debug start
-//			GlanetRunner.appendLog("searched size:" + "\t" + searched.size() + "\t" + "found size:" + "\t" +  found.size());
-//			List<String> difference = (List<String>) nonOverLap(searched,found);
-//			printDifference(difference);
-//			//for debug end
-			
+				
 			bufferedWriter.close();
+			bufferedWriter2.close();
+			
 			bufferedReader.close();
+			
+			//convert hg38 to hg19
+			//then continue as usual
 				
 			
 		} catch (IOException e) {
