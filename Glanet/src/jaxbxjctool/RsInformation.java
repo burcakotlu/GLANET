@@ -17,13 +17,21 @@ public class RsInformation {
 	String observedAlleles;
 	boolean merged;
 	String orient;
+	String groupLabel;
 	
 	
-	
-	
-	
-	
-	
+	public String getGroupLabel() {
+		return groupLabel;
+	}
+
+
+
+	public void setGroupLabel(String groupLabel) {
+		this.groupLabel = groupLabel;
+	}
+
+
+
 	public String getOrient() {
 		return orient;
 	}

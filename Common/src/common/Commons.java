@@ -48,6 +48,24 @@ public class Commons {
 	public static final String COMMA = ",";
 	
 	
+	//NCBI REMAP API PARAMETERS starts
+	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE = "NCBI_REMAP_API_Supported_Assemblies.txt";
+	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
+	public static final String NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON = "on";
+	public static final String NCBI_REMAP_API_MERGE_FRAGMENTS_OFF = "off";
+	
+	public static final String NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON = "on";
+	public static final String NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF = "off";
+	
+	public static final double NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_1= 1.0;
+	public static final double NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_= 0.5;
+	
+	public static final int NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_1 = 1;
+	public static final int NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2 = 2;
+	//NCBI REMAP API PARAMETERS ends
+	
+
+	
 	//When there is no KeggPathwayDescription provided for a KeggPathway
 	//When there is no UserDefinedGeneSetDescription provided for a UserDefinedGeneSety
 	public static final String NO_DESCRIPTION_AVAILABLE = "NoDescriptionAvailable";

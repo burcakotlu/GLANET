@@ -182,7 +182,7 @@ public class AugmentationofGivenRsIdwithInformation {
 						String groupLabel = as.getGroupLabel();
 						 	
 								
-		         	   	if(groupLabel!=null && groupLabel.startsWith("GRCh38")){
+		         	   	if(groupLabel!=null){
 		        		   
 		                   for(Component comp:as.getComponent())
 		                   {              
@@ -191,6 +191,9 @@ public class AugmentationofGivenRsIdwithInformation {
 		   	                	   if (maploc.getPhysMapInt()!=null){
 		   	                		   
 		   	                		   rsInformation = new RsInformation();
+		   	                		  
+		   	                		   //Set groupName
+		   	                		   rsInformation.setGroupLabel(groupLabel);
 		   	                		   
 		   	                		   //starts 29th August 2014
 			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
@@ -264,12 +267,11 @@ public class AugmentationofGivenRsIdwithInformation {
 					
 					problemRsInformation  = getInformationforGivenRsId(problemRsId);
 					
+					//If null then don't put it
 					if (problemRsInformation!=null){
 						rsInformationList.add(problemRsInformation);
-					}else{
-						rsInformationList.add(null);
-					}
-				}
+					}//End of if not null
+				}//End of catch
 				
 
 	        }//End of while
@@ -339,11 +341,17 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			}
 			
+			/**************************************************************/
+			/*****GET rsInformation  using NCBI EUTILS call starts*********/
+			/**************************************************************/
 			//Send ready commaSeparatedRsIdList
 			//Get rsInformationList for commaSeparatedRsIdList
 			//Add gathered rsInformationList to the existing rsInformationList
 			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList));
-			
+			/**************************************************************/
+			/*****GET rsInformation  using NCBI EUTILS call ends***********/
+			/**************************************************************/
+				
 		}//End of for
 		/**************************************************************/
 		
@@ -397,7 +405,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		                {  
 							String groupLabel = as.getGroupLabel();
 			                	
-		             	   	if(groupLabel!=null && groupLabel.startsWith("GRCh38")){
+		             	   	if(groupLabel!=null){
 		            		   
 		                        
 		                       for(Component comp:as.getComponent())
@@ -409,6 +417,9 @@ public class AugmentationofGivenRsIdwithInformation {
 			   	                		   
 			   	                		   rsInformation = new RsInformation();
 			   	                		   
+			   	                		   //Set groupLabel
+			   	                		   rsInformation.setGroupLabel(groupLabel);
+			   	                		   
 			   	                		   //starts 29th August 2014
 				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
 				   	        				if (mergeHistoryList.size()>0){
@@ -418,7 +429,6 @@ public class AugmentationofGivenRsIdwithInformation {
 				   	        							break;
 				   	        						}
 				   	        					}
-				   	        					
 				   	        				}
 				   	        				//ends 29th August 2014
 				   	        				

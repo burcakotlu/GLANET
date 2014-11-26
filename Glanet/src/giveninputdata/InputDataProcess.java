@@ -9,8 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
@@ -69,6 +71,18 @@ public class InputDataProcess {
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
 		
+		String groupLabels = "";
+		
+		String sourceAlignmentBatch = null;
+		String targetAlignmentBatch = null;
+		String merge = null;
+		String allowMultipleLocation = null;
+		double minimumRatioOfBasesThatMustBeRemapped;
+		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength;
+		
+		
+		
+		
 		try {
 			
 			fileReader = new FileReader(inputFileName);
@@ -96,34 +110,77 @@ public class InputDataProcess {
 				}//End of if not comment line							
 			}//End of WHILE
 			
+			
+			/*********************************************************************/
+			/********GET rsInformation  using NCBI EUTILS starts******************/
+			/*********************************************************************/
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
+			/*********************************************************************/
+			/********GET rsInformation  using NCBI EUTILS ends********************/
+			/*********************************************************************/
+
+			
 			
 			for (RsInformation rsInformation: rsInformationList){
+				
 				if (rsInformation!=null){
 					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + (rsInformation.getEndZeroBased()+1) + System.getProperty("line.separator"));
-				}
-				else {
-					bufferedWriter.write("null" + System.getProperty("line.separator"));
-//					bufferedWriter2.write("null" + System.getProperty("line.separator"));
-				}
-			}
+					
+					if (!groupLabels.contains(rsInformation.getGroupLabel())){
+						groupLabels = groupLabels + rsInformation.getGroupLabel();
+					}
+					
+				}//End of IF rsInformation is not null
+				
+			}//End of for
 			
 			//for debug purposes starts
+			System.out.println("groupLabel: " + groupLabels);
 			System.out.println("rsInformationList size:  " +  rsInformationList.size());
 			//for debug purposes ends
 			
 				
+			bufferedReader.close();
 			bufferedWriter.close();
 			bufferedWriter2.close();
-			
-			bufferedReader.close();
 			
 			//convert hg38 to hg19
 			//GCF_000001405.26 <---> GRCh38 <----> hg38
 			//GCF_000001405.25 <---> GRCh37.p13 <----> hg19
-			Remap.remap(dataFolder,"GCF_000001405.26", "GCF_000001405.25", outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
+			
+			//@todo check this
+//			Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			
+			Map<String,String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String,String>();
+			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,assemblyName2RefSeqAssemblyIDMap);
+			
+			sourceAlignmentBatch = assemblyName2RefSeqAssemblyIDMap.get(groupLabels);
+			
+//			sourceAlignmentBatch = "GCF_000001405.26";
+			targetAlignmentBatch = "GCF_000001405.25";
+			
+			merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_OFF;
+			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF;
+			minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_1;
+			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_1;
+			
 		
+			
+			//Could not find an alignment batch for your assembly pair: GRCh38 x GRCh37.p13
+			//Please run "--mode batches" for a list of available assembly pairs.
+			//Remap.remap(dataFolder,"GRCh38", "GRCh37.p13", outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
+			Remap.remap(
+					dataFolder,
+					sourceAlignmentBatch, 
+					targetAlignmentBatch, 
+					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, 
+					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			
 			//@todo to be tested
 			//Read from hg19 bed file
 			//Write to usual processed input file
