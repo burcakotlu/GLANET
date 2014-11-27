@@ -9,7 +9,8 @@ import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotation;
-import augmentation.results.CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates;
+import augmentation.results.CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles;
+import augmentation.results.CreationofRemapInputAndOutputFiles;
 import common.Commons;
 
 public class GlanetRunner implements Runnable{
@@ -94,25 +95,35 @@ public class GlanetRunner implements Runnable{
 			/*******************Collection of Permutations Results ends*********************/
 
 			
-			/************Augmentation of Enriched Elements with Given Input Data starts*****/
+			/************Augmentation of Enriched Elements with Given Input Data starts in GRCh37.p13 *****/
 			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Given Input Data...");
+				getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			AugmentationofEnrichmentWithAnnotation.main( args);
-			/************Augmentation of Enriched Elements with Given Input Data ends*******/
+			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh37.p13 *******/
 						
 			
 			/************Creation of NCBI Remap input files starts*************************/
 			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input files...");
+				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input and output files...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
-			CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.main( args);
+			CreationofRemapInputAndOutputFiles.main( args);
 			/************Creation of NCBI Remap input files ends***************************/
-
+			
+			
+			/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
+			if( getMainView() != null)
+				getMainView().setCurrentProcessInfo( "Creation of Augmented Enriched Elements with Annotation in GRCh38 using NCBI Remap output files...");
+			
+			if( Thread.currentThread().isInterrupted())
+				return;
+			CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles.main(args);
+			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
+			
 			
 			/**********************************RSAT starts*********************************/
 			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {

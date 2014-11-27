@@ -135,8 +135,9 @@ public class Remap {
 				fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator"), supportedAssembliesFileName);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
-				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"");
-//				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"" + " --mode batches");
+//				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"");
+				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"" +  " " + "--mode batches");
+				
 				process.waitFor();
 				
 				//output of the perl execution is here

@@ -14,9 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.EnrichmentType;
 
 /**
@@ -75,6 +73,13 @@ public class CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutput
 				fileReader2 = new FileReader(outputFolder + remapOutputFilePath);
 				bufferedReader2 = new BufferedReader(fileReader2);
 				
+				//Skip header lines
+				//##assembly name=GRCh38
+				//##assembly accession=GCF_000001405.26
+				//track
+				bufferedReader2.readLine();
+				bufferedReader2.readLine();
+				bufferedReader2.readLine();
 				
 				while((strLine1 = bufferedReader1.readLine())!=null){
 					if(!strLine1.startsWith("*") && !strLine1.contains("Search")){
@@ -102,7 +107,7 @@ public class CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutput
 							
 						//Read line from second input file
 						firstLine = bufferedReader2.readLine();
-						
+							
 						tfNameCellLineName = strLine1.substring(indexofFourthTab+1, indexofFifthTab);
 						
 						//Read line from second input file
@@ -254,35 +259,22 @@ public class CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutput
 	}
 	
 	
-	public static void readTwoFilesandGenerateANewFile(String outputFolder,EnrichmentType dnaseEnrichment,EnrichmentType histoneEnrichment,EnrichmentType tfEnrichment,EnrichmentType keggPathwayEnrichment,EnrichmentType tfKeggPathwayEnrichment,EnrichmentType tfCellLineKeggPathwayEnrichment){
-		if (dnaseEnrichment.isDnaseEnrichment()){
-			readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_DNASE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_DNASE_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_DNASE_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-		 }
-		 
-		 if (histoneEnrichment.isHistoneEnrichment()){
-			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_HISTONE_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES, Commons.AUGMENTED_HISTONE_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);
-		 }
-		 
-		 if (tfEnrichment.isTfEnrichment()){
-			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-		 }
-		 
-		 if (keggPathwayEnrichment.isKeggPathwayEnrichment()){
-			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-		}
+	public static void readTwoFilesandGenerateANewFile(String outputFolder,EnrichmentType tfEnrichment,EnrichmentType tfKeggPathwayEnrichment,EnrichmentType tfCellLineKeggPathwayEnrichment){
 		
+		 if (tfEnrichment.isTfEnrichment()){
+			 readTwoFilesandWriteOneFile(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
+		 }
+		 
 	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
-			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
+			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
+			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
+			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-	    	 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-	    	 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
-			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_REMAP_OUTPUTFILE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES);	
+	    	 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
+	    	 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
+			 readTwoFilesandWriteOneFileVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES);	
 
 	     }
 	}
@@ -294,17 +286,23 @@ public class CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutput
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
-		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);
-		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[12]);
-		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[13]);
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = Commons.NO_NAME;
+		}
+		//jobName ends
+		
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		
+		
+		EnrichmentType tfEnrichment 					= EnrichmentType.convertStringtoEnum(args[12]);
 		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
 
 			
-		CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles.readTwoFilesandGenerateANewFile(outputFolder,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles.readTwoFilesandGenerateANewFile(outputFolder,tfEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
 
 	}
 

@@ -71,14 +71,23 @@ public class InputDataProcess {
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
 		
-		String groupLabels = "";
 		
-		String sourceAlignmentBatch = null;
-		String targetAlignmentBatch = null;
+		/**********************************************************/
+		/**********NCBI REMAP PARAMETERS starts********************/
+		/**********************************************************/
+		String sourceAssemblyName = "";
+		String targetAssemblyName = Commons.GRCH37_P13;
+		
+		String sourceReferenceAssemblyID = null;
+		String targetReferenceAssemblyID = null;
+		
 		String merge = null;
 		String allowMultipleLocation = null;
 		double minimumRatioOfBasesThatMustBeRemapped;
 		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength;
+		/**********************************************************/
+		/**********NCBI REMAP PARAMETERS ends**********************/
+		/**********************************************************/
 		
 		
 		
@@ -127,8 +136,8 @@ public class InputDataProcess {
 					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + (rsInformation.getEndZeroBased()+1) + System.getProperty("line.separator"));
 					
-					if (!groupLabels.contains(rsInformation.getGroupLabel())){
-						groupLabels = groupLabels + rsInformation.getGroupLabel();
+					if (!sourceAssemblyName.contains(rsInformation.getGroupLabel())){
+						sourceAssemblyName = sourceAssemblyName + rsInformation.getGroupLabel();
 					}
 					
 				}//End of IF rsInformation is not null
@@ -136,7 +145,7 @@ public class InputDataProcess {
 			}//End of for
 			
 			//for debug purposes starts
-			System.out.println("groupLabel: " + groupLabels);
+			System.out.println("sourceAssemblyName: " + sourceAssemblyName);
 			System.out.println("rsInformationList size:  " +  rsInformationList.size());
 			//for debug purposes ends
 			
@@ -145,20 +154,19 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			bufferedWriter2.close();
 			
-			//convert hg38 to hg19
-			//GCF_000001405.26 <---> GRCh38 <----> hg38
-			//GCF_000001405.25 <---> GRCh37.p13 <----> hg19
 			
 			//@todo check this
-//			Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			//Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 			
 			Map<String,String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String,String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,assemblyName2RefSeqAssemblyIDMap);
 			
-			sourceAlignmentBatch = assemblyName2RefSeqAssemblyIDMap.get(groupLabels);
+			//sourceReferenceAssemblyID = "GCF_000001405.26";
+			sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(sourceAssemblyName);
 			
-//			sourceAlignmentBatch = "GCF_000001405.26";
-			targetAlignmentBatch = "GCF_000001405.25";
+			
+			//targetReferenceAssemblyID = "GCF_000001405.25";
+			targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(targetAssemblyName);
 			
 			merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_OFF;
 			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF;
@@ -172,8 +180,8 @@ public class InputDataProcess {
 			//Remap.remap(dataFolder,"GRCh38", "GRCh37.p13", outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
 			Remap.remap(
 					dataFolder,
-					sourceAlignmentBatch, 
-					targetAlignmentBatch, 
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
 					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, 
 					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,
 					merge,
@@ -182,7 +190,7 @@ public class InputDataProcess {
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 			
 			//@todo to be tested
-			//Read from hg19 bed file
+			//Read from GRCh37.p13 (Hg19) bed file
 			//Write to usual processed input file
 			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,Commons.PROCESSED_INPUT_FILE);
 				

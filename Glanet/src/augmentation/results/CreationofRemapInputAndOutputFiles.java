@@ -12,16 +12,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import remap.Remap;
 import auxiliary.FileOperations;
 
 import common.Commons;
 
 import enumtypes.EnrichmentType;
 
-/**
- * 
- */
-public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates {
+/****************************************************
+ * 													*
+ * 													*
+ * Creation of REMAP Input Files					*
+ * with 0 based 									*
+ * Start Inclusive									*
+ * End Exclusive									*
+ * GRCh37.p13										*
+ * coordinates										*
+ * 													*
+ * 													*
+ ****************************************************/
+public class CreationofRemapInputAndOutputFiles {
 	
 	public static void readResultsandWriteVersion2(String outputFolder, String inputFileName, String outputFileName){
 		
@@ -186,35 +196,147 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 	}
 		
 	
-	public static void readandCreateFiles(String outputFolder, EnrichmentType dnaseEnrichment, EnrichmentType histoneEnrichment, EnrichmentType tfEnrichment, EnrichmentType keggPathwayEnrichment, EnrichmentType tfKeggPathwayEnrichment, EnrichmentType tfCellLineKeggPathwayEnrichment){
-		if (dnaseEnrichment.isDnaseEnrichment()){
-			readResultsandWrite(outputFolder, Commons.AUGMENTED_DNASE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES,Commons.LINE_BY_LINE_AUGMENTED_DNASE_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-		 }
-		 
-		 if (histoneEnrichment.isHistoneEnrichment()){
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_HISTONE_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_HISTONE_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-		 }
-		 
+	public static void callREMAPAndWriteREMAPOutputFiles(String outputFolder,
+			String dataFolder,
+			EnrichmentType tfEnrichment, 
+			EnrichmentType tfKeggPathwayEnrichment, 
+			EnrichmentType tfCellLineKeggPathwayEnrichment){
+		
+		
+		//@todo check this
+		//Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+		//Map<String,String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String,String>();
+		//Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,assemblyName2RefSeqAssemblyIDMap);
+		
+		String sourceReferenceAssemblyID = "GCF_000001405.25";
+		//In fact targetReferenceAssemblyID must be the assemblyName that NCBI ETILS returns (groupLabel)
+		String targetReferenceAssemblyID = "GCF_000001405.26";
+		
+		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_OFF;
+		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF;
+		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_1;
+		double	maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_1;
+		
+	
+		
+		
+		
+
 		 if (tfEnrichment.isTfEnrichment()){
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
+			  Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			
 		 }
 		 
-		 if (keggPathwayEnrichment.isKeggPathwayEnrichment()){
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);					
-		}
 		
 	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);					
+			  Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			  
+			  Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+  
+			  
+			  
+			  Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+  
+     }
+		
+	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+	   	  Remap.remap(
+					dataFolder,
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+		  
+		  Remap.remap(
+					dataFolder,
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+
+		  
+		  
+		  Remap.remap(
+					dataFolder,
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+	     }
+		
+	}
+	
+	
+	public static void readandCreateREMAPInputFiles(String outputFolder, 
+			EnrichmentType tfEnrichment, 
+			EnrichmentType tfKeggPathwayEnrichment, 
+			EnrichmentType tfCellLineKeggPathwayEnrichment){
+		
+		 
+		
+		 if (tfEnrichment.isTfEnrichment()){
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+		 }
+		 
+		
+	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES, Commons.LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASEDSTART_1BASEDEND_GRCH37_COORDINATES);					
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 
 	     }
 	}
@@ -305,50 +427,22 @@ public class CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates 
 				
 				
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 		
-		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
-		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);
 		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[12]);
-		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[13]);
 		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
 		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
 		
-		/*********************************************************************************/
-		/**************************USER DEFINED GENESET***********************************/	
-		//User Defined GeneSet Enrichment, DO or DO_NOT
-//		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
-
-//		String userDefinedGeneSetInputFile = args[23];
-//		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-		  
-//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
-//		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
 		
-//		String userDefinedGeneSetName = args[25];
-//		String userDefinedGeneSetName = "GO";
-
-//		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
-//		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
-		/**************************USER DEFINED GENESET***********************************/
-		/*********************************************************************************/
-		
-	
-		/*********************************************************************************/
-		/**************************USER DEFINED LIBRARY***********************************/
-		//User Defined Library Enrichment, DO or DO_NOT
-//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
-//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
-
-//		String userDefinedLibraryInputFile = args[28];
-//		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
-		/**************************USER DEFINED LIBRARY***********************************/	
-		/*********************************************************************************/
-		
+			
 		//delete old files starts 
-		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTED_ENRICHED_ELEMENTS_WITH_GIVEN_INPUT_DATA_REMAP_DIRECTORY);
+		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY);
 		//delete old files ends
 	
-		CreationofRemapInputFileswith0BasedStart1BasedEndGRCh37Coordinates.readandCreateFiles(outputFolder,dnaseEnrichment,histoneEnrichment,tfEnrichment,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		readandCreateREMAPInputFiles(outputFolder,tfEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		
+		callREMAPAndWriteREMAPOutputFiles(outputFolder,dataFolder,tfEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		
 	}
 
 }
