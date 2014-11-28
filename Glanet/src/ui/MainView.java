@@ -386,7 +386,7 @@ public class MainView extends JPanel{
         
         //userDefinedGeneSetAnnotation added to userDefinedGeneSetPanel
         userDefinedGeneSetAnnotation = new JCheckBox(Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION);
-        userDefinedGeneSetAnnotation.addItemListener(enableEnrichmentListener);
+        userDefinedGeneSetAnnotation.addItemListener( enableEnrichmentListener);
         userDefinedGeneSetAnnotation.addItemListener( enableUserDefinedGeneSet);
         
         userDefinedGeneSetPanel.add( createPanelWithHint(userDefinedGeneSetAnnotation, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
@@ -427,6 +427,7 @@ public class MainView extends JPanel{
         //userDefinedLibraryAnnotation added to userDefinedLibraryPanel
         userDefinedLibraryAnnotation = new JCheckBox( Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION);
         dnaseAnnotation.addItemListener(enableEnrichmentListener);
+        userDefinedLibraryAnnotation.addItemListener( enableEnrichmentListener);
         userDefinedLibraryAnnotation.addItemListener( enableUserDefinedLibrary);
         
         userDefinedLibraryPanel.add( createPanelWithHint(userDefinedLibraryAnnotation, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
