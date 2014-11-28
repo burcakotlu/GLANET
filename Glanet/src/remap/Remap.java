@@ -3,6 +3,11 @@
  */
 package remap;
 
+import enumtypes.Assembly;
+import enumtypes.ChromosomeName;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -12,7 +17,6 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -111,6 +115,10 @@ public class Remap {
 			}//End of while
 			
 			
+			//close
+			bufferedReader.close();
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,12 +176,167 @@ public class Remap {
 	}
 	
 	
+	public static void createOutputFileUsingREMAPREPORTFile(String remapReportFile, String outputFile){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		int indexofEleventhTab;
+		int indexofTwelfthTab;
+		int indexofThirteenthTab;
+		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+		int indexofSixteenthTab;
+		int indexofSeventeenthTab;
+		
+		int indexofUnderscore;
+		
+		String lineNumberString;
+		int lineNumber = Integer.MIN_VALUE;
+		
+		ChromosomeName sourceChrName;
+		ChromosomeName mappedChrName;
+		
+		int sourceInt;	
+		String mappedIntString;
+		int mappedInt;
+		
+		int mappedStart;
+		int mappedEnd;
+		Assembly mappedAssembly;
+		
+		TIntObjectMap<Remapped> sourceLineNumber2RemappedMap = new TIntObjectHashMap<Remapped>();
+		
+		int maximumLineNumber = Integer.MIN_VALUE;
+		Remapped remapped = null;
+		
+		try {
+			
+			fileReader = FileOperations.createFileReader(remapReportFile);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			fileWriter = FileOperations.createFileWriter(outputFile);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			while((strLine = bufferedReader.readLine())!=null){
+	
+				//#feat_name	source_int	mapped_int	source_id	mapped_id	source_length	mapped_length	source_start	source_stop	source_strand	source_sub_start	source_sub_stop	mapped_start	mapped_stop	mapped_strand	coverage	recip	asm_unit
+				//line_67	1	1	chr1	chr1	1	1	147664654	147664654	+	147664654	147664654	147136772	147136772	+	1	Second Pass	Primary Assembly
+				//line_67	1	2	chr1	NW_003871055.3	1	1	147664654	147664654	+	147664654	147664654	4480067	4480067	+	1	First Pass	PATCHES
+				//line_122	1	NULL	chr14	NULL	1	NULL	93095256	93095256	+	NOMAP	NOALIGN						
+
+				
+				if (!strLine.startsWith("#")){
+					
+					indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) :-1 ;
+					indexofThirdTab 	= (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1) :-1 ;
+					indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) :-1 ;
+					indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) :-1 ;
+					indexofSixthTab 	= (indexofFifthTab>0) ? strLine.indexOf('\t', indexofFifthTab+1) :-1 ;
+					indexofSeventhTab 	= (indexofSixthTab>0) ? strLine.indexOf('\t', indexofSixthTab+1) :-1 ;
+					indexofEigthTab		= (indexofSeventhTab>0) ? strLine.indexOf('\t', indexofSeventhTab+1) :-1 ;
+					indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t', indexofEigthTab+1) :-1 ;
+					indexofTenthTab 	= (indexofNinethTab>0) ? strLine.indexOf('\t', indexofNinethTab+1) :-1 ;
+					indexofEleventhTab 	= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
+					indexofTwelfthTab 	= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
+					indexofThirteenthTab 	= (indexofTwelfthTab>0) ? strLine.indexOf('\t', indexofTwelfthTab+1) :-1 ;
+					indexofFourteenthTab 	= (indexofThirteenthTab>0) ? strLine.indexOf('\t', indexofThirteenthTab+1) :-1 ;
+					indexofFifteenthTab 	= (indexofFourteenthTab>0) ? strLine.indexOf('\t', indexofFourteenthTab+1) :-1 ;
+					indexofSixteenthTab 	= (indexofFifteenthTab>0) ? strLine.indexOf('\t', indexofFifteenthTab+1) :-1 ;
+					indexofSeventeenthTab 	= (indexofSixteenthTab>0) ? strLine.indexOf('\t', indexofSixteenthTab+1) :-1 ;
+					
+					lineNumberString = strLine.substring(0,indexofFirstTab);
+					
+					indexofUnderscore = lineNumberString.indexOf('_');
+					lineNumber = Integer.parseInt(lineNumberString.substring(indexofUnderscore+1));
+					
+					
+					
+					sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					
+					mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+					
+					if (!mappedIntString.equals(Commons.NULL)){
+						
+						mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+						
+						sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+						mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+						
+						mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
+						mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
+						
+						mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+						
+						if ((sourceInt == 1) && 
+								(mappedInt == 1) &&
+								sourceChrName == mappedChrName &&
+								mappedAssembly.isPrimaryAssembly()){
+							
+							remapped = new Remapped(mappedInt, mappedStart, mappedEnd, mappedChrName, mappedAssembly);
+							sourceLineNumber2RemappedMap.put(lineNumber, remapped);
+							
+						}//End of IF: Valid conversion
+					}//End of IF mappedInt is not NULL
+					
+								
+				}//End of IF: Not Header or Comment Line
+				
+			}//End of while
+			
+			//Set maximum line number to the last lineNumber
+			maximumLineNumber = lineNumber;
+			
+			//Write to the file
+			for(int i=1; i<=maximumLineNumber; i++){
+				
+				remapped = sourceLineNumber2RemappedMap.get(i);
+				
+				if(remapped != null){
+					bufferedWriter.write(remapped.getMappedChrName().convertEnumtoString() + "\t" + remapped.getMappedStart() + "\t" + remapped.getMappedEnd() + System.getProperty("line.separator"));
+				}else{
+					bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
+				}
+				
+			}//End of for
+			
+			
+			//close 
+			bufferedReader.close();
+			bufferedWriter.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	public static void remap(
 			String dataFolder,
 			String sourceAssembly, 
 			String targetAssembly,
 			String sourceFileName,
 			String outputFileName,
+			String reportFileName,
 			String merge,
 			String allowMultipleLocation,
 			double minimumRatioOfBasesThatMustBeRemapped,
@@ -182,23 +345,26 @@ public class Remap {
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator")  + "remap_api.pl";
 		
 		//DirectoryName can contain empty spaces
-	
 		Runtime runtime = Runtime.getRuntime();
 		Process process = null;
 			
 			try {
-				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +    " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 				process.waitFor();
 				
 				//output of the perl execution is here
-				BufferedReader is = new BufferedReader( new InputStreamReader( process.getInputStream()));
+				BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
 				String line;
-				while ( ( line = is.readLine()) != null)
+				
+				while ( ( line = bufferedReader.readLine()) != null){
 					System.out.println(line);
+				}//End of while
 				
 				System.out.flush();
-				
 				System.err.println("\nExit status = " + process.exitValue());
+				
+				//Close
+				bufferedReader.close();
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

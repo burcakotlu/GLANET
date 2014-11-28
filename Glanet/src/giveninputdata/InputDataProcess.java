@@ -89,9 +89,7 @@ public class InputDataProcess {
 		/**********NCBI REMAP PARAMETERS ends**********************/
 		/**********************************************************/
 		
-		
-		
-		
+			
 		try {
 			
 			fileReader = new FileReader(inputFileName);
@@ -100,7 +98,7 @@ public class InputDataProcess {
 			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_START_END_HG38_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 			
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE);
+			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE);
 			bufferedWriter2 = new BufferedWriter(fileWriter2);			
 			
 		
@@ -150,6 +148,7 @@ public class InputDataProcess {
 			//for debug purposes ends
 			
 				
+			//Close
 			bufferedReader.close();
 			bufferedWriter.close();
 			bufferedWriter2.close();
@@ -168,10 +167,10 @@ public class InputDataProcess {
 			//targetReferenceAssemblyID = "GCF_000001405.25";
 			targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(targetAssemblyName);
 			
-			merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_OFF;
-			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF;
-			minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_1;
-			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_1;
+			merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
+			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
+			minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
+			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
 			
 		
 			
@@ -182,17 +181,20 @@ public class InputDataProcess {
 					dataFolder,
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
-					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE, 
-					outputFolder + Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,
+					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE, 
+					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
+					outputFolder + Commons.REMAP_REPORT_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 			
+			Remap.createOutputFileUsingREMAPREPORTFile(outputFolder + Commons.REMAP_REPORT_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE_USING_REMAP_REPORT);
+			
 			//@todo to be tested
 			//Read from GRCh37.p13 (Hg19) bed file
 			//Write to usual processed input file
-			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE,Commons.PROCESSED_INPUT_FILE);
+			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE_USING_REMAP_REPORT,Commons.PROCESSED_INPUT_FILE);
 				
 			
 		} catch (IOException e) {

@@ -24,12 +24,19 @@ import enumtypes.EnrichmentType;
  * 													*
  * Creation of REMAP Input Files					*
  * with 0 based 									*
- * Start Inclusive									*
+ * Start											*
  * End Exclusive									*
  * GRCh37.p13										*
  * coordinates										*
  * 													*
+ * Call REMAP API									*
  * 													*
+ * Creation of REMAP Output Files					*
+ * with 1Based										*
+ * Start											*
+ * End												*
+ * GRCh38											*
+ * coordinates										*
  ****************************************************/
 public class CreationofRemapInputAndOutputFiles {
 	
@@ -56,15 +63,15 @@ public class CreationofRemapInputAndOutputFiles {
 		
 		String givenIntervalChrName;		
 		int givenIntervalZeroBasedStart;
-		int givenIntervalOneBasedEnd;		
+		int givenIntervalZeroBasedEndExclusive;		
 	
 //		String tfCellLineChrName;
 		int tfCellLineZeroBasedStart;
-		int tfCellLineOneBasedEnd;	
+		int tfCellLineZeroBasedEndExclusive;	
 		
 //		String refseqGeneChrName;
 		int refseqGeneZeroBasedStart;
-		int refseqGeneOneBasedEnd;	
+		int refseqGeneZeroBasedEndExclusive;	
 			
 		try {
 			fileReader = new FileReader(outputFolder + inputFileName);
@@ -89,24 +96,26 @@ public class CreationofRemapInputAndOutputFiles {
 					
 					givenIntervalChrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
 					givenIntervalZeroBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-					givenIntervalOneBasedEnd = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+					givenIntervalZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 												
 //					tfCellLineChrName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 					tfCellLineZeroBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
-					tfCellLineOneBasedEnd = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+					tfCellLineZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
 					
 //					refseqGeneChrName = strLine.substring(indexofSeventhTab+1, indexofEigthTab);
 					refseqGeneZeroBasedStart = Integer.parseInt(strLine.substring(indexofEigthTab+1, indexofNinethTab));
-					refseqGeneOneBasedEnd = Integer.parseInt(strLine.substring(indexofNinethTab+1, indexofTenthTab));
+					refseqGeneZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofNinethTab+1, indexofTenthTab));
 					
-					bufferedWriter.write(givenIntervalChrName +"\t" + givenIntervalZeroBasedStart +"\t" + givenIntervalOneBasedEnd + System.getProperty("line.separator"));
-					bufferedWriter.write(givenIntervalChrName +"\t" + tfCellLineZeroBasedStart +"\t" + tfCellLineOneBasedEnd + System.getProperty("line.separator"));
-					bufferedWriter.write(givenIntervalChrName +"\t" + refseqGeneZeroBasedStart +"\t" + refseqGeneOneBasedEnd + System.getProperty("line.separator"));
+					//Write Three Lines in case of TFKEGGPATHWAY and TFCELLLINEKEGGPATHWAY
+					bufferedWriter.write(givenIntervalChrName +"\t" + givenIntervalZeroBasedStart +"\t" + givenIntervalZeroBasedEndExclusive + System.getProperty("line.separator"));
+					bufferedWriter.write(givenIntervalChrName +"\t" + tfCellLineZeroBasedStart +"\t" + tfCellLineZeroBasedEndExclusive + System.getProperty("line.separator"));
+					bufferedWriter.write(givenIntervalChrName +"\t" + refseqGeneZeroBasedStart +"\t" + refseqGeneZeroBasedEndExclusive + System.getProperty("line.separator"));
 					
 				}//End of if			
 			}//End of while
 			
 			
+			//Close
 			bufferedReader.close();
 			bufferedWriter.close();
 			
@@ -143,11 +152,11 @@ public class CreationofRemapInputAndOutputFiles {
 		
 		String givenIntervalChrName;		
 		int givenIntervalZeroBasedStart;
-		int givenIntervalOneBasedEnd;		
+		int givenIntervalZeroBasedEndExclusive;		
 	
 		String overlapChrName;
 		int overlapZeroBasedStart;
-		int overlapOneBasedEnd;	
+		int overlapZeroBasedEndExclusive;	
 		
 		
 		try {
@@ -170,19 +179,20 @@ public class CreationofRemapInputAndOutputFiles {
 					
 					givenIntervalChrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
 					givenIntervalZeroBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-					givenIntervalOneBasedEnd = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+					givenIntervalZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 												
 					overlapChrName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
 					overlapZeroBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
-					overlapOneBasedEnd = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+					overlapZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
 					
-					bufferedWriter.write(givenIntervalChrName +"\t" + givenIntervalZeroBasedStart +"\t" + givenIntervalOneBasedEnd + System.getProperty("line.separator"));
-					bufferedWriter.write(overlapChrName +"\t" + overlapZeroBasedStart +"\t" + overlapOneBasedEnd + System.getProperty("line.separator"));
+					//Write Two lines in TF Case
+					bufferedWriter.write(givenIntervalChrName +"\t" + givenIntervalZeroBasedStart +"\t" + givenIntervalZeroBasedEndExclusive + System.getProperty("line.separator"));
+					bufferedWriter.write(overlapChrName +"\t" + overlapZeroBasedStart +"\t" + overlapZeroBasedEndExclusive + System.getProperty("line.separator"));
 					
 				}//End of if			
 			}//End of while
 			
-			
+			//Close
 			bufferedReader.close();
 			bufferedWriter.close();
 			
@@ -212,105 +222,229 @@ public class CreationofRemapInputAndOutputFiles {
 		//In fact targetReferenceAssemblyID must be the assemblyName that NCBI ETILS returns (groupLabel)
 		String targetReferenceAssemblyID = "GCF_000001405.26";
 		
-		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_OFF;
-		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_OFF;
-		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_1;
-		double	maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_1;
+		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
+		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
+		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
+		double	maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
 		
 	
-		
-		
-		
-
 		 if (tfEnrichment.isTfEnrichment()){
+			 
+			 /**********************************************************/
+	    	 /***********************TF starts**************************/
+	    	 /**********************************************************/
 			  Remap.remap(
 						dataFolder,
 						sourceReferenceAssemblyID, 
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			  
+			  Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	 /**********************************************************/
+	    	 /***********************TF ends****************************/
+	    	 /**********************************************************/
+	
+			
+		 }//End of IF: TF Enrichment
+		 
+		
+	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	
+	    	 
+	    	 /**********************************************************/
+	    	 /***********************TF starts**************************/
+	    	 /**********************************************************/
+	    	 Remap.remap(
+	    			dataFolder,
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+	    	 
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+			
+	    	 /**********************************************************/
+	    	 /***********************TF ends****************************/
+	    	 /**********************************************************/
+
+	    	 /**********************************************************/
+	    	 /************TF EXON BASED KEGG PATHWAY starts*************/
+	    	 /**********************************************************/
+			 Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						merge,
+						allowMultipleLocation,
+						minimumRatioOfBasesThatMustBeRemapped,
+						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			 
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	 /**********************************************************/
+	    	 /************TF EXON BASED KEGG PATHWAY ends***************/
+	    	 /**********************************************************/
+
+			  
+	    	 /**********************************************************/
+	    	 /************TF REGULATION BASED KEGG PATHWAY starts*******/
+	    	 /**********************************************************/
+			Remap.remap(
+						dataFolder,
+						sourceReferenceAssemblyID, 
+						targetReferenceAssemblyID, 
+						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
 						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 			
-		 }
-		 
-		
-	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
-			  Remap.remap(
-						dataFolder,
-						sourceReferenceAssemblyID, 
-						targetReferenceAssemblyID, 
-						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
-						merge,
-						allowMultipleLocation,
-						minimumRatioOfBasesThatMustBeRemapped,
-						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	 /**********************************************************/
+	    	 /************TF REGULATION BASED KEGG PATHWAY ends*********/
+	    	 /**********************************************************/
+ 
 			  
-			  Remap.remap(
-						dataFolder,
-						sourceReferenceAssemblyID, 
-						targetReferenceAssemblyID, 
-						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
-						merge,
-						allowMultipleLocation,
-						minimumRatioOfBasesThatMustBeRemapped,
-						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-  
-			  
-			  
-			  Remap.remap(
+	    	/**********************************************************/
+	    	/************TF ALL BASED KEGG PATHWAY starts**************/
+			/**********************************************************/
+			Remap.remap(
 						dataFolder,
 						sourceReferenceAssemblyID, 
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
 						maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	/**********************************************************/
+	    	/************TF ALL BASED KEGG PATHWAY ends****************/
+			/**********************************************************/
+
   
-     }
+	     }//End of IF: TF KEGG PATHWAY Enrichment
 		
 	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-	   	  Remap.remap(
+	    	 
+	    	 /**********************************************************/
+	    	 /***********************TF starts**************************/
+	    	 /**********************************************************/
+	    	 Remap.remap(
+	    			dataFolder,
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					merge,
+					allowMultipleLocation,
+					minimumRatioOfBasesThatMustBeRemapped,
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+	    	 
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	 /**********************************************************/
+	    	 /***********************TF ends****************************/
+	    	 /**********************************************************/
+
+
+	    	/**********************************************************/
+	    	/********TF CELLLINE EXON BASED KEGG PATHWAY starts********/
+	    	/**********************************************************/
+	   	  	Remap.remap(
 					dataFolder,
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-		  
-		  Remap.remap(
+	   	  	
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	 /**********************************************************/
+	    	 /********TF CELLLINE EXON BASED KEGG PATHWAY ends**********/
+	    	 /**********************************************************/
+	  
+	   	  	
+	    	/**********************************************************/
+	    	/*****TF CELLLINE REGULATION BASED KEGG PATHWAY starts*****/
+	    	/**********************************************************/
+	   	  	Remap.remap(
 					dataFolder,
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
-					merge,
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+	   	  	
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	/**********************************************************/
+	    	/*****TF CELLLINE REGULATION BASED KEGG PATHWAY ends*******/
+	    	/**********************************************************/
 
-		  
-		  
-		  Remap.remap(
+	    	/**********************************************************/
+	    	/********TF CELLLINE ALL BASED KEGG PATHWAY starts*********/
+	    	/**********************************************************/
+	   	  	Remap.remap(
 					dataFolder,
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
-					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-	     }
+	   	  	
+	    	 Remap.createOutputFileUsingREMAPREPORTFile(
+					  outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES, 
+					  outputFolder + Commons.REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES);
+	    	/**********************************************************/
+	    	/********TF CELLLINE ALL BASED KEGG PATHWAY ends***********/
+	    	/**********************************************************/
+
+	     }//End of IF: TF CELLLINE KEGG PATHWAY Enrichment
 		
 	}
 	
@@ -328,13 +462,17 @@ public class CreationofRemapInputAndOutputFiles {
 		 
 		
 	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 	     }
 		
 	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+				
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 

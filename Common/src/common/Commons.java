@@ -53,6 +53,13 @@ public class Commons {
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE = "NCBI_REMAP_API_Supported_Assemblies.txt";
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
 	
+	
+	public static final String NULL = "NULL";
+	public static final String PRIMARYASSEMBLY = "Primary Assembly";
+	public static final String PATCHES = "PATCHES";
+	
+	
+	
 	public static final String NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON = "on";
 	public static final String NCBI_REMAP_API_MERGE_FRAGMENTS_OFF = "off";
 	
@@ -262,8 +269,10 @@ public class Commons {
 	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
 		
 	public static final String RSID_CHRNAME_START_END_HG38_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"rsID_chrName_0BasedStart_0BasedEnd_hg38_coordinates.txt";
-	public static final String CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed";
-	public static final String CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed";
+	public static final String CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_Start_EndExclusive_hg38_coordinates.bed";
+	public static final String CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_Start_EndExclusive_hg19_coordinates.bed";
+	public static final String REMAP_REPORT_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"REMAP_REPORT_chrName_0Based_Start_EndExclusive_hg19_coordinates.txt.xls";
+	public static final String CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE_USING_REMAP_REPORT =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_Start_EndExclusive_hg19_coordinates_using_remap_report.bed";
 	
 	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_0_Based_hg19_coordinates.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt";
@@ -354,21 +363,65 @@ public class Commons {
 	/*******************************Line by Line******************************************/ 
 	/*****************chrName 0Based Start EndExclusive GRCH38 starts*********************/
 	/*************************************************************************************/
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TF_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TF_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
 	
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFExonBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES	= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFRegulationBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFAllBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES	= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
 	
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineExonBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineRegulationBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";
-	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineAllBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.txt";	
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_LineByLine_TFCellLineAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";	
 	/*************************************************************************************/
 	/**********************REMAP OUTPUT FILE  ends****************************************/
 	/*******************************Line by Line******************************************/ 
 	/*****************chrName 0Based Start EndExclusive GRCH38 ends***********************/
 	/*************************************************************************************/
 
+	
+	
+	/*************************************************************************************/
+	/**********************REMAP REPORT FILE  starts**************************************/
+	/*******************************Line by Line******************************************/ 
+	/*****************chrName 0Based Start EndExclusive GRCH38 starts*********************/
+	/*************************************************************************************/
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TF_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES	= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFCellLineExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFCellLineRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFCellLineAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt.xls";	
+	/*************************************************************************************/
+	/**********************REMAP REPORT FILE  ends****************************************/
+	/*******************************Line by Line******************************************/ 
+	/*****************chrName 0Based Start EndExclusive GRCH38 ends***********************/
+	/*************************************************************************************/
+
+	
+	/*************************************************************************************/
+	/**********************REMAP OUTPUT FILE USING REPORT Files starts********************/
+	/*******************************Line by Line******************************************/ 
+	/*****************chrName 0Based Start EndExclusive GRCH38 starts*********************/
+	/*************************************************************************************/
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TF_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES	= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFCellLineExonBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFCellLineRegulationBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";
+	public static final String REMAP_OUTPUT_FILE_USING_REPORT_LINE_BY_LINE_AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_outputFile_using_REPORT_LineByLine_TFCellLineAllBasedKEGGPathway_chrNumber_0Based_Start_EndExclusive_GRCh38_coordinates.txt";	
+	/*************************************************************************************/
+	/**********************REMAP OUTPUT FILE USING REPORT Files ends**********************/
+	/*******************************Line by Line******************************************/ 
+	/*****************chrName 0Based Start EndExclusive GRCH38 ends***********************/
+	/*************************************************************************************/
+
+	
 	
 	/*************************************************************************************/
 	/********************AUGMENTATION OF ENRICHMENT WITH ANNOTATION***********************/

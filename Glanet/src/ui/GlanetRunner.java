@@ -8,8 +8,8 @@ import giveninputdata.Preparation;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
-import augmentation.results.AugmentationofEnrichmentWithAnnotation;
-import augmentation.results.CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles;
+import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
+import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles;
 import augmentation.results.CreationofRemapInputAndOutputFiles;
 import common.Commons;
 
@@ -72,7 +72,11 @@ public class GlanetRunner implements Runnable{
 		Annotation.main( args);
 		/************************Annotation ends*************************************************/
 		
+		
+		
+		/****************************************************************************************/
 		/************************Enrichment starts***********************************************/
+		/****************************************************************************************/
 		if( getArgs()[4].equalsIgnoreCase(Commons.DO_ENRICH)){
 			
 			/************************Annotate Permutations starts****************************/
@@ -101,18 +105,22 @@ public class GlanetRunner implements Runnable{
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
-			AugmentationofEnrichmentWithAnnotation.main( args);
+			AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main( args);
 			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh37.p13 *******/
 						
 			
-			/************Creation of NCBI Remap input files starts*************************/
+			/************Creation of NCBI REMAP Input files starts*************************/
+			/*************************CALL NCBI REMAP API starts***************************/
+			/************Creation of NCBI REMAP Output files starts************************/
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input and output files...");
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
 			CreationofRemapInputAndOutputFiles.main( args);
-			/************Creation of NCBI Remap input files ends***************************/
+			/************Creation of NCBI REMAP Input files ends**************************/
+			/*************************CALL NCBI REMAP API ends****************************/
+			/************Creation of NCBI REMAP Output files ends*************************/
 			
 			
 			/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
@@ -121,7 +129,7 @@ public class GlanetRunner implements Runnable{
 			
 			if( Thread.currentThread().isInterrupted())
 				return;
-			CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutputFiles.main(args);
+			AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles.main(args);
 			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
 			
 			
@@ -145,8 +153,10 @@ public class GlanetRunner implements Runnable{
 			/**********************************RSAT ends***********************************/
 			
 		}
-		/************************Enrichment ends*******************************************************/
-		
+		/****************************************************************************************/
+		/************************Enrichment ends*************************************************/
+		/****************************************************************************************/
+	
 		/************************GLANET execution ends*************************************************/
 		//args[1]  already has file separator at the end
 		if( getMainView() != null)
