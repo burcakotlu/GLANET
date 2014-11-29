@@ -266,8 +266,6 @@ public class Remap {
 					indexofUnderscore = lineNumberString.indexOf('_');
 					lineNumber = Integer.parseInt(lineNumberString.substring(indexofUnderscore+1));
 					
-					
-					
 					sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 					
 					mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
