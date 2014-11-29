@@ -3,13 +3,9 @@
  */
 package remap;
 
-import enumtypes.Assembly;
-import enumtypes.ChromosomeName;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +13,13 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.Assembly;
+import enumtypes.ChromosomeName;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 /**
  * @author Burçak Otlu
@@ -227,97 +229,103 @@ public class Remap {
 		
 		try {
 			
-			fileReader = FileOperations.createFileReader(remapReportFile);
-			bufferedReader = new BufferedReader(fileReader);
+			File file = new File(remapReportFile);
 			
-			fileWriter = FileOperations.createFileWriter(outputFile);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			while((strLine = bufferedReader.readLine())!=null){
-	
-				//#feat_name	source_int	mapped_int	source_id	mapped_id	source_length	mapped_length	source_start	source_stop	source_strand	source_sub_start	source_sub_stop	mapped_start	mapped_stop	mapped_strand	coverage	recip	asm_unit
-				//line_67	1	1	chr1	chr1	1	1	147664654	147664654	+	147664654	147664654	147136772	147136772	+	1	Second Pass	Primary Assembly
-				//line_67	1	2	chr1	NW_003871055.3	1	1	147664654	147664654	+	147664654	147664654	4480067	4480067	+	1	First Pass	PATCHES
-				//line_122	1	NULL	chr14	NULL	1	NULL	93095256	93095256	+	NOMAP	NOALIGN						
+			if (file.exists()){
+				
+				fileReader = FileOperations.createFileReader(remapReportFile);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				fileWriter = FileOperations.createFileWriter(outputFile);
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				while((strLine = bufferedReader.readLine())!=null){
+		
+					//#feat_name	source_int	mapped_int	source_id	mapped_id	source_length	mapped_length	source_start	source_stop	source_strand	source_sub_start	source_sub_stop	mapped_start	mapped_stop	mapped_strand	coverage	recip	asm_unit
+					//line_67	1	1	chr1	chr1	1	1	147664654	147664654	+	147664654	147664654	147136772	147136772	+	1	Second Pass	Primary Assembly
+					//line_67	1	2	chr1	NW_003871055.3	1	1	147664654	147664654	+	147664654	147664654	4480067	4480067	+	1	First Pass	PATCHES
+					//line_122	1	NULL	chr14	NULL	1	NULL	93095256	93095256	+	NOMAP	NOALIGN						
 
-				
-				if (!strLine.startsWith("#")){
 					
-					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) :-1 ;
-					indexofThirdTab 	= (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1) :-1 ;
-					indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) :-1 ;
-					indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) :-1 ;
-					indexofSixthTab 	= (indexofFifthTab>0) ? strLine.indexOf('\t', indexofFifthTab+1) :-1 ;
-					indexofSeventhTab 	= (indexofSixthTab>0) ? strLine.indexOf('\t', indexofSixthTab+1) :-1 ;
-					indexofEigthTab		= (indexofSeventhTab>0) ? strLine.indexOf('\t', indexofSeventhTab+1) :-1 ;
-					indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t', indexofEigthTab+1) :-1 ;
-					indexofTenthTab 	= (indexofNinethTab>0) ? strLine.indexOf('\t', indexofNinethTab+1) :-1 ;
-					indexofEleventhTab 	= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
-					indexofTwelfthTab 	= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
-					indexofThirteenthTab 	= (indexofTwelfthTab>0) ? strLine.indexOf('\t', indexofTwelfthTab+1) :-1 ;
-					indexofFourteenthTab 	= (indexofThirteenthTab>0) ? strLine.indexOf('\t', indexofThirteenthTab+1) :-1 ;
-					indexofFifteenthTab 	= (indexofFourteenthTab>0) ? strLine.indexOf('\t', indexofFourteenthTab+1) :-1 ;
-					indexofSixteenthTab 	= (indexofFifteenthTab>0) ? strLine.indexOf('\t', indexofFifteenthTab+1) :-1 ;
-					indexofSeventeenthTab 	= (indexofSixteenthTab>0) ? strLine.indexOf('\t', indexofSixteenthTab+1) :-1 ;
-					
-					lineNumberString = strLine.substring(0,indexofFirstTab);
-					
-					indexofUnderscore = lineNumberString.indexOf('_');
-					lineNumber = Integer.parseInt(lineNumberString.substring(indexofUnderscore+1));
-					
-					sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-					
-					mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
-					
-					if (!mappedIntString.equals(Commons.NULL)){
+					if (!strLine.startsWith("#")){
 						
-						mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+						indexofFirstTab 	= strLine.indexOf('\t');
+						indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) :-1 ;
+						indexofThirdTab 	= (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1) :-1 ;
+						indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) :-1 ;
+						indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) :-1 ;
+						indexofSixthTab 	= (indexofFifthTab>0) ? strLine.indexOf('\t', indexofFifthTab+1) :-1 ;
+						indexofSeventhTab 	= (indexofSixthTab>0) ? strLine.indexOf('\t', indexofSixthTab+1) :-1 ;
+						indexofEigthTab		= (indexofSeventhTab>0) ? strLine.indexOf('\t', indexofSeventhTab+1) :-1 ;
+						indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t', indexofEigthTab+1) :-1 ;
+						indexofTenthTab 	= (indexofNinethTab>0) ? strLine.indexOf('\t', indexofNinethTab+1) :-1 ;
+						indexofEleventhTab 	= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
+						indexofTwelfthTab 	= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
+						indexofThirteenthTab 	= (indexofTwelfthTab>0) ? strLine.indexOf('\t', indexofTwelfthTab+1) :-1 ;
+						indexofFourteenthTab 	= (indexofThirteenthTab>0) ? strLine.indexOf('\t', indexofThirteenthTab+1) :-1 ;
+						indexofFifteenthTab 	= (indexofFourteenthTab>0) ? strLine.indexOf('\t', indexofFourteenthTab+1) :-1 ;
+						indexofSixteenthTab 	= (indexofFifteenthTab>0) ? strLine.indexOf('\t', indexofFifteenthTab+1) :-1 ;
+						indexofSeventeenthTab 	= (indexofSixteenthTab>0) ? strLine.indexOf('\t', indexofSixteenthTab+1) :-1 ;
 						
-						sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab+1, indexofFourthTab));
-						mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+						lineNumberString = strLine.substring(0,indexofFirstTab);
 						
-						mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
-						mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
+						indexofUnderscore = lineNumberString.indexOf('_');
+						lineNumber = Integer.parseInt(lineNumberString.substring(indexofUnderscore+1));
 						
-						mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+						sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 						
-						if ((sourceInt == 1) && 
-								(mappedInt == 1) &&
-								sourceChrName == mappedChrName &&
-								mappedAssembly.isPrimaryAssembly()){
+						mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+						
+						if (!mappedIntString.equals(Commons.NULL)){
 							
-							remapped = new Remapped(mappedInt, mappedStart, mappedEnd, mappedChrName, mappedAssembly);
-							sourceLineNumber2RemappedMap.put(lineNumber, remapped);
+							mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 							
-						}//End of IF: Valid conversion
-					}//End of IF mappedInt is not NULL
-					
+							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+							
+							mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
+							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
+							
+							mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+							
+							if ((sourceInt == 1) && 
+									(mappedInt == 1) &&
+									sourceChrName == mappedChrName &&
+									mappedAssembly.isPrimaryAssembly()){
 								
-				}//End of IF: Not Header or Comment Line
+								remapped = new Remapped(mappedInt, mappedStart, mappedEnd, mappedChrName, mappedAssembly);
+								sourceLineNumber2RemappedMap.put(lineNumber, remapped);
+								
+							}//End of IF: Valid conversion
+						}//End of IF mappedInt is not NULL
+						
+									
+					}//End of IF: Not Header or Comment Line
+					
+				}//End of while
 				
-			}//End of while
-			
-			//Set maximum line number to the last lineNumber
-			maximumLineNumber = lineNumber;
-			
-			//Write to the file
-			for(int i=1; i<=maximumLineNumber; i++){
+				//Set maximum line number to the last lineNumber
+				maximumLineNumber = lineNumber;
 				
-				remapped = sourceLineNumber2RemappedMap.get(i);
+				//Write to the file
+				for(int i=1; i<=maximumLineNumber; i++){
+					
+					remapped = sourceLineNumber2RemappedMap.get(i);
+					
+					if(remapped != null){
+						bufferedWriter.write(remapped.getMappedChrName().convertEnumtoString() + "\t" + remapped.getMappedStart() + "\t" + remapped.getMappedEnd() + System.getProperty("line.separator"));
+					}else{
+						bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
+					}
+					
+				}//End of for
 				
-				if(remapped != null){
-					bufferedWriter.write(remapped.getMappedChrName().convertEnumtoString() + "\t" + remapped.getMappedStart() + "\t" + remapped.getMappedEnd() + System.getProperty("line.separator"));
-				}else{
-					bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
-				}
+				//close 
+				bufferedReader.close();
+				bufferedWriter.close();
 				
-			}//End of for
+			}//End of if remapReportFile exists
 			
-			
-			//close 
-			bufferedReader.close();
-			bufferedWriter.close();
 			
 			
 		} catch (IOException e) {

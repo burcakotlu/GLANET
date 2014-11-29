@@ -19,9 +19,7 @@ import jaxbxjctool.RsInformation;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.GivenIntervalsInputFileDataFormat;
 /**
  * @author burcakotlu
@@ -95,7 +93,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_START_END_HG38_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_0Based_START_END_HG38_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 			
 			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE);
@@ -183,18 +181,21 @@ public class InputDataProcess {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE, 
 					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
-					outputFolder + Commons.REMAP_REPORT_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
+					outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 			
-			Remap.createOutputFileUsingREMAPREPORTFile(outputFolder + Commons.REMAP_REPORT_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE_USING_REMAP_REPORT);
+			Remap.createOutputFileUsingREMAPREPORTFile(outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
+					outputFolder + Commons.CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
 			
 			//@todo to be tested
 			//Read from GRCh37.p13 (Hg19) bed file
 			//Write to usual processed input file
-			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE_USING_REMAP_REPORT,Commons.PROCESSED_INPUT_FILE);
+			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,
+					Commons.CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT,
+					Commons.PROCESSED_INPUT_FILE);
 				
 			
 		} catch (IOException e) {
@@ -725,6 +726,30 @@ public class InputDataProcess {
 	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
+		
+		String glanetFolder = args[1];
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = Commons.NO_NAME;
+		}
+		//jobName ends
+		
+		
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+
+		
+		
+		/********************************************************************/
+		/***********delete old files starts**********************************/
+		String givenInputDataOutputBaseDirectoryName = outputFolder + Commons.GIVENINPUTDATA;
+		
+		FileOperations.deleteOldFiles(givenInputDataOutputBaseDirectoryName);
+		/***********delete old files ends***********************************/
+		/******************************************************************/
+	
 		
 		//Read input data 
 		//Process input data

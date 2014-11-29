@@ -676,8 +676,10 @@ public class FileOperations {
 		String strLine;
 		
 		String chrName;
+		int oneBasedStart;
+		int oneBasedEnd;
+		
 		int zeroBasedStart;
-		int zeroBasedEndExclusive;
 		int zeroBasedEnd;
 		
 		int indexofFirstTab;
@@ -701,10 +703,11 @@ public class FileOperations {
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
 					
 					chrName =  strLine.substring(0,indexofFirstTab);
-					zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-					zeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+					oneBasedEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1));
 					
-					zeroBasedEnd = zeroBasedEndExclusive-1;
+					zeroBasedStart = oneBasedStart-1;
+					zeroBasedEnd = oneBasedEnd-1;
 					
 					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedEnd + System.getProperty("line.separator"));
 

@@ -182,58 +182,68 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemap
 					
 		
 		try {
-			fileReader1 = FileOperations.createFileReader(outputFolder + fileWithCoordinatesiInGRCh37);
-			bufferedReader1 = new BufferedReader(fileReader1);
 			
-			fileReader2 = FileOperations.createFileReader(outputFolder + remapOutputFileUsingReport);
-			bufferedReader2 = new BufferedReader(fileReader2);
+			File file = new File(outputFolder + remapOutputFileUsingReport);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + fileWithCoordinatesiInGRCh38);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			while((strLine1 = bufferedReader1.readLine())!=null){
-				if(!strLine1.startsWith("*") && !strLine1.contains("Search")){
-					
-					//**************	H3K4ME2_HELAS3	**************							
-					//H3K4ME2_HELAS3	Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
-					//H3K4ME2_HELAS3	chr9	97713458	97713459	chr9	97712055	97714787	H3K4ME2	HELAS3	wgEncodeBroadHistoneHelas3H3k4me2StdAln.narrowPeak
+			if (file.exists()){
+				
+				fileReader1 = FileOperations.createFileReader(outputFolder + fileWithCoordinatesiInGRCh37);
+				bufferedReader1 = new BufferedReader(fileReader1);
+				
+				fileReader2 = FileOperations.createFileReader(outputFolder + remapOutputFileUsingReport);
+				bufferedReader2 = new BufferedReader(fileReader2);
+				
+				fileWriter = FileOperations.createFileWriter(outputFolder + fileWithCoordinatesiInGRCh38);
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				while((strLine1 = bufferedReader1.readLine())!=null){
+					if(!strLine1.startsWith("*") && !strLine1.contains("Search")){
+						
+						//**************	H3K4ME2_HELAS3	**************							
+						//H3K4ME2_HELAS3	Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
+						//H3K4ME2_HELAS3	chr9	97713458	97713459	chr9	97712055	97714787	H3K4ME2	HELAS3	wgEncodeBroadHistoneHelas3H3k4me2StdAln.narrowPeak
 
-					indexofFirstTab 	= strLine1.indexOf('\t');
-					indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab 	= strLine1.indexOf('\t',indexofSecondTab+1);
-					indexofFourthTab 	= strLine1.indexOf('\t',indexofThirdTab+1);
-					indexofFifthTab 	= strLine1.indexOf('\t',indexofFourthTab+1);
-					indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
-					indexofSeventhTab 	= strLine1.indexOf('\t',indexofSixthTab+1);
-					
-					before = strLine1.substring(0, indexofFirstTab);
+						indexofFirstTab 	= strLine1.indexOf('\t');
+						indexofSecondTab 	= strLine1.indexOf('\t',indexofFirstTab+1);
+						indexofThirdTab 	= strLine1.indexOf('\t',indexofSecondTab+1);
+						indexofFourthTab 	= strLine1.indexOf('\t',indexofThirdTab+1);
+						indexofFifthTab 	= strLine1.indexOf('\t',indexofFourthTab+1);
+						indexofSixthTab 	= strLine1.indexOf('\t',indexofFifthTab+1);
+						indexofSeventhTab 	= strLine1.indexOf('\t',indexofSixthTab+1);
 						
-					//Read a line from secondInputFile
-					firstLine = bufferedReader2.readLine();
-					
-					//Read a line from secondInputFile
-					secondLine = bufferedReader2.readLine();						
-						
-					after = strLine1.substring(indexofSeventhTab+1);
-					
-					if(!firstLine.startsWith(Commons.NULL) && !secondLine.startsWith(Commons.NULL)){
-						bufferedWriter.write(before + "\t");
-						bufferedWriter.write(firstLine + "\t");
-						bufferedWriter.write(secondLine + "\t");
-						bufferedWriter.write(after + System.getProperty("line.separator"));						
-					}
+						before = strLine1.substring(0, indexofFirstTab);
 							
-					
-				}//End of IF
-				else{
-					bufferedWriter.write(strLine1 + System.getProperty("line.separator"));
-				}
-			}//End of WHILE
+						//Read a line from secondInputFile
+						firstLine = bufferedReader2.readLine();
+						
+						//Read a line from secondInputFile
+						secondLine = bufferedReader2.readLine();						
+							
+						after = strLine1.substring(indexofSeventhTab+1);
+						
+						if(!firstLine.startsWith(Commons.NULL) && !secondLine.startsWith(Commons.NULL)){
+							bufferedWriter.write(before + "\t");
+							bufferedWriter.write(firstLine + "\t");
+							bufferedWriter.write(secondLine + "\t");
+							bufferedWriter.write(after + System.getProperty("line.separator"));						
+						}
+								
+						
+					}//End of IF
+					else{
+						bufferedWriter.write(strLine1 + System.getProperty("line.separator"));
+					}
+				}//End of WHILE
+				
+				//CLOSE	
+				bufferedReader1.close();
+				bufferedReader2.close();			
+				bufferedWriter.close();
+
+				
+			}//End of IF remapOutputFileUsingReport exists
 			
-			//CLOSE	
-			bufferedReader1.close();
-			bufferedReader2.close();			
-			bufferedWriter.close();
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
