@@ -107,34 +107,37 @@ public class GlanetRunner implements Runnable{
 				return;
 			AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main( args);
 			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh37.p13 *******/
-						
+								
 			
-			/************Creation of NCBI REMAP Input files starts*************************/
-			/*************************CALL NCBI REMAP API starts***************************/
-			/************Creation of NCBI REMAP Output files starts************************/
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input and output files...");
-			
-			if( Thread.currentThread().isInterrupted())
-				return;
-			CreationofRemapInputAndOutputFiles.main( args);
-			/************Creation of NCBI REMAP Input files ends**************************/
-			/*************************CALL NCBI REMAP API ends****************************/
-			/************Creation of NCBI REMAP Output files ends*************************/
-			
-			
-			/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
-			if( getMainView() != null)
-				getMainView().setCurrentProcessInfo( "Creation of Augmented Enriched Elements with Annotation in GRCh38 using NCBI Remap output files...");
-			
-			if( Thread.currentThread().isInterrupted())
-				return;
-			AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles.main(args);
-			/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
-			
-			
+			/******************************************************************************/
 			/**********************************RSAT starts*********************************/
-			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+			/******************************************************************************/
+			if( getArgs()[16].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+				
+				
+				/************Creation of NCBI REMAP Input files starts*************************/
+				/*************************CALL NCBI REMAP API starts***************************/
+				/************Creation of NCBI REMAP Output files starts************************/
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input and output files...");
+				
+				if( Thread.currentThread().isInterrupted())
+					return;
+				CreationofRemapInputAndOutputFiles.main(args);
+				/************Creation of NCBI REMAP Input files ends**************************/
+				/*************************CALL NCBI REMAP API ends****************************/
+				/************Creation of NCBI REMAP Output files ends*************************/
+				
+				
+				/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Creation of Augmented Enriched Elements with Annotation in GRCh38 using NCBI Remap output files...");
+				
+				if( Thread.currentThread().isInterrupted())
+					return;
+				AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles.main(args);
+				/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
+				
 				
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "GenerationofSequencesandMatricesforGivenIntervals...");
@@ -150,7 +153,9 @@ public class GlanetRunner implements Runnable{
 					return;
 				RSATMatrixScanClient.main( args);
 			}
+			/******************************************************************************/
 			/**********************************RSAT ends***********************************/
+			/******************************************************************************/
 			
 		}
 		/****************************************************************************************/
