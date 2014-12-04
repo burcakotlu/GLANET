@@ -572,9 +572,11 @@ public class RSATMatrixScanClient {
 //				-seq_format fasta 
 //				-n score
 
-//				I guess setting markov order while using a precalculated background model is unnecessary.					 				
-//				markov     = new Integer (0);
-//				matrixScanRequest.setMarkov(markov);
+				//If markov order is not set
+				//Execution error is given
+				//Error: You must specify the method for background estimation (an option among -bgfile, -bginput, -window)
+				int markov     = 1;
+				matrixScanRequest.setMarkov(markov);
 					
 				organism = Commons.RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37;
 				matrixScanRequest.setOrganism(organism);

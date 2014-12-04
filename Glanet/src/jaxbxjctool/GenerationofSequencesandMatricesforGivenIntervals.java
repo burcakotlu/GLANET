@@ -2663,6 +2663,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		Map<String,String> chrName2RefSeqIdforGrch38Map = new HashMap<String,String>();
 		
 				
+		//@todo We have to update this file regularly
 		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
 		fillMap(dataFolder,refSeqIdsforGRCh38InputFile,chrName2RefSeqIdforGrch38Map);

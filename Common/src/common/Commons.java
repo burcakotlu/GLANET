@@ -1343,13 +1343,13 @@ public class Commons {
 		public static final String ARG_GLANET_FOLDER = "-g";
 		public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 		public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
-		public static final String ARG_INPUT_FORMAT_BED = "-fbad";
+		public static final String ARG_INPUT_FORMAT_BED = "-fbed";
 		public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
 		public static final String ARG_NUMBER_OF_BASES = "-b";
 		public static final String ARG_PERFORM_ENRICHMENT = "-e";
 		public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
 		public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
-		public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbenjamini";
+		public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbhfdr";
 		public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbonferroni";
 		public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
 		public static final String ARG_SIGNIFICANCE_CRITERIA = "-sc";

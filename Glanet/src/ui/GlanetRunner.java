@@ -146,7 +146,7 @@ public class GlanetRunner implements Runnable{
 				if( Thread.currentThread().isInterrupted())
 					return;
 				GenerationofSequencesandMatricesforGivenIntervals.main( args);
-				
+					
 				if( getMainView() != null)
 					GlanetRunner.appendLog( "RSATMatrixScanClient...");
 				

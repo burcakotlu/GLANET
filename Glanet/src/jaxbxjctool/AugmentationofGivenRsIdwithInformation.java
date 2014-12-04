@@ -148,7 +148,6 @@ public class AugmentationofGivenRsIdwithInformation {
 			try {
 				reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 			
-			
 			while(reader.hasNext())
 	        {
 				XMLEvent evt=reader.peek();
