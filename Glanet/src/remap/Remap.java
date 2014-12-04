@@ -146,7 +146,7 @@ public class Remap {
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
 //				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"");
-				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"" +  " " + "--mode batches");
+				process = runtime.exec("perl \"" + remapFile + "\" --mode batches");
 				
 				process.waitFor();
 				
@@ -154,7 +154,7 @@ public class Remap {
 				bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
 				
 				while ( ( line = bufferedReader.readLine()) != null){
-					System.out.println(line);
+					System.out.println(line);	
 					bufferedWriter.write(line + System.getProperty("line.separator"));
 				}//End of while
 				

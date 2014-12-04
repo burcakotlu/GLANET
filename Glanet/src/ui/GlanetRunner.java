@@ -1,7 +1,7 @@
 package ui;
 
-import enrichment.Enrichment;
 import enrichment.CollectionofPermutationsResults;
+import enrichment.Enrichment;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
@@ -9,8 +9,8 @@ import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
-import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles;
-import augmentation.results.CreationofRemapInputAndOutputFiles;
+import augmentation.results.AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP;
+
 import common.CommandLineArguments;
 import common.Commons;
 
@@ -119,25 +119,20 @@ public class GlanetRunner implements Runnable{
 				/************Creation of NCBI REMAP Input files starts*************************/
 				/*************************CALL NCBI REMAP API starts***************************/
 				/************Creation of NCBI REMAP Output files starts************************/
+				/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
+				
 				if( getMainView() != null)
 					GlanetRunner.appendLog( "Creation of NCBI Remap input and output files...");
 				
 				if( Thread.currentThread().isInterrupted())
 					return;
-				CreationofRemapInputAndOutputFiles.main(args);
+				AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
+				/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
 				/************Creation of NCBI REMAP Input files ends**************************/
 				/*************************CALL NCBI REMAP API ends****************************/
 				/************Creation of NCBI REMAP Output files ends*************************/
 				
 				
-				/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
-				if( getMainView() != null)
-					GlanetRunner.appendLog( "Creation of Augmented Enriched Elements with Annotation in GRCh38 using NCBI Remap output files...");
-				
-				if( Thread.currentThread().isInterrupted())
-					return;
-				AugmentationofEnrichmentWithAnnotationInGRCh38CoordinatesUsingRemapOutputFiles.main(args);
-				/************Augmentation of Enriched Elements with Given Input Data ends in GRCh38*****/
 				
 				
 				if( getMainView() != null)
