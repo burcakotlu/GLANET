@@ -558,8 +558,10 @@ public class MainView extends JPanel{
         listPane.add( createBorderedPanel( "GLANET Log", logAreaScrollPane));
         
         //currentWorkLabel added to listPane
-        currentWorkLabel = new JLabel("");
-        listPane.add( currentWorkLabel);
+        JPanel workPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+        currentWorkLabel = new JLabel(" ");
+        workPanel.add( currentWorkLabel);
+        listPane.add( workPanel);
         
         //scroll pane added to this view
         add( scrollPane);
