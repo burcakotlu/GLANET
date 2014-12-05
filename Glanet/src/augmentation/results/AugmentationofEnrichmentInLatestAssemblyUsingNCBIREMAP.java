@@ -123,6 +123,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 							bufferedWriter.write(mapped1 + "\t");
 							bufferedWriter.write(mapped2 + "\t");
 							bufferedWriter.write(after + System.getProperty("line.separator"));						
+						}else{
+							System.out.println("Pleae notice that there is an unconverted genomic loci");
 						}
 								
 						
@@ -252,6 +254,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 								bufferedWriter.write(elementName + "\t" + mapped2.substring(indexofFirstTabInMapped2+1) + "\t");
 								bufferedWriter.write(geneName + "\t" + mapped3.substring(indexofFirstTabInMapped3+1) + "\t");
 								bufferedWriter.write(after + System.getProperty("line.separator"));						
+							}else{
+								System.out.println("Pleae notice that there is an unconverted genomic loci");
 							}
 									
 							
@@ -399,6 +403,11 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					
 				}//End of while
 				
+				//for debug purposes starts
+				System.out.println("number of lines in conversionMap: " + conversionMap.size() + " for file: " + remapReportFile);
+				//for debug purposes ends 
+				
+				
 				//close 
 				bufferedReader.close();
 			
@@ -436,22 +445,11 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		int indexofTenthTab;
 		
 		String givenIntervalChrName;		
-		int givenIntervalZeroBasedStart;
-		int givenIntervalZeroBasedEndExclusive;		
-	
-//		String tfCellLineChrName;
-		int tfCellLineZeroBasedStart;
-		int tfCellLineZeroBasedEndExclusive;	
-		
-//		String refseqGeneChrName;
-		int refseqGeneZeroBasedStart;
-		int refseqGeneZeroBasedEndExclusive;	
-		
+			
 		List<String> toBeRemappedList = new ArrayList<String>();
 		String toBeRemapped1 = null;
 		String toBeRemapped2 = null;
 		String toBeRemapped3 = null;
-		
 			
 		try {
 			fileReader = new FileReader(outputFolder + inputFileName);
@@ -462,6 +460,11 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				if(!strLine.contains("Search") && !strLine.startsWith("*")){
+									
+					//**************	hsa05320	Autoimmune thyroid disease - Homo sapiens (human)	**************
+					//TBP_hsa05320	Search for chr	given interval low	given interval high	tfbs	tfbs low	tfbs high	refseq gene name	ucscRefSeqGene low	ucscRefSeqGene high	interval name 	hugo suymbol	entrez id	keggPathwayName	Autoimmune thyroid disease - Homo sapiens (human)
+					//TBP_hsa05320	chr6	32784675	32784676	TBP_GM12878	32784648	32784958	NM_020056	32724664	32814664	THREE_D	HLA-DQA2	3118	hsa05320	Autoimmune thyroid disease - Homo sapiens (human)
+					//TBP_hsa05320	chr6	32784675	32784676	TBP_GM12878	32784648	32784958	NM_002120	32784637	32784825	EXON	HLA-DOB	3112	hsa05320	Autoimmune thyroid disease - Homo sapiens (human)
 					
 					indexofFirstTab 	= strLine.indexOf('\t');
 					indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
@@ -475,22 +478,10 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					indexofTenthTab		= strLine.indexOf('\t', indexofNinethTab+1);
 					
 					givenIntervalChrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
-					givenIntervalZeroBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-					givenIntervalZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
-												
-					toBeRemapped1 = givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t" +givenIntervalZeroBasedEndExclusive;
 					
-//					tfCellLineChrName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
-					tfCellLineZeroBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
-					tfCellLineZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
-					
-					toBeRemapped2 = givenIntervalChrName + "\t" + tfCellLineZeroBasedStart + "\t" +tfCellLineZeroBasedEndExclusive;
-					
-//					refseqGeneChrName = strLine.substring(indexofSeventhTab+1, indexofEigthTab);
-					refseqGeneZeroBasedStart = Integer.parseInt(strLine.substring(indexofEigthTab+1, indexofNinethTab));
-					refseqGeneZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofNinethTab+1, indexofTenthTab));
-					
-					toBeRemapped3 = givenIntervalChrName + "\t" + refseqGeneZeroBasedStart + "\t" +refseqGeneZeroBasedEndExclusive;
+					toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);
+					toBeRemapped2 = givenIntervalChrName + "\t" + strLine.substring(indexofFifthTab+1, indexofSeventhTab);
+					toBeRemapped3 = givenIntervalChrName + "\t" + strLine.substring(indexofEigthTab+1, indexofTenthTab);
 					
 					if (!toBeRemappedList.contains(toBeRemapped1)){
 						toBeRemappedList.add(toBeRemapped1);
@@ -505,11 +496,14 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						toBeRemappedList.add(toBeRemapped3);
 					}//End of if it is not contained in the toBeRemappedList
 					
-					
-
-					
 				}//End of if			
 			}//End of while
+			
+			
+			//for debug purposes starts
+			System.out.println("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
+			//for debug purposes ends
+		
 			
 			//Write Lines to REMAP Input Files	
 			for(String s:toBeRemappedList){
@@ -551,14 +545,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		
-		String givenIntervalChrName;		
-		int givenIntervalZeroBasedStart;
-		int givenIntervalZeroBasedEndExclusive;		
 	
-		String overlapChrName;
-		int overlapZeroBasedStart;
-		int overlapZeroBasedEndExclusive;	
-		
 		List<String> toBeRemappedList = new ArrayList<String>();
 		String toBeRemapped1 = null;
 		String toBeRemapped2 = null;
@@ -574,6 +561,12 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			while((strLine = bufferedReader.readLine())!=null){
 				if(!strLine.contains("Search") && !strLine.startsWith("*")){
 					
+					//**************	POL2_HEPG2	**************
+					//POL2_HEPG2	Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+					//POL2_HEPG2	chr4	187188093	187188094	chr4	187187901	187188157	POL2	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Pol2Pcr2xAlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr2xAlnRep0.narrowPeak
+					//POL2_HEPG2	chr4	187188093	187188094	chr4	187187924	187188140	POL2	HEPG2	spp.optimal.wgEncodeSydhTfbsHepg2Pol2ForsklnStdAlnRep0_VS_wgEncodeSydhTfbsHepg2InputForsklnStdAlnRep0.narrowPeak
+
+					
 					indexofFirstTab 	= strLine.indexOf('\t');
 					indexofSecondTab 	= strLine.indexOf('\t', indexofFirstTab+1);
 					indexofThirdTab 	= strLine.indexOf('\t', indexofSecondTab+1);
@@ -582,18 +575,9 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
 					indexofSeventhTab	= strLine.indexOf('\t', indexofSixthTab+1);
 					
-					givenIntervalChrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
-					givenIntervalZeroBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
-					givenIntervalZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+					toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);						
+					toBeRemapped2 = strLine.substring(indexofFourthTab+1, indexofSeventhTab);
 					
-					toBeRemapped1 = givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t" +givenIntervalZeroBasedEndExclusive;
-												
-					overlapChrName = strLine.substring(indexofFourthTab+1, indexofFifthTab);
-					overlapZeroBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
-					overlapZeroBasedEndExclusive = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
-					
-					
-					toBeRemapped2 = overlapChrName + "\t" + overlapZeroBasedStart + "\t" + overlapZeroBasedEndExclusive;
 					
 					if (!toBeRemappedList.contains(toBeRemapped1)){
 						toBeRemappedList.add(toBeRemapped1);
@@ -607,6 +591,11 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					
 				}//End of if			
 			}//End of while
+			
+			
+			//for debug purposes starts
+			System.out.println("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
+			//for debug purposes ends
 			
 			
 			//Write Lines to REMAP Input Files	
@@ -647,18 +636,19 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
 		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
 		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
-		double	maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
+		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
 		
 		Map<String,String> conversionMap = null;
 		
-		 if (tfEnrichment.isTfEnrichment() && 
+		//ONLY TF ENRICHMENT CASE
+		if (tfEnrichment.isTfEnrichment() && 
 				 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
 				 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() ){
 			 
 			 /**********************************************************/
 	    	 /***********************TF starts**************************/
 	    	 /**********************************************************/
-			  Remap.remap(
+			 Remap.remap(
 						dataFolder,
 						sourceReferenceAssemblyID, 
 						targetReferenceAssemblyID, 
@@ -682,7 +672,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		 }//End of IF: TF Enrichment
 		 
 		
-	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
+		//ONLY TFKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE TF ENRICHMENT)
+	    if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
 	    		 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){	
 	    	 
 	    	 /**********************************************************/
@@ -751,9 +742,9 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			conversionMap = new HashMap<String,String>();
 			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
 			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
-			 /**********************************************************/
-	    	 /************TF REGULATION BASED KEGG PATHWAY ends*********/
-	    	 /**********************************************************/
+			/**********************************************************/
+	    	/************TF REGULATION BASED KEGG PATHWAY ends*********/
+	    	/**********************************************************/
  
 			  
 	    	/**********************************************************/
@@ -783,7 +774,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
   
 	     }//End of IF: TF KEGG PATHWAY Enrichment
 		
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+		//ONLY TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE TF ENRICHMENT)
+	    if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
 	    		 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
 	    	 
 	    	 /**********************************************************/
@@ -884,8 +876,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	     
 	     
 	     
-	     //Both TFKEGG and TFCellLineKEGG
-	     if(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+		//BOTH TFKEGGPATHWAY AND TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE TF ENRICHMENT)
+	    if(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
 	    	 
 	    	 /**********************************************************/
 	    	 /***********************TF starts**************************/
@@ -909,6 +901,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			/***********************TF ends****************************/
 			/**********************************************************/
 
+			
 	    	 /**********************************************************/
 	    	 /************TF EXON BASED KEGG PATHWAY starts*************/
 	    	 /**********************************************************/
@@ -933,9 +926,9 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	    	/**********************************************************/
 
 			  
-	    	 /**********************************************************/
-	    	 /************TF REGULATION BASED KEGG PATHWAY starts*******/
-	    	 /**********************************************************/
+	    	/**********************************************************/
+	    	/************TF REGULATION BASED KEGG PATHWAY starts*******/
+	    	/**********************************************************/
 			Remap.remap(
 						dataFolder,
 						sourceReferenceAssemblyID, 
@@ -1063,14 +1056,17 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			EnrichmentType tfKeggPathwayEnrichment, 
 			EnrichmentType tfCellLineKeggPathwayEnrichment){
 		
-		 
-		
-		 if (tfEnrichment.isTfEnrichment()){
+		//ONLY TF ENRICHMENT CASE
+		if (tfEnrichment.isTfEnrichment() &&
+				 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+				 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
 			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 		 }
 		 
 		
-	     if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){	   
+		//ONLY TFKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
+	    if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+	    		 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){	   
 			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 			
 			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
@@ -1078,10 +1074,27 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 	     }
 		
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+	    //ONLY TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
+	    if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+	    		 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
 			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 				
 			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+
+	     }
+	     
+	    //BOTH TFKEGGPATHWAY AND TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
+	    if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+	    		 tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+	    	 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+				
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+	    	 
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 
