@@ -532,6 +532,12 @@ public class MainView extends JPanel{
 		jobNamePanel.add( createPanelWithHint( jobName, Commons.GUI_HINT_JOB_NAME));
 		listPane.add( createBorderedPanel( "Job Name", jobNamePanel));
         
+		//currentWorkLabel added to listPane
+        JPanel workPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
+        currentWorkLabel = new JLabel("The execution has not yet begun");
+        workPanel.add( currentWorkLabel);
+        listPane.add( createBorderedPanel( "Current Status", workPanel));
+        
         JPanel rsButtonPane = new JPanel( new FlowLayout());
         
         //runButton added to rsButtonPane
@@ -543,7 +549,7 @@ public class MainView extends JPanel{
         stopButton = new JButton("Stop");
         stopButton.addActionListener( stopButtonPressed);
         stopButton.setEnabled( false);
-        rsButtonPane.add( stopButton);
+        //rsButtonPane.add( stopButton);
         
         listPane.add( rsButtonPane);
         
@@ -556,12 +562,6 @@ public class MainView extends JPanel{
         logArea.setLineWrap(true);
         logArea.setWrapStyleWord(true);
         listPane.add( createBorderedPanel( "GLANET Log", logAreaScrollPane));
-        
-        //currentWorkLabel added to listPane
-        JPanel workPanel = new JPanel( new FlowLayout(FlowLayout.LEFT));
-        currentWorkLabel = new JLabel(" ");
-        workPanel.add( currentWorkLabel);
-        listPane.add( workPanel);
         
         //scroll pane added to this view
         add( scrollPane);
