@@ -5,8 +5,13 @@
  */
 package giveninputdata;
 
-import auxiliary.FileOperations;
+import java.io.IOException;
 
+import log4j.Log4jConfiguration;
+
+import org.apache.log4j.Logger;
+
+import auxiliary.FileOperations;
 import common.Commons;
 
 /**
@@ -14,25 +19,9 @@ import common.Commons;
  */
 public class Preparation {
 	
-	public static void prepare(String[] args){
-		
-		String glanetFolder = args[1];
-		
-		
-		//jobName starts
-		String jobName = args[17].trim();
-		if (jobName.isEmpty()){
-			jobName = Commons.NO_NAME;
-		}
-		//jobName ends
-			
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
-		
-		//delete old files starts 
-		FileOperations.deleteOldFiles(outputFolder);
-		//delete old files ends
-	
-	}
+	private static Logger logger = Logger.getLogger(Preparation.class);
+ 
+
 
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
@@ -109,9 +98,40 @@ public class Preparation {
 	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		
 
-		prepare(args);
+		Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
+
+		String glanetFolder = args[1];
+		
+		
+		//jobName starts
+		String jobName = args[17].trim();
+		if (jobName.isEmpty()){
+			jobName = Commons.NO_NAME;
+		}
+		//jobName ends
+			
+		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA +  System.getProperty("file.separator");
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
+		
+		
+		try {
+			log4jConfiguration.getAppLogger(dataFolder, outputFolder);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		//delete old files starts 
+		FileOperations.deleteOldFiles(outputFolder);
+		//delete old files ends
+
 	}
 
+
+	
+
+	
 }

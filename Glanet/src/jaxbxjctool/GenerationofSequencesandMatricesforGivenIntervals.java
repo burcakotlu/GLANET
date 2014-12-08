@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
@@ -33,6 +35,7 @@ import enumtypes.EnrichmentType;
  */
 public class GenerationofSequencesandMatricesforGivenIntervals {
 	
+	final static Logger logger = Logger.getLogger(GenerationofSequencesandMatricesforGivenIntervals.class);
 	
 	
 	
@@ -1476,8 +1479,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 	}
 	
-	//tf starts
-	public static void readAugmentedDataWriteSequencesandMatrices_forTf(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch38Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
+	//TF starts
+	public static void readAugmentedDataWriteSequencesandMatrices_forTf(
+			AugmentationofGivenIntervalwithRsIds augofGivenInterval, 
+			AugmentationofGivenRsIdwithInformation augofGivenRsId,
+			Map<String,String> chrName2RefSeqIdforGrch38Map, 
+			String outputFolder,String augmentedInputFileName, 
+			Map<String,String> tfName2PfmMatrices, 
+			Map<String,String> tfName2LogoMatrices,
+			String enrichmentType){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -1777,7 +1787,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								}
 								//rsInformation is null for this rsId
 								else{
-									System.out.println("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
+									logger.debug("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
 								}
 								
 			
@@ -1938,7 +1948,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	//end ends
 		
 	
-	public static void readAugmentedDataWriteSequencesandMatrices(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch38Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
+	public static void readAugmentedDataWriteSequencesandMatrices(
+			AugmentationofGivenIntervalwithRsIds augofGivenInterval, 
+			AugmentationofGivenRsIdwithInformation augofGivenRsId,
+			Map<String,String> chrName2RefSeqIdforGrch38Map, 
+			String outputFolder,
+			String augmentedInputFileName, 
+			Map<String,String> tfName2PfmMatrices, 
+			Map<String,String> tfName2LogoMatrices,
+			String enrichmentType){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -2185,8 +2203,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
 													
 							for(String rsId: rsIdList){
-								
-								
 																	
 								//For each rsId get rs Information
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
@@ -2245,7 +2261,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								}//End of IF rsInformation is not null
 								//rsInformation is null for this rsId
 								else{
-									System.out.println("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
+									logger.debug("rsInformation is null for this rsId: " + rsId + " check is it merged or not!" );
 								}
 											
 								
@@ -2617,6 +2633,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
+		
 		String glanetFolder = args[1];
 		
 		//jobName starts
@@ -2780,8 +2797,9 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			e.printStackTrace();
 		}
 	
-		
-	
 	}
+	
+
+
 
 }

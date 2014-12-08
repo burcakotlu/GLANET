@@ -34,6 +34,8 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import common.Commons;
 /**
@@ -41,6 +43,8 @@ import common.Commons;
  */
 public class AugmentationofGivenRsIdwithInformation {
 	
+	final static Logger logger = Logger.getLogger(AugmentationofGivenRsIdwithInformation.class);
+
 	private Unmarshaller unmarshaller;
 //	private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory _fool_javac=null;
 	private  XMLInputFactory xmlInputFactory=null;
@@ -195,16 +199,19 @@ public class AugmentationofGivenRsIdwithInformation {
 		   	                		   rsInformation.setGroupLabel(groupLabel);
 		   	                		   
 		   	                		   //starts 29th August 2014
+		   	                		   //Is this code necessary? starts
 			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
 			   	        				if (mergeHistoryList.size()>0){
 			   	        					for (MergeHistory mergeHistory: mergeHistoryList){
 			   	        						
 			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
 			   	        							rsInformation.setMerged(true);
+			   	        							logger.debug("This code is necessary");
 			   	        							break;
 			   	        						}
 			   	        					}//End of for
 			   	        				}
+			   	                		//Is this code necessary? ends
 			   	        				//ends 29th August 2014
 			   	        				
 			   	        				
@@ -360,7 +367,8 @@ public class AugmentationofGivenRsIdwithInformation {
 	}
 	//24 NOV 2014 ends
 
-	
+	//Even if you search for a merged rsID
+	//It returns you a rs with a valid rsID
 	public RsInformation getInformationforGivenRsId(String rsId)
     {
 		
@@ -399,6 +407,14 @@ public class AugmentationofGivenRsIdwithInformation {
 					try{
 						Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
 						
+						//8 DEC 2014
+						//Means that given rsId is a merged rsID
+						//NCBI eutil has returned the latest valid rsID in the given position
+						//And NCBI returned rsId and given rsId does not match
+						if (rs.getRsId()!= Integer.parseInt(rsId)){
+							logger.debug("Given rsId: " + rsId  + " and NCBI returned rsId: " + rs.getRsId() + "  they do not match");
+							return null;
+						}
 						
 						for(Assembly as:rs.getAssembly())
 		                {  
@@ -420,15 +436,18 @@ public class AugmentationofGivenRsIdwithInformation {
 			   	                		   rsInformation.setGroupLabel(groupLabel);
 			   	                		   
 			   	                		   //starts 29th August 2014
+			   	                		   //Is this code necessary? starts
 				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
 				   	        				if (mergeHistoryList.size()>0){
 				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
 				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
 				   	        							rsInformation.setMerged(true);
+				   	        							logger.debug("This code is necessary");
 				   	        							break;
 				   	        						}
 				   	        					}
 				   	        				}
+				   	                		//Is this code necessary? ends
 				   	        				//ends 29th August 2014
 				   	        				
 				   	        				

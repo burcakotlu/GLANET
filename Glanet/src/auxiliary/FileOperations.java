@@ -20,8 +20,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -32,6 +36,9 @@ import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 
 public class FileOperations {
+	
+	private static Logger logger = Logger.getLogger(FileOperations.class);
+	 
 	
 	//Can Firtina
 	public static FileWriter createFileWriter(String path) throws IOException{
@@ -102,13 +109,17 @@ public class FileOperations {
 	}
 	
 	
+	
+	
+	
 	//Called from GLANET 
 	public static void deleteOldFiles(String directoryName){
 		//Delete old files before new run 
 		File folder = new File(directoryName);
 		
-		 if(folder.isFile()){			 
-			 GlanetRunner.appendLog("Deleting " + folder.getAbsolutePath());	
+//		 if(folder.isFile() && folder.getName()!=Commons.GLANET_LOG_FILE){			 
+		if(folder.isFile()){			 
+			 logger.debug("Deleting " + folder.getAbsolutePath());
 			 folder.delete();
 	     }else if(folder.isDirectory()) {	    		 
 	    		 File[] files = folder.listFiles();

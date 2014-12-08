@@ -43,6 +43,8 @@ public class Commons {
 	//When there is no name given for GLANET job
 	public static final String NO_NAME = "NoName";
 	
+	public static final String GLANET_LOG_FILE = "GLANET.log";
+	
 	//dbSNP rs Prefix
 	public static final String RS = "rs";
 	public static final String COMMA = ",";
