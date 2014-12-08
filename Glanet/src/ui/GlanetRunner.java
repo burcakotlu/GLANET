@@ -114,6 +114,8 @@ public class GlanetRunner implements Runnable{
 			/**********************************RSAT starts*********************************/
 			/******************************************************************************/
 			if( getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "For Regulatory Sequence Analysis...");
 				
 				
 				/************Creation of NCBI REMAP Input files starts*************************/
@@ -122,7 +124,7 @@ public class GlanetRunner implements Runnable{
 				/************Augmentation of Enriched Elements with Given Input Data starts in GRCh38*****/
 				
 				if( getMainView() != null)
-					getMainView().setCurrentProcessInfo( "Creation of NCBI Remap input and output files...");
+					getMainView().setCurrentProcessInfo( "Augmentation of Enriched Elements with Annotation in GRCh38 using NCBI Remap...");
 				
 				if( Thread.currentThread().isInterrupted())
 					return;
