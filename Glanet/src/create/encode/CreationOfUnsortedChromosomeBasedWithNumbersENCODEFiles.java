@@ -374,11 +374,13 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	    							end = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 	    							
 	    							//Encode data 
-	    							//start 0-based inclusive
+	    							//0-based 
+	    							//start
 	    							//end exclusive
 	    							//GLANET convention is
-	    							//start 0-based inclusive
-	    							//end 0-based inclusive
+	    							//0-based 
+	    							//start
+	    							//end
 	    							endInclusive = end-1;
 	    		    				
 	    							//Write to Unsorted Chromosome Based files with numbers

@@ -2700,14 +2700,26 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
 			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
 			
-			if (tfEnrichment.isTfEnrichment()){
-				//todo
+			
+			//ONLY TF ENRICHMENT CASE
+			if (tfEnrichment.isTfEnrichment() && 
+				!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+				!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+				
+				//TF
 				//generate sequences and matrices for enriched tf elements
 				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
 			}
 			
-								
-			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
+			//ONLY TFKEGGPATHWAY ENRICHMENT CASE					
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+				!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+				
+				//TF
+				//generate sequences and matrices for enriched tf elements
+				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+				//TFKEGGPATHWAY
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched TfandKeggPathway
 				//Output dnaSequences for TfandKeggPathway
@@ -2717,7 +2729,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
 			}
 			
-			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+			//ONLY TFCELLLINEKEGGPATHWAY ENRICHMENT CASE					
+			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+					!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
+				
+				//TF
+				//generate sequences and matrices for enriched tf elements
+				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+				//TFCELLLINEKEGGPATHWAY
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway
@@ -2727,7 +2747,35 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	
 			}
+			
+			//BOTH TFKEGGPATHWAY and TFCELLLINEKEGGPATHWAY
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+					tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+					
+					//TF
+					//generate sequences and matrices for enriched tf elements
+					readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+					//TFKEGGPATHWAY
+					//Using tfName2PfmMatrices
+					//Using snps for Enriched TfandKeggPathway
+					//Output dnaSequences for TfandKeggPathway
+					//Output pfmMatrices for TfandKeggPathway
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);
+					
+					//TFCELLLINEKEGGPATHWAY
+					//Using tfName2PfmMatrices
+					//Using snps for Enriched Tf CellLine KeggPathway
+					//Output dnaSequences for Tf CellLine KeggPathway
+					//Output pfmMatrices for Tf CellLine KeggPathway
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 		
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

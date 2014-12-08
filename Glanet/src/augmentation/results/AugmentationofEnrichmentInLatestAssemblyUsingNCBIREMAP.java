@@ -393,7 +393,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 									sourceChrName == mappedChrName &&
 									mappedAssembly.isPrimaryAssembly()){
 																
-								conversionMap.put(sourceChrName.convertEnumtoString() + "\t" + (sourceStart-1) + "\t" + sourceEnd, mappedChrName.convertEnumtoString() + "\t" + (mappedStart-1) + "\t" + mappedEnd);
+								conversionMap.put(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
 								
 							}//End of IF: Valid conversion
 						}//End of IF mappedInt is not NULL
@@ -444,8 +444,20 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		int indexofNinethTab;
 		int indexofTenthTab;
 		
-		String givenIntervalChrName;		
-			
+		String givenIntervalChrName;	
+		
+		int givenIntervalOneBasedStart;
+		int givenIntervalZeroBasedStart;
+		int givenIntervalOneBasedEnd;
+		
+		int tfOverlapOneBasedStart;
+		int tfOverlapZeroBasedStart;
+		int tfOverlapOneBasedEnd;
+		
+		int geneOverlapOneBasedStart;
+		int geneOverlapZeroBasedStart;
+		int geneOverlapOneBasedEnd;
+		
 		List<String> toBeRemappedList = new ArrayList<String>();
 		String toBeRemapped1 = null;
 		String toBeRemapped2 = null;
@@ -479,10 +491,24 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					
 					givenIntervalChrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);
 					
-					toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);
-					toBeRemapped2 = givenIntervalChrName + "\t" + strLine.substring(indexofFifthTab+1, indexofSeventhTab);
-					toBeRemapped3 = givenIntervalChrName + "\t" + strLine.substring(indexofEigthTab+1, indexofTenthTab);
+					givenIntervalOneBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					givenIntervalZeroBasedStart = givenIntervalOneBasedStart-1;
+					givenIntervalOneBasedEnd = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 					
+					tfOverlapOneBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+					tfOverlapZeroBasedStart = tfOverlapOneBasedStart -1;
+					tfOverlapOneBasedEnd = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+					
+					geneOverlapOneBasedStart = Integer.parseInt(strLine.substring(indexofEigthTab+1, indexofNinethTab));
+					geneOverlapZeroBasedStart = geneOverlapOneBasedStart -1;
+					geneOverlapOneBasedEnd = Integer.parseInt(strLine.substring(indexofNinethTab+1, indexofTenthTab));
+					
+					
+					toBeRemapped1 = givenIntervalChrName + "\t" + givenIntervalZeroBasedStart + "\t" + givenIntervalOneBasedEnd ;						
+					toBeRemapped2 = givenIntervalChrName + "\t" + tfOverlapZeroBasedStart + "\t" + tfOverlapOneBasedEnd ;
+					toBeRemapped3 = givenIntervalChrName + "\t" + geneOverlapZeroBasedStart + "\t" + geneOverlapOneBasedEnd ;
+					
+				
 					if (!toBeRemappedList.contains(toBeRemapped1)){
 						toBeRemappedList.add(toBeRemapped1);
 					}//End of if it is not contained in the toBeRemappedList
@@ -545,7 +571,15 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		
-	
+		String chrName = null;
+		int givenIntervalOneBasedStart;
+		int givenIntervalZeroBasedStart;
+		int givenIntervalOneBasedEnd;
+		
+		int tfOverlapOneBasedStart;
+		int tfOverlapZeroBasedStart;
+		int tfOverlapOneBasedEnd;
+		
 		List<String> toBeRemappedList = new ArrayList<String>();
 		String toBeRemapped1 = null;
 		String toBeRemapped2 = null;
@@ -575,9 +609,18 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					indexofSixthTab 	= strLine.indexOf('\t', indexofFifthTab+1);
 					indexofSeventhTab	= strLine.indexOf('\t', indexofSixthTab+1);
 					
-					toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);						
-					toBeRemapped2 = strLine.substring(indexofFourthTab+1, indexofSeventhTab);
+					chrName = strLine.substring(indexofFirstTab+1, indexofSecondTab);	
+					givenIntervalOneBasedStart = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+					givenIntervalZeroBasedStart = givenIntervalOneBasedStart-1;
+					givenIntervalOneBasedEnd = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 					
+					tfOverlapOneBasedStart = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+					tfOverlapZeroBasedStart = tfOverlapOneBasedStart -1;
+					tfOverlapOneBasedEnd = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+					
+					
+					toBeRemapped1 = chrName + "\t" + givenIntervalZeroBasedStart + "\t" + givenIntervalOneBasedEnd ;						
+					toBeRemapped2 = chrName + "\t" + tfOverlapZeroBasedStart + "\t" +tfOverlapOneBasedEnd ;
 					
 					if (!toBeRemappedList.contains(toBeRemapped1)){
 						toBeRemappedList.add(toBeRemapped1);
@@ -654,7 +697,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -662,8 +705,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			  
 			//TF
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
 	    	/**********************************************************/
 	    	/***********************TF ends****************************/
 	    	/**********************************************************/
@@ -685,15 +728,15 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 	    	//TF
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
 			/**********************************************************/
 			/***********************TF ends****************************/
 			/**********************************************************/
@@ -707,7 +750,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -715,8 +758,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			 
 			//TFEXONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 			/**********************************************************/
 	    	/************TF EXON BASED KEGG PATHWAY ends***************/
 	    	/**********************************************************/
@@ -731,7 +774,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -740,8 +783,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			//TFREGULATIONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 			/**********************************************************/
 	    	/************TF REGULATION BASED KEGG PATHWAY ends*********/
 	    	/**********************************************************/
@@ -756,7 +799,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -765,8 +808,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			//TFALLBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 	    	/**********************************************************/
 	    	/************TF ALL BASED KEGG PATHWAY ends****************/
 			/**********************************************************/
@@ -787,7 +830,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
@@ -795,8 +838,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	    	 
 		    //TF
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
 	    	 /**********************************************************/
 	    	 /***********************TF ends****************************/
 	    	 /**********************************************************/
@@ -811,7 +854,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
@@ -819,8 +862,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	   	  	
 	   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 	    	 /**********************************************************/
 	    	 /********TF CELLLINE EXON BASED KEGG PATHWAY ends**********/
 	    	 /**********************************************************/
@@ -835,7 +878,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
@@ -843,8 +886,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	   	  	
 	   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 	    	/**********************************************************/
 	    	/*****TF CELLLINE REGULATION BASED KEGG PATHWAY ends*******/
 	    	/**********************************************************/
@@ -858,7 +901,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
@@ -866,8 +909,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	   	  	
 	   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 	    	/**********************************************************/
 	    	/********TF CELLLINE ALL BASED KEGG PATHWAY ends***********/
 	    	/**********************************************************/
@@ -888,15 +931,15 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 					targetReferenceAssemblyID, 
 					outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 					outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+					outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 	    	//TF
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMap(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
 			/**********************************************************/
 			/***********************TF ends****************************/
 			/**********************************************************/
@@ -911,7 +954,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -919,8 +962,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			 
 			//TFEXONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 			/**********************************************************/
 	    	/************TF EXON BASED KEGG PATHWAY ends***************/
 	    	/**********************************************************/
@@ -935,7 +978,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -944,8 +987,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			//TFREGULATIONBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 			 /**********************************************************/
 	    	 /************TF REGULATION BASED KEGG PATHWAY ends*********/
 	    	 /**********************************************************/
@@ -960,7 +1003,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -969,8 +1012,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			//TFALLBASEDKEGGPATHWAY
 			conversionMap = new HashMap<String,String>();
-			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+			fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+			convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 	    	/**********************************************************/
 	    	/************TF ALL BASED KEGG PATHWAY ends****************/
 			/**********************************************************/
@@ -985,7 +1028,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -993,8 +1036,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		   	  	
 		   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 				conversionMap = new HashMap<String,String>();
-				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 		    	 /**********************************************************/
 		    	 /********TF CELLLINE EXON BASED KEGG PATHWAY ends**********/
 		    	 /**********************************************************/
@@ -1009,7 +1052,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 							merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -1017,8 +1060,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		   	  	
 		   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 				conversionMap = new HashMap<String,String>();
-				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 		    	/**********************************************************/
 		    	/*****TF CELLLINE REGULATION BASED KEGG PATHWAY ends*******/
 		    	/**********************************************************/
@@ -1032,7 +1075,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 						targetReferenceAssemblyID, 
 						outputFolder + Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES , 
 						outputFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,
+						outputFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
 						merge,
 						allowMultipleLocation,
 						minimumRatioOfBasesThatMustBeRemapped,
@@ -1040,8 +1083,8 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		   	  	
 		   	  	//TFCELLINEEXONBASEDKEGGPATHWAY
 				conversionMap = new HashMap<String,String>();
-				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH38_COORDINATES,conversionMap);
-				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
+				fillConversionMap(outputFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+				convertUsingMapVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  	
 		    	/**********************************************************/
 		    	/********TF CELLLINE ALL BASED KEGG PATHWAY ends***********/
 		    	/**********************************************************/
@@ -1060,43 +1103,43 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		if (tfEnrichment.isTfEnrichment() &&
 				 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
 				 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 		 }
 		 
 		
 		//ONLY TFKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
 	    if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
 	    		 !tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){	   
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 			
-			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 	     }
 		
 	    //ONLY TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
 	    if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
 	    		 !tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
-			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+			 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 				
-			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 
 	     }
 	     
 	    //BOTH TFKEGGPATHWAY AND TFCELLLINEKEGGPATHWAY ENRICHMENT CASE (DO NOT CARE  TF ENRICHMENT)
 	    if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
 	    		 tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
-	    	 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWrite(outputFolder, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
 				
-			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+			 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 	    	 
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
-	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);	
+	    	 readResultsandWriteVersion2(outputFolder, Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REMAP_INPUT_FILE_LINE_BY_LINE_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);					
 
 	     }
 	}

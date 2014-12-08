@@ -351,9 +351,13 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 				txEnd = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab))-1;
 				
 				//cdsStart = Integer.parseInt(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+				//cdsEnd = Integer.parseInt(strLine.substring(indexofSeventhTab+1, indexofEigthTab))-1;
+				
 				//28FEB2014
 				//Convert one based end to zero based end
-				//cdsEnd = Integer.parseInt(strLine.substring(indexofSeventhTab+1, indexofEigthTab))-1;
+				//Or 0Based EndExclusive to End
+				//How do we know that ends are OBased exclusive?
+				//Is it written in a readme file?
 				
 				exonCounts = Integer.parseInt(strLine.substring(indexofEigthTab+1, indexofNinethTab));
 				exonStarts = strLine.substring(indexofNinethTab+1, indexofTenthTab);
