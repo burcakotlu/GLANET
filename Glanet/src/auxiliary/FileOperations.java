@@ -119,7 +119,7 @@ public class FileOperations {
 		
 //		 if(folder.isFile() && folder.getName()!=Commons.GLANET_LOG_FILE){			 
 		if(folder.isFile()){			 
-			 logger.debug("Deleting " + folder.getAbsolutePath());
+			 logger.info("Deleting " + folder.getAbsolutePath());
 			 folder.delete();
 	     }else if(folder.isDirectory()) {	    		 
 	    		 File[] files = folder.listFiles();

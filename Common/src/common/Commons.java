@@ -798,6 +798,7 @@ public class Commons {
 	
 	public static final String STRING_HYPHEN = "-";
 	public static final String UNDERSCORE = "_";
+	public static final String DOT = ".";
 	
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH ="Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";

@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import remap.Remap;
 import auxiliary.FileOperations;
 
@@ -46,7 +48,9 @@ import enumtypes.EnrichmentType;
  * coordinates										*
  ****************************************************/
 public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
-	
+
+	final static Logger logger = Logger.getLogger(AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.class);
+
 	
 	public static void convertUsingMap(
 		String outputFolder, 
@@ -124,7 +128,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 							bufferedWriter.write(mapped2 + "\t");
 							bufferedWriter.write(after + System.getProperty("line.separator"));						
 						}else{
-							System.out.println("Pleae notice that there is an unconverted genomic loci");
+							logger.debug("Please notice that there is an unconverted genomic loci");
 						}
 								
 						
@@ -255,7 +259,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 								bufferedWriter.write(geneName + "\t" + mapped3.substring(indexofFirstTabInMapped3+1) + "\t");
 								bufferedWriter.write(after + System.getProperty("line.separator"));						
 							}else{
-								System.out.println("Pleae notice that there is an unconverted genomic loci");
+								logger.debug("Please notice that there is an unconverted genomic loci");
 							}
 									
 							
@@ -404,7 +408,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 				}//End of while
 				
 				//for debug purposes starts
-				System.out.println("number of lines in conversionMap: " + conversionMap.size() + " for file: " + remapReportFile);
+				logger.debug("number of lines in conversionMap: " + conversionMap.size() + " for file: " + remapReportFile);
 				//for debug purposes ends 
 				
 				
@@ -527,7 +531,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			
 			//for debug purposes starts
-			System.out.println("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
+			logger.debug("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
 			//for debug purposes ends
 		
 			
@@ -542,10 +546,12 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 		
@@ -637,7 +643,7 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 			
 			//for debug purposes starts
-			System.out.println("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
+			logger.debug("number of lines in remap input file " + outputFileName + " is: " +toBeRemappedList.size());
 			//for debug purposes ends
 			
 			
@@ -652,10 +658,12 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.toString());
 		}	
 	}
 		

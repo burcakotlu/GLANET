@@ -1928,7 +1928,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				logger.info(entry.getKey());
 				
 			}//End of each given interval
 			
@@ -2402,7 +2402,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				logger.info(entry.getKey());
 				
 			}//End of each given interval
 			

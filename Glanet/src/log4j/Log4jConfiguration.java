@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -63,16 +62,29 @@ public class Log4jConfiguration {
 	public void getAppLogger(String dataFolder, String outputFolder) throws IOException{
 		
 		String glanetLogFile = outputFolder + Commons.GLANET_LOG_FILE;
-		String log4jPropertiesFile = dataFolder + "log4j.properties";
+//		String log4jPropertiesFile = dataFolder + "log4j.properties";
+		String log4jPropertiesFile = "log4j.properties";
+		
+		//Can we do it without using dataFolder? YES
+		//Can we do it using the lib folder? YES
+		//Keep in mind that user will have GLANET.jar and DATA folders
+		//String log4jPropertiesFile = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" +  System.getProperty("file.separator") + "log4j" + System.getProperty("file.separator") +"log4j.properties";
+		
 		 
 		 Properties logProp = new Properties();      
 		    try     
 		    {      
-		    	logProp.load(new FileInputStream(log4jPropertiesFile)); 
+		    	  	
+		    	//logProp.load(new FileInputStream(log4jPropertiesFile)); 
+		    	//logProp.load(new FileInputStream("." + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "log4j" + System.getProperty("file.separator")  +log4jPropertiesFile)); 
+		    	logProp.load(new FileInputStream("." + System.getProperty("file.separator")  +log4jPropertiesFile)); 
 		    	logProp.setProperty("log4j.appender.file.File", glanetLogFile); 
 		    	logger.info("Logging enabled");   
 //		    	LogManager.resetConfiguration(); 
 		    	PropertyConfigurator.configure(logProp); 
+		    	
+		    	
+
 		    }     
 		    catch(IOException e)                
 		    {       

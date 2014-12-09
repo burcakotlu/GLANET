@@ -16,10 +16,15 @@ import java.util.Map;
 
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.RsInformation;
+
+import org.apache.log4j.Logger;
+
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.GivenIntervalsInputFileDataFormat;
 /**
  * @author burcakotlu
@@ -31,6 +36,9 @@ import enumtypes.GivenIntervalsInputFileDataFormat;
  * 
  */
 public class InputDataProcess {
+	
+	final static Logger logger = Logger.getLogger(InputDataProcess.class);
+
 	
 	//for debug purposes
 	static Collection<IntervalTreeNode> nonOverLap(Collection<IntervalTreeNode> bigger, Collection<IntervalTreeNode> smaller) {
@@ -141,8 +149,8 @@ public class InputDataProcess {
 			}//End of for
 			
 			//for debug purposes starts
-			System.out.println("sourceAssemblyName: " + sourceAssemblyName);
-			System.out.println("rsInformationList size:  " +  rsInformationList.size());
+			logger.info("sourceAssemblyName: " + sourceAssemblyName);
+			logger.info("rsInformationList size:  " +  rsInformationList.size());
 			//for debug purposes ends
 			
 				

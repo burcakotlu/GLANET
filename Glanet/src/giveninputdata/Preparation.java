@@ -8,10 +8,8 @@ package giveninputdata;
 import java.io.IOException;
 
 import log4j.Log4jConfiguration;
-
-import org.apache.log4j.Logger;
-
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -19,8 +17,7 @@ import common.Commons;
  */
 public class Preparation {
 	
-	private static Logger logger = Logger.getLogger(Preparation.class);
- 
+	
 
 
 	//args[0]	--->	Input File Name with folder
