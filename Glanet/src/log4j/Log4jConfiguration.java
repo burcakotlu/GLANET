@@ -4,15 +4,11 @@
 package log4j;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-import common.Commons;
 
 
 /**
@@ -23,63 +19,68 @@ import common.Commons;
  */
 public class Log4jConfiguration {
 	
-	private static Logger logger = Logger.getLogger(Log4jConfiguration.class);
-	 
+	//private static Logger logger = Logger.getLogger(Log4jConfiguration.class);
 	
-//	public void updateLog4jConfiguration(String dataFolder, String outputFolder) { 
-//		 
-//	 	String logFile = outputFolder + Commons.GLANET_LOG_FILE;
-//	 	
-//	    Properties props = new Properties(); 
-//	    try { 
-//	    	PropertyConfigurator.configure( dataFolder + "log4j.properties");
-//	    	PropertyConfigurator.
-//	        InputStream configStream = getClass().getResourceAsStream(dataFolder + "log4j.properties"); 
-//	        props.load(configStream); 
-//	        configStream.close(); 
-//	    } catch (IOException e) { 
-//	        System.out.println("Errornot laod configuration file "); 
-//	    } 
-//	    props.setProperty("log4j.appender.file.File", logFile); 
-//	    LogManager.resetConfiguration(); 
-//	    PropertyConfigurator.configure(props); 
-//	}
-
+	private static String fileName;
 	
-//	public Logger getAppLogger(String dataFolder, String outputFolder,Logger rootLogger) throws IOException{
-//		
-//		String logFile = outputFolder + Commons.GLANET_LOG_FILE;
-//		 
-//		Layout pattern = new PatternLayout("%d{MM-dd-yyyy HH:mm:ss,SSS} %-5p %c:%m%n");
-//		Appender newAppender = null;
-//		newAppender = new FileAppender(pattern, logFile, true);
-//		rootLogger.setAdditivity(false);
-//		rootLogger.setLevel(Level.INFO);
-//		rootLogger.addAppender(newAppender); 
-//		return rootLogger;
-//
-//	}
-	
-	public void getAppLogger(String dataFolder, String outputFolder) throws IOException{
 		
-		String glanetLogFile = outputFolder + Commons.GLANET_LOG_FILE;
-		String log4jPropertiesFile = dataFolder + "log4j.properties";
-		 
+	public static String getFileName() {
+		return fileName;
+	}
+
+	public static void setFileName(String fileName) {
+		Log4jConfiguration.fileName = fileName;
+	}
+
+
+	public static void getGlanetApplicationLogger(String dataFolder, String outputFolder) throws IOException{
+		
+		String log4jPropertiesFile = "log4j.properties";
+		
+		//String glanetLogFile = outputFolder + fileName;
+		
+		String glanetLogFile;
+		String glanetLogFileUnderOutputFolder;
+		
+		
+		
 		 Properties logProp = new Properties();      
 		    try     
 		    {      
-		    	logProp.load(new FileInputStream(log4jPropertiesFile)); 
-		    	logProp.setProperty("log4j.appender.file.File", glanetLogFile); 
-		    	logger.info("Logging enabled");   
-//		    	LogManager.resetConfiguration(); 
+		    	//FileInputStream gives error  	
+		    	//logProp.load(new FileInputStream(log4jPropertiesFile));
+		    	
+		    	ClassLoader loader = Thread.currentThread().getContextClassLoader();
+				try(InputStream resourceStream = loader.getResourceAsStream(log4jPropertiesFile)) {
+				    logProp.load(resourceStream);
+				}
+				
+				glanetLogFile = logProp.getProperty("log4j.appender.file.File");
+				//for debug
+				System.out.println("glanetLogFile: " + glanetLogFile);
+		    	//for debug
+
+		    	glanetLogFileUnderOutputFolder = outputFolder + glanetLogFile;
+		    	
+		    	logProp.setProperty("log4j.appender.file.File", glanetLogFileUnderOutputFolder); 
+		    	
+		    	//for debug
+		    	System.out.println("glanetLogFileUnderOutputFolder: " + logProp.getProperty("log4j.appender.file.File"));
+		    	//for debug
+		    	System.out.println("Logging enabled");   
+		    	
+		    	//This calls activateOptions of NewLogForEachGlanetRunFileAppender class
 		    	PropertyConfigurator.configure(logProp); 
+		    	
+		    	
+
 		    }     
 		    catch(IOException e)                
 		    {       
 		    	System.out.println("Logging not enabled");       
 		    }  
-
 	}
+
 	
 	
 	

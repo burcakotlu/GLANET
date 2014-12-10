@@ -627,7 +627,8 @@ public class MainView extends JPanel{
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 		
 		JPanel componentWithHint = new JPanel( new FlowLayout(FlowLayout.LEFT));
-		ImageIcon hintImage = new ImageIcon("image/hint.png");
+		//ImageIcon hintImage = new ImageIcon("resources" + System.getProperty("file.separator") + "image" + System.getProperty("file.separator") + "hint.png");
+		ImageIcon hintImage = new ImageIcon( System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "hint.png");
 		JLabel hintLabel = new JLabel( hintImage);
 		hintLabel.setToolTipText( description);
 		hintLabel.setPreferredSize( new Dimension(20,20));

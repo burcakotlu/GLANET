@@ -1791,7 +1791,9 @@ public class Enrichment {
     				System.runFinalization();			
 				}
 	    			    
-				if ((tfEnrichmentType.isTfEnrichment()) && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+				if ((tfEnrichmentType.isTfEnrichment()) && 
+						!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && 
+						!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
     			    //tf
     			    //generate tf interval tree
     			    intervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder,chromName);
@@ -1853,7 +1855,9 @@ public class Enrichment {
 				}
 				//UserDefinedLibrary ends
 				
-				if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+				if (keggPathwayEnrichmentType.isKeggPathwayEnrichment() && 
+						!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && 
+						!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 					//ucsc RefSeq Genes
     			    //generate UCSC RefSeq Genes interval tree
     			    intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);
@@ -1869,7 +1873,8 @@ public class Enrichment {
 				}
 	
 				
-				if (tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && !(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
+				if (tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && 
+						!(tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment())){
 					
 					//New Functionality START
     				//tfbs 
@@ -1897,7 +1902,10 @@ public class Enrichment {
       			  System.runFinalization();
   				
     			
-				}else if (!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
+				}
+				
+				if (!(tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment()) && 
+						tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
     					
     					//New Functionality START
         				//tfbs 
@@ -1925,7 +1933,9 @@ public class Enrichment {
           			  System.runFinalization();
       							
         			
-    			} else if (tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
+    			} 
+				
+				if (tfKeggPathwayEnrichmentType.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichmentType.isTfCellLineKeggPathwayEnrichment()){
     				
     				tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder,chromName);
     				ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder,chromName);

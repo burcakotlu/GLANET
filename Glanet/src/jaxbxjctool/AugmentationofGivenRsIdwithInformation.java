@@ -206,7 +206,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			   	        						
 			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
 			   	        							rsInformation.setMerged(true);
-			   	        							logger.debug("This code is necessary");
+			   	        							logger.debug("If you see this code it means that this code is necessary");
 			   	        							break;
 			   	        						}
 			   	        					}//End of for
@@ -259,7 +259,9 @@ public class AugmentationofGivenRsIdwithInformation {
 		            }//End of for Assembly
 					
 				} catch (JAXBException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					logger.error(e.toString());
+					
 				}	catch(NumberFormatException e){
 //					e.printStackTrace();
 					
@@ -269,7 +271,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofCommaBeforeProblemRSID+1);
 					problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
 					
-					System.out.println("There is an exception for this " + problemRsId + " " + e.toString());
+					logger.error(e.toString() + " for " + problemRsId);
 					
 					problemRsInformation  = getInformationforGivenRsId(problemRsId);
 					
@@ -285,8 +287,8 @@ public class AugmentationofGivenRsIdwithInformation {
 	    	reader.close();
     	
 			} catch (XMLStreamException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				logger.error(e.toString());
 			}
     	
     	return rsInformationList;
@@ -412,7 +414,7 @@ public class AugmentationofGivenRsIdwithInformation {
 						//NCBI eutil has returned the latest valid rsID in the given position
 						//And NCBI returned rsId and given rsId does not match
 						if (rs.getRsId()!= Integer.parseInt(rsId)){
-							logger.debug("Given rsId: " + rsId  + " and NCBI returned rsId: " + rs.getRsId() + "  they do not match");
+							logger.debug("Given rsId: " + rsId  + " and NCBI returned rsId: " + rs.getRsId() + "  check whether given rsId is merged");
 							return null;
 						}
 						
@@ -442,7 +444,7 @@ public class AugmentationofGivenRsIdwithInformation {
 				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
 				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
 				   	        							rsInformation.setMerged(true);
-				   	        							logger.debug("This code is necessary");
+				   	        							logger.debug("If you see this line means that this code is necessary");
 				   	        							break;
 				   	        						}
 				   	        					}
@@ -490,7 +492,8 @@ public class AugmentationofGivenRsIdwithInformation {
 		               
 		                }//End of for Assembly
 					}catch(NumberFormatException e){
-						e.printStackTrace();
+						//e.printStackTrace();
+						logger.error(e.toString() + " for " + rsId);						
 					}
 					
 	            }//End of while
@@ -498,11 +501,13 @@ public class AugmentationofGivenRsIdwithInformation {
 	        	reader.close();
         	
 			} catch (XMLStreamException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				logger.error(e.toString()+ " for " + rsId);						
+
 			} catch (JAXBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				logger.error(e.toString()+ " for " + rsId);						
+
 			} 
         	return rsInformation;
     }
