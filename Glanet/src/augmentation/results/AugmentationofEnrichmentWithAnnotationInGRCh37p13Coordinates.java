@@ -1528,7 +1528,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF starts************************************************/
-		 if (tfEnrichment.isTfEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
+		 if (tfEnrichment.isTfEnrichment() && 
+				 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && 
+				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 		 }
 		 /*********************TF ends**************************************************/
@@ -1591,7 +1593,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************KEGG PATHWAY starts**************************************/
-		 if (keggPathwayEnrichment.isKeggPathwayEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
+		 if (keggPathwayEnrichment.isKeggPathwayEnrichment() && 
+				 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && 
+				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY,null);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY,null);
@@ -1605,7 +1609,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF KEGGPATHWAY starts************************************/
-		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){	    	 
+		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
+				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){	    	 
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
@@ -1625,7 +1630,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF CELLLINE KEGGPATHWAY starts***************************/
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment())){
+	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && 
+	    		 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
@@ -1645,7 +1651,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 	     /*********************************BOTH starts**********************************/
 	     /*****************************TF KEGGPATHWAY starts****************************/
 	     /************************** TF CELLLINE KEGGPATHWAY starts*********************/
-		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
+				 tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);

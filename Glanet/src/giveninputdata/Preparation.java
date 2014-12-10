@@ -97,9 +97,10 @@ public class Preparation {
 	public static void main(String[] args) {
 		
 		
-
-		Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
-
+		//for debug purposes starts
+		System.out.println("Preparation");
+		//for debug purposes ends
+		
 		String glanetFolder = args[1];
 		
 		
@@ -113,9 +114,10 @@ public class Preparation {
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA +  System.getProperty("file.separator");
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 		
-		
+		//Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
+
 		try {
-			log4jConfiguration.getAppLogger(dataFolder, outputFolder);
+			Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

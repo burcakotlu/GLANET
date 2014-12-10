@@ -1,0 +1,19 @@
+2014-12-10 15:16:30 INFO  Log4jConfiguration:67 - Logging enabled
+2014-12-10 15:16:39 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\test1\GivenInputData\chrName_0Based_Start_EndExclusive_hg19_coordinates.bed
+2014-12-10 15:16:39 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\test1\GivenInputData\chrName_0Based_Start_EndExclusive_hg38_coordinates.bed
+2014-12-10 15:16:39 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\test1\GivenInputData\REMAP_REPORT_chrName_1Based_Start_End_coordinates.xls
+2014-12-10 15:16:39 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\test1\GivenInputData\rsID_chrName_0Based_Start_End_hg38_coordinates.txt
+2014-12-10 15:16:39 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\test1\x-1418216017540.log
+2014-12-10 15:17:02 ERROR AugmentationofGivenRsIdwithInformation:274 - java.lang.NumberFormatException: Not a number: s305618 for rs7305618
+2014-12-10 15:17:04 ERROR AugmentationofGivenRsIdwithInformation:496 - java.lang.NumberFormatException: For input string: "rs7305618" for rs7305618
+2014-12-10 15:17:18 INFO  InputDataProcess:152 - sourceAssemblyName: GRCh38
+2014-12-10 15:17:18 INFO  InputDataProcess:153 - rsInformationList size:  380
+2014-12-10 15:17:43 INFO  Remap:373 - Submitted: JSID_01_10884_130.14.22.21_9000_remap__1418217441
+2014-12-10 15:17:43 INFO  Remap:373 - Refreshing 
+2014-12-10 15:17:43 INFO  Remap:373 - Refreshing 
+2014-12-10 15:17:43 INFO  Remap:373 - Complete
+2014-12-10 15:17:43 INFO  Remap:373 - 	Saving C:\Users\Burçak\Google Drive\\Output\test1\GivenInputData\chrName_0Based_Start_EndExclusive_hg19_coordinates.bed
+2014-12-10 15:17:43 INFO  Remap:373 - 	Saving C:\Users\Burçak\Google Drive\\Output\test1\GivenInputData\REMAP_REPORT_chrName_1Based_Start_End_coordinates.xls
+2014-12-10 15:17:43 INFO  Remap:373 - 	Saving project_chrName_0Based_Start_EndExclusive_hg38_coordinates.bed.gbp
+2014-12-10 15:17:43 INFO  Remap:376 - 
+Exit status = 0

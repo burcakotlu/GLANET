@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
+import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorCode;
 
 import common.Commons;
@@ -21,10 +22,14 @@ import common.Commons;
  */
 public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	
+
+	private static Logger logger = Logger.getLogger(NewLogForEachGlanetRunFileAppender.class);
 	
 	public NewLogForEachGlanetRunFileAppender() {
+		logger.debug("we are in NewLogForEachGlanetRunFileAppender()");
 	}
-
+	
+	
 	public NewLogForEachGlanetRunFileAppender(Layout layout, String filename,
 	        boolean append, boolean bufferedIO, int bufferSize)
 	        throws IOException {
@@ -43,15 +48,30 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 
 	//@overwrite
 	public void activateOptions() {
+		
+		//for debug
+		logger.debug("Before NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+		//for debug
+		
 		if (fileName != null) {
 		    try {
 		        fileName = getNewLogFileName();
 		        setFile(fileName, fileAppend, bufferedIO, bufferSize);
+		        
+				
 		    } catch (Exception e) {
 		        errorHandler.error("Error while activating log options", e,
 		                ErrorCode.FILE_OPEN_FAILURE);
 		    }
-		}
+		}//End of IF filename is not NULL
+		
+		//for debug
+		logger.debug("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+		//for debug
+		
+		//Log4jConfiguration.setFileName(fileName);
+		
+
 	}
 	
 	
@@ -73,9 +93,18 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		        // at the end.
 		        newFileName = fileName +  Commons.STRING_HYPHEN  +System.currentTimeMillis();
 		    }
-		    return logFile.getParent()  +  System.getProperty("file.separator")  + newFileName;
-		}
+		    
+		    if (logFile.getParent()!=null){
+			    return logFile.getParent()  +  System.getProperty("file.separator")  + newFileName;
+		    }else{
+		    	   return newFileName;	   
+			}
+		
+		}//End of IF
 		return null;
 	}
+	
+
+	
 
 }

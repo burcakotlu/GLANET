@@ -1,0 +1,61 @@
+2014-12-10 15:09:53 INFO  Log4jConfiguration:70 - Logging enabled
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\Annotation\Hg19RefSeqGene\Hg19RefSeqGene.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\Annotation\Results\number_of_k_out_of_n_search_input_lines_Gene_Alternate_Name_results.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr10_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr11_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr12_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr13_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr14_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr15_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr16_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr17_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr18_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr19_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr1_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr20_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr21_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr22_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr2_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr3_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr4_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr5_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr6_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr7_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr8_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chr9_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chrName_0Based_Start_EndExclusive_hg19_coordinates.bed
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chrName_0Based_Start_EndExclusive_hg38_coordinates.bed
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chrName_1Based_Start_End_hg19_coordinates_using_remap_report.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chrX_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\chrY_input_file.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\Input_Data_Processed_0_Based_hg19_coordinates.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\REMAP_REPORT_chrName_1Based_Start_End_coordinates.xls
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\GivenInputData\rsID_chrName_0Based_Start_End_hg38_coordinates.txt
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\null-1418216193789
+2014-12-10 15:09:57 INFO  FileOperations:122 - Deleting C:\Users\Burçak\Google Drive\Output\NoName\XX-1418214262596.log
+2014-12-10 15:10:28 ERROR AugmentationofGivenRsIdwithInformation:274 - java.lang.NumberFormatException: Not a number: s305618 for rs7305618
+2014-12-10 15:10:28 ERROR AugmentationofGivenRsIdwithInformation:496 - java.lang.NumberFormatException: For input string: "rs7305618" for rs7305618
+2014-12-10 15:10:34 INFO  InputDataProcess:152 - sourceAssemblyName: GRCh38rRCh38
+2014-12-10 15:10:34 INFO  InputDataProcess:153 - rsInformationList size:  380
+2014-12-10 15:10:37 INFO  Remap:373 - Could not find an alignment batch for your assembly pair: null x GCF_000001405.25
+2014-12-10 15:10:37 INFO  Remap:373 - Please run "--mode batches" for a list of available assembly pairs.
+2014-12-10 15:10:37 INFO  Remap:376 - 
+Exit status = -1
+2014-12-10 15:10:56 DEBUG AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP:646 - number of lines in remap input file Augmentation\REMAP\REMAP_inputFile_LineByLine_AugmentedTranscriptionFactorResults_chrNumber_0Based_Start_EndExlusive_GRCh37_P13_coordinates.txt is: 0
+2014-12-10 15:10:56 ERROR AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP:550 - java.io.FileNotFoundException: C:\Users\Burçak\Google Drive\Output\NoName\Augmentation\EnrichedElementsWithGivenInputData\AugmentedTfCellLineExonBasedKeggPathwayResults_1Based_Start_End_GRCh37_P13_coordinates.txt (The system cannot find the file specified)
+2014-12-10 15:10:56 ERROR AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP:550 - java.io.FileNotFoundException: C:\Users\Burçak\Google Drive\Output\NoName\Augmentation\EnrichedElementsWithGivenInputData\AugmentedTfCellLineRegulationBasedKeggPathwayResults_1Based_Start_End_GRCh37_P13_coordinates.txt (The system cannot find the file specified)
+2014-12-10 15:10:56 ERROR AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP:550 - java.io.FileNotFoundException: C:\Users\Burçak\Google Drive\Output\NoName\Augmentation\EnrichedElementsWithGivenInputData\AugmentedTfCellLineAllBasedKeggPathwayResults_1Based_Start_End_GRCh37_P13_coordinates.txt (The system cannot find the file specified)
+2014-12-10 15:11:02 INFO  Remap:373 - Submitted: JSID_01_11044_130.14.22.10_9000_remap__1418217059
+2014-12-10 15:11:02 INFO  Remap:373 - 
+2014-12-10 15:11:02 INFO  Remap:373 - No annotation data found, from file or text box.
+2014-12-10 15:11:02 INFO  Remap:373 - 
+2014-12-10 15:11:02 INFO  Remap:373 - Failed
+2014-12-10 15:11:02 INFO  Remap:376 - 
+Exit status = 1
+2014-12-10 15:11:04 INFO  Remap:376 - 
+Exit status = 2
+2014-12-10 15:11:06 INFO  Remap:376 - 
+Exit status = 2
+2014-12-10 15:11:08 INFO  Remap:376 - 
+Exit status = 2
