@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 
@@ -20,7 +19,7 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class Log4jConfiguration {
 	
-	private static Logger logger = Logger.getLogger(Log4jConfiguration.class);
+	//private static Logger logger = Logger.getLogger(Log4jConfiguration.class);
 	
 	private static String fileName;
 	
@@ -48,8 +47,9 @@ public class Log4jConfiguration {
 		 Properties logProp = new Properties();      
 		    try     
 		    {      
-		    	  	
-		    	//logProp.load(new FileInputStream(log4jPropertiesFile)); 
+		    	//FileInputStream gives error  	
+		    	//logProp.load(new FileInputStream(log4jPropertiesFile));
+		    	
 		    	ClassLoader loader = Thread.currentThread().getContextClassLoader();
 				try(InputStream resourceStream = loader.getResourceAsStream(log4jPropertiesFile)) {
 				    logProp.load(resourceStream);
@@ -57,16 +57,17 @@ public class Log4jConfiguration {
 				
 				glanetLogFile = logProp.getProperty("log4j.appender.file.File");
 				//for debug
-				logger.debug("glanetLogFile: " + glanetLogFile);
+				System.out.println("glanetLogFile: " + glanetLogFile);
 		    	//for debug
 
 		    	glanetLogFileUnderOutputFolder = outputFolder + glanetLogFile;
 		    	
 		    	logProp.setProperty("log4j.appender.file.File", glanetLogFileUnderOutputFolder); 
+		    	
 		    	//for debug
-		    	logger.debug("glanetLogFileUnderOutputFolder: " + logProp.getProperty("log4j.appender.file.File"));
+		    	System.out.println("glanetLogFileUnderOutputFolder: " + logProp.getProperty("log4j.appender.file.File"));
 		    	//for debug
-		    	logger.info("Logging enabled");   
+		    	System.out.println("Logging enabled");   
 		    	
 		    	//This calls activateOptions of NewLogForEachGlanetRunFileAppender class
 		    	PropertyConfigurator.configure(logProp); 

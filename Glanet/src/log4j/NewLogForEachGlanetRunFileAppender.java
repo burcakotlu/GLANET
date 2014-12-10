@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
-import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorCode;
 
 import common.Commons;
@@ -23,10 +22,10 @@ import common.Commons;
 public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	
 
-	private static Logger logger = Logger.getLogger(NewLogForEachGlanetRunFileAppender.class);
+	//private static Logger logger = Logger.getLogger(NewLogForEachGlanetRunFileAppender.class);
 	
 	public NewLogForEachGlanetRunFileAppender() {
-		logger.debug("we are in NewLogForEachGlanetRunFileAppender()");
+		System.out.println("we are in NewLogForEachGlanetRunFileAppender()");
 	}
 	
 	
@@ -50,7 +49,7 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	public void activateOptions() {
 		
 		//for debug
-		logger.debug("Before NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+		System.out.println("Before NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
 		//for debug
 		
 		if (fileName != null) {
@@ -66,7 +65,7 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		}//End of IF filename is not NULL
 		
 		//for debug
-		logger.debug("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+		System.out.println("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
 		//for debug
 		
 		//Log4jConfiguration.setFileName(fileName);
