@@ -2667,6 +2667,12 @@ public class Enrichment {
 		int numberofRemainedPermutations = 0;
 		String runName;
 		
+		
+		//In case of numberofPermutationsInEachRun is greater than numberofTotalPermutations
+		if (numberofPermutationsInEachRun>numberofTotalPermutations){
+			numberofPermutationsInEachRun =numberofTotalPermutations;
+		}
+		
 		numberofRuns = numberofTotalPermutations / numberofPermutationsInEachRun;
 		numberofRemainedPermutations = numberofTotalPermutations % numberofPermutationsInEachRun;
 		

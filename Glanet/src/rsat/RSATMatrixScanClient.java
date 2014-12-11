@@ -1030,8 +1030,12 @@ public class RSATMatrixScanClient {
 			bufferedWriterTFCellLineAllBasedKEGGPathway = new BufferedWriter(fileWriterTFCellLineAllBasedKEGGPathway);
 		
 		
-			//RSAT for TF
-			if (tfEnrichment.isTfEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+			//RSAT for only TF
+			if (tfEnrichment.isTfEnrichment() && 
+					!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+					!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+					regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+				
 				System.out.println("RSAT starts for TF");
 				matrixScan(outputFolder,tfBaseDirectory,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
 				bufferedWriterTF.close();
@@ -1039,8 +1043,16 @@ public class RSATMatrixScanClient {
 							
 			}
 
-			//RSAT for TF and KEGG Pathway
-			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+			//RSAT for only TFKEGGPathway
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
+					!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+					regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+				
+				System.out.println("RSAT starts for TF");
+				matrixScan(outputFolder,tfBaseDirectory,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTF.close();
+				System.out.println("RSAT ends for TF");
+			
 				System.out.println("RSAT starts for TF ExonBasedKEGGPathway");
 				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriterTFExonBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
 				bufferedWriterTFExonBasedKEGGPathway.close();
@@ -1059,8 +1071,16 @@ public class RSATMatrixScanClient {
 			}
 
 			
-			//RSAT for TF and CellLine and  KEGG Pathway
-			if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+			//RSAT for TFCellLineKEGGPathway
+			if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && 
+					!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+					regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+				
+				System.out.println("RSAT starts for TF");
+				matrixScan(outputFolder,tfBaseDirectory,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTF.close();
+				System.out.println("RSAT ends for TF");
+				
 				System.out.println("RSAT starts for TF CellLine ExonBasedKEGGPathway");
 				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriterTFCellLineExonBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
 				bufferedWriterTFCellLineExonBasedKEGGPathway.close();;
@@ -1076,6 +1096,51 @@ public class RSATMatrixScanClient {
 				bufferedWriterTFCellLineAllBasedKEGGPathway.close();;
 				System.out.println("RSAT ends for TF CellLine AllBasedKEGGPathway");
 				
+			}
+			
+			//BOTH
+			//RSAT for TFKEGGPathway
+			//RSAT for TFCellLineKEGGPathway
+			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && 
+					tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+					regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+				
+				System.out.println("RSAT starts for TF");
+				matrixScan(outputFolder,tfBaseDirectory,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTF.close();
+				System.out.println("RSAT ends for TF");
+				
+				System.out.println("RSAT starts for TF ExonBasedKEGGPathway");
+				matrixScan(outputFolder,tfExonBasedKeggPathwayBaseDirectory,bufferedWriterTFExonBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFExonBasedKEGGPathway.close();
+				System.out.println("RSAT ends for TF ExonBasedKEGGPathway");
+				
+				System.out.println("RSAT starts for TF RegulationBasedKEGGPathway");
+				matrixScan(outputFolder,tfRegulationBasedKeggPathwayBaseDirectory,bufferedWriterTFRegulationBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFRegulationBasedKEGGPathway.close();
+				System.out.println("RSAT ends for TF RegulationBasedKEGGPathway");
+				
+				System.out.println("RSAT starts for TF AllBasedKEGGPathway");
+				matrixScan(outputFolder,tfAllBasedKeggPathwayBaseDirectory,bufferedWriterTFAllBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFAllBasedKEGGPathway.close();
+				System.out.println("RSAT ends for TF AllBasedKEGGPathway");
+	
+				
+				System.out.println("RSAT starts for TF CellLine ExonBasedKEGGPathway");
+				matrixScan(outputFolder,tfCellLineExonBasedKeggPathwayBaseDirectory,bufferedWriterTFCellLineExonBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFCellLineExonBasedKEGGPathway.close();;
+				System.out.println("RSAT ends for TF CellLine ExonBasedKEGGPathway");
+				
+				System.out.println("RSAT starts for TF CellLine RegulationBasedKEGGPathway");
+				matrixScan(outputFolder,tfCellLineRegulationBasedKeggPathwayBaseDirectory,bufferedWriterTFCellLineRegulationBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFCellLineRegulationBasedKEGGPathway.close();;
+				System.out.println("RSAT ends for TF CellLine RegulationBasedKEGGPathway");
+				
+				System.out.println("RSAT starts for TF CellLine AllBasedKEGGPathway");
+				matrixScan(outputFolder,tfCellLineAllBasedKeggPathwayBaseDirectory,bufferedWriterTFCellLineAllBasedKEGGPathway, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+				bufferedWriterTFCellLineAllBasedKEGGPathway.close();;
+				System.out.println("RSAT ends for TF CellLine AllBasedKEGGPathway");
+
 			}
 					
 			
