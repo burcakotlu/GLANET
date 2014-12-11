@@ -14,8 +14,8 @@ public class TfCellLineGivenInterval {
 	
 	
 	String chromNamewithoutPreceedingChr;
-	int startOneBased;
-	int endOneBased;
+	int givenIntervalStartOneBased;
+	int givenIntervalEndOneBased;
 	
 	List<String> snpKeyList;
 	List<String> tfCellLineBasedTfIntervalKeyList;
@@ -35,20 +35,20 @@ public class TfCellLineGivenInterval {
 		this.chromNamewithoutPreceedingChr = chromNamewithoutPreceedingChr;
 	}
 	
+	public int getGivenIntervalStartOneBased() {
+		return givenIntervalStartOneBased;
+	}
+	public void setGivenIntervalStartOneBased(int givenIntervalStartOneBased) {
+		this.givenIntervalStartOneBased = givenIntervalStartOneBased;
+	}
+	public int getGivenIntervalEndOneBased() {
+		return givenIntervalEndOneBased;
+	}
+	public void setGivenIntervalEndOneBased(int givenIntervalEndOneBased) {
+		this.givenIntervalEndOneBased = givenIntervalEndOneBased;
+	}
 	
 	
-	public int getStartOneBased() {
-		return startOneBased;
-	}
-	public void setStartOneBased(int startOneBased) {
-		this.startOneBased = startOneBased;
-	}
-	public int getEndOneBased() {
-		return endOneBased;
-	}
-	public void setEndOneBased(int endOneBased) {
-		this.endOneBased = endOneBased;
-	}
 	public List<String> getSnpKeyList() {
 		return snpKeyList;
 	}
