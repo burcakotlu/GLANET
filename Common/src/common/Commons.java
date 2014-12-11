@@ -270,10 +270,10 @@ public class Commons {
 	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
 		
 	public static final String RSID_CHRNAME_0Based_START_END_HG38_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"rsID_chrName_0Based_Start_End_hg38_coordinates.txt";
-	public static final String CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_Start_EndExclusive_hg38_coordinates.bed";
-	public static final String CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_0Based_Start_EndExclusive_hg19_coordinates.bed";
-	public static final String REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"REMAP_REPORT_chrName_1Based_Start_End_coordinates.xls";
-	public static final String CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"chrName_1Based_Start_End_hg19_coordinates_using_remap_report.txt";
+	public static final String REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"remap_inputFile_chrName_0Based_Start_EndExclusive_hg38_coordinates.bed";
+	public static final String REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"remap_outputFile_chrName_0Based_Start_EndExclusive_hg19_coordinates.bed";
+	public static final String REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"remap_reportFile_chrName_1Based_Start_End_coordinates.xls";
+	public static final String FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"final_remap_outputFile_chrName_1Based_Start_End_hg19_coordinates_using_remap_report.txt";
 	
 	public static final String PROCESSED_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_0_Based_hg19_coordinates.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE =  Commons.GIVENINPUTDATA + System.getProperty("file.separator") +"Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt";
@@ -333,13 +333,18 @@ public class Commons {
 
 	
 	
+	/**********************REMAP Directories  starts***************************************/
+	public static final String AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY 		= Commons.AUGMENTATION + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
+	public static final String GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY 		= Commons.GIVENINPUTDATA + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
+	/**********************REMAP Directories  ends***************************************/
+
+	
+	
 	/*************************************************************************************/
 	/**********************REMAP INPUT FILE  starts***************************************/
 	/*******************************Line by Line******************************************/ 
 	/*****************chrName 0Based Start EndExclusive GRCH37.p13 starts*****************/
 	/*************************************************************************************/
-	public static final String AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY 		= Commons.AUGMENTATION + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
-	
 	public static final String REMAP_INPUT_FILE_LINE_BY_LINE_TF_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_inputFile_LineByLine_AugmentedTranscriptionFactorResults_chrNumber_0Based_Start_EndExlusive_GRCh37_P13_coordinates.txt";
 	
 	public static final String REMAP_INPUT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_inputFile_LineByLine_AugmentedTFExonBasedKEGGPathwayResults_chrNumber_0Based_Start_EndExlusive_GRCh37_P13_coordinates.txt";
@@ -360,14 +365,22 @@ public class Commons {
 	
 	/*************************************************************************************/
 	/**********************REMAP OUTPUT FILE  starts**************************************/
-	/*******************************Line by Line******************************************/ 
-	/*****************chrName 0Based Start EndExclusive GRCH38 starts*********************/
 	/*************************************************************************************/
-	public static final String REMAP_DUMMY_OUTPUT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_outputFile.txt";	
+	public static final String AUGMENTATION_REMAP_DUMMY_OUTPUT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_outputFile.txt";	
+	public static final String GIVENINPUTDATA_REMAP_DUMMY_OUTPUT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_outputFile.txt";	
 	/*************************************************************************************/
 	/**********************REMAP OUTPUT FILE  ends****************************************/
-	/*******************************Line by Line******************************************/ 
-	/*****************chrName 0Based Start EndExclusive GRCH38 ends***********************/
+	/*************************************************************************************/
+
+	
+	
+	/*************************************************************************************/
+	/**********************REMAP GENOME WORKBENCH PROJECT FILE  starts********************/
+	/*************************************************************************************/
+	public static final String AUGMENTATION_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_genomeWorkbenchProjectFile.gbp";	
+	public static final String GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_genomeWorkbenchProjectFile.gbp";	
+	/*************************************************************************************/
+	/**********************REMAP GENOME WORKBENCH PROJECT FILE  ends**********************/
 	/*************************************************************************************/
 
 	

@@ -696,6 +696,8 @@ public class FileOperations {
 		int indexofFirstTab;
 		int indexofSecondTab;
 		
+		int numberofProcessedInputLinesForGLANET = 0;
+		
 		
 
 		try {
@@ -721,11 +723,14 @@ public class FileOperations {
 					zeroBasedEnd = oneBasedEnd-1;
 					
 					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedEnd + System.getProperty("line.separator"));
+					numberofProcessedInputLinesForGLANET++;
 
 				}//End of IF NOT NULL
 				
 				
 			}//End of While
+			
+			logger.debug("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
 			
 			//Close bufferedReader and bufferedWriter
 			bufferedReader.close();

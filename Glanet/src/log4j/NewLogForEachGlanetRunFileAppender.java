@@ -24,6 +24,8 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 
 	//private static Logger logger = Logger.getLogger(NewLogForEachGlanetRunFileAppender.class);
 	
+	//This method is executed by internal calls
+	//I don't know whether I can pass outputFolder to this method 
 	public NewLogForEachGlanetRunFileAppender() {
 		System.out.println("we are in NewLogForEachGlanetRunFileAppender()");
 	}
@@ -45,6 +47,8 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	    super(layout, filename);
 	}
 
+	//This method is executed by internal calls
+	//I don't know whether I can pass outputFolder to this method 
 	//@overwrite
 	public void activateOptions() {
 		

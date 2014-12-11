@@ -493,7 +493,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		                }//End of for Assembly
 					}catch(NumberFormatException e){
 						//e.printStackTrace();
-						logger.error(e.toString() + " for " + rsId);						
+						logger.error(e.toString());						
 					}
 					
 	            }//End of while

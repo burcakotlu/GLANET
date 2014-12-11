@@ -234,6 +234,9 @@ public class Remap {
 		int maximumLineNumber = Integer.MIN_VALUE;
 		Remapped remapped = null;
 		
+		int numberofUnConvertedGenomicLociInPrimaryAssembly = 0;
+		int numberofConvertedGenomicLociInPrimaryAssembly = 0;
+		
 		try {
 			
 			File file = new File(remapReportFile);
@@ -314,6 +317,9 @@ public class Remap {
 				//Set maximum line number to the last lineNumber
 				maximumLineNumber = lineNumber;
 				
+				logger.debug("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
+				
+				
 				//Write to the file
 				for(int i=1; i<=maximumLineNumber; i++){
 					
@@ -321,11 +327,16 @@ public class Remap {
 					
 					if(remapped != null){
 						bufferedWriter.write(remapped.getMappedChrName().convertEnumtoString() + "\t" + remapped.getMappedStart() + "\t" + remapped.getMappedEnd() + System.getProperty("line.separator"));
+						numberofConvertedGenomicLociInPrimaryAssembly++;
 					}else{
 						bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
+						numberofUnConvertedGenomicLociInPrimaryAssembly++;
 					}
 					
 				}//End of for
+				
+				logger.debug("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
+				logger.debug("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP: "  );
 				
 				//close 
 				bufferedReader.close();
@@ -350,6 +361,7 @@ public class Remap {
 			String sourceFileName,
 			String outputFileName,
 			String reportFileName,
+			String genomeWorkbenchProjectFile,
 			String merge,
 			String allowMultipleLocation,
 			double minimumRatioOfBasesThatMustBeRemapped,
@@ -362,7 +374,7 @@ public class Remap {
 		Process process = null;
 			
 			try {
-				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +    " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 				process.waitFor();
 				
 				//output of the perl execution is here

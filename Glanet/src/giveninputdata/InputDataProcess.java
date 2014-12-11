@@ -77,7 +77,12 @@ public class InputDataProcess {
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
 		
+		int numberofGivenRsIds = 0;
+		int numberofGivenUniqueRsIds = 0;
 		
+		int numberofLocisInRemapInputFile = 0;
+		
+	
 		/**********************************************************/
 		/**********NCBI REMAP PARAMETERS starts********************/
 		/**********************************************************/
@@ -104,41 +109,62 @@ public class InputDataProcess {
 			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_0Based_START_END_HG38_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);			
 			
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE);
+			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE);
 			bufferedWriter2 = new BufferedWriter(fileWriter2);			
 			
 		
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 						
 			
+			/*********************************************************************/
+			/*****************READ GIVEN RSIDs INPUTFILE starts*******************/
+			/*********************************************************************/
 			while((rsId = bufferedReader.readLine())!=null){
 				
 				//Skip comment lines
 				if(!(rsId.startsWith("#"))){
 					
+					numberofGivenRsIds++;
+					
 					//Remove rs prefix
 					if (!rsIdList.contains(rsId)){
+						numberofGivenUniqueRsIds++;
 						rsIdList.add(rsId);
 					}
 				}//End of if not comment line							
 			}//End of WHILE
 			
+			logger.debug("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			logger.debug("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			/*********************************************************************/
+			/*****************READ GIVEN RSIDs INPUTFILE ends*********************/
+			/*********************************************************************/
+				
 			
 			/*********************************************************************/
 			/********GET rsInformation  using NCBI EUTILS starts******************/
 			/*********************************************************************/
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
+			
+			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
+			logger.debug("We have lost " + (numberofGivenUniqueRsIds- rsInformationList.size()) +  " rsIDs during NCBI EUTIL EFETCH");
 			/*********************************************************************/
 			/********GET rsInformation  using NCBI EUTILS ends********************/
 			/*********************************************************************/
 
 			
 			
+			/*********************************************************************/
+			/*****************WRITE TO REMAP INPUT FILE starts********************/
+			/*********************************************************************/
 			for (RsInformation rsInformation: rsInformationList){
 				
 				if (rsInformation!=null){
+					
 					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
 					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + (rsInformation.getEndZeroBased()+1) + System.getProperty("line.separator"));
+					
+					numberofLocisInRemapInputFile++;
 					
 					if (!sourceAssemblyName.contains(rsInformation.getGroupLabel())){
 						sourceAssemblyName = sourceAssemblyName + rsInformation.getGroupLabel();
@@ -148,10 +174,11 @@ public class InputDataProcess {
 				
 			}//End of for
 			
-			//for debug purposes starts
-			logger.info("sourceAssemblyName: " + sourceAssemblyName);
-			logger.info("rsInformationList size:  " +  rsInformationList.size());
-			//for debug purposes ends
+			logger.debug("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName );
+			/*********************************************************************/
+			/*****************WRITE TO REMAP INPUT FILE ends**********************/
+			/*********************************************************************/
+		
 			
 				
 			//Close
@@ -187,22 +214,23 @@ public class InputDataProcess {
 					dataFolder,
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
-					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE, 
-					outputFolder + Commons.CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
+					outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE, 
+					outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE,
 					outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+					outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,
 					merge,
 					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 			
 			Remap.createOutputFileUsingREMAPREPORTFile(outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
-					outputFolder + Commons.CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
+					outputFolder + Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
 			
 			//@todo to be tested
 			//Read from GRCh37.p13 (Hg19) bed file
 			//Write to usual processed input file
 			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder,
-					Commons.CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT,
+					Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT,
 					Commons.PROCESSED_INPUT_FILE);
 				
 			
