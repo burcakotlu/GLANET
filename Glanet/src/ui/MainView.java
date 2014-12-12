@@ -707,6 +707,7 @@ public class MainView extends JPanel{
 	public void enableUserDefinedLibraryOptions( boolean shouldEnable){
 		
 		userDefinedLibraryInput.setEnabled( shouldEnable);
+		userDefinedLibraryDataFormatCombo.setEnabled( shouldEnable);
 		
 		revalidate();
 	}

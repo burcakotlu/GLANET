@@ -1350,9 +1350,9 @@ public class Commons {
 		public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-celltfkegg";
 		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udg";
 		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_INPUT = "-udginput";
-		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID = "-udgeinfoid";
-		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udgeinfosymbol";
-		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udgeinforna";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID = "-udginfoid";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udginfosymbol";
+		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udginforna";
 		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENESET_NAME = "-udgname";
 		public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgfile";
 		public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
