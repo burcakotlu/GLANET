@@ -317,6 +317,7 @@ public class Remap {
 				//Set maximum line number to the last lineNumber
 				maximumLineNumber = lineNumber;
 				
+				logger.debug("******************************************************************************");
 				logger.debug("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
 				
 				
@@ -336,8 +337,9 @@ public class Remap {
 				}//End of for
 				
 				logger.debug("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
-				logger.debug("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP: "  );
-				
+				logger.debug("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP"  );
+				logger.debug("******************************************************************************");
+
 				//close 
 				bufferedReader.close();
 				bufferedWriter.close();

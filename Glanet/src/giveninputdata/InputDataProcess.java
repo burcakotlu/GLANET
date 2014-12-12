@@ -134,8 +134,10 @@ public class InputDataProcess {
 				}//End of if not comment line							
 			}//End of WHILE
 			
+			logger.debug("******************************************************************************");
 			logger.debug("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
 			logger.debug("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/*****************READ GIVEN RSIDs INPUTFILE ends*********************/
 			/*********************************************************************/
@@ -146,8 +148,10 @@ public class InputDataProcess {
 			/*********************************************************************/
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
 			
+			logger.debug("******************************************************************************");
 			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
 			logger.debug("We have lost " + (numberofGivenUniqueRsIds- rsInformationList.size()) +  " rsIDs during NCBI EUTIL EFETCH");
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/********GET rsInformation  using NCBI EUTILS ends********************/
 			/*********************************************************************/
@@ -174,7 +178,9 @@ public class InputDataProcess {
 				
 			}//End of for
 			
+			logger.debug("******************************************************************************");
 			logger.debug("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName );
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/*****************WRITE TO REMAP INPUT FILE ends**********************/
 			/*********************************************************************/

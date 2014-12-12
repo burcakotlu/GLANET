@@ -1,5 +1,6 @@
 package ui;
 
+import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
 import enrichment.CollectionofPermutationsResults;
 import enrichment.Enrichment;
 import giveninputdata.InputDataProcess;
@@ -10,7 +11,6 @@ import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import augmentation.results.AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP;
-
 import common.CommandLineArguments;
 import common.Commons;
 
@@ -72,6 +72,16 @@ public class GlanetRunner implements Runnable{
 			return;
 		Annotation.main( args);
 		/************************Annotation ends*************************************************/
+		
+		
+		/************************Annotation Binary Matrices starts*******************************/
+		if( getMainView() != null)
+			getMainView().setCurrentProcessInfo( "Annotation Binary Matrices...");
+		
+		if( Thread.currentThread().isInterrupted())
+			return;
+		GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype.main(args);
+		/************************Annotation Binary Matrices ends*********************************/
 		
 		
 		

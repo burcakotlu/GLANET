@@ -368,7 +368,7 @@ public class FileOperations {
 		
 			for ( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext(); ) {
 				   it.advance();
-				   bufferedWriter.write(it.value() + System.getProperty("line.separator"));		    
+				   bufferedWriter.write(it.key() + System.getProperty("line.separator"));		    
 			}
 			
 			bufferedWriter.close();
@@ -730,7 +730,9 @@ public class FileOperations {
 				
 			}//End of While
 			
+			logger.debug("******************************************************************************");
 			logger.debug("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
+			logger.debug("******************************************************************************");
 			
 			//Close bufferedReader and bufferedWriter
 			bufferedReader.close();
