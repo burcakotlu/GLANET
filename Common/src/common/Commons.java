@@ -1274,31 +1274,32 @@ public class Commons {
 	
 	
 	/******************************HINTS****************************************/
-	public static final String GUI_HINT_INPUT_FILE_NAME = "Input Data File";
-	public static final String GUI_HINT_JOB_NAME = "Job name is mandatory to create a specific output folder. Please choose a shorter job name for your convenience.";
-	public static final String GUI_HINT_INPUT_FORMAT = "Input Data Format";
-	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported assemblies";
-	public static final String GUI_HINT_GLANET_FOLDER = "GLANET FOLDER";
-	public static final String GUI_HINT_NUMBER_OF_BASES = "Number of bases required for overlap definition";
+	public static final String GUI_HINT_INPUT_FILE_NAME = "Choose An Input Data File";
+	public static final String GUI_HINT_JOB_NAME = "Give A Job Name In Order To Get A Specific Output Folder. Please Choose A Short Job Name For Your Convenience.";
+	public static final String GUI_HINT_INPUT_FORMAT = "Choose Data Format In Input Data File";
+	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported Assemblies";
+	public static final String GUI_HINT_GLANET_FOLDER = "Choose GLANET FOLDER Which Is The Parent Of Data Folder";
+	public static final String GUI_HINT_NUMBER_OF_BASES = "Number Of Bases That Must Overlap In Order To Accept That Two Intervals Overlap";
 	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";
 	public static final String GUI_HINT_FDR = "False Discovery Rate";
 	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
-	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number of Permutations that will be carried out for Enrichment";
+	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number Of Total Permutations That Will Be Carried Out For Enrichment";
+	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "Number Of Permutations That Will Be Carried Out In Each Run";
 	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "DNase Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation)";
-	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined GeneSet Annotation";
-	public static final String GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE = "Gene Information Type";
-	public static final String GUI_HINT_USER_DEFINED_GENESET_INPUTFILE = "Input File";
-	public static final String GUI_HINT_USER_DEFINED_GENESET_NAME = "User Defined GeneSet Name";
-	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined GeneSet Description File (Optional)";
-	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Input File";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined Gene Set Annotation";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE = "Select Gene Information Type In User Defined Gene Set Input File";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_INPUTFILE = "Choose User Defined Gene Set Input File";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_NAME = "User Defined Gene Set Name";
+	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined Gene Set Description File (Optional)";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Choose User Defined Library Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
-	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Please Indicate User Defined Library Input File Data Format";
+	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Choose Data Format In User Defined Library Input File";
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
 	
 	
