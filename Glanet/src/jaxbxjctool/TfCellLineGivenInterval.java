@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class TfCellLineGivenInterval {
 	
+	String tfNameCellLineName;
+	String givenIntervalName;
+	
 	
 	String chromNamewithoutPreceedingChr;
 	int givenIntervalStartOneBased;
@@ -20,11 +23,9 @@ public class TfCellLineGivenInterval {
 	List<String> snpKeyList;
 	List<String> tfCellLineBasedTfIntervalKeyList;
 	
-	//will be generated from the peaks in this given interval
+	//Will be generated from the peaks in this given interval
 	String extendedPeakSequence;
 	
-	String givenIntervalName;
-	String tfNameCellLineName;
 	
 	
 	public String getChromNamewithoutPreceedingChr() {

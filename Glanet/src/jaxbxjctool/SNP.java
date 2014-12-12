@@ -16,11 +16,11 @@ public class SNP{
 	
 	String chrNamewithoutPreceedingChr;
 	
-	
 	int snpOneBasedStartCoordinate;
-	int snpZeroBasedStartCoordinate;
-	
 	int snpOneBasedEndCoordinate;
+	
+	
+	int snpZeroBasedStartCoordinate;
 	int snpZeroBasedEndCoordinate;
 	
 	int length;
