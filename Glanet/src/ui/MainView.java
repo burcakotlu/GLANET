@@ -511,7 +511,7 @@ public class MainView extends JPanel{
 		//numberOfPerInEachRun added to permutationPanel
 		String[] numberOfPermutationsInEachRun = { "1000", "5000", "10000" };
 		numberOfPerInEachRun = new JComboBox<String>( numberOfPermutationsInEachRun);
-		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_FDR)));
+		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
 		
 		enrichmentPanel.add( permutationPanel);
         

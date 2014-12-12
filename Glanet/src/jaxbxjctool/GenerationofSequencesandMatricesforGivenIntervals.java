@@ -1541,31 +1541,65 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//4 April 2014
 		List<String> rsIdList;
 		RsInformation rsInformation;
-		String observedAllelesSeparatedwithSlash ;
+		String observedAllelesSeparatedwithSlash;
+		
 				
+		/*******************************************************************************/
+		/***************************MAP1 starts******************************************/
+		/*******************************************************************************/
 		//7 April 2014 starts		
-		//Key must contain TF  CellLine givenInterval chrNumber startZeroBased endZeroBased
-		Map<String,TfCellLineGivenInterval> tfCellLineBasedGivenIntervalMap = new HashMap<String,TfCellLineGivenInterval>();
+		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased)
+		Map<String,TfCellLineGivenInterval> tfCellLineGivenIntervalName2Map = new HashMap<String,TfCellLineGivenInterval>();
+		String tfCellLineGivenIntervalKey;
+		TfCellLineGivenInterval tfCellLineGivenInterval;
+		/*******************************************************************************/
+		/***************************MAP1 ends********************************************/
+		/*******************************************************************************/
+	
 		
-		//Key must contain tf CellLine TFInterval chrNumber startZeroBased endZeroBased		
-		Map<String,TfCellLineTfInterval> tfCellLineBasedTfIntervalMap = new HashMap<String,TfCellLineTfInterval>();
 		
+		/*******************************************************************************/
+		/***************************MAP2 starts******************************************/
+		/*******************************************************************************/
+		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased) TFInterval (chrNumber startZeroBased endZeroBased)		
+		Map<String,TfCellLineTfInterval> tfCellLineGivenIntervalTfIntervalName2Map = new HashMap<String,TfCellLineTfInterval>();
+		String tfCellLineGivenIntervalTfIntervalKey;
+		/*******************************************************************************/
+		/***************************MAP2 ends********************************************/
+		/*******************************************************************************/
+	
+		
+			
+		/*******************************************************************************/
+		/***************************MAP3 starts******************************************/
+		/*******************************************************************************/
 		//This map contains the list of snp keys for a given interval
 		//Key must be GivenIntervalName which is  chrNamewithPreceedingChr + givenIntervalStartZeroBased + givenIntervalEndZeroBased
-		Map<String,List<String>> givenIntervalName2SnpListMap = new HashMap<String,List<String>>();
-		
-		//Key must contain chrNumber startZeroBased endZeroBased
-		Map<String,SNP> snpMap =  new HashMap<String,SNP>();
-		
-		TfCellLineGivenInterval tfCellLineGivenInterval = null;
-		
-		String tfCellLineGivenIntervalKey;
-		String tfCellLineTfIntervalKey;
-		String snpKey;	
-		
 		String givenIntervalName;
+		Map<String,List<String>> givenIntervalName2SnpListMap = new HashMap<String,List<String>>();
+		List<String> snpKeyListInAGivenInterval;
+		/*******************************************************************************/
+		/***************************MAP3 ends********************************************/
+		/*******************************************************************************/
+	
 		
-		List<String> snpKeyList;
+		
+		
+		/*******************************************************************************/
+		/***************************MAP4 starts******************************************/
+		/*******************************************************************************/
+		//Key must contain rsID_chrNumber_startOneBased
+		String snpKey;	
+		Map<String,SNP> snpMap =  new HashMap<String,SNP>();
+		SNP snp;
+		/*******************************************************************************/
+		/***************************MAP4 ends********************************************/
+		/*******************************************************************************/
+	
+		
+		
+		
+		
 		//7 April 2014  ends
 					
 				
@@ -1695,14 +1729,14 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					//Set Given Interval Name
 					givenIntervalName ="givenInterval" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartOneBased +  "_" + givenIntervalEndOneBased;
 					
-					//Create tfNameCellLineName based Given Interval Key					
+					//Create key using tfNameCellLineName and GivenIntervalName					
 					tfCellLineGivenIntervalKey = tfNameCellLineName + "_" + givenIntervalName;
 		 					
-					//Create TF Interval Key
-					tfCellLineTfIntervalKey = tfNameCellLineName + "_" + givenIntervalName + "_" + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStartOneBased + "_" + tfEndOneBased;
+					//Create key using tfNameCellLineName and givenIntervalName and tfInterval
+					tfCellLineGivenIntervalTfIntervalKey = tfNameCellLineName + "_" + givenIntervalName + "_" + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStartOneBased + "_" + tfEndOneBased;
 						
 					//Get the given interval
-					tfCellLineGivenInterval = tfCellLineBasedGivenIntervalMap.get(tfCellLineGivenIntervalKey);
+					tfCellLineGivenInterval = tfCellLineGivenIntervalName2Map.get(tfCellLineGivenIntervalKey);
 					
 					
 					/*****************************************************************************************************/
@@ -1712,33 +1746,34 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						
 						tfCellLineGivenInterval = new TfCellLineGivenInterval();
 						
-						tfCellLineBasedGivenIntervalMap.put(tfCellLineGivenIntervalKey, tfCellLineGivenInterval);
+						tfCellLineGivenIntervalName2Map.put(tfCellLineGivenIntervalKey, tfCellLineGivenInterval);
+						
+						tfCellLineGivenInterval.setTfNameCellLineName(tfNameCellLineName);
+						tfCellLineGivenInterval.setGivenIntervalName(givenIntervalName);
 						
 						tfCellLineGivenInterval.setChromNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);
 						tfCellLineGivenInterval.setGivenIntervalStartOneBased(givenIntervalStartOneBased);
 						tfCellLineGivenInterval.setGivenIntervalEndOneBased(givenIntervalEndOneBased);
 						
 						tfCellLineGivenInterval.setSnpKeyList(new ArrayList<String>());
-						tfCellLineGivenInterval.setTfCellLineBasedTfIntervalKeyList(new ArrayList<String>());
+						tfCellLineGivenInterval.setTfCellLineBasedTfIntervalKeyList(new ArrayList<String>());	
 						
-						tfCellLineGivenInterval.setGivenIntervalName(givenIntervalName);
-						tfCellLineGivenInterval.setTfNameCellLineName(tfNameCellLineName);
-																								
+						
 						/*******************************************************************************************/
 						/***************************************PART1 starts****************************************/
-						/**************************Getting snpKeyList in a given Interval***************************/
+						/**************************Getting snpKeyList in a given interval***************************/
 						/*************Check whether snps in this given interval are already found or not************/
 						/*******************************************************************************************/
-						snpKeyList = givenIntervalName2SnpListMap.get(givenIntervalName);
+						snpKeyListInAGivenInterval = givenIntervalName2SnpListMap.get(givenIntervalName);
 						
-						if (snpKeyList==null){
+						if (snpKeyListInAGivenInterval==null){
 							
-							snpKeyList = new ArrayList<String>();
-							givenIntervalName2SnpListMap.put(givenIntervalName,snpKeyList);
+							snpKeyListInAGivenInterval = new ArrayList<String>();
+							givenIntervalName2SnpListMap.put(givenIntervalName,snpKeyListInAGivenInterval);
 							
 							//Get all the rsIDs in this given interval				
-							//We have to provide 1 based coordinates as arguments
-							rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
+							//We have to provide 1-based coordinates as arguments
+							rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr,givenIntervalStartOneBased,givenIntervalEndOneBased);
 							
 													
 							for(String rsId: rsIdList){
@@ -1752,9 +1787,9 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" + Commons.RS +rsId;
+										snpKey = Commons.RS +rsId + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1);
 										
-										SNP snp = snpMap.get(snpKey);
+										snp = snpMap.get(snpKey);
 										
 										if(snp==null){
 											
@@ -1769,9 +1804,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											
 											snp.setLength(rsInformation.getEndZeroBased()-rsInformation.getStartZeroBased()+1);
 											
-											//get fasta file and reference sequence for this snp
+											/*****************************************************************/
+											/***Get fasta file and reference sequence for this snp starts*****/
+											/*****************************************************************/
+											//Get fasta file and reference sequence for this snp
 											fastaFile = getDNASequence(snp.getChrNamewithoutPreceedingChr(),snp.getSnpOneBasedStartCoordinate()- Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snp.getSnpOneBasedEndCoordinate() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
 											referenceSequence = getDNASequenceFromFastaFile(fastaFile);
+											/*****************************************************************/
+											/***Get fasta file and reference sequence for this snp ends*******/
+											/*****************************************************************/
 											
 											snp.setReferenceSequence(referenceSequence);
 											snp.setFastaFile(fastaFile);
@@ -1782,9 +1823,10 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 												
 											snpMap.put(snpKey, snp);
 											tfCellLineGivenInterval.getSnpKeyList().add(snpKey);
-											snpKeyList.add(snpKey);
+											snpKeyListInAGivenInterval.add(snpKey);
 											
-										}else{
+										}//End of IF snp is null
+										else{
 											if (!snp.getObservedAlleles().contains(observedAllelesSeparatedwithTabs)){
 												snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);			
 											}
@@ -1793,19 +1835,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											//tfKeggPathwayGivenInterval.getSnpKeyList() and
 											//snpKeyList
 											
-										}//end of else snp is not null		
+										}//end of ELSE snp is not null		
 
 									}
-								}
-								//rsInformation is null for this rsId
-								else{
-									logger.debug("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
-								}								
+								}//End of IF rsInformation is not null																								
 							}//End of for each rsId in a given interval
 							
 							
 						}else{
-							tfCellLineGivenInterval.setSnpKeyList(snpKeyList);
+							tfCellLineGivenInterval.setSnpKeyList(snpKeyListInAGivenInterval);
 						}
 						/*******************************************************************************************/
 						/******************************PART1 snpKeyList ends****************************************/
@@ -1814,10 +1852,11 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						/*******************************************************************************************/
 
 														
-						//part2
-						//tfNameandKeggPathway based tfIntervalKeyList
-						
-						if(tfCellLineBasedTfIntervalMap.get(tfCellLineTfIntervalKey)==null){
+						/*******************************************************************************************/
+						/***************************************PART2 starts****************************************/
+						/***********************Add TfCellLineGivenIntervalTFIntervalKey****************************/
+						/*******************************************************************************************/
+						if(tfCellLineGivenIntervalTfIntervalName2Map.get(tfCellLineGivenIntervalTfIntervalKey)==null){
 							TfCellLineTfInterval tfCellLineTfInterval = new TfCellLineTfInterval();
 														
 							//set attributes of tfCellLineTfInterval
@@ -1826,13 +1865,17 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							tfCellLineTfInterval.setChrNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);						
 							tfCellLineTfInterval.setTfNameCellLineName(tfNameCellLineName);
 							
-							tfCellLineBasedTfIntervalMap.put(tfCellLineTfIntervalKey,tfCellLineTfInterval);
-							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineTfIntervalKey);
+							tfCellLineGivenIntervalTfIntervalName2Map.put(tfCellLineGivenIntervalTfIntervalKey,tfCellLineTfInterval);
+							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineGivenIntervalTfIntervalKey);
 						}else{
 							//do nothing
 							//this tfInterval is already added to the map and list
 						}
-												
+						/*******************************************************************************************/
+						/***************************************PART2 ends******************************************/
+						/***********************Add TfCellLineGivenIntervalTFIntervalKey****************************/
+						/*******************************************************************************************/
+						
 							
 					}
 					/*****************************************************************************************************/
@@ -1848,7 +1891,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					/*****************************************************************************************************/
 					else{
 						
-						if(tfCellLineBasedTfIntervalMap.get(tfCellLineTfIntervalKey)==null){
+						if(tfCellLineGivenIntervalTfIntervalName2Map.get(tfCellLineGivenIntervalTfIntervalKey)==null){
 							TfCellLineTfInterval tfCellLineTfInterval = new TfCellLineTfInterval();
 							
 							
@@ -1858,8 +1901,8 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							tfCellLineTfInterval.setChrNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);						
 							tfCellLineTfInterval.setTfNameCellLineName(tfNameCellLineName);
 							
-							tfCellLineBasedTfIntervalMap.put(tfCellLineTfIntervalKey,tfCellLineTfInterval);
-							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineTfIntervalKey);
+							tfCellLineGivenIntervalTfIntervalName2Map.put(tfCellLineGivenIntervalTfIntervalKey,tfCellLineTfInterval);
+							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineGivenIntervalTfIntervalKey);
 						}else{
 							//do nothing
 							//this tfInterval is already in the list
@@ -1908,7 +1951,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//write these snp based tf intervals to a file
 			//get the minStartZeroBased and maxEndZeroBased coordinates from these list of overlapping tf intervals
 			//get the extended peak sequence starting at minStartZeroBased and ending at maxEndZeroBased for this snp Based tf intervals 
-			for(Map.Entry<String, TfCellLineGivenInterval> entry: tfCellLineBasedGivenIntervalMap.entrySet()){
+			for(Map.Entry<String, TfCellLineGivenInterval> entry: tfCellLineGivenIntervalName2Map.entrySet()){
 //				givenIntervalKey = entry.getKey();
 				givenInterval = entry.getValue();
 				
@@ -1917,13 +1960,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				//test
 				tfNameCellLineName = givenInterval.getTfNameCellLineName();
 				
-				snpKeyList = givenInterval.getSnpKeyList();
+				snpKeyListInAGivenInterval = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfCellLineBasedTfIntervalKeyList();
 				
 				chrNamewithoutPreceedingChr = givenInterval.getChromNamewithoutPreceedingChr();
 											
-				for(String snpKeyString : snpKeyList ){
-					SNP snp = snpMap.get(snpKeyString);
+				for(String snpKeyString : snpKeyListInAGivenInterval ){
+					snp = snpMap.get(snpKeyString);
 					
 					indexofFirstUnderscore = snpKeyString.indexOf('_');
 					indexofSecondUnderscore = snpKeyString.indexOf('_',indexofFirstUnderscore+1);
@@ -1952,13 +1995,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					}
 									
 					//find overlapping tfIntervalkeys with this snp
-					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP_forTf(tfIntervalKeyList, tfCellLineBasedTfIntervalMap,  snp.getSnpZeroBasedStartCoordinate(),snp.getSnpZeroBasedEndCoordinate());
+					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP_forTf(tfIntervalKeyList, tfCellLineGivenIntervalTfIntervalName2Map,  snp.getSnpZeroBasedStartCoordinate(),snp.getSnpZeroBasedEndCoordinate());
 					
 					//get snp based extended peak sequence
-					getSNPBasedPeakSequence_forTf(snpBasedTfIntervalKeyList,tfCellLineBasedTfIntervalMap,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch38Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
+					getSNPBasedPeakSequence_forTf(snpBasedTfIntervalKeyList,tfCellLineGivenIntervalTfIntervalName2Map,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch38Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
 
 					//write snp based tf Intervals file
-					createTfIntervalsFile_forTf(outputFolder,directoryBase,snpDirectory, "tfIntervals" + "_" + snpKeyStringWithoutRsId, snpBasedTfIntervalKeyList,tfCellLineBasedTfIntervalMap);
+					createTfIntervalsFile_forTf(outputFolder,directoryBase,snpDirectory, "tfIntervals" + "_" + snpKeyStringWithoutRsId, snpBasedTfIntervalKeyList,tfCellLineGivenIntervalTfIntervalName2Map);
 								
 				}//End of for each snp in this given interval
 							
@@ -2697,12 +2740,12 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//TF
 		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES;
 	
-		//TF and KeggPathway
+		//TFKEGGPathway
 		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES;
 		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
 		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;		
 				
-		//TF and CellLine and KeggPathway
+		//TFCellLineKEGGPathway
 		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
 		String augmentedTfCellLineRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
 		String augmentedTfCellLineAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;

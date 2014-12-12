@@ -410,9 +410,9 @@ public class AugmentationofGivenRsIdwithInformation {
 						Rs rs=unmarshaller.unmarshal(reader, Rs.class).getValue();		
 						
 						//8 DEC 2014
-						//Means that given rsId is a merged rsID
-						//NCBI eutil has returned the latest valid rsID in the given position
+						//NCBI EUtil has returned the latest valid rsID in the given position
 						//And NCBI returned rsId and given rsId does not match
+						//Means that given rsId is a merged rsID
 						if (rs.getRsId()!= Integer.parseInt(rsId)){
 							logger.debug("Given rsId: " + rsId  + " and NCBI returned rsId: " + rs.getRsId() + "  check whether given rsId is merged");
 							return null;
