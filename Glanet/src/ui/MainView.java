@@ -204,7 +204,7 @@ public class MainView extends JPanel{
 						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT,
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
-						jobName.getText(),
+						(jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText(),
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
@@ -627,8 +627,7 @@ public class MainView extends JPanel{
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 		
 		JPanel componentWithHint = new JPanel( new FlowLayout(FlowLayout.LEFT));
-		//ImageIcon hintImage = new ImageIcon("resources" + System.getProperty("file.separator") + "image" + System.getProperty("file.separator") + "hint.png");
-		ImageIcon hintImage = new ImageIcon( System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "hint.png");
+		ImageIcon hintImage = new ImageIcon( getClass().getClassLoader().getResource("hint.png"));
 		JLabel hintLabel = new JLabel( hintImage);
 		hintLabel.setToolTipText( description);
 		hintLabel.setPreferredSize( new Dimension(20,20));
