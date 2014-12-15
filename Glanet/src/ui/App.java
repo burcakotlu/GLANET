@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import sun.security.util.Length;
 import common.CommandLineArguments;
 import common.Commons;
 
@@ -294,8 +295,11 @@ public class App
 				}
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedGeneSetInput) && 
-				argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT))
+			argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT)){
+			
+			//System.out.println( CommandLineArguments.UserDefinedGeneSetInput + " not specified, exiting...");
 			return false;
+		}
 		else if( argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) &&
 				argsInOrder[CommandLineArguments.UserDefinedGeneSetInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED)) {
 			
@@ -377,8 +381,11 @@ public class App
 				}
 		
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedLibraryInput) && 
-				argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT))
+			argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT)){
+			
+			//System.out.println( CommandLineArguments.UserDefinedLibraryInput + " not specified, exiting...");
 			return false;
+		}
 		else if( argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT) &&
 				argsInOrder[CommandLineArguments.UserDefinedLibraryInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED)) {
 			
@@ -444,7 +451,8 @@ public class App
 		
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.PerformEnrichment))
 			return false;
-			
+		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//parsing generate random data mode enrichment
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP))
@@ -465,6 +473,7 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GenerateRandomDataMode))
 			return false;
 		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//parsing multiple testing parameter
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_MULTIPLE_TESTING_BENJAMINI))
@@ -486,6 +495,7 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.MultipleTesting))
 			return false;
 		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//parsing Bonferroni Correction Significance Criteria
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_SIGNIFICANCE_CRITERIA))
@@ -499,6 +509,7 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.SignificanceCriteria))
 			return false;
 		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//Benjamini Hochberg False Discovery Rate
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_FALSE_DISCOVERY_RATE))
@@ -512,6 +523,7 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.FalseDiscoveryRate))
 			return false;
 		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//parsing Number of permutations
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_NUMBER_OF_PERMUTATIONS))
@@ -525,6 +537,7 @@ public class App
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfPermutation))
 			return false;
 		
+		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 		//parsing Number of permutations in each run
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN))
@@ -601,8 +614,8 @@ public class App
 			if( !fillArgumentsInOrder( args, argsForGlanetRunner))
 				return;
 			
-			for( int i = 0; i < argsForGlanetRunner.length; i++)
-				System.out.println( argsForGlanetRunner[i]);
+//			for( int i = 0; i < argsForGlanetRunner.length; i++)
+//				System.out.println( argsForGlanetRunner[i]);
 			
 			GlanetRunner.setMainView( null);
     		GlanetRunner.setArgs( argsForGlanetRunner);
