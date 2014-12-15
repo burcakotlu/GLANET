@@ -11,6 +11,7 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.ErrorCode;
 
+import auxiliary.FileOperations;
 import common.Commons;
 
 /**
@@ -27,7 +28,8 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	//This method is executed by internal calls
 	//I don't know whether I can pass outputFolder to this method 
 	public NewLogForEachGlanetRunFileAppender() {
-		System.out.println("we are in NewLogForEachGlanetRunFileAppender()");
+		System.out.println("***************************************************");
+		System.out.println("NewLogForEachGlanetRunFileAppender()");
 	}
 	
 	
@@ -59,6 +61,7 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		if (fileName != null) {
 		    try {
 		        fileName = getNewLogFileName();
+		        FileOperations.createFile(fileName);
 		        setFile(fileName, fileAppend, bufferedIO, bufferSize);
 		        
 				
@@ -70,6 +73,7 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		
 		//for debug
 		System.out.println("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+		System.out.println("***************************************************");
 		//for debug
 		
 		//Log4jConfiguration.setFileName(fileName);

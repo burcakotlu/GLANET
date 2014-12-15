@@ -56,17 +56,19 @@ public class Log4jConfiguration {
 				}
 				
 				glanetLogFile = logProp.getProperty("log4j.appender.file.File");
-				//for debug
-				System.out.println("glanetLogFile: " + glanetLogFile);
-		    	//for debug
+				
+//				//for debug
+//				System.out.println("glanetLogFile: " + glanetLogFile);
+//		    	//for debug
 
 		    	glanetLogFileUnderOutputFolder = outputFolder + glanetLogFile;
 		    	
 		    	logProp.setProperty("log4j.appender.file.File", glanetLogFileUnderOutputFolder); 
 		    	
-		    	//for debug
-		    	System.out.println("glanetLogFileUnderOutputFolder: " + logProp.getProperty("log4j.appender.file.File"));
-		    	//for debug
+//		    	//for debug
+//		    	System.out.println("glanetLogFileUnderOutputFolder: " + logProp.getProperty("log4j.appender.file.File"));
+//		    	//for debug
+		    	
 		    	System.out.println("Logging enabled");   
 		    	
 		    	//This calls activateOptions of NewLogForEachGlanetRunFileAppender class

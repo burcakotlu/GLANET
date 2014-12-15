@@ -38,8 +38,34 @@ import gnu.trove.map.TShortObjectMap;
 public class FileOperations {
 	
 	private static Logger logger = Logger.getLogger(FileOperations.class);
-	 
 	
+	//15 DEC 2014
+	public static void createFolder(String path){
+		
+		File f = new File(path);
+		
+		if(f.isDirectory() && !f.exists())
+			f.mkdirs();
+		
+	}
+	 
+	//15 DEC 2014
+	public static void createFile(String fileName){
+		
+		File f = new File(fileName);
+		String parent = f.getParent();
+		
+		
+		if (parent!=null){
+			if(f.isDirectory() && !f.exists())
+				f.mkdirs();
+			else if( !f.isDirectory() && !f.getParentFile().exists())
+				f.getParentFile().mkdirs();
+		}//End of IF parent is not null
+		
+	
+	}
+
 	//Can Firtina
 	public static FileWriter createFileWriter(String path) throws IOException{
 		

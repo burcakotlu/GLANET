@@ -97,9 +97,6 @@ public class Preparation {
 	public static void main(String[] args) {
 		
 		
-		//for debug purposes starts
-		System.out.println("Preparation");
-		//for debug purposes ends
 		
 		String glanetFolder = args[1];
 		
@@ -117,6 +114,10 @@ public class Preparation {
 		//Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
 
 		try {
+			
+			//Create outputFolder it it does not exists
+			FileOperations.createFolder(outputFolder);
+			
 			Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
