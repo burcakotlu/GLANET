@@ -8,7 +8,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import sun.security.util.Length;
 import common.CommandLineArguments;
 import common.Commons;
 
