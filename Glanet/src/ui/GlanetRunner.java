@@ -3,6 +3,7 @@ package ui;
 import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
 import enrichment.CollectionofPermutationsResults;
 import enrichment.Enrichment;
+import enumtypes.CommandLineArguments;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
@@ -11,7 +12,6 @@ import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import augmentation.results.AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP;
-import common.CommandLineArguments;
 import common.Commons;
 
 public class GlanetRunner implements Runnable{
@@ -126,6 +126,14 @@ public class GlanetRunner implements Runnable{
 			if( getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
 				if( getMainView() != null)
 					getMainView().setCurrentProcessInfo( "For Regulatory Sequence Analysis...");
+				
+				/***********Check whether given input data is snps or not starts**************/
+				if( getMainView() != null)
+					getMainView().setCurrentProcessInfo( "Check whether given input data is comprised of SNPs before Regulatory Sequence Analysis...");
+				
+				/***********Check whether given input data is snps or not ends****************/
+				
+				
 				
 				
 				/************Creation of NCBI REMAP Input files starts*************************/

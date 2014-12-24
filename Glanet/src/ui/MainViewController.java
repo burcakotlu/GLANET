@@ -3,8 +3,8 @@ package ui;
 import javax.swing.JPanel;
 
 import ui.MainView.MainViewDelegate;
-import common.CommandLineArguments;
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
 	
@@ -77,6 +77,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			   String userDefinedLibraryEnrichment,
 			   String userDefinedLibraryInputFile,
 			   String userDefinedLibraryDataFormat,
+			   String givenInputDataType,
 			   String[] cellLinesToBeConsidered) {
 		
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
@@ -84,11 +85,11 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.InputFileNameWithFolder.value()] = inputFileName;
 		args[CommandLineArguments.GlanetFolder.value()] = outputFolder;
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
-		args[CommandLineArguments.NumberOfBases.value()] = numberOfBases;
+		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;
 		args[CommandLineArguments.PerformEnrichment.value()] = enrichmentEnabled;
 		args[CommandLineArguments.GenerateRandomDataMode.value()] = generateRandomDataMode;
 		args[CommandLineArguments.MultipleTesting.value()] = multipleTestingChoice;
-		args[CommandLineArguments.SignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;
+		args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;
 		args[CommandLineArguments.FalseDiscoveryRate.value()] = falseDiscoveryRate;
 		args[CommandLineArguments.NumberOfPermutation.value()] = numberOfPermutations;
 		args[CommandLineArguments.DnaseAnnotation.value()] = dnaseEnrichment;
@@ -102,7 +103,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.WriteGeneratedRandomDataMode.value()] = writeGeneratedRandomDataMode;
 		args[CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode.value()] = writePermutationBasedandParametricBasedAnnotationResultMode;
 		args[CommandLineArguments.WritePermutationBasedAnnotationResultMode.value()] = writePermutationBasedAnnotationResultMode;
-		args[CommandLineArguments.NumberOfPerInEachRun.value()] = numberOfPermutationsInEachRun;
+		args[CommandLineArguments.NumberOfPermutationsInEachRun.value()] = numberOfPermutationsInEachRun;
 		args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()] = userDefinedGeneSetEnrichment;
 		args[CommandLineArguments.UserDefinedGeneSetInput.value()] = userDefinedGeneSetInputFile;
 		args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()] = userDefinedGeneSetGeneInformation;
@@ -111,6 +112,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.UserDefinedLibraryAnnotation.value()] = userDefinedLibraryEnrichment;
 		args[CommandLineArguments.UserDefinedLibraryInput.value()] = userDefinedLibraryInputFile;
 		args[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = userDefinedLibraryDataFormat;
+		args[CommandLineArguments.GivenInputData.value()] = givenInputDataType;
 		
 		//filling the rest with selected cell lines. 
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)

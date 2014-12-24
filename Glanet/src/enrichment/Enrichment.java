@@ -31,11 +31,10 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
@@ -2467,10 +2466,10 @@ public class Enrichment {
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
@@ -2480,69 +2479,69 @@ public class Enrichment {
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 				
-		int overlapDefinition = Integer.parseInt(args[3]);
+		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
 		//Number of processors can be used in deciding on paralellism level
 		int NUMBER_OF_AVAILABLE_PROCESSORS =  java.lang.Runtime.getRuntime().availableProcessors();
 			
 		//Set the number of total permutations
-		int numberofTotalPermutations = Integer.parseInt(args[9]);
+		int numberofTotalPermutations = Integer.parseInt(args[CommandLineArguments.NumberOfPermutation.value()]);
 		
 		//set the number of permutations in each run
-		int numberofPermutationsInEachRun = Integer.parseInt(args[21]);
+		int numberofPermutationsInEachRun = Integer.parseInt(args[CommandLineArguments.NumberOfPermutationsInEachRun.value()]);
 		
 		
 		//Set the Generate Random Data Mode
-		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[5]);
+		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[CommandLineArguments.GenerateRandomDataMode.value()]);
 		
 		//Set the Write Mode of Generated Random Data
-		WriteGeneratedRandomDataMode writeGeneratedRandomDataMode = WriteGeneratedRandomDataMode.convertStringtoEnum(args[18]);
+		WriteGeneratedRandomDataMode writeGeneratedRandomDataMode = WriteGeneratedRandomDataMode.convertStringtoEnum(args[CommandLineArguments.WriteGeneratedRandomDataMode.value()]);
 				
 		//Set the Write Mode of Permutation Based and Parametric Based Annotation Result
-		WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode = WritePermutationBasedandParametricBasedAnnotationResultMode.convertStringtoEnum(args[19]);
+		WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode = WritePermutationBasedandParametricBasedAnnotationResultMode.convertStringtoEnum(args[CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode.value()]);
 
 		//Set the Write Mode of the Permutation Based Annotation Result
-		WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode = WritePermutationBasedAnnotationResultMode.convertStringtoEnum(args[20]);
+		WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode = WritePermutationBasedAnnotationResultMode.convertStringtoEnum(args[CommandLineArguments.WritePermutationBasedAnnotationResultMode.value()]);
 		
 		//ENRICHMENT
 		//Dnase Enrichment, DO or DO_NOT
-		EnrichmentType dnaseEnrichmentType = EnrichmentType.convertStringtoEnum(args[10]);
+		EnrichmentType dnaseEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
 		
 		//Histone Enrichment, DO or DO_NOT
 //		String histoneEnrichment = args[11];
-		EnrichmentType histoneEnrichmentType = EnrichmentType.convertStringtoEnum(args[11]);
+		EnrichmentType histoneEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
 		
 		
 		//Transcription Factor Enrichment, DO or DO_NOT
 //		String tfEnrichment = args[12];
-		EnrichmentType tfEnrichmentType = EnrichmentType.convertStringtoEnum(args[12]);
+		EnrichmentType tfEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 			
 		//KEGG Pathway Enrichment, DO or DO_NOT
 //		String keggPathwayEnrichment = args[13];
-		EnrichmentType keggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[13]);
+		EnrichmentType keggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 								
 		//TfKeggPathway Enrichment, DO or DO_NOT
 //		String tfKeggPathwayEnrichment = args[14];
-		EnrichmentType tfKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[14]);
+		EnrichmentType tfKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
 //		String tfCellLineKeggPathwayEnrichment = args[15];
-		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
+		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 		
 		
 			
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
-		String userDefinedGeneSetInputFile = args[23];
+		String userDefinedGeneSetInputFile = args[CommandLineArguments.UserDefinedGeneSetInput.value()];
 //		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
 		  
-		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
+		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()]);
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
 		
-		String userDefinedGeneSetName = args[25];
+		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
 //		String userDefinedGeneSetName = "GO";
 
 //		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
@@ -2554,7 +2553,7 @@ public class Enrichment {
 		/*********************************************************************************/
 		/**************************USER DEFINED LIBRARY***********************************/
 		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
 //		String userDefinedLibraryInputFile = args[28];

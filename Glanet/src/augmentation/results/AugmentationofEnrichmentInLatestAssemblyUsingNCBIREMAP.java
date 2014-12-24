@@ -21,11 +21,10 @@ import org.apache.log4j.Logger;
 
 import remap.Remap;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 
 /****************************************************
@@ -1243,10 +1242,10 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
@@ -1255,9 +1254,9 @@ public class AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 		
-		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[12]);
-		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
-		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
+		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 	
 		//delete old files starts 
 		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY);

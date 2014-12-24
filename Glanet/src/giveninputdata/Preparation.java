@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import log4j.Log4jConfiguration;
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 /**
  * 
@@ -98,15 +98,19 @@ public class Preparation {
 		
 		
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
 		//jobName ends
+		
+		
+		
+		
 			
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA +  System.getProperty("file.separator");
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");

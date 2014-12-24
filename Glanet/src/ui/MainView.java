@@ -114,6 +114,7 @@ public class MainView extends JPanel{
 											   String userDefinedLibraryEnrichment,
 											   String userDefinedLibraryInputFile,
 											   String userDefinedLibraryDataFormat,
+											   String givenInputDataType,
 											   String[] cellLinesToBeConsidered);
 		
 		public void stopCurrentProcess();
@@ -217,6 +218,7 @@ public class MainView extends JPanel{
 						userDefinedLibraryAnnotation.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT:Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT,
 						userDefinedLibraryInput.getText(),
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
+						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS,
 						cellLinesList.getSelectedValuesList().toArray( new String[0])
 				);
 				

@@ -71,6 +71,7 @@ import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 import enumtypes.GeneInformationType;
 import enumtypes.GeneSetAnalysisType;
@@ -5876,10 +5877,10 @@ public class Annotation {
 	//					give an out of boundry exception in a for loop with this approach.
 	public void annotate(String[] args){
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
@@ -5892,16 +5893,13 @@ public class Annotation {
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
-		String userDefinedGeneSetInputFile = args[23];
-//		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+		String userDefinedGeneSetInputFile = args[CommandLineArguments.UserDefinedGeneSetInput.value()];
 		  
-		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
-//		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
+		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()]);
 		
-		String userDefinedGeneSetName = args[25];
-//		String userDefinedGeneSetName = "GO";
+		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
 
 //		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
 //		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
@@ -5912,40 +5910,40 @@ public class Annotation {
 		/*********************************************************************************/
 		/**************************USER DEFINED LIBRARY***********************************/
 		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 		
 
-		String userDefinedLibraryInputFile = args[28];
+		String userDefinedLibraryInputFile = args[CommandLineArguments.UserDefinedLibraryInput.value()];
 //		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
 		
-		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[29]);
+		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryDataFormat.value()]);
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 		
 		
-		int overlapDefinition = Integer.parseInt( args[3]);
+		int overlapDefinition = Integer.parseInt( args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 		
 		String inputFileName;
 		
 		//ENRICHMENT choice will be used as ANNOTATION choice
 		//Dnase Enrichment, DO or DO_NOT
-		EnrichmentType dnaseEnrichmentType = EnrichmentType.convertStringtoEnum(args[10]);
+		EnrichmentType dnaseEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
 		
 		//Histone Enrichment, DO or DO_NOT
-		EnrichmentType histoneEnrichmentType = EnrichmentType.convertStringtoEnum(args[11]);
+		EnrichmentType histoneEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
 		
 		//Transcription Factor Enrichment, DO or DO_NOT
-		EnrichmentType tfEnrichmentType = EnrichmentType.convertStringtoEnum(args[12]);
+		EnrichmentType tfEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 			
 		//KEGG Pathway Enrichment, DO or DO_NOT
-		EnrichmentType keggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[13]);
+		EnrichmentType keggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 							
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[14]);
+		EnrichmentType tfKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[15]);
+		EnrichmentType tfCellLineKeggPathwayEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 			
 		
 		/********************************************************************/

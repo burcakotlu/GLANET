@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 /**
  * 
@@ -307,10 +307,10 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 	 */
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}

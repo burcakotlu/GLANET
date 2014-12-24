@@ -25,6 +25,7 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
+import enumtypes.CommandLineArguments;
 import enumtypes.GivenIntervalsInputFileDataFormat;
 /**
  * @author burcakotlu
@@ -769,10 +770,10 @@ public class InputDataProcess {
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}

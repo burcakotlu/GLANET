@@ -21,9 +21,8 @@ import java.util.Map;
 
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -1752,10 +1751,10 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
@@ -1764,21 +1763,21 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 		
-		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
-		Float FDR = Float.parseFloat(args[8]);
-		Float bonfCorrectionSignificanceLevel = Float.parseFloat(args[7]);
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[CommandLineArguments.MultipleTesting.value()]);
+		Float FDR = Float.parseFloat(args[CommandLineArguments.FalseDiscoveryRate.value()]);
+		Float bonfCorrectionSignificanceLevel = Float.parseFloat(args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()]);
 
-		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
-		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);
-		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[12]);
-		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[13]);
-		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[14]);
-		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[15]);
+		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
+		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
+		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
+		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 		
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
 		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[22]);
+		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
 //		String userDefinedGeneSetInputFile = args[23];
 //		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
@@ -1786,7 +1785,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 //		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
 //		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
 		
-		String userDefinedGeneSetName = args[25];
+		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
 //		String userDefinedGeneSetName = "GO";
 
 //		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
@@ -1798,7 +1797,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		/*********************************************************************************/
 		/**************************USER DEFINED LIBRARY***********************************/
 		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[27]);
+		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 //		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
 //		String userDefinedLibraryInputFile = args[28];

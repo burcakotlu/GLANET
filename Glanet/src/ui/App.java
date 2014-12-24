@@ -8,8 +8,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import common.CommandLineArguments;
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 /**
  * GLANET GUI Application
@@ -183,14 +183,14 @@ public class App
 		//parsing number of bases value
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_NUMBER_OF_BASES))
-				if( argsInOrder[CommandLineArguments.NumberOfBases.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.NumberOfBases.value()] = args[i+1];
+				if( argsInOrder[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = args[i+1];
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 		
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBases))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap))
 			return false;
 		
 		//parsing Dnase Annotation
@@ -498,14 +498,14 @@ public class App
 		//parsing Bonferroni Correction Significance Criteria
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_SIGNIFICANCE_CRITERIA))
-				if( argsInOrder[CommandLineArguments.SignificanceCriteria.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.SignificanceCriteria.value()] = args[i+1];
+				if( argsInOrder[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = args[i+1];
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 		
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.SignificanceCriteria))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.BonferroniCorrectionSignificanceCriteria))
 			return false;
 		
 		if( args[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
@@ -540,14 +540,14 @@ public class App
 		//parsing Number of permutations in each run
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase(Commons.ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN))
-				if( argsInOrder[CommandLineArguments.NumberOfPerInEachRun.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.NumberOfPerInEachRun.value()] = args[i+1];
+				if( argsInOrder[CommandLineArguments.NumberOfPermutationsInEachRun.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.NumberOfPermutationsInEachRun.value()] = args[i+1];
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 		
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfPerInEachRun))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfPermutationsInEachRun))
 			return false;
 		
 		if( argsInOrder[CommandLineArguments.TfAnnotation.value()].equals( Commons.DO_TF_ENRICHMENT) ||

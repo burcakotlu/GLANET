@@ -25,9 +25,8 @@ import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 
 /**
@@ -2728,10 +2727,10 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	public static void main(String[] args) {
 		
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
@@ -2741,13 +2740,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 				
 		//TfEnrichment, DO or DO_NOT
-		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[12]);
+		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 			
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[14]);
+		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[15]);
+		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
 		//pfm matrices
 		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		

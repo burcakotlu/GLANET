@@ -1,4 +1,6 @@
-package common;
+package enumtypes;
+
+import common.Commons;
 
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
@@ -74,7 +76,10 @@ package common;
 	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
 	//							Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
-	//args[30] - args[args.length-1]  --->	Note that the selected cell lines are
+	//args[30]	--->	GivenInputDataType
+	//					default	Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+	//							Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS
+	//args[31] - args[args.length-1]  --->	Note that the selected cell lines are
 	//					always inserted at the end of the args array because it's size
 	//					is not fixed. So for not (until the next change on args array) the selected cell
 	//					lines can be reached starting from 22th index up until (args.length-1)th index.
@@ -86,11 +91,11 @@ public enum CommandLineArguments {
 	InputFileNameWithFolder(0),
 	GlanetFolder(1),
 	InputFileDataFormat(2),
-	NumberOfBases(3, Commons.NUMBER_BASES_DEFAULT),
+	NumberOfBasesRequiredForOverlap(3, Commons.NUMBER_BASES_DEFAULT),
 	PerformEnrichment(4, Commons.DO_NOT_ENRICH),
 	GenerateRandomDataMode(5, Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT),
 	MultipleTesting(6, Commons.BENJAMINI_HOCHBERG_FDR),
-	SignificanceCriteria(7, Commons.SIGNIFICANCE_CRITERIA_DEFAULT),
+	BonferroniCorrectionSignificanceCriteria(7, Commons.SIGNIFICANCE_CRITERIA_DEFAULT),
 	FalseDiscoveryRate(8, Commons.FDR_DEFAULT),
 	NumberOfPermutation(9, Commons.NUMBER_OF_PERMUTATIONS_DEFAULT),
 	DnaseAnnotation(10, Commons.DO_NOT_DNASE_ENRICHMENT),
@@ -100,11 +105,11 @@ public enum CommandLineArguments {
 	TfAndKeggPathwayAnnotation(14, Commons.DO_NOT_TF_KEGGPATHWAY_ENRICHMENT),
 	CellLineBasedTfAndKeggPathwayAnnotation(15, Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT),
 	RegulatorySequenceAnalysisUsingRSAT(16, Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT),
-	JobName(17, Commons.JOB_NAME_DEFAULT),
+	JobName(17, Commons.NO_NAME),
 	WriteGeneratedRandomDataMode(18, Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA),
 	WritePermutationBasedandParametricBasedAnnotationResultMode(19, Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT),
 	WritePermutationBasedAnnotationResultMode(20, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT),
-	NumberOfPerInEachRun(21, Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT),
+	NumberOfPermutationsInEachRun(21, Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT),
 	UserDefinedGeneSetAnnotation(22, Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT),
 	UserDefinedGeneSetInput(23, Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED),
 	UserDefinedGeneSetGeneInformation(24, Commons.GENE_ID),
@@ -113,7 +118,8 @@ public enum CommandLineArguments {
 	UserDefinedLibraryAnnotation(27, Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT),
 	UserDefinedLibraryInput(28, Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED),
 	UserDefinedLibraryDataFormat(29, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE),
-	NumberOfArguments(30);
+	GivenInputData(30,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
+	NumberOfArguments(31);
 	
 	private final int value;
 	private final String defaultValue;

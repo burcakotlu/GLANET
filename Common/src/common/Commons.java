@@ -215,6 +215,9 @@ public class Commons {
 	public static final String CHROMOSOMEY = "chrY";
 	public static final String CHROMOSOMEWITHDIFFERENTNAME = "chrWithDifferentName"; 
 	
+	//EnumType GivenInputData
+	public static final String GIVEN_INPUT_DATA_CONSISTS_OF_SNPS = "GIVEN_INPUT_DATA_CONSISTS_OF_SNPS";
+	public static final String GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS = "GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS";
 	
 	
 	/*******************************************************************************************/
@@ -1379,7 +1382,6 @@ public class Commons {
 		//Enum type NumberOfPermutationsInEachRun
 		public static final String NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT = "2000";
 		//Enum type JobName
-		public static final String JOB_NAME_DEFAULT = "UntitledJob";
 		
 		
 		//ENCODE Collaboration starts
