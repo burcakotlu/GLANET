@@ -146,150 +146,152 @@ public class AugmentationofGivenRsIdwithInformation {
 		/************************************************************/
 		
      	
-		String uri="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="+commaSeparatedRsIdList+"&retmode=xml";			
+		String uri="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="+commaSeparatedRsIdList+"&retmode=xml";
         
 		XMLEventReader reader = null;
+		
+		try {
+			
+			reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
+		
+		while(reader.hasNext())
+        {
+			XMLEvent evt = reader.peek();
+
+			if(!evt.isStartElement())
+            {
+				reader.nextEvent();
+				continue;
+            }
+
+			StartElement start=evt.asStartElement();
+			String localName=start.getName().getLocalPart();
+			
+
+			if(!localName.toLowerCase().equals(Commons.RS))
+            {
+				reader.nextEvent();
+				continue;
+            }
+			
+		
+			Rs rs = null;
+			
 			try {
-				reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
-			
-			while(reader.hasNext())
-	        {
-				XMLEvent evt=reader.peek();
+				
+				rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
+				
+					
+				for(Assembly as:rs.getAssembly())
+	            {  
+					String groupLabel = as.getGroupLabel();
+					 	
+							
+	         	   	if(groupLabel!=null){
+	        		   
+	                   for(Component comp:as.getComponent())
+	                   {              
+	   	                   for(MapLoc maploc: comp.getMapLoc())
+	   	                   {	                	   
+	   	                	   if (maploc.getPhysMapInt()!=null){
+	   	                		   
+	   	                		   rsInformation = new RsInformation();
+	   	                		  
+	   	                		   //Set groupName
+	   	                		   rsInformation.setGroupLabel(groupLabel);
+	   	                		   
+	   	                		   //starts 29th August 2014
+	   	                		   //Is this code necessary? starts
+		   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+		   	        				if (mergeHistoryList.size()>0){
+		   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+		   	        						
+		   	        						if (rs.getRsId() == mergeHistory.getRsId()){
+		   	        							rsInformation.setMerged(true);
+		   	        							logger.debug("If you see this code it means that this code is necessary");
+		   	        							break;
+		   	        						}
+		   	        					}//End of for
+		   	        				}
+		   	                		//Is this code necessary? ends
+		   	        				//ends 29th August 2014
+		   	        				
+		   	        				
+		   	        				//starts 31st August 2014
+		   	        				//forward or reverse
+		   	        				rsInformation.setOrient(maploc.getOrient());
+		   	        				//ends 31st August 2014
+	   	                		  
+	   	                		   //set rsId
+	   	                		   rsInformation.setRsId(Commons.RS + rs.getRsId());
+	   	                		   
+	   	                		   //Set the last successful rsID
+	   	                		   lastSuccessfullRsID = rs.getRsId();
+	   	                		   
+	   	                		   //set chromosome name
+	   	                		   //This chrName is without "chr"
+	   	                		   //ex: 2, X, Y, 17
+	   	                		   rsInformation.setChrNamewithoutChr(comp.getChromosome());
+	   	                		   
+	   	                		   //set rsId start position
+	   	                		   //eutil efetch returns 0-based coordinates	   	                    	
+	   	                		   rsInformation.setStartZeroBased(maploc.getPhysMapInt());
 	
-				if(!evt.isStartElement())
-	            {
-					reader.nextEvent();
-					continue;
-	            }
+	   	                		   
+	   	                		   //set rsId observed Alleles
+	   	                		   rsInformation.setObservedAlleles(rs.getSequence().getObserved());
+	   	                		   
+	   	                		   numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
+	   	                		   
 	
-				StartElement start=evt.asStartElement();
-				String localName=start.getName().getLocalPart();
+	   	                		   //set rsId end position
+	   	                		   //eutil efetch returns 0-based coordinates		   	                    	
+	   	                		   rsInformation.setEndZeroBased(maploc.getPhysMapInt()+numberofBasesInTheSNPAtMost-1);
+	   	                		  
+	   	                		   rsInformationList.add(rsInformation);
+		   	                		   		 		                	  		                	   
+	   	                	   }//End of if maploc.getPhysMapInt() is not null
+	   	 
+	   	                   }//End of for each Maploc
+	   	                   
+	                   }//End of for Component
+	            	          	                        		                             
+	        	  }//End of IF groupLabel startsWith "GRCh38"
+					
+	            }//End of for Assembly
 				
-
-				if(!localName.toLowerCase().equals(Commons.RS))
-	            {
-					reader.nextEvent();
-					continue;
-	            }
-				
-			
-				Rs rs = null;
-				
-				try {
-					
-					rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
-					
-						
-					for(Assembly as:rs.getAssembly())
-		            {  
-						String groupLabel = as.getGroupLabel();
-						 	
-								
-		         	   	if(groupLabel!=null){
-		        		   
-		                   for(Component comp:as.getComponent())
-		                   {              
-		   	                   for(MapLoc maploc: comp.getMapLoc())
-		   	                   {	                	   
-		   	                	   if (maploc.getPhysMapInt()!=null){
-		   	                		   
-		   	                		   rsInformation = new RsInformation();
-		   	                		  
-		   	                		   //Set groupName
-		   	                		   rsInformation.setGroupLabel(groupLabel);
-		   	                		   
-		   	                		   //starts 29th August 2014
-		   	                		   //Is this code necessary? starts
-			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
-			   	        				if (mergeHistoryList.size()>0){
-			   	        					for (MergeHistory mergeHistory: mergeHistoryList){
-			   	        						
-			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
-			   	        							rsInformation.setMerged(true);
-			   	        							logger.debug("If you see this code it means that this code is necessary");
-			   	        							break;
-			   	        						}
-			   	        					}//End of for
-			   	        				}
-			   	                		//Is this code necessary? ends
-			   	        				//ends 29th August 2014
-			   	        				
-			   	        				
-			   	        				//starts 31st August 2014
-			   	        				//forward or reverse
-			   	        				rsInformation.setOrient(maploc.getOrient());
-			   	        				//ends 31st August 2014
-		   	                		  
-		   	                		   //set rsId
-		   	                		   rsInformation.setRsId(Commons.RS + rs.getRsId());
-		   	                		   
-		   	                		   //Set the last successful rsID
-		   	                		   lastSuccessfullRsID = rs.getRsId();
-		   	                		   
-		   	                		   //set chromosome name
-		   	                		   //This chrName is without "chr"
-		   	                		   //ex: 2, X, Y, 17
-		   	                		   rsInformation.setChrNamewithoutChr(comp.getChromosome());
-		   	                		   
-		   	                		   //set rsId start position
-		   	                		   //eutil efetch returns 0-based coordinates	   	                    	
-		   	                		   rsInformation.setStartZeroBased(maploc.getPhysMapInt());
-		
-		   	                		   
-		   	                		   //set rsId observed Alleles
-		   	                		   rsInformation.setObservedAlleles(rs.getSequence().getObserved());
-		   	                		   
-		   	                		   numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
-		   	                		   
-		
-		   	                		   //set rsId end position
-		   	                		   //eutil efetch returns 0-based coordinates		   	                    	
-		   	                		   rsInformation.setEndZeroBased(maploc.getPhysMapInt()+numberofBasesInTheSNPAtMost-1);
-		   	                		  
-		   	                		   rsInformationList.add(rsInformation);
-			   	                		   		 		                	  		                	   
-		   	                	   }//End of if maploc.getPhysMapInt() is not null
-		   	 
-		   	                   }//End of for each Maploc
-		   	                   
-		                   }//End of for Component
-		            	          	                        		                             
-		        	  }//End of IF groupLabel startsWith "GRCh38"
-						
-		            }//End of for Assembly
-					
-				} catch (JAXBException e) {
-					//e.printStackTrace();
-					logger.error(e.toString());
-					
-				}	catch(NumberFormatException e){
-//					e.printStackTrace();
-					
-					//get the next rsId
-					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
-					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofLastSuccessfulRSID+1);
-					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofCommaBeforeProblemRSID+1);
-					problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
-					
-					logger.error(e.toString() + " for " + problemRsId);
-					
-					problemRsInformation  = getInformationforGivenRsId(problemRsId);
-					
-					//If null then don't put it
-					if (problemRsInformation!=null){
-						rsInformationList.add(problemRsInformation);
-					}//End of if not null
-				}//End of catch
-				
-
-	        }//End of while
-			
-	    	reader.close();
-    	
-			} catch (XMLStreamException e) {
+			} catch (JAXBException e) {
 				//e.printStackTrace();
 				logger.error(e.toString());
-			}
+				
+			}	catch(NumberFormatException e){
+//					e.printStackTrace();
+				
+				//get the next rsId
+				indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
+				indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofLastSuccessfulRSID+1);
+				indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofCommaBeforeProblemRSID+1);
+				problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
+				
+				logger.error(e.toString() + " for " + problemRsId);
+				
+				problemRsInformation  = getInformationforGivenRsId(problemRsId);
+				
+				//If null then don't put it
+				if (problemRsInformation!=null){
+					rsInformationList.add(problemRsInformation);
+				}//End of if not null
+			}//End of catch
+			
+
+        }//End of while
+		
+    	reader.close();
+	
+		} catch (XMLStreamException e) {
+			//e.printStackTrace();
+			logger.error(e.toString());
+		}
     	
     	return rsInformationList;
 	}

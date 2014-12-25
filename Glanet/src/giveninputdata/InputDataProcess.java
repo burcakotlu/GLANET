@@ -149,6 +149,31 @@ public class InputDataProcess {
 			/*********************************************************************/
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
 			
+			//if( rsIdList.size() >=  rsInformationList.size())
+				for( int i = 0; i < rsIdList.size(); i++) {
+					boolean check = false;
+					for( int j = 0; j < rsInformationList.size(); j++)
+						if( rsInformationList.get(j).getRsId().equalsIgnoreCase(rsIdList.get(i))) {
+							check = true;
+							break;
+						}
+					
+					if( !check)
+						System.out.println("/////1Not found: " + rsIdList.get(i));
+				}
+			//else
+				for( int i = 0; i < rsInformationList.size(); i++) {
+					boolean check = false;
+					for( int j = 0; j < rsIdList.size(); j++)
+						if( rsIdList.get(j).equalsIgnoreCase(rsInformationList.get(i).getRsId())) {
+							check = true;
+							break;
+						}
+					
+					if( !check)
+						System.out.println("/////2Not found: " + rsInformationList.get(i).getRsId());
+				}
+				
 			logger.debug("******************************************************************************");
 			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
 			logger.debug("We have lost " + (numberofGivenUniqueRsIds- rsInformationList.size()) +  " rsIDs during NCBI EUTIL EFETCH");
@@ -670,7 +695,7 @@ public class InputDataProcess {
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 		
 		
-		switch(inputFileFormat){
+		switch( inputFileFormat){
 			case	INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
 				readZeroBasedCoordinates(inputFileName,outputFolder);
 				break;
