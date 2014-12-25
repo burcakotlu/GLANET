@@ -680,12 +680,12 @@ public class InputDataProcess {
 	
 		public static void processInputData(String[] args){
 		
-		String inputFileName = args[0];
-		String glanetFolder = args[1];
-		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[2]);
+		String inputFileName = args[CommandLineArguments.InputFileNameWithFolder.value()];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}

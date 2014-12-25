@@ -181,6 +181,113 @@ public class AugmentationofGivenRsIdwithInformation {
 				
 				rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
 				
+<<<<<<< HEAD
+=======
+				try {
+					
+					rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
+					
+						
+					for(Assembly as:rs.getAssembly())
+		            {  
+						String groupLabel = as.getGroupLabel();
+						 	
+								
+		         	   	if(groupLabel!=null){
+		        		   
+		                   for(Component comp:as.getComponent())
+		                   {              
+		   	                   for(MapLoc maploc: comp.getMapLoc())
+		   	                   {	                	   
+		   	                	   if (maploc.getPhysMapInt()!=null){
+		   	                		   
+		   	                		   rsInformation = new RsInformation();
+		   	                		  
+		   	                		   //Set groupName
+		   	                		   rsInformation.setGroupLabel(groupLabel);
+		   	                		   
+//		   	                		   //starts 29th August 2014
+//		   	                		   //Is this code necessary? starts
+//			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+//			   	        				if (mergeHistoryList.size()>0){
+//			   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+//			   	        						
+//			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
+//			   	        							rsInformation.setMerged(true);
+//			   	        							logger.debug("If you see this code it means that this code is necessary");
+//			   	        							break;
+//			   	        						}
+//			   	        					}//End of for
+//			   	        				}
+//			   	                		//Is this code necessary? ends
+//			   	        				//ends 29th August 2014
+			   	        				
+			   	        				
+			   	        				//starts 31st August 2014
+			   	        				//forward or reverse
+			   	        				rsInformation.setOrient(maploc.getOrient());
+			   	        				//ends 31st August 2014
+		   	                		  
+		   	                		   //set rsId
+		   	                		   rsInformation.setRsId(Commons.RS + rs.getRsId());
+		   	                		   
+		   	                		   //Set the last successful rsID
+		   	                		   lastSuccessfullRsID = rs.getRsId();
+		   	                		   
+		   	                		   //set chromosome name
+		   	                		   //This chrName is without "chr"
+		   	                		   //ex: 2, X, Y, 17
+		   	                		   rsInformation.setChrNamewithoutChr(comp.getChromosome());
+		   	                		   
+		   	                		   //set rsId start position
+		   	                		   //eutil efetch returns 0-based coordinates	   	                    	
+		   	                		   rsInformation.setStartZeroBased(maploc.getPhysMapInt());
+		
+		   	                		   
+		   	                		   //set rsId observed Alleles
+		   	                		   rsInformation.setObservedAlleles(rs.getSequence().getObserved());
+		   	                		   
+		   	                		   numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
+		   	                		   
+		
+		   	                		   //set rsId end position
+		   	                		   //eutil efetch returns 0-based coordinates		   	                    	
+		   	                		   rsInformation.setEndZeroBased(maploc.getPhysMapInt()+numberofBasesInTheSNPAtMost-1);
+		   	                		  
+		   	                		   rsInformationList.add(rsInformation);
+			   	                		   		 		                	  		                	   
+		   	                	   }//End of if maploc.getPhysMapInt() is not null
+		   	 
+		   	                   }//End of for each Maploc
+		   	                   
+		                   }//End of for Component
+		            	          	                        		                             
+		        	  }//End of IF groupLabel startsWith "GRCh38"
+						
+		            }//End of for Assembly
+					
+				} catch (JAXBException e) {
+					//e.printStackTrace();
+					logger.error(e.toString());
+					
+				}	catch(NumberFormatException e){
+//					e.printStackTrace();
+					
+					//get the next rsId
+					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
+					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofLastSuccessfulRSID+1);
+					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofCommaBeforeProblemRSID+1);
+					
+			
+					
+					if (indexofCommaAfterProblemRSID<0){
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1);
+					}else{
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
+					}
+					
+					logger.error(e.toString() + " for " + problemRsId);
+>>>>>>> 69e175ff93630250709a262c891db14271eb249e
 					
 				for(Assembly as:rs.getAssembly())
 	            {  
@@ -439,20 +546,20 @@ public class AugmentationofGivenRsIdwithInformation {
 			   	                		   //Set groupLabel
 			   	                		   rsInformation.setGroupLabel(groupLabel);
 			   	                		   
-			   	                		   //starts 29th August 2014
-			   	                		   //Is this code necessary? starts
-				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
-				   	        				if (mergeHistoryList.size()>0){
-				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
-				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
-				   	        							rsInformation.setMerged(true);
-				   	        							logger.debug("If you see this line means that this code is necessary");
-				   	        							break;
-				   	        						}
-				   	        					}
-				   	        				}
-				   	                		//Is this code necessary? ends
-				   	        				//ends 29th August 2014
+//			   	                		   //starts 29th August 2014
+//			   	                		   //Is this code necessary? starts
+//				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+//				   	        				if (mergeHistoryList.size()>0){
+//				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+//				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
+//				   	        							rsInformation.setMerged(true);
+//				   	        							logger.debug("If you see this line means that this code is necessary");
+//				   	        							break;
+//				   	        						}
+//				   	        					}
+//				   	        				}
+//				   	                		//Is this code necessary? ends
+//				   	        				//ends 29th August 2014
 				   	        				
 				   	        				
 				   	        				//starts 31st August 2014
