@@ -198,21 +198,21 @@ public class AugmentationofGivenRsIdwithInformation {
 		   	                		   //Set groupName
 		   	                		   rsInformation.setGroupLabel(groupLabel);
 		   	                		   
-		   	                		   //starts 29th August 2014
-		   	                		   //Is this code necessary? starts
-			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
-			   	        				if (mergeHistoryList.size()>0){
-			   	        					for (MergeHistory mergeHistory: mergeHistoryList){
-			   	        						
-			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
-			   	        							rsInformation.setMerged(true);
-			   	        							logger.debug("If you see this code it means that this code is necessary");
-			   	        							break;
-			   	        						}
-			   	        					}//End of for
-			   	        				}
-			   	                		//Is this code necessary? ends
-			   	        				//ends 29th August 2014
+//		   	                		   //starts 29th August 2014
+//		   	                		   //Is this code necessary? starts
+//			   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+//			   	        				if (mergeHistoryList.size()>0){
+//			   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+//			   	        						
+//			   	        						if (rs.getRsId() == mergeHistory.getRsId()){
+//			   	        							rsInformation.setMerged(true);
+//			   	        							logger.debug("If you see this code it means that this code is necessary");
+//			   	        							break;
+//			   	        						}
+//			   	        					}//End of for
+//			   	        				}
+//			   	                		//Is this code necessary? ends
+//			   	        				//ends 29th August 2014
 			   	        				
 			   	        				
 			   	        				//starts 31st August 2014
@@ -269,7 +269,14 @@ public class AugmentationofGivenRsIdwithInformation {
 					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
 					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofLastSuccessfulRSID+1);
 					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',',indexofCommaBeforeProblemRSID+1);
-					problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
+					
+			
+					
+					if (indexofCommaAfterProblemRSID<0){
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1);
+					}else{
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID+1, indexofCommaAfterProblemRSID);
+					}
 					
 					logger.error(e.toString() + " for " + problemRsId);
 					
@@ -437,20 +444,20 @@ public class AugmentationofGivenRsIdwithInformation {
 			   	                		   //Set groupLabel
 			   	                		   rsInformation.setGroupLabel(groupLabel);
 			   	                		   
-			   	                		   //starts 29th August 2014
-			   	                		   //Is this code necessary? starts
-				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
-				   	        				if (mergeHistoryList.size()>0){
-				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
-				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
-				   	        							rsInformation.setMerged(true);
-				   	        							logger.debug("If you see this line means that this code is necessary");
-				   	        							break;
-				   	        						}
-				   	        					}
-				   	        				}
-				   	                		//Is this code necessary? ends
-				   	        				//ends 29th August 2014
+//			   	                		   //starts 29th August 2014
+//			   	                		   //Is this code necessary? starts
+//				   	        				List<MergeHistory>  mergeHistoryList = rs.getMergeHistory();
+//				   	        				if (mergeHistoryList.size()>0){
+//				   	        					for (MergeHistory mergeHistory: mergeHistoryList){
+//				   	        						if (rs.getRsId() == mergeHistory.getRsId()){
+//				   	        							rsInformation.setMerged(true);
+//				   	        							logger.debug("If you see this line means that this code is necessary");
+//				   	        							break;
+//				   	        						}
+//				   	        					}
+//				   	        				}
+//				   	                		//Is this code necessary? ends
+//				   	        				//ends 29th August 2014
 				   	        				
 				   	        				
 				   	        				//starts 31st August 2014

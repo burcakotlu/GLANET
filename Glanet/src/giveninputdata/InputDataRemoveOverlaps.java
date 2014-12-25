@@ -225,6 +225,7 @@ public class InputDataRemoveOverlaps {
 		}
 		
 		
+		
 		//write to output file
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
@@ -237,15 +238,27 @@ public class InputDataRemoveOverlaps {
 			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
+			
+			//Initialize isGivenInputDataComprisedofSNPs
+			//Assume that givenInputData is comprised of SNPs
+			Boolean isGivenInputDataComprisedofSNPs = true;
+			
+			
 			for(Map.Entry<ChromosomeName,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
 				
 				chromosomeName = chr2IntervalTree.getKey();
 				tree = chr2IntervalTree.getValue();
 				
-				//write the nodes of the interval tree in a sorted way
-				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type);
 				
-							
+				//write the nodes of the interval tree in a sorted way
+				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type,isGivenInputDataComprisedofSNPs);
+						
+			}
+			
+			
+			//Set Command Line Argument
+			if (!isGivenInputDataComprisedofSNPs){
+				args[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS;
 			}
 			
 			//Close output file buffered writer
@@ -259,37 +272,37 @@ public class InputDataRemoveOverlaps {
 	 }
 	
 	
-	public static void writeInputFileWithoutOverlaps(String outputFileName, Map<String,IntervalTree>chromosome2IntervalTree){
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter;
-		
-//		String chromosomeName = null;
-		IntervalTree tree = null;
-		
-		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
-		
-		try {
-			fileWriter = FileOperations.createFileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			for(Map.Entry<String,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
-				
-//				chromosomeName = chr2IntervalTree.getKey();
-				tree = chr2IntervalTree.getValue();
-				
-				//write the nodes of the interval tree in a sorted way
-				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type);
-				
-							
-			}
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
+//	public static void writeInputFileWithoutOverlaps(String outputFileName, Map<String,IntervalTree>chromosome2IntervalTree){
+//		FileWriter fileWriter;
+//		BufferedWriter bufferedWriter;
+//		
+////		String chromosomeName = null;
+//		IntervalTree tree = null;
+//		
+//		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
+//		
+//		try {
+//			fileWriter = FileOperations.createFileWriter(outputFileName);
+//			bufferedWriter = new BufferedWriter(fileWriter);
+//			
+//			for(Map.Entry<String,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
+//				
+////				chromosomeName = chr2IntervalTree.getKey();
+//				tree = chr2IntervalTree.getValue();
+//				
+//				//write the nodes of the interval tree in a sorted way
+//				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type);
+//				
+//							
+//			}
+//		} catch (IOException e) {
+//			
+//			e.printStackTrace();
+//		}
+//		
+//		
+//	}
+//	
 	
 	
 	//args[0]	--->	Input File Name with folder

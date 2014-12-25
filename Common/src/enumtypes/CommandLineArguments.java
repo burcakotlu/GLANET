@@ -118,7 +118,7 @@ public enum CommandLineArguments {
 	UserDefinedLibraryAnnotation(27, Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT),
 	UserDefinedLibraryInput(28, Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED),
 	UserDefinedLibraryDataFormat(29, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE),
-	GivenInputData(30,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
+	GivenInputDataType(30,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
 	NumberOfArguments(31);
 	
 	private final int value;

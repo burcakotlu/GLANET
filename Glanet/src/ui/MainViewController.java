@@ -112,7 +112,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.UserDefinedLibraryAnnotation.value()] = userDefinedLibraryEnrichment;
 		args[CommandLineArguments.UserDefinedLibraryInput.value()] = userDefinedLibraryInputFile;
 		args[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = userDefinedLibraryDataFormat;
-		args[CommandLineArguments.GivenInputData.value()] = givenInputDataType;
+		args[CommandLineArguments.GivenInputDataType.value()] = givenInputDataType;
 		
 		//filling the rest with selected cell lines. 
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)

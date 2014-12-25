@@ -96,8 +96,6 @@ public class Preparation {
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		
-		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		
@@ -108,10 +106,7 @@ public class Preparation {
 		}
 		//jobName ends
 		
-		
-		
-		
-			
+	
 		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA +  System.getProperty("file.separator");
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 		
