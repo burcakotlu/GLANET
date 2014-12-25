@@ -749,7 +749,7 @@ public class IntervalTree {
 				
 	}
 	
-	public void intervalTreeInfixTraversal(IntervalTreeNode node,BufferedWriter bufferedWriter, String type, Boolean isGivenInputDataComprisedofSNPs){
+	public void intervalTreeInfixTraversal(IntervalTreeNode node,BufferedWriter bufferedWriter, String type, GivenInputDataSNPSorIntervals givenInputDataSNPSorIntervals){
 		
 		DnaseIntervalTreeNode castedNodeDnase = null;
 		TforHistoneIntervalTreeNode castedNodeTforHistone = null;
@@ -758,14 +758,14 @@ public class IntervalTree {
 		/*************************************************/
 		int length = node.getNumberofBases() ;
 		
-		if (length>1 && isGivenInputDataComprisedofSNPs){
-			isGivenInputDataComprisedofSNPs = false;
+		if (length>1 && givenInputDataSNPSorIntervals.getGivenInputDataSNPs()){
+			givenInputDataSNPSorIntervals.setGivenInputDataSNPs(false);
 		}
 		/*************************************************/
 		
 		
 		if (node.getLeft().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal(node.getLeft(),bufferedWriter,type,isGivenInputDataComprisedofSNPs);
+			intervalTreeInfixTraversal(node.getLeft(),bufferedWriter,type,givenInputDataSNPSorIntervals);
 		
 		try {
 			if (node.getNodeName().isNotSentinel()){
@@ -796,7 +796,7 @@ public class IntervalTree {
 		}
 		
 		if (node.getRight().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal(node.getRight(),bufferedWriter,type,isGivenInputDataComprisedofSNPs);
+			intervalTreeInfixTraversal(node.getRight(),bufferedWriter,type,givenInputDataSNPSorIntervals);
 		
 				
 	}

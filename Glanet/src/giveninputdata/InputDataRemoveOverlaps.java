@@ -8,6 +8,7 @@
  */
 package giveninputdata;
 
+import intervaltree.GivenInputDataSNPSorIntervals;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 
@@ -241,7 +242,8 @@ public class InputDataRemoveOverlaps {
 			
 			//Initialize isGivenInputDataComprisedofSNPs
 			//Assume that givenInputData is comprised of SNPs
-			Boolean isGivenInputDataComprisedofSNPs = true;
+			GivenInputDataSNPSorIntervals  givenInputDataSNPSorIntervals = new GivenInputDataSNPSorIntervals();
+			givenInputDataSNPSorIntervals.setGivenInputDataSNPs(true);
 			
 			
 			for(Map.Entry<ChromosomeName,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
@@ -251,13 +253,13 @@ public class InputDataRemoveOverlaps {
 				
 				
 				//write the nodes of the interval tree in a sorted way
-				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type,isGivenInputDataComprisedofSNPs);
+				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type,givenInputDataSNPSorIntervals);
 						
 			}
 			
 			
 			//Set Command Line Argument
-			if (!isGivenInputDataComprisedofSNPs){
+			if (!givenInputDataSNPSorIntervals.getGivenInputDataSNPs()){
 				args[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS;
 			}
 			
