@@ -173,7 +173,8 @@ public class InputDataProcess {
 					if( !check)
 						System.out.println("/////2Not found: " + rsInformationList.get(i).getRsId());
 				}
-				
+			System.out.println("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
+			System.out.println("We have lost " + (numberofGivenUniqueRsIds- rsInformationList.size()) +  " rsIDs during NCBI EUTIL EFETCH");
 			logger.debug("******************************************************************************");
 			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
 			logger.debug("We have lost " + (numberofGivenUniqueRsIds- rsInformationList.size()) +  " rsIDs during NCBI EUTIL EFETCH");
