@@ -19,6 +19,7 @@ import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
 
 /**
@@ -149,7 +151,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		RsInformation problemRsInformation = null;
 		/************************************************************/
 
-		String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
+		String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
 				+ commaSeparatedRsIdList + "&retmode=xml";
 
 		XMLEventReader reader = null;
@@ -157,7 +159,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		try {
 
 			reader = xmlInputFactory
-					.createXMLEventReader(new StreamSource(uri));
+					.createXMLEventReader(new StreamSource(url));
 
 			while (reader.hasNext()) {
 				XMLEvent evt = reader.peek();
