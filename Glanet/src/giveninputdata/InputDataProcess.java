@@ -313,13 +313,19 @@ public class InputDataProcess {
 				
 				//Skip comment lines
 				if(!(strLine.startsWith("#"))){
-					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+					
+				    	indexofFirstTab 	= strLine.indexOf('\t');
+					indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+					indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
 					
 					chrName = strLine.substring(0, indexofFirstTab);
 					start = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
-					exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+					
+					if (indexofThirdTab>0){
+					    exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+					}else{
+					    exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1));	 
+					}
 					
 					if(!(chrName.startsWith("chr"))){
 						//add "chr"
@@ -383,14 +389,19 @@ public class InputDataProcess {
 				//Skip comment lines
 				if(!(strLine.startsWith("#"))){
 					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
-					indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-					indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
-					indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
+					indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+					indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
+					indexofFourthTab 	= (indexofThirdTab>0)?strLine.indexOf('\t',indexofThirdTab+1):-1;
+					indexofFifthTab 	= (indexofFourthTab>0)?strLine.indexOf('\t',indexofFourthTab+1):-1;
 					
 					chrName = strLine.substring(0, indexofFirstTab);
 					oneBasedStart = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
-					oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
+					
+					if(indexofFifthTab>0){
+					    oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));	 
+					}else{
+					    oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab+1));
+					}
 					
 					if(!(chrName.startsWith("chr"))){
 						//add "chr"
@@ -417,7 +428,7 @@ public class InputDataProcess {
 		}
 		
 		
-		//@todo remove overlaps if any exists
+		
 	
 	}
 	
@@ -444,6 +455,7 @@ public class InputDataProcess {
 		
 		int indexofFirstTab;
 		int indexofSecondTab;
+		int indexofThirdTab;
 		
 		int indexofColon;
 		int indexofDot;
@@ -467,7 +479,9 @@ public class InputDataProcess {
 				if(!(strLine.startsWith("#"))){
 					
 					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+					indexofThirdTab		= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
+					
 					
 					indexofColon = strLine.indexOf(':');
 					indexofDot = strLine.indexOf('.');
@@ -500,6 +514,21 @@ public class InputDataProcess {
 							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon+1).trim());
 							oneBasedInclusiveEnd = oneBasedStart;
 						}
+					}
+					//chrX 100 200
+					//X 100 200
+					else if(indexofThirdTab>=0 && indexofSecondTab>=0 && indexofFirstTab>=0){
+
+					    	chrName = strLine.substring(0, indexofFirstTab);
+						
+						if(!(chrName.startsWith("chr"))){
+							//add "chr"
+							chrName = "chr" + chrName;
+						}
+						
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab).trim());
+
 					}
 									
 					//chrX 100 200
@@ -570,6 +599,7 @@ public class InputDataProcess {
 		
 		int indexofFirstTab;
 		int indexofSecondTab;
+		int indexofThirdTab;
 		
 		int indexofColon;
 		int indexofDot;
@@ -593,7 +623,8 @@ public class InputDataProcess {
 				if(!(strLine.startsWith("#"))){
 					
 					indexofFirstTab 	= strLine.indexOf('\t');
-					indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+					indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+					indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
 					
 					indexofColon = strLine.indexOf(':');
 					indexofDot = strLine.indexOf('.');
@@ -626,6 +657,22 @@ public class InputDataProcess {
 							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon+1).trim());
 							zeroBasedInclusiveEnd = zeroBasedStart;
 						}
+					}
+					
+					//chrX 100 200	blablabla
+					//X 100 200	blablabla
+					else if(indexofThirdTab>=0 && indexofSecondTab>=0 && indexofFirstTab>=0){
+					    
+					    chrName = strLine.substring(0, indexofFirstTab);
+						
+						if(!(chrName.startsWith("chr"))){
+							//add "chr"
+							chrName = "chr" + chrName;
+						}
+						
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab).trim());
+					
 					}
 									
 					//chrX 100 200

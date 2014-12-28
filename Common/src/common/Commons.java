@@ -13,7 +13,7 @@ public class Commons {
 	public static final String ANNOTATION_FOR_PERMUTATIONS = "AnnotationForPermutations";
 	public static final String GIVENINPUTDATA = "GivenInputData";
 	public static final String ENRICHMENT = "Enrichment";	
-	public static final String GENERATED_SEQUENCES_AND_MATRICES_FOR_RSAT = "forRSAT";	
+	public static final String FOR_RSA = "forRSA";	
 	public static final String REGULATORY_SEQUENCE_ANALYSIS = "RegulatorySequenceAnalysis";
 	public static final String USING_RSAT = "UsingRSAT";	
 	public static final String ALL_POSSIBLE_NAMES = "AllPossibleNames";
@@ -28,11 +28,11 @@ public class Commons {
 
 	public static final String BYGLANET 	= "byGLANET";
 	public static final String LOCAL_DISK_G_DOKTORA_DATA = "G:" + System.getProperty("file.separator") + "DOKTORA_DATA" + System.getProperty("file.separator");
-	public static final String ENCODE 		= "ENCODE";
+	public static final String ENCODE 	= "ENCODE";
 	public static final String UCSCGENOME 	= "UCSCGENOME";
-	public static final String NCBI 		= "NCBI";	
+	public static final String NCBI 	= "NCBI";	
 	public static final String FTP 		= "FTP";
-	public static final String NCBI_REMAP = "REMAP";
+	public static final String NCBI_REMAP 	= "REMAP";
 	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
@@ -57,6 +57,10 @@ public class Commons {
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE = "NCBI_REMAP_API_Supported_Assemblies.txt";
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
 	
+	//ONE BIG TF Annotation FILE for Regulatory Sequence Analysis
+	public static final String ALL_TF_ANNOTATIONS_FILE = "AllTFAnnotations.txt";
+	public static final String All_TF_ANNOTATIONS_REMAP_INPUT_FILE_0BASED_START_END_EXCLUSIVE_GRCH37_P13_COORDINATES = "AllTFAnnotationsRemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.txt";
+    	
 	
 	public static final String NULL = "NULL";
 	public static final String PRIMARYASSEMBLY = "Primary Assembly";
@@ -372,6 +376,7 @@ public class Commons {
 	/*************************************************************************************/
 	/**********************REMAP OUTPUT FILE  starts**************************************/
 	/*************************************************************************************/
+	public static final String REMAP_DUMMY_OUTPUT_FILE = "REMAP_dummy_outputFile.txt";	
 	public static final String AUGMENTATION_REMAP_DUMMY_OUTPUT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_outputFile.txt";	
 	public static final String GIVENINPUTDATA_REMAP_DUMMY_OUTPUT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_outputFile.txt";	
 	/*************************************************************************************/
@@ -383,6 +388,7 @@ public class Commons {
 	/*************************************************************************************/
 	/**********************REMAP GENOME WORKBENCH PROJECT FILE  starts********************/
 	/*************************************************************************************/
+	public static final String REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = "REMAP_dummy_genomeWorkbenchProjectFile.gbp";	
 	public static final String AUGMENTATION_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_genomeWorkbenchProjectFile.gbp";	
 	public static final String GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_dummy_genomeWorkbenchProjectFile.gbp";	
 	/*************************************************************************************/
@@ -396,6 +402,8 @@ public class Commons {
 	/*******************************Line by Line******************************************/ 
 	/*****************chrName 0Based Start EndExclusive GRCH38 starts*********************/
 	/*************************************************************************************/
+	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		=  "REMAP_REPORT_LineByLine_ALL_TF_Annotations_chrNumber_1Based_Start_End_GRCh38_coordinates.xls";
+	
 	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_TF_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TF_chrNumber_1Based_Start_End_GRCh38_coordinates.xls";
 	
 	public static final String REMAP_REPORT_FILE_LINE_BY_LINE_TF_EXON_BASED_KEGG_PATHWAY_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY+ "REMAP_REPORT_LineByLine_TFExonBasedKEGGPathway_chrNumber_1Based_Start_End_GRCh38_coordinates.xls";
@@ -419,7 +427,9 @@ public class Commons {
 	/********************AUGMENTATION OF ENRICHMENT WITH ANNOTATION***********************/
 	/***********************************GRCh38 starts*************************************/
 	/*************************************************************************************/
+	public static final String ALL_TF_ANNOTATIONS_1BASED_START_END_GRCH38_COORDINATES 		=  "All_TF_Annotations_1Based_Start_End_GRCh38_coordinates.txt";
 	public static final String AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES 		= Commons.AUGMENTATION_OF_ENRICHED_ELEMENTS_WITH_ANNOTATION_DIRECTORY+ "AugmentedTranscriptionFactorResults_1Based_Start_End_GRCh38_coordinates.txt";
+	
 	
 	public static final String AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES			= Commons.AUGMENTATION_OF_ENRICHED_ELEMENTS_WITH_ANNOTATION_DIRECTORY + "AugmentedTfExonBasedKeggPathwayResults_1Based_Start_End_GRCh38_coordinates.txt";
 	public static final String AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES 	= Commons.AUGMENTATION_OF_ENRICHED_ELEMENTS_WITH_ANNOTATION_DIRECTORY + "AugmentedTfRegulationBasedKeggPathwayResults_1Based_Start_End_GRCh38_coordinates.txt";
@@ -457,7 +467,7 @@ public class Commons {
 
 	//Rserve
 //	public static final String RSERVE_OUTPUT_FOLDER = "Doktora"  + System.getProperty("file.separator") + "rserve" + System.getProperty("file.separator");
-	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = Commons.GENERATED_SEQUENCES_AND_MATRICES_FOR_RSAT + System.getProperty("file.separator");
+	public static final String GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER = Commons.FOR_RSA + System.getProperty("file.separator");
 	
 	/*************************************************************************************/
 	//TF DIRECTORY BASES
@@ -817,6 +827,9 @@ public class Commons {
 	public static final String STRING_HYPHEN = "-";
 	public static final String UNDERSCORE = "_";
 	public static final String DOT = ".";
+	
+	public static final char GLANET_COMMENT_CHARACTER = '#';
+	public static final String GLANET_COMMENT_STRING = "#";
 	
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH ="Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";

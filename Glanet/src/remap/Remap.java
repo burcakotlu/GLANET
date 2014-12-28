@@ -6,6 +6,7 @@ package remap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,9 +16,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
 import gnu.trove.map.TIntObjectMap;
@@ -422,6 +421,250 @@ public class Remap {
 //		GCF_000001405.25 <----> GRCh37.p13
 //		GCF_000001405.26 <------> GRCh38
 //		GCF_000001405.27 <------> GRCh38.p1
+		
+	}
+	
+	
+	public static void convertUsingMap(
+		String outputFolder, 
+		String augmentedFileInGRCh37p13,
+		String augmentedFileInGRCh38,
+		Map<String,String> conversionMap){
+		
+		//augmentedFileInGRCh37p13
+		FileReader fileReader= null;
+		BufferedReader bufferedReader= null;
+		
+		//augmentedFileInGRCh38
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		
+		String before;
+		String after;
+		
+		String toBeRemapped1;
+		String toBeRemapped2;
+		
+		String mapped1;
+		String mapped2;
+		
+		try {
+			
+			File file = new File(outputFolder + augmentedFileInGRCh37p13);
+			
+			if (file.exists()){
+				
+				fileReader = FileOperations.createFileReader(outputFolder + augmentedFileInGRCh37p13);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				fileWriter = FileOperations.createFileWriter(outputFolder + augmentedFileInGRCh38);
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				while((strLine = bufferedReader.readLine())!=null){
+					if(!strLine.startsWith("*") && !strLine.contains("Search")){
+						
+						//**************	H3K4ME2_HELAS3	**************							
+						//H3K4ME2_HELAS3	Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
+						//H3K4ME2_HELAS3	chr9	97713458	97713459	chr9	97712055	97714787	H3K4ME2	HELAS3	wgEncodeBroadHistoneHelas3H3k4me2StdAln.narrowPeak
+
+						indexofFirstTab 	= strLine.indexOf('\t');
+						indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
+						indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
+						indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
+						indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
+						indexofSixthTab 	= strLine.indexOf('\t',indexofFifthTab+1);
+						indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
+						
+						before = strLine.substring(0, indexofFirstTab);
+						
+						toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);;
+						toBeRemapped2 = strLine.substring(indexofFourthTab+1, indexofSeventhTab);;
+							
+						after = strLine.substring(indexofSeventhTab+1);
+						
+						mapped1 = conversionMap.get(toBeRemapped1);
+						mapped2 = conversionMap.get(toBeRemapped2);
+						
+						if(mapped1!=null && mapped2!=null){
+							bufferedWriter.write(before + "\t");
+							bufferedWriter.write(mapped1 + "\t");
+							bufferedWriter.write(mapped2 + "\t");
+							bufferedWriter.write(after + System.getProperty("line.separator"));						
+						}else{
+							logger.debug("Please notice that there is an unconverted genomic loci");
+						}
+								
+						
+					}//End of IF
+					else{
+						bufferedWriter.write(strLine + System.getProperty("line.separator"));
+					}
+				}//End of WHILE
+				
+				//CLOSE	
+				bufferedReader.close();
+				bufferedWriter.close();
+
+				
+			}//End of IF remapOutputFileUsingReport exists
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	public static void fillConversionMap(
+		String outputFolder,  
+		String remapReportFile,
+		Map<String,String> conversionMap){
+		
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+	
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		int indexofEleventhTab;
+		int indexofTwelfthTab;
+		int indexofThirteenthTab;
+		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+		int indexofSixteenthTab;
+		int indexofSeventeenthTab;
+		
+	
+		//source
+		int sourceInt;	
+		ChromosomeName sourceChrName;
+		int sourceStart;
+		int sourceEnd;
+		
+		//mapped
+		String mappedIntString;
+		int mappedInt;
+		ChromosomeName mappedChrName;
+		int mappedStart;
+		int mappedEnd;
+		Assembly mappedAssembly;
+		
+		//Read remapReportFile
+		//Using remapReportFile first fill chrName_start_end_in_one_assembly 2 chrName_start_end_in_another_assembly Map
+		
+		File file = new File(outputFolder + remapReportFile);
+		
+		if (file.exists()){
+			
+			try {
+				
+				fileReader = FileOperations.createFileReader(outputFolder + remapReportFile);
+			
+				bufferedReader = new BufferedReader(fileReader);
+							
+				while((strLine = bufferedReader.readLine())!=null){
+		
+					//#feat_name	source_int	mapped_int	source_id	mapped_id	source_length	mapped_length	source_start	source_stop	source_strand	source_sub_start	source_sub_stop	mapped_start	mapped_stop	mapped_strand	coverage	recip	asm_unit
+					//line_67	1	1	chr1	chr1	1	1	147664654	147664654	+	147664654	147664654	147136772	147136772	+	1	Second Pass	Primary Assembly
+					//line_67	1	2	chr1	NW_003871055.3	1	1	147664654	147664654	+	147664654	147664654	4480067	4480067	+	1	First Pass	PATCHES
+					//line_122	1	NULL	chr14	NULL	1	NULL	93095256	93095256	+	NOMAP	NOALIGN						
+	
+					
+					if (!strLine.startsWith("#")){
+						
+						indexofFirstTab 	= strLine.indexOf('\t');
+						indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) :-1 ;
+						indexofThirdTab 	= (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1) :-1 ;
+						indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) :-1 ;
+						indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) :-1 ;
+						indexofSixthTab 	= (indexofFifthTab>0) ? strLine.indexOf('\t', indexofFifthTab+1) :-1 ;
+						indexofSeventhTab 	= (indexofSixthTab>0) ? strLine.indexOf('\t', indexofSixthTab+1) :-1 ;
+						indexofEigthTab		= (indexofSeventhTab>0) ? strLine.indexOf('\t', indexofSeventhTab+1) :-1 ;
+						indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t', indexofEigthTab+1) :-1 ;
+						indexofTenthTab 	= (indexofNinethTab>0) ? strLine.indexOf('\t', indexofNinethTab+1) :-1 ;
+						indexofEleventhTab 	= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
+						indexofTwelfthTab 	= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
+						indexofThirteenthTab 	= (indexofTwelfthTab>0) ? strLine.indexOf('\t', indexofTwelfthTab+1) :-1 ;
+						indexofFourteenthTab 	= (indexofThirteenthTab>0) ? strLine.indexOf('\t', indexofThirteenthTab+1) :-1 ;
+						indexofFifteenthTab 	= (indexofFourteenthTab>0) ? strLine.indexOf('\t', indexofFourteenthTab+1) :-1 ;
+						indexofSixteenthTab 	= (indexofFifteenthTab>0) ? strLine.indexOf('\t', indexofFifteenthTab+1) :-1 ;
+						indexofSeventeenthTab 	= (indexofSixteenthTab>0) ? strLine.indexOf('\t', indexofSixteenthTab+1) :-1 ;
+						
+						sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+						
+						mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
+						
+						if (!mappedIntString.equals(Commons.NULL)){
+							
+							mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+							
+							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+							
+							sourceStart = Integer.parseInt(strLine.substring(indexofSeventhTab+1, indexofEigthTab));
+							sourceEnd = Integer.parseInt(strLine.substring(indexofEigthTab+1, indexofNinethTab));
+							
+							mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
+							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
+							
+							mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+							
+							if ((sourceInt == 1) && 
+									(mappedInt == 1) &&
+									sourceChrName == mappedChrName &&
+									mappedAssembly.isPrimaryAssembly()){
+																
+								conversionMap.put(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
+								
+							}//End of IF: Valid conversion
+						}//End of IF mappedInt is not NULL
+						
+									
+					}//End of IF: Not Header or Comment Line
+					
+				}//End of while
+				
+				//for debug purposes starts
+				logger.debug("number of lines in conversionMap: " + conversionMap.size() + " for file: " + remapReportFile);
+				//for debug purposes ends 
+				
+				
+				//close 
+				bufferedReader.close();
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}//End of if remapReportFile exists
+
+		
 		
 	}
 

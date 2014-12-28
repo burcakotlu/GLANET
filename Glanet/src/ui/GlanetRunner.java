@@ -1,6 +1,5 @@
 package ui;
 
-import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
 import enrichment.CollectionofPermutationsResults;
 import enrichment.Enrichment;
 import enumtypes.CommandLineArguments;
@@ -8,10 +7,12 @@ import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
 import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
+import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13;
 import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
-import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import augmentation.results.AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP;
+import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
+import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
 import common.Commons;
 
 public class GlanetRunner implements Runnable {
@@ -133,7 +134,7 @@ public class GlanetRunner implements Runnable {
 	/****************************************************************************************/
 
 	/******************************************************************************/
-	/********************************** RSAT starts *******************************/
+	/*************Regulatory Sequence Analysis starts *****************************/
 	/******************************************************************************/
 	if (getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 	    if (getMainView() != null)
@@ -154,7 +155,10 @@ public class GlanetRunner implements Runnable {
 
 		    if (Thread.currentThread().isInterrupted())
 			return;
-		    AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
+		    
+		    GenerationofAllTFAnnotationsFileInGRCh37p13.main(args);
+		    
+		    //AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
 		    /************* Augmentation of Enriched Elements with Given Input Data ends in GRCh38 *****/
 		    /************ Creation of NCBI REMAP Input files ends **************************/
 		    /************************* CALL NCBI REMAP API ends ****************************/
@@ -165,21 +169,21 @@ public class GlanetRunner implements Runnable {
 
 		    if (Thread.currentThread().isInterrupted())
 			return;
-		    GenerationofSequencesandMatricesforGivenIntervals.main(args);
+		    //GenerationofSequencesandMatricesforGivenIntervals.main(args);
 
 		    if (getMainView() != null)
 			getMainView().setCurrentProcessInfo("RSATMatrixScanClient...");
 
 		    if (Thread.currentThread().isInterrupted())
 			return;
-		    RSATMatrixScanClient.main(args);
+		    //RSATMatrixScanClient.main(args);
 	    }
 	    /*********** Check whether given input data is snps or not ends ****************/
 
 	  
 	}
 	/******************************************************************************/
-	/********************************** RSAT ends *********************************/
+	/*************Regulatory Sequence Analysis ends *******************************/
 	/******************************************************************************/
 
 	/************************ GLANET execution ends ********************************************/
