@@ -44,8 +44,7 @@ import common.Commons;
  */
 public class AugmentationofGivenRsIdwithInformation {
 
-	final static Logger logger = Logger
-			.getLogger(AugmentationofGivenRsIdwithInformation.class);
+	final static Logger logger = Logger.getLogger(AugmentationofGivenRsIdwithInformation.class);
 
 	private Unmarshaller unmarshaller;
 	// private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory
@@ -55,23 +54,18 @@ public class AugmentationofGivenRsIdwithInformation {
 	public AugmentationofGivenRsIdwithInformation() throws Exception {
 
 		this.xmlInputFactory = XMLInputFactory.newInstance();
-		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE,
-				Boolean.TRUE);
-		xmlInputFactory
-				.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
-		xmlInputFactory.setProperty(
-				XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
+		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
+		xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+		xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
 
 		xmlInputFactory.setXMLResolver(new javax.xml.stream.XMLResolver() {
 			@Override
-			public Object resolveEntity(String publicID, String systemID,
-					String baseURI, String namespace) {
+			public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) {
 				return new java.io.ByteArrayInputStream(new byte[0]);
 			}
 		});
 
-		JAXBContext jaxbCtxt = JAXBContext
-				.newInstance("gov.nih.nlm.ncbi.snp.docsum");
+		JAXBContext jaxbCtxt = JAXBContext.newInstance("gov.nih.nlm.ncbi.snp.docsum");
 		this.unmarshaller = jaxbCtxt.createUnmarshaller();
 
 	}
@@ -79,20 +73,17 @@ public class AugmentationofGivenRsIdwithInformation {
 	// What does this method do?
 	// We are looking at the length of the each of the observed alleles
 	// Setting the numberOfBasesAtMost to the maximum length of observed alleles
-	public int getTheNumberofBasesIntheObservedAlleles(
-			String observedAllelesSeparatedwithSlash) {
+	public int getTheNumberofBasesIntheObservedAlleles(String observedAllelesSeparatedwithSlash) {
 		int numberOfBasesAtMost = Integer.MIN_VALUE;
 		int num;
 
 		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',
-				indexofFormerSlash + 1);
+		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/', indexofFormerSlash + 1);
 
 		String allele;
 
 		// First allele starts
-		allele = observedAllelesSeparatedwithSlash.substring(0,
-				indexofFormerSlash);
+		allele = observedAllelesSeparatedwithSlash.substring(0, indexofFormerSlash);
 
 		num = allele.length();
 
@@ -104,8 +95,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		// Middle alleles starts
 		while (indexofFormerSlash >= 0 && indexofLatterSlash >= 0) {
 
-			allele = observedAllelesSeparatedwithSlash.substring(
-					indexofFormerSlash + 1, indexofLatterSlash);
+			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash + 1, indexofLatterSlash);
 
 			num = allele.length();
 
@@ -114,14 +104,12 @@ public class AugmentationofGivenRsIdwithInformation {
 			}
 
 			indexofFormerSlash = indexofLatterSlash;
-			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',
-					indexofFormerSlash + 1);
+			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/', indexofFormerSlash + 1);
 		}
 		// Middle alleles ends
 
 		// Last allele starts
-		allele = observedAllelesSeparatedwithSlash
-				.substring(indexofFormerSlash + 1);
+		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash + 1);
 
 		num = allele.length();
 
@@ -135,8 +123,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	}
 
 	// 24 Nov 2014
-	public List<RsInformation> getInformationforGivenRsIdList(
-			String commaSeparatedRsIdList) {
+	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList) {
 
 		RsInformation rsInformation;
 		int numberofBasesInTheSNPAtMost = Integer.MIN_VALUE;
@@ -151,15 +138,13 @@ public class AugmentationofGivenRsIdwithInformation {
 		RsInformation problemRsInformation = null;
 		/************************************************************/
 
-		String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
-				+ commaSeparatedRsIdList + "&retmode=xml";
+		String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + commaSeparatedRsIdList + "&retmode=xml";
 
 		XMLEventReader reader = null;
 
 		try {
 
-			reader = xmlInputFactory
-					.createXMLEventReader(new StreamSource(url));
+			reader = xmlInputFactory.createXMLEventReader(new StreamSource(url));
 
 			while (reader.hasNext()) {
 				XMLEvent evt = reader.peek();
@@ -218,13 +203,11 @@ public class AugmentationofGivenRsIdwithInformation {
 
 										// starts 31st August 2014
 										// forward or reverse
-										rsInformation.setOrient(maploc
-												.getOrient());
+										rsInformation.setOrient(maploc.getOrient());
 										// ends 31st August 2014
 
 										// set rsId
-										rsInformation.setRsId(Commons.RS
-												+ rs.getRsId());
+										rsInformation.setRsId(Commons.RS + rs.getRsId());
 
 										// Set the last successful rsID
 										lastSuccessfullRsID = rs.getRsId();
@@ -232,29 +215,22 @@ public class AugmentationofGivenRsIdwithInformation {
 										// set chromosome name
 										// This chrName is without "chr"
 										// ex: 2, X, Y, 17
-										rsInformation.setChrNamewithoutChr(comp
-												.getChromosome());
+										rsInformation.setChrNamewithoutChr(comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setStartZeroBased(maploc
-												.getPhysMapInt());
+										rsInformation.setStartZeroBased(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setObservedAlleles(rs
-												.getSequence().getObserved());
+										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs
-												.getSequence().getObserved());
+										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
 										// set rsId end position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setEndZeroBased(maploc
-												.getPhysMapInt()
-												+ numberofBasesInTheSNPAtMost
-												- 1);
+										rsInformation.setEndZeroBased(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 										rsInformationList.add(rsInformation);
 
@@ -277,20 +253,14 @@ public class AugmentationofGivenRsIdwithInformation {
 					// e.printStackTrace();
 
 					// get the next rsId
-					indexofLastSuccessfulRSID = commaSeparatedRsIdList
-							.indexOf(Commons.RS + lastSuccessfullRsID);
-					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList
-							.indexOf(',', indexofLastSuccessfulRSID + 1);
-					indexofCommaAfterProblemRSID = commaSeparatedRsIdList
-							.indexOf(',', indexofCommaBeforeProblemRSID + 1);
+					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
+					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',', indexofLastSuccessfulRSID + 1);
+					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',', indexofCommaBeforeProblemRSID + 1);
 
 					if (indexofCommaAfterProblemRSID < 0) {
-						problemRsId = commaSeparatedRsIdList
-								.substring(indexofCommaBeforeProblemRSID + 1);
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID + 1);
 					} else {
-						problemRsId = commaSeparatedRsIdList.substring(
-								indexofCommaBeforeProblemRSID + 1,
-								indexofCommaAfterProblemRSID);
+						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID + 1, indexofCommaAfterProblemRSID);
 					}
 
 					logger.error(e.toString() + " for " + problemRsId);
@@ -318,8 +288,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	// 24 NOV 2014
 
 	// 24 NOV 2014 starts
-	public List<RsInformation> getInformationforGivenRsIdList(
-			List<String> rsIdList) {
+	public List<RsInformation> getInformationforGivenRsIdList(List<String> rsIdList) {
 
 		String commaSeparatedRsIdList = null;
 		List<RsInformation> rsInformationList = new ArrayList<RsInformation>();
@@ -347,16 +316,12 @@ public class AugmentationofGivenRsIdwithInformation {
 				commaSeparatedRsIdList = "";
 
 				for (int j = 0; j < numberofRemaining - 1; j++) {
-					commaSeparatedRsIdList = commaSeparatedRsIdList
-							+ rsIdList.get(i * numberofRsIdsSentInOneBatch + j)
-							+ Commons.COMMA;
+					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
 
 				}// End of for
 
 				// Append the last rsID
-				commaSeparatedRsIdList = commaSeparatedRsIdList
-						+ rsIdList.get(i * numberofRsIdsSentInOneBatch
-								+ (numberofRemaining - 1));
+				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRemaining - 1));
 
 			} else {
 
@@ -367,16 +332,12 @@ public class AugmentationofGivenRsIdwithInformation {
 				// numberofRsIdsInOneBatch elements
 				// Get comma separated rsIDString
 				for (int j = 0; j < numberofRsIdsSentInOneBatch - 1; j++) {
-					commaSeparatedRsIdList = commaSeparatedRsIdList
-							+ rsIdList.get(i * numberofRsIdsSentInOneBatch + j)
-							+ Commons.COMMA;
+					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
 
 				}// End of for
 
 				// Append the last rsID
-				commaSeparatedRsIdList = commaSeparatedRsIdList
-						+ rsIdList.get(i * numberofRsIdsSentInOneBatch
-								+ (numberofRsIdsSentInOneBatch - 1));
+				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRsIdsSentInOneBatch - 1));
 
 			}
 
@@ -386,8 +347,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			// Send ready commaSeparatedRsIdList
 			// Get rsInformationList for commaSeparatedRsIdList
 			// Add gathered rsInformationList to the existing rsInformationList
-			rsInformationList
-					.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList));
+			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList));
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call ends ***********/
 			/**************************************************************/
@@ -408,15 +368,13 @@ public class AugmentationofGivenRsIdwithInformation {
 		RsInformation rsInformation = null;
 		int numberofBasesInTheSNPAtMost;
 
-		String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
-				+ rsId + "&retmode=xml";
+		String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
 
 		XMLEventReader reader;
 
 		try {
 
-			reader = xmlInputFactory
-					.createXMLEventReader(new StreamSource(uri));
+			reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
 			while (reader.hasNext()) {
 				XMLEvent evt = reader.peek();
@@ -443,9 +401,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					// And NCBI returned rsId and given rsId does not match
 					// Means that given rsId is a merged rsID
 					if (rs.getRsId() != Integer.parseInt(rsId)) {
-						logger.debug("Given rsId: " + rsId
-								+ " and NCBI returned rsId: " + rs.getRsId()
-								+ "  check whether given rsId is merged");
+						logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + "  check whether given rsId is merged");
 						return null;
 					}
 
@@ -484,40 +440,31 @@ public class AugmentationofGivenRsIdwithInformation {
 
 										// starts 31st August 2014
 										// forward or reverse
-										rsInformation.setOrient(maploc
-												.getOrient());
+										rsInformation.setOrient(maploc.getOrient());
 										// ends 31st August 2014
 
 										// set rsId
-										rsInformation.setRsId(Commons.RS
-												+ rs.getRsId());
+										rsInformation.setRsId(Commons.RS + rs.getRsId());
 
 										// set chromosome name
 										// This chrName is without "chr"
 										// ex: 2, X, Y, 17
-										rsInformation.setChrNamewithoutChr(comp
-												.getChromosome());
+										rsInformation.setChrNamewithoutChr(comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setStartZeroBased(maploc
-												.getPhysMapInt());
+										rsInformation.setStartZeroBased(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setObservedAlleles(rs
-												.getSequence().getObserved());
+										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs
-												.getSequence().getObserved());
+										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
 										// set rsId end position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setEndZeroBased(maploc
-												.getPhysMapInt()
-												+ numberofBasesInTheSNPAtMost
-												- 1);
+										rsInformation.setEndZeroBased(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 									}// End of if maploc.getPhysMapInt() is not
 										// null
