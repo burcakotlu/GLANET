@@ -57,7 +57,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 	
 	 conversionMap = new HashMap<String,String>();
 	 Remap.fillConversionMap(forRSAFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
-	 Remap.convertUsingMap(forRSAFolder, Commons.ALL_TF_ANNOTATIONS_FILE, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+	 Remap.convertUsingMap(forRSAFolder, Commons.ALL_TF_ANNOTATIONS_FILE_0Based_Start_EndInclusive_GRCh37_p13, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
 
     }
     
@@ -185,7 +185,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 	String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 	String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 	
-	String oneBigFileName = Commons.ALL_TF_ANNOTATIONS_FILE;
+	String oneBigFileName = Commons.ALL_TF_ANNOTATIONS_FILE_0Based_Start_EndInclusive_GRCh37_p13;
 	String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13 = Commons.All_TF_ANNOTATIONS_REMAP_INPUT_FILE_0BASED_START_END_EXCLUSIVE_GRCH37_P13_COORDINATES;
 	
 	generateOneBigTFAnnotationAndREMAPInputFile(outputFolder,oneBigFileName,remapInputFile_OBased_Start_EndExclusive_GRCh37_P13);

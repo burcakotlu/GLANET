@@ -58,9 +58,8 @@ public class Commons {
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
 	
 	//ONE BIG TF Annotation FILE for Regulatory Sequence Analysis
-	public static final String ALL_TF_ANNOTATIONS_FILE = "AllTFAnnotations.txt";
+	public static final String ALL_TF_ANNOTATIONS_FILE_0Based_Start_EndInclusive_GRCh37_p13 = "AllTFAnnotations_0Based_Start_EndInclusive_GRCh37_p13.txt";
 	public static final String All_TF_ANNOTATIONS_REMAP_INPUT_FILE_0BASED_START_END_EXCLUSIVE_GRCH37_P13_COORDINATES = "AllTFAnnotationsRemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.txt";
-    	
 	
 	public static final String NULL = "NULL";
 	public static final String PRIMARYASSEMBLY = "Primary Assembly";
