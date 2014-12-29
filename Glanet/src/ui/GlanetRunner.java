@@ -6,13 +6,12 @@ import enumtypes.CommandLineArguments;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
-import jaxbxjctool.GenerationofSequencesandMatricesforGivenIntervals;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13;
-import rsat.RSATMatrixScanClient;
+import rsat.GenerationofSequencesandMatricesforSNPs;
 import annotation.Annotation;
-import augmentation.results.AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
+
 import common.Commons;
 
 public class GlanetRunner implements Runnable {
@@ -169,7 +168,7 @@ public class GlanetRunner implements Runnable {
 
 		    if (Thread.currentThread().isInterrupted())
 			return;
-		    //GenerationofSequencesandMatricesforGivenIntervals.main(args);
+		    GenerationofSequencesandMatricesforSNPs.main(args);
 
 		    if (getMainView() != null)
 			getMainView().setCurrentProcessInfo("RSATMatrixScanClient...");

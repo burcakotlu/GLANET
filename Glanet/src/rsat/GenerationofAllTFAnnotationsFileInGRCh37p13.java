@@ -25,9 +25,16 @@ import enumtypes.CommandLineArguments;
  */
 public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 
-    public static void callNCBIREMAP(String dataFolder,String outputFolder,String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13){
+    public static void callNCBIREMAP(
+	    String dataFolder,
+	    String outputFolder,
+	    String all_TF_Annotations_File_1Based_Start_End_GRCh37_p13,
+	    String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13,
+	    String all_TF_Annotations_File_1Based_Start_End_GRCh38){
 	
-	String forRSAFolder = outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.FOR_RSA + System.getProperty("file.separator");
+	
+	String forRSAFolder = outputFolder + Commons.FOR_RSA + System.getProperty("file.separator");
+	String forRSA_REMAP_Folder = outputFolder + Commons.FOR_RSA + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
 	
 	String sourceReferenceAssemblyID = "GCF_000001405.25";
 	//In fact targetReferenceAssemblyID must be the assemblyName that NCBI ETILS returns (groupLabel)
@@ -45,23 +52,26 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 			dataFolder,
 			sourceReferenceAssemblyID, 
 			targetReferenceAssemblyID, 
-			forRSAFolder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13 , 
-			forRSAFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
-			forRSAFolder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
-			forRSAFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,						
+			forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13 , 
+			forRSA_REMAP_Folder + Commons.REMAP_DUMMY_OUTPUT_FILE,
+			forRSA_REMAP_Folder + Commons.REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,
+			forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,						
 			merge,
 			allowMultipleLocation,
 			minimumRatioOfBasesThatMustBeRemapped,
 			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 
-	
 	 conversionMap = new HashMap<String,String>();
-	 Remap.fillConversionMap(forRSAFolder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
-	 Remap.convertUsingMap(forRSAFolder, Commons.ALL_TF_ANNOTATIONS_FILE_0Based_Start_EndInclusive_GRCh37_p13, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES,conversionMap);  
+	 
+	 Remap.fillConversionMap(forRSA_REMAP_Folder, Commons.REMAP_REPORT_FILE_LINE_BY_LINE_ALL_TF_ANNOTATIONS_CHRNUMBER_1BASED_START_END_GRCH38_COORDINATES,conversionMap);
+	 Remap.convertUsingMap(forRSAFolder, all_TF_Annotations_File_1Based_Start_End_GRCh37_p13, all_TF_Annotations_File_1Based_Start_End_GRCh38,conversionMap);  
 
     }
     
-    public static void generateOneBigTFAnnotationAndREMAPInputFile(String outputFolder, String oneBigFileName, String remapInputFile){
+    public static void generateOneBigTFAnnotationAndREMAPInputFile(
+	    String outputFolder, 
+	    String all_TF_Annotations_1Based_Start_End_GRCh37_p13, 
+	    String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13){
 
 	String fileName=null;
 	String fileAbsolutePath = null;
@@ -77,6 +87,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 	BufferedWriter  remapInputBufferedWriter = null;
 	
 	String strLine;
+	String after;
 	
 	int indexofFirstTab;
 	int indexofSecondTab;
@@ -85,31 +96,39 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 	int indexofFifthTab;
 	int indexofSixthTab;
 	
+	//snpStart
+	int snpStartInclusive;
+	int snpStartExclusive;
+	
+	//snpEnd
 	int snpEndInclusive;
 	int snpEndExclusive;
 	
+	//tfStart
+	int tfStartInclusive;
+	int tfStartExclusive;
+	
+	//tfEnd
 	int tfEndInclusive;
 	int tfEndExclusive;
 	
 	String tfAnnotationDirectory = outputFolder + System.getProperty("file.separator") + Commons.ANNOTATION +  System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator")  ;
-	String allTFAnnotationsDirectory = outputFolder + System.getProperty("file.separator") + Commons.ANNOTATION +  System.getProperty("file.separator") + Commons.FOR_RSA + System.getProperty("file.separator")  ;
+	String allTFAnnotationsDirectory = outputFolder + System.getProperty("file.separator")  + Commons.FOR_RSA + System.getProperty("file.separator")  ;
 	
 	File baseFolder = new File(tfAnnotationDirectory);
 	
 	try {
-	    	fileWriter = FileOperations.createFileWriter(allTFAnnotationsDirectory + oneBigFileName);
+	    	fileWriter = FileOperations.createFileWriter(allTFAnnotationsDirectory + all_TF_Annotations_1Based_Start_End_GRCh37_p13);
 	    	bufferedWriter = new BufferedWriter(fileWriter);
         	    
-	    	remapInputFileWriter = FileOperations.createFileWriter(allTFAnnotationsDirectory + remapInputFile);
+	    	remapInputFileWriter = FileOperations.createFileWriter(allTFAnnotationsDirectory + Commons.NCBI_REMAP  + System.getProperty("file.separator") + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13);
 	    	remapInputBufferedWriter = new BufferedWriter(remapInputFileWriter);
         
-        	    
         	if (baseFolder.exists() && baseFolder.isDirectory()){
         	    
         		File[] files = baseFolder.listFiles();
         		
-        		bufferedWriter.write("#This file contains all TF annotations in 0Based Start, 0Based End Inclusive, in GRCh37 p13 coordinates." + System.getProperty("line.separator"));
-	        	
+        		bufferedWriter.write("#This file contains all TF annotations in 1Based Start and End in GRCh37 p13 coordinates." + System.getProperty("line.separator"));
         		
         		for(File tfAnnotationFile: files){
         		    
@@ -130,7 +149,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 
         		    	    if (strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER){
         		    		
-        		    		
         		    		indexofFirstTab = strLine.indexOf('\t');
         		    		indexofSecondTab = (indexofFirstTab>0)? strLine.indexOf('\t', indexofFirstTab+1):-1;
         		    		indexofThirdTab = (indexofSecondTab>0)? strLine.indexOf('\t', indexofSecondTab+1):-1;
@@ -138,13 +156,21 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
         		    		indexofFifthTab = (indexofFourthTab>0)? strLine.indexOf('\t', indexofFourthTab+1):-1;
         		    		indexofSixthTab = (indexofFifthTab>0)? strLine.indexOf('\t', indexofFifthTab+1):-1;
         		    		
+        		    		snpStartInclusive = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+        		    		snpStartExclusive = snpStartInclusive+1;
+        		    		
         		    		snpEndInclusive = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
         		    		snpEndExclusive = snpEndInclusive+1;
         		    		
+        		    		tfStartInclusive = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+        		    		tfStartExclusive = tfStartInclusive+1;
+        		    		
         		    		tfEndInclusive = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
         		    		tfEndExclusive = tfEndInclusive+1;
+        		    		
+        		    		after = strLine.substring(indexofSixthTab+1);
         		        	   
-        		    		bufferedWriter.write(strLine + System.getProperty("line.separator"));
+        		    		bufferedWriter.write(strLine.substring(0, indexofFirstTab) + "\t" + snpStartExclusive + "\t" + snpEndExclusive + "\t" + strLine.substring(indexofThirdTab+1, indexofFourthTab) +  "\t"  + tfStartExclusive + "\t" + tfEndExclusive + "\t"  + after +  System.getProperty("line.separator"));
         		     
         		    		remapInputBufferedWriter.write( strLine.substring(0, indexofSecondTab) + "\t" + snpEndExclusive  + System.getProperty("line.separator"));
         		    		remapInputBufferedWriter.write( strLine.substring(indexofThirdTab+1, indexofFifthTab) + "\t" + tfEndExclusive + System.getProperty("line.separator"));
@@ -182,15 +208,22 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13 {
 	}
 	//jobName ends
 			
-	String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
+	String outputFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 	String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 	
-	String oneBigFileName = Commons.ALL_TF_ANNOTATIONS_FILE_0Based_Start_EndInclusive_GRCh37_p13;
-	String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13 = Commons.All_TF_ANNOTATIONS_REMAP_INPUT_FILE_0BASED_START_END_EXCLUSIVE_GRCH37_P13_COORDINATES;
+	String all_TF_Annotations_File_1Based_Start_End_GRCh37_p13	= Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13;
+	String all_TF_Annotations_File_1Based_Start_End_GRCh38 		= Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38;
 	
-	generateOneBigTFAnnotationAndREMAPInputFile(outputFolder,oneBigFileName,remapInputFile_OBased_Start_EndExclusive_GRCh37_P13);
+	String remapInputFile_OBased_Start_EndExclusive_GRCh37_p13 = Commons.All_TF_ANNOTATIONS_REMAP_INPUT_FILE_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES;
 	
-	callNCBIREMAP(dataFolder,outputFolder,remapInputFile_OBased_Start_EndExclusive_GRCh37_P13);
+	
+	//Before each run
+	//delete directories and files under base directories
+	FileOperations.deleteOldFiles(outputFolder + Commons.FOR_RSA + System.getProperty("file.separator"));
+
+	generateOneBigTFAnnotationAndREMAPInputFile(outputFolder,all_TF_Annotations_File_1Based_Start_End_GRCh37_p13,remapInputFile_OBased_Start_EndExclusive_GRCh37_p13);
+	
+	callNCBIREMAP(dataFolder,outputFolder,all_TF_Annotations_File_1Based_Start_End_GRCh37_p13,remapInputFile_OBased_Start_EndExclusive_GRCh37_p13,all_TF_Annotations_File_1Based_Start_End_GRCh38);
 	
 
 

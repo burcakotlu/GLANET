@@ -427,15 +427,15 @@ public class Remap {
 	
 	public static void convertUsingMap(
 		String outputFolder, 
-		String augmentedFileInGRCh37p13,
-		String augmentedFileInGRCh38,
+		String inputFileInGRCh37p13,
+		String outputFileInGRCh38,
 		Map<String,String> conversionMap){
 		
-		//augmentedFileInGRCh37p13
+		//inputFileInGRCh37p13
 		FileReader fileReader= null;
 		BufferedReader bufferedReader= null;
 		
-		//augmentedFileInGRCh38
+		//outputFileInGRCh38
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
@@ -447,9 +447,7 @@ public class Remap {
 		int indexofFourthTab;
 		int indexofFifthTab;
 		int indexofSixthTab;
-		int indexofSeventhTab;
 		
-		String before;
 		String after;
 		
 		String toBeRemapped1;
@@ -460,55 +458,53 @@ public class Remap {
 		
 		try {
 			
-			File file = new File(outputFolder + augmentedFileInGRCh37p13);
+			File file = new File(outputFolder + inputFileInGRCh37p13);
 			
 			if (file.exists()){
 				
-				fileReader = FileOperations.createFileReader(outputFolder + augmentedFileInGRCh37p13);
+				fileReader = FileOperations.createFileReader(outputFolder + inputFileInGRCh37p13);
 				bufferedReader = new BufferedReader(fileReader);
 				
-				fileWriter = FileOperations.createFileWriter(outputFolder + augmentedFileInGRCh38);
+				fileWriter = FileOperations.createFileWriter(outputFolder + outputFileInGRCh38);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
+				
+				//Header  line
+				bufferedWriter.write("#This file contains all TF annotations in 1Based Start and End in GRCh38 coordinates" + System.getProperty("line.separator"));
+				
 				while((strLine = bufferedReader.readLine())!=null){
-					if(!strLine.startsWith("*") && !strLine.contains("Search")){
+				    
+				    	//If Not Comment Line
+					if(strLine.charAt(0)!=Commons.GLANET_COMMENT_CHARACTER){
 						
-						//**************	H3K4ME2_HELAS3	**************							
-						//H3K4ME2_HELAS3	Searched for chr	interval low	interval high	histone node chrom name	node Low	node high	node HistoneName	node CellLineName	node FileName
-						//H3K4ME2_HELAS3	chr9	97713458	97713459	chr9	97712055	97714787	H3K4ME2	HELAS3	wgEncodeBroadHistoneHelas3H3k4me2StdAln.narrowPeak
-
+					    //#This file contains all TF annotations in 1Based Start and End in GRCh37 p13 coordinates.
+					    //chr1	11862778	11862778	chr1	11862637	11863020	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
 						indexofFirstTab 	= strLine.indexOf('\t');
-						indexofSecondTab 	= strLine.indexOf('\t',indexofFirstTab+1);
-						indexofThirdTab 	= strLine.indexOf('\t',indexofSecondTab+1);
-						indexofFourthTab 	= strLine.indexOf('\t',indexofThirdTab+1);
-						indexofFifthTab 	= strLine.indexOf('\t',indexofFourthTab+1);
-						indexofSixthTab 	= strLine.indexOf('\t',indexofFifthTab+1);
-						indexofSeventhTab 	= strLine.indexOf('\t',indexofSixthTab+1);
+						indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+						indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
+						indexofFourthTab 	= (indexofThirdTab>0)?strLine.indexOf('\t',indexofThirdTab+1):-1;
+						indexofFifthTab 	= (indexofFourthTab>0)?strLine.indexOf('\t',indexofFourthTab+1):-1;
+						indexofSixthTab 	= (indexofFifthTab>0)?strLine.indexOf('\t',indexofFifthTab+1):-1;
 						
-						before = strLine.substring(0, indexofFirstTab);
+						after = strLine.substring(indexofSixthTab+1);
 						
-						toBeRemapped1 = strLine.substring(indexofFirstTab+1, indexofFourthTab);;
-						toBeRemapped2 = strLine.substring(indexofFourthTab+1, indexofSeventhTab);;
+						toBeRemapped1 = strLine.substring(0, indexofThirdTab);
+						toBeRemapped2 = strLine.substring(indexofThirdTab+1,indexofSixthTab);	
 							
-						after = strLine.substring(indexofSeventhTab+1);
-						
 						mapped1 = conversionMap.get(toBeRemapped1);
 						mapped2 = conversionMap.get(toBeRemapped2);
 						
 						if(mapped1!=null && mapped2!=null){
-							bufferedWriter.write(before + "\t");
 							bufferedWriter.write(mapped1 + "\t");
 							bufferedWriter.write(mapped2 + "\t");
-							bufferedWriter.write(after + System.getProperty("line.separator"));						
+							bufferedWriter.write(after + System.getProperty("line.separator"));
 						}else{
 							logger.debug("Please notice that there is an unconverted genomic loci");
 						}
 								
 						
 					}//End of IF
-					else{
-						bufferedWriter.write(strLine + System.getProperty("line.separator"));
-					}
+					
 				}//End of WHILE
 				
 				//CLOSE	

@@ -13,8 +13,7 @@ import java.util.List;
 public class TfCellLineGivenInterval {
 	
 	String tfNameCellLineName;
-	String givenIntervalName;
-	
+	String givenIntervalName;	
 	
 	String chromNamewithoutPreceedingChr;
 	int givenIntervalStartOneBased;
