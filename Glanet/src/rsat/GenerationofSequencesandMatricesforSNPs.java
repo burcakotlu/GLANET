@@ -1767,7 +1767,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						     
 						     if (rsInformation!=null){
 
-						    	 //Here we can check whether this rsId is in the given in the input if the given input type is dbSNP IDs
+						    	 //@todo Here we can check whether this rsId is in the given input if the given input type is dbSNP IDs
 						  
 						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
 						    	 validRsIdList.add(rsId);
@@ -1933,16 +1933,11 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				writeObservedAllelesFile(snpDirectory, "observedAlleles" + "_" + entry.getKey(), entry.getValue().getObservedAlleles());
 				
 				//Write SNP Altered DNA Sequence
-				for(String validRsId:snpInformation.getValidRsIDList()){
+				//@todo use observedAlleles coming from rsInformation or not
+				alteredSequences = getAlteredSNPSequences(snpInformation.getSnpReferenceSequence(),snpInformation.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
+			
 				
-					rsInformation = rsID2RsIDInformationMap.get(validRsId);
-				
-					length = rsInformation.getZeroBasedEnd() - rsInformation.getZeroBasedStart()+1;
-				
-					//@todo use observedAlleles coming from rsInformation
-					alteredSequences = getAlteredSNPSequences(snpInformation.getSnpReferenceSequence(),snpInformation.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
-				
-				}//End of for each valid rsID in this rsIdList
+			
 
 
 				

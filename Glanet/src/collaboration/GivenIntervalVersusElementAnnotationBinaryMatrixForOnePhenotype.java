@@ -157,7 +157,9 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 							
 							//read annotations
 							while((strLine = bufferedReader.readLine())!=null){
-								if(!strLine.contains("Search")){
+								
+								//Skip comment lines
+								if(strLine.charAt(0)!= Commons.GLANET_COMMENT_CHARACTER){
 //									Searched for chr	given interval low	given interval high	dnase overlap chrom name	node low	node high	node CellLineName	node FileName
 //									chr1	109817589	109817589	chr1	109817060	109817913	MCF7	MCF7DukeDNaseSeq.pk
 									indexofFirstTab = strLine.indexOf('\t');
@@ -319,10 +321,19 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		
+		/****************************************************************************/
+		/*********** delete old files starts ****************************************/
+		String encodeCollaborationOutputBaseDirectoryName = outputFolder + Commons.ENCODE_COLLABORATION;
+
+		FileOperations.deleteOldFiles(encodeCollaborationOutputBaseDirectoryName);
+		/*********** delete old files ends ******************************************/
+		/****************************************************************************/
+		
+
 //		/************************************************************************************/
 //		/********************************FILL givenInterval2rsID starts**********************/
 //		/************************************************************************************/		
-//		//File provided from Chen Yao
+//		//File provided by Chen Yao
 //		String inputFileName = "C:"+ System.getProperty("file.separator") +"Users" + System.getProperty("file.separator") + "burcakotlu" + System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "ENCODE Collaboration" + System.getProperty("file.separator") +"eqtl-gene-anno-all.txt";
 //			
 		Map<String,String> overlap2RSIDMap = null;		
