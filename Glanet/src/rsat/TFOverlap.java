@@ -3,6 +3,7 @@
  */
 package rsat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,11 @@ public class TFOverlap {
     String tfName;
     String peakSequence;
     
-    List<TFCellLineOverlap> tfCellLineOverlaps;
     
     int minimumOneBasedStart;
     int maximumOneBasedEnd;
     
-    
+    List<TFCellLineOverlap> tfCellLineOverlaps;
     
     public String getTfName() {
         return tfName;
@@ -56,6 +56,7 @@ public class TFOverlap {
     public TFOverlap(String tfName) {
 	super();
 	this.tfName = tfName;
+	this.tfCellLineOverlaps = new ArrayList<TFCellLineOverlap>();
     }
     
     

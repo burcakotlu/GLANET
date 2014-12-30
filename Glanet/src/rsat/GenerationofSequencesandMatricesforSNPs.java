@@ -25,8 +25,6 @@ import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.PositionFrequency;
 import jaxbxjctool.RsInformation;
-import jaxbxjctool.SNP;
-import jaxbxjctool.TfCellLineGivenInterval;
 import jaxbxjctool.TfCellLineTfInterval;
 import jaxbxjctool.TfKeggPathwayTfInterval;
 
@@ -1129,7 +1127,7 @@ public static String takeComplementforeachAllele(String allele){
 	
 	//Requires chrName without preceeding "chr" string 
 	//Requires oneBased coordinates
-	public static String  getDNASequence(String chrNamewithoutPreceedingChr,int startOneBased, int endOneBased,Map<String,String> chrName2RefSeqIdforGrch38Map){
+	public static String  getDNASequence(String chrNamewithoutPreceedingChr,int oneBasedStart, int oneBasedEnd,Map<String,String> chrName2RefSeqIdforGrch38Map){
 		
 		String sourceHTML = null;
 		String refSeqId;
@@ -1141,7 +1139,7 @@ public static String takeComplementforeachAllele(String allele){
 	  // Read from the URL
 	  try
 	  { 
-		  	String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId +"&strand=1" +  "&seq_start="+ startOneBased + "&seq_stop=" + endOneBased + "&rettype=fasta&retmode=text";
+		  	String eFetchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id="+ refSeqId +"&strand=1" +  "&seq_start="+ oneBasedStart + "&seq_stop=" + oneBasedEnd + "&rettype=fasta&retmode=text";
 		  	URL url= new URL(eFetchString);
 		
 	   	 	BufferedReader in= new BufferedReader(new InputStreamReader(url.openStream()));
@@ -1513,9 +1511,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		int indexofSixthTab;
 		int indexofSeventhTab;
 		int indexofEigthTab;
-			
-		
-			
+						
 		String chrNameWithPreceedingChr = null;
 		String chrNameWithoutPreceedingChr = null;
 						
@@ -1525,10 +1521,8 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		int tfOneBasedStart;
 		int tfOneBasedEnd;
 						
-		
 		String tfName;
 		String cellLineName;
-		
 		String fileName;
 		
 		String tfNameRemovedLastCharacter;
@@ -1546,39 +1540,42 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 		//4 April 2014
 		String observedAllelesSeparatedwithSlash;
-		
 				
 		/*******************************************************************************/
-		/**************************TF2PFMLogoMatricesMAP starts*************************/
+		/*********************TF 2 PFMLogoMatricesExists MAP starts*********************/
 		/*******************************************************************************/
 		//This map is used whether this pfm matrix file is already created and written for a certain TF.
-		//Map key is TF 
+		//Key is TF Name
 		//If once pfm and logo matrices are found and written to text files
 		//then there is no need to search and write pfm matrix files again
-		Map<String,Boolean> tf2PFMMatriceAlreadyExistsTrueorFalseMap 	= new HashMap<String,Boolean>();
+		Map<String,Boolean> tf2PFMLogoMatriceAlreadyExistsMap 	= new HashMap<String,Boolean>();
 		/*******************************************************************************/
-		/*************************TF2PFMLogoMatricesMAP ends****************************/
+		/*********************TF 2 PFMLogoMatricesExists MAP ends***********************/
 		/*******************************************************************************/
 			
 		
+		
+		
 		/*******************************************************************************/
-		/**************givenChrNameOneBasedStart 2 RsIDList Map starts******************/
+		/**************givenSNP 2 SNPInformation Map starts*****************************/
 		/*******************************************************************************/
-		//This map contains the rsID list for a given snp position
 		//Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
 		String givenSNPKey;
 		List<String> rsIdList;
-		RsInformation rsInformation;
-		Map<String,List<String>> givenSNP2RsIDListMap = new HashMap<String,List<String>>();
+		List<String> validRsIdList;
+		List<String> observedAlleles;
+		RsInformation rsInformation;	
+		SNPInformation snpInformation;
+		Map<String,SNPInformation> givenSNP2SNPInformationMap = new HashMap<String,SNPInformation>();
 		/*******************************************************************************/
-		/**************givenChrNameOneBasedStart 2 RsIDList Map ends********************/
+		/**************givenSNP 2 SNPInformation Map ends*******************************/
 		/*******************************************************************************/
-		
+	
 		
 		
 		
 		/*******************************************************************************/
-		/**************givenChrNameOneBasedStart 2 TFOverlaps Map starts****************/
+		/**************givenSNP 2 TFOverlapMap Map starts*******************************/
 		/*******************************************************************************/
 		//7 April 2014 starts		
 		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased)
@@ -1588,7 +1585,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		TFCellLineOverlap tfCellLineOverlap;
 		TFOverlap tfOverlap;
 		/*******************************************************************************/
-		/**************givenChrNameOneBasedStart 2 TFOverlaps Map ends******************/
+		/**************givenSNP 2 TFOverlapMap Map ends*********************************/
 		/*******************************************************************************/
 	
 	
@@ -1600,11 +1597,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		/*******************************************************************************/
 		/*********************rsID 2 rsInformation MAP ends*****************************/
 		/*******************************************************************************/
-	
-				
-		
-		
-		
+								
 	
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
@@ -1648,14 +1641,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					cellLineName = strLine.substring(indexofSeventhTab+1, indexofEigthTab);
 					fileName = strLine.substring(indexofEigthTab+1);
 					
-					
 					//Initialize tfNameRemovedLastCharacter to tfName
 					tfNameRemovedLastCharacter = tfName;
 					
 					/*************************************************************************/
 					/**********Create Files for pfm Matrices and logo Matrices starts*********/
 					/*************************************************************************/
-					if(tf2PFMMatriceAlreadyExistsTrueorFalseMap.get(tfName) == null){
+					if(tf2PFMLogoMatriceAlreadyExistsMap.get(tfName) == null){
 												
 						isThereAnExactTfNamePfmMatrix = false;
 						
@@ -1716,35 +1708,48 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 														
 						}//End of IF there is no exact TF NAME PFM Matrix Match
 						
-						tf2PFMMatriceAlreadyExistsTrueorFalseMap.put(tfName, true);
+						tf2PFMLogoMatriceAlreadyExistsMap.put(tfName, true);
 					} //End of if
 					/*************************************************************************/
 					/**********Create Files for pfm Matrices and logo Matrices ends***********/
 					/*************************************************************************/
 
 					
-					/*************************************************************************/
-					/*************************SET KEYS starts*********************************/
-					/*************************************************************************/
+					/*******************************************************************************************************************************/
+					/*************************SET KEYS starts***************************************************************************************/
+					/*******************************************************************************************************************************/
 					//Set Given ChrName OneBasedStart
 					givenSNPKey = Commons.SNP + "_" + chrNameWithPreceedingChr + "_" + snpOneBasedStart;
-					/*************************************************************************/
-					/*************************SET KEYS ends***********************************/
-					/*************************************************************************/
+					/*******************************************************************************************************************************/
+					/*************************SET KEYS ends*****************************************************************************************/
+					/*******************************************************************************************************************************/
 					
 					
-					/*************************************************************************/
-					/*****************Fill givenSNP2RsIDListMap starts************************/
-					/*************************************************************************/
-					rsIdList = givenSNP2RsIDListMap.get(givenSNPKey);
+					/*******************************************************************************************************************************/
+					/****************Start Filling Maps starts**************************************************************************************/
+					/*******************************************************************************************************************************/
 					
-					if(rsIdList == null){
-					    
+					/*************************************************************************/
+					/*****************Fill givenSNP2SNPInformationMap starts******************/
+					/*************************************************************************/
+					snpInformation = givenSNP2SNPInformationMap.get(givenSNPKey);
+					
+					//This SNP is looked for for the first time
+					if(snpInformation == null){
+						
+						snpInformation = new SNPInformation();
+						
+						snpInformation.setChrNameWithoutPreceedingChr(chrNameWithoutPreceedingChr);
+						snpInformation.setOneBasedStart(snpOneBasedStart);
+						snpInformation.setOneBasedEnd(snpOneBasedEnd);
 					    
 					    //Get all the rsIDs in this given interval				
 					    //We have to provide 1-based coordinates as arguments
+						//This rsIdList may contain many  merged rsIds
 					    rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNameWithoutPreceedingChr,snpOneBasedStart,snpOneBasedEnd);
 					    
+					    validRsIdList = new ArrayList<String>();
+					    observedAlleles = new ArrayList<String>();
 					    
 					    /*************************************************************************/
 					    /***************Fill rsID2RsIDInformationMap starts***********************/
@@ -1753,125 +1758,158 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						
 						 rsInformation = rsID2RsIDInformationMap.get(rsId);
 						 
+						 //For this rsID, We are getting rsInformation for the first time
 						 if (rsInformation==null){
+							 
 						     //For each rsId get rsInformation
-						     rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId);  
-						     rsID2RsIDInformationMap.put(rsId, rsInformation);
+						     rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId); 
+						     
+						     if (rsInformation!=null){
+						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
+						    	 validRsIdList.add(rsId);
+						    	 observedAlleles.add(rsInformation.getObservedAlleles());
+						     }else{
+						    	 //Means that this is a merged rsID
+						    	 //So do not add it.
+						     }
+						     
+						 }//End of if rsInformation is null
+						 else{
+							 
+							 //Means that rsInformation is already put
+							 //so this rsId is not a merged rsId
+							 validRsIdList.add(rsId);
+							 observedAlleles.add(rsInformation.getObservedAlleles());
 						 }
 						   
-					    }
+					    }//End of for each rsId
 					    /*************************************************************************/
 					    /***************Fill rsID2RsIDInformationMap ends*************************/
 					    /*************************************************************************/    
 					    
+					    snpInformation.setValidRsIDList(validRsIdList);
+					    snpInformation.setObservedAlleles(observedAlleles);
 					    
-					    /*************************************************************************/
-					    /***********Fill givenSNP2TFOverlapMaptMap starts*************************/
-					    /*************************************************************************/
-					    tfName2TFOverlapMap =givenSNP2TFOverlapMapMap.get(givenSNPKey);
+					    givenSNP2SNPInformationMap.put(givenSNPKey,snpInformation);
 					    
-					    if (tfName2TFOverlapMap == null){
-						
-						tfName2TFOverlapMap = new HashMap<String,TFOverlap>();
-						
-						tfOverlap = tfName2TFOverlapMap.get(tfName);
-						
-						if (tfOverlap == null){
-						    
-						    tfOverlap = new TFOverlap(tfName);
-						    
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-						    
-						    //@todo getTfCellLineOverlaps returns null
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
-						}
-						
-						
-						givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
-					    }else{
-						tfOverlap = tfName2TFOverlapMap.get(tfName);
-						
-						if (tfOverlap == null){
-						    tfOverlap = new TFOverlap(tfName);
-						    
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
-						}else{
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						}
-							
-						    
-					    }
-					    /*************************************************************************/
-					    /***********Fill givenSNP2TFOverlapMaptMap ends***************************/
-					    /*************************************************************************/
-						
-						
-					    
-					    givenSNP2RsIDListMap.put(givenSNPKey,rsIdList);
-					}//End of if rsIDList is null
-					else{
-					    
-					    /*************************************************************************/
-					    /***********Fill givenSNP2TFOverlapMaptMap starts*************************/
-					    /*************************************************************************/
-					    tfName2TFOverlapMap =givenSNP2TFOverlapMapMap.get(givenSNPKey);
-					    
-					    if (tfName2TFOverlapMap == null){
-						
-						tfName2TFOverlapMap = new HashMap<String,TFOverlap>();
-						
-						tfOverlap = tfName2TFOverlapMap.get(tfName);
-						
-						if (tfOverlap == null){
-						    
-						    tfOverlap = new TFOverlap(tfName);
-						    
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
-						}
-						
-						
-						givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
-					    }else{
-						tfOverlap = tfName2TFOverlapMap.get(tfName);
-						
-						if (tfOverlap == null){
-						    tfOverlap = new TFOverlap(tfName);
-						    
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
-						}else{
-						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
-						    
-						}
-							
-						    
-					    }
-					    /*************************************************************************/
-					    /***********Fill givenSNP2TFOverlapMaptMap ends***************************/
-					    /*************************************************************************/
-					}
+					}//End of IF snpIInformation is null
 					/*************************************************************************/
-					/*****************Fill givenSNP2RsIDListMap ends**************************/
+					/*****************Fill givenSNP2SNPInformationMap ends********************/
 					/*************************************************************************/
 					
+					
+					    
+					/*************************************************************************/
+					/***********Fill givenSNP2TFOverlapMaptMap starts*************************/
+					/*************************************************************************/
+					tfName2TFOverlapMap =givenSNP2TFOverlapMapMap.get(givenSNPKey);
+					
+					//This SNP is looked for for the first time
+					if (tfName2TFOverlapMap == null){
+						
+					    tfName2TFOverlapMap = new HashMap<String,TFOverlap>();
+						
+					    tfOverlap = tfName2TFOverlapMap.get(tfName);
+					    
+					    //For this SNP, This TF is looked for the first time
+					    if (tfOverlap == null){
+						    
+						tfOverlap = new TFOverlap(tfName);
+						    
+						tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
+							
+						tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+						    
+						 tfName2TFOverlapMap.put(tfName, tfOverlap);
+					    }
+						
+						
+					    givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
+					    
+					}
+					//For this SNP, we have another TF Overlap
+					else{
+						tfOverlap = tfName2TFOverlapMap.get(tfName);
+						
+						//For this SNP, This TF Overlap is looked for the first time.
+						if (tfOverlap == null){
+						    
+						    tfOverlap = new TFOverlap(tfName);
+						    
+						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
+							
+						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+						    
+						    tfName2TFOverlapMap.put(tfName, tfOverlap);
+						    
+						}
+						//For this SNP, we have another TF Overlap for an already existing TF Overlap
+						else{
+						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
+							
+						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+						    
+						    tfName2TFOverlapMap.put(tfName, tfOverlap);
+						    
+						}	
+						
+						    givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
+					}
+					/*************************************************************************/
+					/***********Fill givenSNP2TFOverlapMaptMap ends***************************/
+					/*************************************************************************/
+					
+					
+					
+					/*******************************************************************************************************************************/
+					/****************Start Filling Maps ends****************************************************************************************/
+					/*******************************************************************************************************************************/
+					
+					
+					/*******************************************************************************************************************************/
+					/****************Get DNA sequences starts***************************************************************************************/
+					/*******************************************************************************************************************************/
+					/****************SNP Reference Sequence*****************************************************************************************/
+					/****************SNP Alternate Sequences****************************************************************************************/
+					/****************TF OVERLAP Peak Sequence***************************************************************************************/
+					
+					for(Map.Entry<String, SNPInformation> entry: givenSNP2SNPInformationMap.entrySet()){
+						snpInformation = entry.getValue();
+						
+						//get fasta file and reference sequence for this snp
+						fastaFile = getDNASequence(snpInformation.getChrNameWithoutPreceedingChr(),snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
+						
+						snpInformation.setFastaFile(fastaFile);
+						referenceSequence = getDNASequenceFromFastaFile(fastaFile);
+						snpInformation.setSnpReferenceSequence(referenceSequence);
+					
+						
+						for(String validRsId:snpInformation.getValidRsIDList()){
+							
+							rsID2RsIDInformationMap.get(validRsId);
+						}
+						
+					}//End of for loop: each SNP
+					
+					
+						
+					
+					
+					/*******************************************************************************************************************************/
+					/****************SNP Reference Sequence*****************************************************************************************/
+					/****************SNP Alternate Sequences****************************************************************************************/
+					/****************TF OVERLAP Peak Sequence***************************************************************************************/
+					/*******************************************************************************************************************************/
+					/****************Get DNA sequences ends*****************************************************************************************/
+					/*******************************************************************************************************************************/
+				
+					
+					
+					/*******************************************************************************************************************************/
+					/****************Get DNA sequences ends*****************************************************************************************/
+					/*******************************************************************************************************************************/
+
+
 					
 				}//End of IF: not comment character
 				

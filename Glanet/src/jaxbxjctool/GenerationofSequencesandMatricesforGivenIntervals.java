@@ -1794,27 +1794,27 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId);
 								
 								if(rsInformation!=null){
-									if (!rsInformation.isMerged()){
+									
 										//rsInformation has slash separated observed alleles
 										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = Commons.RS +rsId + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1);
+										snpKey = Commons.RS +rsId + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1);
 										
 										snp = snpMap.get(snpKey);
 										
 										if(snp==null){
 											
 											snp = new SNP();
-											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
+											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNameWithoutChr());
 											
-											snp.setSnpZeroBasedStartCoordinate(rsInformation.getStartZeroBased());									
-											snp.setSnpOneBasedStartCoordinate(rsInformation.getStartZeroBased()+1);
+											snp.setSnpZeroBasedStartCoordinate(rsInformation.getZeroBasedStart());									
+											snp.setSnpOneBasedStartCoordinate(rsInformation.getZeroBasedStart()+1);
 											
-											snp.setSnpZeroBasedEndCoordinate(rsInformation.getEndZeroBased());									
-											snp.setSnpOneBasedEndCoordinate(rsInformation.getEndZeroBased()+1);
+											snp.setSnpZeroBasedEndCoordinate(rsInformation.getZeroBasedEnd());									
+											snp.setSnpOneBasedEndCoordinate(rsInformation.getZeroBasedEnd()+1);
 											
-											snp.setLength(rsInformation.getEndZeroBased()-rsInformation.getStartZeroBased()+1);
+											snp.setLength(rsInformation.getZeroBasedEnd()-rsInformation.getZeroBasedStart()+1);
 											
 											/*****************************************************************/
 											/***Get fasta file and reference sequence for this snp starts*****/
@@ -1849,7 +1849,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											
 										}//end of ELSE snp is not null		
 
-									}
+									
 								}//End of IF rsInformation is not null																								
 							}//End of for each rsId in a given interval
 							
@@ -2301,27 +2301,27 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 								
 								if(rsInformation!=null){
-									if (!rsInformation.isMerged()){
+									
 										//rsInformation has slash separated observed alleles
 										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" + Commons.RS +rsId;
+										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1) + "_" + Commons.RS +rsId;
 
 										SNP snp = snpMap.get(snpKey);
 										
 										if(snp==null){
 											
 											snp = new SNP();
-											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
+											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNameWithoutChr());
 											
-											snp.setSnpZeroBasedStartCoordinate(rsInformation.getStartZeroBased());									
-											snp.setSnpOneBasedStartCoordinate(rsInformation.getStartZeroBased()+1);
+											snp.setSnpZeroBasedStartCoordinate(rsInformation.getZeroBasedStart());									
+											snp.setSnpOneBasedStartCoordinate(rsInformation.getZeroBasedStart()+1);
 											
-											snp.setSnpZeroBasedEndCoordinate(rsInformation.getEndZeroBased());									
-											snp.setSnpOneBasedEndCoordinate(rsInformation.getEndZeroBased()+1);
+											snp.setSnpZeroBasedEndCoordinate(rsInformation.getZeroBasedEnd());									
+											snp.setSnpOneBasedEndCoordinate(rsInformation.getZeroBasedEnd()+1);
 											
-											snp.setLength(rsInformation.getEndZeroBased()-rsInformation.getStartZeroBased()+1);
+											snp.setLength(rsInformation.getZeroBasedEnd()-rsInformation.getZeroBasedStart()+1);
 											
 											
 											//get fasta file and reference sequence for this snp
@@ -2350,7 +2350,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											
 										}//end of else snp is not null	
 
-									}//This rsId is not merged		
+										
 								}//End of IF rsInformation is not null
 								//rsInformation is null for this rsId
 								else{

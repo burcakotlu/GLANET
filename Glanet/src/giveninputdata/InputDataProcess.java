@@ -191,8 +191,8 @@ public class InputDataProcess {
 				
 				if (rsInformation!=null){
 					
-					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + rsInformation.getEndZeroBased() + System.getProperty("line.separator"));
-					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNamewithoutChr() + "\t" + rsInformation.getStartZeroBased() + "\t" + (rsInformation.getEndZeroBased()+1) + System.getProperty("line.separator"));
+					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
+					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd()+1) + System.getProperty("line.separator"));
 					
 					numberofLocisInRemapInputFile++;
 					
