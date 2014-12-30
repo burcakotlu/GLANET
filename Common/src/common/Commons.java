@@ -49,6 +49,8 @@ public class Commons {
 	public static final String WRT = "wrt";
 	
 	public static final String SNP = "snp";
+	public static final String SNPs = "SNPs";
+	public static final String TF_PFM_AND_LOGO_Matrices = "TF_PFM_AND_LOGO_Matrices";
 	
 	//dbSNP rs Prefix
 	public static final String RS = "rs";
@@ -826,6 +828,7 @@ public class Commons {
 	public static final String STRING_HYPHEN = "-";
 	public static final String UNDERSCORE = "_";
 	public static final String DOT = ".";
+	public static final char SLASH = '/';
 	
 	public static final char GLANET_COMMENT_CHARACTER = '#';
 	public static final String GLANET_COMMENT_STRING = "#";

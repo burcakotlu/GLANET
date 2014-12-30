@@ -32,9 +32,7 @@ import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 
@@ -747,7 +745,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 	}
 
 
-	public static void createSequenceFile(String outputFolder,String directoryBase, String sequenceFileDirectory, String fileName,String sequence){
+	public static void writeSequenceFile(String snpDirectory, String fileName,String sequence){
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -755,7 +753,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		String firstLineofFastaFile;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + System.getProperty("file.separator") + fileName + ".txt");
+			fileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + fileName + ".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			indexofLineSeparator = sequence.indexOf(System.getProperty("line.separator"));
@@ -907,12 +905,13 @@ public static String takeComplementforeachAllele(String allele){
 	
 
 	
-	public static List<String> getAlteredSNPSequences(String referenceSequence, List<String> observedAlleles,int oneBasedStartSnpPosition, int oneBasedEndSnpPosition){
+	public static List<String> getAlteredSNPSequences(String referenceSequence, List<String> observedAlleles,int oneBasedStartSnpPosition){
 		
 		String precedingSNP;
 		String followingSNP;
 		String snp;
 		
+		int oneBasedEndSnpPosition;
 		
 		List<String> alteredSnpSequences;
 		List<String> allAlteredSnpSequences = new ArrayList<String>();
@@ -922,9 +921,12 @@ public static String takeComplementforeachAllele(String allele){
 		//precedingSNP is 14 characters long
 		precedingSNP = referenceSequence.substring(0, oneBasedStartSnpPosition-1);
 		
+		oneBasedEndSnpPosition = oneBasedStartSnpPosition;
+		
 		//followingSNP is 14 characters long
 		followingSNP = referenceSequence.substring(oneBasedEndSnpPosition);
 		
+				
 		//snp
 		snp = referenceSequence.substring(oneBasedStartSnpPosition-1,oneBasedEndSnpPosition);
 				
@@ -946,7 +948,7 @@ public static String takeComplementforeachAllele(String allele){
 				}
 			}
 			
-		}
+		}//End of for each observedAllele
 	
 		return allAlteredSnpSequences;
 	}
@@ -1058,11 +1060,11 @@ public static String takeComplementforeachAllele(String allele){
 		
 	}
 	
-	public static void createObservedAllelesFile(String outputFolder,String directoryBase, String observedAllelesFileDirectory, String fileName,List<String> observedAlleles){
+	public static void writeObservedAllelesFile(String snpDirectory, String fileName,List<String> observedAlleles){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + observedAllelesFileDirectory + System.getProperty("file.separator") + fileName + ".txt");
+			fileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + fileName + ".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(String observedAllele: observedAlleles){
@@ -1104,7 +1106,7 @@ public static String takeComplementforeachAllele(String allele){
 
 	}
 	
-	public static void createMatrixFile(String outputFolder,String directoryBase, String tfNameCellLineNameorKeggPathwayName, String matrixName,String matrix){
+	public static void writeMatrixFile(String outputFolder,String directoryBase, String tfNameCellLineNameorKeggPathwayName, String matrixName,String matrix){
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -1123,8 +1125,53 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 
+	 public static void addEachObservedAllele(List<String> observedAlleles,String slashSeparatedObservedAlleles){
+		 
+			int indexofFormerSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH);
+			int indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH,indexofFormerSlash +1);
+			
+			String allele;
+			
+			//For the first allele
+			allele = slashSeparatedObservedAlleles.substring(0,indexofFormerSlash);
+			
+			//update
+			if (!observedAlleles.contains(allele)){
+				observedAlleles.add(allele);
+			}
+			
+			
+			
+					
+			//For middle alleles
+			while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
+				
+				allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1, indexofLatterSlash);	
+				
+				//update
+				if (!observedAlleles.contains(allele)){
+					observedAlleles.add(allele);
+				}
+					
+				indexofFormerSlash = indexofLatterSlash ;			
+				indexofLatterSlash = slashSeparatedObservedAlleles.indexOf('/',indexofFormerSlash+1);
+				
+			}
+			
+			//For the last allele
+			allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1);	
+			
+			//update
+			if (!observedAlleles.contains(allele)){
+				observedAlleles.add(allele);
+			}
+			
+	 }
+	    
 	
 	
+	 
+	 
 	//Requires chrName without preceeding "chr" string 
 	//Requires oneBased coordinates
 	public static String  getDNASequence(String chrNamewithoutPreceedingChr,int oneBasedStart, int oneBasedEnd,Map<String,String> chrName2RefSeqIdforGrch38Map){
@@ -1311,52 +1358,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	}
 	
 	
-//	public static String getDirectoryBase(String enrichmentType){
-//		
-//		String directoryBase = null;
-//		
-//			switch(enrichmentType){
-//			
-//				case Commons.TF:{
-//					directoryBase = Commons.TF_RESULTS_DIRECTORY_BASE;	
-//					break;
-//				}
-//			
-//				case Commons.TF_EXON_BASED_KEGG_PATHWAY:{			
-//					directoryBase = Commons.TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;	
-//					break;
-//				}
-//				
-//				case Commons.TF_REGULATION_BASED_KEGG_PATHWAY:{				
-//					directoryBase = Commons.TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
-//					break;
-//				}
-//					
-//				case Commons.TF_ALL_BASED_KEGG_PATHWAY:{			
-//					directoryBase = Commons.TF_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;			
-//					break;
-//				}	
-//				
-//				case Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY:{
-//					directoryBase = Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;		
-//					break;
-//				}
-//				
-//				case Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY:{
-//					directoryBase = Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
-//					break;
-//				}
-//				
-//				case Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY:{
-//					directoryBase = Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE;					
-//					break;
-//				}
-//			
-//			} // End of switch
-//
-//		return directoryBase;
-//	}
-	
 	public static String getDNASequenceFromFastaFile(String fastaFile){
 		String referenceSequence;
 		int indexofFirstLineSeparator;
@@ -1531,10 +1532,9 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		boolean thereExistsPFMMatrix = false;
 		boolean thereExistsLOGOMatrix = false;
 		
-		
 		String fastaFile;
 		String referenceSequence;
-		String directoryBase = Commons.TF + System.getProperty("file.separator");
+		String directoryBase = Commons.TF_PFM_AND_LOGO_Matrices + System.getProperty("file.separator");
 					
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 		
@@ -1561,10 +1561,12 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		/*******************************************************************************/
 		//Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
 		String givenSNPKey;
+		String snpDirectory;
 		List<String> rsIdList;
 		List<String> validRsIdList;
 		List<String> observedAlleles;
 		RsInformation rsInformation;	
+		int length;
 		SNPInformation snpInformation;
 		Map<String,SNPInformation> givenSNP2SNPInformationMap = new HashMap<String,SNPInformation>();
 		/*******************************************************************************/
@@ -1603,7 +1605,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
 		//Pay attention, for the same chrName and ChrPosition there can be more than one observedAlleles String. It is rare but possible.
 		List<String> alteredSequences;
-		String observedAllelesSeparatedwithTabs;
 					
 		try {
 			allTFAnnotationsFileReader 	= new FileReader(forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
@@ -1655,7 +1656,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 							if (pfmEntry.getKey().contains(tfName)){
 								isThereAnExactTfNamePfmMatrix = true;
-								createMatrixFile(forRSAFolder,directoryBase, tfName,  "pfmMatrices_" + tfName,pfmEntry.getValue());
+								writeMatrixFile(forRSAFolder,directoryBase, tfName,  "pfmMatrices_" + tfName,pfmEntry.getValue());
 									
 							}
 						}//End of for
@@ -1664,7 +1665,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						//Find LOGO entry
 						for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 							if(logoEntry.getKey().contains(tfName)){
-								createMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
+								writeMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
 
 							}
 						}
@@ -1689,7 +1690,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 									if (pfmEntry.getKey().contains(tfNameRemovedLastCharacter)){
 										thereExistsPFMMatrix = true;
-										createMatrixFile(forRSAFolder,directoryBase, tfName, "pfmMatrices_" + tfName,pfmEntry.getValue());									
+										writeMatrixFile(forRSAFolder,directoryBase, tfName, "pfmMatrices_" + tfName,pfmEntry.getValue());									
 												
 									}
 								}//End of for PFM
@@ -1698,7 +1699,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 									if(logoEntry.getKey().contains(tfNameRemovedLastCharacter)){
 										thereExistsLOGOMatrix= true;
-										createMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
+										writeMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
 	
 									}
 								}//End of for LOGO
@@ -1719,7 +1720,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					/*************************SET KEYS starts***************************************************************************************/
 					/*******************************************************************************************************************************/
 					//Set Given ChrName OneBasedStart
-					givenSNPKey = Commons.SNP + "_" + chrNameWithPreceedingChr + "_" + snpOneBasedStart;
+					givenSNPKey = chrNameWithPreceedingChr + "_" + snpOneBasedStart;
 					/*******************************************************************************************************************************/
 					/*************************SET KEYS ends*****************************************************************************************/
 					/*******************************************************************************************************************************/
@@ -1765,9 +1766,26 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						     rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId); 
 						     
 						     if (rsInformation!=null){
+
+						    	 //Here we can check whether this rsId is in the given in the input if the given input type is dbSNP IDs
+						  
 						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
 						    	 validRsIdList.add(rsId);
-						    	 observedAlleles.add(rsInformation.getObservedAlleles());
+						    	 addEachObservedAllele(observedAlleles,rsInformation.getObservedAlleles());
+						    	 
+						    	 //debug starts sil
+								 if (validRsIdList.size()>1){
+									 
+									 System.out.print(givenSNPKey + "\t");
+									 
+									 for(String validRsID: validRsIdList){
+										 System.out.print("rs" + validRsID + "\t");;
+									 }
+									 
+									 System.out.print(System.getProperty("line.separator"));
+								 }
+								 //debug ends sil
+						    	 
 						     }else{
 						    	 //Means that this is a merged rsID
 						    	 //So do not add it.
@@ -1776,10 +1794,19 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						 }//End of if rsInformation is null
 						 else{
 							 
+							 System.out.println("I guess this else part is unnecessary!");
+							 
 							 //Means that rsInformation is already put
 							 //so this rsId is not a merged rsId
 							 validRsIdList.add(rsId);
-							 observedAlleles.add(rsInformation.getObservedAlleles());
+							 addEachObservedAllele(observedAlleles,rsInformation.getObservedAlleles());
+							 
+							 //debug starts sil
+							 if (validRsIdList.size()>0){
+								 System.out.println(givenSNPKey);
+								 
+							 }
+							 //debug ends sil
 						 }
 						   
 					    }//End of for each rsId
@@ -1814,13 +1841,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					    //For this SNP, This TF is looked for the first time
 					    if (tfOverlap == null){
 						    
-						tfOverlap = new TFOverlap(tfName);
+					    	tfOverlap = new TFOverlap(tfName);
 						    
-						tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
-							
-						tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+					    	tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
+								
+							tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
 						    
-						 tfName2TFOverlapMap.put(tfName, tfOverlap);
+							tfName2TFOverlapMap.put(tfName, tfOverlap);
 					    }
 						
 						
@@ -1853,7 +1880,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						    
 						}	
 						
-						    givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
+						givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
 					}
 					/*************************************************************************/
 					/***********Fill givenSNP2TFOverlapMaptMap ends***************************/
@@ -1866,58 +1893,73 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					/*******************************************************************************************************************************/
 					
 					
-					/*******************************************************************************************************************************/
-					/****************Get DNA sequences starts***************************************************************************************/
-					/*******************************************************************************************************************************/
-					/****************SNP Reference Sequence*****************************************************************************************/
-					/****************SNP Alternate Sequences****************************************************************************************/
-					/****************TF OVERLAP Peak Sequence***************************************************************************************/
 					
-					for(Map.Entry<String, SNPInformation> entry: givenSNP2SNPInformationMap.entrySet()){
-						snpInformation = entry.getValue();
-						
-						//get fasta file and reference sequence for this snp
-						fastaFile = getDNASequence(snpInformation.getChrNameWithoutPreceedingChr(),snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
-						
-						snpInformation.setFastaFile(fastaFile);
-						referenceSequence = getDNASequenceFromFastaFile(fastaFile);
-						snpInformation.setSnpReferenceSequence(referenceSequence);
-					
-						
-						for(String validRsId:snpInformation.getValidRsIDList()){
-							
-							rsID2RsIDInformationMap.get(validRsId);
-						}
-						
-					}//End of for loop: each SNP
-					
-					
-						
-					
-					
-					/*******************************************************************************************************************************/
-					/****************SNP Reference Sequence*****************************************************************************************/
-					/****************SNP Alternate Sequences****************************************************************************************/
-					/****************TF OVERLAP Peak Sequence***************************************************************************************/
-					/*******************************************************************************************************************************/
-					/****************Get DNA sequences ends*****************************************************************************************/
-					/*******************************************************************************************************************************/
-				
-					
-					
-					/*******************************************************************************************************************************/
-					/****************Get DNA sequences ends*****************************************************************************************/
-					/*******************************************************************************************************************************/
-
 
 					
-				}//End of IF: not comment character
+				}//End of IF strLine is not comment character
 				
 			}//End of While loop reading:  allTFAnnotationsBufferedReader
 					
-				
+			//We have read allTFAnnotations File	
 			//Close BufferedReader
 			allTFAnnotationsBufferedReader.close();
+			
+			
+			/*******************************************************************************************************************************/
+			/****************Get DNA sequences starts***************************************************************************************/
+			/*******************************************************************************************************************************/
+			/****************SNP Reference Sequence*****************************************************************************************/
+			/****************SNP Alternate Sequences****************************************************************************************/
+			/****************TF OVERLAP Peak Sequence***************************************************************************************/
+			
+			for(Map.Entry<String, SNPInformation> entry: givenSNP2SNPInformationMap.entrySet()){
+				snpInformation = entry.getValue();
+				
+				//Get Fasta File for each SNP
+				//Get SNP Reference DNA Sequence from fasta file for each SNP
+				fastaFile = getDNASequence(snpInformation.getChrNameWithoutPreceedingChr(),snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
+				
+				snpInformation.setFastaFile(fastaFile);
+				referenceSequence = getDNASequenceFromFastaFile(fastaFile);
+				snpInformation.setSnpReferenceSequence(referenceSequence);
+				
+				//Create SNP directory
+				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty("file.separator") + entry.getKey() + System.getProperty("file.separator");
+				
+				//Write SNP Reference DNA Sequence
+				writeSequenceFile(snpDirectory, "referenceDNASequence" + "_" + entry.getKey(),entry.getValue().getSnpReferenceSequence());
+				
+				//Write SNP Observed Alleles File 
+				writeObservedAllelesFile(snpDirectory, "observedAlleles" + "_" + entry.getKey(), entry.getValue().getObservedAlleles());
+				
+				//Write SNP Altered DNA Sequence
+				for(String validRsId:snpInformation.getValidRsIDList()){
+				
+					rsInformation = rsID2RsIDInformationMap.get(validRsId);
+				
+					length = rsInformation.getZeroBasedEnd() - rsInformation.getZeroBasedStart()+1;
+				
+					//@todo use observedAlleles coming from rsInformation
+					alteredSequences = getAlteredSNPSequences(snpInformation.getSnpReferenceSequence(),snpInformation.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
+				
+				}//End of for each valid rsID in this rsIdList
+
+
+				
+			}//End of for each SNP
+			
+			
+				
+			
+			
+			/*******************************************************************************************************************************/
+			/****************SNP Reference Sequence*****************************************************************************************/
+			/****************SNP Alternate Sequences****************************************************************************************/
+			/****************TF OVERLAP Peak Sequence***************************************************************************************/
+			/*******************************************************************************************************************************/
+			/****************Get DNA sequences ends*****************************************************************************************/
+			/*******************************************************************************************************************************/
+		
 			
 			
 						
@@ -2173,23 +2215,19 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		
 		String jasparCoreInputFileName 		= Commons.JASPAR_CORE;
 		
-		
 		//TF
 		String all_TF_Annotations_File_1Based_Start_End_GRCh38 = Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38;
 	
-	
 		//Example Data
 		//7 NC_000007.13  GRCh37
-//		Chromosome 7	CM000669.2	=	NC_000007.14	0 GRCh37
+		//Chromosome 7	CM000669.2	=	NC_000007.14	0 GRCh37
 		Map<String,String> chrName2RefSeqIdforGrch38Map = new HashMap<String,String>();
 		
-				
 		//@todo We have to update this file regularly
 		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
 		fillMap(dataFolder,refSeqIdsforGRCh38InputFile,chrName2RefSeqIdforGrch38Map);
-							
-									
+													
 		//Construct pfm matrices from encode-motif.txt file
 		//A tf can have more than one pfm matrices
 		//Take the transpose of given matrices in encode-motif.txt
@@ -2198,7 +2236,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 		Map<String,String> tfName2LogoMatrices = new HashMap<String,String>();
 		
-			
 		//Construct position frequency matrices from Encode Motifs
 		constructPfmMatricesfromEncodeMotifs(dataFolder,encodeMotifsInputFileName,tfName2PfmMatrices);
 		
@@ -2208,7 +2245,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//Construct position frequency matrices from Jaspar Core 
 		//Construct logo matrices from Jaspar Core
 		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder,jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);
-		
 		
 		AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs;
 		AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation ;

@@ -2000,7 +2000,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					createObservedAllelesFile(outputFolder,directoryBase, snpDirectory, "observedAlleles" + "_" + snpKeyStringWithoutRsId ,snp.getObservedAlleles());
 					
 					
-				
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION, Commons.ONE_BASED_SNP_POSITION + snp.getLength()-1);
 								
 					//create Altered Sequences
