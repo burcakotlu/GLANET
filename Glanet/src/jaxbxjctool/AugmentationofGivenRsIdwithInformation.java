@@ -36,7 +36,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
 
 /**
@@ -466,20 +465,41 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
-		RsInformation test = null;
+		//RsInformation test = null;
 
 		try {
+			List<String> testRsidList = new ArrayList<String>();
 			app = new AugmentationofGivenRsIdwithInformation();
-			test = app.getInformationforGivenRsId(rsId);
+			//test = app.getInformationforGivenRsId(rsId);
+			
+			//taken from OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt file.
+			//first nine should be either merged or does not map to
+			//any assembly. last ones should work properly
+			testRsidList.add("rs3737959"); //merged
+			testRsidList.add("rs4959515"); //does not map to any assembly
+			testRsidList.add("rs6937363"); //does not map to any assembly
+			testRsidList.add("rs4730283"); //merged
+			testRsidList.add("rs3855349"); //does not map to any assembly
+			testRsidList.add("rs12560420"); //no result
+			testRsidList.add("rs17085433"); //merged
+			testRsidList.add("rs10775043"); //merged
+			testRsidList.add("rs11089853"); //merged
+			testRsidList.add("rs7534993"); //proper
+			testRsidList.add("rs6695488"); //proper
+			
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList( testRsidList);
 
-			if (test != null) {
-				GlanetRunner.appendLog(test.getRsId());
-				GlanetRunner.appendLog(test.getChrNameWithoutChr());
-				GlanetRunner.appendLog(test.getZeroBasedStart());
-				GlanetRunner.appendLog(test.getZeroBasedEnd());
-				GlanetRunner.appendLog(test.getObservedAlleles());
-
-			}
+//			if (test != null) {
+//				GlanetRunner.appendLog(test.getRsId());
+//				GlanetRunner.appendLog(test.getChrNameWithoutChr());
+//				GlanetRunner.appendLog(test.getZeroBasedStart());
+//				GlanetRunner.appendLog(test.getZeroBasedEnd());
+//				GlanetRunner.appendLog(test.getObservedAlleles());
+//
+//			}
+			
+			for( int i = 0; i < rsInformationList.size(); i++)
+				System.out.println( rsInformationList.get(i).getRsId());
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
