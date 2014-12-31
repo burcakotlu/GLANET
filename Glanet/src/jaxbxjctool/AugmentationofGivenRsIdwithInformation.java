@@ -182,7 +182,6 @@ public class AugmentationofGivenRsIdwithInformation {
 										// Set groupName
 										rsInformation.setGroupLabel(groupLabel);
 
-										
 										// starts 31st August 2014
 										// forward or reverse
 										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
@@ -197,6 +196,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										// set chromosome name
 										// This chrName is without "chr"
 										// ex: 2, X, Y, 17
+
 										rsInformation.setChrNameWithoutChr(comp.getChromosome());
 
 										// set rsId start position
@@ -401,11 +401,13 @@ public class AugmentationofGivenRsIdwithInformation {
 										rsInformation = new RsInformation();
 
 										// Set groupLabel
-										rsInformation.setGroupLabel(groupLabel);						
+										rsInformation.setGroupLabel(groupLabel);
+
 
 										// Set Forward or Reverse
 										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
 										
+
 										// Set rsId
 										rsInformation.setRsId(Commons.RS + rs.getRsId());
 
@@ -425,11 +427,11 @@ public class AugmentationofGivenRsIdwithInformation {
 										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
 										// Set rsId end position
-										// NCBI EUTIL efetch returns 0-based coordinates
+										// NCBI EUTIL efetch returns 0-based
+										// coordinates
 										rsInformation.setZeroBasedEnd(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 									}// End of if maploc.getPhysMapInt() is not
-								
 
 								}// End of for each Maploc
 
@@ -466,11 +468,12 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
-		RsInformation test = null;
+		//RsInformation test = null;
 
 		try {
+			List<String> testRsidList = new ArrayList<String>();
 			app = new AugmentationofGivenRsIdwithInformation();
-			test = app.getInformationforGivenRsId(rsId);
+			RsInformation test = app.getInformationforGivenRsId(rsId);
 
 			if (test != null) {
 				GlanetRunner.appendLog(test.getRsId());
