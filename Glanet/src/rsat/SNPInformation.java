@@ -23,26 +23,33 @@ public class SNPInformation {
 	String fastaFile;
 	
 	List<String> validRsIDList;
-	List<String> observedAlleles;
+	List<String> usedObservedAlleles;
 	
-	
-	
-	
-	
+	boolean snpContainsAnyOfObservedAlleles;
 
-	
-
-
-
-	public List<String> getObservedAlleles() {
-		return observedAlleles;
+	public boolean isSnpContainsAnyOfObservedAlleles() {
+		return snpContainsAnyOfObservedAlleles;
 	}
 
 
 
 
-	public void setObservedAlleles(List<String> observedAlleles) {
-		this.observedAlleles = observedAlleles;
+	public void setSnpContainsAnyOfObservedAlleles(boolean snpContainsAnyOfObservedAlleles) {
+		this.snpContainsAnyOfObservedAlleles = snpContainsAnyOfObservedAlleles;
+	}
+
+
+
+
+	public List<String> getUsedObservedAlleles() {
+		return usedObservedAlleles;
+	}
+
+
+
+
+	public void setUsedObservedAlleles(List<String> usedObservedAlleles) {
+		this.usedObservedAlleles = usedObservedAlleles;
 	}
 
 
@@ -150,7 +157,9 @@ public class SNPInformation {
 		
 		super();
 		this.validRsIDList = new ArrayList<String>();
-		this.observedAlleles = new ArrayList<String>();
+		this.usedObservedAlleles = new ArrayList<String>();
+		this.snpAlteredSequences = new ArrayList<String>();
+		this.snpContainsAnyOfObservedAlleles = false;
 	}
 	
 	

@@ -126,12 +126,9 @@ public class GlanetRunner implements Runnable {
 				/************ Creation of NCBI REMAP Input files starts *************************/
 				/************************* CALL NCBI REMAP API starts ***************************/
 				/************ Creation of NCBI REMAP Output files starts ************************/
-				/*************
-				 * Augmentation of Enriched Elements with Given Input Data
-				 * starts in GRCh38
-				 *****/
+				/****************Generation of ALL TF Annotations in GRCh38 starts***************/
 				if (getMainView() != null)
-					getMainView().setCurrentProcessInfo("Augmentation of Enriched Elements with Annotation in GRCh38 using NCBI Remap...");
+					getMainView().setCurrentProcessInfo("Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
 
 				if (Thread.currentThread().isInterrupted())
 					return;
@@ -139,23 +136,20 @@ public class GlanetRunner implements Runnable {
 				GenerationofAllTFAnnotationsFileInGRCh37p13.main(args);
 
 				// AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
-				/*************
-				 * Augmentation of Enriched Elements with Given Input Data ends
-				 * in GRCh38
-				 *****/
+				/****************Generation of ALL TF Annotations in GRCh38 ends****************/
 				/************ Creation of NCBI REMAP Input files ends **************************/
 				/************************* CALL NCBI REMAP API ends ****************************/
 				/************ Creation of NCBI REMAP Output files ends *************************/
 
 				if (getMainView() != null)
-					getMainView().setCurrentProcessInfo("GenerationofSequencesandMatricesforGivenIntervals...");
+					getMainView().setCurrentProcessInfo("Generation of SNP Reference and Alternate Sequences, TF Peak Sequence and TF PFM and LOGO Matrices for Given SNPs...");
 
 				if (Thread.currentThread().isInterrupted())
 					return;
 				GenerationofSequencesandMatricesforSNPs.main(args);
 
 				if (getMainView() != null)
-					getMainView().setCurrentProcessInfo("RSATMatrixScanClient...");
+					getMainView().setCurrentProcessInfo("Regulatory Sequence Analysis Using RSAT...");
 
 				if (Thread.currentThread().isInterrupted())
 					return;

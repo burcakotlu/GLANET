@@ -5,6 +5,8 @@
  */
 package jaxbxjctool;
 
+import enumtypes.Orient;
+
 /**
  * 
  */
@@ -15,9 +17,9 @@ public class RsInformation {
 	
 	int zeroBasedStart;
 	int zeroBasedEnd;
-	String observedAlleles;
+	String slashSeparatedObservedAlleles;
 	
-	String orient;
+	Orient orient;
 	String groupLabel;
 	
 	
@@ -33,23 +35,15 @@ public class RsInformation {
 
 
 
-	public String getOrient() {
+	public Orient getOrient() {
 		return orient;
 	}
 
 
 
-	public void setOrient(String orient) {
+	public void setOrient(Orient orient) {
 		this.orient = orient;
 	}
-
-
-
-
-
-
-
-	
 
 
 
@@ -102,16 +96,14 @@ public class RsInformation {
 
 
 
-
-
-	public String getObservedAlleles() {
-		return observedAlleles;
+	public String getSlashSeparatedObservedAlleles() {
+		return slashSeparatedObservedAlleles;
 	}
 
 
 
-	public void setObservedAlleles(String observedAlleles) {
-		this.observedAlleles = observedAlleles;
+	public void setSlashSeparatedObservedAlleles(String slashSeparatedObservedAlleles) {
+		this.slashSeparatedObservedAlleles = slashSeparatedObservedAlleles;
 	}
 
 

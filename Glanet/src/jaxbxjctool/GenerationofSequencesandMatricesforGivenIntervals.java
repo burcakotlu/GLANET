@@ -1796,7 +1796,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								if(rsInformation!=null){
 									
 										//rsInformation has slash separated observed alleles
-										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
+										observedAllelesSeparatedwithSlash = rsInformation.getSlashSeparatedObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
 										snpKey = Commons.RS +rsId + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1);
@@ -2302,7 +2302,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								if(rsInformation!=null){
 									
 										//rsInformation has slash separated observed alleles
-										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
+										observedAllelesSeparatedwithSlash = rsInformation.getSlashSeparatedObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
 										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1) + "_" + Commons.RS +rsId;

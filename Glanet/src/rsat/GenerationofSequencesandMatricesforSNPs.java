@@ -32,9 +32,12 @@ import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
+import enumtypes.Orient;
 
 /**
  * 
@@ -827,84 +830,169 @@ public static String takeComplementforeachAllele(String allele){
 		return complementedAllele;
 	}
 
-	public static String takeComplement(String alleles){
-		int indexofFormerTab;
-		int indexofLatterTab;
+	public static List<String> takeComplement(List<String> observedAllelesList){
 		
-		String allele;
 		String complementedAllele = null;
-		String complementedAlleles =  "";
+		List<String> complementedAlleles =  new ArrayList<String>();
 		
-		indexofFormerTab = alleles.indexOf('\t');
 		
-		//get the first allele
-		allele = alleles.substring(0,indexofFormerTab);
-		
-		//take the complement of this allele
-		complementedAllele = takeComplementforeachAllele(allele);
-		
-		if(complementedAllele!=null){
-			complementedAlleles = complementedAlleles + complementedAllele + "\t";
-		}
-		
-		indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
-
-		while(indexofFormerTab!=-1 && indexofLatterTab!=-1){
-			allele = alleles.substring(indexofFormerTab+1, indexofLatterTab);
-			
-			//take the complement of this allele
+		for(String allele: observedAllelesList){
 			complementedAllele = takeComplementforeachAllele(allele);
-			
 			if(complementedAllele!=null){
-				complementedAlleles = complementedAlleles + complementedAllele + "\t";
+				complementedAlleles.add(complementedAllele);
 			}
 			
-			
-			indexofFormerTab = indexofLatterTab;
-			indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
-		}
+		}//End of for each observed Allele 
 		
-		//get the last allele
-		allele = alleles.substring(indexofFormerTab+1);
-		//take the complement of this allele
-		complementedAllele = takeComplementforeachAllele(allele);
-		
-		if(complementedAllele!=null){
-			complementedAlleles = complementedAlleles + complementedAllele;
-		}
 	
-				
-		
-		
-				
 		return complementedAlleles;
 		
 	}
 	
-	public static List<String> findOtherObservedAllelesandGetAltereSequences(String snp, String alleles,String precedingSNP,String followingSNP){
+	
+	
+	
+	
+	public static boolean checkWhetherSNPRefenceSequnceContainAnyObservedAllele(List<String> snpAlteredSequences, List<String> usedObservedAlleles,String snpForwardReferenceSequence, List<String> observedAllelesList){
 		
-		List<String> alteredSnpSequences;
+		boolean contains = false;
+		String formerSNPReferenceSequence = null;
+		String latterSNPReferenceSequence = null;
+		String alteredSNPSequence = null; 
 		
-		String complementedAlleles;
+		int lengthOfObservedAllele;
+		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele;
 		
+		for(String observedAllele : observedAllelesList){
 			
-		//We must decide whether we can use alleles 
-		//or we must use the complement of the alleles
-		//if snp is equal to the one of these alleles then use alleles
-		//else use the complement of alleles
-		if (useAlleles(snp,alleles)){
-			alteredSnpSequences = getAlteredSnpSequences(snp,alleles,precedingSNP,followingSNP);
-		}else {
-			complementedAlleles = takeComplement(alleles);
-			alteredSnpSequences = getAlteredSnpSequences(snp,complementedAlleles,precedingSNP,followingSNP);	
+			lengthOfObservedAllele = observedAllele.length();
+			
+			SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele =snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION +lengthOfObservedAllele);
+			
+			if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
+				contains = true;
+			} else{
+				
+				if (!usedObservedAlleles.contains(observedAllele)){
+					
+					formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0, Commons.ZERO_BASED_SNP_POSITION);
+					latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+					
+					if (!observedAllele.equals(Commons.STRING_HYPHEN)){
+						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
+					}else{
+						alteredSNPSequence = formerSNPReferenceSequence  + latterSNPReferenceSequence;
+					}
+					
+					usedObservedAlleles.add(observedAllele);
+					snpAlteredSequences.add(alteredSNPSequence);
+					
+				}
+				
+				
+			}
+			
+		}//End of for each observed allele
+		
+		return contains;
+	}
+
+
+	
+	public static void	createSNPAlternateSequences(SNPInformation snpInformation, List<String> observedAllelesList){
+		
+		//For each observed allele
+		//Check whether snpReferenceSequence contains any of these observed alleles starting at snp start position
+		//If yes; use the rest of the observed alleles in generation of alteredSequences
+		//If no; give alarm; snpReferenceSequence does not contain any of this observed allele starting at snp start position
+		
+		Boolean snpContainsAnyOfObservedAlleles; 
+		
+		snpContainsAnyOfObservedAlleles =checkWhetherSNPRefenceSequnceContainAnyObservedAllele(snpInformation.getSnpAlteredSequences(),snpInformation.getUsedObservedAlleles(),snpInformation.getSnpReferenceSequence(),observedAllelesList);
+		
+		
+		if (!snpContainsAnyOfObservedAlleles){
+			//Give alarm
+			System.out.println("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
 		}
-			
 		
-		return alteredSnpSequences;
+		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
+		
+	}
+	
+	
+	public static List<String> convertSlashSeparatedObservedAllelesIntoAStringList(String slashSeparatedObservedAlleles){
+		
+		List<String> observedAllelesList = new ArrayList<String>();
+		
+		int indexofFormerSlash;
+		int indexofLatterSlash;
+		String allele;
+		
+		indexofFormerSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH);
+		
+		/*****************************************************************/
+		/*************For the first allele starts*************************/
+		/*****************************************************************/
+		allele = slashSeparatedObservedAlleles.substring(0,indexofFormerSlash);
+		observedAllelesList.add(allele);
+		/*****************************************************************/
+		/*************For the first allele ends***************************/
+		/*****************************************************************/
+		
+		indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH,indexofFormerSlash+1);
+
+		/*****************************************************************/
+		/*************For the middle allele starts************************/
+		/*****************************************************************/
+		while(indexofFormerSlash!=-1 && indexofLatterSlash!=-1){
+			allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1, indexofLatterSlash);
+			observedAllelesList.add(allele);
+			
+			
+			indexofFormerSlash = indexofLatterSlash;
+			indexofLatterSlash = slashSeparatedObservedAlleles.indexOf('\t',indexofFormerSlash+1);
+		}
+		/*****************************************************************/
+		/*************For the middle allele ends**************************/
+		/*****************************************************************/
+		
+		
+		
+		/*****************************************************************/
+		/*************For the last allele starts**************************/
+		/*****************************************************************/
+		allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1);
+		observedAllelesList.add(allele);
+		/*****************************************************************/
+		/*************For the last allele ends****************************/
+		/*****************************************************************/
+
+					
+		return observedAllelesList;
+		
+
+	}
+	
+	
+	public static void createSNPAlternateSequences(SNPInformation snpInformation, RsInformation rsInformation){
+		
+		List<String> observedAllelesList = convertSlashSeparatedObservedAllelesIntoAStringList(rsInformation.getSlashSeparatedObservedAlleles());
+		
+		List<String> complementedObservedAllelesList = null;
+		
+		if (rsInformation.getOrient().isForward()){
+			createSNPAlternateSequences(snpInformation,observedAllelesList);
+		}else{
+			//Take Complement of slashSeparatedObservedAlleles
+			complementedObservedAllelesList = takeComplement(observedAllelesList);
+			createSNPAlternateSequences(snpInformation,complementedObservedAllelesList);
+		}
+		
 	}
 	
 
-	
+	//Then delete this method
 	public static List<String> getAlteredSNPSequences(String referenceSequence, List<String> observedAlleles,int oneBasedStartSnpPosition){
 		
 		String precedingSNP;
@@ -936,17 +1024,17 @@ public static String takeComplementforeachAllele(String allele){
 		for(String alleles: observedAlleles){
 			
 			//Find the other alleles other than normal nucleotide
-			alteredSnpSequences = findOtherObservedAllelesandGetAltereSequences(snp,alleles,precedingSNP,followingSNP);
+			//alteredSnpSequences = findOtherObservedAllelesandGetAltereSequences(snp,alleles,precedingSNP,followingSNP);
 			
-			//check for whether every altered sequence in alteredSnpSequences exists in allAlteredSnpSequences
-			//if allAlteredSnpSequences does not contain it 
-			//then add it
-			for(String alteredSequence:alteredSnpSequences){
-				if (!allAlteredSnpSequences.contains(alteredSequence)){
-					allAlteredSnpSequences.add(alteredSequence);
-					
-				}
-			}
+//			//check for whether every altered sequence in alteredSnpSequences exists in allAlteredSnpSequences
+//			//if allAlteredSnpSequences does not contain it 
+//			//then add it
+//			for(String alteredSequence:alteredSnpSequences){
+//				if (!allAlteredSnpSequences.contains(alteredSequence)){
+//					allAlteredSnpSequences.add(alteredSequence);
+//					
+//				}
+//			}
 			
 		}//End of for each observedAllele
 	
@@ -1060,16 +1148,14 @@ public static String takeComplementforeachAllele(String allele){
 		
 	}
 	
-	public static void writeObservedAllelesFile(String snpDirectory, String fileName,List<String> observedAlleles){
+	public static void writeObservedAllelesFile(String snpDirectory, String fileName,String observedAlleles){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
 			fileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + fileName + ".txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			for(String observedAllele: observedAlleles){
-				bufferedWriter.write(observedAllele + System.getProperty("line.separator"));	
-			}
+			bufferedWriter.write(observedAlleles + System.getProperty("line.separator"));	
 			
 			bufferedWriter.close();
 			
@@ -1125,49 +1211,7 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 
-	 public static void addEachObservedAllele(List<String> observedAlleles,String slashSeparatedObservedAlleles){
-		 
-			int indexofFormerSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH);
-			int indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH,indexofFormerSlash +1);
-			
-			String allele;
-			
-			//For the first allele
-			allele = slashSeparatedObservedAlleles.substring(0,indexofFormerSlash);
-			
-			//update
-			if (!observedAlleles.contains(allele)){
-				observedAlleles.add(allele);
-			}
-			
-			
-			
-					
-			//For middle alleles
-			while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
-				
-				allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1, indexofLatterSlash);	
-				
-				//update
-				if (!observedAlleles.contains(allele)){
-					observedAlleles.add(allele);
-				}
-					
-				indexofFormerSlash = indexofLatterSlash ;			
-				indexofLatterSlash = slashSeparatedObservedAlleles.indexOf('/',indexofFormerSlash+1);
-				
-			}
-			
-			//For the last allele
-			allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash+1);	
-			
-			//update
-			if (!observedAlleles.contains(allele)){
-				observedAlleles.add(allele);
-			}
-			
-	 }
-	    
+	
 	
 	
 	 
@@ -1532,15 +1576,10 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		boolean thereExistsPFMMatrix = false;
 		boolean thereExistsLOGOMatrix = false;
 		
-		String fastaFile;
-		String referenceSequence;
 		String directoryBase = Commons.TF_PFM_AND_LOGO_Matrices + System.getProperty("file.separator");
 					
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 		
-		//4 April 2014
-		String observedAllelesSeparatedwithSlash;
-				
 		/*******************************************************************************/
 		/*********************TF 2 PFMLogoMatricesExists MAP starts*********************/
 		/*******************************************************************************/
@@ -1564,10 +1603,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String snpDirectory;
 		List<String> rsIdList;
 		List<String> validRsIdList;
-		List<String> observedAlleles;
 		RsInformation rsInformation;	
-		int length;
 		SNPInformation snpInformation;
+		String fastaFile;
+		String referenceSequence;
+		List<String> observedAlleles;
+		List<String> alteredSequences;
+		int alteredSequenceCount;
 		Map<String,SNPInformation> givenSNP2SNPInformationMap = new HashMap<String,SNPInformation>();
 		/*******************************************************************************/
 		/**************givenSNP 2 SNPInformation Map ends*******************************/
@@ -1604,7 +1646,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//10 March 2014
 		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
 		//Pay attention, for the same chrName and ChrPosition there can be more than one observedAlleles String. It is rare but possible.
-		List<String> alteredSequences;
 					
 		try {
 			allTFAnnotationsFileReader 	= new FileReader(forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
@@ -1771,7 +1812,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						  
 						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
 						    	 validRsIdList.add(rsId);
-						    	 addEachObservedAllele(observedAlleles,rsInformation.getObservedAlleles());
 						    	 
 						    	 //debug starts sil
 								 if (validRsIdList.size()>1){
@@ -1799,7 +1839,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							 //Means that rsInformation is already put
 							 //so this rsId is not a merged rsId
 							 validRsIdList.add(rsId);
-							 addEachObservedAllele(observedAlleles,rsInformation.getObservedAlleles());
 							 
 							 //debug starts sil
 							 if (validRsIdList.size()>0){
@@ -1815,8 +1854,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					    /*************************************************************************/    
 					    
 					    snpInformation.setValidRsIDList(validRsIdList);
-					    snpInformation.setObservedAlleles(observedAlleles);
-					    
+					   
 					    givenSNP2SNPInformationMap.put(givenSNPKey,snpInformation);
 					    
 					}//End of IF snpIInformation is null
@@ -1923,30 +1961,86 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				referenceSequence = getDNASequenceFromFastaFile(fastaFile);
 				snpInformation.setSnpReferenceSequence(referenceSequence);
 				
-				//Create SNP directory
-				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty("file.separator") + entry.getKey() + System.getProperty("file.separator");
 				
-				//Write SNP Reference DNA Sequence
+				/*****************************************************************/
+				/*****************Set SNP directory starts************************/
+				/*****************************************************************/
+				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty("file.separator") + entry.getKey();
+				
+				//Add valid rsIDs to the snpDirectory
+				for(String validRsId: snpInformation.getValidRsIDList()){
+					snpDirectory = snpDirectory + Commons.UNDERSCORE +  Commons.RS + validRsId;
+				}//End of for each valid rsID in this SNP
+				
+				snpDirectory = snpDirectory +  System.getProperty("file.separator");
+				/*****************************************************************/
+				/*****************Set SNP directory ends**************************/
+				/*****************************************************************/
+				
+				
+				
+				/*****************************************************************/
+				/********Write SNP Reference DNA Sequence starts******************/
+				/*****************************************************************/
 				writeSequenceFile(snpDirectory, "referenceDNASequence" + "_" + entry.getKey(),entry.getValue().getSnpReferenceSequence());
+				/*****************************************************************/
+				/********Write SNP Reference DNA Sequence ends********************/
+				/*****************************************************************/
 				
-				//Write SNP Observed Alleles File 
-				writeObservedAllelesFile(snpDirectory, "observedAlleles" + "_" + entry.getKey(), entry.getValue().getObservedAlleles());
+				
+				
+				/**********************************************************************************/
+				/***********Write SNP Observed Alleles Files valid rsID Based starts***************/ 
+				/**********************************************************************************/
+				for(String validRsId: snpInformation.getValidRsIDList()){
+					
+					//debug sil
+					//rs10821415 
+					//rs376388841
+					if (validRsId.equals("10821415") || validRsId.equals("376388841") ){
+						System.out.println("debug this " + validRsId);
+					}
+					//debug sil
+					
+					rsInformation = rsID2RsIDInformationMap.get(validRsId);
+					writeObservedAllelesFile(snpDirectory, "observedAlleles" + Commons.UNDERSCORE + Commons.RS +validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
+					
+					createSNPAlternateSequences(snpInformation, rsInformation);
+					
+					if (snpInformation.isSnpContainsAnyOfObservedAlleles()){
+						alteredSequenceCount = 1;
+						
+						for(String alteredSequence: snpInformation.getSnpAlteredSequences()){
+							writeSequenceFile(snpDirectory, "alteredDNASequence"  + alteredSequenceCount + "_" + entry.getKey(),alteredSequence);
+							alteredSequenceCount++;
+						}
+					}
+					
+					
+					
+					
+				}//End of for each valid rsID in this SNP
+				/**********************************************************************************/
+				/***********Write SNP Observed Alleles Files valid rsID Based ends*****************/ 
+				/**********************************************************************************/
+				
+				
+				
+				/**********************************************************************************/
+				/**********************Write SNP Altered Sequences Files starts********************/ 
+				/**********************************************************************************/
+			
+				/**********************************************************************************/
+				/**********************Write SNP Altered Sequences Files ends**********************/ 
+				/**********************************************************************************/
+			
+				
 				
 				//Write SNP Altered DNA Sequence
 				//@todo use observedAlleles coming from rsInformation or not
-				alteredSequences = getAlteredSNPSequences(snpInformation.getSnpReferenceSequence(),snpInformation.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
-			
-				
-			
-
-
+//				alteredSequences = getAlteredSNPSequences(snpInformation.getSnpReferenceSequence(),snpInformation.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION);
 				
 			}//End of for each SNP
-			
-			
-				
-			
-			
 			/*******************************************************************************************************************************/
 			/****************SNP Reference Sequence*****************************************************************************************/
 			/****************SNP Alternate Sequences****************************************************************************************/

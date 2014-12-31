@@ -15,6 +15,7 @@
  */
 package jaxbxjctool;
 
+import enumtypes.Orient;
 import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
@@ -36,7 +37,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
 
 /**
@@ -185,7 +185,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										
 										// starts 31st August 2014
 										// forward or reverse
-										rsInformation.setOrient(maploc.getOrient());
+										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
 										// ends 31st August 2014
 
 										// set rsId
@@ -205,7 +205,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
+										rsInformation.setSlashSeparatedObservedAlleles(rs.getSequence().getObserved());
 
 										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
@@ -403,8 +403,8 @@ public class AugmentationofGivenRsIdwithInformation {
 										// Set groupLabel
 										rsInformation.setGroupLabel(groupLabel);						
 
-										// Set forward or reverse
-										rsInformation.setOrient(maploc.getOrient());
+										// Set Forward or Reverse
+										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
 										
 										// Set rsId
 										rsInformation.setRsId(Commons.RS + rs.getRsId());
@@ -420,7 +420,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
+										rsInformation.setSlashSeparatedObservedAlleles(rs.getSequence().getObserved());
 
 										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
@@ -477,7 +477,7 @@ public class AugmentationofGivenRsIdwithInformation {
 				GlanetRunner.appendLog(test.getChrNameWithoutChr());
 				GlanetRunner.appendLog(test.getZeroBasedStart());
 				GlanetRunner.appendLog(test.getZeroBasedEnd());
-				GlanetRunner.appendLog(test.getObservedAlleles());
+				GlanetRunner.appendLog(test.getSlashSeparatedObservedAlleles());
 
 			}
 
