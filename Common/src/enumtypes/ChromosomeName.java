@@ -36,8 +36,6 @@ public enum ChromosomeName {
 	CHROMOSOMEX(23),
 	CHROMOSOMEY(24);
 	
-
-	
 	 private final int chromosomeName;
 	 
 	/* 

@@ -135,7 +135,6 @@ public class InputDataRemoveOverlaps {
 				
 				chromosomeName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 				
-				
 				if (indexofSecondTab>indexofFirstTab){
 					low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));					
 					high = Integer.parseInt(strLine.substring(indexofSecondTab+1));

@@ -182,25 +182,6 @@ public class AugmentationofGivenRsIdwithInformation {
 										// Set groupName
 										rsInformation.setGroupLabel(groupLabel);
 
-										// //starts 29th August 2014
-										// //Is this code necessary? starts
-										// List<MergeHistory> mergeHistoryList =
-										// rs.getMergeHistory();
-										// if (mergeHistoryList.size()>0){
-										// for (MergeHistory mergeHistory:
-										// mergeHistoryList){
-										//
-										// if (rs.getRsId() ==
-										// mergeHistory.getRsId()){
-										// rsInformation.setMerged(true);
-										// logger.debug("If you see this code it means that this code is necessary");
-										// break;
-										// }
-										// }//End of for
-										// }
-										// //Is this code necessary? ends
-										// //ends 29th August 2014
-
 										// starts 31st August 2014
 										// forward or reverse
 										rsInformation.setOrient(maploc.getOrient());
@@ -215,12 +196,13 @@ public class AugmentationofGivenRsIdwithInformation {
 										// set chromosome name
 										// This chrName is without "chr"
 										// ex: 2, X, Y, 17
-										rsInformation.setChrNamewithoutChr(comp.getChromosome());
+
+										rsInformation.setChrNameWithoutChr(comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setStartZeroBased(maploc.getPhysMapInt());
+										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
 										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
@@ -230,7 +212,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										// set rsId end position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setEndZeroBased(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+										rsInformation.setZeroBasedEnd(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 										rsInformationList.add(rsInformation);
 
@@ -400,6 +382,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					// given position
 					// And NCBI returned rsId and given rsId does not match
 					// Means that given rsId is a merged rsID
+					// Valid rsID is returned rsId
 					if (rs.getRsId() != Integer.parseInt(rsId)) {
 						logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + "  check whether given rsId is merged");
 						return null;
@@ -420,54 +403,33 @@ public class AugmentationofGivenRsIdwithInformation {
 										// Set groupLabel
 										rsInformation.setGroupLabel(groupLabel);
 
-										// //starts 29th August 2014
-										// //Is this code necessary? starts
-										// List<MergeHistory> mergeHistoryList =
-										// rs.getMergeHistory();
-										// if (mergeHistoryList.size()>0){
-										// for (MergeHistory mergeHistory:
-										// mergeHistoryList){
-										// if (rs.getRsId() ==
-										// mergeHistory.getRsId()){
-										// rsInformation.setMerged(true);
-										// logger.debug("If you see this line means that this code is necessary");
-										// break;
-										// }
-										// }
-										// }
-										// //Is this code necessary? ends
-										// //ends 29th August 2014
-
-										// starts 31st August 2014
-										// forward or reverse
+										// Set forward or reverse
 										rsInformation.setOrient(maploc.getOrient());
-										// ends 31st August 2014
 
-										// set rsId
+										// Set rsId
 										rsInformation.setRsId(Commons.RS + rs.getRsId());
 
-										// set chromosome name
+										// Set chromosome name
 										// This chrName is without "chr"
-										// ex: 2, X, Y, 17
-										rsInformation.setChrNamewithoutChr(comp.getChromosome());
+										// e.g.: 2, X, Y, 17
+										rsInformation.setChrNameWithoutChr(comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setStartZeroBased(maploc.getPhysMapInt());
+										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
 										rsInformation.setObservedAlleles(rs.getSequence().getObserved());
 
 										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
-										// set rsId end position
-										// eutil efetch returns 0-based
+										// Set rsId end position
+										// NCBI EUTIL efetch returns 0-based
 										// coordinates
-										rsInformation.setEndZeroBased(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+										rsInformation.setZeroBasedEnd(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 									}// End of if maploc.getPhysMapInt() is not
-										// null
 
 								}// End of for each Maploc
 
@@ -512,9 +474,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			if (test != null) {
 				GlanetRunner.appendLog(test.getRsId());
-				GlanetRunner.appendLog(test.getChrNamewithoutChr());
-				GlanetRunner.appendLog(test.getStartZeroBased());
-				GlanetRunner.appendLog(test.getEndZeroBased());
+				GlanetRunner.appendLog(test.getChrNameWithoutChr());
+				GlanetRunner.appendLog(test.getZeroBasedStart());
+				GlanetRunner.appendLog(test.getZeroBasedEnd());
 				GlanetRunner.appendLog(test.getObservedAlleles());
 
 			}

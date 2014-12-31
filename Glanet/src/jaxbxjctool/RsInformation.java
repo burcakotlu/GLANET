@@ -11,11 +11,12 @@ package jaxbxjctool;
 public class RsInformation {
 	
 	String rsId;
-	String chrNamewithoutChr;
-	int startZeroBased;
-	int endZeroBased;
+	String chrNameWithoutChr;
+	
+	int zeroBasedStart;
+	int zeroBasedEnd;
 	String observedAlleles;
-	boolean merged;
+	
 	String orient;
 	String groupLabel;
 	
@@ -44,38 +45,46 @@ public class RsInformation {
 
 
 
-	public boolean isMerged() {
-		return merged;
+
+
+
+
+	
+
+
+
+	public String getChrNameWithoutChr() {
+		return chrNameWithoutChr;
 	}
 
 
 
-	public void setMerged(boolean merged) {
-		this.merged = merged;
+	public void setChrNameWithoutChr(String chrNameWithoutChr) {
+		this.chrNameWithoutChr = chrNameWithoutChr;
 	}
 
 
 
-	public int getStartZeroBased() {
-		return startZeroBased;
+	public int getZeroBasedStart() {
+		return zeroBasedStart;
 	}
 
 
 
-	public void setStartZeroBased(int startZeroBased) {
-		this.startZeroBased = startZeroBased;
+	public void setZeroBasedStart(int zeroBasedStart) {
+		this.zeroBasedStart = zeroBasedStart;
 	}
 
 
 
-	public int getEndZeroBased() {
-		return endZeroBased;
+	public int getZeroBasedEnd() {
+		return zeroBasedEnd;
 	}
 
 
 
-	public void setEndZeroBased(int endZeroBased) {
-		this.endZeroBased = endZeroBased;
+	public void setZeroBasedEnd(int zeroBasedEnd) {
+		this.zeroBasedEnd = zeroBasedEnd;
 	}
 
 
@@ -91,15 +100,7 @@ public class RsInformation {
 	}
 
 
-	public String getChrNamewithoutChr() {
-		return chrNamewithoutChr;
-	}
 
-
-
-	public void setChrNamewithoutChr(String chrNamewithoutChr) {
-		this.chrNamewithoutChr = chrNamewithoutChr;
-	}
 
 
 

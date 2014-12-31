@@ -27,9 +27,10 @@ public class SNP{
 
 	
 	List<String> observedAlleles;
+	String referenceSequence;
+	
 	List<String> alteredSequences;
 	
-	String referenceSequence;
 	String fastaFile;
 	
 	

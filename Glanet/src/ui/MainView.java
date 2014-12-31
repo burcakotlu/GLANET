@@ -523,7 +523,7 @@ public class MainView extends JPanel{
         //regulatorySequenceAnalysisUsingRSATCheck added to rsatOption
         regulatorySequenceAnalysisUsingRSATCheck = new JCheckBox( "Regulatory Sequence Analysis Using RSAT");
         rsatOption.add( regulatorySequenceAnalysisUsingRSATCheck);
-        enrichmentPanel.add( createBorderedPanel( "RSAT", createPanelWithHint(rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
+        enrichmentPanel.add( createBorderedPanel( "Regulatory Sequence Analysis", createPanelWithHint(rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
         listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
                 
         //jobNamePanel added to listPane
