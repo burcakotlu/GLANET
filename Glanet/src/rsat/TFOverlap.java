@@ -54,9 +54,12 @@ public class TFOverlap {
         this.maximumOneBasedEnd = maximumOneBasedEnd;
     }
     public TFOverlap(String tfName) {
-	super();
-	this.tfName = tfName;
-	this.tfCellLineOverlaps = new ArrayList<TFCellLineOverlap>();
+    	super();
+    	this.tfName = tfName;
+    	this.tfCellLineOverlaps = new ArrayList<TFCellLineOverlap>();
+    	
+    	this.minimumOneBasedStart = Integer.MAX_VALUE;
+    	this.maximumOneBasedEnd = Integer.MIN_VALUE;
     }
     
     
