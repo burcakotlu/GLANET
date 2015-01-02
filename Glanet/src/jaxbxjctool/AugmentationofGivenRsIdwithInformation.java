@@ -21,6 +21,11 @@ import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,16 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
@@ -141,7 +156,74 @@ public class AugmentationofGivenRsIdwithInformation {
 		String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + commaSeparatedRsIdList + "&retmode=xml";
 
 		XMLEventReader reader = null;
-
+		
+		URI uri = null;
+		
+		try {
+			
+			uri = new URIBuilder().setScheme("http")
+										.setHost("www.ncbi.nlm.nih.gov")
+										.setPath("/entrez/eutils/efetch.fcgi")
+										.setParameter("db", "snp")
+										.setParameter("id", commaSeparatedRsIdList)
+										.setParameter("retmode", "xml")
+										.build();
+			
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if( uri != null) {
+			try{
+				
+//				String xml = null;
+//				CloseableHttpClient httpclient = HttpClients.createDefault();
+//				HttpPost httpPost = new HttpPost( uri);
+//	
+//	            HttpResponse httpResponse = httpclient.execute( httpPost);
+//	            
+//	            HttpEntity httpEntity = httpResponse.getEntity();
+//	            
+//	            xml = EntityUtils.toString( httpEntity);
+//	            
+//	            System.out.println(xml);
+				
+				CloseableHttpClient httpclient = HttpClients.createDefault();
+				HttpGet httpget = new HttpGet(uri);
+				CloseableHttpResponse response = httpclient.execute(httpget);
+				
+				try {
+					
+				    HttpEntity entity = response.getEntity();
+				    
+				    if (entity != null) {
+				    	
+				        InputStream instream = entity.getContent();
+				        
+				        try {
+				        	
+				        	logger.debug( EntityUtils.toString( entity));
+				            //System.out.println(EntityUtils.toString( entity));
+				        } finally {
+				            instream.close();
+				        }
+				    }
+				} finally {
+					
+				    response.close();
+				}
+	            
+				//System.out.println( httpget.getURI());
+			} catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		}
+		
 		try {
 
 			reader = xmlInputFactory.createXMLEventReader(new StreamSource(url));
@@ -217,7 +299,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										rsInformationList.add(rsInformation);
 
 									}// End of if maploc.getPhysMapInt() is not
-										// null
+									// null
 
 								}// End of for each Maploc
 
@@ -351,6 +433,28 @@ public class AugmentationofGivenRsIdwithInformation {
 		int numberofBasesInTheSNPAtMost;
 
 		String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
+		
+		URI uriB = null;
+		
+		try {
+			
+			uriB = new URIBuilder().setScheme("http")
+										.setHost("www.ncbi.nlm.nih.gov")
+										.setPath("/entrez/eutils/efetch.fcgi")
+										.setParameter("db", "snp")
+										.setParameter("id", rsId)
+										.setParameter("retmode", "xml")
+										.build();
+			
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if( uriB != null) {
+			HttpGet httpget = new HttpGet(uriB);
+			System.out.println( httpget.getURI());
+		}
 
 		XMLEventReader reader;
 
@@ -406,7 +510,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 										// Set Forward or Reverse
 										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
-										
+
 
 										// Set rsId
 										rsInformation.setRsId(Commons.RS + rs.getRsId());
@@ -466,23 +570,44 @@ public class AugmentationofGivenRsIdwithInformation {
 	 */
 	public static void main(String[] args) {
 
-		String rsId = "rs7534993";
+		//String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
 		//RsInformation test = null;
 
 		try {
+
 			List<String> testRsidList = new ArrayList<String>();
 			app = new AugmentationofGivenRsIdwithInformation();
-			RsInformation test = app.getInformationforGivenRsId(rsId);
+			//test = app.getInformationforGivenRsId(rsId);
 
-			if (test != null) {
-				GlanetRunner.appendLog(test.getRsId());
-				GlanetRunner.appendLog(test.getChrNameWithoutChr());
-				GlanetRunner.appendLog(test.getZeroBasedStart());
-				GlanetRunner.appendLog(test.getZeroBasedEnd());
-				GlanetRunner.appendLog(test.getSlashSeparatedObservedAlleles());
+			//taken from OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt file.
+			//first nine should be either merged or does not map to
+			//any assembly. last ones should work properly
+			testRsidList.add("rs3737959"); //merged
+			testRsidList.add("rs4959515"); //does not map to any assembly
+			testRsidList.add("rs6937363"); //does not map to any assembly
+			testRsidList.add("rs4730283"); //merged
+			testRsidList.add("rs3855349"); //does not map to any assembly
+			testRsidList.add("rs12560420"); //no result
+			testRsidList.add("rs17085433"); //merged
+			testRsidList.add("rs10775043"); //merged
+			testRsidList.add("rs11089853"); //merged
+			testRsidList.add("rs7534993"); //proper
+			testRsidList.add("rs6695488"); //proper
+			
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList( testRsidList);
 
-			}
+			//			if (test != null) {
+			//				GlanetRunner.appendLog(test.getRsId());
+			//				GlanetRunner.appendLog(test.getChrNameWithoutChr());
+			//				GlanetRunner.appendLog(test.getZeroBasedStart());
+			//				GlanetRunner.appendLog(test.getZeroBasedEnd());
+			//				GlanetRunner.appendLog(test.getObservedAlleles());
+			//
+			//			}
+
+			for( int i = 0; i < rsInformationList.size(); i++)
+				System.out.println( rsInformationList.get(i).getRsId());
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
