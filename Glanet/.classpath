@@ -18,5 +18,12 @@
 	<classpathentry kind="lib" path="lib/wsdl4j-1.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/axis.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/fluent-hc-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpclient-cache-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpmime-4.3.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
