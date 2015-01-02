@@ -39,7 +39,6 @@ public class GenerationofSequencesandMatricesforSNPs {
 	
 	final static Logger logger = Logger.getLogger(GenerationofSequencesandMatricesforSNPs.class);
 	
-	
 	public static void constructLogoMatricesfromEncodeMotifs(String dataFolder,String encodeMotifsInputFileName,Map<String,String>  tfName2LogoMatrices){
 		
 		FileReader fileReader ;
@@ -688,7 +687,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				tfName = tfEntry.getKey();
 				tfOverlap = tfEntry.getValue();
 				
-				TFNameBasedTFOverlapsFileWriter = FileOperations.createFileWriter(snpDirectory  + System.getProperty("file.separator") + "TFOverlaps" +  Commons.UNDERSCORE + tfName +  ".txt");	
+				TFNameBasedTFOverlapsFileWriter = FileOperations.createFileWriter(snpDirectory  + System.getProperty("file.separator") + Commons.TF_OVERLAPS +  Commons.UNDERSCORE + tfName +  ".txt");	
 				TFNameBasedTFOverlapsBufferedWriter = new BufferedWriter(TFNameBasedTFOverlapsFileWriter);
 				
 				Iterator<TFCellLineOverlap> iterator = tfOverlap.getTfCellLineOverlaps().iterator();
@@ -721,7 +720,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				tfOverlap.setPeakSequence(getDNASequence(chrNameWithoutPreceedingChr,tfOverlap.getMinimumOneBasedStart(), tfOverlap.getMaximumOneBasedEnd(),chrName2RefSeqIdforGrch38Map));
 
 				//Write TF Name Based TFOverlap Peak Sequence
-				writeSequenceFile(snpDirectory, "TFExtendedPeakSequence" + Commons.UNDERSCORE +  tfName  , tfOverlap.getPeakSequence());
+				writeSequenceFile(snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE +  tfName  , tfOverlap.getPeakSequence());
 				
 			}//End of FOR TF Name Based TF CellLine Overlaps
 			
@@ -872,11 +871,11 @@ public static String takeComplementforeachAllele(String allele){
 					
 					if (!observedAllele.equals(Commons.STRING_HYPHEN)){
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.UNDERSCORE + rsId + Commons.UNDERSCORE + observedAllele);
+						snpAlteredSequenceNames.add(rsId + Commons.UNDERSCORE + observedAllele);
 						
 					}else{
 						alteredSNPSequence = formerSNPReferenceSequence  + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.UNDERSCORE + rsId + Commons.UNDERSCORE );
+						snpAlteredSequenceNames.add(rsId + Commons.UNDERSCORE );
 					}
 					
 					usedObservedAlleles.add(observedAllele);
@@ -1289,7 +1288,7 @@ public static String takeComplementforeachAllele(String allele){
 						for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 							if (pfmEntry.getKey().contains(tfName)){
 								isThereAnExactTfNamePfmMatrix = true;
-								writeMatrixFile(forRSAFolder,directoryBase, tfName,  "pfmMatrices_" + tfName,pfmEntry.getValue());
+								writeMatrixFile(forRSAFolder,directoryBase, tfName,  Commons.PFM_MATRICES +  Commons.UNDERSCORE + tfName,pfmEntry.getValue());
 									
 							}
 						}//End of for
@@ -1298,7 +1297,7 @@ public static String takeComplementforeachAllele(String allele){
 						//Find LOGO entry
 						for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 							if(logoEntry.getKey().contains(tfName)){
-								writeMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
+								writeMatrixFile(forRSAFolder,directoryBase, tfName, Commons.LOGO_MATRICES + Commons.UNDERSCORE +tfName,logoEntry.getValue());
 
 							}
 						}
@@ -1323,7 +1322,7 @@ public static String takeComplementforeachAllele(String allele){
 								for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 									if (pfmEntry.getKey().contains(tfNameRemovedLastCharacter)){
 										thereExistsPFMMatrix = true;
-										writeMatrixFile(forRSAFolder,directoryBase, tfName, "pfmMatrices_" + tfName,pfmEntry.getValue());									
+										writeMatrixFile(forRSAFolder,directoryBase, tfName, Commons.PFM_MATRICES +  Commons.UNDERSCORE  + tfName,pfmEntry.getValue());									
 												
 									}
 								}//End of for PFM
@@ -1332,7 +1331,7 @@ public static String takeComplementforeachAllele(String allele){
 								for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 									if(logoEntry.getKey().contains(tfNameRemovedLastCharacter)){
 										thereExistsLOGOMatrix= true;
-										writeMatrixFile(forRSAFolder,directoryBase, tfName, "logoMatrices_" +tfName,logoEntry.getValue());
+										writeMatrixFile(forRSAFolder,directoryBase, tfName, Commons.LOGO_MATRICES + Commons.UNDERSCORE +tfName,logoEntry.getValue());
 	
 									}
 								}//End of for LOGO
@@ -1577,7 +1576,7 @@ public static String takeComplementforeachAllele(String allele){
 				/*****************************************************************/
 				/********Write SNP Reference DNA Sequence starts******************/
 				/*****************************************************************/
-				writeSequenceFile(snpDirectory, "referenceDNASequence" + "_" + entry.getKey(),entry.getValue().getFastaFile());
+				writeSequenceFile(snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),entry.getValue().getFastaFile());
 				/*****************************************************************/
 				/********Write SNP Reference DNA Sequence ends********************/
 				/*****************************************************************/
@@ -1590,7 +1589,7 @@ public static String takeComplementforeachAllele(String allele){
 				for(String validRsId: snpInformation.getValidRsIDList()){
 					
 					rsInformation = rsID2RsIDInformationMap.get(validRsId);
-					writeObservedAllelesFile(snpDirectory, "observedAlleles" + Commons.UNDERSCORE + Commons.RS +validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
+					writeObservedAllelesFile(snpDirectory, Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS +validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
 					
 					/*******************************************************************/
 					/*************Create SNP Altered Sequences starts*******************/
@@ -1608,7 +1607,7 @@ public static String takeComplementforeachAllele(String allele){
 						alteredSequenceCount = 0;
 						
 						for(String alteredSequence: snpInformation.getSnpAlteredSequences()){
-							writeSequenceFile(snpDirectory, "alteredDNASequence"  + snpInformation.getSnpAlteredSequenceNames().get(alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),alteredSequence);
+							writeSequenceFile(snpDirectory, Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),alteredSequence);
 							alteredSequenceCount++;
 						}
 					}

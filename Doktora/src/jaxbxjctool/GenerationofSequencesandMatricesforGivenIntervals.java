@@ -21,11 +21,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 
 /**
@@ -33,6 +34,7 @@ import enumtypes.EnrichmentType;
  */
 public class GenerationofSequencesandMatricesforGivenIntervals {
 	
+	final static Logger logger = Logger.getLogger(GenerationofSequencesandMatricesforGivenIntervals.class);
 	
 	
 	
@@ -1093,12 +1095,12 @@ public static String takeComplementforeachAllele(String allele){
 
 	}
 	
-	public static void createMatrixFile(String outputFolder,String directoryBase, String tfNameKeggPathwayName, String matrixName,String matrix){
+	public static void createMatrixFile(String outputFolder,String directoryBase, String tfNameCellLineNameorKeggPathwayName, String matrixName,String matrix){
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameKeggPathwayName + System.getProperty("file.separator") +matrixName + ".txt",true);
+			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameCellLineNameorKeggPathwayName + System.getProperty("file.separator") +matrixName + ".txt",true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			bufferedWriter.write(matrix);
@@ -1476,8 +1478,16 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 	}
 	
-	//tf starts
-	public static void readAugmentedDataWriteSequencesandMatrices_forTf(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch38Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
+	//TF starts
+	public static void readAugmentedDataWriteSequencesandMatrices_forTf(
+			AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs, 
+			AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation,
+			Map<String,String> chrName2RefSeqIdforGrch38Map, 
+			String outputFolder,
+			String augmentedInputFileName, 
+			Map<String,String> tfName2PfmMatrices, 
+			Map<String,String> tfName2LogoMatrices,
+			String enrichmentType){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -1517,11 +1527,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		boolean thereExistsLOGOMatrix = false;
 		
 		
-		
-		//used for this pfm matrix file is already created and written.
-		//No need for twice
-		Map<String,Boolean> pfmMatrices2FalseorTrueMap 	= new HashMap<String,Boolean>();
-		
 		String fastaFile;
 		String referenceSequence;
 		String directoryBase = null;
@@ -1531,32 +1536,74 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		//4 April 2014
 		List<String> rsIdList;
 		RsInformation rsInformation;
-		String observedAllelesSeparatedwithSlash ;
+		String observedAllelesSeparatedwithSlash;
+		
 				
-		//7 April 2014 starts		
-		//key must contain tf  CellLine givenInterval chrNumber startZeroBased endZeroBased
-		Map<String,TfCellLineGivenInterval> tfCellLineBasedGivenIntervalMap = new HashMap<String,TfCellLineGivenInterval>();
 		
-		//key must contain tf CellLine TFInterval chrNumber startZeroBased endZeroBased		
-		Map<String,TfCellLineTfInterval> tfCellLineBasedTfIntervalMap = new HashMap<String,TfCellLineTfInterval>();
+		/*******************************************************************************/
+		/***************************MAP1 starts*****************************************/
+		/*******************************************************************************/
+		//This map is used whether this pfm matrix file is already created and written for a certain TF.
+		//Right know key is tfCellLine 
+		//However key can be only TF, is not it?  @todo test it.
+		//If once pfm and logo matrices are found then there is no need to search and write pfm matrix files twice or more
+		Map<String,Boolean> tfCellLine2PFMMatriceAlreadyExistsTrueorFalseMap 	= new HashMap<String,Boolean>();
+		/*******************************************************************************/
+		/***************************MAP1 ends*******************************************/
+		/*******************************************************************************/
+			
 		
-		//key must be GivenInterval chrNamewithPreceedingChr + givenIntervalStartZeroBased + givenIntervalEndZeroBased
-		//this map contains the list of snp keys in a given interval
-		Map<String,List<String>> givenIntervalBasedSnpMap = new HashMap<String,List<String>>();
-		
-		//key must contain chrNumber startZeroBased endZeroBased
-		Map<String,SNP> snpMap =  new HashMap<String,SNP>();
-		
-		TfCellLineGivenInterval tfCellLineGivenInterval = null;
-		
-		String tfCellLineGivenIntervalKey;
-		String tfCellLineTfIntervalKey;
-		String snpKey;	
+		/*******************************************************************************/
+		/***************************MAP2 starts******************************************/
+		/*******************************************************************************/
+		//This map contains the list of snp keys for a given interval
+		//Key must be GivenIntervalName which is  chrNamewithPreceedingChr + givenIntervalStartZeroBased + givenIntervalEndZeroBased
 		String givenIntervalKey;
+		Map<String,List<String>> givenInterval2SnpListMap = new HashMap<String,List<String>>();
+		List<String> snpKeyListInAGivenInterval;
+		/*******************************************************************************/
+		/***************************MAP2 ends********************************************/
+		/*******************************************************************************/
+	
+
+		/*******************************************************************************/
+		/***************************MAP3 starts******************************************/
+		/*******************************************************************************/
+		//Key must contain rsID_chrNumber_startOneBased
+		String snpKey;	
+		Map<String,SNP> snpMap =  new HashMap<String,SNP>();
+		SNP snp;
+		/*******************************************************************************/
+		/***************************MAP3 ends********************************************/
+		/*******************************************************************************/
+	
+				
+		/*******************************************************************************/
+		/***************************MAP4 starts*****************************************/
+		/*******************************************************************************/
+		//7 April 2014 starts		
+		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased)
+		Map<String,TfCellLineGivenInterval> tfCellLineGivenInterval2Map = new HashMap<String,TfCellLineGivenInterval>();
+		String tfCellLineGivenIntervalKey;
+		TfCellLineGivenInterval tfCellLineGivenInterval;
+		/*******************************************************************************/
+		/***************************MAP4 ends*******************************************/
+		/*******************************************************************************/
+	
 		
-		String givenIntervalName;
+		/*******************************************************************************/
+		/***************************MAP5 starts*****************************************/
+		/*******************************************************************************/
+		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased) TFInterval (chrNumber startZeroBased endZeroBased)		
+		Map<String,TfCellLineTfInterval> tfCellLineGivenIntervalTfInterval2Map = new HashMap<String,TfCellLineTfInterval>();
+		String tfCellLineGivenIntervalTfIntervalKey;
+		TfCellLineTfInterval tfCellLineTfInterval;
+		/*******************************************************************************/
+		/***************************MAP5 ends*******************************************/
+		/*******************************************************************************/
+	
 		
-		List<String> snpKeyList;
+	
 		//7 April 2014  ends
 					
 				
@@ -1566,17 +1613,23 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		List<String> alteredSequences;
 		String observedAllelesSeparatedwithTabs;
 					
-//		**************	TBP_GM12878	**************							
-//		TBP_GM12878	Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
-//		TBP_GM12878	chr1	172324929	172324929	chr1	172324644	172324953	TBP	GM12878	spp.optimal.wgEncodeSydhTfbsGm12878TbpIggmusAlnRep0_VS_wgEncodeSydhTfbsGm12878InputIggmusAlnRep0.narrowPeak
-//		TBP_GM12878	chr3	44380487	44380487	chr3	44380204	44380513	TBP	GM12878	spp.optimal.wgEncodeSydhTfbsGm12878TbpIggmusAlnRep0_VS_wgEncodeSydhTfbsGm12878InputIggmusAlnRep0.narrowPeak
+//		**************	POL2_HEPG2	**************
+//		POL2_HEPG2	Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+//		POL2_HEPG2	chr4	186266940	186266940	chr4	186266748	186267003	POL2	HEPG2	spp.optimal.wgEncodeHaibTfbsHepg2Pol2Pcr2xAlnRep0_VS_wgEncodeHaibTfbsHepg2ControlPcr2xAlnRep0.narrowPeak
+//		POL2_HEPG2	chr4	186266940	186266940	chr4	186266771	186266986	POL2	HEPG2	spp.optimal.wgEncodeSydhTfbsHepg2Pol2ForsklnStdAlnRep0_VS_wgEncodeSydhTfbsHepg2InputForsklnStdAlnRep0.narrowPeak
+//		POL2_HEPG2	chr4	186266940	186266940	chr4	186266803	186267066	POL2	HEPG2	spp.optimal.wgEncodeSydhTfbsHepg2Pol2IggrabAlnRep0_VS_wgEncodeSydhTfbsHepg2InputIggrabAln.narrowPeak
+//		POL2_HEPG2	Searched for chr	interval Low	interval High	tfbs node Chrom Name	node Low	node High	node Tfbs Name	node CellLineName	node FileName
+//		POL2_HEPG2	chr6	31951083	31951083	chr6	31950996	31951211	POL2	HEPG2	spp.optimal.wgEncodeSydhTfbsHepg2Pol2ForsklnStdAlnRep0_VS_wgEncodeSydhTfbsHepg2InputForsklnStdAlnRep0.narrowPeak
 
 		try {
 			augmentedFileReader = new FileReader(outputFolder + augmentedInputFileName);
 			augmentedBufferedReader = new BufferedReader(augmentedFileReader);
 			
 			directoryBase = getDirectoryBase(enrichmentType);
-													
+			
+			/****************************************************************************************/
+			/*********************Reading Augmented TF File Starts***********************************/
+			/****************************************************************************************/										
 			while((strLine = augmentedBufferedReader.readLine())!=null){
 							
 				//skip strLine starts with * or contains "Search for" which means it is a header line
@@ -1605,15 +1658,17 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					indexofUnderscore = tfNameCellLineName.indexOf('_');
 					tfName = tfNameCellLineName.substring(0, indexofUnderscore);
 					
+					//Initialize tfNameRemovedLastCharacter to tfName
 					tfNameRemovedLastCharacter = tfName;
 					
-																										
-					//create Files for pfm Matrices and logo Matrices starts
-					if(pfmMatrices2FalseorTrueMap.get(tfNameCellLineName) == null){
+					/*************************************************************************/
+					/**********Create Files for pfm Matrices and logo Matrices starts*********/
+					/*************************************************************************/
+					if(tfCellLine2PFMMatriceAlreadyExistsTrueorFalseMap.get(tfNameCellLineName) == null){
 												
 						isThereAnExactTfNamePfmMatrix = false;
 						
-						//find pfm entry							
+						//Find PFM entry							
 						for(Map.Entry<String, String> pfmEntry:tfName2PfmMatrices.entrySet()){
 							if (pfmEntry.getKey().contains(tfName)){
 								isThereAnExactTfNamePfmMatrix = true;
@@ -1623,7 +1678,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						}//End of for
 						
 						
-						//find logo entry
+						//Find LOGO entry
 						for(Map.Entry<String, String> logoEntry:tfName2LogoMatrices.entrySet()){
 							if(logoEntry.getKey().contains(tfName)){
 								createMatrixFile(outputFolder,directoryBase, tfNameCellLineName, "logoMatrices_" +tfName,logoEntry.getValue());
@@ -1639,6 +1694,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							
 							while (!thereExistsPFMMatrix && !thereExistsLOGOMatrix){
 								previousTfNameRemovedLastCharacter = tfNameRemovedLastCharacter;
+								//@todo removeLastCharacter may need further check
 								tfNameRemovedLastCharacter = removeLastCharacter(tfNameRemovedLastCharacter);
 								
 								//If no  change
@@ -1667,89 +1723,108 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							}//End of while
 							
 														
-						}//End of IF
+						}//End of IF there is no exact TF NAME PFM Matrix Match
 						
-						pfmMatrices2FalseorTrueMap.put(tfNameCellLineName, true);
+						tfCellLine2PFMMatriceAlreadyExistsTrueorFalseMap.put(tfNameCellLineName, true);
 					} //End of if
-					//create Files for pfm matrices and logo matrices ends
+					/*************************************************************************/
+					/**********Create Files for pfm Matrices and logo Matrices ends***********/
+					/*************************************************************************/
 
-					//Set given interval name
-					givenIntervalName ="givenInterval" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartOneBased +  "_" + givenIntervalEndOneBased;
 					
-					//Create tfNameKeggPathwayName based given interval key					
-					tfCellLineGivenIntervalKey = tfNameCellLineName + "_" + givenIntervalName;
+					/*************************************************************************/
+					/*************************SET KEYS starts*********************************/
+					/*************************************************************************/
+					//Set Given Interval Name
+					givenIntervalKey ="givenInterval" + "_" + chrNamewithPreceedingChr + "_" + givenIntervalStartOneBased +  "_" + givenIntervalEndOneBased;
+					
+					//Create key using tfNameCellLineName and GivenIntervalName					
+					tfCellLineGivenIntervalKey = tfNameCellLineName + "_" + givenIntervalKey;
 		 					
-					//Create tf interval key
-					tfCellLineTfIntervalKey = tfNameCellLineName + "_" + givenIntervalName + "_" + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStartOneBased + "_" + tfEndOneBased;
+					//Create key using tfNameCellLineName and givenIntervalName and tfInterval
+					tfCellLineGivenIntervalTfIntervalKey = tfNameCellLineName + "_" + givenIntervalKey + "_" + "tfInterval" + "_" + chrNamewithPreceedingChr + "_" + tfStartOneBased + "_" + tfEndOneBased;
 						
-					//get the given interval
-					tfCellLineGivenInterval = tfCellLineBasedGivenIntervalMap.get(tfCellLineGivenIntervalKey);
+					//Get the given interval
+					tfCellLineGivenInterval = tfCellLineGivenInterval2Map.get(tfCellLineGivenIntervalKey);
+					/*************************************************************************/
+					/*************************SET KEYS ends***********************************/
+					/*************************************************************************/
 					
-					//For this tfCellLine, this given interval is read for the first time.					
+					
+					/*****************************************************************************************************/
+					/*******For this tfCellLine, this given interval is read for the first time starts********************/
+					/*****************************************************************************************************/					
 					if (tfCellLineGivenInterval==null){
 						
 						tfCellLineGivenInterval = new TfCellLineGivenInterval();
 						
-						tfCellLineBasedGivenIntervalMap.put(tfCellLineGivenIntervalKey, tfCellLineGivenInterval);
+						tfCellLineGivenInterval2Map.put(tfCellLineGivenIntervalKey, tfCellLineGivenInterval);
+						
+						tfCellLineGivenInterval.setTfNameCellLineName(tfNameCellLineName);
+						tfCellLineGivenInterval.setGivenIntervalName(givenIntervalKey);
 						
 						tfCellLineGivenInterval.setChromNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);
-						tfCellLineGivenInterval.setStartOneBased(givenIntervalStartOneBased);
-						tfCellLineGivenInterval.setEndOneBased(givenIntervalEndOneBased);
+						tfCellLineGivenInterval.setGivenIntervalStartOneBased(givenIntervalStartOneBased);
+						tfCellLineGivenInterval.setGivenIntervalEndOneBased(givenIntervalEndOneBased);
 						
 						tfCellLineGivenInterval.setSnpKeyList(new ArrayList<String>());
-						tfCellLineGivenInterval.setTfCellLineBasedTfIntervalKeyList(new ArrayList<String>());
+						tfCellLineGivenInterval.setTfCellLineBasedTfIntervalKeyList(new ArrayList<String>());	
 						
-						tfCellLineGivenInterval.setGivenIntervalName(givenIntervalName);
-						tfCellLineGivenInterval.setTfNameCellLineName(tfNameCellLineName);
-																								
 						
-						//part1
-						//snpKeyList						
-						//check whether for this given interval snps are already found
-						snpKeyList = givenIntervalBasedSnpMap.get(givenIntervalName);
+						/*******************************************************************************************/
+						/***************************************PART1 starts****************************************/
+						/**************************Getting snpKeyList in a given interval***************************/
+						/*************Check whether snps in this given interval are already found or not************/
+						/*******************************************************************************************/
+						snpKeyListInAGivenInterval = givenInterval2SnpListMap.get(givenIntervalKey);
 						
-						if (snpKeyList==null){
+						if (snpKeyListInAGivenInterval==null){
 							
-							snpKeyList = new ArrayList<String>();
-							givenIntervalBasedSnpMap.put(givenIntervalName,snpKeyList);
+							snpKeyListInAGivenInterval = new ArrayList<String>();
+							givenInterval2SnpListMap.put(givenIntervalKey,snpKeyListInAGivenInterval);
 							
-							//get all the rsIds in this given interval				
-							//we have to provide one based coordinates for method arguments
-							rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
-							
+							//Get all the rsIDs in this given interval				
+							//We have to provide 1-based coordinates as arguments
+							rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr,givenIntervalStartOneBased,givenIntervalEndOneBased);
 							
 													
 							for(String rsId: rsIdList){
 																	
 								//For each rsId get rs Information
-								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
+								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId);
 								
 								if(rsInformation!=null){
-									if (!rsInformation.isMerged()){
+									
 										//rsInformation has slash separated observed alleles
-										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
+										observedAllelesSeparatedwithSlash = rsInformation.getSlashSeparatedObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" +"rs" +rsId;
+										snpKey = Commons.RS +rsId + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1);
 										
-										SNP snp = snpMap.get(snpKey);
+										snp = snpMap.get(snpKey);
 										
 										if(snp==null){
 											
 											snp = new SNP();
-											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
+											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNameWithoutChr());
 											
-											snp.setSnpZeroBasedStartCoordinate(rsInformation.getStartZeroBased());									
-											snp.setSnpOneBasedStartCoordinate(rsInformation.getStartZeroBased()+1);
+											snp.setSnpZeroBasedStartCoordinate(rsInformation.getZeroBasedStart());									
+											snp.setSnpOneBasedStartCoordinate(rsInformation.getZeroBasedStart()+1);
 											
-											snp.setSnpZeroBasedEndCoordinate(rsInformation.getEndZeroBased());									
-											snp.setSnpOneBasedEndCoordinate(rsInformation.getEndZeroBased()+1);
+											snp.setSnpZeroBasedEndCoordinate(rsInformation.getZeroBasedEnd());									
+											snp.setSnpOneBasedEndCoordinate(rsInformation.getZeroBasedEnd()+1);
 											
-											snp.setLength(rsInformation.getEndZeroBased()-rsInformation.getStartZeroBased()+1);
+											snp.setLength(rsInformation.getZeroBasedEnd()-rsInformation.getZeroBasedStart()+1);
 											
-											//get fasta file and reference sequence for this snp
+											/*****************************************************************/
+											/***Get fasta file and reference sequence for this snp starts*****/
+											/*****************************************************************/
+											//Get fasta file and reference sequence for this snp
 											fastaFile = getDNASequence(snp.getChrNamewithoutPreceedingChr(),snp.getSnpOneBasedStartCoordinate()- Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snp.getSnpOneBasedEndCoordinate() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
 											referenceSequence = getDNASequenceFromFastaFile(fastaFile);
+											/*****************************************************************/
+											/***Get fasta file and reference sequence for this snp ends*******/
+											/*****************************************************************/
 											
 											snp.setReferenceSequence(referenceSequence);
 											snp.setFastaFile(fastaFile);
@@ -1760,9 +1835,10 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 												
 											snpMap.put(snpKey, snp);
 											tfCellLineGivenInterval.getSnpKeyList().add(snpKey);
-											snpKeyList.add(snpKey);
+											snpKeyListInAGivenInterval.add(snpKey);
 											
-										}else{
+										}//End of IF snp is null
+										else{
 											if (!snp.getObservedAlleles().contains(observedAllelesSeparatedwithTabs)){
 												snp.getObservedAlleles().add(observedAllelesSeparatedwithTabs);			
 											}
@@ -1771,31 +1847,31 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											//tfKeggPathwayGivenInterval.getSnpKeyList() and
 											//snpKeyList
 											
-										}//end of else snp is not null		
+										}//end of ELSE snp is not null		
 
-									}
-								}
-								//rsInformation is null for this rsId
-								else{
-									System.out.println("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
-								}
-								
-			
-								
+									
+								}//End of IF rsInformation is not null																								
 							}//End of for each rsId in a given interval
 							
 							
 						}else{
-							tfCellLineGivenInterval.setSnpKeyList(snpKeyList);
+							tfCellLineGivenInterval.setSnpKeyList(snpKeyListInAGivenInterval);
 						}
-						
-							
+						/*******************************************************************************************/
+						/******************************PART1 snpKeyList ends****************************************/
+						/**************************Getting snpKeyList in a given Interval***************************/
+						/*************Check whether snps in this given interval are already found or not************/
+						/*******************************************************************************************/
+
 														
-						//part2
-						//tfNameandKeggPathway based tfIntervalKeyList
+						/*******************************************************************************************/
+						/***************************************PART2 starts****************************************/
+						/***********************Add TfCellLineGivenIntervalTFIntervalKey****************************/
+						/*******************************************************************************************/
+						tfCellLineTfInterval= tfCellLineGivenIntervalTfInterval2Map.get(tfCellLineGivenIntervalTfIntervalKey);
 						
-						if(tfCellLineBasedTfIntervalMap.get(tfCellLineTfIntervalKey)==null){
-							TfCellLineTfInterval tfCellLineTfInterval = new TfCellLineTfInterval();
+						if(tfCellLineTfInterval==null){
+							tfCellLineTfInterval = new TfCellLineTfInterval();
 														
 							//set attributes of tfCellLineTfInterval
 							tfCellLineTfInterval.setStartOneBased(tfStartOneBased);
@@ -1803,22 +1879,36 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							tfCellLineTfInterval.setChrNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);						
 							tfCellLineTfInterval.setTfNameCellLineName(tfNameCellLineName);
 							
-							tfCellLineBasedTfIntervalMap.put(tfCellLineTfIntervalKey,tfCellLineTfInterval);
-							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineTfIntervalKey);
+							tfCellLineGivenIntervalTfInterval2Map.put(tfCellLineGivenIntervalTfIntervalKey,tfCellLineTfInterval);
+							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineGivenIntervalTfIntervalKey);
 						}else{
 							//do nothing
 							//this tfInterval is already added to the map and list
 						}
-												
+						/*******************************************************************************************/
+						/***************************************PART2 ends******************************************/
+						/***********************Add TfCellLineGivenIntervalTFIntervalKey****************************/
+						/*******************************************************************************************/
+						
 							
 					}
-					// this given interval is read before
-					//we already know the snps in this given interval
-					//however new tf Intervals might  be added.
+					/*****************************************************************************************************/
+					/*******For this tfCellLine, this given interval is read for the first time ends**********************/
+					/*****************************************************************************************************/					
+
+					
+					/*****************************************************************************************************/
+					/*******For this tfCellLine, this given interval is read before***************************************/
+					/********We already know the snps in this given interval**********************************************/
+					/***************However new TF Intervals might  be added**********************************************/
+					/*******************************************Starts****************************************************/
+					/*****************************************************************************************************/
 					else{
 						
-						if(tfCellLineBasedTfIntervalMap.get(tfCellLineTfIntervalKey)==null){
-							TfCellLineTfInterval tfCellLineTfInterval = new TfCellLineTfInterval();
+						tfCellLineTfInterval = tfCellLineGivenIntervalTfInterval2Map.get(tfCellLineGivenIntervalTfIntervalKey);
+								
+						if(tfCellLineTfInterval==null){
+							tfCellLineTfInterval = new TfCellLineTfInterval();
 							
 							
 							//set attributes of tfKeggPathwayTfInterval
@@ -1827,20 +1917,33 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							tfCellLineTfInterval.setChrNamewithoutPreceedingChr(chrNamewithoutPreceedingChr);						
 							tfCellLineTfInterval.setTfNameCellLineName(tfNameCellLineName);
 							
-							tfCellLineBasedTfIntervalMap.put(tfCellLineTfIntervalKey,tfCellLineTfInterval);
-							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineTfIntervalKey);
+							tfCellLineGivenIntervalTfInterval2Map.put(tfCellLineGivenIntervalTfIntervalKey,tfCellLineTfInterval);
+							tfCellLineGivenInterval.getTfCellLineBasedTfIntervalKeyList().add(tfCellLineGivenIntervalTfIntervalKey);
 						}else{
 							//do nothing
 							//this tfInterval is already in the list
 						}
-					
 						
 					}
+					/*****************************************************************************************************/
+					/*******For this tfCellLine, this given interval is read before***************************************/
+					/********We already know the snps in this given interval**********************************************/
+					/***************However new TF Intervals might  be added**********************************************/
+					/*******************************************Ends******************************************************/
+					/*****************************************************************************************************/
+
 																		
-				}//End of if: strLine does not start with "*"	and contains "Search for"	
+				}//End of if: strLine does not start with "*" and strLine does not contain "Search for"	
 				
 				
 			}//End of while 
+			/****************************************************************************************/
+			/*********************Reading Augmented TF File Ends*************************************/
+			/****************************************************************************************/
+			
+			
+			//Close BufferedReader
+			augmentedBufferedReader.close();
 			
 			//Write snp reference sequence
 			//write snp observed alleles 
@@ -1864,22 +1967,22 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//write these snp based tf intervals to a file
 			//get the minStartZeroBased and maxEndZeroBased coordinates from these list of overlapping tf intervals
 			//get the extended peak sequence starting at minStartZeroBased and ending at maxEndZeroBased for this snp Based tf intervals 
-			for(Map.Entry<String, TfCellLineGivenInterval> entry: tfCellLineBasedGivenIntervalMap.entrySet()){
-				givenIntervalKey = entry.getKey();
+			for(Map.Entry<String, TfCellLineGivenInterval> entry: tfCellLineGivenInterval2Map.entrySet()){
+//				givenIntervalKey = entry.getKey();
 				givenInterval = entry.getValue();
 				
-				givenIntervalName = givenInterval.getGivenIntervalName();
+				givenIntervalKey = givenInterval.getGivenIntervalName();
 				
 				//test
 				tfNameCellLineName = givenInterval.getTfNameCellLineName();
 				
-				snpKeyList = givenInterval.getSnpKeyList();
+				snpKeyListInAGivenInterval = givenInterval.getSnpKeyList();
 				tfIntervalKeyList = givenInterval.getTfCellLineBasedTfIntervalKeyList();
 				
 				chrNamewithoutPreceedingChr = givenInterval.getChromNamewithoutPreceedingChr();
 											
-				for(String snpKeyString : snpKeyList ){
-					SNP snp = snpMap.get(snpKeyString);
+				for(String snpKeyString : snpKeyListInAGivenInterval ){
+					snp = snpMap.get(snpKeyString);
 					
 					indexofFirstUnderscore = snpKeyString.indexOf('_');
 					indexofSecondUnderscore = snpKeyString.indexOf('_',indexofFirstUnderscore+1);
@@ -1888,7 +1991,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 									
 					String snpKeyStringWithoutRsId = snpKeyString.substring(0,indexofThirdUnderscore);
 								
-					snpDirectory = tfNameCellLineName+  System.getProperty("file.separator") + givenIntervalName + System.getProperty("file.separator") + snpKeyString;
+					snpDirectory = tfNameCellLineName+  System.getProperty("file.separator") + givenIntervalKey + System.getProperty("file.separator") + snpKeyString;
 										
 					//write reference sequence
 					createSequenceFile(outputFolder ,directoryBase,snpDirectory, "reference" + "_" + snpKeyStringWithoutRsId,snp.getFastaFile());
@@ -1897,7 +2000,6 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					createObservedAllelesFile(outputFolder,directoryBase, snpDirectory, "observedAlleles" + "_" + snpKeyStringWithoutRsId ,snp.getObservedAlleles());
 					
 					
-				
 					alteredSequences = getAlteredSNPSequences(snp.getReferenceSequence(),snp.getObservedAlleles(),Commons.ONE_BASED_SNP_POSITION, Commons.ONE_BASED_SNP_POSITION + snp.getLength()-1);
 								
 					//create Altered Sequences
@@ -1908,17 +2010,17 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					}
 									
 					//find overlapping tfIntervalkeys with this snp
-					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP_forTf(tfIntervalKeyList, tfCellLineBasedTfIntervalMap,  snp.getSnpZeroBasedStartCoordinate(),snp.getSnpZeroBasedEndCoordinate());
+					snpBasedTfIntervalKeyList = findTfIntervalsOverlappingWithThisSNP_forTf(tfIntervalKeyList, tfCellLineGivenIntervalTfInterval2Map,  snp.getSnpZeroBasedStartCoordinate(),snp.getSnpZeroBasedEndCoordinate());
 					
 					//get snp based extended peak sequence
-					getSNPBasedPeakSequence_forTf(snpBasedTfIntervalKeyList,tfCellLineBasedTfIntervalMap,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch38Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
+					getSNPBasedPeakSequence_forTf(snpBasedTfIntervalKeyList,tfCellLineGivenIntervalTfInterval2Map,chrNamewithoutPreceedingChr,chrName2RefSeqIdforGrch38Map,outputFolder,directoryBase,snpDirectory,snpKeyString);
 
 					//write snp based tf Intervals file
-					createTfIntervalsFile_forTf(outputFolder,directoryBase,snpDirectory, "tfIntervals" + "_" + snpKeyStringWithoutRsId, snpBasedTfIntervalKeyList,tfCellLineBasedTfIntervalMap);
+					createTfIntervalsFile_forTf(outputFolder,directoryBase,snpDirectory, "tfIntervals" + "_" + snpKeyStringWithoutRsId, snpBasedTfIntervalKeyList,tfCellLineGivenIntervalTfInterval2Map);
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				logger.info(entry.getKey());
 				
 			}//End of each given interval
 			
@@ -1938,7 +2040,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	//end ends
 		
 	
-	public static void readAugmentedDataWriteSequencesandMatrices(AugmentationofGivenIntervalwithRsIds augofGivenInterval, AugmentationofGivenRsIdwithInformation augofGivenRsId,Map<String,String> chrName2RefSeqIdforGrch38Map, String outputFolder,String augmentedInputFileName, Map<String,String> tfName2PfmMatrices, Map<String,String> tfName2LogoMatrices,String enrichmentType){
+	public static void readAugmentedDataWriteSequencesandMatrices(
+			AugmentationofGivenIntervalwithRsIds augofGivenInterval, 
+			AugmentationofGivenRsIdwithInformation augofGivenRsId,
+			Map<String,String> chrName2RefSeqIdforGrch38Map, 
+			String outputFolder,
+			String augmentedInputFileName, 
+			Map<String,String> tfName2PfmMatrices, 
+			Map<String,String> tfName2LogoMatrices,
+			String enrichmentType){
 		
 		FileReader augmentedFileReader;
 		BufferedReader augmentedBufferedReader;
@@ -2018,7 +2128,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String tfKeggPathwayGivenIntervalKey;
 		String tfKeggPathwayTfIntervalKey;
 		String snpKey;	
-		String givenIntervalKey;
+//		String givenIntervalKey;
 		
 		String givenIntervalName;
 		
@@ -2185,34 +2295,32 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							rsIdList = augofGivenInterval.getRsIdsInAGivenInterval(chrNamewithoutPreceedingChr, givenIntervalStartOneBased,givenIntervalEndOneBased);
 													
 							for(String rsId: rsIdList){
-								
-								
 																	
 								//For each rsId get rs Information
 								rsInformation = augofGivenRsId.getInformationforGivenRsId(rsId);
 								
 								if(rsInformation!=null){
-									if (!rsInformation.isMerged()){
+									
 										//rsInformation has slash separated observed alleles
-										observedAllelesSeparatedwithSlash = rsInformation.getObservedAlleles();								
+										observedAllelesSeparatedwithSlash = rsInformation.getSlashSeparatedObservedAlleles();								
 										observedAllelesSeparatedwithTabs = convertSlashSeparatedAllelestoTabSeparatedAlleles(observedAllelesSeparatedwithSlash);									
 										
-										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNamewithoutChr() + "_" + (rsInformation.getStartZeroBased()+1) + "_" +"rs" +rsId;
+										snpKey = "snp" + "_" +"chr" + rsInformation.getChrNameWithoutChr() + "_" + (rsInformation.getZeroBasedStart()+1) + "_" + Commons.RS +rsId;
 
 										SNP snp = snpMap.get(snpKey);
 										
 										if(snp==null){
 											
 											snp = new SNP();
-											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNamewithoutChr());
+											snp.setChrNamewithoutPreceedingChr(rsInformation.getChrNameWithoutChr());
 											
-											snp.setSnpZeroBasedStartCoordinate(rsInformation.getStartZeroBased());									
-											snp.setSnpOneBasedStartCoordinate(rsInformation.getStartZeroBased()+1);
+											snp.setSnpZeroBasedStartCoordinate(rsInformation.getZeroBasedStart());									
+											snp.setSnpOneBasedStartCoordinate(rsInformation.getZeroBasedStart()+1);
 											
-											snp.setSnpZeroBasedEndCoordinate(rsInformation.getEndZeroBased());									
-											snp.setSnpOneBasedEndCoordinate(rsInformation.getEndZeroBased()+1);
+											snp.setSnpZeroBasedEndCoordinate(rsInformation.getZeroBasedEnd());									
+											snp.setSnpOneBasedEndCoordinate(rsInformation.getZeroBasedEnd()+1);
 											
-											snp.setLength(rsInformation.getEndZeroBased()-rsInformation.getStartZeroBased()+1);
+											snp.setLength(rsInformation.getZeroBasedEnd()-rsInformation.getZeroBasedStart()+1);
 											
 											
 											//get fasta file and reference sequence for this snp
@@ -2241,11 +2349,11 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 											
 										}//end of else snp is not null	
 
-									}//This rsId is not merged		
+										
 								}//End of IF rsInformation is not null
 								//rsInformation is null for this rsId
 								else{
-									System.out.println("rsInformation is null for this rsId: " + rsId + " check it why it is so!" );
+									logger.debug("rsInformation is null for this rsId: " + rsId + " check is it merged or not!" );
 								}
 											
 								
@@ -2334,7 +2442,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//get the minStartZeroBased and maxEndZeroBased coordinates from these list of overlapping tf intervals
 			//get the extended peak sequence starting at minStartZeroBased and ending at maxEndZeroBased for this snp Based tf intervals 
 			for(Map.Entry<String, TfKeggPathwayGivenInterval> entry: tfKeggPathwayBasedGivenIntervalMap.entrySet()){
-				givenIntervalKey = entry.getKey();
+//				givenIntervalKey = entry.getKey();
 				givenInterval = entry.getValue();
 				
 				givenIntervalName = givenInterval.getGivenIntervalName();
@@ -2386,7 +2494,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 								
 				}//End of for each snp in this given interval
 							
-				System.out.println(entry.getKey());
+				logger.info(entry.getKey());
 				
 			}//End of each given interval
 			
@@ -2549,18 +2657,19 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	//			--->			Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE
 	//			--->			Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE	
-	//args[3]	--->	Annotation, overlap definition, number of bases, default 1
-	//args[4]	--->	Enrichment parameter
+	//args[3]	--->	Annotation, overlap definition, number of bases, 
+	//					default 1
+	//args[4]	--->	Perform Enrichment parameter
 	//			--->	default	Commons.DO_ENRICH
 	//			--->			Commons.DO_NOT_ENRICH	
 	//args[5]	--->	Generate Random Data Mode
 	//			--->	default	Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT
 	//			--->			Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT	
-	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respest to this parameter
-	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE
-	//			--->			Commons.BONFERRONI_CORRECTED_P_VALUE
+	//args[6]	--->	multiple testing parameter, enriched elements will be decided and sorted with respect to this parameter
+	//			--->	default Commons.BENJAMINI_HOCHBERG_FDR
+	//			--->			Commons.BONFERRONI_CORRECTION
 	//args[7]	--->	Bonferroni Correction Significance Level, default 0.05
-	//args[8]	--->	Benjamini Hochberg FDR, default 0.05
+	//args[8]	--->	Bonferroni Correction Significance Criteria, default 0.05
 	//args[9]	--->	Number of permutations, default 5000
 	//args[10]	--->	Dnase Enrichment
 	//			--->	default Commons.DO_NOT_DNASE_ENRICHMENT
@@ -2592,15 +2701,37 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	//			--->			Commons.WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
 	//args[20]	--->	writePermutationBasedAnnotationResultMode checkBox
 	//			---> 	default	Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
+	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+	//args[21]  --->    number of permutations in each run. Default is 2000
+	//args[22]  --->	UserDefinedGeneSet Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+	//							Commons.DO_USER_DEFINED_GENESET_ENRICHMENT
+	//args[23]	--->	UserDefinedGeneSet InputFile 
+	//args[24]	--->	UserDefinedGeneSet GeneInformationType
+	//					default Commons.GENE_ID
+	//							Commons.GENE_SYMBOL
+	//							Commons.RNA_NUCLEOTIDE_ACCESSION
+	//args[25]	--->	UserDefinedGeneSet	Name
+	//args[26]	--->	UserDefinedGeneSet 	Optional GeneSet Description InputFile
+	//args[27]  --->	UserDefinedLibrary Enrichment
+	//					default Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+	//						 	Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT
+	//args[28]  --->	UserDefinedLibrary InputFile
+	//args[29] - args[args.length-1]  --->	Note that the selected cell lines are
+	//					always inserted at the end of the args array because it's size
+	//					is not fixed. So for not (until the next change on args array) the selected cell
+	//					lines can be reached starting from 22th index up until (args.length-1)th index.
+	//					If no cell line selected so the args.length-1 will be 22-1 = 21. So it will never
+	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
-			jobName = "noname";
+			jobName = Commons.NO_NAME;
 		}
 		//jobName ends
 				
@@ -2608,14 +2739,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 				
 		//TfEnrichment, DO or DO_NOT
-		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[12]);
+		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 			
 		//TfKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[14]);
+		EnrichmentType tfKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		
 		//TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[15]);
-
+		EnrichmentType tfCellLineKeggPathwayEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
 		//pfm matrices
 		String encodeMotifsInputFileName 	= Commons.ENCODE_MOTIFS ;		
@@ -2623,17 +2753,17 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 		
 		//TF
-		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES;
+		String augmentedTfInputFileName = Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH38_COORDINATES;
 	
-		//TF and KeggPathway
-		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;
-		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;
-		String augmentedTfAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;		
+		//TFKEGGPathway
+		String augmentedTfExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES;
+		String augmentedTfRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
+		String augmentedTfAllBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;		
 				
-		//TF and CellLine and KeggPathway
-		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;
-		String augmentedTfCellLineRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;
-		String augmentedTfCellLineAllBasedKeggPathwayInputFileName 			= Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASEDSTART_1BASEDEND_GRCH38_COORDINATES ;
+		//TFCellLineKEGGPathway
+		String augmentedTfCellLineExonBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
+		String augmentedTfCellLineRegulationBasedKeggPathwayInputFileName 	= Commons.AUGMENTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
+		String augmentedTfCellLineAllBasedKeggPathwayInputFileName 		= Commons.AUGMENTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH38_COORDINATES ;
 		
 		//Example Data
 		//7 NC_000007.13  GRCh37
@@ -2641,14 +2771,15 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		Map<String,String> chrName2RefSeqIdforGrch38Map = new HashMap<String,String>();
 		
 				
+		//@todo We have to update this file regularly
 		//Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
 		fillMap(dataFolder,refSeqIdsforGRCh38InputFile,chrName2RefSeqIdforGrch38Map);
 							
 					
-//		//Before each run
-//		//delete directories and files under base directories
-		FileOperations.deleteOldFiles(outputFolder + Commons.GENERATION_OF_REFERENCE_AND_ALTERED_SEQUENCES_OUTPUT_FOLDER);
+		//Before each run
+		//delete directories and files under base directories
+		FileOperations.deleteOldFiles(outputFolder + Commons.FOR_RSA + System.getProperty("file.separator"));
 				
 		//Construct pfm matrices from encode-motif.txt file
 		//A tf can have more than one pfm matrices
@@ -2667,50 +2798,98 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		
 		//Construct position frequency matrices from Jaspar Core 
 		//Construct logo matrices from Jaspar Core
-		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder,jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);
+		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder,jasparCoreInputFileName,tfName2PfmMatrices,tfName2LogoMatrices);		
 		
-		
-		AugmentationofGivenIntervalwithRsIds augofGivenInterval;
-		AugmentationofGivenRsIdwithInformation augofGivenRsId ;
+		AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs;
+		AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation ;
 		
 		try {
-			augofGivenInterval = new AugmentationofGivenIntervalwithRsIds();
-			augofGivenRsId = new AugmentationofGivenRsIdwithInformation();
+			augmentationOfAGivenIntervalWithRsIDs = new AugmentationofGivenIntervalwithRsIds();
+			augmentationOfAGivenRsIdWithInformation = new AugmentationofGivenRsIdwithInformation();
 			
-			if (tfEnrichment.isTfEnrichment()){
-				//todo
+			
+			//ONLY TF ENRICHMENT CASE
+			if (tfEnrichment.isTfEnrichment() && 
+				!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+				!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+				
+				//TF
 				//generate sequences and matrices for enriched tf elements
-				readAugmentedDataWriteSequencesandMatrices_forTf(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+				readAugmentedDataWriteSequencesandMatrices_forTf(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
 			}
 			
-								
-			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
+			//ONLY TFKEGGPATHWAY ENRICHMENT CASE					
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+				!tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+				
+				//TF
+				//generate sequences and matrices for enriched tf elements
+				readAugmentedDataWriteSequencesandMatrices_forTf(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+				//TFKEGGPATHWAY
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched TfandKeggPathway
 				//Output dnaSequences for TfandKeggPathway
 				//Output pfmMatrices for TfandKeggPathway
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);	
 			}
 			
-			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+			//ONLY TFCELLLINEKEGGPATHWAY ENRICHMENT CASE					
+			if(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() &&
+					!tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()){
+				
+				//TF
+				//generate sequences and matrices for enriched tf elements
+				readAugmentedDataWriteSequencesandMatrices_forTf(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+				//TFCELLLINEKEGGPATHWAY
 				//Using tfName2PfmMatrices
 				//Using snps for Enriched Tf CellLine KeggPathway
 				//Output dnaSequences for Tf CellLine KeggPathway
 				//Output pfmMatrices for Tf CellLine KeggPathway
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-				readAugmentedDataWriteSequencesandMatrices(augofGivenInterval,augofGivenRsId,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 	
 			}
+			
+			//BOTH TFKEGGPATHWAY and TFCELLLINEKEGGPATHWAY
+			if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() &&
+					tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+					
+					//TF
+					//generate sequences and matrices for enriched tf elements
+					readAugmentedDataWriteSequencesandMatrices_forTf(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+
+					//TFKEGGPATHWAY
+					//Using tfName2PfmMatrices
+					//Using snps for Enriched TfandKeggPathway
+					//Output dnaSequences for TfandKeggPathway
+					//Output pfmMatrices for TfandKeggPathway
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_EXON_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_ALL_BASED_KEGG_PATHWAY);
+					
+					//TFCELLLINEKEGGPATHWAY
+					//Using tfName2PfmMatrices
+					//Using snps for Enriched Tf CellLine KeggPathway
+					//Output dnaSequences for Tf CellLine KeggPathway
+					//Output pfmMatrices for Tf CellLine KeggPathway
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineExonBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineRegulationBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+					readAugmentedDataWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,outputFolder,augmentedTfCellLineAllBasedKeggPathwayInputFileName,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 		
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	
-		
-	
 	}
+	
+
+
 
 }

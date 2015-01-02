@@ -47,6 +47,14 @@ public class Commons {
 	public static final String SNP = "snp";
 	public static final String SNPs = "SNPs";
 	public static final String TF_PFM_AND_LOGO_Matrices = "TF_PFM_AND_LOGO_Matrices";
+	
+	public static final String LOGO_MATRICES = "LogoMatrices";
+	public static final String PFM_MATRICES = "PfmMatrices";
+	public static final String SNP_REFERENCE_SEQUENCE = "SNPReferenceSequence";
+	public static final String SNP_ALTERED_SEQUENCE = "SNPAlteredSequence";
+	public static final String TF_EXTENDED_PEAK_SEQUENCE = "TFExtendedPeakSequence";
+	public static final String TF_OVERLAPS = "TFOverlaps";
+	public static final String OBSERVED_ALLELES = "ObservedAlleles";
 
 	// dbSNP rs Prefix
 	public static final String RS = "rs";
@@ -437,7 +445,7 @@ public class Commons {
 
 	/*************************************************************************************/
 	// TF DIRECTORY BASES
-	public static final String TF_RESULTS_DIRECTORY_BASE = FOR_RSA + System.getProperty("file.separator") + "TF" + System.getProperty("file.separator");
+	public static final String FOR_RSA_TF_SEQUENCES_MATRICES_DIRECTORY = FOR_RSA + System.getProperty("file.separator");
 
 	// TF KEGGPATHWAY DIRECTORY BASES
 	public static final String TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE = FOR_RSA + System.getProperty("file.separator") + "TfExonBasedKEGG" + System.getProperty("file.separator");

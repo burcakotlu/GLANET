@@ -5705,6 +5705,7 @@ public class Annotation {
 		TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
 
 		// Hg19 RefSeq Genes
+		// For Encode Collaboration Chen Yao Paper
 		TIntIntMap geneAlternateNumber2KMap = new TIntIntHashMap();
 
 		// UserDefinedGeneSet

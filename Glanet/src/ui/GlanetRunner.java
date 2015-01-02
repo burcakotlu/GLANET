@@ -6,8 +6,9 @@ import enumtypes.CommandLineArguments;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
-import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13;
+import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
+import rsat.RSATMatrixScanClient;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
@@ -111,9 +112,10 @@ public class GlanetRunner implements Runnable {
 		/****************************************************************************************/
 
 		/******************************************************************************/
-		/************* Regulatory Sequence Analysis starts *****************************/
+		/************* Regulatory Sequence Analysis starts ****************************/
 		/******************************************************************************/
-		if (getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+		if (getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ENRICHMENT) &&
+			getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 			if (getMainView() != null)
 				getMainView().setCurrentProcessInfo("For Regulatory Sequence Analysis...");
 
@@ -133,7 +135,7 @@ public class GlanetRunner implements Runnable {
 				if (Thread.currentThread().isInterrupted())
 					return;
 
-				GenerationofAllTFAnnotationsFileInGRCh37p13.main(args);
+				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
 				// AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
 				/****************Generation of ALL TF Annotations in GRCh38 ends****************/
@@ -153,13 +155,13 @@ public class GlanetRunner implements Runnable {
 
 				if (Thread.currentThread().isInterrupted())
 					return;
-				// RSATMatrixScanClient.main(args);
+				//RSATMatrixScanClient.main(args);
 			}
 			/*********** Check whether given input data is snps or not ends ****************/
 
 		}
 		/******************************************************************************/
-		/************* Regulatory Sequence Analysis ends *******************************/
+		/************* Regulatory Sequence Analysis ends ******************************/
 		/******************************************************************************/
 
 		/************************ GLANET execution ends ********************************************/
