@@ -8,7 +8,7 @@ import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
-import rsat.RSATMatrixScanClient;
+import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
@@ -155,7 +155,7 @@ public class GlanetRunner implements Runnable {
 
 				if (Thread.currentThread().isInterrupted())
 					return;
-				//RSATMatrixScanClient.main(args);
+				RegulatorySequenceAnalysisUsingRSATMatrixScan.main(args);
 			}
 			/*********** Check whether given input data is snps or not ends ****************/
 

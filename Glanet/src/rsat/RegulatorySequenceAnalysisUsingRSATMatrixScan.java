@@ -61,15 +61,15 @@ import enumtypes.CommandLineArguments;
 
 import org.apache.log4j.Logger;
 
-public class RSATMatrixScanClient {
+public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	
-	final static Logger logger = Logger.getLogger(RSATMatrixScanClient.class);
+	final static Logger logger = Logger.getLogger(RegulatorySequenceAnalysisUsingRSATMatrixScan.class);
 	
 
 	/**
 	 * 
 	 */
-	public RSATMatrixScanClient() {
+	public RegulatorySequenceAnalysisUsingRSATMatrixScan() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -491,7 +491,7 @@ public class RSATMatrixScanClient {
 	
 	
 	
-	public static void matrixScan(String enrichedTfandKeggPathwayName, String tfName,String givenIntervalName, String snpName,String snpInputFile,List<String> alteredSNPInputFiles,String peakInputFile,String pfmMatricesInputFile,RSATWSPortType proxy,MatrixScanRequest matrixScanRequest,BufferedWriter bufferedWriter,Map<String,String> snpReferenceSequenceRSATResultsMap, Map<String,String>  snpAlteredSequenceRSATResultsMap, Map<String,String>  tfPeakSequenceRSATResultsMap){
+	public static void matrixScan(String tfName, String eachSNPDirectoryame,String snpInputFile,List<String> alteredSNPInputFiles,String peakInputFile,String pfmMatricesInputFile,RSATWSPortType proxy,MatrixScanRequest matrixScanRequest,BufferedWriter bufferedWriter,Map<String,String> snpReferenceSequenceRSATResultsMap, Map<String,String>  snpAlteredSequenceRSATResultsMap, Map<String,String>  tfPeakSequenceRSATResultsMap){
 		try{
 		
 			String description;
@@ -523,18 +523,13 @@ public class RSATMatrixScanClient {
 			String[] uth = {"pval 0.1"};
 			Result bestReferenceLineResult = null;
 			
-			int indexofFirstUnderScore = snpName.indexOf('_');
-			int indexofSecondUnderScore = snpName.indexOf('_',indexofFirstUnderScore+1);
-			int indexofThirdUnderScore = snpName.indexOf('_',indexofSecondUnderScore+1);
-				
-			String snpNameWithoutRsId = snpName.substring(0,indexofThirdUnderScore);
-			
-			String snpReferenceResultKey = snpNameWithoutRsId + "_" + tfName;
+		
+			String snpReferenceResultKey = eachSNPDirectoryame + "_" + tfName;
 			String snpAlteredResultKey = null;
 			String peakSequenceResultKey = null;
 			
 			
-			bufferedWriter.write("**********" + enrichedTfandKeggPathwayName + "**********" + givenIntervalName +  "**********" + snpName + "**********************************" + System.getProperty("line.separator"));
+			bufferedWriter.write("******************************" + eachSNPDirectoryame + "**********************************" + System.getProperty("line.separator"));
 		
 			referenceResult =snpReferenceSequenceRSATResultsMap.get(snpReferenceResultKey);
 			
@@ -749,48 +744,95 @@ public class RSATMatrixScanClient {
 	}
 	
 	
+	public static String getTFPFMAMtrices(File mainTFPFMAndLogoMatricesDirectory,String tfName, Map<String,String> tfName2TFPfmMatricesFileMap){
+		
+		String fileName = null;
+		String fileAbsolutePath = null;				         				
+		String tfPfmMatricesFileName = null;
+		
+		tfPfmMatricesFileName = tfName2TFPfmMatricesFileMap.get(tfName);
+		
+		//Not found yet
+		if(tfPfmMatricesFileName == null){
+			
+			//mainTFPFMAndLogoMatricesDirectory is Commons.TF_PFM_AND_LOGO_Matrices
+			if (mainTFPFMAndLogoMatricesDirectory.exists() && mainTFPFMAndLogoMatricesDirectory.isDirectory()){
+				
+				search:
+					
+				for(File eachTFPFMAndLogoMatricesDirectory: mainTFPFMAndLogoMatricesDirectory.listFiles()){
+					
+					for(File eachTFFile : eachTFPFMAndLogoMatricesDirectory.listFiles()){
+						
+						fileName = eachTFFile.getName();
+						fileAbsolutePath = eachTFFile.getAbsolutePath();
+						
+						if ( tfName.equals(getTFName(fileName)) && fileName.startsWith(Commons.PFM_MATRICES)){
+							tfPfmMatricesFileName = fileAbsolutePath;
+							tfName2TFPfmMatricesFileMap.put(tfName, tfPfmMatricesFileName);
+							break search;
+	         				
+						}//End of IF 
+						
+						
+					}//End of FOR eachTFFile
+					
+				}//End of FOR eachTFPfmAndLogoMatricesDirectory
+				
+			}//End of IF mainTFPFMAndLogoMatricesDirectory exists and mainTFPFMAndLogoMatricesDirectory is a directory
+			
+			
+		}//End of IF tfPfmMatricesFileName is null
+		
+		
+		return tfPfmMatricesFileName;
+		
+		
+	}
+		
+	
+	
+	public static String getTFName(String fileName){
+		
+		String tfName = null;
+		
+		int indexofUnderscore = fileName.indexOf(Commons.UNDERSCORE);
+		int indexofDot =  fileName.indexOf(Commons.DOT);
 
-	public static void matrixScan(String outputFolder,String forRSASequencesAndMatricesDirectory,BufferedWriter bufferedWriter, Map<String,String> snpReferenceSequenceRSATResultsMap, Map<String,String>  snpAlteredSequenceRSATResultsMap, Map<String,String>  tfPeakSequenceRSATResultsMap){
+		tfName = fileName.substring(indexofUnderscore+1, indexofDot);
 		
-			File snpsDirectory = new File(outputFolder + forRSASequencesAndMatricesDirectory + Commons.SNPs);
-			File tfPFMAndLogoMatricesDirectory = new File(outputFolder + forRSASequencesAndMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
+		return tfName;
 		
-			if (snpsDirectory.exists() && snpsDirectory.isDirectory()){
+	}
+		
+	
+
+	public static void matrixScan(String outputFolder,String forRSASNPTFSequencesMatricesDirectory,BufferedWriter bufferedWriter, Map<String,String> snpReferenceSequenceRSATResultsMap, Map<String,String>  snpAlteredSequenceRSATResultsMap, Map<String,String>  tfPeakSequenceRSATResultsMap){
+		
+			File mainSNPsDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.SNPs);
+			File mainTFPFMAndLogoMatricesDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
+		
+			String snpReferenceSequence = null;
+			String snpAlteredSequence = null;
+			List<String> snpAlteredSequences = null;
+			String tfExtendedPeakSequence = null;
+			String tfPfmMatrices = null;
+			String tfName = null;
+			
+			Map<String,String>	tfName2TFPfmMatricesFileMap	= new HashMap<String, String>();
+			
+			String fileName=null;
+			String fileAbsolutePath = null;
+			
+			RSATWebServicesLocator service = new RSATWebServicesLocator();
+			RSATWSPortType proxy  = null;
+			
+			//mainSNPsDirectory is Commons.SNPs
+			if (mainSNPsDirectory.exists() && mainSNPsDirectory.isDirectory()){
 				
-				File[] snpDirectories = snpsDirectory.listFiles();
+				//File[] snpDirectories = mainSNPsDirectory.listFiles();
 				
-				String snpReferenceSequence = null;
-				String snpAlteredSequence = null;
-				List<String> snpAlteredSequences = null;
-				String tfExtendedPeakSequence = null;
-				String tfPfmMatrices = null;
-				String tfName = null;
-				
-				String fileName=null;
-				String fileAbsolutePath = null;
-				
-				RSATWebServicesLocator service = new RSATWebServicesLocator();
-				RSATWSPortType proxy  = null;
-				
-				
-				
-//				//First get TF PFM Matrices file
-//        		//example pfmMatrices_BCL3.txt
-//	        	for (File eachSNPFile:eachSNPDirectory.listFiles() ){
-//	        		if(!eachSNPFile.isDirectory()){	        		
-//	        	 			//get the pfmMatrixFile
-//		        			fileName = eachSNPFile.getName();
-//	         				fileAbsolutePath = eachSNPFile.getAbsolutePath();
-//	         				
-//		        			if(fileName.startsWith(Commons.PFM_MATRICES)){
-//	         					pfmMatricesInputFile = fileAbsolutePath;
-//	         					tfName = fileName.substring(fileName.indexOf('_')+1,fileName.indexOf('.') );
-//	         					break;
-//	         				}
-//		     		}//End of if			        		
-//	        	}//End of for
-				
-				
+			
 				try {
 					proxy = service.getRSATWSPortType();
 				} catch (ServiceException e) {
@@ -798,21 +840,23 @@ public class RSATMatrixScanClient {
 				}
 				
 				MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
-										 
-			    for(File eachSNPDirectory: snpDirectories){
+				
+	
+        		//example eachSNPDirectory is chr1_11802721_rs17367504
+			    for(File eachSNPDirectory: mainSNPsDirectory.listFiles()){
 			    	
-			    	//example chr21_42416281_rs9976767
+			    	//Initialize input files
+	        		snpReferenceSequence = null;
+	        		snpAlteredSequence = null;
+	        		snpAlteredSequences = new ArrayList<String>();
+	        		tfExtendedPeakSequence = null;
+	        		tfName= null;
+	        		tfPfmMatrices = null;
+			    	
+			    	//example eachSNPDirectory chr21_42416281_rs9976767
 			        if(eachSNPDirectory.isDirectory()) {
 			        	
-			        	
-			        	//Initialize input files
-		        		snpReferenceSequence = null;
-		        		snpAlteredSequence = null;
-		        		snpAlteredSequences = new ArrayList<String>();
-		        		tfExtendedPeakSequence = null;
-		        		tfPfmMatrices = null;
-			        	
-			        	
+
 			        	//Now get the snp specific files
 			        	for (File eachSNPFile:eachSNPDirectory.listFiles() ){
 
@@ -826,10 +870,17 @@ public class RSATMatrixScanClient {
 	         					snpAlteredSequences.add(snpAlteredSequence);
 	         				}else if (fileName.startsWith(Commons.TF_EXTENDED_PEAK_SEQUENCE)){
 	         					tfExtendedPeakSequence = fileAbsolutePath;
+	         					
+	         					//Get TF Name from fileName
+	         					tfName = getTFName(fileName);
+	         					//Get TF PFM Matrix File
+	         					tfPfmMatrices = getTFPFMAMtrices(mainTFPFMAndLogoMatricesDirectory,tfName,tfName2TFPfmMatricesFileMap);
+	         					
 	         				}
 					         				 
-			        	}//End of FOR each necessary file under snp directory
-					         			
+			        	}//End of FOR eachSNPFile under eachSNPDirectory
+			        	
+			       			         			
 	         			//If all necessary files are not null
 	         			if(snpReferenceSequence!= null && snpAlteredSequence!= null && tfExtendedPeakSequence!=null && tfPfmMatrices!=null ){
 	            			//Matrix Scan Call
@@ -837,15 +888,15 @@ public class RSATMatrixScanClient {
 	         				//what is given interval name
 	         				//what is snp
 	         				System.out.println("ok");
-//		         			matrixScan(enrichedTfandKeggPathwayName, tfName,givenIntervalName, snpName,snpReferenceSequence,snpAlteredSequences,tfExtendedPeakSequence,tfPfmMatrices,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
+		         			matrixScan(tfName,eachSNPDirectory.getName(),snpReferenceSequence,snpAlteredSequences,tfExtendedPeakSequence,tfPfmMatrices,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
 		   
-	         			}
+	         			}//End of IF RSAT matrix scan
 					         				
-			        }//if it is a directory
-			    }//End of FOR each snp directory under snpsDirectory
+			        }//End of IF eachSNPDirectory is a directory
+			    }//End of FOR eachSNPDirectory under mainSNPsDirectory
 			        			
 			        		
-			}//End of IF snpsDirectory exists and it is a directory
+			}//End of IF mainSNPsDirectory exists and mainSNPsDirectory is a directory
 	
 			
 	}
@@ -926,7 +977,6 @@ public class RSATMatrixScanClient {
 	//					give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
 		
-		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//jobName starts
@@ -940,27 +990,29 @@ public class RSATMatrixScanClient {
 		
 		Map<String,String> snpReferenceSequenceRSATResultsMap 	= new HashMap<String,String>();
 		Map<String,String> snpAlteredSequenceRSATResultsMap 	= new HashMap<String,String>();
-		Map<String,String> tfExtendedPeakSequenceRSATResultsMap 		= new HashMap<String,String>();
+		Map<String,String> tfExtendedPeakSequenceRSATResultsMap = new HashMap<String,String>();
 		
-		
-		String forRSATFSequencesMatricesDirectory = Commons.FOR_RSA_TF_SEQUENCES_MATRICES_DIRECTORY;
+		String forRSASNPTFSequencesMatricesDirectory = Commons.FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY;
 		
 		//delete old files starts 
-		FileOperations.deleteOldFiles(outputFolder + Commons.RSAT_DIRECTORY);
+		FileOperations.deleteOldFiles(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT_DIRECTORY);
 		//delete old files ends
 		
 		FileWriter fileWriterTF;
 		BufferedWriter bufferedWriterTF;
 		
 		try {
-				fileWriterTF = FileOperations.createFileWriter(outputFolder +Commons.RSAT_OUTPUT_FILENAME_TF);
+				fileWriterTF = FileOperations.createFileWriter(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT_DIRECTORY + Commons.FOR_ALL_ANNOTATED_TFS_RSAT_RESULTS);
 				bufferedWriterTF = new BufferedWriter(fileWriterTF);
 			
 				//Regulatory Sequence Analysis for All TF Annotations
 				logger.debug("RSAT starts for TF");
-				matrixScan(outputFolder,Commons.FOR_RSA_TF_SEQUENCES_MATRICES_DIRECTORY,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfExtendedPeakSequenceRSATResultsMap);
+				matrixScan(outputFolder,forRSASNPTFSequencesMatricesDirectory,bufferedWriterTF, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfExtendedPeakSequenceRSATResultsMap);
 				bufferedWriterTF.close();
 				logger.debug("RSAT ends for TF");
+				
+				//Close bufferedWriter
+				bufferedWriterTF.close();
 							
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

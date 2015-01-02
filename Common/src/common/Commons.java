@@ -427,14 +427,16 @@ public class Commons {
 	// Augmentation of Enriched Elements with Overlaps Output Files ends
 
 	// RSAT
-	public static final String RSAT_DIRECTORY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator");
+	public static final String FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY = FOR_RSA + System.getProperty("file.separator");
+	public static final String REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "RegulatorySequenceAnalysisUsingRSAT";
+	public static final String REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT_DIRECTORY = Commons.REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT + System.getProperty("file.separator");
+	public static final String FOR_ALL_ANNOTATED_TFS_RSAT_RESULTS =  "ForAllAnnotatedTFsRSATResults.txt";
 
 	public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
 	public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
 	public static final String RSAT_tmp_background_infile = "/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/1nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq.gz";
 
-	public static final String RSAT_OUTPUT_FILENAME_TF = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT + System.getProperty("file.separator") + "RSAT_results_TF.txt";
-
+	
 	public static final String RSAT_OUTPUT_FILENAME_TF_EXONBASEDKEGGPATHWAY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT + System.getProperty("file.separator") + "RSAT_results_TF_ExonBasedKEGGPathway.txt";
 	public static final String RSAT_OUTPUT_FILENAME_TF_REGULATIONBASEDKEGGPATHWAY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT + System.getProperty("file.separator") + "RSAT_results_TF_RegulationBasedKEGGPathway.txt";
 	public static final String RSAT_OUTPUT_FILENAME_TF_ALLBASEDKEGGPATHWAY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT + System.getProperty("file.separator") + "RSAT_results_TF_AllBasedKEGGPathway.txt";
@@ -444,9 +446,7 @@ public class Commons {
 	public static final String RSAT_OUTPUT_FILENAME_TF_CELLLINE_ALLBASEDKEGGPATHWAY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty("file.separator") + Commons.USING_RSAT + System.getProperty("file.separator") + "RSAT_results_TF_CellLine_AllBasedKEGGPathway.txt";
 
 	/*************************************************************************************/
-	// TF DIRECTORY BASES
-	public static final String FOR_RSA_TF_SEQUENCES_MATRICES_DIRECTORY = FOR_RSA + System.getProperty("file.separator");
-
+	
 	// TF KEGGPATHWAY DIRECTORY BASES
 	public static final String TF_EXON_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE = FOR_RSA + System.getProperty("file.separator") + "TfExonBasedKEGG" + System.getProperty("file.separator");
 	public static final String TF_REGULATION_BASED_KEGG_PATHWAY_RESULTS_DIRECTORY_BASE = FOR_RSA + System.getProperty("file.separator") + "TfRegulationBasedKEGG" + System.getProperty("file.separator");
