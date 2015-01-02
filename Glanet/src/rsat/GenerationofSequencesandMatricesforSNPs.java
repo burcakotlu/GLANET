@@ -5,8 +5,6 @@
  */
 package rsat;
 
-import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -25,19 +23,14 @@ import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.PositionFrequency;
 import jaxbxjctool.RsInformation;
-import jaxbxjctool.TfCellLineTfInterval;
-import jaxbxjctool.TfKeggPathwayTfInterval;
 
 import org.apache.log4j.Logger;
 
-import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
-import enumtypes.Orient;
 
 /**
  * 
@@ -45,7 +38,6 @@ import enumtypes.Orient;
 public class GenerationofSequencesandMatricesforSNPs {
 	
 	final static Logger logger = Logger.getLogger(GenerationofSequencesandMatricesforSNPs.class);
-	
 	
 	
 	public static void constructLogoMatricesfromEncodeMotifs(String dataFolder,String encodeMotifsInputFileName,Map<String,String>  tfName2LogoMatrices){
@@ -678,74 +670,74 @@ public class GenerationofSequencesandMatricesforSNPs {
 	}
 	
 	
-	public static void createTfIntervalsFile(String outputFolder,String directoryBase,String snpDirectory,String fileName, List<String> snpBasedTfIntervalKeyList, Map<String,TfKeggPathwayTfInterval> tfKeggPathwayBasedTfIntervalMap){
-		
-		TfKeggPathwayTfInterval tfInterval;
-		int tfIntervalStartOneBased;
-		int tfIntervalEndOneBased;
-		
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-	
-		
-		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + snpDirectory + System.getProperty("file.separator") + fileName + ".txt");	
-			bufferedWriter = new BufferedWriter(fileWriter);
-						
-			for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
-	
-				//get tfInterval
-				tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
-				
-				tfIntervalStartOneBased = tfInterval.getStartOneBased();
-				tfIntervalEndOneBased = tfInterval.getEndOneBased();
-								
-				bufferedWriter.write(tfInterval.getTfNameCellLineName() +  "\t" + "chr" + tfInterval.getChrNamewithoutPreceedingChr() + " \t" + tfIntervalStartOneBased + "\t" +tfIntervalEndOneBased + System.getProperty("line.separator"));				
-						
-			}//End of file for each tf interval overlapping with this snp
-		
-			bufferedWriter.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 
-	//for tf
-	public static void createTfIntervalsFile_forTf(String outputFolder,String directoryBase,String snpDirectory,String fileName, List<String> snpBasedTfIntervalKeyList, Map<String,TfCellLineTfInterval> tfCellLineBasedTfIntervalMap){
+
+	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(String snpDirectory,Map<String,TFOverlap> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch38Map){
 		
-		TfCellLineTfInterval tfInterval;
-		int tfIntervalStartOneBased;
-		int tfIntervalEndOneBased;
+		String tfName;
+		TFOverlap tfOverlap;
+		TFCellLineOverlap tfCellLineOverlap;
 		
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-	
+		FileWriter TFNameBasedTFOverlapsFileWriter = null;
+		BufferedWriter TFNameBasedTFOverlapsBufferedWriter = null;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + snpDirectory + System.getProperty("file.separator") + fileName + ".txt");	
-			bufferedWriter = new BufferedWriter(fileWriter);
-						
-			for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
-	
-				//get tfInterval
-				tfInterval = tfCellLineBasedTfIntervalMap.get(tfIntervalKey);
+			
+			for(Map.Entry<String, TFOverlap> tfEntry: tfName2TFOverlapMap.entrySet()){
 				
-				tfIntervalStartOneBased = tfInterval.getStartOneBased();
-				tfIntervalEndOneBased = tfInterval.getEndOneBased();
-								
-				bufferedWriter.write(tfInterval.getTfNameCellLineName() +  "\t" + "chr" + tfInterval.getChrNamewithoutPreceedingChr() + " \t" + tfIntervalStartOneBased + "\t" +tfIntervalEndOneBased + System.getProperty("line.separator"));				
-						
-			}//End of file for each tf interval overlapping with this snp
-		
-			bufferedWriter.close();
+				tfName = tfEntry.getKey();
+				tfOverlap = tfEntry.getValue();
+				
+				TFNameBasedTFOverlapsFileWriter = FileOperations.createFileWriter(snpDirectory  + System.getProperty("file.separator") + "TFOverlaps" +  Commons.UNDERSCORE + tfName +  ".txt");	
+				TFNameBasedTFOverlapsBufferedWriter = new BufferedWriter(TFNameBasedTFOverlapsFileWriter);
+				
+				Iterator<TFCellLineOverlap> iterator = tfOverlap.getTfCellLineOverlaps().iterator();
+				
+				//Write TF Based TFCellLineOverlaps into a file
+				while(iterator.hasNext()){
+					tfCellLineOverlap = iterator.next();
+					
+					//Write TF CellLine Based TFOverlap File
+					//write snp based tf Intervals file
+					TFNameBasedTFOverlapsBufferedWriter.write(ChromosomeName.convertEnumtoString(tfOverlap.getChrNameWithPreceedingChr()) + "\t" + tfCellLineOverlap.getOneBasedStart() + "\t" + tfCellLineOverlap.getOneBasedEnd() + "\t" + tfCellLineOverlap.getTfName() + "\t" + tfCellLineOverlap.getCellLineName() + "\t" + tfCellLineOverlap.getFileName() + System.getProperty("line.separator"));
+					
+					//Set TFOverlap Minimum One Based Start
+					if (tfOverlap.getMinimumOneBasedStart()>tfCellLineOverlap.getOneBasedStart()){
+						tfOverlap.setMinimumOneBasedStart(tfCellLineOverlap.getOneBasedStart());
+					}//End of IF
+					
+					//Set TFOverlap Maximum One Based End
+					if (tfOverlap.getMaximumOneBasedEnd()<tfCellLineOverlap.getOneBasedEnd()){
+						tfOverlap.setMaximumOneBasedEnd(tfCellLineOverlap.getOneBasedEnd());
+					}//End of IF
+				
+				}//End of WHILE
+				
+				
+				//Close bufferedWriter
+				TFNameBasedTFOverlapsBufferedWriter.close();
+				
+				//Get TF Name Based TFOverlap Peak Sequence
+				tfOverlap.setPeakSequence(getDNASequence(chrNameWithoutPreceedingChr,tfOverlap.getMinimumOneBasedStart(), tfOverlap.getMaximumOneBasedEnd(),chrName2RefSeqIdforGrch38Map));
+
+				//Write TF Name Based TFOverlap Peak Sequence
+				writeSequenceFile(snpDirectory, "TFExtendedPeakSequence" + Commons.UNDERSCORE +  tfName  , tfOverlap.getPeakSequence());
+				
+			}//End of FOR TF Name Based TF CellLine Overlaps
+			
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+	
+	
+		
 	}
+	
+
 
 
 	public static void writeSequenceFile(String snpDirectory, String fileName,String sequence){
@@ -770,7 +762,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 			
 			}
 			//only sequence is sent
-			//so add '>' character to make it fasta format
+			//so add '>' character to make it in fasta format
 			else{
 				bufferedWriter.write(">" + fileName + System.getProperty("line.separator"));
 				bufferedWriter.write(sequence);
@@ -785,17 +777,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		}
 	}
 	
-	public static String getAlteredSequence(String precedingSNP,String allele,String followingSNP){
-		
-		if(!allele.equals(Commons.STRING_HYPHEN)){
-			return precedingSNP + allele + followingSNP;
-		}else{
-			return precedingSNP + followingSNP;
 
-		}
-		
-		
-	}
 	
 public static String takeComplementforeachAllele(String allele){
 		
@@ -894,7 +876,7 @@ public static String takeComplementforeachAllele(String allele){
 						
 					}else{
 						alteredSNPSequence = formerSNPReferenceSequence  + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.UNDERSCORE + rsId);
+						snpAlteredSequenceNames.add(Commons.UNDERSCORE + rsId + Commons.UNDERSCORE );
 					}
 					
 					usedObservedAlleles.add(observedAllele);
@@ -911,13 +893,12 @@ public static String takeComplementforeachAllele(String allele){
 
 
 	
-	public static void	createSNPAlternateSequences(SNPInformation snpInformation, String rsId,List<String> observedAllelesList){
+	public static void	createSNPAlteredSequences(SNPInformation snpInformation, String rsId,List<String> observedAllelesList){
 		
 		//For each observed allele
 		//Check whether snpReferenceSequence contains any of these observed alleles starting at snp start position
 		//If yes; use the rest of the observed alleles in generation of alteredSequences
-		//If no; give alarm; snpReferenceSequence does not contain any of this observed allele starting at snp start position
-		
+		//If no; give alarm; snpReferenceSequence does not contain any of this observed allele starting at snp start position		
 		Boolean snpContainsAnyOfObservedAlleles; 
 		
 		snpContainsAnyOfObservedAlleles =checkWhetherSNPRefenceSequnceContainsAnyObservedAlleleAndCreateAlteredSequences(snpInformation.getSnpAlteredSequenceNames(),snpInformation.getSnpAlteredSequences(),snpInformation.getUsedObservedAlleles(),snpInformation.getSnpReferenceSequence(),rsId, observedAllelesList);
@@ -925,7 +906,7 @@ public static String takeComplementforeachAllele(String allele){
 		
 		if (!snpContainsAnyOfObservedAlleles){
 			//Give alarm
-			System.out.println("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
+			logger.error("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
 		}
 		
 		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
@@ -987,7 +968,7 @@ public static String takeComplementforeachAllele(String allele){
 	}
 	
 	
-	public static void createSNPAlternateSequences(SNPInformation snpInformation, RsInformation rsInformation){
+	public static void createSNPAlteredSequences(SNPInformation snpInformation, RsInformation rsInformation){
 		
 		List<String> observedAllelesList = convertSlashSeparatedObservedAllelesIntoAStringList(rsInformation.getSlashSeparatedObservedAlleles());
 		
@@ -995,173 +976,19 @@ public static String takeComplementforeachAllele(String allele){
 		
 		//rsID Orient is Forward
 		if (rsInformation.getOrient().isForward()){
-			createSNPAlternateSequences(snpInformation,rsInformation.getRsId(), observedAllelesList);
+			createSNPAlteredSequences(snpInformation,rsInformation.getRsId(), observedAllelesList);
 		}
 		//rsID Orient is Reverse
 		else{
 			//Take Complement of slashSeparatedObservedAlleles
 			complementedObservedAllelesList = takeComplement(observedAllelesList);
-			createSNPAlternateSequences(snpInformation,rsInformation.getRsId(),complementedObservedAllelesList);
+			createSNPAlteredSequences(snpInformation,rsInformation.getRsId(),complementedObservedAllelesList);
 		}
 		
 	}
 	
 
-	//Then delete this method
-	public static List<String> getAlteredSNPSequences(String referenceSequence, List<String> observedAlleles,int oneBasedStartSnpPosition){
-		
-		String precedingSNP;
-		String followingSNP;
-		String snp;
-		
-		int oneBasedEndSnpPosition;
-		
-		List<String> alteredSnpSequences;
-		List<String> allAlteredSnpSequences = new ArrayList<String>();
-				
-		//snpPosition is at Commons.SNP_POSITION; (one-based)
-				
-		//precedingSNP is 14 characters long
-		precedingSNP = referenceSequence.substring(0, oneBasedStartSnpPosition-1);
-		
-		oneBasedEndSnpPosition = oneBasedStartSnpPosition;
-		
-		//followingSNP is 14 characters long
-		followingSNP = referenceSequence.substring(oneBasedEndSnpPosition);
-		
-				
-		//snp
-		snp = referenceSequence.substring(oneBasedStartSnpPosition-1,oneBasedEndSnpPosition);
-				
-		//take each possible observed alleles
-		//C\tT\t
-		
-		for(String alleles: observedAlleles){
-			
-			//Find the other alleles other than normal nucleotide
-			//alteredSnpSequences = findOtherObservedAllelesandGetAltereSequences(snp,alleles,precedingSNP,followingSNP);
-			
-//			//check for whether every altered sequence in alteredSnpSequences exists in allAlteredSnpSequences
-//			//if allAlteredSnpSequences does not contain it 
-//			//then add it
-//			for(String alteredSequence:alteredSnpSequences){
-//				if (!allAlteredSnpSequences.contains(alteredSequence)){
-//					allAlteredSnpSequences.add(alteredSequence);
-//					
-//				}
-//			}
-			
-		}//End of for each observedAllele
-	
-		return allAlteredSnpSequences;
-	}
-	
-	
-	public static List<String>  getAlteredSnpSequences(String snp, String alleles,String precedingSNP,String followingSNP){
-		
-		int indexofFormerTab;
-		int indexofLatterTab;
-		
-		String allele;
-		String alteredSnpSequence;
-		List<String> alteredSnpSequences = new ArrayList<String>();
-		
-		indexofFormerTab = alleles.indexOf('\t');
-				
-		//get the first allele
-		allele = alleles.substring(0,indexofFormerTab);
-		
-		//check for this first allele
-		if (!snp.equals(allele)){
-			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
-			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
-				alteredSnpSequences.add(alteredSnpSequence);
-			}
-		}
-		
-		indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
 
-		while(indexofFormerTab!=-1 && indexofLatterTab!=-1){
-			allele = alleles.substring(indexofFormerTab+1, indexofLatterTab);
-			
-			//check for this allele
-			if (!snp.equals(allele)){
-				alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
-				
-				if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
-					alteredSnpSequences.add(alteredSnpSequence);
-				}
-			}
-			
-			indexofFormerTab = indexofLatterTab;
-			indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
-		}
-		
-		//get the last allele
-		allele = alleles.substring(indexofFormerTab+1);
-		
-		//check for this last allele
-		if (!snp.equals(allele)){
-			alteredSnpSequence = getAlteredSequence(precedingSNP,allele,followingSNP);
-			
-			if (alteredSnpSequence!=null && !(alteredSnpSequences.contains(alteredSnpSequence))){
-				alteredSnpSequences.add(alteredSnpSequence);
-			}
-		}
-		
-		return alteredSnpSequences;
-	}
-
-
-	
-	//if snp exists in any of tab delimited alleles useAlleles return true
-	//else useAlleles return false
-	public static boolean useAlleles(String snp,String alleles){
-		//alleles is composed by allele each is seperated by tab
-		//A\tC\tG\t
-		
-		int indexofFormerTab;
-		int indexofLatterTab;
-		
-		String allele;
-		
-		indexofFormerTab = alleles.indexOf('\t');
-		
-		//get the first allele
-		allele = alleles.substring(0,indexofFormerTab);
-				
-		//check for this first allele
-		if (snp.equals(allele)){
-			return true;
-		}
-		
-		indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
-
-		while(indexofFormerTab!=-1 && indexofLatterTab!=-1){
-			allele = alleles.substring(indexofFormerTab+1, indexofLatterTab);
-			
-			//check for this allele
-			if (snp.equals(allele)){
-				return true;
-			}
-			
-			indexofFormerTab = indexofLatterTab;
-			indexofLatterTab = alleles.indexOf('\t',indexofFormerTab+1);
-		}
-		
-		//get the last allele
-		allele = alleles.substring(indexofFormerTab+1);
-		
-		//check for this last allele
-		if (snp.equals(allele)){
-			return true;
-		}
-		
-				
-		return false;
-		
-	}
 	
 	public static void writeObservedAllelesFile(String snpDirectory, String fileName,String observedAlleles){
 		FileWriter fileWriter = null;
@@ -1263,8 +1090,8 @@ public static String takeComplementforeachAllele(String allele){
 	        // Close the connection
 	        in.close();
 	  }catch (Exception e){ 
-		  GlanetRunner.appendLog("Error reading from the URL:");
-		  System.out.println(e);
+		  logger.error("Error reading from the URL:");
+		  logger.error(e);
 	  }
 	  
 	
@@ -1272,149 +1099,8 @@ public static String takeComplementforeachAllele(String allele){
 	}
 
 	
-	//without orient starts
-public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String observedAllelesSeparatedwithSlash){
-		
-		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash +1);
-		
-		String allele;
-		String observedAllelesSeparatedwithTabs = "";
-		
-		//for the first allele
-		allele = observedAllelesSeparatedwithSlash.substring(0,indexofFormerSlash);
-		
-		//update
-		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";		
-	
-		
-				
-		
-		while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
-			
-			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1, indexofLatterSlash);	
-			
-			//update
-			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";		
-				
-			indexofFormerSlash = indexofLatterSlash ;			
-			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
-			
-		}
-		
-		//for the last allele
-		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1);	
-		
-		//update
-		observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele;		
-		
-			
-		return observedAllelesSeparatedwithTabs;
-			
-	}
-	//without orient ends
-	
-	
-//	//With Orient starts
-//	public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String observedAllelesSeparatedwithSlash, String orient){
-//		
-//		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
-//		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash +1);
-//		
-//		String allele;
-//		String complementedAllele;
-//		String observedAllelesSeparatedwithTabs = "";
-//		
-//		//for the first allele
-//		allele = observedAllelesSeparatedwithSlash.substring(0,indexofFormerSlash);
-//		
-//		if (orient.equals(Commons.REVERSE)){
-//			complementedAllele = takeComplementforeachAllele(allele);			
-//			//update
-//			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + complementedAllele + "\t";			
-//		}else{
-//			//update
-//			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";		
-//		}
-//		
-//		
-//				
-//		
-//		while (indexofFormerSlash>=0 && indexofLatterSlash >=0){
-//			
-//			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1, indexofLatterSlash);	
-//			
-//			if (orient.equals(Commons.REVERSE)){
-//				complementedAllele = takeComplementforeachAllele(allele);				
-//				//update
-//				observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + complementedAllele + "\t";				
-//			}else{
-//				//update
-//				observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele + "\t";		
-//			}
-//			
-//			
-//			indexofFormerSlash = indexofLatterSlash ;			
-//			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/',indexofFormerSlash+1);
-//			
-//		}
-//		
-//		//for the last allele
-//		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash+1);	
-//		
-//		if (orient.equals(Commons.REVERSE)){
-//			complementedAllele = takeComplementforeachAllele(allele);				
-//			//update
-//			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + complementedAllele;				
-//		}else{
-//			//update
-//			observedAllelesSeparatedwithTabs = observedAllelesSeparatedwithTabs + allele;		
-//		}
-//		
-//		
-//		return observedAllelesSeparatedwithTabs;
-//			
-//	}
-//	//With Orient ends
 
 	
-	public static boolean alreadyExists(String observedAllelesSeparatedbyTabs,List<String> observedAlleles){
-		
-		Boolean exists = false;
-		
-		
-		for(String allele:observedAlleles){
-			if (observedAllelesSeparatedbyTabs.equals(allele)){
-				exists = true;
-				break;
-			}
-		}
-		
-		return exists;
-		
-	}
-		
-	
-	public static void add(String chrNamewithoutChr,int zeroBasedCoordinate, String observedAllelesSeparatedbyTabs,Map<String, List<String>> chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles){
-		String key = chrNamewithoutChr + "_"  + zeroBasedCoordinate;
-		
-		List<String> observedAlleles = chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.get(key);
-		
-		if (observedAlleles==null){
-			observedAlleles = new ArrayList<String>();			
-			observedAlleles.add(observedAllelesSeparatedbyTabs);
-			chrNamewithoutChrandZeroBasedCoordinate2ObservedAlleles.put(key, observedAlleles);
-		} else {
-			
-			if (!observedAlleles.contains(observedAllelesSeparatedbyTabs)){
-				observedAlleles.add(observedAllelesSeparatedbyTabs);			
-			}
-//			if (!alreadyExists(observedAllelesSeparatedbyTabs,observedAlleles)){
-//				observedAlleles.add(observedAllelesSeparatedbyTabs);
-//			}
-		}
-		
-	}
 	
 	
 	public static String getDNASequenceFromFastaFile(String fastaFile){
@@ -1432,120 +1118,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 	}
 	
 	
-	public static void getSNPBasedPeakSequence(List<String> snpBasedTfIntervalKeyList,Map<String,TfKeggPathwayTfInterval> tfKeggPathwayBasedTfIntervalMap,String chrNamewithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch38Map,String outputFolder, String directoryBase,String tfNameKeggPathwayNameBased_SnpDirectory,String snpKeyString){
-		
-		//initialize  min and max tf intervals
-		int minTfIntervalStartOneBased = Integer.MAX_VALUE;
-		int maxTfIntervalEndOneBased = Integer.MIN_VALUE;
-		
-		int tfIntervalStartOneBased;
-		int tfIntervalEndOneBased;
-		
-		String tfExtendedPeakSequence;
-		TfKeggPathwayTfInterval tfInterval;
-					
-		for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
 
-			//get tfInterval
-			tfInterval = tfKeggPathwayBasedTfIntervalMap.get(tfIntervalKey);
-			
-			tfIntervalStartOneBased = tfInterval.getStartOneBased();
-			tfIntervalEndOneBased = tfInterval.getEndOneBased();
-			
-			if (tfIntervalStartOneBased < minTfIntervalStartOneBased){
-				minTfIntervalStartOneBased = tfIntervalStartOneBased;
-			}
-			
-			if (tfIntervalEndOneBased > maxTfIntervalEndOneBased){
-				maxTfIntervalEndOneBased = tfIntervalEndOneBased;
-			}		
-					
-		}//End of file for each tf interval overlapping with this snp
-		
-		
-		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartOneBased, maxTfIntervalEndOneBased,chrName2RefSeqIdforGrch38Map);
-		
-		//write snp based extended peak sequence file
-		createPeakSequencesFile(outputFolder,directoryBase,tfNameKeggPathwayNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
-
-	}
 	
 	
-	//for tf
-	public static void getSNPBasedPeakSequence_forTf(List<String> snpBasedTfIntervalKeyList,Map<String,TfCellLineTfInterval> tfCellLineBasedTfIntervalMap,String chrNamewithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch38Map,String outputFolder, String directoryBase,String tfNameCellLineNameBased_SnpDirectory,String snpKeyString){
-		
-		//initialize  min and max tf intervals
-		int minTfIntervalStartOneBased = Integer.MAX_VALUE;
-		int maxTfIntervalEndOneBased = Integer.MIN_VALUE;
-		
-		int tfIntervalStartOneBased;
-		int tfIntervalEndOneBased;
-		
-		String tfExtendedPeakSequence;
-		TfCellLineTfInterval tfInterval;
-					
-		for(String tfIntervalKey : snpBasedTfIntervalKeyList ){
 
-			//get tfInterval
-			tfInterval = tfCellLineBasedTfIntervalMap.get(tfIntervalKey);
-			
-			tfIntervalStartOneBased = tfInterval.getStartOneBased();
-			tfIntervalEndOneBased = tfInterval.getEndOneBased();
-			
-			if (tfIntervalStartOneBased < minTfIntervalStartOneBased){
-				minTfIntervalStartOneBased = tfIntervalStartOneBased;
-			}
-			
-			if (tfIntervalEndOneBased > maxTfIntervalEndOneBased){
-				maxTfIntervalEndOneBased = tfIntervalEndOneBased;
-			}		
-					
-		}//End of file for each tf interval overlapping with this snp
-		
-		
-		tfExtendedPeakSequence = getDNASequence(chrNamewithoutPreceedingChr,minTfIntervalStartOneBased, maxTfIntervalEndOneBased,chrName2RefSeqIdforGrch38Map);
-		
-		//write snp based extended peak sequence file
-		createPeakSequencesFile(outputFolder,directoryBase,tfNameCellLineNameBased_SnpDirectory,"extendedPeakSequence","extendedPeak",tfExtendedPeakSequence);
+	
 
-	}
 	
-	public static List<String> findTfIntervalsOverlappingWithThisSNP(List<String> tfIntervalKeyList, Map<String,TfKeggPathwayTfInterval> tfIntervalMap,int snpZeroBasedStartCoordinate, int snpZeroBasedEndCoordinate){
-		
-		List<String> snpBasedTfIntervalKeyList = new ArrayList<String>();
-		TfKeggPathwayTfInterval tfInterval;
-		
-		for(String tfIntervalKey: tfIntervalKeyList ){
-			tfInterval = tfIntervalMap.get(tfIntervalKey);
-					
-			//Interval Tree works with 0 Based coordinates
-			if (IntervalTree.overlaps((tfInterval.getStartOneBased()-1), (tfInterval.getEndOneBased()-1), snpZeroBasedStartCoordinate, snpZeroBasedEndCoordinate)){
-				snpBasedTfIntervalKeyList.add(tfIntervalKey);
-			}
-		}
-		
-		return snpBasedTfIntervalKeyList;
-		
-	}
-	
-	//for tf
-	public static List<String> findTfIntervalsOverlappingWithThisSNP_forTf(List<String> tfIntervalKeyList, Map<String,TfCellLineTfInterval> tfIntervalMap,int snpZeroBasedStartCoordinate, int snpZeroBasedEndCoordinate){
-		
-		List<String> snpBasedTfIntervalKeyList = new ArrayList<String>();
-		TfCellLineTfInterval tfInterval;
-		
-		for(String tfIntervalKey: tfIntervalKeyList ){
-			tfInterval = tfIntervalMap.get(tfIntervalKey);
-						
-			//IntervalTree works with 0Based coordinates
-			if (IntervalTree.overlaps((tfInterval.getStartOneBased()-1), (tfInterval.getEndOneBased()-1), snpZeroBasedStartCoordinate, snpZeroBasedEndCoordinate)){
-				snpBasedTfIntervalKeyList.add(tfIntervalKey);
-			}
-		}
-		
-		return snpBasedTfIntervalKeyList;
-		
-	}
 	
 	//TF starts
 	public static void readAllTFAnnotationsWriteSequencesandMatrices(
@@ -1621,7 +1200,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 		RsInformation rsInformation;	
 		SNPInformation snpInformation;
 		String fastaFile;
-		String referenceSequence;
+		String snpReferenceSequence;
 		int alteredSequenceCount;
 		Map<String,SNPInformation> givenSNP2SNPInformationMap = new HashMap<String,SNPInformation>();
 		/*******************************************************************************/
@@ -1666,7 +1245,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			
 			
 			/****************************************************************************************/
-			/*********************Reading Augmented TF File Starts***********************************/
+			/*********************Reading All  TF Annotations File Starts****************************/
 			/****************************************************************************************/										
 			while((strLine = allTFAnnotationsBufferedReader.readLine())!=null){
 							
@@ -1828,13 +1407,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						    	 //debug starts sil
 								 if (validRsIdList.size()>1){
 									 
-									 System.out.print(givenSNPKey + "\t");
+									 logger.debug(givenSNPKey + "\t");
 									 
 									 for(String validRsID: validRsIdList){
-										 System.out.print("rs" + validRsID + "\t");;
+										 logger.debug("rs" + validRsID + "\t");;
 									 }
 									 
-									 System.out.print(System.getProperty("line.separator"));
+									 logger.debug(System.getProperty("line.separator"));
 								 }
 								 //debug ends sil
 						    	 
@@ -1846,7 +1425,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						 }//End of if rsInformation is null
 						 else{
 							 
-							 System.out.println("I guess this else part is unnecessary!");
+							 logger.error("I guess this else part is unnecessary!");
 							 
 							 //Means that rsInformation is already put
 							 //so this rsId is not a merged rsId
@@ -1854,7 +1433,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 							 
 							 //debug starts sil
 							 if (validRsIdList.size()>0){
-								 System.out.println(givenSNPKey);
+								 logger.debug(givenSNPKey);
 								 
 							 }
 							 //debug ends sil
@@ -1891,11 +1470,12 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 					    //For this SNP, This TF is looked for the first time
 					    if (tfOverlap == null){
 						    
-					    	tfOverlap = new TFOverlap(tfName);
+					    	tfOverlap = new TFOverlap(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
 						    
 					    	tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
 								
 							tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+							
 						    
 							tfName2TFOverlapMap.put(tfName, tfOverlap);
 					    }
@@ -1911,7 +1491,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 						//For this SNP, This TF Overlap is looked for the first time.
 						if (tfOverlap == null){
 						    
-						    tfOverlap = new TFOverlap(tfName);
+						    tfOverlap = new TFOverlap(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
 						    
 						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
 							
@@ -1945,11 +1525,20 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				}//End of IF strLine is not comment character
 				
 			}//End of While loop reading:  allTFAnnotationsBufferedReader
-					
-			//We have read allTFAnnotations File	
-			//Close BufferedReader
-			allTFAnnotationsBufferedReader.close();
+			/****************************************************************************************/
+			/*********************Reading All  TF Annotations File Ends******************************/
+			/****************************************************************************************/										
+	
 			
+					
+			/****************************************************************************************/										
+			/******************Close All TF Annotations Buffered Writer******************************/										
+			/****************************************************************************************/										
+			allTFAnnotationsBufferedReader.close();
+			/****************************************************************************************/										
+			/******************Close All TF Annotations Buffered Writer******************************/										
+			/****************************************************************************************/										
+		
 			
 			/*******************************************************************************************************************************/
 			/****************Get DNA sequences starts***************************************************************************************/
@@ -1965,9 +1554,8 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				fastaFile = getDNASequence(snpInformation.getChrNameWithoutPreceedingChr(),snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,chrName2RefSeqIdforGrch38Map);
 				
 				snpInformation.setFastaFile(fastaFile);
-				referenceSequence = getDNASequenceFromFastaFile(fastaFile);
-				snpInformation.setSnpReferenceSequence(referenceSequence);
-				
+				snpReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
+				snpInformation.setSnpReferenceSequence(snpReferenceSequence);
 				
 				/*****************************************************************/
 				/*****************Set SNP directory starts************************/
@@ -1989,7 +1577,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				/*****************************************************************/
 				/********Write SNP Reference DNA Sequence starts******************/
 				/*****************************************************************/
-				writeSequenceFile(snpDirectory, "referenceDNASequence" + "_" + entry.getKey(),entry.getValue().getSnpReferenceSequence());
+				writeSequenceFile(snpDirectory, "referenceDNASequence" + "_" + entry.getKey(),entry.getValue().getFastaFile());
 				/*****************************************************************/
 				/********Write SNP Reference DNA Sequence ends********************/
 				/*****************************************************************/
@@ -2001,14 +1589,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				/**********************************************************************************/
 				for(String validRsId: snpInformation.getValidRsIDList()){
 					
-					
 					rsInformation = rsID2RsIDInformationMap.get(validRsId);
 					writeObservedAllelesFile(snpDirectory, "observedAlleles" + Commons.UNDERSCORE + Commons.RS +validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
 					
 					/*******************************************************************/
 					/*************Create SNP Altered Sequences starts*******************/
 					/*******************************************************************/
-					createSNPAlternateSequences(snpInformation, rsInformation);
+					createSNPAlteredSequences(snpInformation, rsInformation);
 					/*******************************************************************/
 					/*************Create SNP Altered Sequences starts*******************/
 					/*******************************************************************/
@@ -2038,38 +1625,13 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 				
 				
 				/**********************************************************************************/
+				/**************Write TF Name Based TF Overlaps File starts*************************/
 				/**************Write TF PEAK Sequence starts***************************************/
 				/**********************************************************************************/
 				tfName2TFOverlapMap = givenSNP2TFOverlapMapMap.get(givenSNPKey);
-				for(Map.Entry<String, TFOverlap> tfEntry: tfName2TFOverlapMap.entrySet()){
-					tfName = tfEntry.getKey();
-					tfOverlap = tfEntry.getValue();
-					
-					Iterator<TFCellLineOverlap> iterator = tfOverlap.getTfCellLineOverlaps().iterator();
-					
-					//Write TFCellLineOverlaps into a file
-					while(iterator.hasNext()){
-						tfCellLineOverlap = iterator.next();
-						
-						//Set TFOverlap Minimum One Based Start
-						if (tfOverlap.getMinimumOneBasedStart()>tfCellLineOverlap.getOneBasedStart()){
-							tfOverlap.setMinimumOneBasedStart(tfCellLineOverlap.getOneBasedStart());
-						}//End of IF
-						
-						//Set TFOverlap Maximum One Based End
-						if (tfOverlap.getMaximumOneBasedEnd()<tfCellLineOverlap.getOneBasedEnd()){
-							tfOverlap.setMaximumOneBasedEnd(tfCellLineOverlap.getOneBasedEnd());
-							
-						}//End of IF
-					
-					}//End of WHILE
-					
-					//Get TFOverlap Peak Sequence
-					
-					//Write TFOverlap Peak Sequence
-					
-				}//End of FOR
+				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(snpDirectory,tfName2TFOverlapMap,snpInformation.getChrNameWithoutPreceedingChr(),chrName2RefSeqIdforGrch38Map);
 				/**********************************************************************************/
+				/**************Write TF Name Based TF Overlaps File ends***************************/
 				/**************Write TF PEAK Sequence ends*****************************************/
 				/**********************************************************************************/
 							
@@ -2377,8 +1939,7 @@ public static String convertSlashSeparatedAllelestoTabSeparatedAlleles(String ob
 			//TF Annotations are used
 			if (tfEnrichment.isTfEnrichment()){
 				
-			    //TF
-			    //generate sequences and matrices for enriched tf elements
+			    //Generate Sequences and Matrices for Annotated TF Elements
 			    readAllTFAnnotationsWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,forRSAFolder,all_TF_Annotations_File_1Based_Start_End_GRCh38,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
 			}
 			

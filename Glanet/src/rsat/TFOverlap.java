@@ -6,6 +6,8 @@ package rsat;
 import java.util.ArrayList;
 import java.util.List;
 
+import enumtypes.ChromosomeName;
+
 /**
  * @author Burçak Otlu
  * @date Dec 29, 2014
@@ -17,21 +19,35 @@ public class TFOverlap {
     String tfName;
     String peakSequence;
     
-    
+    ChromosomeName chrNameWithPreceedingChr;
     int minimumOneBasedStart;
     int maximumOneBasedEnd;
     
     List<TFCellLineOverlap> tfCellLineOverlaps;
     
-    public String getTfName() {
+    
+    
+  
+	
+	public ChromosomeName getChrNameWithPreceedingChr() {
+		return chrNameWithPreceedingChr;
+	}
+
+	public void setChrNameWithPreceedingChr(ChromosomeName chrNameWithPreceedingChr) {
+		this.chrNameWithPreceedingChr = chrNameWithPreceedingChr;
+	}
+
+	public String getTfName() {
         return tfName;
     }
+	
     public void setTfName(String tfName) {
         this.tfName = tfName;
     }
     public String getPeakSequence() {
         return peakSequence;
     }
+    
     public void setPeakSequence(String peakSequence) {
         this.peakSequence = peakSequence;
     }
@@ -53,9 +69,10 @@ public class TFOverlap {
     public void setMaximumOneBasedEnd(int maximumOneBasedEnd) {
         this.maximumOneBasedEnd = maximumOneBasedEnd;
     }
-    public TFOverlap(String tfName) {
+    public TFOverlap(String tfName, ChromosomeName chrNameWithPreceedingChr) {
     	super();
     	this.tfName = tfName;
+    	this.chrNameWithPreceedingChr = chrNameWithPreceedingChr;
     	this.tfCellLineOverlaps = new ArrayList<TFCellLineOverlap>();
     	
     	this.minimumOneBasedStart = Integer.MAX_VALUE;
