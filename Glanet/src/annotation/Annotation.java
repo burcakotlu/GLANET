@@ -5821,40 +5821,31 @@ public class Annotation {
 		/************ TF*******ANNOTATION*****ends ***************************************/
 		/*******************************************************************************/
 
-		// /*******************************************************************************/
-		// /************HG19 Refseq
-		// GENE*****ANNOTATION***starts***************************/
-		// /*******************************************************************************/
-		// /****************This has been coded for Chen
-		// Yao*******************************/
-		// /*******************************************************************************/
-		// GlanetRunner.appendLog("**********************************************************");
-		// GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new
-		// Date());
-		// dateBefore = System.currentTimeMillis();
-		//
-		// searchGeneWithNumbers(dataFolder,outputFolder,geneAlternateNumber2KMap,overlapDefinition,geneHugoSymbolNumber2NameMap,refSeqRNANucleotideAccessionNumber2NameMap);
-		// writeResultsWithNumbers(geneAlternateNumber2KMap,
-		// geneHugoSymbolNumber2NameMap,outputFolder ,
-		// Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
-		// dateAfter = System.currentTimeMillis();
-		//
-		// GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new
-		// Date());
-		//
-		// GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " +
-		// (float)((dateAfter - dateBefore)/1000) + " seconds");
-		// GlanetRunner.appendLog("**********************************************************");
-		//
-		// System.gc();
-		// System.runFinalization();
-		// /*******************************************************************************/
-		// /****************This is done by default for Chen
-		// Yao***************************/
-		// /*******************************************************************************/
-		// /************HG19 RefSeq
-		// GENE*****ANNOTATION***ends*****************************/
-		// /*******************************************************************************/
+		/*******************************************************************************/
+		/************* HG19 Refseq GENE*****ANNOTATION***starts*************************/
+		/*******************************************************************************/
+		/***************** This has been coded for Chen Yao*****************************/
+		/*******************************************************************************/
+		GlanetRunner.appendLog("**********************************************************");
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
+		dateBefore = System.currentTimeMillis();
+
+		searchGeneWithNumbers(dataFolder, outputFolder, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
+		dateAfter = System.currentTimeMillis();
+
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
+
+		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+		GlanetRunner.appendLog("**********************************************************");
+
+		System.gc();
+		System.runFinalization();
+		/*******************************************************************************/
+		/***************** This is done by default for Chen Yao*************************/
+		/*******************************************************************************/
+		/************* HG19 RefSeq GENE*****ANNOTATION***ends***************************/
+		/*******************************************************************************/
 
 		/*******************************************************************************/
 		/************ KEGG PATHWAY*****ANNOTATION***starts *******************************/
