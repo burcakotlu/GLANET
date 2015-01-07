@@ -1106,7 +1106,6 @@ public static String takeComplementforeachAllele(String allele){
 		String referenceSequence;
 		int indexofFirstLineSeparator;
 		
-		
 		indexofFirstLineSeparator = fastaFile.indexOf(System.getProperty("line.separator"));
 		referenceSequence = fastaFile.substring(indexofFirstLineSeparator+1).trim();
 		
