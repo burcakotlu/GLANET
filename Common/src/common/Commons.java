@@ -278,6 +278,7 @@ public class Commons {
 	// USER DEFINED LIBRARY DATA FORMAT ends
 
 	public static final String INPUT_ASSEMBLY_HG_19 = "hg19";
+	public static final String INPUT_ASSEMBLY_HG_38 = "hg38";
 
 	public static final String RSID_CHRNAME_0Based_START_END_HG38_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "rsID_chrName_0Based_Start_End_hg38_coordinates.txt";
 	public static final String REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_inputFile_chrName_0Based_Start_EndExclusive_hg38_coordinates.bed";

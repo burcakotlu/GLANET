@@ -85,6 +85,7 @@ public class MainView extends JPanel{
 	public interface MainViewDelegate {
 		
 		public void startRunActionsWithOptions(String inputFileName, 
+												String inputFileAssembly,
 											   String outputFolder,
 											   String inputFileFormat,
 											   String numberOfBases,
@@ -189,6 +190,7 @@ public class MainView extends JPanel{
 				
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
+						inputAssembly.getSelectedItem().toString(),
 						outputTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
@@ -311,7 +313,7 @@ public class MainView extends JPanel{
 		inputFormatCombo = new JComboBox<String>( inputFormat);
 		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 		
-		String[] assemblyFormat = { Commons.INPUT_ASSEMBLY_HG_19 };
+		String[] assemblyFormat = { Commons.INPUT_ASSEMBLY_HG_19, Commons.INPUT_ASSEMBLY_HG_38 };
 		inputAssembly = new JComboBox<String>( assemblyFormat);
 		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly", createPanelWithHint( inputAssembly, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
 		
@@ -671,10 +673,14 @@ public class MainView extends JPanel{
 	
 	public void checkUsabilityOfEnrichmentOptions() {
 		
-		if( dnaseAnnotation.isSelected() || histoneAnnotation.isSelected() ||
-				tfAnnotation.isSelected() || keggPathwayAnnotation.isSelected() ||
-				tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ||
-				userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected() ) {
+		if( dnaseAnnotation.isSelected() || 
+			histoneAnnotation.isSelected() ||
+			tfAnnotation.isSelected() || 
+			keggPathwayAnnotation.isSelected() ||
+			tfAndKeggPathwayAnnotation.isSelected() || 
+			cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ||
+			userDefinedGeneSetAnnotation.isSelected() || 
+			userDefinedLibraryAnnotation.isSelected() ) {
 			
 			performEnrichmentCheckBox.setEnabled( true);
 		} else {
@@ -717,10 +723,7 @@ public class MainView extends JPanel{
 	public void checkUsabilityOfRegulatorySequenceAnalysis(){
 		
 		if( tfAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected()){
-			if( performEnrichmentCheckBox.isSelected())
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
-			else
-				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
 		}
   	  	else { 
   	  		regulatorySequenceAnalysisUsingRSATCheck.setSelected( false);

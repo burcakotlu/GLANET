@@ -48,11 +48,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 	
 	@Override
 	public void startRunActionsWithOptions( String inputFileName, 
-			   String outputFolder,
-			   String inputFileFormat,
-			   String numberOfBases,
-			   String enrichmentEnabled,
-			   String generateRandomDataMode,
+				String inputFileAssembly,
+				String outputFolder,
+				String inputFileFormat,
+				String numberOfBases,
+				String enrichmentEnabled,
+				String generateRandomDataMode,
 			   String multipleTestingChoice,
 			   String bonferoniCorrectionSignificanceLevel,
 			   String falseDiscoveryRate,
@@ -83,6 +84,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
 		
 		args[CommandLineArguments.InputFileNameWithFolder.value()] = inputFileName;
+		args[CommandLineArguments.InputFileAssembly.value()] = inputFileAssembly;
 		args[CommandLineArguments.GlanetFolder.value()] = outputFolder;
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;

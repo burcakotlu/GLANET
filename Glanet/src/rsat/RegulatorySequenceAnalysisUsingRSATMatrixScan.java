@@ -86,10 +86,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while((strLine = bufferedReader.readLine())!=null){
-				firstLine = firstLine + strLine +System.getProperty("line.separator");
+				firstLine = firstLine + strLine;
 				break;
 			}
 			
+			//Close BufferedReader
 			bufferedReader.close();
 			
 		} catch (IOException e) {
@@ -435,7 +436,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
 		
 				
-			bufferedWriter.write(countforPeakResultLine + ". peak result line" +  "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+			bufferedWriter.write(countforPeakResultLine + ". Peak Extended Sequence Result Line" +  "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 		}
 		
 		//if best snp result line and best peak result line are not null
@@ -478,7 +479,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				sequence = bestPeakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
 				pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
 			
-				bufferedWriter.write("Peak result line containing snp position found at " + countforPeakResultLine + ". peak result lines" +   "\t" + matrixName+ "\t" + matrixNumber + "\t" +  direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
+				bufferedWriter.write("Best Peak Result Line Containing SNP Position Found At " + countforPeakResultLine + ". peak result lines" +   "\t" + matrixName+ "\t" + matrixNumber + "\t" +  direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 
 			}
 			//There is no peak result line containing snp position
@@ -501,6 +502,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			
 			String snpSequence = readAllfromFile(snpInputFile);
 			String peakSequence = readAllfromFile(peakInputFile);
+			
+			String alteredSequenceFirstLine  = null;
 			String peakSequenceFirstLine = readFirstLinefromFile(peakInputFile);		
 			
 			String alteredSNPSequence =null;
@@ -521,15 +524,15 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			Integer score_decimals;
 			String n_treatment;
 			String[] uth = {"pval 0.1"};
+			
 			Result bestReferenceLineResult = null;
 			
-		
 			String snpReferenceResultKey = eachSNPDirectoryame + "_" + tfName;
 			String snpAlteredResultKey = null;
 			String peakSequenceResultKey = null;
 			
 			
-			bufferedWriter.write("******************************" + eachSNPDirectoryame + "**********************************" + System.getProperty("line.separator"));
+			bufferedWriter.write("******************************" + snpReferenceResultKey + "**********************************" + System.getProperty("line.separator"));
 		
 			referenceResult =snpReferenceSequenceRSATResultsMap.get(snpReferenceResultKey);
 			
@@ -632,7 +635,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				snpReferenceSequenceRSATResultsMap.put(snpReferenceResultKey, referenceResult);
 				
 				/****************************************************************************/
-				description = "Best reference sequence containing snp position ";
+				description = "Best Reference Sequence Result Line Containing SNP Position ";
 				bestReferenceLineResult = null;
 				
 				//Get best reference result line containing snp position if it exists
@@ -642,7 +645,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			}//End of if 
 			else{
 				/****************************************************************************/
-				description = "Best reference sequence containing snp position ";
+				description = "Best Reference Sequence Result Line Containing SNP Position ";
 				bestReferenceLineResult = null;
 				
 				//Get best reference result line containing snp position if it exists
@@ -650,6 +653,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/****************************************************************************/
 		
 			}
+			
 			
 									
 			
@@ -659,8 +663,9 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			for(String alteredSNPInputFile:alteredSNPInputFiles ){
 				alteredSNPSequence = readAllfromFile(alteredSNPInputFile);
 				
+				alteredSequenceFirstLine = readFirstLinefromFile(alteredSNPInputFile);
 				
-				snpAlteredResultKey = alteredSNPSequence + "_" + tfName;
+				snpAlteredResultKey = alteredSequenceFirstLine + "_" + tfName;
 				alteredSequenceResult = snpAlteredSequenceRSATResultsMap.get(snpAlteredResultKey);
 				
 				if(alteredSequenceResult==null){
@@ -680,31 +685,29 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 					snpAlteredSequenceRSATResultsMap.put(snpAlteredResultKey, alteredSequenceResult);
 					
 					/****************************************************************************/
-					description = "Best alteredSequence"  + alteredSequenceCount + " containing snp position ";					
-					Result bestAlteredLineResult = null;
+					description = "Best Altered Sequence"  + alteredSequenceCount + " Result Line Containing SNP Position ";					
+					
 					
 					//Get best altered result line containing snp position if it exists
-					bestAlteredLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSequenceResult,bufferedWriter,bestReferenceLineResult);
+					getBestReferenceResultLineContainigSNPPosition(description,alteredSequenceResult,bufferedWriter,bestReferenceLineResult);
 					
 					alteredSequenceCount++;
 					/****************************************************************************/
 					
 				}else{
 					/****************************************************************************/
-					description = "Best alteredSequence"  + alteredSequenceCount + " containing snp position ";					
-					Result bestAlteredLineResult = null;
+					description = "Best Altered Sequence"  + alteredSequenceCount + " Result Line Containing SNP Position ";					
 					
 					//Get best altered result line containing snp position if it exists
-					bestAlteredLineResult =getBestReferenceResultLineContainigSNPPosition(description,alteredSequenceResult,bufferedWriter,bestReferenceLineResult);
+					getBestReferenceResultLineContainigSNPPosition(description,alteredSequenceResult,bufferedWriter,bestReferenceLineResult);
 					
 					alteredSequenceCount++;
 					/****************************************************************************/
 				
 				}
 				
-								
 				
-			}//for each altered snp sequence file		
+			}//END of FOR each altered snp sequence file		
 			//****************ALTERED SEQUENCES ENDS**********************
 			
 			
@@ -734,7 +737,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			}
 			/*************************Peak Sequence ends***************************************************/
 					
-		
+			//Flush to write out
+			bufferedWriter.flush();
 			
 		} catch(Exception e) {
 			System.out.println(e.toString());
@@ -809,6 +813,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 	public static void matrixScan(String outputFolder,String forRSASNPTFSequencesMatricesDirectory,BufferedWriter bufferedWriter, Map<String,String> snpReferenceSequenceRSATResultsMap, Map<String,String>  snpAlteredSequenceRSATResultsMap, Map<String,String>  tfPeakSequenceRSATResultsMap){
 		
+			int matrixScanRequestNumber = 1;
+			
 			File mainSNPsDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.SNPs);
 			File mainTFPFMAndLogoMatricesDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
 		
@@ -857,7 +863,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			        if(eachSNPDirectory.isDirectory()) {
 			        	
 
-			        	//Now get the snp specific files
+			        	//Now get the SNP specific files
 			        	for (File eachSNPFile:eachSNPDirectory.listFiles() ){
 
 					         fileName = eachSNPFile.getName();
@@ -887,9 +893,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	         				//what is enrichedElement
 	         				//what is given interval name
 	         				//what is snp
-	         				System.out.println("ok");
+	         				System.out.println("RSAT MatrixScan" + matrixScanRequestNumber++);
+	         				System.out.println(tfName + "\t" + eachSNPDirectory.getName());
 		         			matrixScan(tfName,eachSNPDirectory.getName(),snpReferenceSequence,snpAlteredSequences,tfExtendedPeakSequence,tfPfmMatrices,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequenceRSATResultsMap, snpAlteredSequenceRSATResultsMap, tfPeakSequenceRSATResultsMap);
-		   
+		         			
+		         			
 	         			}//End of IF RSAT matrix scan
 					         				
 			        }//End of IF eachSNPDirectory is a directory
