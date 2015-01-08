@@ -70,6 +70,7 @@ public class TFOverlap {
         this.maximumOneBasedEnd = maximumOneBasedEnd;
     }
     public TFOverlap(String tfName, ChromosomeName chrNameWithPreceedingChr) {
+    	
     	super();
     	this.tfName = tfName;
     	this.chrNameWithPreceedingChr = chrNameWithPreceedingChr;

@@ -27,8 +27,7 @@ public class SNPInformation {
 	List<String> snpAlteredSequenceNames;
 	
 	boolean snpContainsAnyOfObservedAlleles;
-	
-	
+
 
 	public List<String> getSnpAlteredSequenceNames() {
 		return snpAlteredSequenceNames;

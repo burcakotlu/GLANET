@@ -153,6 +153,8 @@ public class AugmentationofGivenRsIdwithInformation {
 		Rs rs = null;
 
 		try {
+			
+			//Old Code
 			//String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + commaSeparatedRsIdList + "&retmode=xml";
 			//reader = xmlInputFactory.createXMLEventReader(new StreamSource(url));
 			
@@ -178,13 +180,11 @@ public class AugmentationofGivenRsIdwithInformation {
 //			}
 //			//Can edited ends
 
-			
 			//HTTP POST starts
 			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 			 
 			HttpClient client = HttpClientBuilder.create().build();
 			HttpPost post = new HttpPost(url);
-			
 			
 			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 			urlParameters.add(new BasicNameValuePair("db", "snp"));
@@ -196,8 +196,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			HttpResponse response = client.execute(post);
 			HttpEntity entity = response.getEntity();
 			
-			 
-			 if (response.getEntity() != null) {
+			if (response.getEntity() != null) {
 					
 					InputStream is = entity.getContent();
 					reader = xmlInputFactory.createXMLEventReader(is);
@@ -417,8 +416,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		XMLEventReader reader = null;
 		
-//		String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
-//		reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
+		//	Old Way
+		//	String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
+		//	reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
 		
 //		//Can added starts
@@ -440,7 +440,6 @@ public class AugmentationofGivenRsIdwithInformation {
 //		//Can added ends
 
 		
-	
 
 		try {
 
@@ -461,11 +460,10 @@ public class AugmentationofGivenRsIdwithInformation {
 			HttpResponse response = client.execute(post);
 			HttpEntity entity = response.getEntity();
 			
-			 
 			 if (response.getEntity() != null) {
 					
 					InputStream is = entity.getContent();
-					reader = xmlInputFactory.createXMLEventReader( is);
+					reader = xmlInputFactory.createXMLEventReader(is);
 					
 			}
 		    //HTTP POST ends

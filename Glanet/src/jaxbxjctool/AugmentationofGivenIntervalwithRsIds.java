@@ -78,6 +78,8 @@ public class AugmentationofGivenIntervalwithRsIds {
 		
 		//esearch default retmode is xml or it can be set to json
 		//chrName is without "chr", ex: 1, X, Y, 17...
+		
+		//Old way
 	    //String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND "+ chrNamewithoutPreceedingChr +"[CHR] AND txid9606&usehistory=n";
 		//XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString)); 
 		                       
@@ -94,7 +96,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 			urlParameters.add(new BasicNameValuePair("db", "snp"));
 			urlParameters.add(new BasicNameValuePair("term", givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr +"[CHR] AND txid9606"));
-			urlParameters.add(new BasicNameValuePair("usehistory", "n"));
+			urlParameters.add(new BasicNameValuePair("usehistory", "y"));
 		
 			
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));

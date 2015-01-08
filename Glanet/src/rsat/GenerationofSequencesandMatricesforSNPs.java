@@ -1212,7 +1212,7 @@ public static String takeComplementforeachAllele(String allele){
 		/**************givenSNP 2 TFOverlapMap Map starts*******************************/
 		/*******************************************************************************/
 		//7 April 2014 starts		
-		//Key must contain TFCellLine givenIntervalName (chrNumber startZeroBased endZeroBased)
+		//Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
 		Map<String,Map<String,TFOverlap>> givenSNP2TFOverlapMapMap = new HashMap<String,Map<String,TFOverlap>>();
 		Map<String,TFOverlap> tfName2TFOverlapMap;
 		
