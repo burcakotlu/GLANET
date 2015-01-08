@@ -172,7 +172,13 @@ public class AugmentationofGivenRsIdwithInformation {
 			// StreamSource(url));
 
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
+			uri = new URIBuilder()
+								.setScheme("http")
+								.setHost("www.ncbi.nlm.nih.gov")
+								.setPath("/entrez/eutils/efetch.fcgi")
+								.setParameter("db", "snp")
+								.setParameter("id", commaSeparatedRsIdList)
+								.setParameter("retmode", "xml").build();
 
 			// if (uri != null) {
 			//
@@ -195,9 +201,15 @@ public class AugmentationofGivenRsIdwithInformation {
 			// String url =
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(0).setConnectionRequestTimeout(0).setStaleConnectionCheckEnabled(true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom()
+												.setSocketTimeout(0)
+												.setConnectTimeout(0)
+												.setConnectionRequestTimeout(0)
+												.setStaleConnectionCheckEnabled(true)
+												.build();
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
-			HttpPost post = new HttpPost(uri);
+			HttpPost post = new HttpPost( uri);
+			post.addHeader("Content-Type", "application/xml");
 
 			// List<NameValuePair> urlParameters = new
 			// ArrayList<NameValuePair>();
@@ -209,7 +221,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			CloseableHttpResponse response = httpclient.execute(post);
+			CloseableHttpResponse response = httpclient.execute( post);
 			HttpEntity entity = response.getEntity();
 
 			if (response.getEntity() != null) {

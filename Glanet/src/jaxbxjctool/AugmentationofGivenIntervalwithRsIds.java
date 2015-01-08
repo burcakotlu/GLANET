@@ -97,14 +97,20 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 			String termparameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termparameter).setParameter("usehistory", "y").build();
+			uri = new URIBuilder().setScheme("http")
+									.setHost("www.ncbi.nlm.nih.gov")
+									.setPath("/entrez/eutils/esearch.fcgi")
+									.setParameter("db", "snp")
+									.setParameter("term", termparameter)
+									.setParameter("usehistory", "y").build();
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(0).setConnectionRequestTimeout(0).setStaleConnectionCheckEnabled(true).build();
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
 
 			HttpPost post = new HttpPost(uri);
-
+			post.addHeader("Content-Type", "application/xml");
+			
 			// List<NameValuePair> urlParameters = new
 			// ArrayList<NameValuePair>();
 			// urlParameters.add(new BasicNameValuePair("db", "snp"));
