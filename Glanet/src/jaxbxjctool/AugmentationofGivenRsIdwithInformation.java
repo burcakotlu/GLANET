@@ -24,6 +24,8 @@ import gov.nih.nlm.ncbi.snp.docsum.Rs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +43,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
@@ -133,6 +140,10 @@ public class AugmentationofGivenRsIdwithInformation {
 	}
 
 	// 24 Nov 2014
+	/**
+	 * @param commaSeparatedRsIdList
+	 * @return
+	 */
 	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList) {
 
 		RsInformation rsInformation;
@@ -148,64 +159,68 @@ public class AugmentationofGivenRsIdwithInformation {
 		RsInformation problemRsInformation = null;
 		/************************************************************/
 
-		
 		XMLEventReader reader = null;
 		Rs rs = null;
 
 		try {
-			
-			//Old Code
-			//String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + commaSeparatedRsIdList + "&retmode=xml";
-			//reader = xmlInputFactory.createXMLEventReader(new StreamSource(url));
-			
-			
-//			//Can edited starts
-//			URI uri = null;
-//			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
-//
-//			if (uri != null) {
-//				
-//				CloseableHttpClient httpclient = HttpClients.createDefault();
-//				HttpGet httpget = new HttpGet(uri);
-//				CloseableHttpResponse response = httpclient.execute(httpget);
-//
-//				HttpEntity entity = response.getEntity();
-//
-//				if (entity != null) {
-//					
-//					InputStream is = entity.getContent();
-//
-//					reader = xmlInputFactory.createXMLEventReader( is);
-//				}
-//			}
-//			//Can edited ends
 
-			//HTTP POST starts
-			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
-			 
-			HttpClient client = HttpClientBuilder.create().build();
-			HttpPost post = new HttpPost(url);
-			
-			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-			urlParameters.add(new BasicNameValuePair("db", "snp"));
-			urlParameters.add(new BasicNameValuePair("id", commaSeparatedRsIdList));
-			urlParameters.add(new BasicNameValuePair("retmode", "xml"));
-			
-			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-			 
-			HttpResponse response = client.execute(post);
+			// Can edited starts
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
+			// + commaSeparatedRsIdList + "&retmode=xml";
+			// reader = xmlInputFactory.createXMLEventReader( new
+			// StreamSource(url));
+
+			URI uri = null;
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
+
+			// if (uri != null) {
+			//
+			// CloseableHttpClient httpclient = HttpClients.createDefault();
+			// HttpGet httpget = new HttpGet(uri);
+			// CloseableHttpResponse response = httpclient.execute(httpget);
+			//
+			// HttpEntity entity = response.getEntity();
+			//
+			// if (entity != null) {
+			//
+			// InputStream is = entity.getContent();
+			//
+			// reader = xmlInputFactory.createXMLEventReader( is);
+			// }
+			// }
+			// //Can edited ends
+
+			// HTTP POST starts
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
+
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(0).setConnectionRequestTimeout(0).setStaleConnectionCheckEnabled(true).build();
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+			HttpPost post = new HttpPost(uri);
+
+			// List<NameValuePair> urlParameters = new
+			// ArrayList<NameValuePair>();
+			// urlParameters.add(new BasicNameValuePair("db", "snp"));
+			// urlParameters.add(new BasicNameValuePair("id",
+			// commaSeparatedRsIdList));
+			// urlParameters.add(new BasicNameValuePair("retmode", "xml"));
+
+			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
+			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
+			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
-			
+
 			if (response.getEntity() != null) {
-					
-					InputStream is = entity.getContent();
-					reader = xmlInputFactory.createXMLEventReader(is);
-					
+								
+				InputStream is = entity.getContent();
+				reader = xmlInputFactory.createXMLEventReader(is);
 			}
-		    //HTTP POST ends
+			// HTTP POST ends
 
 			while (reader.hasNext()) {
-				
+
 				XMLEvent evt = reader.peek();
 
 				if (!evt.isStartElement()) {
@@ -320,12 +335,15 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			// e.printStackTrace();
 			logger.error(e.toString());
-		}  catch (ClientProtocolException e) {
+		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 		return rsInformationList;

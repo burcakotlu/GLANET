@@ -14,6 +14,8 @@ import generated.IdList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +29,14 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.params.HttpParams;
 
 import ui.GlanetRunner;
 /**
@@ -69,81 +71,90 @@ public class AugmentationofGivenIntervalwithRsIds {
     }
 	
 	
-	//Requires oneBased positions
-	//Requires chrName without preceeding "chr" string 
-	public List<String> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased,int givenIntervalEndOneBased)
-    {
+	// Requires oneBased positions
+	// Requires chrName without preceeding "chr" string
+	public List<String> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased, int givenIntervalEndOneBased) {
 		List<String> rsIdList = new ArrayList<String>();
 		XMLEventReader readerSearch = null;
-		
-		//esearch default retmode is xml or it can be set to json
-		//chrName is without "chr", ex: 1, X, Y, 17...
-		
-		//Old way
-	    //String eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+ givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND "+ chrNamewithoutPreceedingChr +"[CHR] AND txid9606&usehistory=n";
-		//XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString)); 
-		                       
-	    	
+
+		// esearch default retmode is xml or it can be set to json
+		// chrName is without "chr", ex: 1, X, Y, 17...
+
+		// Old way
+		// String
+		// eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+
+		// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
+		// "[Base Position] AND "+ chrNamewithoutPreceedingChr
+		// +"[CHR] AND txid9606&usehistory=n";
+		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new
+		// StreamSource(eSearchString));
+
 		try {
-			
-			//HTTP POST starts
-			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
-			 
-			HttpClient client = HttpClientBuilder.create().build();
-			HttpPost post = new HttpPost(url);
-			
-			
-			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-			urlParameters.add(new BasicNameValuePair("db", "snp"));
-			urlParameters.add(new BasicNameValuePair("term", givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr +"[CHR] AND txid9606"));
-			urlParameters.add(new BasicNameValuePair("usehistory", "y"));
-		
-			
-			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-			
-			HttpResponse response = client.execute(post);
+
+			// HTTP POST starts
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
+
+			String termparameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
+			URI uri = null;
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termparameter).setParameter("usehistory", "y").build();
+
+			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(0).setConnectionRequestTimeout(0).setStaleConnectionCheckEnabled(true).build();
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+
+			HttpPost post = new HttpPost(uri);
+
+			// List<NameValuePair> urlParameters = new
+			// ArrayList<NameValuePair>();
+			// urlParameters.add(new BasicNameValuePair("db", "snp"));
+			// urlParameters.add(new BasicNameValuePair("term",
+			// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
+			// "[Base Position] AND " + chrNamewithoutPreceedingChr
+			// +"[CHR] AND txid9606"));
+			// urlParameters.add(new BasicNameValuePair("usehistory", "y"));
+			//
+			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
+			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
-			
-			 if (response.getEntity() != null) {
-					
-					InputStream is = entity.getContent();
-					readerSearch = xmlInputFactory.createXMLEventReader( is);
-					
-			 }
-			 //HTTP POST ends
-	    
-       
-		while(readerSearch.hasNext())
-        {
-			XMLEvent evtSearch=readerSearch.peek();
 
-			if(!evtSearch.isStartElement())
-               {
-				readerSearch.nextEvent();
-				continue;
-               }
+			if (response.getEntity() != null) {
+				
+				System.out.println( post.getConfig().getConnectTimeout());
+				InputStream is = entity.getContent();
+				readerSearch = xmlInputFactory.createXMLEventReader(is);
 
-			StartElement startSearch=evtSearch.asStartElement();
-			String localNameSearch=startSearch.getName().getLocalPart();
-
-			if(!localNameSearch.equals("eSearchResult"))
-               {
-				readerSearch.nextEvent();
-				continue;
-               }
-
-			ESearchResult eSearchResult=unmarshaller.unmarshal(readerSearch, ESearchResult.class).getValue();
-			IdList idList = (IdList) eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
-			
-			for(Id id: idList.getId()){
-				rsIdList.add(id.getvalue());							
 			}
-			
-			
-       }//End of while
-         
-		readerSearch.close();
-		
+			// HTTP POST ends
+
+			while (readerSearch.hasNext()) {
+				XMLEvent evtSearch = readerSearch.peek();
+
+				if (!evtSearch.isStartElement()) {
+					readerSearch.nextEvent();
+					continue;
+				}
+
+				StartElement startSearch = evtSearch.asStartElement();
+				String localNameSearch = startSearch.getName().getLocalPart();
+
+				if (!localNameSearch.equals("eSearchResult")) {
+					readerSearch.nextEvent();
+					continue;
+				}
+
+				ESearchResult eSearchResult = unmarshaller.unmarshal(readerSearch, ESearchResult.class).getValue();
+				IdList idList = (IdList) eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
+
+				for (Id id : idList.getId()) {
+					rsIdList.add(id.getvalue());
+				}
+
+			}// End of while
+
+			readerSearch.close();
+
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,10 +170,13 @@ public class AugmentationofGivenIntervalwithRsIds {
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 		return rsIdList;
-    }
+	}
 	
 
 	/**
