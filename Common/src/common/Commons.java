@@ -1288,6 +1288,8 @@ public class Commons {
 	// command line arguments
 	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
 	public static final String ARG_INPUT_FILE = "-i";
+	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-hg19";
+	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-hg38";
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
