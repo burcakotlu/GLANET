@@ -226,7 +226,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	
 	//Among the reference result lines 
 	//get the best reference line containing snp position
-	public static Result getBestReferenceResultLineContainigSNPPosition(String description, String snpResult,BufferedWriter bufferedWriter,Result bestReferenceLineResult) throws IOException{
+	public static Result getBestResultLineContainigSNPPosition(String description, String snpResult,BufferedWriter bufferedWriter,Result bestReferenceLineResult) throws IOException{
 		
 		String resultLine = null;
 		String bestResultLine =null;
@@ -742,14 +742,14 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 					referenceResult = matrixScan(referenceSequence,referenceResultKey,pfmMatrices,referenceSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
 					
 					//Get best reference result line containing snp position if it exists
-					bestReferenceLineResult = getBestReferenceResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);	
+					bestReferenceLineResult = getBestResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);	
 					
 				}else{
 					System.out.println("This else is entered for reference sequence");
 					bestReferenceLineResult = null;
 			
 					//Get best reference result line containing snp position if it exists
-					bestReferenceLineResult = getBestReferenceResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);
+					bestReferenceLineResult = getBestResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);
 				}
 				/**************************************************************************************************/
 				/********************RSAT Matrix Scan for Reference Sequence for each TF Ends**********************/
@@ -792,11 +792,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 						alteredSequence2RSATResultMap.put(alteredResultKey, alteredResult);
 						
 						//Get best altered result line containing snp position if it exists
-						getBestReferenceResultLineContainigSNPPosition(description,alteredResult,bufferedWriter,bestReferenceLineResult);
+						getBestResultLineContainigSNPPosition(description,alteredResult,bufferedWriter,bestReferenceLineResult);
 					}else{
 						System.out.println("This else is entered for altered sequence");
 						//Get best altered result line containing snp position if it exists
-						getBestReferenceResultLineContainigSNPPosition(description,alteredResult,bufferedWriter,bestReferenceLineResult);
+						getBestResultLineContainigSNPPosition(description,alteredResult,bufferedWriter,bestReferenceLineResult);
 						
 					}
 					//Matrix Scan for Altered Sequence for this tfName

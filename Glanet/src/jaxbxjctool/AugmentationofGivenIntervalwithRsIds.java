@@ -85,29 +85,26 @@ public class AugmentationofGivenIntervalwithRsIds {
 		// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
 		// "[Base Position] AND "+ chrNamewithoutPreceedingChr
 		// +"[CHR] AND txid9606&usehistory=n";
-		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new
-		// StreamSource(eSearchString));
+		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
 
 		try {
 
 			// HTTP POST starts
-			// String url =
-			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
-
-			String termparameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
+			// String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
+			String termParameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
 			uri = new URIBuilder().setScheme("http")
 									.setHost("www.ncbi.nlm.nih.gov")
 									.setPath("/entrez/eutils/esearch.fcgi")
 									.setParameter("db", "snp")
-									.setParameter("term", termparameter)
+									.setParameter("term", termParameter)
 									.setParameter("usehistory", "y").build();
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-																	.setSocketTimeout(15000)
-																	.setConnectTimeout(15000)
-																	.setConnectionRequestTimeout(15000)
+																	.setSocketTimeout(60000)
+																	.setConnectTimeout(60000)
+																	.setConnectionRequestTimeout(60000)
 																	.setStaleConnectionCheckEnabled(true)
 																	.build();
 			
@@ -116,17 +113,6 @@ public class AugmentationofGivenIntervalwithRsIds {
 			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
 			
-			// List<NameValuePair> urlParameters = new
-			// ArrayList<NameValuePair>();
-			// urlParameters.add(new BasicNameValuePair("db", "snp"));
-			// urlParameters.add(new BasicNameValuePair("term",
-			// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
-			// "[Base Position] AND " + chrNamewithoutPreceedingChr
-			// +"[CHR] AND txid9606"));
-			// urlParameters.add(new BasicNameValuePair("usehistory", "y"));
-			//
-			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
-
 			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
 

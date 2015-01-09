@@ -39,19 +39,13 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
 import common.Commons;
@@ -164,12 +158,15 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		try {
 
-			// Can edited starts
+			// Old way
 			// String url =
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id="
 			// + commaSeparatedRsIdList + "&retmode=xml";
 			// reader = xmlInputFactory.createXMLEventReader( new
 			// StreamSource(url));
+
+			// HTTP POST starts
+			// String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			URI uri = null;
 			uri = new URIBuilder()
@@ -180,45 +177,17 @@ public class AugmentationofGivenRsIdwithInformation {
 								.setParameter("id", commaSeparatedRsIdList)
 								.setParameter("retmode", "xml").build();
 
-			// if (uri != null) {
-			//
-			// CloseableHttpClient httpclient = HttpClients.createDefault();
-			// HttpGet httpget = new HttpGet(uri);
-			// CloseableHttpResponse response = httpclient.execute(httpget);
-			//
-			// HttpEntity entity = response.getEntity();
-			//
-			// if (entity != null) {
-			//
-			// InputStream is = entity.getContent();
-			//
-			// reader = xmlInputFactory.createXMLEventReader( is);
-			// }
-			// }
-			// //Can edited ends
-
-			// HTTP POST starts
-			// String url =
-			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
-
+			
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
 												.setSocketTimeout(60000)
 												.setConnectTimeout(60000)
 												.setConnectionRequestTimeout(60000)
 												.setStaleConnectionCheckEnabled(true)
 												.build();
+			
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
 			HttpPost post = new HttpPost( uri);
 			post.addHeader("Content-Type", "application/xml");
-
-			// List<NameValuePair> urlParameters = new
-			// ArrayList<NameValuePair>();
-			// urlParameters.add(new BasicNameValuePair("db", "snp"));
-			// urlParameters.add(new BasicNameValuePair("id",
-			// commaSeparatedRsIdList));
-			// urlParameters.add(new BasicNameValuePair("retmode", "xml"));
-
-			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			CloseableHttpResponse response = httpclient.execute( post);
@@ -451,52 +420,66 @@ public class AugmentationofGivenRsIdwithInformation {
 		//	reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
 		
-//		//Can added starts
-//		URI uriB = null;
-//
-//		try {
-//
-//			uriB = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", rsId).setParameter("retmode", "xml").build();
-//
-//		} catch (URISyntaxException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//		if (uriB != null) {
-//			HttpGet httpget = new HttpGet(uriB);
-//			System.out.println(httpget.getURI());
-//		}
-//		//Can added ends
-
-		
 
 		try {
 
-			//HTTP POST starts
-			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
+//			//HTTP POST starts
+//			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
+//			 
+//			HttpClient client = HttpClientBuilder.create().build();
+//			HttpPost post = new HttpPost(url);
+//			
+//			
+//			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+//			urlParameters.add(new BasicNameValuePair("db", "snp"));
+//			urlParameters.add(new BasicNameValuePair("id", rsId));
+//			urlParameters.add(new BasicNameValuePair("retmode", "xml"));
+//			
+//			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+//			 
+//			HttpResponse response = client.execute(post);
+//			HttpEntity entity = response.getEntity();
+//			
+//			 if (response.getEntity() != null) {
+//					
+//					InputStream is = entity.getContent();
+//					reader = xmlInputFactory.createXMLEventReader(is);
+//					
+//			}
+//		    //HTTP POST ends
 			 
-			HttpClient client = HttpClientBuilder.create().build();
-			HttpPost post = new HttpPost(url);
-			
-			
-			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-			urlParameters.add(new BasicNameValuePair("db", "snp"));
-			urlParameters.add(new BasicNameValuePair("id", rsId));
-			urlParameters.add(new BasicNameValuePair("retmode", "xml"));
-			
-			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-			 
-			HttpResponse response = client.execute(post);
+			 //new HTTP POST starts 
+			 URI uri = null;
+			 uri = new URIBuilder()
+									.setScheme("http")
+									.setHost("www.ncbi.nlm.nih.gov")
+									.setPath("/entrez/eutils/efetch.fcgi")
+									.setParameter("db", "snp")
+									.setParameter("id", rsId)
+									.setParameter("retmode", "xml").build();
+
+				
+			RequestConfig defaultRequestConfig = RequestConfig.custom()
+													.setSocketTimeout(60000)
+													.setConnectTimeout(60000)
+													.setConnectionRequestTimeout(60000)
+													.setStaleConnectionCheckEnabled(true)
+													.build();
+				
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+			HttpPost post = new HttpPost( uri);
+			post.addHeader("Content-Type", "application/xml");
+
+			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
+			CloseableHttpResponse response = httpclient.execute( post);
 			HttpEntity entity = response.getEntity();
-			
-			 if (response.getEntity() != null) {
-					
-					InputStream is = entity.getContent();
-					reader = xmlInputFactory.createXMLEventReader(is);
-					
+
+			if (response.getEntity() != null) {
+								
+				InputStream is = entity.getContent();
+				reader = xmlInputFactory.createXMLEventReader(is);
 			}
-		    //HTTP POST ends
+			//new HTTP POST ends
 			 
 			 
 			
@@ -604,6 +587,9 @@ public class AugmentationofGivenRsIdwithInformation {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
