@@ -104,7 +104,13 @@ public class AugmentationofGivenIntervalwithRsIds {
 									.setParameter("usehistory", "y").build();
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(0).setConnectionRequestTimeout(0).setStaleConnectionCheckEnabled(true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom()
+																	.setSocketTimeout(15000)
+																	.setConnectTimeout(15000)
+																	.setConnectionRequestTimeout(15000)
+																	.setStaleConnectionCheckEnabled(true)
+																	.build();
+			
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
 
 			HttpPost post = new HttpPost(uri);
