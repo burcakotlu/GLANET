@@ -26,30 +26,30 @@ public class App
 	initialViewController = viewController;
     }
 
-    public static void loadWindow(){
+	public static void loadWindow() {
 
-	//Initialize frame
-	JFrame frame = new JFrame("GLANET");
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setMinimumSize(new Dimension(800, 600));
-	frame.setResizable(true);
+		// Initialize frame
+		JFrame frame = new JFrame("GLANET");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(new Dimension(800, 600));
+		frame.setResizable(true);
 
-	mainPanel = new JPanel();
-	frame.getContentPane().add( mainPanel);
+		mainPanel = new JPanel();
+		frame.getContentPane().add(mainPanel);
 
-	setInitialViewController( new MainViewController(mainPanel));
+		setInitialViewController(new MainViewController(mainPanel));
 
-	frame.addWindowListener(new WindowAdapter() {
-	    @Override
-	    public void windowClosing(WindowEvent e) {
-		super.windowClosing(e);
-	    }
-	});
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+			}
+		});
 
-	frame.setVisible(true);
-	frame.pack();
-	frame.repaint();
-    }
+		frame.setVisible(true);
+		frame.pack();
+		frame.repaint();
+	}
 
     static boolean setWithDefaultValueIfNotSet( String []args, CommandLineArguments argument) {
 

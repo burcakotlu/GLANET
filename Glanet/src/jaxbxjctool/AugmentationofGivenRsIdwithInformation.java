@@ -202,9 +202,9 @@ public class AugmentationofGivenRsIdwithInformation {
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-												.setSocketTimeout(15000)
-												.setConnectTimeout(15000)
-												.setConnectionRequestTimeout(15000)
+												.setSocketTimeout(60000)
+												.setConnectTimeout(60000)
+												.setConnectionRequestTimeout(60000)
 												.setStaleConnectionCheckEnabled(true)
 												.build();
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
