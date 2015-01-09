@@ -126,7 +126,6 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 			if (response.getEntity() != null) {
 				
-				System.out.println( post.getConfig().getConnectTimeout());
 				InputStream is = entity.getContent();
 				readerSearch = xmlInputFactory.createXMLEventReader(is);
 
