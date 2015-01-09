@@ -723,8 +723,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				}
 				
 
-				
-				
 				/**************************************************************************************************/
 				/********************RSAT Matrix Scan for Reference Sequence for each TF Starts********************/
 				/**************************************************************************************************/
@@ -752,7 +750,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			
 					//Get best reference result line containing snp position if it exists
 					bestReferenceLineResult = getBestReferenceResultLineContainigSNPPosition(description,referenceResult,bufferedWriter,null);
-					
 				}
 				/**************************************************************************************************/
 				/********************RSAT Matrix Scan for Reference Sequence for each TF Ends**********************/
@@ -949,6 +946,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			String forRSASNPTFSequencesMatricesDirectory,
 			BufferedWriter bufferedWriter){
 		
+			int matrixScanNumber=1;
+		
 			Map<String,String> snpReferenceSequence2RSATResultMap 	= new HashMap<String,String>();
 			Map<String,String> snpAlteredSequence2RSATResultMap 	= new HashMap<String,String>();
 			Map<String,String> tfExtendedPeakSequence2RSATResultMap = new HashMap<String,String>();
@@ -1044,7 +1043,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	         				//what is enrichedElement
 	         				//what is given interval name
 	         				//what is snp
-	         				System.out.println("RSAT MatrixScan for " + eachSNPDirectory.getPath());
+	         				logger.debug("RSAT MatrixScan " +  matrixScanNumber++ +" for " + eachSNPDirectory.getPath());
 	         				matrixScan(eachSNPDirectory.getName(),tfName2TFPfmMatricesFileMap,snpReferenceSequenceFile,snpAlteredSequenceFileList,tfName2TfExtendedPeakSequenceFileMap,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequence2RSATResultMap, snpAlteredSequence2RSATResultMap, tfExtendedPeakSequence2RSATResultMap);
 		         			
 		         			

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**

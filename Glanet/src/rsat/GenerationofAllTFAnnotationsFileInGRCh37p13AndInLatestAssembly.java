@@ -73,7 +73,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	    String all_TF_Annotations_1Based_Start_End_GRCh37_p13, 
 	    String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13){
 
-	String fileName=null;
 	String fileAbsolutePath = null;
 	
 	FileReader fileReader = null;
@@ -132,23 +131,19 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
         		
         		for(File tfAnnotationFile: files){
         		    
-        		    	fileName = tfAnnotationFile.getName();
+        		    //fileName = tfAnnotationFile.getName();
         			fileAbsolutePath = tfAnnotationFile.getAbsolutePath();				         				
         			
-        			System.out.println(fileName);
-        		    	System.out.println(fileAbsolutePath);
-        		    	
-        		    	
-        		    	fileReader =FileOperations.createFileReader(fileAbsolutePath);
-        		    	bufferedReader = new BufferedReader(fileReader);
+        		    fileReader =FileOperations.createFileReader(fileAbsolutePath);
+        		    bufferedReader = new BufferedReader(fileReader);
         		    	
 		        	     
-        		    	while ((strLine = bufferedReader.readLine())!=null){
-        		    	    
-        		    	    //chr1	11862777	11862777	chr1	11862636	11863019	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
+    		    	while ((strLine = bufferedReader.readLine())!=null){
+    		    	    
+    		    	    //chr1	11862777	11862777	chr1	11862636	11863019	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
 
-        		    	    if (strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER){
-        		    		
+    		    	    if (strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER){
+    		    		
         		    		indexofFirstTab = strLine.indexOf('\t');
         		    		indexofSecondTab = (indexofFirstTab>0)? strLine.indexOf('\t', indexofFirstTab+1):-1;
         		    		indexofThirdTab = (indexofSecondTab>0)? strLine.indexOf('\t', indexofSecondTab+1):-1;
@@ -174,15 +169,14 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
         		     
         		    		remapInputBufferedWriter.write( strLine.substring(0, indexofSecondTab) + "\t" + snpEndExclusive  + System.getProperty("line.separator"));
         		    		remapInputBufferedWriter.write( strLine.substring(indexofThirdTab+1, indexofFifthTab) + "\t" + tfEndExclusive + System.getProperty("line.separator"));
-               		    		
-               		    	      }//End of IF strLine is not Comment Line
-        		    	    
-        		    	}//End of While loop: reading each TF Annotation File
+           		    		
+    		    	    }//End of IF strLine is not Comment Line
+    		    	    
+    		    	}//End of While loop: reading each TF Annotation File
         		    	
-        		    	//Close each TF File
-        		    	bufferedReader.close(); 
+    		    	//Close each TF File
+    		    	bufferedReader.close(); 
         		    	
-        		       
         		}//End of For loop: each TF Annotation file
         		        
         	}//TF Annotation Directory
