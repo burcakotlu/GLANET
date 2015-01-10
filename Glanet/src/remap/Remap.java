@@ -184,7 +184,10 @@ public class Remap {
 	}
 	
 	
-	public static void createOutputFileUsingREMAPREPORTFile(String remapReportFile, String outputFile){
+	public static void createOutputFileUsingREMAPREPORTFile(
+			Map<Integer,String> remapInputFileLineNumber2LineContentMap,
+			String remapReportFile, 
+			String outputFile){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -331,6 +334,7 @@ public class Remap {
 					}else{
 						bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
 						numberofUnConvertedGenomicLociInPrimaryAssembly++;
+						logger.debug("We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get(i));
 					}
 					
 				}//End of for

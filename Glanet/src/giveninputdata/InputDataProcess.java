@@ -22,9 +22,7 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 import enumtypes.GivenIntervalsInputFileDataFormat;
 
@@ -100,16 +98,19 @@ public class InputDataProcess {
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS ends ********************/
 		/**********************************************************/
+		
+		Map<Integer,String> remapInputFileLineNumber2LineContentMap = new HashMap<Integer, String>();
+		String remapInputFileLine = null;
 
 		try {
 
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_0Based_START_END_HG38_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE);
+			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE);
 			bufferedWriter2 = new BufferedWriter(fileWriter2);
 
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
@@ -195,10 +196,12 @@ public class InputDataProcess {
 
 				if (rsInformation != null) {
 
+					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1);
+							
 					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
-					bufferedWriter2.write(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1) + System.getProperty("line.separator"));
-
-					numberofLocisInRemapInputFile++;
+					bufferedWriter2.write(remapInputFileLine + System.getProperty("line.separator"));
+					
+					remapInputFileLineNumber2LineContentMap.put(++numberofLocisInRemapInputFile,rsInformation.getRsId() + "\t" + remapInputFileLine);
 
 					if (!sourceAssemblyName.contains(rsInformation.getGroupLabel())) {
 						sourceAssemblyName = sourceAssemblyName + rsInformation.getGroupLabel();
@@ -212,7 +215,7 @@ public class InputDataProcess {
 			logger.debug("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
 			logger.debug("******************************************************************************");
 			/*********************************************************************/
-			/***************** WRITE TO REMAP INPUT FILE ends **********************/
+			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
 
 			// Close
@@ -245,11 +248,10 @@ public class InputDataProcess {
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE,
 			// outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
-			Remap.remap(dataFolder, sourceReferenceAssemblyID, targetReferenceAssemblyID, outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE, outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation, minimumRatioOfBasesThatMustBeRemapped, maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			Remap.remap(dataFolder, sourceReferenceAssemblyID, targetReferenceAssemblyID, outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE, outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation, minimumRatioOfBasesThatMustBeRemapped, maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 
-			Remap.createOutputFileUsingREMAPREPORTFile(outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
+			Remap.createOutputFileUsingREMAPREPORTFile(remapInputFileLineNumber2LineContentMap,outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
 
-			// @todo to be tested
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file
 			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder, Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE);

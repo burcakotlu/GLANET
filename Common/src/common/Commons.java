@@ -282,8 +282,8 @@ public class Commons {
 	
 	public static final int NUMBER_OF_RSIDS_SENT_IN_ONE_BATCH = 100;
 
-	public static final String RSID_CHRNAME_0Based_START_END_HG38_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "rsID_chrName_0Based_Start_End_hg38_coordinates.txt";
-	public static final String REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG38_BED_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_inputFile_chrName_0Based_Start_EndExclusive_hg38_coordinates.bed";
+	public static final String RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "rsID_chrName_0Based_Start_End_NCBI_Returned_Latest_Assembly_coordinates.txt";
+	public static final String REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_inputFile_chrName_0Based_Start_EndExclusive_NCBI_Returned_Latest_Assembly_coordinates.bed";
 	public static final String REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_outputFile_chrName_0Based_Start_EndExclusive_hg19_coordinates.bed";
 	public static final String REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_reportFile_chrName_1Based_Start_End_coordinates.xls";
 	public static final String FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "final_remap_outputFile_chrName_1Based_Start_End_hg19_coordinates_using_remap_report.txt";
