@@ -186,7 +186,7 @@ public class AugmentationofGivenRsIdwithInformation {
 												.build();
 			
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
-			HttpPost post = new HttpPost( uri);
+			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
@@ -313,18 +313,13 @@ public class AugmentationofGivenRsIdwithInformation {
 			reader.close();
 
 		} catch (XMLStreamException e) {
-
-			// e.printStackTrace();
 			logger.error(e.toString());
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.error(e.toString());
+		} catch (URISyntaxException e) {
+			logger.error(e.toString());
 		}
 
 		return rsInformationList;
@@ -338,10 +333,12 @@ public class AugmentationofGivenRsIdwithInformation {
 		String commaSeparatedRsIdList = null;
 		List<RsInformation> rsInformationList = new ArrayList<RsInformation>();
 
-		int numberofRsIdsSentInOneBatch = 100;
+		int numberofRsIdsSentInOneBatch = Commons.NUMBER_OF_RSIDS_SENT_IN_ONE_BATCH;
 
+		
 		/**************************************************************/
-		// Set the number of Eutils efetch Requests starts
+		/*******Set the number of Eutils efetch Requests starts********/
+		/**************************************************************/
 		int numberofRequest = rsIdList.size() / numberofRsIdsSentInOneBatch;
 
 		int numberofRemaining = rsIdList.size() % numberofRsIdsSentInOneBatch;
@@ -349,13 +346,15 @@ public class AugmentationofGivenRsIdwithInformation {
 		if (numberofRemaining != 0) {
 			numberofRequest = numberofRequest + 1;
 		}
-		// Set the number of Eutils efetch Requests ends
 		/**************************************************************/
-
+		/*******Set the number of Eutils efetch Requests ends**********/
+		/**************************************************************/
+		
+		
 		/**************************************************************/
 		for (int i = 0; i < numberofRequest; i++) {
 
-			if (i == numberofRequest - 1 && numberofRemaining != 0) {
+			if ((i == (numberofRequest-1)) && (numberofRemaining != 0)) {
 
 				// Set commaSeparatedRsIdList to empty string
 				commaSeparatedRsIdList = "";

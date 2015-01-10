@@ -81,9 +81,11 @@ public class InputDataProcess {
 		int numberofGivenUniqueRsIds = 0;
 
 		int numberofLocisInRemapInputFile = 0;
+		
+		int count =0;
 
 		/**********************************************************/
-		/********** NCBI REMAP PARAMETERS starts ********************/
+		/********** NCBI REMAP PARAMETERS starts ******************/
 		/**********************************************************/
 		String sourceAssemblyName = "";
 		String targetAssemblyName = Commons.GRCH37_P13;
@@ -96,7 +98,7 @@ public class InputDataProcess {
 		double minimumRatioOfBasesThatMustBeRemapped;
 		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength;
 		/**********************************************************/
-		/********** NCBI REMAP PARAMETERS ends **********************/
+		/********** NCBI REMAP PARAMETERS ends ********************/
 		/**********************************************************/
 
 		try {
@@ -118,11 +120,11 @@ public class InputDataProcess {
 			while ((rsId = bufferedReader.readLine()) != null) {
 
 				// Skip comment lines
-				if (!(rsId.startsWith("#"))) {
+				if (!(rsId.startsWith(Commons.GLANET_COMMENT_STRING))) {
 
 					numberofGivenRsIds++;
 
-					// Remove rs prefix
+				
 					if (!rsIdList.contains(rsId)) {
 						numberofGivenUniqueRsIds++;
 						rsIdList.add(rsId);
@@ -135,15 +137,19 @@ public class InputDataProcess {
 			logger.debug("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
 			logger.debug("******************************************************************************");
 			/*********************************************************************/
-			/***************** READ GIVEN RSIDs INPUTFILE ends *********************/
+			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
 
 			/*********************************************************************/
-			/******** GET rsInformation using NCBI EUTILS starts ******************/
+			/******** GET rsInformation using NCBI EUTILS starts *****************/
 			/*********************************************************************/
 			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList);
 
-			// if( rsIdList.size() >= rsInformationList.size())
+			
+			/*********************************************************************/
+			/***************NCBI EUTIL ANALYSIS STARTS****************************/
+			/*********************************************************************/
+			count = 1;
 			for (int i = 0; i < rsIdList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsInformationList.size(); j++)
@@ -153,9 +159,11 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					System.out.println("/////1Not found: " + rsIdList.get(i));
-			}
-			// else
+					logger.debug("Count: " + count++  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
+			}//End of FOR
+			
+			
+			count = 1;
 			for (int i = 0; i < rsInformationList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsIdList.size(); j++)
@@ -165,10 +173,13 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					System.out.println("/////2Not found: " + rsInformationList.get(i).getRsId());
-			}
-			System.out.println("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
-			System.out.println("We have lost " + (numberofGivenUniqueRsIds - rsInformationList.size()) + " rsIDs during NCBI EUTIL EFETCH");
+					logger.debug("Count: " + count++  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
+			}//End of FOR
+			/*********************************************************************/
+			/***************NCBI EUTIL ANALYSIS ENDS****************************/
+			/*********************************************************************/
+	
+			
 			logger.debug("******************************************************************************");
 			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
 			logger.debug("We have lost " + (numberofGivenUniqueRsIds - rsInformationList.size()) + " rsIDs during NCBI EUTIL EFETCH");
