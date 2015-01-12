@@ -943,7 +943,7 @@ public static String takeComplementforeachAllele(String allele){
 			
 			
 			indexofFormerSlash = indexofLatterSlash;
-			indexofLatterSlash = slashSeparatedObservedAlleles.indexOf('\t',indexofFormerSlash+1);
+			indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH,indexofFormerSlash+1);
 		}
 		/*****************************************************************/
 		/*************For the middle allele ends**************************/
