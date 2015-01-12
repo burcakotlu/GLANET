@@ -248,13 +248,24 @@ public class InputDataProcess {
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE,
 			// outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
-			Remap.remap(dataFolder, sourceReferenceAssemblyID, targetReferenceAssemblyID, outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE, outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation, minimumRatioOfBasesThatMustBeRemapped, maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			Remap.remap(dataFolder, 
+					sourceReferenceAssemblyID, 
+					targetReferenceAssemblyID, 
+					outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE, 
+					outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, 
+					outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
+					outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+					merge, 
+					allowMultipleLocation, 
+					minimumRatioOfBasesThatMustBeRemapped, 
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 
 			Remap.createOutputFileUsingREMAPREPORTFile(remapInputFileLineNumber2LineContentMap,outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
 
+			
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file
-			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder, Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE);
+			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder, Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -297,7 +308,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -370,7 +381,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -454,7 +465,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -593,7 +604,7 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE);
+			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {

@@ -104,7 +104,7 @@ public class InputDataRemoveOverlaps {
 		//jobName ends
 	
 		String outputFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String inputFileName  	= outputFolder + Commons.PROCESSED_INPUT_FILE;
+		String inputFileName  	= outputFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19;
 		
 		Map<ChromosomeName,IntervalTree> chromosome2IntervalTree = new HashMap<ChromosomeName,IntervalTree>();
 				

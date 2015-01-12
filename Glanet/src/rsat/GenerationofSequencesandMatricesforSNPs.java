@@ -906,6 +906,8 @@ public static String takeComplementforeachAllele(String allele){
 		if (!snpContainsAnyOfObservedAlleles){
 			//Give alarm
 			logger.error("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
+			logger.error("rsID: " + rsId);
+			logger.error("snp Reference Sequence: " + snpInformation.getFastaFile());
 		}
 		
 		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
