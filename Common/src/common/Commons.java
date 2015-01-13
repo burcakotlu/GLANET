@@ -288,7 +288,7 @@ public class Commons {
 	public static final String REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "remap_reportFile_chrName_1Based_Start_End_coordinates.xls";
 	public static final String FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "final_remap_outputFile_chrName_1Based_Start_End_hg19_coordinates_using_remap_report.txt";
 
-	public static final String PROCESSED_INPUT_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "Input_Data_Processed_0_Based_hg19_coordinates.txt";
+	public static final String PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19 = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "Input_Data_Processed_0Based_Start_End_hg19_coordinates.txt";
 	public static final String REMOVED_OVERLAPS_INPUT_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "Input_Data_Processed_OverlapsRemoved_0_Based_hg19_coordinates.txt";
 
 	// FOR TESTING PURPOSES
