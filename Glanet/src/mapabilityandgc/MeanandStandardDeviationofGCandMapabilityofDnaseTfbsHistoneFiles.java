@@ -25,14 +25,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
 import create.encode.CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles;
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 
 public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 
@@ -1392,9 +1391,9 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args){
 		
-		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 	
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 		GRCh37Hg19Chromosome.initializeChromosomeSizes(hg19ChromosomeSizes);

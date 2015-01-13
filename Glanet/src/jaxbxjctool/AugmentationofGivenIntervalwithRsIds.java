@@ -102,9 +102,9 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-																	.setSocketTimeout(60000)
-																	.setConnectTimeout(60000)
-																	.setConnectionRequestTimeout(60000)
+																	.setSocketTimeout(0)
+																	.setConnectTimeout(0)
+																	.setConnectionRequestTimeout(0)
 																	.setStaleConnectionCheckEnabled(true)
 																	.build();
 			

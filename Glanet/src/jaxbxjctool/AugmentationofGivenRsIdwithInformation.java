@@ -1,3 +1,4 @@
+
 /**
  * @author burcakotlu
  * @date Apr 3, 2014 
@@ -179,9 +180,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-												.setSocketTimeout(60000)
-												.setConnectTimeout(60000)
-												.setConnectionRequestTimeout(60000)
+												.setSocketTimeout(0)
+												.setConnectTimeout(0)
+												.setConnectionRequestTimeout(0)
 												.setStaleConnectionCheckEnabled(true)
 												.build();
 			
@@ -449,7 +450,8 @@ public class AugmentationofGivenRsIdwithInformation {
 			 
 			 //new HTTP POST starts 
 			 URI uri = null;
-			 uri = new URIBuilder().setScheme("http")
+			 uri = new URIBuilder()
+									.setScheme("http")
 									.setHost("www.ncbi.nlm.nih.gov")
 									.setPath("/entrez/eutils/efetch.fcgi")
 									.setParameter("db", "snp")
@@ -458,9 +460,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-													.setSocketTimeout(60000)
-													.setConnectTimeout(60000)
-													.setConnectionRequestTimeout(60000)
+													.setSocketTimeout(0)
+													.setConnectTimeout(0)
+													.setConnectionRequestTimeout(0)
 													.setStaleConnectionCheckEnabled(true)
 													.build();
 				

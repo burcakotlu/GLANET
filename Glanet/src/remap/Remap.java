@@ -19,11 +19,12 @@ import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Nov 25, 2014
  * @project Glanet 
  *
@@ -380,6 +381,7 @@ public class Remap {
 			
 			try {
 				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				
 				process.waitFor();
 				
 				//output of the perl execution is here
@@ -401,10 +403,7 @@ public class Remap {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-				
-	
-		
+			}	
 	}
 
 	/**
@@ -413,12 +412,12 @@ public class Remap {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String glanetFolder = args[1];
-		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
 		
-//		remap(dataFolder,"GCF_000001405.25","GCF_000001405.26","C:\\Users\\Burçak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Burçak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed");
-//		remap(dataFolder,"GCF_000001405.26","GCF_000001405.25","C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed", Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON, Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON, Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_, Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2);
+//		remap(dataFolder,"GCF_000001405.25","GCF_000001405.26","C:\\Users\\Burï¿½ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Burï¿½ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed");
+//		remap(dataFolder,"GCF_000001405.26","GCF_000001405.25","C:\\Users\\Burï¿½ak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Burï¿½ak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed", Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON, Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON, Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_, Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2);
 		remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 		
 		

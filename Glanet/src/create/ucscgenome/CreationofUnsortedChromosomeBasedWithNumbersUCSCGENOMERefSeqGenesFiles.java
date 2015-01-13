@@ -7,6 +7,7 @@
 package create.ucscgenome;
 
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;
 import enumtypes.IntervalName;
 import gnu.trove.list.TIntList;
@@ -26,7 +27,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Nov 18, 2014
  * @project Glanet 
  *
@@ -479,8 +480,8 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 
 	
 	public static void main(String[] args) {
-		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		
 		
 		/*************************************************************************************************/

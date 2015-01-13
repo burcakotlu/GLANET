@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.CommandLineArguments;
 import enumtypes.MultipleTestingType;
 
 /**
@@ -359,7 +358,7 @@ public class ElementVersusPhenotypeEnrichmentBinaryMatrixForAllPhenotypes {
 		
 		//@todo args have to be changed
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		//Multiple Testing Parameter for selection of enriched elements
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
@@ -374,7 +373,7 @@ public class ElementVersusPhenotypeEnrichmentBinaryMatrixForAllPhenotypes {
 		//jobName ends
 		
 		
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
 		
 		
 		/********************************************************************/

@@ -8,6 +8,7 @@
  */
 package augmentation.keggpathway;
 
+import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
 
 import java.io.BufferedReader;
@@ -22,7 +23,6 @@ import java.util.Map;
 import ui.GlanetRunner;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 
@@ -478,9 +478,9 @@ public class KeggPathwayAugmentation {
 	//args[13] must have a job name exampe: any_string 
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		// for testing purposes
 		Map<String,List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String,List<Integer>>();

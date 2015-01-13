@@ -6,6 +6,7 @@
 
 package annotation;
 
+import enumtypes.CommandLineArguments;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.map.TObjectShortMap;
@@ -23,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 public class WriteAllPossibleNames {
@@ -329,8 +329,8 @@ public class WriteAllPossibleNames {
 	//			--->			Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT			
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
-		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 	
 	
 		//Write all possible kegg pathway names		
