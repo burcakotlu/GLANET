@@ -619,25 +619,41 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 		try {
 			
-	
-		matrixScanRequest.setSequence(sequence);
-		matrixScanRequest.setMatrix(pfmMatrices);
-		
-		/*Call the service*/
-		MatrixScanResponse response;
-		response = proxy.matrix_scan(matrixScanRequest);
-		
-		/*Get the result*/
-		result = response.getClient();
-		
-		/*Put the result*/
-		sequence2RSATResultMap.put(resultKey, result);
+				matrixScanRequest.setSequence(sequence);
+				matrixScanRequest.setMatrix(pfmMatrices);
+				
+				/************************************************************************/
+				//To avoid time out problems, two new Web Services were added: monitor and get_result. 
+				//If you use the value "ticket" as "output" parameter for most Web Services, you will receive a job ID. 
+				//This job ID can then be used to monitor the status of the running job. 
+				//When it is "Done", use get_result to... well... get the results. 
+				//Please update your libraries to benefit from these improvements.
+				
+				proxy.get_result(GetResultRequest arg0);
+				proxy.monitor(MonitorRequest arg0);
+				/************************************************************************/
+				
+				
+				
+				/*Call the service*/
+				MatrixScanResponse response;
+				response = proxy.matrix_scan(matrixScanRequest);
+				
+				
+				
+				/*Get the result*/
+				result = response.getClient();
+				
+				/*Put the result*/
+				sequence2RSATResultMap.put(resultKey, result);
 		
 		
 		
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(sequence);
+			
 		} 
 		
 		return result;

@@ -503,7 +503,7 @@ public class Remap {
 							bufferedWriter.write(mapped2 + "\t");
 							bufferedWriter.write(after + System.getProperty("line.separator"));
 						}else{
-							logger.error("Please notice that there is an unconverted genomic loci");
+							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
 							logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1);
 							logger.error("To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2);
 							

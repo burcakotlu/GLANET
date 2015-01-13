@@ -342,7 +342,6 @@ public class Commons {
 
 	/********************** REMAP Directories starts ***************************************/
 	public static final String AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY = Commons.AUGMENTATION + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
-	public static final String GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + Commons.NCBI_REMAP + System.getProperty("file.separator");
 	/********************** REMAP Directories ends ***************************************/
 
 	/*************************************************************************************/
@@ -370,7 +369,7 @@ public class Commons {
 	/*************************************************************************************/
 	public static final String REMAP_DUMMY_OUTPUT_FILE = "REMAP_dummy_outputFile.txt";
 	public static final String AUGMENTATION_REMAP_DUMMY_OUTPUT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY + "REMAP_dummy_outputFile.txt";
-	public static final String GIVENINPUTDATA_REMAP_DUMMY_OUTPUT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY + "REMAP_dummy_outputFile.txt";
+	public static final String GIVENINPUTDATA_REMAP_DUMMY_OUTPUT_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "REMAP_dummy_outputFile.txt";
 	/*************************************************************************************/
 	/********************** REMAP OUTPUT FILE ends ****************************************/
 	/*************************************************************************************/
@@ -380,7 +379,7 @@ public class Commons {
 	/*************************************************************************************/
 	public static final String REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = "REMAP_dummy_genomeWorkbenchProjectFile.gbp";
 	public static final String AUGMENTATION_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.AUGMENTATION_REMAP_INPUT_OUTPUT_DIRECTORY + "REMAP_dummy_genomeWorkbenchProjectFile.gbp";
-	public static final String GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.GIVENONPUTDATA_REMAP_INPUT_OUTPUT_DIRECTORY + "REMAP_dummy_genomeWorkbenchProjectFile.gbp";
+	public static final String GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE = Commons.GIVENINPUTDATA + System.getProperty("file.separator") + "REMAP_dummy_genomeWorkbenchProjectFile.gbp";
 	/*************************************************************************************/
 	/********************** REMAP GENOME WORKBENCH PROJECT FILE ends **********************/
 	/*************************************************************************************/

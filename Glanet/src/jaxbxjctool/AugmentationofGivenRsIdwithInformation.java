@@ -449,8 +449,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			 
 			 //new HTTP POST starts 
 			 URI uri = null;
-			 uri = new URIBuilder()
-									.setScheme("http")
+			 uri = new URIBuilder().setScheme("http")
 									.setHost("www.ncbi.nlm.nih.gov")
 									.setPath("/entrez/eutils/efetch.fcgi")
 									.setParameter("db", "snp")
