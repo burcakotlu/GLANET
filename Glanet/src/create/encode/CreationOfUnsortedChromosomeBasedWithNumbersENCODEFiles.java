@@ -18,16 +18,15 @@ import java.util.Locale;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Nov 17, 2014
  * @project Glanet 
  *
@@ -580,7 +579,7 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	 */
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 	
 		File dnaseDir1 	= new File(Commons.LOCAL_DISK_G_DOKTORA_DATA + common.Commons.ENCODE_DNASE_DIRECTORY1);

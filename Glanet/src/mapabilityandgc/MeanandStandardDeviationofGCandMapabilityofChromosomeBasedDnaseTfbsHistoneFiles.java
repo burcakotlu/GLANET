@@ -23,11 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
 
@@ -526,7 +525,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 	

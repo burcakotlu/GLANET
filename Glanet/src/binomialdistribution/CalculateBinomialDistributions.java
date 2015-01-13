@@ -33,6 +33,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.commons.math3.util.FastMath;
 
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 
 
@@ -353,7 +354,7 @@ public class CalculateBinomialDistributions {
 	//args[8] must have writePermutationBasedAnnotationResultMode checkBox
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 

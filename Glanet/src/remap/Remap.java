@@ -19,6 +19,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
@@ -411,7 +412,7 @@ public class Remap {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
 		

@@ -21,8 +21,8 @@ import java.util.Set;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 public class HumanRefSeq2Gene {
 	
@@ -234,7 +234,7 @@ public class HumanRefSeq2Gene {
 	//args[21]	--->	number of permutations in each run	
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		
 		humanGene2RefSeq(dataFolder);

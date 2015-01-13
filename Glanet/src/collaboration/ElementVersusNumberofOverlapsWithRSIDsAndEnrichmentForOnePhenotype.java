@@ -23,9 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.CommandLineArguments;
 import enumtypes.MultipleTestingType;
 
 /**
@@ -942,7 +941,7 @@ public class ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype 
 	
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[1];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 			
 		//Multiple Testing Parameter for selection of enriched elements
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
