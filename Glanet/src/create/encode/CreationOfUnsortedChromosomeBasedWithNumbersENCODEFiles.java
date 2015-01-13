@@ -581,7 +581,7 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 	
 		File dnaseDir1 	= new File(Commons.LOCAL_DISK_G_DOKTORA_DATA + common.Commons.ENCODE_DNASE_DIRECTORY1);
 		File dnaseDir2 	= new File(Commons.LOCAL_DISK_G_DOKTORA_DATA + common.Commons.ENCODE_DNASE_DIRECTORY2);		

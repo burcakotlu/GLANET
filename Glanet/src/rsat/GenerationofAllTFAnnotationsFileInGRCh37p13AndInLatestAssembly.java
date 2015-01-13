@@ -202,8 +202,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	}
 	//jobName ends
 			
-	String outputFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
-	String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
+	String outputFolder 	= glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
+	String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator");
 	
 	String all_TF_Annotations_File_1Based_Start_End_GRCh37_p13	= Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13;
 	String all_TF_Annotations_File_1Based_Start_End_GRCh38 		= Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38;

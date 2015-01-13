@@ -380,6 +380,7 @@ public class Remap {
 			
 			try {
 				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				
 				process.waitFor();
 				
 				//output of the perl execution is here
@@ -401,10 +402,7 @@ public class Remap {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-				
-	
-		
+			}	
 	}
 
 	/**
@@ -414,7 +412,7 @@ public class Remap {
 		// TODO Auto-generated method stub
 		
 		String glanetFolder = args[1];
-		String dataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
 		
 //		remap(dataFolder,"GCF_000001405.25","GCF_000001405.26","C:\\Users\\Bur�ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Bur�ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed");

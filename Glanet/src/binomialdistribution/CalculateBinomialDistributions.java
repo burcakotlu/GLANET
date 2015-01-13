@@ -354,8 +354,8 @@ public class CalculateBinomialDistributions {
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 
 		
 		String calculateMode;

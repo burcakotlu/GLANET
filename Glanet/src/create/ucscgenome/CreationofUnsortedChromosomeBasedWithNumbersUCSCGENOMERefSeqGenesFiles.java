@@ -480,7 +480,7 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 	
 	public static void main(String[] args) {
 		String glanetFolder = args[1];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		
 		
 		/*************************************************************************************************/
