@@ -1254,7 +1254,7 @@ public class Commons {
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
-	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation)";
+	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined Gene Set Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE = "Select Gene Information Type In User Defined Gene Set Input File";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_INPUTFILE = "Choose User Defined Gene Set Input File";

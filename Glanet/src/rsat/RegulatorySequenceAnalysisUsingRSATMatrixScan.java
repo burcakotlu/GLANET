@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * @author Burcak Otlu
  * Jan 30, 2014
@@ -51,17 +50,21 @@ import java.util.Map;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.log4j.Logger;
+
+import RSATWS.GetResultRequest;
+import RSATWS.GetResultResponse;
 import RSATWS.MatrixScanRequest;
 import RSATWS.MatrixScanResponse;
+import RSATWS.MonitorRequest;
+import RSATWS.MonitorResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
 
-
 import common.Commons;
-import enumtypes.CommandLineArguments;
 
-import org.apache.log4j.Logger;
+import enumtypes.CommandLineArguments;
 
 public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	
@@ -623,31 +626,75 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				matrixScanRequest.setSequence(sequence);
 				matrixScanRequest.setMatrix(pfmMatrices);
 				
-				/************************************************************************/
-				//To avoid time out problems, two new Web Services were added: monitor and get_result. 
-				//If you use the value "ticket" as "output" parameter for most Web Services, you will receive a job ID. 
-				//This job ID can then be used to monitor the status of the running job. 
-				//When it is "Done", use get_result to... well... get the results. 
-				//Please update your libraries to benefit from these improvements.
-				
-				//proxy.get_result(GetResultRequest arg0);
-				//proxy.monitor(MonitorRequest arg0);
-				/************************************************************************/
-				
-				
-				
+				/***************************************************/
+				/************Old Code starts************************/
+				/***************************************************/
 				/*Call the service*/
 				MatrixScanResponse response;
 				response = proxy.matrix_scan(matrixScanRequest);
-				
-				
 				
 				/*Get the result*/
 				result = response.getClient();
 				
 				/*Put the result*/
 				sequence2RSATResultMap.put(resultKey, result);
-		
+				/***************************************************/
+				/************Old Code ends**************************/
+				/***************************************************/
+
+				
+//				/************************************************************************/
+//				//To avoid time out problems, two new Web Services were added: monitor and get_result. 
+//				//If you use the value "ticket" as "output" parameter for most Web Services, you will receive a job ID. 
+//				//This job ID can then be used to monitor the status of the running job. 
+//				//When it is "Done", use get_result to... well... get the results. 
+//				//Please update your libraries to benefit from these improvements.
+//				
+//				//Monitoring the status of a job
+//				//proxy.monitor(MonitorRequest arg0);
+//				
+//				//Get result of a job
+//				//proxy.get_result(GetResultRequest arg0);
+//				/************************************************************************/
+				
+//				/***************************************************/
+//				/************New Code starts************************/
+//				/***************************************************/
+//				matrixScanRequest.setOutput("ticket");
+//				
+//				//Call Matrix Scan Service
+//				MatrixScanResponse response = proxy.matrix_scan(matrixScanRequest);
+//				
+//				/*Get the result which will be a jobID*/
+//				String jobID = response.getClient();
+//
+//				
+//				/* prepare the parameters */
+//			 	MonitorRequest monitorParameters = new MonitorRequest();
+//			 	GetResultRequest getResultParameters = new GetResultRequest();
+//			 	
+//			 	monitorParameters.setTicket(jobID);
+//			 	getResultParameters.setTicket(jobID);
+//
+//			 	MonitorResponse monitorResponse = proxy.monitor(monitorParameters);
+//				GetResultResponse getResultResponse;
+//		 
+//				 while (monitorResponse.getStatus() == "Done"){
+//					 
+//					 getResultResponse = proxy.get_result(getResultParameters);
+//							 
+//					/*Get the result*/
+//					result = getResultResponse.getClient();
+//					 
+//					 /*Put the result*/
+//					sequence2RSATResultMap.put(resultKey, result);
+//				
+//				 }// End of While
+//				/***************************************************/
+//				/************New Code ends**************************/
+//				/***************************************************/
+
+			
 		
 		
 		} catch (RemoteException e) {
@@ -1062,7 +1109,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	         				//what is snp
 	         				logger.debug("RSAT MatrixScan " +  matrixScanNumber++ +" for " + eachSNPDirectory.getPath());
 	         				matrixScan(eachSNPDirectory.getName(),tfName2TFPfmMatricesFileMap,snpReferenceSequenceFile,snpAlteredSequenceFileList,tfName2TfExtendedPeakSequenceFileMap,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequence2RSATResultMap, snpAlteredSequence2RSATResultMap, tfExtendedPeakSequence2RSATResultMap);
-		         			
 		         			
 	         			}//End of IF RSAT matrix scan
 					         				

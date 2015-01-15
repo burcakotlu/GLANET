@@ -1,0 +1,1645 @@
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:264 - getBundle(org.apache.axis,org.apache.axis.i18n,resource,null,...)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:423 - loadBundle: Ignoring MissingResourceException: Can't find bundle for base name org.apache.axis.resource, locale en_US
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:318 - Created org.apache.axis.i18n.resource, linked to parent null
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:264 - getBundle(org.apache.axis,org.apache.axis.utils,resource,null,...)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:423 - loadBundle: Ignoring MissingResourceException: Can't find bundle for base name org.apache.axis.utils.resource, locale en_US
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:423 - loadBundle: Ignoring MissingResourceException: Can't find bundle for base name org.apache.axis.resource, locale en_US
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:328 - Root package not found, cross link to org.apache.axis.i18n.resource
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:328 - Root package not found, cross link to org.apache.axis.i18n.resource
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(engineConfigLoadFactory)
+2015-01-15 09:45:39 DEBUG EngineConfigurationFactoryFinder:206 - Factory org.apache.axis.configuration.EngineConfigurationFactoryServlet Ignored: unable to load/resolve class.
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(engineFactory)
+2015-01-15 09:45:39 DEBUG EngineConfigurationFactoryFinder:141 - Got EngineFactory: org.apache.axis.configuration.EngineConfigurationFactoryDefault
+2015-01-15 09:45:39 DEBUG AxisEngine:165 - Enter: AxisEngine::init
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(attachEnabled)
+2015-01-15 09:45:39 DEBUG JavaUtils:1305 - Attachment support is enabled?  true
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:39 - Enter/Exit: JAFDataHandlerDeserializerFactory(class java.lang.String, {http://xml.apache.org/xml-soap}PlainText)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(oddDigits00)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(badChars01)
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:39 - Enter/Exit: JAFDataHandlerDeserializerFactory(class java.awt.Image, {http://xml.apache.org/xml-soap}Image)
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:39 - Enter/Exit: JAFDataHandlerDeserializerFactory(class javax.mail.internet.MimeMultipart, {http://xml.apache.org/xml-soap}Multipart)
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:39 - Enter/Exit: JAFDataHandlerDeserializerFactory(interface javax.xml.transform.Source, {http://xml.apache.org/xml-soap}Source)
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:39 - Enter/Exit: JAFDataHandlerDeserializerFactory(class org.apache.axis.attachments.OctetStream, {http://xml.apache.org/xml-soap}octet-stream)
+2015-01-15 09:45:39 DEBUG JAFDataHandlerDeserializerFactory:44 - Enter/Exit: JAFDataHandlerDeserializerFactory()
+2015-01-15 09:45:39 DEBUG AxisEngine:195 - Exit: AxisEngine::init
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @97e1986 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RetrieveSequenceRequest
+javaType:   class RSATWS.RetrieveSequenceRequest
+inHeader:   false
+outHeader:  false
+@26f67b76<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @97e1986setReturnType({urn:RSATWS}RetrieveSequenceResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @458ad742 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RetrieveSequenceMultigenomeRequest
+javaType:   class RSATWS.RetrieveSequenceMultigenomeRequest
+inHeader:   false
+outHeader:  false
+@5afa04c<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @458ad742setReturnType({urn:RSATWS}RetrieveSequenceMultigenomeResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6a2bcfcb added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RetrieveEnsemblSequenceRequest
+javaType:   class RSATWS.RetrieveEnsemblSequenceRequest
+inHeader:   false
+outHeader:  false
+@4de8b406<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6a2bcfcbsetReturnType({urn:RSATWS}RetrieveEnsemblSequenceResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6d8a00e3 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}PurgeSequenceRequest
+javaType:   class RSATWS.PurgeSequenceRequest
+inHeader:   false
+outHeader:  false
+@548b7f67<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6d8a00e3setReturnType({urn:RSATWS}PurgeSequenceResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @215be6bb added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}OligoAnalysisRequest
+javaType:   class RSATWS.OligoAnalysisRequest
+inHeader:   false
+outHeader:  false
+@4439f31e<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @215be6bbsetReturnType({urn:RSATWS}OligoAnalysisResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @100fc185 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}DyadAnalysisRequest
+javaType:   class RSATWS.DyadAnalysisRequest
+inHeader:   false
+outHeader:  false
+@643b1d11<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @100fc185setReturnType({urn:RSATWS}DyadAnalysisResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @51081592 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}PatternAssemblyRequest
+javaType:   class RSATWS.PatternAssemblyRequest
+inHeader:   false
+outHeader:  false
+@7f9a81e8<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @51081592setReturnType({urn:RSATWS}PatternAssemblyResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @7dc7cbad added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}DnaPatternRequest
+javaType:   class RSATWS.DnaPatternRequest
+inHeader:   false
+outHeader:  false
+@d2cc05a<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @7dc7cbadsetReturnType({urn:RSATWS}DnaPatternResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @20e2cbe0 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ConvertFeaturesRequest
+javaType:   class RSATWS.ConvertFeaturesRequest
+inHeader:   false
+outHeader:  false
+@68be2bc2<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @20e2cbe0setReturnType({urn:RSATWS}ConvertFeaturesResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @7823a2f9 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}FeatureMapRequest
+javaType:   class RSATWS.FeatureMapRequest
+inHeader:   false
+outHeader:  false
+@4cc0edeb<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @7823a2f9setReturnType({urn:RSATWS}FeatureMapResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @29ee9faa added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}FootprintDiscoveryRequest
+javaType:   class RSATWS.FootprintDiscoveryRequest
+inHeader:   false
+outHeader:  false
+@c038203<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @29ee9faasetReturnType({urn:RSATWS}FootprintDiscoveryResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @2b98378d added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GetOrthologsRequest
+javaType:   class RSATWS.GetOrthologsRequest
+inHeader:   false
+outHeader:  false
+@475530b9<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @2b98378dsetReturnType({urn:RSATWS}GetOrthologsResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @d8355a8 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}InferOperonRequest
+javaType:   class RSATWS.InferOperonRequest
+inHeader:   false
+outHeader:  false
+@59fa1d9b<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @d8355a8setReturnType({urn:RSATWS}InferOperonResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @3ffc5af1 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GeneInfoRequest
+javaType:   class RSATWS.GeneInfoRequest
+inHeader:   false
+outHeader:  false
+@5e5792a0<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @3ffc5af1setReturnType({urn:RSATWS}GeneInfoResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6f7fd0e6 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}SupportedOrganismsRequest
+javaType:   class RSATWS.SupportedOrganismsRequest
+inHeader:   false
+outHeader:  false
+@47c62251<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6f7fd0e6setReturnType({urn:RSATWS}SupportedOrganismsResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @1bce4f0a added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}TextToHtmlRequest
+javaType:   class RSATWS.TextToHtmlRequest
+inHeader:   false
+outHeader:  false
+@5e3a8624<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @1bce4f0asetReturnType({urn:RSATWS}TextToHtmlResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @7cd62f43 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}parsepsixmlRequest
+javaType:   class RSATWS.ParsepsixmlRequest
+inHeader:   false
+outHeader:  false
+@6d4b1c02<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @7cd62f43setReturnType({urn:RSATWS}parsepsixmlResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @42e26948 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RocStatsRequest
+javaType:   class RSATWS.RocStatsRequest
+inHeader:   false
+outHeader:  false
+@57baeedf<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @42e26948setReturnType({urn:RSATWS}RocStatsResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @77cd7a0 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ClassFreqRequest
+javaType:   class RSATWS.ClassFreqRequest
+inHeader:   false
+outHeader:  false
+@204f30ec<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @77cd7a0setReturnType({urn:RSATWS}ClassFreqResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @f6c48ac added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}XYGraphRequest
+javaType:   class RSATWS.XYGraphRequest
+inHeader:   false
+outHeader:  false
+@13deb50e<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @f6c48acsetReturnType({urn:RSATWS}XYGraphResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @14bf9759 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ConvertSeqRequest
+javaType:   class RSATWS.ConvertSeqRequest
+inHeader:   false
+outHeader:  false
+@5f341870<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @14bf9759setReturnType({urn:RSATWS}ConvertSeqResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @402a079c added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}CompareClassesRequest
+javaType:   class RSATWS.CompareClassesRequest
+inHeader:   false
+outHeader:  false
+@59ec2012<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @402a079csetReturnType({urn:RSATWS}CompareClassesResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @5700d6b1 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ConvertClassesRequest
+javaType:   class RSATWS.ConvertClassesRequest
+inHeader:   false
+outHeader:  false
+@6fd02e5<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @5700d6b1setReturnType({urn:RSATWS}ConvertClassesResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @490ab905 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ContingencyStatsRequest
+javaType:   class RSATWS.ContingencyStatsRequest
+inHeader:   false
+outHeader:  false
+@56ac3a89<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @490ab905setReturnType({urn:RSATWS}ContingencyStatsResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @cb644e added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ContingencyTableRequest
+javaType:   class RSATWS.ContingencyTableRequest
+inHeader:   false
+outHeader:  false
+@13805618<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @cb644esetReturnType({urn:RSATWS}ContingencyTableResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @25bbe1b6 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}MatrixScanRequest
+javaType:   class RSATWS.MatrixScanRequest
+inHeader:   false
+outHeader:  false
+@5702b3b1<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @25bbe1b6setReturnType({urn:RSATWS}MatrixScanResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @5649fd9b added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}MatrixDistribRequest
+javaType:   class RSATWS.MatrixDistribRequest
+inHeader:   false
+outHeader:  false
+@6adede5<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @5649fd9bsetReturnType({urn:RSATWS}MatrixDistribResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @64bf3bbf added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RandomSequenceRequest
+javaType:   class RSATWS.RandomSequenceRequest
+inHeader:   false
+outHeader:  false
+@55d56113<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @64bf3bbfsetReturnType({urn:RSATWS}RandomSequenceResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @1e127982 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}ConvertGraphRequest
+javaType:   class RSATWS.ConvertGraphRequest
+inHeader:   false
+outHeader:  false
+@60c6f5b<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @1e127982setReturnType({urn:RSATWS}ConvertGraphResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @21213b92 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}AlterGraphRequest
+javaType:   class RSATWS.AlterGraphRequest
+inHeader:   false
+outHeader:  false
+@a67c67e<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @21213b92setReturnType({urn:RSATWS}AlterGraphResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @5ec0a365 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphCliquesRequest
+javaType:   class RSATWS.GraphCliquesRequest
+inHeader:   false
+outHeader:  false
+@4fe3c938<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @5ec0a365setReturnType({urn:RSATWS}GraphCliquesResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @3632be31 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}DisplayGraphRequest
+javaType:   class RSATWS.DisplayGraphRequest
+inHeader:   false
+outHeader:  false
+@5abca1e0<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @3632be31setReturnType({urn:RSATWS}DisplayGraphResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @370736d9 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}DrawHeatmapRequest
+javaType:   class RSATWS.DrawHeatmapRequest
+inHeader:   false
+outHeader:  false
+@5f9d02cb<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @370736d9setReturnType({urn:RSATWS}DrawHeatmapResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6c3708b3 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}CompareGraphsRequest
+javaType:   class RSATWS.CompareGraphsRequest
+inHeader:   false
+outHeader:  false
+@6f1fba17<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6c3708b3setReturnType({urn:RSATWS}CompareGraphsResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6ddf90b0 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphNeighboursRequest
+javaType:   class RSATWS.GraphNeighboursRequest
+inHeader:   false
+outHeader:  false
+@57536d79<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6ddf90b0setReturnType({urn:RSATWS}GraphNeighboursResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @7d907bac added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}MCLRequest
+javaType:   class RSATWS.MCLRequest
+inHeader:   false
+outHeader:  false
+@7791a895<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @7d907bacsetReturnType({urn:RSATWS}MCLResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @4f970963 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RNSCRequest
+javaType:   class RSATWS.RNSCRequest
+inHeader:   false
+outHeader:  false
+@61f8bee4<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @4f970963setReturnType({urn:RSATWS}RNSCResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @47ef968d added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphNodeDegreeRequest
+javaType:   class RSATWS.GraphNodeDegreeRequest
+inHeader:   false
+outHeader:  false
+@23e028a9<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @47ef968dsetReturnType({urn:RSATWS}GraphNodeDegreeResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @627551fb added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphTopologyRequest
+javaType:   class RSATWS.GraphTopologyRequest
+inHeader:   false
+outHeader:  false
+@2b552920<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @627551fbsetReturnType({urn:RSATWS}GraphTopologyResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @6ebc05a6 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphClusterMembershipRequest
+javaType:   class RSATWS.GraphClusterMembershipRequest
+inHeader:   false
+outHeader:  false
+@6e6c3152<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @6ebc05a6setReturnType({urn:RSATWS}GraphClusterMembershipResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @3a883ce7 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GraphGetClustersRequest
+javaType:   class RSATWS.GraphGetClustersRequest
+inHeader:   false
+outHeader:  false
+@4973813a<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @3a883ce7setReturnType({urn:RSATWS}GraphGetClustersResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @63e2203c added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}RandomGraphRequest
+javaType:   class RSATWS.RandomGraphRequest
+inHeader:   false
+outHeader:  false
+@1efed156<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @63e2203csetReturnType({urn:RSATWS}RandomGraphResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @4bbfb90a added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}MonitorRequest
+javaType:   class RSATWS.MonitorRequest
+inHeader:   false
+outHeader:  false
+@7c29daf3<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @4bbfb90asetReturnType({urn:RSATWS}MonitorResponse)
+2015-01-15 09:45:39 DEBUG OperationDesc:265 - @5d76b067 added parameter >name:       request
+typeEntry:  null
+mode:       IN
+position:   0
+isReturn:   false
+typeQName:  {urn:RSATWS}GetResultRequest
+javaType:   class RSATWS.GetResultRequest
+inHeader:   false
+outHeader:  false
+@2a17b7b6<total parameters:1
+2015-01-15 09:45:39 DEBUG OperationDesc:173 - @5d76b067setReturnType({urn:RSATWS}GetResultResponse)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(transport00)
+2015-01-15 09:45:39 DEBUG Call:2119 - Transport is org.apache.axis.transport.http.HTTPTransport@528931cf
+2015-01-15 09:45:39 DEBUG Call:2351 - Enter: Call::invoke(ns, meth, args)
+2015-01-15 09:45:39 DEBUG Call:2043 - operation=name:        matrix_scan
+returnQName: response
+returnType:  {urn:RSATWS}MatrixScanResponse
+returnClass: class RSATWS.MatrixScanResponse
+elementQName:null
+soapAction:  null
+style:       wrapped
+use:         literal
+numInParams: 1
+method:null
+ ParameterDesc[0]:
+  name:       request
+  typeEntry:  null
+  mode:       IN
+  position:   0
+  isReturn:   false
+  typeQName:  {urn:RSATWS}MatrixScanRequest
+  javaType:   class RSATWS.MatrixScanRequest
+  inHeader:   false
+  outHeader:  false
+
+
+2015-01-15 09:45:39 DEBUG Call:2045 - operation.getNumParams()=1
+2015-01-15 09:45:39 DEBUG Call:2068 - getParamList number of params: 1
+2015-01-15 09:45:39 DEBUG Call:2405 - Enter: Call::invoke(RPCElement)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(attachEnabled)
+2015-01-15 09:45:39 DEBUG Message:289 - Attachment support is enabled?  true
+2015-01-15 09:45:39 DEBUG SOAPPart:182 - Enter: SOAPPart ctor(FORM_SOAPENVELOPE)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setMsgForm)
+2015-01-15 09:45:39 DEBUG SOAPPart:374 - Setting current message form to: FORM_SOAPENVELOPE (currentMessage is now org.apache.axis.message.SOAPEnvelope)
+2015-01-15 09:45:39 DEBUG SOAPPart:188 - Exit: SOAPPart ctor()
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(addBody00)
+2015-01-15 09:45:39 DEBUG SOAPBody:168 - Adding body element to message...
+2015-01-15 09:45:39 DEBUG Call:2638 - Enter: Call::invoke()
+2015-01-15 09:45:39 DEBUG MessageContext:749 - MessageContext: setTargetService(RSATWSPortType)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(noService10)
+2015-01-15 09:45:39 DEBUG ConfigurationException:110 - Exception: 
+org.apache.axis.ConfigurationException: No service named RSATWSPortType is available
+org.apache.axis.ConfigurationException: No service named RSATWSPortType is available
+	at org.apache.axis.configuration.FileProvider.getService(FileProvider.java:233)
+	at org.apache.axis.AxisEngine.getService(AxisEngine.java:311)
+	at org.apache.axis.MessageContext.setTargetService(MessageContext.java:756)
+	at org.apache.axis.client.Call.invoke(Call.java:2690)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at RSATWS.RSATWSBindingStub.matrix_scan(RSATWSBindingStub.java:2113)
+	at rsat.BurcakOtluTestRSATOldCode.matrixScanUsingRSAT(BurcakOtluTestRSATOldCode.java:132)
+	at rsat.BurcakOtluTestRSATOldCode.main(BurcakOtluTestRSATOldCode.java:155)
+
+	at org.apache.axis.configuration.FileProvider.getService(FileProvider.java:233)
+	at org.apache.axis.AxisEngine.getService(AxisEngine.java:311)
+	at org.apache.axis.MessageContext.setTargetService(MessageContext.java:756)
+	at org.apache.axis.client.Call.invoke(Call.java:2690)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at RSATWS.RSATWSBindingStub.matrix_scan(RSATWSBindingStub.java:2113)
+	at rsat.BurcakOtluTestRSATOldCode.matrixScanUsingRSAT(BurcakOtluTestRSATOldCode.java:132)
+	at rsat.BurcakOtluTestRSATOldCode.main(BurcakOtluTestRSATOldCode.java:155)
+2015-01-15 09:45:39 DEBUG MessageContext:793 - MessageContext: setServiceHandler(null)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(targetService)
+2015-01-15 09:45:39 DEBUG Call:2715 - Target service:  RSATWSPortType
+2015-01-15 09:45:39 DEBUG MessageContext:749 - MessageContext: setTargetService()
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(noService10)
+2015-01-15 09:45:39 DEBUG ConfigurationException:110 - Exception: 
+org.apache.axis.ConfigurationException: No service named  is available
+org.apache.axis.ConfigurationException: No service named  is available
+	at org.apache.axis.configuration.FileProvider.getService(FileProvider.java:233)
+	at org.apache.axis.AxisEngine.getService(AxisEngine.java:311)
+	at org.apache.axis.MessageContext.setTargetService(MessageContext.java:756)
+	at org.apache.axis.transport.http.HTTPTransport.setupMessageContextImpl(HTTPTransport.java:89)
+	at org.apache.axis.client.Transport.setupMessageContext(Transport.java:46)
+	at org.apache.axis.client.Call.invoke(Call.java:2738)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at RSATWS.RSATWSBindingStub.matrix_scan(RSATWSBindingStub.java:2113)
+	at rsat.BurcakOtluTestRSATOldCode.matrixScanUsingRSAT(BurcakOtluTestRSATOldCode.java:132)
+	at rsat.BurcakOtluTestRSATOldCode.main(BurcakOtluTestRSATOldCode.java:155)
+
+	at org.apache.axis.configuration.FileProvider.getService(FileProvider.java:233)
+	at org.apache.axis.AxisEngine.getService(AxisEngine.java:311)
+	at org.apache.axis.MessageContext.setTargetService(MessageContext.java:756)
+	at org.apache.axis.transport.http.HTTPTransport.setupMessageContextImpl(HTTPTransport.java:89)
+	at org.apache.axis.client.Transport.setupMessageContext(Transport.java:46)
+	at org.apache.axis.client.Call.invoke(Call.java:2738)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at RSATWS.RSATWSBindingStub.matrix_scan(RSATWSBindingStub.java:2113)
+	at rsat.BurcakOtluTestRSATOldCode.matrixScanUsingRSAT(BurcakOtluTestRSATOldCode.java:132)
+	at rsat.BurcakOtluTestRSATOldCode.main(BurcakOtluTestRSATOldCode.java:155)
+2015-01-15 09:45:39 DEBUG MessageContext:793 - MessageContext: setServiceHandler(null)
+2015-01-15 09:45:39 DEBUG SOAPPart:661 - Enter: SOAPPart::getAsSOAPEnvelope()
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(currForm)
+2015-01-15 09:45:39 DEBUG SOAPPart:662 - current form is FORM_SOAPENVELOPE
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'soapenv' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'soapenv' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'xsd' - 'http://www.w3.org/2001/XMLSchema'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'xsi' - 'http://www.w3.org/2001/XMLSchema-instance'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Envelope
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Body
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register '' - 'urn:RSATWS'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [urn:RSATWS]:matrix_scan
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:request
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register '' - ''
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:sequence
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element sequence
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:matrix
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:sequence_format
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element sequence_format
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:matrix_format
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix_format
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:n_treatment
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element n_treatment
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:pseudo
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element pseudo
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:organism
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element organism
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:background
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element background
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:markov
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element markov
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:background_pseudo
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element background_pseudo
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:return_fields
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element return_fields
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:uth
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element uth
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:str
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element str
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:verbosity
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element verbosity
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:origin
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element origin
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:decimals
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element decimals
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element request
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix_scan
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element soapenv:Body
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element soapenv:Envelope
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:39 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:39 DEBUG Call:2762 - <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><matrix_scan xmlns="urn:RSATWS"><request xmlns=""><sequence>&gt;SNPAlteredSequence_rs1891215_C_chr1_7667794
+GCCAGCCTTGCTTTCCCAGAAGCCCTCAA</sequence><matrix>; MA0139.1 CTCF
+A|	0.09529025	0.18291347	0.30777657	0.061336253	0.008762322	0.8148959	0.04381161	0.11719605	0.932092	0.0054764515	0.36473164	0.059145674	0.013143483	0.061336253	0.11391018	0.40744796	0.0898138	0.12814896	0.4403067
+C|	0.31872946	0.15881708	0.05366922	0.8762322	0.9890471	0.014238773	0.57831323	0.4742607	0.012048192	0.0	0.0032858707	0.013143483	0.0	0.008762322	0.80284774	0.014238773	0.5279299	0.35268345	0.19824754
+G|	0.08324206	0.45345017	0.49178532	0.023001095	0.0	0.07119387	0.36582693	0.05257393	0.03504929	0.9890471	0.61993426	0.5520263	0.97480834	0.84884995	0.0054764515	0.55531216	0.33625412	0.07995619	0.2913472
+T|	0.50273824	0.20481928	0.1467689	0.03943045	0.0021905806	0.099671416	0.012048192	0.35487404	0.019715225	0.0032858707	0.009857613	0.37349397	0.008762322	0.07776561	0.07338445	0.018619934	0.04052574	0.43373495	0.06462213
+//
+</matrix><sequence_format>fasta</sequence_format><matrix_format>tab</matrix_format><n_treatment>score</n_treatment><pseudo>1</pseudo><organism>Homo_sapiens_ensembl_74_GRCh37</organism><background>upstream-noorf</background><markov>1</markov><background_pseudo>0.01</background_pseudo><return_fields>sites,pval,rank</return_fields><uth>pval 0.1</uth><str>2</str><verbosity>1</verbosity><origin>start</origin><decimals>1</decimals></request></matrix_scan></soapenv:Body></soapenv:Envelope>
+2015-01-15 09:45:39 DEBUG AxisClient:77 - Enter: AxisClient::invoke
+2015-01-15 09:45:39 DEBUG AxisClient:90 - EngineHandler: null
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(axisUserAgent)
+2015-01-15 09:45:39 DEBUG SimpleChain:79 - Enter: SimpleChain::invoke
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(enter00)
+2015-01-15 09:45:39 DEBUG HTTPSender:125 - Enter:  HTTPSender::invoke
+2015-01-15 09:45:39 DEBUG SOAPPart:524 - Enter: SOAPPart::saveChanges
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'soapenv' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'soapenv' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'xsd' - 'http://www.w3.org/2001/XMLSchema'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register 'xsi' - 'http://www.w3.org/2001/XMLSchema-instance'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Envelope
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Body
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register '' - 'urn:RSATWS'
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element [urn:RSATWS]:matrix_scan
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:request
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:39 DEBUG SerializationContext:472 - register '' - ''
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:sequence
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element sequence
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:matrix
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:sequence_format
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element sequence_format
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:matrix_format
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix_format
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:n_treatment
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element n_treatment
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:pseudo
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element pseudo
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:organism
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element organism
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:background
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element background
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:markov
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element markov
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:background_pseudo
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element background_pseudo
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:return_fields
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element return_fields
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:uth
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element uth
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:str
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element str
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:verbosity
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element verbosity
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:origin
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element origin
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1098 - Start element []:decimals
+2015-01-15 09:45:39 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element decimals
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element request
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element matrix_scan
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element soapenv:Body
+2015-01-15 09:45:39 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:39 DEBUG SerializationContext:1208 - End element soapenv:Envelope
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:39 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setMsgForm)
+2015-01-15 09:45:39 DEBUG SOAPPart:374 - Setting current message form to: FORM_OPTIMIZED (currentMessage is now org.apache.axis.utils.ByteArray)
+2015-01-15 09:45:39 DEBUG SOAPPart:537 - Exit: SOAPPart::saveChanges(): org.apache.axis.utils.ByteArray@2145433b
+2015-01-15 09:45:39 DEBUG SOAPPart:524 - Enter: SOAPPart::saveChanges
+2015-01-15 09:45:39 DEBUG SOAPPart:524 - Enter: SOAPPart::saveChanges
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(createdHTTP00)
+2015-01-15 09:45:39 DEBUG DefaultSocketFactory:122 - Created an insecure HTTP connection
+2015-01-15 09:45:39 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(xmlSent00)
+2015-01-15 09:45:39 DEBUG HTTPSender:484 - XML sent:
+2015-01-15 09:45:39 DEBUG HTTPSender:485 - ---------------------------------------------------
+2015-01-15 09:45:39 DEBUG SOAPPart:524 - Enter: SOAPPart::saveChanges
+2015-01-15 09:45:39 DEBUG HTTPSender:519 - POST /rsat/web_services/RSATWS.cgi HTTP/1.0
+Content-Type: text/xml; charset=utf-8
+Accept: application/soap+xml, application/dime, multipart/related, text/*
+User-Agent: Axis/1.4
+Host: rsat.ulb.ac.be
+Cache-Control: no-cache
+Pragma: no-cache
+SOAPAction: ""
+Content-Length: 1737
+
+<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><matrix_scan xmlns="urn:RSATWS"><request xmlns=""><sequence>&gt;SNPAlteredSequence_rs1891215_C_chr1_7667794
+GCCAGCCTTGCTTTCCCAGAAGCCCTCAA</sequence><matrix>; MA0139.1 CTCF
+A|	0.09529025	0.18291347	0.30777657	0.061336253	0.008762322	0.8148959	0.04381161	0.11719605	0.932092	0.0054764515	0.36473164	0.059145674	0.013143483	0.061336253	0.11391018	0.40744796	0.0898138	0.12814896	0.4403067
+C|	0.31872946	0.15881708	0.05366922	0.8762322	0.9890471	0.014238773	0.57831323	0.4742607	0.012048192	0.0	0.0032858707	0.013143483	0.0	0.008762322	0.80284774	0.014238773	0.5279299	0.35268345	0.19824754
+G|	0.08324206	0.45345017	0.49178532	0.023001095	0.0	0.07119387	0.36582693	0.05257393	0.03504929	0.9890471	0.61993426	0.5520263	0.97480834	0.84884995	0.0054764515	0.55531216	0.33625412	0.07995619	0.2913472
+T|	0.50273824	0.20481928	0.1467689	0.03943045	0.0021905806	0.099671416	0.012048192	0.35487404	0.019715225	0.0032858707	0.009857613	0.37349397	0.008762322	0.07776561	0.07338445	0.018619934	0.04052574	0.43373495	0.06462213
+//
+</matrix><sequence_format>fasta</sequence_format><matrix_format>tab</matrix_format><n_treatment>score</n_treatment><pseudo>1</pseudo><organism>Homo_sapiens_ensembl_74_GRCh37</organism><background>upstream-noorf</background><markov>1</markov><background_pseudo>0.01</background_pseudo><return_fields>sites,pval,rank</return_fields><uth>pval 0.1</uth><str>2</str><verbosity>1</verbosity><origin>start</origin><decimals>1</decimals></request></matrix_scan></soapenv:Body></soapenv:Envelope>
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - HTTP/1.1 200 OK
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - Date Thu, 15 Jan 2015 06:08:11 GMT
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - Server Apache/2.2.15 (Linux/SUSE)
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - SOAPServer SOAP::Lite/Perl/1.11
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - Content-Length 3125
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - Connection close
+2015-01-15 09:45:41 DEBUG HTTPSender:627 - Content-Type text/xml; charset=utf-8
+2015-01-15 09:45:41 DEBUG SOAPPart:182 - Enter: SOAPPart ctor(FORM_INPUTSTREAM)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setMsgForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:374 - Setting current message form to: FORM_INPUTSTREAM (currentMessage is now org.apache.axis.transport.http.SocketInputStream)
+2015-01-15 09:45:41 DEBUG SOAPPart:188 - Exit: SOAPPart ctor()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(xmlRecd00)
+2015-01-15 09:45:41 DEBUG HTTPSender:794 - 
+XML received:
+2015-01-15 09:45:41 DEBUG HTTPSender:795 - -----------------------------------------------
+2015-01-15 09:45:41 DEBUG SOAPPart:661 - Enter: SOAPPart::getAsSOAPEnvelope()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(currForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:662 - current form is FORM_INPUTSTREAM
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.EnvelopeHandler@3b2cf7ab
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(soap, http://schemas.xmlsoap.org/soap/envelope/)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(soapenc, http://schemas.xmlsoap.org/soap/encoding/)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(xsd, http://www.w3.org/2001/XMLSchema)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(xsi, http://www.w3.org/2001/XMLSchema-instance)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(http://schemas.xmlsoap.org/soap/envelope/, Envelope)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.EnvelopeBuilder@45dd4eda
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element Envelope
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(http://schemas.xmlsoap.org/soap/envelope/, Body)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.BodyBuilder@fdefd3f
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.SOAPBody@11dc3715) named {soap}Body
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element Body
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(, urn:RSATWS)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(urn:RSATWS, matrix_scanResponse)
+2015-01-15 09:45:41 DEBUG BodyBuilder:109 - Enter: BodyBuilder::onStartChild()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.RPCElement@527e5409) named {}matrix_scanResponse
+2015-01-15 09:45:41 DEBUG BodyBuilder:222 - Exit: BodyBuilder::onStartChild()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.SOAPHandler@2aa3cd93
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element matrix_scanResponse
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(, )
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, response)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.SOAPHandler@27c86f2d
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.MessageElement@79ad8b2f) named {}response
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, server)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.SOAPHandler@6293abcc
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.MessageElement@f8c1ddd) named {}server
+2015-01-15 09:45:41 DEBUG MessageElement:242 -   xsi:type = 'xsd:string'
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element server
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, server)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.SOAPHandler@6293abcc
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, command)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.SOAPHandler@23529fee
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.MessageElement@184cf7cf) named {}command
+2015-01-15 09:45:41 DEBUG MessageElement:242 -   xsi:type = 'xsd:string'
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element command
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, command)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.SOAPHandler@23529fee
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, client)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.SOAPHandler@16e7dcfd
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(newElem00)
+2015-01-15 09:45:41 DEBUG MessageElement:239 - New MessageElement (org.apache.axis.message.MessageElement@11a9e7c8) named {}client
+2015-01-15 09:45:41 DEBUG MessageElement:242 -   xsi:type = 'xsd:string'
+2015-01-15 09:45:41 DEBUG DeserializationContext:765 - Pushing element client
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, client)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.SOAPHandler@16e7dcfd
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, response)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.SOAPHandler@27c86f2d
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.RPCElement:matrix_scanResponse
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(urn:RSATWS, matrix_scanResponse)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.SOAPHandler@2aa3cd93
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.SOAPBody:Body
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(http://schemas.xmlsoap.org/soap/envelope/, Body)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.BodyBuilder@fdefd3f
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.SOAPEnvelope:Envelope
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(http://schemas.xmlsoap.org/soap/envelope/, Envelope)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.EnvelopeBuilder@45dd4eda
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:41 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to null
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping(soap)
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping(soapenc)
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping(xsd)
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping(xsi)
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:858 - Enter: DeserializationContext::endDocument()
+2015-01-15 09:45:41 DEBUG DeserializationContext:866 - Exit: DeserializationContext::endDocument()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setMsgForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:374 - Setting current message form to: FORM_SOAPENVELOPE (currentMessage is now org.apache.axis.message.SOAPEnvelope)
+2015-01-15 09:45:41 DEBUG SOAPPart:724 - Exit: SOAPPart::getAsSOAPEnvelope
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'soap' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'soapenc' - 'http://schemas.xmlsoap.org/soap/encoding/'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'xsd' - 'http://www.w3.org/2001/XMLSchema'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'xsi' - 'http://www.w3.org/2001/XMLSchema-instance'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Envelope
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Body
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register '' - 'urn:RSATWS'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['urn:RSATWS' matrix_scanResponse]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [urn:RSATWS]:matrix_scanResponse
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register '' - ''
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' response]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:response
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' server]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:server
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['$RSAT/public_html/tmp/wwwrun/2015/01/15/.matrix-scan_2015-01-15.070811_iSHU0a.ft']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' server]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element server
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' command]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:command
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['bigre: $RSAT/perl-scripts/matrix-scan -i '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji' -m '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe' -seq_format 'fasta' -matrix_format 'tab' -n score -pseudo '1' -bgfile '$RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq' -bg_pseudo '0.01' -return 'sites,pval,rank' -uth 'pval' '0.1' -2str -v '1' -decimals '1'']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' command]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element command
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' client]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:client
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['; matrix-scan  -i $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji -m $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe -seq_format fasta -matrix_format tab -n score -pseudo 1 -bgfile $RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq -bg_pseudo 0.01 -return sites,pval,rank -uth pval 0.1 -2str -v 1 -decimals 1
+; Slow counting mode           ']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Input files
+;	input	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	bg	/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq
+; Matrix files']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	matrix 1	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe
+; Sequence format      	fasta']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Pseudo counts        	1
+; Background model']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Method        	file
+;	Markov order  	1']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Strand        	sensitive
+;	Background pseudo-frequency	0.01']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Residue probabilities
+;		a	0.25450']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;		c	0.23960
+;		g	0.24429']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;		t	0.26162
+; Thresholds	lower	upper']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	pval  	NA	0.1  
+; Output columns']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	seq_id
+;	2	ft_type']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	3	ft_name
+;	4	strand']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	5	start
+;	6	end']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	7	sequence
+;	8	weight']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight	Pval	ln_Pval	sig	rank	rank_pm
+;']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Matrices
+;	matrix	name                         	ncol	nrow	pseudo	Wmin	Wmax	Wrange']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	matrix-scan-matrix_2015-01-15	19	4	1	-11.000	11.300	22.300	a:0.254 c:0.240 g:0.244 t:0.262 
+; Number of sequences scanned	1']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Sum of sequence lengths	29
+; N residues           	0']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Matches per matrix
+;	matrix	name                         	matches	scored']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	matrix-scan-matrix_2015-01-15	0	22
+;		TOTAL          	0	22']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Host name	rsat
+; Job started	2015-01-15.070812']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Job done	2015-01-15.070813
+; Seconds	1.08']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	user	1.08
+;	system	0.01']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	cuser	0
+;	csystem	0']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' client]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element client
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' response]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element response
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['urn:RSATWS' matrix_scanResponse]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element matrix_scanResponse
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element soap:Body
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element soap:Envelope
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:41 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:41 DEBUG HTTPSender:796 - <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soap:Body><matrix_scanResponse xmlns="urn:RSATWS"><response xmlns=""><server xsi:type="xsd:string">$RSAT/public_html/tmp/wwwrun/2015/01/15/.matrix-scan_2015-01-15.070811_iSHU0a.ft</server><command xsi:type="xsd:string">bigre: $RSAT/perl-scripts/matrix-scan -i '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji' -m '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe' -seq_format 'fasta' -matrix_format 'tab' -n score -pseudo '1' -bgfile '$RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq' -bg_pseudo '0.01' -return 'sites,pval,rank' -uth 'pval' '0.1' -2str -v '1' -decimals '1'</command><client xsi:type="xsd:string">; matrix-scan  -i $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji -m $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe -seq_format fasta -matrix_format tab -n score -pseudo 1 -bgfile $RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq -bg_pseudo 0.01 -return sites,pval,rank -uth pval 0.1 -2str -v 1 -decimals 1
+; Slow counting mode           
+; Input files
+;	input	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji
+;	bg	/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq
+; Matrix files
+;	matrix 1	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe
+; Sequence format      	fasta
+; Pseudo counts        	1
+; Background model
+;	Method        	file
+;	Markov order  	1
+;	Strand        	sensitive
+;	Background pseudo-frequency	0.01
+;	Residue probabilities
+;		a	0.25450
+;		c	0.23960
+;		g	0.24429
+;		t	0.26162
+; Thresholds	lower	upper
+;	pval  	NA	0.1  
+; Output columns
+;	1	seq_id
+;	2	ft_type
+;	3	ft_name
+;	4	strand
+;	5	start
+;	6	end
+;	7	sequence
+;	8	weight
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight	Pval	ln_Pval	sig	rank	rank_pm
+;
+; Matrices
+;	matrix	name                         	ncol	nrow	pseudo	Wmin	Wmax	Wrange
+;	1	matrix-scan-matrix_2015-01-15	19	4	1	-11.000	11.300	22.300	a:0.254 c:0.240 g:0.244 t:0.262 
+; Number of sequences scanned	1
+; Sum of sequence lengths	29
+; N residues           	0
+; Matches per matrix
+;	matrix	name                         	matches	scored
+;	1	matrix-scan-matrix_2015-01-15	0	22
+;		TOTAL          	0	22
+; Host name	rsat
+; Job started	2015-01-15.070812
+; Job done	2015-01-15.070813
+; Seconds	1.08
+;	user	1.08
+;	system	0.01
+;	cuser	0
+;	csystem	0
+</client></response></matrix_scanResponse></soap:Body></soap:Envelope>
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(exit00)
+2015-01-15 09:45:41 DEBUG HTTPSender:157 - Exit:  HTTPDispatchHandler::invoke
+2015-01-15 09:45:41 DEBUG SimpleChain:86 - Exit: SimpleChain::invoke
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(semanticCheck00)
+2015-01-15 09:45:41 DEBUG MustUnderstandChecker:55 - Doing SOAP semantic checks...
+2015-01-15 09:45:41 DEBUG SOAPPart:661 - Enter: SOAPPart::getAsSOAPEnvelope()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(currForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:662 - current form is FORM_SOAPENVELOPE
+2015-01-15 09:45:41 DEBUG AxisClient:226 - Exit: AxisClient::invoke
+2015-01-15 09:45:41 DEBUG SOAPPart:661 - Enter: SOAPPart::getAsSOAPEnvelope()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(currForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:662 - current form is FORM_SOAPENVELOPE
+2015-01-15 09:45:41 DEBUG Call:2773 - Exit: Call::invoke()
+2015-01-15 09:45:41 DEBUG SOAPPart:661 - Enter: SOAPPart::getAsSOAPEnvelope()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(currForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:662 - current form is FORM_SOAPENVELOPE
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.EnvelopeHandler@4b0b0854
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(, urn:RSATWS)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(urn:RSATWS, matrix_scanResponse)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.message.RPCHandler@13e39c73
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:886 - Enter: DeserializationContext::startPrefixMapping(, )
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:925 - Exit: DeserializationContext::startPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, response)
+2015-01-15 09:45:41 DEBUG RPCHandler:125 - Enter: RPCHandler.onStartChild()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(typeFromAttr00)
+2015-01-15 09:45:41 DEBUG RPCHandler:169 - Type from attributes is:  null
+2015-01-15 09:45:41 DEBUG RPCHandler:303 - Exit: RPCHandler.onStartChild()
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.encoding.ser.BeanDeserializer@5c30a9b0
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, server)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, server)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value $RSAT/public_html/tmp/wwwrun/2015/01/15/.matrix-scan_2015-01-15.070811_iSHU0a.ft in target org.apache.axis.encoding.ser.BeanPropertyTarget@3d74bf60
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value $RSAT/public_html/tmp/wwwrun/2015/01/15/.matrix-scan_2015-01-15.070811_iSHU0a.ft in target org.apache.axis.encoding.CallbackTarget@2145b572
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, command)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, command)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value bigre: $RSAT/perl-scripts/matrix-scan -i '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji' -m '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe' -seq_format 'fasta' -matrix_format 'tab' -n score -pseudo '1' -bgfile '$RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq' -bg_pseudo '0.01' -return 'sites,pval,rank' -uth 'pval' '0.1' -2str -v '1' -decimals '1' in target org.apache.axis.encoding.ser.BeanPropertyTarget@3c407114
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value bigre: $RSAT/perl-scripts/matrix-scan -i '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji' -m '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe' -seq_format 'fasta' -matrix_format 'tab' -n score -pseudo '1' -bgfile '$RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq' -bg_pseudo '0.01' -return 'sites,pval,rank' -uth 'pval' '0.1' -2str -v '1' -decimals '1' in target org.apache.axis.encoding.CallbackTarget@130161f7
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1003 - Enter: DeserializationContext::startElement(, client)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(pushHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:796 - Pushing handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1067 - Exit: DeserializationContext::startElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, client)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.encoding.ser.SimpleDeserializer@6ca8564a
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value ; matrix-scan  -i $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji -m $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe -seq_format fasta -matrix_format tab -n score -pseudo 1 -bgfile $RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq -bg_pseudo 0.01 -return sites,pval,rank -uth pval 0.1 -2str -v 1 -decimals 1
+; Slow counting mode           
+; Input files
+;	input	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji
+;	bg	/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq
+; Matrix files
+;	matrix 1	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe
+; Sequence format      	fasta
+; Pseudo counts        	1
+; Background model
+;	Method        	file
+;	Markov order  	1
+;	Strand        	sensitive
+;	Background pseudo-frequency	0.01
+;	Residue probabilities
+;		a	0.25450
+;		c	0.23960
+;		g	0.24429
+;		t	0.26162
+; Thresholds	lower	upper
+;	pval  	NA	0.1  
+; Output columns
+;	1	seq_id
+;	2	ft_type
+;	3	ft_name
+;	4	strand
+;	5	start
+;	6	end
+;	7	sequence
+;	8	weight
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight	Pval	ln_Pval	sig	rank	rank_pm
+;
+; Matrices
+;	matrix	name                         	ncol	nrow	pseudo	Wmin	Wmax	Wrange
+;	1	matrix-scan-matrix_2015-01-15	19	4	1	-11.000	11.300	22.300	a:0.254 c:0.240 g:0.244 t:0.262 
+; Number of sequences scanned	1
+; Sum of sequence lengths	29
+; N residues           	0
+; Matches per matrix
+;	matrix	name                         	matches	scored
+;	1	matrix-scan-matrix_2015-01-15	0	22
+;		TOTAL          	0	22
+; Host name	rsat
+; Job started	2015-01-15.070812
+; Job done	2015-01-15.070813
+; Seconds	1.08
+;	user	1.08
+;	system	0.01
+;	cuser	0
+;	csystem	0
+ in target org.apache.axis.encoding.ser.BeanPropertyTarget@1ea9f6af
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value ; matrix-scan  -i $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji -m $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe -seq_format fasta -matrix_format tab -n score -pseudo 1 -bgfile $RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq -bg_pseudo 0.01 -return sites,pval,rank -uth pval 0.1 -2str -v 1 -decimals 1
+; Slow counting mode           
+; Input files
+;	input	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji
+;	bg	/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq
+; Matrix files
+;	matrix 1	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe
+; Sequence format      	fasta
+; Pseudo counts        	1
+; Background model
+;	Method        	file
+;	Markov order  	1
+;	Strand        	sensitive
+;	Background pseudo-frequency	0.01
+;	Residue probabilities
+;		a	0.25450
+;		c	0.23960
+;		g	0.24429
+;		t	0.26162
+; Thresholds	lower	upper
+;	pval  	NA	0.1  
+; Output columns
+;	1	seq_id
+;	2	ft_type
+;	3	ft_name
+;	4	strand
+;	5	start
+;	6	end
+;	7	sequence
+;	8	weight
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight	Pval	ln_Pval	sig	rank	rank_pm
+;
+; Matrices
+;	matrix	name                         	ncol	nrow	pseudo	Wmin	Wmax	Wrange
+;	1	matrix-scan-matrix_2015-01-15	19	4	1	-11.000	11.300	22.300	a:0.254 c:0.240 g:0.244 t:0.262 
+; Number of sequences scanned	1
+; Sum of sequence lengths	29
+; N residues           	0
+; Matches per matrix
+;	matrix	name                         	matches	scored
+;	1	matrix-scan-matrix_2015-01-15	0	22
+;		TOTAL          	0	22
+; Host name	rsat
+; Job started	2015-01-15.070812
+; Job done	2015-01-15.070813
+; Seconds	1.08
+;	user	1.08
+;	system	0.01
+;	cuser	0
+;	csystem	0
+ in target org.apache.axis.encoding.CallbackTarget@7193666c
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.MessageElement:response
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(, response)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.encoding.ser.BeanDeserializer@5c30a9b0
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setValueInTarget00)
+2015-01-15 09:45:41 DEBUG DeserializerImpl:251 - Set value RSATWS.MatrixScanResponse@e7a79a16 in target org.apache.axis.message.RPCParamTarget@55b7a4e0
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.RPCElement:matrix_scanResponse
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG DeserializationContext:933 - Enter: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:945 - Exit: DeserializationContext::endPrefixMapping()
+2015-01-15 09:45:41 DEBUG DeserializationContext:1078 - Enter: DeserializationContext::endElement(urn:RSATWS, matrix_scanResponse)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(popHandler00)
+2015-01-15 09:45:41 DEBUG DeserializationContext:829 - Popping handler org.apache.axis.message.RPCHandler@13e39c73
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setProp00)
+2015-01-15 09:45:41 DEBUG RPCHandler:317 - Setting MessageContext property in RPCHandler.endElement().
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:41 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:41 DEBUG DeserializationContext:1106 - Popped element stack to org.apache.axis.message.SOAPBody:Body
+2015-01-15 09:45:41 DEBUG DeserializationContext:1107 - Exit: DeserializationContext::endElement()
+2015-01-15 09:45:41 DEBUG Call:2594 - Exit: Call::invoke(RPCElement)
+2015-01-15 09:45:41 DEBUG Call:2369 - Exit: Call::invoke(ns, meth, args)
+2015-01-15 09:45:41 DEBUG TIME:1816 - axis.Call.invoke: 1740 {urn:RSATWS}matrix_scan
+2015-01-15 09:45:41 DEBUG SOAPPart:524 - Enter: SOAPPart::saveChanges
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'soap' - 'http://schemas.xmlsoap.org/soap/envelope/'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'soapenc' - 'http://schemas.xmlsoap.org/soap/encoding/'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'xsd' - 'http://www.w3.org/2001/XMLSchema'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register 'xsi' - 'http://www.w3.org/2001/XMLSchema-instance'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Envelope
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(headers00)
+2015-01-15 09:45:41 DEBUG SOAPHeader:318 - 0 headers
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [http://schemas.xmlsoap.org/soap/envelope/]:Body
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register '' - 'urn:RSATWS'
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['urn:RSATWS' matrix_scanResponse]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element [urn:RSATWS]:matrix_scanResponse
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(register00)
+2015-01-15 09:45:41 DEBUG SerializationContext:472 - register '' - ''
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' response]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:response
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' server]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:server
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['$RSAT/public_html/tmp/wwwrun/2015/01/15/.matrix-scan_2015-01-15.070811_iSHU0a.ft']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' server]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element server
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' command]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:command
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['bigre: $RSAT/perl-scripts/matrix-scan -i '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji' -m '$RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe' -seq_format 'fasta' -matrix_format 'tab' -n score -pseudo '1' -bgfile '$RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq' -bg_pseudo '0.01' -return 'sites,pval,rank' -uth 'pval' '0.1' -2str -v '1' -decimals '1'']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' command]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element command
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:94 - SAXOutputter.startElement ['' client]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(startElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1098 - Start element []:client
+2015-01-15 09:45:41 DEBUG NSStack:85 - NSPush (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['; matrix-scan  -i $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji -m $RSAT/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe -seq_format fasta -matrix_format tab -n score -pseudo 1 -bgfile $RSAT/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq -bg_pseudo 0.01 -return sites,pval,rank -uth pval 0.1 -2str -v 1 -decimals 1
+; Slow counting mode           ']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Input files
+;	input	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-sequence_2015-01-15.070811_s42Vji']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	bg	/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/2nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq
+; Matrix files']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	matrix 1	/home/rsat/rsat/public_html/tmp/wwwrun/2015/01/15/matrix-scan-matrix_2015-01-15.070811_8X6zSe
+; Sequence format      	fasta']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Pseudo counts        	1
+; Background model']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Method        	file
+;	Markov order  	1']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Strand        	sensitive
+;	Background pseudo-frequency	0.01']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	Residue probabilities
+;		a	0.25450']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;		c	0.23960
+;		g	0.24429']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;		t	0.26162
+; Thresholds	lower	upper']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	pval  	NA	0.1  
+; Output columns']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	seq_id
+;	2	ft_type']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	3	ft_name
+;	4	strand']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	5	start
+;	6	end']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	7	sequence
+;	8	weight']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight	Pval	ln_Pval	sig	rank	rank_pm
+;']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Matrices
+;	matrix	name                         	ncol	nrow	pseudo	Wmin	Wmax	Wrange']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	matrix-scan-matrix_2015-01-15	19	4	1	-11.000	11.300	22.300	a:0.254 c:0.240 g:0.244 t:0.262 
+; Number of sequences scanned	1']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Sum of sequence lengths	29
+; N residues           	0']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Matches per matrix
+;	matrix	name                         	matches	scored']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	1	matrix-scan-matrix_2015-01-15	0	22
+;		TOTAL          	0	22']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Host name	rsat
+; Job started	2015-01-15.070812']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+; Job done	2015-01-15.070813
+; Seconds	1.08']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	user	1.08
+;	system	0.01']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+;	cuser	0
+;	csystem	0']
+2015-01-15 09:45:41 DEBUG SAXOutputter:63 - SAXOutputter.characters ['
+']
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' client]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element client
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['' response]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element response
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG SAXOutputter:109 - SAXOutputter.endElement ['urn:RSATWS' matrix_scanResponse]
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element matrix_scanResponse
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element soap:Body
+2015-01-15 09:45:41 DEBUG NSStack:119 - NSPop (32)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(endElem00)
+2015-01-15 09:45:41 DEBUG SerializationContext:1208 - End element soap:Envelope
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(empty00)
+2015-01-15 09:45:41 DEBUG NSStack:113 - NSPop (empty)
+2015-01-15 09:45:41 DEBUG ProjectResourceBundle:72 - org.apache.axis.i18n.resource::handleGetObject(setMsgForm)
+2015-01-15 09:45:41 DEBUG SOAPPart:374 - Setting current message form to: FORM_OPTIMIZED (currentMessage is now org.apache.axis.utils.ByteArray)
+2015-01-15 09:45:41 DEBUG SOAPPart:537 - Exit: SOAPPart::saveChanges(): org.apache.axis.utils.ByteArray@7f0eb4b4

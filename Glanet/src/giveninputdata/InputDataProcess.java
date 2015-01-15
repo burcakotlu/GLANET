@@ -223,8 +223,9 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			bufferedWriter2.close();
 
-			// @todo check this
-			// Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			//T@todo check this
+			//Why it does not work in java from eclipse?
+			//Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE, assemblyName2RefSeqAssemblyIDMap);
