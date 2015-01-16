@@ -1,6 +1,7 @@
 *.pydevproject
 .txt
 .snap
+.log
 .DS_Store
 .metadata
 .gradle
