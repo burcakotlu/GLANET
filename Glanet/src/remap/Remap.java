@@ -152,7 +152,7 @@ public class Remap {
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
 //				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"");
-				process = runtime.exec("cmd /c perl \"" + remapFile + "\" " +  "--mode batches");
+				process = runtime.exec("perl \"" + remapFile + "\" " +  "--mode batches");
 //				process = runtime.exec(cmdarray);
 				
 				process.waitFor();

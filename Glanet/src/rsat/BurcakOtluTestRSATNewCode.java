@@ -131,7 +131,7 @@ public class BurcakOtluTestRSATNewCode {
 			MatrixScanResponse response = proxy.matrix_scan(matrixScanRequest);
 			
 			/*Get the result which will be a jobID*/
-			jobID = response.getClient();
+			jobID = response.getServer();
 	
 			/* prepare the parameters */
 		 	MonitorRequest monitorParameters = new MonitorRequest();
@@ -146,15 +146,25 @@ public class BurcakOtluTestRSATNewCode {
 			monitorResponse = proxy.monitor(monitorParameters);
 			
 			
-			 while (monitorResponse.getStatus() == "Done"){
+			 while (monitorResponse.getStatus() != "Done"){
 				 
-				 getResultResponse = proxy.get_result(getResultParameters);
-						 
-				/*Get the result*/
-				result = getResultResponse.getClient();
+				 monitorResponse = proxy.monitor(monitorParameters);
 				 
+				//Wait until it is done.
+				 System.out.println(monitorResponse.getStatus());
 				 		
 			 }// End of While
+			 
+			 if (monitorResponse.getStatus() == "Done"){
+				 
+				 getResultResponse = proxy.get_result(getResultParameters);
+				 
+				/*Get the result*/
+				result = getResultResponse.getClient();
+				
+				System.out.println(result);
+				 
+			 }
 			/***************************************************************************/
 			/************************NEW CODE ENDS**************************************/
 			/***************************************************************************/

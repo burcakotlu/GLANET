@@ -192,6 +192,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			CloseableHttpResponse response = httpclient.execute( post);
+		
 			HttpEntity entity = response.getEntity();
 
 			if (response.getEntity() != null) {
@@ -278,6 +279,11 @@ public class AugmentationofGivenRsIdwithInformation {
 							}// End of for Component
 
 						}// End of IF groupLabel startsWith "GRCh38"
+						
+						else{
+							//Declare rsIDs that does not map to any assembly
+							logger.error("rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+						}
 
 					}// End of for Assembly
 
@@ -310,6 +316,11 @@ public class AugmentationofGivenRsIdwithInformation {
 				}// End of catch
 
 			}// End of while
+			
+			if(rs==null){
+				//Declare no information is gathered for a rsID in the given commaSeparatedRsIdList
+				logger.error("No information is gathered for a rsID in the given commaSeparatedRsIdList");
+			}
 
 			reader.close();
 
@@ -385,6 +396,15 @@ public class AugmentationofGivenRsIdwithInformation {
 				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRsIdsSentInOneBatch - 1));
 
 			}
+			
+//			//debug for OCD GWAS SNPs delete starts
+//			//rs4730283 is merged to rs20556
+//			//rs4959515 does not map to any assembly
+//			//rs12560420 is merged to rs9555790
+//			if (commaSeparatedRsIdList.contains("rs4730283") || commaSeparatedRsIdList.contains("rs4959515")  || commaSeparatedRsIdList.contains("rs12560420")){
+//				System.out.println(commaSeparatedRsIdList + "Debug it.");
+//			}
+//			//Debug delete ends
 
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call starts *********/
