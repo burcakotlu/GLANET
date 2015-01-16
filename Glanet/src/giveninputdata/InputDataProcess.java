@@ -172,6 +172,7 @@ public class InputDataProcess {
 
 			}//End of FOR
 			
+			logger.error("******************************************************************************");
 			
 
 			numberofRsIdsGainedByMerge = 0;
@@ -245,7 +246,7 @@ public class InputDataProcess {
 
 			//T@todo check this
 			//Why it does not work in java from eclipse?
-			//Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE, assemblyName2RefSeqAssemblyIDMap);
