@@ -80,11 +80,7 @@ public class InputDataProcess {
 
 		int numberofLocisInRemapInputFile = 0;
 		
-		int numberofRsIdsLost = 0;
-		int numberofRsIdsGainedByMerge = 0;
-		
-		Integer numberofRsIdsDoesNotMapToAnyAssebmly = 0;
-		int numberofRsIdsWeMustHaveAfterNCBIEUTILs = 0;
+		int count =0;
 
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
@@ -137,10 +133,10 @@ public class InputDataProcess {
 				}// End of if not comment line
 			}// End of WHILE
 
-			logger.error("******************************************************************************");
-			logger.error("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
-			logger.error("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
-			logger.error("******************************************************************************");
+			logger.debug("******************************************************************************");
+			logger.debug("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			logger.debug("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
@@ -154,9 +150,7 @@ public class InputDataProcess {
 			/*********************************************************************/
 			/***************NCBI EUTIL ANALYSIS STARTS****************************/
 			/*********************************************************************/
-		
-			logger.error("******************************************************************************");
-			numberofRsIdsLost = 1;
+			count = 1;
 			for (int i = 0; i < rsIdList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsInformationList.size(); j++)
@@ -166,12 +160,11 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Lost: " + numberofRsIdsLost++  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
+					logger.debug("Count: " + count++  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
 			}//End of FOR
-			logger.error("******************************************************************************");
 			
 			
-			numberofRsIdsGainedByMerge = 1;
+			count = 1;
 			for (int i = 0; i < rsInformationList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsIdList.size(); j++)
@@ -181,26 +174,17 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Gained By Merge: " + numberofRsIdsGainedByMerge++  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
+					logger.debug("Count: " + count++  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
 			}//End of FOR
-			logger.error("******************************************************************************");
-			
 			/*********************************************************************/
-			/***************NCBI EUTIL ANALYSIS ENDS******************************/
+			/***************NCBI EUTIL ANALYSIS ENDS****************************/
 			/*********************************************************************/
 	
 			
-			logger.error("******************************************************************************");
-			numberofRsIdsLost--;
-			numberofRsIdsGainedByMerge--;
-			
-			logger.error("Number of rsIds  lost " + numberofRsIdsLost);
-			logger.error("Number of rsIds  gained " + numberofRsIdsGainedByMerge);
-			logger.error("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
-			numberofRsIdsWeMustHaveAfterNCBIEUTILs = numberofGivenUniqueRsIds - numberofRsIdsLost + numberofRsIdsDoesNotMapToAnyAssebmly + numberofRsIdsGainedByMerge ;
-			logger.error("We must have " + numberofRsIdsWeMustHaveAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
-			logger.error("We must lost " + (numberofGivenUniqueRsIds -numberofRsIdsWeMustHaveAfterNCBIEUTILs) + " rsIds during NCBI EUTL");
-			logger.error("******************************************************************************");
+			logger.debug("******************************************************************************");
+			logger.debug("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
+			logger.debug("We have lost " + (numberofGivenUniqueRsIds - rsInformationList.size()) + " rsIDs during NCBI EUTIL EFETCH");
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/******** GET rsInformation using NCBI EUTILS ends ********************/
 			/*********************************************************************/
@@ -227,9 +211,9 @@ public class InputDataProcess {
 
 			}// End of for
 
-			logger.error("******************************************************************************");
-			logger.error("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
-			logger.error("******************************************************************************");
+			logger.debug("******************************************************************************");
+			logger.debug("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
+			logger.debug("******************************************************************************");
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
@@ -239,9 +223,9 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			bufferedWriter2.close();
 
-			//@todo check this
+			//T@todo check this
 			//Why it does not work in java from eclipse?
-			Remap.remap_show_batches(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			//Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE, assemblyName2RefSeqAssemblyIDMap);
