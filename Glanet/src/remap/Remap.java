@@ -374,29 +374,31 @@ public class Remap {
 		Runtime runtime = Runtime.getRuntime();
 		Process process = null;
 			
-			try {
-				process = runtime.exec("perl \"" + remapFile + "\" --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation \"" + sourceFileName +  "\" --annot_out \""+  outputFileName + "\" --report_out \"" + reportFileName +   "\" --gbench_out \"" + genomeWorkbenchProjectFile + "\" --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-				
-				process.waitFor();
-				
-				//output of the perl execution is here
-				BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
-				String line;
-				
-				while ( ( line = bufferedReader.readLine()) != null){
-					logger.info(line);
-				}//End of while
-				
-				logger.info("\nExit status = " + process.exitValue());
-				
-				//Close
-				bufferedReader.close();
-				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}	
+		try {
+			process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			
+			process.waitFor();
+			
+			//output of the perl execution is here
+			BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
+			String line;
+			
+			while ( ( line = bufferedReader.readLine()) != null){
+				logger.info(line);
+			}//End of while
+			
+			logger.info("\nExit status = " + process.exitValue());
+			
+			//Close
+			bufferedReader.close();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
