@@ -81,7 +81,10 @@ public class InputDataProcess {
 		int numberofLocisInRemapInputFile = 0;
 		
 		int numberofRsIdsLost = 0;
-		int numberofRsIdsGained = 0;
+		int numberofRsIdsGainedByMerge = 0;
+		
+		Integer numberofRsIdsDoesNotMapToAnyAssebmly = 0;
+		int numberofRsIdsWeMustHaveAfterNCBIEUTILs = 0;
 
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
@@ -168,7 +171,7 @@ public class InputDataProcess {
 			logger.error("******************************************************************************");
 			
 			
-			numberofRsIdsGained = 1;
+			numberofRsIdsGainedByMerge = 1;
 			for (int i = 0; i < rsInformationList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsIdList.size(); j++)
@@ -178,7 +181,7 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Gained: " + numberofRsIdsGained++  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
+					logger.error("rsId Gained By Merge: " + numberofRsIdsGainedByMerge++  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
 			}//End of FOR
 			logger.error("******************************************************************************");
 			
@@ -188,8 +191,15 @@ public class InputDataProcess {
 	
 			
 			logger.error("******************************************************************************");
+			numberofRsIdsLost--;
+			numberofRsIdsGainedByMerge--;
+			
+			logger.error("Number of rsIds  lost " + numberofRsIdsLost);
+			logger.error("Number of rsIds  gained " + numberofRsIdsGainedByMerge);
 			logger.error("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
-			logger.error("We must have " + (numberofGivenUniqueRsIds - numberofRsIdsLost + numberofRsIdsGained) + " rsIDs after NCBI EUTIL");
+			numberofRsIdsWeMustHaveAfterNCBIEUTILs = numberofGivenUniqueRsIds - numberofRsIdsLost + numberofRsIdsDoesNotMapToAnyAssebmly + numberofRsIdsGainedByMerge ;
+			logger.error("We must have " + numberofRsIdsWeMustHaveAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
+			logger.error("We must lost " + (numberofGivenUniqueRsIds -numberofRsIdsWeMustHaveAfterNCBIEUTILs) + " rsIds during NCBI EUTL");
 			logger.error("******************************************************************************");
 			/*********************************************************************/
 			/******** GET rsInformation using NCBI EUTILS ends ********************/
