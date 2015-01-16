@@ -134,7 +134,7 @@ public class Remap {
 	}
 		
 	
-	public static void remap_show_batches(String dataFolder, String supportedAssembliesFileName){
+	public static void remap_show_batches( String dataFolder, String supportedAssembliesFileName){
 		
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator")  + "remap_api.pl";
 		Runtime runtime = Runtime.getRuntime();
@@ -144,18 +144,19 @@ public class Remap {
 		BufferedWriter bufferedWriter = null;
 		BufferedReader bufferedReader  = null;
 		String line;
-		String[] cmdarray = {"cmd /c","perl", remapFile, "--mode", "batches"};
 		
 			try {
 				
-				fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator"), supportedAssembliesFileName);
+				fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + supportedAssembliesFileName);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
-//				process = runtime.exec("perl "  + "\"" +  remapFile  + "\"");
-				process = runtime.exec("perl \"" + remapFile + "\" " +  "--mode batches");
-//				process = runtime.exec(cmdarray);
+				process = runtime.exec("perl \"" + remapFile + "\" --mode batches");
 				
-				process.waitFor();
+				try {
+				    Thread.sleep(5000);
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
 				
 				//Output of the perl execution is here
 				bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
@@ -173,15 +174,10 @@ public class Remap {
 				
 				logger.info("\nExit status = " + process.exitValue());
 				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				
-		
 	}
 	
 	
@@ -353,7 +349,6 @@ public class Remap {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -380,7 +375,7 @@ public class Remap {
 		Process process = null;
 			
 			try {
-				process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				process = runtime.exec("perl \"" + remapFile + "\" --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation \"" + sourceFileName +  "\" --annot_out \""+  outputFileName + "\" --report_out \"" + reportFileName +   "\" --gbench_out \"" + genomeWorkbenchProjectFile + "\" --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 				
 				process.waitFor();
 				
@@ -398,10 +393,8 @@ public class Remap {
 				bufferedReader.close();
 				
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 	}
@@ -410,7 +403,6 @@ public class Remap {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");

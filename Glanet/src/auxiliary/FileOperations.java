@@ -82,7 +82,7 @@ public class FileOperations {
 		return fileWriter;
 	}
 	
-	public static FileWriter createFileWriter(String path,boolean appendMode) throws IOException{
+	public static FileWriter createFileWriter(String path, boolean appendMode) throws IOException{
 		
 		File f = new File(path);
 		FileWriter fileWriter = null;
