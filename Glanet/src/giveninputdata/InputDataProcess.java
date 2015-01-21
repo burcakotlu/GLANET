@@ -309,7 +309,6 @@ public class InputDataProcess {
 			
 			Remap.convertOneGenomicLociPerLineUsingMap(
 					givenDataFolder,
-					Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE, 
 					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
 					lineNumber2SourceGenomicLociMap,
 					lineNumber2SourceInformationMap,

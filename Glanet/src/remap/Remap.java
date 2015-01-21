@@ -134,7 +134,7 @@ public class Remap {
 	}
 		
 	
-	public static void remap_show_batches( String dataFolder, String supportedAssembliesFileName){
+	public static void remap_show_batches(String dataFolder, String supportedAssembliesFileName){
 		
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator")  + "remap_api.pl";
 		Runtime runtime = Runtime.getRuntime();
@@ -428,35 +428,22 @@ public class Remap {
 	 */
 	public static void convertOneGenomicLociPerLineUsingMap(
 		String outputFolder, 
-		String oneGenomicLociPerLineInputFileInSourceAssembly,
 		String oneGenomicLociPerLineOutputFileInTargetAssembly,
 		TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 		TIntObjectMap<String> lineNumber2SourceInformationMap,
 		TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
 		String headerLine){
-		
-		//inputFile In Source Assembly
-		FileReader fileReader= null;
-		BufferedReader bufferedReader= null;
-		
+				
 		//outputFile In Target Assembly
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		
 		
 		String toBeRemapped = null;
 		String mapped = null;
 		String toBeRemappedInformation = null;
 		
 		try {
-			
-			File file = new File(outputFolder + oneGenomicLociPerLineInputFileInSourceAssembly);
-			
-			if (file.exists()){
-				
-				fileReader = FileOperations.createFileReader(outputFolder + oneGenomicLociPerLineInputFileInSourceAssembly);
-				bufferedReader = new BufferedReader(fileReader);
-				
+							
 				fileWriter = FileOperations.createFileWriter(outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
@@ -485,15 +472,9 @@ public class Remap {
 					}
 					
 				}//End of FOR
-				
-			
-				
+								
 				//CLOSE	
-				bufferedReader.close();
-				bufferedWriter.close();
-
-				
-			}//End of IF remapOutputFileUsingReport exists
+				bufferedWriter.close();		
 			
 			
 		} catch (FileNotFoundException e) {

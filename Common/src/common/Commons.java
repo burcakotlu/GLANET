@@ -61,7 +61,9 @@ public class Commons {
 	public static final String COMMA = ",";
 
 	// NCBI REMAP API PARAMETERS starts
+	public static final String GRCH38 = "GRCh38";
 	public static final String GRCH37_P13 = "GRCh37.p13";
+	
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE = "NCBI_REMAP_API_Supported_Assemblies.txt";
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
 
@@ -281,10 +283,10 @@ public class Commons {
 
 	
 	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19 = "Input_Data_Processed_0Based_Start_End_GRCh37_hg19_coordinates.txt";
-	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38 =  "Input_Data_Processed_0Based_Start_End_GRCh38_hg38_coordinates.txt";
+	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38 = "Input_Data_Processed_0Based_Start_End_GRCh38_hg38_coordinates.txt";
 	
-	public static final String REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh37_hg19_coordinates.txt";
-	public static final String REMOVED_OVERLAPS_INPUT_FILE_GRCh38_HG38 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh38_hg38_coordinates.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh37_hg19_coordinates.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38_HG38 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh38_hg38_coordinates.txt";
 
 	// FOR TESTING PURPOSES
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;
@@ -364,12 +366,21 @@ public class Commons {
 	/***************************************************************************************/
 	
 	
+	/***************************************************************************************/
+	/*****************REMAP 0Based 1Based  BED GFF3 GRCh38 case starts**********************/
+	/***************************************************************************************/
+	public static final String HEADER_LINE_FOR_COORDINATES_IN_LATEST_ASSEMBLY = "#Given Input Data Coordinates in 1Based Start End in GRCh37.p13 (Remapped from GRCh38 (hg38)).";
+	/***************************************************************************************/
+	/*****************REMAP 0Based 1Based  BED GFF3 GRCh38 case ends************************/
+	/***************************************************************************************/
+
+	
 	
 	/***************************************************************************************/
 	/***************************REMAP ALL TF Annotations case starts************************/
 	/***************************************************************************************/
 	// ONE BIG TF Annotation FILE for Regulatory Sequence Analysis
-	public static final String HEADER_LINE_FOR_ALL_TF_ANNOTATIONS_IN_LATEST_ASSEMBLY="#All TF Annotations in 1Based Start in Latest Assembly (Remapped from GRCh37_p13 (hg19)).";
+	public static final String HEADER_LINE_FOR_ALL_TF_ANNOTATIONS_IN_LATEST_ASSEMBLY="#All TF Annotations in 1Based Start End in Latest Assembly (Remapped from GRCh37_p13 (hg19)).";
 
 	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13 = "All_TF_Annotations_1Based_Start_End_GRCh37_p13.txt";
 	public static final String REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES = "All_TF_Annotations_RemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.txt";
