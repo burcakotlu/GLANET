@@ -30,7 +30,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
     public static void callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
 	    String dataFolder,
 	    String outputFolder,
-	    String all_TF_Annotations_File_1Based_Start_End_GRCh37_p13,
 	    TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 	    TIntObjectMap<String> lineNumber2SourceInformationMap,
 	    TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
@@ -73,7 +72,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	
 	Remap.convertTwoGenomicLociPerLineUsingMap(
 			forRSA_Folder,
-			Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13, 
 			Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38,
 			lineNumber2SourceGenomicLociMap,
 			lineNumber2SourceInformationMap,
@@ -275,7 +273,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
 			dataFolder,
 			outputFolder,
-			Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13,
 			lineNumber2SourceGenomicLociMap,
 			lineNumber2SourceInformationMap,
 			lineNumber2TargetGenomicLociMap,

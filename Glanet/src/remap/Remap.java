@@ -512,28 +512,17 @@ public class Remap {
 	 */
 	public static void convertTwoGenomicLociPerLineUsingMap(
 		String outputFolder,
-		String inputFileInSourceAssembly,
 		String outputFileInTargetAssembly,
 		TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 		TIntObjectMap<String> lineNumber2SourceInformationMap,
 		TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
 		String	headerLine){
 		
-		//inputFileInGRCh37p13
-		FileReader fileReader= null;
-		BufferedReader bufferedReader= null;
 		
-		//outputFileInGRCh38
+		//outputFileInTargetAssembly
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
-//		String strLine;
-//		int indexofFirstTab;
-//		int indexofSecondTab;
-//		int indexofThirdTab;
-//		int indexofFourthTab;
-//		int indexofFifthTab;
-//		int indexofSixthTab;
 		
 		String toBeRemapped1;
 		String toBeRemapped2;
@@ -544,14 +533,7 @@ public class Remap {
 		String information = null;
 		
 		try {
-			
-			File file = new File(outputFolder + inputFileInSourceAssembly);
-			
-			if (file.exists()){
-				
-				fileReader = FileOperations.createFileReader(outputFolder + inputFileInSourceAssembly);
-				bufferedReader = new BufferedReader(fileReader);
-				
+						
 				fileWriter = FileOperations.createFileWriter(outputFolder + outputFileInTargetAssembly);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
@@ -583,50 +565,10 @@ public class Remap {
 					
 				}//End of FOR
 				
-//				while((strLine = bufferedReader.readLine())!=null){
-//				    
-//				    //If Not Comment Line
-//					if(strLine.charAt(0)!=Commons.GLANET_COMMENT_CHARACTER){
-//						
-//					    //#This file contains all TF annotations in 1Based Start and End in GRCh37 p13 coordinates.
-//					    //chr1	11862778	11862778	chr1	11862637	11863020	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
-//						indexofFirstTab 	= strLine.indexOf('\t');
-//						indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
-//						indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
-//						indexofFourthTab 	= (indexofThirdTab>0)?strLine.indexOf('\t',indexofThirdTab+1):-1;
-//						indexofFifthTab 	= (indexofFourthTab>0)?strLine.indexOf('\t',indexofFourthTab+1):-1;
-//						indexofSixthTab 	= (indexofFifthTab>0)?strLine.indexOf('\t',indexofFifthTab+1):-1;
-//						
-//						after = strLine.substring(indexofSixthTab+1);
-//						
-//						toBeRemapped1 = strLine.substring(0, indexofThirdTab);
-//						toBeRemapped2 = strLine.substring(indexofThirdTab+1,indexofSixthTab);	
-//							
-//						
-//						
-//						if(mapped1!=null && mapped2!=null){
-//							bufferedWriter.write(mapped1 + "\t");
-//							bufferedWriter.write(mapped2 + "\t");
-//							bufferedWriter.write(after + System.getProperty("line.separator"));
-//						}else{
-//							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-//							logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1);
-//							logger.error("To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2);
-//							
-//						}
-//								
-//						
-//					}//End of IF
-//					
-//				}//End of WHILE
-				
-				//CLOSE	
-				bufferedReader.close();
-				bufferedWriter.close();
 
-				
-			}//End of IF remapOutputFileUsingReport exists
-			
+				//CLOSE	
+				bufferedWriter.close();
+	
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
