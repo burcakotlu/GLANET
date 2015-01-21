@@ -1,20 +1,11 @@
-/**
- * 
- */
 package enumtypes;
 
 import common.Commons;
 
-/**
- * @author Burçak Otlu
- * @date Nov 28, 2014
- * @project Common 
- *
- */
 public enum Assembly {
 	
-	PRIMARYASSEMBLY(1),
-	PATCHES(2);
+	GRCh37_HG19(1),
+	GRCh38_HG38(2);
 
 	private final int assembly;
 	
@@ -36,10 +27,10 @@ public enum Assembly {
     
     public static Assembly convertStringtoEnum(String assembly){
     	
-    	if (Commons.PRIMARYASSEMBLY.equals(assembly)){
-    		return PRIMARYASSEMBLY;
-    	}else if  (Commons.PATCHES.equals(assembly)){
-    		return PATCHES;
+    	if (Commons.GRCh37_HG19.equals(assembly)){
+    		return GRCh37_HG19;
+    	}else if  (Commons.GRCh38_HG38.equals(assembly)){
+    		return GRCh38_HG38;
     	}else     	
     		return null;
     }
@@ -47,15 +38,20 @@ public enum Assembly {
 	
  
 	 public String convertEnumtoString(){
-	 	if (this.equals(Assembly.PRIMARYASSEMBLY))
-	 		return Commons.PRIMARYASSEMBLY;
-	 	else if (this.equals(Assembly.PATCHES))	
-	 		return Commons.PATCHES; 	
+	 	if (this.equals(Assembly.GRCh37_HG19))
+	 		return Commons.GRCh37_HG19;
+	 	else if (this.equals(Assembly.GRCh38_HG38))	
+	 		return Commons.GRCh38_HG38; 	
 	 	else
 	 		return null;   		
 	 }
 	 
-	 public boolean isPrimaryAssembly(){
-		 return this == PRIMARYASSEMBLY;
+	 public boolean isAssemblyGRCH37_hg19(){
+		 return this == GRCh37_HG19;
 	 }
+	 
+	 public boolean isAssemblyGRCH38_hg38(){
+		 return this == GRCh38_HG38;
+	 }
+
 }

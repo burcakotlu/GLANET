@@ -5573,7 +5573,7 @@ public class Annotation {
 
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-
+		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator") ;
 		/*********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
@@ -5638,8 +5638,8 @@ public class Annotation {
 		/******************************************************************/
 
 		/*****************************************************************************************/
-		/************************* GIVEN INPUT DATA starts *****************************************/
-		inputFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		/************************* GIVEN INPUT DATA starts ***************************************/
+		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19;
 
 		List<FileWriter> fileWriterList = new ArrayList<FileWriter>();
 
@@ -5654,7 +5654,7 @@ public class Annotation {
 
 		// Close Buffered Writers
 		closeBufferedWriterList(fileWriterList, bufferedWriterList);
-		/************************* GIVEN INPUT DATA ends *******************************************/
+		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/
 
 		/*****************************************************************************************************/

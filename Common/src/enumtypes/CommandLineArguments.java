@@ -89,7 +89,7 @@ import common.Commons;
 public enum CommandLineArguments {
 	
 	InputFileNameWithFolder(0),
-	InputFileAssembly(1, Commons.INPUT_ASSEMBLY_HG_19),
+	InputFileAssembly(1, Commons.GRCh37_HG19),
 	GlanetFolder(2),
 	InputFileDataFormat(3),
 	NumberOfBasesRequiredForOverlap(4, Commons.NUMBER_BASES_DEFAULT),
@@ -118,7 +118,7 @@ public enum CommandLineArguments {
 	UserDefinedGeneSetDescriptionFile(27, Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED),
 	UserDefinedLibraryAnnotation(28, Commons.DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT),
 	UserDefinedLibraryInput(29, Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED),
-	UserDefinedLibraryDataFormat(30, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE),
+	UserDefinedLibraryDataFormat(30, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES),
 	GivenInputDataType(31,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
 	NumberOfArguments(32);
 	

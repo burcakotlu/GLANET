@@ -27,8 +27,10 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
+import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.GivenIntervalsInputFileDataFormat;
 import enumtypes.NodeType;
 
  
@@ -95,7 +97,10 @@ public class InputDataRemoveOverlaps {
 		
 		
 		String glanetFolder 	= args[CommandLineArguments.GlanetFolder.value()];	
-		
+		Assembly inputFileAssembly = Assembly.convertStringtoEnum(args[CommandLineArguments.InputFileAssembly.value()]);
+		GivenIntervalsInputFileDataFormat  inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
+		String inputFileName = null;
+
 		//jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
@@ -104,7 +109,29 @@ public class InputDataRemoveOverlaps {
 		//jobName ends
 	
 		String outputFolder 	= glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String inputFileName  	= outputFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19;
+		String givenDataFolder  = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
+		
+		switch(inputFileFormat) {
+		
+			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES: 
+			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES: 
+			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES: 
+				
+				switch (inputFileAssembly) {
+					case GRCh38_HG38:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38;;
+										break;
+					case GRCh37_HG19:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+										break;
+				}//End of SWITCH inputFileAssembly
+				break;
+			
+			case INPUT_FILE_FORMAT_DBSNP_IDS:  	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+												break;
+			
+		}//End of SWITCH inputFileFormat
+		
+		
 		
 		Map<ChromosomeName,IntervalTree> chromosome2IntervalTree = new HashMap<ChromosomeName,IntervalTree>();
 				
@@ -227,7 +254,7 @@ public class InputDataRemoveOverlaps {
 		
 		
 		//write to output file
-		FileWriter fileWriter;
+		FileWriter fileWriter= null;
 		BufferedWriter bufferedWriter;
 		
 		IntervalTree tree = null;
@@ -235,7 +262,28 @@ public class InputDataRemoveOverlaps {
 		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE);
+			
+			
+			switch(inputFileFormat) {
+			
+				case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES: 
+				case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES: 
+				case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+				case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES: 
+					
+					switch (inputFileAssembly) {
+						case GRCh38_HG38:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh38_HG38);;
+											break;
+						case GRCh37_HG19:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19);
+											break;
+					}//End of SWITCH inputFileAssembly
+					break;
+				
+				case INPUT_FILE_FORMAT_DBSNP_IDS:  	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19);
+													break;
+			
+			}//End of SWITCH inputFileFormat
+			
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			

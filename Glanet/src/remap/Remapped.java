@@ -3,7 +3,7 @@
  */
 package remap;
 
-import enumtypes.Assembly;
+import enumtypes.AssemblySource;
 import enumtypes.ChromosomeName;
 
 /**
@@ -18,7 +18,7 @@ public class Remapped {
 	int mappedStart;
 	int mappedEnd;
 	ChromosomeName mappedChrName;
-	Assembly mappedAssembly;
+	AssemblySource mappedAssembly;
 
 	
 	
@@ -47,17 +47,17 @@ public class Remapped {
 	public void setMappedChrName(ChromosomeName mappedChrName) {
 		this.mappedChrName = mappedChrName;
 	}
-	public Assembly getMappedAssembly() {
+	public AssemblySource getMappedAssembly() {
 		return mappedAssembly;
 	}
-	public void setMappedAssembly(Assembly mappedAssembly) {
+	public void setMappedAssembly(AssemblySource mappedAssembly) {
 		this.mappedAssembly = mappedAssembly;
 	}
 	
 	
 	
 	public Remapped(int mappedInt, int mappedStart, int mappedEnd,
-			ChromosomeName mappedChrName, Assembly mappedAssembly) {
+			ChromosomeName mappedChrName, AssemblySource mappedAssembly) {
 		super();
 		this.mappedInt = mappedInt;
 		this.mappedStart = mappedStart;

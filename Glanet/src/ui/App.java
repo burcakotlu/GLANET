@@ -150,7 +150,7 @@ public class App
 		for( int i = 0; i < args.length; i++){
 			if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FORMAT_1_BASED)) {
 				if( argsInOrder[CommandLineArguments.InputFileDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -158,7 +158,7 @@ public class App
 			}
 			else if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FORMAT_0_BASED)) {
 				if( argsInOrder[CommandLineArguments.InputFileDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -166,7 +166,7 @@ public class App
 			}
 			else if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FORMAT_BED)){
 				if( argsInOrder[CommandLineArguments.InputFileDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -174,7 +174,7 @@ public class App
 			}
 			else if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FORMAT_GFF)){
 				if( argsInOrder[CommandLineArguments.InputFileDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -191,7 +191,7 @@ public class App
 			if( args[i].equalsIgnoreCase(Commons.ARG_ASSEMBLY_FORMAT_HG_19)){
 				
 				if( argsInOrder[CommandLineArguments.InputFileAssembly.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.INPUT_ASSEMBLY_HG_19;
+					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCh37_HG19;
 				else {
 					
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
@@ -200,7 +200,7 @@ public class App
 			} else if( args[i].equalsIgnoreCase(Commons.ARG_ASSEMBLY_FORMAT_HG_38)){
 				
 				if( argsInOrder[CommandLineArguments.InputFileAssembly.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.INPUT_ASSEMBLY_HG_38;
+					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCh38_HG38;
 				else {
 					
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
@@ -435,7 +435,7 @@ public class App
 		for( int i = 0; i < args.length; i++) {
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE))
 				if( argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -443,7 +443,7 @@ public class App
 
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE))
 				if( argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDINCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -451,7 +451,7 @@ public class App
 
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE))
 				if( argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE;
+					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDEXCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -459,7 +459,7 @@ public class App
 
 			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE))
 				if( argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE;
+					argsInOrder[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDINCLUSIVE_COORDINATES;
 				else {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
 import common.Commons;
-import enumtypes.Assembly;
+import enumtypes.AssemblySource;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
@@ -153,7 +153,7 @@ public class Remap {
 				process = runtime.exec("perl \"" + remapFile + "\" --mode batches");
 				
 				try {
-				    Thread.sleep(5000);
+				    Thread.sleep(1000);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
@@ -162,7 +162,7 @@ public class Remap {
 				bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
 				
 				while ( ( line = bufferedReader.readLine()) != null){
-					logger.info(line);	
+					//logger.info(line);	
 					bufferedWriter.write(line + System.getProperty("line.separator"));
 				}//End of while
 				
@@ -172,7 +172,7 @@ public class Remap {
 				bufferedReader.close();
 				bufferedWriter.close();
 				
-				logger.info("\nExit status = " + process.exitValue());
+				logger.error("NCBI REMAP Show Batches Exit status = " + process.exitValue());
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -226,7 +226,7 @@ public class Remap {
 		
 		int mappedStart;
 		int mappedEnd;
-		Assembly mappedAssembly;
+		AssemblySource mappedAssembly;
 		
 		TIntObjectMap<Remapped> sourceLineNumber2RemappedMap = new TIntObjectHashMap<Remapped>();
 		
@@ -295,7 +295,7 @@ public class Remap {
 							mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
 							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
 							
-							mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+							mappedAssembly =  AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
 							
 							if ((sourceInt == 1) && 
 									(mappedInt == 1) &&
@@ -316,8 +316,8 @@ public class Remap {
 				//Set maximum line number to the last lineNumber
 				maximumLineNumber = lineNumber;
 				
-				logger.debug("******************************************************************************");
-				logger.debug("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
+				logger.error("******************************************************************************");
+				logger.error("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
 				
 				
 				//Write to the file
@@ -331,14 +331,14 @@ public class Remap {
 					}else{
 						bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
 						numberofUnConvertedGenomicLociInPrimaryAssembly++;
-						logger.debug("We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get(i));
+						logger.error("We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get(i));
 					}
 					
 				}//End of for
 				
-				logger.debug("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
-				logger.debug("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP"  );
-				logger.debug("******************************************************************************");
+				logger.error("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
+				logger.error("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP"  );
+				logger.error("******************************************************************************");
 
 				//close 
 				bufferedReader.close();
@@ -380,17 +380,17 @@ public class Remap {
 			process.waitFor();
 			
 			//output of the perl execution is here
-			BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
-			String line;
+			//BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
+			//String line;
 			
-			while ( ( line = bufferedReader.readLine()) != null){
-				logger.info(line);
-			}//End of while
+//			while ( ( line = bufferedReader.readLine()) != null){
+//				logger.info(line);
+//			}//End of while
 			
-			logger.info("\nExit status = " + process.exitValue());
+			logger.error("NCBI REMAP Exit status = " + process.exitValue());
 			
 			//Close
-			bufferedReader.close();
+			//bufferedReader.close();
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -422,11 +422,102 @@ public class Remap {
 	}
 	
 	
-	public static void convertUsingMap(
+	/*
+	 * InputFileSourceAssembly contains one genomic loci per line.
+	 * OutputFileTargetAssembly contains one genomic loci per line. 
+	 */
+	public static void convertOneGenomicLociPerLineUsingMap(
 		String outputFolder, 
-		String inputFileInGRCh37p13,
-		String outputFileInGRCh38,
-		Map<String,String> conversionMap){
+		String oneGenomicLociPerLineInputFileInSourceAssembly,
+		String oneGenomicLociPerLineOutputFileInTargetAssembly,
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+		TIntObjectMap<String> lineNumber2SourceInformationMap,
+		TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
+		String headerLine){
+		
+		//inputFile In Source Assembly
+		FileReader fileReader= null;
+		BufferedReader bufferedReader= null;
+		
+		//outputFile In Target Assembly
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		
+		String toBeRemapped = null;
+		String mapped = null;
+		String toBeRemappedInformation = null;
+		
+		try {
+			
+			File file = new File(outputFolder + oneGenomicLociPerLineInputFileInSourceAssembly);
+			
+			if (file.exists()){
+				
+				fileReader = FileOperations.createFileReader(outputFolder + oneGenomicLociPerLineInputFileInSourceAssembly);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				fileWriter = FileOperations.createFileWriter(outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly);
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				
+				//Header  line
+				bufferedWriter.write(headerLine + System.getProperty("line.separator"));
+				
+				for(int i = 1; i<= lineNumber2SourceGenomicLociMap.size(); i++){
+					
+					toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
+					mapped = lineNumber2TargetGenomicLociMap.get(i);
+
+					
+					if(mapped!=null){
+						bufferedWriter.write(mapped + System.getProperty("line.separator"));
+					}else{
+						if (lineNumber2SourceInformationMap!= null){
+							toBeRemappedInformation =lineNumber2SourceInformationMap.get(i); 
+							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.error("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						}else{
+							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.error("To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						}
+						
+					}
+					
+				}//End of FOR
+				
+			
+				
+				//CLOSE	
+				bufferedReader.close();
+				bufferedWriter.close();
+
+				
+			}//End of IF remapOutputFileUsingReport exists
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/*
+	 * InputFileSourceAssembly contains two genomic loci per line.
+	 */
+	public static void convertTwoGenomicLociPerLineUsingMap(
+		String outputFolder,
+		String inputFileInSourceAssembly,
+		String outputFileInTargetAssembly,
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+		TIntObjectMap<String> lineNumber2SourceInformationMap,
+		TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
+		String	headerLine){
 		
 		//inputFileInGRCh37p13
 		FileReader fileReader= null;
@@ -436,16 +527,13 @@ public class Remap {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
-		String strLine;
-		
-		int indexofFirstTab;
-		int indexofSecondTab;
-		int indexofThirdTab;
-		int indexofFourthTab;
-		int indexofFifthTab;
-		int indexofSixthTab;
-		
-		String after;
+//		String strLine;
+//		int indexofFirstTab;
+//		int indexofSecondTab;
+//		int indexofThirdTab;
+//		int indexofFourthTab;
+//		int indexofFifthTab;
+//		int indexofSixthTab;
 		
 		String toBeRemapped1;
 		String toBeRemapped2;
@@ -453,59 +541,84 @@ public class Remap {
 		String mapped1;
 		String mapped2;
 		
+		String information = null;
+		
 		try {
 			
-			File file = new File(outputFolder + inputFileInGRCh37p13);
+			File file = new File(outputFolder + inputFileInSourceAssembly);
 			
 			if (file.exists()){
 				
-				fileReader = FileOperations.createFileReader(outputFolder + inputFileInGRCh37p13);
+				fileReader = FileOperations.createFileReader(outputFolder + inputFileInSourceAssembly);
 				bufferedReader = new BufferedReader(fileReader);
 				
-				fileWriter = FileOperations.createFileWriter(outputFolder + outputFileInGRCh38);
+				fileWriter = FileOperations.createFileWriter(outputFolder + outputFileInTargetAssembly);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
 				
 				//Header  line
-				bufferedWriter.write("#This file contains all TF annotations in 1Based Start and End in GRCh38 coordinates" + System.getProperty("line.separator"));
+				bufferedWriter.write(headerLine + System.getProperty("line.separator"));
 				
-				while((strLine = bufferedReader.readLine())!=null){
-				    
-				    	//If Not Comment Line
-					if(strLine.charAt(0)!=Commons.GLANET_COMMENT_CHARACTER){
-						
-					    //#This file contains all TF annotations in 1Based Start and End in GRCh37 p13 coordinates.
-					    //chr1	11862778	11862778	chr1	11862637	11863020	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
-						indexofFirstTab 	= strLine.indexOf('\t');
-						indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
-						indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
-						indexofFourthTab 	= (indexofThirdTab>0)?strLine.indexOf('\t',indexofThirdTab+1):-1;
-						indexofFifthTab 	= (indexofFourthTab>0)?strLine.indexOf('\t',indexofFourthTab+1):-1;
-						indexofSixthTab 	= (indexofFifthTab>0)?strLine.indexOf('\t',indexofFifthTab+1):-1;
-						
-						after = strLine.substring(indexofSixthTab+1);
-						
-						toBeRemapped1 = strLine.substring(0, indexofThirdTab);
-						toBeRemapped2 = strLine.substring(indexofThirdTab+1,indexofSixthTab);	
-							
-						mapped1 = conversionMap.get(toBeRemapped1);
-						mapped2 = conversionMap.get(toBeRemapped2);
-						
-						if(mapped1!=null && mapped2!=null){
-							bufferedWriter.write(mapped1 + "\t");
-							bufferedWriter.write(mapped2 + "\t");
-							bufferedWriter.write(after + System.getProperty("line.separator"));
-						}else{
-							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-							logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1);
-							logger.error("To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2);
-							
-						}
-								
-						
-					}//End of IF
+				for(int i = 1; i<= lineNumber2SourceGenomicLociMap.size(); ){
 					
-				}//End of WHILE
+					toBeRemapped1 = lineNumber2SourceGenomicLociMap.get(i);
+					toBeRemapped2 = lineNumber2SourceGenomicLociMap.get(i+1);
+					
+					mapped1 = lineNumber2TargetGenomicLociMap.get(i);
+					mapped2 = lineNumber2TargetGenomicLociMap.get(i+1);
+					
+					information = lineNumber2SourceInformationMap.get(i);
+					
+					//Increase i by 2
+					//Since we have two genomic loci per line in original all TF Annotations File,.
+					i=i+2;
+
+					if(mapped1!=null && mapped2!=null){
+						bufferedWriter.write(mapped1 + "\t" + mapped2 + "\t" + information + System.getProperty("line.separator"));
+					}//End of IF: None of the mapped is null
+					else{
+						logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
+					}//End of ELSE: at least one of the mapped is  null
+					
+				}//End of FOR
+				
+//				while((strLine = bufferedReader.readLine())!=null){
+//				    
+//				    //If Not Comment Line
+//					if(strLine.charAt(0)!=Commons.GLANET_COMMENT_CHARACTER){
+//						
+//					    //#This file contains all TF annotations in 1Based Start and End in GRCh37 p13 coordinates.
+//					    //chr1	11862778	11862778	chr1	11862637	11863020	AP2ALPHA	HELAS3	spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
+//						indexofFirstTab 	= strLine.indexOf('\t');
+//						indexofSecondTab 	= (indexofFirstTab>0)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+//						indexofThirdTab 	= (indexofSecondTab>0)?strLine.indexOf('\t',indexofSecondTab+1):-1;
+//						indexofFourthTab 	= (indexofThirdTab>0)?strLine.indexOf('\t',indexofThirdTab+1):-1;
+//						indexofFifthTab 	= (indexofFourthTab>0)?strLine.indexOf('\t',indexofFourthTab+1):-1;
+//						indexofSixthTab 	= (indexofFifthTab>0)?strLine.indexOf('\t',indexofFifthTab+1):-1;
+//						
+//						after = strLine.substring(indexofSixthTab+1);
+//						
+//						toBeRemapped1 = strLine.substring(0, indexofThirdTab);
+//						toBeRemapped2 = strLine.substring(indexofThirdTab+1,indexofSixthTab);	
+//							
+//						
+//						
+//						if(mapped1!=null && mapped2!=null){
+//							bufferedWriter.write(mapped1 + "\t");
+//							bufferedWriter.write(mapped2 + "\t");
+//							bufferedWriter.write(after + System.getProperty("line.separator"));
+//						}else{
+//							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+//							logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1);
+//							logger.error("To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2);
+//							
+//						}
+//								
+//						
+//					}//End of IF
+//					
+//				}//End of WHILE
 				
 				//CLOSE	
 				bufferedReader.close();
@@ -529,7 +642,8 @@ public class Remap {
 	public static void fillConversionMap(
 		String outputFolder,  
 		String remapReportFile,
-		Map<String,String> conversionMap){
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+		TIntObjectMap<String> lineNumber2TargetGenomicLociMap){
 		
 		
 		FileReader fileReader = null;
@@ -555,7 +669,8 @@ public class Remap {
 		int indexofSixteenthTab;
 		int indexofSeventeenthTab;
 		
-	
+		int lineNumber;
+		
 		//source
 		int sourceInt;	
 		ChromosomeName sourceChrName;
@@ -568,7 +683,7 @@ public class Remap {
 		ChromosomeName mappedChrName;
 		int mappedStart;
 		int mappedEnd;
-		Assembly mappedAssembly;
+		AssemblySource mappedAssembly;
 		
 		//Read remapReportFile
 		//Using remapReportFile first fill chrName_start_end_in_one_assembly 2 chrName_start_end_in_another_assembly Map
@@ -591,7 +706,7 @@ public class Remap {
 					//line_122	1	NULL	chr14	NULL	1	NULL	93095256	93095256	+	NOMAP	NOALIGN						
 	
 					
-					if (!strLine.startsWith("#")){
+					if (strLine.charAt(0)!=(Commons.GLANET_COMMENT_CHARACTER)){
 						
 						indexofFirstTab 	= strLine.indexOf('\t');
 						indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) :-1 ;
@@ -603,13 +718,16 @@ public class Remap {
 						indexofEigthTab		= (indexofSeventhTab>0) ? strLine.indexOf('\t', indexofSeventhTab+1) :-1 ;
 						indexofNinethTab 	= (indexofEigthTab>0) ? strLine.indexOf('\t', indexofEigthTab+1) :-1 ;
 						indexofTenthTab 	= (indexofNinethTab>0) ? strLine.indexOf('\t', indexofNinethTab+1) :-1 ;
-						indexofEleventhTab 	= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
-						indexofTwelfthTab 	= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
+						indexofEleventhTab 		= (indexofTenthTab>0) ? strLine.indexOf('\t', indexofTenthTab+1) :-1 ;
+						indexofTwelfthTab 		= (indexofEleventhTab>0) ? strLine.indexOf('\t', indexofEleventhTab+1) :-1 ;
 						indexofThirteenthTab 	= (indexofTwelfthTab>0) ? strLine.indexOf('\t', indexofTwelfthTab+1) :-1 ;
 						indexofFourteenthTab 	= (indexofThirteenthTab>0) ? strLine.indexOf('\t', indexofThirteenthTab+1) :-1 ;
 						indexofFifteenthTab 	= (indexofFourteenthTab>0) ? strLine.indexOf('\t', indexofFourteenthTab+1) :-1 ;
 						indexofSixteenthTab 	= (indexofFifteenthTab>0) ? strLine.indexOf('\t', indexofFifteenthTab+1) :-1 ;
 						indexofSeventeenthTab 	= (indexofSixteenthTab>0) ? strLine.indexOf('\t', indexofSixteenthTab+1) :-1 ;
+						
+						
+						lineNumber = Integer.parseInt(strLine.substring(strLine.substring(0, indexofFirstTab).indexOf(Commons.UNDERSCORE)+1, indexofFirstTab));
 						
 						sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 						
@@ -628,14 +746,20 @@ public class Remap {
 							mappedStart = Integer.parseInt(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
 							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab));
 							
-							mappedAssembly =  Assembly.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
+							mappedAssembly =  AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
 							
 							if ((sourceInt == 1) && 
 									(mappedInt == 1) &&
 									sourceChrName == mappedChrName &&
 									mappedAssembly.isPrimaryAssembly()){
+								
+								lineNumber2TargetGenomicLociMap.put(lineNumber, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
+								
+								//check
+								if (!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + (sourceStart-1) + "\t" + sourceEnd)){
+									System.out.println(Commons.THERE_IS_A_SITUATION);
+								}
 																
-								conversionMap.put(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
 								
 							}//End of IF: Valid conversion
 						}//End of IF mappedInt is not NULL
@@ -646,9 +770,8 @@ public class Remap {
 				}//End of while
 				
 				//for debug purposes starts
-				logger.debug("number of lines in conversionMap: " + conversionMap.size() + " for file: " + remapReportFile);
+				logger.error("Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
 				//for debug purposes ends 
-				
 				
 				//close 
 				bufferedReader.close();

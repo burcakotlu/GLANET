@@ -103,7 +103,9 @@ public class BurcakOtluTestRSATNewCode {
 		RSATWSPortType proxy  = null;
 		MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
 		String result = null;
-		String jobID = null;
+		
+		String matrixScanResponseServerJobID = null;
+		String matrixScanResponseClientJobID = null;
 		
 		initializeMatrixScanParameters(matrixScanRequest);
 		
@@ -130,15 +132,36 @@ public class BurcakOtluTestRSATNewCode {
 			//Call Matrix Scan Service
 			MatrixScanResponse response = proxy.matrix_scan(matrixScanRequest);
 			
+			
+			/***************************************************************************/
+			/************************Matrix Scan Response Client Job ID STARTS**********/
+			/***************************************************************************/
+			//Olivier Sand: Can you just get a jobID with a MatrixScan client (with parameter output = ticket) and print it ?
+			matrixScanResponseClientJobID = response.getClient();
+			System.out.println("Matrix Scan Response Client Job ID: " + matrixScanResponseClientJobID);
+			/***************************************************************************/
+			/************************Matrix Scan Response Client Job ID ENDS************/
+			/***************************************************************************/
+			
+			
+			/***************************************************************************/
+			/************************Matrix Scan Response Server Job ID STARTS**********/
+			/***************************************************************************/
 			/*Get the result which will be a jobID*/
-			jobID = response.getServer();
+			matrixScanResponseServerJobID = response.getServer();		
+			System.out.println("Matrix Scan Response Server Job ID: " + matrixScanResponseServerJobID);
+			/***************************************************************************/
+			/************************Matrix Scan Response Server Job ID ENDS************/
+			/***************************************************************************/
+
 	
 			/* prepare the parameters */
 		 	MonitorRequest monitorParameters = new MonitorRequest();
 		 	GetResultRequest getResultParameters = new GetResultRequest();
 		 	
-		 	monitorParameters.setTicket(jobID);
-		 	getResultParameters.setTicket(jobID);
+		 	
+		 	monitorParameters.setTicket(matrixScanResponseServerJobID);
+		 	getResultParameters.setTicket(matrixScanResponseServerJobID);
 	
 		 	MonitorResponse monitorResponse = null;
 		 	GetResultResponse getResultResponse = null;
@@ -147,7 +170,7 @@ public class BurcakOtluTestRSATNewCode {
 			
 			
 			 while (monitorResponse.getStatus() != "Done"){
-				 
+				 		 
 				 monitorResponse = proxy.monitor(monitorParameters);
 				 
 				//Wait until it is done.

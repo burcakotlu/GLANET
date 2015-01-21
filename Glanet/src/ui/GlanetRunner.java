@@ -3,6 +3,7 @@ package ui;
 import enrichment.CollectionofPermutationsResults;
 import enrichment.Enrichment;
 import enumtypes.CommandLineArguments;
+import giveninputdata.InputDataNCBIRemap;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
@@ -49,6 +50,16 @@ public class GlanetRunner implements Runnable {
 			return;
 		InputDataRemoveOverlaps.main(args);
 		/************************ RemoveOverlaps ends ********************************************/
+		
+		/************************NCBI REMAP starts ***********************************************/
+		if (getMainView() != null)
+			getMainView().setCurrentProcessInfo("RemoveOverlaps...");
+
+		if (Thread.currentThread().isInterrupted())
+			return;
+		InputDataNCBIRemap.main(args);
+		/************************NCBI REMAP ends ***********************************************/
+
 
 		/************************ Annotation starts ***********************************************/
 		if (getMainView() != null)
@@ -91,20 +102,14 @@ public class GlanetRunner implements Runnable {
 			CollectionofPermutationsResults.main(args);
 			/******************* Collection of Permutations Results ends *********************/
 
-			/************
-			 * Augmentation of Enriched Elements with Given Input Data starts in
-			 * GRCh37.p13
-			 *****/
+			/************* Augmentation of Enriched Elements with Given Input Data starts in * GRCh37.p13*****/
 			if (getMainView() != null)
 				getMainView().setCurrentProcessInfo("Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");
 
 			if (Thread.currentThread().isInterrupted())
 				return;
 			AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main(args);
-			/************
-			 * Augmentation of Enriched Elements with Given Input Data ends in
-			 * GRCh37.p13
-			 *******/
+			/************* Augmentation of Enriched Elements with Given Input Data ends in* GRCh37.p13*******/
 
 		}
 		/****************************************************************************************/
@@ -140,7 +145,6 @@ public class GlanetRunner implements Runnable {
 
 				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
-				// AugmentationofEnrichmentInLatestAssemblyUsingNCBIREMAP.main(args);
 				/****************Generation of ALL TF Annotations in GRCh38 ends****************/
 				/************ Creation of NCBI REMAP Input files ends **************************/
 				/************************* CALL NCBI REMAP API ends ****************************/

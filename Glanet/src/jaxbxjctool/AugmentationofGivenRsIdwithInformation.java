@@ -25,7 +25,6 @@ import gov.nih.nlm.ncbi.snp.docsum.Rs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -140,7 +139,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	 * @param commaSeparatedRsIdList
 	 * @return
 	 */
-	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList,Integer numberofRsIdsDoesNotMapToAnyAssebmly) {
+	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList,NCBIEutilStatistics ncbiEutilStatistics) {
 
 		RsInformation rsInformation;
 		int numberofBasesInTheSNPAtMost = Integer.MIN_VALUE;
@@ -158,7 +157,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		XMLEventReader reader = null;
 		Rs rs = null;
 		
-		int temp;
+//		Field f;
 
 		try {
 
@@ -183,9 +182,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-												.setSocketTimeout(0)
-												.setConnectTimeout(0)
-												.setConnectionRequestTimeout(0)
+												.setSocketTimeout(60000)
+												.setConnectTimeout(60000)
+												.setConnectionRequestTimeout(60000)
 												.setStaleConnectionCheckEnabled(true)
 												.build();
 			
@@ -284,34 +283,12 @@ public class AugmentationofGivenRsIdwithInformation {
 						}// End of IF groupLabel startsWith "GRCh38"
 						
 						else{
-							
-							
-							Field f;
-							try {
-								
-								f = Integer.class.getDeclaredField("value");
-								f.setAccessible(true);
-								temp = f.getInt(numberofRsIdsDoesNotMapToAnyAssebmly);
-								f.setInt(numberofRsIdsDoesNotMapToAnyAssebmly, ++temp);
-								
-								//Declare rsIDs that does not map to any assembly
-								logger.error( "Numberof rsId does not map to any assembly: " + numberofRsIdsDoesNotMapToAnyAssebmly + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
-								
-								
-							} catch (NoSuchFieldException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (SecurityException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IllegalArgumentException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IllegalAccessException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
+											
+						ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly(ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly()+1);
+
+						//Declare rsIDs that does not map to any assembly
+						logger.error( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+									
 						}
 
 					}// End of for Assembly
@@ -346,9 +323,18 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			}// End of while
 			
-			if(rs==null){
+			if(rs==null){		
+					
+				ncbiEutilStatistics.setNumberofRsIDsDoesNotReturnAnyRs(ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs()+1);
+				
+//					f = Integer.class.getDeclaredField("value");
+//					f.setAccessible(true);
+//					temp = f.getInt(numberofRsIdsDoesNotReturnAnything);
+//					f.setInt(numberofRsIdsDoesNotReturnAnything, ++temp2);
+				
 				//Declare no information is gathered for a rsID in the given commaSeparatedRsIdList
-				logger.error("No information is gathered for a rsID in the given commaSeparatedRsIdList");
+				logger.error("rsId that does not return any rsID Count: " +  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");	
+				
 			}
 
 			reader.close();
@@ -369,7 +355,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	// 24 NOV 2014
 
 	// 24 NOV 2014 starts
-	public List<RsInformation> getInformationforGivenRsIdList(List<String> rsIdList, Integer numberofRsIdsDoesNotMapToAnyAssebmly) {
+	public List<RsInformation> getInformationforGivenRsIdList(List<String> rsIdList, NCBIEutilStatistics ncbiEutilStatistics) {
 
 		String commaSeparatedRsIdList = null;
 		List<RsInformation> rsInformationList = new ArrayList<RsInformation>();
@@ -441,7 +427,8 @@ public class AugmentationofGivenRsIdwithInformation {
 			// Send ready commaSeparatedRsIdList
 			// Get rsInformationList for commaSeparatedRsIdList
 			// Add gathered rsInformationList to the existing rsInformationList
-			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList,numberofRsIdsDoesNotMapToAnyAssebmly));
+			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList,ncbiEutilStatistics));
+		
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call ends ***********/
 			/**************************************************************/
@@ -509,9 +496,9 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				
 			RequestConfig defaultRequestConfig = RequestConfig.custom()
-													.setSocketTimeout(0)
-													.setConnectTimeout(0)
-													.setConnectionRequestTimeout(0)
+													.setSocketTimeout(60000)
+													.setConnectTimeout(60000)
+													.setConnectionRequestTimeout(60000)
 													.setStaleConnectionCheckEnabled(true)
 													.build();
 				
@@ -650,8 +637,9 @@ public class AugmentationofGivenRsIdwithInformation {
 	 */
 	public static void main(String[] args) {
 		
-		Integer numberofRsIdsDoesNotMapToAnyAssebmly = 0;
-
+		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0,0);
+		
+		
 		// String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
 		// RsInformation test = null;
@@ -677,7 +665,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			testRsidList.add("rs7534993"); // proper
 			testRsidList.add("rs6695488"); // proper
 
-			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(testRsidList, numberofRsIdsDoesNotMapToAnyAssebmly);
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(testRsidList,ncbiEutilStatistics);
 
 			// if (test != null) {
 			// GlanetRunner.appendLog(test.getRsId());

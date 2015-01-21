@@ -307,13 +307,13 @@ public class MainView extends JPanel {
 		inputBrowseAndOptionPane.add(createBrowseFileArea("Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
-		String[] inputFormat = { Commons.INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, Commons.INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, Commons.INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE, Commons.INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE };
+		String[] inputFormat = { Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
 
 		inputFormatCombo = new JComboBox<String>(inputFormat);
 		inputFormatCombo.addActionListener( enableInputAssemblyListener);
 		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", createPanelWithHint(inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
-		String[] assemblyFormat = { Commons.INPUT_ASSEMBLY_HG_19, Commons.INPUT_ASSEMBLY_HG_38 };
+		String[] assemblyFormat = { Commons.GRCh37_HG19, Commons.GRCh38_HG38 };
 		inputAssembly = new JComboBox<String>(assemblyFormat);
 		inputBrowseAndOptionPane.add(createBorderedPanel("Assembly", createPanelWithHint(inputAssembly, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
 
@@ -449,7 +449,7 @@ public class MainView extends JPanel {
 		userDefinedLibraryLowerPanel.add(createBrowseFileArea("User Defined Library Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
-		String[] udlDataFormat = { Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE, Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE, Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE };
+		String[] udlDataFormat = { Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDINCLUSIVE_COORDINATES, Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDINCLUSIVE_COORDINATES };
 
 		userDefinedLibraryDataFormatCombo = new JComboBox<String>(udlDataFormat);
 		userDefinedLibraryLowerPanel.add(createBorderedPanel("User Defined Library Data Format", createPanelWithHint(userDefinedLibraryDataFormatCombo, Commons.GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT)));
@@ -716,7 +716,7 @@ public class MainView extends JPanel {
 	public void enableInputAssembly() {
 		
 		
-		inputAssembly.setEnabled((inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE))?false:true);
+		inputAssembly.setEnabled((inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
 
 		revalidate();
 	}

@@ -736,7 +736,7 @@ public class FileOperations {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				
-				if (!strLine.startsWith(Commons.NULL)){
+				if (!strLine.startsWith(Commons.NULL) && strLine.charAt(0)!=Commons.GLANET_COMMENT_CHARACTER){
 					
 					indexofFirstTab = strLine.indexOf('\t');
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
@@ -756,9 +756,9 @@ public class FileOperations {
 				
 			}//End of While
 			
-			logger.debug("******************************************************************************");
-			logger.debug("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
-			logger.debug("******************************************************************************");
+			logger.error("******************************************************************************");
+			logger.error("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
+			logger.error("******************************************************************************");
 			
 			//Close bufferedReader and bufferedWriter
 			bufferedReader.close();

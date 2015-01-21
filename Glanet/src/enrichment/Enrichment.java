@@ -2478,7 +2478,8 @@ public class Enrichment {
 				
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty("file.separator") ;
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-				
+		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator") ;		
+		
 		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
 		//Number of processors can be used in deciding on paralellism level
@@ -2572,7 +2573,7 @@ public class Enrichment {
 		/*********************************************************************************************/			
 		/**************************READ ORIGINAL INPUT LINES STARTS***********************************/	
 		//SET the Input Data File
-		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;
+		String inputDataFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19;
 				
 		List<InputLine> originalInputLines = new ArrayList<InputLine>();
 		

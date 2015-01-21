@@ -1,5 +1,8 @@
 package giveninputdata;
 
+
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
+import jaxbxjctool.NCBIEutilStatistics;
 import jaxbxjctool.RsInformation;
 
 import org.apache.log4j.Logger;
@@ -22,7 +26,10 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.Assembly;
 import enumtypes.CommandLineArguments;
 import enumtypes.GivenIntervalsInputFileDataFormat;
 
@@ -59,8 +66,9 @@ public class InputDataProcess {
 	}
 
 	// eutil efetch returns 0-based coordinates for given dbSNP ids
-	public static void readDBSNPIDs(String dataFolder, String inputFileName, String outputFolder) {
-
+	public static void readDBSNPIDs(String dataFolder, String inputFileName, Assembly inputFileAssembly,String givenDataFolder) {
+		
+	
 		// read the file line by line
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -70,7 +78,7 @@ public class InputDataProcess {
 		FileWriter fileWriter2 = null;
 
 		BufferedWriter bufferedWriter = null;
-		BufferedWriter bufferedWriter2 = null;
+		BufferedWriter remapInputFileBufferedWriter = null;
 
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
@@ -80,10 +88,11 @@ public class InputDataProcess {
 		
 		int numberofRsIdsLost = 0;
 		int numberofRsIdsGainedByMerge = 0;
-		Integer numberofRsIdsDoesNotMapToAnyAssebmly = 0;
-		int numberofRsIdsWeMustHaveAfterNCBIEUTILs = 0;
+		
+		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0,0);
+		int numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = 0;
 
-		int numberofLocisInRemapInputFile = 0;
+		int numberofLocisInRemapInputFile = 1;
 		
 	
 		/**********************************************************/
@@ -103,7 +112,13 @@ public class InputDataProcess {
 		/********** NCBI REMAP PARAMETERS ends ********************/
 		/**********************************************************/
 		
-		Map<Integer,String> remapInputFileLineNumber2LineContentMap = new HashMap<Integer, String>();
+		String headerLine = Commons.HEADER_LINE_FOR_DBSNP_IDS_FROM_LATEST_ASSEMBLY_TO_GRCH37_P13;
+		
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap 	= new TIntObjectHashMap<String>();
+		TIntObjectMap<String> lineNumber2SourceInformationMap 	= new TIntObjectHashMap<String>();
+		TIntObjectMap<String> lineNumber2TargetGenomicLociMap 	= new TIntObjectHashMap<String>();
+		
+		
 		String remapInputFileLine = null;
 
 		try {
@@ -111,16 +126,16 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE);
+			fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
-			fileWriter2 = FileOperations.createFileWriter(outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE);
-			bufferedWriter2 = new BufferedWriter(fileWriter2);
+			fileWriter2 = FileOperations.createFileWriter(givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
+			remapInputFileBufferedWriter = new BufferedWriter(fileWriter2);
 
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 
 			/*********************************************************************/
-			/***************** READ GIVEN RSIDs INPUTFILE starts *******************/
+			/***************** READ GIVEN RSIDs INPUTFILE starts *****************/
 			/*********************************************************************/
 			while ((rsId = bufferedReader.readLine()) != null) {
 
@@ -129,7 +144,6 @@ public class InputDataProcess {
 
 					numberofGivenRsIds++;
 
-				
 					if (!rsIdList.contains(rsId)) {
 						numberofGivenUniqueRsIds++;
 						rsIdList.add(rsId);
@@ -137,10 +151,10 @@ public class InputDataProcess {
 				}// End of if not comment line
 			}// End of WHILE
 
-			logger.debug("******************************************************************************");
-			logger.debug("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
-			logger.debug("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
-			logger.debug("******************************************************************************");
+			logger.error("******************************************************************************");
+			logger.error("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			logger.error("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			logger.error("******************************************************************************");
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
@@ -148,14 +162,17 @@ public class InputDataProcess {
 			/*********************************************************************/
 			/******** GET rsInformation using NCBI EUTILS starts *****************/
 			/*********************************************************************/
-			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList,numberofRsIdsDoesNotMapToAnyAssebmly);
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList,ncbiEutilStatistics);
+			/*********************************************************************/
+			/******** GET rsInformation using NCBI EUTILS ends *******************/
+			/*********************************************************************/
 
 			
-			/*********************************************************************/
-			/***************NCBI EUTIL ANALYSIS STARTS****************************/
-			/*********************************************************************/
-
-		
+			
+			
+			/************************************************************************************/
+			/***************NCBI EUTIL EFETCH RESULTS ANALYSIS STARTS****************************/
+			/************************************************************************************/		
 			logger.error("******************************************************************************");
 			numberofRsIdsLost = 0;
 
@@ -168,7 +185,7 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Lost: " + ++numberofRsIdsLost  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
+					logger.error("rsId Lost Count: " + ++numberofRsIdsLost  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
 
 			}//End of FOR
 			
@@ -186,55 +203,61 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Gained By Merge: " + ++numberofRsIdsGainedByMerge  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
+					logger.error("rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
 
 			}//End of FOR
-			/*********************************************************************/
-			/***************NCBI EUTIL ANALYSIS ENDS****************************/
-			/*********************************************************************/
+			logger.error("******************************************************************************");
+			logger.error("We have " + rsIdList.size() +  " rsIds at hand before NCBI EUTIL EFETCH");
+			
+			logger.error("Number of given rsIds that are lost " + numberofRsIdsLost);
+			logger.error("Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
+			
+			logger.error("Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
+			logger.error("Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
+		
+			logger.error("We have " + rsInformationList.size() +  " rsIds remained after NCBI EUTIL EFETCH");
+			
+			numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = numberofRsIdsLost - ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() -  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() - numberofRsIdsGainedByMerge ;
+			
+			logger.error("We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
+			logger.error("******************************************************************************");
+			/************************************************************************************/
+			/***************NCBI EUTIL EFETCH RESULTS ANALYSIS ENDS******************************/
+			/************************************************************************************/		
 	
 			
-			logger.error("******************************************************************************");
+		
 			
-			logger.error("Number of rsIds  lost " + numberofRsIdsLost);
-			logger.error("Number of rsIds  gained " + numberofRsIdsGainedByMerge);
-			logger.error("Number of rsIds  does not map to any assembly " + numberofRsIdsDoesNotMapToAnyAssebmly);
 			
-			logger.error("Number of remaining rsIds after NCBI EUTIL EFETCH: " + rsInformationList.size());
-			numberofRsIdsWeMustHaveAfterNCBIEUTILs = numberofGivenUniqueRsIds - numberofRsIdsLost + numberofRsIdsDoesNotMapToAnyAssebmly + numberofRsIdsGainedByMerge ;
-			logger.error("We must have " + numberofRsIdsWeMustHaveAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
-			logger.error("We must lost " + (numberofGivenUniqueRsIds - numberofRsIdsWeMustHaveAfterNCBIEUTILs) + " rsIds during NCBI EUTL");
-			logger.error("******************************************************************************");
-
 			/*********************************************************************/
-			/******** GET rsInformation using NCBI EUTILS ends ********************/
-			/*********************************************************************/
-
-			/*********************************************************************/
-			/***************** WRITE TO REMAP INPUT FILE starts ********************/
+			/***************** WRITE TO REMAP INPUT FILE starts ******************/
 			/*********************************************************************/
 			for (RsInformation rsInformation : rsInformationList) {
 
 				if (rsInformation != null) {
 
 					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1);
-							
-					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
-					bufferedWriter2.write(remapInputFileLine + System.getProperty("line.separator"));
 					
-					remapInputFileLineNumber2LineContentMap.put(++numberofLocisInRemapInputFile,rsInformation.getRsId() + "\t" + remapInputFileLine);
-
+					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
+					remapInputFileBufferedWriter.write(remapInputFileLine + System.getProperty("line.separator"));
+					
+					lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,remapInputFileLine);
+					lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile,rsInformation.getRsId());
+					
+					numberofLocisInRemapInputFile++;
+					
 					if (!sourceAssemblyName.contains(rsInformation.getGroupLabel())) {
 						sourceAssemblyName = sourceAssemblyName + rsInformation.getGroupLabel();
 					}
-
 				}// End of IF rsInformation is not null
 
 			}// End of for
-
-			logger.debug("******************************************************************************");
-			logger.debug("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
-			logger.debug("******************************************************************************");
+			
+			numberofLocisInRemapInputFile--;
+			
+			logger.error("******************************************************************************");
+			logger.error("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
+			logger.error("******************************************************************************");
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
@@ -242,10 +265,8 @@ public class InputDataProcess {
 			// Close
 			bufferedReader.close();
 			bufferedWriter.close();
-			bufferedWriter2.close();
+			remapInputFileBufferedWriter.close();
 
-			//T@todo check this
-			//Why it does not work in java from eclipse?
 			Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
@@ -264,8 +285,7 @@ public class InputDataProcess {
 
 			// Could not find an alignment batch for your assembly pair: GRCh38
 			// x GRCh37.p13
-			// Please run "--mode batches" for a list of available assembly
-			// pairs.
+			// Please run "--mode batches" for a list of available assembly pairs.
 			// Remap.remap(dataFolder,"GRCh38", "GRCh37.p13", outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE,
 			// outputFolder +
@@ -273,21 +293,33 @@ public class InputDataProcess {
 			Remap.remap(dataFolder, 
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
-					outputFolder + Commons.REMAP_INPUTFILE_CHRNAME_0Based_START_END_Exclusive_NCBI_RETURNED_LATEST_ASSEMBLY_BED_FILE, 
-					outputFolder + Commons.REMAP_DUMMY_OUTPUTFILE_CHRNAME_0Based_START_END_Exclusive_HG19_BED_FILE, 
-					outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
-					outputFolder + Commons.GIVENINPUTDATA_REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+					givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE, 
+					givenDataFolder + Commons.REMAP_DUMMY_OUTPUT_FILE, 
+					givenDataFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
+					givenDataFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
 					merge, 
 					allowMultipleLocation, 
 					minimumRatioOfBasesThatMustBeRemapped, 
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-
-			Remap.createOutputFileUsingREMAPREPORTFile(remapInputFileLineNumber2LineContentMap,outputFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, outputFolder + Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT);
+			
+			Remap.fillConversionMap(givenDataFolder, 
+					Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
+					lineNumber2SourceGenomicLociMap,
+					lineNumber2TargetGenomicLociMap);
+			
+			Remap.convertOneGenomicLociPerLineUsingMap(
+					givenDataFolder,
+					Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE, 
+					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
+					lineNumber2SourceGenomicLociMap,
+					lineNumber2SourceInformationMap,
+					lineNumber2TargetGenomicLociMap,
+					headerLine);
 
 			
 			// Read from GRCh37.p13 (Hg19) bed file
-			// Write to usual processed input file
-			FileOperations.readFromBedFileWriteToGlanetFile(outputFolder, Commons.FINAL_REMAP_OUTPUTFILE_CHRNAME_1Based_START_END_HG19_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
+			// Write to usual processed input file in GRCh37_hg19 
+			FileOperations.readFromBedFileWriteToGlanetFile(givenDataFolder, Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -306,7 +338,7 @@ public class InputDataProcess {
 	// chromEnd is exclusive, fisrt 100 bases of a chromosome are defined as
 	// chromStart=0 chromEnd=100, and
 	// span the bases numbered 0-99.
-	public static void readBEDFile(String inputFileName, String outputFileFolder) {
+	public static void readBEDFile(String inputFileName,Assembly inputFileAssembly, String givenDataFolder) {
 
 		// read the file line by line
 		FileReader fileReader = null;
@@ -330,7 +362,13 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
+			switch (inputFileAssembly) {
+				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+													break;
+				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+													break;
+			}//End of SWITCH
+		
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -376,7 +414,7 @@ public class InputDataProcess {
 	// GFF3 format is 1-based, end is inclusive
 	// example GFF3 input line
 	// chrX experiment SNP 146993388 146993388 . - 0 cellType=HeLA
-	public static void readGFF3File(String inputFileName, String outputFileFolder) {
+	public static void readGFF3File(String inputFileName, Assembly inputFileAssembly,String givenDataFolder) {
 
 		// read the file line by line
 		FileReader fileReader = null;
@@ -403,7 +441,13 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
+			switch (inputFileAssembly) {
+				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+													break;
+				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+													break;
+			}//End of SWITCH
+			
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -455,7 +499,10 @@ public class InputDataProcess {
 	// 1 100
 	// chr1 100
 	// chr1 100 200
-	public static void readOneBasedCoordinates(String inputFileName, String outputFileFolder) {
+	public static void readOneBasedCoordinates(
+			String inputFileName, 
+			Assembly inputFileAssembly,
+			String givenDataFolder) {
 
 		int zeroBasedStart;
 		int zeroBasedInclusiveEnd;
@@ -487,7 +534,15 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
+			
+			switch (inputFileAssembly) {
+				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+													break;
+				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+													break;
+			}//End of SWITCH
+		
+			
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -592,12 +647,15 @@ public class InputDataProcess {
 		}
 	}
 
+	
+	
+	
 	// 0-based coordinates, start and end are inclusive.
 	// 1 100 200
 	// 1 100
 	// chr1 100
 	// chr1 100 200
-	public static void readZeroBasedCoordinates(String inputFileName, String outputFileFolder) {
+	public static void readZeroBasedCoordinates(String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
 
 		// read the file line by line
 		FileReader fileReader = null;
@@ -620,13 +678,20 @@ public class InputDataProcess {
 		String chrName = null;
 		int zeroBasedStart = 0;
 		int zeroBasedInclusiveEnd = 0;
-
+		
+		
 		try {
 
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(outputFileFolder + Commons.PROCESSED_INPUT_FILE_0Based_Start_Ends_HG19);
+			switch (inputFileAssembly) {
+				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+													break;
+				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+													break;
+			}//End of SWITCH
+			
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
@@ -717,50 +782,87 @@ public class InputDataProcess {
 					}
 
 					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
+											
+					
+					
 				}// End of if not comment line
 
 			}
 
+			//Close BufferedWriters
 			bufferedWriter.close();
 			bufferedReader.close();
-
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		
 	}
 
-	public static void processInputData(String[] args) {
+	
+	public static void remapInputFile(String remapInputFile_0Based_Start_EndExclusive_GRCh38_hg38, 
+			Assembly  sourceAssembly, 
+			String outputFile_0Based_Start_End_GRCh37_hg19, 
+			Assembly targetAssembly,
+			String outputFolder,
+			String dataFolder){
+		
+		//args must be augmented with latestNCBIAssemblyName
+		String sourceReferenceAssemblyID = "GCF_000001405.26";
+		String targetReferenceAssemblyID = "GCF_000001405.25";
+		String remapDirectory = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
+		
+		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
+		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
+		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
+		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
+		
+		
+		//String headerLine = "#Given InputFile Assembly is converted to GRCh37_hg19 coordinates.";
+		
+		Remap.remap(
+				dataFolder,
+				sourceReferenceAssemblyID, 
+				targetReferenceAssemblyID, 
+				remapInputFile_0Based_Start_EndExclusive_GRCh38_hg38 , 
+				remapDirectory + Commons.REMAP_DUMMY_OUTPUT_FILE,
+				remapDirectory + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+				remapDirectory + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,						
+				merge,
+				allowMultipleLocation,
+				minimumRatioOfBasesThatMustBeRemapped,
+				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
 
-		String inputFileName = args[CommandLineArguments.InputFileNameWithFolder.value()];
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
+		 
+		
+		
+	}
+	
+	public static void processInputData(
+			String inputFileName, 
+			GivenIntervalsInputFileDataFormat inputFileFormat, 
+			Assembly inputFileAssembly,
+			String givenDataFolder, 
+			String dataFolder) {
 
-		// jobName starts
-		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if (jobName.isEmpty()) {
-			jobName = Commons.NO_NAME;
-		}
-		// jobName ends
-
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-
+		
 		switch (inputFileFormat) {
-			case INPUT_FILE_FORMAT_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
-				readZeroBasedCoordinates(inputFileName, outputFolder);
+			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
+				readZeroBasedCoordinates(inputFileName, inputFileAssembly,givenDataFolder);
 				break;
-			case INPUT_FILE_FORMAT_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
-				readOneBasedCoordinates(inputFileName, outputFolder);
+			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
+				readOneBasedCoordinates(inputFileName,inputFileAssembly, givenDataFolder);
 				break;
-			case INPUT_FILE_FORMAT_DBSNP_IDS_0_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
-				readDBSNPIDs(dataFolder, inputFileName, outputFolder);
+			case INPUT_FILE_FORMAT_DBSNP_IDS:
+				readDBSNPIDs(dataFolder, inputFileName,inputFileAssembly, givenDataFolder);
 				break;
-			case INPUT_FILE_FORMAT_BED_0_BASED_COORDINATES_START_INCLUSIVE_END_EXCLUSIVE:
-				readBEDFile(inputFileName, outputFolder);
+			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+				readBEDFile(inputFileName,inputFileAssembly, givenDataFolder);
 				break;
-			case INPUT_FILE_FORMAT_GFF3_1_BASED_COORDINATES_START_INCLUSIVE_END_INCLUSIVE:
-				readGFF3File(inputFileName, outputFolder);
+			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
+				readGFF3File(inputFileName,inputFileAssembly, givenDataFolder);
 				break;
 
 		}// End of SWITCH
@@ -857,6 +959,7 @@ public class InputDataProcess {
 	public static void main(String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		Assembly inputFileAssembly = Assembly.convertStringtoEnum(args[CommandLineArguments.InputFileAssembly.value()]);
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
@@ -865,8 +968,16 @@ public class InputDataProcess {
 		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		
+		String inputFileName = args[CommandLineArguments.InputFileNameWithFolder.value()];
+		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
 
+
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+
+		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
+	
 		/********************************************************************/
 		/*********** delete old files starts **********************************/
 		String givenInputDataOutputBaseDirectoryName = outputFolder + Commons.GIVENINPUTDATA;
@@ -878,7 +989,7 @@ public class InputDataProcess {
 		// Read input data
 		// Process input data
 		// Write output data
-		processInputData(args);
+		processInputData(inputFileName,inputFileFormat, inputFileAssembly,givenDataFolder,dataFolder);
 	}
 
 }

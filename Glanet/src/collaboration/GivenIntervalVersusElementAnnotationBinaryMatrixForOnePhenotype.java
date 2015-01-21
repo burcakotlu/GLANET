@@ -31,7 +31,7 @@ import enumtypes.CommandLineArguments;
  */
 public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 	
-	public static void readGivenIntervals(Map<String,Short> givenIntervalName2ArrayXIndexMap, String[] givenIntervalNames,String outputFolder){
+	public static void readGivenIntervals(Map<String,Short> givenIntervalName2ArrayXIndexMap, String[] givenIntervalNames,String givenInputDataFolder){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -48,7 +48,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		short givenIntervalIndex = 0;
 		
 		try {
-			fileReader = FileOperations.createFileReader(outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE);
+			fileReader = FileOperations.createFileReader(givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_GRCh37_HG19);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while ((strLine = bufferedReader.readLine())!=null){
@@ -320,7 +320,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		
 		
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		
+		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator") ;
 		/****************************************************************************/
 		/*********** delete old files starts ****************************************/
 		String encodeCollaborationOutputBaseDirectoryName = outputFolder + Commons.ENCODE_COLLABORATION;
@@ -447,7 +447,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/***********************************************************************************************/
 		/***************************READ GIVEN INPUT starts*********************************************/
 		/***********************************************************************************************/		
-		readGivenIntervals(givenIntervalName2ArrayXIndexMap,givenIntervalNames,outputFolder);
+		readGivenIntervals(givenIntervalName2ArrayXIndexMap,givenIntervalNames,givenInputDataFolder);
 		/***********************************************************************************************/
 		/***************************READ GIVEN INPUT ends***********************************************/
 		/***********************************************************************************************/		
