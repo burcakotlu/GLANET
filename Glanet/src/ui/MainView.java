@@ -313,7 +313,7 @@ public class MainView extends JPanel {
 		inputFormatCombo.addActionListener( enableInputAssemblyListener);
 		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", createPanelWithHint(inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
-		String[] assemblyFormat = { Commons.GRCh37_HG19, Commons.GRCh38_HG38 };
+		String[] assemblyFormat = { Commons.GRCH37_P13, Commons.GRCH38 };
 		inputAssembly = new JComboBox<String>(assemblyFormat);
 		inputBrowseAndOptionPane.add(createBorderedPanel("Assembly", createPanelWithHint(inputAssembly, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
 

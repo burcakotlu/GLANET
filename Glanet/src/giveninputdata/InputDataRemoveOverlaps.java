@@ -119,14 +119,14 @@ public class InputDataRemoveOverlaps {
 			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES: 
 				
 				switch (inputFileAssembly) {
-					case GRCh38_HG38:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38;;
+					case GRCh38		:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38;
 										break;
-					case GRCh37_HG19:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+					case GRCh37_p13:	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 										break;
 				}//End of SWITCH inputFileAssembly
 				break;
 			
-			case INPUT_FILE_FORMAT_DBSNP_IDS:  	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+			case INPUT_FILE_FORMAT_DBSNP_IDS:  	inputFileName  	= givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 												break;
 			
 		}//End of SWITCH inputFileFormat
@@ -272,14 +272,14 @@ public class InputDataRemoveOverlaps {
 				case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES: 
 					
 					switch (inputFileAssembly) {
-						case GRCh38_HG38:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38_HG38);;
+						case GRCh38		:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38);
 											break;
-						case GRCh37_HG19:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+						case GRCh37_p13:	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 											break;
 					}//End of SWITCH inputFileAssembly
 					break;
 				
-				case INPUT_FILE_FORMAT_DBSNP_IDS:  	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+				case INPUT_FILE_FORMAT_DBSNP_IDS:  	fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 													break;
 			
 			}//End of SWITCH inputFileFormat

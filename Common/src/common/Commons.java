@@ -60,9 +60,6 @@ public class Commons {
 	public static final String RS = "rs";
 	public static final String COMMA = ",";
 
-	// NCBI REMAP API PARAMETERS starts
-	public static final String GRCH38 = "GRCh38";
-	public static final String GRCH37_P13 = "GRCh37.p13";
 	
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE = "NCBI_REMAP_API_Supported_Assemblies.txt";
 	public static final String NCBI_REMAP_API_SUPPORTED_ASSEMBLYNAME_2_REFSEQASSEMBLYID_FILE = "NCBI_REMAP_API_Supported_AssemblyName_2_RefSeqAssemblyID.txt";
@@ -276,17 +273,20 @@ public class Commons {
 	public static final String USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDEXCLUSIVE_COORDINATES = "1-based coordinates (End Exclusive)";
 	// USER DEFINED LIBRARY DATA FORMAT ends
 
-	public static final String GRCh37_HG19 = "GRCh37_hg19";
-	public static final String GRCh38_HG38 = "GRCh38_hg38";
+	//Assembly Starts
+	public static final String GRCH38 		= "GRCh38";
+	public static final String GRCH37_P13 	= "GRCh37.p13";
+	//Assembly Ends
+		
 	
 	public static final int NUMBER_OF_RSIDS_SENT_IN_ONE_BATCH = 100;
 
 	
-	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19 = "Input_Data_Processed_0Based_Start_End_GRCh37_hg19_coordinates.txt";
-	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38 = "Input_Data_Processed_0Based_Start_End_GRCh38_hg38_coordinates.txt";
+	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13 = "Input_Data_Processed_0Based_Start_End_GRCh37_p13_coordinates.txt";
+	public static final String PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38 = "Input_Data_Processed_0Based_Start_End_GRCh38_coordinates.txt";
 	
-	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh37_hg19_coordinates.txt";
-	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38_HG38 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh38_hg38_coordinates.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh37_p13_coordinates.txt";
+	public static final String REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38 = "Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh38_coordinates.txt";
 
 	// FOR TESTING PURPOSES
 	public static final String TEST_INPUT_FILE_BED_FORMAT = "";;

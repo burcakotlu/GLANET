@@ -4,8 +4,8 @@ import common.Commons;
 
 public enum Assembly {
 	
-	GRCh37_HG19(1),
-	GRCh38_HG38(2);
+	GRCh37_p13(1),
+	GRCh38(2);
 
 	private final int assembly;
 	
@@ -27,31 +27,29 @@ public enum Assembly {
     
     public static Assembly convertStringtoEnum(String assembly){
     	
-    	if (Commons.GRCh37_HG19.equals(assembly)){
-    		return GRCh37_HG19;
-    	}else if  (Commons.GRCh38_HG38.equals(assembly)){
-    		return GRCh38_HG38;
+    	if (Commons.GRCH37_P13.equals(assembly)){
+    		return GRCh37_p13;
+    	}else if  (Commons.GRCH38.equals(assembly)){
+    		return GRCh38;
     	}else     	
     		return null;
     }
 	
-	
- 
 	 public String convertEnumtoString(){
-	 	if (this.equals(Assembly.GRCh37_HG19))
-	 		return Commons.GRCh37_HG19;
-	 	else if (this.equals(Assembly.GRCh38_HG38))	
-	 		return Commons.GRCh38_HG38; 	
+	 	if (this.equals(Assembly.GRCh37_p13))
+	 		return Commons.GRCH37_P13;
+	 	else if (this.equals(Assembly.GRCh38))	
+	 		return Commons.GRCH38; 	
 	 	else
 	 		return null;   		
 	 }
 	 
-	 public boolean isAssemblyGRCH37_hg19(){
-		 return this == GRCh37_HG19;
+	 public boolean isAssemblyGRCh37_p13(){
+		 return this == GRCh37_p13;
 	 }
 	 
-	 public boolean isAssemblyGRCH38_hg38(){
-		 return this == GRCh38_HG38;
+	 public boolean isAssemblyGRCh38(){
+		 return this == GRCh38;
 	 }
 
 }

@@ -318,7 +318,7 @@ public class InputDataProcess {
 			
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file in GRCh37_hg19 
-			FileOperations.readFromBedFileWriteToGlanetFile(givenDataFolder, Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+			FileOperations.readFromBedFileWriteToGlanetFile(givenDataFolder, Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -362,9 +362,9 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader(fileReader);
 
 			switch (inputFileAssembly) {
-				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+				case GRCh38:		fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
 													break;
-				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+				case GRCh37_p13:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 													break;
 			}//End of SWITCH
 		
@@ -441,9 +441,9 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader(fileReader);
 
 			switch (inputFileAssembly) {
-				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+				case GRCh38:		fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
 													break;
-				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+				case GRCh37_p13:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 													break;
 			}//End of SWITCH
 			
@@ -535,9 +535,9 @@ public class InputDataProcess {
 
 			
 			switch (inputFileAssembly) {
-				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+				case GRCh38:		fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
 													break;
-				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+				case GRCh37_p13:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 													break;
 			}//End of SWITCH
 		
@@ -685,9 +685,9 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader(fileReader);
 
 			switch (inputFileAssembly) {
-				case GRCh38_HG38:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38_HG38);
+				case GRCh38:		fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
 													break;
-				case GRCh37_HG19:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+				case GRCh37_p13:	fileWriter = 	FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 													break;
 			}//End of SWITCH
 			

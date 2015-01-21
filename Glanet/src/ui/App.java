@@ -191,7 +191,7 @@ public class App
 			if( args[i].equalsIgnoreCase(Commons.ARG_ASSEMBLY_FORMAT_HG_19)){
 				
 				if( argsInOrder[CommandLineArguments.InputFileAssembly.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCh37_HG19;
+					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCH37_P13;
 				else {
 					
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
@@ -200,7 +200,7 @@ public class App
 			} else if( args[i].equalsIgnoreCase(Commons.ARG_ASSEMBLY_FORMAT_HG_38)){
 				
 				if( argsInOrder[CommandLineArguments.InputFileAssembly.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCh38_HG38;
+					argsInOrder[CommandLineArguments.InputFileAssembly.value()] = Commons.GRCH38;
 				else {
 					
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");

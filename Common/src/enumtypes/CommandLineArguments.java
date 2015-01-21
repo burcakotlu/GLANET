@@ -89,7 +89,7 @@ import common.Commons;
 public enum CommandLineArguments {
 	
 	InputFileNameWithFolder(0),
-	InputFileAssembly(1, Commons.GRCh37_HG19),
+	InputFileAssembly(1, Commons.GRCH37_P13),
 	GlanetFolder(2),
 	InputFileDataFormat(3),
 	NumberOfBasesRequiredForOverlap(4, Commons.NUMBER_BASES_DEFAULT),

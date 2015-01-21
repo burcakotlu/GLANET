@@ -5639,7 +5639,7 @@ public class Annotation {
 
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
-		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 
 		List<FileWriter> fileWriterList = new ArrayList<FileWriter>();
 

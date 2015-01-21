@@ -174,16 +174,16 @@ public class InputDataNCBIRemap {
 		String targetReferenceAssemblyID = null;
 
 		switch(sourceAssembly){
-			case GRCh37_HG19 :	sourceAssemblyName = Commons.GRCH37_P13;
+			case GRCh37_p13 :	sourceAssemblyName = Commons.GRCH37_P13;
 								break;
-			case GRCh38_HG38 :	sourceAssemblyName = Commons.GRCH38;
+			case GRCh38 :		sourceAssemblyName = Commons.GRCH38;
 								break; 
 		}//End of Switch
 		
 		switch(targetAssembly){
-			case GRCh37_HG19 :	targetAssemblyName = Commons.GRCH37_P13;
+			case GRCh37_p13 :	targetAssemblyName = Commons.GRCH37_P13;
 								break;
-			case GRCh38_HG38 :	targetAssemblyName = Commons.GRCH38;
+			case GRCh38		 :	targetAssemblyName = Commons.GRCH38;
 								break; 
 		}//End of Switch
 	
@@ -286,12 +286,12 @@ public class InputDataNCBIRemap {
 			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES: 
 				
 				switch (inputFileAssembly) {
-					case GRCh38_HG38:	inputFileName  	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38_HG38;
-										outputFileName 	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+					case GRCh38	:		inputFileName  	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38;
+										outputFileName 	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 										
-										convertGivenInputCoordibanedFromGRCh38toGRCh37p13UsingRemap(givenInputDataFolder,dataFolder,inputFileName,Assembly.GRCh38_HG38, outputFileName,Assembly.GRCh37_HG19);
+										convertGivenInputCoordibanedFromGRCh38toGRCh37p13UsingRemap(givenInputDataFolder,dataFolder,inputFileName,Assembly.GRCh38, outputFileName,Assembly.GRCh37_p13);
 										break;
-					case GRCh37_HG19:	
+					case GRCh37_p13:	
 										break;
 				}//End of SWITCH inputFileAssembly
 				break;

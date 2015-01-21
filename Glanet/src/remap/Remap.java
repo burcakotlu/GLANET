@@ -354,7 +354,11 @@ public class Remap {
 		
 	}
 	
-	
+	/*
+	 * Pay attention
+	 * Previous Report File must not be opened in Excel
+	 * Otherwise New Report File can not be updated
+	 */
 	public static void remap(
 			String dataFolder,
 			String sourceAssembly, 

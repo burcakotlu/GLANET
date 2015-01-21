@@ -48,7 +48,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		short givenIntervalIndex = 0;
 		
 		try {
-			fileReader = FileOperations.createFileReader(givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19);
+			fileReader = FileOperations.createFileReader(givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			while ((strLine = bufferedReader.readLine())!=null){

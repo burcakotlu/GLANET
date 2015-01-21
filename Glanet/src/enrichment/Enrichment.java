@@ -2573,7 +2573,7 @@ public class Enrichment {
 		/*********************************************************************************************/			
 		/**************************READ ORIGINAL INPUT LINES STARTS***********************************/	
 		//SET the Input Data File
-		String inputDataFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_HG19;
+		String inputDataFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 				
 		List<InputLine> originalInputLines = new ArrayList<InputLine>();
 		
