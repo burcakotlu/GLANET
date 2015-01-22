@@ -69,15 +69,19 @@ public class FileOperations {
 	//Can Firtina
 	public static FileWriter createFileWriter(String path) throws IOException{
 		
-		File f = new File(path);
-		FileWriter fileWriter = null;
+		File f = new File( path);
 		
-		if(f.isDirectory() && !f.exists())
+		FileWriter fileWriter = null;
+
+		if( f.isDirectory() && !f.exists())
 			f.mkdirs();
 		else if( !f.isDirectory() && !f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 		
-		fileWriter = new FileWriter(path);
+		if( !f.isDirectory() && f.exists())
+			f.delete();
+		
+		fileWriter = new FileWriter( f, false);
 		
 		return fileWriter;
 	}
@@ -92,19 +96,14 @@ public class FileOperations {
 		else if( !f.isDirectory() && !f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 		
-		fileWriter = new FileWriter(path,appendMode);
+		fileWriter = new FileWriter(path, appendMode);
 		
 		return fileWriter;
 	}
 	
 	public static FileWriter createFileWriter(String directoryName, String fileName) throws IOException{
-		//First check whether this directory is already created
-		File pathDirectory = new File(directoryName);
 		
-		//creates the directory named by this abstract pathname, including necessary and non-existent parent directories.
-		pathDirectory.mkdirs();
-		 		
-		return new FileWriter(directoryName+fileName);
+		return createFileWriter( directoryName+fileName);
 	}
 	
 	
