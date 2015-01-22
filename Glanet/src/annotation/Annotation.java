@@ -264,7 +264,7 @@ public class Annotation {
 		ChromosomeName chromName;
 
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = FileOperations.createFileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
 			while ((strLine = bufferedReader.readLine()) != null) {

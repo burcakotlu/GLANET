@@ -150,10 +150,9 @@ public class InputDataRemoveOverlaps {
 		IntervalTreeNode intervalTreeNode = null;
 		
 		try {
-			fileReader = new FileReader(inputFileName);
+			fileReader = FileOperations.createFileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
-				
 			while ((strLine = bufferedReader.readLine())!=null){
 				//example strLine
 				//chr12	90902	90902
