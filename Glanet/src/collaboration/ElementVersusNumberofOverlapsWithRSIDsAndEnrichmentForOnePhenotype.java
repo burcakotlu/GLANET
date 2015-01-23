@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import auxiliary.FileOperations;
+import auxiliary.GlanetDecimalFormat;
 import common.Commons;
 import enumtypes.CommandLineArguments;
 import enumtypes.MultipleTestingType;
@@ -801,7 +802,10 @@ public class ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype 
 		MultipleTestingType multipleTestingParameter,
 		List<ElementAnnotationEnrichment> augmentedElementList){
 		
-		DecimalFormat df = new DecimalFormat("0.######E0");
+
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
 		
 		FileWriter fileWriter = null;		
 		BufferedWriter bufferedWriter = null;

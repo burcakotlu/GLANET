@@ -61,9 +61,8 @@ import RSATWS.MonitorResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
-
+import auxiliary.GlanetDecimalFormat;
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
@@ -264,7 +263,10 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 		String sequence = null;
 		
-		DecimalFormat df = new DecimalFormat("0.######E0");
+
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
 		
 		
 		int countforResultLine = 0;
@@ -404,7 +406,10 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 		boolean isThereAPeakResultLineContainingSNPPosition = false;
 		
-		DecimalFormat df = new DecimalFormat("0.######E0");
+
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
 		
 
 		int indexofSharpinPeakResult = peakResult.indexOf('#');

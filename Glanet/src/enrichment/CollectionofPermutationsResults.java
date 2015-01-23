@@ -17,13 +17,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import multipletesting.BenjaminiandHochberg;
@@ -32,8 +30,11 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.keggpathway.KeggPathwayAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
@@ -55,16 +56,9 @@ public class CollectionofPermutationsResults {
 		BufferedWriter bufferedWriter = null;
 		FunctionalElement element = null;
 		
-		/*********************************************************************************/
-		//Let's try it starts
-		Locale loc = Locale.getDefault();
-
-		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(loc);
-		otherSymbols.setDecimalSeparator('.');
-		otherSymbols.setGroupingSeparator(','); 
-		DecimalFormat df = new DecimalFormat("0.######E0",otherSymbols);
-		//Let's try it ends
-		/*********************************************************************************/
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
 		
 		
 		/*********************************************************************************/

@@ -32,6 +32,7 @@ import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.commons.math3.util.FastMath;
 
+import auxiliary.GlanetDecimalFormat;
 import common.Commons;
 import enumtypes.CommandLineArguments;
 
@@ -211,8 +212,10 @@ public class CalculateBinomialDistributions {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
-//		DecimalFormat df = new DecimalFormat("#,###,##0.00000000000000000000");
-		DecimalFormat df = new DecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		
 		   
 		try {
 			fileWriter = new FileWriter(outputFileName);
@@ -242,9 +245,10 @@ public class CalculateBinomialDistributions {
 		
 		Double bonferroniCorrectedPValue;
 		
-//		DecimalFormat df = new DecimalFormat("#,###,##0.00000000000000000000");
-		DecimalFormat df = new DecimalFormat("0.######E0");
-		   
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		
 		try {
 			fileWriter = new FileWriter(outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -272,9 +276,11 @@ public class CalculateBinomialDistributions {
 	public void writeRawAll(List<FunctionalElement> dnaseCellLineNameList, String outputFileName){
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-//		DecimalFormat df = new DecimalFormat("#,###,##0.00000000000000000000");
-		DecimalFormat df = new DecimalFormat("0.######E0");
-		
+
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+				
 		   
 		try {
 			fileWriter = new FileWriter(outputFileName);
@@ -305,8 +311,10 @@ public class CalculateBinomialDistributions {
 		
 		Double bonferroniCorrectedPValue;
 		
-//		DecimalFormat df = new DecimalFormat("#,###,##0.00000000000000000000");
-		DecimalFormat df = new DecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
+		
 		
 		   
 		try {
