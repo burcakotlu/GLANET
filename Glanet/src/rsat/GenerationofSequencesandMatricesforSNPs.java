@@ -1399,23 +1399,13 @@ public static String takeComplementforeachAllele(String allele){
 						     
 						     if (rsInformation!=null){
 
-						    	 //@todo Here we can check whether this rsId is in the given input if the given input type is dbSNP IDs
+						    	 //@todo Here we can check whether this rsId is in the given input rsID list if the given input type is dbSNP IDs
+						    	 //Decision: I decided not to do such a check since searched rsID and returned rsID might be different because of merge situation
 						  
 						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
 						    	 validRsIdList.add(rsId);
 						    	 
-						    	 //debug starts sil
-								 if (validRsIdList.size()>1){
-									 
-									 logger.debug(givenSNPKey + "\t");
-									 
-									 for(String validRsID: validRsIdList){
-										 logger.debug("rs" + validRsID + "\t");;
-									 }
-									 
-									 logger.debug(System.getProperty("line.separator"));
-								 }
-								 //debug ends sil
+						    	
 						    	 
 						     }else{
 						    	 //Means that this is a merged rsID
@@ -1433,7 +1423,7 @@ public static String takeComplementforeachAllele(String allele){
 							 
 							 //debug starts sil
 							 if (validRsIdList.size()>0){
-								 logger.debug(givenSNPKey);
+								 logger.info(givenSNPKey);
 								 
 							 }
 							 //debug ends sil

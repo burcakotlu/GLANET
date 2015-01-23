@@ -232,7 +232,8 @@ public class InputDataNCBIRemap {
 				merge, 
 				allowMultipleLocation, 
 				minimumRatioOfBasesThatMustBeRemapped, 
-				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+				Commons.REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13);
 		
 		Remap.fillConversionMap(givenInputDataFolder, 
 				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 

@@ -172,7 +172,7 @@ public class Remap {
 				bufferedReader.close();
 				bufferedWriter.close();
 				
-				logger.error("NCBI REMAP Show Batches Exit status = " + process.exitValue());
+				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -316,8 +316,8 @@ public class Remap {
 				//Set maximum line number to the last lineNumber
 				maximumLineNumber = lineNumber;
 				
-				logger.error("******************************************************************************");
-				logger.error("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
+				logger.info("******************************************************************************");
+				logger.info("Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
 				
 				
 				//Write to the file
@@ -331,14 +331,14 @@ public class Remap {
 					}else{
 						bufferedWriter.write(Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty("line.separator"));
 						numberofUnConvertedGenomicLociInPrimaryAssembly++;
-						logger.error("We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get(i));
+						logger.warn("We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get(i));
 					}
 					
 				}//End of for
 				
-				logger.error("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
-				logger.error("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP"  );
-				logger.error("******************************************************************************");
+				logger.info("Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly );
+				logger.info("We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP"  );
+				logger.info("******************************************************************************");
 
 				//close 
 				bufferedReader.close();
@@ -370,7 +370,8 @@ public class Remap {
 			String merge,
 			String allowMultipleLocation,
 			double minimumRatioOfBasesThatMustBeRemapped,
-			double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength){
+			double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+			String information){
 					
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator")  + "remap_api.pl";
 		
@@ -391,7 +392,7 @@ public class Remap {
 //				logger.info(line);
 //			}//End of while
 			
-			logger.error("NCBI REMAP Exit status = " + process.exitValue());
+			logger.info("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
 			
 			//Close
 			//bufferedReader.close();
@@ -466,11 +467,11 @@ public class Remap {
 					}else{
 						if (lineNumber2SourceInformationMap!= null){
 							toBeRemappedInformation =lineNumber2SourceInformationMap.get(i); 
-							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-							logger.error("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.warn("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						}else{
-							logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-							logger.error("To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.warn("To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						}
 						
 					}
@@ -544,8 +545,8 @@ public class Remap {
 						bufferedWriter.write(mapped1 + "\t" + mapped2 + "\t" + information + System.getProperty("line.separator"));
 					}//End of IF: None of the mapped is null
 					else{
-						logger.error("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						logger.error("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
+						logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						logger.warn("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
 					}//End of ELSE: at least one of the mapped is  null
 					
 				}//End of FOR
@@ -697,7 +698,7 @@ public class Remap {
 				}//End of while
 				
 				//for debug purposes starts
-				logger.error("Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
+				logger.info("Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
 				//for debug purposes ends 
 				
 				//close 

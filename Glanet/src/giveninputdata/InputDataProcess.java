@@ -150,10 +150,10 @@ public class InputDataProcess {
 				}// End of if not comment line
 			}// End of WHILE
 
-			logger.error("******************************************************************************");
-			logger.error("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
-			logger.error("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
-			logger.error("******************************************************************************");
+			logger.info("******************************************************************************");
+			logger.info("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			logger.info("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			logger.info("******************************************************************************");
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
@@ -172,7 +172,7 @@ public class InputDataProcess {
 			/************************************************************************************/
 			/***************NCBI EUTIL EFETCH RESULTS ANALYSIS STARTS****************************/
 			/************************************************************************************/		
-			logger.error("******************************************************************************");
+			logger.info("******************************************************************************");
 			numberofRsIdsLost = 0;
 
 			for (int i = 0; i < rsIdList.size(); i++) {
@@ -184,11 +184,11 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Lost Count: " + ++numberofRsIdsLost  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
+					logger.info("rsId Lost Count: " + ++numberofRsIdsLost  + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
 
 			}//End of FOR
 			
-			logger.error("******************************************************************************");
+			logger.info("******************************************************************************");
 			
 
 			numberofRsIdsGainedByMerge = 0;
@@ -202,24 +202,24 @@ public class InputDataProcess {
 					}
 
 				if (!check)
-					logger.error("rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
+					logger.info("rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge  + " NCBI EUTIL returned rsID: " + rsInformationList.get(i).getRsId() + " Not found in the given rsIDList");
 
 			}//End of FOR
-			logger.error("******************************************************************************");
-			logger.error("We have " + rsIdList.size() +  " rsIds at hand before NCBI EUTIL EFETCH");
+			logger.info("******************************************************************************");
+			logger.info("We have " + rsIdList.size() +  " rsIds at hand before NCBI EUTIL EFETCH");
 			
-			logger.error("Number of given rsIds that are lost " + numberofRsIdsLost);
-			logger.error("Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
+			logger.info("Number of given rsIds that are lost " + numberofRsIdsLost);
+			logger.info("Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
 			
-			logger.error("Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
-			logger.error("Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
+			logger.info("Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
+			logger.info("Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
 		
-			logger.error("We have " + rsInformationList.size() +  " rsIds remained after NCBI EUTIL EFETCH");
+			logger.info("We have " + rsInformationList.size() +  " rsIds remained after NCBI EUTIL EFETCH");
 			
 			numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = numberofRsIdsLost - ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() -  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() - numberofRsIdsGainedByMerge ;
 			
-			logger.error("We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
-			logger.error("******************************************************************************");
+			logger.info("We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
+			logger.info("******************************************************************************");
 			/************************************************************************************/
 			/***************NCBI EUTIL EFETCH RESULTS ANALYSIS ENDS******************************/
 			/************************************************************************************/		
@@ -254,9 +254,9 @@ public class InputDataProcess {
 			
 			numberofLocisInRemapInputFile--;
 			
-			logger.error("******************************************************************************");
-			logger.error("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
-			logger.error("******************************************************************************");
+			logger.info("******************************************************************************");
+			logger.info("Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
+			logger.info("******************************************************************************");
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
@@ -303,7 +303,8 @@ public class InputDataProcess {
 					merge, 
 					allowMultipleLocation, 
 					minimumRatioOfBasesThatMustBeRemapped, 
-					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+					Commons.REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13);
 			
 			Remap.fillConversionMap(givenDataFolder, 
 					Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
@@ -804,43 +805,7 @@ public class InputDataProcess {
 	}
 
 	
-	public static void remapInputFile(String remapInputFile_0Based_Start_EndExclusive_GRCh38_hg38, 
-			Assembly  sourceAssembly, 
-			String outputFile_0Based_Start_End_GRCh37_hg19, 
-			Assembly targetAssembly,
-			String outputFolder,
-			String dataFolder){
-		
-		//args must be augmented with latestNCBIAssemblyName
-		String sourceReferenceAssemblyID = "GCF_000001405.26";
-		String targetReferenceAssemblyID = "GCF_000001405.25";
-		String remapDirectory = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
-		
-		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
-		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
-		double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
-		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
-		
-		
-		//String headerLine = "#Given InputFile Assembly is converted to GRCh37_hg19 coordinates.";
-		
-		Remap.remap(
-				dataFolder,
-				sourceReferenceAssemblyID, 
-				targetReferenceAssemblyID, 
-				remapInputFile_0Based_Start_EndExclusive_GRCh38_hg38 , 
-				remapDirectory + Commons.REMAP_DUMMY_OUTPUT_FILE,
-				remapDirectory + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				remapDirectory + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,						
-				merge,
-				allowMultipleLocation,
-				minimumRatioOfBasesThatMustBeRemapped,
-				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
-
-		 
-		
-		
-	}
+	
 	
 	public static void processInputData(
 			String inputFileName, 

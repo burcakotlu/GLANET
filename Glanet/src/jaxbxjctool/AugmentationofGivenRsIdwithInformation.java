@@ -287,7 +287,7 @@ public class AugmentationofGivenRsIdwithInformation {
 						ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly(ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly()+1);
 
 						//Declare rsIDs that does not map to any assembly
-						logger.error( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+						logger.info( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
 									
 						}
 
@@ -311,7 +311,7 @@ public class AugmentationofGivenRsIdwithInformation {
 						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID + 1, indexofCommaAfterProblemRSID);
 					}
 
-					logger.error(e.toString() + " for " + problemRsId);
+					logger.info(e.toString() + " for " + problemRsId);
 
 					problemRsInformation = getInformationforGivenRsId(problemRsId);
 
@@ -333,7 +333,7 @@ public class AugmentationofGivenRsIdwithInformation {
 //					f.setInt(numberofRsIdsDoesNotReturnAnything, ++temp2);
 				
 				//Declare no information is gathered for a rsID in the given commaSeparatedRsIdList
-				logger.error("rsId that does not return any rsID Count: " +  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");	
+				logger.info("rsId that does not return any rsID Count: " +  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");	
 				
 			}
 

@@ -755,9 +755,9 @@ public class FileOperations {
 				
 			}//End of While
 			
-			logger.error("******************************************************************************");
-			logger.error("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
-			logger.error("******************************************************************************");
+			logger.info("******************************************************************************");
+			logger.info("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
+			logger.info("******************************************************************************");
 			
 			//Close bufferedReader and bufferedWriter
 			bufferedReader.close();

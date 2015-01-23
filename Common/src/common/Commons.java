@@ -340,6 +340,9 @@ public class Commons {
 	
 	public static final String THERE_IS_A_SITUATION = "There is a situation.";
 	
+	public static final String REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13 = "REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13";
+	public static final String REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13 = "REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13";
+	public static final String REMAP_ALL_TF_ANNOTATIONS_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS = "REMAP_ALL_TF_ANNOTATIONS_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS";
 	
 	/*************************************************************************************/
 	/********************** REMAP OUTPUT FILE starts *************************************/

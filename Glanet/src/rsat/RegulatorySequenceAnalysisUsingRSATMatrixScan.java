@@ -1112,7 +1112,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	         				//what is enrichedElement
 	         				//what is given interval name
 	         				//what is snp
-	         				logger.debug("RSAT MatrixScan " +  matrixScanNumber++ +" for " + eachSNPDirectory.getPath());
+	         				logger.info("RSAT MatrixScan " +  matrixScanNumber++ +" for " + eachSNPDirectory.getPath());
 	         				matrixScan(eachSNPDirectory.getName(),tfName2TFPfmMatricesFileMap,snpReferenceSequenceFile,snpAlteredSequenceFileList,tfName2TfExtendedPeakSequenceFileMap,proxy,matrixScanRequest,bufferedWriter, snpReferenceSequence2RSATResultMap, snpAlteredSequence2RSATResultMap, tfExtendedPeakSequence2RSATResultMap);
 		         			
 	         			}//End of IF RSAT matrix scan
@@ -1230,10 +1230,10 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/***************************************************************************************************/
 				/*****************Regulatory Sequence Analysis for All TF Annotations starts************************/
 				/***************************************************************************************************/
-				logger.debug("RSAT starts for TF");
+				logger.info("RSAT starts for TF");
 				matrixScan(outputFolder,forRSASNPTFSequencesMatricesDirectory,bufferedWriterTF);
 				bufferedWriterTF.close();
-				logger.debug("RSAT ends for TF");
+				logger.info("RSAT ends for TF");
 				/***************************************************************************************************/
 				/*****************Regulatory Sequence Analysis for All TF Annotations ends**************************/
 				/***************************************************************************************************/
