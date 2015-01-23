@@ -94,7 +94,6 @@ public class InputDataProcess {
 
 		int numberofLocisInRemapInputFile = 1;
 		
-	
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
 		/**********************************************************/
@@ -272,9 +271,13 @@ public class InputDataProcess {
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE, assemblyName2RefSeqAssemblyIDMap);
 
-			// sourceReferenceAssemblyID = "GCF_000001405.26";
-			sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(sourceAssemblyName);
-
+			if(!sourceAssemblyName.equals(Commons.EMPTY_STRING)){
+				// sourceReferenceAssemblyID = "GCF_000001405.26";
+				sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(sourceAssemblyName);
+			}else{
+				logger.error(Commons.THERE_IS_A_SITUATION + " sourceAssemblyName is " + sourceAssemblyName);
+			}
+			
 			// targetReferenceAssemblyID = "GCF_000001405.25";
 			targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(targetAssemblyName);
 

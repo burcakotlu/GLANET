@@ -17,11 +17,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import multipletesting.BenjaminiandHochberg;
@@ -52,7 +54,17 @@ public class CollectionofPermutationsResults {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		FunctionalElement element = null;
-		DecimalFormat df = new DecimalFormat("0.######E0");
+		
+		/*********************************************************************************/
+		//Let's try it starts
+		Locale loc = Locale.getDefault();
+
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(loc);
+		otherSymbols.setDecimalSeparator('.');
+		otherSymbols.setGroupingSeparator(','); 
+		DecimalFormat df = new DecimalFormat("0.######E0",otherSymbols);
+		//Let's try it ends
+		/*********************************************************************************/
 		
 		
 		/*********************************************************************************/

@@ -47,13 +47,7 @@ public class RandomDataGenerator {
 		int count;
 		int counterThreshold;
 		
-		//for logging purposes
-//		FileWriter fileWriter;
-//		BufferedWriter bufferedWriter =null;
-		
-//		DecimalFormat df = new DecimalFormat("#.######");
-	      
-		
+	
 		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
 			
 					
