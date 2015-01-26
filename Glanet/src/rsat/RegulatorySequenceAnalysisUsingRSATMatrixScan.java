@@ -274,8 +274,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		Result result = new Result();
 	
 		indexofSharpinSNPResult = snpResult.indexOf('#');
-		indexofNewLineinSNPResult = snpResult.indexOf('\n',indexofSharpinSNPResult+1);
-		indexofNextNewLineinSNPResult = snpResult.indexOf('\n',indexofNewLineinSNPResult+1);
+		indexofNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1),indexofSharpinSNPResult+1);
+		indexofNextNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinSNPResult+1);
 					
 		
 		do{
@@ -331,7 +331,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 							
 			//in case of next snpResult fetch
 			indexofNewLineinSNPResult = indexofNextNewLineinSNPResult;
-			indexofNextNewLineinSNPResult = snpResult.indexOf('\n', indexofNewLineinSNPResult+1);
+			indexofNextNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1), indexofNewLineinSNPResult+1);
 			
 			
 		} while(!constainsSNP(start,end,Commons.ONE_BASED_SNP_POSITION));
@@ -413,9 +413,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 
 		int indexofSharpinPeakResult = peakResult.indexOf('#');
-		int indexofNewLineinPeakResult = peakResult.indexOf('\n',indexofSharpinPeakResult+1);
-		int indexofNextNewLineinPeakResult = peakResult.indexOf('\n',indexofNewLineinPeakResult+1);
-		
+		int indexofNewLineinPeakResult = peakResult.indexOf(System.getProperty("line.separator").charAt(1),indexofSharpinPeakResult+1);
+		int indexofNextNewLineinPeakResult = peakResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinPeakResult+1);
 		
 		String peakResultLine = peakResult.substring(indexofNewLineinPeakResult+1,indexofNextNewLineinPeakResult);
 		String  bestPeakResultLine = null;
@@ -465,22 +464,24 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 				
 			bufferedWriter.write(countforPeakResultLine + ". Peak Extended Sequence Result Line" +  "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
-		}
+		}//End of ELSE: There is at least one Peak Result Line
 		
+		
+		peakResultLine = bestPeakResultLine;
 		//if best snp result line and best peak result line are not null
-		if(bestSNPResultLine!=null && bestPeakResultLine!=null){
+		if(bestSNPResultLine!=null && peakResultLine!=null){
 			
-			while(!(isThereAPeakResultLineContainingSNPPosition = peakResultLineContainsSNPPosition(bestSNPResultLine,bestPeakResultLine))){
+			while(!(isThereAPeakResultLineContainingSNPPosition = peakResultLineContainsSNPPosition(bestSNPResultLine,peakResultLine))){
 				
 				//in case of next peakResult fetch
 				indexofNewLineinPeakResult = indexofNextNewLineinPeakResult;
-				indexofNextNewLineinPeakResult = peakResult.indexOf('\n',indexofNewLineinPeakResult+1);
+				indexofNextNewLineinPeakResult = peakResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinPeakResult+1);
 				countforPeakResultLine++;
 				
-				bestPeakResultLine = peakResult.substring(indexofNewLineinPeakResult+1,indexofNextNewLineinPeakResult);
+				peakResultLine = peakResult.substring(indexofNewLineinPeakResult+1,indexofNextNewLineinPeakResult);
 				
 				//Not a valid peak result line
-				if(bestPeakResultLine.startsWith(";")){
+				if(peakResultLine.startsWith(";")){
 					break;
 				}
 				
@@ -491,29 +492,36 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				//example
 				//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	D	107	115	ACGGCTGCG	3.5	3.7e-03	-5.602	2.433	9	6
 				
-				indexofFirstTab 	= bestPeakResultLine.indexOf('\t');
-				indexofSecondTab 	= bestPeakResultLine.indexOf('\t',indexofFirstTab+1);
-				indexofThirdTab 	= bestPeakResultLine.indexOf('\t',indexofSecondTab+1);
-				indexofFourthTab 	= bestPeakResultLine.indexOf('\t',indexofThirdTab+1);
-				indexofFifthTab 	= bestPeakResultLine.indexOf('\t',indexofFourthTab+1);
-				indexofSixthTab 	= bestPeakResultLine.indexOf('\t',indexofFifthTab+1);
-				indexofSeventhTab	= bestPeakResultLine.indexOf('\t',indexofSixthTab+1);
-				indexofEigthTab 	= bestPeakResultLine.indexOf('\t',indexofSeventhTab+1);
-				indexofNinethTab 	= bestPeakResultLine.indexOf('\t',indexofEigthTab+1);
+				indexofFirstTab 	= peakResultLine.indexOf('\t');
+				indexofSecondTab 	= peakResultLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab 	= peakResultLine.indexOf('\t',indexofSecondTab+1);
+				indexofFourthTab 	= peakResultLine.indexOf('\t',indexofThirdTab+1);
+				indexofFifthTab 	= peakResultLine.indexOf('\t',indexofFourthTab+1);
+				indexofSixthTab 	= peakResultLine.indexOf('\t',indexofFifthTab+1);
+				indexofSeventhTab	= peakResultLine.indexOf('\t',indexofSixthTab+1);
+				indexofEigthTab 	= peakResultLine.indexOf('\t',indexofSeventhTab+1);
+				indexofNinethTab 	= peakResultLine.indexOf('\t',indexofEigthTab+1);
 				
-				direction = bestPeakResultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
-				start = Integer.parseInt(bestPeakResultLine.substring(indexofFourthTab+1, indexofFifthTab));
-				end = Integer.parseInt(bestPeakResultLine.substring(indexofFifthTab+1, indexofSixthTab));
-				sequence = bestPeakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
-				pValue = Double.parseDouble(bestPeakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
+				matrixName = peakResultLine.substring(indexofSecondTab+1, indexofThirdTab);
+				indexofDot = matrixName.indexOf('.');
+				if (indexofDot>=0){
+					matrixNumber = Integer.parseInt(matrixName.substring(indexofDot+1))-1;
+				}else{
+					//if there is no '.' this means that there is only one matrix which is numbered 1.
+					matrixNumber = 1;
+				}
+				
+				direction = peakResultLine.substring(indexofThirdTab+1, indexofFourthTab).charAt(0);
+				start = Integer.parseInt(peakResultLine.substring(indexofFourthTab+1, indexofFifthTab));
+				end = Integer.parseInt(peakResultLine.substring(indexofFifthTab+1, indexofSixthTab));
+				sequence = peakResultLine.substring(indexofSixthTab+1,indexofSeventhTab);
+				pValue = Double.parseDouble(peakResultLine.substring(indexofEigthTab+1, indexofNinethTab));
 			
 				bufferedWriter.write("Best Peak Result Line Containing SNP Position Found At " + countforPeakResultLine + ". peak result lines" +   "\t" + matrixName+ "\t" + matrixNumber + "\t" +  direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + ""+ System.getProperty("line.separator"));
 
-			}
-			//There is no peak result line containing snp position
+			}//END of IF there is a peak result line containing snp position
 			else{
 				bufferedWriter.write("There is no peak result line containing snp position" + System.getProperty("line.separator"));
-				
 			}
 		}
 	}
@@ -823,9 +831,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/**************************************************************************************************/
 				/********************RSAT Matrix Scan for Reference Sequence for each TF Ends**********************/
 				/**************************************************************************************************/
-				
-				
-				
 				
 				
 				

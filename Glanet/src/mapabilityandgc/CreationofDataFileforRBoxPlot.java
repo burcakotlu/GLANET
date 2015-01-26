@@ -117,7 +117,7 @@ public class CreationofDataFileforRBoxPlot{
 					skipLine1 = skipLine1 + "\t" + fileName;	
 				}
 			}//End of for
-			bufferedWriter.write(skipLine1 + "\n");
+			bufferedWriter.write(skipLine1 + System.getProperty("line.separator"));
 			
 			
 			if (Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE.equals(writeMode)){
@@ -133,7 +133,7 @@ public class CreationofDataFileforRBoxPlot{
 						skipLine2 = skipLine2 + "\t" + standardDeviation;	
 					}
 				}//End of for
-				bufferedWriter.write(skipLine2 + "\n");
+				bufferedWriter.write(skipLine2 + System.getProperty("line.separator"));
 				
 			} else if(Commons.WRITE_MEAN_VALUE_OF_EACH_FILE.equals(writeMode)){
 				
@@ -148,7 +148,7 @@ public class CreationofDataFileforRBoxPlot{
 						skipLine2 = skipLine2 + "\t" + mean;	
 					}
 				}//End of for
-				bufferedWriter.write(skipLine2 + "\n");
+				bufferedWriter.write(skipLine2 + System.getProperty("line.separator"));
 			}
 			
 			
@@ -164,7 +164,7 @@ public class CreationofDataFileforRBoxPlot{
 					header = header + "\t" + functionalElementName;	
 				}
 			}//End of for		
-			bufferedWriter.write(header + "\n");
+			bufferedWriter.write(header + System.getProperty("line.separator"));
 		
 			//Write GC or Mapability values
 			do{
@@ -204,7 +204,7 @@ public class CreationofDataFileforRBoxPlot{
 				}// End of for
 				
 				if (concatenatedStringwithoutTabs!=""){
-					bufferedWriter.write(wholeStrLinewithTabs + "\n");
+					bufferedWriter.write(wholeStrLinewithTabs + System.getProperty("line.separator"));
 				}
 				
 			}while(concatenatedStringwithoutTabs!="");
@@ -273,7 +273,7 @@ public class CreationofDataFileforRBoxPlot{
 				}
 			}//End of for
 				
-			bufferedWriter.write(header + "\n");
+			bufferedWriter.write(header + System.getProperty("line.separator"));
 		
 			//Write GC or Mapability values
 			do{
@@ -313,7 +313,7 @@ public class CreationofDataFileforRBoxPlot{
 				}// End of for
 				
 				if (concatenatedStringwithoutTabs!=""){
-					bufferedWriter.write(wholeStrLinewithTabs + "\n");
+					bufferedWriter.write(wholeStrLinewithTabs + System.getProperty("line.separator"));
 				}
 				
 			}while(concatenatedStringwithoutTabs!="");
@@ -395,7 +395,7 @@ public class CreationofDataFileforRBoxPlot{
 			    files = directory.listFiles();
 			    numberofFiles= files.length;
 			    
-			 	System.out.printf("Number of Files %d in %s\n", files.length, directory.getAbsolutePath());
+			 	System.out.printf("Number of Files %d in %s" + System.getProperty("line.separator"), files.length, directory.getAbsolutePath());
 				
 			    
 		        for (int i = 0; i < numberofFiles; i++) {

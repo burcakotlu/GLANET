@@ -47,7 +47,7 @@ public class TestPerl {
 		
 		System.out.flush();
 		
-		System.err.println("\nExit status = " + process.exitValue());
+		System.err.println(System.getProperty("line.separator") + "Exit status = " + process.exitValue());
 		return;
 	}
 }

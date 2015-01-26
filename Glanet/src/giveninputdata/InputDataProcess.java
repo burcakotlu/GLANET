@@ -178,7 +178,7 @@ public class InputDataProcess {
 			for (int i = 0; i < rsIdList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsInformationList.size(); j++)
-					if (rsInformationList.get(j).getRsId().equalsIgnoreCase(rsIdList.get(i))) {
+					if ((Commons.RS + rsInformationList.get(j).getRsId()).equalsIgnoreCase(rsIdList.get(i))) {
 						check = true;
 						break;
 					}
@@ -196,7 +196,7 @@ public class InputDataProcess {
 			for (int i = 0; i < rsInformationList.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < rsIdList.size(); j++)
-					if (rsIdList.get(j).equalsIgnoreCase(rsInformationList.get(i).getRsId())) {
+					if  (rsIdList.get(j).equalsIgnoreCase(Commons.RS + rsInformationList.get(i).getRsId())) {
 						check = true;
 						break;
 					}
@@ -241,7 +241,7 @@ public class InputDataProcess {
 					remapInputFileBufferedWriter.write(remapInputFileLine + System.getProperty("line.separator"));
 					
 					lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,remapInputFileLine);
-					lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile,rsInformation.getRsId());
+					lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile,Commons.RS + rsInformation.getRsId());
 					
 					numberofLocisInRemapInputFile++;
 					

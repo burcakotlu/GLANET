@@ -72,8 +72,8 @@ public class AugmentationofGivenIntervalwithRsIds {
 	
 	// Requires oneBased positions
 	// Requires chrName without preceeding "chr" string
-	public List<String> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased, int givenIntervalEndOneBased) {
-		List<String> rsIdList = new ArrayList<String>();
+	public List<Integer> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased, int givenIntervalEndOneBased) {
+		List<Integer> rsIdList = new ArrayList<Integer>();
 		XMLEventReader readerSearch = null;
 
 		// esearch default retmode is xml or it can be set to json
@@ -144,7 +144,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 				IdList idList = (IdList) eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
 
 				for (Id id : idList.getId()) {
-					rsIdList.add(id.getvalue());
+					rsIdList.add(Integer.parseInt(id.getvalue()));
 				}
 
 			}// End of while
@@ -185,7 +185,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 		String chrName = "1";
 		int startOneBased = 204924685;
 		int endOneBased = 204924685;
-		List<String> rsIdList = null;
+		List<Integer> rsIdList = null;
 		
 
 		
@@ -193,7 +193,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 			app = new AugmentationofGivenIntervalwithRsIds();
 			rsIdList = app.getRsIdsInAGivenInterval(chrName, startOneBased, endOneBased);
 			
-			for(String rsId: rsIdList){
+			for(Integer rsId: rsIdList){
 				GlanetRunner.appendLog(rsId);
 			}
 			

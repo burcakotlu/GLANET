@@ -12,7 +12,8 @@ import enumtypes.Orient;
  */
 public class RsInformation {
 	
-	String rsId;
+	int rsId;
+	
 	String chrNameWithoutChr;
 	
 	int zeroBasedStart;
@@ -83,13 +84,13 @@ public class RsInformation {
 
 
 
-	public String getRsId() {
+	public int getRsId() {
 		return rsId;
 	}
 
 
 
-	public void setRsId(String rsId) {
+	public void setRsId(int rsId) {
 		this.rsId = rsId;
 	}
 

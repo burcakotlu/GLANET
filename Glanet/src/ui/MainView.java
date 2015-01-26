@@ -735,19 +735,19 @@ public class MainView extends JPanel {
 
 	public void appendNewTextToLogArea(String text) {
 
-		logArea.append(text + "\n");
+		logArea.append(text + System.getProperty("line.separator"));
 		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
 	public void appendNewTextToLogArea(int text) {
 
-		logArea.append(text + "\n");
+		logArea.append(text + System.getProperty("line.separator"));
 		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
 	public void appendNewTextToLogArea(float text) {
 
-		logArea.append(text + "\n");
+		logArea.append(text + System.getProperty("line.separator"));
 		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 

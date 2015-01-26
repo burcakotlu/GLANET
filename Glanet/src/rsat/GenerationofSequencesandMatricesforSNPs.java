@@ -671,10 +671,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 	
 
 
-	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(String snpDirectory,Map<String,TFOverlap> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch38Map){
+	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(String snpDirectory,Map<String,TFOverlaps> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr,Map<String,String> chrName2RefSeqIdforGrch38Map){
 		
 		String tfName;
-		TFOverlap tfOverlap;
+		TFOverlaps tfOverlap;
 		TFCellLineOverlap tfCellLineOverlap;
 		
 		FileWriter TFNameBasedTFOverlapsFileWriter = null;
@@ -682,7 +682,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		
 		try {
 			
-			for(Map.Entry<String, TFOverlap> tfEntry: tfName2TFOverlapMap.entrySet()){
+			for(Map.Entry<String, TFOverlaps> tfEntry: tfName2TFOverlapMap.entrySet()){
 				
 				tfName = tfEntry.getKey();
 				tfOverlap = tfEntry.getValue();
@@ -834,12 +834,12 @@ public static String takeComplementforeachAllele(String allele){
 	
 	
 	
-	public static boolean checkWhetherSNPRefenceSequnceContainsAnyObservedAlleleAndCreateAlteredSequences(
+	public static boolean checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
 			List<String> snpAlteredSequenceNames,
 			List<String> snpAlteredSequences, 
 			List<String> usedObservedAlleles,
 			String snpForwardReferenceSequence, 
-			String rsId,
+			int rsId,
 			List<String> observedAllelesList){
 		
 		boolean contains = false;
@@ -871,11 +871,11 @@ public static String takeComplementforeachAllele(String allele){
 					
 					if (!observedAllele.equals(Commons.STRING_HYPHEN)){
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(rsId + Commons.UNDERSCORE + observedAllele);
+						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 						
 					}else{
 						alteredSNPSequence = formerSNPReferenceSequence  + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(rsId + Commons.UNDERSCORE );
+						snpAlteredSequenceNames.add(Commons.RS +rsId + Commons.UNDERSCORE );
 					}
 					
 					usedObservedAlleles.add(observedAllele);
@@ -892,7 +892,7 @@ public static String takeComplementforeachAllele(String allele){
 
 
 	
-	public static void	createSNPAlteredSequences(SNPInformation snpInformation, String rsId,List<String> observedAllelesList){
+	public static void	createSNPAlteredSequences(SNPInformation snpInformation, int rsId,List<String> observedAllelesList){
 		
 		//For each observed allele
 		//Check whether snpReferenceSequence contains any of these observed alleles starting at snp start position
@@ -900,7 +900,7 @@ public static String takeComplementforeachAllele(String allele){
 		//If no; give alarm; snpReferenceSequence does not contain any of this observed allele starting at snp start position		
 		Boolean snpContainsAnyOfObservedAlleles; 
 		
-		snpContainsAnyOfObservedAlleles =checkWhetherSNPRefenceSequnceContainsAnyObservedAlleleAndCreateAlteredSequences(snpInformation.getSnpAlteredSequenceNames(),snpInformation.getSnpAlteredSequences(),snpInformation.getUsedObservedAlleles(),snpInformation.getSnpReferenceSequence(),rsId, observedAllelesList);
+		snpContainsAnyOfObservedAlleles =checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(snpInformation.getSnpAlteredSequenceNames(),snpInformation.getSnpAlteredSequences(),snpInformation.getUsedObservedAlleles(),snpInformation.getSnpReferenceSequence(),rsId, observedAllelesList);
 		
 		
 		if (!snpContainsAnyOfObservedAlleles){
@@ -1174,6 +1174,8 @@ public static String takeComplementforeachAllele(String allele){
 					
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 		
+		
+		
 		/*******************************************************************************/
 		/*********************TF 2 PFMLogoMatricesExists MAP starts*********************/
 		/*******************************************************************************/
@@ -1195,8 +1197,8 @@ public static String takeComplementforeachAllele(String allele){
 		//Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
 		String givenSNPKey;
 		String snpDirectory;
-		List<String> rsIdList;
-		List<String> validRsIdList;
+		List<Integer> rsIdList;
+		List<Integer> validRsIdList;
 		RsInformation rsInformation;	
 		SNPInformation snpInformation;
 		String fastaFile;
@@ -1215,11 +1217,11 @@ public static String takeComplementforeachAllele(String allele){
 		/*******************************************************************************/
 		//7 April 2014 starts		
 		//Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
-		Map<String,Map<String,TFOverlap>> givenSNP2TFOverlapMapMap = new HashMap<String,Map<String,TFOverlap>>();
-		Map<String,TFOverlap> tfName2TFOverlapMap;
+		Map<String,Map<String,TFOverlaps>> givenSNP2TFName2TFOverlapsMapMap = new HashMap<String,Map<String,TFOverlaps>>();
+		Map<String,TFOverlaps> tfName2TFOverlapsMap;
 		
 		TFCellLineOverlap tfCellLineOverlap;
-		TFOverlap tfOverlap;
+		TFOverlaps tfOverlaps;
 		/*******************************************************************************/
 		/**************givenSNP 2 TFOverlapMap Map ends*********************************/
 		/*******************************************************************************/
@@ -1229,21 +1231,21 @@ public static String takeComplementforeachAllele(String allele){
 		/*******************************************************************************/
 		/*********************rsID 2 rsInformation MAP starts***************************/
 		/*******************************************************************************/
-		Map<String,RsInformation> rsID2RsIDInformationMap =  new HashMap<String,RsInformation>();
+		Map<Integer,RsInformation> rsID2RsIDInformationMap =  new HashMap<Integer,RsInformation>();
 		/*******************************************************************************/
 		/*********************rsID 2 rsInformation MAP ends*****************************/
 		/*******************************************************************************/
 								
 	
 		//10 March 2014
-		//Each observedAlleles String contains observed alleles which are separated by tabs, pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
-		//Pay attention, for the same chrName and ChrPosition there can be more than one observedAlleles String. It is rare but possible.
+		//Pay attention, there can be more than two observed alleles such as A\tG\tT\t-\tACG
+		//Pay attention, for the same chrName and ChrPosition there can be more than one rsIDs
+		//Therefore each rsInformation can have observedAlleles String. It is rare but it is possible.
 					
 		try {
 			allTFAnnotationsFileReader 	= new FileReader(forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
 			allTFAnnotationsBufferedReader 	= new BufferedReader(allTFAnnotationsFileReader);
-			
-			
+		
 			/****************************************************************************************/
 			/*********************Reading All  TF Annotations File Starts****************************/
 			/****************************************************************************************/										
@@ -1379,15 +1381,16 @@ public static String takeComplementforeachAllele(String allele){
 					    
 					    //Get all the rsIDs in this given interval				
 					    //We have to provide 1-based coordinates as arguments
-						//This rsIdList may contain many  merged rsIds
+						//Caution: This rsIdList may contain  merged rsIds
+						//rsIdList is a list of integers
+						//rsId is an integer without --rs-- prefix
 					    rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNameWithoutPreceedingChr,snpOneBasedStart,snpOneBasedEnd);
-					    
-					    validRsIdList = new ArrayList<String>();
+					    validRsIdList = new ArrayList<Integer>();
 					    
 					    /*************************************************************************/
 					    /***************Fill rsID2RsIDInformationMap starts***********************/
 					    /*************************************************************************/    
-					    for (String rsId: rsIdList){
+					    for (Integer rsId: rsIdList){
 						
 						 rsInformation = rsID2RsIDInformationMap.get(rsId);
 						 
@@ -1395,22 +1398,27 @@ public static String takeComplementforeachAllele(String allele){
 						 if (rsInformation==null){
 							 
 						     //For each rsId get rsInformation
-						     rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsId); 
+						     rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(String.valueOf(rsId)); 
 						     
+						    //Option 1---Here we can either return a not null rsInformation with a different rsId
+						     //And check whether given rsID and returned rsID matches
+						     //If they do not match we can ignore this rsInformation
+						     //Option 2---Or we can simply return a null rsInformation in case of merge sitution
+						     //I have chosen ---Option 2--- since I exit the loop and return null, do not continue unused assignments
 						     if (rsInformation!=null){
 
 						    	 //@todo Here we can check whether this rsId is in the given input rsID list if the given input type is dbSNP IDs
-						    	 //Decision: I decided not to do such a check since searched rsID and returned rsID might be different because of merge situation
-						  
-						    	 rsID2RsIDInformationMap.put(rsId, rsInformation);
-						    	 validRsIdList.add(rsId);
+						    	 //Decision: I decided --not to do-- such a check since searched rsID and returned rsID might be different because of merge situation
 						    	 
-						    	
+						    	 //rsId and and rsInformation.getRsId() might be different because of merge situation
+						    	 if (!rsID2RsIDInformationMap.containsKey(rsInformation.getRsId())){
+						    		 rsID2RsIDInformationMap.put(rsInformation.getRsId(), rsInformation);	 
+						    	 }
 						    	 
-						     }else{
-						    	 //Means that this is a merged rsID
-						    	 //So do not add it.
-						     }
+						    	 if(!validRsIdList.contains(rsInformation.getRsId())){
+						    		 validRsIdList.add(rsInformation.getRsId());
+						    	 } 
+						     }//End of IF rsInformation is not NULL
 						     
 						 }//End of if rsInformation is null
 						 else{
@@ -1419,15 +1427,11 @@ public static String takeComplementforeachAllele(String allele){
 							 
 							 //Means that rsInformation is already put
 							 //so this rsId is not a merged rsId
-							 validRsIdList.add(rsId);
+							 if(!validRsIdList.contains(rsInformation.getRsId())){
+					    		 validRsIdList.add(rsInformation.getRsId());
+					    	 } 
 							 
-							 //debug starts sil
-							 if (validRsIdList.size()>0){
-								 logger.info(givenSNPKey);
-								 
-							 }
-							 //debug ends sil
-						 }
+						 }//End of ELSE: this chrName_OneBasedCoordinate is looked at for the first time but this rsID is found before, can it be?
 						   
 					    }//End of for each rsId
 					    /*************************************************************************/
@@ -1435,10 +1439,9 @@ public static String takeComplementforeachAllele(String allele){
 					    /*************************************************************************/    
 					    
 					    snpInformation.setValidRsIDList(validRsIdList);
-					   
 					    givenSNP2SNPInformationMap.put(givenSNPKey,snpInformation);
 					    
-					}//End of IF snpIInformation is null
+					}//End of IF snpInformation is null
 					/*************************************************************************/
 					/*****************Fill givenSNP2SNPInformationMap ends********************/
 					/*************************************************************************/
@@ -1446,64 +1449,64 @@ public static String takeComplementforeachAllele(String allele){
 					
 					    
 					/*************************************************************************/
-					/***********Fill givenSNP2TFOverlapMapMap starts**************************/
+					/***********Fill givenSNP2TFName2TFOverlapsMapMap starts******************/
 					/*************************************************************************/
-					tfName2TFOverlapMap =givenSNP2TFOverlapMapMap.get(givenSNPKey);
+					tfName2TFOverlapsMap =givenSNP2TFName2TFOverlapsMapMap.get(givenSNPKey);
 					
 					//This SNP is looked for for the first time
-					if (tfName2TFOverlapMap == null){
+					if (tfName2TFOverlapsMap == null){
 						
-					    tfName2TFOverlapMap = new HashMap<String,TFOverlap>();
+					    tfName2TFOverlapsMap = new HashMap<String,TFOverlaps>();
 						
-					    tfOverlap = tfName2TFOverlapMap.get(tfName);
+					    tfOverlaps = tfName2TFOverlapsMap.get(tfName);
 					    
 					    //For this SNP, This TF is looked for the first time
-					    if (tfOverlap == null){
+					    if (tfOverlaps == null){
 						    
-					    	tfOverlap = new TFOverlap(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
+					    	tfOverlaps = new TFOverlaps(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
 						    
 					    	tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
 								
-							tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+							tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
 							
 						    
-							tfName2TFOverlapMap.put(tfName, tfOverlap);
+							tfName2TFOverlapsMap.put(tfName, tfOverlaps);
 					    }
 						
 						
-					    givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
+					    givenSNP2TFName2TFOverlapsMapMap.put(givenSNPKey, tfName2TFOverlapsMap);
 					    
 					}
-					//For this SNP, we have another TF Overlap
+					//For this SNP, we have another kind of TF Overlap
 					else{
-						tfOverlap = tfName2TFOverlapMap.get(tfName);
+						tfOverlaps = tfName2TFOverlapsMap.get(tfName);
 						
 						//For this SNP, This TF Overlap is looked for the first time.
-						if (tfOverlap == null){
+						if (tfOverlaps == null){
 						    
-						    tfOverlap = new TFOverlap(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
+						    tfOverlaps = new TFOverlaps(tfName,ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
 						    
 						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
 							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+						    tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
 						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
+						    tfName2TFOverlapsMap.put(tfName, tfOverlaps);
 						    
 						}
 						//For this SNP, we have another TF Overlap for an already existing TF Overlap
 						else{
 						    tfCellLineOverlap = new TFCellLineOverlap(tfName,cellLineName,fileName, tfOneBasedStart, tfOneBasedEnd);
 							
-						    tfOverlap.getTfCellLineOverlaps().add(tfCellLineOverlap);
+						    tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
 						    
-						    tfName2TFOverlapMap.put(tfName, tfOverlap);
+						    tfName2TFOverlapsMap.put(tfName, tfOverlaps);
 						    
 						}	
 						
-						givenSNP2TFOverlapMapMap.put(givenSNPKey, tfName2TFOverlapMap);
+						givenSNP2TFName2TFOverlapsMapMap.put(givenSNPKey, tfName2TFOverlapsMap);
 					}
 					/*************************************************************************/
-					/***********Fill givenSNP2TFOverlapMapMap ends****************************/
+					/***********Fill givenSNP2TFName2TFOverlapsMapMap ends********************/
 					/*************************************************************************/
 					
 					
@@ -1553,7 +1556,7 @@ public static String takeComplementforeachAllele(String allele){
 				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty("file.separator") + entry.getKey();
 				
 				//Add valid rsIDs to the snpDirectory
-				for(String validRsId: snpInformation.getValidRsIDList()){
+				for(Integer validRsId: snpInformation.getValidRsIDList()){
 					snpDirectory = snpDirectory + Commons.UNDERSCORE +  Commons.RS + validRsId;
 				}//End of for each valid rsID in this SNP
 				
@@ -1577,7 +1580,7 @@ public static String takeComplementforeachAllele(String allele){
 				/**********************************************************************************/
 				/***********Write valid rsID Based SNP Observed Alleles Files starts***************/ 
 				/**********************************************************************************/
-				for(String validRsId: snpInformation.getValidRsIDList()){
+				for(Integer validRsId: snpInformation.getValidRsIDList()){
 					
 					rsInformation = rsID2RsIDInformationMap.get(validRsId);
 					writeObservedAllelesFile(snpDirectory, Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS +validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
@@ -1618,8 +1621,8 @@ public static String takeComplementforeachAllele(String allele){
 				/**************Write TF Name Based TF Overlaps File starts*************************/
 				/**************Write TF PEAK Sequence starts***************************************/
 				/**********************************************************************************/
-				tfName2TFOverlapMap = givenSNP2TFOverlapMapMap.get(givenSNPKey);
-				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(snpDirectory,tfName2TFOverlapMap,snpInformation.getChrNameWithoutPreceedingChr(),chrName2RefSeqIdforGrch38Map);
+				tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get(givenSNPKey);
+				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(snpDirectory,tfName2TFOverlapsMap,snpInformation.getChrNameWithoutPreceedingChr(),chrName2RefSeqIdforGrch38Map);
 				/**********************************************************************************/
 				/**************Write TF Name Based TF Overlaps File ends***************************/
 				/**************Write TF PEAK Sequence ends*****************************************/

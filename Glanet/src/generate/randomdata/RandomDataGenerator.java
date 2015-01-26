@@ -167,7 +167,7 @@ public class RandomDataGenerator {
 					}//End of While
 						
 					if (count>Commons.NUMBER_OF_TRIAL_FIRST_LEVEL){
-//						bufferedWriter.write("Numberof Trial" + "\t" + count +"\t" + "dynamicGCThreshold"+ "\t" + df.format(dynamicGCThreshold) + "\t" +"dynamicMapabilityThreshold" + "\t" + df.format(dynamicMapabilityThreshold) + "\t"  +"original input line gc" + "\t" + df.format(originalInputLine.getGcContent()) + "\t" + "original input line mapability" + "\t" + df.format(originalInputLine.getMapability())+ "\t" + "chromName" + "\t" +chromName +"\n" );
+//						bufferedWriter.write("Numberof Trial" + "\t" + count +"\t" + "dynamicGCThreshold"+ "\t" + df.format(dynamicGCThreshold) + "\t" +"dynamicMapabilityThreshold" + "\t" + df.format(dynamicMapabilityThreshold) + "\t"  +"original input line gc" + "\t" + df.format(originalInputLine.getGcContent()) + "\t" + "original input line mapability" + "\t" + df.format(originalInputLine.getMapability())+ "\t" + "chromName" + "\t" +chromName + System.getProperty("line.separator") );
 					}
 					
 					randomlyGeneratedInputLines.add(randomlyGeneratedLine);		

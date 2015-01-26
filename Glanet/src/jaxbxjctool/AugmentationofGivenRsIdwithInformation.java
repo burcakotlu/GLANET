@@ -245,7 +245,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										// ends 31st August 2014
 
 										// set rsId
-										rsInformation.setRsId(Commons.RS + rs.getRsId());
+										rsInformation.setRsId(rs.getRsId());
 
 										// Set the last successful rsID
 										lastSuccessfullRsID = rs.getRsId();
@@ -455,8 +455,6 @@ public class AugmentationofGivenRsIdwithInformation {
 		//	String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
 		//	reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
-		
-
 		try {
 
 //			//HTTP POST starts
@@ -544,8 +542,8 @@ public class AugmentationofGivenRsIdwithInformation {
 					// And NCBI returned rsId and given rsId does not match
 					// Means that given rsId is a merged rsID
 					// Valid rsID is returned rsId
-					if (rs.getRsId() != Integer.parseInt(rsId)) {
-						logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + "  check whether given rsId is merged");
+					if (Integer.parseInt(rsId) != rs.getRsId()) {
+						logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
 						return null;
 					}
 
@@ -568,7 +566,7 @@ public class AugmentationofGivenRsIdwithInformation {
 										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
 
 										// Set rsId
-										rsInformation.setRsId(Commons.RS + rs.getRsId());
+										rsInformation.setRsId(rs.getRsId());
 
 										// Set chromosome name
 										// This chrName is without "chr"

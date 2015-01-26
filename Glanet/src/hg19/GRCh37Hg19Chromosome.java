@@ -418,7 +418,7 @@ public class GRCh37Hg19Chromosome {
 		for(int i=0; i<=10; i++){
 			System.out.print(chr1AllSequence[97533597+i]);
 		}
-		GlanetRunner.appendLog("\n");
+		GlanetRunner.appendLog(System.getProperty("line.separator"));
 
 
 	}

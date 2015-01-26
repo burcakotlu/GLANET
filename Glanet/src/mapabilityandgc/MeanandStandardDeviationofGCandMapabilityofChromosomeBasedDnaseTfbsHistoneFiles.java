@@ -288,7 +288,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 				meanandStandardDeviation.setNumberofIntervals(meanandStandardDeviation.getNumberofIntervals() + 1);
 				
 				
-				bufferedWriter.write(gc + "\n");
+				bufferedWriter.write(gc + System.getProperty("line.separator"));
 			}
 				
 			
@@ -372,7 +372,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 				
 				
 				
-				bufferedWriter.write(mapability + "\n");
+				bufferedWriter.write(mapability + System.getProperty("line.separator"));
 			}
 			
 			
@@ -499,7 +499,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 				name = entry.getKey();
 				values = entry.getValue();
 
-				bufferedWriter.write(name + "\t" + "number of intervals" + "\t" + values.getNumberofIntervals() + "\t" + "mean" + "\t" + values.getMean() + "\t" + "std dev" + "\t" +values.getStandardDeviation() + "\n");
+				bufferedWriter.write(name + "\t" + "number of intervals" + "\t" + values.getNumberofIntervals() + "\t" + "mean" + "\t" + values.getMean() + "\t" + "std dev" + "\t" +values.getStandardDeviation() + System.getProperty("line.separator"));
 				 
 			}
 			

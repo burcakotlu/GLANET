@@ -224,7 +224,7 @@ public class CalculateBinomialDistributions {
 			for(int i = 0; i< functionalElementList.size(); i++){
 				
 //				Both have the same results
-				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(functionalElementList.get(i).getPValue())+ "\n");
+				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(functionalElementList.get(i).getPValue())+ System.getProperty("line.separator"));
 				
 			}
 			
@@ -261,7 +261,7 @@ public class CalculateBinomialDistributions {
 					bonferroniCorrectedPValue = 1.0;
 				}
 //				Both have the same results
-				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(bonferroniCorrectedPValue)+ "\n");
+				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(bonferroniCorrectedPValue)+ System.getProperty("line.separator"));
 				
 			}//End of For
 			
@@ -288,11 +288,11 @@ public class CalculateBinomialDistributions {
 			FunctionalElement element;
 
 			//Header Row
-			bufferedWriter.write("Name" + "\t"   + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t"+ "WholeGenomeSize" + "\t" + "Raw PValue" + "\n");				
+			bufferedWriter.write("Name" + "\t"   + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t"+ "WholeGenomeSize" + "\t" + "Raw PValue" + System.getProperty("line.separator"));				
 
 			for(int i = 0; i< dnaseCellLineNameList.size(); i++){
 				element = dnaseCellLineNameList.get(i);
-				bufferedWriter.write(element.getName() + "\t"   + element.getNumberofOccurrencesinSearchInputData() + "\t" +element.getSearchInputSize() + "\t" +element.getNumberofOccurrencesinWholeGenome() + "\t"+element.getGenomeSize() + "\t" + df.format(element.getPValue())+ "\n");				
+				bufferedWriter.write(element.getName() + "\t"   + element.getNumberofOccurrencesinSearchInputData() + "\t" +element.getSearchInputSize() + "\t" +element.getNumberofOccurrencesinWholeGenome() + "\t"+element.getGenomeSize() + "\t" + df.format(element.getPValue())+ System.getProperty("line.separator"));				
 			}
 			
 			bufferedWriter.close();
@@ -323,7 +323,7 @@ public class CalculateBinomialDistributions {
 			FunctionalElement element;
 
 			//Header Row
-			bufferedWriter.write("Name" + "\t"   + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t"+ "WholeGenomeSize" + "\t" + "Adjusted PValue" + "\n");				
+			bufferedWriter.write("Name" + "\t"   + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t"+ "WholeGenomeSize" + "\t" + "Adjusted PValue" + System.getProperty("line.separator"));				
 
 			for(int i = 0; i< nameList.size(); i++){
 				element = nameList.get(i);
@@ -334,7 +334,7 @@ public class CalculateBinomialDistributions {
 					bonferroniCorrectedPValue = 1.0;
 				}
 				
-				bufferedWriter.write(element.getName() + "\t"   + element.getNumberofOccurrencesinSearchInputData() + "\t" +element.getSearchInputSize() + "\t" +element.getNumberofOccurrencesinWholeGenome() + "\t"+element.getGenomeSize() + "\t" + df.format(bonferroniCorrectedPValue)+ "\n");				
+				bufferedWriter.write(element.getName() + "\t"   + element.getNumberofOccurrencesinSearchInputData() + "\t" +element.getSearchInputSize() + "\t" +element.getNumberofOccurrencesinWholeGenome() + "\t"+element.getGenomeSize() + "\t" + df.format(bonferroniCorrectedPValue)+ System.getProperty("line.separator"));				
 			}
 			
 			bufferedWriter.close();

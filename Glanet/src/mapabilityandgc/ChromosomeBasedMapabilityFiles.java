@@ -69,7 +69,7 @@ public class ChromosomeBasedMapabilityFiles {
 					if (correspondingBufferedWriter== null){
 						GlanetRunner.appendLog(chromName.convertEnumtoString());
 					}else{
-						correspondingBufferedWriter.write(chromName.convertEnumtoString() + "\t" + low + "\t"  + high + "\t" + mapability + "\n");
+						correspondingBufferedWriter.write(chromName.convertEnumtoString() + "\t" + low + "\t"  + high + "\t" + mapability + System.getProperty("line.separator"));
 					}
 					
 				}

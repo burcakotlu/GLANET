@@ -21,7 +21,7 @@ public class SNPInformation {
 	String snpReferenceSequence;
 	String fastaFile;
 	
-	List<String> validRsIDList;
+	List<Integer> validRsIDList;
 	List<String> usedObservedAlleles;
 	List<String> snpAlteredSequences;
 	List<String> snpAlteredSequenceNames;
@@ -155,14 +155,14 @@ public class SNPInformation {
 
 
 
-	public List<String> getValidRsIDList() {
+	public List<Integer> getValidRsIDList() {
 		return validRsIDList;
 	}
 
 
 
 
-	public void setValidRsIDList(List<String> validRsIDList) {
+	public void setValidRsIDList(List<Integer> validRsIDList) {
 		this.validRsIDList = validRsIDList;
 	}
 
@@ -172,7 +172,7 @@ public class SNPInformation {
 	public SNPInformation() {
 		
 		super();
-		this.validRsIDList = new ArrayList<String>();
+		this.validRsIDList = new ArrayList<Integer>();
 		this.usedObservedAlleles = new ArrayList<String>();
 		this.snpAlteredSequences = new ArrayList<String>();
 		this.snpAlteredSequenceNames = new ArrayList<String>();

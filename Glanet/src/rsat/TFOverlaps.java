@@ -14,7 +14,7 @@ import enumtypes.ChromosomeName;
  * @project Glanet 
  *
  */
-public class TFOverlap {
+public class TFOverlaps {
     
     String tfName;
     String peakSequence;
@@ -24,10 +24,7 @@ public class TFOverlap {
     int maximumOneBasedEnd;
     
     List<TFCellLineOverlap> tfCellLineOverlaps;
-    
-    
-    
-  
+
 	
 	public ChromosomeName getChrNameWithPreceedingChr() {
 		return chrNameWithPreceedingChr;
@@ -69,7 +66,7 @@ public class TFOverlap {
     public void setMaximumOneBasedEnd(int maximumOneBasedEnd) {
         this.maximumOneBasedEnd = maximumOneBasedEnd;
     }
-    public TFOverlap(String tfName, ChromosomeName chrNameWithPreceedingChr) {
+    public TFOverlaps(String tfName, ChromosomeName chrNameWithPreceedingChr) {
     	
     	super();
     	this.tfName = tfName;

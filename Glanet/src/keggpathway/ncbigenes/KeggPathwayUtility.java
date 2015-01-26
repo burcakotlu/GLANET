@@ -123,7 +123,7 @@ public class KeggPathwayUtility {
 //				bufferedWriter = new BufferedWriter(fileWriter);
 //				
 //				for(int i = 0; i<keggPathway.getGeneIdList().size(); i++){
-//					bufferedWriter.write(keggPathway.getGeneIdList().get(i)+ "\n");
+//					bufferedWriter.write(keggPathway.getGeneIdList().get(i)+ System.getProperty("line.separator"));
 //					bufferedWriter.flush();
 //				}
 //			}
@@ -154,7 +154,7 @@ public class KeggPathwayUtility {
 //			while(itr.hasNext()){
 //				KeggPathway keggPathway = (KeggPathway)itr.next();
 //								
-//				bufferedWriter.write(keggPathway.getKeggPathwayName()+ "\n");
+//				bufferedWriter.write(keggPathway.getKeggPathwayName()+ System.getProperty("line.separator"));
 //				bufferedWriter.flush();				
 //			}
 //			
