@@ -7,6 +7,8 @@
  *
  *How to read RSAT result?
  *
+ *First of all, RSAT results are 1 Based coordinates.
+ *
  *example
  *
  *>altered1_snp_chr10_111787715
@@ -52,24 +54,21 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import RSATWS.GetResultRequest;
-import RSATWS.GetResultResponse;
 import RSATWS.MatrixScanRequest;
 import RSATWS.MatrixScanResponse;
-import RSATWS.MonitorRequest;
-import RSATWS.MonitorResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
 import auxiliary.GlanetDecimalFormat;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	
 	final static Logger logger = Logger.getLogger(RegulatorySequenceAnalysisUsingRSATMatrixScan.class);
 	
-
 	/**
 	 * 
 	 */
@@ -211,7 +210,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	public static boolean peakResultLineContainsSNPPosition(String snpResultLine,String peakResultLine){
 		int snpStartOneBased = 0;
 		int peakStartOneBased = 0;
-		int snpPositionWithRespectoPeakSequence = 0;
+		int snpOneBasedPositionWithRespectoPeakSequence = 0;
 		
 		PeakSequence peakSequence= new PeakSequence();
 		
@@ -219,11 +218,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		snpStartOneBased = getOneBasedSNPStart(snpResultLine);
 		peakStartOneBased = getOneBasedPeakStart(peakResultLine);
 		
-		snpPositionWithRespectoPeakSequence = snpStartOneBased - peakStartOneBased +1;
+		snpOneBasedPositionWithRespectoPeakSequence = snpStartOneBased - peakStartOneBased +1;
 		
 		getPeakSequenceStartandEnd(peakSequence,peakResultLine);
 		
-		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpPositionWithRespectoPeakSequence);
+		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpOneBasedPositionWithRespectoPeakSequence);
 		
 	}
 	
@@ -275,8 +274,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	
 		indexofSharpinSNPResult = snpResult.indexOf('#');
 		indexofNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1),indexofSharpinSNPResult+1);
-		indexofNextNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinSNPResult+1);
-					
+		indexofNextNewLineinSNPResult = snpResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinSNPResult+1);		
 		
 		do{
 			
@@ -417,7 +415,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		int indexofNextNewLineinPeakResult = peakResult.indexOf(System.getProperty("line.separator").charAt(1),indexofNewLineinPeakResult+1);
 		
 		String peakResultLine = peakResult.substring(indexofNewLineinPeakResult+1,indexofNextNewLineinPeakResult);
-		String  bestPeakResultLine = null;
+		String bestPeakResultLine = null;
 		
 		if(peakResultLine.startsWith(";")){
 			bufferedWriter.write("There is no peak result line" + System.getProperty("line.separator"));	
@@ -468,6 +466,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		
 		
 		peakResultLine = bestPeakResultLine;
+		
 		//if best snp result line and best peak result line are not null
 		if(bestSNPResultLine!=null && peakResultLine!=null){
 			
