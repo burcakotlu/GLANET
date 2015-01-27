@@ -178,9 +178,23 @@ public class MainView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0)
-				JOptionPane.showMessageDialog(null, "Please fill all the necessary options");
-			else {
+			if (inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0
+					|| (userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
+					|| (userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)){
+				
+				String dialogMessage = "Please fill all the necessary options:\n";
+				
+				if( inputTextField.getText().length() <= 0)
+					dialogMessage += "Input File Name\n";
+				if( outputTextField.getText().length() <= 0)
+					dialogMessage += "GLANET Folder\n";
+				if( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
+					dialogMessage += "User Defined GeneSet Input File\n";
+				if( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
+					dialogMessage += "User Defined Library Input File\n";
+				
+				JOptionPane.showMessageDialog(null, dialogMessage);
+			}else {
 				
 				listPane.setEnabled( false);
 				logArea.setText("");
@@ -572,16 +586,19 @@ public class MainView extends JPanel {
 
 		// scroll pane added to this view
 		add(scrollPane);
-
-		// all control operations are done after the gui is completely set
+		
+		refreshButtons();
+		revalidate();
+	}
+	
+	void refreshButtons(){
+		
 		enableEnrichmentOptions(performEnrichmentCheckBox.isSelected());
 		checkUsabilityOfEnrichmentOptions();
 		checkUsabilityOfRegulatorySequenceAnalysis();
 		enableUserDefinedGeneSetOptions(userDefinedGeneSetAnnotation.isSelected());
 		enableUserDefinedLibraryOptions(userDefinedLibraryAnnotation.isSelected());
 		enableInputAssembly();
-
-		revalidate();
 	}
 
 	JPanel createBorderedPanel(String borderName, JComponent panel) {
