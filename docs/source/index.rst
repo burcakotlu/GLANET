@@ -1,22 +1,24 @@
 GLANET's Documentation Page
-==================================
+===========================
 
-Another simple header
-=====================
+Preface
+=======
 
-Here is some code explaining some part of the project::
+Preface here
 
-    print 'hello'
-    >> hello
-
-Guide:
-^^^^^^
+Content:
+^^^^^^^^
 
 .. toctree::
    :maxdepth: 2
 
+   overview
    licence
-   help
+   download
+   instconfig
+   using
+   tutorial
+   contact
 
 
 Indices and tables
