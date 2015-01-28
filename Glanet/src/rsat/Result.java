@@ -13,7 +13,7 @@ public class Result {
 	String resultLine;
 	double pValue;
 	
-	
+
 	
 
 	public String getResultLine() {
