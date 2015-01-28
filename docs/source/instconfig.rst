@@ -12,7 +12,7 @@ Install latest Java SE from `here <http://www.oracle.com/technetwork/articles/ja
 
 • Perl
 
-For **Windows** users, Strawberry Perl can be downloaded from `here <http://www.http://strawberryperl.com>`_
+For **Windows** users, Strawberry Perl can be downloaded from `here <strawberryperl.com>`_
 
 For **Mac OS X** users, the operating system comes with the installed Perl. If you want to update or install Perl, open Terminal.app and write the command below::
 
