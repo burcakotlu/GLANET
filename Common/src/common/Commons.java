@@ -424,11 +424,12 @@ public class Commons {
 
 	public static final String JASPAR_CORE_MATRICES_FOR_LOGO = FOR_RSA + System.getProperty("file.separator") + "jaspar_core_logo_matrices.txt";
 
-	public static final int NUMBER_OF_BASES_BEFORE_SNP_POSITION = 14;
-	public static final int NUMBER_OF_BASES_AFTER_SNP_POSITION = 14;
+	public static final int ZERO_BASED_SNP_POSITION = 20;
+	public static final int ONE_BASED_SNP_POSITION = ZERO_BASED_SNP_POSITION + 1;
 	
-	public static final int ZERO_BASED_SNP_POSITION = 14;
-	public static final int ONE_BASED_SNP_POSITION = 15;
+	public static final int NUMBER_OF_BASES_BEFORE_SNP_POSITION = ZERO_BASED_SNP_POSITION;
+	public static final int NUMBER_OF_BASES_AFTER_SNP_POSITION = ZERO_BASED_SNP_POSITION;
+	
 
 	public static final char SEQUENCE_DIRECTION_D = 'D';
 	public static final char SEQUENCE_DIRECTION_R = 'R';

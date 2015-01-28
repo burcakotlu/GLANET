@@ -33,6 +33,7 @@
  * since we took the reverse of it
  * 
  * snp is always at the 15. th base position which is G in this case (R	10	18	CCCGCAACC)
+ * snp is always at the Commons.ONE_BASED_SNP_POSITION
  */
 package rsat;
 
@@ -203,41 +204,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 	}
 	
-	public static void getPeakSequenceStartandEnd(PeakSequence peakSequence,String peakResultLine){
-		
-		//example
-		//gi|224589818:170862228-170862467	site	matrix-scan-matrix_2014-04-14.5	R	37	45	ACAGAGCCG	4.7	5.6e-04	-7.490	3.253	1	1
-		int indexofFirstTab 	= peakResultLine.indexOf('\t');
-		int indexofSecondTab 	= peakResultLine.indexOf('\t',indexofFirstTab+1);
-		int indexofThirdTab 	= peakResultLine.indexOf('\t',indexofSecondTab+1);
-		int indexofFourthTab	= peakResultLine.indexOf('\t',indexofThirdTab+1);
-		int indexofFifthTab 	= peakResultLine.indexOf('\t',indexofFourthTab+1);
-		int indexofSixthTab 	= peakResultLine.indexOf('\t',indexofFifthTab+1);
-		
-		peakSequence.setStart(Integer.parseInt(peakResultLine.substring(indexofFourthTab+1, indexofFifthTab)));
-		peakSequence.setEnd(Integer.parseInt(peakResultLine.substring(indexofFifthTab+1, indexofSixthTab)));
-		
-	}
+	
 
-	
-	public static boolean peakResultLineContainsSNPPosition(String snpResultLine,String peakResultLine){
-		int snpStartOneBased = 0;
-		int peakStartOneBased = 0;
-		int snpOneBasedPositionWithRespectoPeakSequence = 0;
-		
-		PeakSequence peakSequence= new PeakSequence();
-		
-		snpStartOneBased 	= getSNPOneBasedPosition(snpResultLine);
-		peakStartOneBased 	= getTFPeakOneBasedStartPosition(peakResultLine);
-		
-		snpOneBasedPositionWithRespectoPeakSequence = snpStartOneBased - peakStartOneBased +1;
-		
-		getPeakSequenceStartandEnd(peakSequence,peakResultLine);
-		
-		return constainsSNP(peakSequence.getStart(), peakSequence.getEnd(), snpOneBasedPositionWithRespectoPeakSequence);
-		
-	}
-	
 	//27 January 2015
 	//This method will work for 
 	//SNP_REFERENCE_SEQUENCE
@@ -289,8 +257,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		switch(sequenceType){
 		
 			case SNP_REFERENCE_SEQUENCE:	
-			case SNP_ALTERED_SEQUENCE:		containsSNP  = constainsSNP(start, end, Commons.ONE_BASED_SNP_POSITION);
-											break;
+			case SNP_ALTERED_SEQUENCE:			containsSNP  = constainsSNP(start, end, Commons.ONE_BASED_SNP_POSITION);
+												break;
 											
 			case TF_EXTENDED_PEAK_SEQUENCE: 	tfPeakOneBasedStartPosition 	= getTFPeakOneBasedStartPosition(resultLine);
 				
@@ -362,7 +330,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
 		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
 		/***********************SET DECIMAL FORMAT SEPARATORS*****************************/
-	
 		
 		String matrixName = null;
 		int indexofDot;
@@ -373,7 +340,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		int end = 0;
 		String sequence = null;
 		double pValue = 0;
-		
 		
 //		example result line
 //		gi|568815587:47291327-47291355	site	matrix-scan-matrix_2015-01-27.7	D	17	26	TTCACTGGAC	2.8	1.0e-02	-4.562	1.981	1	1
@@ -420,7 +386,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		}
 		
 
-		
 	}
 	
 	//27 January 2015
@@ -735,9 +700,9 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			String alteredSequence 		= null;
 			String peakSequence 		= null;
 			
-			String referenceResultKey 	= null;
-			String alteredResultKey 	= null;
-			String peakResultKey 		= null;
+			String snpReferenceResultKey 	= null;
+			String snpAlteredResultKey 	= null;
+			String tfExtendedPeakResultKey 		= null;
 		
 			String alteredSequenceFirstLine	= null;
 			
@@ -766,7 +731,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				tfName= tfEntry.getKey();
 				
 				//Set SNP Reference Result Key
-				referenceResultKey = eachSNPDirectoryName + "_" + tfName;
+				snpReferenceResultKey = eachSNPDirectoryName + "_" + tfName;
 				
 				//Initialize pfmMatrices to null for each TF
 				pfmMatrices = null;
@@ -776,7 +741,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				
 				//If there is no tf pfm matrices we can not realize regulatory sequence analysis
 				if (tfPfmMatricesFileName == null){
-					bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + referenceResultKey + " No PFM Matrices found for "  +  tfName + System.getProperty("line.separator"));
+					bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + " No PFM Matrices found for "  +  tfName + System.getProperty("line.separator"));
 					continue;
 				}else{
 					//Set PFM Matrices for this TF Name
@@ -788,33 +753,38 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/********************RSAT Matrix Scan for SNP Reference Sequence for each TF Starts****************/
 				/**************************************************************************************************/
 				
-				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + referenceResultKey + "**********************************" + System.getProperty("line.separator"));
+				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + "**********************************" + System.getProperty("line.separator"));
 				
 				//Write header to the outputFile
-				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "SequenceType" + "\t"  +"Description" + "\t" + "Matrix Name"+ "\t" + "nth Matrix in the file(First matrix is numbered with 1)" + "\t" +"Direction" + "\t" + "Start" + "\t" + "End" + 	"\t" + "Sequence" + "\t" + "pValue" + "\t" + "log(referenceSequenceResultPValue/alteredSequenceResultPValue)" + System.getProperty("line.separator"));
+				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "SequenceType" + "\t"  +"nth Result Line (snp is at " + Commons.ONE_BASED_SNP_POSITION + ". position)" + "\t" + "Matrix Name"+ "\t" + "nth Matrix in the file(First matrix is numbered with 1)" + "\t" +"Direction" + "\t" + "Start" + "\t" + "End" + 	"\t" + "Sequence" + "\t" + "pValue" + "\t" + "log(referenceSequenceResultPValue/alteredSequenceResultPValue)" + System.getProperty("line.separator"));
 				
 				//Matrix Scan for Reference Sequence for this tfName
-				snpReferenceRSATMatrixScanResult =snpReferenceSequence2RSATResultMap.get(referenceResultKey);
+				snpReferenceRSATMatrixScanResult =snpReferenceSequence2RSATResultMap.get(snpReferenceResultKey);
 				
 				
 				if (snpReferenceRSATMatrixScanResult==null){
 					
-					snpReferenceRSATMatrixScanResult = matrixScan(referenceSequence,referenceResultKey,pfmMatrices,snpReferenceSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
 					
-					snpReferenceSequenceResultContaingSNPPosition = null;
+					snpReferenceRSATMatrixScanResult = matrixScan(referenceSequence,snpReferenceResultKey,pfmMatrices,snpReferenceSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
 					
-					description = "1st Result Line";
-					findAndWriteFirstResultLine(SequenceType.SNP_REFERENCE_SEQUENCE,description,snpReferenceRSATMatrixScanResult,bufferedWriter,null);
+					if(snpReferenceRSATMatrixScanResult!=null){
+						
+						snpReferenceSequenceResultContaingSNPPosition = null;
+						
+						description = "1. Result Line";
+						findAndWriteFirstResultLine(SequenceType.SNP_REFERENCE_SEQUENCE,description,snpReferenceRSATMatrixScanResult,bufferedWriter,null);
+						
+						description = "Result Line Containing SNP Position";
+						snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null,null);
+					}//End of IF: snpReferenceRSATMatrixScanResult null check
 					
-					description = "Result Line Containing SNP Position";
-					snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null,null);
-										
+											
 				}else{
 					System.out.println("I guess this part is unnnecessary");
 					
 					snpReferenceSequenceResultContaingSNPPosition = null;
 					
-					description = "1st Result Line";
+					description = "1. Result Line";
 					findAndWriteFirstResultLine(SequenceType.SNP_REFERENCE_SEQUENCE,description,snpReferenceRSATMatrixScanResult,bufferedWriter,null);
 					
 					description = "Result Line Containing SNP Position";
@@ -840,36 +810,35 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 					alteredSequenceFirstLine = readFirstLinefromFasta(alteredSequence);	
 			
 					//Set Altered Result Key
-					alteredResultKey = alteredSequenceFirstLine + "_" + tfName;
+					snpAlteredResultKey = alteredSequenceFirstLine + "_" + tfName;
 					
-					snpAlteredRSATMatrixScanResult = alteredSequence2RSATResultMap.get(alteredResultKey);
+					snpAlteredRSATMatrixScanResult = alteredSequence2RSATResultMap.get(snpAlteredResultKey);
 					
 					if (snpAlteredRSATMatrixScanResult==null){
 						
 						//Altered Result
-						snpAlteredRSATMatrixScanResult = matrixScan(alteredSequence,alteredResultKey,pfmMatrices,alteredSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
+						snpAlteredRSATMatrixScanResult = matrixScan(alteredSequence,snpAlteredResultKey,pfmMatrices,alteredSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
+						
+						if(snpAlteredRSATMatrixScanResult!=null){
+							
+							description = "1. Result Line";
+							findAndWriteFirstResultLine(SequenceType.SNP_ALTERED_SEQUENCE,description,snpAlteredRSATMatrixScanResult,bufferedWriter,null);
+							
+							description = "Result Line Containing SNP Position";
+							findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null,snpReferenceSequenceResultContaingSNPPosition);
 
-						//Put alteredResult into Map
-						alteredSequence2RSATResultMap.put(alteredResultKey, snpAlteredRSATMatrixScanResult);
-						
-						description = "1st Result Line";
-						findAndWriteFirstResultLine(SequenceType.SNP_ALTERED_SEQUENCE,description,snpAlteredRSATMatrixScanResult,bufferedWriter,null);
-						
-						description = "Result Line Containing SNP Position";
-						findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null,snpReferenceSequenceResultContaingSNPPosition);
-						
+						}//End of IF: snpAlteredRSATMatrixScanResult null check
 						
 					}else{
+						
 						System.out.println("I guess this part is unnnecessary");
 						//Get best altered result line containing snp position if it exists
 						
-						
-						description = "1st Result Line";
+						description = "1. Result Line";
 						findAndWriteFirstResultLine(SequenceType.SNP_ALTERED_SEQUENCE,description,snpAlteredRSATMatrixScanResult,bufferedWriter,null);
 						
 						description = "Result Line Containing SNP Position";
 						findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null,snpReferenceSequenceResultContaingSNPPosition);
-						
 						
 					}
 					//Matrix Scan for Altered Sequence for this tfName
@@ -895,39 +864,38 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				
 				
 				//Set Peak Result Key
-				peakResultKey = eachSNPDirectoryName + "_" + tfName;
+				tfExtendedPeakResultKey = eachSNPDirectoryName + "_" + tfName;
 				
 				
 				//Matrix Scan for Peak Sequence for this tfName
-				tfExtendedPeakRSATMatrixScanResult = peakSequence2RSATResultMap.get(peakResultKey);
+				tfExtendedPeakRSATMatrixScanResult = peakSequence2RSATResultMap.get(tfExtendedPeakResultKey);
 				
 				if (tfExtendedPeakRSATMatrixScanResult == null){
 					
 					//Extended Peak Result
-					tfExtendedPeakRSATMatrixScanResult = matrixScan(peakSequence,peakResultKey,pfmMatrices,peakSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
+					tfExtendedPeakRSATMatrixScanResult = matrixScan(peakSequence,tfExtendedPeakResultKey,pfmMatrices,peakSequence2RSATResultMap,matrixScanRequest,proxy,bufferedWriter);
 					
-					//Put peakResult into map
-					peakSequence2RSATResultMap.put(peakResultKey, tfExtendedPeakRSATMatrixScanResult);
+					if(tfExtendedPeakRSATMatrixScanResult!=null){
+						
+						description = "1. Result Line";
+						findAndWriteFirstResultLine(SequenceType.TF_EXTENDED_PEAK_SEQUENCE,description,tfExtendedPeakRSATMatrixScanResult,bufferedWriter,null); 
+						
+						description = "Result Line Containing SNP Position";
+						findAndWriteResultLineContainingSNPPosition(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition,null);
 					
-					
-					description = "1st Result Line";
-					findAndWriteFirstResultLine(SequenceType.TF_EXTENDED_PEAK_SEQUENCE,description,tfExtendedPeakRSATMatrixScanResult,bufferedWriter,null); 
-					
-					description = "Result Line Containing SNP Position";
-					findAndWriteResultLineContainingSNPPosition(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition,null);
-					
+					}//End of IF: tfExtendedPeakRSATMatrixScanResult null check
+						
 					
 				}else{
 					
 					System.out.println("I guess this part is unnnecessary");
 					
-					
-					description = "1st Result Line";
+					description = "1. Result Line";
 					findAndWriteFirstResultLine(SequenceType.TF_EXTENDED_PEAK_SEQUENCE,description,tfExtendedPeakRSATMatrixScanResult,bufferedWriter,null); 
 					
 					description = "Result Line Containing SNP Position";
 					findAndWriteResultLineContainingSNPPosition(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition,null);
-					
+				
 				
 				}
 				/**************************************************************************************************/
@@ -1134,8 +1102,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			        		
 			}//End of IF mainSNPsDirectory exists and mainSNPsDirectory is a directory
 	
+//			logger.info("Number of entries in snpReferenceSequence2RSATResultMap: " + snpReferenceSequence2RSATResultMap.size());
+//			logger.info("Number of entries in snpAlteredSequence2RSATResultMap: " + snpAlteredSequence2RSATResultMap.size());
+//			logger.info("Number of entries in tfExtendedPeakSequence2RSATResultMap: " + tfExtendedPeakSequence2RSATResultMap.size());
 			
-	}
+ 	}
 	
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
