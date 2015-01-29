@@ -251,11 +251,12 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	String outputFolder 	= glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 	String dataFolder 		= glanetFolder + Commons.DATA + System.getProperty("file.separator");
 	
-		
 	//Before each run
 	//delete directories and files under base directories
-	FileOperations.deleteOldFiles(outputFolder + Commons.FOR_RSA + System.getProperty("file.separator"));
-
+	//delete old files starts 
+	FileOperations.deleteOldFiles(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY);
+	//delete old files ends
+			
 	TIntObjectMap<String> lineNumber2SourceGenomicLociMap 	= new TIntObjectHashMap<String>();
 	TIntObjectMap<String> lineNumber2SourceInformationMap 	= new TIntObjectHashMap<String>();
 	TIntObjectMap<String> lineNumber2TargetGenomicLociMap 	= new TIntObjectHashMap<String>();

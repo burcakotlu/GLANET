@@ -1198,15 +1198,12 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			
 		String forRSASNPTFSequencesMatricesDirectory = Commons.FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY;
 		
-		//delete old files starts 
-		FileOperations.deleteOldFiles(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT_DIRECTORY);
-		//delete old files ends
 		
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 		
 		try {
-				fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT_DIRECTORY + Commons.FOR_ALL_ANNOTATED_TFS_RSAT_RESULTS);
+				fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY + Commons.RSA_RESULTS_FOR_ALL_ANNOTATED_TFS);
 				bufferedWriter = new BufferedWriter(fileWriter);
 			
 				/***************************************************************************************************/

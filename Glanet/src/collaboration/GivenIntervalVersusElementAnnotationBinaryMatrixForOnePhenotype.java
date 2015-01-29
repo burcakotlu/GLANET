@@ -369,12 +369,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/************************************************************************************/	
 		
 		
-	
-		
 		String[] givenIntervalNames = new String[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS];
-		
-		
-	
 		
 		
 		/***********************************************************************************************/
