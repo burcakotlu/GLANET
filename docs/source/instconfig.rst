@@ -22,6 +22,22 @@ For **Linux** users, Perl probably installed in your operating system. If you wa
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
 
+After you have installed Perl, you need to install the required modules.
+
+First install cpanminus, which will allow other modules to be installed easily. Open Terminal (or Command Prompt in Windows) and write the command below::
+
+	$ cpan App:cpanminus
+
+Now, install JSON. Note that if JSON is already installed in your computer, the command below will notify you.
+
+	$ cpanm JSON
+
+Now, install XML/XPath.pm
+
+	$ cpanm XML::XPath
+
+Once you have followed all these steps, you should be ready to run GLANET properly.
+
 ------------
 Requirements
 ------------
