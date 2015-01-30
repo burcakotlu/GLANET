@@ -18,7 +18,7 @@ For **Mac OS X** users, the operating system comes with the installed Perl. If y
 
 	$ sudo curl -L http://xrl.us/installperlosx | bash
 
-For **Linux** users, Perl probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
+For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
 
