@@ -28,11 +28,11 @@ First install cpanminus, which will allow other modules to be installed easily. 
 
 	$ cpan App:cpanminus
 
-Now, install JSON. Note that if JSON is already installed in your computer, the command below will notify you.
+Now, install JSON. Note that if JSON is already installed in your computer, the command below will notify you.::
 
 	$ cpanm JSON
 
-Now, install XML/XPath.pm
+Now, install XML/XPath.pm::
 
 	$ cpanm XML::XPath
 
