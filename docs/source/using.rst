@@ -1,24 +1,45 @@
-Using Glanet
-============
+=================
+GLANET User Guide
+=================
 
-The MIT License (MIT)
+GLANET includes both graphical user interface (GUI) and command-line interface. In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
-Copyright (c) <year> <copyright holders>
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Therefore, even if you want to use the GUI, it is crucial to run GLANET.jar with this way.
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+\* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+--------------------
+Command Line Options
+--------------------
+
+===========  =======================================================================  =================  ====================
+Command      Required                                                                 Parameter          Default Parameter
+===========  =======================================================================  =================  ====================
+-c           Yes                                                                      None               No Default Parameter
+-i           Yes                                                                      "path/to/file/"    No Default Parameter
+-g           Yes                                                                      "path/to/folder/"  No Default Parameter
+-f1          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+-f0          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+-fbed        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+-fgff        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+-fdbSNPID    Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+-b           No                                                                       An integer value   1
+-dnase       No                                                                       None               No Default Parameter
+-histone     No                                                                       None               No Default Parameter
+-tf          No                                                                       None               No Default Parameter
+-kegg        No                                                                       None               No Default Parameter
+-tfkegg      No                                                                       None               No Default Parameter
+-celltfkegg  No                                                                       None               No Default Parameter
+-udg         No                                                                       None               No Default Parameter
+-udginput    Yes, if -udg is set                                                      "path/to/file/"    No Default Parameter
+-udginfoid   Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
+-udginfosym  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
+-udginforna  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
+-udgname     No                                                                       A string           "NoName"
+-udgfile     No                                                                       "path/to/file/"    No Default Parameter
+-udl         No                                                                       None               No Default Parameter
+-udlinput    Yes, if -udl is set                                                      "path/to/file/"    No Default Parameter
+-udlf0exc    Yes, if -udl is set (one of -udlf0exc, -udlf0inc, -udlf1exc, -udlf0inc)  None               -udlf0exc
+===========  =======================================================================  =================  ====================

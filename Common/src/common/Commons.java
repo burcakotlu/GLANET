@@ -1269,16 +1269,16 @@ public class Commons {
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION = "-udg";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_INPUT = "-udginput";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_ID = "-udginfoid";
-	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udginfosymbol";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udginfosym";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udginforna";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENESET_NAME = "-udgname";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgfile";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_INPUT = "-udlinput";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE = "-udldataformat0exc";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE = "-udldataformat0inc";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE = "-udldataformat1exc";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udldataformat1inc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE = "-udlf0exc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE = "-udlf0inc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE = "-udlf1exc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udlf1inc";
 	public static final String ARG_JOB_NAME = "-j";
 	public static final String ARG_RSAT = "-rsat";
 

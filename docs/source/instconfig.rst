@@ -18,9 +18,29 @@ For **Mac OS X** users, the operating system comes with the installed Perl. If y
 
 	$ sudo curl -L http://xrl.us/installperlosx | bash
 
-For **Linux** users, Perl probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
+For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
+
+After you have installed Perl, you need to install the required modules.
+
+First install cpanminus, which will allow other modules to be installed easily. Open Terminal (or Command Prompt in Windows) and write the command below::
+
+	$ cpan App:cpanminus
+
+Now, install LWP/UserAgent.pm module. Note that if any of the modules below is installed in your computer, you will be notified::
+
+	$ cpanm LWP::UserAgent
+
+Install XML/XPath.pm module::
+
+	$ cpanm XML::XPath
+
+Install JSON module. 
+
+	$ cpanm JSON
+
+Once you have followed all these steps, you should be ready to run GLANET properly.
 
 ------------
 Requirements
