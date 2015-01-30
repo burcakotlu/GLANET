@@ -28,13 +28,17 @@ First install cpanminus, which will allow other modules to be installed easily. 
 
 	$ cpan App:cpanminus
 
-Now, install JSON. Note that if JSON is already installed in your computer, the command below will notify you::
+Now, install LWP/UserAgent.pm module. Note that if any of the modules below is installed in your computer, you will be notified::
 
-	$ cpanm JSON
+	$ cpanm LWP::UserAgent
 
-Now, install XML/XPath.pm::
+Install XML/XPath.pm module::
 
 	$ cpanm XML::XPath
+
+Install JSON module. 
+
+	$ cpanm JSON
 
 Once you have followed all these steps, you should be ready to run GLANET properly.
 
