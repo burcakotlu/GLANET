@@ -64,7 +64,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			allowMultipleLocation,
 			minimumRatioOfBasesThatMustBeRemapped,
 			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
-			Commons.REMAP_ALL_TF_ANNOTATIONS_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS);
+			Commons.REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS);
 	
 	Remap.fillConversionMap(forRSA_REMAP_Folder, 
 			Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE, 
