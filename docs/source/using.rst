@@ -14,32 +14,32 @@ Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Th
 Command Line Options
 --------------------
 
-===========  =======================================================================  =================  ====================
-Command      Required                                                                 Parameter          Default Parameter
-===========  =======================================================================  =================  ====================
--c           Yes                                                                      None               No Default Parameter
--i           Yes                                                                      "path/to/file/"    No Default Parameter
--g           Yes                                                                      "path/to/folder/"  No Default Parameter
--f1          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--f0          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fbed        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fgff        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fdbSNPID    Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
+=========== =======================================================================  =================  =================
+Command     Required                                                                 Parameter          Default Parameter
+=========== =======================================================================  =================  =================
+-c           Yes                                                                      None               None
+-i           Yes                                                                      "path/to/file/"    None
+-g           Yes                                                                      "path/to/folder/"  None
+-f1          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               None
+-f0          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               None
+-fbed        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               None
+-fgff        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               None
+-fdbSNPID    Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               None
 -b           No                                                                       An integer value   1
--dnase       No                                                                       None               No Default Parameter
--histone     No                                                                       None               No Default Parameter
--tf          No                                                                       None               No Default Parameter
--kegg        No                                                                       None               No Default Parameter
--tfkegg      No                                                                       None               No Default Parameter
--celltfkegg  No                                                                       None               No Default Parameter
--udg         No                                                                       None               No Default Parameter
--udginput    Yes, if -udg is set                                                      "path/to/file/"    No Default Parameter
+-dnase       No                                                                       None               None
+-histone     No                                                                       None               None
+-tf          No                                                                       None               None
+-kegg        No                                                                       None               None
+-tfkegg      No                                                                       None               None
+-celltfkegg  No                                                                       None               None
+-udg         No                                                                       None               None
+-udginput    Yes, if -udg is set                                                      "path/to/file/"    None
 -udginfoid   Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
 -udginfosym  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
 -udginforna  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
 -udgname     No                                                                       A string           "NoName"
--udgfile     No                                                                       "path/to/file/"    No Default Parameter
--udl         No                                                                       None               No Default Parameter
--udlinput    Yes, if -udl is set                                                      "path/to/file/"    No Default Parameter
+-udgfile     No                                                                       "path/to/file/"    None
+-udl         No                                                                       None               None
+-udlinput    Yes, if -udl is set                                                      "path/to/file/"    None
 -udlf0exc    Yes, if -udl is set (one of -udlf0exc, -udlf0inc, -udlf1exc, -udlf0inc)  None               -udlf0exc
-===========  =======================================================================  =================  ====================
+===========  =======================================================================  =================  =================
