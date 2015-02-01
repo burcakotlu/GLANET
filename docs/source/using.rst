@@ -103,42 +103,42 @@ Note that exact path to the input file comes just after :option:`-i` option. Unl
 -g
 ^^
 
-**Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`. Example run:
+**Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -g "~/Users/User/GLANET/"
 
 -f1
 ^^^
 
-**Required** if :option:`-c` is set. One of the options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option indicate 1-based coordinates (End Inclusive) is used in the input file as input format. Example run:
+**Required** if :option:`-c` is set. One of the options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option specifies 1-based coordinates (End Inclusive) is used in the input file as input format. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -f1
 
 -f0
 ^^^
 
-**Required** if :option:`-c` is set. This option indicate 0-based coordinates (End Inclusive) is used in the input file as input format. See also `-f1`_. Example run:
+**Required** if :option:`-c` is set. This option specifies 0-based coordinates (End Inclusive) is used in the input file as input format. See also `-f1`_. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -f0
 
 -fbed
 ^^^^^
 
-**Required** if :option:`-c` is set. This option indicate BED is used in the input file as input format. See also `-f1`_. Example run:
+**Required** if :option:`-c` is set. This option specifies BED is used in the input file as input format. See also `-f1`_. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fbed
 
 -fgff
 ^^^^^
 
-**Required** if :option:`-c` is set. This option indicate GFF3 is used in the input file as input format. See also `-f1`_. Example run:
+**Required** if :option:`-c` is set. This option specifies GFF3 is used in the input file as input format. See also `-f1`_. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fgff
 
 -fdbsnp
 ^^^^^^^
 
-**Required** if :option:`-c` is set. This option indicate dbSNP IDs is used in the input file as input format. See also `-f1`_. Example run:
+**Required** if :option:`-c` is set. This option specifies dbSNP IDs is used in the input file as input format. See also `-f1`_. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fdbsnp
 
