@@ -1243,19 +1243,20 @@ public class Commons {
 	// command line arguments
 	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
 	public static final String ARG_INPUT_FILE = "-i";
-	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-hg19";
-	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-hg38";
+	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-grch37";
+	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-grch38";
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
 	public static final String ARG_INPUT_FORMAT_BED = "-fbed";
 	public static final String ARG_INPUT_FORMAT_GFF = "-fgff";
+	public static final String ARG_INPUT_FORMAT_DBSNP = "-fdbsnp";
 	public static final String ARG_NUMBER_OF_BASES = "-b";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbhfdr";
-	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbonferroni";
+	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-mtbc";
 	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
 	public static final String ARG_SIGNIFICANCE_CRITERIA = "-sc";
 	public static final String ARG_NUMBER_OF_PERMUTATIONS = "-p";
@@ -1272,7 +1273,7 @@ public class Commons {
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_GENE_SYMBOL = "-udginfosym";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENE_INFORMATION_RNA_NUCLEOTIDE_ACCESSION = "-udginforna";
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_GENESET_NAME = "-udgname";
-	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgfile";
+	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgdfile";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_INPUT = "-udlinput";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE = "-udlf0exc";
