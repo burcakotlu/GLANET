@@ -14,34 +14,38 @@ Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Th
 Command Line Options
 --------------------
 
-=====================  ===========  ========  ============  =================  =================
-Description            Command      Required  Prerequisite  Parameter          Default Parameter
-=====================  ===========  ========  ============  =================  =================
-Command Line           -c           Yes                     None               None
-Input file             -i           Yes                     "path/to/file"     None
-Assembly               -hg19        No                      None               -hg19
-Assembly               -hg38        No                      None               -hg19
-GLANET folder          -g           Yes                     "path/to/folder/"  None
-Input format           -f1          Yes                     None               None
-Input format           -f0          Yes                     None               None
-Input format           -fbed        Yes                     None               None
-Input format           -fgff        Yes                     None               None
-Input format           -fdbSNPID    Yes                     None               None
-Num. of bases          -b           No                      An integer value   1
-DNase                  -dnase       No                      None               None
-Histone                -histone     No                      None               None
-Transcription Factor   -tf          No                      None               None
-KEGG Pathway           -kegg        No                      None               None
-TF & KEGG              -tfkegg      No                      None               None
-TF (Cell Line) & KEGG  -celltfkegg  No                      None               None
-User-defined gene set  -udg         No                      None               None
-UDG Input File         -udginput    Yes                     "path/to/file"     None
-UDG Gene Info. Type    -udginfoid   Yes                     None               -udginfoid
-UDG Gene Info. Type    -udginfosym  Yes                     None               -udginfoid
-UDG Gene Info. Type    -udginforna  Yes                     None               -udginfoid
-UDG Name               -udgname     No                      A string           "NoName"
-UDG Description File   -udgdfile     No                     "path/to/file"     None
-User-defined library   -udl         No                      None               None
-UDL Input File         -udlinput    Yes                     "path/to/file"     None
-UDL Data Format        -udlf0exc    Yes                     None               -udlf0exc
-=====================  ===========  ========  ============  =================  =================
+==  ===========  ========  ===========================================  =================  =================
+ID  Command      Required  Prerequisite                                 Parameter          Default Parameter
+==  ===========  ========  ===========================================  =================  =================
+1   -c           No        None                                         None               None
+2   -i           Yes       1                                            "path/to/file"     None
+3   -hg19        No        1                                            None               -hg19
+3   -hg38        No        1                                            None               -hg19
+4   -g           Yes       1                                            "path/to/folder/"  None
+5   -f1          Yes       1                                            None               None
+5   -f0          Yes       1                                            None               None
+5   -fbed        Yes       1                                            None               None
+5   -fgff        Yes       1                                            None               None
+5   -fdbSNPID    Yes       1                                            None               None
+6   -b           No        1                                            An integer value   1
+7   -dnase       No        1                                            None               None
+8   -histone     No        1                                            None               None
+9   -tf          No        1                                            None               None
+10  -kegg        No        1                                            None               None
+11  -tfkegg      No        1                                            None               None
+12  -celltfkegg  No        1                                            None               None
+13  -udg         No        1                                            None               None
+14  -udginput    Yes       13                                           "path/to/file"     None
+15  -udginfoid   Yes       13                                           None               -udginfoid
+15  -udginfosym  Yes       13                                           None               -udginfoid
+15  -udginforna  Yes       13                                           None               -udginfoid
+16  -udgname     No        13                                           A string           "NoName"
+17  -udgdfile    No        13                                           "path/to/file"     None
+18  -udl         No        1                                            None               None
+19  -udlinput    Yes       18                                           "path/to/file"     None
+20  -udldf0exc   No        18                                           None               -udlf0exc
+20  -udldf0inc   No        18                                           None               -udlf0exc
+20  -udldf1exc   No        18                                           None               -udlf0exc
+20  -udldf1inc   No        18                                           None               -udlf0exc
+21  -e           No        At least one of 7, 8, 9, 19, 11, 12, 13, 18
+==  ===========  ========  ===========================================  =================  =================
