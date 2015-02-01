@@ -45,10 +45,10 @@ ID  Command         Required  Precondition                 Parameter          De
 17  `-udgdfile`_    No        13                           "path/to/file"     None
 18  `-udl`_         No        1                            None               None
 19  `-udlinput`_    Yes       18                           "path/to/file"     None
-20  `-udldf0exc`_   Yes       18                           None               `-udlf0exc`_
-20  `-udldf0inc`_   Yes       18                           None               `-udlf0exc`_
-20  `-udldf1exc`_   Yes       18                           None               `-udlf0exc`_
-20  `-udldf1inc`_   Yes       18                           None               `-udlf0exc`_
+20  `-udldf0exc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf0inc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf1exc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf1inc`_   Yes       18                           None               `-udldf0exc`_
 21  `-e`_           No        7, 8, 9, 19, 11, 12, 13, 18  None               None
 22  `-rd`_          Yes       21                           None               `-rd`_
 22  `-rdgcm`_       Yes       21                           None               `-rd`_
@@ -110,7 +110,7 @@ Note that exact path to the input file comes just after :option:`-i` option. Unl
 -f1
 ^^^
 
-**Required** if :option:`-c` is set. One of the options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option specifies 1-based coordinates (End Inclusive) is used in the input file as input format. Example run::
+**Required** if :option:`-c` is set. One of the input format options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option specifies 1-based coordinates (End Inclusive) is used in the input file as input format. Example run::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -f1
 
@@ -142,3 +142,95 @@ Note that exact path to the input file comes just after :option:`-i` option. Unl
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fdbsnp
 
+-b
+^^
+
+-dnase
+^^^^^^
+
+-histone
+^^^^^^^^
+
+-tf
+^^^
+
+-kegg
+^^^^^
+
+-tfkegg
+^^^^^^^
+
+-celltfkegg
+^^^^^^^^^^^
+
+-udg
+^^^^
+
+-udginput
+^^^^^^^^^
+
+-udginfoid
+^^^^^^^^^^
+
+-udginfosym
+^^^^^^^^^^^
+
+-udginforna
+^^^^^^^^^^^
+
+-udgname
+^^^^^^^^
+
+-udgdfile
+^^^^^^^^^
+
+-udl
+^^^^
+
+-udlinput
+^^^^^^^^^^
+
+-udldf0exc
+^^^^^^^^^^
+
+-udldf0inc
+^^^^^^^^^^
+
+-udldf1exc
+^^^^^^^^^^
+
+-udldf1inc
+^^^^^^^^^^
+
+-e
+^^
+
+-rd
+^^^
+
+-rdgcm
+^^^^^^
+
+-mtbhfdr
+^^^^^^^^
+
+-mtbc
+^^^^^
+
+-fdr
+^^^^
+
+-sc
+^^^
+
+-p
+^^
+
+-pe
+^^^
+
+-rsat
+^^^^^
+
+-j
+^^
