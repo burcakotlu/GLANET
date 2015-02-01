@@ -36,7 +36,7 @@ Install XML/XPath.pm module::
 
 	$ cpanm XML::XPath
 
-Install JSON module. 
+Install JSON module::
 
 	$ cpanm JSON
 
