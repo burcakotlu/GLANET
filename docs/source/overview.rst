@@ -1,7 +1,10 @@
-Overview
-========
-
+===============
 GLANET Overview
+===============
+
+------
+GLANET
+------
 
 GLANET is Genomic Loci ANnotation and Enrichment Tool.
 GLANET has two sets of intervals.
