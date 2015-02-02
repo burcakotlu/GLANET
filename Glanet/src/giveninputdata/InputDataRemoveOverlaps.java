@@ -262,7 +262,6 @@ public class InputDataRemoveOverlaps {
 		
 		try {
 			
-			
 			switch(inputFileFormat) {
 			
 				case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES: 
@@ -320,37 +319,7 @@ public class InputDataRemoveOverlaps {
 	 }
 	
 	
-//	public static void writeInputFileWithoutOverlaps(String outputFileName, Map<String,IntervalTree>chromosome2IntervalTree){
-//		FileWriter fileWriter;
-//		BufferedWriter bufferedWriter;
-//		
-////		String chromosomeName = null;
-//		IntervalTree tree = null;
-//		
-//		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
-//		
-//		try {
-//			fileWriter = FileOperations.createFileWriter(outputFileName);
-//			bufferedWriter = new BufferedWriter(fileWriter);
-//			
-//			for(Map.Entry<String,IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
-//				
-////				chromosomeName = chr2IntervalTree.getKey();
-//				tree = chr2IntervalTree.getValue();
-//				
-//				//write the nodes of the interval tree in a sorted way
-//				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type);
-//				
-//							
-//			}
-//		} catch (IOException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		
-//		
-//	}
-//	
+
 	
 	
 	//args[0]	--->	Input File Name with folder

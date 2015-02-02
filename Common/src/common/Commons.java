@@ -385,7 +385,7 @@ public class Commons {
 	public static final String HEADER_LINE_FOR_ALL_TF_ANNOTATIONS_IN_LATEST_ASSEMBLY="#All TF Annotations in 1Based Start End in Latest Assembly (Remapped from GRCh37_p13 (hg19)).";
 
 	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13 = "All_TF_Annotations_1Based_Start_End_GRCh37_p13.txt";
-	public static final String REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES = "All_TF_Annotations_RemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.txt";
+	public static final String REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE = "All_TF_Annotations_RemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.bed";
 	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38 = "All_TF_Annotations_1Based_Start_End_GRCh38.txt";
 	/***************************************************************************************/
 	/***************************REMAP ALL TF Annotations case ends**************************/

@@ -14,9 +14,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import remap.Remap;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -26,6 +27,8 @@ import common.Commons;
  *
  */
 public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
+	
+	final static Logger logger = Logger.getLogger(GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.class);
 
     public static void callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
 	    String dataFolder,
@@ -33,7 +36,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	    TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 	    TIntObjectMap<String> lineNumber2SourceInformationMap,
 	    TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
-	    String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13,
+	    String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
 	    String all_TF_Annotations_File_1Based_Start_End_GRCh38){
     	
     
@@ -52,11 +55,15 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	double minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
 	double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength  = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
 	
+	String inputFormat =Commons.BED;
+	
+	logger.info("******************************************************************************");
+	
 	Remap.remap(
 			dataFolder,
 			sourceReferenceAssemblyID, 
 			targetReferenceAssemblyID, 
-			forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13 , 
+			forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE , 
 			forRSA_REMAP_Folder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 			forRSA_REMAP_Folder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
 			forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE,						
@@ -64,6 +71,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			allowMultipleLocation,
 			minimumRatioOfBasesThatMustBeRemapped,
 			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+			inputFormat,
 			Commons.REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS);
 	
 	Remap.fillConversionMap(forRSA_REMAP_Folder, 
@@ -78,6 +86,10 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			lineNumber2SourceInformationMap,
 			lineNumber2TargetGenomicLociMap,
 			headerLine);
+	
+	logger.info("******************************************************************************");
+	
+
     }
     
     /*
@@ -268,7 +280,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13,
 			lineNumber2SourceGenomicLociMap,
 			lineNumber2SourceInformationMap,
-			Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES);
+			Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
 	
 	
 	
@@ -278,7 +290,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			lineNumber2SourceGenomicLociMap,
 			lineNumber2SourceInformationMap,
 			lineNumber2TargetGenomicLociMap,
-			Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES,
+			Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
 			Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38);
 	
 

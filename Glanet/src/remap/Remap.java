@@ -177,6 +177,7 @@ public class Remap {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				logger.info("NCBI REMAP Show Batches Exception = " + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
 			}
 	}
 	
@@ -371,6 +372,7 @@ public class Remap {
 			String allowMultipleLocation,
 			double minimumRatioOfBasesThatMustBeRemapped,
 			double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+			String inputFormat,
 			String information){
 					
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator")  + "remap_api.pl";
@@ -380,7 +382,7 @@ public class Remap {
 		Process process = null;
 			
 		try {
-			process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength);
+			process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength + " --in_format " + inputFormat);
 			
 			process.waitFor();
 			
@@ -400,9 +402,13 @@ public class Remap {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
+
 		}
 	}
 
@@ -447,6 +453,8 @@ public class Remap {
 		String mapped = null;
 		String toBeRemappedInformation = null;
 		
+		int numberofUnRemappedInputLine = 0;
+		
 		try {
 							
 				fileWriter = FileOperations.createFileWriter(outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly);
@@ -469,14 +477,20 @@ public class Remap {
 							toBeRemappedInformation =lineNumber2SourceInformationMap.get(i); 
 							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
 							logger.warn("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+							numberofUnRemappedInputLine++;
 						}else{
 							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
 							logger.warn("To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+							numberofUnRemappedInputLine++;
 						}
 						
 					}
 					
+				
+					
 				}//End of FOR
+				
+				logger.warn("Number of unremapped lines is: "+ numberofUnRemappedInputLine);
 								
 				//CLOSE	
 				bufferedWriter.close();		
@@ -517,6 +531,8 @@ public class Remap {
 		String mapped2;
 		
 		String information = null;
+		int numberofUnRemappedInputLine = 0;
+		
 		
 		try {
 						
@@ -545,13 +561,26 @@ public class Remap {
 						bufferedWriter.write(mapped1 + "\t" + mapped2 + "\t" + information + System.getProperty("line.separator"));
 					}//End of IF: None of the mapped is null
 					else{
-						logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						logger.warn("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
+						
+						if (mapped1==null){
+							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.warn("To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " after: "   + information);
+							
+							numberofUnRemappedInputLine++;
+						}
+						
+						if (mapped2==null){
+							logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+							logger.warn(" To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
+							
+							numberofUnRemappedInputLine++;
+						}
 					}//End of ELSE: at least one of the mapped is  null
 					
 				}//End of FOR
 				
-
+				logger.warn("Number of unremapped lines is: "+ numberofUnRemappedInputLine);
+				
 				//CLOSE	
 				bufferedWriter.close();
 	
@@ -600,14 +629,14 @@ public class Remap {
 		int lineNumber;
 		
 		//source
-		int sourceInt;	
+		//int sourceInt;	
 		ChromosomeName sourceChrName;
 		int sourceStart;
 		int sourceEnd;
 		
 		//mapped
 		String mappedIntString;
-		int mappedInt;
+		//int mappedInt;
 		ChromosomeName mappedChrName;
 		int mappedStart;
 		int mappedEnd;
@@ -657,13 +686,13 @@ public class Remap {
 						
 						lineNumber = Integer.parseInt(strLine.substring(strLine.substring(0, indexofFirstTab).indexOf(Commons.UNDERSCORE)+1, indexofFirstTab));
 						
-						sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+						//sourceInt = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 						
 						mappedIntString = strLine.substring(indexofSecondTab+1, indexofThirdTab);
 						
 						if (!mappedIntString.equals(Commons.NULL)){
 							
-							mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+							//mappedInt = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 							
 							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab+1, indexofFifthTab));
@@ -676,9 +705,10 @@ public class Remap {
 							
 							mappedAssembly =  AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab+1));
 							
-							if ((sourceInt == 1) && 
-									(mappedInt == 1) &&
-									sourceChrName == mappedChrName &&
+							//Pay attention
+							//sourceInt and mappedInt does not have to be the same
+							//e.g: rs1233578
+							if (	sourceChrName == mappedChrName &&
 									mappedAssembly.isPrimaryAssembly()){
 								
 								lineNumber2TargetGenomicLociMap.put(lineNumber, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
@@ -698,6 +728,7 @@ public class Remap {
 				}//End of while
 				
 				//for debug purposes starts
+				logger.info("Number of Lines In lineNumber2SourceGenomicLociMap : " + lineNumber2SourceGenomicLociMap.size() + " for file: " + remapReportFile);
 				logger.info("Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
 				//for debug purposes ends 
 				

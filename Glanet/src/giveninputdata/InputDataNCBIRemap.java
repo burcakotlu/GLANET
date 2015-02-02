@@ -3,6 +3,12 @@
  */
 package giveninputdata;
 
+import enumtypes.Assembly;
+import enumtypes.CommandLineArguments;
+import enumtypes.GivenIntervalsInputFileDataFormat;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,16 +17,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import remap.Remap;
 import auxiliary.FileOperations;
 
 import common.Commons;
-
-import enumtypes.Assembly;
-import enumtypes.CommandLineArguments;
-import enumtypes.GivenIntervalsInputFileDataFormat;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 
 /**
  * @author Burçak Otlu
@@ -29,6 +31,9 @@ import gnu.trove.map.hash.TIntObjectHashMap;
  *
  */
 public class InputDataNCBIRemap {
+	
+	final static Logger logger = Logger.getLogger(InputDataNCBIRemap.class);
+
 	
 	public static void readRemapOutputFileWriteProcessedInputFile(
 			String givenInputDataFolder,
@@ -154,7 +159,7 @@ public class InputDataNCBIRemap {
 	}
 
 	
-	public static void convertGivenInputCoordibanedFromGRCh38toGRCh37p13UsingRemap(
+	public static void convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap(
 			String givenInputDataFolder,
 			String dataFolder,
 			String inputFile,
@@ -203,6 +208,9 @@ public class InputDataNCBIRemap {
 		double minimumRatioOfBasesThatMustBeRemapped;
 		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength;
 		
+		String inputFormat =Commons.BED;
+		
+		
 		merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
 		allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
 		minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
@@ -222,6 +230,9 @@ public class InputDataNCBIRemap {
 		//write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
 		readInputFileFillMapWriteRemapInputFile(givenInputDataFolder, inputFile,lineNumber2SourceGenomicLociMap,Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
 
+		logger.info("******************************************************************************");
+		
+
 		Remap.remap(dataFolder,
 				sourceReferenceAssemblyID, 
 				targetReferenceAssemblyID, 
@@ -233,6 +244,7 @@ public class InputDataNCBIRemap {
 				allowMultipleLocation, 
 				minimumRatioOfBasesThatMustBeRemapped, 
 				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+				inputFormat,
 				Commons.REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13);
 		
 		Remap.fillConversionMap(givenInputDataFolder, 
@@ -247,6 +259,10 @@ public class InputDataNCBIRemap {
 				lineNumber2SourceInformationMap,
 				lineNumber2TargetGenomicLociMap,
 				headerLine);
+		
+		logger.info("******************************************************************************");
+		
+
 		
 		//read remap outputfile
 		//write processed file in 0Based start end in GRCH37 p13 
@@ -290,7 +306,7 @@ public class InputDataNCBIRemap {
 					case GRCh38	:		inputFileName  	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38;
 										outputFileName 	= Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 										
-										convertGivenInputCoordibanedFromGRCh38toGRCh37p13UsingRemap(givenInputDataFolder,dataFolder,inputFileName,Assembly.GRCh38, outputFileName,Assembly.GRCh37_p13);
+										convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap(givenInputDataFolder,dataFolder,inputFileName,Assembly.GRCh38, outputFileName,Assembly.GRCh37_p13);
 										break;
 					case GRCh37_p13:	
 										break;

@@ -286,6 +286,8 @@ public class InputDataProcess {
 			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
 			minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
 			maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
+			
+			String inputFormat = Commons.BED;
 
 			// Could not find an alignment batch for your assembly pair: GRCh38
 			// x GRCh37.p13
@@ -294,6 +296,9 @@ public class InputDataProcess {
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE,
 			// outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
+			
+			logger.info("******************************************************************************");
+			
 			Remap.remap(dataFolder, 
 					sourceReferenceAssemblyID, 
 					targetReferenceAssemblyID, 
@@ -305,6 +310,7 @@ public class InputDataProcess {
 					allowMultipleLocation, 
 					minimumRatioOfBasesThatMustBeRemapped, 
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+					inputFormat,
 					Commons.REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13);
 			
 			Remap.fillConversionMap(givenDataFolder, 
@@ -320,6 +326,8 @@ public class InputDataProcess {
 					lineNumber2TargetGenomicLociMap,
 					headerLine);
 
+			logger.info("******************************************************************************");
+			
 			
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file in GRCh37_hg19 

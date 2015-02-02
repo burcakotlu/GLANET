@@ -848,14 +848,22 @@ public static String takeComplementforeachAllele(String allele){
 		String alteredSNPSequence = null; 
 		
 		int lengthOfObservedAllele;
-		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele;
+		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = null;
 		
 		for(String observedAllele : observedAllelesList){
 			
 			lengthOfObservedAllele = observedAllele.length();
 			
-			SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele =snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION +lengthOfObservedAllele);
-			
+			try{
+				
+				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele =snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION +lengthOfObservedAllele);
+				
+			}catch(StringIndexOutOfBoundsException e){
+				logger.error("Exception Message:" + e.getMessage());
+				logger.error("Exception toString:" + e.toString());
+				logger.error("snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+				logger.error("ObservedAllele: " + observedAllele);
+			}
 			
 			//This observed allele is already in the SNP Reference Sequence
 			if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
