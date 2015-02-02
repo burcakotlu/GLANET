@@ -12,7 +12,7 @@ Content:
 .. toctree::
    :maxdepth: 2
 
-   GLANET Overview
+   Overview
    Download
    instconfig
    using
