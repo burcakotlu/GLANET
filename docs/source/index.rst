@@ -12,13 +12,13 @@ Content:
 .. toctree::
    :maxdepth: 2
 
-   overview
-   licence
-   download
+   GLANET Overview
+   Download
    instconfig
    using
    tutorial
    contact
+   licence
 
 
 Indices and tables
