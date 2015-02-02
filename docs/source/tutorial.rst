@@ -10,9 +10,14 @@ Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Th
 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
-------------------------
-Graphical User Interface
-------------------------
+----------
+GLANET GUI
+----------
+
+GLANET GUI enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG 
+KEGG pathways, user defined gene sets and user defined library.
+
+Other facilities of GLANET GUI is enrichment analysis and regulatory sequence analysis.
 
 --------------------
 Command-Line Options
