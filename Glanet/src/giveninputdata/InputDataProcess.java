@@ -225,8 +225,9 @@ public class InputDataProcess {
 			/************************************************************************************/		
 	
 			
+			//header line
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "rsID" + "\t" + "chrName" + "\t" + "0BasedStart_in_LatestAssembly" + "\t" + "0BasedEnd_in_LatestAssembly" + System.getProperty("line.separator"));
 		
-			
 			
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE starts ******************/
@@ -237,7 +238,7 @@ public class InputDataProcess {
 
 					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1);
 					
-					bufferedWriter.write(rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
+					bufferedWriter.write( Commons.RS +rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
 					remapInputFileBufferedWriter.write(remapInputFileLine + System.getProperty("line.separator"));
 					
 					lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,remapInputFileLine);
