@@ -12,8 +12,8 @@ Content:
 .. toctree::
    :maxdepth: 2
 
-   Overview
-   Download
+   overview
+   download
    instconfig
    using
    tutorial
