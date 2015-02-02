@@ -15,7 +15,6 @@ Content:
    overview
    download
    instconfig
-   using
    tutorial
    contact
    licence
