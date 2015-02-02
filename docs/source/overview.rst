@@ -17,3 +17,5 @@ For Enrichment Analysis, GLANET permutation based method takes genomic biases in
 And Transcription Factor Annotation results are further analysed whether any SNP (given in the smaller set) increases or decreases the binding affinity of the annotated transcription factor by scanning the reference sequence, all possible altered sequences and transcription factor extended peak sequence with the position frequency matrices of the annotated transcription factor which is called Regulatory Sequence Analysis.
 
 GLANET Pipeline
+
+.. image:: GLANET_pipeline.jpg
