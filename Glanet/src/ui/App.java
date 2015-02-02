@@ -179,6 +179,14 @@ public class App
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
+			} else if( args[i].equalsIgnoreCase(Commons.ARG_INPUT_FORMAT_DBSNP)){
+				
+				if( argsInOrder[CommandLineArguments.InputFileDataFormat.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.InputFileDataFormat.value()] = Commons.INPUT_FILE_FORMAT_DBSNP_IDS;
+				else {
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
 			}
 		}
 

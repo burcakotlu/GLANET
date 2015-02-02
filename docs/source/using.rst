@@ -11,35 +11,226 @@ Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Th
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
 --------------------
-Command Line Options
+Command-Line Options
 --------------------
 
-===========  =======================================================================  =================  ====================
-Command      Required                                                                 Parameter          Default Parameter
-===========  =======================================================================  =================  ====================
--c           Yes                                                                      None               No Default Parameter
--i           Yes                                                                      "path/to/file/"    No Default Parameter
--g           Yes                                                                      "path/to/folder/"  No Default Parameter
--f1          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--f0          Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fbed        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fgff        Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--fdbSNPID    Yes (one of -f1, -f0, -fbed, -fgff, -fdbSNPID)                           None               No Default Parameter
--b           No                                                                       An integer value   1
--dnase       No                                                                       None               No Default Parameter
--histone     No                                                                       None               No Default Parameter
--tf          No                                                                       None               No Default Parameter
--kegg        No                                                                       None               No Default Parameter
--tfkegg      No                                                                       None               No Default Parameter
--celltfkegg  No                                                                       None               No Default Parameter
--udg         No                                                                       None               No Default Parameter
--udginput    Yes, if -udg is set                                                      "path/to/file/"    No Default Parameter
--udginfoid   Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
--udginfosym  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
--udginforna  Yes, if -udg is set (one of -udginfoid, -udginfosym, -udginforna)        None               -udginfoid
--udgname     No                                                                       A string           "NoName"
--udgfile     No                                                                       "path/to/file/"    No Default Parameter
--udl         No                                                                       None               No Default Parameter
--udlinput    Yes, if -udl is set                                                      "path/to/file/"    No Default Parameter
--udlf0exc    Yes, if -udl is set (one of -udlf0exc, -udlf0inc, -udlf1exc, -udlf0inc)  None               -udlf0exc
-===========  =======================================================================  =================  ====================
+In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
+
+==  ==============  ========  ===========================  =================  =================
+ID  Command         Required  Precondition                 Parameter          Default Parameter
+==  ==============  ========  ===========================  =================  =================
+1   `-c`_           No        None                         None               None
+2   `-i`_           Yes       1                            "path/to/file"     None
+3   `-grch37`_      Yes       1                            None               `-grch37`_
+3   `-grch38`_      Yes       1                            None               `-grch37`_
+4   `-g`_           Yes       1                            "path/to/folder/"  None
+5   `-f1`_          Yes       1                            None               None
+5   `-f0`_          Yes       1                            None               None
+5   `-fbed`_        Yes       1                            None               None
+5   `-fgff`_        Yes       1                            None               None
+5   `-fdbsnp`_      Yes       1                            None               None
+6   `-b`_           No        1                            An integer value   1
+7   `-dnase`_       No        1                            None               None
+8   `-histone`_     No        1                            None               None
+9   `-tf`_          No        1                            None               None
+10  `-kegg`_        No        1                            None               None
+11  `-tfkegg`_      No        1                            None               None
+12  `-celltfkegg`_  No        1                            None               None
+13  `-udg`_         No        1                            None               None
+14  `-udginput`_    Yes       13                           "path/to/file"     None
+15  `-udginfoid`_   Yes       13                           None               `-udginfoid`_
+15  `-udginfosym`_  Yes       13                           None               `-udginfoid`_
+15  `-udginforna`_  Yes       13                           None               `-udginfoid`_
+16  `-udgname`_     No        13                           A string           "NoName"
+17  `-udgdfile`_    No        13                           "path/to/file"     None
+18  `-udl`_         No        1                            None               None
+19  `-udlinput`_    Yes       18                           "path/to/file"     None
+20  `-udldf0exc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf0inc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf1exc`_   Yes       18                           None               `-udldf0exc`_
+20  `-udldf1inc`_   Yes       18                           None               `-udldf0exc`_
+21  `-e`_           No        7, 8, 9, 19, 11, 12, 13, 18  None               None
+22  `-rd`_          Yes       21                           None               `-rd`_
+22  `-rdgcm`_       Yes       21                           None               `-rd`_
+23  `-mtbhfdr`_     Yes       21                           None               `-mtbhfdr`_
+23  `-mtbc`_        Yes       21                           None               `-mtbhfdr`_
+24  `-fdr`_         Yes       21                           A float value      0.05
+25  `-sc`_          Yes       21                           A float value      0.05
+26  `-p`_           Yes       21                           An integer value   5000
+27  `-pe`_          Yes       21                           An integer value   1000
+28  `-rsat`_        No        9, 11, 12, 21                None               None
+29  `-j`_           Yes       1                            A string           "NoName"
+==  ==============  ========  ===========================  =================  =================
+
+:option:`dest_dir`
+
+--------------------------------
+Command-Line Option Descriptions
+--------------------------------
+
+There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. Whether a parameter is required or not will be specified as we describe it. The order of parameters is not fixed. One may set the parameters in any order. Some parameters may require some other parameters to be set as preconditions and postconditions, which will also be indicated. You can see the preconditions and postconditions of a command as shown in `Command-Line Options`_
+
+-c
+^^
+
+To enable GLANET to run in Terminal or Command Prompt, it must be indicated with :option:`-c` option. If there is no such option specified, program will run with its graphical user interface. Example run is as following::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c
+
+-i
+^^
+
+**Required** if :option:`-c` is set. Input file location must be specified just after :option:`-i` option as parameter. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt"
+
+Note that exact path to the input file comes just after :option:`-i` option. Unless the correct path location is specified after :option:`-i`, the program may run unexpectedly. You are responsible to indicate the correct path to the input file.
+
+-grch37
+^^^^^^^
+
+**Required** if :option:`-c` is set. This option specifies assembly format as GRCh37.p13. If you do not set anything, :option:`-grch37` is set as default. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38
+
+-grch38
+^^^^^^^
+
+**Required** if :option:`-c` is set. This option specifies assembly format as GRCh38. If you do not set anything, :option:`-grch37` is set as default. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38
+
+-g
+^^
+
+**Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -g "~/Users/User/GLANET/"
+
+-f1
+^^^
+
+**Required** if :option:`-c` is set. One of the input format options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option specifies 1-based coordinates (End Inclusive) is used in the input file as input format. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -f1
+
+-f0
+^^^
+
+**Required** if :option:`-c` is set. This option specifies 0-based coordinates (End Inclusive) is used in the input file as input format. See also `-f1`_. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -f0
+
+-fbed
+^^^^^
+
+**Required** if :option:`-c` is set. This option specifies BED is used in the input file as input format. See also `-f1`_. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fbed
+
+-fgff
+^^^^^
+
+**Required** if :option:`-c` is set. This option specifies GFF3 is used in the input file as input format. See also `-f1`_. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fgff
+
+-fdbsnp
+^^^^^^^
+
+**Required** if :option:`-c` is set. This option specifies dbSNP IDs is used in the input file as input format. See also `-f1`_. Example run::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c -i "/Users/User/InputFile.txt" -grch38 -fdbsnp
+
+-b
+^^
+
+-dnase
+^^^^^^
+
+-histone
+^^^^^^^^
+
+-tf
+^^^
+
+-kegg
+^^^^^
+
+-tfkegg
+^^^^^^^
+
+-celltfkegg
+^^^^^^^^^^^
+
+-udg
+^^^^
+
+-udginput
+^^^^^^^^^
+
+-udginfoid
+^^^^^^^^^^
+
+-udginfosym
+^^^^^^^^^^^
+
+-udginforna
+^^^^^^^^^^^
+
+-udgname
+^^^^^^^^
+
+-udgdfile
+^^^^^^^^^
+
+-udl
+^^^^
+
+-udlinput
+^^^^^^^^^^
+
+-udldf0exc
+^^^^^^^^^^
+
+-udldf0inc
+^^^^^^^^^^
+
+-udldf1exc
+^^^^^^^^^^
+
+-udldf1inc
+^^^^^^^^^^
+
+-e
+^^
+
+-rd
+^^^
+
+-rdgcm
+^^^^^^
+
+-mtbhfdr
+^^^^^^^^
+
+-mtbc
+^^^^^
+
+-fdr
+^^^^
+
+-sc
+^^^
+
+-p
+^^
+
+-pe
+^^^
+
+-rsat
+^^^^^
+
+-j
+^^
