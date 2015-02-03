@@ -39,6 +39,11 @@ Install XML/XPath.pm module::
 Install JSON module::
 
 	$ cpanm JSON
+	
+3. Download executable GLANET.jar	
+	
+4. Download Data.zip and extract it under a directory called GLANET (e.g.: C:\Users\burcakotlu\GLANET\). 
+   Data.zip contains the necessary data for Annotation.	
 
 Once you have followed all these steps, you should be ready to run GLANET properly.
 
@@ -54,4 +59,4 @@ GLANET System Requirements
 
 4. Perl should be installed in your computer.
 
-5. During execution GLANET calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.
+5. During execution of GLANET calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.
