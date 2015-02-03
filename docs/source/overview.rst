@@ -6,6 +6,16 @@ GLANET Overview
 GLANET
 ------
 
++------------------------------+
+| paragraph                    |
+|                              |
++------------------------------+
+
++------------------------------+
+| paragraph                    |
+|                              |
++------------------------------+
+
 +-----------------------------------------------------------------------------------------------------------------------+
 | paragraph    				   																							|
 |GLANET is Genomic Loci ANnotation and Enrichment Tool.																	|
@@ -15,7 +25,7 @@ GLANET
 | DNaseI hypersensitive sites, transcription factor binding sites, histone modification sites, exons of genes, 			|
 |introns of genes and so on.																							|
 |																														|
-|                              																							|
+|                             																							|
 +-----------------------------------------------------------------------------------------------------------------------+
 
 In order to gain biological insight, intersecting these two sets, accurate annotation of given genomic intervals with identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital for a comprehensive understanding and interpretation of the GWAS disease associated variants.
