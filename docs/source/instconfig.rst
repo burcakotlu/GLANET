@@ -40,9 +40,9 @@ Install JSON module::
 
 	$ cpanm JSON
 	
-3. Download executable GLANET.jar  from :dudir:`glanet-jar-label`
+3. Download executable GLANET.jar  from :rst:role:`glanet-jar-label`
 	
-4. Download Data.zip from :ref:`data-zip-label`  and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
+4. Download Data.zip from :rst:role:`data-zip-label`  and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
    Data.zip contains the necessary data for Annotation.	
    The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET/Data).
    
