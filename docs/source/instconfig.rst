@@ -1,16 +1,16 @@
-====================================
-Installation and System Requirements
-====================================
+===========================================
+GLANET Installation and System Requirements
+===========================================
 
-------------
-Installation
-------------
+-------------------
+GLANET Installation
+-------------------
 
-• Java
+1. Java
 
 Install latest Java SE from `here <http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html>`_
 
-• Perl
+2. Perl
 
 For **Windows** users, Strawberry Perl can be downloaded from `here <http://www.strawberryperl.com>`_
 
@@ -42,14 +42,16 @@ Install JSON module::
 
 Once you have followed all these steps, you should be ready to run GLANET properly.
 
-------------
-Requirements
-------------
+--------------------------
+GLANET System Requirements
+--------------------------
 
-You are free to use GLANET in any operating system Java supports (Windows, Mac OS X, Linux)
+1. You can download and run GLANET in any operating system (Windows, Mac OS X, Linux).
 
-Your computer should have at least 8 GB memory. You may not be able to use all the functionalities of GLANET, if you have a memory less than 8GB.
+2. Your computer should have at least 8 GB memory. Otherwise, you may not be able to use all the functionalities of GLANET.
 
-Java SE 8 (or higher) should be installed in your computer in order to execute the program. We suggest you to use the latest Java SE update.
+3. Java SE 8 (or higher) should be installed in your computer in order to execute GLANET. We suggest you to use the latest Java SE update.
 
-Perl should be installed in your computer.
+4. Perl should be installed in your computer.
+
+5. During execution GLANET calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.
