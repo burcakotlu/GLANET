@@ -8,7 +8,7 @@ GLANET
 
 +------------------------------+
 | paragraph                    |
-|                              |
+| GLANET is Genomic Loci ANnotation and Enrichment Tool.	                             |
 +------------------------------+
 
 +------------------------------+
