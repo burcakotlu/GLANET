@@ -2,11 +2,12 @@
 GLANET Tutorial
 ===============
 
-GLANET includes both graphical user interface (GUI) and command-line interface. In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
+GLANET includes both graphical user interface (GUI) and command-line interface. 
+In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G
 
-Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Therefore, even if you want to use the GUI, it is crucial to run GLANET.jar with this way.
+Note that we ask you to allow GLANET to allocate 8GB of memory in order to make use of all GLANET facilities.
 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
@@ -14,9 +15,69 @@ Note that we ask you to allow GLANET to allocate 8GB of memory, if necessary. Th
 GLANET GUI
 ----------
 
+.. image:: GLANET_GUI_UpperPart.jpg
+.. image:: GLANET_GUI_LowerPart.jpg
+
 GLANET GUI enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET GUI includes enrichment analysis and regulatory sequence analysis.
+
+1)	Input File Name: You have to provide input file which contains user given genomic intervals.
+	Sample input data can be reached from ~path/to/GLANET/Data/demo_input_data/.
+	Here GLANET directory is the parent directory of Data directory which has extracted DATA.zip.
+
+2)	Input Format: For user given input file, Input Format has to be selected accordingly.
+    For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+	For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
+	For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.
+	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
+	GLANET also accepts input file that contains 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive) 
+	whose Input Format has to be chosen as  1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive), respectively.
+	
+
+3)	Assembly: In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as GRCh38 or GRCH37.p13.
+	In cased of dbSNP IDs, no need for Assembly selection.
+
+4)	Glanet Folder: Set the GLANET folder (e.g.:  ~path/to/GLANET) which is the parent of Data directory.
+
+5)	Annotation, Overlap Definition, Number of Bases: For Annotation Part, set the number of bases for overlap definition. 
+	e.g: Setting number of bases as 3 means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
+	Default is 1 in order to handle the case where the snps are given as input data.
+	
+6) 	Annotation, Annotation Options:
+	* Dnase Annotation(CellLine Based)
+	* Histone Annotation(CellLine Based)
+	* Transcription Factor (TF) Annotation(CellLine Based)
+	* KEGG Pathway Annotation
+	* TF and KEGG Pathway Annotation
+	* TF and KEGG Pathway Annotation (CellLine Based)
+	* User Defined Gene Set Annotation
+	* User Defined Library Annotation
+
+7)	For Enrichment Part, check Perform Enrichment box if you want Enrichment Analysis.
+	GLANET will accomplish enrichment for the selected annotation options.
+	
+8)	Choose the Generate Random Data Mode which can be either With GC and Mapability or Without GC and Mapability.
+	Default is With GC and Mapability.
+	
+9)	Select the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
+	In fact, GLANET performs both of the Multiple Testing procedures but results are further analysed depending on the selected Multiple Testing procedure.
+	Default is Benjamini Hochberg FDR.
+	
+10)	Default False Discovery Rate (FDR) is 0.05.
+
+11)	Default Bonferroni Correction Significance Criteria is 0.05.
+
+12)	Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
+	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
+	
+13)	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
+	"CellLine based TF and KEGG Pathway" and you have checked Perform Enrichment check box..
+	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT box.
+	Please notice that for a lot of number of transcription factors which found to be significant after enrichment analysis, 
+	this Regulatory Sequence Analysis using RSAT takes quite long time. Regulatory Sequence Analysis makes use of web service calls of RSAT.
+	
+14)	Please give a job name which can be any valid string. Choose shorter job name so that folder names do not exceed the allowable length.
 
 --------------------
 Command-Line Options
