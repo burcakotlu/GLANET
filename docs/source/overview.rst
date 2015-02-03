@@ -6,27 +6,20 @@ GLANET Overview
 GLANET
 ------
 
-+----------------------------------------------------------------------------------------+
-| paragraph                                                                              |
-| GLANET is Genomic Loci ANnotation and Enrichment Tool.	                             |
-+----------------------------------------------------------------------------------------+
 
-+------------------------------+
-| paragraph                    |
-|                              |
-+------------------------------+
 
-+-----------------------------------------------------------------------------------------------------------------------+
-| paragraph    				   																							|
-|GLANET is Genomic Loci ANnotation and Enrichment Tool.																	|
-|GLANET has two sets of intervals.Smaller set is the given input data consisting of genomic intervals that comes from 	|
-| GWAS yielded genomic variants or from a NGS experiment. 																|
-| On the other hand, bigger set consists of identified/annotated genomic intervals such as 								|
-| DNaseI hypersensitive sites, transcription factor binding sites, histone modification sites, exons of genes, 			|
-|introns of genes and so on.																							|
-|																														|
-|                             																							|
-+-----------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+|paragraph.                                                               |
+|GLANET is Genomic Loci ANnotation and Enrichment Tool.                   |
+|GLANET has two sets of intervals. Smaller set is the given input data    | 
+|consisting of genomic intervals that comes from GWAS yielded genomic     |
+|variants or from a NGS experiment.                                       |
+|On the other hand, bigger set consists of identified/annotated genomic   |
+|intervals such as DNaseI hypersensitive sites, transcription factor      |
+|binding sites, histone modification sites, exons of genes, introns of    |
+|genes and so on.                                                         |
++-------------------------------------------------------------------------+
+
 
 In order to gain biological insight, intersecting these two sets, accurate annotation of given genomic intervals with identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital for a comprehensive understanding and interpretation of the GWAS disease associated variants.
 GLANET aims to find the intersections between these two sets which is called Annotation and to find out the significant intersections by creating a permutation based null distribution which is called Enrichment. 
