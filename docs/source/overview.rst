@@ -6,7 +6,20 @@ GLANET Overview
 GLANET
 ------
 
+The paragraph is the most basic block in a reST
+document.  Paragraphs are simply chunks of text separated by one or more blank
+lines.  As in Python, indentation is significant in reST, so all lines of the
+same paragraph must be left-aligned to the same level of indentation.
 
+
+GLANET is Genomic Loci ANnotation and Enrichment Tool.
+GLANET has two sets of intervals. Smaller set is the given input data
+consisting of genomic intervals that comes from GWAS yielded genomic
+variants or from a NGS experiment.
+On the other hand, bigger set consists of identified/annotated genomic
+intervals such as DNaseI hypersensitive sites, transcription factor
+binding sites, histone modification sites, exons of genes, introns of
+genes and so on.
 
 +-------------------------------------------------------------------------+
 |paragraph.                                                               |
