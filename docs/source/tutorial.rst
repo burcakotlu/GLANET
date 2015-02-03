@@ -54,12 +54,14 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	* User Defined Gene Set Annotation
 	* User Defined Library Annotation
 	
-	* ``#`` with overline, for parts
-	* ``*`` with overline, for chapters
-	* ``=``, for sections
-	* ``-``, for subsections
-	* ``^``, for subsubsections
-	* ``"``, for paragraphs
+	* Dnase Annotation(CellLine Based)
+	* Histone Annotation(CellLine Based)
+	* Transcription Factor (TF) Annotation(CellLine Based)
+	* KEGG Pathway Annotation
+	* TF and KEGG Pathway Annotation
+	* TF and KEGG Pathway Annotation (CellLine Based)
+	* User Defined Gene Set Annotation
+	* User Defined Library Annotation
 
 7)	For Enrichment Part, check Perform Enrichment box if you want Enrichment Analysis.
 	GLANET will accomplish enrichment for the selected annotation options.
