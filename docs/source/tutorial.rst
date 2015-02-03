@@ -28,9 +28,9 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	
 2)	Input Format: For user given input file, Input Format has to be selected accordingly.
 	GLANET supports dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
-    For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
-	For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
-	For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.
+	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
+	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.
 	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
 	
 
