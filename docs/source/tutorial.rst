@@ -28,13 +28,29 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	
 2)	Input Format: For user given input file, Input Format has to be selected accordingly.
 	GLANET supports dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
-	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
-	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
-	* For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.
-	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
+	
+	* dbSNP IDs
+		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+	
+	* BED
+		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
+
+	* GFF3
+		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.	
+
+	* 1-based coordinates (End Inclusive)
+	* 0-based coordinates (End Inclusive)
+
+ 	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
 	
 
-3)	Assembly: In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as GRCh38 or GRCH37.p13.
+3)	Assembly: GLANET supports two assemblies.
+
+	* GRCh38
+	* GRCH37.p13
+
+
+	In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
 	In cased of dbSNP IDs, there is no need for Assembly selection.
 
 4)	Glanet Folder: Set the GLANET folder (e.g.:  ~path/to/GLANET) which is the parent of Data directory.
@@ -45,15 +61,7 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	Default is 1 in order to handle the case where the snps are given as input data.
 	
 6) 	Annotation, Annotation Options:
-	* Dnase Annotation(CellLine Based)
-	* Histone Annotation(CellLine Based)
-	* Transcription Factor (TF) Annotation(CellLine Based)
-	* KEGG Pathway Annotation
-	* TF and KEGG Pathway Annotation
-	* TF and KEGG Pathway Annotation (CellLine Based)
-	* User Defined Gene Set Annotation
-	* User Defined Library Annotation
-	
+
 	* Dnase Annotation(CellLine Based)
 	* Histone Annotation(CellLine Based)
 	* Transcription Factor (TF) Annotation(CellLine Based)
