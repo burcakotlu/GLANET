@@ -4,7 +4,7 @@ GLANET's Documentation Page
 Preface
 =======
 
-Preface here
+GLANET is Genomic Loci ANnotation and Enrichment Tool.
 
 Content:
 ^^^^^^^^
@@ -13,8 +13,8 @@ Content:
    :maxdepth: 2
 
    overview
-   download
    instconfig
+   download
    tutorial
    contact
    licence
