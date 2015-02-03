@@ -42,8 +42,10 @@ Install JSON module::
 	
 3. Download executable GLANET.jar	
 	
-4. Download Data.zip and extract it under a directory called GLANET (e.g.: C:\Users\burcakotlu\GLANET\). 
+4. Download Data.zip and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
    Data.zip contains the necessary data for Annotation.	
+   The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET/Data)..
+   
 
 Once you have followed all these steps, you should be ready to run GLANET properly.
 
