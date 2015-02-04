@@ -15,7 +15,7 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 GLANET GUI
 ----------
 	
-.. image:: ../images/GLANET_GUI_UpperPart.jpg
+.. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
 
    GLANET GUI Upper Part
@@ -35,7 +35,12 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	GLANET supports input formats such as dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
 	
 	* *dbSNP IDs*
-		-  Sample input data for dbSNP IDs can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+		-  Sample input data for dbSNP IDs can be reached at 
+		
+	| ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
+	| Input Format must be selected as dbSNP IDs.
+
+~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
 	
 	* *BED*
 		-  Sample input data for BED can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
