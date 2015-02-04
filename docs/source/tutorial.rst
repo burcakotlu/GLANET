@@ -26,17 +26,17 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	Assume that Data.zip is extracted under a directory called GLANET. 
 	Then sample input data can be reached from ~path/to/GLANET/Data/demo_input_data/.
 	
-2)	Input Format: For user given input file, Input Format has to be selected accordingly.
-	GLANET supports dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
+2)	Input Format: For the user given input file, Input Format has to be selected accordingly.
+	GLANET supports input formats such as dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
 	
 	* dbSNP IDs
-		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+		-  Sample input data for dbSNP IDs can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
 	
 	* BED
-		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
+		-  Sample input data for BED can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
 
 	* GFF3
-		-  For sample input data ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.	
+		-  Sample input data  can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.	
 
 	* 1-based coordinates (End Inclusive)
 	* 0-based coordinates (End Inclusive)
@@ -62,12 +62,27 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	
 6) 	Annotation, Annotation Options:
 
-	* Dnase Annotation(CellLine Based)
+	* DNase Annotation(CellLine Based)
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNase hypersensitive sites.
+
 	* Histone Annotation(CellLine Based)
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone Modifications sites.
+	
 	* Transcription Factor (TF) Annotation(CellLine Based)
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors binding sites.
+	
 	* KEGG Pathway Annotation
+		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG pathways in exon-based, regulation-based and all-based manner.
+	
 	* TF and KEGG Pathway Annotation
+		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites and KEGG pathways in exon-based, regulation-based and all-based manner.  
+		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
+		Here TFs are cell line pooled.
+
 	* TF and KEGG Pathway Annotation (CellLine Based)
+		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites (CellLine Based) and KEGG pathways in exon-based, regulation-based and all-based manner.  
+		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
+
 	* User Defined Gene Set Annotation
 	* User Defined Library Annotation
 
