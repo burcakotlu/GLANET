@@ -36,24 +36,28 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	
 	* *dbSNP IDs*
 		-  Sample input data for dbSNP IDs can be reached at 
-		
-	| ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
-	| Input Format must be selected as dbSNP IDs.
-
-~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
+		| ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
+		| Input Format must be selected as dbSNP IDs.
 	
 	* *BED*
-		-  Sample input data for BED can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
+		-  Sample input data for BED can be reached at  
+		| ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
+		| Input Format must be selected as BED.
 
 	* *GFF3*
-		-  Sample input data  can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.	
+		-  Sample input data  can be reached at  	
+		| ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
+		| Input Format must be selected as GFF3.
 
 	* *1-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at ~path/to/GLANET/Data/demo_input_data/OCD_GWAS_SNPs_chrNumber_1Based_Coordinates.txt, Input Format must be selected as 1-based coordinates (End Inclusive).	
+		-  Sample input data  can be reached at  	
+		| ~path/to/GLANET/Data/demo_input_data/OCD_GWAS_SNPs_chrNumber_1Based_Coordinates.txt,
+		| Input Format must be selected as 1-based coordinates (End Inclusive).
 	
 	* *0-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at ~path/to/GLANET/Data/demo_input_data/test_interval_data_K562_Usf2_0based_Coordinates.txt, Input Format must be selected as 0-based coordinates (End Inclusive).	
-
+		-  Sample input data  can be reached at  	
+		| ~path/to/GLANET/Data/demo_input_data/test_interval_data_K562_Usf2_0based_Coordinates.txt,
+		| Input Format must be selected as 0-based coordinates (End Inclusive).
 	
 
  	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
