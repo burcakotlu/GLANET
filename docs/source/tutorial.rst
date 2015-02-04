@@ -15,8 +15,10 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 GLANET GUI
 ----------
 .. image:: ../images/GLANET_GUI_UpperPart.jpg
+    :alt: GLANET GUI Upper Part
 
 .. image:: ../images/GLANET_GUI_LowerPart.jpg
+    :alt: GLANET GUI Lower Part
 
 GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
@@ -29,25 +31,25 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 2)	**Input Format**: For the user given input file, Input Format has to be selected accordingly.
 	GLANET supports input formats such as dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
 	
-	* dbSNP IDs
+	* *dbSNP IDs*
 		-  Sample input data for dbSNP IDs can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt, Input Format must be selected as dbSNP IDs.
 	
-	* BED
+	* *BED*
 		-  Sample input data for BED can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed, Input Format must be selected as BED.
 
-	* GFF3
+	* *GFF3*
 		-  Sample input data  can be reached at ~path/to/GLANET/Data/demo_input_data/CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3, Input Format must be selected as GFF3.	
 
-	* 1-based coordinates (End Inclusive)
-	* 0-based coordinates (End Inclusive)
+	* *1-based coordinates (End Inclusive)*
+	* *0-based coordinates (End Inclusive)*
 
  	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
 	
 
 3)	**Assembly**: GLANET supports two assemblies.
 
-	* GRCh38 (hg38)
-	* GRCH37.p13 (hg19)
+	* *GRCh38 (hg38)*
+	* *GRCH37.p13 (hg19))*
 
 
 	In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
@@ -62,28 +64,28 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	
 6) 	**Annotation, Annotation Options**:
 
-	* **DNase Annotation (CellLine Based)**
+	* *DNase Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNaseI hypersensitive sites.
 
-	* Histone Annotation (CellLine Based)
+	* *Histone Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone Modifications sites.
 	
-	* Transcription Factor (TF) Annotation (CellLine Based)
+	* *Transcription Factor (TF) Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors binding sites.
 	
-	* KEGG Pathway Annotation
+	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG pathways in exon-based, regulation-based and all-based manner.
 	
-	* TF and KEGG Pathway Annotation
+	* *TF and KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites and KEGG pathways in exon-based, regulation-based and all-based manner.  
 		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
 		Here TFs are cell line pooled.
 
-	* TF and KEGG Pathway Annotation (CellLine Based)
+	* *TF and KEGG Pathway Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites (CellLine Based) and KEGG pathways in exon-based, regulation-based and all-based manner.  
 		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
 
-	* User Defined Gene Set Annotation
+	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
 		-  User Defined Gene Set Input File
 		-  Gene Information Type
@@ -92,52 +94,53 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		
 		
 		
-	* User Defined Library Annotation
+	* *User Defined Library Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
 		-  User Defined Library Input File
 		-  User Defined Library Data Format
 	
-7)	Enrichment
+7)	**Enrichment**
 
-	* Perform Enrichment
+	* *Perform Enrichment*
 		-  Check Perform Enrichment checkbox if you want Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in annotation options.
 
-	* Generate Random Data Mode
+	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
 		-  Without GC and Mapability
 	Choose the Generate Random Data Mode which can be either With GC and Mapability or Without GC and Mapability.
 	Default is With GC and Mapability.
 	
-	* Multiple Testing
+	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
 		-  Bonferroni Correction
     Select the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
-	In fact, GLANET performs both of the Multiple Testing procedures but results are further analysed depending on the selected Multiple Testing procedure.
+	In fact, GLANET performs both of the Multiple Testing procedures but results are sorted w.r.t. the selected Multiple Testing procedure.
 	Default is Benjamini Hochberg FDR.
 	
-	* False Discovery Rate (FDR)
+	* *False Discovery Rate (FDR)*
 		-  Default False Discovery Rate (FDR) is 0.05.
 
-	* Bonferroni Correction Significance Criteria
+	* *Bonferroni Correction Significance Criteria*
 		-  Default Bonferroni Correction Significance Criteria is 0.05.
 
-	* Number of Permutations
+	* *Number of Permutations*
 		-  Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
 	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
 	
 	
-	* Number of Permutations In Each Run
+	* *Number of Permutations In Each Run*
 		-  Choose the number of permutations in each run among 1000, 5000 and 10000 choices.
 
-8)	Regulatory Sequence Analysis 
+8)	**Regulatory Sequence Analysis**
 	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
 	"CellLine based TF and KEGG Pathway".
 	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
 	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated transcription factors. 
 	Regulatory Sequence Analysis makes use of RSAT web services.
 	
-9)	Please give a job name which can be any valid string. Choose shorter job name so that folder names do not exceed the allowable length.
+9)	**Job Name**
+	Please give a job name which can be any valid string. Choose shorter job name so that folder names do not exceed the allowable length.
 	Default is NoName.
 
 --------------------
