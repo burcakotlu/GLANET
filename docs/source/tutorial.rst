@@ -16,11 +16,10 @@ GLANET GUI
 ----------
 	
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
-    :alt: alternate text
-	:figwidth: 300
-	
-	GLANET GUI Upper Part
+   :alt: GLANET_GUI_UpperPart
+   :figwidth: 300
 
+   GLANET GUI Upper Part
 
 
 GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
@@ -113,14 +112,12 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 .. image:: ../images/GLANET_GUI_LowerPart.jpg
     :alt: GLANET GUI Lower Part
 
-.. figure:: ./images/GLANET_GUI_LowerPart.jpg
+.. figure:: ../images/GLANET_GUI_LowerPart.jpg
    :alt: GLANET_GUI_LowerPart
    :width: 256
    :figwidth: 300
 
-   This is the Earth.  If I write a long caption it should be contained because of the figwidth option.	
-	
-	GLANET GUI Lower Part	
+   GLANET GUI Lower Part
 	
 7)	**Enrichment**:
 
