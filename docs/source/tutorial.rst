@@ -64,16 +64,17 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  Input Format must be selected as 0-based coordinates (End Inclusive).
 	
 
- 	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
-	
+ 	
 3)	**Assembly**: 
 	GLANET supports two assemblies.
 
-	* *GRCh38 (hg38)*
-	* *GRCH37.p13 (hg19))*
+	* *GRCh38*
+	-  GRCh38 is also known as hg38  
+	* *GRCH37.p13 (hg19)*
+	-  GRCh37.p13 is also known as hg19  
 
-	In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
-	In cased of dbSNP IDs, there is no need for Assembly selection.
+	| In case of *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
+	| In cased of dbSNP IDs, there is no need for Assembly selection.
 
 4)	**Glanet Folder**: 
 	Set the GLANET folder (e.g.:  ~path/to/GLANET) which is the parent of Data directory.
