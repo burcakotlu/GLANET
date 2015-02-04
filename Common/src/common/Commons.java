@@ -108,9 +108,9 @@ public class Commons {
 	public static final String FILE_FORMAT_TYPE_OTHER = "fileFormatTypeOther";
 
 	// EnumType UserDefinedGeneSetInputType
-	public static final String GENE_ID = "GENE_ID";
-	public static final String RNA_NUCLEOTIDE_ACCESSION = "RNA_NUCLEOTIDE_ACCESSION";
-	public static final String GENE_SYMBOL = "GENE_SYMBOL";
+	public static final String GENE_ID = "GENE ID";
+	public static final String RNA_NUCLEOTIDE_ACCESSION = "RNA NUCLEOTIDE ACCESSION";
+	public static final String GENE_SYMBOL = "GENE SYMBOL";
 
 	// EnumType AnnotationType
 	public static final String DNASE_ANNOTATION = "DNASE_ANNOTATION";

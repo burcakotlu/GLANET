@@ -1,6 +1,6 @@
-===============
+***************
 GLANET Tutorial
-===============
+***************
 
 GLANET includes both graphical user interface (GUI) and command-line interface. 
 In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
@@ -11,9 +11,9 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
-----------
+
 GLANET GUI
-----------
+##########
 	
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
@@ -22,7 +22,7 @@ GLANET GUI
 
 
 GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, 
-predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
+predefined gene sets such as KEGG Pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
@@ -103,32 +103,47 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
 	
 	* *KEGG Pathway Annotation*
-		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG pathways in exon-based, regulation-based and all-based manner.
+		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
 	
 	* *TF and KEGG Pathway Annotation*
-		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites and KEGG pathways in exon-based, regulation-based and all-based manner.  
-		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
-		Here TFs are cell line pooled.
+		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.  
+		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other. 
+		Here same TF with different cell lines are pooled.
 
 	* *TF and KEGG Pathway Annotation (CellLine Based)*
-		-  Check this check box, if you want to annotate given intervals w.r.t. joint Transcription Factors binding sites (CellLine Based) and KEGG pathways in exon-based, regulation-based and all-based manner.  
-		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
+		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.  
+		This is a joint annotation which means that given interval has overlapped with TF and KEGG Pathway intervals, and these TF and KEGG Pathway also overlaps with each other. 
 
 	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
-		-  User Defined Gene Set Input File
-		-  Gene Information Type
-		-  Name
-		-  Description File
+			
+		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
+			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line.
+			-  Sample User Defined Gene Set Input File can be reached at  	
+			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO
+			| GO_gene_associations_human_ref.txt
+	
+		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
+			- GENE ID (e.g.: 728927)
+			- GENE SYMBOL (e.g.: TTC26)
+			- RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
+			
+		-  Name (Optional)
+		You can give a name for the User Defined Gene Set (e.g.: GO)
+		Default Name is *NoName*
 		
+		-  Description File (Optional)
+		Decription File contains tab delimited GeneSetID and description per line.
+		-  Sample User Defined Gene Set Input File can be reached at  	
+		| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO
+		| GO_ids2terms.txt
 		
 		
 	* *User Defined Library Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
-		-  User Defined Library Input File
-		-  User Defined Library Data Format
+		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* checkbox is checked.)
+		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* checkbox is checked.)
 		
-
 
 .. figure:: ../images/GLANET_GUI_LowerPart.jpg
    :alt: GLANET_GUI_LowerPart
@@ -139,17 +154,19 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *Perform Enrichment*
 		-  Check *Perform Enrichment* checkbox if you want Enrichment Analysis.
-		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation, Annotation Options.
+		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
 
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
 		-  Without GC and Mapability
+		
 	Choose the *Generate Random Data Mode* which can be either *With GC and Mapability* or *Without GC and Mapability*.
 	Default is *With GC and Mapability*.
 	
 	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
 		-  Bonferroni Correction
+	
     Select the *Multiple Testing* procedure which can be either *Bonferroni Correction* or *Benjamini Hochberg FDR*.
 	In fact, GLANET performs both of the Multiple Testing procedures but results are sorted w.r.t. the selected Multiple Testing procedure.
 	Default is *Benjamini Hochberg FDR*.
@@ -162,15 +179,15 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *Number of Permutations*
 		-  Choose the *number of permutations* among 5000, 10000, 50000 and 100000 choices.
-		Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
+	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
 	
 	
 	* *Number of Permutations In Each Run*
 		-  Choose the *number of permutations* in each run among 1000, 5000 and 10000 choices.
-		e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
-		If your system properties are good such as CPU and RAM, prefer minimum number of runs.
-		You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
-		Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
+	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
+	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
+	You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
+	Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
@@ -186,9 +203,14 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
 	Default is Job Name is  *NoName*.
 
---------------------
+
+GLANET Command Line Interface
+#############################	
+
+
+
 Command-Line Options
---------------------
+********************
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
@@ -240,9 +262,11 @@ ID  Command         Required  Precondition                 Parameter          De
 
 :option:`dest_dir`
 
---------------------------------
+
+
 Command-Line Option Descriptions
---------------------------------
+********************************
+
 
 There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. Whether a parameter is required or not will be specified as we describe it. The order of parameters is not fixed. One may set the parameters in any order. Some parameters may require some other parameters to be set as preconditions and postconditions, which will also be indicated. You can see the preconditions and postconditions of a command as shown in `Command-Line Options`_
 
