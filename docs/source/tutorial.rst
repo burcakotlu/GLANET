@@ -16,6 +16,10 @@ GLANET GUI
 ----------
 .. image:: ../images/GLANET_GUI_UpperPart.jpg
     :alt: GLANET GUI Upper Part
+	
+.. figure:: ../images/GLANET_GUI_UpperPart.jpg
+    :alt: alternate text
+    :figclass: align-center
 
 GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
