@@ -169,13 +169,9 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Number of Permutations In Each Run*
 		-  Choose the number of permutations in each run among 1000, 5000 and 10000 choices.
 		e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
-		  If your system properties are high such as CPU and RAM, prefer minimum number of runs.
-		  You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 
-		  .. math:: 10000/10000 = 1 
-		  run at total.
-		  Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 
-		  .. math:: 100000/10000 = 10 
-		  runs at total.
+		If your system properties are high such as CPU and RAM, prefer minimum number of runs.
+		You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
+		Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**:
 
