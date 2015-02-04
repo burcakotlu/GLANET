@@ -21,8 +21,7 @@ GLANET GUI
    GLANET GUI Upper Part
 
 
-GLANET provides Annotation.
-GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, 
+GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, 
 predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
@@ -58,13 +57,13 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *1-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at  	
 		| ~path/to/tool/Data/demo_input_data/
-		| OCD_GWAS_SNPs_chrNumber_1Based_Coordinates.txt,
+		| OCD_GWAS_SNPs_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 1-based coordinates (End Inclusive).
 	
 	* *0-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at  	
 		| ~path/to/tool/Data/demo_input_data/
-		| test_interval_data_K562_Usf2_0based_Coordinates.txt,
+		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 0-based coordinates (End Inclusive).
 	
 
@@ -78,30 +77,30 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *GRCH37.p13 (hg19)*
 		-  GRCh37.p13 is also known as hg19  
 
-	In case of *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
+	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
 	In case of dbSNP IDs, there is no need for Assembly selection.
 
 4)	**Glanet Folder**: (Mandatory)
 
 	Set the Glanet folder (e.g.:  ~path/to/tool).
-	Please note that Glanet folder can be any valid directory name, the important point is that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
+	Please note that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
 
-5)	**Annotation, Overlap Definition, Number of Bases**: 
+5)	**Annotation, Overlap Definition, Number of Bases**: (Mandatory)
 	
 	For Annotation, set the number of bases for overlap definition. 
 	e.g: Setting number of bases as *3* means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
-	Default is *1* in order to handle the case where the snps are given as input data.
+	Default is *1* in order to handle the case where the SNPs are given as input data.
 	
-6) 	**Annotation, Annotation Options**:
+6) 	**Annotation, Annotation Options**: (At least one of the Annotation Option has to be checked)
 
 	* *DNase Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNaseI hypersensitive sites.
 
 	* *Histone Annotation (CellLine Based)*
-		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone Modifications sites.
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone modifications sites.
 	
 	* *Transcription Factor (TF) Annotation (CellLine Based)*
-		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors binding sites.
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
 	
 	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG pathways in exon-based, regulation-based and all-based manner.
@@ -136,52 +135,52 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
   
    GLANET GUI Lower Part
 	
-7)	**Enrichment**:
+7)	**Enrichment**: (Optional)
 
 	* *Perform Enrichment*
-		-  Check Perform Enrichment checkbox if you want Enrichment Analysis.
-		   GLANET will accomplish Enrichment Analysis for the elements checked in annotation options.
+		-  Check *Perform Enrichment* checkbox if you want Enrichment Analysis.
+		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation, Annotation Options.
 
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
 		-  Without GC and Mapability
-	Choose the Generate Random Data Mode which can be either With GC and Mapability or Without GC and Mapability.
-	Default is With GC and Mapability.
+	Choose the *Generate Random Data Mode* which can be either *With GC and Mapability* or *Without GC and Mapability*.
+	Default is *With GC and Mapability*.
 	
 	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
 		-  Bonferroni Correction
-    Select the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
+    Select the *Multiple Testing* procedure which can be either *Bonferroni Correction* or *Benjamini Hochberg FDR*.
 	In fact, GLANET performs both of the Multiple Testing procedures but results are sorted w.r.t. the selected Multiple Testing procedure.
-	Default is Benjamini Hochberg FDR.
+	Default is *Benjamini Hochberg FDR*.
 	
 	* *False Discovery Rate (FDR)*
-		-  Default False Discovery Rate (FDR) is 0.05.
+		-  Default *False Discovery Rate (FDR)* is 0.05.
 
 	* *Bonferroni Correction Significance Criteria*
-		-  Default Bonferroni Correction Significance Criteria is 0.05.
+		-  Default *Bonferroni Correction Significance Criteria* is 0.05.
 
 	* *Number of Permutations*
-		-  Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
+		-  Choose the *number of permutations* among 5000, 10000, 50000 and 100000 choices.
 		Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
 	
 	
 	* *Number of Permutations In Each Run*
-		-  Choose the number of permutations in each run among 1000, 5000 and 10000 choices.
+		-  Choose the *number of permutations* in each run among 1000, 5000 and 10000 choices.
 		e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
-		If your system properties are high such as CPU and RAM, prefer minimum number of runs.
+		If your system properties are good such as CPU and RAM, prefer minimum number of runs.
 		You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
 		Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
 
-8)	**Regulatory Sequence Analysis**:
+8)	**Regulatory Sequence Analysis**: (Optional)
 
-	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
-	"CellLine based TF and KEGG Pathway".
+	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or 
+	*TF and KEGG Pathway (CellLine based)*.
 	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
-	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated transcription factors. 
+	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated Transcription Factors. 
 	Regulatory Sequence Analysis makes use of RSAT web services.
 	
-9)	**Job Name**:
+9)	**Job Name**: (Optional)
 
 	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/. 
 	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
