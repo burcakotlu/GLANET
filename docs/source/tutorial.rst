@@ -15,9 +15,8 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 GLANET GUI
 ----------
 	
-.. figure:: ../images/GLANET_GUI_UpperPart.jpg
+.. image:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
-   :figwidth: 300
 
    GLANET GUI Upper Part
 
