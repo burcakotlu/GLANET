@@ -116,33 +116,44 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
-			
+		
 		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
-			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line.
+			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line (e.g:.: GO:0031424	LCE6A).
 			-  Sample User Defined Gene Set Input File can be reached at  	
-			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO
+			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
 			| GO_gene_associations_human_ref.txt
 	
 		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
-			- GENE ID (e.g.: 728927)
-			- GENE SYMBOL (e.g.: TTC26)
-			- RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
+		GLANET supports three Gene Information Types.
+		-  GENE ID (e.g.: 728927)
+		-  GENE SYMBOL (e.g.: TTC26)
+		-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
 			
 		-  Name (Optional)
 		You can give a name for the User Defined Gene Set (e.g.: GO)
-		Default Name is *NoName*
+		Default Name is *NoName*.
 		
 		-  Description File (Optional)
-		Decription File contains tab delimited GeneSetID and description per line.
+		Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
 		-  Sample User Defined Gene Set Input File can be reached at  	
-		| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO
+		| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
 		| GO_ids2terms.txt
 		
 		
 	* *User Defined Library Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
+		
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* checkbox is checked.)
+			-  Sample User Defined Library Input File can be reached at  
+			| ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/
+			| UserDefinedLibraryInputFile.txt
+			
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* checkbox is checked.)
+		GLANET supports four Data Formats.
+			-  0-based coordinates (End Inclusive)
+			-  0-based coordinates (End Exclusive)
+			-  1-based coordinates (End Inclusive)
+			-  1-based coordinates (End Exclusive)
 		
 
 .. figure:: ../images/GLANET_GUI_LowerPart.jpg
