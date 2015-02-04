@@ -113,9 +113,12 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 .. image:: ../images/GLANET_GUI_LowerPart.jpg
     :alt: GLANET GUI Lower Part
 
-.. figure:: ../images/GLANET_GUI_LowerPart.jpg
-    :alt: alternate text
-	:figwidth: 300
+.. figure:: ./images/GLANET_GUI_LowerPart.jpg
+   :alt: GLANET_GUI_LowerPart
+   :width: 256
+   :figwidth: 300
+
+   This is the Earth.  If I write a long caption it should be contained because of the figwidth option.	
 	
 	GLANET GUI Lower Part	
 	
