@@ -37,7 +37,8 @@ of the annotated transcription factor which is called Regulatory Sequence Analys
 
 GLANET Pipeline
 
-.. image:: GLANET_pipeline.jpg
+.. image:: ../images/GLANET_pipeline.jpg
+    :alt: GLANET Pipeline
 
 GLANET enables user to load its user defined library and/or user defined gene sets in order to use them in Annotation Library. 
 Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in Annotation Library
