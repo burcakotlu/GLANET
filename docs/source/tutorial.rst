@@ -21,53 +21,55 @@ GLANET GUI
    GLANET GUI Upper Part
 
 
-GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
+GLANET provides Annotation.
+GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, 
+predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
-1)	**Input File Name**: 
+1)	**Input File Name**: (Mandatory)
 	
 	You have to provide input file which contains user given genomic intervals.
-	Assume that Data.zip is extracted under a directory called GLANET. 
-	Then sample input data can be reached from ~path/to/GLANET/Data/demo_input_data/.
+	Assume that Data.zip is extracted under a directory called tool. 
+	Then sample input data can be reached from ~path/to/tool/Data/demo_input_data/.
 	
-2)	**Input Format**: 
+2)	**Input Format**: (Mandatory)
 	 
-	GLANET supports input formats such as dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
+	GLANET supports input formats such as *dbSNP IDs*, *BED*, *GFF3*, *1-based coordinates (End Inclusive)* and *0-based coordinates (End Inclusive)*.
 	For the user given input file, Input Format has to be selected accordingly.
 	
 	* *dbSNP IDs*
 		-  Sample input data for dbSNP IDs can be reached at 
-		| ~path/to/GLANET/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
+		| ~path/to/tool/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
 		-  Input Format must be selected as dbSNP IDs.
 	
 	* *BED*
 		-  Sample input data for BED can be reached at  
-		| ~path/to/GLANET/Data/demo_input_data/
+		| ~path/to/tool/Data/demo_input_data/
 		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
 		-  Input Format must be selected as BED.
 
 	* *GFF3*
 		-  Sample input data  can be reached at  	
-		| ~path/to/GLANET/Data/demo_input_data/
+		| ~path/to/tool/Data/demo_input_data/
 		| CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
 		-  Input Format must be selected as GFF3.
 
 	* *1-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at  	
-		| ~path/to/GLANET/Data/demo_input_data/
+		| ~path/to/tool/Data/demo_input_data/
 		| OCD_GWAS_SNPs_chrNumber_1Based_Coordinates.txt,
 		-  Input Format must be selected as 1-based coordinates (End Inclusive).
 	
 	* *0-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at  	
-		| ~path/to/GLANET/Data/demo_input_data/
+		| ~path/to/tool/Data/demo_input_data/
 		| test_interval_data_K562_Usf2_0based_Coordinates.txt,
 		-  Input Format must be selected as 0-based coordinates (End Inclusive).
 	
 
  	
-3)	**Assembly**: 
+3)	**Assembly**: (Mandatory for *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)*)
 	
 	GLANET supports two assemblies.
 
@@ -77,18 +79,18 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  GRCh37.p13 is also known as hg19  
 
 	In case of *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
-	In cased of dbSNP IDs, there is no need for Assembly selection.
+	In case of dbSNP IDs, there is no need for Assembly selection.
 
-4)	**Glanet Folder**: 
+4)	**Glanet Folder**: (Mandatory)
 
-	Set the GLANET folder (e.g.:  ~path/to/GLANET) which has to be the parent of Data directory.
-	Please note that Glanet folder can be any valid directory name (e.g.:  ~path/to/tool), the important point is that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
+	Set the Glanet folder (e.g.:  ~path/to/tool).
+	Please note that Glanet folder can be any valid directory name, the important point is that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
 
 5)	**Annotation, Overlap Definition, Number of Bases**: 
 	
-	For Annotation Part, set the number of bases for overlap definition. 
-	e.g: Setting number of bases as 3 means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
-	Default is 1 in order to handle the case where the snps are given as input data.
+	For Annotation, set the number of bases for overlap definition. 
+	e.g: Setting number of bases as *3* means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
+	Default is *1* in order to handle the case where the snps are given as input data.
 	
 6) 	**Annotation, Annotation Options**:
 
@@ -161,17 +163,22 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *Number of Permutations*
 		-  Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
-	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
+		Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
 	
 	
 	* *Number of Permutations In Each Run*
 		-  Choose the number of permutations in each run among 1000, 5000 and 10000 choices.
-	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
+		e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
 		  If your system properties are high such as CPU and RAM, prefer minimum number of runs.
-		  You may have 10000 permutations, by achieving 10000 permutations in each run, which requires 10000/10000 = 1 run at total.
-		  Or you may have 100000 permutations, by achieving 10000 permutations in each run, which requires 100000/10000 = 10 runs at total.
+		  You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 
+		  .. math:: 10000/10000 = 1 
+		  run at total.
+		  Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 
+		  .. math:: 100000/10000 = 10 
+		  runs at total.
 
 8)	**Regulatory Sequence Analysis**:
+
 	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
 	"CellLine based TF and KEGG Pathway".
 	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
@@ -179,9 +186,10 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Regulatory Sequence Analysis makes use of RSAT web services.
 	
 9)	**Job Name**:
-	Please give a job name which can be any valid string. 
-	Choose shorter job name so that folder names do not exceed the allowable length.
-	Default is *NoName*.
+
+	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/. 
+	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
+	Default is Job Name is  *NoName*.
 
 --------------------
 Command-Line Options
