@@ -109,14 +109,11 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  User Defined Library Input File
 		-  User Defined Library Data Format
 		
-.. image:: ../images/GLANET_GUI_LowerPart.jpg
-    :alt: GLANET GUI Lower Part
+
 
 .. figure:: ../images/GLANET_GUI_LowerPart.jpg
    :alt: GLANET_GUI_LowerPart
-   :width: 256
-   :figwidth: 300
-
+  
    GLANET GUI Lower Part
 	
 7)	**Enrichment**:
