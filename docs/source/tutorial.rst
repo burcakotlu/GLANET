@@ -14,12 +14,14 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 ----------
 GLANET GUI
 ----------
-.. image:: ../images/GLANET_GUI_UpperPart.jpg
-    :alt: GLANET GUI Upper Part
 	
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
     :alt: alternate text
-    :figclass: align-center
+	:figwidth: 300
+	
+	GLANET GUI Upper Part
+
+
 
 GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
@@ -110,7 +112,12 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		
 .. image:: ../images/GLANET_GUI_LowerPart.jpg
     :alt: GLANET GUI Lower Part
-		
+
+.. figure:: ../images/GLANET_GUI_LowerPart.jpg
+    :alt: alternate text
+	:figwidth: 300
+	
+	GLANET GUI Lower Part	
 	
 7)	**Enrichment**:
 
