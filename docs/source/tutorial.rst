@@ -98,6 +98,7 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 		-  User Defined Library Data Format
 	
 7)	Enrichment
+
 	* Perform Enrichment
 		-  Check Perform Enrichment checkbox if you want Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in annotation options.
@@ -111,7 +112,7 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	* Multiple Testing
 		-  Benjamini Hochberg FDR (Default)
 		-  Bonferroni Correction
-     elect the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
+    Select the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
 	In fact, GLANET performs both of the Multiple Testing procedures but results are further analysed depending on the selected Multiple Testing procedure.
 	Default is Benjamini Hochberg FDR.
 	
