@@ -17,10 +17,11 @@ GLANET GUI
 
 .. image:: GLANET_GUI_UpperPart.jpg
 .. image:: GLANET_GUI_LowerPart.jpg
+.. image:: ../images/GLANET_GUI_LowerPart.jpg
 
-GLANET GUI enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
+GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
-Other facilities of GLANET GUI includes enrichment analysis and regulatory sequence analysis.
+Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
 1)	Input File Name: You have to provide input file which contains user given genomic intervals.
 	Assume that Data.zip is extracted under a directory called GLANET. 
