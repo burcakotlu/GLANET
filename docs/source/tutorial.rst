@@ -14,20 +14,19 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 ----------
 GLANET GUI
 ----------
+.. image:: ../images/GLANET_GUI_UpperPart.jpg
 
-.. image:: GLANET_GUI_UpperPart.jpg
-.. image:: GLANET_GUI_LowerPart.jpg
 .. image:: ../images/GLANET_GUI_LowerPart.jpg
 
 GLANET enables user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, predefined gene sets such as KEGG pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
-1)	Input File Name: You have to provide input file which contains user given genomic intervals.
+1)	**Input File Name**: You have to provide input file which contains user given genomic intervals.
 	Assume that Data.zip is extracted under a directory called GLANET. 
 	Then sample input data can be reached from ~path/to/GLANET/Data/demo_input_data/.
 	
-2)	Input Format: For the user given input file, Input Format has to be selected accordingly.
+2)	**Input Format**: For the user given input file, Input Format has to be selected accordingly.
 	GLANET supports input formats such as dbSNP IDs, BED, GFF3, 1-based coordinates (End Inclusive) and 0-based coordinates (End Inclusive).
 	
 	* dbSNP IDs
@@ -45,25 +44,25 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
  	Other sample input data can be reached in ~path/to/GLANET/Data/demo_input_data/.
 	
 
-3)	Assembly: GLANET supports two assemblies.
+3)	**Assembly**: GLANET supports two assemblies.
 
-	* GRCh38
-	* GRCH37.p13
+	* GRCh38 (hg38)
+	* GRCH37.p13 (hg19)
 
 
 	In case of BED, GFF3, 1-based coordinates (End Inclusive) or 0-based coordinates (End Inclusive) is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
 	In cased of dbSNP IDs, there is no need for Assembly selection.
 
-4)	Glanet Folder: Set the GLANET folder (e.g.:  ~path/to/GLANET) which is the parent of Data directory.
+4)	**Glanet Folder**: Set the GLANET folder (e.g.:  ~path/to/GLANET) which is the parent of Data directory.
 	Please note that Glanet folder can be any valid directory name (e.g.:  ~path/to/tool), the important point is that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
 
-5)	Annotation, Overlap Definition, Number of Bases: For Annotation Part, set the number of bases for overlap definition. 
+5)	**Annotation, Overlap Definition, Number of Bases**: For Annotation Part, set the number of bases for overlap definition. 
 	e.g: Setting number of bases as 3 means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
 	Default is 1 in order to handle the case where the snps are given as input data.
 	
-6) 	Annotation, Annotation Options:
+6) 	**Annotation, Annotation Options**:
 
-	* DNase Annotation (CellLine Based)
+	* **DNase Annotation (CellLine Based)**
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNaseI hypersensitive sites.
 
 	* Histone Annotation (CellLine Based)
