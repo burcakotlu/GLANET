@@ -125,9 +125,9 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	
 		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
 		GLANET supports three Gene Information Types.
-		-  GENE ID (e.g.: 728927)
-		-  GENE SYMBOL (e.g.: TTC26)
-		-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
+			-  GENE ID (e.g.: 728927)
+			-  GENE SYMBOL (e.g.: TTC26)
+			-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
 			
 		-  Name (Optional)
 		You can give a name for the User Defined Gene Set (e.g.: GO)
@@ -135,15 +135,17 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		
 		-  Description File (Optional)
 		Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
-		-  Sample User Defined Gene Set Input File can be reached at  	
-		| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
-		| GO_ids2terms.txt
+			-  Sample User Defined Gene Set Input File can be reached at  	
+			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+			| GO_ids2terms.txt
 		
 		
 	* *User Defined Library Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
 		
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* checkbox is checked.)
+			-  User Defined Library Input File contains tab delimited FilePath_FileName, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line 
+			(e.g:.: G:\DOKTORA_DATA\ENCODE\dnase_jul2010\AG09319-DS12291.peaks.fdr0.01.hg19.bed	Dnase	AG09319).
 			-  Sample User Defined Library Input File can be reached at  
 			| ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/
 			| UserDefinedLibraryInputFile.txt
