@@ -62,13 +62,13 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 	
 6) 	Annotation, Annotation Options:
 
-	* DNase Annotation(CellLine Based)
-		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNase hypersensitive sites.
+	* DNase Annotation (CellLine Based)
+		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided DNaseI hypersensitive sites.
 
-	* Histone Annotation(CellLine Based)
+	* Histone Annotation (CellLine Based)
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone Modifications sites.
 	
-	* Transcription Factor (TF) Annotation(CellLine Based)
+	* Transcription Factor (TF) Annotation (CellLine Based)
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors binding sites.
 	
 	* KEGG Pathway Annotation
@@ -84,32 +84,60 @@ Other facilities of GLANET GUI includes enrichment analysis and regulatory seque
 		Joint annotation means that if given interval has overlapped with TF  and KEGG Pathway, then if TF and KEGG Pathway also overlaps with each other, then this TF and KEGG pathway is output. 
 
 	* User Defined Gene Set Annotation
+		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
+		-  User Defined Gene Set Input File
+		-  Gene Information Type
+		-  Name
+		-  Description File
+		
+		
+		
 	* User Defined Library Annotation
-
-7)	For Enrichment Part, check Perform Enrichment box if you want Enrichment Analysis.
-	GLANET will accomplish enrichment for the selected annotation options.
+		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
+		-  User Defined Library Input File
+		-  User Defined Library Data Format
 	
-8)	Choose the Generate Random Data Mode which can be either With GC and Mapability or Without GC and Mapability.
+7)	Enrichment
+	* Perform Enrichment
+		-  Check Perform Enrichment checkbox if you want Enrichment Analysis.
+		   GLANET will accomplish Enrichment Analysis for the elements checked in annotation options.
+
+	* Generate Random Data Mode
+		-  With GC and Mapability (default)
+		-  Without GC and Mapability
+	Choose the Generate Random Data Mode which can be either With GC and Mapability or Without GC and Mapability.
 	Default is With GC and Mapability.
 	
-9)	Select the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
+	* Multiple Testing
+		-  Benjamini Hochberg FDR (Default)
+		-  Bonferroni Correction
+     elect the Multiple Testing procedure which can be either Bonferroni Correction or Benjamini Hochberg FDR.
 	In fact, GLANET performs both of the Multiple Testing procedures but results are further analysed depending on the selected Multiple Testing procedure.
 	Default is Benjamini Hochberg FDR.
 	
-10)	Default False Discovery Rate (FDR) is 0.05.
+	* False Discovery Rate (FDR)
+		-  Default False Discovery Rate (FDR) is 0.05.
 
-11)	Default Bonferroni Correction Significance Criteria is 0.05.
+	* Bonferroni Correction Significance Criteria
+		-  Default Bonferroni Correction Significance Criteria is 0.05.
 
-12)	Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
+	* Number of Permutations
+		-  Choose the number of permutations among 5000, 10000, 50000 and 100000 choices.
 	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
 	
-13)	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
-	"CellLine based TF and KEGG Pathway" and you have checked Perform Enrichment check box..
-	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT box.
-	Please notice that for a lot of number of transcription factors which found to be significant after enrichment analysis, 
-	this Regulatory Sequence Analysis using RSAT takes quite long time. Regulatory Sequence Analysis makes use of web service calls of RSAT.
 	
-14)	Please give a job name which can be any valid string. Choose shorter job name so that folder names do not exceed the allowable length.
+	* Number of Permutations In Each Run
+		-  Choose the number of permutations in each run among 1000, 5000 and 10000 choices.
+
+8)	Regulatory Sequence Analysis 
+	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following annotation options such as "TF", "TF and KEGG Pathway" or 
+	"CellLine based TF and KEGG Pathway".
+	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
+	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated transcription factors. 
+	Regulatory Sequence Analysis makes use of RSAT web services.
+	
+9)	Please give a job name which can be any valid string. Choose shorter job name so that folder names do not exceed the allowable length.
+	Default is NoName.
 
 --------------------
 Command-Line Options
