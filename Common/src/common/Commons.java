@@ -1276,7 +1276,7 @@ public class Commons {
 	public static final String ARG_USER_DEFINED_GENESET_ANNOTATION_DESCRIPTION_FILE = "-udgdfile";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION = "-udl";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_INPUT = "-udlinput";
-	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE = "-udlf0exc";
+	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_EXLUSIVE = "-udldf0exc";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_0_INCLUSIVE = "-udldf0inc";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_EXCLUSIVE = "-udldf1exc";
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udldf1inc";
