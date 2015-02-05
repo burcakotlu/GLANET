@@ -40,9 +40,9 @@ Install JSON module::
 
 	$ cpanm JSON
 	
-3. Download executable GLANET.jar from :ref:`Executable <download>`
+3. Download executable GLANET.jar from :ref:`Executable <_executable_label>`
 	
-4. Download Data.zip from :ref:`Data <download>` and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
+4. Download Data.zip from :ref:`Data <_data_label>` and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
    Data.zip contains the necessary data for Annotation.	
    The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET/Data).
    
