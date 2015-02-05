@@ -405,7 +405,7 @@ Note that exact path to the input file comes just after :option:`-i` option. Unl
 -b
 ^^
 
-**Required** if :option:`-c` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. An integer value must be specified after :option:`-b`. If you do not set anything, default option is :option:`-b 1`.
+**Required** if :option:`-c` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. An integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
 
 -dnase
 ^^^^^^
@@ -507,32 +507,52 @@ This option enables User Defined Library Annotation.
 
 If this option is specified, GLANET performs enrichment. Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
 
+-rdgcm
+^^^^^^
+
+**Required** if :option:`-e` is set. This option generates random data with GC and Mapability. You must either set :option:`-rdgcm` or :option:`-rd` to specify generating random data mode. If you do not set anything, default option is :option:`-rdgcm`.
+
 -rd
 ^^^
 
--rdgcm
-^^^^^^
+**Required** if :option:`-e` is set. When this option is set, it generates random data without GC and Mapability. See also `-rdgcm`_.
 
 -mtbhfdr
 ^^^^^^^^
 
+**Required** if :option:`-e` is set. This option sets multiple testing correction as "Benjamini Hochberg FDR". You must either set :option:`-mtbhfdr` or :option:`-mtbc` to specify multiple testing correction option. If you do not set anything, default option is :option:`-mtbhfdr`.
+
 -mtbc
 ^^^^^
+
+**Required** if :option:`-e` is set. This option sets multiple testing correction as "Bonferroni Correction". See also `-mtbhfdr`_.
 
 -fdr
 ^^^^
 
+**Required** if :option:`-e` is set. This option followed by a rational value sets false discovery rate. Default option is :option:`-fdr 0.05`.
+
 -sc
 ^^^
+
+**Required** if :option:`-e` is set. This option followed by a rational value sets Bonferroni Correction significance criteria. Default option is :option:`-sc 0.05`.
 
 -p
 ^^
 
+**Required** if :option:`-e` is set. This option followed by an integer value sets the total number of permutations in enrichment. Default option is :option:`-p 5000`.
+
 -pe
 ^^^
+
+**Required** if :option:`-e` is set. This option followed by an integer value sets number of permutations in each run. Default option is :option:`-pe 1000`.
 
 -rsat
 ^^^^^
 
+If this option is set, GLANET performs regulatory sequence analysis using RSAT. :option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) and enrichment option :option:`-e` to be set as preconditions. Otherwise it is not functional. 
+
 -j
 ^^
+
+It sets a name to the current job that GLANET is about to perform. It creates an output folder with the specified name. Results will be collected under this folder. Name of the job must be specified as the parameter. If you do not set anything, default option is :option:`-f NoName`.
