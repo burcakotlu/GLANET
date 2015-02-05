@@ -12,8 +12,8 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
 
-GLANET GUI
-##########
+GLANET Graphical User Interface
+###############################
 
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
@@ -233,6 +233,113 @@ GLANET Command-Line Parameters
 ******************************
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
+
++-------------------------+------------+-------------------+--------------+----------------------+
+| Parameter  Description  | Flag/Flags | Optional/Required | Precondition | Default Option       |
++=========================+============+===================+==============+======================+ 
+| Runs GLANET in          | -c         | Required          | None         | None                 |
+| Command Line mode.      |            |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the                | -i         | Required          | -c           | None ("path/to/file")|
+| Input File Name.        |            |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the Assembly.      | -grch37    |  Required         | -c           | -grch37              |
+|                         +------------+                   |              |                      | 
+|                         | -grch38    |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+  
+| Sets the GLANET Folder. | -g         |  Required         | -c           | None ("path/to/file")|
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the                | -f1        |  Required         | -c           | -fbed                |
+| Input File Format.      +------------+                   |              |                      |
+|                         | -f0        |                   |              |                      |
+|                         +------------+                   |              |                      | 
+|                         | -fbed      |                   |              |                      |
+|                         +------------+                   |              |                      |
+|                         | -fgff      |                   |              |                      |
+|                         +------------+                   |              |                      | 
+|                         | -fdbsnp    |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+  
+| Sets the number of bases| -b         |  Required         | -c           | 1 (Integer)          |
++-------------------------+------------+-------------------+--------------+----------------------+
+| Annotation              | -dnase     |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+ 
+|                         | -histone   |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+ 
+|                         | -tf        |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -kegg      |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -tfkegg    |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -celltfkegg|  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udg       |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udginput  |  Required         | -udg         | None ("path/to/file")|
++-------------------------+------------+-------------------+--------------+----------------------+
+| Sets the                | -udginfoid |  Required         | -udg         | -udginfosym          |
+| Input File              +------------+                   |              |                      |
+| Gene Information Type   | -udginfosym|                   |              |                      |
+|                         +------------+                   |              |                      |
+|                         | -udginforna|                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+
+|                         | -udgname   |  Optional         | -udg         | "NoName" (String)    |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udgdfile  |  Optional         | -udg         | None ("path/to/file")|
++-------------------------+------------+-------------------+--------------+----------------------+ 
+|                         | -udl       |  Optional         | -c           | None                 |
++-------------------------+------------+-------------------+--------------+----------------------+
+|                         | -udlinput  |  Required         | -udl         | None ("path/to/file")|
++-------------------------+------------+-------------------+--------------+----------------------+
+|                         | -udldf0exc |  Required         | -udl         | -udldf0exc           |
++-------------------------+------------+                   |              |                      |
+|                         | -udldf0inc |                   |              |                      |
++-------------------------+------------+                   |              |                      |
+|                         | -udldf1exc |                   |              |                      |
++-------------------------+------------+                   |              |                      |
+|                         | -udldf1inc |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+
+| Enrichment              | -e         |  Optional         | -dnase       |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -tf          |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -histone     |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -kegg        |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -tfkegg      |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -celltfkegg  |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -udg         |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -udl         |                      |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -rdgcm     |  Required         | -e           | -rdgcm               |
+|                         +------------+                   |              |                      |
+|                         | -rd        |                   |              |                      |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -mtbhfdr   |  Required         | -e           | -mtbhfdr             |
+|                         +------------+                   |              |                      |
+|                         | -mtbc      |                   |              |                      |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -fdr       |  Required         | -e           | 0.05 (Float)         |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -sc        |  Required         | -e           | 0.05 (Float)         |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -p         |  Required         | -e           | 10000 (Integer)      |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -pe        |  Required         | -e           | 5000 (Integer)       |
++-------------------------+------------+-------------------+--------------+----------------------+
+| Regulatory              | -rsat      |  Optional         | -tf          | None                 |
+| Sequence                |            |                   +--------------+                      |
+| Analysis                |            |                   | -tfkegg      |                      |
+|                         |            |                   +--------------+                      |
+|                         |            |                   | -celltfkegg  |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets Job Name           | -j         |  Optional         | -c           | "NoName" (String)    |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+
 
 ==  ==============  =================  ===========================  =================
 ID  Parameter       Optional/Required  Precondition                 Default Option
