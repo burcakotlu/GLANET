@@ -130,14 +130,14 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 				-	RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
 
 		-	Name (Optional)
-			You can give a name for the User Defined Gene Set (e.g.: GO)
-			Default Name is *NoName*.
+				You can give a name for the User Defined Gene Set (e.g.: GO)
+				Default Name is *NoName*.
 
 		-	Description File (Optional)
-			Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
-			-	Sample User Defined Gene Set Input File can be reached at
-				| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
-				| GO_ids2terms.txt
+				Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
+				-	Sample User Defined Gene Set Input File can be reached at
+					| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+					| GO_ids2terms.txt
 
 
 	* *User Defined Library Annotation*
