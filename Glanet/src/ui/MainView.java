@@ -321,10 +321,17 @@ public class MainView extends JPanel {
 		inputBrowseAndOptionPane.add(createBrowseFileArea("Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
-		String[] inputFormat = { Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
+		String[] inputFormat = { 	Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, 
+									Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, 
+									Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, 
+									Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, 
+									Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
 
 		inputFormatCombo = new JComboBox<String>(inputFormat);
+		inputFormatCombo.setSelectedIndex(2);
+
 		inputFormatCombo.addActionListener( enableInputAssemblyListener);
+		
 		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", createPanelWithHint(inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
 		String[] assemblyFormat = { Commons.GRCH37_P13, Commons.GRCH38 };
@@ -424,6 +431,7 @@ public class MainView extends JPanel {
 		String[] geneInformation = { Commons.GENE_ID, Commons.GENE_SYMBOL, Commons.RNA_NUCLEOTIDE_ACCESSION };
 
 		userDefinedGeneSetGeneInformation = new JComboBox<String>(geneInformation);
+		userDefinedGeneSetGeneInformation.setSelectedIndex(1);
 		userDefinedGeneSetUpperPanel.add(createBorderedPanel("Gene Information Type", createPanelWithHint(userDefinedGeneSetGeneInformation, Commons.GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE)));
 
 		// userDefinedGeneSetLowerPanel added to userDefinedGeneSetPanel
@@ -527,11 +535,13 @@ public class MainView extends JPanel {
 		// numberOfPerCombo added to permutationPanel
 		String[] numberOfPermutations = { "5000", "10000", "50000", "100000" };
 		numberOfPerCombo = new JComboBox<String>(numberOfPermutations);
+		numberOfPerCombo.setSelectedIndex(1);
 		permutationPanel.add(createBorderedPanel("Number of Permutations", createPanelWithHint(numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 
 		// numberOfPerInEachRun added to permutationPanel
 		String[] numberOfPermutationsInEachRun = { "1000", "5000", "10000" };
 		numberOfPerInEachRun = new JComboBox<String>(numberOfPermutationsInEachRun);
+		numberOfPerInEachRun.setSelectedIndex(1);
 		permutationPanel.add(createBorderedPanel("Number of Permutations In Each Run", createPanelWithHint(numberOfPerInEachRun, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
 
 		enrichmentPanel.add(permutationPanel);

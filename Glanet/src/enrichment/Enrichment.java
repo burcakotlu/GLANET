@@ -1714,7 +1714,7 @@ public class Enrichment {
 				
 				/******************************************************************************************************/		
 				/**********************************GENERATE RANDOM DATA STARTS*****************************************/						
-			   long startTime = System.currentTimeMillis();
+			    long startTime = System.currentTimeMillis();
 			    
 			    GlanetRunner.appendLog("Generate Random Data for permutations has started.");
  			    //First generate Random Data

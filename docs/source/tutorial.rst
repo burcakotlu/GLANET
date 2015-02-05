@@ -229,13 +229,13 @@ GLANET Command Line Interface
 
 
 
-Command-Line Options
-********************
+GLANET Command-Line Parameters
+******************************
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
 ==  ==============  ========  ===========================  =================  =================
-ID  Command         Required  Precondition                 Parameter          Default Parameter
+ID  Parameter       Required  Precondition                 Option             Default Option
 ==  ==============  ========  ===========================  =================  =================
 1   `-c`_           No        None                         None               None
 2   `-i`_           Yes       1                            "path/to/file"     None
@@ -247,7 +247,7 @@ ID  Command         Required  Precondition                 Parameter          De
 5   `-fbed`_        Yes       1                            None               None
 5   `-fgff`_        Yes       1                            None               None
 5   `-fdbsnp`_      Yes       1                            None               None
-6   `-b`_           No        1                            An integer value   1
+6   `-b`_           Yes       1                            An integer value   1
 7   `-dnase`_       No        1                            None               None
 8   `-histone`_     No        1                            None               None
 9   `-tf`_          No        1                            None               None
@@ -256,9 +256,9 @@ ID  Command         Required  Precondition                 Parameter          De
 12  `-celltfkegg`_  No        1                            None               None
 13  `-udg`_         No        1                            None               None
 14  `-udginput`_    Yes       13                           "path/to/file"     None
-15  `-udginfoid`_   Yes       13                           None               `-udginfoid`_
-15  `-udginfosym`_  Yes       13                           None               `-udginfoid`_
-15  `-udginforna`_  Yes       13                           None               `-udginfoid`_
+15  `-udginfoid`_   Yes       13                           None               `-udginfosym`_
+15  `-udginfosym`_  Yes       13                           None               `-udginfosym`_
+15  `-udginforna`_  Yes       13                           None               `-udginfosym`_
 16  `-udgname`_     No        13                           A string           "NoName"
 17  `-udgdfile`_    No        13                           "path/to/file"     None
 18  `-udl`_         No        1                            None               None
@@ -268,15 +268,15 @@ ID  Command         Required  Precondition                 Parameter          De
 20  `-udldf1exc`_   Yes       18                           None               `-udldf0exc`_
 20  `-udldf1inc`_   Yes       18                           None               `-udldf0exc`_
 21  `-e`_           No        7, 8, 9, 19, 11, 12, 13, 18  None               None
-22  `-rd`_          Yes       21                           None               `-rd`_
-22  `-rdgcm`_       Yes       21                           None               `-rd`_
+22  `-rdgcm`_       Yes       21                           None               `-rdgcm`_
+22  `-rd`_          Yes       21                           None               `-rdgcm`_
 23  `-mtbhfdr`_     Yes       21                           None               `-mtbhfdr`_
 23  `-mtbc`_        Yes       21                           None               `-mtbhfdr`_
 24  `-fdr`_         Yes       21                           A float value      0.05
 25  `-sc`_          Yes       21                           A float value      0.05
-26  `-p`_           Yes       21                           An integer value   5000
-27  `-pe`_          Yes       21                           An integer value   1000
-28  `-rsat`_        No        9, 11, 12, 21                None               None
+26  `-p`_           Yes       21                           An integer value   10000
+27  `-pe`_          Yes       21                           An integer value   5000
+28  `-rsat`_        No        9, 11, 12                    None               None
 29  `-j`_           Yes       1                            A string           "NoName"
 ==  ==============  ========  ===========================  =================  =================
 
