@@ -234,53 +234,52 @@ GLANET Command-Line Parameters
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
-==  ==============  ========  ===========================  =================  =================
-ID  Parameter       Required  Precondition                 Option             Default Option
-==  ==============  ========  ===========================  =================  =================
-1   `-c`_           No        None                         None               None
-2   `-i`_           Yes       1                            "path/to/file"     None
-3   `-grch37`_      Yes       1                            None               `-grch37`_
-3   `-grch38`_      Yes       1                            None               `-grch37`_
-4   `-g`_           Yes       1                            "path/to/folder/"  None
-5   `-f1`_          Yes       1                            None               None
-5   `-f0`_          Yes       1                            None               None
-5   `-fbed`_        Yes       1                            None               None
-5   `-fgff`_        Yes       1                            None               None
-5   `-fdbsnp`_      Yes       1                            None               None
-6   `-b`_           Yes       1                            An integer value   1
-7   `-dnase`_       No        1                            None               None
-8   `-histone`_     No        1                            None               None
-9   `-tf`_          No        1                            None               None
-10  `-kegg`_        No        1                            None               None
-11  `-tfkegg`_      No        1                            None               None
-12  `-celltfkegg`_  No        1                            None               None
-13  `-udg`_         No        1                            None               None
-14  `-udginput`_    Yes       13                           "path/to/file"     None
-15  `-udginfoid`_   Yes       13                           None               `-udginfosym`_
-15  `-udginfosym`_  Yes       13                           None               `-udginfosym`_
-15  `-udginforna`_  Yes       13                           None               `-udginfosym`_
-16  `-udgname`_     No        13                           A string           "NoName"
-17  `-udgdfile`_    No        13                           "path/to/file"     None
-18  `-udl`_         No        1                            None               None
-19  `-udlinput`_    Yes       18                           "path/to/file"     None
-20  `-udldf0exc`_   Yes       18                           None               `-udldf0exc`_
-20  `-udldf0inc`_   Yes       18                           None               `-udldf0exc`_
-20  `-udldf1exc`_   Yes       18                           None               `-udldf0exc`_
-20  `-udldf1inc`_   Yes       18                           None               `-udldf0exc`_
-21  `-e`_           No        7, 8, 9, 19, 11, 12, 13, 18  None               None
-22  `-rdgcm`_       Yes       21                           None               `-rdgcm`_
-22  `-rd`_          Yes       21                           None               `-rdgcm`_
-23  `-mtbhfdr`_     Yes       21                           None               `-mtbhfdr`_
-23  `-mtbc`_        Yes       21                           None               `-mtbhfdr`_
-24  `-fdr`_         Yes       21                           A float value      0.05
-25  `-sc`_          Yes       21                           A float value      0.05
-26  `-p`_           Yes       21                           An integer value   10000
-27  `-pe`_          Yes       21                           An integer value   5000
-28  `-rsat`_        No        9, 11, 12                    None               None
-29  `-j`_           Yes       1                            A string           "NoName"
-==  ==============  ========  ===========================  =================  =================
+==  ==============  =================  ===========================  =================
+ID  Parameter       Optional/Required  Precondition                 Default Option
+==  ==============  =================  ===========================  =================
+1   `-c`_           Required           None                         None
+2   `-i`_           Required           1                            None ("path/to/file")
+3   `-grch37`_      Required           1                            `-grch37`_
+3   `-grch38`_      Required           1                            `-grch37`_
+4   `-g`_           Required           1                            None ("path/to/folder/" )
+5   `-f1`_          Required           1                            `-fbed`_
+5   `-f0`_          Required           1                            `-fbed`_
+5   `-fbed`_        Required           1                            `-fbed`_
+5   `-fgff`_        Required           1                            `-fbed`_
+5   `-fdbsnp`_      Required           1                            `-fbed`_
+6   `-b`_           Required           1                            1 (An integer value)
+7   `-dnase`_       Optional           1                            None
+8   `-histone`_     Optional           1                            None
+9   `-tf`_          Optional           1                            None
+10  `-kegg`_        Optional           1                            None
+11  `-tfkegg`_      Optional           1                            None
+12  `-celltfkegg`_  Optional           1                            None
+13  `-udg`_         Optional           1                            None
+14  `-udginput`_    Required           13                           None ("path/to/file")
+15  `-udginfoid`_   Required           13                           `-udginfosym`_
+15  `-udginfosym`_  Required           13                           `-udginfosym`_
+15  `-udginforna`_  Required           13                           `-udginfosym`_
+16  `-udgname`_     Optional           13                           "NoName" (A string)
+17  `-udgdfile`_    Optional           13                           None ("path/to/file")
+18  `-udl`_         Optional           1                            None
+19  `-udlinput`_    Required           18                           None ("path/to/file")
+20  `-udldf0exc`_   Required           18                           `-udldf0exc`_
+20  `-udldf0inc`_   Required           18                           `-udldf0exc`_
+20  `-udldf1exc`_   Required           18                           `-udldf0exc`_
+20  `-udldf1inc`_   Required           18                           `-udldf0exc`_
+21  `-e`_           Optional           7, 8, 9, 19, 11, 12, 13, 18  None
+22  `-rdgcm`_       Required           21                           `-rdgcm`_
+22  `-rd`_          Required           21                           `-rdgcm`_
+23  `-mtbhfdr`_     Required           21                           `-mtbhfdr`_
+23  `-mtbc`_        Required           21                           `-mtbhfdr`_
+24  `-fdr`_         Required           21                           0.05 (A float value)
+25  `-sc`_          Required           21                           0.05 (A float value)
+26  `-p`_           Required           21                           10000 (An integer value)
+27  `-pe`_          Required           21                           5000 (An integer value
+28  `-rsat`_        Optional           9, 11, 12                    None
+29  `-j`_           Required           1                            "NoName" (A string
+==  ==============  =================  ===========================  ==========================
 
-:option:`dest_dir`
 
 
 
@@ -288,7 +287,11 @@ Command-Line Option Descriptions
 ********************************
 
 
-There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. Whether a parameter is required or not will be specified as we describe it. The order of parameters is not fixed. One may set the parameters in any order. Some parameters may require some other parameters to be set as preconditions and postconditions, which will also be indicated. You can see the preconditions and postconditions of a command as shown in `Command-Line Options`_
+There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. 
+Whether a parameter is required or not will be specified as we describe it. 
+The order of parameters is not fixed. One may set the parameters in any order. 
+Some parameters may require some other parameters to be set as preconditions, which will also be indicated. 
+You can see the preconditions of a parameter as shown in `GLANET Command-Line Parameters`_
 
 -c
 ^^
