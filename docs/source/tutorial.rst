@@ -240,7 +240,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | Runs GLANET in          | -c         | Required          | None         | None                 |
 | Command Line mode.      |            |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+ 
-| Sets the                | -i         | Required          | None         | None ("path/to/file")|
+| Sets the                | -i         | Required          | -c           | None ("path/to/file")|
 | Input File Name.        |            |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+ 
 | Sets the Assembly.      | -grch37    |  Required         | -c           | -grch37              |
@@ -262,18 +262,38 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | Sets the number of bases| -b         |  Required         | -c           | 1 (An integer value) |
 | required for            |            |                   |              |                      |
 | overlap definition      |            |                   |              |                      |
-+-------------------------+------------+-------------------+--------------+----------------------+ 
++-------------------------+------------+-------------------+--------------+----------------------+
 | Annotation Options.     | -dnase     |  Optional         | -c           | None                 |
 | Choose any of them.     +------------+-------------------+--------------+----------------------+ 
 |(at least one of them)   | -histone   |  Optional         | -c           | None                 |
 |                         +------------+-------------------+--------------+----------------------+ 
 |                         | -tf        |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -kegg      |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -tfkegg    |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -celltfkegg|  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udg       |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udginput  |  Required         | -udg         | None ("path/to/file")|
+|-------------------------+------------+-------------------+--------------+----------------------+
+| Sets the                | -udginfoid |  Required         | -udg         | -udginfosym          |
+| User Defined Gene Set   +------------+-------------------+--------------+----------------------+
+| Input File              | -udginfosym|  Required         | -udg         | -udginfosym          |
+| Gene Information Type   +------------+-------------------+--------------+----------------------+
+|                         | -udginforna|  Required         | -udg         | -udginfosym          |
+|-------------------------+------------+-------------------+--------------+----------------------+
+|                         | -udgname   |  Optional         | -udg         | "NoName" (A string)  |
+|                         +------------+-------------------+--------------+----------------------+
+|                         | -udgdfile  |  Optional         | -udg         | None ("path/to/file")|
 +-------------------------+------------+-------------------+--------------+----------------------+ 
 
 
 
 
-==  ==============  =================  ===========================  =================
+==  ==============  =================  ===========================  =================| 
 ID  Parameter       Optional/Required  Precondition                 Default Option
 ==  ==============  =================  ===========================  =================
 1   `-c`_           Required           None                         None
