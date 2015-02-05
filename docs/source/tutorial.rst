@@ -301,19 +301,19 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +------------+                   |              |                      |
 |                         | -udldf1inc |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
-| Enrichment              | -e         |  Optional         | -dnase     OR|                      |
+| Enrichment              | -e         |  Optional         | -dnase OR    |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -tf        OR|                      |
+|                         |            |                   | -tf OR       |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -histone   OR|                      |
+|                         |            |                   | -histone OR  |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -kegg      OR|                      |
+|                         |            |                   | -kegg OR     |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -tfkegg    OR|                      |
+|                         |            |                   | -tfkegg OR   |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -udg       OR|                      |
+|                         |            |                   | -udg OR      |                      |
 |                         |            |                   +--------------+                      |
-|                         |            |                   | -udl       OR|                      |
+|                         |            |                   | -udl OR      |                      |
 |                         |            |                   +--------------+                      |
 |                         |            |                   | -celltfkegg  |                      |
 |                         +------------+-------------------+--------------+----------------------+
@@ -333,9 +333,9 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +------------+-------------------+--------------+----------------------+
 |                         | -pe        |  Required         | -e           | 5000 (Integer)       |
 +-------------------------+------------+-------------------+--------------+----------------------+
-| Regulatory              | -rsat      |  Optional         | -tf        OR| None                 |
+| Regulatory              | -rsat      |  Optional         | -tf OR       | None                 |
 | Sequence                |            |                   +--------------+                      |
-| Analysis                |            |                   | -tfkegg    OR|                      |
+| Analysis                |            |                   | -tfkegg OR   |                      |
 |                         |            |                   +--------------+                      |
 |                         |            |                   | -celltfkegg  |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
