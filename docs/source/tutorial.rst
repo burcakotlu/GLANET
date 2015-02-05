@@ -1,6 +1,6 @@
-***************
+===============
 GLANET Tutorial
-***************
+===============
 
 GLANET includes both graphical user interface (GUI) and command-line interface.
 In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
@@ -11,9 +11,9 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
-
+-------------------------------
 GLANET Graphical User Interface
-###############################
+-------------------------------
 
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
@@ -224,13 +224,9 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Default is Job Name is  *NoName*.
 
 
-GLANET Command Line Interface
-#############################
-
-
-
-GLANET Command-Line Parameters
-******************************
+---------------------------------------------------------
+GLANET Command-Line Interface and Command-Line Parameters
+---------------------------------------------------------
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
@@ -342,15 +338,15 @@ In the following table, commands and their prerequisite commands, if any, are sp
 +-------------------------+---------------+-------------------+--------------+----------------------+
 
 
+------------------------------------
 Command-Line Parameters Descriptions
-************************************
-
+------------------------------------
 
 There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. 
 Whether a parameter is required or not will be specified as we describe it. 
 The order of parameters is not fixed. One may set the parameters in any order. 
 Some parameters may require some other parameters to be set as preconditions, which will also be indicated. 
-You can see the preconditions of a parameter as shown in `GLANET Command-Line Parameters`_
+You can see the preconditions of a parameter as shown in `GLANET Command-Line Interface and Command-Line Parameters`_
 
 -c
 ^^
