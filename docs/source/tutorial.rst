@@ -235,7 +235,7 @@ GLANET Command-Line Parameters
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Parameter  Description  | Flag          | Optional/Required | Precondition | Default Option       |
+| Parameter  Description  | Option        | Optional/Required | Precondition | Default Option       |
 +=========================+===============+===================+==============+======================+
 | Runs in command-line    | `-c`_         |  Optional         | None         | None                 |
 +-------------------------+---------------+-------------------+--------------+----------------------+
@@ -279,7 +279,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | User Defined GeneSet    | `-udginput`_  |  Required         | `-udg`_      | None ("path/to/file")|
 | (UDG) Input             |               |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Sets the                | `-udginfoid`_ |  Required         | `-udg`_      | `-udginfosym`_       |
+| Sets the                | `-udginfoid`_ |  Required         | `-udg`_      | `-udginfoid`_        |
 | UDG Input File Form     +---------------+                   |              |                      |
 |                         | `-udginfosym`_|                   |              |                      |
 |                         +---------------+                   |              |                      |
@@ -409,65 +409,107 @@ Note that exact path to the input file comes just after :option:`-i` option. Unl
 -b
 ^^
 
+**Required** if :option:`-c` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. An integer value must be specified after :option:`-b`. If you do not set anything, default option is :option:`-b 1`.
+
 -dnase
 ^^^^^^
+
+This option enables DNase Hypersensitive Sites (Cell Line Based) Annotation.
 
 -histone
 ^^^^^^^^
 
+This option enables Histone Modifications (Cell Line Based) Annotation.
+
 -tf
 ^^^
+
+This option enables Transcription Factors (Cell Line Based) Annotation.
 
 -kegg
 ^^^^^
 
+This option enables KEGG Pathway Annotation.
+
 -tfkegg
 ^^^^^^^
+
+This option enables Transcription Factor and KEGG Pathway Annotation.
 
 -celltfkegg
 ^^^^^^^^^^^
 
+This option enables Transcription Factor (Cell Line Based) and KEGG Pathway Annotation.
+
 -udg
 ^^^^
+
+This option enables User Defined GeneSet Annotation.
 
 -udginput
 ^^^^^^^^^
 
+**Required** if :option:`-udg` is set. This option specifies user defined GeneSet input file. Absolute input file location must be specified as the parameter.
+
 -udginfoid
 ^^^^^^^^^^
+
+**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". One of the gene information type (:option:`-udginfoid`, :option:`-udginfosym`, :option:`-udginforna`) must be specified. If you do not set any of these options, default option is :option:`-udginfoid`
 
 -udginfosym
 ^^^^^^^^^^^
 
+**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Symbol". See also `-udginfoid`_.
+
 -udginforna
 ^^^^^^^^^^^
+
+**Required** if :option:`-udg` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-udginfoid`_.
 
 -udgname
 ^^^^^^^^
 
+This option gives a name for the user defined GeneSet.
+
 -udgdfile
 ^^^^^^^^^
+
+This option specifies the user defined GeneSet description file location. Absolute file location must be specified as the parameter.
 
 -udl
 ^^^^
 
+This option enables User Defined Library Annotation.
+
 -udlinput
-^^^^^^^^^^
+^^^^^^^^^
+
+**Required** if :option:`-udl` is set. This option specifies user defined library input file. Absolute input file location must be specified as the parameter.
 
 -udldf0exc
 ^^^^^^^^^^
 
+**Required** if :option:`-udl` is set. This option specifies user defined library data format as "0-based coordinates (End exclusive)". One of the data format (:option:`-udldf0exc`, :option:`-udldf0inc`, :option:`-udldf1exc`, :option:`-udldf1inc`) must be specified. If you do not set any of these options, default option is :option:`-udldf0exc`
+
 -udldf0inc
 ^^^^^^^^^^
+
+**Required** if :option:`-udl` is set. This option specifies user defined library data format as "0-based coordinates (End inclusive)". See also `-udldf0inc`_.
 
 -udldf1exc
 ^^^^^^^^^^
 
+**Required** if :option:`-udl` is set. This option specifies user defined library data format as "1-based coordinates (End exclusive)". See also `-udldf0inc`_.
+
 -udldf1inc
 ^^^^^^^^^^
 
+**Required** if :option:`-udl` is set. This option specifies user defined library data format as "1-based coordinates (End inclusive)". See also `-udldf0inc`_.
+
 -e
 ^^
+
+If this option is specified, GLANET performs enrichment. Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
 
 -rd
 ^^^
