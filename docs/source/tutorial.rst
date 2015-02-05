@@ -2,7 +2,7 @@
 GLANET Tutorial
 ***************
 
-GLANET includes both graphical user interface (GUI) and command-line interface. 
+GLANET includes both graphical user interface (GUI) and command-line interface.
 In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
 	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G
@@ -14,68 +14,68 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 
 GLANET GUI
 ##########
-	
+
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
 
    GLANET GUI Upper Part
 
 
-GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements, 
+GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements,
 predefined gene sets such as KEGG Pathways, user defined gene sets and user defined library.
 
 Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
 1)	**Input File Name**: (Mandatory)
-	
+
 	You have to provide input file which contains user given genomic intervals.
-	Assume that Data.zip is extracted under a directory called tool. 
+	Assume that Data.zip is extracted under a directory called tool.
 	Then sample input data can be reached from ~path/to/tool/Data/demo_input_data/.
-	
+
 2)	**Input Format**: (Mandatory)
-	 
+
 	GLANET supports input formats such as *dbSNP IDs*, *BED*, *GFF3*, *1-based coordinates (End Inclusive)* and *0-based coordinates (End Inclusive)*.
 	For the user given input file, Input Format has to be selected accordingly.
-	
+
 	* *dbSNP IDs*
-		-  Sample input data for dbSNP IDs can be reached at 
+		-  Sample input data for dbSNP IDs can be reached at
 		| ~path/to/tool/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
 		-  Input Format must be selected as dbSNP IDs.
-	
+
 	* *BED*
-		-  Sample input data for BED can be reached at  
+		-  Sample input data for BED can be reached at
 		| ~path/to/tool/Data/demo_input_data/
 		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
 		-  Input Format must be selected as BED.
 
 	* *GFF3*
-		-  Sample input data  can be reached at  	
+		-  Sample input data  can be reached at
 		| ~path/to/tool/Data/demo_input_data/
 		| CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
 		-  Input Format must be selected as GFF3.
 
 	* *1-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at  	
+		-  Sample input data  can be reached at
 		| ~path/to/tool/Data/demo_input_data/
 		| OCD_GWAS_SNPs_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 1-based coordinates (End Inclusive).
-	
+
 	* *0-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at  	
+		-  Sample input data  can be reached at
 		| ~path/to/tool/Data/demo_input_data/
 		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 0-based coordinates (End Inclusive).
-	
 
- 	
+
+
 3)	**Assembly**: (Mandatory for *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)*)
-	
+
 	GLANET supports two assemblies.
 
 	* *GRCh38*
-		-  GRCh38 is also known as hg38  
+		-  GRCh38 is also known as hg38
 	* *GRCH37.p13 (hg19)*
-		-  GRCh37.p13 is also known as hg19  
+		-  GRCh37.p13 is also known as hg19
 
 	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
 	In case of dbSNP IDs, there is no need for Assembly selection.
@@ -86,11 +86,11 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Please note that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
 
 5)	**Annotation, Overlap Definition, Number of Bases**: (Mandatory)
-	
-	For Annotation, set the number of bases for overlap definition. 
+
+	For Annotation, set the number of bases for overlap definition.
 	e.g: Setting number of bases as *3* means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
 	Default is *1* in order to handle the case where the SNPs are given as input data.
-	
+
 6) 	**Annotation, Annotation Options**: (At least one of the Annotation Option has to be checked)
 
 	* *DNase Annotation (CellLine Based)*
@@ -98,71 +98,75 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *Histone Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone modifications sites.
-	
+
 	* *Transcription Factor (TF) Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
-	
+
 	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
-	
+
 	* *TF and KEGG Pathway Annotation*
-		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.  
-		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other. 
+		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
+		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other.
 		Here same TF with different cell lines are pooled.
 
 	* *TF and KEGG Pathway Annotation (CellLine Based)*
-		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.  
-		This is a joint annotation which means that given interval has overlapped with TF and KEGG Pathway intervals, and these TF and KEGG Pathway also overlaps with each other. 
+		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.
+		This is a joint annotation which means that given interval has overlapped with TF and KEGG Pathway intervals, and these TF and KEGG Pathway also overlaps with each other.
 
 	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
-		
+
 		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
 			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line (e.g:.: GO:0031424	LCE6A).
-			-  Sample User Defined Gene Set Input File can be reached at  	
-			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
-			| GO_gene_associations_human_ref.txt
-	
+			-  Sample User Defined Gene Set Input File can be reached at
+				| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+				| GO_gene_associations_human_ref.txt
+
 		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
-		GLANET supports three Gene Information Types.
-			-  GENE ID (e.g.: 728927)
-			-  GENE SYMBOL (e.g.: TTC26)
-			-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
-			
-		-  Name (Optional)
-		You can give a name for the User Defined Gene Set (e.g.: GO)
-		Default Name is *NoName*.
-		
-		-  Description File (Optional)
-		Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
-			-  Sample User Defined Gene Set Input File can be reached at  	
-			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
-			| GO_ids2terms.txt
-		
-		
+			-	GLANET supports three Gene Information Types:
+				-	GENE ID (e.g.: 728927)
+				-	GENE SYMBOL (e.g.: TTC26)
+				-	RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
+
+		-	Name (Optional)
+			You can give a name for the User Defined Gene Set (e.g.: GO)
+			Default Name is *NoName*.
+
+		-	Description File (Optional)
+			Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
+			-	Sample User Defined Gene Set Input File can be reached at
+				| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+				| GO_ids2terms.txt
+
+
 	* *User Defined Library Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
-		
+		   Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
+
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* checkbox is checked.)
-			-  User Defined Library Input File contains tab delimited FilePath_FileName, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line 
-			(e.g:.: G:\DOKTORA_DATA\ENCODE\dnase_jul2010\AG09319-DS12291.peaks.fdr0.01.hg19.bed	Dnase	AG09319).
-			-  Sample User Defined Library Input File can be reached at  
-			| ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/
-			| UserDefinedLibraryInputFile.txt
+			- 	User Defined Library Input File contains tab delimited ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line
+				
+				(e.g:.: G:/DOKTORA_DATA/ENCODE/dnase_jul2010/AG09319-DS12291.peaks.fdr0.01.hg19.bed	Dnase	AG09319).
 			
+			-	Sample User Defined Library Input File can be reached at
+				
+				| ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/
+				| UserDefinedLibraryInputFile.txt
+
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* checkbox is checked.)
-		GLANET supports four Data Formats.
-			-  0-based coordinates (End Inclusive)
-			-  0-based coordinates (End Exclusive)
-			-  1-based coordinates (End Inclusive)
-			-  1-based coordinates (End Exclusive)
-		
+			-  GLANET supports four Data Formats:
+				-  0-based coordinates (End Inclusive)
+				-  0-based coordinates (End Exclusive)
+				-  1-based coordinates (End Inclusive)
+				-  1-based coordinates (End Exclusive)
+
 
 .. figure:: ../images/GLANET_GUI_LowerPart.jpg
    :alt: GLANET_GUI_LowerPart
-  
+
    GLANET GUI Lower Part
-	
+
 7)	**Enrichment**: (Optional)
 
 	* *Perform Enrichment*
@@ -172,18 +176,18 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
 		-  Without GC and Mapability
-		
+
 	Choose the *Generate Random Data Mode* which can be either *With GC and Mapability* or *Without GC and Mapability*.
 	Default is *With GC and Mapability*.
-	
+
 	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
 		-  Bonferroni Correction
-	
+
     Select the *Multiple Testing* procedure which can be either *Bonferroni Correction* or *Benjamini Hochberg FDR*.
 	In fact, GLANET performs both of the Multiple Testing procedures but results are sorted w.r.t. the selected Multiple Testing procedure.
 	Default is *Benjamini Hochberg FDR*.
-	
+
 	* *False Discovery Rate (FDR)*
 		-  Default *False Discovery Rate (FDR)* is 0.05.
 
@@ -193,32 +197,32 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Number of Permutations*
 		-  Choose the *number of permutations* among 5000, 10000, 50000 and 100000 choices.
 	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
-	
-	
+
+
 	* *Number of Permutations In Each Run*
 		-  Choose the *number of permutations* in each run among 1000, 5000 and 10000 choices.
-	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time. 
+	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time.
 	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
 	You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
 	Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
-	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or 
+	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
 	*TF and KEGG Pathway (CellLine based)*.
 	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
-	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated Transcription Factors. 
+	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated Transcription Factors.
 	Regulatory Sequence Analysis makes use of RSAT web services.
-	
+
 9)	**Job Name**: (Optional)
 
-	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/. 
+	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/.
 	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
 	Default is Job Name is  *NoName*.
 
 
 GLANET Command Line Interface
-#############################	
+#############################
 
 
 
