@@ -278,13 +278,13 @@ ID  Parameter       Optional/Required  Precondition                 Default Opti
 27  `-pe`_          Required           21                           5000 (An integer value
 28  `-rsat`_        Optional           9, 11, 12                    None
 29  `-j`_           Required           1                            "NoName" (A string
-==  ==============  =================  ===========================  ==========================
+==  ==============  =================  ===========================  =================
 
 
 
 
-Command-Line Option Descriptions
-********************************
+Command-Line Parameters Descriptions
+************************************
 
 
 There are several parameters that are either required or optional to make GLANET run in Terminal or in Command Prompt. 
