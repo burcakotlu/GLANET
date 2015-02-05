@@ -281,8 +281,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | (UDG) Input             |            |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
 | Sets the                | -udginfoid |  Required         | -udg         | -udginfosym          |
-| Input File              +------------+                   |              |                      |
-| Gene Information Type   | -udginfosym|                   |              |                      |
+| UDG Input File Form     +------------+                   |              |                      |
+|                         | -udginfosym|                   |              |                      |
 |                         +------------+                   |              |                      |
 |                         | -udginforna|                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
@@ -293,15 +293,15 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | User Defined Library    | -udlinput  |  Required         | -udl         | None ("path/to/file")|
 | (UDL) Input             |            |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
-| Sets the                | -udldf0exc |  Required         | -udl         | -udldf0exc           |
-| User Defined Library    +------------+                   |              |                      |
-| Data Format             | -udldf0inc |                   |              |                      |
+| Sets the UDL            | -udldf0exc |  Required         | -udl         | -udldf0exc           |
+| Data Format             +------------+                   |              |                      |
+|                         | -udldf0inc |                   |              |                      |
 |                         +------------+                   |              |                      |
 |                         | -udldf1exc |                   |              |                      |
 |                         +------------+                   |              |                      |
 |                         | -udldf1inc |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+
-| Enrichment              | -e         |  Optional         | -dnase OR    |                      |
+| Enrichment              | -e         |  Optional         | -dnase OR    | None                 |
 |                         |            |                   +--------------+                      |
 |                         |            |                   | -tf OR       |                      |
 |                         |            |                   +--------------+                      |
