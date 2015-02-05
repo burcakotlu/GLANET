@@ -250,14 +250,14 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | Sets the GLANET Folder. | -g         |  Required         | -c           | None ("path/to/file")|
 +-------------------------+------------+-------------------+--------------+----------------------+ 
 | Sets the                | -f1        |  Required         | -c           | -fbed                |
-| Input File Format.      +------------+                   |              | 
+| Input File Format.      +------------+                   |              |                      |
 |                         | -f0        |                   |              |                      |
 |                         +------------+                   |              |                      | 
 |                         | -fbed      |                   |              |                      |
 |                         +------------+                   |              |                      |
 |                         | -fgff      |                   |              |                      |
 |                         +------------+                   |              |                      | 
-|                         | -fdbsnp    |  Required         |              |                      |
+|                         | -fdbsnp    |                   |              |                      |
 +-------------------------+------------+-------------------+--------------+----------------------+  
 | Sets the number of bases| -b         |  Required         | -c           | 1 (Integer)          |
 +-------------------------+------------+-------------------+--------------+----------------------+
