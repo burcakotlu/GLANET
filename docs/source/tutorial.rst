@@ -12,8 +12,8 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
 
 
-GLANET GUI
-##########
+GLANET Graphical User Interface
+###############################
 
 .. figure:: ../images/GLANET_GUI_UpperPart.jpg
    :alt: GLANET_GUI_UpperPart
@@ -233,6 +233,45 @@ GLANET Command-Line Parameters
 ******************************
 
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
+
++-------------------------+------------+-------------------+--------------+----------------------+
+| Parameter  Description  | Flag/Flags | Optional/Required | Precondition | Default Option       |
++=========================+============+===================+==============+======================+ 
+| Runs GLANET in          | -c         | Required          | None         | None                 |
+| Command Line mode.      |            |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the                | -i         | Required          | None         | None ("path/to/file")|
+| Input File Name.        |            |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the Assembly.      | -grch37    |  Required         | -c           | -grch37              |
+| Select one of them.     +------------+-------------------+--------------+----------------------+ 
+|                         | -grch38    |  Required         | -c           | -grch37              |
++-------------------------+------------+-------------------+--------------+----------------------+  
+| Sets the GLANET Folder. | -g         |  Required         | -c           | None ("path/to/file")|
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Sets the                | -f1        |  Required         | -c           | -fbed                |
+| Input File Format.      +------------+-------------------+--------------+----------------------+ 
+| Select one of them.     | -f0        |  Required         | -c           | -fbed                |
+|                         +------------+-------------------+--------------+----------------------+ 
+|                         | -fbed      |  Required         | -c           | -fbed                |
+|                         +------------+-------------------+--------------+----------------------+            
+|                         | -fgff      |  Required         | -c           | -fbed                |
+|                         +------------+-------------------+--------------+----------------------+ 
+|                         | -fdbsnp    |  Required         | -c           | -fbed                |
++-------------------------+------------+-------------------+--------------+----------------------+  
+| Sets the number of bases| -b         |  Required         | -c           | 1 (An integer value) |
+| required for            |            |                   |              |                      |
+| overlap definition      |            |                   |              |                      |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+| Annotation Options.     | -dnase     |  Optional         | -c           | None                 |
+| Choose any of them.     +------------+-------------------+--------------+----------------------+ 
+|(at least one of them)   | -histone   |  Optional         | -c           | None                 |
+|                         +------------+-------------------+--------------+----------------------+ 
+|                         | -tf        |  Optional         | -c           | None                 |
++-------------------------+------------+-------------------+--------------+----------------------+ 
+
+
+
 
 ==  ==============  =================  ===========================  =================
 ID  Parameter       Optional/Required  Precondition                 Default Option
