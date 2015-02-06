@@ -231,7 +231,7 @@ GLANET Command-Line Interface and Command-Line Parameters
 In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
 
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Parameter  Description  | Option        | Optional/Required | Precondition | Default Option       |
+| Description             | Option        | Optional/Required | Precondition | Default Option       |
 +=========================+===============+===================+==============+======================+
 | Command-line            | `-c`_         |  Optional         | None         | None                 |
 +-------------------------+---------------+-------------------+--------------+----------------------+
