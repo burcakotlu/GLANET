@@ -325,9 +325,9 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-pe`_        |  Required         | `-e`_        | 5000 (Integer)       |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Regulatory              | `-rsat`_      |  Optional         |`-tf`_ or     | None                 |
-| Sequence                |               |                   +--------------+                      |
-| Analysis                |               |                   |`-tfkegg`_ or |                      |
+| RSA                     | `-rsat`_      |  Optional         |`-tf`_ or     | None                 |
+|                         |               |                   +--------------+                      |
+|                         |               |                   |`-tfkegg`_ or |                      |
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-celltfkegg`_|                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
@@ -547,7 +547,7 @@ If this option is specified, GLANET performs enrichment. Enrichment operation re
 -rsat
 ^^^^^
 
-If this option is set, GLANET performs regulatory sequence analysis using RSAT. :option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) and enrichment option :option:`-e` to be set as preconditions. Otherwise it is not functional. 
+If this option is set, GLANET performs regulatory sequence analysis using RSAT. :option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) as preconditions. Otherwise it is not functional. 
 
 -j
 ^^
