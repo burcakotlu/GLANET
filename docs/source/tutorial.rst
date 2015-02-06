@@ -273,7 +273,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-udginput`_  |  Required         | `-udg`_      | None ("path/to/file")|
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-udginfoid`_ |  Required         | `-udg`_      | `-udginfoid`_        |
+|                         | `-udginfoid`_ |  Required         | `-udg`_      | `-udginfosym`_       |
 |                         +---------------+                   |              |                      |
 |                         | `-udginfosym`_|                   |              |                      |
 |                         +---------------+                   |              |                      |
@@ -445,22 +445,23 @@ This option enables User Defined GeneSet Annotation.
 **Required** if :option:`-udg` is set. This option specifies User Defined GeneSet input file. 
 Absolute input file location must be specified as the parameter.
 
--udginfoid
-^^^^^^^^^^
-
-**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". 
-One of the gene information type (:option:`-udginfoid`, :option:`-udginfosym`, :option:`-udginforna`) must be specified. 
-If you do not set any of these options, default option is :option:`-udginfoid`
-
 -udginfosym
 ^^^^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Symbol". See also `-udginfoid`_.
+**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Symbol". 
+One of the gene information type (:option:`-udginfosym`, :option:`-udginfoid`, :option:`-udginforna`) must be specified. 
+If you do not set any of these options, default option is :option:`-udginfosym`
+
+
+-udginfoid
+^^^^^^^^^^
+
+**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". See also `-udginfosym`_.
 
 -udginforna
 ^^^^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-udginfoid`_.
+**Required** if :option:`-udg` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-udginfosym`_.
 
 -udgname
 ^^^^^^^^
