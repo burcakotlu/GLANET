@@ -597,7 +597,7 @@ GLANET Command-Line Sample Runs
 
  Example Annotation Run is as following::
 
-	$ java −jar "C:\Users\Burçak\Google Drive\GLANET\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_all_1_based_snps.txt" -f1 -g "C:\Users\Burçak\Google Drive\"  -grch37 b 1 -dnase -histone -tf -kegg -tfkegg
+	$ java −jar "C:\Users\Burçak\Google Drive\GLANET\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\Users\Burçak\Google Drive\" -b 1 -dnase -histone -tf -kegg -tfkegg
 
  Example Annotation and Enrichmnet Run is as following::
 
