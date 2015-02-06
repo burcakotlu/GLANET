@@ -348,56 +348,56 @@ You can see the preconditions of a parameter as shown in `GLANET Command-Line In
 -c
 ^^
 
-To enable GLANET to run in Terminal or Command Prompt, it must be indicated with :option:`-c` option. If there is no such option specified, program will run with its graphical user interface. Example run is as following::
-
-	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c
+To enable GLANET to run in Terminal or Command Prompt, it must be indicated with :option:`-c` option. If there is no such option specified, program will run with its graphical user interface.
 
 -i
 ^^
 
 **Required** if :option:`-c` is set. Input file location must be specified just after :option:`-i` option as parameter.
 
-Note that exact path to the input file comes just after :option:`-i` option. Unless the correct path location is specified after :option:`-i`, the program may run unexpectedly. You are responsible to indicate the correct path to the input file.
+.. Unless the correct path location is specified after :option:`-i`, the program may run unexpectedly. You are responsible to indicate the correct path to the input file.
 
 -grch37
 ^^^^^^^
 
-**Required** if :option:`-c` is set. This option specifies assembly format as GRCh37.p13. If you do not set anything, :option:`-grch37` is set as default.
+**Required** if :option:`-c` is set. This option specifies assembly of input data as GRCh37.p13. If you do not set anything, :option:`-grch37` is set as default.
 
 -grch38
 ^^^^^^^
 
-**Required** if :option:`-c` is set. This option specifies assembly format as GRCh38. If you do not set anything, :option:`-grch37` is set as default.
+**Required** if :option:`-c` is set. This option specifies assembly of the input data as GRCh38. If you do not set anything, :option:`-grch37` is set as default.
 
 -g
 ^^
 
 **Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`.
+Do not forget that Glanet folder must have the Data folder as subfolder.
 
 -f1
 ^^^
 
-**Required** if :option:`-c` is set. One of the input format options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. This option specifies 1-based coordinates (End Inclusive) is used in the input file as input format.
+**Required** if :option:`-c` is set. One of the input data format options ( :option:`-f1`, :option:`-f0`, :option:`-fbed`, :option:`-fgff`, :option:`-fdbsnp`) must be specified. 
+This option specifies that input file contains 1-based coordinates (End Inclusive) per line.
 
 -f0
 ^^^
 
-**Required** if :option:`-c` is set. This option specifies 0-based coordinates (End Inclusive) is used in the input file as input format. See also `-f1`_.
+**Required** if :option:`-c` is set. This option specifies that input file contains 0-based coordinates (End Inclusive) per line. See also `-f1`_.
 
 -fbed
 ^^^^^
 
-**Required** if :option:`-c` is set. This option specifies BED is used in the input file as input format. See also `-f1`_.
+**Required** if :option:`-c` is set. This option specifies that input file format is BED. See also `-f1`_.
 
 -fgff
 ^^^^^
 
-**Required** if :option:`-c` is set. This option specifies GFF3 is used in the input file as input format. See also `-f1`_.
+**Required** if :option:`-c` is set. This option specifies that input file format is GFF3. See also `-f1`_.
 
 -fdbsnp
 ^^^^^^^
 
-**Required** if :option:`-c` is set. This option specifies dbSNP IDs is used in the input file as input format. See also `-f1`_.
+**Required** if :option:`-c` is set. This option specifies that input file contains dbSNP IDs per line. See also `-f1`_.
 
 -b
 ^^
@@ -553,3 +553,23 @@ If this option is set, GLANET performs regulatory sequence analysis using RSAT. 
 ^^
 
 It sets a name to the current job that GLANET is about to perform. It creates an output folder with the specified name. Results will be collected under this folder. Name of the job must be specified as the parameter. If you do not set anything, default option is :option:`-f NoName`.
+
+-------------------------------
+GLANET Command-Line Sample Runs
+-------------------------------
+
+ Example Annotation Run is as following::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c
+	
+ Example Annotation and Enrichmnet Run is as following::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c	
+
+ Example Annotation and Enrichmnet and Regulatory Sequence Analysis Run is as following::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c	
+
+ Example Annotation and Regulatory Sequence Analysis Run is as following::
+
+	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c		
