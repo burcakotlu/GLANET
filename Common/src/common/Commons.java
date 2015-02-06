@@ -1290,9 +1290,9 @@ public class Commons {
 	// Enum type FalseDiscoveryRate
 	public static final String FDR_DEFAULT = "0.05";
 	// Enum type NumberOfPermutations
-	public static final String NUMBER_OF_PERMUTATIONS_DEFAULT = "5000";
+	public static final String NUMBER_OF_PERMUTATIONS_DEFAULT = "10000";
 	// Enum type NumberOfPermutationsInEachRun
-	public static final String NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT = "2000";
+	public static final String NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT = "5000";
 	// Enum type JobName
 
 	// ENCODE Collaboration starts
