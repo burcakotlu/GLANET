@@ -353,7 +353,7 @@ To enable GLANET to run in Terminal or Command Prompt, it must be indicated with
 -i
 ^^
 
-**Required** if :option:`-c` is set. Input file location must be specified just after :option:`-i` option as parameter.
+**Required** if :option:`-c` is set. Absolute input file location must be specified just after :option:`-i` option.
 
 .. Unless the correct path location is specified after :option:`-i`, the program may run unexpectedly. You are responsible to indicate the correct path to the input file.
 
@@ -412,12 +412,12 @@ This option enables DNase Hypersensitive Sites (Cell Line Based) Annotation.
 -histone
 ^^^^^^^^
 
-This option enables Histone Modifications (Cell Line Based) Annotation.
+This option enables Histone Modifications Sites (Cell Line Based) Annotation.
 
 -tf
 ^^^
 
-This option enables Transcription Factors (Cell Line Based) Annotation.
+This option enables Transcription Factors Binding Sites (Cell Line Based) Annotation.
 
 -kegg
 ^^^^^
@@ -427,12 +427,12 @@ This option enables KEGG Pathway Annotation.
 -tfkegg
 ^^^^^^^
 
-This option enables Transcription Factor and KEGG Pathway Annotation.
+This option enables Transcription Factor Binding Sites and KEGG Pathway Annotation.
 
 -celltfkegg
 ^^^^^^^^^^^
 
-This option enables Transcription Factor (Cell Line Based) and KEGG Pathway Annotation.
+This option enables Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
 
 -udg
 ^^^^
@@ -442,12 +442,15 @@ This option enables User Defined GeneSet Annotation.
 -udginput
 ^^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies user defined GeneSet input file. Absolute input file location must be specified as the parameter.
+**Required** if :option:`-udg` is set. This option specifies User Defined GeneSet input file. 
+Absolute input file location must be specified as the parameter.
 
 -udginfoid
 ^^^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". One of the gene information type (:option:`-udginfoid`, :option:`-udginfosym`, :option:`-udginforna`) must be specified. If you do not set any of these options, default option is :option:`-udginfoid`
+**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". 
+One of the gene information type (:option:`-udginfoid`, :option:`-udginfosym`, :option:`-udginforna`) must be specified. 
+If you do not set any of these options, default option is :option:`-udginfoid`
 
 -udginfosym
 ^^^^^^^^^^^
@@ -467,7 +470,8 @@ This option gives a name for the user defined GeneSet.
 -udgdfile
 ^^^^^^^^^
 
-This option specifies the user defined GeneSet description file location. Absolute file location must be specified as the parameter.
+This option specifies the user defined GeneSet description file location. 
+Absolute file location must be specified as the parameter.
 
 -udl
 ^^^^
@@ -477,82 +481,114 @@ This option enables User Defined Library Annotation.
 -udlinput
 ^^^^^^^^^
 
-**Required** if :option:`-udl` is set. This option specifies user defined library input file. Absolute input file location must be specified as the parameter.
+**Required** if :option:`-udl` is set. This option specifies User Defined Library Input File. 
+Absolute input file location must be specified as the parameter.
 
 -udldf0exc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. This option specifies user defined library data format as "0-based coordinates (End exclusive)". One of the data format (:option:`-udldf0exc`, :option:`-udldf0inc`, :option:`-udldf1exc`, :option:`-udldf1inc`) must be specified. If you do not set any of these options, default option is :option:`-udldf0exc`
+**Required** if :option:`-udl` is set. 
+This option specifies User Defined Library Data Format as "0-based coordinates (End exclusive)". 
+One of the data format (:option:`-udldf0exc`, :option:`-udldf0inc`, :option:`-udldf1exc`, :option:`-udldf1inc`) must be specified. 
+If you do not set any of these options, default option is :option:`-udldf0exc`
 
 -udldf0inc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. This option specifies user defined library data format as "0-based coordinates (End inclusive)". See also `-udldf0inc`_.
+**Required** if :option:`-udl` is set. 
+This option specifies User Defined Library Data Format as "0-based coordinates (End inclusive)". See also `-udldf0inc`_.
 
 -udldf1exc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. This option specifies user defined library data format as "1-based coordinates (End exclusive)". See also `-udldf0inc`_.
+**Required** if :option:`-udl` is set. 
+This option specifies User Defined Library Data Format as "1-based coordinates (End exclusive)". See also `-udldf0inc`_.
 
 -udldf1inc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. This option specifies user defined library data format as "1-based coordinates (End inclusive)". See also `-udldf0inc`_.
+**Required** if :option:`-udl` is set. 
+This option specifies User Defined Library Data Format as "1-based coordinates (End inclusive)". See also `-udldf0inc`_.
 
 -e
 ^^
 
-If this option is specified, GLANET performs enrichment. Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
+If this option is specified, GLANET performs enrichment. 
+Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
 
 -rdgcm
 ^^^^^^
 
-**Required** if :option:`-e` is set. This option generates random data with GC and Mapability. You must either set :option:`-rdgcm` or :option:`-rd` to specify generating random data mode. If you do not set anything, default option is :option:`-rdgcm`.
+**Required** if :option:`-e` is set. 
+This option generates random data with GC and Mapability. 
+You must either set :option:`-rdgcm` or :option:`-rd` to specify generating random data mode. 
+If you do not set anything, default option is :option:`-rdgcm`.
 
 -rd
 ^^^
 
-**Required** if :option:`-e` is set. When this option is set, it generates random data without GC and Mapability. See also `-rdgcm`_.
+**Required** if :option:`-e` is set. 
+This option generates random data without GC and Mapability.
+See also `-rdgcm`_.
 
 -mtbhfdr
 ^^^^^^^^
 
-**Required** if :option:`-e` is set. This option sets multiple testing correction as "Benjamini Hochberg FDR". You must either set :option:`-mtbhfdr` or :option:`-mtbc` to specify multiple testing correction option. If you do not set anything, default option is :option:`-mtbhfdr`.
+**Required** if :option:`-e` is set. 
+This option sets Multiple Testing correction as "Benjamini Hochberg FDR". 
+You must either set :option:`-mtbhfdr` or :option:`-mtbc` to specify multiple testing correction option. 
+If you do not set anything, default option is :option:`-mtbhfdr`.
 
 -mtbc
 ^^^^^
 
-**Required** if :option:`-e` is set. This option sets multiple testing correction as "Bonferroni Correction". See also `-mtbhfdr`_.
+**Required** if :option:`-e` is set. 
+This option sets Multiple Testing correction as "Bonferroni Correction". 
+See also `-mtbhfdr`_.
 
 -fdr
 ^^^^
 
-**Required** if :option:`-e` is set. This option followed by a rational value sets false discovery rate. Default option is :option:`-fdr 0.05`.
+**Required** if :option:`-e` is set. 
+This option followed by a float value sets False Discovery Rate. 
+Default option is :option:`-fdr 0.05`.
 
 -sc
 ^^^
 
-**Required** if :option:`-e` is set. This option followed by a rational value sets Bonferroni Correction significance criteria. Default option is :option:`-sc 0.05`.
+**Required** if :option:`-e` is set. 
+This option followed by a float value sets Bonferroni Correction significance criteria. 
+Default option is :option:`-sc 0.05`.
 
 -p
 ^^
 
-**Required** if :option:`-e` is set. This option followed by an integer value sets the total number of permutations in enrichment. Default option is :option:`-p 5000`.
+**Required** if :option:`-e` is set. 
+This option followed by an integer value sets the total Number of Permutations in Enrichment. 
+Default option is :option:`-p 10000`.
 
 -pe
 ^^^
 
-**Required** if :option:`-e` is set. This option followed by an integer value sets number of permutations in each run. Default option is :option:`-pe 1000`.
+**Required** if :option:`-e` is set. 
+This option followed by an integer value sets number of permutations in each run. 
+Default option is :option:`-pe 5000`.
 
 -rsat
 ^^^^^
 
-If this option is set, GLANET performs regulatory sequence analysis using RSAT. :option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) as preconditions. Otherwise it is not functional. 
+If this option is set, GLANET performs Regulatory Sequence Analysis using RSAT. 
+:option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) as preconditions. 
+Otherwise Regulatory Sequence Analysis is not performed. 
 
 -j
 ^^
 
-It sets a name to the current job that GLANET is about to perform. It creates an output folder with the specified name. Results will be collected under this folder. Name of the job must be specified as the parameter. If you do not set anything, default option is :option:`-f NoName`.
+It sets Job Name that GLANET is about to perform. 
+It creates an output folder with the specified Job Name. 
+Results will be collected under this folder. 
+Job Name must be specified as the parameter. 
+If you do not set anything, default option is :option:`-f NoName`.
 
 -------------------------------
 GLANET Command-Line Sample Runs
