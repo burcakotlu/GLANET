@@ -597,16 +597,16 @@ GLANET Command-Line Sample Runs
 
  Example Annotation Run is as following::
 
-	$ java −jar "C:\Users\Burçak\Google Drive\GLANET\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\Users\Burçak\Google Drive\" -b 1 -dnase -histone -tf -kegg -tfkegg
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -b 1 -dnase -histone -tf -kegg -tfkegg
 
  Example Annotation and Enrichmnet Run is as following::
 
-	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c	
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -pe 10000
 
  Example Annotation and Enrichmnet and Regulatory Sequence Analysis Run is as following::
 
-	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c	
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -g "C:\\Users\\User\\" -fdbsnp -dnase -histone -tf -tfkegg -rsat -e -p 5000 -c
 
  Example Annotation and Regulatory Sequence Analysis Run is as following::
 
-	$ java −jar ~path/to/GLANET.jar -Xms8G -Xmx8G -c		
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -tf -rsat
