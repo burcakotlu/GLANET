@@ -682,7 +682,7 @@ public class FileOperations {
 
 		
 		
-	public static void createChromBaseSeachInputFiles(String outputFolder,List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList){
+	public static void createChromBaseSearchInputFiles(String outputFolder,List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList){
 		try {
 			
 			

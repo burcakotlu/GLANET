@@ -1498,7 +1498,17 @@ public class Annotation {
 	// Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers(String outputFolder, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree ucscRefSeqGenesIntervalTree, TIntIntMap geneAlternateNumber2KMap, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void searchGeneWithNumbers(
+			String outputFolder, 
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree ucscRefSeqGenesIntervalTree, 
+			TIntIntMap geneAlternateNumber2KMap, 
+			int overlapDefinition, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -1507,6 +1517,9 @@ public class Annotation {
 		int low;
 		int high;
 
+		String givenIntervalName = null;
+		int givenIntervalNumber = 0;
+				
 		try {
 			while ((strLine = bufferedReader.readLine()) != null) {
 
@@ -1526,10 +1539,35 @@ public class Annotation {
 					high = low;
 
 				Interval interval = new Interval(low, high);
+				
+				/***************************************************************************************/
+				/*************GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts*****************/
+				/***************************************************************************************/
+				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
+				
+				//debug starts
+				//chr22	32265902	32265902
+				if (chromName.isCHROMOSOME22() && low==32265902 && high == 32265902){
+					System.out.println("debug this given interval");
+				}
+				//debug ends
+				
+				if (!givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)){
+					
+					//Set Given Interval Number
+					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1 ;
+					
+					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
+					
+				}
+				/***************************************************************************************/
+				/*************GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends*******************/
+				/***************************************************************************************/
 
+				
 				// UCSCRefSeqGenes Search starts here
 				if (ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber,givenIntervalNumber2OverlapInformationMap,ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 				}
 				// UCSCRefSeqGenes Search ends here
 
@@ -4644,7 +4682,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			// header line
-			bufferedWriter.write("Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			// accessing keys/values through an iterator:
 			for (TShortIntIterator it = number2KMap.iterator(); it.hasNext();) {
@@ -4673,7 +4711,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			// header line
-			bufferedWriter.write("Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			// accessing keys/values through an iterator:
 			for (TIntIntIterator it = number2KMap.iterator(); it.hasNext();) {
@@ -4711,7 +4749,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			// header line
-			bufferedWriter.write("ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			// accessing keys/values through an iterator:
 			for (TIntIntIterator it = elementNumberCellLineNumberKeggNumber2KMap.iterator(); it.hasNext();) {
@@ -4757,7 +4795,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			// header line
-			bufferedWriter.write("ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			// accessing keys/values through an iterator:
 			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
@@ -4828,7 +4866,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			// header line
-			bufferedWriter.write("ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			// accessing keys/values through an iterator:
 			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
@@ -4929,7 +4967,14 @@ public class Annotation {
 	// Hg19 RefSeq Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers(String dataFolder, String outputFolder, TIntIntMap geneAlternateNumber2KMap, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void searchGeneWithNumbers(String dataFolder, 
+			String outputFolder, 
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntIntMap geneAlternateNumber2KMap, 
+			int overlapDefinition, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		BufferedReader bufferedReader = null;
 
@@ -4940,8 +4985,8 @@ public class Annotation {
 
 			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-
-			searchGeneWithNumbers(outputFolder, chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			
+			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
@@ -5647,7 +5692,7 @@ public class Annotation {
 		// searched for
 		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSeachInputFiles(outputFolder, fileWriterList, bufferedWriterList);
+		FileOperations.createChromBaseSearchInputFiles(outputFolder, fileWriterList, bufferedWriterList);
 
 		// Partition the input file into 24 chromosome based input files
 		partitionSearchInputFilePerChromName(inputFileName, bufferedWriterList);
@@ -5829,8 +5874,12 @@ public class Annotation {
 		GlanetRunner.appendLog("**********************************************************");
 		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
 		dateBefore = System.currentTimeMillis();
+		
+		//10 Februaray 2015
+		TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
 
-		searchGeneWithNumbers(dataFolder, outputFolder, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+		searchGeneWithNumbers(dataFolder, outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
 		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
 		dateAfter = System.currentTimeMillis();
 
