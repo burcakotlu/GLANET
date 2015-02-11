@@ -4411,7 +4411,7 @@ public class IntervalTree {
 	// NEW FUNCIONALITY
 	
 	
-	public boolean contains(List<Overlap> overlapList, Overlap overlap){
+	public boolean contains(List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode){
 		//NM_022089		3P2	0	ATP13A2	23400
 		//NM_001141973	3P2	0	ATP13A2	23400
 		//NM_001141974	3P2	0	ATP13A2	23400
@@ -4423,14 +4423,16 @@ public class IntervalTree {
 		
 		for(int i = 0; i< overlapList.size(); i++){
 			
-		 if (	overlapList.get(i).getOverlapIntervalName().equals(overlap.getOverlapIntervalName()) &&
-				overlapList.get(i).getOverlapIntervalNumber() == overlap.getOverlapIntervalNumber() &&
-				overlapList.get(i).getAlternateGeneNumber()== overlap.getAlternateGeneNumber() &&
-				overlapList.get(i).getGeneId() == overlap.getGeneId()){
-			 	
-			 	exists = true;
-			 	
-		 } //End of IF
+			 if (	overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
+					//overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber() &&
+					overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
+					overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId() &&
+					overlapList.get(i).getLow() == overlapNode.getLow() &&
+					overlapList.get(i).getMax() == overlapNode.getMax()){
+				 	
+				 	exists = true;
+				 	
+			 } //End of IF
 		 
 		}//End of For: Look for each overlap
 		
@@ -4464,7 +4466,7 @@ public class IntervalTree {
 		
 		OverlapInformation overlapInformation = null;
 		Overlap overlap = null;
-		List<Overlap> overlapList = null;
+		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
 
 		if (Commons.NCBI_GENE_ID.equals(type)) {
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
@@ -4499,54 +4501,53 @@ public class IntervalTree {
 						
 						overlapInformation = new OverlapInformation();
 						
-						overlap = new Overlap(castedNode.getGeneEntrezId(), castedNode.getGeneHugoSymbolNumber(), castedNode.getRefSeqGeneNumber(),castedNode.getIntervalName(), castedNode.getIntervalNumber());
 						
 						switch(castedNode.getIntervalName()){
 						
-							case EXON: 		overlapList = new ArrayList<Overlap>();
-											overlapList.add(overlap); 
+							case EXON: 		overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
 											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 										
 											break;
 										
-							case INTRON : 	overlapList = new ArrayList<Overlap>();
-											overlapList.add(overlap); 
+							case INTRON : 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
 											overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 											
 											break;
 							
-							case FIVE_P_ONE:	overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+							case FIVE_P_ONE:	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 													
 												break;
 												
-							case FIVE_P_TWO: 	overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+							case FIVE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 													
 												break;
 												
-							case FIVE_D: 	overlapList = new ArrayList<Overlap>();
-											overlapList.add(overlap); 
+							case FIVE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
 											overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 											break;
 							
-							case THREE_P_ONE: 	overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+							case THREE_P_ONE: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 													
 												break;
 																	
-							case THREE_P_TWO: 	overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+							case THREE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 													
 												break;
 																	
-							case THREE_D: 	overlapList = new ArrayList<Overlap>();
-											overlapList.add(overlap); 
+							case THREE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
 											overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 											break;
@@ -4569,13 +4570,13 @@ public class IntervalTree {
 							case EXON: 	overlapList = overlapInformation.getGeneId2ExonOverlapListMap().get(castedNode.getGeneEntrezId());
 							
 										if (overlapList == null){
-											overlapList = new ArrayList<Overlap>();
-											overlapList.add(overlap); 
+											overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
 											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 										
 										}else{
-											if (!contains(overlapList,overlap)){
-												overlapList.add(overlap);
+											if (!contains(overlapList,castedNode)){
+												overlapList.add(castedNode);
 											}
 										}
 										
@@ -4584,13 +4585,13 @@ public class IntervalTree {
 							case INTRON : 		overlapList = overlapInformation.getGeneId2IntronOverlapListMap().get(castedNode.getGeneEntrezId());
 							
 												if (overlapList == null){
-													overlapList = new ArrayList<Overlap>();
-													overlapList.add(overlap); 
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 												}else{
-													if (!contains(overlapList,overlap)){
-														overlapList.add(overlap);
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
 													}
 												}
 												
@@ -4599,13 +4600,13 @@ public class IntervalTree {
 							case FIVE_P_ONE:	overlapList = overlapInformation.getGeneId2Fivep1OverlapListMap().get(castedNode.getGeneEntrezId());
 							
 												if (overlapList == null){
-													overlapList = new ArrayList<Overlap>();
-													overlapList.add(overlap); 
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 												}else{
-													if (!contains(overlapList,overlap)){
-														overlapList.add(overlap);
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
 													}
 												}
 												
@@ -4614,13 +4615,13 @@ public class IntervalTree {
 							case FIVE_P_TWO: 	overlapList = overlapInformation.getGeneId2Fivep2OverlapListMap().get(castedNode.getGeneEntrezId());
 							
 												if (overlapList == null){
-													overlapList = new ArrayList<Overlap>();
-													overlapList.add(overlap); 
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 												}else{
-													if (!contains(overlapList,overlap)){
-														overlapList.add(overlap);
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
 													}
 												}
 												
@@ -4629,13 +4630,13 @@ public class IntervalTree {
 							case FIVE_D: 	overlapList = overlapInformation.getGeneId2FivedOverlapListMap().get(castedNode.getGeneEntrezId());
 							
 											if (overlapList == null){
-												overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 											
 											}else{
-												if (!contains(overlapList,overlap)){
-													overlapList.add(overlap);
+												if (!contains(overlapList,castedNode)){
+													overlapList.add(castedNode);
 												}
 											}
 											
@@ -4644,13 +4645,13 @@ public class IntervalTree {
 							case THREE_P_ONE: 	overlapList = overlapInformation.getGeneId2Threep1OverlapListMap().get(castedNode.getGeneEntrezId());
 												
 												if (overlapList == null){
-													overlapList = new ArrayList<Overlap>();
-													overlapList.add(overlap); 
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 												}else{
-													if (!contains(overlapList,overlap)){
-														overlapList.add(overlap);
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
 													}
 												}
 												
@@ -4659,13 +4660,13 @@ public class IntervalTree {
 							case THREE_P_TWO: 	overlapList = overlapInformation.getGeneId2Threep2OverlapListMap().get(castedNode.getGeneEntrezId());
 							
 												if (overlapList == null){
-													overlapList = new ArrayList<Overlap>();
-													overlapList.add(overlap); 
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 												
 												}else{
-													if (!contains(overlapList,overlap)){
-														overlapList.add(overlap);
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
 													}
 												}
 							
@@ -4674,13 +4675,13 @@ public class IntervalTree {
 							case THREE_D: 	overlapList = overlapInformation.getGeneId2ThreedOverlapListMap().get(castedNode.getGeneEntrezId());
 							
 											if (overlapList == null){
-												overlapList = new ArrayList<Overlap>();
-												overlapList.add(overlap); 
+												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 											
 											}else{
-												if (!contains(overlapList,overlap)){
-													overlapList.add(overlap);
+												if (!contains(overlapList,castedNode)){
+													overlapList.add(castedNode);
 												}
 											}
 											

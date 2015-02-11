@@ -460,7 +460,6 @@ public class Remap {
 				fileWriter = FileOperations.createFileWriter(outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
-				
 				//Header  line
 				bufferedWriter.write(headerLine + System.getProperty("line.separator"));
 				
@@ -714,8 +713,8 @@ public class Remap {
 								lineNumber2TargetGenomicLociMap.put(lineNumber, mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
 								
 								//check
-								if (!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + (sourceStart-1) + "\t" + sourceEnd)){
-									System.out.println(Commons.THERE_IS_A_SITUATION);
+								if (!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
+									logger.error(Commons.THERE_IS_A_SITUATION);
 								}
 																
 								

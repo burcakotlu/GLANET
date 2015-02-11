@@ -1,6 +1,7 @@
 package giveninputdata;
 
 
+import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import intervaltree.IntervalTreeNode;
@@ -26,9 +27,7 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.Assembly;
 import enumtypes.CommandLineArguments;
 import enumtypes.GivenIntervalsInputFileDataFormat;
@@ -65,6 +64,41 @@ public class InputDataProcess {
 		}
 	}
 
+	
+	public static void writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
+		TIntObjectMap<String> lineNumber2SourceInformationMap,
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap, 
+		TIntObjectMap<String>lineNumber2TargetGenomicLociMap,
+		BufferedWriter bufferedWriter) throws IOException{
+		
+		int lineNumber = 0;
+		String rsId = null;
+		String source = null;
+		String target = null;
+		
+		//Write Header Line
+	 	bufferedWriter.write("#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" +  "1BasedEndLatestAssembly" + "\t" +  "chrName" + "\t"  + "1BasedStartGRCh37p13Assembly" + "\t" +  "1BasedEndGRCh37p13Assembly" + System.getProperty("line.separator"));
+		
+		
+		//MAP
+		// accessing keys/values through an iterator:
+		for ( TIntObjectIterator<String> it = lineNumber2SourceInformationMap.iterator(); it.hasNext(); ) {
+		    
+			it.advance();
+		    
+		    lineNumber = it.key();
+		    rsId = (String) it.value();
+		    
+		    source = lineNumber2SourceGenomicLociMap.get(lineNumber);
+		    target = lineNumber2TargetGenomicLociMap.get(lineNumber);
+		    
+		   	bufferedWriter.write(rsId + "\t" + source + "\t" + target + System.getProperty("line.separator"));
+			
+		}//End of FOR: 
+		
+	}
+	
+	
 	// eutil efetch returns 0-based coordinates for given dbSNP ids
 	public static void readDBSNPIDs(String dataFolder, String inputFileName, Assembly inputFileAssembly,String givenDataFolder) {
 		
@@ -76,10 +110,12 @@ public class InputDataProcess {
 		// write to output file line by line
 		FileWriter fileWriter = null;
 		FileWriter fileWriter2 = null;
+		FileWriter fileWriter3 = null;
 
 		BufferedWriter bufferedWriter = null;
 		BufferedWriter remapInputFileBufferedWriter = null;
-
+		BufferedWriter rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter = null;
+		
 		String rsId = null;
 		List<String> rsIdList = new ArrayList<String>();
 
@@ -125,11 +161,16 @@ public class InputDataProcess {
 			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
 
-			fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE);
+			//This file will have NCBI EUTIL results
+			fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_EUTIL_RETURNED_LATEST_ASSEMBLY_FILE);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			fileWriter2 = FileOperations.createFileWriter(givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
 			remapInputFileBufferedWriter = new BufferedWriter(fileWriter2);
+			
+			//This file will have NCBI REMAP results
+			fileWriter3 = FileOperations.createFileWriter(givenDataFolder + Commons.RSID_ChrName1BasedStartEndLatestAssembly_ChrName1BasedStartEndGRCh37p13_FILE);
+			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter = new BufferedWriter(fileWriter3);
 
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 
@@ -236,12 +277,14 @@ public class InputDataProcess {
 
 				if (rsInformation != null) {
 
+					//My understanding: Remap input file requires 0BasedStart EndExclusive
 					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1);
 					
 					bufferedWriter.write( Commons.RS +rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
 					remapInputFileBufferedWriter.write(remapInputFileLine + System.getProperty("line.separator"));
 					
-					lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,remapInputFileLine);
+					
+					lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + (rsInformation.getZeroBasedStart()+1) + "\t" + (rsInformation.getZeroBasedEnd()+1));
 					lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile,Commons.RS + rsInformation.getRsId());
 					
 					numberofLocisInRemapInputFile++;
@@ -329,10 +372,17 @@ public class InputDataProcess {
 			logger.info("******************************************************************************");
 			
 			
+			//Write rsId_chrNameStartEndLatestAssembly_chrNameStartEndGRCh37p13Assembly_File
+			writeRSIDLatestAssemblyGRCh37p13AssemblyFile(lineNumber2SourceInformationMap,lineNumber2SourceGenomicLociMap, lineNumber2TargetGenomicLociMap,rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter);
+			
+			
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file in GRCh37_hg19 
 			FileOperations.readFromBedFileWriteToGlanetFile(givenDataFolder, Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT, Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 
+			//Close
+			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

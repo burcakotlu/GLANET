@@ -360,7 +360,9 @@ public class Commons {
 	/***************************************************************************************/
 	public static final String HEADER_LINE_FOR_DBSNP_IDS_FROM_LATEST_ASSEMBLY_TO_GRCH37_P13="#dbSNP Ids are remapped from Latest Assembly to GRCh37_p13 (hg19).";
 	
-	public static final String RSID_CHRNAME_0Based_START_END_NCBI_RETURNED_LATEST_ASSEMBLY_FILE = "rsID_chrName_0Based_Start_End_NCBI_Returned_Latest_Assembly_coordinates.txt";
+	public static final String RSID_CHRNAME_0Based_START_END_NCBI_EUTIL_RETURNED_LATEST_ASSEMBLY_FILE = "rsID_chrName_0Based_Start_End_NCBI_EUTIL_Returned_Latest_Assembly_coordinates.txt";
+	public static final String RSID_ChrName1BasedStartEndLatestAssembly_ChrName1BasedStartEndGRCh37p13_FILE = "rsID_chrName1BasedStartEndLatestAssembly_chrName1BasedStartEndGRCh37p13_coordinates.txt";
+	
 	public static final String REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE = "remap_inputFile_oneGenomicLoci_perLine_chrName_0Based_Start_EndExclusive.bed";
 	public static final String REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT =  "remap_outputFile_oneGenomicLoci_perLine_chrName_1Based_Start_End_usingRemapReportExcelFile.txt";
 	/***************************************************************************************/
@@ -376,6 +378,7 @@ public class Commons {
 	/*****************REMAP 0Based 1Based  BED GFF3 GRCh38 case ends************************/
 	/***************************************************************************************/
 
+	
 	
 	
 	/***************************************************************************************/
@@ -1078,8 +1081,10 @@ public class Commons {
 	public static final String NCBI_RNA_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION + System.getProperty("file.separator");
 	public static final String UCSC_GENE_ALTERNATE_NAME_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.UCSC_GENE_ALTERNATE_NAME + System.getProperty("file.separator");
 
+	//hg19 RefSeq Genes 
 	public static final String HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty("file.separator");
-
+	public static final String OVERLAP_ANALYSIS_FILE = "Overlap_Analysis_File.txt";
+	
 	// UserDefinedGeneSet
 	public static final String USER_DEFINED_GENESET_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator");
 	public static final String EXONBASED_USERDEFINED_GENESET_ANNOTATION = Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED;
