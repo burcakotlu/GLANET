@@ -31,13 +31,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import ui.GlanetRunner;
-import annotation.Overlap;
 import annotation.OverlapInformation;
 import annotation.PermutationNumberTfNameCellLineNameOverlap;
 import annotation.PermutationNumberTfNumberCellLineNumberOverlap;
@@ -48,7 +46,9 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
@@ -4465,9 +4465,9 @@ public class IntervalTree {
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 		
 		OverlapInformation overlapInformation = null;
-		Overlap overlap = null;
 		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
-
+		
+		
 		if (Commons.NCBI_GENE_ID.equals(type)) {
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 
@@ -4494,7 +4494,6 @@ public class IntervalTree {
 					/********GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP starts*****************/
 					/*******************************************************************************/
 					overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
-					
 					
 					//For this given interval, an overlap is put for the first time.
 					if (overlapInformation == null){
@@ -4557,13 +4556,13 @@ public class IntervalTree {
 						
 						givenIntervalNumber2OverlapInformationMap.put(givenIntervalNumber, overlapInformation);
 						
+						
 					}//End of IF: For this given interval , an overlap is put for the first time.
 					
 					//For this given interval, new overlap is seen
 					//Check whether we have to put it or not.
 					else{
 						
-						overlap = new Overlap(castedNode.getGeneEntrezId(), castedNode.getGeneHugoSymbolNumber(), castedNode.getRefSeqGeneNumber(),castedNode.getIntervalName(), castedNode.getIntervalNumber());
 							
 						switch(castedNode.getIntervalName()){
 						
@@ -4577,6 +4576,7 @@ public class IntervalTree {
 										}else{
 											if (!contains(overlapList,castedNode)){
 												overlapList.add(castedNode);
+										
 											}
 										}
 										
@@ -4592,6 +4592,7 @@ public class IntervalTree {
 												}else{
 													if (!contains(overlapList,castedNode)){
 														overlapList.add(castedNode);
+														
 													}
 												}
 												
@@ -4603,10 +4604,12 @@ public class IntervalTree {
 													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
 													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
 												
 												}else{
 													if (!contains(overlapList,castedNode)){
 														overlapList.add(castedNode);
+													
 													}
 												}
 												
@@ -4618,10 +4621,12 @@ public class IntervalTree {
 													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
 													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
 												
 												}else{
 													if (!contains(overlapList,castedNode)){
 														overlapList.add(castedNode);
+														
 													}
 												}
 												
@@ -4634,9 +4639,11 @@ public class IntervalTree {
 												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 											
+											
 											}else{
 												if (!contains(overlapList,castedNode)){
 													overlapList.add(castedNode);
+													
 												}
 											}
 											
@@ -4648,10 +4655,12 @@ public class IntervalTree {
 													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
 													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
 												
 												}else{
 													if (!contains(overlapList,castedNode)){
 														overlapList.add(castedNode);
+													
 													}
 												}
 												
@@ -4663,10 +4672,12 @@ public class IntervalTree {
 													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
 													overlapList.add(castedNode); 
 													overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
 												
 												}else{
 													if (!contains(overlapList,castedNode)){
 														overlapList.add(castedNode);
+														
 													}
 												}
 							
@@ -4678,10 +4689,12 @@ public class IntervalTree {
 												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
 												overlapList.add(castedNode); 
 												overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+												
 											
 											}else{
 												if (!contains(overlapList,castedNode)){
 													overlapList.add(castedNode);
+													
 												}
 											}
 											
