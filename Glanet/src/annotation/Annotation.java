@@ -1504,7 +1504,7 @@ public class Annotation {
 			String outputFolder, 
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree ucscRefSeqGenesIntervalTree, 
@@ -1550,8 +1550,8 @@ public class Annotation {
 				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
 				
 				//debug starts
-				//chr22	32265902	32265902
-				if (chromName.isCHROMOSOME22() && low==32265902 && high == 32265902){
+				//chr17_44081063_44081063
+				if (chromName.isCHROMOSOME17() && low==44081063 && high == 44081063){
 					System.out.println("debug this given interval");
 				}
 				//debug ends
@@ -1562,7 +1562,7 @@ public class Annotation {
 					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1 ;
 					
 					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
-					givenIntervalNumber2ChromosomeNameMap.put(givenIntervalNumber, chromName);
+					chromosomeName2CountMap.put(chromName, chromosomeName2CountMap.get(chromName)+1);
 					
 				}
 				/***************************************************************************************/
@@ -4978,7 +4978,7 @@ public class Annotation {
 			String outputFolder, 
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
 			TIntIntMap geneAlternateNumber2KMap, 
 			int overlapDefinition, 
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
@@ -4994,7 +4994,7 @@ public class Annotation {
 			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			
-			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,givenIntervalNumber2ChromosomeNameMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,chromosomeName2CountMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
@@ -5498,6 +5498,44 @@ public class Annotation {
 	
 	
 	
+	public static void writeChromosomeDistribution(
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
+			BufferedWriter bufferedWriter) throws IOException{
+		
+		bufferedWriter.write(System.getProperty("line.separator"));
+		bufferedWriter.write(System.getProperty("line.separator"));
+		
+		int[] counts = chromosomeName2CountMap.values();
+		int totalCount = 0;
+		int count =0;
+		double percentage = 0;
+		double totalPercentage = 0;
+		
+		for(int i=0; i<counts.length; i++){
+			totalCount = totalCount + counts[i];
+		}
+		
+		//Write Header Line
+		bufferedWriter.write("" + "\t" + "Count" + "\t" + "Percentage"  +System.getProperty("line.separator"));
+		
+		
+		for(ChromosomeName chrName :ChromosomeName.values()){
+			
+			count = chromosomeName2CountMap.get(chrName);
+			percentage = (count * 100.0) / totalCount;
+			
+			totalPercentage = totalPercentage + percentage;
+			
+			bufferedWriter.write(chrName.convertEnumtoString() + "\t" + count + "\t" + percentage + "%" +System.getProperty("line.separator"));
+			
+		}//For each chromosomeName
+		
+		//Write Last Line
+		bufferedWriter.write("Total" + "\t" + totalCount + "\t" + totalPercentage + "%"  +System.getProperty("line.separator"));
+	
+	}
+	
+	
 	public static  void writeGeneOverlapAnalysisFile(
 			String outputFolder,
 			String outputFileName,
@@ -5505,6 +5543,7 @@ public class Annotation {
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2NameMap){
 		
 		FileWriter fileWriter = null;
@@ -5771,6 +5810,9 @@ public class Annotation {
 		    }//End of switch
 		    
 		    
+		    
+		    //Write ChromosomeName 2 NumberofGivenIntervals and Percentage
+		    writeChromosomeDistribution(chromosomeName2CountMap,bufferedWriter);
 			
 			//Close 
 			bufferedWriter.close();
@@ -6290,14 +6332,15 @@ public class Annotation {
 		TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
 		
 		//13 February 2015
-		TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap = new TIntObjectHashMap<ChromosomeName>();
+		TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+		
 
 		searchGeneWithNumbers(
 				dataFolder, 
 				outputFolder, 
 				givenIntervalNumber2GivenIntervalNameMap,
 				givenIntervalNumber2OverlapInformationMap,
-				givenIntervalNumber2ChromosomeNameMap,
+				chromosomeName2CountMap,
 				geneAlternateNumber2KMap, 
 				overlapDefinition, 
 				geneHugoSymbolNumber2NameMap, 
@@ -6312,6 +6355,7 @@ public class Annotation {
 				givenIntervalNumber2GivenIntervalNameMap,
 				givenIntervalNumber2OverlapInformationMap,
 				givenIntervalNumber2NumberofGeneOverlapsMap,
+				chromosomeName2CountMap,
 				geneHugoSymbolNumber2NameMap);
 		
 		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);

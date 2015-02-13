@@ -53,6 +53,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import gnu.trove.iterator.TShortIterator;
@@ -4411,7 +4412,9 @@ public class IntervalTree {
 	// NEW FUNCIONALITY
 	
 	
-	public boolean contains(List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode){
+	public boolean contains(
+			List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, 
+			UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode){
 		//NM_022089		3P2	0	ATP13A2	23400
 		//NM_001141973	3P2	0	ATP13A2	23400
 		//NM_001141974	3P2	0	ATP13A2	23400
@@ -4423,16 +4426,56 @@ public class IntervalTree {
 		
 		for(int i = 0; i< overlapList.size(); i++){
 			
-			 if (	overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
-					//overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber() &&
-					overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
-					overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId() &&
-					overlapList.get(i).getLow() == overlapNode.getLow() &&
-					overlapList.get(i).getMax() == overlapNode.getMax()){
-				 	
-				 	exists = true;
-				 	
-			 } //End of IF
+			switch(overlapNode.getIntervalName()){
+			
+				case EXON:
+				case INTRON: 	
+								if (overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
+									overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
+									overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
+									
+									
+									if(overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber()){
+										exists = true;
+									}
+									else if (overlapList.get(i).getIntervalNumber() != overlapNode.getIntervalNumber() && 
+												overlapList.get(i).getLow() == overlapNode.getLow() &&
+												overlapList.get(i).getHigh() == overlapNode.getHigh()){
+										exists = true;
+									}
+								 	
+								 	
+								 	
+								} //End of IF
+								
+								break;
+								
+								
+				case FIVE_P_ONE:
+				case FIVE_P_TWO:
+				case FIVE_D:
+				case THREE_P_ONE:
+				case THREE_P_TWO:
+				case THREE_D:
+									if (	overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
+											overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
+											overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
+										 	
+										 	exists = true;
+										 	
+									 } //End of IF
+									
+									break;
+			
+			}//End of SWITCH
+			
+			
+			if (exists){
+				
+				break;
+				
+			}
+			 
 		 
 		}//End of For: Look for each overlap
 		

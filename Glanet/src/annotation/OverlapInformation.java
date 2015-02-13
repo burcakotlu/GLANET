@@ -29,29 +29,10 @@ public class OverlapInformation {
 	TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2ThreedOverlapListMap;
 	
 	
-	
-	
-	
-	
-
-	
-
-
-
-
-
 
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2ExonOverlapListMap() {
 		return geneId2ExonOverlapListMap;
 	}
-
-
-
-
-
-
-
-
 
 
 
@@ -66,26 +47,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2IntronOverlapListMap() {
 		return geneId2IntronOverlapListMap;
 	}
-
-
-
-
-
-
-
-
 
 
 
@@ -99,28 +63,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2Fivep1OverlapListMap() {
 		return geneId2Fivep1OverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -132,30 +77,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2Fivep2OverlapListMap() {
 		return geneId2Fivep2OverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -167,29 +91,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2FivedOverlapListMap() {
 		return geneId2FivedOverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -202,15 +106,6 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
 	public TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> getGeneId2Threep1OverlapListMap() {
 		return geneId2Threep1OverlapListMap;
 	}
@@ -218,28 +113,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	public void setGeneId2Threep1OverlapListMap(TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2Threep1OverlapListMap) {
 		this.geneId2Threep1OverlapListMap = geneId2Threep1OverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -253,27 +129,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
 	public void setGeneId2Threep2OverlapListMap(TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2Threep2OverlapListMap) {
 		this.geneId2Threep2OverlapListMap = geneId2Threep2OverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -286,29 +144,9 @@ public class OverlapInformation {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	public void setGeneId2ThreedOverlapListMap(TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2ThreedOverlapListMap) {
 		this.geneId2ThreedOverlapListMap = geneId2ThreedOverlapListMap;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 

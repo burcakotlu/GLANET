@@ -528,8 +528,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		markov     = 1;
 		matrixScanRequest.setMarkov(markov);
 			
-		//organism = Commons.RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37;
-		organism = Commons.RSAT_ORGANISM_Homo_sapiens_ensembl;
+		organism = Commons.RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37;
 		matrixScanRequest.setOrganism(organism);
 		
 		background 	= Commons.RSAT_BACKGROUND_upstream_noorf;
