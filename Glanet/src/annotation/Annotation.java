@@ -1504,6 +1504,7 @@ public class Annotation {
 			String outputFolder, 
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree ucscRefSeqGenesIntervalTree, 
@@ -1561,6 +1562,7 @@ public class Annotation {
 					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1 ;
 					
 					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
+					givenIntervalNumber2ChromosomeNameMap.put(givenIntervalNumber, chromName);
 					
 				}
 				/***************************************************************************************/
@@ -4976,6 +4978,7 @@ public class Annotation {
 			String outputFolder, 
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap,
 			TIntIntMap geneAlternateNumber2KMap, 
 			int overlapDefinition, 
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
@@ -4991,7 +4994,7 @@ public class Annotation {
 			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			
-			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,givenIntervalNumber2ChromosomeNameMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
@@ -6285,12 +6288,16 @@ public class Annotation {
 		TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
 		TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+		
+		//13 February 2015
+		TIntObjectMap<ChromosomeName> givenIntervalNumber2ChromosomeNameMap = new TIntObjectHashMap<ChromosomeName>();
 
 		searchGeneWithNumbers(
 				dataFolder, 
 				outputFolder, 
 				givenIntervalNumber2GivenIntervalNameMap,
 				givenIntervalNumber2OverlapInformationMap,
+				givenIntervalNumber2ChromosomeNameMap,
 				geneAlternateNumber2KMap, 
 				overlapDefinition, 
 				geneHugoSymbolNumber2NameMap, 
