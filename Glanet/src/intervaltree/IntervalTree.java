@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import ui.GlanetRunner;
+import annotation.OverlapInformation;
 import annotation.PermutationNumberTfNameCellLineNameOverlap;
 import annotation.PermutationNumberTfNumberCellLineNumberOverlap;
 import annotation.PermutationNumberUcscRefSeqGeneNumberOverlap;
@@ -52,6 +53,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import gnu.trove.iterator.TShortIterator;
@@ -4408,11 +4410,95 @@ public class IntervalTree {
 	}
 
 	// NEW FUNCIONALITY
+	
+	
+	public boolean contains(
+			List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, 
+			UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode){
+		//NM_022089		3P2	0	ATP13A2	23400
+		//NM_001141973	3P2	0	ATP13A2	23400
+		//NM_001141974	3P2	0	ATP13A2	23400
+		
+		boolean exists = false;
+		
+		//ArrayList<Overlap> overlapList = new ArrayList<Overlap>(geneId2OverlapMap.valueCollection());
+	
+		
+		for(int i = 0; i< overlapList.size(); i++){
+			
+			switch(overlapNode.getIntervalName()){
+			
+				case EXON:
+				case INTRON: 	
+								if (overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
+									overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
+									overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
+									
+									
+									if(overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber()){
+										exists = true;
+									}
+									else if (overlapList.get(i).getIntervalNumber() != overlapNode.getIntervalNumber() && 
+												overlapList.get(i).getLow() == overlapNode.getLow() &&
+												overlapList.get(i).getHigh() == overlapNode.getHigh()){
+										exists = true;
+									}
+								 	
+								 	
+								 	
+								} //End of IF
+								
+								break;
+								
+								
+				case FIVE_P_ONE:
+				case FIVE_P_TWO:
+				case FIVE_D:
+				case THREE_P_ONE:
+				case THREE_P_TWO:
+				case THREE_D:
+									if (	overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
+											overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
+											overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
+										 	
+										 	exists = true;
+										 	
+									 } //End of IF
+									
+									break;
+			
+			}//End of SWITCH
+			
+			
+			if (exists){
+				
+				break;
+				
+			}
+			 
+		 
+		}//End of For: Look for each overlap
+		
+		return exists;
+		
+		
+	}
 
 	// Annotation
 	// hg19 refseq Gene Annotation with numbers starts
 	// Implemented for Chen Yao Paper
-	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(String outputFolder, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntShortMap geneAlternateNumber2OneorZeroMap, String type, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
+			String outputFolder, 
+			int givenIntervalNumber,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntShortMap geneAlternateNumber2OneorZeroMap, 
+			String type, 
+			int overlapDefinition, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -4420,7 +4506,11 @@ public class IntervalTree {
 		int geneAlternateNumber;
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
-
+		
+		OverlapInformation overlapInformation = null;
+		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
+		
+		
 		if (Commons.NCBI_GENE_ID.equals(type)) {
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 
@@ -4429,12 +4519,13 @@ public class IntervalTree {
 				}
 
 				geneAlternateNumber = castedNode.getGeneHugoSymbolNumber();
+				
 
 				try {
 					if (bufferedWriter == null) {
 						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.HG19_REFSEQ_GENE + ".txt", true);
 						bufferedWriter = new BufferedWriter(fileWriter);
-						bufferedWriter.write("#Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "ucscRefSeqGene node ChromName" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node RefSeqGeneName" + "\t" + "node IntervalName" + "\t" + "node GeneHugoSymbol" + "\t" + "node GeneEntrezId" + System.getProperty("line.separator"));
+						bufferedWriter.write("#Searched_for_chr" + "\t" + "interval_Low" + "\t" + "interval_High" + "\t" + "ucscRefSeqGene_node_ChromName" + "\t" + "node_Low" + "\t" + "node_High" + "\t" + "node_RNA_Nucleotide_Accession" + "\t" + "node_IntervalName" + "\t" + "node_IntervalNumber" + "\t" + "node_GeneHugoSymbol" + "\t" + "node_GeneEntrezId" + System.getProperty("line.separator"));
 						bufferedWriter.flush();
 					}
 
@@ -4442,7 +4533,226 @@ public class IntervalTree {
 						geneAlternateNumber2OneorZeroMap.put(geneAlternateNumber, (short) 1);
 					}
 
-					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
+					/*******************************************************************************/
+					/********GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP starts*****************/
+					/*******************************************************************************/
+					overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
+					
+					//For this given interval, an overlap is put for the first time.
+					if (overlapInformation == null){
+						
+						overlapInformation = new OverlapInformation();
+						
+						
+						switch(castedNode.getIntervalName()){
+						
+							case EXON: 		overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
+											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+										
+											break;
+										
+							case INTRON : 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
+											overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+											
+											break;
+							
+							case FIVE_P_ONE:	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												break;
+												
+							case FIVE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												break;
+												
+							case FIVE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
+											overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+												
+											break;
+							
+							case THREE_P_ONE: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												break;
+																	
+							case THREE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												break;
+																	
+							case THREE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
+											overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+												
+											break;
+
+							
+						}//End of Switch
+						
+						givenIntervalNumber2OverlapInformationMap.put(givenIntervalNumber, overlapInformation);
+						
+						
+					}//End of IF: For this given interval , an overlap is put for the first time.
+					
+					//For this given interval, new overlap is seen
+					//Check whether we have to put it or not.
+					else{
+						
+							
+						switch(castedNode.getIntervalName()){
+						
+							case EXON: 	overlapList = overlapInformation.getGeneId2ExonOverlapListMap().get(castedNode.getGeneEntrezId());
+							
+										if (overlapList == null){
+											overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+											overlapList.add(castedNode); 
+											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+										
+										}else{
+											if (!contains(overlapList,castedNode)){
+												overlapList.add(castedNode);
+										
+											}
+										}
+										
+										break;
+										
+							case INTRON : 		overlapList = overlapInformation.getGeneId2IntronOverlapListMap().get(castedNode.getGeneEntrezId());
+							
+												if (overlapList == null){
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
+													overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+												
+												}else{
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
+														
+													}
+												}
+												
+												break;
+							
+							case FIVE_P_ONE:	overlapList = overlapInformation.getGeneId2Fivep1OverlapListMap().get(castedNode.getGeneEntrezId());
+							
+												if (overlapList == null){
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
+													overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												
+												}else{
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
+													
+													}
+												}
+												
+												break;
+												
+							case FIVE_P_TWO: 	overlapList = overlapInformation.getGeneId2Fivep2OverlapListMap().get(castedNode.getGeneEntrezId());
+							
+												if (overlapList == null){
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
+													overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												
+												}else{
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
+														
+													}
+												}
+												
+												break;
+							
+							case FIVE_D: 	overlapList = overlapInformation.getGeneId2FivedOverlapListMap().get(castedNode.getGeneEntrezId());
+							
+											if (overlapList == null){
+												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+											
+											
+											}else{
+												if (!contains(overlapList,castedNode)){
+													overlapList.add(castedNode);
+													
+												}
+											}
+											
+											break;
+							
+							case THREE_P_ONE: 	overlapList = overlapInformation.getGeneId2Threep1OverlapListMap().get(castedNode.getGeneEntrezId());
+												
+												if (overlapList == null){
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
+													overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												
+												}else{
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
+													
+													}
+												}
+												
+												break;
+												
+							case THREE_P_TWO: 	overlapList = overlapInformation.getGeneId2Threep2OverlapListMap().get(castedNode.getGeneEntrezId());
+							
+												if (overlapList == null){
+													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+													overlapList.add(castedNode); 
+													overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
+													
+												
+												}else{
+													if (!contains(overlapList,castedNode)){
+														overlapList.add(castedNode);
+														
+													}
+												}
+							
+												break;
+												
+							case THREE_D: 	overlapList = overlapInformation.getGeneId2ThreedOverlapListMap().get(castedNode.getGeneEntrezId());
+							
+											if (overlapList == null){
+												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+												overlapList.add(castedNode); 
+												overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
+												
+											
+											}else{
+												if (!contains(overlapList,castedNode)){
+													overlapList.add(castedNode);
+													
+												}
+											}
+											
+											break;
+
+							
+						}//End of Switch
+
+					}//End of ELSE
+					/*******************************************************************************/
+					/********GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP ends*******************/
+					/*******************************************************************************/
+
+					
+					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" +  castedNode.getIntervalNumber() +  "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
 				} catch (IOException e) {
@@ -4452,11 +4762,11 @@ public class IntervalTree {
 		} // End of If: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, node.getLeft(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,givenIntervalNumber, givenIntervalNumber2OverlapInformationMap,node.getLeft(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, node.getRight(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getRight(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 		}
 	}
