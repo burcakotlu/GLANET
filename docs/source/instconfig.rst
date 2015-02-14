@@ -32,9 +32,9 @@ Now, install Getopt/Long.pm module. Note that if any of the modules below is ins
 
 	$ cpan Getopt::Long
 
-**Important**: If one of your modules is not installed successfully, try to add them --force option, which will take longer but it will try to force the module to be installed. For example, if Getopt/Long.pm is not installed, you may want to write::
+**Important**: If one of your modules is not installed successfully, try to add them -f option, which will take longer but it will try to force the module to be installed. For example, if Getopt/Long.pm is not installed, you may want to write::
 
-	$ cpan --force Getopt::Long
+	$ cpan -f Getopt::Long
 
 Install LWP/UserAgent.pm module::
 
