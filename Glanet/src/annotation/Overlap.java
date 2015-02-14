@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -6,7 +7,7 @@ package annotation;
 import enumtypes.IntervalName;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Feb 10, 2015
  * @project Glanet 
  *
@@ -70,3 +71,4 @@ public class Overlap {
 
 
 }
+

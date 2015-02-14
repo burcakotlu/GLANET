@@ -10,7 +10,7 @@ import intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers;
 import java.util.List;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Feb 10, 2015
  * @project Glanet 
  *
