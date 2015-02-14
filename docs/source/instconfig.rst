@@ -30,35 +30,35 @@ First install cpanminus, which will allow other modules to be installed easily. 
 
 Now, install Getopt/Long.pm module. Note that if any of the modules below is installed in your computer, you will be notified::
 
-	$ cpan Getopt::Long
+	$ cpanm Getopt::Long
 
 **Important**: If one of your modules is not installed successfully, try to add them -f option, which will take longer but it will try to force the module to be installed. For example, if Getopt/Long.pm is not installed, you may want to write::
 
-	$ cpan -f Getopt::Long
+	$ cpanm -f Getopt::Long
 
 Install LWP/UserAgent.pm module::
 
-	$ cpan LWP::UserAgent
+	$ cpanm LWP::UserAgent
 
 Install HTTP/Request/Common.pm module::
 
-	$ cpan HTTP::Request::Common
+	$ cpanm HTTP::Request::Common
 
 Install HTTP/Headers.pm module::
 
-	$ cpan HTTP::Headers
+	$ cpanm HTTP::Headers
 
 Install XML/XPath.pm module::
 
-	$ cpan XML::XPath
+	$ cpanm XML::XPath
 
 Install XML/XPath/XMLParser.pm module::
 
-	$ cpan XML::XPath::XMLParser
+	$ cpanm XML::XPath::XMLParser
 	
 Install JSON module::
 
-	$ cpan JSON
+	$ cpanm JSON
 	
 3. Download executable GLANET.jar from :ref:`executable-label`
 	
