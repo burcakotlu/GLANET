@@ -6,12 +6,11 @@ GLANET Overview
 GLANET
 ------
 
-GLANET is Genomic Loci ANnotation and Enrichment Tool.
+GLANET is Genomic Loci AssociatioN and Enrichment Tool.
 
 GLANET uses two sets of genomic intervals.
 Smaller set comes from the user, bigger set is the Annotation Library provided in the Data.zip.
-Smaller set is the user given input data consisting of genomic intervals that may come from GWAS yielded genomic
-variants or from a NGS experiment.
+Smaller set is the user given input data consisting of genomic intervals that may come from GWAS yielded genomic variants or from a NGS experiment.
 On the other hand, bigger set consists of identified/annotated genomic
 intervals such as DNaseI Hypersensitive sites (DHs), Transcription Factor
 binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of
@@ -34,15 +33,16 @@ GC content and Mappability during random data generation.
 And Transcription Factor Association results are further analysed whether any SNP (given in the smaller set) 
 increases or decreases the binding affinity of the annotated transcription factor by scanning the reference sequence, 
 all possible altered sequences and transcription factor extended peak sequence with the position frequency matrices 
-of the annotated transcription factor which is called Regulatory Sequence Analysis.
+of the annotated transcription factor which is called Regulatory Sequence Analysis. During regulatory sequence analysis
+RSAT's matrix scan web service is used.
 
 GLANET Pipeline
 
 .. image:: ../images/GLANET_pipeline.jpg
     :alt: GLANET Pipeline
 
-GLANET enables user to load its user defined library and/or user defined gene sets in order to use them in Annotation Library. 
-Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in Annotation Library
+GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
+Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in the Annotation Library
 and Annotation will be achieved w.r.t. these genomic intervals.
 
 ---------------
@@ -57,5 +57,5 @@ GLANET Features
   Exon-based gene set takes exons of genes, regulation-based takes introns, upstream and downstream proximal regions of genes 
   and lastly extended-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
 * GLANET enables user to load user defined gene sets and/or user defined library and to achieve Annotation w.r.t the genomic intervals obtained from them.
-* GLANET provides Regulatory Sequence Analysis for all of the associated TFs.
+* GLANET provides Regulatory Sequence Analysis for all of the associated TFs using RSAT's matrix scan web service.
 
