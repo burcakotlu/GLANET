@@ -34,7 +34,11 @@ Now, install Getopt/Long.pm module. Note that if any of the modules below is ins
 
 **Important**: If one of your modules is not installed successfully, try to add them -f option, which will take longer but it will try to force the module to be installed. For example, if Getopt/Long.pm is not installed, you may want to write::
 
-	$ cpanm -f Getopt::Long
+	$ cpan -f Getopt::Long
+
+**Important**: If you are still having issues for installing a module, then you may run the command with sudo, if you have Linux/Mac OS X operating system. If your operating system is Windows, you may want to run command prompt as administrator instead of running the command with sudo. For Linux and Mac OS X operating systems you may install a module as following. Note that if this step still does not work, we suggest you to try installing the modules another time. There might be some problems with the server currently::
+
+	$ sudo cpanm Getopt::Long
 
 Install LWP/UserAgent.pm module::
 
