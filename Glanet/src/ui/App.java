@@ -4,12 +4,13 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 /**
@@ -18,6 +19,7 @@ import enumtypes.CommandLineArguments;
  */
 public class App 
 {
+	private final static int MIN_HEAP_FOR_GLANET = 6500;
 	public static JFrame mainFrame;
 	private static JPanel mainPanel;
 	public static ViewController initialViewController;
@@ -572,7 +574,6 @@ public class App
 
 		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH)) {
 			
-			int abc = 5;
 			//parsing Number of permutations
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase(Commons.ARG_NUMBER_OF_PERMUTATIONS))
@@ -656,17 +657,23 @@ public class App
 
 	//args contains all arguments including memory arguments, jar files and class paths
 	//argsForGlanetRunner contains only the arguments required in the GUI
-	public static void main(String args[]) {
+	public static void main(String args[]) throws URISyntaxException, IOException {
 
 		if( args.length > 0 && isCommandLineEnabled( args)){
-
+			
+			if( (Runtime.getRuntime().maxMemory()/1024)/1024 < MIN_HEAP_FOR_GLANET){
+				
+				System.out.println("There is no enough available memory.\nPlease see http://glanet.readthedocs.org/en/latest/ to specify minimum required memory. (Also see -Xmx)\nAborting...");
+				return;
+			}
+			
 			String[] argsForGlanetRunner = new String[CommandLineArguments.NumberOfArguments.value()];
 
 			if( !fillArgumentsInOrder( args, argsForGlanetRunner))
 				return;
 
-			for( int i = 0; i < argsForGlanetRunner.length; i++)
-				System.out.println( argsForGlanetRunner[i]);
+//			for( int i = 0; i < argsForGlanetRunner.length; i++)
+//				System.out.println( argsForGlanetRunner[i]);
 
 			GlanetRunner.setMainView( null);
 			GlanetRunner.setArgs( argsForGlanetRunner);
@@ -674,7 +681,15 @@ public class App
 			GlanetRunner runner = new GlanetRunner();
 			new Thread( runner).start();
 
-		}else if( !GraphicsEnvironment.isHeadless())
-			loadWindow();
+		}else if( !GraphicsEnvironment.isHeadless()){
+//			if( (Runtime.getRuntime().maxMemory()/1024)/1024 < MIN_HEAP_FOR_GLANET){
+//				
+//				String pathToJar = App.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+//				System.out.println(pathToJar);
+//				ProcessBuilder pb = new ProcessBuilder("java", "-Xms4096M", "-Xmx8192M", "-classpath", pathToJar, "ui.App");
+//				pb.start();
+//			}else
+				loadWindow();
+		}
 	}
 }

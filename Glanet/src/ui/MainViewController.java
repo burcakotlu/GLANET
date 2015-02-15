@@ -120,9 +120,6 @@ public class MainViewController extends ViewController implements MainViewDelega
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)
 			args[i] = cellLinesToBeConsidered[i-Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
 		
-		for( int i = 0; i < args.length; i++)
-			System.out.println(args[i]);
-		
 		runner = new GlanetRunner();
 		
 		GlanetRunner.setArgs( args);
