@@ -4,7 +4,7 @@
 package annotation;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Feb 12, 2015
  * @project Glanet 
  *
