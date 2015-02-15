@@ -151,7 +151,7 @@ public class Remap {
 				fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + supportedAssembliesFileName);
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
-				process = runtime.exec("perl \"" + remapFile + "\" --mode batches");
+				process = runtime.exec(new String[] {"perl", remapFile, "--mode", "batches"});
 				
 				try {
 				    Thread.sleep(1000);
@@ -383,7 +383,9 @@ public class Remap {
 		Process process = null;
 			
 		try {
-			process = runtime.exec("perl "  + "\"" + remapFile + "\"" + " --mode asm-asm --from " + sourceAssembly  + " --dest " +  targetAssembly +  " --annotation " + "\"" + sourceFileName + "\"" +  " --annot_out "+  "\"" + outputFileName + "\""  + " --report_out " + "\"" + reportFileName + "\"" +   " --gbench_out " + "\"" + genomeWorkbenchProjectFile   + "\"" + " --merge " + merge + " --allowdupes " + allowMultipleLocation +  " --mincov " + minimumRatioOfBasesThatMustBeRemapped + " --maxexp " + maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength + " --in_format " + inputFormat);
+			
+			String[] command = new String[] {"perl", remapFile, "--mode", "asm-asm", "--from", sourceAssembly, "--dest",  targetAssembly, "--annotation", sourceFileName, "--annot_out", outputFileName, "--report_out", reportFileName, "--gbench_out", genomeWorkbenchProjectFile, "--merge", merge, "--allowdupes", allowMultipleLocation, "--mincov ", new Double(minimumRatioOfBasesThatMustBeRemapped).toString(), "--maxexp ", new Double(maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength).toString(), "--in_format", inputFormat};
+			process = runtime.exec( command);
 			
 			process.waitFor();
 			
