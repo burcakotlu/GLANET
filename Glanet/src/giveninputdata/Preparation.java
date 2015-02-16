@@ -8,8 +8,13 @@ package giveninputdata;
 import java.io.IOException;
 
 import log4j.Log4jConfiguration;
+
+import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**
@@ -17,7 +22,8 @@ import enumtypes.CommandLineArguments;
  */
 public class Preparation {
 	
-	
+	final static Logger logger = Logger.getLogger(Preparation.class);
+
 
 
 	//args[0]	--->	Input File Name with folder
@@ -98,7 +104,6 @@ public class Preparation {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
-		
 		//jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
@@ -118,7 +123,17 @@ public class Preparation {
 			FileOperations.createFolder(outputFolder);
 			
 			Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
+			
+			
+			//Write GLANET Arguments
+			for (int i = 0; i < args.length; i++){
+				logger.info(args[i]);	
+			}
+			
+			
 		} catch (IOException e) {
+			
+			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -399,6 +399,8 @@ public class Commons {
 	public static final String RSA_RESULTS_FOR_ALL_ANNOTATED_TFS =  "RegulatorySequenceAnalysisResults.txt";
 
 	public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
+	public static final String RSAT_ORGANISM_Homo_sapiens_GRCh37 = "Homo_sapiens_GRCh37";
+	
 	public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
 	public static final String RSAT_tmp_background_infile = "/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/1nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq.gz";
 

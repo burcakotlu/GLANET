@@ -1989,7 +1989,6 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
 				logger.error(e.toString());
 			}
 		}
