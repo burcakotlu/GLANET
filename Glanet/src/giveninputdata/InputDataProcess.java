@@ -384,10 +384,10 @@ public class InputDataProcess {
 			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.close();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 	}
@@ -467,7 +467,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		// @todo remove overlaps if any exists
@@ -551,7 +551,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 	}
@@ -705,7 +705,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -857,7 +857,7 @@ public class InputDataProcess {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 		

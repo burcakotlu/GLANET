@@ -1,6 +1,10 @@
 package common;
 
 public class Commons {
+	
+	//Heap Size 
+	public static final int MIN_HEAP_FOR_GLANET = 6500;
+	
 
 	// Main Folders
 	public static final String ANNOTATION = "Annotation";

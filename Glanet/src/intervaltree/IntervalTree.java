@@ -35,6 +35,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import annotation.OverlapInformation;
 import annotation.PermutationNumberTfNameCellLineNameOverlap;
@@ -53,7 +55,6 @@ import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
-import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import gnu.trove.iterator.TShortIterator;
@@ -67,6 +68,9 @@ import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.TShortShortMap;
 
 public class IntervalTree {
+	
+	final static Logger logger = Logger.getLogger(IntervalTree.class);
+	
 
 	IntervalTreeNode root;
 	int numberofNodes;
@@ -728,8 +732,8 @@ public class IntervalTree {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		if (node.getRight().getNodeName().isNotSentinel())
@@ -786,8 +790,8 @@ public class IntervalTree {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		if (node.getRight().getNodeName().isNotSentinel())
@@ -1039,8 +1043,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1096,7 +1100,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 
@@ -1150,7 +1154,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 
@@ -1316,7 +1320,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 
@@ -1371,7 +1375,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 
@@ -1430,8 +1434,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1487,8 +1491,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1543,8 +1547,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1598,8 +1602,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1791,8 +1795,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1881,8 +1885,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch blocks
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1934,8 +1938,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -1985,8 +1989,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2038,8 +2042,8 @@ public class IntervalTree {
 				tfandCellLineOverlapList.add(new TfCellLineOverlapWithNumbers(elementNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2094,8 +2098,8 @@ public class IntervalTree {
 				tfandCellLineOverlapList.add(new TfNameandCellLineNameOverlap(tfbsNameandCellLineName, castedNode.getLow(), castedNode.getHigh()));
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2128,8 +2132,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2160,8 +2164,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2217,8 +2221,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2945,8 +2949,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -2998,8 +3002,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 
@@ -3284,7 +3288,7 @@ public class IntervalTree {
 					// write ALL BASED results ends
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -3438,7 +3442,7 @@ public class IntervalTree {
 					}
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -3903,7 +3907,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -4047,7 +4051,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -4177,7 +4181,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -4756,7 +4760,7 @@ public class IntervalTree {
 					bufferedWriter.flush();
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}// End of IF: overlaps
 		} // End of If: type is NCBI_GENE_ID
@@ -4916,7 +4920,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5054,7 +5058,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5214,7 +5218,7 @@ public class IntervalTree {
 						// null
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5372,7 +5376,7 @@ public class IntervalTree {
 					}
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5472,7 +5476,7 @@ public class IntervalTree {
 			} // If node is not null
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -5494,8 +5498,8 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		}
 

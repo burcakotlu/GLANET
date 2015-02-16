@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**
@@ -19,7 +20,7 @@ import enumtypes.CommandLineArguments;
  */
 public class App 
 {
-	private final static int MIN_HEAP_FOR_GLANET = 6500;
+	
 	public static JFrame mainFrame;
 	private static JPanel mainPanel;
 	public static ViewController initialViewController;
@@ -661,9 +662,10 @@ public class App
 
 		if( args.length > 0 && isCommandLineEnabled( args)){
 			
-			if( (Runtime.getRuntime().maxMemory()/1024)/1024 < MIN_HEAP_FOR_GLANET){
+			if( (Runtime.getRuntime().maxMemory()/1024)/1024 < Commons.MIN_HEAP_FOR_GLANET){
 				
-				System.out.println("There is no enough available memory.\nPlease see http://glanet.readthedocs.org/en/latest/ to specify minimum required memory. (Also see -Xmx)\nAborting...");
+				System.out.println(	"There is no enough available memory." + System.getProperty("line.separator") + 
+									"Please see http://glanet.readthedocs.org/en/latest/ to specify minimum required memory. (Also see -Xmx)\nAborting...");
 				return;
 			}
 			
