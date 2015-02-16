@@ -117,8 +117,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedReader.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 		return firstLine;
@@ -145,8 +144,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedReader.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 		return all;
@@ -309,8 +307,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				
 				}//End of SWITCH
 				} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+					logger.error(e.toString());
 			}
 			
 		}//End of IF resultLine contains SNP Position
@@ -381,8 +379,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		try {
 			bufferedWriter.write(sequenceType.convertEnumtoString() + "\t"  + description + "\t" +  matrixName + "\t" + matrixNumber + "\t" +direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + System.getProperty("line.separator"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 
@@ -416,8 +414,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 	
 	}
@@ -463,8 +461,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				bufferedReader.close();
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 		
 			
@@ -656,8 +654,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			
 		
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 			logger.error(sequence);
 			
 		} 
@@ -1026,7 +1024,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				try {
 					proxy = service.getRSATWSPortType();
 				} catch (ServiceException e) {
-					e.printStackTrace();
+					logger.error(e.toString());
 				}
 				
 				MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
@@ -1220,8 +1218,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				bufferedWriter.close();
 							
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 				
 

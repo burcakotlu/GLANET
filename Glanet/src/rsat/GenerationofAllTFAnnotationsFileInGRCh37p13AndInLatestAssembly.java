@@ -244,8 +244,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
         	remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter.close();
 
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    
+	    logger.error(e.toString());
 	}
     }
 

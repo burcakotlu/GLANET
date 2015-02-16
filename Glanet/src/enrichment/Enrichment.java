@@ -25,13 +25,18 @@ import java.util.concurrent.ThreadLocalRandom;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedMapabilityArray;
+
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -68,7 +73,8 @@ import gnu.trove.map.hash.TShortObjectHashMap;
  */
 public class Enrichment {
 
-
+	final static Logger logger = Logger.getLogger(Enrichment.class);
+	
 	
 	static class GenerateRandomData extends RecursiveTask<Map<Integer,List<InputLine>>>{
 
@@ -203,7 +209,7 @@ public class Enrichment {
 				bufferedWriter.close();
 				
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 			
 		}
@@ -679,9 +685,9 @@ public class Enrichment {
 			
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 	}
@@ -1002,7 +1008,7 @@ public class Enrichment {
 				bufferedWriter.close();				
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 	}
@@ -1017,7 +1023,7 @@ public class Enrichment {
 				bufferedWriter.close();				
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 	}
@@ -1076,7 +1082,7 @@ public class Enrichment {
 				
 			
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}//End of for
 					
@@ -1134,7 +1140,7 @@ public class Enrichment {
 				
 			
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}//End of for
 					
@@ -1190,7 +1196,7 @@ public class Enrichment {
 				
 			
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}//End of for
 					
@@ -1306,7 +1312,7 @@ public class Enrichment {
 		
 			
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}//End of for
 					
@@ -2327,8 +2333,8 @@ public class Enrichment {
 			bufferedWriter.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 	}
@@ -2376,8 +2382,8 @@ public class Enrichment {
 			bufferedWriter.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 	}

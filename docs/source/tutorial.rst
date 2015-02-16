@@ -109,11 +109,15 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
 		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other.
 		Here same TF with different cell lines are pooled.
+		
+		In other words, joint annotation requires trio overlaps.
 
 	* *TF and KEGG Pathway Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.
 		This is a joint annotation which means that given interval has overlapped with TF and KEGG Pathway intervals, and these TF and KEGG Pathway also overlaps with each other.
-
+	
+		In other words, joint annotation requires trio overlaps.
+		
 	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
 
@@ -427,12 +431,12 @@ This option enables KEGG Pathway Annotation.
 -tfkegg
 ^^^^^^^
 
-This option enables Transcription Factor Binding Sites and KEGG Pathway Annotation.
+This option enables joint Transcription Factor Binding Sites and KEGG Pathway Annotation.
 
 -celltfkegg
 ^^^^^^^^^^^
 
-This option enables Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
+This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
 
 -udg
 ^^^^

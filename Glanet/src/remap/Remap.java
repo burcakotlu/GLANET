@@ -128,8 +128,8 @@ public class Remap {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 	}
@@ -176,9 +176,9 @@ public class Remap {
 				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				logger.info("NCBI REMAP Show Batches Exception = " + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
+				
+			
+				logger.info("NCBI REMAP Show Batches Exception = " + "\t" + "Exception toString():  " +e.toString() );
 			}
 	}
 	
@@ -351,7 +351,7 @@ public class Remap {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
 	}
@@ -403,14 +403,12 @@ public class Remap {
 			//bufferedReader.close();
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
+		
+			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " +e.toString() );
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception message: " + e.getMessage() + "\t" + "Exception toString():  " +e.toString() );
+		
+			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " +e.toString() );
 
 		}
 	}
@@ -499,11 +497,11 @@ public class Remap {
 			
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 	}
@@ -588,11 +586,11 @@ public class Remap {
 	
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 	}
@@ -738,8 +736,8 @@ public class Remap {
 				bufferedReader.close();
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 			
 		}//End of if remapReportFile exists

@@ -59,14 +59,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -87,6 +88,9 @@ import enumtypes.UserDefinedLibraryDataFormat;
  * Annotate given intervals with annotation options with numbers
  */
 public class Annotation {
+	
+	final static Logger logger = Logger.getLogger(Annotation.class);
+	
 
 	// Empirical P value Calculation
 	// For Thread Version for
@@ -168,7 +172,7 @@ public class Annotation {
 			bufferedWriterList.add(bufferedWriter24);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -252,7 +256,7 @@ public class Annotation {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -278,16 +282,16 @@ public class Annotation {
 			} // End of While
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		try {
 			bufferedReader.close();
 			fileReader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -372,7 +376,7 @@ public class Annotation {
 
 			} // End of While
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -434,7 +438,7 @@ public class Annotation {
 
 			} // End of While
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -496,7 +500,7 @@ public class Annotation {
 
 			} // End of While
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -550,11 +554,12 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
+		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}// End of WHILE
 
 		return userDefinedLibraryIntervalTree;
@@ -616,8 +621,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -680,8 +685,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -744,8 +749,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -806,8 +811,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -870,8 +875,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -933,8 +938,8 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1010,7 +1015,7 @@ public class Annotation {
 
 			}// end of While
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return tree;
@@ -1082,7 +1087,7 @@ public class Annotation {
 				strLine = null;
 			}// end of While
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return tree;
@@ -1100,8 +1105,8 @@ public class Annotation {
 			userDefinedLibraryIntervalTree = generateUserDefinedLibraryIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return userDefinedLibraryIntervalTree;
@@ -1123,10 +1128,10 @@ public class Annotation {
 			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -1148,10 +1153,10 @@ public class Annotation {
 			tfbsIntervalTree = generateEncodeTfbsIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -1172,8 +1177,8 @@ public class Annotation {
 			histoneIntervalTree = generateEncodeHistoneIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1192,8 +1197,8 @@ public class Annotation {
 			ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 
 		return ucscRefSeqGenesIntervalTree;
@@ -1359,11 +1364,11 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		} // End of while
 
 	}
@@ -1593,9 +1598,9 @@ public class Annotation {
 
 			}// End of while
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -1705,9 +1710,9 @@ public class Annotation {
 
 			}// End of while
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -2067,9 +2072,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -2418,9 +2423,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -2914,9 +2919,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -3119,9 +3124,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 
 	}
@@ -3185,9 +3190,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -3250,9 +3255,9 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 	}
 
@@ -4141,9 +4146,9 @@ public class Annotation {
 			}// End of for each input line
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		} // End of while
 
 	}
@@ -4700,7 +4705,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 	}
@@ -4729,7 +4734,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 	}
@@ -4778,7 +4783,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -4821,7 +4826,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -4892,7 +4897,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 
@@ -4912,7 +4917,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 	}
@@ -4930,8 +4935,8 @@ public class Annotation {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 	}
 
@@ -4961,8 +4966,8 @@ public class Annotation {
 				// close bufferedReader
 				bufferedReader.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5005,7 +5010,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5045,7 +5050,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5100,7 +5105,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5152,7 +5157,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5211,7 +5216,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}// End of for each chromosomeName
 
@@ -5256,8 +5261,8 @@ public class Annotation {
 				try {
 					bufferedReader.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					logger.error(e.toString());
 				}
 
 			}// End of for each chromosomeName
@@ -5291,7 +5296,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5323,7 +5328,7 @@ public class Annotation {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -5818,8 +5823,8 @@ public class Annotation {
 			bufferedWriter.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error(e.toString());
 		}
 		
 		
@@ -6816,7 +6821,7 @@ public class Annotation {
 				bufferedWriter = it.value();
 				bufferedWriter.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 	}
@@ -6833,7 +6838,7 @@ public class Annotation {
 
 				bufferedWriter.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 	}
@@ -6850,7 +6855,7 @@ public class Annotation {
 
 				bufferedWriter.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 	}
