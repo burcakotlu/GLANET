@@ -33,9 +33,8 @@ GC content and Mappability during random data generation.
 And Transcription Factor Association results are further analysed whether any SNP (given in the smaller set) 
 increases or decreases the binding affinity of the annotated transcription factor by scanning the reference sequence, 
 all possible altered sequences and transcription factor extended peak sequence with the position frequency matrices 
-of the annotated transcription factor which is called Regulatory Sequence Analysis. During regulatory sequence analysis
- `RSAT <http://www.rsat.eu/>`_ matrix scan web service is used.
-
+of the annotated transcription factor which is called Regulatory Sequence Analysis. 
+During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan web service is used.
 
 GLANET Pipeline
 
@@ -58,5 +57,5 @@ GLANET Features
   Exon-based gene set takes exons of genes, regulation-based takes introns, upstream and downstream proximal regions of genes 
   and lastly extended-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
 * GLANET enables user to load user defined gene sets and/or user defined library and to achieve Annotation w.r.t the genomic intervals obtained from them.
-* GLANET provides Regulatory Sequence Analysis for all of the associated TFs using RSAT's matrix scan web service.
+* GLANET provides Regulatory Sequence Analysis for all of the associated TFs using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service.
 
