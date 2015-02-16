@@ -18,9 +18,10 @@ For **Mac OS X** users, the operating system comes with the installed Perl. If y
 
 	$ sudo curl -L http://xrl.us/installperlosx | bash
 
-For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
+For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below. After installing perl, you also may need to install parser library for Perl. You may run the commands below seperately::
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
+	$ sudo apt-get build-dep libxml-parser-perl
 
 After you have installed Perl, you need to install the required modules.
 
@@ -32,13 +33,13 @@ Now, install Getopt/Long.pm module. Note that if any of the modules below is ins
 
 	$ cpanm Getopt::Long
 
-**Important**: If one of your modules is not installed successfully, try to add them -f option, which will take longer but it will try to force the module to be installed. For example, if Getopt/Long.pm is not installed, you may want to write::
-
-	$ cpan -f Getopt::Long
-
-**Important**: If you are still having issues for installing a module, then you may run the command with sudo, if you have Linux/Mac OS X operating system. If your operating system is Windows, you may want to run command prompt as administrator instead of running the command with sudo. For Linux and Mac OS X operating systems you may install a module as following. Note that if this step still does not work, we suggest you to try installing the modules another time. There might be some problems with the server currently::
+**Important**: If one of your modules is not installed successfully, then you may run the command with sudo, if you have Linux/Mac OS X operating system. For Windows, you may want to run command prompt as administrator instead of running the command with sudo. For Linux and Mac OS X operating systems, you may install a module with sudo as following::
 
 	$ sudo cpanm Getopt::Long
+
+**Important**: If you are still having issues for installing a module, try to add them -f option, which will take longer but it will try to force the module to be installed.  Note that if this step still does not work, we suggest you to try installing the modules another time. There might be some problems with the server currently. For example, if Getopt/Long.pm is still not installed, you may want to write::
+
+	$ cpan -f Getopt::Long
 
 Install LWP/UserAgent.pm module::
 
