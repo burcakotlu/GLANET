@@ -18,9 +18,10 @@ For **Mac OS X** users, the operating system comes with the installed Perl. If y
 
 	$ sudo curl -L http://xrl.us/installperlosx | bash
 
-For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below::
+For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below. After installing perl, you also may need to install parser library for Perl. You may run the commands below seperately::
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
+	$ sudo apt-get build-dep libxml-parser-perl
 
 After you have installed Perl, you need to install the required modules.
 

@@ -152,7 +152,7 @@ public class Remap {
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
 				process = runtime.exec(new String[] {"perl", remapFile, "--mode", "batches"});
-				
+								
 				try {
 				    Thread.sleep(1000);
 				} catch(InterruptedException ex) {
