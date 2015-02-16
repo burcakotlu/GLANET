@@ -59,3 +59,12 @@ GLANET Features
 * GLANET enables user to load user defined gene sets and/or user defined library and to achieve Annotation w.r.t the genomic intervals obtained from them.
 * GLANET provides Regulatory Sequence Analysis for all of the associated TFs using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service.
 
+
+-------------
+GLANET Output
+-------------
+
+After a successful GLANET execution 
+* Association results can be found under ~path/to/tool/Output/givenJobName/Annotation/.
+* Enrichment results can be found under ~path/to/tool/Output/givenJobName/Enrichment/.
+* Regulatory Sequence Analysis results can be found under ~path/to/tool/Output/givenJobName/RegulatorySequenceAnalysis/.
