@@ -28,8 +28,8 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	//This method is executed by internal calls
 	//I don't know whether I can pass outputFolder to this method 
 	public NewLogForEachGlanetRunFileAppender() {
-		System.out.println("***************************************************");
-		System.out.println("NewLogForEachGlanetRunFileAppender()");
+//		System.out.println("***************************************************");
+//		System.out.println("NewLogForEachGlanetRunFileAppender()");
 	}
 	
 	
@@ -54,9 +54,9 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 	//@overwrite
 	public void activateOptions() {
 		
-		//for debug
-		System.out.println("Before NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
-		//for debug
+//		//for debug
+//		System.out.println("Before NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+//		//for debug
 		
 		if (fileName != null) {
 		    try {
@@ -71,10 +71,10 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		    }
 		}//End of IF filename is not NULL
 		
-		//for debug
-		System.out.println("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
-		System.out.println("***************************************************");
-		//for debug
+//		//for debug
+//		System.out.println("After NewLogForEachGlanetRunFileAppender activateOptions() fileName: " + fileName);
+//		System.out.println("***************************************************");
+//		//for debug
 		
 		//Log4jConfiguration.setFileName(fileName);
 		

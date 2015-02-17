@@ -325,7 +325,7 @@ public class InputDataRemoveOverlaps {
 	
 	
 
-	public static void writeRunTimeArguments(String[] args){
+	public static void writeGLANETRunTimeArguments(String[] args){
 		
 		logger.info("*****************************************************************");
 		logger.info("GLANET Parameters starts");
@@ -419,7 +419,7 @@ public class InputDataRemoveOverlaps {
 		
 		removeOverlaps(args);
 		
-		writeRunTimeArguments(args);
+		writeGLANETRunTimeArguments(args);
 		
 	}
 

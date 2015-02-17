@@ -1,0 +1,100 @@
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_all_1_based_coordinates.txt\
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 1-based coordinates (End Inclusive)
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_ENRICH
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_DNASE_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_HISTONE_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_TF_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - test11
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 5000
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-17 11:19:35 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
+2015-02-17 11:21:21 INFO  InputDataProcess:194 - ******************************************************************************
+2015-02-17 11:21:21 INFO  InputDataProcess:195 - Number of rsIds in the given rsID input file: 644
+2015-02-17 11:21:21 INFO  InputDataProcess:196 - Number of unique rsIds in the given rsID input file: 114
+2015-02-17 11:21:21 INFO  InputDataProcess:197 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:216 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:232 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:249 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:250 - We have 114 rsIds at hand before NCBI EUTIL EFETCH
+2015-02-17 11:21:27 INFO  InputDataProcess:252 - Number of given rsIds that are lost 0
+2015-02-17 11:21:27 INFO  InputDataProcess:253 - Number of NCBI EUTIL returned rsIds that are gained 0
+2015-02-17 11:21:27 INFO  InputDataProcess:255 - Number of given rsIds  does not map to any assembly 0
+2015-02-17 11:21:27 INFO  InputDataProcess:256 - Number of given rsIds  does not return any rsID 0
+2015-02-17 11:21:27 INFO  InputDataProcess:258 - We have 114 rsIds remained after NCBI EUTIL EFETCH
+2015-02-17 11:21:27 INFO  InputDataProcess:262 - We might have lost 0 rsIDs after NCBI EUTIL
+2015-02-17 11:21:27 INFO  InputDataProcess:263 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:301 - ******************************************************************************
+2015-02-17 11:21:27 INFO  InputDataProcess:302 - Number of genomic loci is 114 in NCBI REMAP input file in sourceAssembly GRCh38
+2015-02-17 11:21:27 INFO  InputDataProcess:303 - ******************************************************************************
+2015-02-17 11:21:29 INFO  Remap:176 - NCBI REMAP Show Batches Exit status = 1
+2015-02-17 11:21:29 INFO  InputDataProcess:343 - ******************************************************************************
+2015-02-17 11:21:43 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13
+2015-02-17 11:21:43 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 114 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:21:43 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 114 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:21:43 WARN  Remap:493 - Number of unremapped lines is: 0
+2015-02-17 11:21:43 INFO  InputDataProcess:372 - ******************************************************************************
+2015-02-17 11:21:43 INFO  FileOperations:777 - ******************************************************************************
+2015-02-17 11:21:43 INFO  FileOperations:778 - Number of given input lines ready for GLANET execution: 114
+2015-02-17 11:21:43 INFO  FileOperations:779 - ******************************************************************************
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_rsIDs_NoMediation.txt\
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - dbSNP IDs
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_ENRICH
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_DNASE_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_HISTONE_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_TF_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - test12
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 5000
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-17 11:21:43 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
