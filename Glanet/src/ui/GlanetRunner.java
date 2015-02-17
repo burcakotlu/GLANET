@@ -59,7 +59,7 @@ public class GlanetRunner implements Runnable {
 		
 		/************************NCBI REMAP starts ***********************************************/
 		if (getMainView() != null)
-			getMainView().setCurrentProcessInfo("RemoveOverlaps...");
+			getMainView().setCurrentProcessInfo("NCBI REMAP starts...");
 
 		if (Thread.currentThread().isInterrupted())
 			return;

@@ -125,12 +125,6 @@ public class Preparation {
 			Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
 			
 			
-			//Write GLANET Arguments
-			for (int i = 0; i < args.length; i++){
-				logger.info(args[i]);	
-			}
-			
-			
 		} catch (IOException e) {
 			
 			

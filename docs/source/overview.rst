@@ -69,3 +69,5 @@ After a successful GLANET execution
 * Association results can be found under ~path/to/tool/Output/givenJobName/Annotation/.
 * Enrichment results can be found under ~path/to/tool/Output/givenJobName/Enrichment/.
 * Regulatory Sequence Analysis results can be found under ~path/to/tool/Output/givenJobName/RegulatorySequenceAnalysis/.
+* GLANET log file can be found under ~path/to/tool/Output/givenJobName/GLANET.log
+
