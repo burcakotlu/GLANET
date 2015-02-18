@@ -1056,14 +1056,12 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 
 	public static void fillBufferedWriterHashMap(String chromosomeBasedDirectory, String fileName, Map<ChromosomeName, BufferedWriter> bufferedWriterHashMap) {
 		ChromosomeName chromName;
-		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 
 		for (int i = 1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++) {
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			try {
-				fileWriter = new FileWriter(chromosomeBasedDirectory + chromName + "\\" + fileName);
-				bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriter = new BufferedWriter( new FileWriter(chromosomeBasedDirectory + chromName + "\\" + fileName));
 				bufferedWriterHashMap.put(chromName, bufferedWriter);
 			} catch (IOException e) {
 				e.printStackTrace();

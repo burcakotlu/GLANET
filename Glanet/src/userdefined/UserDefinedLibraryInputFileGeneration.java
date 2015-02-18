@@ -115,7 +115,6 @@ public class UserDefinedLibraryInputFileGeneration {
 			}// End of if: this is a directory
 
 			bufferedWriter.close();
-			;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -144,7 +143,6 @@ public class UserDefinedLibraryInputFileGeneration {
 		readFileNamesUnderGivenDirectoryAndCreateUserDefinedLibraryInputFile(dnaseDirectory2, Commons.DNASE, userDefinedLibraryInputFile);
 		readFileNamesUnderGivenDirectoryAndCreateUserDefinedLibraryInputFile(histoneDirectory, Commons.HISTONE, userDefinedLibraryInputFile);
 		readFileNamesUnderGivenDirectoryAndCreateUserDefinedLibraryInputFile(tfDirectory, Commons.TF, userDefinedLibraryInputFile);
-
 	}
 
 }
