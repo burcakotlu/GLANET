@@ -167,11 +167,10 @@ public class Remap {
 					bufferedWriter.write(line + System.getProperty("line.separator"));
 				}//End of while
 				
-				bufferedWriter.flush();
-				
 				//Close 
 				bufferedReader.close();
 				bufferedWriter.close();
+				
 				
 				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
 				
@@ -409,7 +408,6 @@ public class Remap {
 		} catch (IOException e) {
 		
 			logger.info("NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " +e.toString() );
-
 		}
 	}
 

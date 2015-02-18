@@ -4734,7 +4734,7 @@ public class Annotation {
 			}
 
 			bufferedWriter.close();
-
+			fileWriter.close();
 		} catch (IOException e) {
 			logger.error(e.toString());
 		}
@@ -4915,8 +4915,9 @@ public class Annotation {
 			for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
 				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
 			}
-
+			
 			bufferedWriter.close();
+			fileWriter.close();
 
 		} catch (IOException e) {
 			logger.error(e.toString());
@@ -5823,6 +5824,7 @@ public class Annotation {
 			
 			//Close 
 			bufferedWriter.close();
+			fileWriter.close();
 			
 		} catch (IOException e) {
 			

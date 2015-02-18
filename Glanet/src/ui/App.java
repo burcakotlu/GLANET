@@ -10,8 +10,8 @@ import java.net.URISyntaxException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import sun.tools.jar.CommandLine;
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 /**
@@ -474,7 +474,7 @@ public class App {
 			return false;
 
 		// parsing perform enrichment check
-		if (argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase(Commons.DO_DNASE_ENRICHMENT) || argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase(Commons.DO_HISTONE_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ENRICHMENT) || argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT)) {
+		if (argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase(Commons.DO_DNASE_ENRICHMENT) || argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase(Commons.DO_HISTONE_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ENRICHMENT) || argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT)) {
 
 			for (int i = 0; i < args.length; i++)
 				if (args[i].equalsIgnoreCase(Commons.ARG_PERFORM_ENRICHMENT))
