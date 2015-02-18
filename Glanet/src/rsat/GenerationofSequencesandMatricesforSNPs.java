@@ -28,9 +28,9 @@ import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
 import common.Commons;
+import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
-import enumtypes.EnrichmentType;
 
 /**
  * 
@@ -1892,7 +1892,7 @@ public static String takeComplementforeachAllele(String allele){
 		String forRSAFolder =	outputFolder + Commons.FOR_RSA + System.getProperty("file.separator");
 				
 		//TfEnrichment, DO or DO_NOT
-		EnrichmentType tfEnrichment = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 			
 
 		//pfm matrices
@@ -1938,10 +1938,11 @@ public static String takeComplementforeachAllele(String allele){
 			augmentationOfAGivenRsIdWithInformation = new AugmentationofGivenRsIdwithInformation();
 			
 			//TF Annotations are used
-			if (tfEnrichment.isTfEnrichment()){
+			if (tfAnnotationType.doTFAnnotation()){
 				
 			    //Generate Sequences and Matrices for Annotated TF Elements
 			    readAllTFAnnotationsWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs,augmentationOfAGivenRsIdWithInformation,chrName2RefSeqIdforGrch38Map,forRSAFolder,all_TF_Annotations_File_1Based_Start_End_GRCh38,tfName2PfmMatrices,tfName2LogoMatrices,Commons.TF);
+			    
 			}
 			
 		

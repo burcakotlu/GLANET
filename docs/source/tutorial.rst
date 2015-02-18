@@ -133,7 +133,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		   	-  GENE ID (e.g.: 728927)
 		   	-  GENE SYMBOL (e.g.: TTC26)
 		   	-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
-			-  Choose the appropriate Gene Information Type.
+			-  Choose the appropriate Gene Information Type. (e.g: Choose GENE SYMBOL if you have loaded GO_gene_associations_human_ref.txt as User Defined Gene Set Input File.)
 
 		-  Name (Optional)
 			-  You can give a name for the User Defined Gene Set (e.g.: GO)

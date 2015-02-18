@@ -1,0 +1,710 @@
+2015-02-17 11:56:39 INFO  InputDataProcess:194 - ******************************************************************************
+2015-02-17 11:56:39 INFO  InputDataProcess:195 - Number of rsIds in the given rsID input file: 644
+2015-02-17 11:56:39 INFO  InputDataProcess:196 - Number of unique rsIds in the given rsID input file: 114
+2015-02-17 11:56:39 INFO  InputDataProcess:197 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:216 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:232 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:249 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:250 - We have 114 rsIds at hand before NCBI EUTIL EFETCH
+2015-02-17 11:56:47 INFO  InputDataProcess:252 - Number of given rsIds that are lost 0
+2015-02-17 11:56:47 INFO  InputDataProcess:253 - Number of NCBI EUTIL returned rsIds that are gained 0
+2015-02-17 11:56:47 INFO  InputDataProcess:255 - Number of given rsIds  does not map to any assembly 0
+2015-02-17 11:56:47 INFO  InputDataProcess:256 - Number of given rsIds  does not return any rsID 0
+2015-02-17 11:56:47 INFO  InputDataProcess:258 - We have 114 rsIds remained after NCBI EUTIL EFETCH
+2015-02-17 11:56:47 INFO  InputDataProcess:262 - We might have lost 0 rsIDs after NCBI EUTIL
+2015-02-17 11:56:47 INFO  InputDataProcess:263 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:301 - ******************************************************************************
+2015-02-17 11:56:47 INFO  InputDataProcess:302 - Number of genomic loci is 114 in NCBI REMAP input file in sourceAssembly GRCh38
+2015-02-17 11:56:47 INFO  InputDataProcess:303 - ******************************************************************************
+2015-02-17 11:56:50 INFO  Remap:176 - NCBI REMAP Show Batches Exit status = 1
+2015-02-17 11:56:50 INFO  InputDataProcess:343 - ******************************************************************************
+2015-02-17 11:57:03 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13
+2015-02-17 11:57:03 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 114 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:57:03 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 114 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:57:03 WARN  Remap:493 - Number of unremapped lines is: 0
+2015-02-17 11:57:03 INFO  InputDataProcess:372 - ******************************************************************************
+2015-02-17 11:57:03 INFO  FileOperations:777 - ******************************************************************************
+2015-02-17 11:57:03 INFO  FileOperations:778 - Number of given input lines ready for GLANET execution: 114
+2015-02-17 11:57:03 INFO  FileOperations:779 - ******************************************************************************
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_rsIDs_NoMediation.txt\
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - dbSNP IDs
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_ENRICH
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_DNASE_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_HISTONE_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_TF_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - test
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 5000
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-17 11:57:03 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
+2015-02-17 11:57:22 INFO  GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly:60 - ******************************************************************************
+2015-02-17 11:57:46 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS
+2015-02-17 11:57:46 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 284 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:57:46 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 284 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-17 11:57:46 WARN  Remap:582 - Number of unremapped lines is: 0
+2015-02-17 11:57:46 INFO  GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly:90 - ******************************************************************************
+2015-02-17 11:59:50 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1210 - RSAT starts for TF
+2015-02-17 11:59:50 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 1 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr10_63373396_rs2393967
+2015-02-17 11:59:50 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 2 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr11_47291341_rs10838687
+2015-02-17 11:59:51 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:51 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815587:47291321-47291361 Homo sapiens chromosome 11, GRCh38 Primary Assembly	SNPReferenceSequence_chr11_47291341
+AAGTCAGTTCTTTAAATGCTTCTTCACTGGACTTGATTATA
+
+2015-02-17 11:59:51 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:51 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs10838687_G_chr11_47291341
+AAGTCAGTTCTTTAAATGCTGCTTCACTGGACTTGATTATA
+
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815587:47291003-47291362 Homo sapiens chromosome 11, GRCh38 Primary Assembly	TFExtendedPeakSequence_STAT1
+CACCCCCCACCCCGTATCTTAGATGAAGAATGGTAAGTTTTGTTTAGAGGGCCCAATGAGGCTTACTGCA
+GGGGGTGTGAGCTGTACTCCTGGCCCCTCCTTTTATTTACGTCTGCATTTCTTCACATAGTGGAGAGAAT
+TCCTGGAAGTGCTCAGGAAGTTTATAGATGCATTTTTGGGCTATAAAATTATGACATTTGTGTCTCTGAA
+GCCAGTGTCCTCCCATCCAACCATTATACTCCTCTGGAATGTGCTCCTCTGGGGCATGCCTGGCAACCCC
+ATTTCCCTGGGTTCTGGATCTTTGAGGTATAGGTTTCCAAGTCAGTTCTTTAAATGCTTCTTCACTGGAC
+TTGATTATAA
+
+2015-02-17 11:59:52 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 3 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr12_114656455_rs11067228
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:52 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:53 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:53 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656216-114656515 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_TBP
+TAACCCTTCTACGCCTCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTGCCAGCCCCCTGCTGCCCTGAC
+TGGCGTGAGCAACAGCAATAAATAAATAAGAACAGAGACAAGAAGCTTATGTACTTTGGAGCTCCTGGTT
+CTATTTGATGTCATTGGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTCTTTTGAACTGGGCTGCCGCAG
+TCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGGCACCAGCCTTCCTGTTTCAC
+TGTGGTGTGCCGACCAGGAA
+
+2015-02-17 11:59:53 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:53 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656398-114656627 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_HEY1
+CTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGGTGT
+CTGTGGGGCACCAGCCTTCCTGTTTCACTGTGGTGTGCCGACCAGGAAAGAAGCTGGCTGGCTGGGAGGT
+CTGGGGGTAGTTACCTTGTTTCTGGATATGCATGTGATTGTGTTCACTTTAGCAGATGGGATCTCAGACC
+CCACAAATAATCATAATAGC
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:54 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656209-114656488 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_SP1
+CAGAACTTAACCCTTCTACGCCTCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTGCCAGCCCCCTGCTG
+CCCTGACTGGCGTGAGCAACAGCAATAAATAAATAAGAACAGAGACAAGAAGCTTATGTACTTTGGAGCT
+CCTGGTTCTATTTGATGTCATTGGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTCTTTTGAACTGGGCT
+GCCGCAGTCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGGCACCAGCCTTCCT
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:55 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656187-114656477 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_FOXA1C20
+AAATGGCTTTGAGTCCTGACATCAGAACTTAACCCTTCTACGCCTCCGCTTCCTTATCTGGGCCCATGAG
+TAAGCCTGCCAGCCCCCTGCTGCCCTGACTGGCGTGAGCAACAGCAATAAATAAATAAGAACAGAGACAA
+GAAGCTTATGTACTTTGGAGCTCCTGGTTCTATTTGATGTCATTGGACACCAGTTTGCTTTTCTTTAAAG
+CCTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGGTG
+TCTGTGGGGCA
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:56 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:57 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:57 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:57 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:57 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656195-114656476 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_FOXA2SC6554
+TTGAGTCCTGACATCAGAACTTAACCCTTCTACGCCTCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTG
+CCAGCCCCCTGCTGCCCTGACTGGCGTGAGCAACAGCAATAAATAAATAAGAACAGAGACAAGAAGCTTA
+TGTACTTTGGAGCTCCTGGTTCTATTTGATGTCATTGGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTC
+TTTTGAACTGGGCTGCCGCAGTCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGG
+GC
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:58 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656154-114656499 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_P300
+TGTGTTTATGGAACATGGAGTTCTCTGGCCTTGAAATGGCTTTGAGTCCTGACATCAGAACTTAACCCTT
+CTACGCCTCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTGCCAGCCCCCTGCTGCCCTGACTGGCGTGA
+GCAACAGCAATAAATAAATAAGAACAGAGACAAGAAGCTTATGTACTTTGGAGCTCCTGGTTCTATTTGA
+TGTCATTGGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAA
+ATTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGGCACCAGCCTTCCTGTTTCACTGTG
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 11:59:59 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656087-114656633 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_TCF4
+CATCACTACATATGTTTTGATTCACACTCAACATTTTTGTGCTCCTTTTGGCTTGCCGGGTTGCCCTTGT
+GTTTATGGAACATGGAGTTCTCTGGCCTTGAAATGGCTTTGAGTCCTGACATCAGAACTTAACCCTTCTA
+CGCCTCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTGCCAGCCCCCTGCTGCCCTGACTGGCGTGAGCA
+ACAGCAATAAATAAATAAGAACAGAGACAAGAAGCTTATGTACTTTGGAGCTCCTGGTTCTATTTGATGT
+CATTGGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAAATT
+TTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGGCACCAGCCTTCCTGTTTCACTGTGGTGTGCC
+GACCAGGAAAGAAGCTGGCTGGCTGGGAGGTCTGGGGGTAGTTACCTTGTTTCTGGATATGCATGTGATT
+GTGTTCACTTTAGCAGATGGGATCTCAGACCCCACAAATAATCATAATAGCAGGCGT
+
+2015-02-17 12:00:00 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:00 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 12:00:00 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:00 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656231-114656480 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_HDAC2SC6296
+TCCGCTTCCTTATCTGGGCCCATGAGTAAGCCTGCCAGCCCCCTGCTGCCCTGACTGGCGTGAGCAACAG
+CAATAAATAAATAAGAACAGAGACAAGAAGCTTATGTACTTTGGAGCTCCTGGTTCTATTTGATGTCATT
+GGACACCAGTTTGCTTTTCTTTAAAGCCTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAAATTTTAA
+CGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGGCACCA
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656435-114656475 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_114656455
+TTTTAACGCATGGATTTCCCATTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:01 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs11067228_G_chr12_114656455
+TTTTAACGCATGGATTTCCCGTTGTTCGGGTGTCTGTGGGG
+
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:114656185-114656469 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_FOXA1SC101058
+TGAAATGGCTTTGAGTCCTGACATCAGAACTTAACCCTTCTACGCCTCCGCTTCCTTATCTGGGCCCATG
+AGTAAGCCTGCCAGCCCCCTGCTGCCCTGACTGGCGTGAGCAACAGCAATAAATAAATAAGAACAGAGAC
+AAGAAGCTTATGTACTTTGGAGCTCCTGGTTCTATTTGATGTCATTGGACACCAGTTTGCTTTTCTTTAA
+AGCCTGTTTCTTTTGAACTGGGCTGCCGCAGTCTATAAAATTTTAACGCATGGATTTCCCATTGTTCGGG
+TGTCT
+
+2015-02-17 12:00:02 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 4 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr12_121927677_rs7961894
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927657-121927697 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_121927677
+TTCTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:02 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs7961894_T_chr12_121927677
+TTCTTGCTGTCACACAAGGTTCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:03 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:03 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927519-121927738 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_NRSF
+GCTCCTGACCTCAGGTGATCCACCCACCTCAGCCTCCCAAAGTGTTGGAATTTCAGGCATGAGCCACCGT
+GCCCAGCCCACTTCCTCTTTTTAAATGTAACTGTTCCCCTTTCTGTGGCCATTTAGGTTGCTTCTAATTT
+CTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTCCATCTCTCCTGTGTCCACAGCATCCTCCTTT
+TCCTTTGGGG
+
+2015-02-17 12:00:03 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:03 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927657-121927697 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_121927677
+TTCTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs7961894_T_chr12_121927677
+TTCTTGCTGTCACACAAGGTTCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927501-121927736 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_BCL11A
+AGGCCAGGCTGGTCTCGAGCTCCTGACCTCAGGTGATCCACCCACCTCAGCCTCCCAAAGTGTTGGAATT
+TCAGGCATGAGCCACCGTGCCCAGCCCACTTCCTCTTTTTAAATGTAACTGTTCCCCTTTCTGTGGCCAT
+TTAGGTTGCTTCTAATTTCTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTCCATCTCTCCTGTG
+TCCACAGCATCCTCCTTTTCCTTTGG
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:04 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927657-121927697 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_121927677
+TTCTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs7961894_T_chr12_121927677
+TTCTTGCTGTCACACAAGGTTCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927473-121927742 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_IRF4
+TTTTTGTAGACACAGGGTTTCGCCATGTAGGCCAGGCTGGTCTCGAGCTCCTGACCTCAGGTGATCCACC
+CACCTCAGCCTCCCAAAGTGTTGGAATTTCAGGCATGAGCCACCGTGCCCAGCCCACTTCCTCTTTTTAA
+ATGTAACTGTTCCCCTTTCTGTGGCCATTTAGGTTGCTTCTAATTTCTTGCTGTCACACAAGGTCCTACA
+GTGAACGTGCTCCTCCATCTCTCCTGTGTCCACAGCATCCTCCTTTTCCTTTGGGGTCCT
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:05 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927657-121927697 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_121927677
+TTCTTGCTGTCACACAAGGTCCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:06 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:06 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs7961894_T_chr12_121927677
+TTCTTGCTGTCACACAAGGTTCTACAGTGAACGTGCTCCTC
+
+2015-02-17 12:00:06 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:06 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:121927510-121927689 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_SRF
+TGGTCTCGAGCTCCTGACCTCAGGTGATCCACCCACCTCAGCCTCCCAAAGTGTTGGAATTTCAGGCATG
+AGCCACCGTGCCCAGCCCACTTCCTCTTTTTAAATGTAACTGTTCCCCTTTCTGTGGCCATTTAGGTTGC
+TTCTAATTTCTTGCTGTCACACAAGGTCCTACAGTGAACG
+
+2015-02-17 12:00:06 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 5 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr12_56088396_rs2292239
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:56088376-56088416 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_56088396
+TGAAGAGACTTTTGAATCTATAGGGCAGCACTTAAGGGATC
+
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs2292239_G_chr12_56088396
+TGAAGAGACTTTTGAATCTAGAGGGCAGCACTTAAGGGATC
+
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:07 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:56088261-56088710 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_ZNF263
+GGGAGATTGGTGAATGGTTATGATCATCTAACCACTCCAGTGAGTGACCCTTACGTCCAGTCCTCCCATG
+ACTTCAGCTATCACCCTTACTTCTGCTCCTTGTAGCAACAAATAGTGAAGAGACTTTTGAATCTATAGGG
+CAGCACTTAAGGGATCTAGGGTGGCAGATGGGGACAAATCCAGTGCAGAGCTGGAGGGAGCCTAGGCCCA
+GAGCAAGGGTTCCATTGGTAGCTGGTGATGTTCCTCCCTCATCTCTAATGGTGTCCTCCTCCTCTTCCCT
+AGATAACTTTGTGGTGGATCAAACATCCTGTGTCAGGGCCTGTCCTCCTGACAAGATGGAAGTAGATAAA
+AATGGGCTCAAGATGTGTGAGCCTTGTGGGGGACTATGTCCCAAAGGTGGGTAGGAGATGGTAAGAAGTT
+GTAAAGAGACAGCCTTTCCTCTGAGCCTGC
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:56088376-56088416 Homo sapiens chromosome 12, GRCh38 Primary Assembly	SNPReferenceSequence_chr12_56088396
+TGAAGAGACTTTTGAATCTATAGGGCAGCACTTAAGGGATC
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs2292239_G_chr12_56088396
+TGAAGAGACTTTTGAATCTAGAGGGCAGCACTTAAGGGATC
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:08 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815586:56088299-56088518 Homo sapiens chromosome 12, GRCh38 Primary Assembly	TFExtendedPeakSequence_CTCF
+AGTGAGTGACCCTTACGTCCAGTCCTCCCATGACTTCAGCTATCACCCTTACTTCTGCTCCTTGTAGCAA
+CAAATAGTGAAGAGACTTTTGAATCTATAGGGCAGCACTTAAGGGATCTAGGGTGGCAGATGGGGACAAA
+TCCAGTGCAGAGCTGGAGGGAGCCTAGGCCCAGAGCAAGGGTTCCATTGGTAGCTGGTGATGTTCCTCCC
+TCATCTCTAA
+
+2015-02-17 12:00:08 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 6 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr16_50685192_rs9302752
+2015-02-17 12:00:08 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 7 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr17_42362183_rs744166
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815581:42362163-42362203 Homo sapiens chromosome 17, GRCh38 Primary Assembly	SNPReferenceSequence_chr17_42362183
+TGTTCTATAAATTACTGTCAAGCTCGATTCCCTCAAGACAT
+
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs744166_G_chr17_42362183
+TGTTCTATAAATTACTGTCAGGCTCGATTCCCTCAAGACAT
+
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:09 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815581:42361943-42362206 Homo sapiens chromosome 17, GRCh38 Primary Assembly	TFExtendedPeakSequence_MAX
+CATCCATCTTCTGTGACATTACAGAGCTACATGTGATGGGACTTGGTGACTGACTGAAGGGCAAAGGTGA
+CTCAGAGAAAGGGAGGAGTAAGTGACAACCTCCCAGGTTCCTGTGGCATTTGGTATTCAGATGGCGGTCA
+CATGCTCAGCATGGTAAATGTCATGGCAGGAGTGCCAACATTGAGAGGGCAATTGGGCCACACAGTCTCT
+AAAAACTGTTTGTTCTATAAATTACTGTCAAGCTCGATTCCCTCAAGACATTAC
+
+2015-02-17 12:00:10 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:10 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815581:42362163-42362203 Homo sapiens chromosome 17, GRCh38 Primary Assembly	SNPReferenceSequence_chr17_42362183
+TGTTCTATAAATTACTGTCAAGCTCGATTCCCTCAAGACAT
+
+2015-02-17 12:00:10 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:10 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs744166_G_chr17_42362183
+TGTTCTATAAATTACTGTCAGGCTCGATTCCCTCAAGACAT
+
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815581:42361959-42362202 Homo sapiens chromosome 17, GRCh38 Primary Assembly	TFExtendedPeakSequence_USF1
+CATTACAGAGCTACATGTGATGGGACTTGGTGACTGACTGAAGGGCAAAGGTGACTCAGAGAAAGGGAGG
+AGTAAGTGACAACCTCCCAGGTTCCTGTGGCATTTGGTATTCAGATGGCGGTCACATGCTCAGCATGGTA
+AATGTCATGGCAGGAGTGCCAACATTGAGAGGGCAATTGGGCCACACAGTCTCTAAAAACTGTTTGTTCT
+ATAAATTACTGTCAAGCTCGATTCCCTCAAGACA
+
+2015-02-17 12:00:11 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 8 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr1_162064100_rs12143842
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815597:162064080-162064120 Homo sapiens chromosome 1, GRCh38 Primary Assembly	SNPReferenceSequence_chr1_162064100
+CCCAGGGTCACATCCCAGTTCAAAAATATCCCATGGAGTGC
+
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:11 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs12143842_T_chr1_162064100
+CCCAGGGTCACATCCCAGTTTAAAAATATCCCATGGAGTGC
+
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815597:162064006-162064349 Homo sapiens chromosome 1, GRCh38 Primary Assembly	TFExtendedPeakSequence_GATA2
+TTCTCAATTGTAGCTTAAATAAAAAAGTATTCATTTTTTGGTGGTAATGGGGAGGTAATCTTTCTGAATT
+AGCACCCAGGGTCACATCCCAGTTCAAAAATATCCCATGGAGTGCAGTCATCTCAGCCAGCTGTTGAAGG
+CCTCTCTAGCTGTCTCCTGACTCTGTTCCCAGCCTTATCACTAATGGCTCTCCAATTGGAACTCTCCACC
+CTGTAAGCTTGTCCCCTGAGGACATTTTGCAGATTAATGTCTCTGTAGACCCTGACTCCATGTCTGCCCT
+CCTCCTGTGTTTTTAAAATCAAAATCCTTTCCCTTTTTTTTTTTTTTTTTTTTTGAGACAGAGT
+
+2015-02-17 12:00:12 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 9 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr20_23632100_rs911119
+2015-02-17 12:00:12 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 10 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr22_21628603_rs2298428
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628583-21628623 Homo sapiens chromosome 22, GRCh38 Primary Assembly	SNPReferenceSequence_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:12 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs2298428_T_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGTGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:13 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:13 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628558-21628690 Homo sapiens chromosome 22, GRCh38 Primary Assembly	TFExtendedPeakSequence_HEY1
+TGAGGACGCGCAGCTCATGCAGCCGCTCCCAAGAGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGCCGCC
+GGTGGGAGGCACACTGGGGTAGCCGGGGTGCGCCATCAGCTCGGCTGTCAGGGTGTGGCCCGC
+
+2015-02-17 12:00:13 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:13 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628583-21628623 Homo sapiens chromosome 22, GRCh38 Primary Assembly	SNPReferenceSequence_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs2298428_T_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGTGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628381-21630286 Homo sapiens chromosome 22, GRCh38 Primary Assembly	TFExtendedPeakSequence_MAX
+GTACTAAGGGGATTAGTGCTTGGTTGTCTGTAGGGGGTCAGAGTAGGGAGGGTTCCAGGAAGGGTTCCAG
+AGTGGGCTCACAGGGGACCTCCTCCCCTGGCCTCTTGGAGTCCAGGTCGTCGAGGGCGCAAAGCTGCACG
+CCATCCTGGGCAAGCTGGGCCCGCAGCGTGGGCGCGGTGAGGACGCGCAGCTCATGCAGCCGCTCCCAAG
+AGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGCCGCCGGTGGGAGGCACACTGGGGTAGCCGGGGTGCGC
+CATCAGCTCGGCTGTCAGGGTGTGGCCCGCTAGGGTACCTTCCAGGACCCGCGCCAGGGCCCCGGACACG
+CGGTGAGCGGACATGTGCCGGCCGCAAGTGCTCAGGCCCACGAAGGCGTCTGTCCACCTGTGGGGGGCGG
+GACATCAGAGGTGGGACCAGGCCGGGCCATGGCCAAGGGCTAGGTAGGCTAGGGAAGGGACGGCGGGGTG
+GGAGGGGGTAACTGGGGTGGCGGCAGCGGTCGACGCCAGACTCGCTTCCGGGTTGAGAAACGGACACAGC
+TAGCCAGGTGAACAGCCAGTGCGGAGGGACAGAGGCAGCTATGGTAGGAGACGGGGCGGGGAGCCTCACC
+GCAGGCCGTGGCGGGAGAAGGGGCCCACGGCGGCCCGGGCGTCGCGCTCCACGGCGCAGGCGAAGGCACG
+CGCGGGGGCCTCCAGCCAAGTGCAGCCACCCACACCGCGCTCCAGCGGCAGTCGCGTAAAGCGCACCCCA
+TAGGCCTGCAGCGCCTCGGCGAACACCTGGCACACGCCTGCGGGCGGAGCGGGTCAGGGAGGAGCACGTC
+CTTTCACCTGGGGGCATCGAACTTCCCCTACTCCCCCAGCCCCGCCTGGGAGTAACGCCCTCCAAACTGG
+GATCACTAACCACGCACCTGGGAGCACGTGCACGTGCTGGTGCCCGTCCGCGTGCGTGGGGGCCCTGCCC
+AGCAGCTCCCGGAAGCAGCTTAGTTGGGCCTCGAGCTCCTCCCGCACCTAGAGGGCGAGCGAGAGACACC
+TTGAGCGACCGGGAGTAGCTGCCGAGGATACCCTCCTCGTGCTTCCGTGTGATGGCTCCAGTGTTTGAAT
+GCGGAAGTCATCCACCGCCAGCTCCTAACGGCCTCACAGTACCCTCCGGGCGGAGCTCTGGGGGTCCTCG
+CGAGCATCCTCCTGTAGCTGCGGCTCCGCACCTGAGGCAAATCCACGTCTCCGGCCGCCACCGCCTCCCG
+GAATCCCATCTTGCCAAGGAAGAAGCCTTCCGGGCCGAGCAGCGATGAGGCGCCACGGCGGGCCGGACCC
+ACGGGGCGGCCCTCGGACAGGTTGGCGTGGAGGCCCGTGGGGATGCTGTGCCTGAGGGCGGAGCGCGAGC
+TGGAGCACTAGCGGCCGCGGAGCCGCGCGCCCCAAGCCGATCGCCGCCCTGCTAGAGGCCCTCCCCTCAC
+CTGCGGGCCAGCTCCGCCGCGCTCTCCGTGGCCGCACCGTTGACCAGCAGGGACACGCTGGTCACAGCCC
+CGGCCAGAAAGGCCTCCACGATACCCTCATCGCGTCGCGGGCAGTAACCAAAGTCGTCCGCGGTGACCAC
+CAGGCGCATGCGAGGGCGGGACATGGCCGCCTGGGTCCACCGCTCGCGCTCCCAGGGGAGTGGGCCGGAC
+AGCCCAGGCCCCGCCCCCGGACGCTGCCCGGGCCCCGCCCCGACGCACACGCCCAGGTGCGGCTGCACTT
+CGCCTTTGTTCTCGCCACCTAGCGGTCCGGCGTGCCCCTGCAAGGACCCGGCAACTGCTCCCGCGCTAAC
+CAGACCAGTGATGGATTCATTGCAATGCGGAACTTTCCTTGACTGCAAAAGTGATATTTAATATGTAAAA
+TATCAAAAGGAAGCCG
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:14 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628583-21628623 Homo sapiens chromosome 22, GRCh38 Primary Assembly	SNPReferenceSequence_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs2298428_T_chr22_21628603
+CTCCCAAGAGCAAGAGAAAGTGTCGGGGCCTTCACCGCAGC
+
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815576:21628586-21628842 Homo sapiens chromosome 22, GRCh38 Primary Assembly	TFExtendedPeakSequence_SIN3AK20
+CCAAGAGCAAGAGAAAGCGTCGGGGCCTTCACCGCAGCCGCCGGTGGGAGGCACACTGGGGTAGCCGGGG
+TGCGCCATCAGCTCGGCTGTCAGGGTGTGGCCCGCTAGGGTACCTTCCAGGACCCGCGCCAGGGCCCCGG
+ACACGCGGTGAGCGGACATGTGCCGGCCGCAAGTGCTCAGGCCCACGAAGGCGTCTGTCCACCTGTGGGG
+GGCGGGACATCAGAGGTGGGACCAGGCCGGGCCATGGCCAAGGGCTA
+
+2015-02-17 12:00:15 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 11 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr2_60490908_rs1427407
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:15 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815596:60490888-60490928 Homo sapiens chromosome 2, GRCh38 Primary Assembly	SNPReferenceSequence_chr2_60490908
+CTTCTTAGCACCCACAAACATTTCCCTTCTGATATCTACTT
+
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs1427407_G_chr2_60490908
+CTTCTTAGCACCCACAAACAGTTCCCTTCTGATATCTACTT
+
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815596:60490838-60491168 Homo sapiens chromosome 2, GRCh38 Primary Assembly	TFExtendedPeakSequence_GATA1
+GGGAAGTTATTTTTCCAAATATCATTTCTGTTCAAAATGGTAATTTTAACCTTCTTAGCACCCACAAACA
+TTTCCCTTCTGATATCTACTTGAACTTTCAGATAAAAAAAAAAAAGCAAGTTGCAGTAACATGTTATGCT
+ACACAAAGATTAGCATGAATATCCACCCTCTTTAAACAGCCACCCCACACCCTGGAGAAGAGCAAATGTG
+AAGTTTATGTGCCAACCAGACTGTGCGCCAGGTTGGTAAAGTCTGACAGAGTTACCAAAAAATGACAACA
+TCTTCTATATGTGAAGCCCAACTACGTGGTTGTGCAACTCTATAGCTGACT
+
+2015-02-17 12:00:16 INFO  RegulatorySequenceAnalysisUsingRSATMatrixScan:1092 - RSAT MatrixScan 12 for C:\Users\Burçak\Google Drive\Output\test\RegulatorySequenceAnalysis\forRSA\SNPs\chr3_141386728_rs724016
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:16 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815595:141386708-141386748 Homo sapiens chromosome 3, GRCh38 Primary Assembly	SNPReferenceSequence_chr3_141386728
+TCTCAGAAGCAGAAGGACACATTCATTGTGGAGCAGCTCTG
+
+2015-02-17 12:00:17 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:17 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs724016_G_chr3_141386728
+TCTCAGAAGCAGAAGGACACGTTCATTGTGGAGCAGCTCTG
+
+2015-02-17 12:00:17 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:17 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815595:141386712-141386973 Homo sapiens chromosome 3, GRCh38 Primary Assembly	TFExtendedPeakSequence_CEBPB
+AGAAGCAGAAGGACACATTCATTGTGGAGCAGCTCTGCTTAAGTGTATGAAATGCCTTCTGTCTGGTTGC
+AGAATTTGGAGTTTACTAAACAGTGTTTAGTGATTGGGCTCATCTTGCATCACCAGTTGATGACATTTTT
+CTTTGTTCCCTCCTACCCAGTTGAACCAAGACTCTGAGGCTGATATGCAATGTCACTTACAACATTAATC
+AGATACTGCATTTAAGGTGAGCTGTCCCTTGCCTCCTCCTTCCCCAGTGCTC
+
+2015-02-17 12:00:18 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:18 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >gi|568815595:141386708-141386748 Homo sapiens chromosome 3, GRCh38 Primary Assembly	SNPReferenceSequence_chr3_141386728
+TCTCAGAAGCAGAAGGACACATTCATTGTGGAGCAGCTCTG
+
+2015-02-17 12:00:18 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:658 - Error
+	Organism Homo_sapiens_GRCh38 is not supported.
+Use the command supported-organisms for a list of supported organisms
+
+2015-02-17 12:00:18 ERROR RegulatorySequenceAnalysisUsingRSATMatrixScan:659 - >SNPAlteredSequence_rs724016_G_chr3_141386728
+TCTCAGAAGCAGAAGGACACGTTCATTGTGGAGCAGCTCTG
+

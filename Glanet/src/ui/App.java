@@ -234,11 +234,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap))
 			return false;
 
-		// parsing Dnase Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_DNASE_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.DnaseAnnotation.value()] = Commons.DO_DNASE_ENRICHMENT;
+
+		//parsing Dnase Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_DNASE_ANNOTATION)){
+				if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.DnaseAnnotation.value()] = Commons.DO_DNASE_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -248,11 +250,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.DnaseAnnotation))
 			return false;
 
-		// parsing Histone Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_HISTONE_ANNOTATIONS))
-				if (argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.HistoneAnnotation.value()] = Commons.DO_HISTONE_ENRICHMENT;
+
+		//parsing Histone Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_HISTONE_ANNOTATIONS))
+				if( argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.HistoneAnnotation.value()] = Commons.DO_HISTONE_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -261,11 +265,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.HistoneAnnotation))
 			return false;
 
-		// parsing Transcription Factor(TF) Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_TF_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.TfAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.TfAnnotation.value()] = Commons.DO_TF_ENRICHMENT;
+
+		//parsing Transcription Factor(TF) Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_TF_ANNOTATION)) {
+				if( argsInOrder[CommandLineArguments.TfAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.TfAnnotation.value()] = Commons.DO_TF_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -275,11 +281,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.TfAnnotation))
 			return false;
 
-		// parsing KEGG Pathway Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_KEGG_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()] = Commons.DO_KEGGPATHWAY_ENRICHMENT;
+
+		//parsing KEGG Pathway Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_KEGG_ANNOTATION)) {
+				if( argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()] = Commons.DO_KEGGPATHWAY_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -289,11 +297,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.KeggPathwayAnnotation))
 			return false;
 
-		// parsing TF and KEGG Pathway Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_TF_AND_KEGG_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = Commons.DO_TF_KEGGPATHWAY_ENRICHMENT;
+
+		//parsing TF and KEGG Pathway Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_TF_AND_KEGG_ANNOTATION)){
+				if( argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = Commons.DO_TF_KEGGPATHWAY_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -303,11 +313,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.TfAndKeggPathwayAnnotation))
 			return false;
 
-		// parsing TF and CellLine and KeggPathway Annotation
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_CELL_TF_AND_KEGG_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT;
+
+		//parsing TF and CellLine and KeggPathway Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_CELL_TF_AND_KEGG_ANNOTATION)){
+				if( argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -317,11 +329,13 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation))
 			return false;
 
-		// parsing user defined geneset
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_GENESET_ANNOTATION)) {
-				if (argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()] = Commons.DO_USER_DEFINED_GENESET_ENRICHMENT;
+
+		//parsing user defined geneset
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_GENESET_ANNOTATION)) {
+				if( argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()] = Commons.DO_USER_DEFINED_GENESET_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -341,12 +355,18 @@ public class App {
 				}
 			}
 
-		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.UserDefinedGeneSetInput) && argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT)) {
+
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedGeneSetInput) && 
+				argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ANNOTATION)){
+
 
 			// System.out.println( CommandLineArguments.UserDefinedGeneSetInput
 			// + " not specified, exiting...");
 			return false;
-		} else if (argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) && argsInOrder[CommandLineArguments.UserDefinedGeneSetInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED)) {
+		}
+		else if( argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ANNOTATION) &&
+				argsInOrder[CommandLineArguments.UserDefinedGeneSetInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED)) {
+
 
 			System.out.println(CommandLineArguments.UserDefinedGeneSetInput + " not specified, exiting...");
 			return false;
@@ -403,11 +423,12 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.UserDefinedGeneSetDescriptionFile))
 			return false;
 
-		// parsing user defined library
-		for (int i = 0; i < args.length; i++)
-			if (args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION))
-				if (argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equals(notSet))
-					argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()] = Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
+		//parsing user defined library
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_USER_DEFINED_LIBRARY_ANNOTATION))
+				if( argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()] = Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION;
+
 				else {
 					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -425,12 +446,19 @@ public class App {
 					return false;
 				}
 
-		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.UserDefinedLibraryInput) && argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT)) {
+
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedLibraryInput) && 
+				argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)){
+
 
 			// System.out.println( CommandLineArguments.UserDefinedLibraryInput
 			// + " not specified, exiting...");
 			return false;
-		} else if (argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT) && argsInOrder[CommandLineArguments.UserDefinedLibraryInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED)) {
+
+		}
+		else if( argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION) &&
+				argsInOrder[CommandLineArguments.UserDefinedLibraryInput.value()].equalsIgnoreCase(Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED)) {
+
 
 			System.out.println(CommandLineArguments.UserDefinedLibraryInput + " not specified, exiting...");
 			return false;
@@ -473,8 +501,16 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.UserDefinedLibraryDataFormat))
 			return false;
 
-		// parsing perform enrichment check
-		if (argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase(Commons.DO_DNASE_ENRICHMENT) || argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase(Commons.DO_HISTONE_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ENRICHMENT) || argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ENRICHMENT) || argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ENRICHMENT)) {
+		//parsing perform enrichment check
+		if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase( Commons.DO_DNASE_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase( Commons.DO_HISTONE_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_KEGGPATHWAY_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_KEGGPATHWAY_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase( Commons.DO_USER_DEFINED_GENESET_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase( Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)) {
+
 
 			for (int i = 0; i < args.length; i++)
 				if (args[i].equalsIgnoreCase(Commons.ARG_PERFORM_ENRICHMENT))
@@ -591,7 +627,10 @@ public class App {
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.NumberOfPermutationsInEachRun))
 			return false;
 
-		if (argsInOrder[CommandLineArguments.TfAnnotation.value()].equals(Commons.DO_TF_ENRICHMENT) || argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT) || argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)) {
+		if( argsInOrder[CommandLineArguments.TfAnnotation.value()].equals( Commons.DO_TF_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) ||
+				argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equals(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)) {
+
 
 			// parsing RSAT option
 			for (int i = 0; i < args.length; i++)

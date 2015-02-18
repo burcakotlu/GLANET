@@ -97,12 +97,15 @@ public class GlanetRunner implements Runnable {
 		/******************************************************************************/
 		/************* Regulatory Sequence Analysis starts ****************************/
 		/******************************************************************************/
-		if ((getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ENRICHMENT)
-			 || getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ENRICHMENT)
-			 || getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT)
-			 ) && getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
-			
-			setCurrentProcessInfo("For Regulatory Sequence Analysis...");
+
+		if (	(	getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) ||
+					getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION)	||
+					getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)
+				)	&&
+					getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+			if (getMainView() != null)
+				getMainView().setCurrentProcessInfo("For Regulatory Sequence Analysis...");
+
 
 			/*********** Check whether given input data is snps or not starts **************/
 			setCurrentProcessInfo("Check whether given input data is comprised of SNPs before Regulatory Sequence Analysis...");

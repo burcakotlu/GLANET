@@ -168,26 +168,33 @@ public class Commons {
 	public static final String THREE_P_TWO = "3P2";
 	public static final String THREE_D = "3D";
 
-	// EnumType Enrichment Type
-	public static final String DO_DNASE_ENRICHMENT = "DO_DNASE_ENRICHMENT";
-	public static final String DO_NOT_DNASE_ENRICHMENT = "DO_NOT_DNASE_ENRICHMENT";
-	public static final String DO_HISTONE_ENRICHMENT = "DO_HISTONE_ENRICHMENT";
-	public static final String DO_NOT_HISTONE_ENRICHMENT = "DO_NOT_HISTONE_ENRICHMENT";
-	public static final String DO_TF_ENRICHMENT = "DO_TF_ENRICHMENT";
-	public static final String DO_NOT_TF_ENRICHMENT = "DO_NOT_TF_ENRICHMENT";
+	//old  EnumType Enrichment Type to be deleted
+	//new EnumType Annotation Type
+	public static final String DO_DNASE_ANNOTATION = "DO_DNASE_ANNOTATION";
+	public static final String DO_NOT_DNASE_ANNOTATION = "DO_NOT_DNASE_ANNOTATION";
+	
+	public static final String DO_HISTONE_ANNOTATION = "DO_HISTONE_ANNOTATION";
+	public static final String DO_NOT_HISTONE_ANNOTATION = "DO_NOT_HISTONE_ANNOTATION";
+	
+	public static final String DO_TF_ANNOTATION = "DO_TF_ANNOTATION";
+	public static final String DO_NOT_TF_ANNOTATION = "DO_NOT_TF_ANNOTATION";
 
-	public static final String DO_KEGGPATHWAY_ENRICHMENT = "DO_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_KEGGPATHWAY_ENRICHMENT = "DO_NOT_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_TF_KEGGPATHWAY_ENRICHMENT = "DO_TF_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_KEGGPATHWAY_ENRICHMENT = "DO_NOT_TF_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT = "DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT = "DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
-	public static final String DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT = "DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT";
+	public static final String DO_KEGGPATHWAY_ANNOTATION = "DO_KEGGPATHWAY_ANNOTATION";
+	public static final String DO_NOT_KEGGPATHWAY_ANNOTATION = "DO_NOT_KEGGPATHWAY_ANNOTATION";
+	
+	public static final String DO_TF_KEGGPATHWAY_ANNOTATION = "DO_TF_KEGGPATHWAY_ANNOTATION";
+	public static final String DO_NOT_TF_KEGGPATHWAY_ANNOTATION = "DO_NOT_TF_KEGGPATHWAY_ANNOTATION";
+	
+	public static final String DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION = "DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION";
+	public static final String DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION = "DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION";
+	
+	public static final String DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION = "DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION";
 
-	public static final String DO_USER_DEFINED_GENESET_ENRICHMENT = "DO_USER_DEFINED_GENESET_ENRICHMENT";
-	public static final String DO_NOT_USER_DEFINED_GENESET_ENRICHMENT = "DO_NOT_USER_DEFINED_GENESET_ENRICHMENT";
-	public static final String DO_USER_DEFINED_LIBRARY_ENRICHMENT = "DO_USER_DEFINED_LIBRARY_ENRICHMENT";
-	public static final String DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT = "DO_NOT_USER_DEFINED_LIBRARY_ENRICHMENT";
+	public static final String DO_USER_DEFINED_GENESET_ANNOTATION = "DO_USER_DEFINED_GENESET_ANNOTATION";
+	public static final String DO_NOT_USER_DEFINED_GENESET_ANNOTATION = "DO_NOT_USER_DEFINED_GENESET_ANNOTATION";
+	
+	public static final String DO_USER_DEFINED_LIBRARY_ANNOTATION = "DO_USER_DEFINED_LIBRARY_ANNOTATION";
+	public static final String DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION = "DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION";
 
 	// EnumType ChromosomeName
 	public static final String CHROMOSOME1 = "chr1";
@@ -400,6 +407,7 @@ public class Commons {
 
 	public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
 	public static final String RSAT_ORGANISM_Homo_sapiens_GRCh37 = "Homo_sapiens_GRCh37";
+	public static final String RSAT_ORGANISM_Homo_sapiens_GRCh38 = "Homo_sapiens_GRCh38";
 	
 	public static final String RSAT_BACKGROUND_upstream_noorf = "upstream-noorf";
 	public static final String RSAT_tmp_background_infile = "/home/rsat/rsat/public_html/data/genomes/Homo_sapiens_ensembl_74_GRCh37/oligo-frequencies/1nt_upstream-noorf_Homo_sapiens_ensembl_74_GRCh37-ovlp-1str.freq.gz";
@@ -931,6 +939,8 @@ public class Commons {
 	public static final String EMPTY_STRING = "";
 
 	// Enrichment parameter
+	//Enumtypes
+	//Enrichment
 	public static final String DO_ENRICH = "DO_ENRICH";
 	public static final String DO_NOT_ENRICH = "DO_NOT_ENRICH";
 

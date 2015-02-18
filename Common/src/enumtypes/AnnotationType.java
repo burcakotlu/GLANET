@@ -12,15 +12,41 @@ import common.Commons;
  */
 public enum AnnotationType {
 	
-	DNASE_ANNOTATION(1),
-	TF_ANNOTATION(2),
-	HISTONE_ANNOTATION(3),
-	USER_DEFINED_GENE_SET_ANNOTATION(4),
-	USER_DEFINED_LIBRARY_ANNOTATION(5),
-	KEGG_PATHWAY_ANNOTATION(6),
-	TF_KEGG_PATHWAY_ANNOTATION(7),
-	TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(8),
-	BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(9);
+	DO_DNASE_ANNOTATION(1),
+	DO_NOT_DNASE_ANNOTATION(2),
+	
+	DO_TF_ANNOTATION(3),
+	DO_NOT_TF_ANNOTATION(4),
+	
+	DO_HISTONE_ANNOTATION(5),
+	DO_NOT_HISTONE_ANNOTATION(6),
+	
+	DO_KEGGPATHWAY_ANNOTATION(7),
+	DO_NOT_KEGGPATHWAY_ANNOTATION(8),
+	
+	DO_TF_KEGGPATHWAY_ANNOTATION(9),
+	DO_NOT_TF_KEGGPATHWAY_ANNOTATION(10),
+	
+	DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(11),
+	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(12),
+	
+	DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(13),
+	
+	DO_USER_DEFINED_GENESET_ANNOTATION(14),
+	DO_NOT_USER_DEFINED_GENESET_ANNOTATION(15),
+
+	DO_USER_DEFINED_LIBRARY_ANNOTATION(16),
+	DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION(17);
+	
+//	DNASE_ANNOTATION(18),
+//	TF_ANNOTATION(19),
+//	HISTONE_ANNOTATION(20),
+//	USER_DEFINED_GENE_SET_ANNOTATION(21),
+//	USER_DEFINED_LIBRARY_ANNOTATION(22),
+//	KEGG_PATHWAY_ANNOTATION(23),
+//	TF_KEGG_PATHWAY_ANNOTATION(24),
+//	TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(25),
+//	BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION(26);
 	
 	private final int annotationType;
 	
@@ -42,92 +68,135 @@ public enum AnnotationType {
     
     public static AnnotationType convertStringtoEnum(String annotationType){
     	
-    	if (Commons.DNASE_ANNOTATION.equals(annotationType)){
-    		return DNASE_ANNOTATION;
-    	}else if  (Commons.HISTONE_ANNOTATION.equals(annotationType)){
-    		return HISTONE_ANNOTATION;
-    	}else if  (Commons.TF_ANNOTATION.equals(annotationType)){
-    		return TF_ANNOTATION;
-    	}else if (Commons.USER_DEFINED_GENE_SET_ANNOTATION.equals(annotationType)){
-    		return USER_DEFINED_GENE_SET_ANNOTATION;
-    	}else if (Commons.USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
-    		return USER_DEFINED_LIBRARY_ANNOTATION;
-    	}else if  (Commons.KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
-    		return KEGG_PATHWAY_ANNOTATION; 		
-    	}else if  (Commons.TF_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
-    		return TF_KEGG_PATHWAY_ANNOTATION;
-    	}else if  (Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
-    		return TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;
-    	}else if (Commons.BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION.equals(annotationType)){
-    		return BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;
+    	if (Commons.DO_DNASE_ANNOTATION.equals(annotationType)){
+    		return DO_DNASE_ANNOTATION;
+    	}else if  (Commons.DO_NOT_DNASE_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_DNASE_ANNOTATION;
+    	}else if  (Commons.DO_TF_ANNOTATION.equals(annotationType)){
+    		return DO_TF_ANNOTATION;
+    	}else if  (Commons.DO_NOT_TF_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_TF_ANNOTATION; 		
+    	}else if  (Commons.DO_HISTONE_ANNOTATION.equals(annotationType)){
+    		return DO_HISTONE_ANNOTATION;
+    	}else if  (Commons.DO_NOT_HISTONE_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_HISTONE_ANNOTATION;
+    	}else if  (Commons.DO_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_KEGGPATHWAY_ANNOTATION;
+    	}else if  (Commons.DO_NOT_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_KEGGPATHWAY_ANNOTATION;
+    	}else if  (Commons.DO_TF_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_TF_KEGGPATHWAY_ANNOTATION;
+    	}else if  (Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
+    	}else if  (Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	}else if  (Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	}else if (Commons.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+    		return DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	}else if (Commons.DO_USER_DEFINED_GENESET_ANNOTATION.equals(annotationType)){
+    		return DO_USER_DEFINED_GENESET_ANNOTATION;	
+    	}else if (Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_USER_DEFINED_GENESET_ANNOTATION;	
+    	}else if (Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
+    		return DO_USER_DEFINED_LIBRARY_ANNOTATION;	
+    	}else if (Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
+    		return DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION;	
     	}else     	
     		return null;
+    	
+
+    	
     }
     
     public String convertEnumtoString(){
-    	if (this.equals(AnnotationType.DNASE_ANNOTATION))
-    		return Commons.DNASE_ANNOTATION;
-    	else if (this.equals(AnnotationType.HISTONE_ANNOTATION))	
-    		return Commons.HISTONE_ANNOTATION; 	
-    	else if (this.equals(AnnotationType.TF_ANNOTATION))
-    		return Commons.TF_ANNOTATION;
-    	else if (this.equals(AnnotationType.USER_DEFINED_GENE_SET_ANNOTATION))
-    		return Commons.USER_DEFINED_GENE_SET_ANNOTATION;
-    	else if (this.equals(AnnotationType.USER_DEFINED_LIBRARY_ANNOTATION))
-    		return Commons.USER_DEFINED_LIBRARY_ANNOTATION;
-    	else if (this.equals(AnnotationType.KEGG_PATHWAY_ANNOTATION))
-    		return Commons.KEGG_PATHWAY_ANNOTATION;    	
-    	else if (this.equals(AnnotationType.TF_KEGG_PATHWAY_ANNOTATION))
-    		return Commons.TF_KEGG_PATHWAY_ANNOTATION;
-    	else if (this.equals(AnnotationType.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION))
-    		return Commons.TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;  	
-    	else if (this.equals(AnnotationType.BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION))
-    		return Commons.BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;
-    	else
-    		return null;   		
+    	
+    	if (this.equals(AnnotationType.DO_DNASE_ANNOTATION))
+    		return Commons.DO_DNASE_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_DNASE_ANNOTATION))
+    		return Commons.DO_NOT_DNASE_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_HISTONE_ANNOTATION))
+    		return Commons.DO_HISTONE_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_HISTONE_ANNOTATION))
+    		return Commons.DO_NOT_HISTONE_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_TF_ANNOTATION))
+    		return Commons.DO_TF_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_TF_ANNOTATION))
+    		return Commons.DO_NOT_TF_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_KEGGPATHWAY_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_NOT_KEGGPATHWAY_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_TF_KEGGPATHWAY_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_TF_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+    		return Commons.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+    	
+    	else if (this.equals(AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION))
+    		return Commons.DO_USER_DEFINED_GENESET_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_USER_DEFINED_GENESET_ANNOTATION))
+    		return Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION;
+    		
+    	else if (this.equals(AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION))
+    		return Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION;
+    	else if (this.equals(AnnotationType.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION))
+    		return Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION;
+    	else 
+    		return null;
+    	  	
+    	
     }
     
-    /** An added method.  */
-    public boolean isDnaseAnnotation() {
-        return  this == DNASE_ANNOTATION;
-    }
-	
-    /** An added method.  */
-    public boolean isHistoneAnnotation() {
-        return  this == HISTONE_ANNOTATION;
+    /*************************************************************/
+    public boolean doDnaseAnnotation() {
+    	return this == DO_DNASE_ANNOTATION;
     }
     
-    /** An added method.  */
-    public boolean isTfAnnotation() {
-        return  this == TF_ANNOTATION;
+    public boolean doTFAnnotation() {
+    	return this == DO_TF_ANNOTATION;
     }
     
-    public boolean isUserDefinedGeneSetAnnotation(){
-    	return  this == USER_DEFINED_GENE_SET_ANNOTATION;
+    public boolean doHistoneAnnotation() {
+    	return this == DO_HISTONE_ANNOTATION;
     }
     
-    
-    public boolean isUserDefinedLibraryAnnotation(){
-    	return  this == USER_DEFINED_LIBRARY_ANNOTATION;
+    public boolean doKEGGPathwayAnnotation() {
+    	return this == DO_KEGGPATHWAY_ANNOTATION;
     }
     
-    /** An added method.  */
-    public boolean isKeggPathwayAnnotation() {
-        return  this == KEGG_PATHWAY_ANNOTATION;
+    public boolean doTFKEGGPathwayAnnotation() {
+    	return this == DO_TF_KEGGPATHWAY_ANNOTATION;
     }
     
-    /** An added method.  */
-    public boolean isTfKeggPathwayAnnotation() {
-        return  this == TF_KEGG_PATHWAY_ANNOTATION;
+    public boolean doTFCellLineKEGGPathwayAnnotation() {
+    	return this == DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
     }
     
-    /** An added method.  */
-    public boolean isTfCellLineKeggPathwayAnnotation() {
-        return  this == TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;
+    public boolean doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation(){
+    	return this == DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;	
     }
-	    
-    /** An added method.  */
-    public boolean isBothTfKeggPathwayAndTfCellLineKeggPathwayAnnotation() {
-        return  this == BOTH_TF_KEGG_PATHWAY_AND_TF_CELLLINE_KEGG_PATHWAY_ANNOTATION;
+    
+    public boolean doUserDefinedGeneSetAnnotation() {
+    	return this == DO_USER_DEFINED_GENESET_ANNOTATION;
     }
+    
+    public boolean doUserDefinedLibraryAnnotation() {
+    	return this == DO_USER_DEFINED_LIBRARY_ANNOTATION;
+    }
+    /*************************************************************/
+    
+    
+
 }
