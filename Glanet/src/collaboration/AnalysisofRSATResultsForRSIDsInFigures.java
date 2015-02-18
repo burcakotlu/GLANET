@@ -144,10 +144,7 @@ public class AnalysisofRSATResultsForRSIDsInFigures {
 			}// End of while
 
 			bufferedWriter.close();
-			fileWriter.close();
-
 			bufferedReader.close();
-			fileReader.close();
 
 			System.out.println("how many of these rsIDs are common between rsIDs in RSAT results and Chen Yao's rsIDList in figures: " + commonRSIDList.size());
 			System.out.println("they are:");

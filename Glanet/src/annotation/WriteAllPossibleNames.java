@@ -92,7 +92,6 @@ public class WriteAllPossibleNames {
 			}
 
 			bufferedWriter.close();
-			fileWriter.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -116,7 +115,6 @@ public class WriteAllPossibleNames {
 			}
 
 			bufferedWriter.close();
-			fileWriter.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -140,7 +138,6 @@ public class WriteAllPossibleNames {
 			}
 
 			bufferedWriter.close();
-			fileWriter.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -167,7 +164,6 @@ public class WriteAllPossibleNames {
 			}
 
 			bufferedWriter.close();
-			fileWriter.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

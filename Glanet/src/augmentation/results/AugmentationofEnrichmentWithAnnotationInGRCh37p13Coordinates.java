@@ -379,7 +379,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 			// Close bufferedReader and bufferedWriter
 			bufferedReader.close();
 			bufferedWriter.close();
-			userDefinedLibraryAnnotationBufferedReader.close();
+			if( userDefinedLibraryAnnotationBufferedReader != null)
+				userDefinedLibraryAnnotationBufferedReader.close();
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
