@@ -18,7 +18,9 @@ import java.util.Locale;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;

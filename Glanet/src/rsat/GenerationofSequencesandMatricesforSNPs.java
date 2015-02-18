@@ -27,7 +27,9 @@ import jaxbxjctool.RsInformation;
 import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;

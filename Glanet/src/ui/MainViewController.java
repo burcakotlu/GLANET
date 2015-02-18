@@ -3,7 +3,9 @@ package ui;
 import javax.swing.JPanel;
 
 import ui.MainView.MainViewDelegate;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 public class MainViewController extends ViewController implements MainViewDelegate {

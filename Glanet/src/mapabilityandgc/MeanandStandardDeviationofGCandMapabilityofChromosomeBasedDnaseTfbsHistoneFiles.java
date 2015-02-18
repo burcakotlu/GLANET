@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;

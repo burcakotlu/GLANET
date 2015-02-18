@@ -1,5 +1,8 @@
 package giveninputdata;
 
+import enumtypes.Assembly;
+import enumtypes.CommandLineArguments;
+import enumtypes.GivenIntervalsInputFileDataFormat;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -26,10 +29,8 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
-import enumtypes.Assembly;
-import enumtypes.CommandLineArguments;
-import enumtypes.GivenIntervalsInputFileDataFormat;
 
 /**
  * @author burcakotlu

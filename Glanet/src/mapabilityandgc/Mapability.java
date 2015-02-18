@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enrichment.MapabilityFloatArray;

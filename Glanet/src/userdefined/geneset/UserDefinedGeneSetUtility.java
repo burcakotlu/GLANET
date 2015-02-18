@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.Commons;
-
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
+import common.Commons;
 
 /**
  * 

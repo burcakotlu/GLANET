@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 

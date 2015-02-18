@@ -16,7 +16,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;

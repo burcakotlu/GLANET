@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
-import common.Commons;
 import RSATWS.GetResultRequest;
 import RSATWS.GetResultResponse;
 import RSATWS.MatrixScanRequest;
@@ -16,6 +15,8 @@ import RSATWS.MonitorRequest;
 import RSATWS.MonitorResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
+
+import common.Commons;
 
 /**
  * @author Bur�ak Otlu

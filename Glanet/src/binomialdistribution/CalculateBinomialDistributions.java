@@ -32,7 +32,9 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.commons.math3.util.FastMath;
 
 import auxiliary.GlanetDecimalFormat;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 public class CalculateBinomialDistributions {

@@ -23,7 +23,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
