@@ -1,4 +1,3 @@
-
 /**
  * @author burcakotlu
  * @date Apr 3, 2014 
@@ -139,7 +138,7 @@ public class AugmentationofGivenRsIdwithInformation {
 	 * @param commaSeparatedRsIdList
 	 * @return
 	 */
-	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList,NCBIEutilStatistics ncbiEutilStatistics) {
+	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList, NCBIEutilStatistics ncbiEutilStatistics) {
 
 		RsInformation rsInformation;
 		int numberofBasesInTheSNPAtMost = Integer.MIN_VALUE;
@@ -156,8 +155,8 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		XMLEventReader reader = null;
 		Rs rs = null;
-		
-//		Field f;
+
+		// Field f;
 
 		try {
 
@@ -169,36 +168,25 @@ public class AugmentationofGivenRsIdwithInformation {
 			// StreamSource(url));
 
 			// HTTP POST starts
-			// String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			URI uri = null;
-			uri = new URIBuilder()
-								.setScheme("http")
-								.setHost("www.ncbi.nlm.nih.gov")
-								.setPath("/entrez/eutils/efetch.fcgi")
-								.setParameter("db", "snp")
-								.setParameter("id", commaSeparatedRsIdList)
-								.setParameter("retmode", "xml").build();
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
 
-			
-			RequestConfig defaultRequestConfig = RequestConfig.custom()
-												.setSocketTimeout(60000)
-												.setConnectTimeout(60000)
-												.setConnectionRequestTimeout(60000)
-												.setStaleConnectionCheckEnabled(true)
-												.build();
-			
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
 			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			CloseableHttpResponse response = httpclient.execute( post);
-		
+			CloseableHttpResponse response = httpclient.execute(post);
+
 			HttpEntity entity = response.getEntity();
 
 			if (response.getEntity() != null) {
-								
+
 				InputStream is = entity.getContent();
 				reader = xmlInputFactory.createXMLEventReader(is);
 			}
@@ -281,14 +269,14 @@ public class AugmentationofGivenRsIdwithInformation {
 							}// End of for Component
 
 						}// End of IF groupLabel startsWith "GRCh38"
-						
-						else{
-											
-						ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly(ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly()+1);
 
-						//Declare rsIDs that does not map to any assembly
-						logger.info( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
-									
+						else {
+
+							ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly(ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + 1);
+
+							// Declare rsIDs that does not map to any assembly
+							logger.info("rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+
 						}
 
 					}// End of for Assembly
@@ -322,19 +310,20 @@ public class AugmentationofGivenRsIdwithInformation {
 				}// End of catch
 
 			}// End of while
-			
-			if(rs==null){		
-					
-				ncbiEutilStatistics.setNumberofRsIDsDoesNotReturnAnyRs(ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs()+1);
-				
-//					f = Integer.class.getDeclaredField("value");
-//					f.setAccessible(true);
-//					temp = f.getInt(numberofRsIdsDoesNotReturnAnything);
-//					f.setInt(numberofRsIdsDoesNotReturnAnything, ++temp2);
-				
-				//Declare no information is gathered for a rsID in the given commaSeparatedRsIdList
-				logger.info("rsId that does not return any rsID Count: " +  ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");	
-				
+
+			if (rs == null) {
+
+				ncbiEutilStatistics.setNumberofRsIDsDoesNotReturnAnyRs(ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + 1);
+
+				// f = Integer.class.getDeclaredField("value");
+				// f.setAccessible(true);
+				// temp = f.getInt(numberofRsIdsDoesNotReturnAnything);
+				// f.setInt(numberofRsIdsDoesNotReturnAnything, ++temp2);
+
+				// Declare no information is gathered for a rsID in the given
+				// commaSeparatedRsIdList
+				logger.info("rsId that does not return any rsID Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");
+
 			}
 
 			reader.close();
@@ -362,9 +351,8 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		int numberofRsIdsSentInOneBatch = Commons.NUMBER_OF_RSIDS_SENT_IN_ONE_BATCH;
 
-		
 		/**************************************************************/
-		/*******Set the number of Eutils efetch Requests starts********/
+		/******* Set the number of Eutils efetch Requests starts ********/
 		/**************************************************************/
 		int numberofRequest = rsIdList.size() / numberofRsIdsSentInOneBatch;
 
@@ -374,14 +362,13 @@ public class AugmentationofGivenRsIdwithInformation {
 			numberofRequest = numberofRequest + 1;
 		}
 		/**************************************************************/
-		/*******Set the number of Eutils efetch Requests ends**********/
+		/******* Set the number of Eutils efetch Requests ends **********/
 		/**************************************************************/
-		
-		
+
 		/**************************************************************/
 		for (int i = 0; i < numberofRequest; i++) {
 
-			if ((i == (numberofRequest-1)) && (numberofRemaining != 0)) {
+			if ((i == (numberofRequest - 1)) && (numberofRemaining != 0)) {
 
 				// Set commaSeparatedRsIdList to empty string
 				commaSeparatedRsIdList = "";
@@ -411,15 +398,17 @@ public class AugmentationofGivenRsIdwithInformation {
 				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRsIdsSentInOneBatch - 1));
 
 			}
-			
-//			//debug for OCD GWAS SNPs delete starts
-//			//rs4730283 is merged to rs20556
-//			//rs4959515 does not map to any assembly
-//			//rs12560420 is merged to rs9555790
-//			if (commaSeparatedRsIdList.contains("rs4730283") || commaSeparatedRsIdList.contains("rs4959515")  || commaSeparatedRsIdList.contains("rs12560420")){
-//				System.out.println(commaSeparatedRsIdList + "Debug it.");
-//			}
-//			//Debug delete ends
+
+			// //debug for OCD GWAS SNPs delete starts
+			// //rs4730283 is merged to rs20556
+			// //rs4959515 does not map to any assembly
+			// //rs12560420 is merged to rs9555790
+			// if (commaSeparatedRsIdList.contains("rs4730283") ||
+			// commaSeparatedRsIdList.contains("rs4959515") ||
+			// commaSeparatedRsIdList.contains("rs12560420")){
+			// System.out.println(commaSeparatedRsIdList + "Debug it.");
+			// }
+			// //Debug delete ends
 
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call starts *********/
@@ -427,8 +416,8 @@ public class AugmentationofGivenRsIdwithInformation {
 			// Send ready commaSeparatedRsIdList
 			// Get rsInformationList for commaSeparatedRsIdList
 			// Add gathered rsInformationList to the existing rsInformationList
-			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList,ncbiEutilStatistics));
-		
+			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList, ncbiEutilStatistics));
+
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call ends ***********/
 			/**************************************************************/
@@ -450,73 +439,63 @@ public class AugmentationofGivenRsIdwithInformation {
 		int numberofBasesInTheSNPAtMost;
 
 		XMLEventReader reader = null;
-		
-		//	Old Way
-		//	String uri = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" + rsId + "&retmode=xml";
-		//	reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
+
+		// Old Way
+		// String uri =
+		// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=" +
+		// rsId + "&retmode=xml";
+		// reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
 		try {
 
-//			//HTTP POST starts
-//			String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
-//			 
-//			HttpClient client = HttpClientBuilder.create().build();
-//			HttpPost post = new HttpPost(url);
-//			
-//			
-//			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-//			urlParameters.add(new BasicNameValuePair("db", "snp"));
-//			urlParameters.add(new BasicNameValuePair("id", rsId));
-//			urlParameters.add(new BasicNameValuePair("retmode", "xml"));
-//			
-//			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-//			 
-//			HttpResponse response = client.execute(post);
-//			HttpEntity entity = response.getEntity();
-//			
-//			 if (response.getEntity() != null) {
-//					
-//					InputStream is = entity.getContent();
-//					reader = xmlInputFactory.createXMLEventReader(is);
-//					
-//			}
-//		    //HTTP POST ends
-			 
-			 //new HTTP POST starts 
-			 URI uri = null;
-			 uri = new URIBuilder()
-									.setScheme("http")
-									.setHost("www.ncbi.nlm.nih.gov")
-									.setPath("/entrez/eutils/efetch.fcgi")
-									.setParameter("db", "snp")
-									.setParameter("id", rsId)
-									.setParameter("retmode", "xml").build();
+			// //HTTP POST starts
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
+			//
+			// HttpClient client = HttpClientBuilder.create().build();
+			// HttpPost post = new HttpPost(url);
+			//
+			//
+			// List<NameValuePair> urlParameters = new
+			// ArrayList<NameValuePair>();
+			// urlParameters.add(new BasicNameValuePair("db", "snp"));
+			// urlParameters.add(new BasicNameValuePair("id", rsId));
+			// urlParameters.add(new BasicNameValuePair("retmode", "xml"));
+			//
+			// post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			//
+			// HttpResponse response = client.execute(post);
+			// HttpEntity entity = response.getEntity();
+			//
+			// if (response.getEntity() != null) {
+			//
+			// InputStream is = entity.getContent();
+			// reader = xmlInputFactory.createXMLEventReader(is);
+			//
+			// }
+			// //HTTP POST ends
 
-				
-			RequestConfig defaultRequestConfig = RequestConfig.custom()
-													.setSocketTimeout(60000)
-													.setConnectTimeout(60000)
-													.setConnectionRequestTimeout(60000)
-													.setStaleConnectionCheckEnabled(true)
-													.build();
-				
+			// new HTTP POST starts
+			URI uri = null;
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", rsId).setParameter("retmode", "xml").build();
+
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
-			HttpPost post = new HttpPost( uri);
+			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			CloseableHttpResponse response = httpclient.execute( post);
+			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
 
 			if (response.getEntity() != null) {
-								
+
 				InputStream is = entity.getContent();
 				reader = xmlInputFactory.createXMLEventReader(is);
 			}
-			//new HTTP POST ends
-			 
-			 
-			
+			// new HTTP POST ends
+
 			while (reader.hasNext()) {
 				XMLEvent evt = reader.peek();
 
@@ -634,10 +613,9 @@ public class AugmentationofGivenRsIdwithInformation {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0,0);
-		
-		
+
+		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0, 0);
+
 		// String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
 		// RsInformation test = null;
@@ -663,7 +641,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			testRsidList.add("rs7534993"); // proper
 			testRsidList.add("rs6695488"); // proper
 
-			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(testRsidList,ncbiEutilStatistics);
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(testRsidList, ncbiEutilStatistics);
 
 			// if (test != null) {
 			// GlanetRunner.appendLog(test.getRsId());

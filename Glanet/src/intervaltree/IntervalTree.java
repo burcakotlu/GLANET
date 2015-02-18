@@ -68,9 +68,8 @@ import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.TShortShortMap;
 
 public class IntervalTree {
-	
+
 	final static Logger logger = Logger.getLogger(IntervalTree.class);
-	
 
 	IntervalTreeNode root;
 	int numberofNodes;
@@ -732,7 +731,7 @@ public class IntervalTree {
 			}
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -790,7 +789,7 @@ public class IntervalTree {
 			}
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1043,7 +1042,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1372,7 +1371,7 @@ public class IntervalTree {
 				}
 
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + String.valueOf(castedNode.getCellLineName()) + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
-				bufferedWriter.flush();
+				bufferedWriter.close();
 
 			} catch (IOException e) {
 				logger.error(e.toString());
@@ -1434,7 +1433,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1491,7 +1490,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1547,7 +1546,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1602,7 +1601,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1792,10 +1791,10 @@ public class IntervalTree {
 				}
 
 				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
-				bufferedWriter.flush();
+				bufferedWriter.close();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1885,7 +1884,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -1938,7 +1937,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2041,7 +2040,7 @@ public class IntervalTree {
 				tfandCellLineOverlapList.add(new TfCellLineOverlapWithNumbers(elementNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2097,7 +2096,7 @@ public class IntervalTree {
 				tfandCellLineOverlapList.add(new TfNameandCellLineNameOverlap(tfbsNameandCellLineName, castedNode.getLow(), castedNode.getHigh()));
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2131,7 +2130,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2163,7 +2162,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2220,7 +2219,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2253,21 +2252,21 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGIT_KEGGPATHWAYNUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			geneSetNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
-			break;
-		}
-		case INT_5DIGIT_USERDEFINEDGENESETNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
-			geneSetNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
-			break;
-		}
-		default: {
-			break;
-		}
+			case INT_4DIGIT_KEGGPATHWAYNUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				geneSetNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
+				break;
+			}
+			case INT_5DIGIT_USERDEFINEDGENESETNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
+				geneSetNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
+				break;
+			}
+			default: {
+				break;
+			}
 		}// End of Switch
 
 		return geneSetNumber;
@@ -2283,18 +2282,18 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER: {
-			cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
-			break;
-		}
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
-			break;
-		}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER: {
+				cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
+				break;
+			}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
+				break;
+			}
 
-		default: {
-			break;
-		}
+			default: {
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumberOrGeneSetNumber;
@@ -2397,22 +2396,22 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGIT_DNASECELLLINENUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER: {
-			cellLineNumber = (int) (mixedNumber % 10000L);
-			break;
-		}
+			case INT_4DIGIT_DNASECELLLINENUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER: {
+				cellLineNumber = (int) (mixedNumber % 10000L);
+				break;
+			}
 
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			cellLineNumberKeggPathwayNumber = mixedNumber % 100000000L;
-			cellLineNumber = (int) (cellLineNumberKeggPathwayNumber / 10000L);
-			break;
-		}
-		default: {
-			break;
-		}
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				cellLineNumberKeggPathwayNumber = mixedNumber % 100000000L;
+				cellLineNumber = (int) (cellLineNumberKeggPathwayNumber / 10000L);
+				break;
+			}
+			default: {
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumber;
@@ -2441,13 +2440,13 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			permutationNumberElementTypeNumber = mixedNumber / 1000000L;
-			elementTypeNumber = (int) (permutationNumberElementTypeNumber % 10000L);
-			break;
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				permutationNumberElementTypeNumber = mixedNumber / 1000000L;
+				elementTypeNumber = (int) (permutationNumberElementTypeNumber % 10000L);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 
 		}// End of SWITCH
 
@@ -2461,12 +2460,12 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementTypeNumber = (int) (elementTypeNumberElementNumber / 1000000);
-			break;
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementTypeNumber = (int) (elementTypeNumberElementNumber / 1000000);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 
 		}// End of SWITCH
 
@@ -2480,12 +2479,12 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementNumber = (int) (elementTypeNumberElementNumber % 1000000);
-			break;
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementNumber = (int) (elementTypeNumberElementNumber % 1000000);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 
 		}// End of SWITCH
 
@@ -2509,32 +2508,32 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER: {
-			elementNumber = (int) (mixedNumber / 10000L);
-			break;
-		}
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			permutationNumberElementNumber = mixedNumber / 100000000L;
-			elementNumber = (int) (permutationNumberElementNumber % 10000L);
-			break;
-		}
+			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER: {
+				elementNumber = (int) (mixedNumber / 10000L);
+				break;
+			}
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				permutationNumberElementNumber = mixedNumber / 100000000L;
+				elementNumber = (int) (permutationNumberElementNumber % 10000L);
+				break;
+			}
 
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: {
-			elementNumber = (int) (mixedNumber % 1000000L);
-			break;
-		}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: {
+				elementNumber = (int) (mixedNumber % 1000000L);
+				break;
+			}
 
-		case INT_6DIGIT_ELEMENTNUMBER: {
-			elementNumber = (int) (mixedNumber % 1000000L);
-			break;
-		}
+			case INT_6DIGIT_ELEMENTNUMBER: {
+				elementNumber = (int) (mixedNumber % 1000000L);
+				break;
+			}
 
-		default: {
-			break;
-		}
+			default: {
+				break;
+			}
 
 		}// End of SWITCH
 
@@ -2553,27 +2552,27 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
-			userDefinedGeneSetNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000L);
-			return userDefinedGeneSetNumber;
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
+				userDefinedGeneSetNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000L);
+				return userDefinedGeneSetNumber;
 
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
-			int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-			int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
-			int keggPathwayNumber = getGeneSetNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+				int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+				int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+				int keggPathwayNumber = getGeneSetNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 
-			if (cellLineNumber > 0) {
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + cellLineNumber;
-			} else if (keggPathwayNumber > 0) {
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + keggPathwayNumber;
-			}
-			return elementNumberCellLineNumberOrKeggPathwayNumber;
+				if (cellLineNumber > 0) {
+					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + cellLineNumber;
+				} else if (keggPathwayNumber > 0) {
+					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + keggPathwayNumber;
+				}
+				return elementNumberCellLineNumberOrKeggPathwayNumber;
 
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementTypeNumberElementNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
-			return elementTypeNumberElementNumber;
-		default:
-			break;
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementTypeNumberElementNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				return elementTypeNumberElementNumber;
+			default:
+				break;
 
 		}// End of switch
 
@@ -2588,13 +2587,13 @@ public class IntervalTree {
 		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			elementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
-			break;
-		}
-		default: {
-			break;
-		}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				elementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
+				break;
+			}
+			default: {
+				break;
+			}
 
 		}// End of SWITCH
 
@@ -2613,14 +2612,14 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			permutationNumber = (int) (permutationNumberCellLineNumberOrGeneSetNumber / 10000);
-			break;
-		}
-		default: {
-			break;
-		}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				permutationNumber = (int) (permutationNumberCellLineNumberOrGeneSetNumber / 10000);
+				break;
+			}
+			default: {
+				break;
+			}
 		}// End of SWITCH
 
 		return permutationNumber;
@@ -2642,21 +2641,21 @@ public class IntervalTree {
 		int permutationNumber = Integer.MIN_VALUE;
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
-			permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 100000L);
-			break;
-		}
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
-			break;
-		}
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: {
-			permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
-			break;
-		}
-		default: {
-			break;
-		}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
+				permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 100000L);
+				break;
+			}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
+				break;
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER: {
+				permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				break;
+			}
+			default: {
+				break;
+			}
 
 		}// End of SWITCH
 
@@ -2677,19 +2676,19 @@ public class IntervalTree {
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
 		// PERMUTATIONNUMBER DNASECELLLINENUMBER
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER: {
-			permutationNumberCellLineNumberorGeneSetNumber = permutationNumber * 10000 + cellLineNumberorGeneSetNumber;
-			break;
-		}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER: {
+				permutationNumberCellLineNumberorGeneSetNumber = permutationNumber * 10000 + cellLineNumberorGeneSetNumber;
+				break;
+			}
 
-		// PERMUTATIONNUMBER KEGGPATHWAYNUMBER
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			permutationNumberCellLineNumberorGeneSetNumber = permutationNumber * 10000 + cellLineNumberorGeneSetNumber;
-			break;
-		}
-		default: {
-			break;
-		}
+			// PERMUTATIONNUMBER KEGGPATHWAYNUMBER
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				permutationNumberCellLineNumberorGeneSetNumber = permutationNumber * 10000 + cellLineNumberorGeneSetNumber;
+				break;
+			}
+			default: {
+				break;
+			}
 		}
 
 		return permutationNumberCellLineNumberorGeneSetNumber;
@@ -2710,15 +2709,15 @@ public class IntervalTree {
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
 		// PermutationNumber ElementTypeNumber ElementNumber
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			_permutationNumber = permutationNumber * 10000000000L;
-			_elementTypeNumber = elementTypeNumber * 1000000L;
-			_elementNumber = elementNumber * 1L;
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				_permutationNumber = permutationNumber * 10000000000L;
+				_elementTypeNumber = elementTypeNumber * 1000000L;
+				_elementNumber = elementNumber * 1L;
 
-			mixedNumber = _permutationNumber + _elementTypeNumber + _elementNumber;
-			break;
-		default:
-			break;
+				mixedNumber = _permutationNumber + _elementTypeNumber + _elementNumber;
+				break;
+			default:
+				break;
 
 		}// End of SWITCH
 
@@ -2746,27 +2745,27 @@ public class IntervalTree {
 
 		// PERMUTATIONNUMBER TFNUMBER CELLLINENUMBER
 		// PERMUTATIONNUMBER HISTONENUMBER CELLLINENUMBER
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			_permutationNumber = permutationNumber * 1000000000000L;
-			_elementNumber = elementNumber * 100000000L;
-			_cellLineNumber = cellLineNumber * 10000L;
-			_keggPathwayNumber = geneSetNumber * 1L;
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				_permutationNumber = permutationNumber * 1000000000000L;
+				_elementNumber = elementNumber * 100000000L;
+				_cellLineNumber = cellLineNumber * 10000L;
+				_keggPathwayNumber = geneSetNumber * 1L;
 
-			mixedNumber = _permutationNumber + _elementNumber + _cellLineNumber + _keggPathwayNumber;
+				mixedNumber = _permutationNumber + _elementNumber + _cellLineNumber + _keggPathwayNumber;
 
-			break;
+				break;
 
-		}
+			}
 
-		// PERMUTATIONNUMBER USERDEFINEDGENESETNUMBER
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
-			mixedNumber = permutationNumber * 100000L + geneSetNumber * 1L;
-			break;
+			// PERMUTATIONNUMBER USERDEFINEDGENESETNUMBER
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER: {
+				mixedNumber = permutationNumber * 100000L + geneSetNumber * 1L;
+				break;
 
-		}
-		default: {
-			break;
-		}
+			}
+			default: {
+				break;
+			}
 		}// End of switch
 
 		return mixedNumber;
@@ -2787,13 +2786,13 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER: {
-			elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
-			break;
-		}
-		default: {
-			break;
-		}
+			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER: {
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
+				break;
+			}
+			default: {
+				break;
+			}
 
 		}// End of switch
 
@@ -2812,22 +2811,22 @@ public class IntervalTree {
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
 
-			// Get only CellLineNumber and KEGGPathwayNumber
-			cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
+				// Get only CellLineNumber and KEGGPathwayNumber
+				cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
 
-			// get KEGG Pathway Number
-			keggPathwayNumber = (short) (cellLineNumberKeggPathwayNumber % 10000L);
+				// get KEGG Pathway Number
+				keggPathwayNumber = (short) (cellLineNumberKeggPathwayNumber % 10000L);
 
-			cellLineNumber = cellLineNumberKeggPathwayNumber - keggPathwayNumber;
+				cellLineNumber = cellLineNumberKeggPathwayNumber - keggPathwayNumber;
 
-			cellLineNumberRemoved = permutationNumberElementNumberCellLineNumberKeggPathwayNumber - cellLineNumber;
-			break;
-		}
-		default: {
-			break;
-		}
+				cellLineNumberRemoved = permutationNumberElementNumberCellLineNumberKeggPathwayNumber - cellLineNumber;
+				break;
+			}
+			default: {
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumberRemoved;
@@ -2843,13 +2842,13 @@ public class IntervalTree {
 		long permutationNumberElementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
-			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumber + keggPathwayNumber;
-			break;
-		}
-		default: {
-			break;
-		}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER: {
+				permutationNumberElementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumber + keggPathwayNumber;
+				break;
+			}
+			default: {
+				break;
+			}
 		}// End of SWITCH
 
 		return permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
@@ -2948,7 +2947,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -2998,10 +2997,9 @@ public class IntervalTree {
 				}
 
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
-				bufferedWriter.flush();
-
+				bufferedWriter.close();
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}
@@ -4413,95 +4411,67 @@ public class IntervalTree {
 	}
 
 	// NEW FUNCIONALITY
-	
-	
-	public boolean contains(
-			List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, 
-			UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode){
-		//NM_022089		3P2	0	ATP13A2	23400
-		//NM_001141973	3P2	0	ATP13A2	23400
-		//NM_001141974	3P2	0	ATP13A2	23400
-		
+
+	public boolean contains(List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList, UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode) {
+		// NM_022089 3P2 0 ATP13A2 23400
+		// NM_001141973 3P2 0 ATP13A2 23400
+		// NM_001141974 3P2 0 ATP13A2 23400
+
 		boolean exists = false;
-		
-		//ArrayList<Overlap> overlapList = new ArrayList<Overlap>(geneId2OverlapMap.valueCollection());
-	
-		
-		for(int i = 0; i< overlapList.size(); i++){
-			
-			switch(overlapNode.getIntervalName()){
-			
+
+		// ArrayList<Overlap> overlapList = new
+		// ArrayList<Overlap>(geneId2OverlapMap.valueCollection());
+
+		for (int i = 0; i < overlapList.size(); i++) {
+
+			switch (overlapNode.getIntervalName()) {
+
 				case EXON:
-				case INTRON: 	
-								if (overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
-									overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
-									overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
-									
-									
-									if(overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber()){
-										exists = true;
-									}
-									else if (overlapList.get(i).getIntervalNumber() != overlapNode.getIntervalNumber() && 
-												overlapList.get(i).getLow() == overlapNode.getLow() &&
-												overlapList.get(i).getHigh() == overlapNode.getHigh()){
-										exists = true;
-									}
-								 	
-								 	
-								 	
-								} //End of IF
-								
-								break;
-								
-								
+				case INTRON:
+					if (overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) && overlapList.get(i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()) {
+
+						if (overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber()) {
+							exists = true;
+						} else if (overlapList.get(i).getIntervalNumber() != overlapNode.getIntervalNumber() && overlapList.get(i).getLow() == overlapNode.getLow() && overlapList.get(i).getHigh() == overlapNode.getHigh()) {
+							exists = true;
+						}
+
+					} // End of IF
+
+					break;
+
 				case FIVE_P_ONE:
 				case FIVE_P_TWO:
 				case FIVE_D:
 				case THREE_P_ONE:
 				case THREE_P_TWO:
 				case THREE_D:
-									if (	overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) &&
-											overlapList.get(i).getGeneHugoSymbolNumber()== overlapNode.getGeneHugoSymbolNumber() &&
-											overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
-										 	
-										 	exists = true;
-										 	
-									 } //End of IF
-									
-									break;
-			
-			}//End of SWITCH
-			
-			
-			if (exists){
-				
+					if (overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) && overlapList.get(i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(i).getGeneEntrezId() == overlapNode.getGeneEntrezId()) {
+
+						exists = true;
+
+					} // End of IF
+
+					break;
+
+			}// End of SWITCH
+
+			if (exists) {
+
 				break;
-				
+
 			}
-			 
-		 
-		}//End of For: Look for each overlap
-		
+
+		}// End of For: Look for each overlap
+
 		return exists;
-		
-		
+
 	}
 
 	// Annotation
 	// hg19 refseq Gene Annotation with numbers starts
 	// Implemented for Chen Yao Paper
-	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
-			String outputFolder, 
-			int givenIntervalNumber,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			IntervalTreeNode node, 
-			Interval interval, 
-			ChromosomeName chromName, 
-			TIntShortMap geneAlternateNumber2OneorZeroMap, 
-			String type, 
-			int overlapDefinition, 
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(String outputFolder, int givenIntervalNumber, TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntShortMap geneAlternateNumber2OneorZeroMap, String type, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -4509,11 +4479,10 @@ public class IntervalTree {
 		int geneAlternateNumber;
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
-		
+
 		OverlapInformation overlapInformation = null;
 		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
-		
-		
+
 		if (Commons.NCBI_GENE_ID.equals(type)) {
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 
@@ -4522,7 +4491,6 @@ public class IntervalTree {
 				}
 
 				geneAlternateNumber = castedNode.getGeneHugoSymbolNumber();
-				
 
 				try {
 					if (bufferedWriter == null) {
@@ -4537,225 +4505,231 @@ public class IntervalTree {
 					}
 
 					/*******************************************************************************/
-					/********GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP starts*****************/
+					/******** GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP starts *****************/
 					/*******************************************************************************/
 					overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
-					
-					//For this given interval, an overlap is put for the first time.
-					if (overlapInformation == null){
-						
+
+					// For this given interval, an overlap is put for the first
+					// time.
+					if (overlapInformation == null) {
+
 						overlapInformation = new OverlapInformation();
-						
-						
-						switch(castedNode.getIntervalName()){
-						
-							case EXON: 		overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-											overlapList.add(castedNode); 
-											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-										
-											break;
-										
-							case INTRON : 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-											overlapList.add(castedNode); 
-											overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-											
-											break;
-							
-							case FIVE_P_ONE:	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												break;
-												
-							case FIVE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												break;
-												
-							case FIVE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-											overlapList.add(castedNode); 
-											overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-												
-											break;
-							
-							case THREE_P_ONE: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												break;
-																	
-							case THREE_P_TWO: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												break;
-																	
-							case THREE_D: 	overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-											overlapList.add(castedNode); 
-											overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-												
-											break;
 
-							
-						}//End of Switch
-						
+						switch (castedNode.getIntervalName()) {
+
+							case EXON:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case INTRON:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case FIVE_P_ONE:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case FIVE_P_TWO:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case FIVE_D:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case THREE_P_ONE:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case THREE_P_TWO:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+							case THREE_D:
+								overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+								overlapList.add(castedNode);
+								overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								break;
+
+						}// End of Switch
+
 						givenIntervalNumber2OverlapInformationMap.put(givenIntervalNumber, overlapInformation);
-						
-						
-					}//End of IF: For this given interval , an overlap is put for the first time.
-					
-					//For this given interval, new overlap is seen
-					//Check whether we have to put it or not.
-					else{
-						
-							
-						switch(castedNode.getIntervalName()){
-						
-							case EXON: 	overlapList = overlapInformation.getGeneId2ExonOverlapListMap().get(castedNode.getGeneEntrezId());
-							
-										if (overlapList == null){
-											overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-											overlapList.add(castedNode); 
-											overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-										
-										}else{
-											if (!contains(overlapList,castedNode)){
-												overlapList.add(castedNode);
-										
-											}
-										}
-										
-										break;
-										
-							case INTRON : 		overlapList = overlapInformation.getGeneId2IntronOverlapListMap().get(castedNode.getGeneEntrezId());
-							
-												if (overlapList == null){
-													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-													overlapList.add(castedNode); 
-													overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-												
-												}else{
-													if (!contains(overlapList,castedNode)){
-														overlapList.add(castedNode);
-														
-													}
-												}
-												
-												break;
-							
-							case FIVE_P_ONE:	overlapList = overlapInformation.getGeneId2Fivep1OverlapListMap().get(castedNode.getGeneEntrezId());
-							
-												if (overlapList == null){
-													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-													overlapList.add(castedNode); 
-													overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												
-												}else{
-													if (!contains(overlapList,castedNode)){
-														overlapList.add(castedNode);
-													
-													}
-												}
-												
-												break;
-												
-							case FIVE_P_TWO: 	overlapList = overlapInformation.getGeneId2Fivep2OverlapListMap().get(castedNode.getGeneEntrezId());
-							
-												if (overlapList == null){
-													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-													overlapList.add(castedNode); 
-													overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												
-												}else{
-													if (!contains(overlapList,castedNode)){
-														overlapList.add(castedNode);
-														
-													}
-												}
-												
-												break;
-							
-							case FIVE_D: 	overlapList = overlapInformation.getGeneId2FivedOverlapListMap().get(castedNode.getGeneEntrezId());
-							
-											if (overlapList == null){
-												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-											
-											
-											}else{
-												if (!contains(overlapList,castedNode)){
-													overlapList.add(castedNode);
-													
-												}
-											}
-											
-											break;
-							
-							case THREE_P_ONE: 	overlapList = overlapInformation.getGeneId2Threep1OverlapListMap().get(castedNode.getGeneEntrezId());
-												
-												if (overlapList == null){
-													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-													overlapList.add(castedNode); 
-													overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												
-												}else{
-													if (!contains(overlapList,castedNode)){
-														overlapList.add(castedNode);
-													
-													}
-												}
-												
-												break;
-												
-							case THREE_P_TWO: 	overlapList = overlapInformation.getGeneId2Threep2OverlapListMap().get(castedNode.getGeneEntrezId());
-							
-												if (overlapList == null){
-													overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-													overlapList.add(castedNode); 
-													overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
-													
-												
-												}else{
-													if (!contains(overlapList,castedNode)){
-														overlapList.add(castedNode);
-														
-													}
-												}
-							
-												break;
-												
-							case THREE_D: 	overlapList = overlapInformation.getGeneId2ThreedOverlapListMap().get(castedNode.getGeneEntrezId());
-							
-											if (overlapList == null){
-												overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-												overlapList.add(castedNode); 
-												overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
-												
-											
-											}else{
-												if (!contains(overlapList,castedNode)){
-													overlapList.add(castedNode);
-													
-												}
-											}
-											
-											break;
 
-							
-						}//End of Switch
+					}// End of IF: For this given interval , an overlap is put
+						// for the first time.
 
-					}//End of ELSE
+					// For this given interval, new overlap is seen
+					// Check whether we have to put it or not.
+					else {
+
+						switch (castedNode.getIntervalName()) {
+
+							case EXON:
+								overlapList = overlapInformation.getGeneId2ExonOverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case INTRON:
+								overlapList = overlapInformation.getGeneId2IntronOverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case FIVE_P_ONE:
+								overlapList = overlapInformation.getGeneId2Fivep1OverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case FIVE_P_TWO:
+								overlapList = overlapInformation.getGeneId2Fivep2OverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case FIVE_D:
+								overlapList = overlapInformation.getGeneId2FivedOverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case THREE_P_ONE:
+								overlapList = overlapInformation.getGeneId2Threep1OverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case THREE_P_TWO:
+								overlapList = overlapInformation.getGeneId2Threep2OverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+							case THREE_D:
+								overlapList = overlapInformation.getGeneId2ThreedOverlapListMap().get(castedNode.getGeneEntrezId());
+
+								if (overlapList == null) {
+									overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
+									overlapList.add(castedNode);
+									overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId, overlapList);
+
+								} else {
+									if (!contains(overlapList, castedNode)) {
+										overlapList.add(castedNode);
+
+									}
+								}
+
+								break;
+
+						}// End of Switch
+
+					}// End of ELSE
 					/*******************************************************************************/
-					/********GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP ends*******************/
+					/******** GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP ends *******************/
 					/*******************************************************************************/
 
-					
-					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" +  castedNode.getIntervalNumber() +  "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
+					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
 				} catch (IOException e) {
@@ -4765,7 +4739,7 @@ public class IntervalTree {
 		} // End of If: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,givenIntervalNumber, givenIntervalNumber2OverlapInformationMap,node.getLeft(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getLeft(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
@@ -4811,12 +4785,12 @@ public class IntervalTree {
 								if (bufferedWriter == null) {
 
 									switch (geneSetType) {
-									case USERDEFINEDGENESET:
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-										break;
-									case KEGGPATHWAY:
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-										break;
+										case USERDEFINEDGENESET:
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+											break;
+										case KEGGPATHWAY:
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+											break;
 
 									}// End of switch
 
@@ -4853,12 +4827,12 @@ public class IntervalTree {
 								if (bufferedWriter == null) {
 
 									switch (geneSetType) {
-									case USERDEFINEDGENESET:
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-										break;
-									case KEGGPATHWAY:
-										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-										break;
+										case USERDEFINEDGENESET:
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+											break;
+										case KEGGPATHWAY:
+											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+											break;
 									}// End of SWITCH
 
 									bufferedWriter = new BufferedWriter(fileWriter);
@@ -4892,12 +4866,12 @@ public class IntervalTree {
 							if (bufferedWriter == null) {
 
 								switch (geneSetType) {
-								case USERDEFINEDGENESET:
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-									break;
-								case KEGGPATHWAY:
-									fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
-									break;
+									case USERDEFINEDGENESET:
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+										break;
+									case KEGGPATHWAY:
+										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
+										break;
 								}// End of switch
 
 								bufferedWriter = new BufferedWriter(fileWriter);
@@ -5288,7 +5262,7 @@ public class IntervalTree {
 										}
 
 										bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
-										bufferedWriter.flush();
+										bufferedWriter.close();
 									}// If this keggPathwayName is in
 										// keggPathwayNameList
 
@@ -5420,7 +5394,7 @@ public class IntervalTree {
 						}
 
 						bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
-						bufferedWriter.flush();
+						bufferedWriter.close();
 
 						count++;
 						nameorIdHashMap.put(castedNode.getGeneEntrezId().toString(), count);
@@ -5438,7 +5412,7 @@ public class IntervalTree {
 						}
 
 						bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
-						bufferedWriter.flush();
+						bufferedWriter.close();
 
 						count++;
 						nameorIdHashMap.put(castedNode.getRefSeqGeneName(), count);
@@ -5457,7 +5431,7 @@ public class IntervalTree {
 						}
 
 						bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
-						bufferedWriter.flush();
+						bufferedWriter.close();
 
 						count++;
 						nameorIdHashMap.put(castedNode.getGeneHugoSymbol(), count);
@@ -5497,7 +5471,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 		}

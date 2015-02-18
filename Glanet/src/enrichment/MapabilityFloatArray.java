@@ -9,25 +9,16 @@
 package enrichment;
 
 public class MapabilityFloatArray {
-	
+
 	float[] mapabilityArray;
-	
-	
-	
 
 	public float[] getMapabilityArray() {
 		return mapabilityArray;
 	}
 
-
-
-
 	public void setMapabilityArray(float[] mapabilityArray) {
 		this.mapabilityArray = mapabilityArray;
 	}
-
-
-
 
 	/**
 	 * 

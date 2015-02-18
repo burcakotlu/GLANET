@@ -5,7 +5,6 @@
 // Generated on: 2014.11.24 at 04:14:50 PM EET 
 //
 
-
 package generated;
 
 import java.util.ArrayList;
@@ -16,47 +15,45 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "translation"
-})
+@XmlType(name = "", propOrder = { "translation" })
 @XmlRootElement(name = "TranslationSet")
 public class TranslationSet {
 
-    @XmlElement(name = "Translation")
-    protected List<Translation> translation;
+	@XmlElement(name = "Translation")
+	protected List<Translation> translation;
 
-    /**
-     * Gets the value of the translation property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the translation property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTranslation().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Translation }
-     * 
-     * 
-     */
-    public List<Translation> getTranslation() {
-        if (translation == null) {
-            translation = new ArrayList<Translation>();
-        }
-        return this.translation;
-    }
+	/**
+	 * Gets the value of the translation property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the translation property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getTranslation().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link Translation }
+	 * 
+	 * 
+	 */
+	public List<Translation> getTranslation() {
+		if (translation == null) {
+			translation = new ArrayList<Translation>();
+		}
+		return this.translation;
+	}
 
 }

@@ -5,7 +5,6 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -36,115 +37,101 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
+@XmlType(name = "", propOrder = { "value" })
 @XmlRootElement(name = "BaseURL")
 public class BaseURL {
 
-    @XmlValue
-    protected String value;
-    @XmlAttribute(name = "urlId")
-    protected Integer urlId;
-    @XmlAttribute(name = "resourceName")
-    protected String resourceName;
-    @XmlAttribute(name = "resourceId")
-    protected String resourceId;
+	@XmlValue
+	protected String value;
+	@XmlAttribute(name = "urlId")
+	protected Integer urlId;
+	@XmlAttribute(name = "resourceName")
+	protected String resourceName;
+	@XmlAttribute(name = "resourceId")
+	protected String resourceId;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    /**
-     * Gets the value of the urlId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getUrlId() {
-        return urlId;
-    }
+	/**
+	 * Gets the value of the urlId property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getUrlId() {
+		return urlId;
+	}
 
-    /**
-     * Sets the value of the urlId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setUrlId(Integer value) {
-        this.urlId = value;
-    }
+	/**
+	 * Sets the value of the urlId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setUrlId(Integer value) {
+		this.urlId = value;
+	}
 
-    /**
-     * Gets the value of the resourceName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResourceName() {
-        return resourceName;
-    }
+	/**
+	 * Gets the value of the resourceName property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getResourceName() {
+		return resourceName;
+	}
 
-    /**
-     * Sets the value of the resourceName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResourceName(String value) {
-        this.resourceName = value;
-    }
+	/**
+	 * Sets the value of the resourceName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setResourceName(String value) {
+		this.resourceName = value;
+	}
 
-    /**
-     * Gets the value of the resourceId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResourceId() {
-        return resourceId;
-    }
+	/**
+	 * Gets the value of the resourceId property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getResourceId() {
+		return resourceId;
+	}
 
-    /**
-     * Sets the value of the resourceId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResourceId(String value) {
-        this.resourceId = value;
-    }
+	/**
+	 * Sets the value of the resourceId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setResourceId(String value) {
+		this.resourceId = value;
+	}
 
 }

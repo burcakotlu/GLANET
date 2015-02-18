@@ -9,13 +9,12 @@
 package enrichment;
 
 public class GCCharArray {
-	
+
 	char[] gcArray;
-	
+
 	public char[] getGcArray() {
 		return gcArray;
 	}
-
 
 	public void setGcArray(char[] gcArray) {
 		this.gcArray = gcArray;
@@ -24,7 +23,7 @@ public class GCCharArray {
 	public GCCharArray(int chromSize) {
 		this.gcArray = new char[chromSize];
 	}
-	
+
 	public GCCharArray() {
 	}
 

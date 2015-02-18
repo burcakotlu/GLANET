@@ -5,7 +5,6 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -82,317 +83,281 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "FxnSet")
 public class FxnSet {
 
-    @XmlAttribute(name = "geneId")
-    protected Integer geneId;
-    @XmlAttribute(name = "symbol")
-    protected String symbol;
-    @XmlAttribute(name = "mrnaAcc")
-    protected String mrnaAcc;
-    @XmlAttribute(name = "mrnaVer")
-    protected Integer mrnaVer;
-    @XmlAttribute(name = "protAcc")
-    protected String protAcc;
-    @XmlAttribute(name = "protVer")
-    protected Integer protVer;
-    @XmlAttribute(name = "fxnClass")
-    protected String fxnClass;
-    @XmlAttribute(name = "readingFrame")
-    protected Integer readingFrame;
-    @XmlAttribute(name = "allele")
-    protected String allele;
-    @XmlAttribute(name = "residue")
-    protected String residue;
-    @XmlAttribute(name = "aaPosition")
-    protected Integer aaPosition;
-    @XmlAttribute(name = "mrnaPosition")
-    protected Integer mrnaPosition;
+	@XmlAttribute(name = "geneId")
+	protected Integer geneId;
+	@XmlAttribute(name = "symbol")
+	protected String symbol;
+	@XmlAttribute(name = "mrnaAcc")
+	protected String mrnaAcc;
+	@XmlAttribute(name = "mrnaVer")
+	protected Integer mrnaVer;
+	@XmlAttribute(name = "protAcc")
+	protected String protAcc;
+	@XmlAttribute(name = "protVer")
+	protected Integer protVer;
+	@XmlAttribute(name = "fxnClass")
+	protected String fxnClass;
+	@XmlAttribute(name = "readingFrame")
+	protected Integer readingFrame;
+	@XmlAttribute(name = "allele")
+	protected String allele;
+	@XmlAttribute(name = "residue")
+	protected String residue;
+	@XmlAttribute(name = "aaPosition")
+	protected Integer aaPosition;
+	@XmlAttribute(name = "mrnaPosition")
+	protected Integer mrnaPosition;
 
-    /**
-     * Gets the value of the geneId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getGeneId() {
-        return geneId;
-    }
+	/**
+	 * Gets the value of the geneId property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getGeneId() {
+		return geneId;
+	}
 
-    /**
-     * Sets the value of the geneId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setGeneId(Integer value) {
-        this.geneId = value;
-    }
+	/**
+	 * Sets the value of the geneId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setGeneId(Integer value) {
+		this.geneId = value;
+	}
 
-    /**
-     * Gets the value of the symbol property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSymbol() {
-        return symbol;
-    }
+	/**
+	 * Gets the value of the symbol property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSymbol() {
+		return symbol;
+	}
 
-    /**
-     * Sets the value of the symbol property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSymbol(String value) {
-        this.symbol = value;
-    }
+	/**
+	 * Sets the value of the symbol property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSymbol(String value) {
+		this.symbol = value;
+	}
 
-    /**
-     * Gets the value of the mrnaAcc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMrnaAcc() {
-        return mrnaAcc;
-    }
+	/**
+	 * Gets the value of the mrnaAcc property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getMrnaAcc() {
+		return mrnaAcc;
+	}
 
-    /**
-     * Sets the value of the mrnaAcc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMrnaAcc(String value) {
-        this.mrnaAcc = value;
-    }
+	/**
+	 * Sets the value of the mrnaAcc property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setMrnaAcc(String value) {
+		this.mrnaAcc = value;
+	}
 
-    /**
-     * Gets the value of the mrnaVer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getMrnaVer() {
-        return mrnaVer;
-    }
+	/**
+	 * Gets the value of the mrnaVer property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getMrnaVer() {
+		return mrnaVer;
+	}
 
-    /**
-     * Sets the value of the mrnaVer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setMrnaVer(Integer value) {
-        this.mrnaVer = value;
-    }
+	/**
+	 * Sets the value of the mrnaVer property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setMrnaVer(Integer value) {
+		this.mrnaVer = value;
+	}
 
-    /**
-     * Gets the value of the protAcc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getProtAcc() {
-        return protAcc;
-    }
+	/**
+	 * Gets the value of the protAcc property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getProtAcc() {
+		return protAcc;
+	}
 
-    /**
-     * Sets the value of the protAcc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setProtAcc(String value) {
-        this.protAcc = value;
-    }
+	/**
+	 * Sets the value of the protAcc property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setProtAcc(String value) {
+		this.protAcc = value;
+	}
 
-    /**
-     * Gets the value of the protVer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getProtVer() {
-        return protVer;
-    }
+	/**
+	 * Gets the value of the protVer property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getProtVer() {
+		return protVer;
+	}
 
-    /**
-     * Sets the value of the protVer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setProtVer(Integer value) {
-        this.protVer = value;
-    }
+	/**
+	 * Sets the value of the protVer property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setProtVer(Integer value) {
+		this.protVer = value;
+	}
 
-    /**
-     * Gets the value of the fxnClass property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFxnClass() {
-        return fxnClass;
-    }
+	/**
+	 * Gets the value of the fxnClass property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getFxnClass() {
+		return fxnClass;
+	}
 
-    /**
-     * Sets the value of the fxnClass property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFxnClass(String value) {
-        this.fxnClass = value;
-    }
+	/**
+	 * Sets the value of the fxnClass property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setFxnClass(String value) {
+		this.fxnClass = value;
+	}
 
-    /**
-     * Gets the value of the readingFrame property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getReadingFrame() {
-        return readingFrame;
-    }
+	/**
+	 * Gets the value of the readingFrame property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getReadingFrame() {
+		return readingFrame;
+	}
 
-    /**
-     * Sets the value of the readingFrame property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setReadingFrame(Integer value) {
-        this.readingFrame = value;
-    }
+	/**
+	 * Sets the value of the readingFrame property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setReadingFrame(Integer value) {
+		this.readingFrame = value;
+	}
 
-    /**
-     * Gets the value of the allele property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAllele() {
-        return allele;
-    }
+	/**
+	 * Gets the value of the allele property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAllele() {
+		return allele;
+	}
 
-    /**
-     * Sets the value of the allele property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAllele(String value) {
-        this.allele = value;
-    }
+	/**
+	 * Sets the value of the allele property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAllele(String value) {
+		this.allele = value;
+	}
 
-    /**
-     * Gets the value of the residue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResidue() {
-        return residue;
-    }
+	/**
+	 * Gets the value of the residue property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getResidue() {
+		return residue;
+	}
 
-    /**
-     * Sets the value of the residue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResidue(String value) {
-        this.residue = value;
-    }
+	/**
+	 * Sets the value of the residue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setResidue(String value) {
+		this.residue = value;
+	}
 
-    /**
-     * Gets the value of the aaPosition property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getAaPosition() {
-        return aaPosition;
-    }
+	/**
+	 * Gets the value of the aaPosition property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getAaPosition() {
+		return aaPosition;
+	}
 
-    /**
-     * Sets the value of the aaPosition property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setAaPosition(Integer value) {
-        this.aaPosition = value;
-    }
+	/**
+	 * Sets the value of the aaPosition property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setAaPosition(Integer value) {
+		this.aaPosition = value;
+	}
 
-    /**
-     * Gets the value of the mrnaPosition property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getMrnaPosition() {
-        return mrnaPosition;
-    }
+	/**
+	 * Gets the value of the mrnaPosition property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getMrnaPosition() {
+		return mrnaPosition;
+	}
 
-    /**
-     * Sets the value of the mrnaPosition property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setMrnaPosition(Integer value) {
-        this.mrnaPosition = value;
-    }
+	/**
+	 * Sets the value of the mrnaPosition property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setMrnaPosition(Integer value) {
+		this.mrnaPosition = value;
+	}
 
 }

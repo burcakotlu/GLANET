@@ -7,14 +7,14 @@
 package keggpathway.ncbigenes;
 
 public class Gene {
- String geneId;
+	String geneId;
 
-public String getGeneId() {
-	return geneId;
-}
+	public String getGeneId() {
+		return geneId;
+	}
 
-public void setGeneId(String geneId) {
-	this.geneId = geneId;
-}
- 
+	public void setGeneId(String geneId) {
+		this.geneId = geneId;
+	}
+
 }

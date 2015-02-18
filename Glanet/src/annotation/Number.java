@@ -9,7 +9,7 @@ package annotation;
  * 
  */
 public class Number {
-	
+
 	Integer number;
 
 	public Integer getNumber() {
@@ -24,9 +24,5 @@ public class Number {
 		super();
 		this.number = number;
 	}
-
-	
-	
-	
 
 }

@@ -12,15 +12,14 @@ import java.util.List;
 
 import enumtypes.IntervalName;
 
-
 public class PermutationNumberUcscRefSeqGeneOverlap {
-	
-	//example
-	//refSeqGeneName	NM_002979	
-	//intervalName	INTRON
-	//intervalNumber	15	
-	//geneHugoSymbol	SCP2	
-	//geneEntrezId	6342
+
+	// example
+	// refSeqGeneName NM_002979
+	// intervalName INTRON
+	// intervalNumber 15
+	// geneHugoSymbol SCP2
+	// geneEntrezId 6342
 
 	String permutationNumber;
 	String refSeqGeneName;
@@ -31,12 +30,8 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 	int low;
 	int high;
 	List<String> keggPathwayNameList;
-	
-		
-	public PermutationNumberUcscRefSeqGeneOverlap(String permutationNumber,
-			String refSeqGeneName, IntervalName intervalName, int intervalNumber, String geneHugoSymbol,
-			int geneEntrezId, int low, int high,
-			List<String> keggPathwayNameList) {
+
+	public PermutationNumberUcscRefSeqGeneOverlap(String permutationNumber, String refSeqGeneName, IntervalName intervalName, int intervalNumber, String geneHugoSymbol, int geneEntrezId, int low, int high, List<String> keggPathwayNameList) {
 		super();
 		this.permutationNumber = permutationNumber;
 		this.refSeqGeneName = refSeqGeneName;
@@ -49,36 +44,21 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 		this.keggPathwayNameList = keggPathwayNameList;
 	}
 
-	
-	
-	
 	public IntervalName getIntervalName() {
 		return intervalName;
 	}
-
-
-
 
 	public void setIntervalName(IntervalName intervalName) {
 		this.intervalName = intervalName;
 	}
 
-
-
-
 	public int getIntervalNumber() {
 		return intervalNumber;
 	}
 
-
-
-
 	public void setIntervalNumber(int intervalNumber) {
 		this.intervalNumber = intervalNumber;
 	}
-
-
-
 
 	public String getRefSeqGeneName() {
 		return refSeqGeneName;
@@ -88,7 +68,6 @@ public class PermutationNumberUcscRefSeqGeneOverlap {
 		this.refSeqGeneName = refSeqGeneName;
 	}
 
-	
 	public String getGeneHugoSymbol() {
 		return geneHugoSymbol;
 	}

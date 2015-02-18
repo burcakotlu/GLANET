@@ -9,12 +9,9 @@
 package rsat;
 
 public class Result {
-	
+
 	String resultLine;
 	double pValue;
-	
-
-	
 
 	public String getResultLine() {
 		return resultLine;
@@ -38,7 +35,5 @@ public class Result {
 	public Result() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 }

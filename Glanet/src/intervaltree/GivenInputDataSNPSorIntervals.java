@@ -4,13 +4,13 @@
 package intervaltree;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Dec 25, 2014
- * @project Glanet 
+ * @project Glanet
  *
  */
 public class GivenInputDataSNPSorIntervals {
-	
+
 	Boolean givenInputDataSNPs;
 
 	public Boolean getGivenInputDataSNPs() {
@@ -20,6 +20,5 @@ public class GivenInputDataSNPSorIntervals {
 	public void setGivenInputDataSNPs(Boolean givenInputDataSNPs) {
 		this.givenInputDataSNPs = givenInputDataSNPs;
 	}
-	
 
 }

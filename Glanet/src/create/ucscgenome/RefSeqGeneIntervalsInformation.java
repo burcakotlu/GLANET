@@ -9,21 +9,19 @@
 package create.ucscgenome;
 
 public class RefSeqGeneIntervalsInformation {
-	
+
 	long numberofRefSeqGeneIntervals;
-	
+
 	long numberofExons;
 	long numberofIntrons;
-	
+
 	long numberof5p1s;
 	long numberof5p2s;
 	long numberof5ds;
-	
+
 	long numberof3p1s;
 	long numberof3p2s;
 	long numberof3ds;
-	
-	
 
 	public long getNumberofExons() {
 		return numberofExons;
@@ -100,22 +98,18 @@ public class RefSeqGeneIntervalsInformation {
 	public RefSeqGeneIntervalsInformation() {
 		super();
 		this.numberofRefSeqGeneIntervals = 0;
-		
+
 		this.numberofExons = 0;
 		this.numberofIntrons = 0;
-		
+
 		this.numberof5p1s = 0;
 		this.numberof5p2s = 0;
 		this.numberof5ds = 0;
-		
+
 		this.numberof3p1s = 0;
 		this.numberof3p2s = 0;
 		this.numberof3ds = 0;
-		
-	}
-	
-	
 
-	
+	}
 
 }

@@ -89,9 +89,8 @@ import enumtypes.UserDefinedLibraryDataFormat;
  * Annotate given intervals with annotation options with numbers
  */
 public class Annotation {
-	
+
 	final static Logger logger = Logger.getLogger(Annotation.class);
-	
 
 	// Empirical P value Calculation
 	// For Thread Version for
@@ -555,11 +554,11 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			
+
 			logger.error(e.toString());
-		
+
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}// End of WHILE
 
@@ -622,7 +621,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -686,7 +685,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -750,7 +749,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -812,7 +811,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -876,7 +875,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -939,7 +938,7 @@ public class Annotation {
 
 			}
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1106,7 +1105,7 @@ public class Annotation {
 			userDefinedLibraryIntervalTree = generateUserDefinedLibraryIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1131,7 +1130,7 @@ public class Annotation {
 		} catch (FileNotFoundException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1156,7 +1155,7 @@ public class Annotation {
 		} catch (FileNotFoundException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1178,7 +1177,7 @@ public class Annotation {
 			histoneIntervalTree = generateEncodeHistoneIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1198,7 +1197,7 @@ public class Annotation {
 			ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 
@@ -1365,10 +1364,10 @@ public class Annotation {
 
 			}
 		} catch (NumberFormatException e) {
-			
+
 			logger.error(e.toString());
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		} // End of while
 
@@ -1506,18 +1505,7 @@ public class Annotation {
 	// Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers(
-			String outputFolder, 
-			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
-			ChromosomeName chromName, 
-			BufferedReader bufferedReader, 
-			IntervalTree ucscRefSeqGenesIntervalTree, 
-			TIntIntMap geneAlternateNumber2KMap, 
-			int overlapDefinition, 
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void searchGeneWithNumbers(String outputFolder, TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap, TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, TObjectIntMap<ChromosomeName> chromosomeName2CountMap, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree ucscRefSeqGenesIntervalTree, TIntIntMap geneAlternateNumber2KMap, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -1528,7 +1516,7 @@ public class Annotation {
 
 		String givenIntervalName = null;
 		int givenIntervalNumber = 0;
-				
+
 		try {
 			while ((strLine = bufferedReader.readLine()) != null) {
 
@@ -1548,38 +1536,37 @@ public class Annotation {
 					high = low;
 
 				Interval interval = new Interval(low, high);
-				
+
 				/***************************************************************************************/
-				/*************GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts*****************/
-				/*************GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****starts********************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts *****************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****starts ********************/
 				/***************************************************************************************/
 				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
-				
-				//debug starts
-				//chr17_44081063_44081063
-				if (chromName.isCHROMOSOME17() && low==44081063 && high == 44081063){
+
+				// debug starts
+				// chr17_44081063_44081063
+				if (chromName.isCHROMOSOME17() && low == 44081063 && high == 44081063) {
 					System.out.println("debug this given interval");
 				}
-				//debug ends
-				
-				if (!givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)){
-					
-					//Set Given Interval Number
-					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1 ;
-					
+				// debug ends
+
+				if (!givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)) {
+
+					// Set Given Interval Number
+					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
+
 					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
-					chromosomeName2CountMap.put(chromName, chromosomeName2CountMap.get(chromName)+1);
-					
+					chromosomeName2CountMap.put(chromName, chromosomeName2CountMap.get(chromName) + 1);
+
 				}
 				/***************************************************************************************/
-				/*************GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends*******************/
-				/*************GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends**********************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends *******************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends **********************/
 				/***************************************************************************************/
 
-				
 				// UCSCRefSeqGenes Search starts here
 				if (ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber,givenIntervalNumber2OverlapInformationMap,ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 				}
 				// UCSCRefSeqGenes Search ends here
 
@@ -4686,12 +4673,12 @@ public class Annotation {
 
 	// @todo starts
 	public void writeResultsWithNumbers(TShortIntMap number2KMap, TShortObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
-		
+
 		BufferedWriter bufferedWriter;
 		String elementName;
 		try {
-			
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4715,12 +4702,12 @@ public class Annotation {
 
 	// yeni starts
 	public void writeResultsWithNumbers(TIntIntMap number2KMap, TIntObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
-		
+
 		BufferedWriter bufferedWriter;
 		String elementName;
 		try {
-			
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4755,7 +4742,7 @@ public class Annotation {
 		String keggPathwayName;
 
 		try {
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4789,7 +4776,7 @@ public class Annotation {
 
 	// @todo starts
 	public void writeTFKEGGPathwayResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> KEGGPathwayNumber2KEGGPathwayNameMap, String outputFolder, String outputFileName) {
-		
+
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumber;
@@ -4800,8 +4787,8 @@ public class Annotation {
 		String keggPathwayName;
 
 		try {
-			
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4860,7 +4847,7 @@ public class Annotation {
 
 	// @todo starts
 	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, String outputFolder, String outputFileName) {
-		
+
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumber;
@@ -4871,7 +4858,7 @@ public class Annotation {
 		String cellLineName;
 
 		try {
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4901,15 +4888,15 @@ public class Annotation {
 	// @todo ends
 
 	public void writeResults(Map<String, Integer> hashMap, String outputFolder, String outputFileName) {
-		
+
 		BufferedWriter bufferedWriter;
 		try {
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
 				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
 			}
-			
+
 			bufferedWriter.close();
 
 		} catch (IOException e) {
@@ -4931,7 +4918,7 @@ public class Annotation {
 			}
 
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
 	}
@@ -4962,7 +4949,7 @@ public class Annotation {
 				// close bufferedReader
 				bufferedReader.close();
 			} catch (IOException e) {
-				
+
 				logger.error(e.toString());
 			}
 
@@ -4974,16 +4961,7 @@ public class Annotation {
 	// Hg19 RefSeq Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers(
-			String dataFolder, 
-			String outputFolder, 
-			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
-			TIntIntMap geneAlternateNumber2KMap, 
-			int overlapDefinition, 
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void searchGeneWithNumbers(String dataFolder, String outputFolder, TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap, TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, TObjectIntMap<ChromosomeName> chromosomeName2CountMap, TIntIntMap geneAlternateNumber2KMap, int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		BufferedReader bufferedReader = null;
 
@@ -4994,8 +4972,8 @@ public class Annotation {
 
 			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			
-			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap,givenIntervalNumber2OverlapInformationMap,chromosomeName2CountMap,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+
+			searchGeneWithNumbers(outputFolder, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, chrName, bufferedReader, ucscRefSeqGenesIntervalTree, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
@@ -5257,7 +5235,7 @@ public class Annotation {
 				try {
 					bufferedReader.close();
 				} catch (IOException e) {
-					
+
 					logger.error(e.toString());
 				}
 
@@ -5383,447 +5361,326 @@ public class Annotation {
 			node = null;
 		}
 	}
-	
-	
-	public static void writeOverlaps(
-			TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap,
-			int givenIntervalNumber,
-			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
-			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode,
-			IntervalName intervalName,
-			NumberofGeneOverlaps geneOverlaps,
-			BufferedWriter bufferedWriter,
-			TIntObjectMap<String> geneHugoSymbolNumber2NameMap) throws IOException{
-		
-		
+
+	public static void writeOverlaps(TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap, int givenIntervalNumber, TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap, GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode, IntervalName intervalName, NumberofGeneOverlaps geneOverlaps, BufferedWriter bufferedWriter, TIntObjectMap<String> geneHugoSymbolNumber2NameMap) throws IOException {
+
 		int overlapCount = 0;
 		String overlapStringInformation = "";
-		
+
 		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
-		UcscRefSeqGeneIntervalTreeNodeWithNumbers  overlapNode = null;
-		
-		//Accumulate overlapCount and overlapStringInformation for each geneID
-		//For each geneId
-		//Iterate Over Map
-		for(TIntObjectIterator<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> it1 = geneId2OverlapListMap.iterator(); it1.hasNext();){
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode = null;
+
+		// Accumulate overlapCount and overlapStringInformation for each geneID
+		// For each geneId
+		// Iterate Over Map
+		for (TIntObjectIterator<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> it1 = geneId2OverlapListMap.iterator(); it1.hasNext();) {
 			it1.advance();
-			
+
 			overlapList = it1.value();
-			
+
 			overlapCount = overlapCount + overlapList.size();
-			
-			//For each overlap
-			//Iterate Over List
-			for(Iterator<UcscRefSeqGeneIntervalTreeNodeWithNumbers> it2= overlapList.iterator();it2.hasNext();){
-				
-				 overlapNode = it2.next();
-				 
-				 switch(overlapNode.getIntervalName()) {
-				 	
-				 	//Write IntervalNumber
-				 	case EXON:
-				 	case INTRON:	 overlapStringInformation = 
-									 overlapStringInformation + 
-									 "[" + overlapNode.getGeneEntrezId() + "_" + 
-									 geneHugoSymbolNumber2NameMap.get(overlapNode.getGeneHugoSymbolNumber()) + "_" + 
-									 overlapNode.getIntervalName().convertEnumtoString() + "_" +
-									 overlapNode.getIntervalNumber() +  "] " ;
-				 	
-				 					break;
-				 					
-					//Do Not Write IntervalNumber
-				 	case FIVE_P_ONE:
-				 	case FIVE_P_TWO:
-				 	case FIVE_D:
-				 	case THREE_P_ONE:
-				 	case THREE_P_TWO:
-				 	case THREE_D:	overlapStringInformation = 
-									 overlapStringInformation + 
-									 "[" + overlapNode.getGeneEntrezId() + "_" + 
-									 geneHugoSymbolNumber2NameMap.get(overlapNode.getGeneHugoSymbolNumber()) + "_" + 
-									 overlapNode.getIntervalName().convertEnumtoString() +  "] " ;
-				 	
-				 					break;
 
-				 		
-				 
-				 }//End of Switch					
-				
-			}//End of For: each Overlap
-			
-		}//End of For: each geneID
-		
-		//Accumulate
-		givenIntervalNumber2NumberofGeneOverlapsMap.put(givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap.get(givenIntervalNumber)+ overlapCount);
-		
-		//Accumulate
-		switch(intervalName) {
-		
-			case EXON:	geneOverlaps.setNumberofExonOverlaps(geneOverlaps.getNumberofExonOverlaps() + overlapCount);
+			// For each overlap
+			// Iterate Over List
+			for (Iterator<UcscRefSeqGeneIntervalTreeNodeWithNumbers> it2 = overlapList.iterator(); it2.hasNext();) {
+
+				overlapNode = it2.next();
+
+				switch (overlapNode.getIntervalName()) {
+
+				// Write IntervalNumber
+					case EXON:
+					case INTRON:
+						overlapStringInformation = overlapStringInformation + "[" + overlapNode.getGeneEntrezId() + "_" + geneHugoSymbolNumber2NameMap.get(overlapNode.getGeneHugoSymbolNumber()) + "_" + overlapNode.getIntervalName().convertEnumtoString() + "_" + overlapNode.getIntervalNumber() + "] ";
+
 						break;
-						
-			case INTRON:	geneOverlaps.setNumberofIntronOverlaps(geneOverlaps.getNumberofIntronOverlaps() + overlapCount);
-							break;
-							
-			case FIVE_P_ONE:	geneOverlaps.setNumberof5p1Overlaps(geneOverlaps.getNumberof5p1Overlaps() + overlapCount);
-								break;
 
-			case FIVE_P_TWO:	geneOverlaps.setNumberof5p2Overlaps(geneOverlaps.getNumberof5p2Overlaps() + overlapCount);
-								break;
+					// Do Not Write IntervalNumber
+					case FIVE_P_ONE:
+					case FIVE_P_TWO:
+					case FIVE_D:
+					case THREE_P_ONE:
+					case THREE_P_TWO:
+					case THREE_D:
+						overlapStringInformation = overlapStringInformation + "[" + overlapNode.getGeneEntrezId() + "_" + geneHugoSymbolNumber2NameMap.get(overlapNode.getGeneHugoSymbolNumber()) + "_" + overlapNode.getIntervalName().convertEnumtoString() + "] ";
 
-			case FIVE_D:	geneOverlaps.setNumberof5dOverlaps(geneOverlaps.getNumberof5dOverlaps() + overlapCount);
-							break;
-							
-			case THREE_P_ONE:	geneOverlaps.setNumberof3p1Overlaps(geneOverlaps.getNumberof3p1Overlaps() + overlapCount);
-								break;
+						break;
 
-			case THREE_P_TWO:	geneOverlaps.setNumberof3p2Overlaps(geneOverlaps.getNumberof3p2Overlaps() + overlapCount);
-								break;
+				}// End of Switch
 
-			case THREE_D:	geneOverlaps.setNumberof3dOverlaps(geneOverlaps.getNumberof3dOverlaps() + overlapCount);
-							break;
+			}// End of For: each Overlap
+
+		}// End of For: each geneID
+
+		// Accumulate
+		givenIntervalNumber2NumberofGeneOverlapsMap.put(givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap.get(givenIntervalNumber) + overlapCount);
+
+		// Accumulate
+		switch (intervalName) {
+
+			case EXON:
+				geneOverlaps.setNumberofExonOverlaps(geneOverlaps.getNumberofExonOverlaps() + overlapCount);
+				break;
+
+			case INTRON:
+				geneOverlaps.setNumberofIntronOverlaps(geneOverlaps.getNumberofIntronOverlaps() + overlapCount);
+				break;
+
+			case FIVE_P_ONE:
+				geneOverlaps.setNumberof5p1Overlaps(geneOverlaps.getNumberof5p1Overlaps() + overlapCount);
+				break;
+
+			case FIVE_P_TWO:
+				geneOverlaps.setNumberof5p2Overlaps(geneOverlaps.getNumberof5p2Overlaps() + overlapCount);
+				break;
+
+			case FIVE_D:
+				geneOverlaps.setNumberof5dOverlaps(geneOverlaps.getNumberof5dOverlaps() + overlapCount);
+				break;
+
+			case THREE_P_ONE:
+				geneOverlaps.setNumberof3p1Overlaps(geneOverlaps.getNumberof3p1Overlaps() + overlapCount);
+				break;
+
+			case THREE_P_TWO:
+				geneOverlaps.setNumberof3p2Overlaps(geneOverlaps.getNumberof3p2Overlaps() + overlapCount);
+				break;
+
+			case THREE_D:
+				geneOverlaps.setNumberof3dOverlaps(geneOverlaps.getNumberof3dOverlaps() + overlapCount);
+				break;
 
 		}
-		
-		
-		
-		switch(geneOverlapAnalysisFileMode){
-			case WITH_OVERLAP_INFORMATION: 	bufferedWriter.write(overlapCount + "\t" + overlapStringInformation + "\t");
-											break;
-			case WITHOUT_OVERLAP_INFORMATION: 	bufferedWriter.write(overlapCount + "\t");
-												break;
-		}//End of switch
-		
-		
+
+		switch (geneOverlapAnalysisFileMode) {
+			case WITH_OVERLAP_INFORMATION:
+				bufferedWriter.write(overlapCount + "\t" + overlapStringInformation + "\t");
+				break;
+			case WITHOUT_OVERLAP_INFORMATION:
+				bufferedWriter.write(overlapCount + "\t");
+				break;
+		}// End of switch
+
 	}
-	
-	
-	
-	public static void writeChromosomeDistribution(
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
-			BufferedWriter bufferedWriter) throws IOException{
-		
+
+	public static void writeChromosomeDistribution(TObjectIntMap<ChromosomeName> chromosomeName2CountMap, BufferedWriter bufferedWriter) throws IOException {
+
 		bufferedWriter.write(System.getProperty("line.separator"));
 		bufferedWriter.write(System.getProperty("line.separator"));
-		
+
 		int[] counts = chromosomeName2CountMap.values();
 		int totalCount = 0;
-		int count =0;
+		int count = 0;
 		double percentage = 0;
 		double totalPercentage = 0;
-		
-		for(int i=0; i<counts.length; i++){
+
+		for (int i = 0; i < counts.length; i++) {
 			totalCount = totalCount + counts[i];
 		}
-		
-		//Write Header Line
-		bufferedWriter.write("" + "\t" + "Count" + "\t" + "Percentage"  +System.getProperty("line.separator"));
-		
-		
-		for(ChromosomeName chrName :ChromosomeName.values()){
-			
+
+		// Write Header Line
+		bufferedWriter.write("" + "\t" + "Count" + "\t" + "Percentage" + System.getProperty("line.separator"));
+
+		for (ChromosomeName chrName : ChromosomeName.values()) {
+
 			count = chromosomeName2CountMap.get(chrName);
 			percentage = (count * 100.0) / totalCount;
-			
+
 			totalPercentage = totalPercentage + percentage;
-			
-			bufferedWriter.write(chrName.convertEnumtoString() + "\t" + count + "\t" + percentage + "%" +System.getProperty("line.separator"));
-			
-		}//For each chromosomeName
-		
-		//Write Last Line
-		bufferedWriter.write("Total" + "\t" + totalCount + "\t" + totalPercentage + "%"  +System.getProperty("line.separator"));
-	
+
+			bufferedWriter.write(chrName.convertEnumtoString() + "\t" + count + "\t" + percentage + "%" + System.getProperty("line.separator"));
+
+		}// For each chromosomeName
+
+		// Write Last Line
+		bufferedWriter.write("Total" + "\t" + totalCount + "\t" + totalPercentage + "%" + System.getProperty("line.separator"));
+
 	}
-	
-	
-	public static  void writeGeneOverlapAnalysisFile(
-			String outputFolder,
-			String outputFileName,
-			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode,
-			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2NameMap){
-		
+
+	public static void writeGeneOverlapAnalysisFile(String outputFolder, String outputFileName, GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode, TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap, TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap, TObjectIntMap<ChromosomeName> chromosomeName2CountMap, TIntObjectMap<String> geneHugoSymbolNumber2NameMap) {
+
 		BufferedWriter bufferedWriter = null;
-		
+
 		int givenIntervalNumber = 0;
 		String givenIntervalName = null;
 		OverlapInformation overlapInformation = null;
-    	
+
 		TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap = null;
-		
+
 		NumberofGeneOverlaps geneOverlaps = new NumberofGeneOverlaps();
-		
+
 		try {
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
-			
-			//Write Header Line
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
+
+			// Write Header Line
 			switch (geneOverlapAnalysisFileMode) {
-			
-				case WITH_OVERLAP_INFORMATION:	bufferedWriter.write(
-													"GivenIntervalNumber" + "\t" + "GivenInteval"  + "\t" 
-													+ "#ofExonOverlaps" + "\t" +  "ExonOverlapsInformation"  + "\t" 
-													+ "#ofIntronOverlaps" + "\t" +   "IntronOverlapsInformation"  + "\t" 
-													+ "#of5p1Overlaps" + "\t" +  "5p1OverlapsInformation"  + "\t"  
-													+ "#of5p2Overlaps" + "\t" +  "5p2OverlapsInformation"  + "\t" 
-													+ "#of5dOverlaps" + "\t" +  "5dOverlapsInformation"  + "\t" 
-													+ "#of3p1Overlaps" + "\t" +  "3p1OverlapsInformation"  + "\t" 
-													+ "#of3p2Overlaps" + "\t" +  "3p2OverlapsInformation"  + "\t" 
-													+ "#of3dOverlaps" + "\t" +  "3dOverlapsInformation"  + "\t"
-													+ "#ofGeneOverlapsPerGivenInterval"
-													+ System.getProperty("line.separator"));
-												break;
 
-				case WITHOUT_OVERLAP_INFORMATION:	bufferedWriter.write(
-														"GivenIntervalNumber" + "\t" + "GivenInteval"  + "\t" 
-														+"#ofExonOverlaps" + "\t" 
-														+ "#ofIntronOverlaps" + "\t" 
-														+ "#of5p1Overlaps" + "\t" 
-														+ "#of5p2Overlaps" + "\t" 
-														+ "#of5dOverlaps" + "\t" 
-														+ "#of3p1Overlaps" + "\t" 
-														+ "#of3p2Overlaps" + "\t" 
-														+ "#of3dOverlaps" + "\t"
-														+ "#ofGeneOverlapsPerGivenInterval"
-														+ System.getProperty("line.separator"));
-													break;
-			}//End of SWITCH
-			
-			
-			
-		  	//For Each GivenInterval
-		    for(int i = 1; i <= givenIntervalNumber2GivenIntervalNameMap.size(); i++){
-		    	
-		    	givenIntervalNumber = i;
-		    	
-		    	givenIntervalName  = givenIntervalNumber2GivenIntervalNameMap.get(givenIntervalNumber);
-		    	
-		    	overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
-		    	
-		    	bufferedWriter.write(givenIntervalNumber + "\t" + givenIntervalName + "\t");
-		    	
-		    	if(overlapInformation!=null){
-		    		
-		    		givenIntervalNumber2NumberofGeneOverlapsMap.put(givenIntervalNumber,0);
-		    		
+				case WITH_OVERLAP_INFORMATION:
+					bufferedWriter.write("GivenIntervalNumber" + "\t" + "GivenInteval" + "\t" + "#ofExonOverlaps" + "\t" + "ExonOverlapsInformation" + "\t" + "#ofIntronOverlaps" + "\t" + "IntronOverlapsInformation" + "\t" + "#of5p1Overlaps" + "\t" + "5p1OverlapsInformation" + "\t" + "#of5p2Overlaps" + "\t" + "5p2OverlapsInformation" + "\t" + "#of5dOverlaps" + "\t" + "5dOverlapsInformation" + "\t" + "#of3p1Overlaps" + "\t" + "3p1OverlapsInformation" + "\t" + "#of3p2Overlaps" + "\t" + "3p2OverlapsInformation" + "\t" + "#of3dOverlaps" + "\t" + "3dOverlapsInformation" + "\t" + "#ofGeneOverlapsPerGivenInterval" + System.getProperty("line.separator"));
+					break;
+
+				case WITHOUT_OVERLAP_INFORMATION:
+					bufferedWriter.write("GivenIntervalNumber" + "\t" + "GivenInteval" + "\t" + "#ofExonOverlaps" + "\t" + "#ofIntronOverlaps" + "\t" + "#of5p1Overlaps" + "\t" + "#of5p2Overlaps" + "\t" + "#of5dOverlaps" + "\t" + "#of3p1Overlaps" + "\t" + "#of3p2Overlaps" + "\t" + "#of3dOverlaps" + "\t" + "#ofGeneOverlapsPerGivenInterval" + System.getProperty("line.separator"));
+					break;
+			}// End of SWITCH
+
+			// For Each GivenInterval
+			for (int i = 1; i <= givenIntervalNumber2GivenIntervalNameMap.size(); i++) {
+
+				givenIntervalNumber = i;
+
+				givenIntervalName = givenIntervalNumber2GivenIntervalNameMap.get(givenIntervalNumber);
+
+				overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
+
+				bufferedWriter.write(givenIntervalNumber + "\t" + givenIntervalName + "\t");
+
+				if (overlapInformation != null) {
+
+					givenIntervalNumber2NumberofGeneOverlapsMap.put(givenIntervalNumber, 0);
+
 					/***************************************************************/
-					/***********geneId 2 ExonOverlapsList Map starts****************/
+					/*********** geneId 2 ExonOverlapsList Map starts ****************/
 					/***************************************************************/
-					//geneId2ExonOverlapsListMap
+					// geneId2ExonOverlapsListMap
 					geneId2OverlapListMap = overlapInformation.getGeneId2ExonOverlapListMap();
-					
-					//Write Number of Exon Overlaps
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode,IntervalName.EXON,geneOverlaps,bufferedWriter, geneHugoSymbolNumber2NameMap);
-					/***************************************************************/
-					/***********geneId 2 ExonOverlapsList Map ends******************/
-					/***************************************************************/	
-					
-					
-					
-					/***************************************************************/
-					/***********geneId 2 IntronOverlapsList Map starts**************/
-					/***************************************************************/
-					//geneId2IntronOverlapsListMap
-					geneId2OverlapListMap = overlapInformation.getGeneId2IntronOverlapListMap();
-					
-					//Write Number of Intron Overlaps
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.INTRON,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
-					/***************************************************************/
-					/***********geneId 2 IntronOverlapsList Map ends****************/
-					/***************************************************************/	
 
-					
+					// Write Number of Exon Overlaps
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.EXON, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 Fivep1OverlapsList Map starts**************/
+					/*********** geneId 2 ExonOverlapsList Map ends ******************/
+					/***************************************************************/
+
+					/***************************************************************/
+					/*********** geneId 2 IntronOverlapsList Map starts **************/
+					/***************************************************************/
+					// geneId2IntronOverlapsListMap
+					geneId2OverlapListMap = overlapInformation.getGeneId2IntronOverlapListMap();
+
+					// Write Number of Intron Overlaps
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.INTRON, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 IntronOverlapsList Map ends ****************/
+					/***************************************************************/
+
+					/***************************************************************/
+					/*********** geneId 2 Fivep1OverlapsList Map starts **************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2Fivep1OverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.FIVE_P_ONE,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
-					/***************************************************************/
-					/***********geneId 2 Fivep1OverlapsList Map ends****************/
-					/***************************************************************/	
 
-					
-					
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.FIVE_P_ONE, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 Fivep2OverlapsList Map starts**************/
+					/*********** geneId 2 Fivep1OverlapsList Map ends ****************/
+					/***************************************************************/
+
+					/***************************************************************/
+					/*********** geneId 2 Fivep2OverlapsList Map starts **************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2Fivep2OverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.FIVE_P_TWO,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
-					/***************************************************************/
-					/***********geneId 2 Fivep2OverlapsList Map ends****************/
-					/***************************************************************/	
 
-					
-					
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.FIVE_P_TWO, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 FivedOverlapsList Map starts**************/
+					/*********** geneId 2 Fivep2OverlapsList Map ends ****************/
+					/***************************************************************/
+
+					/***************************************************************/
+					/*********** geneId 2 FivedOverlapsList Map starts **************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2FivedOverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.FIVE_D,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
-					/***************************************************************/
-					/***********geneId 2 FivedOverlapsList Map ends****************/
-					/***************************************************************/	
 
-					
-					
-				
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.FIVE_D, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 Threep1OverlapsList Map starts*************/
+					/*********** geneId 2 FivedOverlapsList Map ends ****************/
+					/***************************************************************/
+
+					/***************************************************************/
+					/*********** geneId 2 Threep1OverlapsList Map starts *************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2Threep1OverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.THREE_P_ONE,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
+
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.THREE_P_ONE, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 Threep1OverlapsList Map ends***************/
-					/***************************************************************/	
+					/*********** geneId 2 Threep1OverlapsList Map ends ***************/
+					/***************************************************************/
 
 					/***************************************************************/
-					/***********geneId 2 Threep2OverlapsList Map starts*************/
+					/*********** geneId 2 Threep2OverlapsList Map starts *************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2Threep2OverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode,IntervalName.THREE_P_TWO,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
+
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.THREE_P_TWO, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 Threep2OverlapsList Map ends***************/
-					/***************************************************************/	
+					/*********** geneId 2 Threep2OverlapsList Map ends ***************/
+					/***************************************************************/
 
 					/***************************************************************/
-					/***********geneId 2 ThreedOverlapsList Map starts**************/
+					/*********** geneId 2 ThreedOverlapsList Map starts **************/
 					/***************************************************************/
 					geneId2OverlapListMap = overlapInformation.getGeneId2ThreedOverlapListMap();
-					
-					writeOverlaps(geneId2OverlapListMap,givenIntervalNumber,givenIntervalNumber2NumberofGeneOverlapsMap,geneOverlapAnalysisFileMode,IntervalName.THREE_D,geneOverlaps,bufferedWriter,geneHugoSymbolNumber2NameMap);
+
+					writeOverlaps(geneId2OverlapListMap, givenIntervalNumber, givenIntervalNumber2NumberofGeneOverlapsMap, geneOverlapAnalysisFileMode, IntervalName.THREE_D, geneOverlaps, bufferedWriter, geneHugoSymbolNumber2NameMap);
 					/***************************************************************/
-					/***********geneId 2 ThreedOverlapsList Map ends****************/
-					/***************************************************************/	
-					
+					/*********** geneId 2 ThreedOverlapsList Map ends ****************/
+					/***************************************************************/
+
 					bufferedWriter.write("" + givenIntervalNumber2NumberofGeneOverlapsMap.get(givenIntervalNumber));
-		    		
-		    	}//End of IF: overlapInformation is not null
-		    	else{
-		    		//For this given interval there is no overlap
-		    		//OverlapInformation is null
-		    		
-			    		switch(geneOverlapAnalysisFileMode){
-							case WITH_OVERLAP_INFORMATION: 	bufferedWriter.write(	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" +
-																				 	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" + 
-																				 	"0" + "\t" + "" + "\t" +
-																				 	"0");
-															break;
-															
-							case WITHOUT_OVERLAP_INFORMATION: 	bufferedWriter.write(	"0" + "\t" + 
-																						"0" + "\t" +
-																						"0" + "\t" + 
-																						"0" + "\t" + 
-																						"0" + "\t" +
-																						"0" + "\t" + 
-																						"0" + "\t" +
-																						"0" + "\t" +
-																						"0");
-																break;
-					}//End of switch
-		    	}
-				
-				
-		    	
-				//Go to next line for next given interval
+
+				}// End of IF: overlapInformation is not null
+				else {
+					// For this given interval there is no overlap
+					// OverlapInformation is null
+
+					switch (geneOverlapAnalysisFileMode) {
+						case WITH_OVERLAP_INFORMATION:
+							bufferedWriter.write("0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0" + "\t" + "" + "\t" + "0");
+							break;
+
+						case WITHOUT_OVERLAP_INFORMATION:
+							bufferedWriter.write("0" + "\t" + "0" + "\t" + "0" + "\t" + "0" + "\t" + "0" + "\t" + "0" + "\t" + "0" + "\t" + "0" + "\t" + "0");
+							break;
+					}// End of switch
+				}
+
+				// Go to next line for next given interval
 				bufferedWriter.write(System.getProperty("line.separator"));
-				
-		    }//End of FOR: each given interval
-		    
-		    //Do calculations
-		    geneOverlaps.calculate();
-			   
-			//Write Last Lines
-			//Write Number of Gene Overlaps
-		    switch(geneOverlapAnalysisFileMode){
-		    
-			    case WITH_OVERLAP_INFORMATION: 		bufferedWriter.write("Number of Overlaps" + "\t" + "" + "\t" +
-    														 geneOverlaps.getNumberofExonOverlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberofIntronOverlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof5p1Overlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof5p2Overlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof5dOverlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof3p1Overlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof3p2Overlaps() + "\t" + "" + "\t" + 
-    														 geneOverlaps.getNumberof3dOverlaps() + "\t" + "" + "\t" +
-    														 geneOverlaps.getTotalNumberofOverlaps() +
-    														 System.getProperty("line.separator")
-    														);
-			    
-												    bufferedWriter.write("" + "\t" + "" + "\t" +
-												    		 geneOverlaps.getExonPercentage() + "%" + "\t" + "" + "\t" + 
-												    		 geneOverlaps.getIntronPercentage() + "%" + "\t" +  "" + "\t" + 
-												    		 geneOverlaps.getFivep1Percentage() + "%" + "\t" + "" + "\t" + 
-															 geneOverlaps.getFivep2Percentage() + "%" + "\t" + "" + "\t" + 
-															 geneOverlaps.getFivedPercentage() + "%" + "\t" + "" + "\t" + 
-												    		 geneOverlaps.getThreep1Percentage() + "%" + "\t" + "" + "\t" + 
-															 geneOverlaps.getThreep2Percentage() + "%" + "\t" + "" + "\t" + 
-															 geneOverlaps.getThreedPercentage() + "%" + "\t" + "" + "\t" + 
-															 geneOverlaps.getAllPercentage() + "%" +
-															 System.getProperty("line.separator")
-															);
 
-			    									break;
-			    									
-			    case WITHOUT_OVERLAP_INFORMATION: 	bufferedWriter.write("Number of Overlaps" + "\t" + "" + "\t" +
-													 geneOverlaps.getNumberofExonOverlaps() + "\t" +
-													 geneOverlaps.getNumberofIntronOverlaps() + "\t" +
-													 geneOverlaps.getNumberof5p1Overlaps() + "\t" + 
-													 geneOverlaps.getNumberof5p2Overlaps() + "\t" +
-													 geneOverlaps.getNumberof5dOverlaps() + "\t" + 
-													 geneOverlaps.getNumberof3p1Overlaps() + "\t" +
-													 geneOverlaps.getNumberof3p2Overlaps() + "\t" + 
-													 geneOverlaps.getNumberof3dOverlaps() + "\t" +
-													 geneOverlaps.getTotalNumberofOverlaps() +
-													 System.getProperty("line.separator")
-													);
-			    
-			    									bufferedWriter.write("" + "\t" + "" + "\t" +
-		    											geneOverlaps.getExonPercentage() + "%" + "\t" + 
-		    											geneOverlaps.getIntronPercentage() + "%" + "\t" + 
-									    		 		geneOverlaps.getFivep1Percentage() + "%" + "\t" + 
-									    		 		geneOverlaps.getFivep2Percentage() + "%" + "\t" + 
-														geneOverlaps.getFivedPercentage() + "%" + "\t" + 
-											    		geneOverlaps.getThreep1Percentage() + "%" + "\t" + 
-														geneOverlaps.getThreep2Percentage() + "%" + "\t" + 
-														geneOverlaps.getThreedPercentage() + "%"  + "\t" + 
-														geneOverlaps.getAllPercentage() + "%" +
-														System.getProperty("line.separator")
-													);
+			}// End of FOR: each given interval
 
-			    
-			    									break;
-		    
-		    }//End of switch
-		    
-		    
-		    
-		    //Write ChromosomeName 2 NumberofGivenIntervals and Percentage
-		    writeChromosomeDistribution(chromosomeName2CountMap,bufferedWriter);
-			
-			//Close 
+			// Do calculations
+			geneOverlaps.calculate();
+
+			// Write Last Lines
+			// Write Number of Gene Overlaps
+			switch (geneOverlapAnalysisFileMode) {
+
+				case WITH_OVERLAP_INFORMATION:
+					bufferedWriter.write("Number of Overlaps" + "\t" + "" + "\t" + geneOverlaps.getNumberofExonOverlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberofIntronOverlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof5p1Overlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof5p2Overlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof5dOverlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof3p1Overlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof3p2Overlaps() + "\t" + "" + "\t" + geneOverlaps.getNumberof3dOverlaps() + "\t" + "" + "\t" + geneOverlaps.getTotalNumberofOverlaps() + System.getProperty("line.separator"));
+
+					bufferedWriter.write("" + "\t" + "" + "\t" + geneOverlaps.getExonPercentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getIntronPercentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getFivep1Percentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getFivep2Percentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getFivedPercentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getThreep1Percentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getThreep2Percentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getThreedPercentage() + "%" + "\t" + "" + "\t" + geneOverlaps.getAllPercentage() + "%" + System.getProperty("line.separator"));
+
+					break;
+
+				case WITHOUT_OVERLAP_INFORMATION:
+					bufferedWriter.write("Number of Overlaps" + "\t" + "" + "\t" + geneOverlaps.getNumberofExonOverlaps() + "\t" + geneOverlaps.getNumberofIntronOverlaps() + "\t" + geneOverlaps.getNumberof5p1Overlaps() + "\t" + geneOverlaps.getNumberof5p2Overlaps() + "\t" + geneOverlaps.getNumberof5dOverlaps() + "\t" + geneOverlaps.getNumberof3p1Overlaps() + "\t" + geneOverlaps.getNumberof3p2Overlaps() + "\t" + geneOverlaps.getNumberof3dOverlaps() + "\t" + geneOverlaps.getTotalNumberofOverlaps() + System.getProperty("line.separator"));
+
+					bufferedWriter.write("" + "\t" + "" + "\t" + geneOverlaps.getExonPercentage() + "%" + "\t" + geneOverlaps.getIntronPercentage() + "%" + "\t" + geneOverlaps.getFivep1Percentage() + "%" + "\t" + geneOverlaps.getFivep2Percentage() + "%" + "\t" + geneOverlaps.getFivedPercentage() + "%" + "\t" + geneOverlaps.getThreep1Percentage() + "%" + "\t" + geneOverlaps.getThreep2Percentage() + "%" + "\t" + geneOverlaps.getThreedPercentage() + "%" + "\t" + geneOverlaps.getAllPercentage() + "%" + System.getProperty("line.separator"));
+
+					break;
+
+			}// End of switch
+
+			// Write ChromosomeName 2 NumberofGivenIntervals and Percentage
+			writeChromosomeDistribution(chromosomeName2CountMap, bufferedWriter);
+
+			// Close
 			bufferedWriter.close();
-			
+
 		} catch (IOException e) {
-			
+
 			logger.error(e.toString());
 		}
-		
-		
+
 	}
-	
 
 	// //Empirical P Value Calculation
 	// //args[0] must have input file name with folder
@@ -6068,7 +5925,7 @@ public class Annotation {
 
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator") ;
+		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
 		/*********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
@@ -6294,9 +6151,7 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF******ANNOTATION******starts ***********************************/
 		/*******************************************************************************/
-		if (tfAnnotationType.doTFAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
@@ -6319,46 +6174,28 @@ public class Annotation {
 		/*******************************************************************************/
 
 		/*******************************************************************************/
-		/************* HG19 Refseq GENE*****ANNOTATION***starts*************************/
+		/************* HG19 Refseq GENE*****ANNOTATION***starts *************************/
 		/*******************************************************************************/
-		/***************** This has been coded for Chen Yao*****************************/
+		/***************** This has been coded for Chen Yao *****************************/
 		/*******************************************************************************/
 		GlanetRunner.appendLog("**********************************************************");
 		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
 		dateBefore = System.currentTimeMillis();
-		
-		//10 February 2015
+
+		// 10 February 2015
 		TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
 		TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
-		
-		//13 February 2015
-		TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
-		
 
-		searchGeneWithNumbers(
-				dataFolder, 
-				outputFolder, 
-				givenIntervalNumber2GivenIntervalNameMap,
-				givenIntervalNumber2OverlapInformationMap,
-				chromosomeName2CountMap,
-				geneAlternateNumber2KMap, 
-				overlapDefinition, 
-				geneHugoSymbolNumber2NameMap, 
-				refSeqRNANucleotideAccessionNumber2NameMap);
-		
+		// 13 February 2015
+		TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
+		searchGeneWithNumbers(dataFolder, outputFolder, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+
 		GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
-		
-		writeGeneOverlapAnalysisFile(
-				outputFolder,
-				Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, 
-				geneOverlapAnalysisFileMode,
-				givenIntervalNumber2GivenIntervalNameMap,
-				givenIntervalNumber2OverlapInformationMap,
-				givenIntervalNumber2NumberofGeneOverlapsMap,
-				chromosomeName2CountMap,
-				geneHugoSymbolNumber2NameMap);
-		
+
+		writeGeneOverlapAnalysisFile(outputFolder, Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap, chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
+
 		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
 		dateAfter = System.currentTimeMillis();
 
@@ -6370,17 +6207,15 @@ public class Annotation {
 		System.gc();
 		System.runFinalization();
 		/*******************************************************************************/
-		/***************** This is done by default for Chen Yao*************************/
+		/***************** This is done by default for Chen Yao *************************/
 		/*******************************************************************************/
-		/************* HG19 RefSeq GENE*****ANNOTATION***ends***************************/
+		/************* HG19 RefSeq GENE*****ANNOTATION***ends ***************************/
 		/*******************************************************************************/
 
 		/*******************************************************************************/
 		/************ KEGG PATHWAY*****ANNOTATION***starts *******************************/
 		/*******************************************************************************/
-		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());
@@ -6523,8 +6358,7 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
 		/*******************************************************************************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
@@ -6561,8 +6395,7 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
 		/*******************************************************************************/
-		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
+		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());

@@ -9,11 +9,9 @@
 package rsat;
 
 public class PeakSequence {
-	
+
 	int start;
 	int end;
-	
-	
 
 	public int getStart() {
 		return start;

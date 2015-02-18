@@ -10,33 +10,24 @@ import enumtypes.ChromosomeName;
 /**
  * 
  */
-public class MapabilityIntervalTreeNode extends IntervalTreeNode{
-	
-	//Mapability
-	float mapability;
-	
-	
+public class MapabilityIntervalTreeNode extends IntervalTreeNode {
 
-	
+	// Mapability
+	float mapability;
+
 	public float getMapability() {
 		return mapability;
 	}
-
-
-
 
 	public void setMapability(float mapability) {
 		this.mapability = mapability;
 	}
 
-
-
-
-	//CalculateMapability
-	public MapabilityIntervalTreeNode(ChromosomeName chromName, int low, int high, float mapability){
+	// CalculateMapability
+	public MapabilityIntervalTreeNode(ChromosomeName chromName, int low, int high, float mapability) {
 		super(chromName, low, high);
-	
-		this.mapability = mapability;		
+
+		this.mapability = mapability;
 	}
 
 }

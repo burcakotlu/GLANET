@@ -10,7 +10,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,7 +23,9 @@ import java.util.Set;
 
 import auxiliary.FileOperations;
 import auxiliary.GlanetDecimalFormat;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 import enumtypes.MultipleTestingType;
 
@@ -747,8 +748,8 @@ public class ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype 
 		}
 
 		try {
-			
-			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(encodeCollaborationDirectory + extraDirectoryName + System.getProperty("file.separator") + initialFileName + "_SummaryTable.txt"));
+
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(encodeCollaborationDirectory + extraDirectoryName + System.getProperty("file.separator") + initialFileName + "_SummaryTable.txt"));
 
 			// write header line
 			bufferedWriter.write("Element Name" + "\t" + "Number of overlaps: k out of n" + "\t" + "Overlapping rsIDs" + "\t" + "Empirical P Value" + "\t" + "Bonferroni Corrected P Value" + "\t" + "Bonferroni_Enriched" + "\t" + "BH FDR Adjusted P Value (sorted w.r.t. this value)" + "\t" + "BH_Enriched" + System.getProperty("line.separator"));

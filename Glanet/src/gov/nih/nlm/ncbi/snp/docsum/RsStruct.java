@@ -5,7 +5,6 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -44,213 +45,189 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "RsStruct")
 public class RsStruct {
 
-    @XmlAttribute(name = "protAcc")
-    protected String protAcc;
-    @XmlAttribute(name = "protGi")
-    protected Integer protGi;
-    @XmlAttribute(name = "protLoc")
-    protected Integer protLoc;
-    @XmlAttribute(name = "protResidue")
-    protected String protResidue;
-    @XmlAttribute(name = "rsResidue")
-    protected String rsResidue;
-    @XmlAttribute(name = "structGi")
-    protected Integer structGi;
-    @XmlAttribute(name = "structLoc")
-    protected Integer structLoc;
-    @XmlAttribute(name = "structResidue")
-    protected String structResidue;
+	@XmlAttribute(name = "protAcc")
+	protected String protAcc;
+	@XmlAttribute(name = "protGi")
+	protected Integer protGi;
+	@XmlAttribute(name = "protLoc")
+	protected Integer protLoc;
+	@XmlAttribute(name = "protResidue")
+	protected String protResidue;
+	@XmlAttribute(name = "rsResidue")
+	protected String rsResidue;
+	@XmlAttribute(name = "structGi")
+	protected Integer structGi;
+	@XmlAttribute(name = "structLoc")
+	protected Integer structLoc;
+	@XmlAttribute(name = "structResidue")
+	protected String structResidue;
 
-    /**
-     * Gets the value of the protAcc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getProtAcc() {
-        return protAcc;
-    }
+	/**
+	 * Gets the value of the protAcc property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getProtAcc() {
+		return protAcc;
+	}
 
-    /**
-     * Sets the value of the protAcc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setProtAcc(String value) {
-        this.protAcc = value;
-    }
+	/**
+	 * Sets the value of the protAcc property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setProtAcc(String value) {
+		this.protAcc = value;
+	}
 
-    /**
-     * Gets the value of the protGi property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getProtGi() {
-        return protGi;
-    }
+	/**
+	 * Gets the value of the protGi property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getProtGi() {
+		return protGi;
+	}
 
-    /**
-     * Sets the value of the protGi property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setProtGi(Integer value) {
-        this.protGi = value;
-    }
+	/**
+	 * Sets the value of the protGi property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setProtGi(Integer value) {
+		this.protGi = value;
+	}
 
-    /**
-     * Gets the value of the protLoc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getProtLoc() {
-        return protLoc;
-    }
+	/**
+	 * Gets the value of the protLoc property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getProtLoc() {
+		return protLoc;
+	}
 
-    /**
-     * Sets the value of the protLoc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setProtLoc(Integer value) {
-        this.protLoc = value;
-    }
+	/**
+	 * Sets the value of the protLoc property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setProtLoc(Integer value) {
+		this.protLoc = value;
+	}
 
-    /**
-     * Gets the value of the protResidue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getProtResidue() {
-        return protResidue;
-    }
+	/**
+	 * Gets the value of the protResidue property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getProtResidue() {
+		return protResidue;
+	}
 
-    /**
-     * Sets the value of the protResidue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setProtResidue(String value) {
-        this.protResidue = value;
-    }
+	/**
+	 * Sets the value of the protResidue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setProtResidue(String value) {
+		this.protResidue = value;
+	}
 
-    /**
-     * Gets the value of the rsResidue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRsResidue() {
-        return rsResidue;
-    }
+	/**
+	 * Gets the value of the rsResidue property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getRsResidue() {
+		return rsResidue;
+	}
 
-    /**
-     * Sets the value of the rsResidue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRsResidue(String value) {
-        this.rsResidue = value;
-    }
+	/**
+	 * Sets the value of the rsResidue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setRsResidue(String value) {
+		this.rsResidue = value;
+	}
 
-    /**
-     * Gets the value of the structGi property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getStructGi() {
-        return structGi;
-    }
+	/**
+	 * Gets the value of the structGi property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getStructGi() {
+		return structGi;
+	}
 
-    /**
-     * Sets the value of the structGi property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setStructGi(Integer value) {
-        this.structGi = value;
-    }
+	/**
+	 * Sets the value of the structGi property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setStructGi(Integer value) {
+		this.structGi = value;
+	}
 
-    /**
-     * Gets the value of the structLoc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getStructLoc() {
-        return structLoc;
-    }
+	/**
+	 * Gets the value of the structLoc property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getStructLoc() {
+		return structLoc;
+	}
 
-    /**
-     * Sets the value of the structLoc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setStructLoc(Integer value) {
-        this.structLoc = value;
-    }
+	/**
+	 * Sets the value of the structLoc property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setStructLoc(Integer value) {
+		this.structLoc = value;
+	}
 
-    /**
-     * Gets the value of the structResidue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStructResidue() {
-        return structResidue;
-    }
+	/**
+	 * Gets the value of the structResidue property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getStructResidue() {
+		return structResidue;
+	}
 
-    /**
-     * Sets the value of the structResidue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStructResidue(String value) {
-        this.structResidue = value;
-    }
+	/**
+	 * Sets the value of the structResidue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setStructResidue(String value) {
+		this.structResidue = value;
+	}
 
 }

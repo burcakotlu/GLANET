@@ -38,38 +38,34 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import ui.GlanetRunner;
+
 /**
  * 
  */
 public class AugmentationofGivenIntervalwithRsIds {
-	
+
 	private Unmarshaller unmarshaller;
-//	private static generated.ObjectFactory _fool_javac=null;
-	private  XMLInputFactory xmlInputFactory=null;
-	
-	
-	public AugmentationofGivenIntervalwithRsIds() throws Exception
-    {
+	// private static generated.ObjectFactory _fool_javac=null;
+	private XMLInputFactory xmlInputFactory = null;
+
+	public AugmentationofGivenIntervalwithRsIds() throws Exception {
 		this.xmlInputFactory = XMLInputFactory.newInstance();
 		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
 		xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
 		xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
-    	
-		xmlInputFactory.setXMLResolver(new javax.xml.stream.XMLResolver()
-        {
-            	@Override
-            	public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace)
-                {
-            		return new java.io.ByteArrayInputStream(new byte[0]);
-                }
-        });
 
-		JAXBContext jaxbCtxt=JAXBContext.newInstance("generated");
-		this.unmarshaller=jaxbCtxt.createUnmarshaller();
+		xmlInputFactory.setXMLResolver(new javax.xml.stream.XMLResolver() {
+			@Override
+			public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) {
+				return new java.io.ByteArrayInputStream(new byte[0]);
+			}
+		});
 
-    }
-	
-	
+		JAXBContext jaxbCtxt = JAXBContext.newInstance("generated");
+		this.unmarshaller = jaxbCtxt.createUnmarshaller();
+
+	}
+
 	// Requires oneBased positions
 	// Requires chrName without preceeding "chr" string
 	public List<Integer> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased, int givenIntervalEndOneBased) {
@@ -85,39 +81,31 @@ public class AugmentationofGivenIntervalwithRsIds {
 		// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
 		// "[Base Position] AND "+ chrNamewithoutPreceedingChr
 		// +"[CHR] AND txid9606&usehistory=n";
-		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new StreamSource(eSearchString));
+		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new
+		// StreamSource(eSearchString));
 
 		try {
 
 			// HTTP POST starts
-			// String url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
+			// String url =
+			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
 			String termParameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http")
-									.setHost("www.ncbi.nlm.nih.gov")
-									.setPath("/entrez/eutils/esearch.fcgi")
-									.setParameter("db", "snp")
-									.setParameter("term", termParameter)
-									.setParameter("usehistory", "y").build();
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termParameter).setParameter("usehistory", "y").build();
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			RequestConfig defaultRequestConfig = RequestConfig.custom()
-																	.setSocketTimeout(60000)
-																	.setConnectTimeout(60000)
-																	.setConnectionRequestTimeout(60000)
-																	.setStaleConnectionCheckEnabled(true)
-																	.build();
-			
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
 
 			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
-			
+
 			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
 
 			if (response.getEntity() != null) {
-				
+
 				InputStream is = entity.getContent();
 				readerSearch = xmlInputFactory.createXMLEventReader(is);
 
@@ -173,36 +161,32 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 		return rsIdList;
 	}
-	
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		AugmentationofGivenIntervalwithRsIds app = null;
-		
+
 		String chrName = "1";
 		int startOneBased = 204924685;
 		int endOneBased = 204924685;
 		List<Integer> rsIdList = null;
-		
 
-		
 		try {
 			app = new AugmentationofGivenIntervalwithRsIds();
 			rsIdList = app.getRsIdsInAGivenInterval(chrName, startOneBased, endOneBased);
-			
-			for(Integer rsId: rsIdList){
+
+			for (Integer rsId : rsIdList) {
 				GlanetRunner.appendLog(rsId);
 			}
-			
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

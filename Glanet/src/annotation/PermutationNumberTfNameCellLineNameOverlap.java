@@ -9,17 +9,12 @@
 package annotation;
 
 public class PermutationNumberTfNameCellLineNameOverlap {
-	
+
 	String permutationNumberTfNameCellLineName;
 	int low;
 	int high;
-	
-	
-	
-	
-	
-	public PermutationNumberTfNameCellLineNameOverlap(
-			String permutationNumberTfNameCellLineName, int low, int high) {
+
+	public PermutationNumberTfNameCellLineNameOverlap(String permutationNumberTfNameCellLineName, int low, int high) {
 		super();
 		this.permutationNumberTfNameCellLineName = permutationNumberTfNameCellLineName;
 		this.low = low;
@@ -30,8 +25,7 @@ public class PermutationNumberTfNameCellLineNameOverlap {
 		return permutationNumberTfNameCellLineName;
 	}
 
-	public void setPermutationNumberTfNameCellLineName(
-			String permutationNumberTfNameCellLineName) {
+	public void setPermutationNumberTfNameCellLineName(String permutationNumberTfNameCellLineName) {
 		this.permutationNumberTfNameCellLineName = permutationNumberTfNameCellLineName;
 	}
 

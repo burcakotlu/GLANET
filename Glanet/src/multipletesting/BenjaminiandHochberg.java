@@ -22,34 +22,33 @@ public class BenjaminiandHochberg {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public static void calculateBenjaminiHochbergFDRAdjustedPValues(List<FunctionalElement> list,float FDR){
-		
+	public static void calculateBenjaminiHochbergFDRAdjustedPValues(List<FunctionalElement> list, float FDR) {
+
 		FunctionalElement element;
-		
+
 		Iterator<FunctionalElement> itr = list.iterator();
-		
+
 		int j = 1;
 		int m = list.size();
 		Float BH_FDR_AdjustedPValue;
-		
-		while(itr.hasNext()){
-			
+
+		while (itr.hasNext()) {
+
 			element = itr.next();
-			BH_FDR_AdjustedPValue = (element.getEmpiricalPValue()*m)/j;
-			
+			BH_FDR_AdjustedPValue = (element.getEmpiricalPValue() * m) / j;
+
 			element.setBH_FDR_adjustedPValue(BH_FDR_AdjustedPValue);
-			
-			if(element.getBH_FDR_adjustedPValue()<= FDR){
+
+			if (element.getBH_FDR_adjustedPValue() <= FDR) {
 				element.setRejectNullHypothesis(true);
-			}else{
-				element.setRejectNullHypothesis(false);	
+			} else {
+				element.setRejectNullHypothesis(false);
 			}
 			j++;
-		}	
-		
+		}
+
 	}
+
 	/**
 	 * @param args
 	 */

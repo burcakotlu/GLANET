@@ -2,7 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;              //for layout managers and more
+import java.awt.Dimension; //for layout managers and more
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -84,39 +84,7 @@ public class MainView extends JPanel {
 
 	public interface MainViewDelegate {
 
-		public void startRunActionsWithOptions(String inputFileName, 
-											   String inputFileAssembly, 
-											   String outputFolder, 
-											   String inputFileFormat, 
-											   String numberOfBases, 
-											   String enrichmentEnabled, 
-											   String generateRandomDataMode, 
-											   String multipleTestingChoice, 
-											   String bonferoniCorrectionSignificanceLevel, 
-											   String falseDiscoveryRate, 
-											   String numberOfPermutations, 
-											   String dnaseEnrichment, 
-											   String histoneEnrichment, 
-											   String tfEnrihment, 
-											   String keggPathwayEnrichment, 
-											   String tfAndKeggPathwayEnrichment, 
-											   String cellLineBasedTfAndKeggPathwayEnrichment, 
-											   String regulatorySequenceAnalysisUsingRSAT, 
-											   String jobName, 
-											   String writeGeneratedRandomDataMode, 
-											   String writePermutationBasedandParametricBasedAnnotationResultMode, 
-											   String writePermutationBasedAnnotationResultMode, 
-											   String numberOfPermutationsInEachRun, 
-											   String userDefinedGeneSetEnrichment, 
-											   String userDefinedGeneSetInputFile, 
-											   String userDefinedGeneSetGeneInformation, 
-											   String userDefinedGeneSetName, 
-											   String userDefinedGeneSetDescription, 
-											   String userDefinedLibraryEnrichment, 
-											   String userDefinedLibraryInputFile, 
-											   String userDefinedLibraryDataFormat, 
-											   String givenInputDataType, 
-											   String[] cellLinesToBeConsidered);
+		public void startRunActionsWithOptions(String inputFileName, String inputFileAssembly, String outputFolder, String inputFileFormat, String numberOfBases, String enrichmentEnabled, String generateRandomDataMode, String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate, String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrihment, String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment, String cellLineBasedTfAndKeggPathwayEnrichment, String regulatorySequenceAnalysisUsingRSAT, String jobName, String writeGeneratedRandomDataMode, String writePermutationBasedandParametricBasedAnnotationResultMode, String writePermutationBasedAnnotationResultMode, String numberOfPermutationsInEachRun, String userDefinedGeneSetEnrichment, String userDefinedGeneSetInputFile, String userDefinedGeneSetGeneInformation, String userDefinedGeneSetName, String userDefinedGeneSetDescription, String userDefinedLibraryEnrichment, String userDefinedLibraryInputFile, String userDefinedLibraryDataFormat, String givenInputDataType, String[] cellLinesToBeConsidered);
 
 		public void stopCurrentProcess();
 	}
@@ -178,60 +146,27 @@ public class MainView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0
-					|| (userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
-					|| (userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)){
-				
+			if (inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0 || (userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || (userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)) {
+
 				String dialogMessage = "Please fill all the necessary options:\n";
-				
-				if( inputTextField.getText().length() <= 0)
+
+				if (inputTextField.getText().length() <= 0)
 					dialogMessage += "Input File Name\n";
-				if( outputTextField.getText().length() <= 0)
+				if (outputTextField.getText().length() <= 0)
 					dialogMessage += "GLANET Folder\n";
-				if( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
+				if (userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
 					dialogMessage += "User Defined GeneSet Input File\n";
-				if( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
+				if (userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
 					dialogMessage += "User Defined Library Input File\n";
-				
+
 				JOptionPane.showMessageDialog(null, dialogMessage);
-			}else {
-				
-				listPane.setEnabled( false);
+			} else {
+
+				listPane.setEnabled(false);
 				logArea.setText("");
 				logArea.setCaretPosition(logArea.getDocument().getLength());
 
-				delegate.startRunActionsWithOptions(inputTextField.getText(), 
-													inputAssembly.getSelectedItem().toString(), 
-													outputTextField.getText(), 
-													inputFormatCombo.getSelectedItem().toString(), 
-													numberOfBases.getText(), 
-													performEnrichmentCheckBox.isSelected() ? Commons.DO_ENRICH : Commons.DO_NOT_ENRICH, 
-													generateRandomDataModeCombo.getSelectedItem().toString(), 
-													multipleTestingCombo.getSelectedItem().toString(), 
-													signifanceCriteria.getText(), falseDiscoveryRate.getText(), 
-													numberOfPerCombo.getSelectedItem().toString(), 
-													dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, 
-													histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, 
-													tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION, 
-													keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, 
-													tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, 
-													cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
-													regulatorySequenceAnalysisUsingRSATCheck.isSelected() ? Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT : Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT, 
-													(jobName.getText().length() == 0) ? Commons.NO_NAME : jobName.getText(), 
-													Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA, 
-													Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT, 
-													Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT, 
-													numberOfPerInEachRun.getSelectedItem().toString(), 
-													userDefinedGeneSetAnnotation.isSelected() ? Commons.DO_USER_DEFINED_GENESET_ANNOTATION : Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION, 
-													userDefinedGeneSetInput.getText(), 
-													userDefinedGeneSetGeneInformation.getSelectedItem().toString(), 
-													(userDefinedGeneSetName.getText().length() != 0) ? userDefinedGeneSetName.getText() : Commons.NO_NAME, 
-													(userDefinedGeneSetDescriptionFile.getText().length() != 0) ? userDefinedGeneSetDescriptionFile.getText() : Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED, 
-													userDefinedLibraryAnnotation.isSelected() ? Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION : Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION, 
-													userDefinedLibraryInput.getText(), 
-													userDefinedLibraryDataFormatCombo.getSelectedItem().toString(), 
-													Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS, 
-													cellLinesList.getSelectedValuesList().toArray(new String[0]));
+				delegate.startRunActionsWithOptions(inputTextField.getText(), inputAssembly.getSelectedItem().toString(), outputTextField.getText(), inputFormatCombo.getSelectedItem().toString(), numberOfBases.getText(), performEnrichmentCheckBox.isSelected() ? Commons.DO_ENRICH : Commons.DO_NOT_ENRICH, generateRandomDataModeCombo.getSelectedItem().toString(), multipleTestingCombo.getSelectedItem().toString(), signifanceCriteria.getText(), falseDiscoveryRate.getText(), numberOfPerCombo.getSelectedItem().toString(), dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION, keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, regulatorySequenceAnalysisUsingRSATCheck.isSelected() ? Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT : Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT, (jobName.getText().length() == 0) ? Commons.NO_NAME : jobName.getText(), Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA, Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT, numberOfPerInEachRun.getSelectedItem().toString(), userDefinedGeneSetAnnotation.isSelected() ? Commons.DO_USER_DEFINED_GENESET_ANNOTATION : Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION, userDefinedGeneSetInput.getText(), userDefinedGeneSetGeneInformation.getSelectedItem().toString(), (userDefinedGeneSetName.getText().length() != 0) ? userDefinedGeneSetName.getText() : Commons.NO_NAME, (userDefinedGeneSetDescriptionFile.getText().length() != 0) ? userDefinedGeneSetDescriptionFile.getText() : Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED, userDefinedLibraryAnnotation.isSelected() ? Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION : Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION, userDefinedLibraryInput.getText(), userDefinedLibraryDataFormatCombo.getSelectedItem().toString(), Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS, cellLinesList.getSelectedValuesList().toArray(new String[0]));
 
 				enableStartProcess(false);
 			}
@@ -290,12 +225,12 @@ public class MainView extends JPanel {
 			enableUserDefinedLibraryOptions(userDefinedLibraryAnnotation.isSelected());
 		}
 	};
-	
+
 	ActionListener enableInputAssemblyListener = new ActionListener() {
-		
+
 		@Override
-		public void actionPerformed( ActionEvent e) {
-			
+		public void actionPerformed(ActionEvent e) {
+
 			enableInputAssembly();
 		}
 	};
@@ -321,17 +256,13 @@ public class MainView extends JPanel {
 		inputBrowseAndOptionPane.add(createBrowseFileArea("Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
-		String[] inputFormat = { 	Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, 
-									Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, 
-									Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, 
-									Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, 
-									Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
+		String[] inputFormat = { Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
 
 		inputFormatCombo = new JComboBox<String>(inputFormat);
 		inputFormatCombo.setSelectedIndex(2);
 
-		inputFormatCombo.addActionListener( enableInputAssemblyListener);
-		
+		inputFormatCombo.addActionListener(enableInputAssemblyListener);
+
 		inputBrowseAndOptionPane.add(createBorderedPanel("Input Format", createPanelWithHint(inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
 		String[] assemblyFormat = { Commons.GRCH37_P13, Commons.GRCH38 };
@@ -596,13 +527,13 @@ public class MainView extends JPanel {
 
 		// scroll pane added to this view
 		add(scrollPane);
-		
+
 		refreshButtons();
 		revalidate();
 	}
-	
-	void refreshButtons(){
-		
+
+	void refreshButtons() {
+
 		enableEnrichmentOptions(performEnrichmentCheckBox.isSelected());
 		checkUsabilityOfEnrichmentOptions();
 		checkUsabilityOfRegulatorySequenceAnalysis();
@@ -739,11 +670,10 @@ public class MainView extends JPanel {
 
 		revalidate();
 	}
-	
+
 	public void enableInputAssembly() {
-		
-		
-		inputAssembly.setEnabled((inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
+
+		inputAssembly.setEnabled((inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.INPUT_FILE_FORMAT_DBSNP_IDS)) ? false : true);
 
 		revalidate();
 	}

@@ -5,7 +5,6 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -38,57 +39,51 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "RsLinkout")
 public class RsLinkout {
 
-    @XmlAttribute(name = "resourceId", required = true)
-    protected String resourceId;
-    @XmlAttribute(name = "linkValue", required = true)
-    protected String linkValue;
+	@XmlAttribute(name = "resourceId", required = true)
+	protected String resourceId;
+	@XmlAttribute(name = "linkValue", required = true)
+	protected String linkValue;
 
-    /**
-     * Gets the value of the resourceId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResourceId() {
-        return resourceId;
-    }
+	/**
+	 * Gets the value of the resourceId property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getResourceId() {
+		return resourceId;
+	}
 
-    /**
-     * Sets the value of the resourceId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResourceId(String value) {
-        this.resourceId = value;
-    }
+	/**
+	 * Sets the value of the resourceId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setResourceId(String value) {
+		this.resourceId = value;
+	}
 
-    /**
-     * Gets the value of the linkValue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLinkValue() {
-        return linkValue;
-    }
+	/**
+	 * Gets the value of the linkValue property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getLinkValue() {
+		return linkValue;
+	}
 
-    /**
-     * Sets the value of the linkValue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLinkValue(String value) {
-        this.linkValue = value;
-    }
+	/**
+	 * Sets the value of the linkValue property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setLinkValue(String value) {
+		this.linkValue = value;
+	}
 
 }

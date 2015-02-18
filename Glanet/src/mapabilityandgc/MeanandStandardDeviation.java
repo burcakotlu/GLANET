@@ -8,7 +8,6 @@
  */
 package mapabilityandgc;
 
-	
 public class MeanandStandardDeviation {
 
 	float mean;
@@ -16,9 +15,9 @@ public class MeanandStandardDeviation {
 	int numberofIntervals;
 	float sumofGCs;
 	float sumofMapabilities;
-	
+
 	String name;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -26,9 +25,6 @@ public class MeanandStandardDeviation {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
-
 
 	public float getMean() {
 		return mean;
@@ -76,14 +72,10 @@ public class MeanandStandardDeviation {
 	public MeanandStandardDeviation() {
 		this.mean = 0;
 		this.standardDeviation = 0;
-		this.numberofIntervals =0;
+		this.numberofIntervals = 0;
 		this.sumofGCs = 0;
 		this.sumofMapabilities = 0;
 		this.name = null;
 	}
-
-	
-	
-	
 
 }

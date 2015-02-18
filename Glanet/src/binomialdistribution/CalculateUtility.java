@@ -9,40 +9,39 @@ import java.util.Map;
 import common.Commons;
 
 public class CalculateUtility {
-	
-	public static void fillHashMapwithZeros(Map<String,Long> hashMap, String inputFileName){
+
+	public static void fillHashMapwithZeros(Map<String, Long> hashMap, String inputFileName) {
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
-		
+
 		try {
-			fileReader = new FileReader(inputFileName);			
+			fileReader = new FileReader(inputFileName);
 			bufferedReader = new BufferedReader(fileReader);
-			
-			while((strLine = bufferedReader.readLine())!=null) {
-				if (!(hashMap.containsKey(strLine))){
-//					hashMap.put(strLine.toUpperCase(Locale.ENGLISH), Commons.LONG_ZERO);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				if (!(hashMap.containsKey(strLine))) {
+					// hashMap.put(strLine.toUpperCase(Locale.ENGLISH),
+					// Commons.LONG_ZERO);
 					hashMap.put(strLine, Commons.LONG_ZERO);
 				}
-				
+
 				strLine = null;
 			}
-			
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			bufferedReader.close();
 			fileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}			
+		}
 	}
-	
 
 	/**
 	 * @param args

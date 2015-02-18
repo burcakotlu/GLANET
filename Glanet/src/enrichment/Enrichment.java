@@ -978,7 +978,6 @@ public class Enrichment {
 
 		Integer numberofOverlaps;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		for (TIntIntIterator it = permutationNumberCellLineNumberorGeneSetNumber2KMap.iterator(); it.hasNext();) {
@@ -996,8 +995,7 @@ public class Enrichment {
 			try {
 
 				if (bufferedWriter == null) {
-					fileWriter = FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt");
-					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt"));
 
 					bufferedWriter.write("CellLineNumberOrKeggPathwayNumber" + "\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
 
@@ -1009,7 +1007,7 @@ public class Enrichment {
 				}
 
 				bufferedWriter.write(numberofOverlaps + System.getProperty("line.separator"));
-
+				bufferedWriter.close();
 			} catch (IOException e) {
 				logger.error(e.toString());
 			}
@@ -1028,7 +1026,6 @@ public class Enrichment {
 
 		Integer numberofOverlaps;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		for (TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext();) {
@@ -1047,8 +1044,7 @@ public class Enrichment {
 			try {
 
 				if (bufferedWriter == null) {
-					fileWriter = FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt");
-					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt"));
 
 					bufferedWriter.write("TforHistoneNumber" + "\t" + "CellLineNumber" + "\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
 
@@ -1065,6 +1061,7 @@ public class Enrichment {
 
 				bufferedWriter.write(numberofOverlaps + System.getProperty("line.separator"));
 
+				bufferedWriter.close();
 			} catch (IOException e) {
 				logger.error(e.toString());
 			}
@@ -1081,7 +1078,6 @@ public class Enrichment {
 
 		Integer numberofOverlaps;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		for (TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext();) {
@@ -1100,8 +1096,7 @@ public class Enrichment {
 			try {
 
 				if (bufferedWriter == null) {
-					fileWriter = FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt");
-					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt"));
 
 					bufferedWriter.write("TfNumber" + "\t" + "KeggPathwayNumber" + "\t" + "NumberofOverlaps" + System.getProperty("line.separator"));
 
@@ -1117,7 +1112,7 @@ public class Enrichment {
 				}
 
 				bufferedWriter.write(numberofOverlaps + System.getProperty("line.separator"));
-
+				bufferedWriter.close();
 			} catch (IOException e) {
 				logger.error(e.toString());
 			}
@@ -1137,7 +1132,6 @@ public class Enrichment {
 
 		Integer numberofOverlaps;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		for (TLongIntIterator it = permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap.iterator(); it.hasNext();) {
@@ -1165,8 +1159,7 @@ public class Enrichment {
 			try {
 
 				if (bufferedWriter == null) {
-					fileWriter = FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt");
-					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + folderName + Commons.PERMUTATION + permutationNumber + "_" + extraFileName + ".txt"));
 
 					// Set header line starts
 					switch (generatedMixedNumberDescriptionOrderLength) {
@@ -1224,6 +1217,7 @@ public class Enrichment {
 				}// End of SWITCH
 					// mixed number resolution and write to bufferedWriter ends
 
+				bufferedWriter.close();
 			} catch (IOException e) {
 				logger.error(e.toString());
 			}
@@ -2101,12 +2095,10 @@ public class Enrichment {
 
 		TIntList permutationSpecificNumberofOverlapsList;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
 
 			for (TIntIntIterator it = originalPermutationNumberRemovedMixedNumber2KMap.iterator(); it.hasNext();) {
 
@@ -2140,7 +2132,6 @@ public class Enrichment {
 			}// End of outer loop
 
 			bufferedWriter.close();
-
 		} catch (IOException e) {
 
 			logger.error(e.toString());
@@ -2156,12 +2147,10 @@ public class Enrichment {
 
 		TIntList permutationSpecificNumberofOverlapsList;
 
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
 
 			for (TLongIntIterator it = originalPermutationNumberRemovedMixedNumber2KMap.iterator(); it.hasNext();) {
 
@@ -2188,7 +2177,6 @@ public class Enrichment {
 			}// End of outer loop
 
 			bufferedWriter.close();
-
 		} catch (IOException e) {
 
 			logger.error(e.toString());

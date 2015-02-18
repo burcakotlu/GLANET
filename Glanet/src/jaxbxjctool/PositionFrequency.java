@@ -6,14 +6,11 @@
 package jaxbxjctool;
 
 public class PositionFrequency {
-	
+
 	float _AFrequency;
 	float _CFrequency;
 	float _TFrequency;
 	float _GFrequency;
-	
-	
-	
 
 	public float get_AFrequency() {
 		return _AFrequency;
@@ -54,10 +51,7 @@ public class PositionFrequency {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public PositionFrequency(float _AFrequency, float _CFrequency,
-			float _GFrequency, float _TFrequency) {
+	public PositionFrequency(float _AFrequency, float _CFrequency, float _GFrequency, float _TFrequency) {
 		super();
 		this._AFrequency = _AFrequency;
 		this._CFrequency = _CFrequency;

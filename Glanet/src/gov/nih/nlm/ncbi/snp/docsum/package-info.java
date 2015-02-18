@@ -7,3 +7,4 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ncbi.nlm.nih.gov/SNP/docsum", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package gov.nih.nlm.ncbi.snp.docsum;
+

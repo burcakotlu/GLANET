@@ -11,8 +11,7 @@ package mapabilityandgc;
 import java.util.Comparator;
 import java.util.Map;
 
-
-public class MeanComparator implements Comparator<Object>{
+public class MeanComparator implements Comparator<Object> {
 
 	Map mapToBeSorted;
 
@@ -23,18 +22,18 @@ public class MeanComparator implements Comparator<Object>{
 		this.mapToBeSorted = mapToBeSorted;
 	}
 
-	//In ascending order
+	// In ascending order
 	@Override
 	public int compare(Object key1, Object key2) {
 		MeanandStandardDeviation val1 = (MeanandStandardDeviation) mapToBeSorted.get(key1);
 		MeanandStandardDeviation val2 = (MeanandStandardDeviation) mapToBeSorted.get(key2);
-	        if (val1.getMean() > val2.getMean()) {
-	            return +1;
-	        } else if (val1.getMean() < val2.getMean()){
-	            return -1;
-	        }else{
-	        	return 0;
-	        }
+		if (val1.getMean() > val2.getMean()) {
+			return +1;
+		} else if (val1.getMean() < val2.getMean()) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 }

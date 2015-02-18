@@ -8,28 +8,25 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Jan 23, 2015
- * @project Glanet 
+ * @project Glanet
  *
  */
 public class GlanetDecimalFormat {
-	
+
 	public static DecimalFormat getGLANETDecimalFormat(String formatString) {
-		
+
 		Locale loc = Locale.getDefault();
 
 		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(loc);
 		otherSymbols.setDecimalSeparator('.');
-		otherSymbols.setGroupingSeparator(','); 
-		DecimalFormat df = new DecimalFormat(formatString,otherSymbols);
-		
-		return df;
-		
-	}
-	
-	
+		otherSymbols.setGroupingSeparator(',');
+		DecimalFormat df = new DecimalFormat(formatString, otherSymbols);
 
+		return df;
+
+	}
 
 	/**
 	 * @param args

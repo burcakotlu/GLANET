@@ -5,7 +5,6 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.util.ArrayList;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -52,130 +53,122 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "mapLoc"
-})
+@XmlType(name = "", propOrder = { "mapLoc" })
 @XmlRootElement(name = "PrimarySequence")
 public class PrimarySequence {
 
-    @XmlElement(name = "MapLoc", required = true)
-    protected List<MapLoc> mapLoc;
-    @XmlAttribute(name = "dbSnpBuild", required = true)
-    protected int dbSnpBuild;
-    @XmlAttribute(name = "gi", required = true)
-    protected int gi;
-    @XmlAttribute(name = "source")
-    protected String source;
-    @XmlAttribute(name = "accession")
-    protected String accession;
+	@XmlElement(name = "MapLoc", required = true)
+	protected List<MapLoc> mapLoc;
+	@XmlAttribute(name = "dbSnpBuild", required = true)
+	protected int dbSnpBuild;
+	@XmlAttribute(name = "gi", required = true)
+	protected int gi;
+	@XmlAttribute(name = "source")
+	protected String source;
+	@XmlAttribute(name = "accession")
+	protected String accession;
 
-    /**
-     * Gets the value of the mapLoc property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mapLoc property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMapLoc().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link MapLoc }
-     * 
-     * 
-     */
-    public List<MapLoc> getMapLoc() {
-        if (mapLoc == null) {
-            mapLoc = new ArrayList<MapLoc>();
-        }
-        return this.mapLoc;
-    }
+	/**
+	 * Gets the value of the mapLoc property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the mapLoc property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getMapLoc().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link MapLoc }
+	 * 
+	 * 
+	 */
+	public List<MapLoc> getMapLoc() {
+		if (mapLoc == null) {
+			mapLoc = new ArrayList<MapLoc>();
+		}
+		return this.mapLoc;
+	}
 
-    /**
-     * Gets the value of the dbSnpBuild property.
-     * 
-     */
-    public int getDbSnpBuild() {
-        return dbSnpBuild;
-    }
+	/**
+	 * Gets the value of the dbSnpBuild property.
+	 * 
+	 */
+	public int getDbSnpBuild() {
+		return dbSnpBuild;
+	}
 
-    /**
-     * Sets the value of the dbSnpBuild property.
-     * 
-     */
-    public void setDbSnpBuild(int value) {
-        this.dbSnpBuild = value;
-    }
+	/**
+	 * Sets the value of the dbSnpBuild property.
+	 * 
+	 */
+	public void setDbSnpBuild(int value) {
+		this.dbSnpBuild = value;
+	}
 
-    /**
-     * Gets the value of the gi property.
-     * 
-     */
-    public int getGi() {
-        return gi;
-    }
+	/**
+	 * Gets the value of the gi property.
+	 * 
+	 */
+	public int getGi() {
+		return gi;
+	}
 
-    /**
-     * Sets the value of the gi property.
-     * 
-     */
-    public void setGi(int value) {
-        this.gi = value;
-    }
+	/**
+	 * Sets the value of the gi property.
+	 * 
+	 */
+	public void setGi(int value) {
+		this.gi = value;
+	}
 
-    /**
-     * Gets the value of the source property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSource() {
-        return source;
-    }
+	/**
+	 * Gets the value of the source property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSource() {
+		return source;
+	}
 
-    /**
-     * Sets the value of the source property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSource(String value) {
-        this.source = value;
-    }
+	/**
+	 * Sets the value of the source property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSource(String value) {
+		this.source = value;
+	}
 
-    /**
-     * Gets the value of the accession property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAccession() {
-        return accession;
-    }
+	/**
+	 * Gets the value of the accession property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAccession() {
+		return accession;
+	}
 
-    /**
-     * Sets the value of the accession property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAccession(String value) {
-        this.accession = value;
-    }
+	/**
+	 * Sets the value of the accession property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAccession(String value) {
+		this.accession = value;
+	}
 
 }

@@ -9,13 +9,10 @@
 package annotation;
 
 public class TfNameandCellLineNameOverlap {
-	
+
 	String tfNameandCellLineName;
 	int low;
 	int high;
-	
-	
-	
 
 	public String getTfNameandCellLineName() {
 		return tfNameandCellLineName;
@@ -48,10 +45,7 @@ public class TfNameandCellLineNameOverlap {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public TfNameandCellLineNameOverlap(String tfNameandCellLineName, int low,
-			int high) {
+	public TfNameandCellLineNameOverlap(String tfNameandCellLineName, int low, int high) {
 		super();
 		this.tfNameandCellLineName = tfNameandCellLineName;
 		this.low = low;

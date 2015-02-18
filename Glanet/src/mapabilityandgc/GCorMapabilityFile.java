@@ -10,17 +10,13 @@ package mapabilityandgc;
 
 import java.io.BufferedReader;
 
-
 public class GCorMapabilityFile {
-	
+
 	String fileName;
 	String functionalElementName;
 	BufferedReader bufferedReader;
 	Double standardDeviation;
 	Double mean;
-	
-	
-	
 
 	public Double getMean() {
 		return mean;
@@ -46,7 +42,6 @@ public class GCorMapabilityFile {
 		this.fileName = fileName;
 	}
 
-	
 	public String getFunctionalElementName() {
 		return functionalElementName;
 	}
@@ -55,7 +50,6 @@ public class GCorMapabilityFile {
 		this.functionalElementName = functionalElementName;
 	}
 
-	
 	public BufferedReader getBufferedReader() {
 		return bufferedReader;
 	}
@@ -63,9 +57,6 @@ public class GCorMapabilityFile {
 	public void setBufferedReader(BufferedReader bufferedReader) {
 		this.bufferedReader = bufferedReader;
 	}
-
-
-
 
 	/**
 	 * 

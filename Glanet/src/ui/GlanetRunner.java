@@ -20,9 +20,8 @@ import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePheno
 import common.Commons;
 
 public class GlanetRunner implements Runnable {
-	
+
 	final static Logger logger = Logger.getLogger(GlanetRunner.class);
-	
 
 	private static String args[];
 	private static MainView mainView;
@@ -32,7 +31,7 @@ public class GlanetRunner implements Runnable {
 
 		/************************ Preparation starts ********************************************/
 		setCurrentProcessInfo("Preparation...");
-		
+
 		Preparation.main(args);
 		/************************ Preparation ends **********************************************/
 
@@ -47,12 +46,12 @@ public class GlanetRunner implements Runnable {
 
 		InputDataRemoveOverlaps.main(args);
 		/************************ RemoveOverlaps ends ********************************************/
-		
-		/************************NCBI REMAP starts ***********************************************/
+
+		/************************ NCBI REMAP starts ***********************************************/
 		setCurrentProcessInfo("NCBI REMAP starts...");
 
 		InputDataNCBIRemap.main(args);
-		/************************NCBI REMAP ends ***********************************************/
+		/************************ NCBI REMAP ends ***********************************************/
 
 		/************************ Annotation starts ***********************************************/
 		setCurrentProcessInfo("Annotate Given Input Data...");
@@ -83,11 +82,17 @@ public class GlanetRunner implements Runnable {
 			CollectionofPermutationsResults.main(args);
 			/******************* Collection of Permutations Results ends *********************/
 
-			/************* Augmentation of Enriched Elements with Given Input Data starts in * GRCh37.p13*****/
+			/*************
+			 * Augmentation of Enriched Elements with Given Input Data starts in
+			 * * GRCh37.p13
+			 *****/
 			setCurrentProcessInfo("Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");
 
 			AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main(args);
-			/************* Augmentation of Enriched Elements with Given Input Data ends in* GRCh37.p13*******/
+			/*************
+			 * Augmentation of Enriched Elements with Given Input Data ends in*
+			 * GRCh37.p13
+			 *******/
 
 		}
 		/****************************************************************************************/
@@ -98,14 +103,9 @@ public class GlanetRunner implements Runnable {
 		/************* Regulatory Sequence Analysis starts ****************************/
 		/******************************************************************************/
 
-		if (	(	getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) ||
-					getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION)	||
-					getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)
-				)	&&
-					getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
+		if ((getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) || getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)) && getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase(Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)) {
 			if (getMainView() != null)
 				getMainView().setCurrentProcessInfo("For Regulatory Sequence Analysis...");
-
 
 			/*********** Check whether given input data is snps or not starts **************/
 			setCurrentProcessInfo("Check whether given input data is comprised of SNPs before Regulatory Sequence Analysis...");
@@ -115,12 +115,12 @@ public class GlanetRunner implements Runnable {
 				/************ Creation of NCBI REMAP Input files starts *************************/
 				/************************* CALL NCBI REMAP API starts ***************************/
 				/************ Creation of NCBI REMAP Output files starts ************************/
-				/****************Generation of ALL TF Annotations in GRCh38 starts***************/
+				/**************** Generation of ALL TF Annotations in GRCh38 starts ***************/
 				setCurrentProcessInfo("Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
 
 				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
-				/****************Generation of ALL TF Annotations in GRCh38 ends****************/
+				/**************** Generation of ALL TF Annotations in GRCh38 ends ****************/
 				/************ Creation of NCBI REMAP Input files ends **************************/
 				/************************* CALL NCBI REMAP API ends ****************************/
 				/************ Creation of NCBI REMAP Output files ends *************************/
@@ -142,12 +142,12 @@ public class GlanetRunner implements Runnable {
 
 		/************************ GLANET execution ends ********************************************/
 		setCurrentProcessInfo("GLANET execution has ended. You can reach results under " + args[CommandLineArguments.GlanetFolder.value()] + "Output" + System.getProperty("file.separator") + args[CommandLineArguments.JobName.value()] + System.getProperty("file.separator"));
-		
-		if (getMainView() != null){
-			getMainView().enableStartProcess( true);
+
+		if (getMainView() != null) {
+			getMainView().enableStartProcess(true);
 			getMainView().refreshButtons();
 		}
-		
+
 		GlanetRunner.appendLog("Execution has ended");
 		/************************ GLANET execution ends *************************************************/
 	}
@@ -194,17 +194,17 @@ public class GlanetRunner implements Runnable {
 	public static void setArgs(String args[]) {
 
 		GlanetRunner.args = new String[args.length];
-		for (int i = 0; i < args.length; i++){
+		for (int i = 0; i < args.length; i++) {
 			GlanetRunner.args[i] = args[i];
-			
+
 		}
 	}
-	
-	public static void setCurrentProcessInfo( String processInfo){
-		
+
+	public static void setCurrentProcessInfo(String processInfo) {
+
 		if (getMainView() != null)
-			getMainView().setCurrentProcessInfo( processInfo);
+			getMainView().setCurrentProcessInfo(processInfo);
 		else
-			System.out.println( "Current Status: " + processInfo);
+			System.out.println("Current Status: " + processInfo);
 	}
 }

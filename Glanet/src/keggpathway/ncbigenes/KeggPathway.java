@@ -8,10 +8,9 @@ package keggpathway.ncbigenes;
 
 import java.util.List;
 
-
 public class KeggPathway {
 	String keggPathwayName;
-	
+
 	List<String> geneIdList;
 
 	public String getKeggPathwayName() {
@@ -40,7 +39,5 @@ public class KeggPathway {
 		super();
 		this.keggPathwayName = keggPathwayName;
 	}
-	
-	
 
 }

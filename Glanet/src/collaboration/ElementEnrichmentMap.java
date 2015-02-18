@@ -12,20 +12,18 @@ import java.util.Map;
  * 
  */
 public class ElementEnrichmentMap {
-	
-	Map<String,ElementEnrichment> elementEnrichmentMap;
+
+	Map<String, ElementEnrichment> elementEnrichmentMap;
 
 	public Map<String, ElementEnrichment> getElementEnrichmentMap() {
 		return elementEnrichmentMap;
 	}
 
-	public void setElementEnrichmentMap(
-			Map<String, ElementEnrichment> elementEnrichmentMap) {
+	public void setElementEnrichmentMap(Map<String, ElementEnrichment> elementEnrichmentMap) {
 		this.elementEnrichmentMap = elementEnrichmentMap;
 	}
 
-	public ElementEnrichmentMap(
-			Map<String, ElementEnrichment> elementEnrichmentMap) {
+	public ElementEnrichmentMap(Map<String, ElementEnrichment> elementEnrichmentMap) {
 		super();
 		this.elementEnrichmentMap = elementEnrichmentMap;
 	}
@@ -35,13 +33,5 @@ public class ElementEnrichmentMap {
 		this.elementEnrichmentMap = new HashMap<String, ElementEnrichment>();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-
-	
-
-
-
-	
 
 }
