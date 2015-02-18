@@ -59,15 +59,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import keggpathway.ncbigenes.KeggPathwayUtility;
+
 import org.apache.log4j.Logger;
 
-import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
-import keggpathway.ncbigenes.KeggPathwayUtility;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;

@@ -69,3 +69,6 @@ After a successful GLANET execution
 * Association results can be found under ~path/to/tool/Output/givenJobName/Annotation/.
 * Enrichment results can be found under ~path/to/tool/Output/givenJobName/Enrichment/.
 * Regulatory Sequence Analysis results can be found under ~path/to/tool/Output/givenJobName/RegulatorySequenceAnalysis/.
+* GLANET log file (GLANET.log) can be found under the same directory where GLANET.jar is located. If you are running GLANET from the source code, GLANET log file will be created under Glanet project directory.
+
+

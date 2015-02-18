@@ -23,9 +23,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -138,6 +136,24 @@ public class FileOperations {
 	
 	
 	
+	public static void deleteDummyLogFiles(String directoryName, String fileExtension){
+		//Delete dummy log files before new run 
+		
+		File folder = new File(directoryName);
+		
+		if(folder.isDirectory()) {	    		 
+	    		 File[] files = folder.listFiles();
+	    		 for(File file: files){
+	    			 
+	    			 if (file.getAbsolutePath().contains(fileExtension)){
+	    				 deleteFile(directoryName,file.getName()); 
+	    			 }
+	    			 
+	    		 }	
+	    		 folder.delete();	 
+	     }  
+	}
+	
 	
 	
 	//Called from GLANET 
@@ -188,9 +204,9 @@ public class FileOperations {
 		File file = new File(outputFolder + fileName);
 		
 		if(file.delete()){
-			GlanetRunner.appendLog(file.getName() + " is deleted!");
+			logger.debug(file.getName() + " is deleted!");
 		}else{
-			GlanetRunner.appendLog("Delete operation is failed.");
+			logger.error("Delete operation is failed.");
 		}
 		
 	}

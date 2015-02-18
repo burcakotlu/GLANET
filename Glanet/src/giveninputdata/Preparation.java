@@ -5,11 +5,12 @@
  */
 package giveninputdata;
 
-import java.io.IOException;
+import org.apache.log4j.Logger;
 
-import log4j.Log4jConfiguration;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**
@@ -17,7 +18,8 @@ import enumtypes.CommandLineArguments;
  */
 public class Preparation {
 	
-	
+	final static Logger logger = Logger.getLogger(Preparation.class);
+
 
 
 	//args[0]	--->	Input File Name with folder
@@ -98,7 +100,6 @@ public class Preparation {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
-		
 		//jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
@@ -107,21 +108,21 @@ public class Preparation {
 		//jobName ends
 		
 	
-		String dataFolder = glanetFolder + Commons.DATA +  System.getProperty("file.separator");
+		//String dataFolder = glanetFolder + Commons.DATA +  System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName +  System.getProperty("file.separator");
 		
 		//Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
 
-		try {
+	
 			
 			//Create outputFolder it it does not exists
 			FileOperations.createFolder(outputFolder);
 			
-			Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//FileOperations.deleteDummyLogFiles(glanetFolder, "log");
+			
+			//Log4jConfiguration.getGlanetApplicationLogger(dataFolder, outputFolder);
+			
+		
 				
 		//delete old files starts 
 		FileOperations.deleteOldFiles(outputFolder);

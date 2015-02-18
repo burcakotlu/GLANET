@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -36,6 +38,9 @@ import enumtypes.NodeType;
  
 
 public class InputDataRemoveOverlaps {
+	
+	final static Logger logger = Logger.getLogger(InputDataRemoveOverlaps.class);
+
 	
 	
 	public static IntervalTreeNode mergeIntervals(IntervalTreeNode node1, IntervalTreeNode node2){
@@ -320,7 +325,21 @@ public class InputDataRemoveOverlaps {
 	
 	
 
-	
+	public static void writeGLANETRunTimeArguments(String[] args){
+		
+		logger.info("*****************************************************************");
+		logger.info("GLANET Parameters starts");
+		
+		//Write GLANET Arguments
+		for (int i = 0; i < args.length; i++){
+			logger.info(args[i]);	
+		}
+		
+		logger.info("GLANET Parameters ends");
+		logger.info("*****************************************************************");
+
+	}
+		
 	
 	//args[0]	--->	Input File Name with folder
 	//args[1]	--->	GLANET installation folder with "\\" at the end. This folder will be used for outputFolder and dataFolder.
@@ -400,7 +419,8 @@ public class InputDataRemoveOverlaps {
 		
 		removeOverlaps(args);
 		
-			
+		writeGLANETRunTimeArguments(args);
+		
 	}
 
 }

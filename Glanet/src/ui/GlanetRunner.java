@@ -7,6 +7,9 @@ import giveninputdata.InputDataNCBIRemap;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
+
+import org.apache.log4j.Logger;
+
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
 import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
@@ -17,6 +20,9 @@ import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePheno
 import common.Commons;
 
 public class GlanetRunner implements Runnable {
+	
+	final static Logger logger = Logger.getLogger(GlanetRunner.class);
+	
 
 	private static String args[];
 	private static MainView mainView;
@@ -43,7 +49,7 @@ public class GlanetRunner implements Runnable {
 		/************************ RemoveOverlaps ends ********************************************/
 		
 		/************************NCBI REMAP starts ***********************************************/
-		setCurrentProcessInfo("RemoveOverlaps...");
+		setCurrentProcessInfo("NCBI REMAP starts...");
 
 		InputDataNCBIRemap.main(args);
 		/************************NCBI REMAP ends ***********************************************/
@@ -185,8 +191,10 @@ public class GlanetRunner implements Runnable {
 	public static void setArgs(String args[]) {
 
 		GlanetRunner.args = new String[args.length];
-		for (int i = 0; i < args.length; i++)
+		for (int i = 0; i < args.length; i++){
 			GlanetRunner.args[i] = args[i];
+			
+		}
 	}
 	
 	public static void setCurrentProcessInfo( String processInfo){
