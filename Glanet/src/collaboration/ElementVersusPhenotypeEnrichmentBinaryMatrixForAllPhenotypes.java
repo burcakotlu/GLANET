@@ -164,15 +164,13 @@ public class ElementVersusPhenotypeEnrichmentBinaryMatrixForAllPhenotypes {
 					
 			String outputDirectory = encodeCollaborationHeatMapDirectory + elementDirectory  + System.getProperty("file.separator") + extraFileName + "_EnrichmentTable.txt";
 			
-			FileWriter fileWriter = null;
 			BufferedWriter bufferedWriter = null;
 			
 			ElementEnrichmentMap elementEnrichmentMap = null;
 			ElementEnrichment elementEnrichment = null;
 			
 			try {
-				fileWriter = FileOperations.createFileWriter(outputDirectory);
-				bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputDirectory));
 				
 				//Write header line
 				bufferedWriter.write("ElementName" + "\t");
@@ -255,7 +253,6 @@ public class ElementVersusPhenotypeEnrichmentBinaryMatrixForAllPhenotypes {
 				}//End of for each elementName in the elementNameList
 				
 				bufferedWriter.close();
-				fileWriter.close();
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -706,9 +706,9 @@ public class FileOperations {
 			for (ChromosomeName chrName:ChromosomeName.values()){
 				   
 				FileWriter fileWriter 	= FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-				fileWriterList.add(fileWriter);
+				fileWriterList.add( fileWriter);
 				
-				BufferedWriter bufferedWriter 	= new BufferedWriter(fileWriter);
+				BufferedWriter bufferedWriter = new BufferedWriter( fileWriter);
 				bufferedWriterList.add(bufferedWriter);
 				
 			}//End of for each chromosomeName

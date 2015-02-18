@@ -4686,12 +4686,12 @@ public class Annotation {
 
 	// @todo starts
 	public void writeResultsWithNumbers(TShortIntMap number2KMap, TShortObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
+		
 		BufferedWriter bufferedWriter;
 		String elementName;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4715,12 +4715,12 @@ public class Annotation {
 
 	// yeni starts
 	public void writeResultsWithNumbers(TIntIntMap number2KMap, TIntObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
+		
 		BufferedWriter bufferedWriter;
 		String elementName;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4733,7 +4733,6 @@ public class Annotation {
 			}
 
 			bufferedWriter.close();
-			fileWriter.close();
 		} catch (IOException e) {
 			logger.error(e.toString());
 		}
@@ -4744,7 +4743,6 @@ public class Annotation {
 
 	// @todo TF CellLine KEGGPathway starts
 	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumberKeggNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumberKeggPathwayNumber;
@@ -4757,8 +4755,7 @@ public class Annotation {
 		String keggPathwayName;
 
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4792,7 +4789,7 @@ public class Annotation {
 
 	// @todo starts
 	public void writeTFKEGGPathwayResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> KEGGPathwayNumber2KEGGPathwayNameMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
+		
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumber;
@@ -4803,8 +4800,8 @@ public class Annotation {
 		String keggPathwayName;
 
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4863,7 +4860,7 @@ public class Annotation {
 
 	// @todo starts
 	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
+		
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumber;
@@ -4874,8 +4871,7 @@ public class Annotation {
 		String cellLineName;
 
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
@@ -4905,18 +4901,16 @@ public class Annotation {
 	// @todo ends
 
 	public void writeResults(Map<String, Integer> hashMap, String outputFolder, String outputFileName) {
-		FileWriter fileWriter;
+		
 		BufferedWriter bufferedWriter;
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
 				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
 			}
 			
 			bufferedWriter.close();
-			fileWriter.close();
 
 		} catch (IOException e) {
 			logger.error(e.toString());
@@ -5553,7 +5547,6 @@ public class Annotation {
 			TObjectIntMap<ChromosomeName> chromosomeName2CountMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2NameMap){
 		
-		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
 		int givenIntervalNumber = 0;
@@ -5565,8 +5558,7 @@ public class Annotation {
 		NumberofGeneOverlaps geneOverlaps = new NumberofGeneOverlaps();
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter = new BufferedWriter( FileOperations.createFileWriter(outputFolder + outputFileName));
 			
 			//Write Header Line
 			switch (geneOverlapAnalysisFileMode) {
@@ -5823,7 +5815,6 @@ public class Annotation {
 			
 			//Close 
 			bufferedWriter.close();
-			fileWriter.close();
 			
 		} catch (IOException e) {
 			
