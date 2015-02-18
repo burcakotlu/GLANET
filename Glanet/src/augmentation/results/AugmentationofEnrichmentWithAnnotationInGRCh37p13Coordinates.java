@@ -21,9 +21,11 @@ import java.util.Map;
 
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
-import enumtypes.EnrichmentType;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
@@ -1480,15 +1482,15 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 			MultipleTestingType multipleTestingParameter,
 			Float FDR, 
 			Float bonfCorrectionSignificanceLevel,
-			EnrichmentType dnaseEnrichment, 
-			EnrichmentType histoneEnrichment, 
-			EnrichmentType tfEnrichment, 
-			EnrichmentType userDefinedGeneSetEnrichmentType,
+			AnnotationType dnaseAnnotationType, 
+			AnnotationType histoneAnnotationType, 
+			AnnotationType tfAnnotationType, 
+			AnnotationType userDefinedGeneSetAnnotationType,
 			String userDefinedGeneSetName,
-			EnrichmentType userDefinedLibraryEnrichmentType,
-			EnrichmentType keggPathwayEnrichment,
-			EnrichmentType tfKeggPathwayEnrichment, 
-			EnrichmentType tfCellLineKeggPathwayEnrichment){
+			AnnotationType userDefinedLibraryAnnotationType,
+			AnnotationType keggPathwayAnnotationType,
+			AnnotationType tfKeggPathwayAnnotationType, 
+			AnnotationType tfCellLineKeggPathwayAnnotationType){
 		
 		
 		String withRespectToFileName = null;
@@ -1505,7 +1507,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		
 		 /******************************************************************************/
 		 /*********************DNASE starts*********************************************/
-		 if (dnaseEnrichment.isDnaseEnrichment()){
+		 if (dnaseAnnotationType.doDnaseAnnotation()){
 			 readDnaseAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE  + "_" +jobName +  withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);	
 		 }
 		 /*********************DNASE ends***********************************************/
@@ -1515,7 +1517,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************HISTONE starts*******************************************/
-		if (histoneEnrichment.isHistoneEnrichment()){
+		if (histoneAnnotationType.doHistoneAnnotation()){
 		 	readHistoneAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);	
 		}
 		 /*********************HISTONE ends*********************************************/
@@ -1525,9 +1527,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF starts************************************************/
-		 if (tfEnrichment.isTfEnrichment() && 
-				 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && 
-				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
+		 if (tfAnnotationType.doTFAnnotation() && 
+				 !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				 !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 		 }
 		 /*********************TF ends**************************************************/
@@ -1537,7 +1539,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************USER DEFINED GENESET starts******************************/
-		 if (userDefinedGeneSetEnrichmentType.isUserDefinedGeneSetEnrichment()){
+		 if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
 			 
 			final String  TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
 			final String  TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName  + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET +"_" + userDefinedGeneSetName ;
@@ -1554,7 +1556,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************USER DEFINED LIBRARY starts******************************/
-		 if(userDefinedLibraryEnrichmentType.isUserDefinedLibraryEnrichment()){
+		 if(userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
 			 TIntObjectMap<String> elementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
 			 
 			 UserDefinedLibraryUtility.fillNumber2NameMap(elementTypeNumber2ElementTypeMap,
@@ -1590,9 +1592,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************KEGG PATHWAY starts**************************************/
-		 if (keggPathwayEnrichment.isKeggPathwayEnrichment() && 
-				 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment()) && 
-				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){
+		 if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+				 !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				 !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,Commons.REGULATION_BASED_KEGG_PATHWAY,null);
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,Commons.ALL_BASED_KEGG_PATHWAY,null);
@@ -1605,8 +1607,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF KEGGPATHWAY starts************************************/
-		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
-				 !(tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment())){	    	 
+		 if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				 !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){	    	 
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
@@ -1626,8 +1628,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		 
 		 /******************************************************************************/
 		 /*********************TF CELLLINE KEGGPATHWAY starts***************************/
-	     if (tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment() && 
-	    		 !(tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment())){
+	     if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+	    		 !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
@@ -1647,8 +1649,8 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 	     /*********************************BOTH starts**********************************/
 	     /*****************************TF KEGGPATHWAY starts****************************/
 	     /************************** TF CELLLINE KEGGPATHWAY starts*********************/
-		 if (tfKeggPathwayEnrichment.isTfKeggPathwayEnrichment() && 
-				 tfCellLineKeggPathwayEnrichment.isTfCellLineKeggPathwayEnrichment()){
+		 if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				 tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 			 readTfAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel,Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" +jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 			 
 			 readKeggPathwayAllFileAugmentWrite(outputFolder,multipleTestingParameter,FDR,bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" +jobName  + withRespectToFileName, Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.EXON_BASED_KEGG_PATHWAY,null);
@@ -1764,41 +1766,27 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		Float FDR = Float.parseFloat(args[CommandLineArguments.FalseDiscoveryRate.value()]);
 		Float bonfCorrectionSignificanceLevel = Float.parseFloat(args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()]);
 
-		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
-		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
-		EnrichmentType tfEnrichment 		= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
-		EnrichmentType keggPathwayEnrichment  			= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
-		EnrichmentType tfKeggPathwayEnrichment 			= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
-		EnrichmentType tfCellLineKeggPathwayEnrichment 	= EnrichmentType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
+		AnnotationType dnaseAnnotationType 		= AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
+		AnnotationType histoneAnnotationType  	= AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
+		AnnotationType tfAnnotationType 		= AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		AnnotationType keggPathwayAnnotationType  			= AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
+		AnnotationType tfKeggPathwayAnnotationType 			= AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+		AnnotationType tfCellLineKeggPathwayAnnotationType 	= AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 		
 		/*********************************************************************************/
 		/**************************USER DEFINED GENESET***********************************/	
-		//User Defined GeneSet Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedGeneSetEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
+		//User Defined GeneSet Annotation, DO or DO_NOT
+		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
-//		String userDefinedGeneSetInputFile = args[23];
-//		String userDefinedGeneSetInputFile = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-		  
-//		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[24]);
-//		GeneInformationType geneInformationType = GeneInformationType.GENE_SYMBOL;
-		
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
-//		String userDefinedGeneSetName = "GO";
-
-//		String userDefinedGeneSetDescriptionOptionalInputFile =args[26];		
-//		String userDefinedGeneSetDescriptionOptionalInputFile = "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/**************************USER DEFINED GENESET***********************************/
 		/*********************************************************************************/
 		
 	
 		/*********************************************************************************/
 		/**************************USER DEFINED LIBRARY***********************************/
-		//User Defined Library Enrichment, DO or DO_NOT
-		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
-//		EnrichmentType userDefinedLibraryEnrichmentType = EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
-
-//		String userDefinedLibraryInputFile = args[28];
-//		String userDefinedLibraryInputFile = "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";		
+		//User Defined Library Annotation, DO or DO_NOT
+		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 		/**************************USER DEFINED LIBRARY***********************************/	
 		/*********************************************************************************/
 		   	
@@ -1806,7 +1794,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		FileOperations.deleteOldFiles(outputFolder + Commons.AUGMENTATION_OF_ENRICHED_ELEMENTS_WITH_ANNOTATION_DIRECTORY);
 		//delete old files ends
 					
-		AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.readandWriteFiles(outputFolder,dataFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseEnrichment,histoneEnrichment,tfEnrichment,userDefinedGeneSetEnrichmentType,userDefinedGeneSetName,userDefinedLibraryEnrichmentType,keggPathwayEnrichment,tfKeggPathwayEnrichment,tfCellLineKeggPathwayEnrichment);
+		AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.readandWriteFiles(outputFolder,dataFolder,jobName,multipleTestingParameter,FDR, bonfCorrectionSignificanceLevel,dnaseAnnotationType,histoneAnnotationType,tfAnnotationType,userDefinedGeneSetAnnotationType,userDefinedGeneSetName,userDefinedLibraryAnnotationType,keggPathwayAnnotationType,tfKeggPathwayAnnotationType,tfCellLineKeggPathwayAnnotationType);
 		
 
 	}

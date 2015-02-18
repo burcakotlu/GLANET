@@ -1,0 +1,255 @@
+2015-02-18 16:54:38 INFO  InputDataProcess:194 - ******************************************************************************
+2015-02-18 16:54:38 INFO  InputDataProcess:195 - Number of rsIds in the given rsID input file: 1054
+2015-02-18 16:54:38 INFO  InputDataProcess:196 - Number of unique rsIds in the given rsID input file: 121
+2015-02-18 16:54:38 INFO  InputDataProcess:197 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:216 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 1 Given input rsID: rs1012068 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 2 Given input rsID: rs10187424 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 3 Given input rsID: rs102275 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 4 Given input rsID: rs10484554 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 5 Given input rsID: rs10484561 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 6 Given input rsID: rs10758658 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 7 Given input rsID: rs10761731 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 8 Given input rsID: rs10761779 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 9 Given input rsID: rs10774625 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 10 Given input rsID: rs10821936 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 11 Given input rsID: rs11065987 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 12 Given input rsID: rs11066301 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 13 Given input rsID: rs11085824 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 14 Given input rsID: rs1111875 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 15 Given input rsID: rs11191548 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 16 Given input rsID: rs11191580 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 17 Given input rsID: rs11191593 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 18 Given input rsID: rs11212617 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 19 Given input rsID: rs1122794 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 20 Given input rsID: rs11239550 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 21 Given input rsID: rs11602954 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 22 Given input rsID: rs12355784 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 23 Given input rsID: rs12413409 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 24 Given input rsID: rs12478601 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 25 Given input rsID: rs13098911 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 26 Given input rsID: rs1364063 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 27 Given input rsID: rs1385374 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 28 Given input rsID: rs1408272 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 29 Given input rsID: rs1535 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 30 Given input rsID: rs1728785 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 31 Given input rsID: rs17342717 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 32 Given input rsID: rs174535 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 33 Given input rsID: rs174536 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 34 Given input rsID: rs174538 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 35 Given input rsID: rs174546 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 36 Given input rsID: rs174547 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 37 Given input rsID: rs174548 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 38 Given input rsID: rs174550 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 39 Given input rsID: rs174574 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 40 Given input rsID: rs174601 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 41 Given input rsID: rs17696736 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 42 Given input rsID: rs1799945 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 43 Given input rsID: rs1800562 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 44 Given input rsID: rs1801274 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 45 Given input rsID: rs1801516 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 46 Given input rsID: rs198846 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 47 Given input rsID: rs2153271 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 48 Given input rsID: rs2236313 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 49 Given input rsID: rs2247056 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 50 Given input rsID: rs2249741 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 51 Given input rsID: rs2249742 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 52 Given input rsID: rs2284746 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 53 Given input rsID: rs2290400 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 54 Given input rsID: rs2301436 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 55 Given input rsID: rs2395185 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 56 Given input rsID: rs2497306 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 57 Given input rsID: rs2523554 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 58 Given input rsID: rs2524054 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 59 Given input rsID: rs2596530 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:228 - rsId Lost Count: 60 Given input rsID: rs2743931 Not found in the list returned by NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:232 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:249 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:250 - We have 121 rsIds at hand before NCBI EUTIL EFETCH
+2015-02-18 16:54:43 INFO  InputDataProcess:252 - Number of given rsIds that are lost 60
+2015-02-18 16:54:43 INFO  InputDataProcess:253 - Number of NCBI EUTIL returned rsIds that are gained 0
+2015-02-18 16:54:43 INFO  InputDataProcess:255 - Number of given rsIds  does not map to any assembly 0
+2015-02-18 16:54:43 INFO  InputDataProcess:256 - Number of given rsIds  does not return any rsID 0
+2015-02-18 16:54:43 INFO  InputDataProcess:258 - We have 61 rsIds remained after NCBI EUTIL EFETCH
+2015-02-18 16:54:43 INFO  InputDataProcess:262 - We might have lost 60 rsIDs after NCBI EUTIL
+2015-02-18 16:54:43 INFO  InputDataProcess:263 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:301 - ******************************************************************************
+2015-02-18 16:54:43 INFO  InputDataProcess:302 - Number of genomic loci is 61 in NCBI REMAP input file in sourceAssembly GRCh38
+2015-02-18 16:54:43 INFO  InputDataProcess:303 - ******************************************************************************
+2015-02-18 16:54:46 INFO  Remap:176 - NCBI REMAP Show Batches Exit status = 1
+2015-02-18 16:54:46 INFO  InputDataProcess:343 - ******************************************************************************
+2015-02-18 16:55:03 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13
+2015-02-18 16:55:03 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 61 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 16:55:03 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 61 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 16:55:03 WARN  Remap:493 - Number of unremapped lines is: 0
+2015-02-18 16:55:03 INFO  InputDataProcess:372 - ******************************************************************************
+2015-02-18 16:55:03 INFO  FileOperations:777 - ******************************************************************************
+2015-02-18 16:55:03 INFO  FileOperations:778 - Number of given input lines ready for GLANET execution: 61
+2015-02-18 16:55:03 INFO  FileOperations:779 - ******************************************************************************
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_rsIDs_Mediation.txt\
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - dbSNP IDs
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_ENRICH
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_DNASE_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_HISTONE_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_TF_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - CVD_MED
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 5000
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-18 16:55:03 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
+2015-02-18 16:56:47 INFO  InputDataProcess:194 - ******************************************************************************
+2015-02-18 16:56:47 INFO  InputDataProcess:195 - Number of rsIds in the given rsID input file: 1054
+2015-02-18 16:56:47 INFO  InputDataProcess:196 - Number of unique rsIds in the given rsID input file: 121
+2015-02-18 16:56:47 INFO  InputDataProcess:197 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:216 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:232 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:249 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:250 - We have 121 rsIds at hand before NCBI EUTIL EFETCH
+2015-02-18 16:57:00 INFO  InputDataProcess:252 - Number of given rsIds that are lost 0
+2015-02-18 16:57:00 INFO  InputDataProcess:253 - Number of NCBI EUTIL returned rsIds that are gained 0
+2015-02-18 16:57:00 INFO  InputDataProcess:255 - Number of given rsIds  does not map to any assembly 0
+2015-02-18 16:57:00 INFO  InputDataProcess:256 - Number of given rsIds  does not return any rsID 0
+2015-02-18 16:57:00 INFO  InputDataProcess:258 - We have 121 rsIds remained after NCBI EUTIL EFETCH
+2015-02-18 16:57:00 INFO  InputDataProcess:262 - We might have lost 0 rsIDs after NCBI EUTIL
+2015-02-18 16:57:00 INFO  InputDataProcess:263 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:301 - ******************************************************************************
+2015-02-18 16:57:00 INFO  InputDataProcess:302 - Number of genomic loci is 121 in NCBI REMAP input file in sourceAssembly GRCh38
+2015-02-18 16:57:00 INFO  InputDataProcess:303 - ******************************************************************************
+2015-02-18 16:57:02 INFO  Remap:176 - NCBI REMAP Show Batches Exit status = 1
+2015-02-18 16:57:02 INFO  InputDataProcess:343 - ******************************************************************************
+2015-02-18 16:57:21 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13
+2015-02-18 16:57:21 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 121 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 16:57:21 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 121 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 16:57:21 WARN  Remap:493 - Number of unremapped lines is: 0
+2015-02-18 16:57:21 INFO  InputDataProcess:372 - ******************************************************************************
+2015-02-18 16:57:21 INFO  FileOperations:777 - ******************************************************************************
+2015-02-18 16:57:21 INFO  FileOperations:778 - Number of given input lines ready for GLANET execution: 121
+2015-02-18 16:57:21 INFO  FileOperations:779 - ******************************************************************************
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_rsIDs_Mediation.txt\
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - dbSNP IDs
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_ENRICH
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_DNASE_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_HISTONE_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_TF_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - CVD_MED2
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 5000
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-18 16:57:21 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
+2015-02-18 17:06:02 INFO  InputDataProcess:194 - ******************************************************************************
+2015-02-18 17:06:02 INFO  InputDataProcess:195 - Number of rsIds in the given rsID input file: 1054
+2015-02-18 17:06:02 INFO  InputDataProcess:196 - Number of unique rsIds in the given rsID input file: 121
+2015-02-18 17:06:02 INFO  InputDataProcess:197 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:216 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:232 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:249 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:250 - We have 121 rsIds at hand before NCBI EUTIL EFETCH
+2015-02-18 17:06:10 INFO  InputDataProcess:252 - Number of given rsIds that are lost 0
+2015-02-18 17:06:10 INFO  InputDataProcess:253 - Number of NCBI EUTIL returned rsIds that are gained 0
+2015-02-18 17:06:10 INFO  InputDataProcess:255 - Number of given rsIds  does not map to any assembly 0
+2015-02-18 17:06:10 INFO  InputDataProcess:256 - Number of given rsIds  does not return any rsID 0
+2015-02-18 17:06:10 INFO  InputDataProcess:258 - We have 121 rsIds remained after NCBI EUTIL EFETCH
+2015-02-18 17:06:10 INFO  InputDataProcess:262 - We might have lost 0 rsIDs after NCBI EUTIL
+2015-02-18 17:06:10 INFO  InputDataProcess:263 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:301 - ******************************************************************************
+2015-02-18 17:06:10 INFO  InputDataProcess:302 - Number of genomic loci is 121 in NCBI REMAP input file in sourceAssembly GRCh38
+2015-02-18 17:06:10 INFO  InputDataProcess:303 - ******************************************************************************
+2015-02-18 17:06:12 INFO  Remap:176 - NCBI REMAP Show Batches Exit status = 1
+2015-02-18 17:06:12 INFO  InputDataProcess:343 - ******************************************************************************
+2015-02-18 17:06:29 INFO  Remap:400 - NCBI REMAP Exit status = 0	REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13
+2015-02-18 17:06:29 INFO  Remap:731 - Number of Lines In lineNumber2SourceGenomicLociMap : 121 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 17:06:29 INFO  Remap:732 - Number of Lines In lineNumber2TargetGenomicLociMap : 121 for file: remap_reportFile_chrName_1Based_Start_End_coordinates.xls
+2015-02-18 17:06:29 WARN  Remap:493 - Number of unremapped lines is: 0
+2015-02-18 17:06:29 INFO  InputDataProcess:372 - ******************************************************************************
+2015-02-18 17:06:29 INFO  FileOperations:777 - ******************************************************************************
+2015-02-18 17:06:29 INFO  FileOperations:778 - Number of given input lines ready for GLANET execution: 121
+2015-02-18 17:06:29 INFO  FileOperations:779 - ******************************************************************************
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:330 - *****************************************************************
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:331 - GLANET Parameters starts
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\Data\demo_input_data\CVD_rsIDs_Mediation.txt\
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - GRCh37.p13
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - C:\Users\Burçak\Google Drive\
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - dbSNP IDs
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 1
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_ENRICH
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - With GC and Mappability
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - Benjamini Hochberg FDR
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 0.05
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_DNASE_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_HISTONE_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_TF_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_KEGGPATHWAY_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_TF_KEGGPATHWAY_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - CVD_MED3
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 10000
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - GENE SYMBOL
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - NoName
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - 0-based coordinates (End Exclusive)
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:335 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:338 - GLANET Parameters ends
+2015-02-18 17:06:29 INFO  InputDataRemoveOverlaps:339 - *****************************************************************
+2015-02-18 17:07:47 INFO  Enrichment:2397 - Java runtime max memory: 16464216064
+2015-02-18 17:07:47 INFO  Enrichment:2398 - Java runtime total memory: 16464216064
+2015-02-18 17:07:47 INFO  Enrichment:2399 - Java runtime available processors: 8
