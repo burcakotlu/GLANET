@@ -5,16 +5,19 @@
  */
 package annotation;
 
+import gnu.trove.iterator.TIntByteIterator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TIntShortIterator;
 import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.iterator.TLongObjectIterator;
+import gnu.trove.iterator.TShortByteIterator;
 import gnu.trove.iterator.TShortIntIterator;
 import gnu.trove.iterator.TShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.iterator.TShortShortIterator;
 import gnu.trove.list.TShortList;
+import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TIntShortMap;
@@ -22,9 +25,11 @@ import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
+import gnu.trove.map.TShortByteMap;
 import gnu.trove.map.TShortIntMap;
 import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.TShortShortMap;
+import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TIntShortHashMap;
@@ -32,6 +37,7 @@ import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
+import gnu.trove.map.hash.TShortByteHashMap;
 import gnu.trove.map.hash.TShortIntHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
 import gnu.trove.map.hash.TShortShortHashMap;
@@ -67,9 +73,7 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -1294,7 +1298,15 @@ public class Annotation {
 
 	// Annotation
 	// With Numbers
-	public void searchDnaseWithNumbers(String outputFolder, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree, TShortObjectMap<BufferedWriter> dnaseCellLineNumber2BufferedWriterHashMap, TShortIntMap dnaseCellLineNumber2KMap, int overlapDefinition, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+	public void searchDnaseWithNumbers(
+			String outputFolder, 
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree dnaseIntervalTree, 
+			TShortIntMap dnaseCellLineNumber2KMap, 
+			int overlapDefinition, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> fileNumber2FileNameMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -1305,7 +1317,8 @@ public class Annotation {
 
 		try {
 			while ((strLine = bufferedReader.readLine()) != null) {
-				TShortShortMap dnaseCellLineNumber2OneorZeroMap = new TShortShortHashMap();
+				
+				TShortByteMap dnaseCellLineNumber2OneorZeroMap = new TShortByteHashMap();
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
@@ -1323,36 +1336,19 @@ public class Annotation {
 				Interval interval = new Interval(low, high);
 
 				if (dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(outputFolder, dnaseIntervalTree.getRoot(), interval, chromName, dnaseCellLineNumber2BufferedWriterHashMap, dnaseCellLineNumber2OneorZeroMap, overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					
+					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
+							outputFolder, 
+							dnaseIntervalTree.getRoot(), 
+							interval, 
+							chromName,
+							dnaseCellLineNumber2OneorZeroMap, 
+							overlapDefinition, 
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap);
 				}
 
-				// too many opened files error starts
-				if (!dnaseCellLineNumber2BufferedWriterHashMap.isEmpty()) {
-					closeBufferedWritersWithNumbers(dnaseCellLineNumber2BufferedWriterHashMap);
-					dnaseCellLineNumber2BufferedWriterHashMap.clear();
-				}
-				// too many opened files error ends
-
-				// //accumulate search results of dnaseCellLine2OneorZeroMap in
-				// dnaseCellLine2KMap
-				// for(Map.Entry<String, Integer> zeroOrOne:
-				// dnaseCellLineNumber2OneorZeroMap.entrySet()){
-				//
-				// if (dnaseCellLineNumber2KMap.get(zeroOrOne.getKey())==null){
-				// dnaseCellLineNumber2KMap.put(zeroOrOne.getKey(),
-				// zeroOrOne.getValue());
-				// }else{
-				// dnaseCellLineNumber2KMap.put(zeroOrOne.getKey(),
-				// dnaseCellLineNumber2KMap.get(zeroOrOne.getKey())+zeroOrOne.getValue());
-				//
-				// }
-				//
-				// }//End of for
-
-				// accumulate search results of dnaseCellLine2OneorZeroMap in
-				// dnaseCellLine2KMap
-				// accessing keys/values through an iterator:
-				for (TShortShortIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext();) {
+				for (TShortByteIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext();) {
 					it.advance();
 					if (!dnaseCellLineNumber2KMap.containsKey(it.key())) {
 						dnaseCellLineNumber2KMap.put(it.key(), it.value());
@@ -1516,8 +1512,22 @@ public class Annotation {
 
 		String givenIntervalName = null;
 		int givenIntervalNumber = 0;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
 
 		try {
+			
+			
+			
+			if (bufferedWriter == null) {
+				fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.HG19_REFSEQ_GENE + ".txt", true);
+				bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriter.write("#Searched_for_chr" + "\t" + "interval_Low" + "\t" + "interval_High" + "\t" + "ucscRefSeqGene_node_ChromName" + "\t" + "node_Low" + "\t" + "node_High" + "\t" + "node_RNA_Nucleotide_Accession" + "\t" + "node_IntervalName" + "\t" + "node_IntervalNumber" + "\t" + "node_GeneHugoSymbol" + "\t" + "node_GeneEntrezId" + System.getProperty("line.separator"));
+				
+			}
+			
 			while ((strLine = bufferedReader.readLine()) != null) {
 
 				TIntShortMap geneAlternateNumber2OneorZeroMap = new TIntShortHashMap();
@@ -1543,12 +1553,7 @@ public class Annotation {
 				/***************************************************************************************/
 				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
 
-				// debug starts
-				// chr17_44081063_44081063
-				if (chromName.isCHROMOSOME17() && low == 44081063 && high == 44081063) {
-					System.out.println("debug this given interval");
-				}
-				// debug ends
+			
 
 				if (!givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)) {
 
@@ -1566,7 +1571,7 @@ public class Annotation {
 
 				// UCSCRefSeqGenes Search starts here
 				if (ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,bufferedWriter,givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, geneAlternateNumber2OneorZeroMap, Commons.NCBI_GENE_ID, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 				}
 				// UCSCRefSeqGenes Search ends here
 
@@ -1583,8 +1588,17 @@ public class Annotation {
 					}
 
 				}// End of for
+				
+				
 
 			}// End of while
+			
+			//Close BufferedWriter
+			if(bufferedWriter!=null){
+				bufferedWriter.close();
+			}
+			
+			
 		} catch (NumberFormatException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
@@ -1770,7 +1784,18 @@ public class Annotation {
 
 				// TF Search starts here
 				if (tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder, tfbsIntervalTree.getRoot(), interval, chromName, tfNumberBufferedWriterHashMap, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
+							outputFolder, 
+							tfbsIntervalTree.getRoot(), 
+							interval, 
+							chromName, 
+							//tfNumberBufferedWriterHashMap, 
+							tfNumberCellLineNumber2ZeroorOneMap, 
+							tfandCellLineOverlapList, 
+							overlapDefinition, 
+							tfNumber2TfNameMap, 
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap);
 				}
 
 				// too many opened files error starts
@@ -2130,7 +2155,19 @@ public class Annotation {
 
 				// TF Search starts here
 				if (tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder, tfbsIntervalTree.getRoot(), interval, chromName, tfNumberBufferedWriterHashMap, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					
+					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
+							outputFolder, 
+							tfbsIntervalTree.getRoot(), 
+							interval, 
+							chromName, 
+							//tfNumberBufferedWriterHashMap, 
+							tfNumberCellLineNumber2ZeroorOneMap, 
+							tfandCellLineOverlapList, 
+							overlapDefinition, 
+							tfNumber2TfNameMap, 
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap);
 				}
 
 				// too many opened files error starts
@@ -2423,7 +2460,40 @@ public class Annotation {
 	// With Numbers
 	// TF and KEGGPathway
 	// TF and CellLine and KEGGPathway
-	public void searchTfandKeggPathwayWithNumbers(String outputFolder, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree, IntervalTree ucscRefSeqGenesIntervalTree, TIntObjectMap<BufferedWriter> tfNumberBufferedWriterHashMap, TShortObjectMap<BufferedWriter> exonBasedKeggPathwayNumberBufferedWriterHashMap, TShortObjectMap<BufferedWriter> regulationBasedKeggPathwayNumberBufferedWriterHashMap, TShortObjectMap<BufferedWriter> allBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberExonBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberAllBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberCellLineNumberExonBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberCellLineNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<BufferedWriter> tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap, TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap, TIntIntMap tfNumberCellLineNumber2KMap, TShortIntMap exonBasedKeggPathwayNumber2KMap, TShortIntMap regulationBasedKeggPathwayNumber2KMap, TShortIntMap allBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap, TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, int overlapDefinition, TShortObjectMap<String> tfNumber2TfNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap, TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+	public void searchTfandKeggPathwayWithNumbers(
+			String outputFolder, 
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree tfbsIntervalTree, 
+			IntervalTree ucscRefSeqGenesIntervalTree, 
+			TIntObjectMap<BufferedWriter> tfNumberBufferedWriterHashMap, 
+			TShortObjectMap<BufferedWriter> exonBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TShortObjectMap<BufferedWriter> regulationBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TShortObjectMap<BufferedWriter> allBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberExonBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberAllBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberCellLineNumberExonBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberCellLineNumberRegulationBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<BufferedWriter> tfNumberCellLineNumberAllBasedKeggPathwayNumberBufferedWriterHashMap, 
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap, 
+			TIntIntMap tfNumberCellLineNumber2KMap, 
+			TShortIntMap exonBasedKeggPathwayNumber2KMap, 
+			TShortIntMap regulationBasedKeggPathwayNumber2KMap, 
+			TShortIntMap allBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap, 
+			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
+			int overlapDefinition, 
+			TShortObjectMap<String> tfNumber2TfNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> fileNumber2FileNameMap, 
+			TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -2490,7 +2560,19 @@ public class Annotation {
 
 				// TF Search starts here
 				if (tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder, tfbsIntervalTree.getRoot(), interval, chromName, tfNumberBufferedWriterHashMap, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					
+					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
+							outputFolder, 
+							tfbsIntervalTree.getRoot(), 
+							interval, 
+							chromName, 
+							//tfNumberBufferedWriterHashMap, 
+							tfNumberCellLineNumber2ZeroorOneMap, 
+							tfandCellLineOverlapList, 
+							overlapDefinition, 
+							tfNumber2TfNameMap, 
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap);
 				}
 
 				// too many opened files error starts
@@ -3123,7 +3205,17 @@ public class Annotation {
 
 	// Annotation
 	// With Numbers
-	public void searchTranscriptionFactorWithNumbers(String outputFolder, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree tfIntervalTree, TIntObjectMap<BufferedWriter> tfBufferedWriterHashMap, TIntIntMap tfNumberCellLineNumber2KMap, int overlapDefinition, TShortObjectMap<String> tfNumber2TFNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+	public void searchTranscriptionFactorWithNumbers(
+			String outputFolder, 
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree tfIntervalTree, 
+			TIntIntMap tfNumberCellLineNumber2KMap, 
+			int overlapDefinition, 
+			TShortObjectMap<String> tfNumber2TFNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> fileNumber2FileNameMap) {
+		
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -3134,7 +3226,7 @@ public class Annotation {
 		try {
 			while ((strLine = bufferedReader.readLine()) != null) {
 
-				TIntShortMap tfNumberCellLineNumber2ZeroorOneMap = new TIntShortHashMap();
+				TIntByteMap tfNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
@@ -3152,19 +3244,13 @@ public class Annotation {
 				Interval interval = new Interval(low, high);
 
 				if (tfIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					tfIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder, tfIntervalTree.getRoot(), interval, chromName, tfBufferedWriterHashMap, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					tfIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder, tfIntervalTree.getRoot(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 				}
 
-				// too many opened files error starts
-				if (!tfBufferedWriterHashMap.isEmpty()) {
-					closeBufferedWritersWithNumbers(tfBufferedWriterHashMap);
-					tfBufferedWriterHashMap.clear();
-				}
-				// too many opened files error ends
 
 				// accumulate search results of dnaseCellLine2OneorZeroMap in
 				// dnaseCellLine2KMap
-				for (TIntShortIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();) {
+				for (TIntByteIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();) {
 					it.advance();
 
 					if (!tfNumberCellLineNumber2KMap.containsKey(it.key())) {
@@ -3188,7 +3274,18 @@ public class Annotation {
 
 	// Annotation
 	// With Numbers
-	public void searchHistoneWithNumbers(String outputFolder, ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree histoneIntervalTree, TIntObjectMap<BufferedWriter> histoneBufferedWriterHashMap, TIntIntMap histoneNumberCellLineNumber2KMap, int overlapDefinition, TShortObjectMap<String> histoneNumber2HistoneNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+	public void searchHistoneWithNumbers(
+			String outputFolder, 
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree histoneIntervalTree, 
+			TIntIntMap histoneNumberCellLineNumber2KMap, 
+			int overlapDefinition, 
+			TShortObjectMap<String> histoneNumber2HistoneNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> fileNumber2FileNameMap) {
+		
+		
 		String strLine = null;
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -3199,7 +3296,7 @@ public class Annotation {
 		try {
 			while ((strLine = bufferedReader.readLine()) != null) {
 
-				TIntShortMap histoneNumberCellLineNumber2ZeroorOneMap = new TIntShortHashMap();
+				TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
 
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
@@ -3217,26 +3314,19 @@ public class Annotation {
 				Interval interval = new Interval(low, high);
 
 				if (histoneIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(outputFolder, histoneIntervalTree.getRoot(), interval, chromName, histoneBufferedWriterHashMap, histoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(outputFolder, histoneIntervalTree.getRoot(), interval, chromName, histoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 				}
 
-				// too many opened files error starts
-				if (!histoneBufferedWriterHashMap.isEmpty()) {
-					closeBufferedWritersWithNumbers(histoneBufferedWriterHashMap);
-					histoneBufferedWriterHashMap.clear();
-				}
-				// too many opened files error ends
 
 				// accumulate search results of dnaseCellLine2OneorZeroMap in
 				// dnaseCellLine2KMap
-				for (TIntShortIterator it = histoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();) {
+				for (TIntByteIterator it = histoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();) {
 					it.advance();
 
 					if (!histoneNumberCellLineNumber2KMap.containsKey(it.key())) {
 						histoneNumberCellLineNumber2KMap.put(it.key(), it.value());
 					} else {
 						histoneNumberCellLineNumber2KMap.put(it.key(), histoneNumberCellLineNumber2KMap.get(it.key()) + it.value());
-
 					}
 
 				}// End of for
@@ -4931,14 +5021,12 @@ public class Annotation {
 
 		IntervalTree dnaseIntervalTree;
 
-		TShortObjectMap<BufferedWriter> dnaseCellLineNumber2BufferedWriterHashMap = new TShortObjectHashMap<BufferedWriter>();
-
 		// For each ChromosomeName
 		for (ChromosomeName chrName : ChromosomeName.values()) {
 
 			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers(outputFolder, chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2BufferedWriterHashMap, dnaseCellLineNumber2KMap, overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			searchDnaseWithNumbers(outputFolder, chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2KMap,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			emptyIntervalTree(dnaseIntervalTree.getRoot());
 			dnaseIntervalTree = null;
 
@@ -5253,14 +5341,13 @@ public class Annotation {
 
 		IntervalTree transcriptionFactorIntervalTree;
 
-		TIntObjectMap<BufferedWriter> transcriptionFactorBufferedWriterHashMap = new TIntObjectHashMap<BufferedWriter>();
-
+		
 		// For each ChromosomeName
 		for (ChromosomeName chrName : ChromosomeName.values()) {
 
 			transcriptionFactorIntervalTree = createTfbsIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchTranscriptionFactorWithNumbers(outputFolder, chrName, bufferedReader, transcriptionFactorIntervalTree, transcriptionFactorBufferedWriterHashMap, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			searchTranscriptionFactorWithNumbers(outputFolder, chrName, bufferedReader, transcriptionFactorIntervalTree, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			emptyIntervalTree(transcriptionFactorIntervalTree.getRoot());
 			transcriptionFactorIntervalTree = null;
 
@@ -5285,14 +5372,13 @@ public class Annotation {
 
 		IntervalTree histoneIntervalTree;
 
-		TIntObjectMap<BufferedWriter> histoneBufferedWriterHashMap = new TIntObjectHashMap<BufferedWriter>();
-
+		
 		// For each ChromosomeName
 		for (ChromosomeName chrName : ChromosomeName.values()) {
 
 			histoneIntervalTree = createHistoneIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchHistoneWithNumbers(outputFolder, chrName, bufferedReader, histoneIntervalTree, histoneBufferedWriterHashMap, histoneNumberCellLineNumber2KMap, overlapDefinition, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			searchHistoneWithNumbers(outputFolder, chrName, bufferedReader, histoneIntervalTree, histoneNumberCellLineNumber2KMap, overlapDefinition, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			emptyIntervalTree(histoneIntervalTree.getRoot());
 			histoneIntervalTree = null;
 

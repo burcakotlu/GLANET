@@ -759,6 +759,9 @@ public class Commons {
 
 	public static final char GLANET_COMMENT_CHARACTER = '#';
 	public static final String GLANET_COMMENT_STRING = "#";
+	
+	public static final byte BYTE_1 = 1;
+	public static final byte BYTE_0 = 0;
 
 	public static final String HYPHEN = "HYPHEN";
 	public static final String TEST_LINEAR_SEARCH_VERSUS_INTERVAL_TREE_SEARCH = "Doktora" + System.getProperty("file.separator") + "testlinearsearchversusintervaltreesearch" + System.getProperty("file.separator") + "Compare.txt";
