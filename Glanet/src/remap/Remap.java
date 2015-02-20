@@ -134,7 +134,7 @@ public class Remap {
 
 			process = runtime.exec(new String[] { "perl", remapFile, "--mode", "batches" });
 			
-			System.out.println("perl " + remapFile + "--mode batches");
+			//System.out.println("perl " + remapFile + "--mode batches");
 			
 			//here we use Thread.sleep instead of waitFor() because
 			//process's input stream is not immediately written
@@ -159,7 +159,7 @@ public class Remap {
 
 			while ((line = bufferedReader.readLine()) != null) {
 				// logger.info(line);
-				System.out.println(line);
+				//System.out.println(line);
 				bufferedWriter.write(line + System.getProperty("line.separator"));
 			}// End of while
 

@@ -26,6 +26,7 @@ import common.Commons;
 import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
 import enumtypes.WriteAnnotationBinaryMatrixMode;
+import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 
 /**
  * 
@@ -366,9 +367,11 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/*************************** READ GIVEN INPUT ends ***********************************************/
 		/***********************************************************************************************/
 
+		WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteElementBasedAnnotationFoundOverlapsMode.convertStringtoEnum(args[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()]);
 		WriteAnnotationBinaryMatrixMode writeAnnotationBinaryMatrixMode = WriteAnnotationBinaryMatrixMode.convertStringtoEnum(args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()]);
 		
-		if(writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){
+		if(writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps() &&
+				writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){
 			
 			/****************************************************************/
 			/********** DNASE starts*****************************************/
