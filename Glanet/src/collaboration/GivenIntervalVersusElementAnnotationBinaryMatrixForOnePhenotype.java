@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
+import enumtypes.WriteAnnotationBinaryMatrixMode;
 
 /**
  * 
@@ -326,7 +326,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		Map<String, String> overlap2RSIDMap = null;
 		// Map<String,String> overlap2RSIDMap = new HashMap<String,String>();
 		//
-		// ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype.readRSIDMap(inputFileName,
+		// ElementVersusNumberofOver"lapsWithRSIDsAndEnrichmentForOnePhenotype.readRSIDMap(inputFileName,
 		// overlap2RSIDMap);
 		// /************************************************************************************/
 		// /********************************FILL givenInterval2rsID
@@ -349,7 +349,9 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		// number of given intervals at most 10000
 		// number of elements at most 10000
 		final Integer MAXIMUM_NUMBER_OF_GIVEN_INTERVALS = new Integer(10000);
-		final Integer MAXIMUM_NUMBER_OF_ELEMENTS = new Integer(10000);
+		final Integer MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND = new Integer(10000);
+		final Integer MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND = new Integer(100000);
+		
 		/************************************************************************************/
 		/******************************** My assumptions ends *********************************/
 		/************************************************************************************/
@@ -364,219 +366,299 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/*************************** READ GIVEN INPUT ends ***********************************************/
 		/***********************************************************************************************/
 
-		/*************************/
-		/********** DNASE **********/
-		/*************************/
-		List<String> dnaseCellLineNameList = new ArrayList<String>();
+		WriteAnnotationBinaryMatrixMode writeAnnotationBinaryMatrixMode = WriteAnnotationBinaryMatrixMode.convertStringtoEnum(args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()]);
+		
+		if(writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){
+			
+			/****************************************************************/
+			/********** DNASE starts*****************************************/
+			/****************************************************************/
+			AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
+			
+			if(dnaseAnnotationType.doDnaseAnnotation()){
 
-		// Index to Name Array
-		String[] dnaseCelllineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
+				List<String> dnaseCellLineNameList = new ArrayList<String>();
 
-		// ANNOTATION BINARY MATRICE
-		short[][] annotationBinaryMatrixforDnase = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				// Index to Name Array
+				String[] dnaseCelllineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		// READ ANNOTATIONs FILL BINARY MATRICES starts
-		readAnnotations(givenIntervalName2ArrayXIndexMap, dnaseCellLineNameList, dnaseCelllineNames, annotationBinaryMatrixforDnase, outputFolder, Commons.DNASE);
-		// READ ANNOTATIONs FILL BINARY MATRICES ends
+				// ANNOTATION BINARY MATRICE
+				short[][] annotationBinaryMatrixforDnase = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		// WRITE ANNOTATION BINARY MATRICES starts
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforDnase, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), dnaseCelllineNames, dnaseCellLineNameList.size(), outputFolder, Commons.DNASE, overlap2RSIDMap);
-		// WRITE ANNOTATION BINARY MATRICES ends
+				// READ ANNOTATIONs FILL BINARY MATRICES starts
+				readAnnotations(givenIntervalName2ArrayXIndexMap, dnaseCellLineNameList, dnaseCelllineNames, annotationBinaryMatrixforDnase, outputFolder, Commons.DNASE);
+				// READ ANNOTATIONs FILL BINARY MATRICES ends
 
-		dnaseCellLineNameList = null;
-		dnaseCelllineNames = null;
-		annotationBinaryMatrixforDnase = null;
-		/*************************/
-		/********** DNASE **********/
-		/*************************/
+				// WRITE ANNOTATION BINARY MATRICES starts
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforDnase, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), dnaseCelllineNames, dnaseCellLineNameList.size(), outputFolder, Commons.DNASE, overlap2RSIDMap);
+				// WRITE ANNOTATION BINARY MATRICES ends
 
-		/*************************/
-		/********** TF *************/
-		/*************************/
-		List<String> tfNameCellLineNameList = new ArrayList<String>();
-		String[] tfNameCellLineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTf = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				dnaseCellLineNameList = null;
+				dnaseCelllineNames = null;
+				annotationBinaryMatrixforDnase = null;
+			}
+			/****************************************************************/
+			/********** DNASE ends*******************************************/
+			/****************************************************************/
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfNameCellLineNameList, tfNameCellLineNames, annotationBinaryMatrixforTf, outputFolder, Commons.TF);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTf, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfNameCellLineNames, tfNameCellLineNameList.size(), outputFolder, Commons.TF, overlap2RSIDMap);
+			/****************************************************************/
+			/********** TF starts********************************************/
+			/****************************************************************/
+			AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+			
+			if (tfAnnotationType.doTFAnnotation()){
+				
+				List<String> tfNameCellLineNameList = new ArrayList<String>();
+				String[] tfNameCellLineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
+				short[][] annotationBinaryMatrixforTf = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		tfNameCellLineNameList = null;
-		tfNameCellLineNames = null;
-		annotationBinaryMatrixforTf = null;
-		/*************************/
-		/********** TF *************/
-		/*************************/
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfNameCellLineNameList, tfNameCellLineNames, annotationBinaryMatrixforTf, outputFolder, Commons.TF);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTf, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfNameCellLineNames, tfNameCellLineNameList.size(), outputFolder, Commons.TF, overlap2RSIDMap);
 
-		/*************************/
-		/********* HISTONE *********/
-		/*************************/
-		List<String> histoneNameCellLineNameList = new ArrayList<String>();
-		String[] histoneNameCellLineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforHistone = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				tfNameCellLineNameList = null;
+				tfNameCellLineNames = null;
+				annotationBinaryMatrixforTf = null;
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, histoneNameCellLineNameList, histoneNameCellLineNames, annotationBinaryMatrixforHistone, outputFolder, Commons.HISTONE);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforHistone, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), histoneNameCellLineNames, histoneNameCellLineNameList.size(), outputFolder, Commons.HISTONE, overlap2RSIDMap);
+			}
+			/****************************************************************/
+			/********** TF ends**********************************************/
+			/****************************************************************/
 
-		histoneNameCellLineNameList = null;
-		histoneNameCellLineNames = null;
-		annotationBinaryMatrixforHistone = null;
-		/*************************/
-		/********* HISTONE *********/
-		/*************************/
+			
+			/****************************************************************/
+			/********** Histone starts***************************************/
+			/****************************************************************/
+			AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
+			
+			if(histoneAnnotationType.doHistoneAnnotation()){
+				
+				List<String> histoneNameCellLineNameList = new ArrayList<String>();
+				String[] histoneNameCellLineNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
+				short[][] annotationBinaryMatrixforHistone = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		/*****************************************/
-		/*********** EXONBASED KEGGPATHWAY *********/
-		/*****************************************/
-		List<String> exonBasedKEGGPathwayList = new ArrayList<String>();
-		String[] exonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				readAnnotations(givenIntervalName2ArrayXIndexMap, histoneNameCellLineNameList, histoneNameCellLineNames, annotationBinaryMatrixforHistone, outputFolder, Commons.HISTONE);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforHistone, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), histoneNameCellLineNames, histoneNameCellLineNameList.size(), outputFolder, Commons.HISTONE, overlap2RSIDMap);
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, exonBasedKEGGPathwayList, exonBasedKEGGPathwayNames, annotationBinaryMatrixforExonBasedKEGG, outputFolder, Commons.EXON_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), exonBasedKEGGPathwayNames, exonBasedKEGGPathwayList.size(), outputFolder, Commons.EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				histoneNameCellLineNameList = null;
+				histoneNameCellLineNames = null;
+				annotationBinaryMatrixforHistone = null;
 
-		exonBasedKEGGPathwayList = null;
-		exonBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforExonBasedKEGG = null;
-		/*****************************************/
-		/*********** EXONBASED KEGGPATHWAY *********/
-		/*****************************************/
+			}
+			/****************************************************************/
+			/********** Histone ends*****************************************/
+			/****************************************************************/
 
-		/*****************************************/
-		/******* REGULATIONBASED KEGGPATHWAY *******/
-		/*****************************************/
-		List<String> regulationBasedKEGGPathwayList = new ArrayList<String>();
-		String[] regulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+			
+			/****************************************************************/
+			/**********KEGGPathway starts************************************/
+			/****************************************************************/
+			AnnotationType KEGGPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
+			
+			if(KEGGPathwayAnnotationType.doKEGGPathwayAnnotation()){
+				
+				/****************************************************************/
+				/********** ExonBased KEGGPathway starts*************************/
+				/****************************************************************/		
+				List<String> exonBasedKEGGPathwayList = new ArrayList<String>();
+				String[] exonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
+				short[][] annotationBinaryMatrixforExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, regulationBasedKEGGPathwayList, regulationBasedKEGGPathwayNames, annotationBinaryMatrixforRegulationBasedKEGG, outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), regulationBasedKEGGPathwayNames, regulationBasedKEGGPathwayList.size(), outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				readAnnotations(givenIntervalName2ArrayXIndexMap, exonBasedKEGGPathwayList, exonBasedKEGGPathwayNames, annotationBinaryMatrixforExonBasedKEGG, outputFolder, Commons.EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), exonBasedKEGGPathwayNames, exonBasedKEGGPathwayList.size(), outputFolder, Commons.EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		regulationBasedKEGGPathwayList = null;
-		regulationBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforRegulationBasedKEGG = null;
-		/*****************************************/
-		/******* REGULATIONONBASED KEGGPATHWAY *****/
-		/*****************************************/
+				exonBasedKEGGPathwayList = null;
+				exonBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforExonBasedKEGG = null;
+				/****************************************************************/
+				/********** ExonBased KEGGPathway ends***************************/
+				/****************************************************************/
+				
+				
+				
+				/****************************************************************/
+				/********** RegulationBased KEGGPathway starts*******************/
+				/****************************************************************/
+				List<String> regulationBasedKEGGPathwayList = new ArrayList<String>();
+				String[] regulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
+				short[][] annotationBinaryMatrixforRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		/*****************************************/
-		/*********** ALLBASED KEGGPATHWAY **********/
-		/*****************************************/
-		List<String> allBasedKEGGPathwayList = new ArrayList<String>();
-		String[] allBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				readAnnotations(givenIntervalName2ArrayXIndexMap, regulationBasedKEGGPathwayList, regulationBasedKEGGPathwayNames, annotationBinaryMatrixforRegulationBasedKEGG, outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), regulationBasedKEGGPathwayNames, regulationBasedKEGGPathwayList.size(), outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, allBasedKEGGPathwayList, allBasedKEGGPathwayNames, annotationBinaryMatrixforAllBasedKEGG, outputFolder, Commons.ALL_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), allBasedKEGGPathwayNames, allBasedKEGGPathwayList.size(), outputFolder, Commons.ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				regulationBasedKEGGPathwayList = null;
+				regulationBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforRegulationBasedKEGG = null;
+				/****************************************************************/
+				/********** RegulationBased KEGGPathway ends*********************/
+				/****************************************************************/
 
-		allBasedKEGGPathwayList = null;
-		allBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforAllBasedKEGG = null;
-		/*****************************************/
-		/*********** ALLBASED KEGGPATHWAY **********/
-		/*****************************************/
+				
+				
+				/****************************************************************/
+				/********** ALLBased KEGGPathway starts**************************/
+				/****************************************************************/
+				List<String> allBasedKEGGPathwayList = new ArrayList<String>();
+				String[] allBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
+				short[][] annotationBinaryMatrixforAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND];
 
-		/*********************************************/
-		/*********** TF EXONBASED KEGGPATHWAY **********/
-		/*********************************************/
-		List<String> tfExonBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfExonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				readAnnotations(givenIntervalName2ArrayXIndexMap, allBasedKEGGPathwayList, allBasedKEGGPathwayNames, annotationBinaryMatrixforAllBasedKEGG, outputFolder, Commons.ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), allBasedKEGGPathwayNames, allBasedKEGGPathwayList.size(), outputFolder, Commons.ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfExonBasedKEGGPathwayList, tfExonBasedKEGGPathwayNames, annotationBinaryMatrixforTFExonBasedKEGG, outputFolder, Commons.TF_EXON_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfExonBasedKEGGPathwayNames, tfExonBasedKEGGPathwayList.size(), outputFolder, Commons.TF_EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				allBasedKEGGPathwayList = null;
+				allBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforAllBasedKEGG = null;
+				/****************************************************************/
+				/********** ALLBased KEGGPathway ends****************************/
+				/****************************************************************/
 
-		tfExonBasedKEGGPathwayList = null;
-		tfExonBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFExonBasedKEGG = null;
-		/*********************************************/
-		/*********** TF EXONBASED KEGGPATHWAY **********/
-		/*********************************************/
+			}
+			/****************************************************************/
+			/**********KEGGPathway ends**************************************/
+			/****************************************************************/
 
-		/***************************************************/
-		/*********** TF REGULATIONBASED KEGGPATHWAY **********/
-		/***************************************************/
-		List<String> tfRegulationBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfRegulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+			
+			
+			/****************************************************************/
+			/**********TF KEGGPathway starts*********************************/
+			/****************************************************************/
+			AnnotationType tfKEGGPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+			
+			if(tfKEGGPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+				
+				/****************************************************************/
+				/********** TF EXONBased KEGGPathway starts**********************/
+				/****************************************************************/
+				List<String> tfExonBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfExonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfRegulationBasedKEGGPathwayList, tfRegulationBasedKEGGPathwayNames, annotationBinaryMatrixforTFRegulationBasedKEGG, outputFolder, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfRegulationBasedKEGGPathwayNames, tfRegulationBasedKEGGPathwayList.size(), outputFolder, Commons.TF_REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfExonBasedKEGGPathwayList, tfExonBasedKEGGPathwayNames, annotationBinaryMatrixforTFExonBasedKEGG, outputFolder, Commons.TF_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfExonBasedKEGGPathwayNames, tfExonBasedKEGGPathwayList.size(), outputFolder, Commons.TF_EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		tfRegulationBasedKEGGPathwayList = null;
-		tfRegulationBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFRegulationBasedKEGG = null;
-		/***************************************************/
-		/*********** TF REGULATIONBASED KEGGPATHWAY **********/
-		/***************************************************/
+				tfExonBasedKEGGPathwayList = null;
+				tfExonBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFExonBasedKEGG = null;
+				/****************************************************************/
+				/********** TF EXONBased KEGGPathway ends************************/
+				/****************************************************************/
 
-		/*********************************************/
-		/*********** TF ALLBASED KEGGPATHWAY ***********/
-		/*********************************************/
-		List<String> tfAllBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfAllBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				
+				
+				/****************************************************************/
+				/********** TF RegulationBased KEGGPathway starts****************/
+				/****************************************************************/
+				List<String> tfRegulationBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfRegulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfAllBasedKEGGPathwayList, tfAllBasedKEGGPathwayNames, annotationBinaryMatrixforTFAllBasedKEGG, outputFolder, Commons.TF_ALL_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfAllBasedKEGGPathwayNames, tfAllBasedKEGGPathwayList.size(), outputFolder, Commons.TF_ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfRegulationBasedKEGGPathwayList, tfRegulationBasedKEGGPathwayNames, annotationBinaryMatrixforTFRegulationBasedKEGG, outputFolder, Commons.TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfRegulationBasedKEGGPathwayNames, tfRegulationBasedKEGGPathwayList.size(), outputFolder, Commons.TF_REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		tfAllBasedKEGGPathwayList = null;
-		tfAllBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFAllBasedKEGG = null;
-		/*********************************************/
-		/*********** TF ALLBASED KEGGPATHWAY ***********/
-		/*********************************************/
+				tfRegulationBasedKEGGPathwayList = null;
+				tfRegulationBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFRegulationBasedKEGG = null;
+				/****************************************************************/
+				/********** TF RegulationBased KEGGPathway ends******************/
+				/****************************************************************/
 
-		/************************************************************/
-		/*********** TF CELLLINE EXONBASED KEGGPATHWAY ****************/
-		/************************************************************/
-		List<String> tfCellLineExonBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfCellLineExonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFCellLineExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				
+				
+				/****************************************************************/
+				/********** TF AllBased KEGGPathway starts***********************/
+				/****************************************************************/
+				List<String> tfAllBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfAllBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineExonBasedKEGGPathwayList, tfCellLineExonBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineExonBasedKEGG, outputFolder, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineExonBasedKEGGPathwayNames, tfCellLineExonBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfAllBasedKEGGPathwayList, tfAllBasedKEGGPathwayNames, annotationBinaryMatrixforTFAllBasedKEGG, outputFolder, Commons.TF_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfAllBasedKEGGPathwayNames, tfAllBasedKEGGPathwayList.size(), outputFolder, Commons.TF_ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		tfCellLineExonBasedKEGGPathwayList = null;
-		tfCellLineExonBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFCellLineExonBasedKEGG = null;
-		/************************************************************/
-		/*********** TF CELLLINE EXONBASED KEGGPATHWAY ****************/
-		/************************************************************/
+				tfAllBasedKEGGPathwayList = null;
+				tfAllBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFAllBasedKEGG = null;
+				/****************************************************************/
+				/********** TF AllBased KEGGPathway ends*************************/
+				/****************************************************************/
 
-		/************************************************************/
-		/*********** TF CELLLINE REGULATIONBASED KEGGPATHWAY **********/
-		/************************************************************/
-		List<String> tfCellLineRegulationBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfCellLineRegulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFCellLineRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+			}		
+			/****************************************************************/
+			/**********TF KEGGPathway ends***********************************/
+			/****************************************************************/
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineRegulationBasedKEGGPathwayList, tfCellLineRegulationBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineRegulationBasedKEGG, outputFolder, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineRegulationBasedKEGGPathwayNames, tfCellLineRegulationBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+			
+			
+			/****************************************************************/
+			/**********TF CellLine KEGGPathway starts************************/
+			/****************************************************************/
+			AnnotationType tfCellLineKEGGPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
+			
+			if(tfCellLineKEGGPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				
+				/****************************************************************/
+				/********** TF CELLLINE EXONBased KEGGPathway starts*************/
+				/****************************************************************/
+				List<String> tfCellLineExonBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfCellLineExonBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFCellLineExonBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
 
-		tfCellLineRegulationBasedKEGGPathwayList = null;
-		tfCellLineRegulationBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFCellLineRegulationBasedKEGG = null;
-		/************************************************************/
-		/*********** TF CELLLINE REGULATIONBASED KEGGPATHWAY **********/
-		/************************************************************/
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineExonBasedKEGGPathwayList, tfCellLineExonBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineExonBasedKEGG, outputFolder, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineExonBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineExonBasedKEGGPathwayNames, tfCellLineExonBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
-		/************************************************************/
-		/*********** TF CELLLINE ALLBASED KEGGPATHWAY *****************/
-		/************************************************************/
-		List<String> tfCellLineAllBasedKEGGPathwayList = new ArrayList<String>();
-		String[] tfCellLineAllBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS];
-		short[][] annotationBinaryMatrixforTFCellLineAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS];
+				tfCellLineExonBasedKEGGPathwayList = null;
+				tfCellLineExonBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFCellLineExonBasedKEGG = null;
+				/****************************************************************/
+				/********** TF CELLLINE EXONBased KEGGPathway ends***************/
+				/****************************************************************/
 
-		readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineAllBasedKEGGPathwayList, tfCellLineAllBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineAllBasedKEGG, outputFolder, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
-		writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineAllBasedKEGGPathwayNames, tfCellLineAllBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+				
+				
+				/****************************************************************/
+				/********** TF CELLLINE REGULATIONBASED KEGGPathway starts*******/
+				/****************************************************************/
+				List<String> tfCellLineRegulationBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfCellLineRegulationBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFCellLineRegulationBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
 
-		tfCellLineAllBasedKEGGPathwayList = null;
-		tfCellLineAllBasedKEGGPathwayNames = null;
-		annotationBinaryMatrixforTFCellLineAllBasedKEGG = null;
-		/************************************************************/
-		/*********** TF CELLLINE ALLBASED KEGGPATHWAY *****************/
-		/************************************************************/
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineRegulationBasedKEGGPathwayList, tfCellLineRegulationBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineRegulationBasedKEGG, outputFolder, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineRegulationBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineRegulationBasedKEGGPathwayNames, tfCellLineRegulationBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY, overlap2RSIDMap);
 
+				tfCellLineRegulationBasedKEGGPathwayList = null;
+				tfCellLineRegulationBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFCellLineRegulationBasedKEGG = null;
+				/****************************************************************/
+				/********** TF CELLLINE REGULATIONBASED KEGGPathway ends*********/
+				/****************************************************************/
+
+				
+				
+				/****************************************************************/
+				/********** TF CELLLINE ALLBASED KEGGPathway starts**************/
+				/****************************************************************/
+				List<String> tfCellLineAllBasedKEGGPathwayList = new ArrayList<String>();
+				String[] tfCellLineAllBasedKEGGPathwayNames = new String[MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+				short[][] annotationBinaryMatrixforTFCellLineAllBasedKEGG = new short[MAXIMUM_NUMBER_OF_GIVEN_INTERVALS][MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND];
+
+				readAnnotations(givenIntervalName2ArrayXIndexMap, tfCellLineAllBasedKEGGPathwayList, tfCellLineAllBasedKEGGPathwayNames, annotationBinaryMatrixforTFCellLineAllBasedKEGG, outputFolder, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				writeAnnotationBinaryMatrix(annotationBinaryMatrixforTFCellLineAllBasedKEGG, givenIntervalNames, givenIntervalName2ArrayXIndexMap.size(), tfCellLineAllBasedKEGGPathwayNames, tfCellLineAllBasedKEGGPathwayList.size(), outputFolder, Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY, overlap2RSIDMap);
+
+				tfCellLineAllBasedKEGGPathwayList = null;
+				tfCellLineAllBasedKEGGPathwayNames = null;
+				annotationBinaryMatrixforTFCellLineAllBasedKEGG = null;
+				/****************************************************************/
+				/********** TF CELLLINE ALLBASED KEGGPathway ends****************/
+				/****************************************************************/
+			}
+			/****************************************************************/
+			/**********TF CellLine KEGGPathway ends**************************/
+			/****************************************************************/
+
+			
+		}//End of IF doWriteAnnotationBinaryMatrixMode is true
+
+
+
+		
 	}
 
 }
