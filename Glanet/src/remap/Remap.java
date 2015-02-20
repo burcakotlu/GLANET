@@ -133,18 +133,33 @@ public class Remap {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + supportedAssembliesFileName));
 
 			process = runtime.exec(new String[] { "perl", remapFile, "--mode", "batches" });
-
+			
+			System.out.println("perl " + remapFile + "--mode batches");
+			
+			//here we use Thread.sleep instead of waitFor() because
+			//process's input stream is not immediately written
+			//just after the process finishes. Connecting to the server
+			//and getting the results may take longer. Therefore,
+			//it is not enough just to wait for the end of the process.
+			//one should also wait for getting the results from the server
+			//properly
+			
+			//nearly 40-50 trial on that. Worst case is about 5-6 secs.
+			//For a very bad network connection, it should not be more
+			//than 10 secs. It is not suggested it you decrease sleep
+			//amount. It might cause that the file won't be written
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
 
 			// Output of the perl execution is here
-			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			bufferedReader = new BufferedReader( new InputStreamReader(process.getInputStream()));
 
 			while ((line = bufferedReader.readLine()) != null) {
 				// logger.info(line);
+				System.out.println(line);
 				bufferedWriter.write(line + System.getProperty("line.separator"));
 			}// End of while
 
