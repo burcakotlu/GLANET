@@ -53,6 +53,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -67,9 +68,7 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -4897,12 +4896,46 @@ public class Annotation {
 	}
 
 	// @todo ends
+	
+	public List<Element> transformMapToCollection(TIntIntMap number2KMap){
+		
+		int key;
+		int value;
+		
+		List<Element> elementList = new ArrayList<Element>();
+		Element element = null;
+		
+		for(TIntIntIterator it = number2KMap.iterator(); it.hasNext(); ) {
+			it.advance();
+			
+			key = it.key();
+			value = it .value();
+			
+			element = new Element(key,value);
+			elementList.add(element);
+			
+		}//End of for
+		
+		return elementList;
+	}
+	
 
 	// yeni starts
 	public void writeResultsWithNumbers(TIntIntMap number2KMap, TIntObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
 
 		BufferedWriter bufferedWriter;
 		String elementName;
+		
+		List<Element> elementList = null;
+		
+		Element element = null;
+		int elementNumber;
+		int numberofOverlaps;
+		
+		elementList = transformMapToCollection(number2KMap);	
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
+		
 		try {
 
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
@@ -4910,12 +4943,28 @@ public class Annotation {
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			// accessing keys/values through an iterator:
-			for (TIntIntIterator it = number2KMap.iterator(); it.hasNext();) {
-				it.advance();
-				elementName = number2NameMap.get(it.key());
-				bufferedWriter.write(elementName + "\t" + it.value() + System.getProperty("line.separator"));
-			}
+			
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumber = element.getElementNumber();
+				
+				elementName = number2NameMap.get(elementNumber);
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "\t" + numberofOverlaps + System.getProperty("line.separator"));			
+				
+			}//End of For
+			
+			
+//			// accessing keys/values through an iterator:
+//			for (TIntIntIterator it = number2KMap.iterator(); it.hasNext();) {
+//				it.advance();
+//				elementName = number2NameMap.get(it.key());
+//				bufferedWriter.write(elementName + "\t" + it.value() + System.getProperty("line.separator"));
+//			}
 
 			bufferedWriter.close();
 		} catch (IOException e) {
@@ -6242,7 +6291,10 @@ public class Annotation {
 	
 		
 		WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteElementBasedAnnotationFoundOverlapsMode.convertStringtoEnum(args[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()]);
-		/*********************************************************************************/
+		
+		
+		
+		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
@@ -6253,9 +6305,11 @@ public class Annotation {
 
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
 		/************************** USER DEFINED GENESET ***********************************/
-		/*********************************************************************************/
+		/***********************************************************************************/
 
-		/*********************************************************************************/
+		
+		
+		/***********************************************************************************/
 		/************************** USER DEFINED LIBRARY ***********************************/
 		// User Defined Library Enrichment, DO or DO_NOT
 		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
@@ -6264,7 +6318,7 @@ public class Annotation {
 	
 		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryDataFormat.value()]);
 		/************************** USER DEFINED LIBRARY ***********************************/
-		/*********************************************************************************/
+		/***********************************************************************************/
 
 		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
@@ -6289,14 +6343,19 @@ public class Annotation {
 		// TfCellLineKeggPathway Enrichment, DO or DO_NOT
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
-		/********************************************************************/
+		
+		
+		/**********************************************************************/
 		/*********** delete old files starts **********************************/
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 
 		FileOperations.deleteOldFiles(annotateOutputBaseDirectoryName);
-		/*********** delete old files ends ***********************************/
-		/******************************************************************/
+		/*********** delete old files ends ************************************/
+		/**********************************************************************/
 
+		
+		
+		
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
 		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
@@ -6317,9 +6376,11 @@ public class Annotation {
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/
 
-		/*****************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME MAPS*****starts ****************************************************/
-		/*****************************************************************************************************/
+		
+		
+		/********************************************************************************************************/
+		/*************** FILL NUMBER 2 NAME MAPS*****starts *****************************************************/
+		/********************************************************************************************************/
 		TShortObjectMap<String> dnaseCellLineNumber2NameMap = new TShortObjectHashMap<String>();
 		TShortObjectMap<String> cellLineNumber2NameMap = new TShortObjectHashMap<String>();
 		TShortObjectMap<String> fileNumber2NameMap = new TShortObjectHashMap<String>();
@@ -6338,20 +6399,23 @@ public class Annotation {
 		FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
 		FileOperations.fillNumber2NameMap(geneHugoSymbolNumber2NameMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME);
 		FileOperations.fillNumber2NameMap(refSeqRNANucleotideAccessionNumber2NameMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME);
-		/****************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME MAPS*****ends *****************************************************/
-		/****************************************************************************************************/
-
-		/******************************************************/
+		/********************************************************************************************************/
+		/*************** FILL NUMBER 2 NAME MAPS*****ends *******************************************************/
+		/********************************************************************************************************/
+		
+		
+		/********************************************************/
 		/*************** FILL NAME 2 NUMBER MAPS******starts ****/
-		/******************************************************/
+		/********************************************************/
 		TObjectShortMap<String> keggPathwayName2NumberMap = new TObjectShortHashMap<String>();
 
 		FileOperations.fillName2NumberMap(keggPathwayName2NumberMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
-		/******************************************************/
+		/********************************************************/
 		/*************** FILL NAME 2 NUMBER MAPS*****ends *******/
-		/******************************************************/
-
+		/********************************************************/
+		
+		
+		
 		// This dnaseCellLineNumber2KMap hash map will contain the dnase cell
 		// line name to number of dnase cell line:k for the given search input
 		// size:n
@@ -6403,9 +6467,9 @@ public class Annotation {
 		// Instant
 		// dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
 
-		/*****************************************************************************/
+		/*******************************************************************************/
 		/************ DNASE**ANNOTATION****starts **************************************/
-		/*****************************************************************************/
+		/*******************************************************************************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 
 			GlanetRunner.appendLog("**********************************************************");
@@ -6426,12 +6490,14 @@ public class Annotation {
 			System.runFinalization();
 
 		}
-		/*****************************************************************************/
-		/************ DNASE***ANNOTATION********ends ***********************************/
-		/*****************************************************************************/
-
 		/*******************************************************************************/
-		/************ HISTONE****ANNOTATION***starts *************************************/
+		/************ DNASE***ANNOTATION********ends ***********************************/
+		/*******************************************************************************/
+
+		
+		
+		/*******************************************************************************/
+		/************ HISTONE****ANNOTATION***starts ***********************************/
 		/*******************************************************************************/
 		if (histoneAnnotationType.doHistoneAnnotation()) {
 
@@ -6453,9 +6519,11 @@ public class Annotation {
 
 		}
 		/*******************************************************************************/
-		/************ HISTONE*****ANNOTATION***ends **************************************/
+		/************ HISTONE*****ANNOTATION***ends ************************************/
 		/*******************************************************************************/
 
+		
+		
 		/*******************************************************************************/
 		/************ TF******ANNOTATION******starts ***********************************/
 		/*******************************************************************************/
@@ -6482,9 +6550,9 @@ public class Annotation {
 		/*******************************************************************************/
 
 		/*******************************************************************************/
-		/************* HG19 Refseq GENE*****ANNOTATION***starts *************************/
+		/************* HG19 Refseq GENE*****ANNOTATION***starts ************************/
 		/*******************************************************************************/
-		/***************** This has been coded for Chen Yao *****************************/
+		/***************** This has been coded for Chen Yao ****************************/
 		/*******************************************************************************/
 		GlanetRunner.appendLog("**********************************************************");
 		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
@@ -6515,11 +6583,11 @@ public class Annotation {
 		System.gc();
 		System.runFinalization();
 		/*******************************************************************************/
-		/***************** This is done by default for Chen Yao *************************/
+		/***************** This is done by default for Chen Yao ************************/
 		/*******************************************************************************/
-		/************* HG19 RefSeq GENE*****ANNOTATION***ends ***************************/
+		/************* HG19 RefSeq GENE*****ANNOTATION***ends **************************/
 		/*******************************************************************************/
-
+		
 		/*******************************************************************************/
 		/************ KEGG PATHWAY*****ANNOTATION***starts *******************************/
 		/*******************************************************************************/

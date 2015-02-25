@@ -53,6 +53,17 @@ public class Commons {
 	public static final String TF_EXTENDED_PEAK_SEQUENCE = "TFExtendedPeakSequence";
 	public static final String TF_OVERLAPS = "TFOverlaps";
 	public static final String OBSERVED_ALLELES = "ObservedAlleles";
+	
+	
+	//Number ıf bases required for p1, p2, d
+	public static final int P1_NUMBER_OF_BASES =  2000;
+	public static final int P1_NUMBER_OF_BASES_PLUS_ONE =  Commons.P1_NUMBER_OF_BASES + 1;
+	
+	public static final int P2_NUMBER_OF_BASES = 10000;
+	public static final int P2_NUMBER_OF_BASES_PLUS_ONE = Commons.P2_NUMBER_OF_BASES + 1;
+	
+	public static final int D_NUMBER_OF_BASES = 100000;
+	
 
 	// dbSNP rs Prefix
 	public static final String RS = "rs";

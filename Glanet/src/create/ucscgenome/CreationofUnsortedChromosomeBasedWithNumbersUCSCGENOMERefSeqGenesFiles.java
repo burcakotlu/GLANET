@@ -120,28 +120,28 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 
 			case '+':
 				// Write 5p1 [txStart-2000, txStart-1]
-				primes.set_5p1Start(txStart - 2000);
-				primes.set_5p1End(txStart - 1);
+				primes.set_5p1Start(txStart - Commons.P1_NUMBER_OF_BASES);
+				primes.set_5p1End(txStart - Commons.ONE);
 
 				// Write 5p2 [txStart-10000,txStart-2001]
-				primes.set_5p2Start(txStart - 10000);
-				primes.set_5p2End(txStart - 2001);
+				primes.set_5p2Start(txStart - Commons.P2_NUMBER_OF_BASES);
+				primes.set_5p2End(txStart - Commons.P1_NUMBER_OF_BASES_PLUS_ONE);
 
 				// Write 5d [txStart-100000,txStart-10001]
-				primes.set_5dStart(txStart - 100000);
-				primes.set_5dEnd(txStart - 10001);
+				primes.set_5dStart(txStart - Commons.D_NUMBER_OF_BASES);
+				primes.set_5dEnd(txStart - Commons.P2_NUMBER_OF_BASES_PLUS_ONE);
 
 				// Write 3p1 [txEnd+1,txEnd+2000]
 				primes.set_3p1Start(txEnd + 1);
-				primes.set_3p1End(txEnd + 2000);
+				primes.set_3p1End(txEnd + Commons.P1_NUMBER_OF_BASES);
 
 				// Write 3p2 [txEnd+2001,txEnd+10000]
-				primes.set_3p2Start(txEnd + 2001);
-				primes.set_3p2End(txEnd + 10000);
+				primes.set_3p2Start(txEnd + Commons.P1_NUMBER_OF_BASES_PLUS_ONE);
+				primes.set_3p2End(txEnd + Commons.P2_NUMBER_OF_BASES);
 
 				// Write 3d [txEnd+10001,txEnd+100000]
-				primes.set_3dStart(txEnd + 10001);
-				primes.set_3dEnd(txEnd + 100000);
+				primes.set_3dStart(txEnd + Commons.P2_NUMBER_OF_BASES_PLUS_ONE);
+				primes.set_3dEnd(txEnd + Commons.D_NUMBER_OF_BASES);
 				break;
 			// Always from 5 prime to 3 prime
 			// For - strand gene starts at txEnd, 5 prime is on right hand side
@@ -151,28 +151,28 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 			// always from 5 prime to 3 prime
 			case '-':
 				// Write 5p1 [txEnd+1, txEnd+2000]
-				primes.set_5p1Start(txEnd + 1);
-				primes.set_5p1End(txEnd + 2000);
+				primes.set_5p1Start(txEnd + Commons.ONE);
+				primes.set_5p1End(txEnd + Commons.P1_NUMBER_OF_BASES);
 
 				// Write 5p2 [txEnd+2001,txEnd+10000]
-				primes.set_5p2Start(txEnd + 2001);
-				primes.set_5p2End(txEnd + 10000);
+				primes.set_5p2Start(txEnd + Commons.P1_NUMBER_OF_BASES_PLUS_ONE);
+				primes.set_5p2End(txEnd + Commons.P2_NUMBER_OF_BASES);
 
 				// Write 5d [txEnd+10001,txEnd+100000]
-				primes.set_5dStart(txEnd + 10001);
-				primes.set_5dEnd(txEnd + 100000);
+				primes.set_5dStart(txEnd + Commons.P2_NUMBER_OF_BASES_PLUS_ONE);
+				primes.set_5dEnd(txEnd + Commons.D_NUMBER_OF_BASES);
 
 				// Write 3p1 [txStart-2000,txStart-1]
-				primes.set_3p1Start(txStart - 2000);
-				primes.set_3p1End(txStart - 1);
+				primes.set_3p1Start(txStart - Commons.P1_NUMBER_OF_BASES);
+				primes.set_3p1End(txStart - Commons.ONE);
 
 				// Write 3p2 [txStart-10000,txStart-2001]
-				primes.set_3p2Start(txStart - 10000);
-				primes.set_3p2End(txStart - 2001);
+				primes.set_3p2Start(txStart - Commons.P2_NUMBER_OF_BASES);
+				primes.set_3p2End(txStart - Commons.P1_NUMBER_OF_BASES_PLUS_ONE);
 
 				// Write 3d [txStart-100000,txStart-10001]
-				primes.set_3dStart(txStart - 100000);
-				primes.set_3dEnd(txStart - 10001);
+				primes.set_3dStart(txStart - Commons.D_NUMBER_OF_BASES);
+				primes.set_3dEnd(txStart - Commons.P2_NUMBER_OF_BASES_PLUS_ONE);
 				break;
 
 		}// End of Switch
