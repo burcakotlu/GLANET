@@ -35,6 +35,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ToolTipManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import common.Commons;
 
@@ -234,6 +236,27 @@ public class MainView extends JPanel {
 			enableInputAssembly();
 		}
 	};
+	
+	DocumentListener inputTextFieldListener = new DocumentListener() {
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			
+			findGlanetFolder();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			
+			findGlanetFolder();
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			
+			//do nothing
+		}
+	};
 
 	public MainView() {
 
@@ -254,7 +277,8 @@ public class MainView extends JPanel {
 		// inputTextField added to inputBrowseAndOptionPane
 		inputTextField = new JTextField(30);
 		inputBrowseAndOptionPane.add(createBrowseFileArea("Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
-
+		inputTextField.getDocument().addDocumentListener( inputTextFieldListener);
+		
 		// inputFormatCombo added to inputBrowseAndOptionPane
 		String[] inputFormat = { Commons.INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES, Commons.INPUT_FILE_FORMAT_DBSNP_IDS };
 
@@ -764,5 +788,14 @@ public class MainView extends JPanel {
 		}
 
 		return cellLinesListFromFile.toArray(new String[0]);
+	}
+	
+	public void findGlanetFolder(){
+		
+		String inputPath = inputTextField.getText();
+		if( inputPath.contains( "Data" + System.getProperty("file.separator"))){
+			
+			outputTextField.setText( inputPath.substring(0, inputPath.indexOf("Data" + System.getProperty("file.separator"))));
+		}
 	}
 }
