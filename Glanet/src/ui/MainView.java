@@ -269,7 +269,7 @@ public class MainView extends JPanel {
 
 		// to enable scroll down on listPane. scrollPane added to this view
 		JScrollPane scrollPane = new JScrollPane(listPane);
-		scrollPane.setPreferredSize(new Dimension(940, 720));
+		scrollPane.setPreferredSize(new Dimension(1024, 768));
 
 		// inputBrowseAndOptionPane added to listPane
 		JPanel inputBrowseAndOptionPane = new JPanel(new FlowLayout(FlowLayout.LEFT));
