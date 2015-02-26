@@ -77,7 +77,13 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 
 	}
 
-	public static void readAnnotations(Map<String, Short> givenIntervalName2ArrayXIndexMap, List<String> elementNameList, String[] elementNames, short[][] annotationBinaryMatrix, String outputFolder, String elementType) {
+	public static void readAnnotations(
+			Map<String, Short> givenIntervalName2ArrayXIndexMap, 
+			List<String> elementNameList, 
+			String[] elementNames, 
+			short[][] annotationBinaryMatrix, 
+			String outputFolder, 
+			String elementType) {
 
 		String folderName = null;
 		File folder;
@@ -86,7 +92,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 
 		int indexofDot;
 		String elementName;
-		short elementIndex = 0;
+		int elementIndex = 0;
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -148,6 +154,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 					elementName = fileName.substring(0, indexofDot);
 
 					elementNameList.add(elementName);
+					
 					elementNames[elementIndex] = elementName;
 
 					fileAbsolutePath = file.getAbsolutePath();
