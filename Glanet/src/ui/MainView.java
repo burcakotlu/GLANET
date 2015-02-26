@@ -168,7 +168,42 @@ public class MainView extends JPanel {
 				logArea.setText("");
 				logArea.setCaretPosition(logArea.getDocument().getLength());
 
-				delegate.startRunActionsWithOptions(inputTextField.getText(), inputAssembly.getSelectedItem().toString(), outputTextField.getText(), inputFormatCombo.getSelectedItem().toString(), numberOfBases.getText(), performEnrichmentCheckBox.isSelected() ? Commons.DO_ENRICH : Commons.DO_NOT_ENRICH, generateRandomDataModeCombo.getSelectedItem().toString(), multipleTestingCombo.getSelectedItem().toString(), signifanceCriteria.getText(), falseDiscoveryRate.getText(), numberOfPerCombo.getSelectedItem().toString(), dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION, keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, regulatorySequenceAnalysisUsingRSATCheck.isSelected() ? Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT : Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT, (jobName.getText().length() == 0) ? Commons.NO_NAME : jobName.getText(), Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS, Commons.DO_WRITE_ANNOTATION_BINARY_MATRIX, Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA, Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT, numberOfPerInEachRun.getSelectedItem().toString(), userDefinedGeneSetAnnotation.isSelected() ? Commons.DO_USER_DEFINED_GENESET_ANNOTATION : Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION, userDefinedGeneSetInput.getText(), userDefinedGeneSetGeneInformation.getSelectedItem().toString(), (userDefinedGeneSetName.getText().length() != 0) ? userDefinedGeneSetName.getText() : Commons.NO_NAME, (userDefinedGeneSetDescriptionFile.getText().length() != 0) ? userDefinedGeneSetDescriptionFile.getText() : Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED, userDefinedLibraryAnnotation.isSelected() ? Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION : Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION, userDefinedLibraryInput.getText(), userDefinedLibraryDataFormatCombo.getSelectedItem().toString(), Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS, cellLinesList.getSelectedValuesList().toArray(new String[0]));
+				delegate.startRunActionsWithOptions(
+						inputTextField.getText(), 
+						inputAssembly.getSelectedItem().toString(), 
+						outputTextField.getText(), 
+						inputFormatCombo.getSelectedItem().toString(), 
+						numberOfBases.getText(), 
+						performEnrichmentCheckBox.isSelected() ? Commons.DO_ENRICH : Commons.DO_NOT_ENRICH, 
+						generateRandomDataModeCombo.getSelectedItem().toString(), 
+						multipleTestingCombo.getSelectedItem().toString(), 
+						signifanceCriteria.getText(), 
+						falseDiscoveryRate.getText(), 
+						numberOfPerCombo.getSelectedItem().toString(), 
+						dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, 
+						histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, 
+						tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION, 
+						keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, 
+						tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, 
+						cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
+						regulatorySequenceAnalysisUsingRSATCheck.isSelected() ? Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT : Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT, 
+						(jobName.getText().length() == 0) ? Commons.NO_NAME : jobName.getText(), 
+						Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS, 
+						Commons.DO_WRITE_ANNOTATION_BINARY_MATRIX, 
+						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA, 
+						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT, 
+						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT, 
+						numberOfPerInEachRun.getSelectedItem().toString(), 
+						userDefinedGeneSetAnnotation.isSelected() ? Commons.DO_USER_DEFINED_GENESET_ANNOTATION : Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION, 
+						userDefinedGeneSetInput.getText(), 
+						userDefinedGeneSetGeneInformation.getSelectedItem().toString(), 
+						(userDefinedGeneSetName.getText().length() != 0) ? userDefinedGeneSetName.getText() : Commons.NO_NAME, 
+						(userDefinedGeneSetDescriptionFile.getText().length() != 0) ? userDefinedGeneSetDescriptionFile.getText() : Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED, 
+						userDefinedLibraryAnnotation.isSelected() ? Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION : Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION, 
+						userDefinedLibraryInput.getText(), 
+						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(), 
+						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS, 
+						cellLinesList.getSelectedValuesList().toArray(new String[0]));
 
 				enableStartProcess(false);
 			}
