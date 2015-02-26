@@ -34,7 +34,7 @@ public class App {
 		// Initialize frame
 		JFrame frame = new JFrame("GLANET");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMinimumSize(new Dimension(800, 800));
+		frame.setMinimumSize(new Dimension(1024, 768));
 		frame.setResizable(true);
 
 		mainPanel = new JPanel();
