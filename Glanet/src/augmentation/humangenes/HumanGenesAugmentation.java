@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
+import gnu.trove.map.TIntObjectMap;
 
 public class HumanGenesAugmentation {
 
@@ -459,6 +458,101 @@ public class HumanGenesAugmentation {
 		}
 
 	}
+	
+	//1 March 2015
+	public static void fillGeneId2GeneHugoSymbolMap(
+			String dataFolder, 
+			TIntObjectMap<String>  geneID2ListofGeneHugoSymbolMap 
+	) {
+		
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+		String strLine;
+
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		int indexofEleventhTab;
+		int indexofTwelfthTab;
+		int indexofThirteenthTab;
+		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+
+		int geneID;
+		String geneSymbol;
+		String geneSymbolList;
+		
+	
+		try {
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				// example line
+				// the second column is gene id column
+				// the fourth column is the refseq gene name column
+				// 9606 1 REVIEWED NM_130786.3 161377438 NP_570602.2 21071030
+				// AC_000151.1 157718668 55167315 55174019 - Alternate HuRef - -
+				// A1BG
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
+				indexofEigthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf('\t', indexofEigthTab + 1);
+				indexofTenthTab = strLine.indexOf('\t', indexofNinethTab + 1);
+				indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab + 1);
+				indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab + 1);
+				indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab + 1);
+				indexofFourteenthTab = strLine.indexOf('\t', indexofThirteenthTab + 1);
+				indexofFifteenthTab = strLine.indexOf('\t', indexofFourteenthTab + 1);
+
+				geneID = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+
+				// geneSymbol the default symbol for the gene
+				geneSymbol = strLine.substring(indexofFifteenthTab + 1);
+
+		
+				// FILL geneID2ListofGeneHugoSymbolMap starts
+				geneSymbolList = geneID2ListofGeneHugoSymbolMap.get(geneID);
+
+				if (geneSymbolList == null) {
+					geneSymbolList =  geneSymbol ;
+					geneID2ListofGeneHugoSymbolMap.put(geneID, geneSymbolList);
+				} else {
+					
+					if (!geneSymbolList.contains(geneSymbol)){
+						geneSymbolList = geneSymbolList + " " + geneSymbol ;
+						geneID2ListofGeneHugoSymbolMap.put(geneID, geneSymbolList);
+					}
+					
+				}
+				// FILL geneID2ListofGeneHugoSymbolMap ends
+
+		
+
+			}// End of while
+
+			bufferedReader.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	// read NCBI humanGene2RefSeq file
 	// fill two maps

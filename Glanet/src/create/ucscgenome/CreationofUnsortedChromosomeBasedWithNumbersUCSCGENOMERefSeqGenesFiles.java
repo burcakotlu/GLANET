@@ -12,7 +12,9 @@ import enumtypes.ElementType;
 import enumtypes.IntervalName;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.io.BufferedReader;
@@ -244,11 +246,19 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 
 	}
 
-	public static void readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(String UCSC_GENOME_HG19_REFSEQ_GENES_FILE, List<BufferedWriter> UCSCGENOMERefSeqGenesBufferedWriterList, TObjectIntMap<String> rnaNucleotideAccession2GeneIDMap, TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap, TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap, RefSeqGeneIntervalsInformation information) {
+	public static void readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(
+			String UCSC_GENOME_HG19_REFSEQ_GENES_FILE, 
+			List<BufferedWriter> UCSCGENOMERefSeqGenesBufferedWriterList, 
+			TObjectIntMap<String> rnaNucleotideAccession2GeneIDMap, 
+			TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap, 
+			TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap, 
+			TIntIntMap UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap,
+			RefSeqGeneIntervalsInformation information) {
 
-		// Initialize alternateGeneNameNumber and RNANucleotideAccessionNumber
+		// Initialize alternateGeneNameNumber and RNANucleotideAccessionNumber and geneIDNumber
 		int alternateGeneNameNumber = 1;
 		int RNANucleotideAccessionNumber = 1;
+		int geneIDNumber = 1;
 
 		int currentLineAlternateGeneNameNumber;
 		int currentLineRNANucleotideAccessionNumber;
@@ -406,6 +416,11 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 							UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap.put(refSeqGeneName, RNANucleotideAccessionNumber);
 							RNANucleotideAccessionNumber++;
 						}
+						
+						if(!UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap.containsKey(geneID)){
+							UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap.put(geneID, geneIDNumber);
+							geneIDNumber++;
+						}
 						// Update maps ends
 
 						currentLineAlternateGeneNameNumber = UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap.get(alternateGeneName);
@@ -478,6 +493,10 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		// UCSCGENOME HG19 RefSeq Genes GeneSymbol NAME2NUMBER
 		TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap = new TObjectIntHashMap<String>();
 
+		
+		// UCSCGENOME HG19 RefSeq Genes GeneID 2 GeneIDNUMBER
+		TIntIntMap UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap = new TIntIntHashMap();
+
 		// Initialize RNANucleotideAccession 2 GeneID Map
 		TObjectIntMap<String> rnaNucleotideAccession2GeneIDMap = new TObjectIntHashMap<String>();
 
@@ -493,12 +512,20 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		// Read UCSC_GENOME_HG19_REFSEQ_GENES_FILE
 		// Write Unsorted Chromosome Based With Numbers UCSC HG19 REFSEQ Genes
 		// File
-		readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(UCSC_GENOME_HG19_REFSEQ_GENES_FILE, UCSCGENOMERefSeqGenesBufferedWriterList, rnaNucleotideAccession2GeneIDMap, UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap, UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap, information);
+		readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(
+				UCSC_GENOME_HG19_REFSEQ_GENES_FILE, 
+				UCSCGENOMERefSeqGenesBufferedWriterList, 
+				rnaNucleotideAccession2GeneIDMap, 
+				UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap, 
+				UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap, 
+				UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap,
+				information);
 
 		// Write UCSCGENOME HG19 REFSEQ GENES
 		// Write name2Number maps
 		FileOperations.writeNumber2NameMap(dataFolder, UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap, Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME);
 		FileOperations.writeNumber2NameMap(dataFolder, UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap, Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeNumber2NameMap(dataFolder, UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap, Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER_OUTPUT_FILENAME);
 
 		// Close BufferedWriters
 		FileOperations.closeChromosomeBasedBufferedWriters(UCSCGENOMERefSeqGenesBufferedWriterList);

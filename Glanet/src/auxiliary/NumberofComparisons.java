@@ -28,6 +28,10 @@ public class NumberofComparisons {
 	int tfNumberofComparison;
 	int tfCellLineNumberofComparison;
 	int histoneCellLineNumberofComparison;
+	
+	//Gene
+	//28 FEB 2015
+	int geneNumberofComparison;
 
 	int exonBasedKEGGPathwayNumberofComparison;
 	int regulationBasedKEGGPathwayNumberofComparison;
@@ -190,6 +194,16 @@ public class NumberofComparisons {
 	public void setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap) {
 		this.userDefinedLibraryElementTypeNumber2NumberofComparisonMap = userDefinedLibraryElementTypeNumber2NumberofComparisonMap;
 	}
+	
+	
+
+	public int getGeneNumberofComparison() {
+		return geneNumberofComparison;
+	}
+
+	public void setGeneNumberofComparison(int geneNumberofComparison) {
+		this.geneNumberofComparison = geneNumberofComparison;
+	}
 
 	public static NumberofComparisons getNumberofComparisonsforBonferroniCorrection(String dataFolder) {
 
@@ -200,6 +214,7 @@ public class NumberofComparisons {
 		TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+		TIntIntMap geneID2GeneIDNumberMap =  new TIntIntHashMap();
 
 		// Bonferroni Correction
 		// Dnase
@@ -215,6 +230,10 @@ public class NumberofComparisons {
 		// HISTONE
 		FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
 		numberofComparisons.setHistoneCellLineNumberofComparison(histoneCellLineNumber2NameMap.size());
+
+		//GENE
+		FileOperations.fillNumber2NumberMap(geneID2GeneIDNumberMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER_OUTPUT_FILENAME);
+		numberofComparisons.setGeneNumberofComparison(geneID2GeneIDNumberMap.size());
 
 		// KEGG PATHWAY
 		// Important ASK

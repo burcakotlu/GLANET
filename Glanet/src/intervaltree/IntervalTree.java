@@ -2611,6 +2611,11 @@ public class IntervalTree {
 				elementNumber = (int) (mixedNumber % 1000000L);
 				break;
 			}
+			
+			case INT_10DIGIT_GENENUMBER:{
+				elementNumber = (int) (mixedNumber % 10000000000L);
+				break;
+			}
 
 			default: {
 				break;
@@ -2630,14 +2635,15 @@ public class IntervalTree {
 		int elementNumberCellLineNumberOrKeggPathwayNumber = Integer.MIN_VALUE;
 		int elementTypeNumberElementNumber = Integer.MIN_VALUE;
 		int userDefinedGeneSetNumber = Integer.MIN_VALUE;
+		int geneNumber = Integer.MIN_VALUE;
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 
-			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:{
 				userDefinedGeneSetNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000L);
 				return userDefinedGeneSetNumber;
-
-			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+			}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 				int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 				int keggPathwayNumber = getGeneSetNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
@@ -2648,10 +2654,15 @@ public class IntervalTree {
 					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + keggPathwayNumber;
 				}
 				return elementNumberCellLineNumberOrKeggPathwayNumber;
-
-			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
 				elementTypeNumberElementNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
 				return elementTypeNumberElementNumber;
+			}	
+			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
+				geneNumber = (int) (permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				return geneNumber;
+			}
 			default:
 				break;
 
@@ -2734,6 +2745,10 @@ public class IntervalTree {
 				permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
 				break;
 			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
+				permutationNumber = (int) (permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				break;
+			}
 			default: {
 				break;
 			}
@@ -2743,6 +2758,38 @@ public class IntervalTree {
 		return permutationNumber;
 	}
 
+	
+	public static long generatePermutationNumberGeneNumber(int permutationNumber, int geneNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		// max integer 2147483647
+		// min integer -2147483648
+		
+		// Long.MAX_VALUE 9223372_0368_5477_5807
+		// Long.MIN_VALUE -9223372_0368_5477_5808
+
+		long permutationNumberGeneNumber = Long.MIN_VALUE;
+		long _permutationNumber;
+		long _geneNumber;
+		
+		
+		switch (generatedMixedNumberDescriptionOrderLength) {
+		
+		case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:  _permutationNumber = permutationNumber * 10000000000L;
+																_geneNumber = geneNumber * 1L;
+																permutationNumberGeneNumber = _permutationNumber + _geneNumber;
+																break;
+		default:
+					break;
+																		
+																		
+		
+		}//End of SWITCH
+
+		
+		return permutationNumberGeneNumber;
+
+		
+	}
+	
 	// Enrichment
 	// AnnotatePermutations WithoutIO withNumbers
 	// AnnotatePermutations withIO withNumbers
@@ -3564,10 +3611,23 @@ public class IntervalTree {
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// without IO
 	// with Numbers
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, String type, GeneSetAnalysisType geneSetAnalysisType, GeneSetType geneSetType, int overlapDefinition) {
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, 
+			TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, 
+			TLongIntMap permutationNumberGeneNumber2OneorZeroMap,
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType, 
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
 
 		int permutationNumberKeggPathwayNumber = Integer.MIN_VALUE;
 		long permutationNumberUserDefinedGeneSetNumber = Long.MIN_VALUE;
+		long permutationNumberGeneNumber = Long.MIN_VALUE;
 
 		Short geneSetNumber = null;
 		TShortList ListofGeneSetNumberContainingThisGeneId = null;
@@ -3580,9 +3640,19 @@ public class IntervalTree {
 				if (node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) {
 					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers) node;
 				}
+				
+				//Gene Enrichment
+				if (geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
+					permutationNumberGeneNumber = generatePermutationNumberGeneNumber(permutationNumber, castedNode.getGeneEntrezId(), GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER);
+					
+					if (!(permutationNumberGeneNumber2OneorZeroMap.containsKey(permutationNumberGeneNumber))) {
+						permutationNumberGeneNumber2OneorZeroMap.put(permutationNumberGeneNumber, 1);
+					}
+
+				}
 
 				// write EXON based results starts
-				if (geneSetAnalysisType.isExonBasedGeneSetAnalysis()) {
+				else if (geneSetAnalysisType.isExonBasedGeneSetAnalysis()) {
 
 					// exon based kegg pathway analysis
 					if (castedNode.getIntervalName().isExon()) {
@@ -3748,11 +3818,11 @@ public class IntervalTree {
 		} // End of If: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(permutationNumber, node.getLeft(), interval, chromName, geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap, permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, type, geneSetAnalysisType, geneSetType, overlapDefinition);
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(permutationNumber, node.getLeft(), interval, chromName, geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap, permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,permutationNumberGeneNumber2OneorZeroMap, type, geneSetAnalysisType, geneSetType, overlapDefinition);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(permutationNumber, node.getRight(), interval, chromName, geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap, permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, type, geneSetAnalysisType, geneSetType, overlapDefinition);
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(permutationNumber, node.getRight(), interval, chromName, geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap, permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,permutationNumberGeneNumber2OneorZeroMap, type, geneSetAnalysisType, geneSetType, overlapDefinition);
 		}
 
 	}

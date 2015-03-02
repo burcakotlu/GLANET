@@ -19,6 +19,9 @@ public class AllMapsWithNumbers {
 	TIntIntMap permutationNumberDnaseCellLineNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumber2KMap;
 	TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap;
+	
+	//Gene
+	TLongIntMap permutationNumberGeneNumber2KMap;
 
 	// UserDefinedGeneset
 	TLongIntMap permutationNumberExonBasedUserDefinedGeneSetNumber2KMap;
@@ -42,6 +45,16 @@ public class AllMapsWithNumbers {
 	TLongIntMap permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap;
+	
+	
+
+	public TLongIntMap getPermutationNumberGeneNumber2KMap() {
+		return permutationNumberGeneNumber2KMap;
+	}
+
+	public void setPermutationNumberGeneNumber2KMap(TLongIntMap permutationNumberGeneNumber2KMap) {
+		this.permutationNumberGeneNumber2KMap = permutationNumberGeneNumber2KMap;
+	}
 
 	public TLongIntMap getPermutationNumberElementTypeNumberElementNumber2KMap() {
 		return permutationNumberElementTypeNumberElementNumber2KMap;
@@ -174,11 +187,18 @@ public class AllMapsWithNumbers {
 	public AllMapsWithNumbers() {
 		super();
 
-		// DNase TF HISTONE
+		// DNase 
 		this.permutationNumberDnaseCellLineNumber2KMap = new TIntIntHashMap();
+		
+		// TF
 		this.permutationNumberTfNumberCellLineNumber2KMap = new TLongIntHashMap();
+		
+		// HISTONE
 		this.permutationNumberHistoneNumberCellLineNumber2KMap = new TLongIntHashMap();
-
+		
+		//Gene
+		this.permutationNumberGeneNumber2KMap = new TLongIntHashMap();
+		
 		// UserDefinedGeneset
 		this.permutationNumberExonBasedUserDefinedGeneSetNumber2KMap = new TLongIntHashMap();
 		this.permutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap = new TLongIntHashMap();

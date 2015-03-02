@@ -28,8 +28,10 @@ import common.Commons;
 
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
+import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectIntIterator;
+import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
@@ -426,6 +428,32 @@ public class FileOperations {
 
 	}
 
+	
+	//new starts
+	public static void writeNumber2NameMap(String dataFolder, TIntIntMap number2NumberMap, String outputDirectoryName, String outputFileName) {
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+
+			for (TIntIntIterator it = number2NumberMap.iterator(); it.hasNext();) {
+				it.advance();
+				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
+			}
+
+			bufferedWriter.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//new adds
+	
+	
 	// Added 31.OCT.2014
 	public static void writeNumber2NameMap(String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
 
@@ -505,6 +533,43 @@ public class FileOperations {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void fillNumber2NumberMap(TIntIntMap number2NumberMap, String dataFolder, String inputFileName) {
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+
+		int number1;
+		int number2;
+
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				indexofFirstTab = strLine.indexOf('\t');
+				number1 = Integer.parseInt(strLine.substring(0, indexofFirstTab));
+				number2 = Integer.parseInt(strLine.substring(indexofFirstTab + 1));
+				number2NumberMap.put(number1, number2);
+				strLine = null;
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void fillNumber2NameMap(TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
 		String strLine;

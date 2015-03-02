@@ -14,7 +14,8 @@ public enum GeneSetAnalysisType {
 
 	EXONBASEDGENESETANALYSIS(1),
 	REGULATIONBASEDGENESETANALYSIS(2),
-	ALLBASEDGENESETANALYSIS(3);
+	ALLBASEDGENESETANALYSIS(3),
+	NO_GENESET_ANALYSIS_TYPE_IS_DEFINED(4);
 	
 	private final int geneSetAnalysisType;
 	
@@ -43,7 +44,12 @@ public enum GeneSetAnalysisType {
     public boolean isAllBasedGeneSetAnalysis() {
      return  this == ALLBASEDGENESETANALYSIS;
     }
-
+    
+    public boolean isNoGeneSetAnalysIsTypeDefined() {
+        return  this == NO_GENESET_ANALYSIS_TYPE_IS_DEFINED;
+       }
+    
+    
     public static String convertEnumtoString(GeneSetAnalysisType  geneSetAnalysisType){
     	
     	if (GeneSetAnalysisType.EXONBASEDGENESETANALYSIS.equals(geneSetAnalysisType)){
@@ -52,6 +58,8 @@ public enum GeneSetAnalysisType {
     		return Commons.REGULATION_BASED;
     	}else if (GeneSetAnalysisType.ALLBASEDGENESETANALYSIS.equals(geneSetAnalysisType)){
     		return Commons.ALL_BASED;
+    	}else if (GeneSetAnalysisType.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED.equals(geneSetAnalysisType)){
+    		return Commons.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED;
     	}else
     		return null;
     }

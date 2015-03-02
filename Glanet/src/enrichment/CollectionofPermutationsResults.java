@@ -26,6 +26,7 @@ import java.util.Map;
 import multipletesting.BenjaminiandHochberg;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
+import augmentation.humangenes.HumanGenesAugmentation;
 import augmentation.keggpathway.KeggPathwayAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
@@ -141,7 +142,16 @@ public class CollectionofPermutationsResults {
 
 	}
 
-	public static String convertGeneratedMixedNumberToName(long modifiedMixedNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength, TIntObjectMap<String> cellLineNumber2NameMap, TIntObjectMap<String> tfNumber2NameMap, TIntObjectMap<String> histoneNumber2NameMap, TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap, TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap, TIntObjectMap<String> keggPathwayNumber2NameMap) {
+	public static String convertGeneratedMixedNumberToName(
+			long modifiedMixedNumber, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength, 
+			TIntObjectMap<String> cellLineNumber2NameMap, 
+			TIntObjectMap<String> tfNumber2NameMap, 
+			TIntObjectMap<String> histoneNumber2NameMap, 
+			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap, 
+			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap, 
+			TIntObjectMap<String> keggPathwayNumber2NameMap,
+			TIntObjectMap<String> geneID2GeneHugoSymbolMap) {
 
 		int cellLineNumber;
 		int tfNumber;
@@ -150,6 +160,8 @@ public class CollectionofPermutationsResults {
 		int userDefinedGeneSetNumber;
 
 		int userDefinedLibraryElementNumber;
+		
+		int geneID; 
 
 		String cellLineName;
 		String tfName;
@@ -158,6 +170,8 @@ public class CollectionofPermutationsResults {
 		String userDefinedGeneSetName;
 
 		String userDefinedLibraryElementName;
+		
+		String geneHugoSymbol;
 
 		switch (generatedMixedNumberDescriptionOrderLength) {
 			case INT_4DIGIT_DNASECELLLINENUMBER: {
@@ -223,6 +237,11 @@ public class CollectionofPermutationsResults {
 				userDefinedLibraryElementName = userDefinedLibraryElementNumber2ElementNameMap.get(userDefinedLibraryElementNumber);
 				return userDefinedLibraryElementName;
 			}
+			case INT_10DIGIT_GENENUMBER:{
+				geneID =  IntervalTree.getElementNumber(modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);;
+				geneHugoSymbol = geneID2GeneHugoSymbolMap.get(geneID);
+				return geneHugoSymbol;
+			}
 			default: {
 				break;
 			}
@@ -232,7 +251,23 @@ public class CollectionofPermutationsResults {
 		return null;
 	}
 
-	public static void collectPermutationResults(int numberofPermutationsInEachRun, float bonferroniCorrectionSignigicanceLevel, float FDR, MultipleTestingType multipleTestingParameter, String dataFolder, String outputFolder, String runFileName, String allFileName, String jobName, int numberofRuns, int numberofRemainders, int numberofComparisons, AnnotationType annotationType, String userDefinedGeneSetOptionalDescriptionInputFile, String elementType, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+	public static void collectPermutationResults(
+			int numberofPermutationsInEachRun, 
+			float bonferroniCorrectionSignigicanceLevel, 
+			float FDR, 
+			MultipleTestingType multipleTestingParameter, 
+			String dataFolder, 
+			String outputFolder, 
+			String runFileName, 
+			String allFileName, 
+			String jobName, 
+			int numberofRuns, 
+			int numberofRemainders,
+			int numberofComparisons, 
+			AnnotationType annotationType, 
+			String userDefinedGeneSetOptionalDescriptionInputFile, 
+			String elementType, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -254,7 +289,7 @@ public class CollectionofPermutationsResults {
 
 		FunctionalElement element;
 		long mixedNumber;
-		String tforHistoneNameCellLineNameKeggPathwayName;
+		String tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol;
 
 		// In case of functionalElement contains kegg pathway
 		int keggPathwayNumber;
@@ -269,7 +304,7 @@ public class CollectionofPermutationsResults {
 			numberofPermutations = numberofRuns * numberofPermutationsInEachRun;
 		}
 
-		/**********************************************************************************/
+		/************************************************************************************/
 		/*********************** FILL NUMBER TO NAME MAP STARTS *****************************/
 		TIntObjectMap<String> cellLineNumber2NameMap = null;
 		TIntObjectMap<String> tfNumber2NameMap = null;
@@ -278,6 +313,7 @@ public class CollectionofPermutationsResults {
 		TIntObjectMap<String> keggPathwayNumber2NameMap = null;
 		TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = null;
 		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
+		TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
 
 		// Here using same variable name "cellLineNumber2NameMap" for case
 		// DO_DNASE_ENRICHMENT and case DO_TF_ENRICHMENT is not important
@@ -365,17 +401,23 @@ public class CollectionofPermutationsResults {
 
 				break;
 			}
+			
+			case DO_GENE_ANNOTATION:{
+				geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
+				HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap(dataFolder, geneID2GeneHugoSymbolMap);
+				break;
+			}
 			default: {
 				break;
 			}
 
 		}// End of Switch
 		/*********************** FILL NUMBER TO NAME MAP ENDS *******************************/
-		/**********************************************************************************/
+		/************************************************************************************/
 
 		try {
 
-			/**********************************************************************************/
+			/************************************************************************************/
 			/*********************** FOR EACH RUN STARTS ****************************************/
 			for (int i = 1; i <= numberofRuns; i++) {
 
@@ -439,15 +481,27 @@ public class CollectionofPermutationsResults {
 
 						element.setNumber(mixedNumber);
 
-						tforHistoneNameCellLineNameKeggPathwayName = convertGeneratedMixedNumberToName(mixedNumber, generatedMixedNumberDescriptionOrderLength, cellLineNumber2NameMap, tfNumber2NameMap, histoneNumber2NameMap, userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap, userDefinedLibraryElementNumber2ElementNameMap, keggPathwayNumber2NameMap);
-						element.setName(tforHistoneNameCellLineNameKeggPathwayName);
+						tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol = convertGeneratedMixedNumberToName(
+								mixedNumber, 
+								generatedMixedNumberDescriptionOrderLength, 
+								cellLineNumber2NameMap, 
+								tfNumber2NameMap, 
+								histoneNumber2NameMap, 
+								userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap, 
+								userDefinedLibraryElementNumber2ElementNameMap, 
+								keggPathwayNumber2NameMap,
+								geneID2GeneHugoSymbolMap);
+						
+						element.setName(tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol);
 
 						// in case of element contains a KEGG PATHWAY
 						// We are setting keggPathwayNumber for KEGGPATHWAY
 						// INFORMATION augmentation
 						// such as KEGGPathway description, geneID List of
 						// genes, hugoSymbols of genes in this KEGG Pathway
-						if (generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_KEGGPATHWAYNUMBER() || generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER() || generatedMixedNumberDescriptionOrderLength.is_LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER()) {
+						if (generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER()) {
 
 							keggPathwayNumber = IntervalTree.getGeneSetNumber(mixedNumber, generatedMixedNumberDescriptionOrderLength);
 							element.setKeggPathwayNumber(keggPathwayNumber);
@@ -473,12 +527,14 @@ public class CollectionofPermutationsResults {
 
 			}// End of for: each run
 			/*********************** FOR EACH RUN ENDS ******************************************/
-			/**********************************************************************************/
+			/************************************************************************************/
 
-			/**********************************************************************************/
-			/******
-			 * COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS
-			 ***********/
+			
+			
+			
+			/************************************************************************************/
+			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
+			/************************************************************************************/
 			// Now compute empirical pValue and Bonferroni Corrected pValue and
 			// write
 			for (Map.Entry<Long, FunctionalElement> entry : elementNumber2ElementMap.entrySet()) {
@@ -499,11 +555,15 @@ public class CollectionofPermutationsResults {
 				element.setBonferroniCorrectedEmpiricalPValue(bonferroniCorrectedEmpiricalPValue);
 
 			}
-			/****** COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE ENDS ************/
-			/**********************************************************************************/
+			/************************************************************************************/
+			/****** COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE ENDS *************/
+			/************************************************************************************/
 
-			/**********************************************************************************/
+			
+			
+			/************************************************************************************/
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE STARTS ****************/
+			/************************************************************************************/
 			// convert map.values() into a list
 			// sort w.r.t. empirical p value
 			// before calculating BH FDR adjusted p values
@@ -513,21 +573,31 @@ public class CollectionofPermutationsResults {
 			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(list, FDR);
 			// sort w.r.t. Benjamini and Hochberg FDR
 			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+			/************************************************************************************/
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
-			/**********************************************************************************/
+			/************************************************************************************/
 
-			/**********************************************************************************/
+			
+			
+			/************************************************************************************/
 			/***************** AUGMENT WITH USERDEFINEDGENESET INFORMATION STARTS ***************/
+			/************************************************************************************/
+
 			if (annotationType.doUserDefinedGeneSetAnnotation() && userDefinedGeneSetOptionalDescriptionInputFile != null && !userDefinedGeneSetOptionalDescriptionInputFile.equals(Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED)) {
 
 				UserDefinedGeneSetUtility.augmentUserDefinedGeneSetIDwithTerm(userDefinedGeneSetOptionalDescriptionInputFile, list);
 
 			}
+			/************************************************************************************/
 			/***************** AUGMENT WITH USERDEFINEDGENESET INFORMATION ENDS *****************/
-			/**********************************************************************************/
+			/************************************************************************************/
+			
+			
 
-			/**********************************************************************************/
+			/************************************************************************************/
 			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION STARTS *********************/
+			/************************************************************************************/
+
 			if (annotationType.doKEGGPathwayAnnotation()) {
 
 				// Augment KeggPathwayNumber with KeggPathwayEntry
@@ -551,17 +621,20 @@ public class CollectionofPermutationsResults {
 				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList(dataFolder, outputFolder, list, null, null);
 
 			}
-			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION ENDS **********************/
-			/**********************************************************************************/
+			/************************************************************************************/
+			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION ENDS ***********************/
+			/************************************************************************************/
 
-			/**********************************************************************************/
+			/************************************************************************************/
 			/****************************** WRITE RESULTS STARTS ********************************/
+			/************************************************************************************/
 			// How to decide enriched elements?
 			// with respect to Benjamini Hochberg FDR or
 			// with respect to Bonferroni Correction Significance Level
 			writeResultstoOutputFiles(outputFolder, allFileName, jobName, list, annotationType, multipleTestingParameter, bonferroniCorrectionSignigicanceLevel, FDR, numberofPermutations, numberofComparisons);
+			/************************************************************************************/
 			/****************************** WRITE RESULTS ENDS **********************************/
-			/**********************************************************************************/
+			/************************************************************************************/
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -695,7 +768,9 @@ public class CollectionofPermutationsResults {
 		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
-		/*********************************************************************************/
+		
+		
+		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
@@ -716,9 +791,11 @@ public class CollectionofPermutationsResults {
 		// String userDefinedGeneSetDescriptionOptionalInputFile =
 		// "G:\\DOKTORA_DATA\\GO\\GO_terms_and_ids.txt";
 		/************************** USER DEFINED GENESET ***********************************/
-		/*********************************************************************************/
+		/***********************************************************************************/
 
-		/*********************************************************************************/
+		
+		
+		/***********************************************************************************/
 		/************************** USER DEFINED LIBRARY ***********************************/
 		// User Defined Library Enrichment, DO or DO_NOT
 		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
@@ -729,8 +806,10 @@ public class CollectionofPermutationsResults {
 		// String userDefinedLibraryInputFile =
 		// "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";
 		/************************** USER DEFINED LIBRARY ***********************************/
-		/*********************************************************************************/
+		/***********************************************************************************/
 
+		
+		
 		// set the number of permutations in each run
 		int numberofPermutationsInEachRun = Integer.parseInt(args[CommandLineArguments.NumberOfPermutationsInEachRun.value()]);
 
@@ -748,7 +827,7 @@ public class CollectionofPermutationsResults {
 			numberofRuns += 1;
 		}
 
-		/**********************************************************/
+		/************************************************************/
 		/************ Collection of DNASE RESULTS starts ************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 
@@ -756,27 +835,58 @@ public class CollectionofPermutationsResults {
 		}
 
 		/************ Collection of DNASE RESULTS ends **************/
-		/**********************************************************/
+		/************************************************************/
 
-		/**********************************************************/
+		
+		
+		/************************************************************/
 		/************ Collection of HISTONE RESULTS starts **********/
 		if (histoneAnnotationType.doHistoneAnnotation()) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE, jobName, numberofRuns, numberofRemainders, numberofComparisons.getHistoneCellLineNumberofComparison(), histoneAnnotationType, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER);
 		}
 		/************ Collection of HISTONE RESULTS ends ************/
-		/**********************************************************/
+		/************************************************************/
 
-		/**********************************************************/
+		
+		
+		/************************************************************/
 		/************ Collection of TF RESULTS starts ***************/
 		if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(), tfAnnotationType, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 		}
-		/**********************************************************/
 		/************ Collection of TF RESULTS ends *****************/
+		/************************************************************/
+		
+		
+		
+		/************************************************************/
+		/************ Collection of Gene RESULTS starts *************/
+		if (true) {
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun, 
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					dataFolder, 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, 
+					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_GENE, 
+					jobName, 
+					numberofRuns, 
+					numberofRemainders, 
+					numberofComparisons.getGeneNumberofComparison(), 
+					AnnotationType.DO_GENE_ANNOTATION, 
+					null, 
+					null, 
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GENENUMBER);
+		}
+		/************ Collection of Gene RESULTS starts *************/
+		/************************************************************/
+		
 
-		/**************************************************************************/
+		/****************************************************************************/
 		/************ Collection of UserDefinedGeneSet RESULTS starts ***************/
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 
@@ -788,9 +898,11 @@ public class CollectionofPermutationsResults {
 
 		}
 		/************ Collection of UserDefinedGeneSet RESULTS ends *****************/
-		/**************************************************************************/
+		/****************************************************************************/
 
-		/**************************************************************************/
+		
+		
+		/****************************************************************************/
 		/************ Collection of UserDefinedLibrary RESULTS starts ***************/
 		if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
 
@@ -814,9 +926,11 @@ public class CollectionofPermutationsResults {
 
 		}
 		/************ Collection of UserDefinedLibrary RESULTS ends *****************/
-		/**************************************************************************/
+		/****************************************************************************/
 
-		/**************************************************************************/
+		
+		
+		/****************************************************************************/
 		/************ Collection of KEGG Pathway RESULTS starts *********************/
 		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
@@ -827,9 +941,11 @@ public class CollectionofPermutationsResults {
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY, jobName, numberofRuns, numberofRemainders, numberofComparisons.getAllBasedKEGGPathwayNumberofComparison(), keggPathwayAnnotationType, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER);
 		}
 		/************ Collection of KEGG Pathway RESULTS ends ***********************/
-		/**************************************************************************/
+		/****************************************************************************/
 
-		/**************************************************************************/
+		
+		
+		/****************************************************************************/
 		/************ Collection of TF KEGG Pathway RESULTS starts ******************/
 		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
@@ -844,10 +960,12 @@ public class CollectionofPermutationsResults {
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_ALL_BASED_KEGG_PATHWAY, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfAllBasedKEGGPathwayNumberofComparison(), AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER);
 
 		}
-		/**************************************************************************/
 		/************ Collection of TF KEGG Pathway RESULTS ends ********************/
+		/****************************************************************************/
 
-		/**************************************************************************/
+		
+		
+		/****************************************************************************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
 		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
 
@@ -862,10 +980,12 @@ public class CollectionofPermutationsResults {
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineAllBasedKEGGPathwayNumberofComparison(), AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, null, null, GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER);
 
 		}
-		/**************************************************************************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS ends ***********/
+		/****************************************************************************/
 
-		/**************************************************************************/
+		
+		
+		/****************************************************************************/
 		/******************************* BOTH ***************************************/
 		/************ Collection of TF KEGG Pathway RESULTS starts ******************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
@@ -889,7 +1009,7 @@ public class CollectionofPermutationsResults {
 		/************ Collection of TF KEGG Pathway RESULTS ends ********************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS ends ***********/
 		/******************************* BOTH ***************************************/
-		/**************************************************************************/
+		/****************************************************************************/
 
 	}
 

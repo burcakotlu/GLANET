@@ -62,7 +62,11 @@ public class Commons {
 	public static final int P2_NUMBER_OF_BASES = 10000;
 	public static final int P2_NUMBER_OF_BASES_PLUS_ONE = Commons.P2_NUMBER_OF_BASES + 1;
 	
-	public static final int D_NUMBER_OF_BASES = 100000;
+	//100 KB
+	//public static final int D_NUMBER_OF_BASES = 100000;
+	
+	//1000 KB = 1 MB
+	public static final int D_NUMBER_OF_BASES = 1000000;
 	
 
 	// dbSNP rs Prefix
@@ -197,6 +201,10 @@ public class Commons {
 	
 	public static final String DO_TF_ANNOTATION = "DO_TF_ANNOTATION";
 	public static final String DO_NOT_TF_ANNOTATION = "DO_NOT_TF_ANNOTATION";
+	
+	public static final String DO_GENE_ANNOTATION = "DO_GENE_ANNOTATION";
+	public static final String DO_NOT_GENE_ANNOTATION = "DO_NOT_GENE_ANNOTATION";
+
 
 	public static final String DO_KEGGPATHWAY_ANNOTATION = "DO_KEGGPATHWAY_ANNOTATION";
 	public static final String DO_NOT_KEGGPATHWAY_ANNOTATION = "DO_NOT_KEGGPATHWAY_ANNOTATION";
@@ -877,7 +885,10 @@ public class Commons {
 
 	public static final String TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.TF;
 	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF = ENRICHMENT_DIRECTORY + Commons.TF + System.getProperty("file.separator") + Commons.TF;
-
+	
+	public static final String TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.GENE;
+	public static final String ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_GENE = ENRICHMENT_DIRECTORY + Commons.GENE + System.getProperty("file.separator") + Commons.GENE;
+	
 	// Use these constants in Enrichment and
 	// AugmentationofEnrichedElementswithGivenInputData
 	public static final String ENRICHMENT_USERDEFINED_GENESET_COMMON = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator");
@@ -970,10 +981,13 @@ public class Commons {
 	public static final String DNASE = "Dnase";
 	public static final String TF = "TF";
 	public static final String HISTONE = "Histone";
+	
+	
 
 	public static final String EXON_BASED = "ExonBased";
 	public static final String REGULATION_BASED = "RegulationBased";
 	public static final String ALL_BASED = "AllBased";
+	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
 	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UserDefinedGeneSet";
 	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UserDefinedGeneSet";
@@ -998,6 +1012,8 @@ public class Commons {
 	public static final String TF_KEGGPATHWAY = "TFKEGGPathway";
 	public static final String TF_CELLLINE_KEGGPATHWAY = "TFCellLineKEGGPathway";
 
+	public static final String GENE = "Gene";
+	
 	public static final String HG19_REFSEQ_GENE = "Hg19RefSeqGene";
 	public static final String NCBI_GENE_ID = "NCBIGeneID";
 	public static final String NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION = "NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION";
@@ -1047,6 +1063,7 @@ public class Commons {
 	/**************************************************************************************************/
 	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_Number_2_Name.txt";
 	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Number_2_Name.txt";
+	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER.txt";
 	/**************************************************************************************************/
 	/********************************** UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES ends ****************/
 	/**************************************************************************************************/
