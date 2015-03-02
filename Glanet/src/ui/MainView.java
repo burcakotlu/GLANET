@@ -86,7 +86,43 @@ public class MainView extends JPanel {
 
 	public interface MainViewDelegate {
 
-		public void startRunActionsWithOptions(String inputFileName, String inputFileAssembly, String outputFolder, String inputFileFormat, String numberOfBases, String enrichmentEnabled, String generateRandomDataMode, String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate, String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrihment, String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment, String cellLineBasedTfAndKeggPathwayEnrichment, String regulatorySequenceAnalysisUsingRSAT, String jobName, String writeElementBasedAnnotationFoundOverlapsMode, String writeAnnotationBinaryMatrixMode, String writeGeneratedRandomDataMode, String writePermutationBasedandParametricBasedAnnotationResultMode, String writePermutationBasedAnnotationResultMode, String numberOfPermutationsInEachRun, String userDefinedGeneSetEnrichment, String userDefinedGeneSetInputFile, String userDefinedGeneSetGeneInformation, String userDefinedGeneSetName, String userDefinedGeneSetDescription, String userDefinedLibraryEnrichment, String userDefinedLibraryInputFile, String userDefinedLibraryDataFormat, String givenInputDataType, String[] cellLinesToBeConsidered);
+		public void startRunActionsWithOptions(
+				String inputFileName, 
+				String inputFileAssembly, 
+				String outputFolder, 
+				String inputFileFormat, 
+				String numberOfBases, 
+				String enrichmentEnabled, 
+				String generateRandomDataMode, 
+				String multipleTestingChoice, 
+				String bonferoniCorrectionSignificanceLevel, 
+				String falseDiscoveryRate, 
+				String numberOfPermutations, 
+				String dnaseAnnotationType, 
+				String histoneAnnotationType, 
+				String tfAnnotationType, 
+				String geneAnnotationType,
+				String keggPathwayAnnotationType, 
+				String tfAndKeggPathwayAnnotationType, 
+				String cellLineBasedTfAndKeggPathwayAnnotationType, 
+				String regulatorySequenceAnalysisUsingRSAT, 
+				String jobName, 
+				String writeElementBasedAnnotationFoundOverlapsMode, 
+				String writeAnnotationBinaryMatrixMode, 
+				String writeGeneratedRandomDataMode, 
+				String writePermutationBasedandParametricBasedAnnotationResultMode, 
+				String writePermutationBasedAnnotationResultMode, 
+				String numberOfPermutationsInEachRun, 
+				String userDefinedGeneSetAnnotationType, 
+				String userDefinedGeneSetInputFile, 
+				String userDefinedGeneSetGeneInformation, 
+				String userDefinedGeneSetName, 
+				String userDefinedGeneSetDescription, 
+				String userDefinedLibraryAnnotationType, 
+				String userDefinedLibraryInputFile, 
+				String userDefinedLibraryDataFormat, 
+				String givenInputDataType, 
+				String[] cellLinesToBeConsidered);
 
 		public void stopCurrentProcess();
 	}
@@ -182,7 +218,8 @@ public class MainView extends JPanel {
 						numberOfPerCombo.getSelectedItem().toString(), 
 						dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, 
 						histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, 
-						tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION, 
+						tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION,
+						Commons.DO_NOT_GENE_ANNOTATION,
 						keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, 
 						tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, 
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 

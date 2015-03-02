@@ -1487,45 +1487,7 @@ public class Enrichment {
 		// chromosome
 		AllMapsWithNumbers accumulatedAllMapsWithNumbers = new AllMapsWithNumbers();
 
-		//@todo I guess this initialization is unnecessary test it and then delete it.
-		/*************************************************************************************************************************************/
-		/********************************************************* ACCUMULATED ALL MAPS ******************************************************/
-		/*****************************ACCUMULATION OF ANNOTATIONS OF PERMUTATIONS COMING FROM ALL CHROMSOMES STARTS***************************/
-		// DNASE
-		// TF
-		// HISTONE
-		accumulatedAllMapsWithNumbers.setPermutationNumberDnaseCellLineNumber2KMap(new TIntIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberHistoneNumberCellLineNumber2KMap(new TLongIntHashMap());
-		
-		// Gene
-		accumulatedAllMapsWithNumbers.setPermutationNumberGeneNumber2KMap(new TLongIntHashMap());
-		
-		// User Defined GeneSet
-		accumulatedAllMapsWithNumbers.setPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(new TLongIntHashMap());
 
-		// UserDefinedLibrary
-		accumulatedAllMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap(new TLongIntHashMap());
-
-		// KEGG Pathway
-		accumulatedAllMapsWithNumbers.setPermutationNumberExonBasedKeggPathwayNumber2KMap(new TIntIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberRegulationBasedKeggPathwayNumber2KMap(new TIntIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberAllBasedKeggPathwayNumber2KMap(new TIntIntHashMap());
-
-		// TF KEGGPathway Enrichment
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-
-		// TF CellLine KEGGPathway Enrichment
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-		accumulatedAllMapsWithNumbers.setPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap(new TLongIntHashMap());
-		/***************************** ACCUMULATION OF ANNOTATIONS OF PERMUTATIONS COMING FROM ALL CHROMSOMES ENDS***************************/
-		/********************************************************* ACCUMULATED ALL MAPS *****************************************************/
-		/************************************************************************************************************************************/
 
 		/********************************************************************************************************/
 		/************************** USED FOR WRITING PERMUTATION BASED RESULTS **********************************/
@@ -1539,7 +1501,7 @@ public class Enrichment {
 		Map<Integer, BufferedWriter> permutationNumber2HistoneBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
 		
 		// Gene
-		Map<Integer, BufferedWriter> permutationNumber2GeneBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
+		//Map<Integer, BufferedWriter> permutationNumber2GeneBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
 		
 		// UserDefinedGeneSet
 		Map<Integer, BufferedWriter> permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
@@ -1743,19 +1705,23 @@ public class Enrichment {
 				/********************************************************************************/
 				/*****************Gene Annotate Permutations starts******************************/
 				/********************************************************************************/
-				//Gene Enrichment
-				intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
-				
-				annotateWithNumbers = new AnnotateWithNumbers(outputFolder, chromSize, chromName, permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun, writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, intervalTree, null, AnnotationType.DO_GENE_ANNOTATION, null, overlapDefinition);
-				
-				allMapsWithNumbers = pool.invoke(annotateWithNumbers);
-				accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_GENE_ANNOTATION);
-				allMapsWithNumbers = null;
-				deleteIntervalTree(intervalTree);
-				intervalTree = null;
+				if (geneAnnotationType.doGeneAnnotation()){
+					
+					//Gene Enrichment
+					intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
+					
+					annotateWithNumbers = new AnnotateWithNumbers(outputFolder, chromSize, chromName, permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun, writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, intervalTree, null, AnnotationType.DO_GENE_ANNOTATION, null, overlapDefinition);
+					
+					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
+					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_GENE_ANNOTATION);
+					allMapsWithNumbers = null;
+					deleteIntervalTree(intervalTree);
+					intervalTree = null;
 
-				System.gc();
-				System.runFinalization();
+					System.gc();
+					System.runFinalization();
+		
+				}
 				/********************************************************************************/
 				/*****************Gene Annotate Permutations ends********************************/
 				/********************************************************************************/
@@ -2450,8 +2416,8 @@ public class Enrichment {
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 		
 		//DO_GENE_ANNOTATION
-		AnnotationType geneAnnotationType = AnnotationType.DO_GENE_ANNOTATION;
-
+		AnnotationType geneAnnotationType =AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
+		
 		// KEGG Pathway Annotation, DO or DO_NOT
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 
@@ -2504,9 +2470,9 @@ public class Enrichment {
 		// Read original input data lines in to a list
 		Enrichment.readOriginalInputDataLines(originalInputLines, inputDataFileName);
 		/************************** READ ORIGINAL INPUT LINES ENDS *************************************/
-		/*********************************************************************************************/
+		/***********************************************************************************************/
 
-		/*********************************************************************************************/
+		/***********************************************************************************************/
 		/********************* DELETE OLD FILES STARTS *************************************************/
 		String annotationForPermutationsOutputDirectory = outputFolder + Commons.ANNOTATION_FOR_PERMUTATIONS;
 		List<String> notToBeDeleted = new ArrayList<String>();
@@ -2516,9 +2482,11 @@ public class Enrichment {
 		String toBeDeletedDirectoryName = outputFolder + Commons.ENRICHMENT_DIRECTORY;
 		FileOperations.deleteOldFiles(toBeDeletedDirectoryName);
 		/********************* DELETE OLD FILES ENDS ***************************************************/
-		/*********************************************************************************************/
+		/***********************************************************************************************/
 
-		/*********************************************************************************************/
+		
+		
+		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP STARTS *******************/
 		TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TShortObjectHashMap<String>();
 		// used in filling geneId2ListofUserDefinedGeneSetNumberMap
@@ -2529,10 +2497,12 @@ public class Enrichment {
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder, userDefinedGeneSetInputFile, geneInformationType, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
 		}
-		/*******************************************************************************************/
-		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP ENDS *******************/
+		/**********************************************************************************************/
+		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP ENDS *********************/
 
-		/*********************************************************************************************/
+		
+		
+		/**********************************************************************************************/
 		/********************* FILL GENEID 2 KEGG PATHWAY NUMBER MAP STARTS ***************************/
 		// For efficiency
 		// Fill this map only once.
@@ -2550,7 +2520,9 @@ public class Enrichment {
 		/********************* FILL GENEID 2 KEGG PATHWAY NUMBER MAP ENDS ****************************/
 		/*********************************************************************************************/
 
-		/*********************************************************************************************/
+		
+		
+		/***********************************************************************************************/
 		/****************************** USER DEFINED LIBRARY *******************************************/
 		/********************* FILL ElementTypeNumber2ElementTypeMap STARTS ****************************/
 		TIntObjectMap<String> elementTypeNumber2ElementTypeMap = null;
@@ -2564,10 +2536,10 @@ public class Enrichment {
 		}
 		/********************* FILL ElementTypeNumber2ElementTypeMap ENDS ******************************/
 		/****************************** USER DEFINED LIBRARY *******************************************/
-		/*********************************************************************************************/
+		/***********************************************************************************************/
 
 		
-		/*********************************************************************************************/
+		/************************************************************************************************/
 		/******************************* CALCULATE NUMBER OF RUNS STARTS ********************************/
 		// for loop starts
 		// NUMBER_OF_PERMUTATIONS has to be multiple of 1000 like 1000, 5000,
@@ -2688,6 +2660,8 @@ public class Enrichment {
 			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA ENDS ************/
 			/***********************************************************************************************/
 			
+			
+			
 			/***********************************************************************************************/
 			/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
 			/***********************************************************************************************/
@@ -2730,7 +2704,7 @@ public class Enrichment {
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
 			}
 
-			if (true){
+			if (geneAnnotationType.doGeneAnnotation()){
 				
 				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalGene2KMap, gene2AllKMap, Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);

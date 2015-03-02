@@ -3764,7 +3764,8 @@ public class IntervalTree {
 				// write REGULATION based results ends
 
 				// write ALL based results starts
-				else {
+				else  if (geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
+					
 					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
 					if (ListofGeneSetNumberContainingThisGeneId != null) {

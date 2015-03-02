@@ -453,6 +453,8 @@ public class CollectionofPermutationsResults {
 					// INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER
 					// INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER
 					// LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER
+					// INT_10DIGIT_GENENUMBER
+					
 
 					originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofTab + 1, indexofPipe));
 
@@ -764,6 +766,7 @@ public class CollectionofPermutationsResults {
 		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
 		AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
@@ -863,7 +866,8 @@ public class CollectionofPermutationsResults {
 		
 		/************************************************************/
 		/************ Collection of Gene RESULTS starts *************/
-		if (true) {
+		if (geneAnnotationType.doGeneAnnotation()) {
+			
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun, 
 					bonferroniCorrectionSignificanceLevel, 

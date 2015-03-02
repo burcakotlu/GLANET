@@ -13,10 +13,8 @@ import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,42 +32,35 @@ import common.Commons;
  */
 public class UserDefinedGeneSetUtility {
 
-	public static void updateMap(List<Integer> geneInformation2ListofGeneIDs, TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap, short currentUserDefinedGeneSetNumber, String GO_ID, String geneInformation, BufferedWriter bufferedWriter) {
+	public static void updateMap(List<Integer> geneInformation2ListofGeneIDs, TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap, short currentUserDefinedGeneSetNumber, String GO_ID, String geneInformation) {
 
 		TShortList userDefinedGeneSetNumberList = null;
 		TShortList existingUserDefinedGeneSetNumberList = null;
 
-		try {
-			for (int geneID : geneInformation2ListofGeneIDs) {
-				// fill geneId2ListofUserDefinedGenesetHashMap
-				// Hash Map does not contain this ncbiGeneId
-				if (!geneId2ListofUserDefinedGeneSetNumberMap.containsKey(geneID)) {
-					userDefinedGeneSetNumberList = new TShortArrayList();
-					userDefinedGeneSetNumberList.add(currentUserDefinedGeneSetNumber);
-					geneId2ListofUserDefinedGeneSetNumberMap.put(geneID, userDefinedGeneSetNumberList);
-					bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation + "\t" + geneID + System.getProperty("line.separator"));
-				}
-				// Hash Map contains this geneId
-				else {
-					existingUserDefinedGeneSetNumberList = geneId2ListofUserDefinedGeneSetNumberMap.get(geneID);
 
-					if (!(existingUserDefinedGeneSetNumberList.contains(currentUserDefinedGeneSetNumber))) {
-						existingUserDefinedGeneSetNumberList.add(currentUserDefinedGeneSetNumber);
-						bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation + "\t" + geneID + System.getProperty("line.separator"));
+		for (int geneID : geneInformation2ListofGeneIDs) {
+			// fill geneId2ListofUserDefinedGenesetHashMap
+			// Hash Map does not contain this ncbiGeneId
+			if (!geneId2ListofUserDefinedGeneSetNumberMap.containsKey(geneID)) {
+				userDefinedGeneSetNumberList = new TShortArrayList();
+				userDefinedGeneSetNumberList.add(currentUserDefinedGeneSetNumber);
+				geneId2ListofUserDefinedGeneSetNumberMap.put(geneID, userDefinedGeneSetNumberList);
+			}
+			// Hash Map contains this geneId
+			else {
+				existingUserDefinedGeneSetNumberList = geneId2ListofUserDefinedGeneSetNumberMap.get(geneID);
 
-					} else {
-						bufferedWriter.write(GO_ID + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation + "\t" + geneID + System.getProperty("line.separator"));
-					}
-
-					geneId2ListofUserDefinedGeneSetNumberMap.put(geneID, existingUserDefinedGeneSetNumberList);
+				if (!(existingUserDefinedGeneSetNumberList.contains(currentUserDefinedGeneSetNumber))) {
+					existingUserDefinedGeneSetNumberList.add(currentUserDefinedGeneSetNumber);
+			
 				}
 
-			}// End of for each geneID in geneInformation2ListofGeneIDs
+				geneId2ListofUserDefinedGeneSetNumberMap.put(geneID, existingUserDefinedGeneSetNumberList);
+			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}// End of for each geneID in geneInformation2ListofGeneIDs
+
+		
 	}
 
 	public static void fillUserDefinedGeneSetID2TermMap(String userDefinedGeneSetOptionalDescriptionInputFile, Map<String, String> ID2TermMap) {
@@ -144,7 +135,13 @@ public class UserDefinedGeneSetUtility {
 		return GO_ID;
 	}
 
-	public static void createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(String dataFolder, String userDefinedGeneSetInputFile, GeneInformationType geneInformationType, TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap, TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap) {
+	public static void createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(
+			String dataFolder, 
+			String userDefinedGeneSetInputFile, 
+			GeneInformationType geneInformationType, 
+			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap, 
+			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, 
+			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap) {
 
 		// Read the user defined geneset inputFile
 		String strLine;
@@ -184,9 +181,6 @@ public class UserDefinedGeneSetUtility {
 			FileReader fileReader = FileOperations.createFileReader(userDefinedGeneSetInputFile);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-			// For debugging purposes
-			FileWriter fileWriter = FileOperations.createFileWriter("G:\\DOKTORA_DATA\\GO\\control_GO_gene_associations_human_ref.txt");
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
 
@@ -195,8 +189,7 @@ public class UserDefinedGeneSetUtility {
 
 				geneSetName = removeIllegalCharacters(geneSetName);
 
-				// geneInformation can be geneID, geneSymbol or
-				// RNANucleotideAccession
+				// geneInformation can be geneID, geneSymbol or RNANucleotideAccession
 				geneInformation = strLine.substring(indexofFirstTab + 1);
 
 				// For debugging purposes
@@ -214,7 +207,7 @@ public class UserDefinedGeneSetUtility {
 					userDefinedGeneSetNumber++;
 
 				}// End of IF
-					// Fill name2number and number2name maps ends
+				// Fill name2number and number2name maps ends
 
 				// Get the current userDefinedGeneSet number
 				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2UserDefinedGeneSetNumberMap.get(geneSetName);
@@ -243,10 +236,9 @@ public class UserDefinedGeneSetUtility {
 						if (!listofUnconvertedGeneInformation.contains(geneInformation)) {
 							listofUnconvertedGeneInformation.add(geneInformation);
 						}
-						bufferedWriter.write(geneSetName + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation + "\t" + null + System.getProperty("line.separator"));
 					}// End of IF: No conversion is possible
 
-					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation, bufferedWriter);
+					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation);
 
 				} else if (geneInformationType.is_RNA_NUCLEOTIDE_ACCESSION()) {
 					// geneInformation contains RNANucleotideAccession
@@ -267,17 +259,16 @@ public class UserDefinedGeneSetUtility {
 						if (!listofUnconvertedGeneInformation.contains(geneInformation)) {
 							listofUnconvertedGeneInformation.add(geneInformation);
 						}
-						bufferedWriter.write(geneSetName + "\t" + currentUserDefinedGeneSetNumber + "\t" + geneInformation + "\t" + null + System.getProperty("line.separator"));
-					}// End of IF: No conversion is possible
+						}// End of IF: No conversion is possible
 
-					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation, bufferedWriter);
+					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation);
 
 				} else if (geneInformationType.is_GENE_ID()) {
 					// geneInformation contains geneID
 					// No conversion is needed
 					int geneID = Integer.parseInt(geneInformation);
 					geneInformation2ListofGeneIDs.add(geneID);
-					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation, bufferedWriter);
+					updateMap(geneInformation2ListofGeneIDs, geneId2ListofUserDefinedGeneSetNumberMap, currentUserDefinedGeneSetNumber, geneSetName, geneInformation);
 
 				}
 
@@ -287,7 +278,7 @@ public class UserDefinedGeneSetUtility {
 			}// End of While
 
 			bufferedReader.close();
-			bufferedWriter.close();
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

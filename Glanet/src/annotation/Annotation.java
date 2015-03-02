@@ -6375,6 +6375,9 @@ public class Annotation {
 		// Transcription Factor Enrichment, DO or DO_NOT
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 
+		// Gene Annotation
+		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
+
 		// KEGG Pathway Enrichment, DO or DO_NOT
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 
@@ -6595,34 +6598,38 @@ public class Annotation {
 		/*******************************************************************************/
 		/***************** This has been coded for Chen Yao ****************************/
 		/*******************************************************************************/
-		GlanetRunner.appendLog("**********************************************************");
-		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
-		dateBefore = System.currentTimeMillis();
+		if (geneAnnotationType.doGeneAnnotation()){
+			
+			GlanetRunner.appendLog("**********************************************************");
+			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
+			dateBefore = System.currentTimeMillis();
 
-		// 10 February 2015
-		TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
-		TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+			// 10 February 2015
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
 
-		// 13 February 2015
-		TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+			// 13 February 2015
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
 
-		searchGeneWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+			searchGeneWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, geneAlternateNumber2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
 
-		GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-		writeGeneOverlapAnalysisFile(outputFolder, Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap, chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
+			writeGeneOverlapAnalysisFile(outputFolder, Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap, chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
 
-		writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
-		dateAfter = System.currentTimeMillis();
+			writeResultsWithNumbers(geneAlternateNumber2KMap, geneHugoSymbolNumber2NameMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
+			dateAfter = System.currentTimeMillis();
 
-		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
+			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
 
-		GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-		GlanetRunner.appendLog("**********************************************************");
+			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+			GlanetRunner.appendLog("**********************************************************");
 
-		System.gc();
-		System.runFinalization();
+			System.gc();
+			System.runFinalization();
+
+		}
 		/*******************************************************************************/
 		/***************** This is done by default for Chen Yao ************************/
 		/*******************************************************************************/
@@ -6630,7 +6637,7 @@ public class Annotation {
 		/*******************************************************************************/
 		
 		/*******************************************************************************/
-		/************ KEGG PATHWAY*****ANNOTATION***starts *******************************/
+		/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
 		/*******************************************************************************/
 		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
@@ -6701,11 +6708,11 @@ public class Annotation {
 
 		}
 		/*******************************************************************************/
-		/************ USER DEFINED GENESET*****ANNOTATION***ends *************************/
+		/************ USER DEFINED GENESET*****ANNOTATION***ends ***********************/
 		/*******************************************************************************/
 
 		/*******************************************************************************/
-		/************ USER DEFINED LIBRARY*****ANNOTATION***starts ***********************/
+		/************ USER DEFINED LIBRARY*****ANNOTATION***starts *********************/
 		/*******************************************************************************/
 		if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
 
@@ -6769,9 +6776,11 @@ public class Annotation {
 
 		}
 		/*******************************************************************************/
-		/************ USER DEFINED LIBRARY*****ANNOTATION***ends *************************/
+		/************ USER DEFINED LIBRARY*****ANNOTATION***ends ***********************/
 		/*******************************************************************************/
 
+		
+		
 		/*******************************************************************************/
 		/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
 		/*******************************************************************************/
@@ -6810,6 +6819,8 @@ public class Annotation {
 		/************ TF KEGGPATHWAY*****ANNOTATION***ends *****************************/
 		/*******************************************************************************/
 
+		
+		
 		/*******************************************************************************/
 		/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
 		/*******************************************************************************/
@@ -6845,8 +6856,10 @@ public class Annotation {
 
 		}
 		/*******************************************************************************/
-		/************ TF CELLLINE KEGGPATHWAY*****ANNOTATION***ends **********************/
+		/************ TF CELLLINE KEGGPATHWAY*****ANNOTATION***ends ********************/
 		/*******************************************************************************/
+		
+		
 
 		// //search input interval files for ncbiGeneId
 		// Map<String,Integer> ncbiGeneIdHashMap = new
@@ -6941,13 +6954,14 @@ public class Annotation {
 		// writeResults(allResultsKeggPathway2KMap,
 		// Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
 
-		/*******************************************************************************/
+		/*********************************************************************************/
 		/************ Search input interval files for TF *********************************/
 		/************ Search input interval files for KEGG PATHWAY ***********************/
 		/************ Search input interval files for TF AND KEGG PATHWAY ****************/
 		/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
-		/*******************************************************************************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+		/*********************************************************************************/
+		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + new Date());
@@ -6984,12 +6998,12 @@ public class Annotation {
 			System.runFinalization();
 
 		}
-		/*******************************************************************************/
+		/*********************************************************************************/
 		/************ Search input interval files for TF *********************************/
 		/************ Search input interval files for KEGG PATHWAY ***********************/
 		/************ Search input interval files for TF AND KEGG PATHWAY ****************/
 		/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
-		/*******************************************************************************/
+		/*********************************************************************************/
 
 	}
 
