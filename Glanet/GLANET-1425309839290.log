@@ -1,0 +1,42 @@
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:319 - *****************************************************************
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:320 - GLANET Parameters starts
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt\
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - GRCh37.p13
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 1-based coordinates (End Inclusive)
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 1
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_ENRICH
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - With GC and Mappability
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - Benjamini Hochberg FDR
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_DNASE_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_HISTONE_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_GENE_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - OCD_GWAS_1MB_Test2
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_USER_DEFINED_GENESET_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\UserDefinedGeneSet\KEGGPathway\KEGGPathway_id2GeneID.list\
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - GENE ID
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - KEGG
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\UserDefinedGeneSet\KEGGPathway\KEGGPathway_id2term.txt\
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Exclusive)
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:324 - GIVEN_INPUT_DATA_CONSISTS_OF_SNPS
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:327 - GLANET Parameters ends
+2015-03-02 17:24:04 INFO  InputDataRemoveOverlaps:328 - *****************************************************************
+2015-03-02 17:24:48 INFO  Enrichment:2277 - Java runtime max memory: 16464216064
+2015-03-02 17:24:48 INFO  Enrichment:2278 - Java runtime total memory: 16464216064
+2015-03-02 17:24:48 INFO  Enrichment:2279 - Java runtime available processors: 8

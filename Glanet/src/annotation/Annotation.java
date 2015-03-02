@@ -6593,6 +6593,8 @@ public class Annotation {
 		/************ TF*******ANNOTATION*****ends *************************************/
 		/*******************************************************************************/
 
+		
+		
 		/*******************************************************************************/
 		/************* HG19 Refseq GENE*****ANNOTATION***starts ************************/
 		/*******************************************************************************/
@@ -6636,10 +6638,14 @@ public class Annotation {
 		/************* HG19 RefSeq GENE*****ANNOTATION***ends **************************/
 		/*******************************************************************************/
 		
+		
+		
 		/*******************************************************************************/
 		/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
 		/*******************************************************************************/
-		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());

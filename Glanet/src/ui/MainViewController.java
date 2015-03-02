@@ -49,7 +49,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 	}
 
 	@Override
-	public void startRunActionsWithOptions(String inputFileName, String inputFileAssembly, String outputFolder, String inputFileFormat, String numberOfBases, String enrichmentEnabled, String generateRandomDataMode, String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate, String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrihment, String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment, String cellLineBasedTfAndKeggPathwayEnrichment, String regulatorySequenceAnalysisUsingRSAT, String jobName, String writeElementBasedAnnotationFoundOverlapsMode, String writeAnnotationBinaryMatrixMode, String writeGeneratedRandomDataMode, String writePermutationBasedandParametricBasedAnnotationResultMode, String writePermutationBasedAnnotationResultMode, String numberOfPermutationsInEachRun, String userDefinedGeneSetEnrichment, String userDefinedGeneSetInputFile, String userDefinedGeneSetGeneInformation, String userDefinedGeneSetName, String userDefinedGeneSetDescription, String userDefinedLibraryEnrichment, String userDefinedLibraryInputFile, String userDefinedLibraryDataFormat, String givenInputDataType, String[] cellLinesToBeConsidered) {
+	public void startRunActionsWithOptions(String inputFileName, String inputFileAssembly, String outputFolder, String inputFileFormat, String numberOfBases, String enrichmentEnabled, String generateRandomDataMode, String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate, String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrichment, String geneEnrichment,String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment, String cellLineBasedTfAndKeggPathwayEnrichment, String regulatorySequenceAnalysisUsingRSAT, String jobName, String writeElementBasedAnnotationFoundOverlapsMode, String writeAnnotationBinaryMatrixMode, String writeGeneratedRandomDataMode, String writePermutationBasedandParametricBasedAnnotationResultMode, String writePermutationBasedAnnotationResultMode, String numberOfPermutationsInEachRun, String userDefinedGeneSetEnrichment, String userDefinedGeneSetInputFile, String userDefinedGeneSetGeneInformation, String userDefinedGeneSetName, String userDefinedGeneSetDescription, String userDefinedLibraryEnrichment, String userDefinedLibraryInputFile, String userDefinedLibraryDataFormat, String givenInputDataType, String[] cellLinesToBeConsidered) {
 
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
 
@@ -66,7 +66,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.NumberOfPermutation.value()] = numberOfPermutations;
 		args[CommandLineArguments.DnaseAnnotation.value()] = dnaseEnrichment;
 		args[CommandLineArguments.HistoneAnnotation.value()] = histoneEnrichment;
-		args[CommandLineArguments.TfAnnotation.value()] = tfEnrihment;
+		args[CommandLineArguments.TfAnnotation.value()] = tfEnrichment;
+		args[CommandLineArguments.GeneAnnotation.value()] = geneEnrichment;
 		args[CommandLineArguments.KeggPathwayAnnotation.value()] = keggPathwayEnrichment;
 		args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = tfAndKeggPathwayEnrichment;
 		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayEnrichment;
