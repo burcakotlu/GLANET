@@ -1316,6 +1316,7 @@ public class Commons {
 	public static final String ARG_NUMBER_OF_PERMUTATIONS = "-p";
 	public static final String ARG_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "-pe";
 	public static final String ARG_DNASE_ANNOTATION = "-dnase";
+	public static final String ARG_GENE_ANNOTATION = "-gene";
 	public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
 	public static final String ARG_TF_ANNOTATION = "-tf";
 	public static final String ARG_KEGG_ANNOTATION = "-kegg";

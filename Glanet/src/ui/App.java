@@ -248,6 +248,21 @@ public class App {
 
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.DnaseAnnotation))
 			return false;
+		
+		// parsing Gene Annotation
+		for (int i = 0; i < args.length; i++)
+			if (args[i].equalsIgnoreCase(Commons.ARG_GENE_ANNOTATION)) {
+				if (argsInOrder[CommandLineArguments.GeneAnnotation.value()].equals(notSet))
+					argsInOrder[CommandLineArguments.GeneAnnotation.value()] = Commons.DO_GENE_ANNOTATION;
+
+				else {
+					System.out.println("Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+
+		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.GeneAnnotation))
+			return false;
 
 		// parsing Histone Annotation
 		for (int i = 0; i < args.length; i++)
