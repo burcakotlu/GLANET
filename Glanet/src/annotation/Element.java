@@ -13,19 +13,29 @@ import java.util.Comparator;
  */
 public class Element {
 	
-	int elementNumber;
+	int elementIntNumber;
+	short elementShortNumber;
 	Integer elementNumberofOverlaps;
 	
 	
 	
-	public int getElementNumber() {
-		return elementNumber;
-	}
 	
-	public void setElementNumber(int elementNumber) {
-		this.elementNumber = elementNumber;
+	public int getElementIntNumber() {
+		return elementIntNumber;
 	}
-	
+
+	public void setElementIntNumber(int elementIntNumber) {
+		this.elementIntNumber = elementIntNumber;
+	}
+
+	public short getElementShortNumber() {
+		return elementShortNumber;
+	}
+
+	public void setElementShortNumber(short elementShortNumber) {
+		this.elementShortNumber = elementShortNumber;
+	}
+
 	public Integer getElementNumberofOverlaps() {
 		return elementNumberofOverlaps;
 	}
@@ -36,12 +46,17 @@ public class Element {
 	
 	
 
-	public Element(int elementNumber, int elementNumberofOverlaps) {
+	public Element(int elementIntNumber, int elementNumberofOverlaps) {
 		super();
-		this.elementNumber = elementNumber;
+		this.elementIntNumber = elementIntNumber;
 		this.elementNumberofOverlaps = elementNumberofOverlaps;
 	}
 	
+	public Element(short elementShortNumber, int elementNumberofOverlaps) {
+		super();
+		this.elementShortNumber = elementShortNumber;
+		this.elementNumberofOverlaps = elementNumberofOverlaps;
+	}
 	
 	static Comparator<Element> NUMBER_OF_OVERLAPS = new Comparator<Element>() {
 		public int compare(Element element1, Element element2) {

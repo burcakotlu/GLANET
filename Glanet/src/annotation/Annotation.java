@@ -4909,11 +4909,28 @@ public class Annotation {
 	// with Numbers End
 	// @todo
 
-	// @todo starts
-	public void writeResultsWithNumbers(TShortIntMap number2KMap, TShortObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
+	// DNASE Annotation
+	// KEGG Pathway Annotation
+	public void writeResultsWithNumbers(
+			TShortIntMap number2KMap,
+			TShortObjectMap<String> number2NameMap, 
+			String outputFolder, 
+			String outputFileName) {
 
 		BufferedWriter bufferedWriter;
 		String elementName;
+		
+		
+		List<Element> elementList = null;
+		
+		Element element = null;
+		short elementNumber;
+		int numberofOverlaps;
+		
+		elementList = transformMapToCollection(number2KMap);	
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
+		
 		try {
 
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
@@ -4921,13 +4938,30 @@ public class Annotation {
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			// accessing keys/values through an iterator:
-			for (TShortIntIterator it = number2KMap.iterator(); it.hasNext();) {
-				it.advance();
-				elementName = number2NameMap.get(it.key());
-				bufferedWriter.write(elementName + "\t" + it.value() + System.getProperty("line.separator"));
-			}
+			
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumber = element.getElementShortNumber();
+				
+				elementName = number2NameMap.get(elementNumber);
+				
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "\t" + numberofOverlaps + System.getProperty("line.separator"));			
+				
+			}//End of For
+			
+//			// accessing keys/values through an iterator:
+//			for (TShortIntIterator it = number2KMap.iterator(); it.hasNext();) {
+//				it.advance();
+//				elementName = number2NameMap.get(it.key());
+//				bufferedWriter.write(elementName + "\t" + it.value() + System.getProperty("line.separator"));
+//			}
 
+			//Close BufferedWriter
 			bufferedWriter.close();
 
 		} catch (IOException e) {
@@ -4961,8 +4995,38 @@ public class Annotation {
 	}
 	
 
-	// yeni starts
-	public void writeResultsWithNumbers(TIntIntMap number2KMap, TIntObjectMap<String> number2NameMap, String outputFolder, String outputFileName) {
+	//yeni starts
+	public List<Element> transformMapToCollection(TShortIntMap number2KMap){
+		
+		short key;
+		int value;
+		
+		List<Element> elementList = new ArrayList<Element>();
+		Element element = null;
+		
+		for(TShortIntIterator it = number2KMap.iterator(); it.hasNext(); ) {
+			it.advance();
+			
+			key = it.key();
+			value = it .value();
+			
+			element = new Element(key,value);
+			elementList.add(element);
+			
+		}//End of for
+		
+		return elementList;
+	}
+	//yeni ends
+	
+	
+	// Gene Annotation
+	// UserDefinedLibrary Annotation
+	public void writeResultsWithNumbers(
+			TIntIntMap number2KMap, 
+			TIntObjectMap<String> number2NameMap, 
+			String outputFolder,
+			String outputFileName) {
 
 		BufferedWriter bufferedWriter;
 		String elementName;
@@ -4990,7 +5054,7 @@ public class Annotation {
 				
 				element = it.next();
 				
-				elementNumber = element.getElementNumber();
+				elementNumber = element.getElementIntNumber();
 				
 				elementName = number2NameMap.get(elementNumber);
 				numberofOverlaps = element.getElementNumberofOverlaps();
@@ -5014,10 +5078,17 @@ public class Annotation {
 
 	}
 
-	// yeni ends
 
-	// @todo TF CellLine KEGGPathway starts
-	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumberKeggNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap, String outputFolder, String outputFileName) {
+	// TF CellLine KEGGPathway Annotation
+	public void writeResultsWithNumbers(
+			TIntIntMap elementNumberCellLineNumberKeggNumber2KMap, 
+			TShortObjectMap<String> elementNumber2ElementNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> keggPathwayNumber2KeggPathwayNameMap, 
+			String outputFolder, 
+			String outputFileName) {
+		
+		
 		BufferedWriter bufferedWriter;
 
 		int elementNumberCellLineNumberKeggPathwayNumber;
@@ -5028,6 +5099,16 @@ public class Annotation {
 		String elementName;
 		String cellLineName;
 		String keggPathwayName;
+		
+		
+		List<Element> elementList = null;
+		elementList = transformMapToCollection(elementNumberCellLineNumberKeggNumber2KMap);	
+		
+		Element element = null;
+		int numberofOverlaps;
+		
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
 
 		try {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
@@ -5035,12 +5116,13 @@ public class Annotation {
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			// accessing keys/values through an iterator:
-			for (TIntIntIterator it = elementNumberCellLineNumberKeggNumber2KMap.iterator(); it.hasNext();) {
-				it.advance();
-
-				elementNumberCellLineNumberKeggPathwayNumber = it.key();
-
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumberCellLineNumberKeggPathwayNumber = element.getElementIntNumber();
+				
 				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumberKeggPathwayNumber);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
@@ -5050,9 +5132,32 @@ public class Annotation {
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumberKeggPathwayNumber);
 				keggPathwayName = keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber);
 
-				bufferedWriter.write(elementName + "_" + cellLineName + "_" + keggPathwayName + "\t" + it.value() + System.getProperty("line.separator"));
-			}
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "_" + cellLineName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+	
+			}//End of For
+			
+//			// accessing keys/values through an iterator:
+//			for (TIntIntIterator it = elementNumberCellLineNumberKeggNumber2KMap.iterator(); it.hasNext();) {
+//				it.advance();
+//
+//				elementNumberCellLineNumberKeggPathwayNumber = it.key();
+//
+//				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumberKeggPathwayNumber);
+//				elementName = elementNumber2ElementNameMap.get(elementNumber);
+//
+//				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumberKeggPathwayNumber);
+//				cellLineName = cellLineNumber2CellLineNameMap.get(cellLineNumber);
+//
+//				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumberKeggPathwayNumber);
+//				keggPathwayName = keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber);
+//
+//				bufferedWriter.write(elementName + "_" + cellLineName + "_" + keggPathwayName + "\t" + it.value() + System.getProperty("line.separator"));
+//			}
 
+			
+			//Close bufferedWriter
 			bufferedWriter.close();
 
 		} catch (IOException e) {
@@ -5062,7 +5167,7 @@ public class Annotation {
 
 	// @todo TF CellLine KEGGPathway ends
 
-	// @todo starts
+	// TF KEGG Pathway Annotation
 	public void writeTFKEGGPathwayResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> KEGGPathwayNumber2KEGGPathwayNameMap, String outputFolder, String outputFileName) {
 
 		BufferedWriter bufferedWriter;
@@ -5073,29 +5178,57 @@ public class Annotation {
 
 		String elementName;
 		String keggPathwayName;
-
+		
+		List<Element> elementList = null;
+		elementList = transformMapToCollection(elementNumberCellLineNumber2KMap);	
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
+		
+		Element element = null;
+		int numberofOverlaps;
+		
 		try {
 
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
-
-			// accessing keys/values through an iterator:
-			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
-				it.advance();
-
-				elementNumberCellLineNumber = it.key();
-
+			
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumberCellLineNumber = element.getElementIntNumber();
+				
 				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumber);
 				keggPathwayName = KEGGPathwayNumber2KEGGPathwayNameMap.get(keggPathwayNumber);
+				
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+				
+			}//End of For
+			
+//			// accessing keys/values through an iterator:
+//			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
+//				it.advance();
+//
+//				elementNumberCellLineNumber = it.key();
+//
+//				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
+//				elementName = elementNumber2ElementNameMap.get(elementNumber);
+//
+//				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumber);
+//				keggPathwayName = KEGGPathwayNumber2KEGGPathwayNameMap.get(keggPathwayNumber);
+//
+//				bufferedWriter.write(elementName + "_" + keggPathwayName + "\t" + it.value() + System.getProperty("line.separator"));
+//			}
 
-				bufferedWriter.write(elementName + "_" + keggPathwayName + "\t" + it.value() + System.getProperty("line.separator"));
-			}
-
+			//Close BufferedWriter
 			bufferedWriter.close();
 
 		} catch (IOException e) {
@@ -5105,7 +5238,7 @@ public class Annotation {
 
 	// @todo ends
 
-	// starts
+	// UserDefinedLibrary
 	public void writeResultsWithNumbers(TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap, TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap, TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap, String outputFolder, String directoryName, String fileName) {
 
 		String elementType;
@@ -5133,8 +5266,14 @@ public class Annotation {
 
 	// ends
 
-	// @todo starts
-	public void writeResultsWithNumbers(TIntIntMap elementNumberCellLineNumber2KMap, TShortObjectMap<String> elementNumber2ElementNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap, String outputFolder, String outputFileName) {
+	// HISTONE Annotation
+	// TF Annotation
+	public void writeResultsWithNumbers(
+			TIntIntMap elementNumberCellLineNumber2KMap, 
+			TShortObjectMap<String> elementNumber2ElementNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			String outputFolder, 
+			String outputFileName) {
 
 		BufferedWriter bufferedWriter;
 
@@ -5144,28 +5283,60 @@ public class Annotation {
 
 		String elementName;
 		String cellLineName;
-
+		
+		
+		List<Element> elementList = null;
+		elementList = transformMapToCollection(elementNumberCellLineNumber2KMap);	
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
+		
+		Element element = null;
+		int numberofOverlaps;
+		
+		
 		try {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
 			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			// accessing keys/values through an iterator:
-			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
-				it.advance();
-
-				elementNumberCellLineNumber = it.key();
-
+			
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumberCellLineNumber = element.getElementIntNumber();
+				
 				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
 				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumber);
 				cellLineName = cellLineNumber2CellLineNameMap.get(cellLineNumber);
 
-				bufferedWriter.write(elementName + "_" + cellLineName + "\t" + it.value() + System.getProperty("line.separator"));
-			}
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "_" + cellLineName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+				
+			}//End of For
+			
+			
+//			// accessing keys/values through an iterator:
+//			for (TIntIntIterator it = elementNumberCellLineNumber2KMap.iterator(); it.hasNext();) {
+//				it.advance();
+//
+//				elementNumberCellLineNumber = it.key();
+//
+//				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
+//				elementName = elementNumber2ElementNameMap.get(elementNumber);
+//
+//				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumber);
+//				cellLineName = cellLineNumber2CellLineNameMap.get(cellLineNumber);
+//
+//				bufferedWriter.write(elementName + "_" + cellLineName + "\t" + it.value() + System.getProperty("line.separator"));
+//			}
 
+			//Close bufferedWriter
 			bufferedWriter.close();
 
 		} catch (IOException e) {
@@ -5175,23 +5346,7 @@ public class Annotation {
 
 	// @todo ends
 
-	public void writeResults(Map<String, Integer> hashMap, String outputFolder, String outputFileName) {
 
-		BufferedWriter bufferedWriter;
-		try {
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
-
-			for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
-			}
-
-			bufferedWriter.close();
-
-		} catch (IOException e) {
-			logger.error(e.toString());
-		}
-
-	}
 
 	public void closeBufferedWriterList(List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList) {
 		BufferedWriter bufferedWriter = null;
@@ -6571,7 +6726,9 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF******ANNOTATION******starts ***********************************/
 		/*******************************************************************************/
-		if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (tfAnnotationType.doTFAnnotation() && 
+				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
@@ -6672,6 +6829,8 @@ public class Annotation {
 		/************ KEGG PATHWAY****ANNOTATION*ends ************************************/
 		/*******************************************************************************/
 
+		
+		
 		/*******************************************************************************/
 		/************ USER DEFINED GENESET*****ANNOTATION***starts ***********************/
 		/*******************************************************************************/
@@ -6790,7 +6949,8 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
 		/*******************************************************************************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
@@ -6830,7 +6990,8 @@ public class Annotation {
 		/*******************************************************************************/
 		/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
 		/*******************************************************************************/
-		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
+		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
@@ -6867,98 +7028,7 @@ public class Annotation {
 		
 		
 
-		// //search input interval files for ncbiGeneId
-		// Map<String,Integer> ncbiGeneIdHashMap = new
-		// HashMap<String,Integer>();
-		// annotateIntervals.fillHashMap(ncbiGeneIdHashMap,Commons.ANNOTATE_INTERVALS_WITH_NCBI_GENE_ID_USING_INTERVAL_TREE_INPUT_FILE);
-		// annotateIntervals.searchNcbiGeneId(ncbiGeneIdHashMap);
-		// annotateIntervals.writeResults(Commons.NCBI_GENE_ID,
-		// ncbiGeneIdHashMap,
-		// Commons.ANNOTATE_INTERVALS_NCBI_GENE_ID_RESULTS_OUTPUT_FILE);
-		// //Free space
-		// ncbiGeneIdHashMap.clear();
-		// ncbiGeneIdHashMap = null;
-		//
-		// //ncbiRna
-		// Map<String,Integer> ncbiRnaNucleotideAccessionVersionHashMap = new
-		// HashMap<String,Integer>();
-		// annotateIntervals.fillHashMap(ncbiRnaNucleotideAccessionVersionHashMap,Commons.ANNOTATE_INTERVALS_WITH_NCBI_RNA_USING_INTERVAL_TREE_INPUT_FILE);
-		// annotateIntervals.searchNcbiRNANucleotideAccessionVersion(ncbiRnaNucleotideAccessionVersionHashMap);
-		// annotateIntervals.writeResults(Commons.NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION,
-		// ncbiRnaNucleotideAccessionVersionHashMap,
-		// Commons.ANNOTATE_INTERVALS_NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION_RESULTS_OUTPUT_FILE);
-		// //Free space
-		// ncbiRnaNucleotideAccessionVersionHashMap.clear();
-		// ncbiRnaNucleotideAccessionVersionHashMap = null;
-		//
-		// //ucscGeneAlternateName
-		// Map<String,Integer> ucscGeneAlternateNameHashMap = new
-		// HashMap<String,Integer>();
-		// annotateIntervals.fillHashMap(ucscGeneAlternateNameHashMap,Commons.ANNOTATE_INTERVALS_WITH_UCSC_ALTERNATE_GENE_NAME_USING_INTERVAL_TREE_INPUT_FILE);
-		// annotateIntervals.searchUcscGeneAlternateName(ucscGeneAlternateNameHashMap);
-		// annotateIntervals.writeResults(Commons.UCSC_GENE_ALTERNATE_NAME,
-		// ucscGeneAlternateNameHashMap,
-		// Commons.ANNOTATE_INTERVALS_UCSC_GENE_ALTERNATE_NAME_RESULTS_OUTPUT_FILE);
-		// //Free space
-		// ucscGeneAlternateNameHashMap.clear();
-		// ucscGeneAlternateNameHashMap= null;
-		//
-
-		// Accomplished in NEW FUNCTIONALITY ---TF and Kegg Pathway
-		// //KEGG PATHWAY
-		// //Search input interval files for kegg Pathway
-		// List<String> keggPathwayNameList = new ArrayList<String>();
-		//
-		// //Fill keggPathwayNameList
-		// fillList(keggPathwayNameList,
-		// Commons.WRITE_ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILE);
-		//
-		// Map<String,List<String>> geneId2KeggPathwayMap = new HashMap<String,
-		// List<String>>();
-		//
-		// KeggPathwayUtility.createNcbiGeneId2KeggPathwayMap(Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE,geneId2KeggPathwayMap);
-		//
-		// //Exon Based Kegg Pathway Analysis
-		// //Only Exons
-		// //This exonBasedKeggPathway2KMap hash map will contain the kegg
-		// pathway name to number of kegg pathway:k for the given search input
-		// size:n
-		// Map<String,Integer> exonBasedKeggPathway2KMap = new
-		// HashMap<String,Integer>();
-		//
-		// searchKeggPathway(geneId2KeggPathwayMap,keggPathwayNameList,
-		// exonBasedKeggPathway2KMap, Commons.EXON_BASED_KEGG_PATHWAY_ANALYSIS);
-		// writeResults(exonBasedKeggPathway2KMap,
-		// Commons.ANNOTATE_INTERVALS_EXON_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-		//
-		//
-		// //Regulation Based Kegg Pathway Analysis
-		// //Introns, 5p1 5p2 3p1 3p2 included
-		// //5d and 3d excluded
-		// //This regulationBasedKeggPathway2KMap hash map will contain the kegg
-		// pathway name to number of kegg pathway:k for the given search input
-		// size:n
-		// Map<String,Integer> regulationBasedKeggPathway2KMap = new
-		// HashMap<String,Integer>();
-		//
-		// searchKeggPathway(geneId2KeggPathwayMap,keggPathwayNameList,
-		// regulationBasedKeggPathway2KMap,
-		// Commons.REGULATION_BASED_KEGG_PATHWAY_ANALYSIS);
-		// writeResults(regulationBasedKeggPathway2KMap,
-		// Commons.ANNOTATE_INTERVALS_REGULATION_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
-		//
-		// //All Based Kegg Pathway Analysis
-		// //This regulationBasedKeggPathway2KMap hash map will contain the kegg
-		// pathway name to number of kegg pathway:k for the given search input
-		// size:n
-		// //exons, introns, 5p1, 5p2, 5d, 3p1, 3p2, 3d all included
-		// Map<String,Integer> allResultsKeggPathway2KMap = new
-		// HashMap<String,Integer>();
-		//
-		// searchKeggPathway(geneId2KeggPathwayMap,keggPathwayNameList,
-		// allResultsKeggPathway2KMap, Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS);
-		// writeResults(allResultsKeggPathway2KMap,
-		// Commons.ANNOTATE_INTERVALS_ALL_BASED_KEGG_PATHWAY_RESULTS_GIVEN_SEARCH_INPUT);
+	
 
 		/*********************************************************************************/
 		/************ Search input interval files for TF *********************************/
