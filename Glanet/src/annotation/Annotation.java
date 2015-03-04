@@ -1951,7 +1951,7 @@ public class Annotation {
 				for (TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList) {
 
 					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
-					tfNumber = IntervalTree.getElementNumber(tfNumberCellLineNumber);
+					tfNumber = IntervalTree.getShortElementNumber(tfNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 					cellLineNumber = IntervalTree.getCellLineNumber(tfNumberCellLineNumber);
 
 					/****************************************************************************/
@@ -2344,7 +2344,7 @@ public class Annotation {
 				for (TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList) {
 
 					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
-					tfNumber = IntervalTree.getElementNumber(tfNumberCellLineNumber);
+					tfNumber = IntervalTree.getShortElementNumber(tfNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 					cellLineNumber = IntervalTree.getCellLineNumber(tfNumberCellLineNumber);
 
 					/***********************************************************************/
@@ -2756,7 +2756,7 @@ public class Annotation {
 				for (TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList) {
 
 					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
-					tfNumber = IntervalTree.getElementNumber(tfNumberCellLineNumber);
+					tfNumber = IntervalTree.getShortElementNumber(tfNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 					cellLineNumber = IntervalTree.getCellLineNumber(tfNumberCellLineNumber);
 
 					/**************************************************************************/
@@ -5123,7 +5123,7 @@ public class Annotation {
 				
 				elementNumberCellLineNumberKeggPathwayNumber = element.getElementIntNumber();
 				
-				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumberKeggPathwayNumber);
+				elementNumber = IntervalTree.getShortElementNumber(elementNumberCellLineNumberKeggPathwayNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
 				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumberKeggPathwayNumber);
@@ -5201,7 +5201,7 @@ public class Annotation {
 				
 				elementNumberCellLineNumber = element.getElementIntNumber();
 				
-				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
+				elementNumber = IntervalTree.getShortElementNumber(elementNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumber);
@@ -5308,7 +5308,7 @@ public class Annotation {
 				
 				elementNumberCellLineNumber = element.getElementIntNumber();
 				
-				elementNumber = IntervalTree.getElementNumber(elementNumberCellLineNumber);
+				elementNumber = IntervalTree.getShortElementNumber(elementNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
 				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumber);
@@ -6666,6 +6666,8 @@ public class Annotation {
 		// Instant
 		// dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
 
+		
+		
 		/*******************************************************************************/
 		/************ DNASE**ANNOTATION****starts **************************************/
 		/*******************************************************************************/
@@ -6693,6 +6695,8 @@ public class Annotation {
 		/************ DNASE***ANNOTATION********ends ***********************************/
 		/*******************************************************************************/
 
+		
+		
 		
 		
 		/*******************************************************************************/
@@ -6826,13 +6830,13 @@ public class Annotation {
 
 		}
 		/*******************************************************************************/
-		/************ KEGG PATHWAY****ANNOTATION*ends ************************************/
+		/************ KEGG PATHWAY****ANNOTATION*ends **********************************/
 		/*******************************************************************************/
 
 		
 		
 		/*******************************************************************************/
-		/************ USER DEFINED GENESET*****ANNOTATION***starts ***********************/
+		/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
 		/*******************************************************************************/
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 

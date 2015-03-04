@@ -2498,19 +2498,31 @@ public class IntervalTree {
 		return cellLineNumber;
 	}
 
+	//4 Mart 2015
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
 	// @todo add parameter then it will be more readable
-	public static short getElementNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
+	public static short getShortElementNumber(
+			int elementNumberCellLineNumberKeggPathwayNumber, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
-		short elementNumber;
+		short elementNumber = Short.MIN_VALUE;
 		int cellLineNumberKeggPathwayNumber;
+		
+		switch(generatedMixedNumberDescriptionOrderLength) {
+		
+			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
+				// example 100_300_020
+				cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
+				elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber) / 1000000);
+				break;
+			default:
+				break;
+			
+		}
 
-		// example 100_300_020
-		cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
-
-		elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber) / 1000000);
-
+		
 		return elementNumber;
 	}
 
@@ -3105,7 +3117,7 @@ public class IntervalTree {
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			findAllOverlappingDnaseIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode, node.getRight(), interval, chromName, dnaseCellLineNumber2OneorZeroMap,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+
 
 		}
 	}
@@ -4991,6 +5003,9 @@ public class IntervalTree {
 											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
 											break;
 											
+										case NO_GENESET_TYPE_IS_DEFINED:
+											break;
+											
 									}// End of switch
 									
 									bufferedWriter = new BufferedWriter(fileWriter);
@@ -5037,12 +5052,16 @@ public class IntervalTree {
 								if(writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
 									
 									switch (geneSetType) {
+									
 										case USERDEFINEDGENESET:
 											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
 											break;
 										case KEGGPATHWAY:
 											fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
 											break;
+										case NO_GENESET_TYPE_IS_DEFINED:
+											break;
+											
 									}// End of SWITCH
 	
 									bufferedWriter = new BufferedWriter(fileWriter);
@@ -5086,12 +5105,16 @@ public class IntervalTree {
 							if(writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
 								
 								switch (geneSetType) {
+								
 									case USERDEFINEDGENESET:
 										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty("file.separator") + geneSetName + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
 										break;
 									case KEGGPATHWAY:
 										fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATION + System.getProperty("file.separator") + Commons.KEGG_PATHWAY + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt", true);
 										break;
+									case NO_GENESET_TYPE_IS_DEFINED:
+										break;
+										
 								}// End of switch
 	
 								bufferedWriter = new BufferedWriter(fileWriter);

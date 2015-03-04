@@ -2578,84 +2578,193 @@ public class Enrichment {
 			/***********************************************************************************************/
 			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA STARTS ***************/
 			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA STARTS ***************************/
+			/***********************************************************************************************/
+			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA STARTS **********/
+			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS STARTS ************************/
 			// annotation of original data with permutations
 			// annotation of original data has permutation number zero
 			// number of overlaps for the original data: k out of n for the
 			// original data
 			// ElementName to integer
-			// DNASE TF HISTONE
-			TIntIntMap originalDnase2KMap = new TIntIntHashMap();
-			TIntIntMap originalTfbs2KMap = new TIntIntHashMap();
-			TIntIntMap originalHistone2KMap = new TIntIntHashMap();
-
-			// Gene
-			TIntIntMap originalGene2KMap = new TIntIntHashMap();
-
-			// User Defined Gene Set
-			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-
-			// UserDefinedLibrary starts
-			TIntIntMap originalElementTypeNumberElementNumber2KMap = new TIntIntHashMap();
-			// UserDefinedLibrary ends
-
-			// KEGG Pathway
-			TIntIntMap originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-			// TF and KEGG Pathway Enrichment
-			TIntIntMap originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-			// TF and CellLine and KEGG Pathway Enrichment
-			TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
-			TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
-			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
-			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
-			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
-			/***********************************************************************************************/
 			
-			
-			/***********************************************************************************************/
-			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA STARTS **********/
-			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS STARTS ************************/
 			// Accumulated number of overlaps for all permutations
 			// functionalElementNumber based
 			// number of overlaps: k out of n for all permutations
 			// ElementNumber has been mapped to a list of integers
-			TIntObjectMap<TIntList> dnase2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> histone2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+						
+			
+			/********************** INITIALIZATION TO NULL *************************************************/
+			//DNase
+			TIntIntMap originalDnase2KMap = null;
+			TIntObjectMap<TIntList> dnase2AllKMap = null;
+			
+			//TF
+			TIntIntMap originalTfbs2KMap = null;
+			TIntObjectMap<TIntList> tfbs2AllKMap = null;
+			
+			//Histone
+			TIntIntMap originalHistone2KMap = null;
+			TIntObjectMap<TIntList> histone2AllKMap  = null;
+			
+			//Gene
+			TIntIntMap originalGene2KMap  = null;
+			TIntObjectMap<TIntList> gene2AllKMap = null;
+			
+			//UserDefinedGeneSet
+			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap = null;
+			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap = null;
+			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap = null;
 
-			// Gene
-			TIntObjectMap<TIntList> gene2AllKMap = new TIntObjectHashMap<TIntList>();
+			TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap = null;
+			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap = null;
+			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap = null;
+			
+			//UserDefinedLibrary
+			TIntIntMap originalElementTypeNumberElementNumber2KMap = null;
+			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap = null;
+			
+			//KEGG Pathway
+			TIntIntMap originalExonBasedKeggPathway2KMap = null;
+			TIntIntMap originalRegulationBasedKeggPathway2KMap = null;
+			TIntIntMap originalAllBasedKeggPathway2KMap = null;
+			
+			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap = null;
+			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap = null;
+			TIntObjectMap<TIntList> allBasedKeggPathway2AllKMap = null;
+			
+			// TF and KEGG Pathway Enrichment
+			TIntIntMap originalTfExonBasedKeggPathway2KMap = null;
+			TIntIntMap originalTfRegulationBasedKeggPathway2KMap = null;
+			TIntIntMap originalTfAllBasedKeggPathway2KMap = null;
 
+			TIntObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap = null;
+			TIntObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap = null;
+			TIntObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap = null;
+
+			// TF and CellLine and KEGG Pathway Enrichment
+			TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap = null;
+			TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap = null;
+			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap = null;
+			
+			TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap = null;
+			TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap = null;
+			TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap = null;
+			/********************** INITIALIZATION TO NULL *************************************************/
+
+			
+			//DNase
+			if (dnaseAnnotationType.doDnaseAnnotation()) {
+				originalDnase2KMap = new TIntIntHashMap();
+				dnase2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
+			
+			//TF
+			if (tfAnnotationType.doTFAnnotation()){
+				originalTfbs2KMap = new TIntIntHashMap();
+				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
+			
+			//Histone
+			if (histoneAnnotationType.doHistoneAnnotation()){
+				originalHistone2KMap = new TIntIntHashMap();
+				histone2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
+			
+			//Gene
+			if (geneAnnotationType.doGeneAnnotation()){
+				originalGene2KMap = new TIntIntHashMap();
+				gene2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
+			
 			// User Defined GeneSet
-			TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+			if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+				originalExonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
+				originalRegulationBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
+				originalAllBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
 
-			// UserDefinedLibrary starts
-			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap = new TIntObjectHashMap<TIntList>();
-			// UserDefinedLibrary ends
+				exonBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+				regulationBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+				allBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
 
+			// User Defined Library
+			if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+				originalElementTypeNumberElementNumber2KMap = null;
+				elementTypeNumberElementNumber2AllKMap = null;
+			}
+			
+			
 			// KEGG Pathway
-			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+			if (keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
+				
+				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+				
+				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
 
-			// Tf and KEGG Pathway Enrichment
-			TIntObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-			TIntObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+			}
+			
+			
+			// TF and KEGG Pathway Enrichment
+			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+				
+				//TF
+				originalTfbs2KMap = new TIntIntHashMap();
+				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+				
+				//KEGGPathway
+				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+				
+				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+		
+				//TF KEGGPathway
+				originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
 
-			// Tf and CellLine and KEGG Pathway Enrichment
-			TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-			TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-			TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+				tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+
+			}
+			
+			// TF and CellLine and KEGG Pathway Enrichment
+			if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				
+				//TF
+				originalTfbs2KMap = new TIntIntHashMap();
+				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+				
+				//KEGGPathway
+				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+				
+				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+		
+				//TF CellLine KEGGPathway
+				originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
+				originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
+				originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
+				
+				tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+				tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+				tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+				
+				
+			}
+			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
+			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
+			/***********************************************************************************************/
 			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS ENDS **************************/
 			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA ENDS ************/
 			/***********************************************************************************************/
