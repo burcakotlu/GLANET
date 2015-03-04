@@ -652,6 +652,12 @@ public class App {
 
 		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.WritePermutationBasedAnnotationResultMode))
 			return false;
+		
+		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode))
+			return false;
+		
+		if (!setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.WriteAnnotationBinaryMatrixMode))
+			return false;
 
 		return true;
 	}
