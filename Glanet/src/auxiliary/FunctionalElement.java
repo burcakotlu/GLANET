@@ -38,13 +38,12 @@ public class FunctionalElement implements Comparable<FunctionalElement> {
 	boolean rejectNullHypothesis;
 
 	// In case of Functional element contains a KEGG Pathway
-	int keggPathwayNumber; // 202
-	String keggPathwayEntry; // hsa04974
-	String keggPathwayName; // Protein digestion and absorption - Homo sapiens
-							// (human)
-	List<Integer> keggPathwayGeneIdList;
-	List<String> keggPathwayRefSeqGeneNameList;
-	List<String> keggPathwayAlternateGeneNameList;
+	int keggPathwayNumber; 		// 202
+	String keggPathwayEntry; 	// hsa04974
+	String keggPathwayName; 	// Protein digestion and absorption - Homo sapiens (human)
+	List<Integer> 	keggPathwayGeneIdList;
+	List<String> 	keggPathwayRefSeqGeneNameList;
+	List<String> 	keggPathwayAlternateGeneNameList;
 
 	public String getUserDefinedGeneSetDescription() {
 		return userDefinedGeneSetDescription;

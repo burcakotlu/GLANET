@@ -133,7 +133,9 @@ public class KeggPathwayAugmentation {
 
 	}
 
-	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(TIntObjectMap<String> keggPathwayNumber2KeggPathwayEntryMap, List<FunctionalElement> list) {
+	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(
+			TIntObjectMap<String> keggPathwayNumber2KeggPathwayEntryMap, 
+			List<FunctionalElement> list) {
 
 		int keggPathwayNumber;
 		String keggPathwayEntry;
@@ -150,7 +152,12 @@ public class KeggPathwayAugmentation {
 
 	// example hsa05016
 	// augment KeggPathwayEntry with KeggPathwayName
-	public static void augmentKeggPathwayEntrywithKeggPathwayName(String dataFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	public static void augmentKeggPathwayEntrywithKeggPathwayName(
+			String dataFolder, 
+			List<FunctionalElement> list1, 
+			List<FunctionalElement> list2, 
+			List<FunctionalElement> list3) {
+		
 		Map<String, String> entry2NameMap = new HashMap<String, String>();
 
 		String keggPathwayEntry;
@@ -186,7 +193,14 @@ public class KeggPathwayAugmentation {
 	// all lists start
 	// example: hsa05016
 	// augment KeggPathwayEntry with KeggPathwayGeneList
-	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder, String outputFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	// Why I have used three lists
+	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(
+			String dataFolder, 
+			String outputFolder, 
+			List<FunctionalElement> list1, 
+			List<FunctionalElement> list2, 
+			List<FunctionalElement> list3
+			) {
 
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 
@@ -202,9 +216,9 @@ public class KeggPathwayAugmentation {
 			allLists.add(list3);
 		}
 
-		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
-		Map<Integer, List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer, List<String>>();
-		Map<String, List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String, List<String>>();
+		Map<String, List<Integer>> 	keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
+		Map<Integer, List<String>> 	humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer, List<String>>();
+		Map<String, List<String>> 	humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String, List<String>>();
 
 		String keggPathwayEntry;
 		List<Integer> keggPathwayGeneIdList;
@@ -222,7 +236,7 @@ public class KeggPathwayAugmentation {
 
 				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
 
-				// Initialise the lists for each element
+				// Initialize the lists for each element
 				keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 				keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
