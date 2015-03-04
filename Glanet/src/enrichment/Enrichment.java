@@ -1491,6 +1491,7 @@ public class Enrichment {
 
 		/********************************************************************************************************/
 		/************************** USED FOR WRITING PERMUTATION BASED RESULTS **********************************/
+		/********************************************************************************************************/
 		// DNase
 		Map<Integer, BufferedWriter> permutationNumber2DnaseBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
 		
@@ -1526,6 +1527,7 @@ public class Enrichment {
 		Map<Integer, BufferedWriter> permutationNumber2TfCellLineExonBasedKeggPathwayBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
 		Map<Integer, BufferedWriter> permutationNumber2TfCellLineRegulationBasedKeggPathwayBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
 		Map<Integer, BufferedWriter> permutationNumber2TfCellLineAllBasedKeggPathwayBufferedWriterHashMap = new HashMap<Integer, BufferedWriter>();
+		/********************************************************************************************************/
 		/************************** USED FOR WRITING PERMUTATION BASED RESULTS **********************************/
 		/********************************************************************************************************/
 
@@ -2689,8 +2691,8 @@ public class Enrichment {
 
 			// User Defined Library
 			if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
-				originalElementTypeNumberElementNumber2KMap = null;
-				elementTypeNumberElementNumber2AllKMap = null;
+				originalElementTypeNumberElementNumber2KMap = new TIntIntHashMap();
+				elementTypeNumberElementNumber2AllKMap = new TIntObjectHashMap<TIntList>();
 			}
 			
 			

@@ -63,10 +63,10 @@ public class Commons {
 	public static final int P2_NUMBER_OF_BASES_PLUS_ONE = Commons.P2_NUMBER_OF_BASES + 1;
 	
 	//100 KB
-	//public static final int D_NUMBER_OF_BASES = 100000;
+	public static final int D_NUMBER_OF_BASES = 100000;
 	
 	//1000 KB = 1 MB
-	public static final int D_NUMBER_OF_BASES = 1000000;
+	//public static final int D_NUMBER_OF_BASES = 1000000;
 	
 
 	// dbSNP rs Prefix

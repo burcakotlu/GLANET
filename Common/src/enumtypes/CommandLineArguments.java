@@ -102,7 +102,7 @@ public enum CommandLineArguments {
 	DnaseAnnotation(11, Commons.DO_NOT_DNASE_ANNOTATION),
 	HistoneAnnotation(12, Commons.DO_NOT_HISTONE_ANNOTATION),
 	TfAnnotation(13, Commons.DO_NOT_TF_ANNOTATION),
-	GeneAnnotation(14,Commons.DO_NOT_GENE_ANNOTATION),
+	GeneAnnotation(14,Commons.DO_GENE_ANNOTATION),
 	KeggPathwayAnnotation(15, Commons.DO_NOT_KEGGPATHWAY_ANNOTATION),
 	TfAndKeggPathwayAnnotation(16, Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION),
 	CellLineBasedTfAndKeggPathwayAnnotation(17, Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION),
