@@ -4664,14 +4664,14 @@ public class IntervalTree {
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName, 
-			TIntByteMap geneAlternateNumber2OneorZeroMap, 
+			TIntByteMap entrezGeneID2OneorZeroMap, 
 			String type, 
 			int overlapDefinition, 
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		
-		int geneAlternateNumber;
+		int geneEntrezId;
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
@@ -4685,13 +4685,13 @@ public class IntervalTree {
 					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers) node;
 				}
 
-				geneAlternateNumber = castedNode.getGeneHugoSymbolNumber();
+				geneEntrezId = castedNode.getGeneEntrezId();
 
 				try {
 					
 
-					if (!geneAlternateNumber2OneorZeroMap.containsKey(geneAlternateNumber)) {
-						geneAlternateNumber2OneorZeroMap.put(geneAlternateNumber, Commons.BYTE_1);
+					if (!entrezGeneID2OneorZeroMap.containsKey(geneEntrezId)) {
+						entrezGeneID2OneorZeroMap.put(geneEntrezId, Commons.BYTE_1);
 					}
 
 					/*******************************************************************************/
@@ -4932,11 +4932,11 @@ public class IntervalTree {
 		} // End of If: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,bufferedWriter, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getLeft(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,bufferedWriter, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getLeft(), interval, chromName, entrezGeneID2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,bufferedWriter, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getRight(), interval, chromName, geneAlternateNumber2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,bufferedWriter, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getRight(), interval, chromName, entrezGeneID2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
 		}
 	}
