@@ -1357,7 +1357,7 @@ public class Annotation {
 					}
 				}/* End of For */
 
-			}
+			}//End of while
 		} catch (NumberFormatException e) {
 
 			logger.error(e.toString());
@@ -6617,47 +6617,8 @@ public class Annotation {
 		/*************** FILL NAME 2 NUMBER MAPS*****ends *******/
 		/********************************************************/
 		
-		
-		
-		// This dnaseCellLineNumber2KMap hash map will contain the dnase cell
-		// line name to number of dnase cell line:k for the given search input
-		// size:n
-		// DNASE
-		TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
-
-		// Histone
-		TIntIntMap histoneNumberCellLineNumber2KMap = new TIntIntHashMap();
-
-		// TF
-		TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-
-		// Hg19 RefSeq Genes
-		// For Encode Collaboration Chen Yao Paper
-		TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
-
-		// UserDefinedGeneSet
-		TShortIntMap exonBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-		TShortIntMap regulationBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-		TShortIntMap allBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-
-		// KEGGPathway
-		TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-		KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, keggPathwayName2NumberMap, geneId2ListofKeggPathwayNumberMap);
-
-		TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
-		TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
-		TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
-
-		// TF KEGGPathway
-		TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-		TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-		TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-		// TF CellLine KEGGPathway
-		TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
-		TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-		TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
+	
+	
 		// if you want to see the current year and day etc. change the line of
 		// code below with:
 		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -6676,6 +6637,10 @@ public class Annotation {
 		/************ DNASE**ANNOTATION****starts **************************************/
 		/*******************************************************************************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
+			
+			// DNASE
+			TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
+
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
@@ -6691,6 +6656,8 @@ public class Annotation {
 			GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			dnaseCellLineNumber2KMap = null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -6709,6 +6676,9 @@ public class Annotation {
 		/************ HISTONE****ANNOTATION***starts ***********************************/
 		/*******************************************************************************/
 		if (histoneAnnotationType.doHistoneAnnotation()) {
+			
+			// Histone
+			TIntIntMap histoneNumberCellLineNumber2KMap = new TIntIntHashMap();
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based Histone annotation starts: " + new Date());
@@ -6723,6 +6693,8 @@ public class Annotation {
 			GlanetRunner.appendLog("CellLine Based Histone annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			histoneNumberCellLineNumber2KMap = null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -6741,6 +6713,10 @@ public class Annotation {
 		if (tfAnnotationType.doTFAnnotation() && 
 				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			
+			// TF
+			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
@@ -6755,6 +6731,8 @@ public class Annotation {
 			GlanetRunner.appendLog("CellLine Based TF annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			tfNumberCellLineNumber2KMap = null;
+			
 			System.gc();
 			System.runFinalization();
 		}
@@ -6770,6 +6748,11 @@ public class Annotation {
 		/***************** This has been coded for Chen Yao ****************************/
 		/*******************************************************************************/
 		if (geneAnnotationType.doGeneAnnotation()){
+			
+			// Hg19 RefSeq Genes
+			// For Encode Collaboration Chen Yao Paper
+			TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+
 			
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
@@ -6798,6 +6781,9 @@ public class Annotation {
 			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			
+			entrezGeneId2KMap = null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -6816,6 +6802,19 @@ public class Annotation {
 		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
 				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			
+			// KEGGPathway
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+					dataFolder,
+					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+					keggPathwayName2NumberMap, 
+					geneId2ListofKeggPathwayNumberMap);
+
+			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());
@@ -6834,6 +6833,11 @@ public class Annotation {
 			GlanetRunner.appendLog("KEGG Pathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			
+			exonBasedKeggPathway2KMap = null;
+			regulationBasedKeggPathway2KMap = null;
+			allBasedKeggPathway2KMap = null;
+
 			System.gc();
 			System.runFinalization();
 
@@ -6848,6 +6852,12 @@ public class Annotation {
 		/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
 		/*******************************************************************************/
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
+			
+			// UserDefinedGeneSet
+			TShortIntMap exonBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
+			TShortIntMap regulationBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
+			TShortIntMap allBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
+
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("User Defined GeneSet annotation starts: " + new Date());
@@ -6880,6 +6890,11 @@ public class Annotation {
 
 			GlanetRunner.appendLog("User Defined GeneSet annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
+
+			
+			exonBasedUserDefinedGeneSet2KMap = null;
+			regulationBasedUserDefinedGeneSet2KMap = null;
+			allBasedUserDefinedGeneSet2KMap = null;
 
 			System.gc();
 			System.runFinalization();
@@ -6949,6 +6964,15 @@ public class Annotation {
 			GlanetRunner.appendLog("User Defined Library annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			userDefinedLibraryElementType2ElementTypeNumberMap = null;
+			userDefinedLibraryElementTypeNumber2ElementTypeMap = null;
+			
+			elementTypeNumber2ElementName2ElementNumberMapMap = null;
+			elementTypeNumber2ElementNumber2ElementNameMapMap = null;
+			
+			userDefinedLibraryFileName2FileNumberMap = null;
+			userDefinedLibraryFileNumber2FileNameMap = null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -6964,6 +6988,28 @@ public class Annotation {
 		/*******************************************************************************/
 		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			
+			// KEGGPathway
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+					dataFolder,
+					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+					keggPathwayName2NumberMap, 
+					geneId2ListofKeggPathwayNumberMap);
+			
+			//TF
+			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+			
+			//KEGG Pathway
+			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+			
+			//TF KEGGPathway
+			TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
@@ -6990,6 +7036,23 @@ public class Annotation {
 			GlanetRunner.appendLog("TF KEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			//null
+			//TF
+			tfNumberCellLineNumber2KMap = null;
+			
+			//KEGG Pathway
+			exonBasedKeggPathway2KMap = null;
+			regulationBasedKeggPathway2KMap = null;
+			allBasedKeggPathway2KMap = null;
+			
+			//TF KEGG Pathway
+			tfExonBasedKeggPathway2KMap = null;
+			tfRegulationBasedKeggPathway2KMap = null;
+			tfAllBasedKeggPathway2KMap = null;
+
+			geneId2ListofKeggPathwayNumberMap = null;
+
+			
 			System.gc();
 			System.runFinalization();
 
@@ -7005,6 +7068,27 @@ public class Annotation {
 		/*******************************************************************************/
 		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
 				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
+			
+			// KEGGPathway
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+					dataFolder,
+					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+					keggPathwayName2NumberMap, 
+					geneId2ListofKeggPathwayNumberMap);
+			
+			//TF
+			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+			
+			//KEGG Pathway
+			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+			
+			// TF CellLine KEGGPathway
+			TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
@@ -7031,6 +7115,22 @@ public class Annotation {
 			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
+			//null
+			//TF
+			tfNumberCellLineNumber2KMap = null;
+			
+			//KEGG Pathway
+			exonBasedKeggPathway2KMap = null;
+			regulationBasedKeggPathway2KMap = null;
+			allBasedKeggPathway2KMap = null;
+			
+			//TF CellLine KEGGPathway
+			tfCellLineExonBasedKeggPathway2KMap = null;
+			tfCellLineRegulationBasedKeggPathway2KMap = null;
+			tfCellLineAllBasedKeggPathway2KMap = null;
+
+			geneId2ListofKeggPathwayNumberMap= null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -7051,6 +7151,32 @@ public class Annotation {
 		/*********************************************************************************/
 		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+			
+			// KEGGPathway
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+					dataFolder,
+					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+					keggPathwayName2NumberMap, 
+					geneId2ListofKeggPathwayNumberMap);
+			
+			//TF
+			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+			
+			//KEGG Pathway
+			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+			
+			//TF KEGGPathway
+			TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
+			// TF CellLine KEGGPathway
+			TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+			TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
 
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + new Date());
@@ -7082,6 +7208,27 @@ public class Annotation {
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
 			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
+			
+			//null
+			//TF
+			tfNumberCellLineNumber2KMap = null;
+			
+			//KEGG Pathway
+			exonBasedKeggPathway2KMap = null;
+			regulationBasedKeggPathway2KMap = null;
+			allBasedKeggPathway2KMap = null;
+
+			// TF KEGGPathway
+			tfExonBasedKeggPathway2KMap = null;
+			tfRegulationBasedKeggPathway2KMap = null;
+			tfAllBasedKeggPathway2KMap = null;
+
+			// TF CellLine KEGGPathway
+			tfCellLineExonBasedKeggPathway2KMap = null;
+			tfCellLineRegulationBasedKeggPathway2KMap = null;
+			tfCellLineAllBasedKeggPathway2KMap = null;
+
+			geneId2ListofKeggPathwayNumberMap = null;
 
 			System.gc();
 			System.runFinalization();
