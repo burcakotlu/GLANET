@@ -5,8 +5,12 @@ public class Commons {
 	//Heap Size 
 	public static final int MIN_HEAP_FOR_GLANET = 6500;
 	
-
-	// Main Folders
+	//Number of processors
+	public static final int NUMBER_OF_AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+	public static final int NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
+	public static final int NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
+	
+	//Main Folders
 	public static final String ANNOTATION = "Annotation";
 	public static final String ANNOTATION_FOR_PERMUTATIONS = "AnnotationForPermutations";
 	public static final String GIVENINPUTDATA = "GivenInputData";
@@ -629,7 +633,13 @@ public class Commons {
 	public static final String ALL_TFBS_MAPABILITY_FILES_DIRECTORY = "Doktora" + System.getProperty("file.separator") + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") + "FunctionalElementFileBased" + System.getProperty("file.separator") + "Tfbs" + System.getProperty("file.separator") + "Mapability" + System.getProperty("file.separator");
 	public static final String ALL_HISTONE_MAPABILITY_FILES_DIRECTORY = "Doktora" + System.getProperty("file.separator") + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") + "FunctionalElementFileBased" + System.getProperty("file.separator") + "Histone" + System.getProperty("file.separator") + "Mapability" + System.getProperty("file.separator");
 
+	
+	
 	// MAPABILITY
+	public static final short  SHORT_0 = (short) 0;
+	
+	public static final String MAPABILITY_HG19_FILE_END = "_hg19_mapability.txt";
+	
 	public static final String WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG = "MAPABILITY" + System.getProperty("file.separator") + "wgEncodeCrgMapabilityAlign100mer.wig";
 	public static final String WG_ENCODE_CRG_MAPABILITY_ALIGN_50_MER_WIG = "MAPABILITY" + System.getProperty("file.separator") + "wgEncodeCrgMapabilityAlign50mer.wig";
 	public static final String MAPABILITY_HG19_CHR1_FILE = "MAPABILITY" + System.getProperty("file.separator") + "chr1_hg19_mapability.txt";
@@ -657,7 +667,11 @@ public class Commons {
 	public static final String MAPABILITY_HG19_CHRX_FILE = "MAPABILITY" + System.getProperty("file.separator") + "chrX_hg19_mapability.txt";
 	public static final String MAPABILITY_HG19_CHRY_FILE = "MAPABILITY" + System.getProperty("file.separator") + "chrY_hg19_mapability.txt";
 
+	
+	
 	// GC
+	public static final String GC_FILE_END = ".fa";
+	
 	public static final String GC_HG19_CHR1_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr1.fa";
 	public static final String GC_HG19_CHR2_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr2.fa";
 	public static final String GC_HG19_CHR3_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr3.fa";

@@ -53,12 +53,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 
@@ -68,8 +71,12 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
+import auxiliary.Accumulation;
 import auxiliary.FileOperations;
+import auxiliary.NumberofComparisons;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -92,6 +99,165 @@ import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 public class Annotation {
 
 	final static Logger logger = Logger.getLogger(Annotation.class);
+	
+	//Write a class such that it can be called from Annotation and Enrichment
+	//Annotate Original Given Data and --> Annotation 
+	//Annotate Randomly Generated Data --> Enrichment
+	static class FindOverlaps extends RecursiveTask<int[]> {
+
+
+		private static final long serialVersionUID = 4766480987562900233L;
+		
+		private String outputFolder;
+		private ChromosomeName chromName;
+		private List<Interval> data;
+		private WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode;
+		
+		private int lowTaskIndex;
+		private int highTaskIndex;
+		
+		private int overlapDefinition;
+		private IntervalTree intervalTree;
+		private int numberofComparisonsDnase;
+		
+		
+		private TShortObjectMap<String> cellLineNumber2CellLineNameMap;
+		private TShortObjectMap<String> fileNumber2FileNameMap;
+		
+		
+		public FindOverlaps(
+				String outputFolder, 
+				ChromosomeName chromName, 
+				List<Interval> data, 
+				WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+				int lowTaskIndex,
+				int highTaskIndex,
+				int overlapDefinition,
+				IntervalTree intervalTree,
+				int numberofComparisonsDnase,
+				TShortObjectMap<String> cellLineNumber2CellLineNameMap,
+				TShortObjectMap<String> fileNumber2FileNameMap) {
+
+			this.outputFolder = outputFolder;
+			this.chromName = chromName;
+			this.data = data;
+			
+			this.writeElementBasedAnnotationFoundOverlapsMode = writeElementBasedAnnotationFoundOverlapsMode;
+			
+			this.lowTaskIndex = lowTaskIndex;
+			this.highTaskIndex = highTaskIndex;
+
+			this.overlapDefinition = overlapDefinition;
+			this.intervalTree = intervalTree;
+			
+			this.numberofComparisonsDnase = numberofComparisonsDnase;
+			
+			
+			this.cellLineNumber2CellLineNameMap = cellLineNumber2CellLineNameMap;
+			this.fileNumber2FileNameMap = fileNumber2FileNameMap;
+
+		
+		}
+
+		@Override
+		protected int[] compute() {
+
+			int middleTaskIndex;
+			
+			int[] leftKArray = null;
+			int[]  rightKArray = null;
+			int[]  kArray = null; 
+		
+			
+			Interval interval;
+			
+			int NUMBER_OF_FIND_OVERLAPS_DONE_SEQUENTIALLY_BY_EACH_PROCESS = data.size() / Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
+			
+			
+			if(NUMBER_OF_FIND_OVERLAPS_DONE_SEQUENTIALLY_BY_EACH_PROCESS == 0){
+				NUMBER_OF_FIND_OVERLAPS_DONE_SEQUENTIALLY_BY_EACH_PROCESS = 8;
+			}
+			
+			// DIVIDE
+			if (highTaskIndex - lowTaskIndex > NUMBER_OF_FIND_OVERLAPS_DONE_SEQUENTIALLY_BY_EACH_PROCESS) {
+				middleTaskIndex = lowTaskIndex + (highTaskIndex - lowTaskIndex) / 2;
+				FindOverlaps left = new FindOverlaps(outputFolder,chromName, data, writeElementBasedAnnotationFoundOverlapsMode, lowTaskIndex, middleTaskIndex, overlapDefinition,intervalTree,numberofComparisonsDnase,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
+				
+				//logger.info("Find Overlaps Left" + "\t" + "lowTaskIndex:" + "\t" + lowTaskIndex + "\t" + "middleTaskIndex:" +  "\t" + middleTaskIndex); 
+				
+				FindOverlaps right = new FindOverlaps(outputFolder,chromName, data, writeElementBasedAnnotationFoundOverlapsMode, middleTaskIndex, highTaskIndex, overlapDefinition,intervalTree,numberofComparisonsDnase,cellLineNumber2CellLineNameMap,fileNumber2FileNameMap);
+				
+				//logger.info("Find Overlaps Right" + "\t" + "middleTaskIndex:" + "\t" + middleTaskIndex + "\t" + "highTaskIndex:" +  "\t" + highTaskIndex); 
+				
+				left.fork();
+				rightKArray = right.compute();
+				leftKArray = left.join();
+
+				// Add the contents of leftMap into the rightMap
+				accumulate(leftKArray, rightKArray);
+
+				leftKArray = null;
+				return rightKArray;
+			}
+			// CONQUER
+			else {
+
+				kArray = new  int[numberofComparisonsDnase];
+
+				//logger.info(chromName.convertEnumtoString() + "\t" + "Before " + "\t" + "lowTaskIndex" + "\t"+ lowTaskIndex + "\t" +  "highTaskIndex" + "\t"+ highTaskIndex + "\t" + "elementNumber2KMap.size()" + "\t" +   elementNumber2KMap.size());
+				
+				for (int i = lowTaskIndex; i < highTaskIndex; i++) {
+					
+					interval = data.get(i);
+					
+					//logger.info(chromName.convertEnumtoString() + "\t"  + "Interval Index:" + i);
+
+					int[] oneOrZeroArray = new int[numberofComparisonsDnase]; 
+
+					
+					if (intervalTree.getRoot().getNodeName().isNotSentinel()) {
+						
+						intervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
+								outputFolder, 
+								writeElementBasedAnnotationFoundOverlapsMode,
+								intervalTree.getRoot(), 
+								interval, 
+								chromName,
+								oneOrZeroArray, 
+								overlapDefinition, 
+								cellLineNumber2CellLineNameMap, 
+								fileNumber2FileNameMap);
+					}
+					
+					//logger.info(chromName.convertEnumtoString() + "\t"  + "Interval Index:" + i + "\t" + "elementNumber2OneorZeroMap.size()" + "\t" +elementNumber2OneorZeroMap.size());
+
+					accumulate(oneOrZeroArray, kArray);
+					
+					
+					oneOrZeroArray = null;
+					
+				}// End of FOR
+				
+				//logger.info(chromName.convertEnumtoString() + "\t" + "After " + "\t" + "lowTaskIndex" + "\t"+ lowTaskIndex + "\t" +  "highTaskIndex" + "\t" + highTaskIndex +  "\t" + "elementNumber2KMap.size()"+ "\t"+   elementNumber2KMap.size());
+				
+
+				return kArray;
+			}
+
+			
+		}//End of Compute method
+		
+		// Add the content of leftArray to rightArray
+		// Clear(removed) and null leftMap
+		protected void accumulate(int[] leftArray, int[] rightArray) {
+			
+			Arrays.setAll(rightArray, i -> leftArray[i] + rightArray[i]);
+
+		}
+		
+		
+	}
+
 
 	// Empirical P value Calculation
 	// For Thread Version for
@@ -4910,6 +5076,64 @@ public class Annotation {
 	// with Numbers End
 	// @todo
 
+	//yeni starts
+	// DNASE Annotation
+	// KEGG Pathway Annotation
+	public void writeResultsWithNumbers(
+			int[] kArray,
+			TShortObjectMap<String> number2NameMap, 
+			String outputFolder, 
+			String outputFileName) {
+
+		BufferedWriter bufferedWriter;
+		String elementName;
+		
+		
+		List<Element> elementList = null;
+		
+		Element element = null;
+		int elementNumber;
+		int numberofOverlaps;
+		
+		elementList = transformMapToCollection(kArray);	
+		
+		Collections.sort(elementList, Element.NUMBER_OF_OVERLAPS);
+		
+		try {
+
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
+
+			// header line
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+
+			
+			//Write sorted elementList
+			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
+				
+				element = it.next();
+				
+				elementNumber = element.getElementIntNumber();
+				
+				elementName = number2NameMap.get((short)elementNumber);
+				
+				numberofOverlaps = element.getElementNumberofOverlaps();
+				
+				bufferedWriter.write(elementName + "\t" + numberofOverlaps + System.getProperty("line.separator"));			
+				
+			}//End of For
+			
+
+			//Close BufferedWriter
+			bufferedWriter.close();
+
+		} catch (IOException e) {
+			logger.error(e.toString());
+		}
+
+	}
+	//yeni ends
+	
+	
 	// DNASE Annotation
 	// KEGG Pathway Annotation
 	public void writeResultsWithNumbers(
@@ -4972,6 +5196,29 @@ public class Annotation {
 	}
 
 	// @todo ends
+	
+	//yeni starts
+	public List<Element> transformMapToCollection(int[] kArray){
+		
+		int key;
+		int value;
+		
+		List<Element> elementList = new ArrayList<Element>();
+		Element element = null;
+		
+		for(int i = 0; i<kArray.length; i++){
+			key = i+1;
+			value = kArray[i];
+			
+			element = new Element(key,value);
+			elementList.add(element);
+		}
+		
+
+		
+		return elementList;
+	}
+	//yeni ends
 	
 	public List<Element> transformMapToCollection(TIntIntMap number2KMap){
 		
@@ -5369,41 +5616,49 @@ public class Annotation {
 
 	// Annotation
 	// with Numbers
-	public void searchDnaseWithNumbers(
+	public int[] searchDnaseWithNumbers(
 			String dataFolder, 
 			String outputFolder, 
-			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			TShortIntMap dnaseCellLineNumber2KMap, 
+			ChromosomeName chromName,
+			List<Interval> dataArrayList,
 			int overlapDefinition, 
+			IntervalTree dnaseIntervalTree,
+			int numberofComparisonsDnase,
 			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TShortObjectMap<String> fileNumber2FileNameMap) {
+			TShortObjectMap<String> fileNumber2FileNameMap,
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			ForkJoinPool pool) {
 
-		BufferedReader bufferedReader = null;
+		
+		FindOverlaps findOverlaps;
+		int[] kArray = new int[numberofComparisonsDnase];
 
-		IntervalTree dnaseIntervalTree;
+		
+		findOverlaps = new FindOverlaps(outputFolder,
+					chromName, 
+					dataArrayList,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					Commons.ZERO, 
+					dataArrayList.size(),
+					overlapDefinition,
+					dnaseIntervalTree, 
+					numberofComparisonsDnase,
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap);
+		
+			
+		kArray = pool.invoke(findOverlaps);
+			
+		//logger.info(chromName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size() after FindOverlaps call" + "\t" + dnaseCellLineNumber2KMap.size() );
+		
+		System.gc();
+		System.runFinalization();
+		
+		return kArray;
 
-		// For each ChromosomeName
-		for (ChromosomeName chrName : ChromosomeName.values()) {
+		
 
-			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2KMap,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(dnaseIntervalTree.getRoot());
-			dnaseIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try {
-				// close bufferedReader
-				bufferedReader.close();
-			} catch (IOException e) {
-
-				logger.error(e.toString());
-			}
-
-		}// End of for each chromosomeName
-
+	
 	}
 
 	// For Chen Yao
@@ -6240,6 +6495,51 @@ public class Annotation {
 		}
 
 	}
+	
+	
+	public static void readDataIntoArray(BufferedReader bufferedReader, List<Interval> dataArrayList){
+		
+		String strLine;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int low;
+		int high;
+		
+		
+		
+		try {
+			
+			while((strLine = bufferedReader.readLine())!=null) {
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = (indexofFirstTab>=0) ? strLine.indexOf('\t', indexofFirstTab + 1) : -1;
+
+			
+				// indexofSecondTab must be greater than zero if it exists since
+				// indexofFirstTab must exists and can be at least zero
+				// therefore indexofSecondTab can be at least one.
+				if (indexofSecondTab > 0){
+					low = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+					high = Integer.parseInt(strLine.substring(indexofSecondTab + 1));
+				}
+				
+				else{
+					low = Integer.parseInt(strLine.substring(indexofFirstTab + 1));
+					high = low;
+				}
+					
+
+				Interval interval = new Interval(low, high);
+				dataArrayList.add(interval);
+				
+			}//End of while
+			
+		} catch (IOException e) {
+			logger.error(e.toString());
+		}
+		
+	}
+	
 
 	// //Empirical P Value Calculation
 	// //args[0] must have input file name with folder
@@ -6489,7 +6789,7 @@ public class Annotation {
 		
 		WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteElementBasedAnnotationFoundOverlapsMode.convertStringtoEnum(args[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()]);
 		
-		
+	
 		
 		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
@@ -6623,49 +6923,146 @@ public class Annotation {
 		// code below with:
 		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		long dateBefore;
-		long dateAfter;
+		long dateBefore = Long.MIN_VALUE;
+		long dateAfter = Long.MIN_VALUE;
 		// Not needed
 		// Instant
 		// dnaseStart,histoneStart,transcriptionFactorStart,KEGGPathwayStart,tfKEGGPathwayStart,tfCellLineKEGGPathwayStart,tfCellLineKEGGPathway_and_TFKEGGPathwayStart;
 		// Instant
 		// dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
 
+		/**************************************************************************************/
+		/********************Concurrent Programming Initizalization starts*********************/
+		/**************************************************************************************/
+		ForkJoinPool pool = new ForkJoinPool(Commons.NUMBER_OF_AVAILABLE_PROCESSORS);
+		
+		int[] allChromosomesDnaseCellLineKArray = null;
+		int numberofComparisonsDnase = 0;
+		
+		int[] allChromosomesTFCellLineKEGGPathwayKArray = null;
+		int numberofComparisonsTFCellLineKEGGPathway = 0;
 		
 		
-		/*******************************************************************************/
-		/************ DNASE**ANNOTATION****starts **************************************/
-		/*******************************************************************************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 			
-			// DNASE
-			TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
-
-
 			GlanetRunner.appendLog("**********************************************************");
 			GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
 			dateBefore = System.currentTimeMillis();
+			
+			numberofComparisonsDnase = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType);
+		
+			allChromosomesDnaseCellLineKArray = new int[numberofComparisonsDnase];
+			
+		}
+		
+		
+		if(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+			
+			GlanetRunner.appendLog("**********************************************************");
+			GlanetRunner.appendLog("CellLine Based TF KEGG Pathway annotation starts: " + new Date());
+			dateBefore = System.currentTimeMillis();
+			
+			numberofComparisonsTFCellLineKEGGPathway = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,tfCellLineKeggPathwayAnnotationType);
+		
+			
+			allChromosomesTFCellLineKEGGPathwayKArray = new int[numberofComparisonsTFCellLineKEGGPathway];
+		}
+		/**************************************************************************************/
+		/********************Concurrent Programming Initizalization ends***********************/
+		/**************************************************************************************/
+			
+			
 
-			searchDnaseWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,dnaseCellLineNumber2KMap, overlapDefinition, dnaseCellLineNumber2NameMap, fileNumber2NameMap);
-			writeResultsWithNumbers(dnaseCellLineNumber2KMap, dnaseCellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+		// For each ChromosomeName
+		for (ChromosomeName chrName : ChromosomeName.values()) {
+			
+			
+			List<Interval> dataArrayList =new ArrayList<Interval>();
+			BufferedReader bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+			
+		
+			readDataIntoArray(bufferedReader,dataArrayList);
+			
+			
+			/*******************************************************************************/
+			/************ DNASE**ANNOTATION****starts **************************************/
+			/*******************************************************************************/
+			if (dnaseAnnotationType.doDnaseAnnotation()) {
+				
+				// DNASE
+				int[] dnaseCellLineKArray = null;
+				IntervalTree dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
+			
+
+			
+				//logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" + dataArrayList.size());
+				
+				dnaseCellLineKArray = searchDnaseWithNumbers(
+						dataFolder,
+						outputFolder,
+						chrName,
+						dataArrayList,
+						overlapDefinition,
+						dnaseIntervalTree,
+						numberofComparisonsDnase,
+						cellLineNumber2NameMap,
+						fileNumber2NameMap,
+						writeElementBasedAnnotationFoundOverlapsMode,
+						pool);
+						
+				
+				//logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" + "\t" + dnaseCellLineNumber2KMap.size());
+				
+				Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
+				
+			
+				dnaseCellLineKArray = null;
+				emptyIntervalTree(dnaseIntervalTree.getRoot());
+				dnaseIntervalTree = null;
+
+				System.gc();
+				System.runFinalization();
+
+				
+				
+
+			}
+			/*******************************************************************************/
+			/************ DNASE***ANNOTATION********ends ***********************************/
+			/*******************************************************************************/
+			
+		}//End of for each Chromosome
+
+			
+		
+		
+
+		/**************************************************************************************/
+		/********************Concurrent Programming Finalization starts************************/
+		/**************************************************************************************/
+		
+		pool.shutdown();
+		
+		if (dnaseAnnotationType.doDnaseAnnotation()) {
+			
+			writeResultsWithNumbers(allChromosomesDnaseCellLineKArray, dnaseCellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
 
 			dateAfter = System.currentTimeMillis();
-
 			GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
-
 			GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 			GlanetRunner.appendLog("**********************************************************");
 
-			dnaseCellLineNumber2KMap = null;
 			
+			allChromosomesDnaseCellLineKArray = null;
 			System.gc();
 			System.runFinalization();
 
+			
 		}
-		/*******************************************************************************/
-		/************ DNASE***ANNOTATION********ends ***********************************/
-		/*******************************************************************************/
-
+		/**************************************************************************************/
+		/********************Concurrent Programming Finalization ends**************************/
+		/**************************************************************************************/
+	
 		
 		
 		

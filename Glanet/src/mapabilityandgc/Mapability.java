@@ -8,6 +8,8 @@
  */
 package mapabilityandgc;
 
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
@@ -20,17 +22,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 
 import common.Commons;
 
-import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enrichment.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 
 public class Mapability {
+	
+	final static Logger logger = Logger.getLogger(Mapability.class);
+
 
 	static IntervalTree mapabilityIntervalTree;
 
@@ -261,21 +267,144 @@ public class Mapability {
 		givenInputLine.setMapability(accumulatedMapability);
 	}
 
-	public static void calculateMapabilityofIntervalUsingArray(InputLine givenInputLine, MapabilityFloatArray mapabilityDoubleArray) {
+	
+	public static float calculateMappability(int low, 
+											int startIndex,
+											int high, 
+											int endIndex,
+											TIntList mapabilityChromosomePositionList,
+											TShortList mapabilityShortValueList){
+		
+		float accumulatedMapability = 0;
+		
+		
+		//Interval is in the same block
+		if (startIndex == endIndex){
+			accumulatedMapability  = mapabilityShortValueList.get(startIndex);
+		}//End of IF
+
+		//Interval is scattered through several blocks
+		else if (startIndex!=endIndex){
+			
+			//Get the value for the first
+			accumulatedMapability = (mapabilityChromosomePositionList.get(startIndex+1) - low) * mapabilityShortValueList.get(startIndex);
+			
+			for(int i = startIndex+1; i<endIndex; i++) {
+				accumulatedMapability += (mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i)) * mapabilityShortValueList.get(i);
+				
+			}//End of for
+			
+			//Get the value for the last
+			accumulatedMapability += (high -mapabilityChromosomePositionList.get(endIndex)) * mapabilityShortValueList.get(endIndex);
+			
+			//Calculate Mapability Value
+			accumulatedMapability = accumulatedMapability / (high -low);
+		}//End of ELSE IF
+				
+		
+		return accumulatedMapability;
+	}
+	
+	public static void calculateMapabilityofIntervalUsingTroveList(
+			InputLine givenInputLine,
+			TIntList mapabilityChromosomePositionList,
+			TShortList mapabilityShortValueList) {
 
 		float accumulatedMapability = 0;
 
 		int low = givenInputLine.getLow();
 		int high = givenInputLine.getHigh();
 
-		int length = high - low + 1;
-
-		for (int i = low; i <= high; i++) {
-			accumulatedMapability = accumulatedMapability + mapabilityDoubleArray.getMapabilityArray()[i];
+		
+		//Find startIndex
+		int startIndex = mapabilityChromosomePositionList.binarySearch(low);
+		
+		//There is no exact match
+		if (startIndex<0){
+			//Means that there is no exact match
+			startIndex = -2-startIndex;
 		}
+			
+		
+		//Find endIndex
+		int endIndex = Integer.MIN_VALUE;
+		
+		if (high==low){
+			endIndex = startIndex;
+		}else if (high>low){
+			
+			endIndex = mapabilityChromosomePositionList.binarySearch(high);
+			
+//			//Find endIndex
+//			while (endIndex+1<mapabilityChromosomePositionList.size() &&
+//					high > mapabilityChromosomePositionList.get(endIndex+1)){
+//					endIndex++;
+//			}//End of While
 
-		accumulatedMapability = accumulatedMapability / length;
+			
+			//There is no exact match
+			if (endIndex<0){
+				//Means that there is no exact match
+				endIndex = -2-endIndex;
+			}
+		}
+		
+		
+		//case1: startIndex and endIndex are less than 0
+		if (startIndex <0 && endIndex < 0){
+			//Do nothing
+		}
+		//case2: startIndex is less than zero and endIndex is greater than or equal to 0
+		else if (startIndex<0 && 
+				endIndex>=0 &&
+				endIndex < mapabilityChromosomePositionList.size()){
+			
+			//Only Interval Case
+			startIndex = 0;
+			low = mapabilityChromosomePositionList.get(0);
+			accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityShortValueList);
+			
+		} 
+		//case3: Major Case
+		else if (startIndex >= 0 && 
+				endIndex >= 0 &&
+				startIndex < (mapabilityChromosomePositionList.size()-1) &&
+				endIndex < (mapabilityChromosomePositionList.size()-1) ){
+			
+			//SNP Case
+			if (high == low){
+				accumulatedMapability = mapabilityShortValueList.get(startIndex);
+			}
+			//Interval Case of length greater than 1
+			else if(high>low){
+				accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityShortValueList);	
+			}//End of ELSE IF Interval Case of length greater than 1
+			
+		}
+		//Case4
+		else if (startIndex >= 0 && 
+				endIndex >= 0 &&
+				startIndex < (mapabilityChromosomePositionList.size()-1) &&
+				endIndex == (mapabilityChromosomePositionList.size()-1) ){
+			
+			//Only Interval Case
+			high = mapabilityChromosomePositionList.get(endIndex);
+			accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityShortValueList);
+			
+		}
+		//Case5
+		else if (startIndex>=0 && 
+				endIndex >=0 &&
+				startIndex == (mapabilityChromosomePositionList.size()-1) &&
+				endIndex == (mapabilityChromosomePositionList.size()-1) ){
+			//Do Nothing
+		}
+		
 
+		//Scale Down accumulatedMapability by 10000
+		accumulatedMapability = accumulatedMapability/10000;
+		
+		//Set accumulatedMapability
 		givenInputLine.setMapability(accumulatedMapability);
 	}
 
@@ -311,7 +440,7 @@ public class Mapability {
 
 				// high is 1-based therefore it can be equal to chromSize
 				if (low >= chromSize || high > chromSize) {
-					GlanetRunner.appendLog("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
+					logger.error("Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
 				}
 
 				// High-1 is done here
@@ -456,12 +585,12 @@ public class Mapability {
 		ChromosomeName chromName = ChromosomeName.CHROMOSOME17;
 		int chromSize = hg19ChromosomeSizes.get(16);
 
-		GCCharArray gcCharArray = null;
-		MapabilityFloatArray mapabilityFloatArray = null;
+		//GCCharArray gcCharArray = null;
+		//MapabilityFloatArray mapabilityFloatArray = null;
 		IntervalTree mapabilityIntervalTree = null;
 
-		gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
-		mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
+		//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
+		//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 		mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(chromName, chromSize);
 
 		int low = 35100000;
@@ -471,7 +600,7 @@ public class Mapability {
 
 		Mapability.calculateMapabilityofInterval(inputLine, mapabilityIntervalTree);
 		GlanetRunner.appendLog("Using Interval Tree " + inputLine.getMapability());
-		Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
+		//Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
 		GlanetRunner.appendLog("Using Double Array: " + inputLine.getMapability());
 
 	}

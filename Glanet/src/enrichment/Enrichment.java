@@ -5,6 +5,38 @@
  */
 package enrichment;
 
+import enumtypes.AnnotationType;
+import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
+import enumtypes.GeneInformationType;
+import enumtypes.GenerateRandomDataMode;
+import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.WriteGeneratedRandomDataMode;
+import enumtypes.WritePermutationBasedAnnotationResultMode;
+import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
+import generate.randomdata.RandomDataGenerator;
+import gnu.trove.iterator.TIntIntIterator;
+import gnu.trove.iterator.TIntIterator;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TLongIntIterator;
+import gnu.trove.list.TByteList;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TByteArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TShortArrayList;
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TLongIntMap;
+import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.TObjectShortMap;
+import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TLongIntHashMap;
+import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.map.hash.TObjectShortHashMap;
+import gnu.trove.map.hash.TShortObjectHashMap;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 
@@ -24,7 +56,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
-import mapabilityandgc.ChromosomeBasedMapabilityArray;
+import mapabilityandgc.ChromosomeBasedGCTroveList;
+import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
 
 import org.apache.log4j.Logger;
 
@@ -37,36 +70,6 @@ import auxiliary.FunctionalElement;
 
 import common.Commons;
 
-import enumtypes.AnnotationType;
-import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
-import enumtypes.GeneInformationType;
-import enumtypes.GenerateRandomDataMode;
-import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
-import enumtypes.WriteGeneratedRandomDataMode;
-import enumtypes.WritePermutationBasedAnnotationResultMode;
-import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
-import generate.randomdata.RandomDataGenerator;
-import gnu.trove.iterator.TIntIntIterator;
-import gnu.trove.iterator.TIntIterator;
-import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.iterator.TLongIntIterator;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.TShortList;
-import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.map.TIntIntMap;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TLongIntMap;
-import gnu.trove.map.TLongObjectMap;
-import gnu.trove.map.TObjectShortMap;
-import gnu.trove.map.TShortObjectMap;
-import gnu.trove.map.hash.TIntIntHashMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
-import gnu.trove.map.hash.TLongIntHashMap;
-import gnu.trove.map.hash.TLongObjectHashMap;
-import gnu.trove.map.hash.TObjectShortHashMap;
-import gnu.trove.map.hash.TShortObjectHashMap;
-
 /**
  * Annotate Permutations With Numbers With Choices
  */
@@ -74,7 +77,7 @@ public class Enrichment {
 
 	final static Logger logger = Logger.getLogger(Enrichment.class);
 
-	static class GenerateRandomData extends RecursiveTask<Map<Integer, List<InputLine>>> {
+	static class GenerateRandomData extends RecursiveTask<TIntObjectMap<List<InputLine>>> {
 
 		/**
 		 * 
@@ -92,11 +95,28 @@ public class Enrichment {
 
 		private final List<AnnotationTask> listofAnnotationTasks;
 
-		private final GCCharArray gcCharArray;
-		private final MapabilityFloatArray mapabilityFloatArray;
+		private final GCCharArray gcCharArray; 
+		private final TByteList gcByteList;
+		
+		private final TIntList mapabilityChromosomePositionList;
+		private final TShortList mapabilityShortValueList;
+		
 		private final String outputFolder;
 
-		public GenerateRandomData(String outputFolder, int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, GenerateRandomDataMode generateRandomDataMode, WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, int lowIndex, int highIndex, List<AnnotationTask> listofAnnotationTasks, GCCharArray gcCharArray, MapabilityFloatArray mapabilityFloatArray) {
+		public GenerateRandomData(
+				String outputFolder, 
+				int chromSize, 
+				ChromosomeName chromName, 
+				List<InputLine> chromosomeBasedOriginalInputLines, 
+				GenerateRandomDataMode generateRandomDataMode, 
+				WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, 
+				int lowIndex, 
+				int highIndex, 
+				List<AnnotationTask> listofAnnotationTasks, 
+				GCCharArray gcCharArray,
+				TByteList gcByteList, 
+				TIntList mapabilityChromosomePositionList,
+				TShortList mapabilityShortValueList) {
 
 			this.outputFolder = outputFolder;
 
@@ -113,23 +133,27 @@ public class Enrichment {
 			this.listofAnnotationTasks = listofAnnotationTasks;
 
 			this.gcCharArray = gcCharArray;
-			this.mapabilityFloatArray = mapabilityFloatArray;
+			this.gcByteList = gcByteList;
+			
+			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
+			this.mapabilityShortValueList = mapabilityShortValueList;
+			
 		}
 
-		protected Map<Integer, List<InputLine>> compute() {
+		protected TIntObjectMap<List<InputLine>> compute() {
 
 			int middleIndex;
-			Map<Integer, List<InputLine>> rightRandomlyGeneratedData;
-			Map<Integer, List<InputLine>> leftRandomlyGeneratedData;
+			TIntObjectMap<List<InputLine>> rightRandomlyGeneratedData;
+			TIntObjectMap<List<InputLine>> leftRandomlyGeneratedData;
 
 			Integer permutationNumber;
 			AnnotationTask annotationTask;
 
 			// DIVIDE
-			if (highIndex - lowIndex > 8) {
+			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks, gcCharArray, mapabilityFloatArray);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks, gcCharArray, mapabilityFloatArray);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -144,7 +168,7 @@ public class Enrichment {
 			// CONQUER
 			else {
 
-				Map<Integer, List<InputLine>> randomlyGeneratedDataMap = new HashMap<Integer, List<InputLine>>();
+				TIntObjectMap<List<InputLine>> randomlyGeneratedDataMap = new TIntObjectHashMap<List<InputLine>>();
 
 				for (int i = lowIndex; i < highIndex; i++) {
 					annotationTask = listofAnnotationTasks.get(i);
@@ -158,7 +182,7 @@ public class Enrichment {
 					// + permutationNumber.toString() + "\t"
 					// +chromName.convertEnumtoString());
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray, mapabilityFloatArray, chromSize, chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -174,15 +198,20 @@ public class Enrichment {
 
 		// Add the content of leftMap to rightMap
 		// Clear and null leftMap
-		protected void mergeMaps(Map<Integer, List<InputLine>> rightRandomlyGeneratedDataMap, Map<Integer, List<InputLine>> leftRandomlyGeneratedDataMap) {
-
-			for (Map.Entry<Integer, List<InputLine>> entry : leftRandomlyGeneratedDataMap.entrySet()) {
-				Integer permutationNumber = entry.getKey();
-
+		protected void mergeMaps(TIntObjectMap<List<InputLine>> rightRandomlyGeneratedDataMap, TIntObjectMap<List<InputLine>> leftRandomlyGeneratedDataMap) {
+			
+			int permutationNumber;
+			
+			for(TIntObjectIterator<List<InputLine>> it= leftRandomlyGeneratedDataMap.iterator();it.hasNext();){
+				
+				it.advance();
+				
+				permutationNumber = it.key();
+				
 				if (!rightRandomlyGeneratedDataMap.containsKey(permutationNumber)) {
-					rightRandomlyGeneratedDataMap.put(permutationNumber, entry.getValue());
+					rightRandomlyGeneratedDataMap.put(permutationNumber,it.value());
 				}
-			}// End of for
+			}
 
 			leftRandomlyGeneratedDataMap.clear();
 			leftRandomlyGeneratedDataMap = null;
@@ -219,7 +248,7 @@ public class Enrichment {
 		private static final long serialVersionUID = 2919115895116169524L;
 		private final int chromSize;
 		private final ChromosomeName chromName;
-		private final Map<Integer, List<InputLine>> randomlyGeneratedDataMap;
+		private final TIntObjectMap<List<InputLine>> randomlyGeneratedDataMap;
 		private final int runNumber;
 		private final int numberofPermutations;
 
@@ -244,8 +273,7 @@ public class Enrichment {
 				String outputFolder, 
 				int chromSize, 
 				ChromosomeName chromName, 
-				Map<Integer, 
-				List<InputLine>> randomlyGeneratedDataMap, 
+				TIntObjectMap<List<InputLine>> randomlyGeneratedDataMap, 
 				int runNumber, 
 				int numberofPermutations, 
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode, 
@@ -307,7 +335,7 @@ public class Enrichment {
 			AllMapsWithNumbers allMapsWithNumbers;
 
 			// DIVIDE
-			if (highIndex - lowIndex > 9) {
+			if (highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
 				AnnotateWithNumbers left = new AnnotateWithNumbers(outputFolder, chromSize, chromName, randomlyGeneratedDataMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex, listofAnnotationTasks, intervalTree, ucscRefSeqGenesIntervalTree, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
 				AnnotateWithNumbers right = new AnnotateWithNumbers(outputFolder, chromSize, chromName, randomlyGeneratedDataMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex, listofAnnotationTasks, intervalTree, ucscRefSeqGenesIntervalTree, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
@@ -356,7 +384,7 @@ public class Enrichment {
 			}
 		}
 
-		// Accumulate the allMaps in the left into allMaps in the right
+		// Accumulate the allMaps in the left into listofAllMaps in the right
 		protected void combineListofAllMapsWithNumbers(List<AllMapsWithNumbers> listofAllMaps, AllMapsWithNumbers allMaps) {
 			for (int i = 0; i < listofAllMaps.size(); i++) {
 				combineLeftAllMapsandRightAllMaps(listofAllMaps.get(i), allMaps);
@@ -1413,7 +1441,7 @@ public class Enrichment {
 
 	// NEW FUNCIONALITY ADDED
 	// First Generate random data concurrently
-	// then annotate permutations concurrently
+	// Then annotate permutations concurrently
 	// the tasks are executed
 	// after all the parallel work is done
 	// results are written to files
@@ -1548,7 +1576,15 @@ public class Enrichment {
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
 		GCCharArray gcCharArray = null;
-		MapabilityFloatArray mapabilityFloatArray = null;
+		TByteList gcByteList = null;
+		
+		//MapabilityFloatArray mapabilityFloatArray = null;
+		
+		//I will use TIntArrayList
+		TIntList mapabilityChromosomePositionList = null;
+		TShortList mapabilityShortValueList = null;
+		
+		
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 
 		/******************************************************************************************************/
@@ -1569,7 +1605,7 @@ public class Enrichment {
 		ChromosomeName chromName;
 		int chromSize;
 		List<InputLine> chromosomeBaseOriginalInputLines;
-		Map<Integer, List<InputLine>> permutationNumber2RandomlyGeneratedDataHashMap = new HashMap<Integer, List<InputLine>>();
+		TIntObjectMap<List<InputLine>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<InputLine>>();
 
 		AnnotateWithNumbers annotateWithNumbers;
 		GenerateRandomData generateRandomData;
@@ -1580,7 +1616,8 @@ public class Enrichment {
 		GlanetRunner.appendLog("Run Number: " + runNumber);
 
 		/******************************************************************************************************/
-		/********************************* FOR EACH HG19 CHROMOSOME STARTS ***************************************/
+		/********************************* FOR EACH HG19 CHROMOSOME STARTS ************************************/
+		/******************************************************************************************************/
 		for (int i = 1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++) {
 
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
@@ -1595,7 +1632,11 @@ public class Enrichment {
 				listofAnnotationTasks = new ArrayList<AnnotationTask>();
 
 				gcCharArray = new GCCharArray();
-				mapabilityFloatArray = new MapabilityFloatArray();
+				
+				gcByteList = new TByteArrayList();
+				mapabilityChromosomePositionList = new TIntArrayList();
+				mapabilityShortValueList = new TShortArrayList();
+				
 
 				/********************************************************************************************************/
 				/****************************** GENERATE ANNOTATION TASKS STARTS ****************************************/
@@ -1609,8 +1650,19 @@ public class Enrichment {
 				/************************ FILL GCCHARARRAY AND MAPABILITYFLOATARRAY STARTS ******************************/
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
+					
+					//GC Old way
 					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
-					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
+					
+					//GC New Way
+					ChromosomeBasedGCTroveList.fillTroveArrayList(dataFolder,chromName,gcByteList);
+					
+					//Mapability Old Way
+					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
+					
+					//Mapability New Way
+					 ChromosomeBasedMappabilityTroveList.fillTroveArrayList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					 
 				}
 				/************************ FILL GCCHARARRAY AND MAPABILITYFLOATARRAY ENDS ********************************/
 				/********************************************************************************************************/
@@ -1621,8 +1673,11 @@ public class Enrichment {
 
 				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
 				// First generate Random Data
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, gcCharArray, mapabilityFloatArray);
+				
+				//todo
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
+				
 				GlanetRunner.appendLog("Generate Random Data for permutations has ended.");
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/
@@ -1632,15 +1687,21 @@ public class Enrichment {
 				// gcCharArray.setGcArray(null);
 				gcCharArray = null;
 				// mapabilityFloatArray.setMapabilityArray(null);
-				mapabilityFloatArray = null;
+				//mapabilityFloatArray = null;
+				
+				mapabilityChromosomePositionList = null;
+				mapabilityShortValueList = null;
 
 				System.gc();
 				System.runFinalization();
 				/***************************************** FREE MEMORY ENDS *******************************************/
 				/******************************************************************************************************/
 
-				/******************************************************************************************************/
+				
+				
+				/********************************************************************************************************/
 				/********************************** GENERATE ANNOTATION TASK FOR GIVEN ORIGINAL DATA STARTS *************/
+				/********************************************************************************************************/
 				// In each run
 				// generate one task for original data
 				// After Random Data Generation has been ended
@@ -1652,11 +1713,15 @@ public class Enrichment {
 				// Add the original data to
 				// permutationNumber2RandomlyGeneratedDataHashMap
 				permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER, chromosomeBaseOriginalInputLines);
+				/********************************************************************************************************/
 				/********************************** GENERATE ANNOTATION TASK FOR GIVEN ORIGINAL DATA ENDS ***************/
-				/******************************************************************************************************/
+				/********************************************************************************************************/
 
+				
+				
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
+				/********************************************************************************************************/
 				GlanetRunner.appendLog("Annotation of Permutations has started.");
 
 				if (dnaseAnnotationType.doDnaseAnnotation()) {
@@ -1689,7 +1754,9 @@ public class Enrichment {
 					System.runFinalization();
 				}
 
-				if ((tfAnnotationType.doTFAnnotation()) && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+				if ((tfAnnotationType.doTFAnnotation()) && 
+						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 					// tf
 					// generate tf interval tree
 					intervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
@@ -1851,7 +1918,8 @@ public class Enrichment {
 
 				}
 
-				if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+				if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 					tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
 					ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
@@ -1876,20 +1944,29 @@ public class Enrichment {
 				}
 
 				GlanetRunner.appendLog("Annotation of Permutations has ended.");
+				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
 				/********************************************************************************************************/
 
 				long endTime = System.currentTimeMillis();
 				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
 
+				
+				
+				
+				
 				/********************************************************************************************************/
 				/***************************** DELETION OF ANNOTATION TASKS STARTSS *************************************/
+				/********************************************************************************************************/
 				GlanetRunner.appendLog("Deletion of the annotation tasks has started.");
 				deleteAnnotationTasks(listofAnnotationTasks);
 				GlanetRunner.appendLog("Deletion of the annotation tasks has ended.");
+				/********************************************************************************************************/
 				/***************************** DELETION OF ANNOTATION TASKS ENDS ****************************************/
 				/********************************************************************************************************/
 
+				
+				
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
 				permutationNumber2RandomlyGeneratedDataHashMap = null;
 				listofAnnotationTasks = null;
@@ -1902,7 +1979,8 @@ public class Enrichment {
 		}// End of for: each chromosome
 		/******************************************************************************************************/
 		/********************************* FOR EACH G19 CHROMOSOME ENDS ***************************************/
-
+		/******************************************************************************************************/
+		
 		pool.shutdown();
 
 		if (pool.isTerminated()) {
@@ -2386,9 +2464,7 @@ public class Enrichment {
 
 		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
-		// Number of processors can be used in deciding on paralellism level
-		int NUMBER_OF_AVAILABLE_PROCESSORS = java.lang.Runtime.getRuntime().availableProcessors();
-
+		
 		// Set the number of total permutations
 		int numberofTotalPermutations = Integer.parseInt(args[CommandLineArguments.NumberOfPermutation.value()]);
 
@@ -2435,7 +2511,7 @@ public class Enrichment {
 		// performEnrichment is not used since GLANETRunner calls
 		// Enrichment.main() function in case of performEnrichment is DO_ENRICH
 		/*********************************************************************************/
-		/************************** USER DEFINED GENESET ***********************************/
+		/************************** USER DEFINED GENESET *********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
@@ -2444,17 +2520,17 @@ public class Enrichment {
 		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()]);
 
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
-		/************************** USER DEFINED GENESET ***********************************/
+		/************************** USER DEFINED GENESET *********************************/
 		/*********************************************************************************/
 
 		
 		
-		/*********************************************************************************/
+		/***********************************************************************************/
 		/************************** USER DEFINED LIBRARY ***********************************/
 		// User Defined Library Annotation, DO or DO_NOT
 		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 		/************************** USER DEFINED LIBRARY ***********************************/
-		/*********************************************************************************/
+		/***********************************************************************************/
 
 		writeJavaRunTimeMemoryInformation();
 
@@ -2462,7 +2538,7 @@ public class Enrichment {
 		// values
 		// Random random = new Random();
 
-		/*********************************************************************************************/
+		/***********************************************************************************************/
 		/************************** READ ORIGINAL INPUT LINES STARTS ***********************************/
 		// SET the Input Data File
 		String inputDataFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
@@ -2499,8 +2575,8 @@ public class Enrichment {
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder, userDefinedGeneSetInputFile, geneInformationType, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
 		}
-		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP ENDS *********************/
+		/**********************************************************************************************/
 
 		
 		
@@ -2777,16 +2853,14 @@ public class Enrichment {
 			/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
 			/***********************************************************************************************/
 			GlanetRunner.appendLog("Concurrent programming has started.");
-			// concurrent programming
-			// generate random data
-			// then annotate permutations concurrently
-			// elementName2AllKMap and originalElementName2KMap will be filled
-			// here
+			// Concurrent Programming
+			// First Generate Random Data
+			// Then Annotate Permutations (Random Data) concurrently
+			// elementName2AllKMap and originalElementName2KMap will be filled here
 			if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 			} else {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
-
+				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 			}
 			GlanetRunner.appendLog("Concurrent programming has ended.");
 			/**********************************************************************************************/

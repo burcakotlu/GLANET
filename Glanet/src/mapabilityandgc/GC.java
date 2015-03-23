@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 
 import common.Commons;
@@ -23,8 +25,11 @@ import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import gnu.trove.list.TByteList;
 
 public class GC {
+	
+	final static Logger logger = Logger.getLogger(GC.class);
 
 	static GCCharArray gcCharArray;
 
@@ -60,6 +65,141 @@ public class GC {
 
 		return gcContent;
 	}
+	
+	
+	//new starts
+	public static void calculateGCofIntervalUsingTroveList(InputLine givenInputLine, TByteList gcByteList) {
+		
+		//new gcByteList is 0-based
+		//old gcCharArray is 0-based
+		//GLANET uses 0-based coordinates
+		
+		//General Information
+		//One byte has 8 bits.
+		//Starting from index 0 to 7
+		//Bit at index 0 a dummy bit which is always 0
+				
+		//I have only used last seven bits of a byte
+		//Which guarantees a positive byte
+		//By taking mod w.r.t. 7 I got 0 to 6
+		//ith bit is in fact i+1 th bit of the byte
+		
+		//Now Let's look into gcByteList
+		//0th byte corresponds to 0..6 of old gcCharArray
+		//1th byte corresponds to 7..13 of old gcCharArray
+		//2th byte corresponds to 14..20 of old gcCharArray
+		//3th byte corresponds to 21..27 of old gcCharArray
+		//...
+		//nth byte of new gcByteList corresponds to n*7..n*7+6th chrachter of old gcCharArray
+		
+		
+		//Dividing 0-based chromosome position by 7 we got the corresponding byte in gcByteList
+		//Taking mod of 0-based chromosome position w.r.t. 7 we got the corresponding bit position within a byte.
+		//which is between 0 and 6. 
+		//ith position in fact i+1 th position of the byte 
+		
+		int zeroBasedStart = givenInputLine.getLow();
+		int zeroBasedEnd = givenInputLine.getHigh();
+		int length = givenInputLine.getLength();
+		
+		float gcContent = 0;
+		byte gcByte = 0x00;
+		int numberofRightShifts = 0;
+		
+		//Get the byte
+		int byteListStartByte = zeroBasedStart/7;
+		
+		//Get the bit
+		int byteListStartBit = zeroBasedStart%7;
+		
+		//Get the byte
+		int byteListEndByte = zeroBasedEnd/7;
+		
+		//Get the bit
+		int byteListEndBit = zeroBasedEnd%7;
+		
+		//Valid Input
+		if (byteListEndByte < gcByteList.size()) {
+			
+			//First Byte case
+			//start reading from starting Byte
+			gcByte= gcByteList.get(byteListStartByte);
+			
+			//SNP case
+			if (	byteListStartByte == byteListEndByte &&
+					byteListStartBit == byteListEndBit){
+				
+				numberofRightShifts = 6 - byteListStartBit;
+				gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
+				
+			}
+			//Interval Case In the Same Byte
+			else if (byteListStartByte == byteListEndByte &&
+					byteListStartBit != byteListEndBit){
+				
+				for(int i = byteListStartBit; i<=byteListEndBit; i++){
+					numberofRightShifts = 6 - i;
+					gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
+				}//End of for
+				 
+			}
+			//Interval Case At Least Two Bytes
+			else if(byteListStartByte != byteListEndByte){
+				
+				//First Byte
+				for(int i = byteListStartBit ; i<=6; i++){
+					numberofRightShifts = 6 - i;
+					gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
+				}
+				 
+				
+				//Middle Byte cases
+				//start reading from bit 1 to 7
+				for (int byteIndex= byteListStartByte+1; byteIndex<byteListEndByte; byteIndex++) {
+					
+					//get GC Byte
+					gcByte= gcByteList.get(byteIndex);
+					
+					//middle cases
+					//start reading from bit 1 to 7
+					for(int i = 0 ; i<=6; i++){
+						numberofRightShifts = 6 - i;
+						gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
+					}
+		
+				}//End of for
+				
+				
+				
+					
+				//Last Byte
+				//start reading from bit 1 to ending bit
+				gcByte= gcByteList.get(byteListEndByte);
+				
+				for(int i = 0 ; i<=byteListEndBit; i++){
+					numberofRightShifts = 6 - i;
+					gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
+				}
+					
+				
+				
+			}
+			
+			
+			
+			gcContent = gcContent / length;
+			
+			
+		}
+		//Not a valid input
+		else {
+			logger.error("input line's high exceeds hg19 chromsome size");
+		}
+
+		givenInputLine.setGcContent(gcContent);
+
+	}
+	//new ends
 
 	public static void calculateGCofInterval(InputLine givenInputLine, GCCharArray gcArray) {
 		int low = givenInputLine.getLow();

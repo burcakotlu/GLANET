@@ -8,6 +8,7 @@
  */
 package auxiliary;
 
+import enumtypes.AnnotationType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import userdefined.library.UserDefinedLibraryUtility;
-
 import common.Commons;
 
 public class NumberofComparisons {
@@ -205,6 +205,32 @@ public class NumberofComparisons {
 		this.geneNumberofComparison = geneNumberofComparison;
 	}
 
+	public static int getNumberofComparisonsforBonferroniCorrection(String dataFolder, AnnotationType annotationType) {
+		
+		switch(annotationType) {
+		
+			case DO_DNASE_ANNOTATION: 	TIntObjectMap<String> dnaseCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+										FileOperations.fillNumber2NameMap(dnaseCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+										return dnaseCellLineNumber2NameMap.size();
+			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION: 	
+										TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+										TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+				
+										FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+										FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+										
+										return keggPathwayNumber2NameMap.size()*tfCellLineNumber2NameMap.size();
+										
+			default: 				
+					break;					
+		
+		}//End of SWITCH
+		
+		
+		return 0;
+	}
+
+		
 	public static NumberofComparisons getNumberofComparisonsforBonferroniCorrection(String dataFolder) {
 
 		NumberofComparisons numberofComparisons = new NumberofComparisons();

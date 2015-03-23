@@ -16,18 +16,32 @@ import java.util.concurrent.ThreadLocalRandom;
 import mapabilityandgc.GC;
 import mapabilityandgc.Mapability;
 
-import common.Commons;
+import org.apache.log4j.Logger;
 
+import common.Commons;
 import enrichment.GCCharArray;
 import enrichment.InputLine;
-import enrichment.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
+import gnu.trove.list.TByteList;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
+	
+	final static Logger logger = Logger.getLogger(RandomDataGenerator.class);
 
-	// todo
-	public static List<InputLine> generateRandomData(GCCharArray gcCharArray, MapabilityFloatArray mapabilityDoubleArray, int chromSize, ChromosomeName chromName, List<InputLine> chromosomeBasedOriginalInputLines, ThreadLocalRandom threadLocalRandom, GenerateRandomDataMode generateRandomDataMode) {
+
+	public static List<InputLine> generateRandomData(
+			GCCharArray gcCharArray,
+			TByteList gcByteList, 
+			TIntList mapabilityChromosomePositionList,
+			TShortList mapabilityShortValueList,
+			int chromSize, 
+			ChromosomeName chromName, 
+			List<InputLine> chromosomeBasedOriginalInputLines, 
+			ThreadLocalRandom threadLocalRandom, 
+			GenerateRandomDataMode generateRandomDataMode) {
 
 		List<InputLine> randomlyGeneratedInputLines = null;
 
@@ -45,6 +59,9 @@ public class RandomDataGenerator {
 
 		int count;
 		int counterThreshold;
+		
+		float oldWayCalculatedGCContent = Float.MIN_VALUE;
+		float newWayCalculatedGCContent = Float.MIN_VALUE;
 
 		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()) {
 
@@ -78,9 +95,24 @@ public class RandomDataGenerator {
 
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
-
+				
+				
+				//GC Old way
 				GC.calculateGCofInterval(originalInputLine, gcCharArray);
-				Mapability.calculateMapabilityofIntervalUsingArray(originalInputLine, mapabilityDoubleArray);
+				oldWayCalculatedGCContent = originalInputLine.getGcContent();
+				
+				//GC New Way
+				GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
+				newWayCalculatedGCContent = originalInputLine.getGcContent();
+				
+				
+				//debug start
+				if (oldWayCalculatedGCContent!=newWayCalculatedGCContent){
+					System.out.println("STOP here" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh());
+				}
+				//debug end
+				
+				Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
 				length = originalInputLine.getLength();
 
 				// RANDOM INPUT DATA
@@ -92,10 +124,11 @@ public class RandomDataGenerator {
 
 				randomlyGeneratedLine = new InputLine(chromName, low, high);
 
-				GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
+				//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
+				GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 				differencebetweenGCs = GC.differenceofGCs(randomlyGeneratedLine, originalInputLine);
 
-				Mapability.calculateMapabilityofIntervalUsingArray(randomlyGeneratedLine, mapabilityDoubleArray);
+				Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 				differencebetweenMapabilities = Mapability.differenceofMapabilities(randomlyGeneratedLine, originalInputLine);
 
 				count = 0;
@@ -150,10 +183,12 @@ public class RandomDataGenerator {
 
 					randomlyGeneratedLine = new InputLine(chromName, low, high);
 
-					GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
+					//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
+					GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+					
 					differencebetweenGCs = GC.differenceofGCs(randomlyGeneratedLine, originalInputLine);
 
-					Mapability.calculateMapabilityofIntervalUsingArray(randomlyGeneratedLine, mapabilityDoubleArray);
+					Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 					differencebetweenMapabilities = Mapability.differenceofMapabilities(randomlyGeneratedLine, originalInputLine);
 
 				}// End of While
@@ -173,6 +208,9 @@ public class RandomDataGenerator {
 				}
 
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+				
+				
+				
 			}// End of for: each original input line
 
 			// bufferedWriter.close();
