@@ -57,6 +57,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedGCTroveList;
+import mapabilityandgc.ChromosomeBasedMapabilityArray;
 import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
 
 import org.apache.log4j.Logger;
@@ -98,6 +99,8 @@ public class Enrichment {
 		private final GCCharArray gcCharArray; 
 		private final TByteList gcByteList;
 		
+		
+		private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
 		private final TShortList mapabilityShortValueList;
 		
@@ -115,6 +118,7 @@ public class Enrichment {
 				List<AnnotationTask> listofAnnotationTasks, 
 				GCCharArray gcCharArray,
 				TByteList gcByteList, 
+				MapabilityFloatArray mapabilityFloatArray,
 				TIntList mapabilityChromosomePositionList,
 				TShortList mapabilityShortValueList) {
 
@@ -135,6 +139,8 @@ public class Enrichment {
 			this.gcCharArray = gcCharArray;
 			this.gcByteList = gcByteList;
 			
+			this.mapabilityFloatArray = mapabilityFloatArray;
+			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
 			this.mapabilityShortValueList = mapabilityShortValueList;
 			
@@ -152,8 +158,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks, gcCharArray,gcByteList,mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks, gcCharArray,gcByteList,mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -182,7 +188,7 @@ public class Enrichment {
 					// + permutationNumber.toString() + "\t"
 					// +chromName.convertEnumtoString());
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,gcByteList,mapabilityFloatArray,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1575,12 +1581,14 @@ public class Enrichment {
 		IntervalTree tfIntervalTree = null;
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
+		//After debug remove it 
 		GCCharArray gcCharArray = null;
+		//New
 		TByteList gcByteList = null;
 		
-		//MapabilityFloatArray mapabilityFloatArray = null;
-		
-		//I will use TIntArrayList
+		//After debug remove it 
+		MapabilityFloatArray mapabilityFloatArray = null;
+		//New
 		TIntList mapabilityChromosomePositionList = null;
 		TShortList mapabilityShortValueList = null;
 		
@@ -1653,13 +1661,11 @@ public class Enrichment {
 					
 					//GC Old way
 					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
-					
 					//GC New Way
 					ChromosomeBasedGCTroveList.fillTroveArrayList(dataFolder,chromName,gcByteList);
 					
 					//Mapability Old Way
-					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
-					
+					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
 					 ChromosomeBasedMappabilityTroveList.fillTroveArrayList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
@@ -1675,7 +1681,7 @@ public class Enrichment {
 				// First generate Random Data
 				
 				//todo
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, gcCharArray,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, gcCharArray,gcByteList, mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				GlanetRunner.appendLog("Generate Random Data for permutations has ended.");
@@ -1686,9 +1692,10 @@ public class Enrichment {
 				/***************************************** FREE MEMORY STARTS *****************************************/
 				// gcCharArray.setGcArray(null);
 				gcCharArray = null;
-				// mapabilityFloatArray.setMapabilityArray(null);
-				//mapabilityFloatArray = null;
+				gcByteList = null;
 				
+				// mapabilityFloatArray.setMapabilityArray(null);
+				mapabilityFloatArray = null;
 				mapabilityChromosomePositionList = null;
 				mapabilityShortValueList = null;
 

@@ -286,19 +286,20 @@ public class Mapability {
 		//Interval is scattered through several blocks
 		else if (startIndex!=endIndex){
 			
-			//Get the value for the first
+			//First Block
 			accumulatedMapability = (mapabilityChromosomePositionList.get(startIndex+1) - low) * mapabilityShortValueList.get(startIndex);
 			
+			//Middle Blocks
 			for(int i = startIndex+1; i<endIndex; i++) {
 				accumulatedMapability += (mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i)) * mapabilityShortValueList.get(i);
 				
 			}//End of for
 			
-			//Get the value for the last
-			accumulatedMapability += (high -mapabilityChromosomePositionList.get(endIndex)) * mapabilityShortValueList.get(endIndex);
+			//Last Block
+			accumulatedMapability += (high -mapabilityChromosomePositionList.get(endIndex)+1) * mapabilityShortValueList.get(endIndex);
 			
 			//Calculate Mapability Value
-			accumulatedMapability = accumulatedMapability / (high -low);
+			accumulatedMapability = accumulatedMapability / (high -low +1);
 		}//End of ELSE IF
 				
 		
@@ -319,7 +320,7 @@ public class Mapability {
 		//Find startIndex
 		int startIndex = mapabilityChromosomePositionList.binarySearch(low);
 		
-		//There is no exact match
+		//There is no exact match or There is no match
 		if (startIndex<0){
 			//Means that there is no exact match
 			startIndex = -2-startIndex;
@@ -408,6 +409,24 @@ public class Mapability {
 		givenInputLine.setMapability(accumulatedMapability);
 	}
 
+	
+	public static void calculateMapabilityofIntervalUsingArray(InputLine givenInputLine, MapabilityFloatArray mapabilityDoubleArray) {
+
+		float accumulatedMapability = 0;
+
+		int low = givenInputLine.getLow();
+		int high = givenInputLine.getHigh();
+
+		int length = high - low + 1;
+
+		for (int i = low; i <= high; i++) {
+			accumulatedMapability = accumulatedMapability + mapabilityDoubleArray.getMapabilityArray()[i];
+		}
+
+		accumulatedMapability = accumulatedMapability / length;
+
+		givenInputLine.setMapability(accumulatedMapability);
+	}
 	public static void fillChromosomeBasedMapabilityIntervalTreefromFile(int chromSize, String inputFileName, IntervalTree chromBasedMapabilityIntervalTree) {
 
 		FileReader fileReader;

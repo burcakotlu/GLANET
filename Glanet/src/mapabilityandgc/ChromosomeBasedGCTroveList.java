@@ -133,6 +133,9 @@ public class ChromosomeBasedGCTroveList {
 			/*********************Last Byte*****************************************/
 			/***********************************************************************/
 				
+			//Debug start delete
+			System.out.println("After" + "\t"+ byteString);
+			//Debug end delete 
 				
 
 		logger.info("nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");

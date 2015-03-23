@@ -1,0 +1,88 @@
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:319 - *****************************************************************
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:320 - GLANET Parameters starts
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt\
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - GRCh37.p13
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Inclusive)
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 1
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_ENRICH
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - With GC and Mappability
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - Benjamini Hochberg FDR
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 5000
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_DNASE_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_HISTONE_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_GENE_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - test
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 5000
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - GENE SYMBOL
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - NoName
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Exclusive)
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:324 - GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:327 - GLANET Parameters ends
+2015-03-23 17:30:35 INFO  InputDataRemoveOverlaps:328 - *****************************************************************
+2015-03-23 17:31:38 INFO  Enrichment:2364 - Java runtime max memory: 8232370176
+2015-03-23 17:31:38 INFO  Enrichment:2365 - Java runtime total memory: 8232370176
+2015-03-23 17:31:38 INFO  Enrichment:2366 - Java runtime available processors: 8
+2015-03-23 17:31:54 INFO  ChromosomeBasedGCTroveList:141 - nthBase must be written once: 0 gcCharArray construction has ended.
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:55 - CHROMOSOME1
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 227417 high: 177368
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 267628 high: 267627
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 267642 high: 267633
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 267661 high: 267660
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 317719 high: 267670
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 521368 high: 471319
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 2634131 high: 2634121
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 2684220 high: 2634171
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 3995268 high: 3845219
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 13102998 high: 13052949
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 13319912 high: 13219863
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 13557092 high: 13557063
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 13607162 high: 13557095
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 17175658 high: 17125609
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 30028082 high: 29878033
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 103913906 high: 103863857
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 120747156 high: 120697107
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 121086695 high: 120936646
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 142535434 high: 121485385
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 142781022 high: 142730973
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 143117761 high: 142967712
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 143342816 high: 143292767
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 143644525 high: 143544476
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 143871002 high: 143770953
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 144145783 high: 144095734
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 144274481 high: 144224432
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 144451744 high: 144401695
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 144672413 high: 144622364
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 144810724 high: 144710675
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 145883118 high: 145833069
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 146214650 high: 146164601
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 146303299 high: 146253250
+2015-03-23 17:31:55 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 148176038 high: 148025989
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 148511358 high: 148361309
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 148734147 high: 148684098
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 149004460 high: 148954411
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 149509645 high: 149459596
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 206072707 high: 205922658
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 206482221 high: 206332172
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 223797846 high: 223747797
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 235242211 high: 235192162
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 249058210 high: 248908161
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:78 - There is a situation! low: 249240540 high: 249240522
+2015-03-23 17:31:56 INFO  ChromosomeBasedMappabilityTroveList:105 - numberofGaps:43

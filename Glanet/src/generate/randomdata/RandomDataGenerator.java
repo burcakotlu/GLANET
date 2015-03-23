@@ -19,8 +19,10 @@ import mapabilityandgc.Mapability;
 import org.apache.log4j.Logger;
 
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enrichment.InputLine;
+import enrichment.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
 import gnu.trove.list.TByteList;
@@ -35,6 +37,7 @@ public class RandomDataGenerator {
 	public static List<InputLine> generateRandomData(
 			GCCharArray gcCharArray,
 			TByteList gcByteList, 
+			MapabilityFloatArray mapabilityFloatArray,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			int chromSize, 
@@ -62,6 +65,10 @@ public class RandomDataGenerator {
 		
 		float oldWayCalculatedGCContent = Float.MIN_VALUE;
 		float newWayCalculatedGCContent = Float.MIN_VALUE;
+		
+		float oldWayCalculatedMapability= Float.MIN_VALUE;
+		float newWayCalculatedMapability = Float.MIN_VALUE;
+		
 
 		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()) {
 
@@ -92,9 +99,10 @@ public class RandomDataGenerator {
 			randomlyGeneratedInputLines = new ArrayList<InputLine>();
 
 			for (int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++) {
-
+				
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
+				
 				
 				
 				//GC Old way
@@ -108,11 +116,25 @@ public class RandomDataGenerator {
 				
 				//debug start
 				if (oldWayCalculatedGCContent!=newWayCalculatedGCContent){
-					System.out.println("STOP here" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh());
+					logger.info("STOP GC here Conflict" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh());
 				}
 				//debug end
 				
+				//Mapability Old Way
+				Mapability.calculateMapabilityofIntervalUsingArray(originalInputLine, mapabilityFloatArray);
+				oldWayCalculatedMapability = originalInputLine.getMapability();
+				
+				//Mapability New Way
 				Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				newWayCalculatedMapability = originalInputLine.getMapability();
+				
+
+				//debug start
+				if (oldWayCalculatedMapability!=newWayCalculatedMapability){
+					logger.info("STOP Mapability here Conflict" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh() + "\t" + (oldWayCalculatedMapability-newWayCalculatedMapability));
+				}
+				//debug end
+				
 				length = originalInputLine.getLength();
 
 				// RANDOM INPUT DATA
