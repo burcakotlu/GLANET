@@ -23,13 +23,15 @@ import gnu.trove.list.array.TByteArrayList;
  * @date Mar 19, 2015
  * @project Glanet 
  *
+ *
+ * This is the new way of filling GCByteList..
  */
 public class ChromosomeBasedGCTroveList {
 	
 	final static Logger logger = Logger.getLogger(ChromosomeBasedGCTroveList.class);
 
 	
-	public static void fillTroveArrayList(
+	public static void fillTroveList(
 			String dataFolder,
 			ChromosomeName chromName,
 			TByteList gcByteList){
@@ -69,7 +71,6 @@ public class ChromosomeBasedGCTroveList {
 			while ((numberofCharactersRead = bufferedReader.read(cbuf)) != -1) {
 
 				for (int i = 0; i < numberofCharactersRead; i++) {
-					
 					
 					//For each read 7 characters
 					if (numberofBasesHasBeenRead==7){
@@ -121,10 +122,8 @@ public class ChromosomeBasedGCTroveList {
 			
 			
 			while (numberofRemainingBases>0){
-				
 				byteString = byteString + '0';
 				numberofRemainingBases--;
-				
 			}//End of While
 				
 			//Add the remaining byteString
@@ -138,7 +137,7 @@ public class ChromosomeBasedGCTroveList {
 			//Debug end delete 
 				
 
-		logger.info("nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");
+		logger.info("nthBase must be written once: " + nthBase + " GCByteList construction has ended.");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

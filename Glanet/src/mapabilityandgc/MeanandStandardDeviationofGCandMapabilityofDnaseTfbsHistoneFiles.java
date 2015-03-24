@@ -25,9 +25,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import create.encode.CellLineHistone;
 import create.encode.CellLineTranscriptionFactor;
 import create.encode.CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles;
@@ -367,7 +365,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
-		String chromName;
+		//String chromName;
 
 		int low;
 		int high;
@@ -415,7 +413,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
 				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
 
-				chromName = strLine.substring(0, indexofFirstTab);
+				//chromName = strLine.substring(0, indexofFirstTab);
 				low = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
 				high = Integer.parseInt(strLine.substring(indexofSecondTab + 1, indexofThirdTab));
 
@@ -448,7 +446,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
-		String chromName;
+		//String chromName;
 
 		int low;
 		int high;
@@ -498,7 +496,7 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
 				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
 
-				chromName = strLine.substring(0, indexofFirstTab);
+				//chromName = strLine.substring(0, indexofFirstTab);
 				low = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
 				high = Integer.parseInt(strLine.substring(indexofSecondTab + 1, indexofThirdTab));
 
@@ -675,9 +673,9 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		int numberofFiles;
 
 		String fileName;
-		String filePath;
+		//String filePath;
 
-		String gcFileName = null;
+		//String gcFileName = null;
 
 		if (!directory.exists()) {
 			GlanetRunner.appendLog("No File/Dir" + directory.getName());
@@ -705,14 +703,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 					file = files[i];
 
 					fileName = file.getName();
-					filePath = file.getPath();
+					//filePath = file.getPath();
 
 					if (Commons.DNASE.equals(functionalElementType)) {
-						gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
+						//gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Gc\\" + Commons.GC + "_" + fileName;
 					} else if (Commons.TF.equals(functionalElementType)) {
-						gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
+						//gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Gc\\" + Commons.GC + "_" + fileName;
 					} else if (Commons.HISTONE.equals(functionalElementType)) {
-						gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
+						//gcFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Gc\\" + Commons.GC + "_" + fileName;
 					}
 
 					MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -733,9 +731,9 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		int numberofFiles;
 
 		String fileName;
-		String filePath;
+		//String filePath;
 
-		String mapabilityFileName = null;
+		//String mapabilityFileName = null;
 
 		if (!directory.exists()) {
 			GlanetRunner.appendLog("No File/Dir" + directory.getName());
@@ -763,14 +761,14 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 					file = files[i];
 
 					fileName = file.getName();
-					filePath = file.getPath();
+					//filePath = file.getPath();
 
 					if (Commons.DNASE.equals(functionalElementType)) {
-						mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+						//mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Dnase\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 					} else if (Commons.TF.equals(functionalElementType)) {
-						mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+						//mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Tfbs\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 					} else if (Commons.HISTONE.equals(functionalElementType)) {
-						mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
+						//mapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\FunctionalElementFileBased\\Histone\\Mapability\\" + Commons.MAPABILITY + "_" + fileName;
 					}
 
 					MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
@@ -1175,33 +1173,33 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		// sort by standard deviation descending order
 		// Dnase
 		StandardDeviationComparator compMapabilityDnase = new StandardDeviationComparator(dnaseMapabilityHashMap);
-		TreeMap dnaseMapabilityTreeMapStdDevDescendingOrder = new TreeMap(compMapabilityDnase);
+		Map<String, MeanandStandardDeviation> dnaseMapabilityTreeMapStdDevDescendingOrder = new TreeMap<String, MeanandStandardDeviation>(compMapabilityDnase);
 		dnaseMapabilityTreeMapStdDevDescendingOrder.putAll(dnaseMapabilityHashMap);
 
 		// Tfbs
 		StandardDeviationComparator compMapabilityTfbs = new StandardDeviationComparator(tfbsMapabilityHashMap);
-		TreeMap tfbsMapabilityTreeMapStdDevDescendingOrder = new TreeMap(compMapabilityTfbs);
+		Map<String, MeanandStandardDeviation> tfbsMapabilityTreeMapStdDevDescendingOrder = new TreeMap<String, MeanandStandardDeviation>(compMapabilityTfbs);
 		tfbsMapabilityTreeMapStdDevDescendingOrder.putAll(tfbsMapabilityHashMap);
 
 		// Histone
 		StandardDeviationComparator compMapabilityHistone = new StandardDeviationComparator(histoneMapabilityHashMap);
-		TreeMap histoneMapabilityTreeMapStdDevDescendingOrder = new TreeMap(compMapabilityHistone);
+		Map<String, MeanandStandardDeviation> histoneMapabilityTreeMapStdDevDescendingOrder = new TreeMap<String, MeanandStandardDeviation>(compMapabilityHistone);
 		histoneMapabilityTreeMapStdDevDescendingOrder.putAll(histoneMapabilityHashMap);
 
 		// sort by mean ascending order
 		// Dnase
 		MeanComparator dnaseMapabilityMeanComparator = new MeanComparator(dnaseMapabilityHashMap);
-		TreeMap dnaseMapabilityTreeMapMeanAscendingOrder = new TreeMap(dnaseMapabilityMeanComparator);
+		Map<String, MeanandStandardDeviation> dnaseMapabilityTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(dnaseMapabilityMeanComparator);
 		dnaseMapabilityTreeMapMeanAscendingOrder.putAll(dnaseMapabilityHashMap);
 
 		// Tfbs
 		MeanComparator tfbsMapabilityMeanComparator = new MeanComparator(tfbsMapabilityHashMap);
-		TreeMap tfbsMapabilityTreeMapMeanAscendingOrder = new TreeMap(tfbsMapabilityMeanComparator);
+		Map<String, MeanandStandardDeviation> tfbsMapabilityTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(tfbsMapabilityMeanComparator);
 		tfbsMapabilityTreeMapMeanAscendingOrder.putAll(tfbsMapabilityHashMap);
 
 		// Histone
 		MeanComparator histoneMapabilityMeanComparator = new MeanComparator(histoneMapabilityHashMap);
-		TreeMap histoneMapabilityTreeMapMeanAscendingOrder = new TreeMap(histoneMapabilityMeanComparator);
+		Map<String, MeanandStandardDeviation> histoneMapabilityTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(histoneMapabilityMeanComparator);
 		histoneMapabilityTreeMapMeanAscendingOrder.putAll(histoneMapabilityHashMap);
 
 		GlanetRunner.appendLog("-------------------------");
@@ -1268,33 +1266,33 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		// sort by standard deviation descending order
 		// Dnase
 		StandardDeviationComparator compDnaseGC = new StandardDeviationComparator(dnaseGCHashMap);
-		TreeMap dnaseGCTreeMap = new TreeMap(compDnaseGC);
+		Map<String, MeanandStandardDeviation> dnaseGCTreeMap = new TreeMap<String, MeanandStandardDeviation>(compDnaseGC);
 		dnaseGCTreeMap.putAll(dnaseGCHashMap);
 
 		// Tfbs
 		StandardDeviationComparator compTfbsGC = new StandardDeviationComparator(tfbsGCHashMap);
-		TreeMap tfbsGCTreeMap = new TreeMap(compTfbsGC);
+		Map<String, MeanandStandardDeviation> tfbsGCTreeMap = new TreeMap<String, MeanandStandardDeviation>(compTfbsGC);
 		tfbsGCTreeMap.putAll(tfbsGCHashMap);
 
 		// Histone
 		StandardDeviationComparator compHistoneGC = new StandardDeviationComparator(histoneGCHashMap);
-		TreeMap histoneGCTreeMap = new TreeMap(compHistoneGC);
+		Map<String, MeanandStandardDeviation> histoneGCTreeMap = new TreeMap<String, MeanandStandardDeviation>(compHistoneGC);
 		histoneGCTreeMap.putAll(histoneGCHashMap);
 
 		// sort by mean ascending order
 		// Dnase
 		MeanComparator dnaseGCMeanComparator = new MeanComparator(dnaseGCHashMap);
-		TreeMap dnaseGCTreeMapMeanAscendingOrder = new TreeMap(dnaseGCMeanComparator);
+		Map<String, MeanandStandardDeviation> dnaseGCTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(dnaseGCMeanComparator);
 		dnaseGCTreeMapMeanAscendingOrder.putAll(dnaseGCHashMap);
 
 		// Tfbs
 		MeanComparator tfbsGCMeanComparator = new MeanComparator(tfbsGCHashMap);
-		TreeMap tfbsGCTreeMapMeanAscendingOrder = new TreeMap(tfbsGCMeanComparator);
+		Map<String, MeanandStandardDeviation> tfbsGCTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(tfbsGCMeanComparator);
 		tfbsGCTreeMapMeanAscendingOrder.putAll(tfbsGCHashMap);
 
 		// Histone
 		MeanComparator histoneGCMeanComparator = new MeanComparator(histoneGCHashMap);
-		TreeMap histoneGCTreeMapMeanAscendingOrder = new TreeMap(histoneGCMeanComparator);
+		Map<String, MeanandStandardDeviation> histoneGCTreeMapMeanAscendingOrder = new TreeMap<String, MeanandStandardDeviation>(histoneGCMeanComparator);
 		histoneGCTreeMapMeanAscendingOrder.putAll(histoneGCHashMap);
 
 		GlanetRunner.appendLog("-------------------------");

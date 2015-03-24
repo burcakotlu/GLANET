@@ -100,7 +100,7 @@ public class BurcakOtluTestRSATOldCode {
 		RSATWSPortType proxy = null;
 		MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
 		String result = null;
-		String jobID = null;
+		//String jobID = null;
 
 		initializeMatrixScanParameters(matrixScanRequest);
 

@@ -326,7 +326,6 @@ public class Mapability {
 			startIndex = -2-startIndex;
 		}
 			
-		
 		//Find endIndex
 		int endIndex = Integer.MIN_VALUE;
 		
@@ -343,7 +342,7 @@ public class Mapability {
 //			}//End of While
 
 			
-			//There is no exact match
+			//There is no exact match or there is no match
 			if (endIndex<0){
 				//Means that there is no exact match
 				endIndex = -2-endIndex;
@@ -402,8 +401,8 @@ public class Mapability {
 		}
 		
 
-		//Scale Down accumulatedMapability by 10000
-		accumulatedMapability = accumulatedMapability/10000;
+		//Scale Down accumulatedMapability by Commons.MAPABILITY_SHORT_TEN_THOUSAND
+		accumulatedMapability = accumulatedMapability/Commons.MAPABILITY_SHORT_TEN_THOUSAND;
 		
 		//Set accumulatedMapability
 		givenInputLine.setMapability(accumulatedMapability);

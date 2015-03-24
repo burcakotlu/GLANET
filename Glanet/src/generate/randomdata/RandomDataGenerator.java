@@ -103,8 +103,6 @@ public class RandomDataGenerator {
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
 				
-				
-				
 				//GC Old way
 				GC.calculateGCofInterval(originalInputLine, gcCharArray);
 				oldWayCalculatedGCContent = originalInputLine.getGcContent();
@@ -112,7 +110,6 @@ public class RandomDataGenerator {
 				//GC New Way
 				GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
 				newWayCalculatedGCContent = originalInputLine.getGcContent();
-				
 				
 				//debug start
 				if (oldWayCalculatedGCContent!=newWayCalculatedGCContent){

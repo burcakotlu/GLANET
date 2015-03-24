@@ -3,7 +3,11 @@
  * Sep 6, 2013
  * 4:39:26 PM
  * 2013
+ * 
+ * This is not used any more.
+ * This is an old way of filling GC Char Array.
  *
+ * In the new way, GCByteList is filled in ChromosomeBasedGCTroveList class.
  * 
  */
 package mapabilityandgc;

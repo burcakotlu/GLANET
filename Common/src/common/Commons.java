@@ -638,6 +638,9 @@ public class Commons {
 	// MAPABILITY
 	public static final short  SHORT_0 = (short) 0;
 	
+	public static final short MAPABILITY_SHORT_TEN_THOUSAND = (short) 10000;
+	
+	
 	public static final String MAPABILITY_HG19_FILE_END = "_hg19_mapability.txt";
 	
 	public static final String WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG = "MAPABILITY" + System.getProperty("file.separator") + "wgEncodeCrgMapabilityAlign100mer.wig";

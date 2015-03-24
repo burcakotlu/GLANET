@@ -20,18 +20,17 @@ import gnu.trove.list.TShortList;
  * @author Burçak Otlu
  * @date Mar 12, 2015
  * @project Glanet 
+ * 
+ * This is the new way of filling MapabilityIntList and MapabilityShortList.
+ 
  *
  */
 public class ChromosomeBasedMappabilityTroveList {
 
 	
 	final static Logger logger = Logger.getLogger(ChromosomeBasedMappabilityTroveList.class);
-
 	
-	
-	
-	
-	public static void fillTroveArrayList(
+	public static void fillTroveList(
 			String dataFolder, 
 			ChromosomeName chromName,
 			TIntList mapabilityChromosomePositionList,
@@ -47,12 +46,14 @@ public class ChromosomeBasedMappabilityTroveList {
 		int indexofSecondTab;
 		int indexofThirdTab;
 		
-		int low;
+		int low = Integer.MIN_VALUE;
 		int high = Integer.MIN_VALUE;
+		
 		float mapabilityFloatValue;
 		short mapabilityShortValue; 
 		
 		logger.info(chromName);
+		
 		int numberofGaps = 0;
 		
 		
@@ -65,17 +66,15 @@ public class ChromosomeBasedMappabilityTroveList {
 				indexofSecondTab = (indexofFirstTab>=0) ? strLine.indexOf('\t',indexofFirstTab+1) : -1;
 				indexofThirdTab = (indexofSecondTab>=0) ? strLine.indexOf('\t',indexofSecondTab+1) : -1;
 				
-				
-				
 				low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 				
 				if ( high!= Integer.MIN_VALUE  &&
-						low!=high){
+					low!=high){
 					//New low must be equal to the previous high
 //					chr1	10000	10014	0.00277778
 //					chr1	10014	10015	0.333333
 //					chr1	10015	10026	0.5
-					logger.info("There is a situation!" + " low: " + low +  " high: " + high);
+					logger.info("There is a gap in the given mapability file!" + " next low: " + low +  " previous high: " + high);
 					numberofGaps++;
 					
 					//You have read the new low
@@ -88,8 +87,7 @@ public class ChromosomeBasedMappabilityTroveList {
 				
 				high = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				mapabilityFloatValue = Float.parseFloat(strLine.substring(indexofThirdTab+1));
-				mapabilityShortValue =  (short) (mapabilityFloatValue*10000);
-				
+				mapabilityShortValue =  (short) (mapabilityFloatValue*Commons.MAPABILITY_SHORT_TEN_THOUSAND);
 				
 				mapabilityChromosomePositionList.add(low);
 				mapabilityShortValueList.add(mapabilityShortValue);

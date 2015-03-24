@@ -106,16 +106,16 @@ public class GC {
 		byte gcByte = 0x00;
 		int numberofRightShifts = 0;
 		
-		//Get the byte
+		//Get the start byte
 		int byteListStartByte = zeroBasedStart/7;
 		
-		//Get the bit
+		//Get the starting bit in start byte
 		int byteListStartBit = zeroBasedStart%7;
 		
-		//Get the byte
+		//Get the last byte
 		int byteListEndByte = zeroBasedEnd/7;
 		
-		//Get the bit
+		//Get the last bit of last byte
 		int byteListEndBit = zeroBasedEnd%7;
 		
 		//Valid Input
@@ -170,8 +170,6 @@ public class GC {
 				}//End of for
 				
 				
-				
-					
 				//Last Byte
 				//start reading from bit 1 to ending bit
 				gcByte= gcByteList.get(byteListEndByte);
@@ -181,10 +179,7 @@ public class GC {
 					gcContent = gcContent + ((gcByte >> numberofRightShifts) & 0x01) ;
 				}
 					
-				
-				
 			}
-			
 			
 			
 			gcContent = gcContent / length;

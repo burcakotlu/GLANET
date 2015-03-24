@@ -13,12 +13,12 @@ import java.util.Map;
 
 public class MeanComparator implements Comparator<Object> {
 
-	Map mapToBeSorted;
+	Map<String, MeanandStandardDeviation> mapToBeSorted;
 
 	/**
 	 * 
 	 */
-	public MeanComparator(Map mapToBeSorted) {
+	public MeanComparator(Map<String, MeanandStandardDeviation> mapToBeSorted) {
 		this.mapToBeSorted = mapToBeSorted;
 	}
 

@@ -4,7 +4,8 @@
  * 10:11:38 PM
  * 2013
  *
- * 
+ * This is an old way of filling Mapability Float Array.
+ * In the new way MapabilityIntList and MapabilityShortList is filled in ChromosomeBasedMappabilityTroveList class.
  */
 package mapabilityandgc;
 

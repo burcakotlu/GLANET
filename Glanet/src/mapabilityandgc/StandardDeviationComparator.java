@@ -13,12 +13,12 @@ import java.util.Map;
 
 public class StandardDeviationComparator implements Comparator<Object> {
 
-	Map mapToBeSorted;
+	Map<String, MeanandStandardDeviation> mapToBeSorted;
 
 	/**
 	 * 
 	 */
-	public StandardDeviationComparator(Map mapToBeSorted) {
+	public StandardDeviationComparator(Map<String, MeanandStandardDeviation> mapToBeSorted) {
 		this.mapToBeSorted = mapToBeSorted;
 	}
 

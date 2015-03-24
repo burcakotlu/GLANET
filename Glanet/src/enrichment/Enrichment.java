@@ -1662,12 +1662,12 @@ public class Enrichment {
 					//GC Old way
 					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 					//GC New Way
-					ChromosomeBasedGCTroveList.fillTroveArrayList(dataFolder,chromName,gcByteList);
+					ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 					
 					//Mapability Old Way
 					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
-					 ChromosomeBasedMappabilityTroveList.fillTroveArrayList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					 ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
 				}
 				/************************ FILL GCCHARARRAY AND MAPABILITYFLOATARRAY ENDS ********************************/
@@ -2573,6 +2573,7 @@ public class Enrichment {
 		
 		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP STARTS *******************/
+		/**********************************************************************************************/
 		TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TShortObjectHashMap<String>();
 		// used in filling geneId2ListofUserDefinedGeneSetNumberMap
 		TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap = new TObjectShortHashMap<String>();
@@ -2582,6 +2583,7 @@ public class Enrichment {
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder, userDefinedGeneSetInputFile, geneInformationType, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
 		}
+		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP ENDS *********************/
 		/**********************************************************************************************/
 
@@ -2589,6 +2591,7 @@ public class Enrichment {
 		
 		/**********************************************************************************************/
 		/********************* FILL GENEID 2 KEGG PATHWAY NUMBER MAP STARTS ***************************/
+		/**********************************************************************************************/
 		// For efficiency
 		// Fill this map only once.
 		// NCBI Gene Id is Integer
@@ -2602,6 +2605,7 @@ public class Enrichment {
 			KeggPathwayUtility.createNcbiGeneId2KeggPathwayNumberMap(dataFolder, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, geneId2KeggPathwayNumberMap, keggPathwayName2KeggPathwayNumberMap);
 
 		}
+		/**********************************************************************************************/
 		/********************* FILL GENEID 2 KEGG PATHWAY NUMBER MAP ENDS ****************************/
 		/*********************************************************************************************/
 
