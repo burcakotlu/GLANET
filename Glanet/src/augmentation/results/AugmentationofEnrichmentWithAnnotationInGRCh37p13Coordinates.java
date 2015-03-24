@@ -508,7 +508,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 
 				bufferedWriter.write("**************" + "\t" + dnaseName + "\t" + "**************" + System.getProperty("line.separator"));
 
-				dnaseOriginalOverlapFileReader = new FileReader(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + dnaseName + ".txt");
+				dnaseOriginalOverlapFileReader = FileOperations.createFileReader(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + dnaseName + ".txt");
 				dnaseOriginalOverlapBufferedReader = new BufferedReader(dnaseOriginalOverlapFileReader);
 
 				// Get all the lines of the original data annotation for the
@@ -1573,32 +1573,43 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 			withRespectToFileName = Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE;
 		}
 
-		/******************************************************************************/
+		/********************************************************************************/
 		/********************* DNASE starts *********************************************/
+		/********************************************************************************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 			readDnaseAllFileAugmentWrite(outputFolder, multipleTestingParameter, FDR, bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE + "_" + jobName + withRespectToFileName, Commons.AUGMENTED_DNASE_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 		}
+		/********************************************************************************/
 		/********************* DNASE ends ***********************************************/
-		/******************************************************************************/
+		/********************************************************************************/
 
-		/******************************************************************************/
+
+		
+		/********************************************************************************/
 		/********************* HISTONE starts *******************************************/
+		/********************************************************************************/
 		if (histoneAnnotationType.doHistoneAnnotation()) {
 			readHistoneAllFileAugmentWrite(outputFolder, multipleTestingParameter, FDR, bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE + "_" + jobName + withRespectToFileName, Commons.AUGMENTED_HISTONE_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 		}
+		/********************************************************************************/
 		/********************* HISTONE ends *********************************************/
-		/******************************************************************************/
+		/********************************************************************************/
 
-		/******************************************************************************/
+		
+		/********************************************************************************/
 		/********************* TF starts ************************************************/
+		/********************************************************************************/
 		if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 			readTfAllFileAugmentWrite(outputFolder, multipleTestingParameter, FDR, bonfCorrectionSignificanceLevel, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF + "_" + jobName + withRespectToFileName, Commons.AUGMENTED_TF_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES);
 		}
+		/********************************************************************************/
 		/********************* TF ends **************************************************/
-		/******************************************************************************/
+		/********************************************************************************/
 
-		/******************************************************************************/
+		
+		/********************************************************************************/
 		/********************* USER DEFINED GENESET starts ******************************/
+		/********************************************************************************/
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 
 			final String TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
@@ -1609,11 +1620,15 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 			readKeggPathwayAllFileAugmentWrite(outputFolder, multipleTestingParameter, FDR, bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" + jobName + withRespectToFileName, Commons.AUGMENTED_REGULATION_BASED_USERDEFINED_GENESET_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.REGULATION_BASED_USER_DEFINED_GENESET, userDefinedGeneSetName);
 			readKeggPathwayAllFileAugmentWrite(outputFolder, multipleTestingParameter, FDR, bonfCorrectionSignificanceLevel, TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" + jobName + withRespectToFileName, Commons.AUGMENTED_ALL_BASED_USERDEFINED_GENESET_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES, Commons.ALL_BASED_USER_DEFINED_GENESET, userDefinedGeneSetName);
 		}
+		/********************************************************************************/
 		/********************* USER DEFINED GENESET ends ********************************/
-		/******************************************************************************/
+		/********************************************************************************/
 
-		/******************************************************************************/
+		
+		
+		/********************************************************************************/
 		/********************* USER DEFINED LIBRARY starts ******************************/
+		/********************************************************************************/
 		if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
 
@@ -1630,8 +1645,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 			}
 
 		}// End of if: UserDefinedLibrary
+		/********************************************************************************/
 		/********************* USER DEFINED LIBRARY ends ********************************/
-		/******************************************************************************/
+		/********************************************************************************/
 
 		/******************************************************************************/
 		/********************* KEGG PATHWAY starts **************************************/

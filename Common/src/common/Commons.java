@@ -59,7 +59,11 @@ public class Commons {
 	public static final String OBSERVED_ALLELES = "ObservedAlleles";
 	
 	
-	//Number ıf bases required for p1, p2, d
+	//For measuring memory usage
+	public static final int NUMBER_OF_BYTES_IN_A_MEGABYTE = 1048576;
+	
+	
+	//Number of bases required for p1, p2, d
 	public static final int P1_NUMBER_OF_BASES =  2000;
 	public static final int P1_NUMBER_OF_BASES_PLUS_ONE =  Commons.P1_NUMBER_OF_BASES + 1;
 	
@@ -195,6 +199,10 @@ public class Commons {
 	public static final String THREE_P_TWO = "3P2";
 	public static final String THREE_D = "3D";
 
+	//Annotation
+	public static final String ANNOTATION_IN_PARALEL = "ANNOTATION_IN_PARALEL";
+	public static final String ANNOTATION_SEQUENTIALLY = "ANNOTATION_SEQUENTIALLY";
+	
 	//old  EnumType Enrichment Type to be deleted
 	//new EnumType Annotation Type
 	public static final String DO_DNASE_ANNOTATION = "DO_DNASE_ANNOTATION";

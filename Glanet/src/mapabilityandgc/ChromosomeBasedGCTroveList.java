@@ -109,10 +109,6 @@ public class ChromosomeBasedGCTroveList {
 			}//End of WHILE
 			
 			
-			//Debug start delete
-			System.out.println(chromName + "\t" + "numberofBasesHasBeenRead: " + numberofBasesHasBeenRead + "\t" + byteString);
-			//Debug end delete 
-			
 			
 			/***********************************************************************/
 			/*********************Last Byte*****************************************/
@@ -131,10 +127,6 @@ public class ChromosomeBasedGCTroveList {
 			/***********************************************************************/
 			/*********************Last Byte*****************************************/
 			/***********************************************************************/
-				
-			//Debug start delete
-			System.out.println("After" + "\t"+ byteString);
-			//Debug end delete 
 				
 
 		logger.info("nthBase must be written once: " + nthBase + " GCByteList construction has ended.");

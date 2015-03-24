@@ -3057,11 +3057,11 @@ public class IntervalTree {
 			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TShortObjectMap<String> fileNumber2FileNameMap) {
 		
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
+		//FileWriter fileWriter = null;
+		//BufferedWriter bufferedWriter = null;
 
-		String cellLineName;
-		String fileName;
+		//String cellLineName;
+		//String fileName;
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		
@@ -3072,21 +3072,17 @@ public class IntervalTree {
 		}
 
 		if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
-			try {
-
-				cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
-				fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
+			
+				//cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+				//fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 				
 				//Write Annotation Overlaps to element Named File
 				if (writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()) {
 					
-					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
+					//fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
 					//bufferedWriter = new BufferedWriter(fileWriter);
 					
 					oneOrZeroArray[castedNode.getCellLineNumber()-1] = 1;
-					
-					
-					
 					
 
 					//bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName + System.getProperty("line.separator"));
@@ -3100,10 +3096,7 @@ public class IntervalTree {
 
 				}//End of ELSE
 
-			} catch (IOException e) {
-
-				logger.error(e.toString());
-			}
+			
 		}
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {

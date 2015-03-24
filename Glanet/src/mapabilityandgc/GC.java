@@ -188,7 +188,7 @@ public class GC {
 		}
 		//Not a valid input
 		else {
-			logger.error("input line's high exceeds hg19 chromsome size");
+			logger.error("Input line's high exceeds hg19 chromsome size");
 		}
 
 		givenInputLine.setGcContent(gcContent);

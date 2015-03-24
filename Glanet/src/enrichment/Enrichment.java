@@ -55,9 +55,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
-import mapabilityandgc.ChromosomeBasedGCArray;
 import mapabilityandgc.ChromosomeBasedGCTroveList;
-import mapabilityandgc.ChromosomeBasedMapabilityArray;
 import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
 
 import org.apache.log4j.Logger;
@@ -68,7 +66,6 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -96,11 +93,11 @@ public class Enrichment {
 
 		private final List<AnnotationTask> listofAnnotationTasks;
 
-		private final GCCharArray gcCharArray; 
+		//private final GCCharArray gcCharArray; 
 		private final TByteList gcByteList;
 		
 		
-		private final MapabilityFloatArray mapabilityFloatArray;
+		//private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
 		private final TShortList mapabilityShortValueList;
 		
@@ -116,9 +113,7 @@ public class Enrichment {
 				int lowIndex, 
 				int highIndex, 
 				List<AnnotationTask> listofAnnotationTasks, 
-				GCCharArray gcCharArray,
 				TByteList gcByteList, 
-				MapabilityFloatArray mapabilityFloatArray,
 				TIntList mapabilityChromosomePositionList,
 				TShortList mapabilityShortValueList) {
 
@@ -136,10 +131,7 @@ public class Enrichment {
 
 			this.listofAnnotationTasks = listofAnnotationTasks;
 
-			this.gcCharArray = gcCharArray;
 			this.gcByteList = gcByteList;
-			
-			this.mapabilityFloatArray = mapabilityFloatArray;
 			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
 			this.mapabilityShortValueList = mapabilityShortValueList;
@@ -158,8 +150,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks, gcCharArray,gcByteList,mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks, gcCharArray,gcByteList,mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, listofAnnotationTasks,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, listofAnnotationTasks,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -188,7 +180,7 @@ public class Enrichment {
 					// + permutationNumber.toString() + "\t"
 					// +chromName.convertEnumtoString());
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcCharArray,gcByteList,mapabilityFloatArray,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1581,13 +1573,9 @@ public class Enrichment {
 		IntervalTree tfIntervalTree = null;
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
-		//After debug remove it 
-		GCCharArray gcCharArray = null;
 		//New
 		TByteList gcByteList = null;
 		
-		//After debug remove it 
-		MapabilityFloatArray mapabilityFloatArray = null;
 		//New
 		TIntList mapabilityChromosomePositionList = null;
 		TShortList mapabilityShortValueList = null;
@@ -1639,7 +1627,6 @@ public class Enrichment {
 				// initialize list of annotation tasks
 				listofAnnotationTasks = new ArrayList<AnnotationTask>();
 
-				gcCharArray = new GCCharArray();
 				
 				gcByteList = new TByteArrayList();
 				mapabilityChromosomePositionList = new TIntArrayList();
@@ -1660,12 +1647,12 @@ public class Enrichment {
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
 					//GC Old way
-					gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
+					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 					//GC New Way
 					ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 					
 					//Mapability Old Way
-					mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
+					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
 					 ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
@@ -1681,7 +1668,7 @@ public class Enrichment {
 				// First generate Random Data
 				
 				//todo
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks, gcCharArray,gcByteList, mapabilityFloatArray, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, listofAnnotationTasks.size(), listofAnnotationTasks,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				GlanetRunner.appendLog("Generate Random Data for permutations has ended.");
@@ -1690,12 +1677,8 @@ public class Enrichment {
 
 				/******************************************************************************************************/
 				/***************************************** FREE MEMORY STARTS *****************************************/
-				// gcCharArray.setGcArray(null);
-				gcCharArray = null;
 				gcByteList = null;
 				
-				// mapabilityFloatArray.setMapabilityArray(null);
-				mapabilityFloatArray = null;
 				mapabilityChromosomePositionList = null;
 				mapabilityShortValueList = null;
 
@@ -2361,9 +2344,10 @@ public class Enrichment {
 	}
 
 	public static void writeJavaRunTimeMemoryInformation() {
-		logger.info("Java runtime max memory: " + java.lang.Runtime.getRuntime().maxMemory());
-		logger.info("Java runtime total memory: " + java.lang.Runtime.getRuntime().totalMemory());
-		logger.info("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors());
+		logger.info("Java runtime max memory: " + (java.lang.Runtime.getRuntime().maxMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		logger.info("Java runtime total memory: " + (java.lang.Runtime.getRuntime().totalMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		logger.info("Java runtime free memory: " + (java.lang.Runtime.getRuntime().freeMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		logger.info("Java runtime available processors: " + (java.lang.Runtime.getRuntime().availableProcessors()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
 
 	}
 
@@ -2455,6 +2439,15 @@ public class Enrichment {
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
 	public static void main(String[] args) {
+		
+		/***********************************************************************************/
+		/**************Memory Usage Before Enrichment***************************************/
+		/***********************************************************************************/
+		logger.info("Memory Used Before Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		/***********************************************************************************/
+		/**************Memory Usage Before Enrichment***************************************/
+		/***********************************************************************************/
+	
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
@@ -3095,8 +3088,20 @@ public class Enrichment {
 		}
 		// end of for each run number
 
-		/********************* FOR LOOP FOR RUN NUMBERS ENDS ****************************************/
 		/*********************************************************************************************/
+		/********************* FOR LOOP FOR RUN NUMBERS ENDS *****************************************/
+		/*********************************************************************************************/
+		
+		
+		
+		/***********************************************************************************/
+		/**************Memory Usage After Enrichment****************************************/
+		/***********************************************************************************/
+		logger.info("Memory Used After Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		/***********************************************************************************/
+		/**************Memory Usage After Enrichment****************************************/
+		/***********************************************************************************/
+	
 
 	}// End of main function
 

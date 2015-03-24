@@ -74,9 +74,7 @@ import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
 import auxiliary.NumberofComparisons;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
@@ -1458,8 +1456,48 @@ public class Annotation {
 	}
 
 	// with number ends
+	
+	// Annotation Sequentially
+	// With Numbers
+	public void searchDnaseWithNumbers(
+			String dataFolder, 
+			String outputFolder, 
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TShortIntMap dnaseCellLineNumber2KMap, 
+			int overlapDefinition, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TShortObjectMap<String> fileNumber2FileNameMap) {
 
-	// Annotation
+		BufferedReader bufferedReader = null;
+
+		IntervalTree dnaseIntervalTree;
+
+		// For each ChromosomeName
+		for (ChromosomeName chrName : ChromosomeName.values()) {
+
+			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
+			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+			searchDnaseWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2KMap,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			emptyIntervalTree(dnaseIntervalTree.getRoot());
+			dnaseIntervalTree = null;
+
+			System.gc();
+			System.runFinalization();
+
+			try {
+				// close bufferedReader
+				bufferedReader.close();
+			} catch (IOException e) {
+
+				logger.error(e.toString());
+			}
+
+		}// End of for each chromosomeName
+
+	}
+
+
+	// Annotation Sequentially
 	// With Numbers
 	public void searchDnaseWithNumbers(
 			String outputFolder, 
@@ -5614,7 +5652,7 @@ public class Annotation {
 		}
 	}
 
-	// Annotation
+	// Annotation In Paralel
 	// with Numbers
 	public int[] searchDnaseWithNumbers(
 			String dataFolder, 
@@ -6789,11 +6827,86 @@ public class Annotation {
 		
 		WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteElementBasedAnnotationFoundOverlapsMode.convertStringtoEnum(args[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()]);
 		
-	
+		/***********************************************************************************/
+		/**************Memory Usage Before Annotation***************************************/
+		/***********************************************************************************/
+		logger.info("Memory Used Before Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		/***********************************************************************************/
+		/**************Memory Usage Before Annotation***************************************/
+		/***********************************************************************************/
+		
+		
+		
+		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
+
+		String inputFileName;
+
+		
+		/*************************************************************************************************/
+		/**************************GET CHECKED ANNOTATION TYPES STARTS ***********************************/
+		/*************************************************************************************************/
+		
+		/***********************************************************************************/
+		/**************************DNASE ANNOTATION*****************************************/
+		/***********************************************************************************/
+		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************DNASE ANNOTATION*****************************************/
+		/***********************************************************************************/
+		
+		/***********************************************************************************/
+		/**************************HISTONE ANNOTATION***************************************/
+		/***********************************************************************************/
+		AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************HISTONE ANNOTATION***************************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/**************************TF ANNOTATION********************************************/
+		/***********************************************************************************/
+		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************TF ANNOTATION********************************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/**************************GENE ANNOTATION******************************************/
+		/***********************************************************************************/
+		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************GENE ANNOTATION******************************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/**************************KEGG Pathway ANNOTATION**********************************/
+		/***********************************************************************************/
+		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************KEGG Pathway ANNOTATION**********************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/**************************TF KEGG Pathway ANNOTATION*******************************/
+		/***********************************************************************************/
+		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************TF KEGG Pathway ANNOTATION*******************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/**************************TF CellLine KEGG Pathway ANNOTATION**********************/
+		/***********************************************************************************/
+		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
+		/***********************************************************************************/
+		/**************************TF CellLine KEGG Pathway ANNOTATION**********************/
+		/***********************************************************************************/
+
 		
 		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
-		// User Defined GeneSet Enrichment, DO or DO_NOT
+		/***********************************************************************************/
+		// User Defined GeneSet Annotation, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
 		String userDefinedGeneSetInputFile = args[CommandLineArguments.UserDefinedGeneSetInput.value()];
@@ -6801,6 +6914,7 @@ public class Annotation {
 		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()]);
 
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
+		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		/***********************************************************************************/
 
@@ -6808,48 +6922,29 @@ public class Annotation {
 		
 		/***********************************************************************************/
 		/************************** USER DEFINED LIBRARY ***********************************/
-		// User Defined Library Enrichment, DO or DO_NOT
+		/***********************************************************************************/
+		// User Defined Library Annotation, DO or DO_NOT
 		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
 	
 		String userDefinedLibraryInputFile = args[CommandLineArguments.UserDefinedLibraryInput.value()];
 	
 		UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryDataFormat.value()]);
+		/***********************************************************************************/
 		/************************** USER DEFINED LIBRARY ***********************************/
 		/***********************************************************************************/
-
-		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
-
-		String inputFileName;
-
-		// ENRICHMENT choice will be used as ANNOTATION choice
-		// Dnase Enrichment, DO or DO_NOT
-		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
-
-		// Histone Enrichment, DO or DO_NOT
-		AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
-
-		// Transcription Factor Enrichment, DO or DO_NOT
-		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
-
-		// Gene Annotation
-		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
-
-		// KEGG Pathway Enrichment, DO or DO_NOT
-		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
-
-		// TfKeggPathway Enrichment, DO or DO_NOT
-		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
-
-		// TfCellLineKeggPathway Enrichment, DO or DO_NOT
-		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
-
 		
+		/*************************************************************************************************/
+		/**************************GET CHECKED ANNOTATION TYPES ENDS *************************************/
+		/*************************************************************************************************/
+
 		
 		/**********************************************************************/
 		/*********** delete old files starts **********************************/
+		/**********************************************************************/
 		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
 
 		FileOperations.deleteOldFiles(annotateOutputBaseDirectoryName);
+		/**********************************************************************/
 		/*********** delete old files ends ************************************/
 		/**********************************************************************/
 
@@ -6858,6 +6953,7 @@ public class Annotation {
 		
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
+		/*****************************************************************************************/
 		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 
 		List<FileWriter> fileWriterList = new ArrayList<FileWriter>();
@@ -6873,13 +6969,14 @@ public class Annotation {
 
 		// Close Buffered Writers
 		closeBufferedWriterList(fileWriterList, bufferedWriterList);
+		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/
 
 		
 		
 		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME MAPS*****starts *****************************************************/
+		/*************** FILL NUMBER 2 NAME MAPS starts**********************************************************/
 		/********************************************************************************************************/
 		TShortObjectMap<String> dnaseCellLineNumber2NameMap = new TShortObjectHashMap<String>();
 		TShortObjectMap<String> cellLineNumber2NameMap = new TShortObjectHashMap<String>();
@@ -6903,24 +7000,23 @@ public class Annotation {
 		
 		HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap(dataFolder, geneEntrezId2GeneOfficialSymbolMap);
 		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME MAPS*****ends *******************************************************/
+		/*************** FILL NUMBER 2 NAME MAPS ends************************************************************/
 		/********************************************************************************************************/
 		
 		
-		/********************************************************/
-		/*************** FILL NAME 2 NUMBER MAPS******starts ****/
-		/********************************************************/
+		/********************************************************************************************************/
+		/*************** FILL NAME 2 NUMBER MAPS starts**********************************************************/
+		/********************************************************************************************************/
 		TObjectShortMap<String> keggPathwayName2NumberMap = new TObjectShortHashMap<String>();
 
 		FileOperations.fillName2NumberMap(keggPathwayName2NumberMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
-		/********************************************************/
-		/*************** FILL NAME 2 NUMBER MAPS*****ends *******/
-		/********************************************************/
+		/********************************************************************************************************/
+		/*************** FILL NAME 2 NUMBER MAPS ends************************************************************/
+		/********************************************************************************************************/
 		
 	
 	
-		// if you want to see the current year and day etc. change the line of
-		// code below with:
+		// if you want to see the current year and day etc. change the line of code below with:
 		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		long dateBefore = Long.MIN_VALUE;
@@ -6931,712 +7027,778 @@ public class Annotation {
 		// Instant
 		// dnaseEnd,histoneEnd,transcriptionFactorEnd,KEGGPathwayEnd,tfKEGGPathwayEnd,tfCellLineKEGGPathwayEnd,tfCellLineKEGGPathway_and_TFKEGGPathwayEnd;
 
+		
 		/**************************************************************************************/
-		/********************Concurrent Programming Initizalization starts*********************/
+		/********************ANNOTATION********************************************************/
 		/**************************************************************************************/
-		ForkJoinPool pool = new ForkJoinPool(Commons.NUMBER_OF_AVAILABLE_PROCESSORS);
-		
-		int[] allChromosomesDnaseCellLineKArray = null;
-		int numberofComparisonsDnase = 0;
-		
-		int[] allChromosomesTFCellLineKEGGPathwayKArray = null;
-		int numberofComparisonsTFCellLineKEGGPathway = 0;
-		
-		
-		if (dnaseAnnotationType.doDnaseAnnotation()) {
-			
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
-			dateBefore = System.currentTimeMillis();
-			
-			numberofComparisonsDnase = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType);
-		
-			allChromosomesDnaseCellLineKArray = new int[numberofComparisonsDnase];
-			
-		}
-		
-		
-		if(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-			
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("CellLine Based TF KEGG Pathway annotation starts: " + new Date());
-			dateBefore = System.currentTimeMillis();
-			
-			numberofComparisonsTFCellLineKEGGPathway = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,tfCellLineKeggPathwayAnnotationType);
-		
-			
-			allChromosomesTFCellLineKEGGPathwayKArray = new int[numberofComparisonsTFCellLineKEGGPathway];
-		}
+		enumtypes.Annotation annotation = enumtypes.Annotation.ANNOTATION_SEQUENTIALLY;
 		/**************************************************************************************/
-		/********************Concurrent Programming Initizalization ends***********************/
+		/********************ANNOTATION********************************************************/
 		/**************************************************************************************/
-			
-			
-
-		// For each ChromosomeName
-		for (ChromosomeName chrName : ChromosomeName.values()) {
-			
-			
-			List<Interval> dataArrayList =new ArrayList<Interval>();
-			BufferedReader bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			
 		
-			readDataIntoArray(bufferedReader,dataArrayList);
+		
+		
+		/************************************************************************************************************/
+		/********************ANNOTATION IN PARALLEL STARTS***********************************************************/
+		/************************************************************************************************************/
+		if (annotation.annotateInParalel()){
+			/**************************************************************************************/
+			/********************Concurrent Programming Initizalization starts*********************/
+			/**************************************************************************************/
+			ForkJoinPool pool = new ForkJoinPool(Commons.NUMBER_OF_AVAILABLE_PROCESSORS);
+			
+			int[] allChromosomesDnaseCellLineKArray = null;
+			int numberofComparisonsDnase = 0;
+			
+//			int[] allChromosomesTFCellLineKEGGPathwayKArray = null;
+//			int numberofComparisonsTFCellLineKEGGPathway = 0;
 			
 			
-			/*******************************************************************************/
-			/************ DNASE**ANNOTATION****starts **************************************/
-			/*******************************************************************************/
 			if (dnaseAnnotationType.doDnaseAnnotation()) {
 				
-				// DNASE
-				int[] dnaseCellLineKArray = null;
-				IntervalTree dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
+				dateBefore = System.currentTimeMillis();
+				
+				numberofComparisonsDnase = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType);
 			
+				allChromosomesDnaseCellLineKArray = new int[numberofComparisonsDnase];
+				
+			}
+			
+			
+//			if(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+//				
+//				GlanetRunner.appendLog("**********************************************************");
+//				GlanetRunner.appendLog("CellLine Based TF KEGG Pathway annotation starts: " + new Date());
+//				dateBefore = System.currentTimeMillis();
+//				
+//				numberofComparisonsTFCellLineKEGGPathway = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,tfCellLineKeggPathwayAnnotationType);
+//			
+//				
+//				allChromosomesTFCellLineKEGGPathwayKArray = new int[numberofComparisonsTFCellLineKEGGPathway];
+//			}
+			
+			/**************************************************************************************/
+			/********************Concurrent Programming Initizalization ends***********************/
+			/**************************************************************************************/
+				
+				
 
-			
-				//logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" + dataArrayList.size());
+			// For each ChromosomeName
+			for (ChromosomeName chrName : ChromosomeName.values()) {
 				
-				dnaseCellLineKArray = searchDnaseWithNumbers(
-						dataFolder,
-						outputFolder,
-						chrName,
-						dataArrayList,
-						overlapDefinition,
-						dnaseIntervalTree,
-						numberofComparisonsDnase,
-						cellLineNumber2NameMap,
-						fileNumber2NameMap,
-						writeElementBasedAnnotationFoundOverlapsMode,
-						pool);
-						
 				
-				//logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" + "\t" + dnaseCellLineNumber2KMap.size());
-				
-				Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
+				List<Interval> dataArrayList =new ArrayList<Interval>();
+				BufferedReader bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 				
 			
-				dnaseCellLineKArray = null;
-				emptyIntervalTree(dnaseIntervalTree.getRoot());
-				dnaseIntervalTree = null;
+				readDataIntoArray(bufferedReader,dataArrayList);
+				
+				
+				/*******************************************************************************/
+				/************ DNASE**ANNOTATION****starts **************************************/
+				/*******************************************************************************/
+				if (dnaseAnnotationType.doDnaseAnnotation()) {
+					
+					// DNASE
+					int[] dnaseCellLineKArray = null;
+					IntervalTree dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
+				
 
+				
+					//logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" + dataArrayList.size());
+					
+					dnaseCellLineKArray = searchDnaseWithNumbers(
+							dataFolder,
+							outputFolder,
+							chrName,
+							dataArrayList,
+							overlapDefinition,
+							dnaseIntervalTree,
+							numberofComparisonsDnase,
+							cellLineNumber2NameMap,
+							fileNumber2NameMap,
+							writeElementBasedAnnotationFoundOverlapsMode,
+							pool);
+							
+					
+					//logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" + "\t" + dnaseCellLineNumber2KMap.size());
+					
+					Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
+					
+				
+					dnaseCellLineKArray = null;
+					emptyIntervalTree(dnaseIntervalTree.getRoot());
+					dnaseIntervalTree = null;
+
+					System.gc();
+					System.runFinalization();
+
+					
+					
+
+				}
+				/*******************************************************************************/
+				/************ DNASE***ANNOTATION********ends ***********************************/
+				/*******************************************************************************/
+				
+			}//End of for each Chromosome
+			
+			/**************************************************************************************/
+			/********************Concurrent Programming Finalization starts************************/
+			/**************************************************************************************/
+			
+			pool.shutdown();
+			
+			if (dnaseAnnotationType.doDnaseAnnotation()) {
+				
+				writeResultsWithNumbers(allChromosomesDnaseCellLineKArray, dnaseCellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+
+				dateAfter = System.currentTimeMillis();
+				GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
+				GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				
+				allChromosomesDnaseCellLineKArray = null;
 				System.gc();
 				System.runFinalization();
 
 				
+			}
+			/**************************************************************************************/
+			/********************Concurrent Programming Finalization ends**************************/
+			/**************************************************************************************/
+		}
+		/************************************************************************************************************/
+		/********************ANNOTATION IN PARALLEL ENDS*************************************************************/
+		/************************************************************************************************************/
+
+		
+		/************************************************************************************************************/
+		/********************ANNOTATION SEQUENTIALLY STARTS**********************************************************/
+		/************************************************************************************************************/
+		else if (annotation.annotateSequentially()){
+			
+			/*******************************************************************************/
+			/************DNASE ANNOTATION starts********************************************/
+			/*******************************************************************************/
+			if (dnaseAnnotationType.doDnaseAnnotation()){
 				
+				// DNASE
+				TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
+
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
+				dateBefore = System.currentTimeMillis();
+
+				searchDnaseWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,dnaseCellLineNumber2KMap, overlapDefinition, dnaseCellLineNumber2NameMap, fileNumber2NameMap);
+				writeResultsWithNumbers(dnaseCellLineNumber2KMap, dnaseCellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				dnaseCellLineNumber2KMap = null;
+				
+				System.gc();
+				System.runFinalization();
+				
+			}
+			/*******************************************************************************/
+			/************DNASE ANNOTATION ends**********************************************/
+			/*******************************************************************************/
+	
+			
+			/*******************************************************************************/
+			/************ HISTONE****ANNOTATION***starts ***********************************/
+			/*******************************************************************************/
+			if (histoneAnnotationType.doHistoneAnnotation()) {
+				
+				// Histone
+				TIntIntMap histoneNumberCellLineNumber2KMap = new TIntIntHashMap();
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("CellLine Based Histone annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				searchHistoneWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,histoneNumberCellLineNumber2KMap, overlapDefinition, histoneNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
+				writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_HISTONE);
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("CellLine Based Histone annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				histoneNumberCellLineNumber2KMap = null;
+				
+				System.gc();
+				System.runFinalization();
 
 			}
 			/*******************************************************************************/
-			/************ DNASE***ANNOTATION********ends ***********************************/
+			/************ HISTONE*****ANNOTATION***ends ************************************/
+			/*******************************************************************************/
+
+			
+			
+			
+			
+			/*******************************************************************************/
+			/************ TF******ANNOTATION******starts ***********************************/
+			/*******************************************************************************/
+			if (tfAnnotationType.doTFAnnotation() && 
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+				
+				// TF
+				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				searchTranscriptionFactorWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
+				writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("CellLine Based TF annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				tfNumberCellLineNumber2KMap = null;
+				
+				System.gc();
+				System.runFinalization();
+			}
+			/*******************************************************************************/
+			/************ TF*******ANNOTATION*****ends *************************************/
+			/*******************************************************************************/
+
+			
+			
+			/*******************************************************************************/
+			/************* HG19 Refseq GENE*****ANNOTATION***starts ************************/
+			/*******************************************************************************/
+			/***************** This has been coded for Chen Yao ****************************/
+			/*******************************************************************************/
+			if (geneAnnotationType.doGeneAnnotation()){
+				
+				// Hg19 RefSeq Genes
+				// For Encode Collaboration Chen Yao Paper
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+
+				
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
+				dateBefore = System.currentTimeMillis();
+
+				// 10 February 2015
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+
+				// 13 February 2015
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
+				searchGeneWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, entrezGeneId2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+
+				writeGeneOverlapAnalysisFile(outputFolder, Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap, chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
+
+				//@todo
+				writeResultsWithNumbers(entrezGeneId2KMap, geneEntrezId2GeneOfficialSymbolMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				
+				entrezGeneId2KMap = null;
+				
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/***************** This is done by default for Chen Yao ************************/
+			/*******************************************************************************/
+			/************* HG19 RefSeq GENE*****ANNOTATION***ends **************************/
 			/*******************************************************************************/
 			
-		}//End of for each Chromosome
+			
+			
+			/*******************************************************************************/
+			/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
+			/*******************************************************************************/
+			if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+				
+				// KEGGPathway
+				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+						dataFolder,
+						Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+						keggPathwayName2NumberMap, 
+						geneId2ListofKeggPathwayNumberMap);
+
+				TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				searchGeneSetWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, overlapDefinition, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap, Commons.KEGG_PATHWAY, GeneSetType.KEGGPATHWAY);
+
+				writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("KEGG Pathway annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("KEGG Pathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				
+				exonBasedKeggPathway2KMap = null;
+				regulationBasedKeggPathway2KMap = null;
+				allBasedKeggPathway2KMap = null;
+
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/************ KEGG PATHWAY****ANNOTATION*ends **********************************/
+			/*******************************************************************************/
 
 			
-		
-		
-
-		/**************************************************************************************/
-		/********************Concurrent Programming Finalization starts************************/
-		/**************************************************************************************/
-		
-		pool.shutdown();
-		
-		if (dnaseAnnotationType.doDnaseAnnotation()) {
 			
-			writeResultsWithNumbers(allChromosomesDnaseCellLineKArray, dnaseCellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+			/*******************************************************************************/
+			/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
+			/*******************************************************************************/
+			if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
+				
+				// UserDefinedGeneSet
+				TShortIntMap exonBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
+				TShortIntMap regulationBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
+				TShortIntMap allBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
 
-			dateAfter = System.currentTimeMillis();
-			GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
-			GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("User Defined GeneSet annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+
+				// used in write results
+				TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TShortObjectHashMap<String>();
+				// used in filling geneId2ListofUserDefinedGeneSetNumberMap
+				TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap = new TObjectShortHashMap<String>();
+
+				// User Defined GeneSet
+				// Fill userDefinedGeneSetName2UserDefinedGeneSetNumber
+				// Fill userDefinedGeneSetNumber2UserDefinedGeneSetName files
+				// Fill geneId2ListofUserDefinedGeneSetNumberMap
+				TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap = new TIntObjectHashMap<TShortList>();
+				UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder, userDefinedGeneSetInputFile, geneInformationType, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
+
+				WriteAllPossibleNames.writeAllPossibleUserDefinedGeneSetNames(dataFolder, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
+
+				searchGeneSetWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,exonBasedUserDefinedGeneSet2KMap, regulationBasedUserDefinedGeneSet2KMap, allBasedUserDefinedGeneSet2KMap, overlapDefinition, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap, userDefinedGeneSetName, GeneSetType.USERDEFINEDGENESET);
+
+				writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+				writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+				writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("User Defined GeneSet annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("User Defined GeneSet annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				
+				exonBasedUserDefinedGeneSet2KMap = null;
+				regulationBasedUserDefinedGeneSet2KMap = null;
+				allBasedUserDefinedGeneSet2KMap = null;
+
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/************ USER DEFINED GENESET*****ANNOTATION***ends ***********************/
+			/*******************************************************************************/
+
+			/*******************************************************************************/
+			/************ USER DEFINED LIBRARY*****ANNOTATION***starts *********************/
+			/*******************************************************************************/
+			if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("User Defined Library Annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+
+				// used in write results
+				TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap = new TObjectIntHashMap<String>();
+				TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
+
+				// This has to be ElementType Specific for Bonferroni Correction
+				TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap = new TIntObjectHashMap<TObjectIntMap<String>>();
+				TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap = new TIntObjectHashMap<TIntObjectMap<String>>();
+
+				TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap = new TObjectIntHashMap<String>();
+				TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap = new TIntObjectHashMap<String>();
+
+				// UserDefinedLibrary
+				// Read UserDefinedLibraryInputFile
+				// Read each file written in UserDefinedLibraryInputFile
+				// FileName FileNumber
+				// Fill userDefinedLibraryFileName2UserDefinedLibraryFileNumber Map
+				// Fill userDefinedLibraryFileNumber2UserDefinedLibraryFileName Map
+				// ElementType ElementTypeNumber
+				// Fill userDefinedLibraryElementType2ElementTypeNumber Map
+				// Fill userDefinedLibraryElementTypeNumber2ElementType Map
+				// Fill ElementTypeNumber specific ElementName2ElementNumber
+				// Fill ElementTypeNumber specific ElementNumber2ElementName
+				// For each elementType
+				// Create UserDefinedLibrary unsorted chromosome based interval
+				// files with numbers
+
+				UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(dataFolder, userDefinedLibraryInputFile, userDefinedLibraryDataFormat, userDefinedLibraryElementType2ElementTypeNumberMap, userDefinedLibraryElementTypeNumber2ElementTypeMap, elementTypeNumber2ElementName2ElementNumberMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, userDefinedLibraryFileName2FileNumberMap, userDefinedLibraryFileNumber2FileNameMap);
+
+				TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap = new TIntObjectHashMap<TIntIntMap>();
+
+				// For each elementTypeNumber
+				// Initialize elementNumber2KMap
+				for (TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();) {
+					it.advance();
+					TIntIntMap map = new TIntIntHashMap();
+					elementTypeNumber2ElementNumber2KMapMap.put(it.key(), map);
+				}// End of for each elementTypeNumber initialize elementNumber2KMap
+
+				searchUserDefinedLibraryWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,overlapDefinition, elementTypeNumber2ElementNumber2KMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, userDefinedLibraryElementTypeNumber2ElementTypeMap, userDefinedLibraryFileNumber2FileNameMap);
+
+				// UserDefinedLibrary
+				writeResultsWithNumbers(userDefinedLibraryElementTypeNumber2ElementTypeMap, elementTypeNumber2ElementNumber2KMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
+
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("User Defined Library annotation ends: " + new Date());
+
+				GlanetRunner.appendLog("User Defined Library annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				userDefinedLibraryElementType2ElementTypeNumberMap = null;
+				userDefinedLibraryElementTypeNumber2ElementTypeMap = null;
+				
+				elementTypeNumber2ElementName2ElementNumberMapMap = null;
+				elementTypeNumber2ElementNumber2ElementNameMapMap = null;
+				
+				userDefinedLibraryFileName2FileNumberMap = null;
+				userDefinedLibraryFileNumber2FileNameMap = null;
+				
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/************ USER DEFINED LIBRARY*****ANNOTATION***ends ***********************/
+			/*******************************************************************************/
 
 			
-			allChromosomesDnaseCellLineKArray = null;
-			System.gc();
-			System.runFinalization();
+			
+			/*******************************************************************************/
+			/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
+			/*******************************************************************************/
+			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+				
+				// KEGGPathway
+				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+						dataFolder,
+						Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+						keggPathwayName2NumberMap, 
+						geneId2ListofKeggPathwayNumberMap);
+				
+				//TF
+				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+				
+				//KEGG Pathway
+				TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+				
+				//TF KEGGPathway
+				TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				
+				searchTfKEGGPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfExonBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2KMap, tfAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+
+				// TF
+				writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+
+				// KEGGPathway
+				writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+				// TF KEGGPathway
+				writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+				writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("TF KEGGPathway annotation ends: " + new Date());
+				GlanetRunner.appendLog("TF KEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				//null
+				//TF
+				tfNumberCellLineNumber2KMap = null;
+				
+				//KEGG Pathway
+				exonBasedKeggPathway2KMap = null;
+				regulationBasedKeggPathway2KMap = null;
+				allBasedKeggPathway2KMap = null;
+				
+				//TF KEGG Pathway
+				tfExonBasedKeggPathway2KMap = null;
+				tfRegulationBasedKeggPathway2KMap = null;
+				tfAllBasedKeggPathway2KMap = null;
+
+				geneId2ListofKeggPathwayNumberMap = null;
+
+				
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/************ TF KEGGPATHWAY*****ANNOTATION***ends *****************************/
+			/*******************************************************************************/
+
+			
+			
+			/*******************************************************************************/
+			/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
+			/*******************************************************************************/
+			if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
+				
+				// KEGGPathway
+				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+						dataFolder,
+						Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+						keggPathwayName2NumberMap, 
+						geneId2ListofKeggPathwayNumberMap);
+				
+				//TF
+				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+				
+				//KEGG Pathway
+				TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+				
+				// TF CellLine KEGGPathway
+				TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				
+				searchTfCellLineKEGGPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+
+				// TF
+				writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+
+				// KEGGPathway
+				writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+				// TF CellLine KEGGPathway
+				writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation ends: " + new Date());
+				GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+
+				//null
+				//TF
+				tfNumberCellLineNumber2KMap = null;
+				
+				//KEGG Pathway
+				exonBasedKeggPathway2KMap = null;
+				regulationBasedKeggPathway2KMap = null;
+				allBasedKeggPathway2KMap = null;
+				
+				//TF CellLine KEGGPathway
+				tfCellLineExonBasedKeggPathway2KMap = null;
+				tfCellLineRegulationBasedKeggPathway2KMap = null;
+				tfCellLineAllBasedKeggPathway2KMap = null;
+
+				geneId2ListofKeggPathwayNumberMap= null;
+				
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*******************************************************************************/
+			/************ TF CELLLINE KEGGPATHWAY*****ANNOTATION***ends ********************/
+			/*******************************************************************************/
+			
+			
+
+		
+
+			/*********************************************************************************/
+			/************ Search input interval files for TF *********************************/
+			/************ Search input interval files for KEGG PATHWAY ***********************/
+			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
+			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
+			/*********************************************************************************/
+			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+				
+				// KEGGPathway
+				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
+				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
+						dataFolder,
+						Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
+						keggPathwayName2NumberMap, 
+						geneId2ListofKeggPathwayNumberMap);
+				
+				//TF
+				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
+				
+				//KEGG Pathway
+				TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
+				TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
+				
+				//TF KEGGPathway
+				TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
+				// TF CellLine KEGGPathway
+				TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+				TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
+
+				GlanetRunner.appendLog("**********************************************************");
+				GlanetRunner.appendLog("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + new Date());
+
+				dateBefore = System.currentTimeMillis();
+				
+				searchTfandKeggPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,geneId2ListofKeggPathwayNumberMap, tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2KMap, tfExonBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2KMap, tfAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
+
+				// TF
+				writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+
+				// KEGGPathway
+				writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+				writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+				// TF KEGGPathway
+				writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+				writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
+				writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
+
+				// TF CellLine KEGGPathway
+				writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+				writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+				writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+
+				dateAfter = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
+				GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
+				
+				//null
+				//TF
+				tfNumberCellLineNumber2KMap = null;
+				
+				//KEGG Pathway
+				exonBasedKeggPathway2KMap = null;
+				regulationBasedKeggPathway2KMap = null;
+				allBasedKeggPathway2KMap = null;
+
+				// TF KEGGPathway
+				tfExonBasedKeggPathway2KMap = null;
+				tfRegulationBasedKeggPathway2KMap = null;
+				tfAllBasedKeggPathway2KMap = null;
+
+				// TF CellLine KEGGPathway
+				tfCellLineExonBasedKeggPathway2KMap = null;
+				tfCellLineRegulationBasedKeggPathway2KMap = null;
+				tfCellLineAllBasedKeggPathway2KMap = null;
+
+				geneId2ListofKeggPathwayNumberMap = null;
+
+				System.gc();
+				System.runFinalization();
+
+			}
+			/*********************************************************************************/
+			/************ Search input interval files for TF *********************************/
+			/************ Search input interval files for KEGG PATHWAY ***********************/
+			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
+			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
+			/*********************************************************************************/
 
 			
 		}
-		/**************************************************************************************/
-		/********************Concurrent Programming Finalization ends**************************/
-		/**************************************************************************************/
+		/************************************************************************************************************/
+		/********************ANNOTATION SEQUENTIALLY ENDS************************************************************/
+		/************************************************************************************************************/
+		
+		
+		/***********************************************************************************/
+		/**************Memory Usage After Annotation****************************************/
+		/***********************************************************************************/
+		logger.info("Memory Used After Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		/***********************************************************************************/
+		/**************Memory Usage After Annotation****************************************/
+		/***********************************************************************************/
 	
-		
-		
-		
-		
-		
-		
-		/*******************************************************************************/
-		/************ HISTONE****ANNOTATION***starts ***********************************/
-		/*******************************************************************************/
-		if (histoneAnnotationType.doHistoneAnnotation()) {
-			
-			// Histone
-			TIntIntMap histoneNumberCellLineNumber2KMap = new TIntIntHashMap();
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("CellLine Based Histone annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			searchHistoneWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,histoneNumberCellLineNumber2KMap, overlapDefinition, histoneNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
-			writeResultsWithNumbers(histoneNumberCellLineNumber2KMap, histoneNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_HISTONE);
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("CellLine Based Histone annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("CellLine Based Histone annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			histoneNumberCellLineNumber2KMap = null;
-			
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ HISTONE*****ANNOTATION***ends ************************************/
-		/*******************************************************************************/
-
-		
-		
-		
-		
-		/*******************************************************************************/
-		/************ TF******ANNOTATION******starts ***********************************/
-		/*******************************************************************************/
-		if (tfAnnotationType.doTFAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-			
-			// TF
-			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			searchTranscriptionFactorWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("CellLine Based TF annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("CellLine Based TF annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			tfNumberCellLineNumber2KMap = null;
-			
-			System.gc();
-			System.runFinalization();
-		}
-		/*******************************************************************************/
-		/************ TF*******ANNOTATION*****ends *************************************/
-		/*******************************************************************************/
-
-		
-		
-		/*******************************************************************************/
-		/************* HG19 Refseq GENE*****ANNOTATION***starts ************************/
-		/*******************************************************************************/
-		/***************** This has been coded for Chen Yao ****************************/
-		/*******************************************************************************/
-		if (geneAnnotationType.doGeneAnnotation()){
-			
-			// Hg19 RefSeq Genes
-			// For Encode Collaboration Chen Yao Paper
-			TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
-
-			
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
-			dateBefore = System.currentTimeMillis();
-
-			// 10 February 2015
-			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
-			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
-
-			// 13 February 2015
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
-
-			searchGeneWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, entrezGeneId2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
-
-			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
-
-			writeGeneOverlapAnalysisFile(outputFolder, Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE, geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap, chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
-
-			//@todo
-			writeResultsWithNumbers(entrezGeneId2KMap, geneEntrezId2GeneOfficialSymbolMap, outputFolder, Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			
-			entrezGeneId2KMap = null;
-			
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/***************** This is done by default for Chen Yao ************************/
-		/*******************************************************************************/
-		/************* HG19 RefSeq GENE*****ANNOTATION***ends **************************/
-		/*******************************************************************************/
-		
-		
-		
-		/*******************************************************************************/
-		/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
-		/*******************************************************************************/
-		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-			
-			// KEGGPathway
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
-					dataFolder,
-					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
-					keggPathwayName2NumberMap, 
-					geneId2ListofKeggPathwayNumberMap);
-
-			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
-
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("KEGG Pathway annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			searchGeneSetWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, overlapDefinition, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap, Commons.KEGG_PATHWAY, GeneSetType.KEGGPATHWAY);
-
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
-
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("KEGG Pathway annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("KEGG Pathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			
-			exonBasedKeggPathway2KMap = null;
-			regulationBasedKeggPathway2KMap = null;
-			allBasedKeggPathway2KMap = null;
-
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ KEGG PATHWAY****ANNOTATION*ends **********************************/
-		/*******************************************************************************/
-
-		
-		
-		/*******************************************************************************/
-		/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
-		/*******************************************************************************/
-		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
-			
-			// UserDefinedGeneSet
-			TShortIntMap exonBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-			TShortIntMap regulationBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-			TShortIntMap allBasedUserDefinedGeneSet2KMap = new TShortIntHashMap();
-
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("User Defined GeneSet annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-
-			// used in write results
-			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TShortObjectHashMap<String>();
-			// used in filling geneId2ListofUserDefinedGeneSetNumberMap
-			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap = new TObjectShortHashMap<String>();
-
-			// User Defined GeneSet
-			// Fill userDefinedGeneSetName2UserDefinedGeneSetNumber
-			// Fill userDefinedGeneSetNumber2UserDefinedGeneSetName files
-			// Fill geneId2ListofUserDefinedGeneSetNumberMap
-			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap = new TIntObjectHashMap<TShortList>();
-			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(dataFolder, userDefinedGeneSetInputFile, geneInformationType, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
-
-			WriteAllPossibleNames.writeAllPossibleUserDefinedGeneSetNames(dataFolder, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap);
-
-			searchGeneSetWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,exonBasedUserDefinedGeneSet2KMap, regulationBasedUserDefinedGeneSet2KMap, allBasedUserDefinedGeneSet2KMap, overlapDefinition, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap, userDefinedGeneSetName, GeneSetType.USERDEFINEDGENESET);
-
-			writeResultsWithNumbers(exonBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
-			writeResultsWithNumbers(regulationBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
-			writeResultsWithNumbers(allBasedUserDefinedGeneSet2KMap, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
-
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("User Defined GeneSet annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("User Defined GeneSet annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			
-			exonBasedUserDefinedGeneSet2KMap = null;
-			regulationBasedUserDefinedGeneSet2KMap = null;
-			allBasedUserDefinedGeneSet2KMap = null;
-
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ USER DEFINED GENESET*****ANNOTATION***ends ***********************/
-		/*******************************************************************************/
-
-		/*******************************************************************************/
-		/************ USER DEFINED LIBRARY*****ANNOTATION***starts *********************/
-		/*******************************************************************************/
-		if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("User Defined Library Annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-
-			// used in write results
-			TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap = new TObjectIntHashMap<String>();
-			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
-
-			// This has to be ElementType Specific for Bonferroni Correction
-			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap = new TIntObjectHashMap<TObjectIntMap<String>>();
-			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap = new TIntObjectHashMap<TIntObjectMap<String>>();
-
-			TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap = new TObjectIntHashMap<String>();
-			TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap = new TIntObjectHashMap<String>();
-
-			// UserDefinedLibrary
-			// Read UserDefinedLibraryInputFile
-			// Read each file written in UserDefinedLibraryInputFile
-			// FileName FileNumber
-			// Fill userDefinedLibraryFileName2UserDefinedLibraryFileNumber Map
-			// Fill userDefinedLibraryFileNumber2UserDefinedLibraryFileName Map
-			// ElementType ElementTypeNumber
-			// Fill userDefinedLibraryElementType2ElementTypeNumber Map
-			// Fill userDefinedLibraryElementTypeNumber2ElementType Map
-			// Fill ElementTypeNumber specific ElementName2ElementNumber
-			// Fill ElementTypeNumber specific ElementNumber2ElementName
-			// For each elementType
-			// Create UserDefinedLibrary unsorted chromosome based interval
-			// files with numbers
-
-			UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(dataFolder, userDefinedLibraryInputFile, userDefinedLibraryDataFormat, userDefinedLibraryElementType2ElementTypeNumberMap, userDefinedLibraryElementTypeNumber2ElementTypeMap, elementTypeNumber2ElementName2ElementNumberMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, userDefinedLibraryFileName2FileNumberMap, userDefinedLibraryFileNumber2FileNameMap);
-
-			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap = new TIntObjectHashMap<TIntIntMap>();
-
-			// For each elementTypeNumber
-			// Initialize elementNumber2KMap
-			for (TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();) {
-				it.advance();
-				TIntIntMap map = new TIntIntHashMap();
-				elementTypeNumber2ElementNumber2KMapMap.put(it.key(), map);
-			}// End of for each elementTypeNumber initialize elementNumber2KMap
-
-			searchUserDefinedLibraryWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,overlapDefinition, elementTypeNumber2ElementNumber2KMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, userDefinedLibraryElementTypeNumber2ElementTypeMap, userDefinedLibraryFileNumber2FileNameMap);
-
-			// UserDefinedLibrary
-			writeResultsWithNumbers(userDefinedLibraryElementTypeNumber2ElementTypeMap, elementTypeNumber2ElementNumber2KMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY, Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
-
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("User Defined Library annotation ends: " + new Date());
-
-			GlanetRunner.appendLog("User Defined Library annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			userDefinedLibraryElementType2ElementTypeNumberMap = null;
-			userDefinedLibraryElementTypeNumber2ElementTypeMap = null;
-			
-			elementTypeNumber2ElementName2ElementNumberMapMap = null;
-			elementTypeNumber2ElementNumber2ElementNameMapMap = null;
-			
-			userDefinedLibraryFileName2FileNumberMap = null;
-			userDefinedLibraryFileNumber2FileNameMap = null;
-			
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ USER DEFINED LIBRARY*****ANNOTATION***ends ***********************/
-		/*******************************************************************************/
-
-		
-		
-		/*******************************************************************************/
-		/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
-		/*******************************************************************************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-			
-			// KEGGPathway
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
-					dataFolder,
-					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
-					keggPathwayName2NumberMap, 
-					geneId2ListofKeggPathwayNumberMap);
-			
-			//TF
-			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-			
-			//KEGG Pathway
-			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
-			
-			//TF KEGGPathway
-			TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("TF KEGGPathway annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			
-			searchTfKEGGPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfExonBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2KMap, tfAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
-
-			// TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
-
-			// KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
-
-			// TF KEGGPathway
-			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
-			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
-			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("TF KEGGPathway annotation ends: " + new Date());
-			GlanetRunner.appendLog("TF KEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			//null
-			//TF
-			tfNumberCellLineNumber2KMap = null;
-			
-			//KEGG Pathway
-			exonBasedKeggPathway2KMap = null;
-			regulationBasedKeggPathway2KMap = null;
-			allBasedKeggPathway2KMap = null;
-			
-			//TF KEGG Pathway
-			tfExonBasedKeggPathway2KMap = null;
-			tfRegulationBasedKeggPathway2KMap = null;
-			tfAllBasedKeggPathway2KMap = null;
-
-			geneId2ListofKeggPathwayNumberMap = null;
-
-			
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ TF KEGGPATHWAY*****ANNOTATION***ends *****************************/
-		/*******************************************************************************/
-
-		
-		
-		/*******************************************************************************/
-		/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
-		/*******************************************************************************/
-		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
-				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
-			
-			// KEGGPathway
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
-					dataFolder,
-					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
-					keggPathwayName2NumberMap, 
-					geneId2ListofKeggPathwayNumberMap);
-			
-			//TF
-			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-			
-			//KEGG Pathway
-			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
-			
-			// TF CellLine KEGGPathway
-			TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			
-			searchTfCellLineKEGGPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
-
-			// TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
-
-			// KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
-
-			// TF CellLine KEGGPathway
-			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation ends: " + new Date());
-			GlanetRunner.appendLog("CellLine Based TF KEGGPATHWAY annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-
-			//null
-			//TF
-			tfNumberCellLineNumber2KMap = null;
-			
-			//KEGG Pathway
-			exonBasedKeggPathway2KMap = null;
-			regulationBasedKeggPathway2KMap = null;
-			allBasedKeggPathway2KMap = null;
-			
-			//TF CellLine KEGGPathway
-			tfCellLineExonBasedKeggPathway2KMap = null;
-			tfCellLineRegulationBasedKeggPathway2KMap = null;
-			tfCellLineAllBasedKeggPathway2KMap = null;
-
-			geneId2ListofKeggPathwayNumberMap= null;
-			
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*******************************************************************************/
-		/************ TF CELLLINE KEGGPATHWAY*****ANNOTATION***ends ********************/
-		/*******************************************************************************/
-		
-		
-
-	
-
-		/*********************************************************************************/
-		/************ Search input interval files for TF *********************************/
-		/************ Search input interval files for KEGG PATHWAY ***********************/
-		/************ Search input interval files for TF AND KEGG PATHWAY ****************/
-		/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
-		/*********************************************************************************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
-			
-			// KEGGPathway
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-			KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
-					dataFolder,
-					Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
-					keggPathwayName2NumberMap, 
-					geneId2ListofKeggPathwayNumberMap);
-			
-			//TF
-			TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-			
-			//KEGG Pathway
-			TShortIntMap exonBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap regulationBasedKeggPathway2KMap = new TShortIntHashMap();
-			TShortIntMap allBasedKeggPathway2KMap = new TShortIntHashMap();
-			
-			//TF KEGGPathway
-			TIntIntMap tfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-			// TF CellLine KEGGPathway
-			TIntIntMap tfCellLineExonBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfCellLineRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-			TIntIntMap tfCellLineAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-			GlanetRunner.appendLog("**********************************************************");
-			GlanetRunner.appendLog("Both TFKEGGPathway and TFCellLineKEGGPathway annotation starts: " + new Date());
-
-			dateBefore = System.currentTimeMillis();
-			
-			searchTfandKeggPathwayWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,geneId2ListofKeggPathwayNumberMap, tfNumberCellLineNumber2KMap, exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2KMap, tfExonBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2KMap, tfAllBasedKeggPathway2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap, keggPathwayNumber2NameMap, geneHugoSymbolNumber2NameMap, refSeqRNANucleotideAccessionNumber2NameMap);
-
-			// TF
-			writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
-
-			// KEGGPathway
-			writeResultsWithNumbers(exonBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(regulationBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
-			writeResultsWithNumbers(allBasedKeggPathway2KMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
-
-			// TF KEGGPathway
-			writeTFKEGGPathwayResultsWithNumbers(tfExonBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
-			writeTFKEGGPathwayResultsWithNumbers(tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
-			writeTFKEGGPathwayResultsWithNumbers(tfAllBasedKeggPathway2KMap, tfNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
-
-			// TF CellLine KEGGPathway
-			writeResultsWithNumbers(tfCellLineExonBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
-			writeResultsWithNumbers(tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
-			writeResultsWithNumbers(tfCellLineAllBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
-
-			dateAfter = System.currentTimeMillis();
-
-			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation ends: " + new Date());
-			GlanetRunner.appendLog("TFCellLineKEGGPathway and  TFKEGGPathway annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-			GlanetRunner.appendLog("**********************************************************");
-			
-			//null
-			//TF
-			tfNumberCellLineNumber2KMap = null;
-			
-			//KEGG Pathway
-			exonBasedKeggPathway2KMap = null;
-			regulationBasedKeggPathway2KMap = null;
-			allBasedKeggPathway2KMap = null;
-
-			// TF KEGGPathway
-			tfExonBasedKeggPathway2KMap = null;
-			tfRegulationBasedKeggPathway2KMap = null;
-			tfAllBasedKeggPathway2KMap = null;
-
-			// TF CellLine KEGGPathway
-			tfCellLineExonBasedKeggPathway2KMap = null;
-			tfCellLineRegulationBasedKeggPathway2KMap = null;
-			tfCellLineAllBasedKeggPathway2KMap = null;
-
-			geneId2ListofKeggPathwayNumberMap = null;
-
-			System.gc();
-			System.runFinalization();
-
-		}
-		/*********************************************************************************/
-		/************ Search input interval files for TF *********************************/
-		/************ Search input interval files for KEGG PATHWAY ***********************/
-		/************ Search input interval files for TF AND KEGG PATHWAY ****************/
-		/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
-		/*********************************************************************************/
 
 	}
 
