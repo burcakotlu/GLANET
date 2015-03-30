@@ -825,6 +825,7 @@ public class Commons {
 	/*******************************************************************************************************************/
 	/******************** ANNOTATION RESULTS starts **********************************************************************/
 	/*******************************************************************************************************************/
+	public static final String ANNOTATION_RESULTS_FOR_DNASE_USING_INT_ARRAY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + Commons.DNASE + System.getProperty("file.separator") + "INT_ARRAY_number_of_k_out_of_n_given_intervals_Dnase_results.txt";
 	public static final String ANNOTATION_RESULTS_FOR_DNASE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + Commons.DNASE + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_Dnase_results.txt";
 	public static final String ANNOTATION_RESULTS_FOR_TF = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + Commons.TF + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_TF_results.txt";
 	public static final String ANNOTATION_RESULTS_FOR_HISTONE = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.RESULTS + System.getProperty("file.separator") + Commons.HISTONE + System.getProperty("file.separator") + "number_of_k_out_of_n_given_intervals_Histone_results.txt";
@@ -1088,7 +1089,7 @@ public class Commons {
 	/**************************************************************************************************/
 	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_Number_2_Name.txt";
 	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_Number_2_Name.txt";
-	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER.txt";
+	public static final String ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEIDNUMBER_2_GENEID_OUTPUT_FILENAME = "all_possible_UCSCGENOME_HG19_REFSEQ_GENES_GENEIDNUMBER_2_GENEID.txt";
 	/**************************************************************************************************/
 	/********************************** UCSC GENOME REFSEQ GENES ALL POSSIBLE NAMES ends ****************/
 	/**************************************************************************************************/

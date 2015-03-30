@@ -23,9 +23,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntIntIterator;
@@ -381,7 +379,11 @@ public class FileOperations {
 	}
 
 	// Added 31.OCT.2014
-	public static void writeName(String dataFolder, TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName) {
+	public static void writeName(
+			String dataFolder, 
+			TIntObjectMap<String> number2NameMap, 
+			String outputDirectoryName, 
+			String outputFileName) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -390,10 +392,11 @@ public class FileOperations {
 			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for (TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();) {
-				it.advance();
-				bufferedWriter.write(it.key() + System.getProperty("line.separator"));
+			
+			for (int i = 0; i<number2NameMap.size(); i++){
+				bufferedWriter.write( number2NameMap.get(i) + System.getProperty("line.separator"));
 			}
+			
 
 			bufferedWriter.close();
 			fileWriter.close();
@@ -476,9 +479,10 @@ public class FileOperations {
 			e.printStackTrace();
 		}
 	}
-
-	// Added 20.NOV.2014
-	public static void writeNumber2NameMap(String dataFolder, TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName) {
+	
+	
+	//Added 26 March 2015
+	public static void writeSortedNumber2NameMap(String dataFolder, TIntIntMap number2NumberMap, String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -486,10 +490,31 @@ public class FileOperations {
 		try {
 			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(int i = 0; i<number2NumberMap.size(); i++){
+				bufferedWriter.write(i + "\t" + number2NumberMap.get(i) + System.getProperty("line.separator"));				
+			}
 
-			for (TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();) {
-				it.advance();
-				bufferedWriter.write(it.value() + "\t" + it.key() + System.getProperty("line.separator"));
+			bufferedWriter.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// Added 20.NOV.2014
+	public static void writeSortedNumber2NameMap(String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try {
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(int i = 0; i<number2NameMap.size(); i++){
+				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));				
 			}
 
 			bufferedWriter.close();
@@ -570,6 +595,49 @@ public class FileOperations {
 		}
 	}
 	
+	//Using char[][]
+	public static void fillNameList(
+			char[][] nameList, 
+			String dataFolder, 
+			String inputFileName){
+		
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+
+		int nameCount = 0;
+		
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				nameList[nameCount]= strLine.substring(indexofFirstTab + 1).toCharArray();
+				
+				nameCount++;
+				
+				strLine = null;
+			}//End of While
+			
+			
+			bufferedReader.close();
+			fileReader.close();
+			
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	
 
 	public static void fillNumber2NameMap(TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
 		String strLine;
@@ -605,7 +673,93 @@ public class FileOperations {
 			e.printStackTrace();
 		}
 	}
+	
+	//TroveMap using StringBuilder
+	public static void fillNumber2NameStringBuilderMap(TShortObjectMap<StringBuilder> number2NameMap, String dataFolder, String inputFileName) {
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+		short number;
+		StringBuilder name = new StringBuilder(16);
 
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				number = Short.parseShort(strLine.substring(0, indexofFirstTab));
+				
+				name = new StringBuilder(16).append(strLine.substring(indexofFirstTab + 1));
+
+				name.trimToSize();
+				
+				number2NameMap.put(number, name);
+				
+				
+				
+				strLine = null;
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	//new ends
+		
+
+	//TroveMap using CharSequence
+	public static void fillNumber2NameCharSequenceMap(TShortObjectMap<CharSequence> number2NameMap, String dataFolder, String inputFileName) {
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+		short number;
+		CharSequence name;
+
+		try {
+			fileReader = new FileReader(dataFolder + inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while ((strLine = bufferedReader.readLine()) != null) {
+				indexofFirstTab = strLine.indexOf('\t');
+				
+				number = Short.parseShort(strLine.substring(0, indexofFirstTab));
+				
+				name = strLine.subSequence(indexofFirstTab + 1,strLine.length());
+				
+				
+				number2NameMap.put(number, name);
+				strLine = null;
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			bufferedReader.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	//new ends
+	
+	//TroveMap Using String
 	public static void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
 		String strLine;
 		FileReader fileReader = null;

@@ -240,7 +240,7 @@ public class NumberofComparisons {
 		TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
-		TIntIntMap geneID2GeneIDNumberMap =  new TIntIntHashMap();
+		TIntIntMap geneIDNumber2GeneIDMap =  new TIntIntHashMap();
 
 		// Bonferroni Correction
 		// Dnase
@@ -258,8 +258,8 @@ public class NumberofComparisons {
 		numberofComparisons.setHistoneCellLineNumberofComparison(histoneCellLineNumber2NameMap.size());
 
 		//GENE
-		FileOperations.fillNumber2NumberMap(geneID2GeneIDNumberMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEID_2_GENEIDNUMBER_OUTPUT_FILENAME);
-		numberofComparisons.setGeneNumberofComparison(geneID2GeneIDNumberMap.size());
+		FileOperations.fillNumber2NumberMap(geneIDNumber2GeneIDMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEIDNUMBER_2_GENEID_OUTPUT_FILENAME);
+		numberofComparisons.setGeneNumberofComparison(geneIDNumber2GeneIDMap.size());
 
 		// KEGG PATHWAY
 		// Important ASK

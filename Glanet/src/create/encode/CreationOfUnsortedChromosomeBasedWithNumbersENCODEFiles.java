@@ -24,7 +24,9 @@ import common.Commons;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;
+import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
@@ -211,7 +213,19 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 	}
 
-	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(File directory, ElementType elementType, List<BufferedWriter> bufferedWriterList, TObjectIntMap<String> tforHistoneName2NumberMap, TObjectIntMap<String> tforHistoneCellLineName2NumberMap, TObjectIntMap<String> cellLineName2NumberMap, TObjectIntMap<String> encodeFileName2NumberMap, ENCODENumbers encodeNumbers) {
+	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+			File directory, 
+			ElementType elementType, 
+			List<BufferedWriter> bufferedWriterList, 
+			TObjectIntMap<String> tforHistoneName2NumberMap, 
+			TIntObjectMap<String> tforHistoneNumber2NameMap, 
+			TObjectIntMap<String> tforHistoneCellLineName2NumberMap, 
+			TIntObjectMap<String> tforHistoneCellLineNumber2NameMap, 
+			TObjectIntMap<String> cellLineName2NumberMap, 
+			TIntObjectMap<String> cellLineNumber2NameMap, 
+			TObjectIntMap<String> encodeFileName2NumberMap, 
+			TIntObjectMap<String> encodeFileNumber2NameMap, 
+			ENCODENumbers encodeNumbers) {
 
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -285,11 +299,13 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 								if (!tforHistoneName2NumberMap.containsKey(tforHistone)) {
 									tforHistoneName2NumberMap.put(tforHistone, tfNumber);
+									tforHistoneNumber2NameMap.put(tfNumber, tforHistone);
 									tfNumber++;
 								}
 
 								if (!tforHistoneCellLineName2NumberMap.containsKey(tforHistoneCellLine)) {
 									tforHistoneCellLineName2NumberMap.put(tforHistoneCellLine, tfCellLineNumber);
+									tforHistoneCellLineNumber2NameMap.put(tfCellLineNumber, tforHistoneCellLine);
 									tfCellLineNumber++;
 								}
 
@@ -309,11 +325,13 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 								if (!tforHistoneName2NumberMap.containsKey(tforHistone)) {
 									tforHistoneName2NumberMap.put(tforHistone, histoneNumber);
+									tforHistoneNumber2NameMap.put(histoneNumber, tforHistone);
 									histoneNumber++;
 								}
 
 								if (!tforHistoneCellLineName2NumberMap.containsKey(tforHistoneCellLine)) {
 									tforHistoneCellLineName2NumberMap.put(tforHistoneCellLine, histoneCellLineNumber);
+									tforHistoneCellLineNumber2NameMap.put(histoneCellLineNumber, tforHistoneCellLine);
 									histoneCellLineNumber++;
 								}
 
@@ -327,11 +345,13 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 						if (!cellLineName2NumberMap.containsKey(cellLine)) {
 							cellLineName2NumberMap.put(cellLine, cellLineNumber);
+							cellLineNumber2NameMap.put(cellLineNumber, cellLine);
 							cellLineNumber++;
 						}
 
 						if (!encodeFileName2NumberMap.containsKey(fileName)) {
 							encodeFileName2NumberMap.put(fileName, fileNumber);
+							encodeFileNumber2NameMap.put(fileNumber,fileName);
 							fileNumber++;
 						}
 
@@ -417,7 +437,17 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	}
 
 	// Version for DNASE
-	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(File directory, ElementType elementType, List<BufferedWriter> bufferedWriterList, TObjectIntMap<String> dnaseCellLineName2NumberMap, TObjectIntMap<String> cellLineName2NumberMap, TObjectIntMap<String> encodeFileName2NumberMap, ENCODENumbers encodeNumbers) {
+	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+			File directory, 
+			ElementType elementType, 
+			List<BufferedWriter> bufferedWriterList, 
+			TObjectIntMap<String> encodeDnaseCellLineName2NumberMap, 
+			TIntObjectMap<String> encodeDnaseCellLineNumber2NameMap, 
+			TObjectIntMap<String> encodeCellLineName2NumberMap, 
+			TIntObjectMap<String> encodeCellLineNumber2NameMap, 
+			TObjectIntMap<String> encodeFileName2NumberMap, 
+			TIntObjectMap<String> encodeFileNumber2NameMap, 
+			ENCODENumbers encodeNumbers) {
 
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -473,18 +503,21 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 						// Get the cell line name from file name
 						cellLineDnase = getCellLineName(fileName);
 
-						if (!dnaseCellLineName2NumberMap.containsKey(cellLineDnase)) {
-							dnaseCellLineName2NumberMap.put(cellLineDnase, dnaseCellLineNumber);
+						if (!encodeDnaseCellLineName2NumberMap.containsKey(cellLineDnase)) {
+							encodeDnaseCellLineName2NumberMap.put(cellLineDnase, dnaseCellLineNumber);
+							encodeDnaseCellLineNumber2NameMap.put(dnaseCellLineNumber,cellLineDnase);
 							dnaseCellLineNumber++;
 						}
 
-						if (!cellLineName2NumberMap.containsKey(cellLineDnase)) {
-							cellLineName2NumberMap.put(cellLineDnase, cellLineNumber);
+						if (!encodeCellLineName2NumberMap.containsKey(cellLineDnase)) {
+							encodeCellLineName2NumberMap.put(cellLineDnase,cellLineNumber);
+							encodeCellLineNumber2NameMap.put(cellLineNumber,cellLineDnase);
 							cellLineNumber++;
 						}
 
 						if (!encodeFileName2NumberMap.containsKey(fileName)) {
-							encodeFileName2NumberMap.put(fileName, fileNumber);
+							encodeFileName2NumberMap.put(fileName,fileNumber);
+							encodeFileNumber2NameMap.put(fileNumber,fileName);
 							fileNumber++;
 						}
 
@@ -533,8 +566,10 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 								// Write to Unsorted Chromosome Based files with
 								// numbers
 								bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum(chromosomeName), bufferedWriterList);
-								bufferedWriter.write(chromosomeName + "\t" + start + "\t" + endInclusive + "\t" + dnaseCellLineName2NumberMap.get(cellLineDnase) + "\t" + encodeFileName2NumberMap.get(fileName) + System.getProperty("line.separator"));
+								bufferedWriter.write(chromosomeName + "\t" + start + "\t" + endInclusive + "\t" + encodeDnaseCellLineName2NumberMap.get(cellLineDnase)  + "\t" + encodeFileName2NumberMap.get(fileName) + System.getProperty("line.separator"));
 
+								
+								
 							}// End of while
 
 						} catch (IOException e) {
@@ -566,6 +601,9 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		//Number2NameMap is needed for all possible name files sorted w.r.t. number.
+		//Name2NumberMap is needed for writing chromosome based files with numbers.
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
@@ -580,25 +618,39 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		List<BufferedWriter> ENCODEHistoneBufferedWriterList = new ArrayList<BufferedWriter>();
 
 		// ENCODE DNASE CELLLINE NAME2NUMBER
+		// ENCODE DNASE CELLLINE NUMBER2NAME
 		TObjectIntMap<String> encodeDnaseCellLineName2NumberMap = new TObjectIntHashMap<String>();
-
+		TIntObjectMap<String> encodeDnaseCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+		
 		// ENCODE CELLLINE NAME2NUMBER
+		// ENCODE CELLLINE NUMBER2NAME
 		TObjectIntMap<String> encodeCellLineName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 
 		// ENCODE FILE NAME2NUMBER
+		// ENCODE FILE NUMBER2NAME
 		TObjectIntMap<String> encodeFileName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeFileNumber2NameMap = new TIntObjectHashMap<String>();
 
 		// ENCODE TF NAME2NUMBER
+		// ENCODE TF NUMBER2NAME
 		TObjectIntMap<String> encodeTFName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeTFNumber2NameMap = new TIntObjectHashMap<String>();
 
 		// ENCODE TF CELLLINE NAME2NUMBER
+		// ENCODE TF CELLLINE NUMBER2NAME
 		TObjectIntMap<String> encodeTFCellLineName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeTFCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 
 		// ENCODE Histone NAME2NUMBER
+		// ENCODE Histone NUMBER2NAME
 		TObjectIntMap<String> encodeHistoneName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeHistoneNumber2NameMap = new TIntObjectHashMap<String>();
 
 		// ENCODE Histone CELLLINE NAME2NUMBER
+		// ENCODE Histone CELLLINE NUMBER2NAME
 		TObjectIntMap<String> encodeHistoneCellLineName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> encodeHistoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 
 		ENCODENumbers encodeNumbers = new ENCODENumbers();
 
@@ -608,26 +660,51 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters(dataFolder, ElementType.HISTONE, ENCODEHistoneBufferedWriterList);
 
 		// Version for DNASE
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(dnaseDir1, ElementType.DNASE, ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap, encodeCellLineName2NumberMap, encodeFileName2NumberMap, encodeNumbers);
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(dnaseDir2, ElementType.DNASE, ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap, encodeCellLineName2NumberMap, encodeFileName2NumberMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(dnaseDir1, ElementType.DNASE, ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap,encodeDnaseCellLineNumber2NameMap, encodeCellLineName2NumberMap,encodeCellLineNumber2NameMap, encodeFileName2NumberMap,encodeFileNumber2NameMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(dnaseDir2, ElementType.DNASE, ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap,encodeDnaseCellLineNumber2NameMap, encodeCellLineName2NumberMap,encodeCellLineNumber2NameMap, encodeFileName2NumberMap,encodeFileNumber2NameMap, encodeNumbers);
 
 		// Version for TF and HISTONE
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(tfDir, ElementType.TF, ENCODETFBufferedWriterList, encodeTFName2NumberMap, encodeTFCellLineName2NumberMap, encodeCellLineName2NumberMap, encodeFileName2NumberMap, encodeNumbers);
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(histoneDir, ElementType.HISTONE, ENCODEHistoneBufferedWriterList, encodeHistoneName2NumberMap, encodeHistoneCellLineName2NumberMap, encodeCellLineName2NumberMap, encodeFileName2NumberMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				tfDir, 
+				ElementType.TF, 
+				ENCODETFBufferedWriterList, 
+				encodeTFName2NumberMap, 
+				encodeTFNumber2NameMap,
+				encodeTFCellLineName2NumberMap, 
+				encodeTFCellLineNumber2NameMap,
+				encodeCellLineName2NumberMap, 
+				encodeCellLineNumber2NameMap,  
+				encodeFileName2NumberMap, 
+				encodeFileNumber2NameMap,
+				encodeNumbers);
+		
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				histoneDir, 
+				ElementType.HISTONE, 
+				ENCODEHistoneBufferedWriterList, 
+				encodeHistoneName2NumberMap, 
+				encodeHistoneNumber2NameMap, 
+				encodeHistoneCellLineName2NumberMap, 
+				encodeHistoneCellLineNumber2NameMap,
+				encodeCellLineName2NumberMap, 
+				encodeCellLineNumber2NameMap,
+				encodeFileName2NumberMap, 
+				encodeFileNumber2NameMap,
+				encodeNumbers);
 
 		// Write ENCODE DNASE TF HISTONE
 		// Write number2name manner
 		// Annotation requires number2name manner
-		FileOperations.writeNumber2NameMap(dataFolder, encodeDnaseCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeTFName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeTFCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeHistoneName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeHistoneCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeNumber2NameMap(dataFolder, encodeFileName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeDnaseCellLineNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeCellLineNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeTFNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeTFCellLineNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeHistoneNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeHistoneCellLineNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeSortedNumber2NameMap(dataFolder, encodeFileNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
 
 		// Write name
-		FileOperations.writeName(dataFolder, encodeCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME);
+		FileOperations.writeName(dataFolder, encodeCellLineNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME);
 
 		// Close BufferedWriters
 		FileOperations.closeChromosomeBasedBufferedWriters(ENCODEDnaseBufferedWriterList);

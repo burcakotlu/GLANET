@@ -139,8 +139,8 @@ public class UserDefinedGeneSetUtility {
 			String dataFolder, 
 			String userDefinedGeneSetInputFile, 
 			GeneInformationType geneInformationType, 
-			TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap, 
-			TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, 
+			TObjectShortMap<String> userDefinedGeneSetName2NumberMap, 
+			TShortObjectMap<String> userDefinedGeneSetNumber2NameMap, 
 			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap) {
 
 		// Read the user defined geneset inputFile
@@ -149,7 +149,7 @@ public class UserDefinedGeneSetUtility {
 		String geneSetName;
 		String geneInformation;
 
-		short userDefinedGeneSetNumber = 1;
+		short userDefinedGeneSetNumber = 0;
 		short currentUserDefinedGeneSetNumber = Short.MIN_VALUE;
 
 		// In case of need: First fill these conversion maps
@@ -199,9 +199,9 @@ public class UserDefinedGeneSetUtility {
 				}
 
 				// Fill name2number and number2name maps starts
-				if (!(userDefinedGeneSetName2UserDefinedGeneSetNumberMap.containsKey(geneSetName))) {
-					userDefinedGeneSetName2UserDefinedGeneSetNumberMap.put(geneSetName, userDefinedGeneSetNumber);
-					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap.put(userDefinedGeneSetNumber, geneSetName);
+				if (!(userDefinedGeneSetName2NumberMap.containsKey(geneSetName))) {
+					userDefinedGeneSetName2NumberMap.put(geneSetName, userDefinedGeneSetNumber);
+					userDefinedGeneSetNumber2NameMap.put(userDefinedGeneSetNumber, geneSetName);
 
 					// Increment UserDefinedGeneSetNumber
 					userDefinedGeneSetNumber++;
@@ -210,7 +210,7 @@ public class UserDefinedGeneSetUtility {
 				// Fill name2number and number2name maps ends
 
 				// Get the current userDefinedGeneSet number
-				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2UserDefinedGeneSetNumberMap.get(geneSetName);
+				currentUserDefinedGeneSetNumber = userDefinedGeneSetName2NumberMap.get(geneSetName);
 
 				// For each readLine
 				geneInformation2ListofGeneIDs.clear();

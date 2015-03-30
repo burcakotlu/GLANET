@@ -18,6 +18,11 @@ public class Accumulation {
 			Arrays.setAll(rightArray, i-> leftArray[i] +  rightArray[i]);
 	}
 	
+	
+	public static void accumulate(byte[] leftArray, int[] rightArray) {
+		Arrays.setAll(rightArray, i-> leftArray[i] +  rightArray[i]);
+	}
+	
 	//It must use boxed types, so if you need speed, no generic implementation can do that in Java, you must use primitive types.
 	
 //		// TShortIntMap version starts

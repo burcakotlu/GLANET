@@ -4,7 +4,7 @@
 package create.encode;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Nov 17, 2014
  * @project Glanet
  *
@@ -76,13 +76,13 @@ public class ENCODENumbers {
 	}
 
 	public ENCODENumbers() {
-		this.dnaseCellLineNumber = 1;
-		this.cellLineNumber = 1;
-		this.tfNumber = 1;
-		this.histoneNumber = 1;
-		this.tfCellLineNumber = 1;
-		this.histoneCellLineNumber = 1;
-		this.fileNumber = 1;
+		this.dnaseCellLineNumber = 0;
+		this.cellLineNumber = 0;
+		this.tfNumber = 0;
+		this.histoneNumber = 0;
+		this.tfCellLineNumber = 0;
+		this.histoneCellLineNumber = 0;
+		this.fileNumber = 0;
 
 	}
 

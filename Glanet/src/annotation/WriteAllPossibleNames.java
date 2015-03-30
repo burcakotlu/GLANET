@@ -8,9 +8,12 @@ package annotation;
 
 import enumtypes.CommandLineArguments;
 import gnu.trove.iterator.TObjectShortIterator;
-import gnu.trove.iterator.TShortObjectIterator;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +22,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,12 @@ import common.Commons;
 
 public class WriteAllPossibleNames {
 
-	public static void readKeggPathwayNames(String dataFolder, List<String> keggPathwayNameList, Map<String, Integer> keggPathwayName2KeggPathwayNumberMap, Map<Integer, String> keggPathwayNumber2KeggPathwayNameMap, String inputFileName) {
+	public static void readKeggPathwayNames(
+			String dataFolder, 
+			List<String> keggPathwayNameList, 
+			TObjectIntMap<String> keggPathwayName2NumberMap, 
+			TIntObjectMap<String> keggPathwayNumber2NameMap, 
+			String inputFileName) {
 
 		String strLine;
 
@@ -40,7 +47,7 @@ public class WriteAllPossibleNames {
 		int indexofColon = 0;
 
 		String keggPathwayName;
-		int keggPathwayNumber = 1;
+		int keggPathwayNumber = 0;
 
 		try {
 			fileReader = new FileReader(dataFolder + inputFileName);
@@ -59,8 +66,8 @@ public class WriteAllPossibleNames {
 				if (!(keggPathwayNameList.contains(keggPathwayName))) {
 					keggPathwayNameList.add(keggPathwayName);
 
-					keggPathwayName2KeggPathwayNumberMap.put(keggPathwayName, keggPathwayNumber);
-					keggPathwayNumber2KeggPathwayNameMap.put(keggPathwayNumber, keggPathwayName);
+					keggPathwayName2NumberMap.put(keggPathwayName, keggPathwayNumber);
+					keggPathwayNumber2NameMap.put(keggPathwayNumber, keggPathwayName);
 					keggPathwayNumber++;
 
 				}
@@ -158,10 +165,10 @@ public class WriteAllPossibleNames {
 			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for (TShortObjectIterator<String> it = number2NameMap.iterator(); it.hasNext();) {
-				it.advance();
-				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
-			}
+			
+			for(short i = 0; i<number2NameMap.size(); i++){
+				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));
+			}	
 
 			bufferedWriter.close();
 
@@ -221,24 +228,29 @@ public class WriteAllPossibleNames {
 	public static void writeAllPossibleKeggPathwayNames(String dataFolder) {
 
 		List<String> keggPathwayNameList = new ArrayList<String>();
-		Map<String, Integer> keggPathwayName2KeggPathwayNumberMap = new HashMap<String, Integer>();
-		Map<Integer, String> keggPathwayNumber2KeggPathwayNameMap = new HashMap<Integer, String>();
-
-		readKeggPathwayNames(dataFolder, keggPathwayNameList, keggPathwayName2KeggPathwayNumberMap, keggPathwayNumber2KeggPathwayNameMap, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
+		TObjectIntMap<String> keggPathwayName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+		
+		readKeggPathwayNames(dataFolder, keggPathwayNameList, keggPathwayName2NumberMap, keggPathwayNumber2NameMap, Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
 		writeNames(dataFolder, keggPathwayNameList, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);
-		writeMapsString2Integer(dataFolder, keggPathwayName2KeggPathwayNumberMap, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
-		writeMapsInteger2String(dataFolder, keggPathwayNumber2KeggPathwayNameMap, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
-
+		
+		FileOperations.writeSortedNumber2NameMap(dataFolder, keggPathwayNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.writeName2NumberMap(dataFolder, keggPathwayName2NumberMap, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
+		
+		
 	}
 
 	// userDefinedGeneSetName2UserDefinedGeneSetNumberMap is already full
 	// userDefinedGeneSetNumber2UserDefinedGeneSetNameMap is already full
 	// Write them to name2NumberMap and number2NameMap
-	public static void writeAllPossibleUserDefinedGeneSetNames(String dataFolder, TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap, TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap) {
+	public static void writeAllPossibleUserDefinedGeneSetNames(
+			String dataFolder, 
+			TObjectShortMap<String> userDefinedGeneSetName2NumberMap, 
+			TShortObjectMap<String> userDefinedGeneSetNumber2NameMap) {
 
-		writeNames(dataFolder, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
-		writeMapsString2Short(dataFolder, userDefinedGeneSetName2UserDefinedGeneSetNumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAME_2_NUMBER_OUTPUT_FILENAME);
-		writeMapsShort2String(dataFolder, userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
+		writeNames(dataFolder, userDefinedGeneSetName2NumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
+		writeMapsString2Short(dataFolder, userDefinedGeneSetName2NumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAME_2_NUMBER_OUTPUT_FILENAME);
+		writeMapsShort2String(dataFolder, userDefinedGeneSetNumber2NameMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
 
 	}
 

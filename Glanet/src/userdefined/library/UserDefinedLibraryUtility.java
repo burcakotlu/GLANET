@@ -31,7 +31,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 /**
- * @author Bur�ak
+ * @author Burcak Otlu
  *
  */
 public class UserDefinedLibraryUtility {
@@ -264,11 +264,16 @@ public class UserDefinedLibraryUtility {
 
 	}
 
-	public static void readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(String dataFolder, String userDefinedLibraryInputFile, UserDefinedLibraryDataFormat userDefinedLibraryDataFormat, TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap, TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap,
-
-	TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap, TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
-
-	TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap, TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap) {
+	public static void readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
+			String dataFolder, 
+			String userDefinedLibraryInputFile, 
+			UserDefinedLibraryDataFormat userDefinedLibraryDataFormat, 
+			TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap, 
+			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap,
+			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap, 
+			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
+			TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap, 
+			TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -286,11 +291,11 @@ public class UserDefinedLibraryUtility {
 		String fileName;
 		FileFormatType fileFormatType;
 
-		int elementTypeNumber = 1;
-		int fileNumber = 1;
+		int elementTypeNumber = 0;
+		int fileNumber = 0;
 
 		int currentElementTypeNumber;
-		int currentElementNumber;
+		int currentElementNumber = 0;
 
 		TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap = new TIntObjectHashMap<List<BufferedWriter>>();
 
@@ -396,9 +401,9 @@ public class UserDefinedLibraryUtility {
 					// Fill elementName2ElementNumberMap
 					// Fill elementNumber2ElementNameMap
 					if (!elementName2ElementNumberMap.containsKey(elementName)) {
-						currentElementNumber = elementName2ElementNumberMap.size() + 1;
 						elementName2ElementNumberMap.put(elementName, currentElementNumber);
 						elementNumber2ElementNameMap.put(currentElementNumber, elementName);
+						currentElementNumber++;
 					}
 					/*************** ElementTypeNumber Specific ****************************************************************/
 					/*************** ElementName 2 ElementNumber ends **********************************************************/
@@ -435,8 +440,8 @@ public class UserDefinedLibraryUtility {
 			FileOperations.writeName2NumberMap(dataFolder, userDefinedLibraryElementType2ElementTypeNumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NAME_2_NUMBER_OUTPUT_FILENAME);
 			FileOperations.writeName2NumberMap(dataFolder, userDefinedLibraryFileName2FileNumberMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_FILE_NAME_2_NUMBER_OUTPUT_FILENAME);
 
-			FileOperations.writeNumber2NameMap(dataFolder, userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			FileOperations.writeNumber2NameMap(dataFolder, userDefinedLibraryFileNumber2FileNameMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			FileOperations.writeSortedNumber2NameMap(dataFolder, userDefinedLibraryElementTypeNumber2ElementTypeMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			FileOperations.writeSortedNumber2NameMap(dataFolder, userDefinedLibraryFileNumber2FileNameMap, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
 
 			// Write elementType Based
 			// userDefinedLibraryElementName2ElementNumberMap
