@@ -25,10 +25,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enrichment.InputLine;
+import enrichment.InputLineMinimal;
 import enrichment.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -214,9 +213,7 @@ public class Mapability {
 
 	}
 
-	public static float differenceofMapabilities(InputLine inputLine1, InputLine inputLine2) {
-		return Math.abs(inputLine1.getMapability() - inputLine2.getMapability());
-	}
+	
 
 	public static int calculateTheNumberofOverlappingBases(IntervalTreeNode node1, IntervalTreeNode node2) {
 
@@ -231,7 +228,7 @@ public class Mapability {
 	}
 
 	// check it, test it
-	public static void calculateMapabilityofInterval(InputLine givenInputLine, IntervalTree mapabilityIntervalTree) {
+	public static float calculateMapabilityofInterval(InputLine givenInputLine, IntervalTree mapabilityIntervalTree) {
 		int numberofOverlappingBases;
 
 		float accumulatedMapability = 0;
@@ -264,7 +261,7 @@ public class Mapability {
 
 		accumulatedMapability = accumulatedMapability / node.getNumberofBases();
 
-		givenInputLine.setMapability(accumulatedMapability);
+		return accumulatedMapability;
 	}
 
 	
@@ -306,8 +303,8 @@ public class Mapability {
 		return accumulatedMapability;
 	}
 	
-	public static void calculateMapabilityofIntervalUsingTroveList(
-			InputLine givenInputLine,
+	public static float calculateMapabilityofIntervalUsingTroveList(
+			InputLineMinimal givenInputLine,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList) {
 
@@ -405,11 +402,11 @@ public class Mapability {
 		accumulatedMapability = accumulatedMapability/Commons.MAPABILITY_SHORT_TEN_THOUSAND;
 		
 		//Set accumulatedMapability
-		givenInputLine.setMapability(accumulatedMapability);
+		return accumulatedMapability;
 	}
 
 	
-	public static void calculateMapabilityofIntervalUsingArray(InputLine givenInputLine, MapabilityFloatArray mapabilityDoubleArray) {
+	public static float calculateMapabilityofIntervalUsingArray(InputLine givenInputLine, MapabilityFloatArray mapabilityDoubleArray) {
 
 		float accumulatedMapability = 0;
 
@@ -424,8 +421,10 @@ public class Mapability {
 
 		accumulatedMapability = accumulatedMapability / length;
 
-		givenInputLine.setMapability(accumulatedMapability);
+		return accumulatedMapability;
 	}
+	
+	
 	public static void fillChromosomeBasedMapabilityIntervalTreefromFile(int chromSize, String inputFileName, IntervalTree chromBasedMapabilityIntervalTree) {
 
 		FileReader fileReader;
@@ -616,10 +615,10 @@ public class Mapability {
 
 		InputLine inputLine = new InputLine(chromName, low, high);
 
-		Mapability.calculateMapabilityofInterval(inputLine, mapabilityIntervalTree);
-		GlanetRunner.appendLog("Using Interval Tree " + inputLine.getMapability());
+		
+		GlanetRunner.appendLog("Using Interval Tree " + Mapability.calculateMapabilityofInterval(inputLine, mapabilityIntervalTree));
 		//Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
-		GlanetRunner.appendLog("Using Double Array: " + inputLine.getMapability());
+		//GlanetRunner.appendLog("Using Double Array: " + inputLine.getMapability());
 
 	}
 

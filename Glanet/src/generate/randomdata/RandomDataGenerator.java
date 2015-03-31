@@ -10,7 +10,6 @@ package generate.randomdata;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import mapabilityandgc.GC;
@@ -20,7 +19,7 @@ import org.apache.log4j.Logger;
 
 import common.Commons;
 
-import enrichment.InputLine;
+import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
 import gnu.trove.list.TByteList;
@@ -32,23 +31,29 @@ public class RandomDataGenerator {
 	final static Logger logger = Logger.getLogger(RandomDataGenerator.class);
 
 
-	public static List<InputLine> generateRandomData(
+	public static List<InputLineMinimal> generateRandomData(
 			TByteList gcByteList, 
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			int chromSize, 
 			ChromosomeName chromName, 
-			List<InputLine> chromosomeBasedOriginalInputLines, 
+			List<InputLineMinimal> chromosomeBasedOriginalInputLines, 
 			ThreadLocalRandom threadLocalRandom, 
 			GenerateRandomDataMode generateRandomDataMode) {
 
-		List<InputLine> randomlyGeneratedInputLines = null;
+		List<InputLineMinimal> randomlyGeneratedInputLines = null;
 
-		InputLine originalInputLine;
-		InputLine randomlyGeneratedLine;
+		InputLineMinimal originalInputLine;
+		InputLineMinimal randomlyGeneratedLine;
 		int low;
 		int high;
 		int length;
+
+		float originalInputLineGC;
+		float randomlyGeneratedInputLineGC;
+
+		float originalInputLineMapability;
+		float randomlyGeneratedInputLineMapability;
 
 		float differencebetweenGCs;
 		float differencebetweenMapabilities;
@@ -68,19 +73,19 @@ public class RandomDataGenerator {
 
 		if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()) {
 
-			randomlyGeneratedInputLines = new ArrayList<InputLine>();
+			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
 
 			for (int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++) {
 
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
-				length = originalInputLine.getLength();
+				length = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
 
 				// low must be greater than or equal to zero
 				// high must be less than chromSize
 				low = threadLocalRandom.nextInt(chromSize - length + 1);
 				high = low + length - 1;
 
-				randomlyGeneratedLine = new InputLine(chromName, low, high);
+				randomlyGeneratedLine = new InputLineMinimal(low, high);
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 			}// End of for: each original input line
 
@@ -92,7 +97,7 @@ public class RandomDataGenerator {
 			// FileWriter(Commons.RANDOM_DATA_GENERATION_LOG_FILE,true);
 			// bufferedWriter = new BufferedWriter(fileWriter);
 
-			randomlyGeneratedInputLines = new ArrayList<InputLine>();
+			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
 
 			for (int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++) {
 				
@@ -104,7 +109,7 @@ public class RandomDataGenerator {
 				//oldWayCalculatedGCContent = originalInputLine.getGcContent();
 				
 				//GC New Way
-				GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
+				originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
 				//newWayCalculatedGCContent = originalInputLine.getGcContent();
 				
 //				//debug start
@@ -118,7 +123,7 @@ public class RandomDataGenerator {
 				//oldWayCalculatedMapability = originalInputLine.getMapability();
 				
 				//Mapability New Way
-				Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
 				//newWayCalculatedMapability = originalInputLine.getMapability();
 				
 
@@ -128,7 +133,7 @@ public class RandomDataGenerator {
 //				}
 //				//debug end
 				
-				length = originalInputLine.getLength();
+				length = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
 
 				// RANDOM INPUT DATA
 				// generate random data
@@ -137,14 +142,14 @@ public class RandomDataGenerator {
 				low = threadLocalRandom.nextInt(chromSize - length + 1);
 				high = low + length - 1;
 
-				randomlyGeneratedLine = new InputLine(chromName, low, high);
+				randomlyGeneratedLine = new InputLineMinimal(low, high);
 
 				//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-				GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
-				differencebetweenGCs = GC.differenceofGCs(randomlyGeneratedLine, originalInputLine);
+				randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+				differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 
-				Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
-				differencebetweenMapabilities = Mapability.differenceofMapabilities(randomlyGeneratedLine, originalInputLine);
+				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+				differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability- originalInputLineMapability);
 
 				count = 0;
 				counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
@@ -196,15 +201,14 @@ public class RandomDataGenerator {
 					low = threadLocalRandom.nextInt(chromSize - length + 1);
 					high = low + length - 1;
 
-					randomlyGeneratedLine = new InputLine(chromName, low, high);
+					randomlyGeneratedLine = new InputLineMinimal(low, high);
 
 					//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-					GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
-					
-					differencebetweenGCs = GC.differenceofGCs(randomlyGeneratedLine, originalInputLine);
+					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC- originalInputLineGC);
 
-					Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
-					differencebetweenMapabilities = Mapability.differenceofMapabilities(randomlyGeneratedLine, originalInputLine);
+					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
 
 				}// End of While
 
@@ -241,34 +245,34 @@ public class RandomDataGenerator {
 
 	// todo
 
-	// generate random data
-	public static void generateRandomData(
-			List<InputLine> randomlyGeneratedData, 
-			List<InputLine> originalInputData, 
-			Random myRandom, 
-			Integer chromSize, 
-			ChromosomeName chromName) {
-
-		InputLine originalLine;
-		InputLine randomlyGeneratedLine;
-		int low;
-		int high;
-		int length;
-
-		for (int i = 0; i < originalInputData.size(); i++) {
-			originalLine = originalInputData.get(i);
-			length = originalLine.getLength();
-
-			// low must be greater than or equal to zero
-			// high must be less than chromSize
-
-			low = myRandom.nextInt(chromSize - length + 1);
-			high = low + length - 1;
-
-			randomlyGeneratedLine = new InputLine(chromName, low, high);
-			randomlyGeneratedData.add(randomlyGeneratedLine);
-		}
-
-	}
+//	// generate random data
+//	public static void generateRandomData(
+//			List<InputLine> randomlyGeneratedData, 
+//			List<InputLine> originalInputData, 
+//			Random myRandom, 
+//			Integer chromSize, 
+//			ChromosomeName chromName) {
+//
+//		InputLine originalLine;
+//		InputLine randomlyGeneratedLine;
+//		int low;
+//		int high;
+//		int length;
+//
+//		for (int i = 0; i < originalInputData.size(); i++) {
+//			originalLine = originalInputData.get(i);
+//			length = originalLine.getLength();
+//
+//			// low must be greater than or equal to zero
+//			// high must be less than chromSize
+//
+//			low = myRandom.nextInt(chromSize - length + 1);
+//			high = low + length - 1;
+//
+//			randomlyGeneratedLine = new InputLine(chromName, low, high);
+//			randomlyGeneratedData.add(randomlyGeneratedLine);
+//		}
+//
+//	}
 
 }

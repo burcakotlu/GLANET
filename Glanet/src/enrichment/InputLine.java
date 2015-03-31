@@ -10,14 +10,10 @@ package enrichment;
 
 import enumtypes.ChromosomeName;
 
-public class InputLine {
+public class InputLine  extends InputLineMinimal{
 
 	ChromosomeName chrName;
-	int low;
-	int high;
-	float gcContent;
-	float mapability;
-	int length;
+	
 
 	public ChromosomeName getChrName() {
 		return chrName;
@@ -27,64 +23,16 @@ public class InputLine {
 		this.chrName = chrName;
 	}
 
-	public int getLow() {
-		return low;
-	}
+	
 
-	public void setLow(int low) {
-		this.low = low;
-	}
-
-	public int getHigh() {
-		return high;
-	}
-
-	public void setHigh(int high) {
-		this.high = high;
-	}
-
-	public float getGcContent() {
-		return gcContent;
-	}
-
-	public void setGcContent(float gcContent) {
-		this.gcContent = gcContent;
-	}
-
-	public float getMapability() {
-		return mapability;
-	}
-
-	public void setMapability(float mapability) {
-		this.mapability = mapability;
-	}
+	
 
 	public InputLine(ChromosomeName chrName, int low, int high) {
-		super();
+		super(low,high);
 		this.chrName = chrName;
-		this.low = low;
-		this.high = high;
-
-		this.length = high - low + 1;
+		
 	}
 
-	public InputLine(ChromosomeName chrName, int low, int high, float gcContent, float mapability) {
-		super();
-		this.chrName = chrName;
-		this.low = low;
-		this.high = high;
-		this.gcContent = gcContent;
-		this.mapability = mapability;
-
-		this.length = high - low + 1;
-	}
-
-	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
+	
 
 }

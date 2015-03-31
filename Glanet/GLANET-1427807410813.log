@@ -1,0 +1,150 @@
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:319 - *****************************************************************
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:320 - GLANET Parameters starts
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\UmutToprak_eDMRs2_05.bed\
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - GRCh37.p13
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - BED
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 1
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_ENRICH
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - With GC and Mappability
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - Benjamini Hochberg FDR
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_DNASE_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_HISTONE_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_TF_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_GENE_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - test
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - GENE SYMBOL
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - NoName
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Exclusive)
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:324 - GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:327 - GLANET Parameters ends
+2015-03-31 16:10:10 INFO  InputDataRemoveOverlaps:328 - *****************************************************************
+2015-03-31 16:10:10 INFO  Annotation:7163 - Memory Used Before Annotation	696	MBs
+2015-03-31 16:11:08 INFO  Annotation:8310 - Memory Used After Annotation	78	MBs
+2015-03-31 16:11:08 INFO  Enrichment:2853 - Memory Used Before Enrichment	78	MBs
+2015-03-31 16:11:08 INFO  Enrichment:2754 - Java runtime max memory: 7851	MBs
+2015-03-31 16:11:08 INFO  Enrichment:2755 - Java runtime total memory: 7851	MBs
+2015-03-31 16:11:08 INFO  Enrichment:2756 - Java runtime free memory: 7752	MBs
+2015-03-31 16:11:08 INFO  Enrichment:2757 - Java runtime available processors: 0	MBs
+2015-03-31 16:11:21 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:55 - CHROMOSOME1
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 227417 previous high: 177368
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 267628 previous high: 267627
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 267642 previous high: 267633
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 267661 previous high: 267660
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 317719 previous high: 267670
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 521368 previous high: 471319
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 2634131 previous high: 2634121
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 2684220 previous high: 2634171
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 3995268 previous high: 3845219
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 13102998 previous high: 13052949
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 13319912 previous high: 13219863
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 13557092 previous high: 13557063
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 13607162 previous high: 13557095
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 17175658 previous high: 17125609
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 30028082 previous high: 29878033
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 103913906 previous high: 103863857
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 120747156 previous high: 120697107
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 121086695 previous high: 120936646
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 142535434 previous high: 121485385
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 142781022 previous high: 142730973
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 143117761 previous high: 142967712
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 143342816 previous high: 143292767
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 143644525 previous high: 143544476
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 143871002 previous high: 143770953
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 144145783 previous high: 144095734
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 144274481 previous high: 144224432
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 144451744 previous high: 144401695
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 144672413 previous high: 144622364
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 144810724 previous high: 144710675
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 145883118 previous high: 145833069
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 146214650 previous high: 146164601
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 146303299 previous high: 146253250
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 148176038 previous high: 148025989
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 148511358 previous high: 148361309
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 148734147 previous high: 148684098
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 149004460 previous high: 148954411
+2015-03-31 16:11:21 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 149509645 previous high: 149459596
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 206072707 previous high: 205922658
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 206482221 previous high: 206332172
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 223797846 previous high: 223747797
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 235242211 previous high: 235192162
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 249058210 previous high: 248908161
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 249240540 previous high: 249240522
+2015-03-31 16:11:22 INFO  ChromosomeBasedMappabilityTroveList:103 - numberofGaps:43
+2015-03-31 16:14:05 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-03-31 16:14:05 INFO  ChromosomeBasedMappabilityTroveList:55 - CHROMOSOME2
+2015-03-31 16:14:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 3579312 previous high: 3529263
+2015-03-31 16:14:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 5118788 previous high: 5018739
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 16329724 previous high: 16279675
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 21178113 previous high: 21153064
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 31726790 previous high: 31725890
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 31816830 previous high: 31816817
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 31816859 previous high: 31816850
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 33092110 previous high: 33092105
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 33092130 previous high: 33092126
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 33093197 previous high: 33092148
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 33142692 previous high: 33141643
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 87718206 previous high: 87668157
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 89830436 previous high: 89630387
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 90371525 previous high: 90321476
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 91595103 previous high: 90545054
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 95326171 previous high: 92326122
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 110251337 previous high: 110109288
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 149790582 previous high: 149690533
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 234003644 previous high: 234003642
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 234003657 previous high: 234003654
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 234003677 previous high: 234003667
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 234003690 previous high: 234003688
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 234053741 previous high: 234003692
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 239831978 previous high: 239801929
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 240809132 previous high: 240784083
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 243152476 previous high: 243102427
+2015-03-31 16:14:06 INFO  ChromosomeBasedMappabilityTroveList:103 - numberofGaps:26
+2015-03-31 16:16:45 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:55 - CHROMOSOME3
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 60104757 previous high: 60104747
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 60104761 previous high: 60104759
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 60190035 previous high: 60190034
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 66270270 previous high: 66170221
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 90504788 previous high: 90504780
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 93504854 previous high: 90504805
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 194047251 previous high: 194041912
+2015-03-31 16:16:45 INFO  ChromosomeBasedMappabilityTroveList:103 - numberofGaps:7
+2015-03-31 16:19:05 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:55 - CHROMOSOME4
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 1478646 previous high: 1423097
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 8818203 previous high: 8799154
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 9324642 previous high: 9274593
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 31837417 previous high: 31820868
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 32840638 previous high: 32834589
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 40297096 previous high: 40296347
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 49488941 previous high: 49338892
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 49660027 previous high: 49660018
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 52660117 previous high: 49660068
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 59789333 previous high: 59739284
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 75427294 previous high: 75427293
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 75427301 previous high: 75427299
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 75427308 previous high: 75427306
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 75427327 previous high: 75427326
+2015-03-31 16:19:05 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 75452279 previous high: 75427330
+2015-03-31 16:19:06 INFO  ChromosomeBasedMappabilityTroveList:77 - There is a gap in the given mapability file! next low: 191044199 previous high: 191044177
+2015-03-31 16:19:06 INFO  ChromosomeBasedMappabilityTroveList:103 - numberofGaps:16

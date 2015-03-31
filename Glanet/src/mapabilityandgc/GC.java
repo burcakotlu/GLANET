@@ -18,11 +18,10 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enrichment.GCCharArray;
 import enrichment.InputLine;
+import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import gnu.trove.list.TByteList;
@@ -68,7 +67,7 @@ public class GC {
 	
 	
 	//new starts
-	public static void calculateGCofIntervalUsingTroveList(InputLine givenInputLine, TByteList gcByteList) {
+	public static float calculateGCofIntervalUsingTroveList(InputLineMinimal givenInputLine, TByteList gcByteList) {
 		
 		//new gcByteList is 0-based
 		//old gcCharArray is 0-based
@@ -100,7 +99,7 @@ public class GC {
 		
 		int zeroBasedStart = givenInputLine.getLow();
 		int zeroBasedEnd = givenInputLine.getHigh();
-		int length = givenInputLine.getLength();
+		int length = zeroBasedEnd-zeroBasedStart+1;
 		
 		float gcContent = 0;
 		byte gcByte = 0x00;
@@ -191,15 +190,15 @@ public class GC {
 			logger.error("Input line's high exceeds hg19 chromsome size");
 		}
 
-		givenInputLine.setGcContent(gcContent);
+		return gcContent;
 
 	}
 	//new ends
 
-	public static void calculateGCofInterval(InputLine givenInputLine, GCCharArray gcArray) {
+	public static float calculateGCofInterval(InputLine givenInputLine, GCCharArray gcArray) {
 		int low = givenInputLine.getLow();
 		int high = givenInputLine.getHigh();
-		int length = givenInputLine.getLength();
+		int length = high - low +1;
 		int value;
 		float gcContent = 0;
 
@@ -215,13 +214,11 @@ public class GC {
 			GlanetRunner.appendLog("input line's high exceeds hg19 chromsome size");
 		}
 
-		givenInputLine.setGcContent(gcContent);
+		return gcContent;
 
 	}
 
-	public static float differenceofGCs(InputLine inputLine1, InputLine inputLine2) {
-		return Math.abs(inputLine1.getGcContent() - inputLine2.getGcContent());
-	}
+	
 
 	public static void fillChromBasedGCArrayfromFastaFile(String dataFolder, String gcFastaFileName, GCCharArray gcArray) {
 		FileReader fileReader;
@@ -380,9 +377,9 @@ public class GC {
 		GCCharArray gcArray = new GCCharArray(250000000);
 
 		fillChromBasedGCArray(dataFolder, chromName, gcArray);
-		calculateGCofInterval(givenInputLine, gcArray);
+		
 
-		GlanetRunner.appendLog("Given input line's gc content: " + givenInputLine.getGcContent());
+		GlanetRunner.appendLog("Given input line's gc content: " +calculateGCofInterval(givenInputLine, gcArray));
 	}
 
 }

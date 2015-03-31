@@ -51,6 +51,7 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
+import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
@@ -1063,7 +1064,7 @@ public class IntervalTree {
 	// with Numbers
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingHistoneIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingHistoneIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -1174,7 +1175,7 @@ public class IntervalTree {
 	// without IO
 	// without overlappedNodeList
 	// with Numbers
-	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 		long permutationNumberHistoneNumberCellLineNumber;
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
@@ -1412,7 +1413,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// with IO
 	// with OverlapNodeList
-	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList, int overlapDefinition) {
+	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList, int overlapDefinition) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -1527,7 +1528,7 @@ public class IntervalTree {
 	// with IO
 	// with Numbers
 	// Empirical P Value Calculation
-	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> bufferedWriterHashMap, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -1640,7 +1641,7 @@ public class IntervalTree {
 	// without IO
 	// without overlappedNodeList
 	// with numbers
-	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap, int overlapDefinition) {
 		long permutationNumberTfNumberCellLineNumber;
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
@@ -1707,7 +1708,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// with permutationNumberTfNameCellLineNameOverlapList
-	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList, int overlapDefinition) {
+	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList, int overlapDefinition) {
 
 		long permutationNumberTfNumberCellLineNumber;
 
@@ -1831,7 +1832,7 @@ public class IntervalTree {
 	// Enrichment
 	// Without IO
 	// With Numbers
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
 
 		long permutationNumberElementTypeNumberElementNumber;
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
@@ -1864,7 +1865,7 @@ public class IntervalTree {
 	// Enrichment
 	// With IO
 	// With Numbers
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap, TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap, TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -2262,7 +2263,7 @@ public class IntervalTree {
 	// with Numbers
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> bufferedWriterHashMap, TIntIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -3013,7 +3014,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
 
 		int permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
@@ -3400,7 +3401,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> permutationNumberKeggPathwayNumber2BufferedWriterMap, TLongObjectMap<BufferedWriter> permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap, TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, String type, GeneSetAnalysisType geneSetAnalysisType, GeneSetType geneSetType, int overlapDefinition) {
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntObjectMap<BufferedWriter> permutationNumberKeggPathwayNumber2BufferedWriterMap, TLongObjectMap<BufferedWriter> permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap, TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, String type, GeneSetAnalysisType geneSetAnalysisType, GeneSetType geneSetType, int overlapDefinition) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -3844,7 +3845,7 @@ public class IntervalTree {
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node, 
-			Interval interval, 
+			InputLineMinimal interval, 
 			ChromosomeName chromName, 
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap, 
@@ -4169,7 +4170,7 @@ public class IntervalTree {
 	// NEW FUNCIONALITY
 	// with IO
 	// with Overlap Node List
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap, TIntObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, TIntObjectMap<BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, TIntObjectMap<BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, TIntIntMap permutationNumberExonBasedKeggPathway2OneorZeroMap, TIntIntMap permutationNumberRegulationBasedKeggPathway2OneorZeroMap, TIntIntMap permutationNumberAllBasedKeggPathway2OneorZeroMap, String type, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList, int overlapDefinition) {
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap, TIntObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap, TIntObjectMap<BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap, TIntObjectMap<BufferedWriter> allBasedKeggPathwayBufferedWriterHashMap, TIntIntMap permutationNumberExonBasedKeggPathway2OneorZeroMap, TIntIntMap permutationNumberRegulationBasedKeggPathway2OneorZeroMap, TIntIntMap permutationNumberAllBasedKeggPathway2OneorZeroMap, String type, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList, int overlapDefinition) {
 
 		int permutationNumberKeggPathwayNumber;
 		Short keggPathwayNumber;
@@ -4607,7 +4608,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntObjectMap<TShortList> geneId2KeggPathwayNumbersMap, TIntIntMap permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap, TIntIntMap permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, TIntIntMap permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap, String type, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList, int overlapDefinition) {
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntObjectMap<TShortList> geneId2KeggPathwayNumbersMap, TIntIntMap permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap, TIntIntMap permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, TIntIntMap permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap, String type, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayOverlapList, List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayOverlapList, int overlapDefinition) {
 		int permutationNumberKeggPathwayNumber;
 		short keggPathwayNumber;
 		TShortList keggPathwayListContainingThisGeneId = null;
