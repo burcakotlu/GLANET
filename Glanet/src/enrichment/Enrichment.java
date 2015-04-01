@@ -1752,7 +1752,23 @@ public class Enrichment {
 		AllMapsDnaseTFHistoneWithNumbers accumulatedAllMapsDnaseTFHistoneWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
 
 
+		long startTimeAllPermutationsAllChromosomes;
+		long endTimeAllPermutationsAllChromosomes;
 
+		
+		long startTimeFillingList;
+		long endTimeFillingList;
+		
+		long startTimeGenerateRandomData;
+		long endTimeGenerateRandomData;
+		
+		long startTimeOnlyAnnotationPermutationsForEachChromosome;
+		long endTimeOnlyAnnotationPermutationsForEachChromosome;
+		
+		long startTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
+		long endTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
+		
+		
 	
 		/********************************************************************************************************/
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
@@ -1804,7 +1820,7 @@ public class Enrichment {
 		GenerateRandomData generateRandomData;
 		ForkJoinPool pool = new ForkJoinPool(NUMBER_OF_AVAILABLE_PROCESSORS);
 
-		long startTimeAllPermutations = System.currentTimeMillis();
+		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog("Run Number: " + runNumber);
 		
@@ -1853,7 +1869,7 @@ public class Enrichment {
 				mapabilityChromosomePositionList = new TIntArrayList();
 				mapabilityShortValueList = new TShortArrayList();
 				
-				long startTime = System.currentTimeMillis();
+				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
 				
 				/*******************************************************************************************************************************/
@@ -1864,7 +1880,7 @@ public class Enrichment {
 					
 					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 					
-					long startTimeFillingList = System.currentTimeMillis();
+					startTimeFillingList = System.currentTimeMillis();
 
 					//GC Old way
 					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
@@ -1876,7 +1892,7 @@ public class Enrichment {
 					//Mapability New Way
 					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
-					long endTimeFillingList = System.currentTimeMillis();
+					endTimeFillingList = System.currentTimeMillis();
 
 					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
@@ -1894,12 +1910,12 @@ public class Enrichment {
 				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
 				// First generate Random Data
 				
-				long startTimeGenerateRandomData = System.currentTimeMillis();
+				startTimeGenerateRandomData = System.currentTimeMillis();
 
 				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
-				long endTimeGenerateRandomData = System.currentTimeMillis();
+				endTimeGenerateRandomData = System.currentTimeMillis();
 
 				GlanetRunner.appendLog("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
 				/********************************************************************************************************/
@@ -1933,6 +1949,8 @@ public class Enrichment {
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
 				/********************************************************************************************************/
 				GlanetRunner.appendLog("Annotation of Permutations has started.");
+				
+				startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
 				if (dnaseAnnotationType.doDnaseAnnotation()) {
 					// dnase
@@ -2211,13 +2229,17 @@ public class Enrichment {
 
 				}
 
-				GlanetRunner.appendLog("Annotation of Permutations has ended.");
+				
+				
+				endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+				
+				GlanetRunner.appendLog("Annotation of Permutations has took " + (float)((endTimeOnlyAnnotationPermutationsForEachChromosome-startTimeOnlyAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
 				/********************************************************************************************************/
 
-				long endTime = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTime - startTime)/1000) + " seconds.");
+				endTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
 				
 				
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
@@ -2247,9 +2269,9 @@ public class Enrichment {
 			GlanetRunner.appendLog("ForkJoinPool is terminated ");
 		}
 
-		long endTimeAllPermutations = System.currentTimeMillis();
+		endTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
-		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutations - startTimeAllPermutations)/1000) + " seconds.");
+		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes)/1000) + " seconds.");
 
 		/*************************************************************************************************************************/
 		/***************************************** CONVERT starts*****************************************************************/
