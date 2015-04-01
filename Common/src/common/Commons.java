@@ -755,15 +755,15 @@ public class Commons {
 	public static final float MAPABILITY_THRESHOLD_LOWER_VALUE = (float) 0.01;
 	public static final float MAPABILITY_THRESHOLD_UPPER_VALUE = (float) 0.1;
 
-	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_001 = (float) 0.001;
-	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_002 = (float) 0.002;
-	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_003 = (float) 0.003;
-	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_004 = (float) 0.004;
+	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_005 = (float) 0.005;
+	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_010 = (float) 0.010;
+	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_015 = (float) 0.015;
+	public static final float THRESHOLD_INCREASE_VALUE_0_POINT_020 = (float) 0.020;
 
-	public static final int NUMBER_OF_TRIAL_FIRST_LEVEL = 1000;
-	public static final int NUMBER_OF_TRIAL_SECOND_LEVEL = 2000;
-	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL = 3000;
-	public static final int NUMBER_OF_TRIAL_FOURTH_LEVEL = 4000;
+	public static final int NUMBER_OF_TRIAL_FIRST_LEVEL = 500;
+	public static final int NUMBER_OF_TRIAL_SECOND_LEVEL = 1000;
+	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL = 1500;
+	public static final int NUMBER_OF_TRIAL_FOURTH_LEVEL = 2000;
 
 	public static final String ORIGINAL_INPUT_DATA_FILE = "ORIGINAL_INPUT_DATA_FILE";
 

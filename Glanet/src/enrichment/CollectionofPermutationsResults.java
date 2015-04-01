@@ -465,6 +465,7 @@ public class CollectionofPermutationsResults {
 					// debug starts
 					if (mixedNumber < 0) {
 						System.out.println("there is a situation 1");
+						System.out.println(mixedNumber);
 					}
 					// debug ends
 

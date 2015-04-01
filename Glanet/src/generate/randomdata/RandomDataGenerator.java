@@ -162,37 +162,45 @@ public class RandomDataGenerator {
 
 					if (count > counterThreshold) {
 
+						//Increase dynamicGCThreshold starts
+						//as number of trials increases, increase dynamicGCThreshold more
 						if (differencebetweenGCs > dynamicGCThreshold) {
 							if (!(dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)) {
 
 								if (count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL) {
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_004;
+									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
 								} else if (count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL) {
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_003;
+									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
 								} else if (count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL) {
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_002;
+									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
 								} else {
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_001;
+									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
 								}
 							}
 						}
+						//Increase dynamicGCThreshold ends
+				
 
+						//Increase dynamicMapabilityThreshold starts
+						//as number of trials increases, increase dynamicMapabilityThreshold more
 						if (differencebetweenMapabilities > dynamicMapabilityThreshold) {
 							if (!(dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)) {
 
 								if (count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL) {
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_004;
+									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
 								} else if (count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL) {
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_003;
+									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
 								} else if (count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL) {
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_002;
+									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
 								} else {
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_001;
+									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
 								}
 
 							}
 						}
+						//Increase dynamicMapabilityThreshold ends
 
+						//Once count has reached to counterThreshold, increase counterThreshold by Commons.NUMBER_OF_TRIAL_FIRST_LEVEL each time 
 						counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					}
 
@@ -212,19 +220,11 @@ public class RandomDataGenerator {
 
 				}// End of While
 
-				if (count > Commons.NUMBER_OF_TRIAL_FIRST_LEVEL) {
-					// bufferedWriter.write("Numberof Trial" + "\t" + count
-					// +"\t" + "dynamicGCThreshold"+ "\t" +
-					// df.format(dynamicGCThreshold) + "\t"
-					// +"dynamicMapabilityThreshold" + "\t" +
-					// df.format(dynamicMapabilityThreshold) + "\t"
-					// +"original input line gc" + "\t" +
-					// df.format(originalInputLine.getGcContent()) + "\t" +
-					// "original input line mapability" + "\t" +
-					// df.format(originalInputLine.getMapability())+ "\t" +
-					// "chromName" + "\t" +chromName +
-					// System.getProperty("line.separator") );
-				}
+			
+
+				//for debug starts
+				//logger.info("count: "+ count + "\t" +  "dbGCs: " + differencebetweenGCs + "\t"+  "dbMap: " + differencebetweenMapabilities  );
+				//for debug ends
 
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 				

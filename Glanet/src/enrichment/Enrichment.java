@@ -971,6 +971,7 @@ public class Enrichment {
 			permutationNumber = IntervalTree.getPermutationNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
 
 			permutationNumberRemovedMixedNumber = IntervalTree.getPermutationNumberRemovedMixedNumber(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, generatedMixedNumberDescriptionOrderLength);
+			
 
 			// example permutationNumber PERMUTATION0
 
@@ -1172,7 +1173,7 @@ public class Enrichment {
 
 	}
 
-	public static void generateAnnotationTasks(TIntList permutationNumberList, int runNumber, int numberofPermutationsinThisRun, int numberofPermutationsinEachRun) {
+	public static void fillPermutationNumberList(TIntList permutationNumberList, int runNumber, int numberofPermutationsinThisRun, int numberofPermutationsinEachRun) {
 
 		for (int permutationNumber = 1; permutationNumber <= numberofPermutationsinThisRun; permutationNumber++) {
 			permutationNumberList.add((runNumber - 1) * numberofPermutationsinEachRun + permutationNumber);
@@ -1180,7 +1181,7 @@ public class Enrichment {
 		
 	}
 
-	public static void generateAnnotationTaskforOriginalData(TIntList permutationNumberList, Integer originalDataPermutationNumber) {
+	public static void addPermutationNumberforOriginalData(TIntList permutationNumberList, Integer originalDataPermutationNumber) {
 		permutationNumberList.add(originalDataPermutationNumber);
 	}
 
@@ -1746,8 +1747,7 @@ public class Enrichment {
 		AllMapsDnaseTFHistoneWithNumbers allMapsDnaseTFHistoneWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
 
 		// accumulatedAllMaps stores all chromosome results
-		// In other words, it contains accumulated results coming from each
-		// chromosome
+		// In other words, it contains accumulated results coming from each chromosome
 		AllMapsWithNumbers accumulatedAllMapsWithNumbers = new AllMapsWithNumbers();
 		AllMapsDnaseTFHistoneWithNumbers accumulatedAllMapsDnaseTFHistoneWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
 
@@ -1770,10 +1770,8 @@ public class Enrichment {
 		IntervalTree tfIntervalTree = null;
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
-		//New
 		TByteList gcByteList = null;
 		
-		//New
 		TIntList mapabilityChromosomePositionList = null;
 		TShortList mapabilityShortValueList = null;
 		
@@ -1811,29 +1809,29 @@ public class Enrichment {
 		GlanetRunner.appendLog("Run Number: " + runNumber);
 		
 		
+		
 		/********************************************************************************************************/
-		/****************************** GENERATE ANNOTATION TASKS STARTS ****************************************/
+		/****************************** GENERATE PERMUTATION NUMBER LIST STARTS *********************************/
+		/********************************************************************************************************/
 		permutationNumberList = new TIntArrayList();
 		
-		GlanetRunner.appendLog("Generation of annotation tasks has started.");
-		generateAnnotationTasks(permutationNumberList, runNumber, numberofPermutationsinThisRun, numberofPermutationsinEachRun);
-		GlanetRunner.appendLog("Generation of annotation tasks has ended.");
-		/******************************** GENERATE ANNOTATION TASKS ENDS ****************************************/
+		GlanetRunner.appendLog("PermutationNumberList is filled.");
+		fillPermutationNumberList(permutationNumberList, runNumber, numberofPermutationsinThisRun, numberofPermutationsinEachRun);
+		/********************************************************************************************************/
+		/****************************** GENERATE PERMUTATION NUMBER LIST ENDS ***********************************/
 		/********************************************************************************************************/
 		
 		
 		
 		/********************************************************************************************************/
-		/********************************** GENERATE ANNOTATION TASK FOR GIVEN ORIGINAL DATA STARTS *************/
+		/********************************** ADD Permutation Number for GIVEN ORIGINAL DATA STARTS ***************/
 		/********************************************************************************************************/
-		// In each run generate one task for original data
+		// In each run, add permutation number for original data
 		// After Random Data Generation has been ended
-		// generate task for User Given Original Data(Genomic Variants)
-		// Since we do not need random data, there is original data is
-		// given
-		generateAnnotationTaskforOriginalData(permutationNumberList, Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
+		// Add User Given Original Data(Genomic Variants) to the randomly generated data map
+		addPermutationNumberforOriginalData(permutationNumberList, Commons.ORIGINAL_DATA_PERMUTATION_NUMBER);
 		/********************************************************************************************************/
-		/********************************** GENERATE ANNOTATION TASK FOR GIVEN ORIGINAL DATA STARTS *************/
+		/********************************** ADD Permutation Number for GIVEN ORIGINAL DATA ENDS *****************/
 		/********************************************************************************************************/
 
 
@@ -1855,12 +1853,19 @@ public class Enrichment {
 				mapabilityChromosomePositionList = new TIntArrayList();
 				mapabilityShortValueList = new TShortArrayList();
 				
-
-				/********************************************************************************************************/
-				/************************ FILL GCCHARARRAY AND MAPABILITYFLOATARRAY STARTS ******************************/
+				long startTime = System.currentTimeMillis();
+				
+				
+				/*******************************************************************************************************************************/
+				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList STARTS *****************/
+				/*******************************************************************************************************************************/
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					
+					long startTimeFillingList = System.currentTimeMillis();
+
 					//GC Old way
 					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 					//GC New Way
@@ -1869,27 +1874,35 @@ public class Enrichment {
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
-					 ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
+					long endTimeFillingList = System.currentTimeMillis();
+
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+						
 				}
-				/************************ FILL GCCHARARRAY AND MAPABILITYFLOATARRAY ENDS ********************************/
-				/********************************************************************************************************/
+				/*******************************************************************************************************************************/
+				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList ENDS *******************/
+				/*******************************************************************************************************************************/
 
 				
 				
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
-				long startTime = System.currentTimeMillis();
-
+				/********************************************************************************************************/
+				
 				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
 				// First generate Random Data
 				
-				
-				
+				long startTimeGenerateRandomData = System.currentTimeMillis();
+
 				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
-				GlanetRunner.appendLog("Generate Random Data for permutations has ended.");
+				long endTimeGenerateRandomData = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
+				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/
 
@@ -1914,9 +1927,6 @@ public class Enrichment {
 				/***************************************** FREE MEMORY ENDS *******************************************/
 				/******************************************************************************************************/
 
-				
-				
-				
 				
 				
 				/********************************************************************************************************/
@@ -2207,8 +2217,7 @@ public class Enrichment {
 				/********************************************************************************************************/
 
 				long endTime = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations took  " + (endTime - startTime) + " milliseconds.");
-
+				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTime - startTime)/1000) + " seconds.");
 				
 				
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
@@ -2220,6 +2229,7 @@ public class Enrichment {
 				chromosomeBaseOriginalInputLines = null;
 				
 				System.gc();
+				System.runFinalization();
 
 			}// end of if: chromosome based input lines is not null
 
@@ -2239,10 +2249,11 @@ public class Enrichment {
 
 		long endTimeAllPermutations = System.currentTimeMillis();
 
-		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (endTimeAllPermutations - startTimeAllPermutations) + " milliseconds.");
+		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutations - startTimeAllPermutations)/1000) + " seconds.");
 
-		/************************************************************************************************************************/
-		/***************************************** CONVERT ************************************************************************/
+		/*************************************************************************************************************************/
+		/***************************************** CONVERT starts*****************************************************************/
+		/*************************************************************************************************************************/
 		// We have permutationNumber augmented mixed number at hand.
 		// Here we fill elementNumber2ALLMap and originalElementNumber2KMap in convert methods
 		// Here elementNumber refers to the permutationNumber removed from augmented mixed number
@@ -2286,11 +2297,13 @@ public class Enrichment {
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap(), tfCellLineExonBasedKeggPathway2AllKMap, originalTfCellLineExonBasedKeggPathway2KMap, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap(), tfCellLineRegulationBasedKeggPathway2AllKMap, originalTfCellLineRegulationBasedKeggPathway2KMap, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 		convert(accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap(), tfCellLineAllBasedKeggPathway2AllKMap, originalTfCellLineAllBasedKeggPathway2KMap, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
-		/***************************************** CONVERT ************************************************************************/
-		/************************************************************************************************************************/
+		/*************************************************************************************************************************/
+		/***************************************** CONVERT ends*******************************************************************/
+		/*************************************************************************************************************************/
 
-		/************************************************************************************************************************/
-		/********************** WRITE PERMUTATION BASED ANNOTATION RESULTS ********************************************************/
+		/*************************************************************************************************************************/
+		/********************** WRITE PERMUTATION BASED ANNOTATION RESULTS starts*************************************************/
+		/*************************************************************************************************************************/
 		// Permutation Based Results
 		// BufferedWriterHashMap are really needed?
 		// Why created BufferedWriters are not created in append mode?
@@ -2597,8 +2610,22 @@ public class Enrichment {
 			}
 
 		}// End of if: write permutation based results
-		/********************** WRITE PERMUTATION BASED ANNOTATION RESULTS ********************************************************/
-		/************************************************************************************************************************/
+		/*************************************************************************************************************************/
+		/********************** WRITE PERMUTATION BASED ANNOTATION RESULTS ends***************************************************/
+		/*************************************************************************************************************************/
+		
+		/*************************************************************************************************************************/
+		/********************** Make null starts**********************************************************************************/
+		/*************************************************************************************************************************/
+		accumulatedAllMapsDnaseTFHistoneWithNumbers = null;
+		accumulatedAllMapsWithNumbers = null;
+		
+		System.gc();
+		System.runFinalization();
+		/*************************************************************************************************************************/
+		/********************** Make null ends************************************************************************************/
+		/*************************************************************************************************************************/
+				
 
 	}
 
@@ -2677,6 +2704,7 @@ public class Enrichment {
 				// debug starts
 				if (permutationNumberRemovedMixedNumber < 0) {
 					System.out.println("there is a situation 3");
+					System.out.println(permutationNumberRemovedMixedNumber);
 				}
 				// debug ends
 

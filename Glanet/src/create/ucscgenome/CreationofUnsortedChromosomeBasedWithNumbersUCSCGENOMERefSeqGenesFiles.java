@@ -260,9 +260,9 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 			RefSeqGeneIntervalsInformation information) {
 
 		// Initialize alternateGeneNameNumber and RNANucleotideAccessionNumber and geneIDNumber
-		int alternateGeneNameNumber = 0;
-		int RNANucleotideAccessionNumber = 0;
-		int geneIDNumber = 0;
+		int alternateGeneNameNumber = 1;
+		int RNANucleotideAccessionNumber = 1;
+		int geneIDNumber = 1;
 
 		int currentLineAlternateGeneNameNumber;
 		int currentLineRNANucleotideAccessionNumber;

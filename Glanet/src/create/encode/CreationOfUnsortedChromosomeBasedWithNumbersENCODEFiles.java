@@ -30,7 +30,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Nov 17, 2014
  * @project Glanet
  *

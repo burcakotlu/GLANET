@@ -1185,6 +1185,8 @@ public class IntervalTree {
 			if (node instanceof TforHistoneIntervalTreeNodeWithNumbers) {
 				castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
 			}
+			
+		
 
 			permutationNumberHistoneNumberCellLineNumber = generateMixedNumber(permutationNumber, castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short) 0, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
@@ -2910,6 +2912,9 @@ public class IntervalTree {
 			}
 		}// End of switch
 
+
+		
+		
 		return mixedNumber;
 	}
 
