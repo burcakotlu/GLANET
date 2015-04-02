@@ -24,7 +24,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
-import gnu.trove.list.TShortList;
+//import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
 	
@@ -34,7 +34,8 @@ public class RandomDataGenerator {
 	public static List<InputLineMinimal> generateRandomData(
 			TByteList gcByteList, 
 			TIntList mapabilityChromosomePositionList,
-			TShortList mapabilityShortValueList,
+			//TShortList mapabilityShortValueList,
+			TByteList mapabilityByteValueList,
 			int chromSize, 
 			ChromosomeName chromName, 
 			List<InputLineMinimal> chromosomeBasedOriginalInputLines, 
@@ -63,6 +64,8 @@ public class RandomDataGenerator {
 
 		int count;
 		int counterThreshold;
+		
+		
 		
 //		float oldWayCalculatedGCContent = Float.MIN_VALUE;
 //		float newWayCalculatedGCContent = Float.MIN_VALUE;
@@ -123,7 +126,14 @@ public class RandomDataGenerator {
 				//oldWayCalculatedMapability = originalInputLine.getMapability();
 				
 				//Mapability New Way
-				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				
+				
+				//Using MapabilitShortList
+				//originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				
+				//Using MapabilityByteList
+				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityByteValueList);
+				
 				//newWayCalculatedMapability = originalInputLine.getMapability();
 				
 
@@ -148,7 +158,12 @@ public class RandomDataGenerator {
 				randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 				differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 
-				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+				//Using MapabilityShortList
+				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+				
+				//Using MapabilityByteList
+				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
+				
 				differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability- originalInputLineMapability);
 
 				count = 0;
@@ -209,21 +224,32 @@ public class RandomDataGenerator {
 					low = threadLocalRandom.nextInt(chromSize - length + 1);
 					high = low + length - 1;
 
-					randomlyGeneratedLine = new InputLineMinimal(low, high);
+					randomlyGeneratedLine.setLow(low);
+					randomlyGeneratedLine.setHigh(high);
 
 					//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
 					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC- originalInputLineGC);
 
-					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+					//Using MapabilityShortList
+					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+					
+					//Using MapabilityByteList
+					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
+					
 					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
 
 				}// End of While
-
-			
-
+				
+				
 				//for debug starts
-				//logger.info("count: "+ count + "\t" +  "dbGCs: " + differencebetweenGCs + "\t"+  "dbMap: " + differencebetweenMapabilities  );
+//				logger.info( 	"original low: " + originalInputLine.getLow() + "\t" + 
+//								"original high: " + originalInputLine.getHigh() + "\t" + 
+//								"count: "+ count + "\t" +  
+//								"dbGCs: " + differencebetweenGCs + "\t" +  
+//								"dbMap: " + differencebetweenMapabilities + "\t" +
+//								"random low: " + randomlyGeneratedLine.getLow() + "\t" + 
+//								"random high: " + randomlyGeneratedLine.getHigh() );
 				//for debug ends
 
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
@@ -231,7 +257,8 @@ public class RandomDataGenerator {
 				
 				
 			}// End of for: each original input line
-
+			
+			
 			// bufferedWriter.close();
 
 			// } catch (IOException e) {

@@ -14,7 +14,8 @@ public class InputLineMinimal {
 	int low;
 	int high;
 	
-	
+
+
 
 	public int getLow() {
 		return low;

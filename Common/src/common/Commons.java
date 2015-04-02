@@ -7,6 +7,7 @@ public class Commons {
 	
 	//Number of processors
 	public static final int NUMBER_OF_AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+	//Number of sequential task equal to the number of available processors is a good practice. 
 	public static final int NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
 	public static final int NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
 	
@@ -647,6 +648,10 @@ public class Commons {
 	public static final short  SHORT_0 = (short) 0;
 	
 	public static final short MAPABILITY_SHORT_TEN_THOUSAND = (short) 10000;
+	
+	//for debugging
+	public static final byte BYTE_0 = (byte) 0;
+	public static final byte MAPABILITY_BYTE_ONE_HUNDRED = (byte) 100;
 	
 	
 	public static final String MAPABILITY_HG19_FILE_END = "_hg19_mapability.txt";

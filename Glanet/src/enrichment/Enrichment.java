@@ -24,7 +24,6 @@ import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
@@ -100,7 +99,8 @@ public class Enrichment {
 		
 		//private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
-		private final TShortList mapabilityShortValueList;
+		//private final TShortList mapabilityShortValueList;
+		private final TByteList mapabilityByteValueList;
 		
 		private final String outputFolder;
 
@@ -116,7 +116,8 @@ public class Enrichment {
 				TIntList permutationNumberList, 
 				TByteList gcByteList, 
 				TIntList mapabilityChromosomePositionList,
-				TShortList mapabilityShortValueList) {
+				//TShortList mapabilityShortValueList,
+				TByteList mapabilityByteValueList) {
 
 			this.outputFolder = outputFolder;
 
@@ -135,8 +136,8 @@ public class Enrichment {
 			this.gcByteList = gcByteList;
 			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
-			this.mapabilityShortValueList = mapabilityShortValueList;
-			
+			//this.mapabilityShortValueList = mapabilityShortValueList;
+			this.mapabilityByteValueList =mapabilityByteValueList;
 		}
 
 		protected TIntObjectMap<List<InputLineMinimal>> compute() {
@@ -150,8 +151,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -171,15 +172,7 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					
-					// System.out.println("Generate Random Data For Permutation: "
-					// + permutationNumber.toString() + "\t"
-					// +chromName.convertEnumtoString());
-					// GlanetRunner.appendLog("Generate Random Data For Permutation: "
-					// + permutationNumber.toString() + "\t"
-					// +chromName.convertEnumtoString());
-
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityByteValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1789,7 +1782,8 @@ public class Enrichment {
 		TByteList gcByteList = null;
 		
 		TIntList mapabilityChromosomePositionList = null;
-		TShortList mapabilityShortValueList = null;
+		//TShortList mapabilityShortValueList = null;
+		TByteList mapabilityByteValueList = null;
 		
 		
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
@@ -1867,7 +1861,13 @@ public class Enrichment {
 
 				gcByteList = new TByteArrayList();
 				mapabilityChromosomePositionList = new TIntArrayList();
-				mapabilityShortValueList = new TShortArrayList();
+				
+				
+				//mapabilityShortValueList = new TShortArrayList();
+				
+				
+				//for debugging purposes 
+				mapabilityByteValueList = new TByteArrayList();
 				
 				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
@@ -1878,7 +1878,7 @@ public class Enrichment {
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList, mapabilityByteValueList  has started.");
 					
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -1890,11 +1890,11 @@ public class Enrichment {
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
-					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityByteValueList);
 					 
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList, mapabilityByteValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
 				}
 				/*******************************************************************************************************************************/
@@ -1912,7 +1912,7 @@ public class Enrichment {
 				
 				startTimeGenerateRandomData = System.currentTimeMillis();
 
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				endTimeGenerateRandomData = System.currentTimeMillis();
@@ -1936,7 +1936,12 @@ public class Enrichment {
 				/***************************************** FREE MEMORY STARTS *****************************************/
 				gcByteList = null;
 				mapabilityChromosomePositionList = null;
-				mapabilityShortValueList = null;
+				
+				
+				//mapabilityShortValueList = null;
+				
+				//For testing purposes
+				mapabilityByteValueList = null;
 
 				System.gc();
 				System.runFinalization();
@@ -2240,6 +2245,7 @@ public class Enrichment {
 
 				endTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+				GlanetRunner.appendLog("******************************************************************************************");
 				
 				
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
@@ -3536,6 +3542,9 @@ public class Enrichment {
 			tfCellLineExonBasedKeggPathway2AllKMap = null;
 			tfCellLineRegulationBasedKeggPathway2AllKMap = null;
 			tfCellLineAllBasedKeggPathway2AllKMap = null;
+			
+			System.gc();
+			System.runFinalization();
 			/***********************************************************************************************/
 			/********************* MAPS FOR PERMUTATIONS DATA ENDS *****************************************/
 			/*********************************** FREE MEMORY ENDS ******************************************/

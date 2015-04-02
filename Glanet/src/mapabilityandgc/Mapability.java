@@ -8,6 +8,7 @@
  */
 package mapabilityandgc;
 
+import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import hg19.GRCh37Hg19Chromosome;
@@ -25,7 +26,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
 import enrichment.MapabilityFloatArray;
@@ -265,6 +268,46 @@ public class Mapability {
 	}
 
 	
+	//For testing purposes
+	public static float calculateMappability(int low, 
+			int startIndex,
+			int high, 
+			int endIndex,
+			TIntList mapabilityChromosomePositionList,
+			TByteList mapabilityByteValueList){
+
+		float accumulatedMapability = 0;
+		
+		
+		//Interval is in the same block
+		if (startIndex == endIndex){
+		accumulatedMapability  = mapabilityByteValueList.get(startIndex);
+		}//End of IF
+		
+		//Interval is scattered through several blocks
+		else if (startIndex!=endIndex){
+		
+		//First Block
+		accumulatedMapability = (mapabilityChromosomePositionList.get(startIndex+1) - low) * mapabilityByteValueList.get(startIndex);
+		
+		//Middle Blocks
+		for(int i = startIndex+1; i<endIndex; i++) {
+		accumulatedMapability += (mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i)) * mapabilityByteValueList.get(i);
+		
+		}//End of for
+		
+		//Last Block
+		accumulatedMapability += (high -mapabilityChromosomePositionList.get(endIndex)+1) * mapabilityByteValueList.get(endIndex);
+		
+		//Calculate Mapability Value
+		accumulatedMapability = accumulatedMapability / (high -low +1);
+		}//End of ELSE IF
+		
+		
+		return accumulatedMapability;
+	}
+			
+	
 	public static float calculateMappability(int low, 
 											int startIndex,
 											int high, 
@@ -300,6 +343,109 @@ public class Mapability {
 		}//End of ELSE IF
 				
 		
+		return accumulatedMapability;
+	}
+	
+	//For testing purposes starts
+	public static float calculateMapabilityofIntervalUsingTroveList(
+			InputLineMinimal givenInputLine,
+			TIntList mapabilityChromosomePositionList,
+			TByteList mapabilityByteValueList) {
+
+		float accumulatedMapability = 0;
+
+		int low = givenInputLine.getLow();
+		int high = givenInputLine.getHigh();
+
+		
+		//Find startIndex
+		int startIndex = mapabilityChromosomePositionList.binarySearch(low);
+		
+		//There is no exact match or There is no match
+		if (startIndex<0){
+			//Means that there is no exact match
+			startIndex = -2-startIndex;
+		}
+			
+		//Find endIndex
+		int endIndex = Integer.MIN_VALUE;
+		
+		if (high==low){
+			endIndex = startIndex;
+		}else if (high>low){
+			
+			endIndex = mapabilityChromosomePositionList.binarySearch(high);
+			
+//			//Find endIndex
+//			while (endIndex+1<mapabilityChromosomePositionList.size() &&
+//					high > mapabilityChromosomePositionList.get(endIndex+1)){
+//					endIndex++;
+//			}//End of While
+
+			
+			//There is no exact match or there is no match
+			if (endIndex<0){
+				//Means that there is no exact match
+				endIndex = -2-endIndex;
+			}
+		}
+		
+		
+		//case1: startIndex and endIndex are less than 0
+		if (startIndex <0 && endIndex < 0){
+			//Do nothing
+		}
+		//case2: startIndex is less than zero and endIndex is greater than or equal to 0
+		else if (startIndex<0 && 
+				endIndex>=0 &&
+				endIndex < mapabilityChromosomePositionList.size()){
+			
+			//Only Interval Case
+			startIndex = 0;
+			low = mapabilityChromosomePositionList.get(0);
+			accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityByteValueList);
+			
+		} 
+		//case3: Major Case
+		else if (startIndex >= 0 && 
+				endIndex >= 0 &&
+				startIndex < (mapabilityChromosomePositionList.size()-1) &&
+				endIndex < (mapabilityChromosomePositionList.size()-1) ){
+			
+			//SNP Case
+			if (high == low){
+				accumulatedMapability = mapabilityByteValueList.get(startIndex);
+			}
+			//Interval Case of length greater than 1
+			else if(high>low){
+				accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityByteValueList);	
+			}//End of ELSE IF Interval Case of length greater than 1
+			
+		}
+		//Case4
+		else if (startIndex >= 0 && 
+				endIndex >= 0 &&
+				startIndex < (mapabilityChromosomePositionList.size()-1) &&
+				endIndex == (mapabilityChromosomePositionList.size()-1) ){
+			
+			//Only Interval Case
+			high = mapabilityChromosomePositionList.get(endIndex);
+			accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList,mapabilityByteValueList);
+			
+		}
+		//Case5
+		else if (startIndex>=0 && 
+				endIndex >=0 &&
+				startIndex == (mapabilityChromosomePositionList.size()-1) &&
+				endIndex == (mapabilityChromosomePositionList.size()-1) ){
+			//Do Nothing
+		}
+		
+
+		//Scale Down accumulatedMapability by Commons.MAPABILITY_SHORT_TEN_THOUSAND
+		accumulatedMapability = accumulatedMapability/Commons.MAPABILITY_BYTE_ONE_HUNDRED;
+		
+		//Set accumulatedMapability
 		return accumulatedMapability;
 	}
 	
