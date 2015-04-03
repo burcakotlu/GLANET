@@ -73,8 +73,9 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
-import auxiliary.NumberofComparisons;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsWithNumbers;
@@ -1474,7 +1475,6 @@ public class Annotation {
 			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchDnaseWithNumbersStringBuilder(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineKArray,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(dnaseIntervalTree.getRoot());
 			dnaseIntervalTree = null;
 
 			System.gc();
@@ -1515,7 +1515,6 @@ public class Annotation {
 			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchDnaseWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineKArray,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(dnaseIntervalTree.getRoot());
 			dnaseIntervalTree = null;
 
 			System.gc();
@@ -1556,7 +1555,6 @@ public class Annotation {
 			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchDnaseWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineKArray,overlapDefinition, dnaseCellLineNames, fileNames);
-			emptyIntervalTree(dnaseIntervalTree.getRoot());
 			dnaseIntervalTree = null;
 
 			System.gc();
@@ -1595,7 +1593,6 @@ public class Annotation {
 			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchDnaseWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, dnaseIntervalTree, dnaseCellLineNumber2KMap,overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(dnaseIntervalTree.getRoot());
 			dnaseIntervalTree = null;
 
 			System.gc();
@@ -6024,7 +6021,6 @@ public class Annotation {
 
 			searchGeneWithNumbers(outputFolder, writeElementBasedAnnotationFoundOverlapsMode, givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap, chromosomeName2CountMap, chrName, bufferedReader, ucscRefSeqGenesIntervalTree, entrezGeneId2KMap, overlapDefinition, officialGeneSymbolNumber2NameMap, refSeqGeneNumber2RefSeqGeneNameMap);
 
-			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 
 			System.gc();
@@ -6072,7 +6068,6 @@ public class Annotation {
 
 			searchGeneSetWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, ucscRefSeqGenesIntervalTree, exonBasedGeneSetNumber2KMap, regulationBasedGeneSetNumber2KMap, allBasedGeneSetNumber2KMap, overlapDefinition, geneSetNumber2GeneSetNameMap, geneId2ListofGeneSetNumberMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap, geneSetName, geneSetType);
 
-			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 
 			System.gc();
@@ -6148,9 +6143,7 @@ public class Annotation {
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
 					refSeqGeneNumber2RefSeqGeneNameMap);
 
-			emptyIntervalTree(tfbsIntervalTree.getRoot());
 			tfbsIntervalTree = null;
-			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 
 			System.gc();
@@ -6223,9 +6216,7 @@ public class Annotation {
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
 					refSeqGeneNumber2RefSeqGeneNameMap);
 
-			emptyIntervalTree(tfbsIntervalTree.getRoot());
 			tfbsIntervalTree = null;
-			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 
 			System.gc();
@@ -6306,9 +6297,7 @@ public class Annotation {
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
 					refSeqGeneNumber2RefSeqGeneNameMap);
 
-			emptyIntervalTree(tfbsIntervalTree.getRoot());
 			tfbsIntervalTree = null;
-			emptyIntervalTree(ucscRefSeqGenesIntervalTree.getRoot());
 			ucscRefSeqGenesIntervalTree = null;
 
 			System.gc();
@@ -6361,7 +6350,6 @@ public class Annotation {
 				userDefinedLibraryIntervalTree = createUserDefinedIntervalTreeWithNumbers(dataFolder, elementTypeNumber, elementType, chrName);
 				bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 				searchUserDefinedLibraryWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode, chrName, bufferedReader, userDefinedLibraryIntervalTree, elementNumber2KMap, overlapDefinition, elementType, elementNumber2ElementNameMap, fileNumber2FileNameMap);
-				emptyIntervalTree(userDefinedLibraryIntervalTree.getRoot());
 				userDefinedLibraryIntervalTree = null;
 
 				System.gc();
@@ -6403,7 +6391,6 @@ public class Annotation {
 			transcriptionFactorIntervalTree = createTfbsIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchTranscriptionFactorWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, transcriptionFactorIntervalTree, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(transcriptionFactorIntervalTree.getRoot());
 			transcriptionFactorIntervalTree = null;
 
 			System.gc();
@@ -6442,7 +6429,6 @@ public class Annotation {
 			histoneIntervalTree = createHistoneIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			searchHistoneWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, histoneIntervalTree, histoneNumberCellLineNumber2KMap, overlapDefinition, histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			emptyIntervalTree(histoneIntervalTree.getRoot());
 			histoneIntervalTree = null;
 
 			System.gc();
@@ -6458,58 +6444,58 @@ public class Annotation {
 
 	}
 
-	public void emptyIntervalTree(IntervalTreeNode node) {
-		if (node != null) {
-			emptyIntervalTree(node.getRight());
-			emptyIntervalTree(node.getLeft());
-
-			// if(node.getCellLineName()!=null){
-			// node.setCellLineName(null);
-			// }
-			//
-			// if(node.getFileName()!=null){
-			// node.setFileName(null);
-			// }
-			//
-			// if(node.getTfbsorHistoneName()!=null){
-			// node.setTfbsorHistoneName(null);
-			// }
-			//
-			// if(node.getGeneHugoSymbol()!=null){
-			// node.setGeneHugoSymbol(null);
-			// }
-			//
-			// if(node.getIntervalName()!=null){
-			// node.setIntervalName(null);
-			// }
-			//
-			// if(node.getGeneEntrezId()!=null){
-			// node.setGeneEntrezId(null);
-			// }
-			//
-			// if(node.getRefSeqGeneName()!=null){
-			// node.setRefSeqGeneName(null);
-			// }
-
-			if (node.getChromName() != null) {
-				node.setChromName(null);
-			}
-
-			if (node.getLeft() != null) {
-				node.setLeft(null);
-			}
-
-			if (node.getRight() != null) {
-				node.setRight(null);
-			}
-
-			if (node.getParent() != null) {
-				node.setParent(null);
-			}
-
-			node = null;
-		}
-	}
+//	public void emptyIntervalTree(IntervalTreeNode node) {
+//		if (node != null) {
+//			emptyIntervalTree(node.getRight());
+//			emptyIntervalTree(node.getLeft());
+//
+//			// if(node.getCellLineName()!=null){
+//			// node.setCellLineName(null);
+//			// }
+//			//
+//			// if(node.getFileName()!=null){
+//			// node.setFileName(null);
+//			// }
+//			//
+//			// if(node.getTfbsorHistoneName()!=null){
+//			// node.setTfbsorHistoneName(null);
+//			// }
+//			//
+//			// if(node.getGeneHugoSymbol()!=null){
+//			// node.setGeneHugoSymbol(null);
+//			// }
+//			//
+//			// if(node.getIntervalName()!=null){
+//			// node.setIntervalName(null);
+//			// }
+//			//
+//			// if(node.getGeneEntrezId()!=null){
+//			// node.setGeneEntrezId(null);
+//			// }
+//			//
+//			// if(node.getRefSeqGeneName()!=null){
+//			// node.setRefSeqGeneName(null);
+//			// }
+//
+//			if (node.getChromName() != null) {
+//				node.setChromName(null);
+//			}
+//
+//			if (node.getLeft() != null) {
+//				node.setLeft(null);
+//			}
+//
+//			if (node.getRight() != null) {
+//				node.setRight(null);
+//			}
+//
+//			if (node.getParent() != null) {
+//				node.setParent(null);
+//			}
+//
+//			node = null;
+//		}
+//	}
 
 	public static void writeOverlaps(TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap, int givenIntervalNumber, TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap, GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode, IntervalName intervalName, NumberofGeneOverlaps geneOverlaps, BufferedWriter bufferedWriter, TIntObjectMap<String> geneHugoSymbolNumber2NameMap) throws IOException {
 
@@ -7113,7 +7099,7 @@ public class Annotation {
 		/***********************************************************************************/
 		/**************Memory Usage Before Annotation***************************************/
 		/***********************************************************************************/
-		logger.info("Memory Used Before Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		//logger.info("Memory Used Before Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
 		/***********************************************************************************/
 		/**************Memory Usage Before Annotation***************************************/
 		/***********************************************************************************/
@@ -7251,31 +7237,44 @@ public class Annotation {
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/
 
+//		/********************************************************************************************************/
+//		/*************** FILL ARRAYS of CHAR ARRAYS starts*******************************************************/
+//		/********************************************************************************************************/
+//		char[][] dnaseCellLineNames = new char[100][];
+//		char[][] fileNames = new char[1000][];
+//		
+//		
+//		FileOperations.fillNameList(dnaseCellLineNames, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		FileOperations.fillNameList(fileNames, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		/********************************************************************************************************/
+//		/*************** FILL ARRAYS of CHAR ARRAYS ends*********************************************************/
+//		/********************************************************************************************************/
+
 		
-		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME TEST TROVE MAP CHAR SEQUENCE starts**********************************/
-		/********************************************************************************************************/
-		TShortObjectMap<CharSequence> dnaseCellLineNumber2NameCharSequenceMap = new TShortObjectHashMap<CharSequence>();
-		TShortObjectMap<CharSequence> fileNumber2NameCharSequenceMap = new TShortObjectHashMap<CharSequence>();
+//		/********************************************************************************************************/
+//		/*************** FILL NUMBER 2 NAME TEST TROVE MAP CHAR SEQUENCE starts**********************************/
+//		/********************************************************************************************************/
+//		TShortObjectMap<CharSequence> dnaseCellLineNumber2NameCharSequenceMap = new TShortObjectHashMap<CharSequence>();
+//		TShortObjectMap<CharSequence> fileNumber2NameCharSequenceMap = new TShortObjectHashMap<CharSequence>();
+//		
+//		FileOperations.fillNumber2NameCharSequenceMap(dnaseCellLineNumber2NameCharSequenceMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		FileOperations.fillNumber2NameCharSequenceMap(fileNumber2NameCharSequenceMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		/********************************************************************************************************/
+//		/*************** FILL NUMBER 2 NAME TEST TROVE MAP CHAR SEQUENCE ends************************************/
+//		/********************************************************************************************************/
 		
-		FileOperations.fillNumber2NameCharSequenceMap(dnaseCellLineNumber2NameCharSequenceMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.fillNumber2NameCharSequenceMap(fileNumber2NameCharSequenceMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME TEST TROVE MAP CHAR SEQUENCE ends************************************/
-		/********************************************************************************************************/
 		
-		
-		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME TEST TROVE MAP STRING BUILDER starts*********************************/
-		/********************************************************************************************************/
-		TShortObjectMap<StringBuilder> dnaseCellLineNumber2NameStringBuilderMap = new TShortObjectHashMap<StringBuilder>();
-		TShortObjectMap<StringBuilder> fileNumber2NameStringBuilderMap = new TShortObjectHashMap<StringBuilder>();
-		
-		FileOperations.fillNumber2NameStringBuilderMap(dnaseCellLineNumber2NameStringBuilderMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.fillNumber2NameStringBuilderMap(fileNumber2NameStringBuilderMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		/********************************************************************************************************/
-		/*************** FILL NUMBER 2 NAME TEST TROVE MAP STRING BUILDER ends***********************************/
-		/********************************************************************************************************/
+//		/********************************************************************************************************/
+//		/*************** FILL NUMBER 2 NAME TEST TROVE MAP STRING BUILDER starts*********************************/
+//		/********************************************************************************************************/
+//		TShortObjectMap<StringBuilder> dnaseCellLineNumber2NameStringBuilderMap = new TShortObjectHashMap<StringBuilder>();
+//		TShortObjectMap<StringBuilder> fileNumber2NameStringBuilderMap = new TShortObjectHashMap<StringBuilder>();
+//		
+//		FileOperations.fillNumber2NameStringBuilderMap(dnaseCellLineNumber2NameStringBuilderMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		FileOperations.fillNumber2NameStringBuilderMap(fileNumber2NameStringBuilderMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+//		/********************************************************************************************************/
+//		/*************** FILL NUMBER 2 NAME TEST TROVE MAP STRING BUILDER ends***********************************/
+//		/********************************************************************************************************/
 		
 	
 		
@@ -7308,18 +7307,6 @@ public class Annotation {
 		/********************************************************************************************************/
 		
 		
-		/********************************************************************************************************/
-		/*************** FILL ARRAYS of CHAR ARRAYS starts*******************************************************/
-		/********************************************************************************************************/
-		char[][] dnaseCellLineNames = new char[100][];
-		char[][] fileNames = new char[1000][];
-		
-		
-		FileOperations.fillNameList(dnaseCellLineNames, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.fillNameList(fileNames, dataFolder, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		/********************************************************************************************************/
-		/*************** FILL ARRAYS of CHAR ARRAYS ends*********************************************************/
-		/********************************************************************************************************/
 		
 		
 		
@@ -7349,135 +7336,135 @@ public class Annotation {
 	
 		
 		/**************************************************************************************/
-		/********************ANNOTATION********************************************************/
+		/********************ANNOTATION***Sequentially or in Parallel**************************/
 		/**************************************************************************************/
 		enumtypes.Annotation annotation = enumtypes.Annotation.ANNOTATION_SEQUENTIALLY;
 		/**************************************************************************************/
-		/********************ANNOTATION********************************************************/
+		/********************ANNOTATION***Sequentially or in Parallel**************************/
 		/**************************************************************************************/
 		
 		
 		
-		/**********************FOR TESTING PURPOSES******************************************************************/
-		/********************ANNOTATION IN PARALLEL STARTS***********************************************************/
-		/************************************************************************************************************/
-		if (annotation.annotateInParalel()){
-			
-			
-			/**************************************************************************************/
-			/********************Concurrent Programming Initizalization starts*********************/
-			/**************************************************************************************/
-			ForkJoinPool pool = new ForkJoinPool(Commons.NUMBER_OF_AVAILABLE_PROCESSORS);
-			
-			int[] allChromosomesDnaseCellLineKArray = null;
-			int numberofComparisonsDnase = 0;
-			
-			if (dnaseAnnotationType.doDnaseAnnotation()) {
-				
-				GlanetRunner.appendLog("**********************************************************");
-				GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
-				dateBefore = System.currentTimeMillis();
-				
-				numberofComparisonsDnase = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType);
-			
-				allChromosomesDnaseCellLineKArray = new int[numberofComparisonsDnase];
-				
-			}
-			/**************************************************************************************/
-			/********************Concurrent Programming Initizalization ends***********************/
-			/**************************************************************************************/
-				
-			// For each ChromosomeName
-			for (ChromosomeName chrName : ChromosomeName.values()) {
-				
-				List<Interval> dataArrayList =new ArrayList<Interval>();
-				BufferedReader bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-				
-				readDataIntoArray(bufferedReader,dataArrayList);
-				
-				/*******************************************************************************/
-				/************ DNASE**ANNOTATION****starts **************************************/
-				/*******************************************************************************/
-				if (dnaseAnnotationType.doDnaseAnnotation()) {
-					
-					// DNASE
-					int[] dnaseCellLineKArray = null;
-					IntervalTree dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
-				
-
-				
-					//logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" + dataArrayList.size());
-					
-					dnaseCellLineKArray = searchDnaseWithNumbers(
-							dataFolder,
-							outputFolder,
-							chrName,
-							dataArrayList,
-							overlapDefinition,
-							dnaseIntervalTree,
-							numberofComparisonsDnase,
-							dnaseCellLineNames,
-							fileNames,
-							writeElementBasedAnnotationFoundOverlapsMode,
-							pool);
-							
-					
-					//logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" + "\t" + dnaseCellLineNumber2KMap.size());
-					
-					Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
-					
-				
-					dnaseCellLineKArray = null;
-					emptyIntervalTree(dnaseIntervalTree.getRoot());
-					dnaseIntervalTree = null;
-
-					System.gc();
-					System.runFinalization();
-
-	
-				}
-				/*******************************************************************************/
-				/************ DNASE***ANNOTATION********ends ***********************************/
-				/*******************************************************************************/
-				
-			}//End of for each Chromosome
-			
-			/**************************************************************************************/
-			/********************Concurrent Programming Finalization starts************************/
-			/**************************************************************************************/
-			
-			pool.shutdown();
-			
-			if (dnaseAnnotationType.doDnaseAnnotation()) {
-				
-				writeResultsWithNumbers(allChromosomesDnaseCellLineKArray, dnaseCellLineNames, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
-
-				dateAfter = System.currentTimeMillis();
-				GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
-				GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
-				GlanetRunner.appendLog("**********************************************************");
-
-				
-				allChromosomesDnaseCellLineKArray = null;
-				System.gc();
-				System.runFinalization();
-
-				
-			}
-			/**************************************************************************************/
-			/********************Concurrent Programming Finalization ends**************************/
-			/**************************************************************************************/
-		}
-		/************************************************************************************************************/
-		/********************ANNOTATION IN PARALLEL ENDS*************************************************************/
-		/**********************FOR TESTING PURPOSES******************************************************************/
-		/************************************************************************************************************/
+//		/**********************FOR TESTING PURPOSES******************************************************************/
+//		/********************ANNOTATION IN PARALLEL STARTS***********************************************************/
+//		/************************************************************************************************************/
+//		if (annotation.annotateInParalel()){
+//			
+//			
+//			/**************************************************************************************/
+//			/********************Concurrent Programming Initizalization starts*********************/
+//			/**************************************************************************************/
+//			ForkJoinPool pool = new ForkJoinPool(Commons.NUMBER_OF_AVAILABLE_PROCESSORS);
+//			
+//			int[] allChromosomesDnaseCellLineKArray = null;
+//			int numberofComparisonsDnase = 0;
+//			
+//			if (dnaseAnnotationType.doDnaseAnnotation()) {
+//				
+//				GlanetRunner.appendLog("**********************************************************");
+//				GlanetRunner.appendLog("CellLine Based DNASE annotation starts: " + new Date());
+//				dateBefore = System.currentTimeMillis();
+//				
+//				numberofComparisonsDnase = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType);
+//			
+//				allChromosomesDnaseCellLineKArray = new int[numberofComparisonsDnase];
+//				
+//			}
+//			/**************************************************************************************/
+//			/********************Concurrent Programming Initizalization ends***********************/
+//			/**************************************************************************************/
+//				
+//			// For each ChromosomeName
+//			for (ChromosomeName chrName : ChromosomeName.values()) {
+//				
+//				List<Interval> dataArrayList =new ArrayList<Interval>();
+//				BufferedReader bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+//				
+//				readDataIntoArray(bufferedReader,dataArrayList);
+//				
+//				/*******************************************************************************/
+//				/************ DNASE**ANNOTATION****starts **************************************/
+//				/*******************************************************************************/
+//				if (dnaseAnnotationType.doDnaseAnnotation()) {
+//					
+//					// DNASE
+//					int[] dnaseCellLineKArray = null;
+//					IntervalTree dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder, chrName);
+//				
+//
+//				
+//					//logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" + dataArrayList.size());
+//					
+//					dnaseCellLineKArray = searchDnaseWithNumbers(
+//							dataFolder,
+//							outputFolder,
+//							chrName,
+//							dataArrayList,
+//							overlapDefinition,
+//							dnaseIntervalTree,
+//							numberofComparisonsDnase,
+//							dnaseCellLineNames,
+//							fileNames,
+//							writeElementBasedAnnotationFoundOverlapsMode,
+//							pool);
+//							
+//					
+//					//logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" + "\t" + dnaseCellLineNumber2KMap.size());
+//					
+//					Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
+//					
+//				
+//					dnaseCellLineKArray = null;
+//					emptyIntervalTree(dnaseIntervalTree.getRoot());
+//					dnaseIntervalTree = null;
+//
+//					System.gc();
+//					System.runFinalization();
+//
+//	
+//				}
+//				/*******************************************************************************/
+//				/************ DNASE***ANNOTATION********ends ***********************************/
+//				/*******************************************************************************/
+//				
+//			}//End of for each Chromosome
+//			
+//			/**************************************************************************************/
+//			/********************Concurrent Programming Finalization starts************************/
+//			/**************************************************************************************/
+//			
+//			pool.shutdown();
+//			
+//			if (dnaseAnnotationType.doDnaseAnnotation()) {
+//				
+//				writeResultsWithNumbers(allChromosomesDnaseCellLineKArray, dnaseCellLineNames, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+//
+//				dateAfter = System.currentTimeMillis();
+//				GlanetRunner.appendLog("CellLine Based DNASE annotation ends: " + new Date());
+//				GlanetRunner.appendLog("CellLine Based Dnase annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+//				GlanetRunner.appendLog("**********************************************************");
+//
+//				
+//				allChromosomesDnaseCellLineKArray = null;
+//				System.gc();
+//				System.runFinalization();
+//
+//				
+//			}
+//			/**************************************************************************************/
+//			/********************Concurrent Programming Finalization ends**************************/
+//			/**************************************************************************************/
+//		}
+//		/************************************************************************************************************/
+//		/********************ANNOTATION IN PARALLEL ENDS*************************************************************/
+//		/**********************FOR TESTING PURPOSES******************************************************************/
+//		/************************************************************************************************************/
 
 		
 		/************************************************************************************************************/
 		/********************ANNOTATION SEQUENTIALLY STARTS**********************************************************/
 		/************************************************************************************************************/
-		else if (annotation.annotateSequentially()){
+		if (annotation.annotateSequentially()){
 			
 			/*******************************************************************************/
 			/************DNASE ANNOTATION starts********************************************/
@@ -7761,7 +7748,6 @@ public class Annotation {
 				// Hg19 RefSeq Genes
 				// For Encode Collaboration Chen Yao Paper
 				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
-
 				
 				GlanetRunner.appendLog("**********************************************************");
 				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation starts: " + new Date());
@@ -7790,7 +7776,6 @@ public class Annotation {
 				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog("**********************************************************");
 
-				
 				entrezGeneId2KMap = null;
 				
 				System.gc();
@@ -8257,10 +8242,30 @@ public class Annotation {
 		/************************************************************************************************************/
 		
 		
+		
+		/************************************************************************************************************/
+		/********************FREE SPACE STARTS***********************************************************************/
+		/************************************************************************************************************/
+		dnaseCellLineNumber2NameMap = null;
+		cellLineNumber2NameMap = null;
+		fileNumber2NameMap = null;
+		histoneNumber2NameMap = null;
+		tfNumber2NameMap = null;
+		keggPathwayNumber2NameMap = null;
+		geneHugoSymbolNumber2NameMap = null;
+		geneEntrezId2GeneOfficialSymbolMap = null;
+		refSeqRNANucleotideAccessionNumber2NameMap = null;
+		keggPathwayName2NumberMap = null;
+		/************************************************************************************************************/
+		/********************FREE SPACE ENDS*************************************************************************/
+		/************************************************************************************************************/
+	
+		
+		
 		/***********************************************************************************/
 		/**************Memory Usage After Annotation****************************************/
 		/***********************************************************************************/
-		logger.info("Memory Used After Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		//logger.info("Memory Used After Annotation" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
 		/***********************************************************************************/
 		/**************Memory Usage After Annotation****************************************/
 		/***********************************************************************************/

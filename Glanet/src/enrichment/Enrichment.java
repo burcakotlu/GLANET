@@ -1993,105 +1993,190 @@ public class Enrichment {
 				
 				startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
+				
+//				/********************************************************************************************************/
+//				/***********************Using AnnotateDnaseTFHistoneWithNumbers STARTS **********************************/
+//				/********************************************************************************************************/
+//				if (dnaseAnnotationType.doDnaseAnnotation()) {
+//					// dnase
+//					// generate dnase interval tree
+//					intervalTree = generateDnaseIntervalTreeWithNumbers(dataFolder, chromName);
+//					
+//					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
+//							chromName, 
+//							permutationNumber2RandomlyGeneratedDataHashMap, 
+//							runNumber, 
+//							numberofPermutationsinThisRun, 
+//							writePermutationBasedandParametricBasedAnnotationResultMode, 
+//							permutationNumberList,
+//							intervalTree,
+//							AnnotationType.DO_DNASE_ANNOTATION,
+//							Commons.ZERO, 
+//							permutationNumberList.size(),
+//							outputFolder,
+//							overlapDefinition);
+//					
+//					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
+//					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_DNASE_ANNOTATION);
+//					allMapsDnaseTFHistoneWithNumbers = null;
+//					
+//					//Has no effect on the execution time
+//					//deleteIntervalTree(intervalTree);
+//					
+//					intervalTree = null;
+//
+//					System.gc();
+//					System.runFinalization();
+//				}
+//				
+//				if (histoneAnnotationType.doHistoneAnnotation()) {
+//					// histone
+//					// generate histone interval tree
+//					intervalTree = generateHistoneIntervalTreeWithNumbers(dataFolder, chromName);
+//					
+//					
+//					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
+//							chromName, 
+//							permutationNumber2RandomlyGeneratedDataHashMap, 
+//							runNumber, 
+//							numberofPermutationsinThisRun, 
+//							writePermutationBasedandParametricBasedAnnotationResultMode, 
+//							permutationNumberList,
+//							intervalTree,
+//							AnnotationType.DO_HISTONE_ANNOTATION,
+//							Commons.ZERO, 
+//							permutationNumberList.size(),
+//							outputFolder,
+//							overlapDefinition);
+//					
+//					
+//					
+//					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
+//					
+//					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
+//					allMapsDnaseTFHistoneWithNumbers = null;
+//					
+//					intervalTree = null;
+//
+//					System.gc();
+//					System.runFinalization();
+//				}
+//				
+//				if ((tfAnnotationType.doTFAnnotation()) && 
+//						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+//						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+//					// tf
+//					// generate tf interval tree
+//					intervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
+//					
+//					
+//					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
+//							chromName, 
+//							permutationNumber2RandomlyGeneratedDataHashMap, 
+//							runNumber, 
+//							numberofPermutationsinThisRun, 
+//							writePermutationBasedandParametricBasedAnnotationResultMode, 
+//							permutationNumberList,
+//							intervalTree,
+//							AnnotationType.DO_TF_ANNOTATION,
+//							Commons.ZERO, 
+//							permutationNumberList.size(),
+//							outputFolder,
+//							overlapDefinition);
+//					
+//					
+//					
+//					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
+//					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_TF_ANNOTATION);
+//					allMapsDnaseTFHistoneWithNumbers = null;
+//					
+//					intervalTree = null;
+//
+//					System.gc();
+//					System.runFinalization();
+//				}
+//				/********************************************************************************************************/
+//				/***********************Using AnnotateDnaseTFHistoneWithNumbers ENDS*************************************/
+//				/********************************************************************************************************/
+				
+				
+				/********************************************************************************************************/
+				/***********************Using AnnotateWithNumbers starts*************************************************/
+				/********************************************************************************************************/
 				if (dnaseAnnotationType.doDnaseAnnotation()) {
 					// dnase
 					// generate dnase interval tree
 					intervalTree = generateDnaseIntervalTreeWithNumbers(dataFolder, chromName);
 					
-					
-					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
+					annotateWithNumbers = new AnnotateWithNumbers(
+							outputFolder, 
 							chromName, 
 							permutationNumber2RandomlyGeneratedDataHashMap, 
 							runNumber, 
 							numberofPermutationsinThisRun, 
 							writePermutationBasedandParametricBasedAnnotationResultMode, 
-							permutationNumberList,
-							intervalTree,
-							AnnotationType.DO_DNASE_ANNOTATION,
 							Commons.ZERO, 
-							permutationNumberList.size(),
-							outputFolder,
+							permutationNumberList.size(), 
+							permutationNumberList, 
+							intervalTree, 
+							null, 
+							AnnotationType.DO_DNASE_ANNOTATION, 
+							null, 
 							overlapDefinition);
 					
-					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
-					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_DNASE_ANNOTATION);
-					allMapsDnaseTFHistoneWithNumbers = null;
+					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
+					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_DNASE_ANNOTATION);
 					
-					//Has no effect on the execution time
-					//deleteIntervalTree(intervalTree);
-					
+					allMapsWithNumbers = null;
 					intervalTree = null;
 
 					System.gc();
 					System.runFinalization();
 				}
+				
 
+				
+				
+				//Using AnnotateWithNumbers
 				if (histoneAnnotationType.doHistoneAnnotation()) {
 					// histone
 					// generate histone interval tree
 					intervalTree = generateHistoneIntervalTreeWithNumbers(dataFolder, chromName);
-					
-					
-					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
-							chromName, 
-							permutationNumber2RandomlyGeneratedDataHashMap, 
-							runNumber, 
-							numberofPermutationsinThisRun, 
-							writePermutationBasedandParametricBasedAnnotationResultMode, 
-							permutationNumberList,
-							intervalTree,
-							AnnotationType.DO_HISTONE_ANNOTATION,
-							Commons.ZERO, 
-							permutationNumberList.size(),
-							outputFolder,
-							overlapDefinition);
-					
-					
-					
-					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
-					
-					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
-					allMapsDnaseTFHistoneWithNumbers = null;
-					
+					annotateWithNumbers = new AnnotateWithNumbers(outputFolder, chromName, permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun, writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList, intervalTree, null, AnnotationType.DO_HISTONE_ANNOTATION, null, overlapDefinition);
+					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
+					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
+					allMapsWithNumbers = null;
+					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
 					System.runFinalization();
 				}
 
+				
+				
+				//Using AnnotateWithNumbers
 				if ((tfAnnotationType.doTFAnnotation()) && 
 						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 					// tf
 					// generate tf interval tree
 					intervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
-					
-					
-					annotateDnaseTFHistoneWithNumbers = new AnnotateDnaseTFHistoneWithNumbers(
-							chromName, 
-							permutationNumber2RandomlyGeneratedDataHashMap, 
-							runNumber, 
-							numberofPermutationsinThisRun, 
-							writePermutationBasedandParametricBasedAnnotationResultMode, 
-							permutationNumberList,
-							intervalTree,
-							AnnotationType.DO_TF_ANNOTATION,
-							Commons.ZERO, 
-							permutationNumberList.size(),
-							outputFolder,
-							overlapDefinition);
-					
-					
-					
-					allMapsDnaseTFHistoneWithNumbers = pool.invoke(annotateDnaseTFHistoneWithNumbers);
-					accumulate(allMapsDnaseTFHistoneWithNumbers, accumulatedAllMapsDnaseTFHistoneWithNumbers, AnnotationType.DO_TF_ANNOTATION);
-					allMapsDnaseTFHistoneWithNumbers = null;
-					
+					annotateWithNumbers = new AnnotateWithNumbers(outputFolder, chromName, permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun, writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList, intervalTree, null, AnnotationType.DO_TF_ANNOTATION, null, overlapDefinition);
+					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
+					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
+					allMapsWithNumbers = null;
+					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
 					System.runFinalization();
 				}
+				/********************************************************************************************************/
+				/***********************Using AnnotateWithNumbers ends***************************************************/
+				/********************************************************************************************************/
+
+				
 				
 				/********************************************************************************/
 				/*****************Gene Annotate Permutations starts******************************/

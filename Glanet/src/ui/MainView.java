@@ -219,7 +219,7 @@ public class MainView extends JPanel {
 						dnaseAnnotation.isSelected() ? Commons.DO_DNASE_ANNOTATION : Commons.DO_NOT_DNASE_ANNOTATION, 
 						histoneAnnotation.isSelected() ? Commons.DO_HISTONE_ANNOTATION : Commons.DO_NOT_HISTONE_ANNOTATION, 
 						tfAnnotation.isSelected() ? Commons.DO_TF_ANNOTATION : Commons.DO_NOT_TF_ANNOTATION,
-						Commons.DO_GENE_ANNOTATION,
+						Commons.DO_NOT_GENE_ANNOTATION,
 						keggPathwayAnnotation.isSelected() ? Commons.DO_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_KEGGPATHWAY_ANNOTATION, 
 						tfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION, 
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected() ? Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION : Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
