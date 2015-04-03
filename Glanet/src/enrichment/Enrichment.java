@@ -24,6 +24,7 @@ import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
@@ -99,8 +100,8 @@ public class Enrichment {
 		
 		//private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
-		//private final TShortList mapabilityShortValueList;
-		private final TByteList mapabilityByteValueList;
+		private final TShortList mapabilityShortValueList;
+		//private final TByteList mapabilityByteValueList;
 		
 		private final String outputFolder;
 
@@ -116,8 +117,9 @@ public class Enrichment {
 				TIntList permutationNumberList, 
 				TByteList gcByteList, 
 				TIntList mapabilityChromosomePositionList,
-				//TShortList mapabilityShortValueList,
-				TByteList mapabilityByteValueList) {
+				TShortList mapabilityShortValueList
+				//TByteList mapabilityByteValueList
+				) {
 
 			this.outputFolder = outputFolder;
 
@@ -136,8 +138,8 @@ public class Enrichment {
 			this.gcByteList = gcByteList;
 			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
-			//this.mapabilityShortValueList = mapabilityShortValueList;
-			this.mapabilityByteValueList =mapabilityByteValueList;
+			this.mapabilityShortValueList = mapabilityShortValueList;
+			//this.mapabilityByteValueList =mapabilityByteValueList;
 		}
 
 		protected TIntObjectMap<List<InputLineMinimal>> compute() {
@@ -151,8 +153,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -172,7 +174,7 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityByteValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1782,8 +1784,12 @@ public class Enrichment {
 		TByteList gcByteList = null;
 		
 		TIntList mapabilityChromosomePositionList = null;
-		//TShortList mapabilityShortValueList = null;
-		TByteList mapabilityByteValueList = null;
+
+		//MapabilityShortValueList is preferred since it provides better mapability values
+		//No difference in execution time and memory usage
+		//Average number of trials is almost the same.
+		TShortList mapabilityShortValueList = null;
+		//TByteList mapabilityByteValueList = null;
 		
 		
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
@@ -1862,12 +1868,12 @@ public class Enrichment {
 				gcByteList = new TByteArrayList();
 				mapabilityChromosomePositionList = new TIntArrayList();
 				
+				//MapabilityShortList
+				mapabilityShortValueList = new TShortArrayList();
 				
-				//mapabilityShortValueList = new TShortArrayList();
 				
-				
-				//for debugging purposes 
-				mapabilityByteValueList = new TByteArrayList();
+				//mapabilityByteValueList 
+				//mapabilityByteValueList = new TByteArrayList();
 				
 				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
@@ -1878,7 +1884,7 @@ public class Enrichment {
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList, mapabilityByteValueList  has started.");
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 					
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -1890,11 +1896,11 @@ public class Enrichment {
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					//Mapability New Way
-					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityByteValueList);
+					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					 
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList, mapabilityByteValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
 				}
 				/*******************************************************************************************************************************/
@@ -1906,14 +1912,44 @@ public class Enrichment {
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
 				/********************************************************************************************************/
-				
 				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
 				// First generate Random Data
 				
 				startTimeGenerateRandomData = System.currentTimeMillis();
-
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityByteValueList);
+				
+				
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
+				
+				
+//				//For testing average number of trials mapabilityByteList versus mapabilityShortList starts
+//				float totalNumberofTrialsPerPermutation = 0;
+//				float averageNumberofTrialsPerPermutation = 0;
+//				float averageNumberofTrialsForAllPermutation = 0;
+//				
+//				for(TIntObjectIterator<List<InputLineMinimal>> it= permutationNumber2RandomlyGeneratedDataHashMap.iterator(); it.hasNext();){
+//					
+//					it.advance();
+//					
+//					List<InputLineMinimal> temp = it.value();
+//					
+//					totalNumberofTrialsPerPermutation = 0;
+//					
+//					for(InputLineMinimal line : temp) {
+//						totalNumberofTrialsPerPermutation += line.getNumberofTrials();
+//						
+//					}
+//					
+//					averageNumberofTrialsPerPermutation = totalNumberofTrialsPerPermutation/temp.size();
+//					
+//					averageNumberofTrialsForAllPermutation +=averageNumberofTrialsPerPermutation;
+//				}
+//				
+//				averageNumberofTrialsForAllPermutation = averageNumberofTrialsForAllPermutation/permutationNumber2RandomlyGeneratedDataHashMap.size();
+//				
+//				logger.info("averageNumberofTrialsForAllPermutation" + "\t" + averageNumberofTrialsForAllPermutation);
+//				//For testing average number of trials mapabilityByteList versus mapabilityShortList ends
+				
 				
 				endTimeGenerateRandomData = System.currentTimeMillis();
 
@@ -1937,11 +1973,11 @@ public class Enrichment {
 				gcByteList = null;
 				mapabilityChromosomePositionList = null;
 				
+				//MapabilityShortValueList
+				mapabilityShortValueList = null;
 				
-				//mapabilityShortValueList = null;
-				
-				//For testing purposes
-				mapabilityByteValueList = null;
+				//mapabilityByteValueList
+				//mapabilityByteValueList = null;
 
 				System.gc();
 				System.runFinalization();
@@ -2812,7 +2848,7 @@ public class Enrichment {
 		logger.info("Java runtime max memory: " + (java.lang.Runtime.getRuntime().maxMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
 		logger.info("Java runtime total memory: " + (java.lang.Runtime.getRuntime().totalMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
 		logger.info("Java runtime free memory: " + (java.lang.Runtime.getRuntime().freeMemory()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
-		logger.info("Java runtime available processors: " + (java.lang.Runtime.getRuntime().availableProcessors()/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		logger.info("Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors());
 
 	}
 
@@ -2977,6 +3013,7 @@ public class Enrichment {
 		// Enrichment.main() function in case of performEnrichment is DO_ENRICH
 		/*********************************************************************************/
 		/************************** USER DEFINED GENESET *********************************/
+		/*********************************************************************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
 
@@ -2985,6 +3022,7 @@ public class Enrichment {
 		GeneInformationType geneInformationType = GeneInformationType.convertStringtoEnum(args[CommandLineArguments.UserDefinedGeneSetGeneInformation.value()]);
 
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
+		/*********************************************************************************/
 		/************************** USER DEFINED GENESET *********************************/
 		/*********************************************************************************/
 
@@ -3306,7 +3344,6 @@ public class Enrichment {
 				tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
 				tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
 				
-				
 			}
 			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
 			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
@@ -3351,7 +3388,9 @@ public class Enrichment {
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalHistone2KMap, histone2AllKMap, Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, runName);
 			}
 
-			if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			if (	tfAnnotationType.doTFAnnotation() && 
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
@@ -3361,11 +3400,9 @@ public class Enrichment {
 				
 				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalGene2KMap, gene2AllKMap, Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
-			
 			}
 			
 			
-
 			// UserDefinedGeneset
 			if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
 
@@ -3387,7 +3424,9 @@ public class Enrichment {
 
 			}
 
-			if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
@@ -3395,7 +3434,8 @@ public class Enrichment {
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
 			}
 
-			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 				// Write to be collected files
 
@@ -3414,7 +3454,8 @@ public class Enrichment {
 
 			}
 
-			if (!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+			if (	!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 				// Write to be collected files
 
@@ -3433,7 +3474,8 @@ public class Enrichment {
 
 			}
 
-			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 				// Write to be collected files
 
@@ -3468,13 +3510,9 @@ public class Enrichment {
 			/********************************** FREE MEMORY STARTS *****************************************/
 			/********************* MAPS FOR ORIGINAL DATA STARTS *******************************************/
 			/***********************************************************************************************/
-			// DNASE
+			// DNASE TF HISTONE
 			originalDnase2KMap = null;
-
-			// TF
 			originalTfbs2KMap = null;
-
-			// HISTONE
 			originalHistone2KMap = null;
 
 			// Gene
@@ -3508,13 +3546,9 @@ public class Enrichment {
 			// functionalElementName based
 			// number of overlaps: k out of n for all permutations
 
-			// DNASE
-			dnase2AllKMap = null;
-
-			// HISTONE
+			// DNASE HISTONE TF
+			dnase2AllKMap = null; 
 			histone2AllKMap = null;
-
-			// TF
 			tfbs2AllKMap = null;
 
 			// Gene
@@ -3552,9 +3586,7 @@ public class Enrichment {
 
 			GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	ends");
 
-		}
-		// end of for each run number
-
+		}//End of for each run number
 		/*********************************************************************************************/
 		/********************* FOR LOOP FOR RUN NUMBERS ENDS *****************************************/
 		/*********************************************************************************************/

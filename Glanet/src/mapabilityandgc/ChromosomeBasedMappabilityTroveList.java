@@ -13,8 +13,8 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 import enumtypes.ChromosomeName;
-import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 
 /**
  * @author Burçak Otlu
@@ -34,8 +34,9 @@ public class ChromosomeBasedMappabilityTroveList {
 			String dataFolder, 
 			ChromosomeName chromName,
 			TIntList mapabilityChromosomePositionList,
-			//TShortList mapabilityShortValueList,
-			TByteList mapabilityByteValueList){
+			TShortList mapabilityShortValueList
+			//TByteList mapabilityByteValueList
+			){
 		
 		String fileName =   Commons.MAPABILITY + System.getProperty("file.separator") + chromName.convertEnumtoString() +  Commons.MAPABILITY_HG19_FILE_END;
 		
@@ -51,10 +52,12 @@ public class ChromosomeBasedMappabilityTroveList {
 		int high = Integer.MIN_VALUE;
 		
 		float mapabilityFloatValue;
-		//short mapabilityShortValue; 
+	
+		//For MapabilityShortValue
+		short mapabilityShortValue; 
 		
-		//for debugging purposes
-		byte mapabilityByteValue; 
+		//For MapabilityByteValue
+		//byte mapabilityByteValue; 
 		
 		logger.info(chromName);
 		
@@ -78,7 +81,7 @@ public class ChromosomeBasedMappabilityTroveList {
 //					chr1	10000	10014	0.00277778
 //					chr1	10014	10015	0.333333
 //					chr1	10015	10026	0.5
-					logger.info("There is a gap in the given mapability file!" + " next low: " + low +  " previous high: " + high);
+					//logger.info("There is a gap in the given mapability file!" + " next low: " + low +  " previous high: " + high);
 					numberofGaps++;
 					
 					//You have read the new low
@@ -86,21 +89,21 @@ public class ChromosomeBasedMappabilityTroveList {
 					//Which means that there is a gap
 					//Insert values for this gap
 					mapabilityChromosomePositionList.add(high);
-					//mapabilityShortValueList.add(Commons.SHORT_0);
-					mapabilityByteValueList.add(Commons.BYTE_0);
+					mapabilityShortValueList.add(Commons.SHORT_0);
+					//mapabilityByteValueList.add(Commons.BYTE_0);
 				}
 				
 				high = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
 				mapabilityFloatValue = Float.parseFloat(strLine.substring(indexofThirdTab+1));
 				
-				//mapabilityShortValue =  (short) (mapabilityFloatValue*Commons.MAPABILITY_SHORT_TEN_THOUSAND);
+				mapabilityShortValue =  (short) (mapabilityFloatValue*Commons.MAPABILITY_SHORT_TEN_THOUSAND);
 				
 				//for debugging purposes
-				mapabilityByteValue = (byte) (mapabilityFloatValue*Commons.MAPABILITY_BYTE_ONE_HUNDRED);
+				//mapabilityByteValue = (byte) (mapabilityFloatValue*Commons.MAPABILITY_BYTE_ONE_HUNDRED);
 				
 				mapabilityChromosomePositionList.add(low);
-				//mapabilityShortValueList.add(mapabilityShortValue);
-				mapabilityByteValueList.add(mapabilityByteValue);
+				mapabilityShortValueList.add(mapabilityShortValue);
+				//mapabilityByteValueList.add(mapabilityByteValue);
 				
 			}//End of WHILE
 			
@@ -108,8 +111,8 @@ public class ChromosomeBasedMappabilityTroveList {
 			//This is a dummy insertion
 			//We just want to know the last chromosome position with a mapability value
 			mapabilityChromosomePositionList.add(high);
-			//mapabilityShortValueList.add(Commons.SHORT_0);
-			mapabilityByteValueList.add(Commons.BYTE_0);
+			mapabilityShortValueList.add(Commons.SHORT_0);
+			//mapabilityByteValueList.add(Commons.BYTE_0);
 			
 			logger.info("numberofGaps:" + numberofGaps);
 		} catch (IOException e) {

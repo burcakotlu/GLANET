@@ -24,6 +24,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 //import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
@@ -34,8 +35,8 @@ public class RandomDataGenerator {
 	public static List<InputLineMinimal> generateRandomData(
 			TByteList gcByteList, 
 			TIntList mapabilityChromosomePositionList,
-			//TShortList mapabilityShortValueList,
-			TByteList mapabilityByteValueList,
+			TShortList mapabilityShortValueList,
+			//TByteList mapabilityByteValueList,
 			int chromSize, 
 			ChromosomeName chromName, 
 			List<InputLineMinimal> chromosomeBasedOriginalInputLines, 
@@ -129,10 +130,10 @@ public class RandomDataGenerator {
 				
 				
 				//Using MapabilitShortList
-				//originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
 				
 				//Using MapabilityByteList
-				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityByteValueList);
+				//originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityByteValueList);
 				
 				//newWayCalculatedMapability = originalInputLine.getMapability();
 				
@@ -159,10 +160,10 @@ public class RandomDataGenerator {
 				differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 
 				//Using MapabilityShortList
-				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 				
 				//Using MapabilityByteList
-				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
+				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
 				
 				differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability- originalInputLineMapability);
 
@@ -232,10 +233,10 @@ public class RandomDataGenerator {
 					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC- originalInputLineGC);
 
 					//Using MapabilityShortList
-					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 					
 					//Using MapabilityByteList
-					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
+					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
 					
 					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
 
@@ -252,6 +253,11 @@ public class RandomDataGenerator {
 //								"random high: " + randomlyGeneratedLine.getHigh() );
 				//for debug ends
 
+				//For debug purposes starts
+				//Set number of trials
+				//randomlyGeneratedLine.setNumberofTrials(count);
+				//For debug purposes ends
+				
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 				
 				
