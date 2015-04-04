@@ -1,0 +1,111 @@
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:319 - *****************************************************************
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:320 - GLANET Parameters starts
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\UmutToprak_eDMRs2_05.bed\
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - GRCh37.p13
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - BED
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 1
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_ENRICH
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - With GC and Mappability
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - Benjamini Hochberg FDR
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_DNASE_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_HISTONE_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_TF_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_GENE_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - testUMUTAllMaps
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - GENE SYMBOL
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - NoName
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Exclusive)
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:324 - GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:327 - GLANET Parameters ends
+2015-04-03 19:21:05 INFO  InputDataRemoveOverlaps:328 - *****************************************************************
+2015-04-03 19:24:14 INFO  Enrichment:3032 - Memory Used Before Enrichment	46	MBs
+2015-04-03 19:24:14 INFO  Enrichment:2933 - Java runtime max memory: 4094	MBs
+2015-04-03 19:24:14 INFO  Enrichment:2934 - Java runtime total memory: 4094	MBs
+2015-04-03 19:24:14 INFO  Enrichment:2935 - Java runtime free memory: 4047	MBs
+2015-04-03 19:24:14 INFO  Enrichment:2936 - Java runtime available processors: 8
+2015-04-03 19:24:21 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:24:21 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME1
+2015-04-03 19:24:26 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:43
+2015-04-03 19:25:53 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:25:53 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME2
+2015-04-03 19:25:57 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:26
+2015-04-03 19:27:23 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:27:23 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME3
+2015-04-03 19:27:26 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-03 19:28:30 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:28:30 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME4
+2015-04-03 19:28:33 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:16
+2015-04-03 19:29:44 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:29:44 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME5
+2015-04-03 19:29:47 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:10
+2015-04-03 19:31:23 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:31:23 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME6
+2015-04-03 19:31:26 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:9
+2015-04-03 19:32:42 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:32:42 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME7
+2015-04-03 19:32:44 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:21
+2015-04-03 19:34:38 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:34:38 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME8
+2015-04-03 19:34:40 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-03 19:35:39 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:35:39 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME9
+2015-04-03 19:35:41 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:42
+2015-04-03 19:36:29 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:36:29 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME10
+2015-04-03 19:36:31 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:27
+2015-04-03 19:38:44 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:38:44 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME11
+2015-04-03 19:38:47 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:8
+2015-04-03 19:40:11 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:40:11 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME12
+2015-04-03 19:40:13 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:17
+2015-04-03 19:42:19 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:42:19 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME13
+2015-04-03 19:42:20 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:4
+2015-04-03 19:43:10 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:43:10 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME14
+2015-04-03 19:43:11 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:0
+2015-04-03 19:44:54 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:44:54 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME15
+2015-04-03 19:44:55 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:10
+2015-04-03 19:46:03 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:46:03 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME16
+2015-04-03 19:46:04 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:4
+2015-04-03 19:47:54 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:47:54 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME17
+2015-04-03 19:47:56 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-03 19:50:03 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:50:03 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME18
+2015-04-03 19:50:04 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:5
+2015-04-03 19:50:28 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:50:28 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME19
+2015-04-03 19:50:29 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:6
+2015-04-03 19:51:00 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:51:00 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME20
+2015-04-03 19:51:01 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:5
+2015-04-03 19:51:14 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:51:14 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME21
+2015-04-03 19:51:15 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:17
+2015-04-03 19:51:44 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-03 19:51:44 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME22
+2015-04-03 19:51:44 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:16
+2015-04-03 19:52:22 INFO  Enrichment:3684 - Memory Used After Enrichment	9	MBs

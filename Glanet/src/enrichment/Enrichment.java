@@ -1651,13 +1651,13 @@ public class Enrichment {
 		ucscRefSeqGenesIntervalTree = null;
 	}
 
-	//Has no effect on the execution time
-	public static void deleteIntervalTree(IntervalTree intervalTree) {
-
-		IntervalTree.deleteNodesofIntervalTree(intervalTree.getRoot());
-		intervalTree.setRoot(null);
-		intervalTree = null;
-	}
+//	//Has no effect on the execution time
+//	public static void deleteIntervalTree(IntervalTree intervalTree) {
+//
+//		IntervalTree.deleteNodesofIntervalTree(intervalTree.getRoot());
+//		intervalTree.setRoot(null);
+//		intervalTree = null;
+//	}
 
 
 
@@ -1861,6 +1861,8 @@ public class Enrichment {
 			chromSize = hg19ChromosomeSizes.get(i - 1);
 
 			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			logger.info("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
 
 			if (chromosomeBaseOriginalInputLines != null) {
@@ -1913,6 +1915,7 @@ public class Enrichment {
 				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
 				/********************************************************************************************************/
 				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
+				logger.info("Generate Random Data for permutations has started.");
 				// First generate Random Data
 				
 				startTimeGenerateRandomData = System.currentTimeMillis();
@@ -1954,6 +1957,7 @@ public class Enrichment {
 				endTimeGenerateRandomData = System.currentTimeMillis();
 
 				GlanetRunner.appendLog("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
+				logger.info("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/
@@ -1990,6 +1994,7 @@ public class Enrichment {
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
 				/********************************************************************************************************/
 				GlanetRunner.appendLog("Annotation of Permutations has started.");
+				logger.info("Annotation of Permutations has started.");
 				
 				startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
@@ -2146,7 +2151,6 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
 					allMapsWithNumbers = null;
-					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
@@ -2166,7 +2170,6 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
 					allMapsWithNumbers = null;
-					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
@@ -2191,7 +2194,6 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_GENE_ANNOTATION);
 					allMapsWithNumbers = null;
-					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
@@ -2212,7 +2214,6 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION);
 					allMapsWithNumbers = null;
-					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
@@ -2238,7 +2239,6 @@ public class Enrichment {
 						allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 						accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION);
 						allMapsWithNumbers = null;
-						deleteIntervalTree(intervalTree);
 						intervalTree = null;
 
 						System.gc();
@@ -2258,7 +2258,6 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
 					allMapsWithNumbers = null;
-					deleteIntervalTree(intervalTree);
 					intervalTree = null;
 
 					System.gc();
@@ -2286,8 +2285,6 @@ public class Enrichment {
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
-					deleteIntervalTree(tfIntervalTree);
-					deleteIntervalTree(ucscRefSeqGenesIntervalTree);
 					tfIntervalTree = null;
 					ucscRefSeqGenesIntervalTree = null;
 					// New Functionality END
@@ -2318,8 +2315,6 @@ public class Enrichment {
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
-					deleteIntervalTree(tfIntervalTree);
-					deleteIntervalTree(ucscRefSeqGenesIntervalTree);
 					tfIntervalTree = null;
 					ucscRefSeqGenesIntervalTree = null;
 					// New Functionality END
@@ -2344,8 +2339,6 @@ public class Enrichment {
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
-					deleteIntervalTree(tfIntervalTree);
-					deleteIntervalTree(ucscRefSeqGenesIntervalTree);
 					tfIntervalTree = null;
 					ucscRefSeqGenesIntervalTree = null;
 					// New Functionality END
@@ -2399,6 +2392,7 @@ public class Enrichment {
 		endTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes)/1000) + " seconds.");
+		logger.info("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes)/1000) + " seconds.");
 
 		/*************************************************************************************************************************/
 		/***************************************** CONVERT starts*****************************************************************/
@@ -3029,7 +3023,7 @@ public class Enrichment {
 		/***********************************************************************************/
 		/**************Memory Usage Before Enrichment***************************************/
 		/***********************************************************************************/
-		logger.info("Memory Used Before Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		//logger.info("Memory Used Before Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
 		/***********************************************************************************/
 		/**************Memory Usage Before Enrichment***************************************/
 		/***********************************************************************************/
@@ -3241,6 +3235,7 @@ public class Enrichment {
 		for (int runNumber = 1; runNumber <= numberofRuns; runNumber++) {
 
 			GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
+			logger.info("**************	" + runNumber + ". Run" + "	******************	starts");
 
 			runName = jobName + "_" + Commons.RUN + runNumber;
 
@@ -3250,18 +3245,16 @@ public class Enrichment {
 			/***********************************************************************************************/
 			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA STARTS **********/
 			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS STARTS ************************/
-			// annotation of original data with permutations
-			// annotation of original data has permutation number zero
-			// number of overlaps for the original data: k out of n for the
-			// original data
-			// ElementName to integer
+			/***********************************************************************************************/
+			// ElementNumber2K
+			// Annotation of original data 
+			// number of overlaps: k out of n for original data
+			// Annotation of original data has permutation number zero
 			
-			// Accumulated number of overlaps for all permutations
-			// functionalElementNumber based
+			// ElementNumber2AllK
+			// Annotation of each permutation's randomly generated data 
 			// number of overlaps: k out of n for all permutations
-			// ElementNumber has been mapped to a list of integers
 						
-			
 			/********************** INITIALIZATION TO NULL *************************************************/
 			//DNase
 			TIntIntMap originalDnase2KMap = null;
@@ -3363,7 +3356,7 @@ public class Enrichment {
 			}
 			
 			
-			// KEGG Pathway
+			// KEGGPathway
 			if (keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
 				
 				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
@@ -3377,7 +3370,7 @@ public class Enrichment {
 			}
 			
 			
-			// TF and KEGG Pathway Enrichment
+			// TF KEGGPathway Enrichment
 			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
 				
 				//TF
@@ -3404,7 +3397,7 @@ public class Enrichment {
 
 			}
 			
-			// TF and CellLine and KEGG Pathway Enrichment
+			// TF CellLine KEGGPathway Enrichment
 			if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 				
 				//TF
@@ -3463,13 +3456,10 @@ public class Enrichment {
 			/************************** WRITE TO BE COLLECTED RESULTS STARTS *******************************/
 			/***********************************************************************************************/
 			if (dnaseAnnotationType.doDnaseAnnotation()) {
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalDnase2KMap, dnase2AllKMap, Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, runName);
 			}
 
 			if (histoneAnnotationType.doHistoneAnnotation()) {
-
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalHistone2KMap, histone2AllKMap, Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, runName);
 			}
 
@@ -3477,13 +3467,11 @@ public class Enrichment {
 					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
 			}
 
 			if (geneAnnotationType.doGeneAnnotation()){
 				
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalGene2KMap, gene2AllKMap, Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
 			}
 			
@@ -3495,7 +3483,6 @@ public class Enrichment {
 				final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
 				final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
 
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedUserDefinedGeneSet2KMap, exonBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedUserDefinedGeneSet2KMap, regulationBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedUserDefinedGeneSet2KMap, allBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
@@ -3513,7 +3500,6 @@ public class Enrichment {
 					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
-				// Write to be collected files
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
@@ -3521,8 +3507,6 @@ public class Enrichment {
 
 			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-
-				// Write to be collected files
 
 				// TF
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
@@ -3542,8 +3526,6 @@ public class Enrichment {
 			if (	!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
-				// Write to be collected files
-
 				// TF
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
 
@@ -3561,8 +3543,6 @@ public class Enrichment {
 
 			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
-
-				// Write to be collected files
 
 				// TF
 				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
@@ -3677,11 +3657,25 @@ public class Enrichment {
 		/*********************************************************************************************/
 		
 		
+		/***********************************************************************************/
+		/**********************FREE AUXILIARY MAPS starts***********************************/
+		/***********************************************************************************/
+		userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = null;
+		userDefinedGeneSetName2UserDefinedGeneSetNumberMap = null;
+		geneId2ListofUserDefinedGeneSetNumberMap = null;
+		
+		geneId2KeggPathwayNumberMap = null;
+		keggPathwayName2KeggPathwayNumberMap = null;
+		
+		elementTypeNumber2ElementTypeMap = null;
+		/***********************************************************************************/
+		/**********************FREE AUXILIARY MAPS ends*************************************/
+		/***********************************************************************************/
 		
 		/***********************************************************************************/
 		/**************Memory Usage After Enrichment****************************************/
 		/***********************************************************************************/
-		logger.info("Memory Used After Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
+		//logger.info("Memory Used After Enrichment" + "\t" + ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) +   "\t" + "MBs");
 		/***********************************************************************************/
 		/**************Memory Usage After Enrichment****************************************/
 		/***********************************************************************************/
