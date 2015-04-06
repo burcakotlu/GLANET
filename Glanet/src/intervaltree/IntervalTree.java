@@ -48,9 +48,7 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
@@ -58,6 +56,7 @@ import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
+import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 import gnu.trove.iterator.TShortIterator;
 import gnu.trove.list.TShortList;
@@ -1999,6 +1998,7 @@ public class IntervalTree {
 	public void findAllOverlappingTfbsIntervalsWithNumbers(
 			String outputFolder, 
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName, 
@@ -2024,7 +2024,9 @@ public class IntervalTree {
 			try {
 				
 				//Write Annotation Found Overlaps to element Named File
-				if(writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+				//or RSAT is wanted
+				if(writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps() || 
+						regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
 					
 					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfNumber2TfNameMap.get(castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber()) + ".txt", true);
 					bufferedWriter = new BufferedWriter(fileWriter);
@@ -2052,11 +2054,11 @@ public class IntervalTree {
 		}
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
-			findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode, node.getLeft(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT, node.getLeft(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,node.getRight(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT,node.getRight(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
 	}
 

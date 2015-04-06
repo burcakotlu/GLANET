@@ -73,9 +73,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsWithNumbers;
@@ -91,6 +89,7 @@ import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.IntervalName;
 import enumtypes.NodeType;
+import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 
@@ -3827,6 +3826,7 @@ public class Annotation {
 	public void searchTranscriptionFactorWithNumbers(
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree tfIntervalTree, 
@@ -3864,7 +3864,7 @@ public class Annotation {
 				Interval interval = new Interval(low, high);
 
 				if (tfIntervalTree.getRoot().getNodeName().isNotSentinel()) {
-					tfIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode, tfIntervalTree.getRoot(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+					tfIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT, tfIntervalTree.getRoot(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 				}
 
 
@@ -6374,6 +6374,7 @@ public class Annotation {
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode, 
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
 			int overlapDefinition, 
 			TShortObjectMap<String> tfNumber2TFNameMap, 
@@ -6390,7 +6391,7 @@ public class Annotation {
 
 			transcriptionFactorIntervalTree = createTfbsIntervalTreeWithNumbers(dataFolder, chrName);
 			bufferedReader = FileOperations.createBufferedReader(outputFolder, Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchTranscriptionFactorWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,chrName, bufferedReader, transcriptionFactorIntervalTree, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			searchTranscriptionFactorWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT,chrName, bufferedReader, transcriptionFactorIntervalTree, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			transcriptionFactorIntervalTree = null;
 
 			System.gc();
@@ -7122,6 +7123,8 @@ public class Annotation {
 		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
 	
 		
+		RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT =  RegulatorySequenceAnalysisType.convertStringtoEnum(args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()]);
+		
 		//This argument is set internally.
 		//If you want to change this argument
 		//Then update runButtonPressed method of MainView Class for UI and
@@ -7718,7 +7721,7 @@ public class Annotation {
 				GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
 
 				dateBefore = System.currentTimeMillis();
-				searchTranscriptionFactorWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
+				searchTranscriptionFactorWithNumbers(dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT, tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap, fileNumber2NameMap);
 				writeResultsWithNumbers(tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
 				dateAfter = System.currentTimeMillis();
 
