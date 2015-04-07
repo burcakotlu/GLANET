@@ -949,6 +949,10 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		String fileAbsolutePath = null;
 
 		RSATWebServicesLocator service = new RSATWebServicesLocator();
+		
+		//User the server address for RSAT Metazoa
+		service.setRSATWSPortTypeEndpointAddress("http://rsat.sb-roscoff.fr/web_services/RSATWS.cgi");
+		
 		RSATWSPortType proxy = null;
 
 		// mainSNPsDirectory is Commons.SNPs

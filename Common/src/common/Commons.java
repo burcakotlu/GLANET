@@ -1302,7 +1302,7 @@ public class Commons {
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Choose User Defined Library Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Choose Data Format In User Defined Library Input File";
-	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis using RSAT";
+	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis is possible  when the input file is comprised of SNPs";
 
 	// Annotation Binary Matrices
 	public static final String ANNOTATIONBINARYMATRIX_DNASE = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty("file.separator") + "DnaseAnnotationBinaryMatrix.txt";
