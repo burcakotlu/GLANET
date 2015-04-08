@@ -42,7 +42,7 @@ public class HumanRefSeq2Gene {
 		int numberofHumanGene2RefseqLines = 0;
 
 		try {
-			fileReader = FileOperations.createFileReader(Commons.LOCAL_DISK_G_DOKTORA_DATA + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
+			fileReader = FileOperations.createFileReader(Commons.LOCAL_DISK_G_GLANET_DATA + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
 			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
 
 			bufferedReader = new BufferedReader(fileReader);

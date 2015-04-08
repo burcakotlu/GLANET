@@ -50,7 +50,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 		BufferedWriter correspondingBufferedWriter = null;
 
 		try {
-			bufferedReader = FileOperations.createBufferedReader(Commons.LOCAL_DISK_G_DOKTORA_DATA , Commons.WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG);
+			bufferedReader = FileOperations.createBufferedReader(Commons.LOCAL_DISK_G_GLANET_DATA , Commons.WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
 				indexofNumber = strLine.indexOf('#');

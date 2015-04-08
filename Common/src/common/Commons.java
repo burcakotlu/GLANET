@@ -28,12 +28,16 @@ public class Commons {
 	public static final String ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES = "EnrichmentBinaryMatrixForAllPhenotypes";
 
 	public static final String BYGLANET = "byGLANET";
-	public static final String LOCAL_DISK_G_DOKTORA_DATA = "G:" + System.getProperty("file.separator") + "DOKTORA_DATA" + System.getProperty("file.separator");
+	public static final String LOCAL_DISK_G_GLANET_DATA = "G:" + System.getProperty("file.separator") + "GLANET_DATA" + System.getProperty("file.separator");
 	public static final String ENCODE = "ENCODE";
 	public static final String UCSCGENOME = "UCSCGENOME";
 	public static final String NCBI = "NCBI";
 	public static final String FTP = "FTP";
 	public static final String NCBI_REMAP = "REMAP";
+	
+	public static final String ENCODE_EXPERIMENT = "ENCODE_Experiment";
+	public static final String ENCSR000COQ = "ENCSR000COQ";
+	public static final String GM12878_cell_longPolyA_CSHL_ExonGencV7_CSHL_LID16629_003WC_b1_LID16630_004WC_b2_gff = "GM12878_cell_longPolyA_CSHL_ExonGencV7.CSHL_LID16629-003WC-b1.LID16630-004WC-b2.gff";
 
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
@@ -713,30 +717,6 @@ public class Commons {
 	public static final String GC_HG19_CHRX_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chrX.fa";
 	public static final String GC_HG19_CHRY_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chrY.fa";
 
-	public static final String GC_HG19_CHR1_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr1_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR2_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr2_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR3_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr3_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR4_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr4_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR5_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr5_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR6_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr6_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR7_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr7_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR8_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr8_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR9_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr9_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR10_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr10_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR11_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr11_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR12_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr12_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR13_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr13_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR14_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr14_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR15_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr15_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR16_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr16_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR17_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr17_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR18_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr18_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR19_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr19_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR20_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr20_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR21_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr21_GC_onezero_file.txt";
-	public static final String GC_HG19_CHR22_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chr22_GC_onezero_file.txt";
-	public static final String GC_HG19_CHRX_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chrX_GC_onezero_file.txt";
-	public static final String GC_HG19_CHRY_ONEZERO_FILE = "Doktora" + System.getProperty("file.separator") + "mappabilityandgc" + System.getProperty("file.separator") + "GC" + System.getProperty("file.separator") + "chrY_GC_onezero_file.txt";
 
 	public static final char NUCLEIC_ACID_UPPER_CASE_A = 'A';
 	public static final char NUCLEIC_ACID_LOWER_CASE_A = 'a';
