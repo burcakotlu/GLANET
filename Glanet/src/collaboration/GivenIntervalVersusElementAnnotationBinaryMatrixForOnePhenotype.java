@@ -33,7 +33,7 @@ import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
  */
 public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 
-	public static void readGivenIntervals(Map<String, Short> givenIntervalName2ArrayXIndexMap, String[] givenIntervalNames, String givenInputDataFolder) {
+	public static void readGivenIntervals(Map<String, Integer> givenIntervalName2ArrayXIndexMap, String[] givenIntervalNames, String givenInputDataFolder) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -47,7 +47,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		int end_0BasedInclusive;
 
 		String givenIntervalKey = null;
-		short givenIntervalIndex = 0;
+		int givenIntervalIndex = 0;
 
 		try {
 			fileReader = FileOperations.createFileReader(givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13);
@@ -78,7 +78,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 	}
 
 	public static void readAnnotations(
-			Map<String, Short> givenIntervalName2ArrayXIndexMap, 
+			Map<String, Integer> givenIntervalName2ArrayXIndexMap, 
 			List<String> elementNameList, 
 			String[] elementNames, 
 			short[][] annotationBinaryMatrix, 
@@ -108,7 +108,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		int givenIntervalStart;
 		int givenIntervalEnd;
 
-		short givenIntervalIndex;
+		int givenIntervalIndex;
 
 		if (elementType.equals(Commons.DNASE)) {
 			folderName = outputFolder + Commons.ANNOTATE_INTERVALS_USING_INTERVAL_TREE_OUTPUT_FILE_PATH_FOR_DNASE;
@@ -345,7 +345,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/******************************** HASH MAPS starts ************************************/
 		/************************************************************************************/
 		// Given Intervals
-		Map<String, Short> givenIntervalName2ArrayXIndexMap = new HashMap<String, Short>();
+		Map<String, Integer> givenIntervalName2ArrayXIndexMap = new HashMap<String, Integer>();
 
 		/************************************************************************************/
 		/******************************** HASH MAPS ends **************************************/
@@ -356,7 +356,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/************************************************************************************/
 		// number of given intervals at most 10000
 		// number of elements at most 10000
-		final Integer MAXIMUM_NUMBER_OF_GIVEN_INTERVALS = new Integer(10000);
+		final Integer MAXIMUM_NUMBER_OF_GIVEN_INTERVALS = new Integer(100000);
 		final Integer MAXIMUM_NUMBER_OF_ELEMENTS_TEN_THOUSAND = new Integer(10000);
 		final Integer MAXIMUM_NUMBER_OF_ELEMENTS_ONE_HUNDRED_THOUSAND = new Integer(100000);
 		
@@ -667,7 +667,9 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		}//End of IF doWriteAnnotationBinaryMatrixMode is true
 
 
-
+		//Make null
+		givenIntervalNames = null;
+		givenIntervalName2ArrayXIndexMap = null;
 		
 	}
 

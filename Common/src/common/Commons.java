@@ -35,10 +35,13 @@ public class Commons {
 	public static final String FTP = "FTP";
 	public static final String NCBI_REMAP = "REMAP";
 	
-	public static final String ENCODE_EXPERIMENT = "ENCODE_Experiment";
-	public static final String ENCSR000COQ = "ENCSR000COQ";
-	public static final String GM12878_cell_longPolyA_CSHL_ExonGencV7_CSHL_LID16629_003WC_b1_LID16630_004WC_b2_gff = "GM12878_cell_longPolyA_CSHL_ExonGencV7.CSHL_LID16629-003WC-b1.LID16630-004WC-b2.gff";
-
+	//GLANET DATA Driven 
+	public static final String RNA_SEQ_GM12878_K562 = "RNA_seq_GM12878_K562";
+	public static final String Gm12878Rep1_genes_results = "Gm12878Rep1.genes.results";
+	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
+	public static final String female_gtf = "female.gtf";
+	public static final String demo_input_data = "demo_input_data";
+	
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
 

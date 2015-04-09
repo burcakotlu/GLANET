@@ -118,7 +118,8 @@ public class GC {
 		int byteListEndBit = zeroBasedEnd%7;
 		
 		//Valid Input
-		if (byteListEndByte < gcByteList.size()) {
+		if (byteListStartByte < gcByteList.size() &&
+				byteListEndByte < gcByteList.size()) {
 			
 			//First Byte case
 			//start reading from starting Byte
