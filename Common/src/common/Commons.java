@@ -694,6 +694,7 @@ public class Commons {
 	
 	// GC
 	public static final String GC_FILE_END = ".fa";
+	public static final String GC_INTERVALS_FILE_END = "_gc_intervals.txt";
 	
 	public static final String GC_HG19_CHR1_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr1.fa";
 	public static final String GC_HG19_CHR2_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr2.fa";
@@ -735,6 +736,11 @@ public class Commons {
 
 	public static final char NUCLEIC_ACID_UPPER_CASE_N = 'N';
 	public static final char NUCLEIC_ACID_LOWER_CASE_N = 'n';
+	
+	//GC Interval Tree At Most Interval Length
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_100 = 100;
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_1000 = 1000;
+	
 
 	// Empirical P Value
 	public static final float GC_THRESHOLD_LOWER_VALUE = (float) 0.01;

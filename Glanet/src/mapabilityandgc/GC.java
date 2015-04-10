@@ -10,6 +10,8 @@
  */
 package mapabilityandgc;
 
+import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -66,6 +68,16 @@ public class GC {
 	}
 	
 	
+	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIntervalTree){
+		Float gcContent = 0f;
+		
+		gcContent  = gcIntervalTree.findAllOverlappingGCIntervals(gcIntervalTree.getRoot(), givenInputLine);
+		
+		gcContent = gcContent / (givenInputLine.getHigh() - givenInputLine.getLow() +1);
+		
+		return gcContent;
+	}
+	
 	//new starts
 	public static float calculateGCofIntervalUsingTroveList(InputLineMinimal givenInputLine, TByteList gcByteList) {
 		
@@ -116,6 +128,14 @@ public class GC {
 		
 		//Get the last bit of last byte
 		int byteListEndBit = zeroBasedEnd%7;
+		
+		//Debug purposes starts
+		if ((byteListStartByte > byteListEndByte) ||
+				( (byteListStartByte == byteListEndByte) && (byteListStartBit> byteListEndBit))){
+			
+			System.out.println("There is a situation");
+		}
+		//Debug purposes ends
 		
 		//Valid Input
 		if (byteListStartByte < gcByteList.size() &&

@@ -799,6 +799,15 @@ public class IntervalTree {
 
 	}
 
+	//Return number of overlapping base pairs
+	public static int findNumberofOverlapingBases(int low_x, int high_x, int low_y, int high_y) {
+		if ((low_x <= high_y) && (low_y <= high_x)){
+			return Math.min(high_x, high_y) - Math.max(low_x, low_y) + 1;
+		}	
+		else
+			return 0;
+	}
+	
 	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y) {
 		if ((low_x <= high_y) && (low_y <= high_x))
 			return true;
@@ -953,9 +962,49 @@ public class IntervalTree {
 		}
 
 	}
+	
+	// Normal
+	public float findAllOverlappingGCIntervals(IntervalTreeNode node, InputLineMinimal interval) {
+		
+		int numberofOverlappingBases = 0;
+		
+		float gcContent = 0f;
+		float gcContentLeft = 0f;
+		float gcContentRight = 0f;
+		
+		
+		
+		GCIntervalTreeNode castedNode = null;
+		
+		if (node instanceof GCIntervalTreeNode) {
+			castedNode = (GCIntervalTreeNode) node;
+		}
+		
+		numberofOverlappingBases = findNumberofOverlapingBases(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh());
+		
+		if (numberofOverlappingBases>0) {
+			
+			gcContent = (numberofOverlappingBases *castedNode.getNumberofGCs())/(castedNode.getHigh() -castedNode.getLow() +1);
+			
+		}
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())) {
+			gcContentLeft = findAllOverlappingGCIntervals(node.getLeft(),interval);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			gcContentRight = findAllOverlappingGCIntervals(node.getRight(),interval);
+
+		}
+		
+		return gcContent + gcContentLeft + gcContentRight;
+		
+	}
 
 	// Normal
 	public void findAllOverlappingIntervals(IntervalTreeNode node, Interval interval) {
+		
+		
 		if (node.getNodeName().isNotSentinel()) {
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())) {
 				GlanetRunner.appendLog("overlap" + node.getLow() + "\t" + node.getHigh());

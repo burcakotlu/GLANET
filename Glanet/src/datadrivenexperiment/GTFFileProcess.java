@@ -106,6 +106,18 @@ public class GTFFileProcess {
 				low = Integer.parseInt(strLine.substring(indexofThirdTab+1, indexofFourthTab));
 				high = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
 				
+				//For debug purposes starts
+				if (low > high) {
+					System.out.println("There is a situation. Low: " + low + " High: " + high);
+				}
+				
+				if (low == high) {
+					System.out.println("Female.gtf has End Inclusive Coordinates. 0-based or 1-based, I don't know. Low: " + low + " High: " + high);
+				}
+				
+				//For debug purposes ends
+				
+				
 				strand = strLine.substring(indexofSixthTab+1, indexofSeventhTab).charAt(0);
 				
 				attribute = strLine.substring(indexofEigthTab+1);
@@ -146,7 +158,7 @@ public class GTFFileProcess {
 										
 							case '-': 	minusOneHundredFromTSS = high+100;  
 										plusFiveHundredFromTSS = high-500; 
-										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + minusOneHundredFromTSS +"\t" +plusFiveHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator") );
+										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + plusFiveHundredFromTSS +"\t" +minusOneHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator") );
 										break;
 							
 						} //End of SWITCH
@@ -364,7 +376,7 @@ public class GTFFileProcess {
 		String femaleGTFFileName = Commons.LOCAL_DISK_G_GLANET_DATA + Commons.RNA_SEQ_GM12878_K562 + System.getProperty("file.separator") + Commons.female_gtf; 
 
 		//Set NonExpressingGenesIntervalsFile
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + "NonExpressingGenesIntervals.bed";
+		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + "NonExpressingGenesIntervals_EndInclusive.txt";
 		
 		//Read gtf file and fillEnsemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile(GM12878Rep1GTFFileName);

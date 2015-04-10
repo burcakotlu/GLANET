@@ -8,6 +8,8 @@
  */
 package generate.randomdata;
 
+import intervaltree.IntervalTree;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,7 +24,6 @@ import common.Commons;
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
-import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 //import gnu.trove.list.TShortList;
@@ -33,7 +34,8 @@ public class RandomDataGenerator {
 
 
 	public static List<InputLineMinimal> generateRandomData(
-			TByteList gcByteList, 
+			//TByteList gcByteList, 
+			IntervalTree gcIntervalTree,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			//TByteList mapabilityByteValueList,
@@ -113,8 +115,12 @@ public class RandomDataGenerator {
 				//oldWayCalculatedGCContent = originalInputLine.getGcContent();
 				
 				//GC New Way
-				originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
+				//originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
 				//newWayCalculatedGCContent = originalInputLine.getGcContent();
+				
+				//GC Interval Tree Way
+				originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree);
+				
 				
 //				//debug start
 //				if (oldWayCalculatedGCContent!=newWayCalculatedGCContent){
@@ -156,7 +162,11 @@ public class RandomDataGenerator {
 				randomlyGeneratedLine = new InputLineMinimal(low, high);
 
 				//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-				randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+				//randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+				
+				//GC Interval Tree Way
+				randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);
+			
 				differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 
 				//Using MapabilityShortList
@@ -229,7 +239,12 @@ public class RandomDataGenerator {
 					randomlyGeneratedLine.setHigh(high);
 
 					//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+					//randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+					
+					//GC Interval Tree Way
+					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);
+				
+					
 					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC- originalInputLineGC);
 
 					//Using MapabilityShortList

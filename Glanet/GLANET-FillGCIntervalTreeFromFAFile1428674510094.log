@@ -1,0 +1,339 @@
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:319 - *****************************************************************
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:320 - GLANET Parameters starts
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\Data\demo_input_data\UmutToprak_eDMRs2_05.bed\
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - GRCh37.p13
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - C:\Users\Burçak\Google Drive\
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - BED
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 1
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_ENRICH
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - With GC and Mappability
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - Benjamini Hochberg FDR
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 0.05
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_DNASE_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_HISTONE_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_TF_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_GENE_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_KEGGPATHWAY_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_KEGGPATHWAY_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - testUmut4
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_GENERATED_RANDOM_DATA
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 10000
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_GENESET_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - GENE SYMBOL
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - NoName
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - 0-based coordinates (End Exclusive)
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:324 - GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:327 - GLANET Parameters ends
+2015-04-10 17:01:50 INFO  InputDataRemoveOverlaps:328 - *****************************************************************
+2015-04-10 17:02:49 INFO  Enrichment:2950 - Java runtime max memory: 4094	MBs
+2015-04-10 17:02:49 INFO  Enrichment:2951 - Java runtime total memory: 4094	MBs
+2015-04-10 17:02:49 INFO  Enrichment:2952 - Java runtime free memory: 4042	MBs
+2015-04-10 17:02:49 INFO  Enrichment:2953 - Java runtime available processors: 8
+2015-04-10 17:02:49 INFO  Enrichment:889 - Input data file name is: C:\Users\Burçak\Google Drive\Output\testUmut4\GivenInputData\Input_Data_Processed_OverlapsRemoved_0Based_Start_End_GRCh37_p13_coordinates.txt
+2015-04-10 17:02:49 INFO  Enrichment:3261 - **************	1. Run	******************	starts
+2015-04-10 17:02:49 INFO  Enrichment:3462 - Concurrent programming has started.
+2015-04-10 17:02:49 INFO  Enrichment:1833 - Run Number: 1
+2015-04-10 17:02:49 INFO  Enrichment:1841 - PermutationNumberList is filled.
+2015-04-10 17:02:49 INFO  Enrichment:1871 - chromosome name:chr1 chromosome size: 249250621
+2015-04-10 17:02:49 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:02:56 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:03:00 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 254235634 GCIntervalTree construction has ended.
+2015-04-10 17:03:00 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME1
+2015-04-10 17:03:01 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:43
+2015-04-10 17:03:01 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 12.0 seconds.
+2015-04-10 17:03:01 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:04:00 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 58.0 seconds.
+2015-04-10 17:04:00 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:04:14 INFO  Enrichment:2371 - Annotation of Permutations has took 13.0 seconds.
+2015-04-10 17:04:14 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr1 Annotation of 10000 permutations where each of them has 156  intervals took  85.0 seconds.
+2015-04-10 17:04:14 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:04:14 INFO  Enrichment:1871 - chromosome name:chr2 chromosome size: 243199373
+2015-04-10 17:04:14 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:04:21 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:04:25 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 248063361 GCIntervalTree construction has ended.
+2015-04-10 17:04:25 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME2
+2015-04-10 17:04:26 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:26
+2015-04-10 17:04:26 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 12.0 seconds.
+2015-04-10 17:04:26 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:05:19 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 52.0 seconds.
+2015-04-10 17:05:20 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:05:29 INFO  Enrichment:2371 - Annotation of Permutations has took 9.0 seconds.
+2015-04-10 17:05:29 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr2 Annotation of 10000 permutations where each of them has 98  intervals took  74.0 seconds.
+2015-04-10 17:05:29 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:05:29 INFO  Enrichment:1871 - chromosome name:chr3 chromosome size: 198022430
+2015-04-10 17:05:29 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:05:34 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:05:37 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 201982879 GCIntervalTree construction has ended.
+2015-04-10 17:05:37 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME3
+2015-04-10 17:05:38 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-10 17:05:38 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 8.0 seconds.
+2015-04-10 17:05:38 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:06:21 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 43.0 seconds.
+2015-04-10 17:06:22 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:06:29 INFO  Enrichment:2371 - Annotation of Permutations has took 7.0 seconds.
+2015-04-10 17:06:29 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr3 Annotation of 10000 permutations where each of them has 117  intervals took  60.0 seconds.
+2015-04-10 17:06:29 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:06:29 INFO  Enrichment:1871 - chromosome name:chr4 chromosome size: 191154276
+2015-04-10 17:06:29 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:06:35 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:06:37 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 194977362 GCIntervalTree construction has ended.
+2015-04-10 17:06:37 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME4
+2015-04-10 17:06:38 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:16
+2015-04-10 17:06:38 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 8.0 seconds.
+2015-04-10 17:06:38 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:07:02 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 24.0 seconds.
+2015-04-10 17:07:02 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:07:08 INFO  Enrichment:2371 - Annotation of Permutations has took 5.0 seconds.
+2015-04-10 17:07:08 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr4 Annotation of 10000 permutations where each of them has 98  intervals took  38.0 seconds.
+2015-04-10 17:07:08 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:07:08 INFO  Enrichment:1871 - chromosome name:chr5 chromosome size: 180915260
+2015-04-10 17:07:08 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:07:13 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:07:16 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 184533566 GCIntervalTree construction has ended.
+2015-04-10 17:07:16 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME5
+2015-04-10 17:07:16 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:10
+2015-04-10 17:07:16 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 7.0 seconds.
+2015-04-10 17:07:16 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:07:59 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 42.0 seconds.
+2015-04-10 17:07:59 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:08:07 INFO  Enrichment:2371 - Annotation of Permutations has took 7.0 seconds.
+2015-04-10 17:08:07 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr5 Annotation of 10000 permutations where each of them has 86  intervals took  58.0 seconds.
+2015-04-10 17:08:07 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:08:07 INFO  Enrichment:1871 - chromosome name:chr6 chromosome size: 171115067
+2015-04-10 17:08:07 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:08:12 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:08:14 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 174537369 GCIntervalTree construction has ended.
+2015-04-10 17:08:14 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME6
+2015-04-10 17:08:14 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:9
+2015-04-10 17:08:14 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 7.0 seconds.
+2015-04-10 17:08:14 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:08:51 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 37.0 seconds.
+2015-04-10 17:08:52 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:08:59 INFO  Enrichment:2371 - Annotation of Permutations has took 7.0 seconds.
+2015-04-10 17:08:59 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr6 Annotation of 10000 permutations where each of them has 114  intervals took  52.0 seconds.
+2015-04-10 17:08:59 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:08:59 INFO  Enrichment:1871 - chromosome name:chr7 chromosome size: 159138663
+2015-04-10 17:08:59 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:09:03 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:09:05 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 162321437 GCIntervalTree construction has ended.
+2015-04-10 17:09:05 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME7
+2015-04-10 17:09:06 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:21
+2015-04-10 17:09:06 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 6.0 seconds.
+2015-04-10 17:09:06 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:10:31 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 85.0 seconds.
+2015-04-10 17:10:32 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:10:38 INFO  Enrichment:2371 - Annotation of Permutations has took 6.0 seconds.
+2015-04-10 17:10:38 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr7 Annotation of 10000 permutations where each of them has 163  intervals took  99.0 seconds.
+2015-04-10 17:10:38 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:10:38 INFO  Enrichment:1871 - chromosome name:chr8 chromosome size: 146364022
+2015-04-10 17:10:38 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:10:43 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:10:44 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 149291303 GCIntervalTree construction has ended.
+2015-04-10 17:10:44 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME8
+2015-04-10 17:10:45 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-10 17:10:45 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 6.0 seconds.
+2015-04-10 17:10:45 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:11:23 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 37.0 seconds.
+2015-04-10 17:11:23 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:11:29 INFO  Enrichment:2371 - Annotation of Permutations has took 5.0 seconds.
+2015-04-10 17:11:29 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr8 Annotation of 10000 permutations where each of them has 90  intervals took  50.0 seconds.
+2015-04-10 17:11:29 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:11:29 INFO  Enrichment:1871 - chromosome name:chr9 chromosome size: 141213431
+2015-04-10 17:11:29 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:11:32 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:11:34 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 144037700 GCIntervalTree construction has ended.
+2015-04-10 17:11:34 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME9
+2015-04-10 17:11:35 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:42
+2015-04-10 17:11:35 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:11:35 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:12:05 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 30.0 seconds.
+2015-04-10 17:12:05 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:12:11 INFO  Enrichment:2371 - Annotation of Permutations has took 5.0 seconds.
+2015-04-10 17:12:11 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr9 Annotation of 10000 permutations where each of them has 62  intervals took  42.0 seconds.
+2015-04-10 17:12:11 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:12:11 INFO  Enrichment:1871 - chromosome name:chr10 chromosome size: 135534747
+2015-04-10 17:12:11 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:12:15 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:12:16 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 138245442 GCIntervalTree construction has ended.
+2015-04-10 17:12:16 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME10
+2015-04-10 17:12:17 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:27
+2015-04-10 17:12:17 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:12:17 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:12:53 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 36.0 seconds.
+2015-04-10 17:12:53 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:13:00 INFO  Enrichment:2371 - Annotation of Permutations has took 6.0 seconds.
+2015-04-10 17:13:00 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr10 Annotation of 10000 permutations where each of them has 153  intervals took  49.0 seconds.
+2015-04-10 17:13:00 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:13:00 INFO  Enrichment:1871 - chromosome name:chr11 chromosome size: 135006516
+2015-04-10 17:13:00 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:13:04 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:13:06 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 137706647 GCIntervalTree construction has ended.
+2015-04-10 17:13:06 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME11
+2015-04-10 17:13:06 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:8
+2015-04-10 17:13:06 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:13:06 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:13:47 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 41.0 seconds.
+2015-04-10 17:13:48 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:13:56 INFO  Enrichment:2371 - Annotation of Permutations has took 8.0 seconds.
+2015-04-10 17:13:56 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr11 Annotation of 10000 permutations where each of them has 208  intervals took  55.0 seconds.
+2015-04-10 17:13:56 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:13:56 INFO  Enrichment:1871 - chromosome name:chr12 chromosome size: 133851895
+2015-04-10 17:13:56 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:14:00 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:14:02 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 136528933 GCIntervalTree construction has ended.
+2015-04-10 17:14:02 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME12
+2015-04-10 17:14:04 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:17
+2015-04-10 17:14:04 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 8.0 seconds.
+2015-04-10 17:14:04 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:14:47 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 42.0 seconds.
+2015-04-10 17:14:47 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:14:56 INFO  Enrichment:2371 - Annotation of Permutations has took 9.0 seconds.
+2015-04-10 17:14:56 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr12 Annotation of 10000 permutations where each of them has 146  intervals took  60.0 seconds.
+2015-04-10 17:14:56 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:14:57 INFO  Enrichment:1871 - chromosome name:chr13 chromosome size: 115169878
+2015-04-10 17:14:57 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:15:01 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:15:02 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 117473276 GCIntervalTree construction has ended.
+2015-04-10 17:15:02 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME13
+2015-04-10 17:15:03 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:4
+2015-04-10 17:15:03 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 6.0 seconds.
+2015-04-10 17:15:03 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:15:09 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 5.0 seconds.
+2015-04-10 17:15:09 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:15:12 INFO  Enrichment:2371 - Annotation of Permutations has took 2.0 seconds.
+2015-04-10 17:15:12 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr13 Annotation of 10000 permutations where each of them has 58  intervals took  15.0 seconds.
+2015-04-10 17:15:12 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:15:13 INFO  Enrichment:1871 - chromosome name:chr14 chromosome size: 107349540
+2015-04-10 17:15:13 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:15:16 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:15:17 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 109496531 GCIntervalTree construction has ended.
+2015-04-10 17:15:17 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME14
+2015-04-10 17:15:19 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:0
+2015-04-10 17:15:19 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 6.0 seconds.
+2015-04-10 17:15:19 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:16:17 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 58.0 seconds.
+2015-04-10 17:16:17 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:16:22 INFO  Enrichment:2371 - Annotation of Permutations has took 4.0 seconds.
+2015-04-10 17:16:22 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr14 Annotation of 10000 permutations where each of them has 80  intervals took  69.0 seconds.
+2015-04-10 17:16:22 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:16:22 INFO  Enrichment:1871 - chromosome name:chr15 chromosome size: 102531392
+2015-04-10 17:16:22 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:16:25 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:16:26 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 104582020 GCIntervalTree construction has ended.
+2015-04-10 17:16:26 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME15
+2015-04-10 17:16:28 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:10
+2015-04-10 17:16:28 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:16:28 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:16:53 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 25.0 seconds.
+2015-04-10 17:16:53 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:16:58 INFO  Enrichment:2371 - Annotation of Permutations has took 4.0 seconds.
+2015-04-10 17:16:58 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr15 Annotation of 10000 permutations where each of them has 70  intervals took  36.0 seconds.
+2015-04-10 17:16:58 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:16:58 INFO  Enrichment:1871 - chromosome name:chr16 chromosome size: 90354753
+2015-04-10 17:16:58 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:17:01 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:17:02 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 92161849 GCIntervalTree construction has ended.
+2015-04-10 17:17:02 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME16
+2015-04-10 17:17:04 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:4
+2015-04-10 17:17:04 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:17:04 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:18:07 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 62.0 seconds.
+2015-04-10 17:18:07 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:18:13 INFO  Enrichment:2371 - Annotation of Permutations has took 6.0 seconds.
+2015-04-10 17:18:13 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr16 Annotation of 10000 permutations where each of them has 125  intervals took  75.0 seconds.
+2015-04-10 17:18:13 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:18:13 INFO  Enrichment:1871 - chromosome name:chr17 chromosome size: 81195210
+2015-04-10 17:18:13 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:18:16 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:18:17 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 82819115 GCIntervalTree construction has ended.
+2015-04-10 17:18:17 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME17
+2015-04-10 17:18:19 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:7
+2015-04-10 17:18:19 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:18:19 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:19:26 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 67.0 seconds.
+2015-04-10 17:19:27 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:19:36 INFO  Enrichment:2371 - Annotation of Permutations has took 9.0 seconds.
+2015-04-10 17:19:36 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr17 Annotation of 10000 permutations where each of them has 181  intervals took  82.0 seconds.
+2015-04-10 17:19:36 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:19:36 INFO  Enrichment:1871 - chromosome name:chr18 chromosome size: 78077248
+2015-04-10 17:19:36 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:19:39 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:19:40 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 79638793 GCIntervalTree construction has ended.
+2015-04-10 17:19:41 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME18
+2015-04-10 17:19:41 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:5
+2015-04-10 17:19:41 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 5.0 seconds.
+2015-04-10 17:19:41 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:19:44 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 2.0 seconds.
+2015-04-10 17:19:44 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:19:46 INFO  Enrichment:2371 - Annotation of Permutations has took 1.0 seconds.
+2015-04-10 17:19:46 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr18 Annotation of 10000 permutations where each of them has 22  intervals took  10.0 seconds.
+2015-04-10 17:19:46 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:19:46 INFO  Enrichment:1871 - chromosome name:chr19 chromosome size: 59128983
+2015-04-10 17:19:46 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:19:48 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:19:49 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 60311563 GCIntervalTree construction has ended.
+2015-04-10 17:19:49 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME19
+2015-04-10 17:19:50 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:6
+2015-04-10 17:19:50 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 3.0 seconds.
+2015-04-10 17:19:50 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:20:02 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 12.0 seconds.
+2015-04-10 17:20:02 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:20:08 INFO  Enrichment:2371 - Annotation of Permutations has took 5.0 seconds.
+2015-04-10 17:20:08 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr19 Annotation of 10000 permutations where each of them has 66  intervals took  21.0 seconds.
+2015-04-10 17:20:08 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:20:08 INFO  Enrichment:1871 - chromosome name:chr20 chromosome size: 63025520
+2015-04-10 17:20:08 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:20:10 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:20:10 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 64286031 GCIntervalTree construction has ended.
+2015-04-10 17:20:11 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME20
+2015-04-10 17:20:11 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:5
+2015-04-10 17:20:11 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 3.0 seconds.
+2015-04-10 17:20:11 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:20:30 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 18.0 seconds.
+2015-04-10 17:20:30 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:20:33 INFO  Enrichment:2371 - Annotation of Permutations has took 3.0 seconds.
+2015-04-10 17:20:33 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr20 Annotation of 10000 permutations where each of them has 31  intervals took  25.0 seconds.
+2015-04-10 17:20:33 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:20:33 INFO  Enrichment:1871 - chromosome name:chr21 chromosome size: 48129895
+2015-04-10 17:20:33 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:20:34 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:20:35 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 49092493 GCIntervalTree construction has ended.
+2015-04-10 17:20:35 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME21
+2015-04-10 17:20:35 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:17
+2015-04-10 17:20:35 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 2.0 seconds.
+2015-04-10 17:20:35 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:20:50 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 14.0 seconds.
+2015-04-10 17:20:50 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:20:52 INFO  Enrichment:2371 - Annotation of Permutations has took 1.0 seconds.
+2015-04-10 17:20:52 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr21 Annotation of 10000 permutations where each of them has 32  intervals took  18.0 seconds.
+2015-04-10 17:20:52 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:20:52 INFO  Enrichment:1871 - chromosome name:chr22 chromosome size: 51304566
+2015-04-10 17:20:52 INFO  Enrichment:1900 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.
+2015-04-10 17:20:53 INFO  ChromosomeBasedGCTroveList:132 - nthBase must be written once: 0 GCByteList construction has ended.
+2015-04-10 17:20:54 INFO  ChromosomeBasedGCIntervalTree:129 - nthBase must be written once: 52330658 GCIntervalTree construction has ended.
+2015-04-10 17:20:54 INFO  ChromosomeBasedMappabilityTroveList:62 - CHROMOSOME22
+2015-04-10 17:20:55 INFO  ChromosomeBasedMappabilityTroveList:117 - numberofGaps:16
+2015-04-10 17:20:55 INFO  Enrichment:1920 - Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken 2.0 seconds.
+2015-04-10 17:20:55 INFO  Enrichment:1933 - Generate Random Data for permutations has started.
+2015-04-10 17:21:13 INFO  Enrichment:1975 - Generate Random Data for permutations has taken 18.0 seconds.
+2015-04-10 17:21:13 INFO  Enrichment:2012 - Annotation of Permutations has started.
+2015-04-10 17:21:16 INFO  Enrichment:2371 - Annotation of Permutations has took 3.0 seconds.
+2015-04-10 17:21:16 INFO  Enrichment:2380 - RunNumber: 1 For Chromosome: chr22 Annotation of 10000 permutations where each of them has 57  intervals took  24.0 seconds.
+2015-04-10 17:21:16 INFO  Enrichment:2381 - ******************************************************************************************
+2015-04-10 17:21:16 INFO  Enrichment:1871 - chromosome name:chrX chromosome size: 155270560
+2015-04-10 17:21:16 INFO  Enrichment:1871 - chromosome name:chrY chromosome size: 59373566
+2015-04-10 17:21:16 INFO  Enrichment:2415 - RUN_NUMBER: 1 NUMBER_OF_PERMUTATIONS:  10000 took 1107.0 seconds.
+2015-04-10 17:21:17 INFO  Enrichment:3473 - Concurrent programming has ended.
+2015-04-10 17:21:18 INFO  Enrichment:3678 - **************	1. Run	******************	ends

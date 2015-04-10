@@ -55,6 +55,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
+import mapabilityandgc.ChromosomeBasedGCIntervalTree;
 import mapabilityandgc.ChromosomeBasedGCTroveList;
 import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
 
@@ -66,7 +67,6 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -95,8 +95,9 @@ public class Enrichment {
 		private final TIntList permutationNumberList;
 
 		//private final GCCharArray gcCharArray; 
-		private final TByteList gcByteList;
+		//private final TByteList gcByteList;
 		
+		private final IntervalTree gcIntervalTree;
 		
 		//private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
@@ -115,7 +116,8 @@ public class Enrichment {
 				int lowIndex, 
 				int highIndex, 
 				TIntList permutationNumberList, 
-				TByteList gcByteList, 
+				//TByteList gcByteList,
+				IntervalTree gcIntervaTree,
 				TIntList mapabilityChromosomePositionList,
 				TShortList mapabilityShortValueList
 				//TByteList mapabilityByteValueList
@@ -135,7 +137,8 @@ public class Enrichment {
 
 			this.permutationNumberList = permutationNumberList;
 
-			this.gcByteList = gcByteList;
+			//this.gcByteList = gcByteList;
+			this.gcIntervalTree = gcIntervaTree;
 			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
 			this.mapabilityShortValueList = mapabilityShortValueList;
@@ -153,8 +156,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -174,7 +177,7 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcByteList,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcIntervalTree,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1784,6 +1787,9 @@ public class Enrichment {
 
 		TByteList gcByteList = null;
 		
+		//For Testing Purposes
+		IntervalTree gcIntervalTree = null;
+		
 		TIntList mapabilityChromosomePositionList = null;
 
 		//MapabilityShortValueList is preferred since it provides better mapability values
@@ -1869,6 +1875,9 @@ public class Enrichment {
 			if (chromosomeBaseOriginalInputLines != null) {
 
 				gcByteList = new TByteArrayList();
+				
+				gcIntervalTree = new IntervalTree();
+				
 				mapabilityChromosomePositionList = new TIntArrayList();
 				
 				//MapabilityShortList
@@ -1894,8 +1903,12 @@ public class Enrichment {
 
 					//GC Old way
 					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
+					
 					//GC New Way
-					ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+					//ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+					
+					//GCIntervalTree
+					ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
@@ -1924,7 +1937,7 @@ public class Enrichment {
 				startTimeGenerateRandomData = System.currentTimeMillis();
 				
 				
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcByteList, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				
