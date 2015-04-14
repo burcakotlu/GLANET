@@ -695,7 +695,8 @@ public class Commons {
 	// GC
 	public static final String GC_FILE_END = ".fa";
 	public static final String GC_INTERVALS_FILE_END = "_gc_intervals.txt";
-	
+	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END = "_gc_intervals_consecutive_zeros_merged.txt";
+
 	public static final String GC_HG19_CHR1_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr1.fa";
 	public static final String GC_HG19_CHR2_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr2.fa";
 	public static final String GC_HG19_CHR3_FASTA_FILE = "GC" + System.getProperty("file.separator") + "chr3.fa";

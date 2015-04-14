@@ -26,16 +26,16 @@ import enumtypes.CommandLineArguments;
  * @project Glanet 
  *
  */
-public class ChromosomeBasedGCIntervalTree {
+public class GCIntervalTreeConstruction {
 	
-	final static Logger logger = Logger.getLogger(ChromosomeBasedGCIntervalTree.class);
+	final static Logger logger = Logger.getLogger(GCIntervalTreeConstruction.class);
 	
 	public static void fillIntervalTree(
 			String dataFolder,
 			ChromosomeName chromName,
 			IntervalTree gcIntervalTree){
 		
-		String gcFastaFileName =   Commons.GC + System.getProperty("file.separator") + chromName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_END;
+		String gcFastaFileName =   Commons.GC + System.getProperty("file.separator") + chromName.convertEnumtoString() +  Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -75,11 +75,18 @@ public class ChromosomeBasedGCIntervalTree {
 				highZeroBased = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 				numberofGCs = Short.parseShort(strLine.substring(indexofSecondTab+1));
 				
-				//Create new interval tree node
-				node = new GCIntervalTreeNode(lowZeroBased, highZeroBased,numberofGCs);	
+				//Create the Interval Tree Node 
+				//Insert the created node into the interval tree
+				//if numberofGCs is greater than 0
+				if (numberofGCs>0){
+					//Create new interval tree node
+					node = new GCIntervalTreeNode(lowZeroBased, highZeroBased,numberofGCs);	
+					
+					//Add to the interval tree
+					gcIntervalTree.intervalTreeInsert(gcIntervalTree, node);
+				}
 				
-				//Add to the interval tree
-				gcIntervalTree.intervalTreeInsert(gcIntervalTree, node);
+				
 				
 				
 			}//End of WHILE

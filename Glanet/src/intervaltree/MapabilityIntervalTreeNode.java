@@ -1,32 +1,29 @@
+
+
 /**
- * @author burcakotlu
- * @date May 6, 2014 
- * @time 1:25:43 PM
+ * @author Burçak Otlu
+ * @date Apr 13, 2015
+ * @project Glanet 
+ *
  */
 package intervaltree;
 
-import enumtypes.ChromosomeName;
-
-/**
- * 
- */
 public class MapabilityIntervalTreeNode extends IntervalTreeNode {
 
 	// Mapability
-	float mapability;
+	short mapability;
 
-	public float getMapability() {
+	public short getMapability() {
 		return mapability;
 	}
 
-	public void setMapability(float mapability) {
+	public void setMapability(short mapability) {
 		this.mapability = mapability;
 	}
 
 	// CalculateMapability
-	public MapabilityIntervalTreeNode(ChromosomeName chromName, int low, int high, float mapability) {
-		super(chromName, low, high);
-
+	public MapabilityIntervalTreeNode(int low, int high, short mapability) {
+		super(low, high);
 		this.mapability = mapability;
 	}
 

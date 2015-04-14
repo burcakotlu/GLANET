@@ -19,10 +19,8 @@ import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongIntIterator;
-import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
-import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
@@ -55,9 +53,8 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
-import mapabilityandgc.ChromosomeBasedGCIntervalTree;
-import mapabilityandgc.ChromosomeBasedGCTroveList;
 import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
+import mapabilityandgc.GCIntervalTreeConstruction;
 
 import org.apache.log4j.Logger;
 
@@ -67,6 +64,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -99,6 +97,8 @@ public class Enrichment {
 		
 		private final IntervalTree gcIntervalTree;
 		
+		//private final IntervalTree mapabilityIntervalTree;
+		
 		//private final MapabilityFloatArray mapabilityFloatArray;
 		private final TIntList mapabilityChromosomePositionList;
 		private final TShortList mapabilityShortValueList;
@@ -118,6 +118,7 @@ public class Enrichment {
 				TIntList permutationNumberList, 
 				//TByteList gcByteList,
 				IntervalTree gcIntervaTree,
+				//IntervalTree mapabilityIntervalTree
 				TIntList mapabilityChromosomePositionList,
 				TShortList mapabilityShortValueList
 				//TByteList mapabilityByteValueList
@@ -140,9 +141,13 @@ public class Enrichment {
 			//this.gcByteList = gcByteList;
 			this.gcIntervalTree = gcIntervaTree;
 			
+			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
 			this.mapabilityShortValueList = mapabilityShortValueList;
+			
 			//this.mapabilityByteValueList =mapabilityByteValueList;
+			//this.mapabilityIntervalTree = mapabilityIntervalTree;
+			
 		}
 
 		protected TIntObjectMap<List<InputLineMinimal>> compute() {
@@ -1785,10 +1790,14 @@ public class Enrichment {
 		IntervalTree tfIntervalTree = null;
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
-		TByteList gcByteList = null;
+		//TByteList gcByteList = null;
 		
 		//For Testing Purposes
 		IntervalTree gcIntervalTree = null;
+		
+		//For Testing Purposes
+		//Using mapabilityChromosomePositionList and mapabilityShortValueList run faster than mapabilityIntervalTree
+		//IntervalTree mapabilityIntervalTree = null;
 		
 		TIntList mapabilityChromosomePositionList = null;
 
@@ -1796,6 +1805,8 @@ public class Enrichment {
 		//No difference in execution time and memory usage
 		//Average number of trials is almost the same.
 		TShortList mapabilityShortValueList = null;
+		
+		//For Testing purposes
 		//TByteList mapabilityByteValueList = null;
 		
 		
@@ -1874,16 +1885,21 @@ public class Enrichment {
 
 			if (chromosomeBaseOriginalInputLines != null) {
 
-				gcByteList = new TByteArrayList();
+				//GC Byte List Way
+				//gcByteList = new TByteArrayList();
 				
+				//GC Interval Tree
 				gcIntervalTree = new IntervalTree();
+				
+				//For testing purposes
+				//Mapability Interval Tree
+				//mapabilityIntervalTree = new IntervalTree();
 				
 				mapabilityChromosomePositionList = new TIntArrayList();
 				
-				//MapabilityShortList
 				mapabilityShortValueList = new TShortArrayList();
 				
-				
+				//For  testing purposes
 				//mapabilityByteValueList 
 				//mapabilityByteValueList = new TByteArrayList();
 				
@@ -1896,8 +1912,8 @@ public class Enrichment {
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
-					logger.info("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					GlanetRunner.appendLog("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
+					logger.info("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 					
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -1907,18 +1923,23 @@ public class Enrichment {
 					//GC New Way
 					//ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 					
-					//GCIntervalTree
-					ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
+					//GC IntervalTree
+					GCIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
+					
 					//Mapability New Way
 					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					
+					//For testing purposes
+					//Mapability Interval Tree
+					//MapabilityIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, mapabilityIntervalTree);
 					 
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
-					logger.info("Filling of gcByteList, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					GlanetRunner.appendLog("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					logger.info("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
 				}
 				/*******************************************************************************************************************************/
@@ -1990,7 +2011,7 @@ public class Enrichment {
 				
 				/******************************************************************************************************/
 				/***************************************** FREE MEMORY STARTS *****************************************/
-				gcByteList = null;
+				//gcByteList = null;
 				mapabilityChromosomePositionList = null;
 				
 				//MapabilityShortValueList
@@ -1998,6 +2019,9 @@ public class Enrichment {
 				
 				//mapabilityByteValueList
 				//mapabilityByteValueList = null;
+				
+				gcIntervalTree = null;
+				//mapabilityIntervalTree = null;
 
 				System.gc();
 				System.runFinalization();
@@ -3052,7 +3076,6 @@ public class Enrichment {
 		/**************Memory Usage Before Enrichment***************************************/
 		/***********************************************************************************/
 	
-
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
@@ -3146,6 +3169,7 @@ public class Enrichment {
 
 		/***********************************************************************************************/
 		/************************** READ ORIGINAL INPUT LINES STARTS ***********************************/
+		/***********************************************************************************************/
 		// SET the Input Data File
 		String inputDataFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 
@@ -3153,6 +3177,7 @@ public class Enrichment {
 
 		// Read original input data lines in to a list
 		Enrichment.readOriginalInputDataLines(originalInputLines, inputDataFileName);
+		/***********************************************************************************************/
 		/************************** READ ORIGINAL INPUT LINES ENDS *************************************/
 		/***********************************************************************************************/
 
@@ -3462,7 +3487,7 @@ public class Enrichment {
 			GlanetRunner.appendLog("Concurrent programming has started.");
 			logger.info("Concurrent programming has started.");
 			// Concurrent Programming
-			// First Generate Random Data
+			// First Generate Random Data for all permutations
 			// Then Annotate Permutations (Random Data) concurrently
 			// elementName2AllKMap and originalElementName2KMap will be filled here
 			if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {

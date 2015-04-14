@@ -68,6 +68,7 @@ public class GC {
 	}
 	
 	
+	//There can be gaps in the intervals of GC Interval Tree
 	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIntervalTree){
 		Float gcContent = 0f;
 		

@@ -963,7 +963,41 @@ public class IntervalTree {
 
 	}
 	
-	// Normal
+	//You have to think here
+	public int findAllOverlappingMapabilityIntervals(IntervalTreeNode node, InputLineMinimal interval){
+		int numberofOverlappingBases = 0;
+		
+		int mapability = 0;
+		int  mapabilityLeft = 0;
+		int mapabilityRight = 0;
+		
+		MapabilityIntervalTreeNode castedNode = null;
+		
+		if (node instanceof MapabilityIntervalTreeNode) {
+			castedNode = (MapabilityIntervalTreeNode) node;
+		}
+		
+		numberofOverlappingBases = findNumberofOverlapingBases(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh());
+		
+		if (numberofOverlappingBases>0) {
+			
+			mapability = (numberofOverlappingBases *castedNode.getMapability());
+			
+		}
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())) {
+			mapabilityLeft = findAllOverlappingMapabilityIntervals(node.getLeft(),interval);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			mapabilityRight = findAllOverlappingMapabilityIntervals(node.getRight(),interval);
+
+		}
+		
+		return mapability + mapabilityLeft + mapabilityRight;
+	}
+	
+	// There can be gaps in the gcIntervalTree
 	public float findAllOverlappingGCIntervals(IntervalTreeNode node, InputLineMinimal interval) {
 		
 		int numberofOverlappingBases = 0;

@@ -15,6 +15,7 @@ import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.MapabilityIntervalTreeNode;
+import intervaltree.MapabilityIntervalTreeNodeExtended;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,9 +27,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
 import enrichment.MapabilityFloatArray;
@@ -449,6 +448,19 @@ public class Mapability {
 		return accumulatedMapability;
 	}
 	
+	//There can be gaps in the intervals of Mapability Interval Tree
+	public static float calculateMapabilityofIntervalUsingIntervalTree(InputLineMinimal givenInputLine, IntervalTree mapabilityIntervalTree){
+		Float mapability = 0f;
+		
+		mapability  = (float) mapabilityIntervalTree.findAllOverlappingMapabilityIntervals(mapabilityIntervalTree.getRoot(), givenInputLine);
+		
+		mapability = mapability/ (givenInputLine.getHigh() -givenInputLine.getLow() +1);
+		
+		mapability = mapability / Commons.MAPABILITY_SHORT_TEN_THOUSAND;
+		
+		return mapability;
+	}
+	
 	public static float calculateMapabilityofIntervalUsingTroveList(
 			InputLineMinimal givenInputLine,
 			TIntList mapabilityChromosomePositionList,
@@ -607,7 +619,7 @@ public class Mapability {
 				}
 
 				// High-1 is done here
-				IntervalTreeNode node = new MapabilityIntervalTreeNode(ChromosomeName.convertStringtoEnum(chromName), low, high - 1, mapability);
+				IntervalTreeNode node = new MapabilityIntervalTreeNodeExtended(ChromosomeName.convertStringtoEnum(chromName), low, high - 1, mapability);
 
 				// Assumption there will be no overlaps
 				chromBasedMapabilityIntervalTree.intervalTreeInsert(chromBasedMapabilityIntervalTree, node);

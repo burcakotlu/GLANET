@@ -8,6 +8,8 @@
  */
 package generate.randomdata;
 
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 import intervaltree.IntervalTree;
 
 import java.util.ArrayList;
@@ -24,8 +26,6 @@ import common.Commons;
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.TShortList;
 //import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
@@ -39,6 +39,7 @@ public class RandomDataGenerator {
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			//TByteList mapabilityByteValueList,
+			//IntervalTree mapabilityIntervalTree,
 			int chromSize, 
 			ChromosomeName chromName, 
 			List<InputLineMinimal> chromosomeBasedOriginalInputLines, 
@@ -133,10 +134,12 @@ public class RandomDataGenerator {
 				//oldWayCalculatedMapability = originalInputLine.getMapability();
 				
 				//Mapability New Way
-				
-				
 				//Using MapabilitShortList
 				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityShortValueList);
+				
+				//For testing purposes
+				//Mapability Interval Tree Way
+				//originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingIntervalTree(originalInputLine, mapabilityIntervalTree);
 				
 				//Using MapabilityByteList
 				//originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine,mapabilityChromosomePositionList,mapabilityByteValueList);
@@ -175,6 +178,10 @@ public class RandomDataGenerator {
 				//Using MapabilityByteList
 				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
 				
+				//For testing purposes
+				//Mapability Interval Tree Way
+				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingIntervalTree(randomlyGeneratedLine, mapabilityIntervalTree);
+			
 				differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability- originalInputLineMapability);
 
 				count = 0;
@@ -250,9 +257,14 @@ public class RandomDataGenerator {
 					//Using MapabilityShortList
 					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 					
+					//For testing purposes
 					//Using MapabilityByteList
 					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityByteValueList);
 					
+					//For testing purposes
+					//Mapability Interval Tree Way
+					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingIntervalTree(randomlyGeneratedLine, mapabilityIntervalTree);
+				
 					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
 
 				}// End of While
