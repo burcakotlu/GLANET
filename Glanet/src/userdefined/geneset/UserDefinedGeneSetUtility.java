@@ -149,7 +149,7 @@ public class UserDefinedGeneSetUtility {
 		String geneSetName;
 		String geneInformation;
 
-		short userDefinedGeneSetNumber = 0;
+		short userDefinedGeneSetNumber = 1;
 		short currentUserDefinedGeneSetNumber = Short.MIN_VALUE;
 
 		// In case of need: First fill these conversion maps

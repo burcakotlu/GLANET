@@ -378,7 +378,8 @@ public class FileOperations {
 
 	}
 
-	// Added 31.OCT.2014
+	//Added 31.OCT.2014
+	//Pay attention first element has elementNumber 1 
 	public static void writeName(
 			String dataFolder, 
 			TIntObjectMap<String> number2NameMap, 
@@ -393,7 +394,7 @@ public class FileOperations {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			
-			for (int i = 0; i<number2NameMap.size(); i++){
+			for (int i = 1; i<= number2NameMap.size(); i++){
 				bufferedWriter.write( number2NameMap.get(i) + System.getProperty("line.separator"));
 			}
 			
@@ -482,6 +483,7 @@ public class FileOperations {
 	
 	
 	//Added 26 March 2015
+	//Pay attention first element has elementNumber 1 
 	public static void writeSortedNumber2NameMap(String dataFolder, TIntIntMap number2NumberMap, String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
@@ -491,7 +493,7 @@ public class FileOperations {
 			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			for(int i = 0; i<number2NumberMap.size(); i++){
+			for(int i = 1; i <= number2NumberMap.size(); i++){
 				bufferedWriter.write(i + "\t" + number2NumberMap.get(i) + System.getProperty("line.separator"));				
 			}
 
@@ -504,6 +506,7 @@ public class FileOperations {
 	}
 
 	// Added 20.NOV.2014
+	//Pay attention first element has elementNumber 1 
 	public static void writeSortedNumber2NameMap(String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
@@ -513,7 +516,7 @@ public class FileOperations {
 			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			for(int i = 0; i<number2NameMap.size(); i++){
+			for(int i = 1; i <= number2NameMap.size(); i++){
 				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));				
 			}
 

@@ -37,7 +37,7 @@ public class GTFFileProcess {
 		
 		List<String> geneIDList = new ArrayList<String>(); 
 		
-		List<String> geneTypes = new ArrayList<String>(); 
+		List<String> geneTypesList = new ArrayList<String>(); 
 		
 		int numberofIntervalsCreated = 0;
 		
@@ -145,8 +145,8 @@ public class GTFFileProcess {
 				geneTypeWithPair = attribute.substring(indexofSecondSemiColon+1, indexofThirdSemiColon);
 				geneType = geneTypeWithPair.replace("gene_type", "").trim();
 				
-				if (!geneTypes.contains(geneType)){
-					geneTypes.add(geneType);
+				if (!geneTypesList.contains(geneType)){
+					geneTypesList.add(geneType);
 				}
 				
 				exonNumberWithPair = attribute.substring(indexofEigthSemiColon+1, indexofNinethSemiColon);

@@ -47,7 +47,7 @@ public class WriteAllPossibleNames {
 		int indexofColon = 0;
 
 		String keggPathwayName;
-		int keggPathwayNumber = 0;
+		int keggPathwayNumber = 1;
 
 		try {
 			fileReader = new FileReader(dataFolder + inputFileName);
@@ -156,6 +156,7 @@ public class WriteAllPossibleNames {
 	// Write String2ShortMap ends
 
 	// Write Short2StringMap starts
+	//Pay attention first element has elementNumber 1
 	public static void writeMapsShort2String(String dataFolder, TShortObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
@@ -166,7 +167,7 @@ public class WriteAllPossibleNames {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			
-			for(short i = 0; i<number2NameMap.size(); i++){
+			for(short i = 1; i <= number2NameMap.size(); i++){
 				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));
 			}	
 

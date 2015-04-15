@@ -469,6 +469,8 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		int dnaseCellLineNumber = encodeNumbers.getDnaseCellLineNumber();
 		int cellLineNumber = encodeNumbers.getCellLineNumber();
 		int fileNumber = encodeNumbers.getFileNumber();
+		
+		
 
 		// Initialization
 		String cellLineDnase = null;

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package create.encode;
 
 /**
@@ -76,6 +73,7 @@ public class ENCODENumbers {
 	}
 
 	public ENCODENumbers() {
+		
 		this.dnaseCellLineNumber = 1;
 		this.cellLineNumber = 1;
 		this.tfNumber = 1;

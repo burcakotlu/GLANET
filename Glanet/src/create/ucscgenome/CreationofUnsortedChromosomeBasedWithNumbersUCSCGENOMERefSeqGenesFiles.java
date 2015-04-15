@@ -519,6 +519,8 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		// Fill RNANucleotideAccession 2 GeneID Map
 		createRNANucleotideAccession2GeneIDMap(NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE, rnaNucleotideAccession2GeneIDMap);
 
+		
+		
 		// Read UCSC_GENOME_HG19_REFSEQ_GENES_FILE
 		// Write Unsorted Chromosome Based With Numbers UCSC HG19 REFSEQ Genes
 		// File
@@ -533,6 +535,9 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 				UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap,
 				UCSCGENOME_HG19_RefSeq_Genes_GeneIDNumber_2_GeneIDMap,
 				information);
+		
+		
+	
 
 		// Write UCSCGENOME HG19 REFSEQ GENES
 		// Write name2Number maps
