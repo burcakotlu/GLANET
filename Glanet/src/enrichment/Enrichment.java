@@ -820,7 +820,7 @@ public class Enrichment {
 
 		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
 		// Accumulate number of overlaps
-		// based on permutationNumber and ElementName
+		// based on permutationNumber and ElementNumber
 		protected void combineLeftMapandRightMap(TLongIntMap leftMapWithNumbers, TLongIntMap rightMapWithNumbers) {
 
 			for (TLongIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();) {
