@@ -27,7 +27,7 @@ import common.Commons;
  * @project Glanet 
  *
  */
-public class GTFFileProcess {
+public class NonExpressingGenesIntervalsFileCreation {
 	
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,

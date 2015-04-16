@@ -217,6 +217,63 @@ public static String convertEnumtoString(ChromosomeName  chrName){
     }
 
 
+
+public static ChromosomeName convertInttoEnum(int chrNumber){
+	
+	
+	if (chrNumber == 1){
+		return CHROMOSOME1;
+	}else if  (chrNumber == 2){
+		return CHROMOSOME2;
+	}else if  (chrNumber == 3){
+		return CHROMOSOME3;
+	}else if  (chrNumber == 4){
+		return CHROMOSOME4;
+	}else if  (chrNumber == 5){
+		return CHROMOSOME5;
+	}else if  (chrNumber == 6){
+		return CHROMOSOME6;
+	}else if  (chrNumber == 7){
+		return CHROMOSOME7;
+	}else if  (chrNumber == 8){
+		return CHROMOSOME8;
+	}else if  (chrNumber == 9){
+		return CHROMOSOME9;
+	}else if  (chrNumber == 10){
+		return CHROMOSOME10;
+	}else if  (chrNumber == 11){
+		return CHROMOSOME11;
+	}else if  (chrNumber == 12){
+		return CHROMOSOME12;
+	}else if  (chrNumber == 13){
+		return CHROMOSOME13;
+	}else if  (chrNumber == 14){
+		return CHROMOSOME14;
+	}else if  (chrNumber == 15){
+		return CHROMOSOME15;
+	}else if  (chrNumber == 16){
+		return CHROMOSOME16;
+	}else if  (chrNumber == 17){
+		return CHROMOSOME17;
+	}else if  (chrNumber == 18){
+		return CHROMOSOME18;
+	}else if  (chrNumber == 19){
+		return CHROMOSOME19;
+	}else if  (chrNumber == 20){
+		return CHROMOSOME20;
+	}else if  (chrNumber == 21){
+		return CHROMOSOME21;
+	}else if  (chrNumber == 22){
+		return CHROMOSOME22;
+	}else if  (chrNumber == 23){
+		return CHROMOSOMEX;
+	}else if  (chrNumber == 24){
+		return CHROMOSOMEY;
+	}else 
+		return null;
+}
+
+
 	/** An added method.  */
 	public boolean isCHROMOSOME1() {
 	    return  this == CHROMOSOME1;
