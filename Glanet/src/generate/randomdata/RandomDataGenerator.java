@@ -8,6 +8,7 @@
  */
 package generate.randomdata;
 
+import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import intervaltree.IntervalTree;
@@ -26,6 +27,7 @@ import common.Commons;
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
+import enumtypes.GivenInputDataType;
 //import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
@@ -34,7 +36,8 @@ public class RandomDataGenerator {
 
 
 	public static List<InputLineMinimal> generateRandomData(
-			//TByteList gcByteList, 
+			GivenInputDataType  givenInputsSNPsorIntervals,
+			TByteList gcByteList, 
 			IntervalTree gcIntervalTree,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
@@ -111,24 +114,47 @@ public class RandomDataGenerator {
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
 				
+				/**************************************************************************************************/
+				/**************************GC Calculation for Original Input Line starts***************************/
+				/**************************************************************************************************/
 				//GC Old Way
 				//GC.calculateGCofInterval(originalInputLine, gcCharArray);
 				//oldWayCalculatedGCContent = originalInputLine.getGcContent();
 				
-				//GC New Way
-				//originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
-				//newWayCalculatedGCContent = originalInputLine.getGcContent();
 				
-				//GC Interval Tree Way
-				originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree);
-				
+				//For SNP Data
+				if (givenInputsSNPsorIntervals.isGivenInputDataSNP()) {
+					//GCByteList Way
+					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
+					
+					//for debug starts
+					//newWayCalculatedGCContent = originalInputLine.getGcContent();
+					//for debug ends
+					
+				} 
+				//For Interval Data
+				else {
+					//GCIntervalTree Way
+					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree);
+				}
 				
 //				//debug start
 //				if (oldWayCalculatedGCContent!=newWayCalculatedGCContent){
 //					logger.info("STOP GC here Conflict" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh());
 //				}
 //				//debug end
+				/**************************************************************************************************/
+				/**************************GC Calculation for Original Input Line ends*****************************/
+				/**************************************************************************************************/
 				
+				
+				
+				
+				
+				
+				/**************************************************************************************************/
+				/**********************MAPABILITY Calculation for Original Input Line starts***********************/
+				/**************************************************************************************************/
 				//Mapability Old Way
 				//Mapability.calculateMapabilityofIntervalUsingArray(originalInputLine, mapabilityFloatArray);
 				//oldWayCalculatedMapability = originalInputLine.getMapability();
@@ -152,7 +178,10 @@ public class RandomDataGenerator {
 //					logger.info("STOP Mapability here Conflict" + "\t" + chromName + "\t" + originalInputLine.getLow() + "\t" + originalInputLine.getHigh() + "\t" + (oldWayCalculatedMapability-newWayCalculatedMapability));
 //				}
 //				//debug end
-				
+				/**************************************************************************************************/
+				/**********************MAPABILITY Calculation for Original Input Line ends*************************/
+				/**************************************************************************************************/
+
 				length = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
 
 				// RANDOM INPUT DATA
@@ -163,15 +192,33 @@ public class RandomDataGenerator {
 				high = low + length - 1;
 
 				randomlyGeneratedLine = new InputLineMinimal(low, high);
-
-				//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-				//randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 				
-				//GC Interval Tree Way
-				randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);
-			
+				/**************************************************************************************************/
+				/**************************GC Calculation for Randomly Generated Line starts***********************/
+				/**************************************************************************************************/
+				//OLD WAY
+				//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
+				
+				//For SNP Data
+				if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
+					//GByteList Way
+					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+				}
+				//For Interval Data
+				else{
+					//GCIntervalTree Way
+					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);
+				}
+				/**************************************************************************************************/
+				/**************************GC Calculation for Randomly Generated Line ends*************************/
+				/**************************************************************************************************/
+
 				differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 
+				
+				/**************************************************************************************************/
+				/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
+				/**************************************************************************************************/
 				//Using MapabilityShortList
 				randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 				
@@ -181,7 +228,10 @@ public class RandomDataGenerator {
 				//For testing purposes
 				//Mapability Interval Tree Way
 				//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingIntervalTree(randomlyGeneratedLine, mapabilityIntervalTree);
-			
+				/**************************************************************************************************/
+				/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
+				/**************************************************************************************************/
+
 				differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability- originalInputLineMapability);
 
 				count = 0;
@@ -245,15 +295,32 @@ public class RandomDataGenerator {
 					randomlyGeneratedLine.setLow(low);
 					randomlyGeneratedLine.setHigh(high);
 
+					/**************************************************************************************************/
+					/**************************GC Calculation for Randomly Generated Line starts***********************/
+					/**************************************************************************************************/
+					//Old Way
 					//GC.calculateGCofInterval(randomlyGeneratedLine, gcCharArray);
-					//randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 					
-					//GC Interval Tree Way
-					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);
-				
+					//For SNP Case
+					if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
+						//GCByteList Way
+						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
+					}
+					//For Interval Case
+					else{
+						//GCIntervalTree Way
+						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree);	
+					}
+					/**************************************************************************************************/
+					/**************************GC Calculation for Randomly Generated Line ends*************************/
+					/**************************************************************************************************/
+
 					
 					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC- originalInputLineGC);
 
+					/**************************************************************************************************/
+					/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
+					/**************************************************************************************************/
 					//Using MapabilityShortList
 					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
 					
@@ -264,7 +331,10 @@ public class RandomDataGenerator {
 					//For testing purposes
 					//Mapability Interval Tree Way
 					//randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingIntervalTree(randomlyGeneratedLine, mapabilityIntervalTree);
-				
+					/**************************************************************************************************/
+					/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
+					/**************************************************************************************************/
+
 					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
 
 				}// End of While

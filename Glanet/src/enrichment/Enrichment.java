@@ -11,6 +11,7 @@ import enumtypes.CommandLineArguments;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.GivenInputDataType;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
@@ -19,8 +20,10 @@ import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongIntIterator;
+import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntIntMap;
@@ -53,6 +56,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
+import mapabilityandgc.ChromosomeBasedGCTroveList;
 import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
 import mapabilityandgc.GCIntervalTreeConstruction;
 
@@ -93,7 +97,11 @@ public class Enrichment {
 		private final TIntList permutationNumberList;
 
 		//private final GCCharArray gcCharArray; 
-		//private final TByteList gcByteList;
+		
+		private final GivenInputDataType givenInputsSNPsorIntervals;
+		
+		
+		private final TByteList gcByteList;
 		
 		private final IntervalTree gcIntervalTree;
 		
@@ -116,7 +124,8 @@ public class Enrichment {
 				int lowIndex, 
 				int highIndex, 
 				TIntList permutationNumberList, 
-				//TByteList gcByteList,
+				GivenInputDataType givenInputsSNPsorIntervals,
+				TByteList gcByteList,
 				IntervalTree gcIntervaTree,
 				//IntervalTree mapabilityIntervalTree
 				TIntList mapabilityChromosomePositionList,
@@ -137,8 +146,13 @@ public class Enrichment {
 			this.highIndex = highIndex;
 
 			this.permutationNumberList = permutationNumberList;
+			
+			//EnumType
+			this.givenInputsSNPsorIntervals = givenInputsSNPsorIntervals;
 
-			//this.gcByteList = gcByteList;
+			//For SNP Data
+			this.gcByteList = gcByteList;
+			//For Interval Data
 			this.gcIntervalTree = gcIntervaTree;
 			
 			
@@ -161,8 +175,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -182,7 +196,7 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(gcIntervalTree,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(givenInputsSNPsorIntervals,gcByteList,gcIntervalTree,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1687,6 +1701,7 @@ public class Enrichment {
 	public static void annotateAllPermutationsInThreads(
 			String outputFolder, 
 			String dataFolder, 
+			GivenInputDataType givenInputsSNPsorIntervals,
 			int NUMBER_OF_AVAILABLE_PROCESSORS, 
 			int runNumber, 
 			int numberofPermutationsinThisRun, 
@@ -1748,7 +1763,7 @@ public class Enrichment {
 
 		// allMaps stores one chromosome based results
 		AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
-		AllMapsDnaseTFHistoneWithNumbers allMapsDnaseTFHistoneWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
+		//AllMapsDnaseTFHistoneWithNumbers allMapsDnaseTFHistoneWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
 
 		// accumulatedAllMaps stores all chromosome results
 		// In other words, it contains accumulated results coming from each chromosome
@@ -1790,26 +1805,39 @@ public class Enrichment {
 		IntervalTree tfIntervalTree = null;
 		IntervalTree ucscRefSeqGenesIntervalTree = null;
 
-		//TByteList gcByteList = null;
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		//Will be used for SNP Data
+		TByteList gcByteList = null;
 		
-		//For Testing Purposes
+		//Will be used for Interval Data
 		IntervalTree gcIntervalTree = null;
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
 		
+		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+		//Will be used for SNP and Interval Data
+		TIntList mapabilityChromosomePositionList = null;
+		TShortList mapabilityShortValueList = null;
+				
 		//For Testing Purposes
 		//Using mapabilityChromosomePositionList and mapabilityShortValueList run faster than mapabilityIntervalTree
 		//IntervalTree mapabilityIntervalTree = null;
-		
-		TIntList mapabilityChromosomePositionList = null;
-
+			
 		//MapabilityShortValueList is preferred since it provides better mapability values
 		//No difference in execution time and memory usage
 		//Average number of trials is almost the same.
-		TShortList mapabilityShortValueList = null;
-		
 		//For Testing purposes
 		//TByteList mapabilityByteValueList = null;
-		
-		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 
 		/******************************************************************************************************/
@@ -1833,7 +1861,9 @@ public class Enrichment {
 		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<InputLineMinimal>>();
 
 		AnnotateWithNumbers annotateWithNumbers;
-		AnnotateDnaseTFHistoneWithNumbers annotateDnaseTFHistoneWithNumbers;
+
+		//For testing purposes
+		//AnnotateDnaseTFHistoneWithNumbers annotateDnaseTFHistoneWithNumbers;
 		
 		GenerateRandomData generateRandomData;
 		ForkJoinPool pool = new ForkJoinPool(NUMBER_OF_AVAILABLE_PROCESSORS);
@@ -1885,23 +1915,40 @@ public class Enrichment {
 
 			if (chromosomeBaseOriginalInputLines != null) {
 
-				//GC Byte List Way
-				//gcByteList = new TByteArrayList();
 				
-				//GC Interval Tree
-				gcIntervalTree = new IntervalTree();
+				/************************************************/
+				/*********************GC*************************/
+				/************************************************/
+				//For SNP Data
+				if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
+					//GCByteList Way
+					gcByteList = new TByteArrayList();
+				}
+				//For Interval Data
+				else{
+					//GCIntervalTree
+					gcIntervalTree = new IntervalTree();
+				}
+				/************************************************/
+				/*********************GC*************************/
+				/************************************************/
 				
-				//For testing purposes
-				//Mapability Interval Tree
-				//mapabilityIntervalTree = new IntervalTree();
-				
+				/************************************************/
+				/**************MAPABILITY************************/
+				/************************************************/
 				mapabilityChromosomePositionList = new TIntArrayList();
-				
 				mapabilityShortValueList = new TShortArrayList();
 				
 				//For  testing purposes
 				//mapabilityByteValueList 
 				//mapabilityByteValueList = new TByteArrayList();
+				
+				//For testing purposes
+				//Mapability Interval Tree
+				//mapabilityIntervalTree = new IntervalTree();
+				/************************************************/
+				/**************MAPABILITY************************/
+				/************************************************/
 				
 				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
@@ -1912,34 +1959,56 @@ public class Enrichment {
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
-					GlanetRunner.appendLog("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					logger.info("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					GlanetRunner.appendLog("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
+					logger.info("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 					
 					startTimeFillingList = System.currentTimeMillis();
-
+					
+					
+					/************************************************/
+					/*********************GC*************************/
+					/************************************************/
 					//GC Old way
 					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 					
-					//GC New Way
-					//ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+					//For SNP Data
+					if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
+						//GCByteList
+						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+					}
+					//For Interval Data
+					else{
+						//GC IntervalTree
+						GCIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
+					}
+					/************************************************/
+					/*********************GC*************************/
+					/************************************************/
+				
 					
-					//GC IntervalTree
-					GCIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					
+					/************************************************/
+					/**************MAPABILITY************************/
+					/************************************************/
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					
-					//Mapability New Way
+					//Mapability
+					//mapabilityChromosomePositionList
+					//mapabilityShortValueList
 					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
 					
 					//For testing purposes
 					//Mapability Interval Tree
 					//MapabilityIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, mapabilityIntervalTree);
-					 
+					/************************************************/
+					/**************MAPABILITY************************/
+					/************************************************/
+					
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
-					logger.info("Filling of gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					GlanetRunner.appendLog("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					logger.info("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
 				}
 				/*******************************************************************************************************************************/
@@ -1958,7 +2027,7 @@ public class Enrichment {
 				startTimeGenerateRandomData = System.currentTimeMillis();
 				
 				
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				
@@ -2011,16 +2080,13 @@ public class Enrichment {
 				
 				/******************************************************************************************************/
 				/***************************************** FREE MEMORY STARTS *****************************************/
-				//gcByteList = null;
-				mapabilityChromosomePositionList = null;
+				gcByteList = null;
+				gcIntervalTree = null;
 				
-				//MapabilityShortValueList
+				mapabilityChromosomePositionList = null;
 				mapabilityShortValueList = null;
 				
-				//mapabilityByteValueList
 				//mapabilityByteValueList = null;
-				
-				gcIntervalTree = null;
 				//mapabilityIntervalTree = null;
 
 				System.gc();
@@ -2409,7 +2475,8 @@ public class Enrichment {
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
 				permutationNumber2RandomlyGeneratedDataHashMap = null;
 				annotateWithNumbers = null;
-				annotateDnaseTFHistoneWithNumbers = null;
+				
+				//annotateDnaseTFHistoneWithNumbers = null;
 				
 				generateRandomData = null;
 				chromosomeBaseOriginalInputLines = null;
@@ -3133,6 +3200,7 @@ public class Enrichment {
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
 		
+		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum(args[CommandLineArguments.GivenInputDataType.value()]);
 		
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls
@@ -3491,9 +3559,9 @@ public class Enrichment {
 			// Then Annotate Permutations (Random Data) concurrently
 			// elementName2AllKMap and originalElementName2KMap will be filled here
 			if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals,Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 			} else {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 			}
 			GlanetRunner.appendLog("Concurrent programming has ended.");
 			logger.info("Concurrent programming has ended.");
