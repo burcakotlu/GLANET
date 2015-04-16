@@ -23,7 +23,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import auxiliary.FileOperations;
 
@@ -47,6 +46,8 @@ public class WriteAllPossibleNames {
 		int indexofColon = 0;
 
 		String keggPathwayName;
+		
+		//Initialize
 		int keggPathwayNumber = 1;
 
 		try {
@@ -182,49 +183,8 @@ public class WriteAllPossibleNames {
 
 	// Write Short2StringMap ends
 
-	public static void writeMapsString2Integer(String dataFolder, Map<String, Integer> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName) {
 
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-
-			for (Map.Entry<String, Integer> entry : cellLineName2CellLineNumberMap.entrySet()) {
-				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
-			}
-
-			bufferedWriter.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void writeMapsInteger2String(String dataFolder, Map<Integer, String> cellLineName2CellLineNumberMap, String outputDirectoryName, String outputFileName) {
-
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-
-			for (Map.Entry<Integer, String> entry : cellLineName2CellLineNumberMap.entrySet()) {
-				bufferedWriter.write(entry.getKey() + "\t" + entry.getValue() + System.getProperty("line.separator"));
-			}
-
-			bufferedWriter.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 	public static void writeAllPossibleKeggPathwayNames(String dataFolder) {
 

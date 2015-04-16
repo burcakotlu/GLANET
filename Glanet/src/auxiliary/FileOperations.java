@@ -23,10 +23,11 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
-import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TIntIntMap;
@@ -433,29 +434,6 @@ public class FileOperations {
 	}
 
 	
-	//new starts
-	public static void writeNumber2NameMap(String dataFolder, TIntIntMap number2NumberMap, String outputDirectoryName, String outputFileName) {
-
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-
-			for (TIntIntIterator it = number2NumberMap.iterator(); it.hasNext();) {
-				it.advance();
-				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
-			}
-
-			bufferedWriter.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	//new adds
 	
 	
 	// Added 31.OCT.2014

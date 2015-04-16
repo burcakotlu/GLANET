@@ -274,7 +274,12 @@ public class UserDefinedLibraryUtility {
 			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
 			TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap, 
 			TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap) {
-
+		
+		
+		//16 April 2015
+		TObjectIntMap<String> userDefinedLibraryElementType2LatestElementNumberMap = new TObjectIntHashMap<String>();
+		int latestElementNumber;
+		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		String strLine = null;
@@ -291,12 +296,15 @@ public class UserDefinedLibraryUtility {
 		String fileName;
 		FileFormatType fileFormatType;
 
-		int elementTypeNumber = 0;
-		int fileNumber = 0;
+		//Initialization
+		int elementTypeNumber = 1;
+		int fileNumber = 1;
+		//int elementNumber = 1;
+		
+		
 
 		int currentElementTypeNumber;
-		int currentElementNumber = 0;
-
+		
 		TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap = new TIntObjectHashMap<List<BufferedWriter>>();
 
 		TObjectIntMap<String> elementName2ElementNumberMap = null;
@@ -317,7 +325,7 @@ public class UserDefinedLibraryUtility {
 					indexofSecondTab = (indexofFirstTab > 0) ? strLine.indexOf('\t', indexofFirstTab + 1) : -1;
 					indexofThirdTab = (indexofSecondTab > 0) ? strLine.indexOf('\t', indexofSecondTab + 1) : -1;
 
-					/***********************************************************************************************/
+					/*************************************************************************************************/
 					/*********************** FileName 2 FileNumber starts ********************************************/
 					/*********************** FileNumber 2 FileName starts ********************************************/
 					filePathFileName = strLine.substring(0, indexofFirstTab);
@@ -333,9 +341,9 @@ public class UserDefinedLibraryUtility {
 					file = null;
 					/*********************** FileName 2 FileNumber ends **********************************************/
 					/*********************** FileNumber 2 FileName ends **********************************************/
-					/***********************************************************************************************/
+					/*************************************************************************************************/
 
-					/*********************************************************************************************************/
+					/***********************************************************************************************************/
 					/*********************** ElementType 2 ElementTypeNumber starts ********************************************/
 					/*********************** ElementTypeNumber 2 ElementType starts ********************************************/
 					elementType = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
@@ -344,6 +352,9 @@ public class UserDefinedLibraryUtility {
 					if (!userDefinedLibraryElementType2ElementTypeNumberMap.containsKey(elementType)) {
 						userDefinedLibraryElementType2ElementTypeNumberMap.put(elementType, elementTypeNumber);
 						userDefinedLibraryElementTypeNumber2ElementTypeMap.put(elementTypeNumber, elementType);
+						
+						//To initialzie elementNumber to 1 for each elementType. 
+						userDefinedLibraryElementType2LatestElementNumberMap.put(elementType,1);
 
 						// Create Chromosome Based BufferedWritwers
 						FileOperations.createChromosomeBasedListofBufferedWriters(elementType, elementTypeNumber, elementTypeNumber2ListofBufferedWritersMap, dataFolder + Commons.USER_DEFINED_LIBRARY + System.getProperty("file.separator"));
@@ -352,7 +363,7 @@ public class UserDefinedLibraryUtility {
 					}
 					/*********************** ElementType 2 ElementTypeNumber ends **********************************************/
 					/*********************** ElementTypeNumber 2 ElementType ends **********************************************/
-					/*********************************************************************************************************/
+					/***********************************************************************************************************/
 
 					/*********************************************************************************************************/
 					/*************** ElementTypeNumber Specific ****************************************************************/
@@ -366,8 +377,7 @@ public class UserDefinedLibraryUtility {
 						windowAroundSummit = Integer.MIN_VALUE;
 					}
 
-					// Consider windowAroundSummit if fileFormatType is
-					// narrowPeak
+					// Consider windowAroundSummit if fileFormatType is narrowPeak
 					// And windowAroundSummit > 0
 					// Otherwise don't care windowAroundSummit
 					if (fileName.toLowerCase().endsWith(Commons.NARROWPEAK)) {
@@ -382,6 +392,7 @@ public class UserDefinedLibraryUtility {
 					elementName = elementName.trim();
 
 					currentElementTypeNumber = userDefinedLibraryElementType2ElementTypeNumberMap.get(elementType);
+					latestElementNumber = userDefinedLibraryElementType2LatestElementNumberMap.get(elementType);
 
 					elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get(currentElementTypeNumber);
 					elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get(currentElementTypeNumber);
@@ -401,9 +412,10 @@ public class UserDefinedLibraryUtility {
 					// Fill elementName2ElementNumberMap
 					// Fill elementNumber2ElementNameMap
 					if (!elementName2ElementNumberMap.containsKey(elementName)) {
-						elementName2ElementNumberMap.put(elementName, currentElementNumber);
-						elementNumber2ElementNameMap.put(currentElementNumber, elementName);
-						currentElementNumber++;
+						elementName2ElementNumberMap.put(elementName, latestElementNumber);
+						elementNumber2ElementNameMap.put(latestElementNumber, elementName);
+						latestElementNumber++;
+						userDefinedLibraryElementType2LatestElementNumberMap.put(elementType,latestElementNumber);
 					}
 					/*************** ElementTypeNumber Specific ****************************************************************/
 					/*************** ElementName 2 ElementNumber ends **********************************************************/
@@ -418,7 +430,7 @@ public class UserDefinedLibraryUtility {
 				}// End of if it is not a comment line
 
 			}// End of while: We have read all the listed files in
-				// userDefinedLibraryInputFile
+			// userDefinedLibraryInputFile
 
 			// Close UserDefinedLibraryInputFile
 			bufferedReader.close();

@@ -474,12 +474,13 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 	}
 
 	public static void main(String[] args) {
+		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 
-		/*************************************************************************************************/
+		/***************************************************************************************************/
 		/*************************** SOURCE FILES starts ***************************************************/
-		/*************************************************************************************************/
+		/***************************************************************************************************/
 		// Downloaded from UCSC Genome Table Browser contains
 		// RNA_NUCLEOTIDE_ACCESSION and GENE_SYMBOL
 		String UCSC_GENOME_HG19_REFSEQ_GENES_FILE = dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014;
@@ -488,10 +489,10 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		// This file is prepared by HumanRefSeq2Gene.java which uses the
 		// downloaded file gene2RefSeq.txt from NCBI.
 		String NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE = dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014;
-		/*************************************************************************************************/
+		/***************************************************************************************************/
 		/*************************** SOURCE FILES ends *****************************************************/
-		/*************************************************************************************************/
-
+		/***************************************************************************************************/
+		
 		RefSeqGeneIntervalsInformation information = new RefSeqGeneIntervalsInformation();
 
 		// UCSCGENOME HG19 RefSeq Genes RNANucleotideAccession NAME2NUMBER
