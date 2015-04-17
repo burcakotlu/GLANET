@@ -1060,6 +1060,7 @@ public class Commons {
 	/**************************************************************************************************/
 	// ENCODE DNASE CELLLINE NAME2NUMBER
 	public static final String ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Number_2_Name.txt";
+	public static final String ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_ENCODE_DnaseCellLine_Name_2_Number.txt";
 	// ENCODE CELLLINE
 	public static final String ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_ENCODE_CellLine_Number_2_Name.txt";
 	// ENCODE TF

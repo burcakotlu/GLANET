@@ -694,6 +694,9 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 				encodeFileNumber2NameMap,
 				encodeNumbers);
 
+		//Write dnaseCellLineName2NumberMap
+		FileOperations.writeName2NumberMap(dataFolder, encodeDnaseCellLineName2NumberMap, Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NAME_2_NUMBER_OUTPUT_FILENAME);
+		
 		// Write ENCODE DNASE TF HISTONE
 		// Write number2name manner
 		// Annotation requires number2name manner

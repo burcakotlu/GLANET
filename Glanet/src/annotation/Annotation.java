@@ -14,6 +14,7 @@ import gnu.trove.iterator.TShortByteIterator;
 import gnu.trove.iterator.TShortIntIterator;
 import gnu.trove.iterator.TShortIterator;
 import gnu.trove.iterator.TShortObjectIterator;
+import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
@@ -73,7 +74,9 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsWithNumbers;
@@ -491,6 +494,67 @@ public class Annotation {
 		} // End of While
 
 	}
+	
+	//Generate Interval Tree with numbers for the given cellLines only starts
+	public static IntervalTree generateEncodeDnaseIntervalTreeWithNumbers(BufferedReader bufferedReader, TIntList cellLineNumberList) {
+		IntervalTree dnaseIntervalTree = new IntervalTree();
+		String strLine = null;
+
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+		int indexofThirdTab = 0;
+		int indexofFourthTab = 0;
+
+		int startPosition = 0;
+		int endPosition = 0;
+
+		ChromosomeName chromName;
+		short cellLineNumber;
+		short fileNumber;
+
+		try {
+			while ((strLine = bufferedReader.readLine()) != null) {
+
+				// old example strLine
+				// chr1 91852781 91853156 GM12878
+				// idrPool.GM12878-DS9432-DS10671.z_OV_GM12878-DS10671.z_VS_GM12878-DS9432.z.npk2.narrowPeak
+
+				// new example line with numbers
+				// chrY 2709520 2709669 1 1
+
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
+
+				startPosition = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				endPosition = Integer.parseInt(strLine.substring(indexofSecondTab + 1, indexofThirdTab));
+
+				cellLineNumber = Short.parseShort(strLine.substring(indexofThirdTab + 1, indexofFourthTab));
+				fileNumber = Short.parseShort(strLine.substring(indexofFourthTab + 1));
+
+				// important note
+				// while constructing the dnaseIntervalTree
+				// we don't check for overlaps
+				// we insert any given interval without overlap check
+				
+				if(cellLineNumberList.contains(cellLineNumber)){
+					DnaseIntervalTreeNodeWithNumbers node = new DnaseIntervalTreeNodeWithNumbers(chromName, startPosition, endPosition, cellLineNumber, fileNumber, NodeType.ORIGINAL);
+					dnaseIntervalTree.intervalTreeInsert(dnaseIntervalTree, node);
+				}
+
+
+			} // End of While
+		} catch (IOException e) {
+			logger.error(e.toString());
+		}
+
+		return dnaseIntervalTree;
+	}
+	//Generate Interval Tree with numbers for the given cellLines only ends
+	
 
 	// Generate Dnase Interval Tree with Numbers starts
 	// For Annotation and Enrichment
@@ -551,7 +615,6 @@ public class Annotation {
 
 		return dnaseIntervalTree;
 	}
-
 	// Generate Interval Tree with Numbers ends
 
 	// Empirical P Value Calculation
@@ -1282,6 +1345,36 @@ public class Annotation {
 		return userDefinedLibraryIntervalTree;
 
 	}
+	
+	
+	//Generate Interval Tree with numbers for the given cellLines only starts
+	public static IntervalTree createDnaseIntervalTreeWithNumbers(
+			String dataFolder, 
+			ChromosomeName chromName,
+			TIntList cellLineNumberList) {
+		
+		IntervalTree dnaseIntervalTree = null;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+
+		try {
+
+			fileReader = FileOperations.createFileReader(dataFolder + Commons.BYGLANET_ENCODE_DNASE_DIRECTORY, chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS);
+			bufferedReader = new BufferedReader(fileReader);
+			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader,cellLineNumberList);
+
+		} catch (FileNotFoundException e) {
+			logger.error(e.toString());
+		} catch (IOException e) {
+
+			logger.error(e.toString());
+		}
+
+		return dnaseIntervalTree;
+	}
+
+	//Generate Interval Tree with numbers for the given cellLines only ends
+	
 
 	// Generate Interval Tree
 	// With Number starts
@@ -1306,7 +1399,6 @@ public class Annotation {
 
 		return dnaseIntervalTree;
 	}
-
 	// With Number ends
 
 	// @todo

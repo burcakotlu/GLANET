@@ -48,7 +48,10 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
@@ -808,6 +811,14 @@ public class IntervalTree {
 			return 0;
 	}
 	
+	
+	public static boolean overlaps(Interval x, Interval y) {
+		if ((x.getLow() <= y.getHigh()) && (y.getLow() <= x.getHigh()))
+			return true;
+		else
+			return false;
+	}
+	
 	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y) {
 		if ((low_x <= high_y) && (low_y <= high_x))
 			return true;
@@ -963,12 +974,34 @@ public class IntervalTree {
 
 	}
 	
-	//You have to think here
+	
+	public List<IntervalDataDrivenExperiment> findAllOverlappingIntervalsForExclusion(IntervalTreeNode node, IntervalDataDrivenExperiment	 interval,int overlapDefinition){
+		
+		List<IntervalDataDrivenExperiment> overlappingIntervalList = new ArrayList<IntervalDataDrivenExperiment>();
+		
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+			overlappingIntervalList.add(new IntervalDataDrivenExperiment(Math.max(node.getLow(), interval.getLow()),Math.min(node.getHigh(), interval.getHigh())));
+		}
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			overlappingIntervalList.addAll(findAllOverlappingIntervalsForExclusion(node.getLeft(),interval,overlapDefinition));
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			overlappingIntervalList.addAll(findAllOverlappingIntervalsForExclusion(node.getRight(),interval,overlapDefinition));
+		}
+		
+		return overlappingIntervalList;
+
+		
+	}
+	
+	// There can be gaps in the mapabilityIntervalTree
 	public int findAllOverlappingMapabilityIntervals(IntervalTreeNode node, InputLineMinimal interval){
 		int numberofOverlappingBases = 0;
 		
 		int mapability = 0;
-		int  mapabilityLeft = 0;
+		int mapabilityLeft = 0;
 		int mapabilityRight = 0;
 		
 		MapabilityIntervalTreeNode castedNode = null;
