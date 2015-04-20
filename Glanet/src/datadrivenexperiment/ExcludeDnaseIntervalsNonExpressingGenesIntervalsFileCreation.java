@@ -236,9 +236,26 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			
 			//There is overlap, so put  overlappingIntervalsExcludedIntervalList into dnaseOverlapsExcludedIntervalList
 			if(overlappingIntervalList.size()>0){
+				
+				//debug starts
+				if (overlappingIntervalList.size() >3){
+					System.out.println("debug here");
+				}
+				//debug ends
+				
 				numberofIntervalsThatHasOverlaps++;
 				overlappingIntervalsExcludedIntervalList = excludeOverlaps(originalInterval,overlappingIntervalList);
-				dnaseOverlapsExcludedIntervalList.addAll(overlappingIntervalsExcludedIntervalList);
+				
+				
+				//Add interval which is not removed!
+				for(int i=0; i<overlappingIntervalsExcludedIntervalList.size(); i++){
+					
+					if (!overlappingIntervalsExcludedIntervalList.get(i).isRemoved()){
+						dnaseOverlapsExcludedIntervalList.add(overlappingIntervalsExcludedIntervalList.get(i));
+					}//End of IF
+					
+				}//End of for
+				
 			}
 			//There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
 			else{
