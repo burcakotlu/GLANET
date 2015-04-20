@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mapabilityandgc;
+package gc;
 
 import intervaltree.GCIntervalTreeNode;
 import intervaltree.IntervalTree;
@@ -26,9 +26,9 @@ import enumtypes.CommandLineArguments;
  * @project Glanet 
  *
  */
-public class GCIntervalTreeConstruction {
+public class ChromosomeBasedGCIntervalTree {
 	
-	final static Logger logger = Logger.getLogger(GCIntervalTreeConstruction.class);
+	final static Logger logger = Logger.getLogger(ChromosomeBasedGCIntervalTree.class);
 	
 	public static void fillIntervalTree(
 			String dataFolder,

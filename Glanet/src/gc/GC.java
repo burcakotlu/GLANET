@@ -8,7 +8,7 @@
  *	This class will calculate the gc of an given interval
  * 
  */
-package mapabilityandgc;
+package gc;
 
 import intervaltree.IntervalTree;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mapabilityandgc;
+package mapability;
 
 import java.io.BufferedReader;
 import java.io.IOException;

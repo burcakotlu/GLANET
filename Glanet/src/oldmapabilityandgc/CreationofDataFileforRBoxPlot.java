@@ -6,7 +6,7 @@
  *
  * 
  */
-package mapabilityandgc;
+package oldmapabilityandgc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

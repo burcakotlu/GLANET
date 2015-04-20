@@ -6,8 +6,10 @@
  *
  * It takes 35 minutes.
  */
-package mapabilityandgc;
+package oldmapabilityandgc;
 
+import gc.ChromosomeBasedGCArray;
+import gc.GC;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 
@@ -24,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import mapability.ChromosomeBasedMapabilityIntervalTree;
+import mapability.Mapability;
 import ui.GlanetRunner;
 import common.Commons;
 import create.encode.CellLineHistone;

@@ -8,6 +8,7 @@
  */
 package generate.randomdata;
 
+import gc.GC;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
@@ -17,13 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import mapabilityandgc.GC;
-import mapabilityandgc.Mapability;
+import mapability.Mapability;
 
 import org.apache.log4j.Logger;
 
 import common.Commons;
-
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;

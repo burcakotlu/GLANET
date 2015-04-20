@@ -15,6 +15,8 @@ import enumtypes.GivenInputDataType;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
+import gc.ChromosomeBasedGCTroveList;
+import gc.ChromosomeBasedGCIntervalTree;
 import generate.randomdata.RandomDataGenerator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
@@ -56,9 +58,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import keggpathway.ncbigenes.KeggPathwayUtility;
-import mapabilityandgc.ChromosomeBasedGCTroveList;
-import mapabilityandgc.ChromosomeBasedMappabilityTroveList;
-import mapabilityandgc.GCIntervalTreeConstruction;
+import mapability.ChromosomeBasedMappabilityTroveList;
 
 import org.apache.log4j.Logger;
 
@@ -68,7 +68,6 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -1979,7 +1978,7 @@ public class Enrichment {
 					//For Interval Data
 					else{
 						//GC IntervalTree
-						GCIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					}
 					/************************************************/
 					/*********************GC*************************/

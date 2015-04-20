@@ -6,7 +6,7 @@
  *
  * 
  */
-package mapabilityandgc;
+package mapability;
 
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;

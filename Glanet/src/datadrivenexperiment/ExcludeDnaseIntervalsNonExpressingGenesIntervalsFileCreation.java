@@ -154,6 +154,25 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		
 	}
 	
+	public static boolean allOverlappingDnaseIntervalsExcludedRemoved(List<IntervalDataDrivenExperiment> overlappingDnaseIntervalsExcluded){
+		
+		boolean allRemoved = true;
+		
+		for(int i =0; i<overlappingDnaseIntervalsExcluded.size(); i++){
+			
+			if (!overlappingDnaseIntervalsExcluded.get(i).isRemoved()){
+				
+				allRemoved = false;
+				break;
+				
+			}//End of IF
+			
+		}//End of for
+		
+		return allRemoved;
+		
+	}
+	
 	//After dnaseOverlaps excluded from originalInterval
 	//We may have more than one intervals to be returned
 	public static List<IntervalDataDrivenExperiment> excludeOverlaps(IntervalDataDrivenExperiment originalInterval, List<IntervalDataDrivenExperiment> overlappingIntervalList){
@@ -198,6 +217,16 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 					}//End of for each interval.
 					/*****************************************************************************/
 					
+					/*****************************************************************************/
+					//If there is no unremoved overlap then get out of outer for loop
+					if (allOverlappingDnaseIntervalsExcludedRemoved(overlappingDnaseIntervalsExcluded)){
+						
+						break;
+						
+					}
+					/*****************************************************************************/
+					
+					
 					
 				}//End of for each overlapping interval
 				/*****************************************************************************/
@@ -234,20 +263,19 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			
 			overlappingIntervalList = dnaseIntervalTree.findAllOverlappingIntervalsForExclusion(dnaseIntervalTree.getRoot(), originalInterval, overlapDefinition);
 			
+			//Should I merge the intervals in overlappingIntervalList?
+			//Not so important for the time being.
+			
 			//There is overlap, so put  overlappingIntervalsExcludedIntervalList into dnaseOverlapsExcludedIntervalList
 			if(overlappingIntervalList.size()>0){
 				
-				//debug starts
-				if (overlappingIntervalList.size() >3){
-					System.out.println("debug here");
-				}
-				//debug ends
+				
 				
 				numberofIntervalsThatHasOverlaps++;
 				overlappingIntervalsExcludedIntervalList = excludeOverlaps(originalInterval,overlappingIntervalList);
 				
 				
-				//Add interval which is not removed!
+				//Add only intervals which is not removed!
 				for(int i=0; i<overlappingIntervalsExcludedIntervalList.size(); i++){
 					
 					if (!overlappingIntervalsExcludedIntervalList.get(i).isRemoved()){
@@ -290,8 +318,11 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			itr.advance();
 			
 			chrNumber = itr.key();
+			
+			//For a certain chromosome
 			originalIntervalList = itr.value();
 			
+			//For a certain chromosome
 			dnaseOverlapsExcludedIntervalList = new ArrayList<IntervalDataDrivenExperiment>();
 			
 			chrName = ChromosomeName.convertInttoEnum(chrNumber);

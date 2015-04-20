@@ -349,91 +349,17 @@ public class Annotation {
 		}
 	}
 
-	public void writeChromBaseSearchInputFile(ChromosomeName chromName, String strLine, List<BufferedWriter> bufList) {
+	public void writeChromBaseSearchInputFile(ChromosomeName chromName, String strLine, TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
 		try {
-
-			if (chromName.equals(ChromosomeName.CHROMOSOME1)) {
-				bufList.get(0).write(strLine + System.getProperty("line.separator"));
-				bufList.get(0).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME2)) {
-				bufList.get(1).write(strLine + System.getProperty("line.separator"));
-				bufList.get(1).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME3)) {
-				bufList.get(2).write(strLine + System.getProperty("line.separator"));
-				bufList.get(2).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME4)) {
-				bufList.get(3).write(strLine + System.getProperty("line.separator"));
-				bufList.get(3).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME5)) {
-				bufList.get(4).write(strLine + System.getProperty("line.separator"));
-				bufList.get(4).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME6)) {
-				bufList.get(5).write(strLine + System.getProperty("line.separator"));
-				bufList.get(5).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME7)) {
-				bufList.get(6).write(strLine + System.getProperty("line.separator"));
-				bufList.get(6).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME8)) {
-				bufList.get(7).write(strLine + System.getProperty("line.separator"));
-				bufList.get(7).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME9)) {
-				bufList.get(8).write(strLine + System.getProperty("line.separator"));
-				bufList.get(8).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME10)) {
-				bufList.get(9).write(strLine + System.getProperty("line.separator"));
-				bufList.get(9).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME11)) {
-				bufList.get(10).write(strLine + System.getProperty("line.separator"));
-				bufList.get(10).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME12)) {
-				bufList.get(11).write(strLine + System.getProperty("line.separator"));
-				bufList.get(11).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME13)) {
-				bufList.get(12).write(strLine + System.getProperty("line.separator"));
-				bufList.get(12).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME14)) {
-				bufList.get(13).write(strLine + System.getProperty("line.separator"));
-				bufList.get(13).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME15)) {
-				bufList.get(14).write(strLine + System.getProperty("line.separator"));
-				bufList.get(14).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME16)) {
-				bufList.get(15).write(strLine + System.getProperty("line.separator"));
-				bufList.get(15).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME17)) {
-				bufList.get(16).write(strLine + System.getProperty("line.separator"));
-				bufList.get(16).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME18)) {
-				bufList.get(17).write(strLine + System.getProperty("line.separator"));
-				bufList.get(17).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME19)) {
-				bufList.get(18).write(strLine + System.getProperty("line.separator"));
-				bufList.get(18).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME20)) {
-				bufList.get(19).write(strLine + System.getProperty("line.separator"));
-				bufList.get(19).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME21)) {
-				bufList.get(20).write(strLine + System.getProperty("line.separator"));
-				bufList.get(20).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOME22)) {
-				bufList.get(21).write(strLine + System.getProperty("line.separator"));
-				bufList.get(21).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOMEX)) {
-				bufList.get(22).write(strLine + System.getProperty("line.separator"));
-				bufList.get(22).flush();
-			} else if (chromName.equals(ChromosomeName.CHROMOSOMEY)) {
-				bufList.get(23).write(strLine + System.getProperty("line.separator"));
-				bufList.get(23).flush();
-			} else {
-				GlanetRunner.appendLog("Unknown chromosome");
-			}
-
+			
+			chrNumber2BufferedWriterMap.get(chromName.getChromosomeName()).write(strLine + System.getProperty("line.separator"));
+			
 		} catch (IOException e) {
 			logger.error(e.toString());
 		}
 	}
 
-	public void partitionSearchInputFilePerChromName(String inputFileName, List<BufferedWriter> bufferedWriterList) {
+	public void partitionSearchInputFilePerChromName(String inputFileName, TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -450,7 +376,7 @@ public class Annotation {
 
 				indexofFirstTab = strLine.indexOf('\t');
 				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
-				writeChromBaseSearchInputFile(chromName, strLine, bufferedWriterList);
+				writeChromBaseSearchInputFile(chromName, strLine, chrNumber2BufferedWriterMap);
 
 			} // End of While
 
@@ -468,32 +394,6 @@ public class Annotation {
 		}
 	}
 
-	// Empirical P value Computation
-	public void partitionSearchInputFilePerChromName(List<InputLine> inputLines, List<BufferedWriter> bufferedWriterList) {
-
-		String strLine;
-
-		ChromosomeName chrName;
-		int low;
-		int high;
-
-		InputLine inputLine;
-
-		for (int i = 0; i < inputLines.size(); i++) {
-
-			inputLine = inputLines.get(i);
-
-			chrName = inputLine.getChrName();
-			low = inputLine.getLow();
-			high = inputLine.getHigh();
-
-			strLine = chrName + "\t" + low + "\t" + high;
-
-			writeChromBaseSearchInputFile(chrName, strLine, bufferedWriterList);
-
-		} // End of While
-
-	}
 	
 	//Generate Interval Tree with numbers for the given cellLines only starts
 	public static IntervalTree generateEncodeDnaseIntervalTreeWithNumbers(BufferedReader bufferedReader, TIntList cellLineNumberList) {
@@ -6020,20 +5920,23 @@ public class Annotation {
 
 
 
-	public void closeBufferedWriterList(List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList) {
+	public void closeBufferedWriterList(TIntObjectMap<FileWriter> chrNumber2FileWriterMap,TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+		
 		BufferedWriter bufferedWriter = null;
 		FileWriter fileWriter = null;
 
 		try {
-			for (int i = 0; i < bufferedWriterList.size(); i++) {
-				bufferedWriter = bufferedWriterList.get(i);
-				fileWriter = fileWriterList.get(i);
+			for (ChromosomeName chrName: ChromosomeName.values()) {
+				
+				bufferedWriter = chrNumber2BufferedWriterMap.get(chrName.getChromosomeName());
+				fileWriter = chrNumber2FileWriterMap.get(chrName.getChromosomeName());
+				
+				//Close BufferedWriter and FileWriter
 				bufferedWriter.close();
 				fileWriter.close();
 			}
 
 		} catch (IOException e) {
-
 			logger.error(e.toString());
 		}
 	}
@@ -7291,7 +7194,6 @@ public class Annotation {
 		/***********************************************************************************/
 	
 		
-		
 		/*************************************************************************************************/
 		/**************************GET CHECKED ANNOTATION TYPES ENDS**************************************/
 		/*************************************************************************************************/
@@ -7309,25 +7211,23 @@ public class Annotation {
 
 		
 		
-		
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
 		/*****************************************************************************************/
 		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 
-		List<FileWriter> fileWriterList = new ArrayList<FileWriter>();
+		TIntObjectMap<FileWriter> chrNumber2FileWriterMap = new TIntObjectHashMap<FileWriter>();
+		TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
 
-		// Prepare chromosome based partitioned input interval files to be
-		// searched for
-		List<BufferedWriter> bufferedWriterList = new ArrayList<BufferedWriter>();
+		// Prepare chromosome based partitioned input interval files to be searched for
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSearchInputFiles(outputFolder, fileWriterList, bufferedWriterList);
+		FileOperations.createChromBaseSearchInputFiles(outputFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
-		partitionSearchInputFilePerChromName(inputFileName, bufferedWriterList);
+		partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
 
 		// Close Buffered Writers
-		closeBufferedWriterList(fileWriterList, bufferedWriterList);
+		closeBufferedWriterList(chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/

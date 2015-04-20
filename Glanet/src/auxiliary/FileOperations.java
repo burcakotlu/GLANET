@@ -858,17 +858,21 @@ public class FileOperations {
 
 	}
 
-	public static void createChromBaseSearchInputFiles(String outputFolder, List<FileWriter> fileWriterList, List<BufferedWriter> bufferedWriterList) {
+	public static void createChromBaseSearchInputFiles(
+			String outputFolder, 
+			TIntObjectMap<FileWriter> chrNumber2FileWriterMap, 
+			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+		
 		try {
 
 			// For each ChromosomeName
 			for (ChromosomeName chrName : ChromosomeName.values()) {
 
 				FileWriter fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-				fileWriterList.add(fileWriter);
-
+				chrNumber2FileWriterMap.put(chrName.getChromosomeName(), fileWriter);
+				
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				bufferedWriterList.add(bufferedWriter);
+				chrNumber2BufferedWriterMap.put(chrName.getChromosomeName(),bufferedWriter);
 
 			}// End of for each chromosomeName
 

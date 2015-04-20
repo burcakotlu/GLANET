@@ -6,8 +6,10 @@
  *
  * 
  */
-package mapabilityandgc;
+package oldmapabilityandgc;
 
+import gc.ChromosomeBasedGCArray;
+import gc.GC;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
 
@@ -22,10 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mapability.ChromosomeBasedMapabilityIntervalTree;
+import mapability.Mapability;
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;

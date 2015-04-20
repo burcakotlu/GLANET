@@ -2,7 +2,7 @@
  * This class creates Chromosome Based GC Interval File
  * for GC Interval Tree Construction
  */
-package mapabilityandgc;
+package gc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

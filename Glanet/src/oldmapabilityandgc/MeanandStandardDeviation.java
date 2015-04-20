@@ -6,7 +6,7 @@
  *
  * 
  */
-package mapabilityandgc;
+package oldmapabilityandgc;
 
 public class MeanandStandardDeviation {
 

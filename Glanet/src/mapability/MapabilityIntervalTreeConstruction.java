@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mapabilityandgc;
+package mapability;
 
 import intervaltree.IntervalTree;
 import intervaltree.MapabilityIntervalTreeNode;

@@ -10,7 +10,7 @@
  * In the new way, GCByteList is filled in ChromosomeBasedGCTroveList class.
  * 
  */
-package mapabilityandgc;
+package gc;
 
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;

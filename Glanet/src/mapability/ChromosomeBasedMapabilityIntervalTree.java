@@ -6,7 +6,7 @@
  *
  * 
  */
-package mapabilityandgc;
+package mapability;
 
 import intervaltree.IntervalTree;
 import enumtypes.ChromosomeName;
