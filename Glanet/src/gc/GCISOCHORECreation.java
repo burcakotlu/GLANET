@@ -15,11 +15,10 @@ import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
 import auxiliary.GlanetPercentageFormat;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.IsochoreFamily;
 
 /**
  * @author Burçak Otlu
@@ -30,6 +29,29 @@ import enumtypes.CommandLineArguments;
 public class GCISOCHORECreation {
 	
 	final static Logger logger = Logger.getLogger(GCISOCHORECreation.class);
+	
+	public static IsochoreFamily calculateIsochoreFamily(float gcPercentage){
+		
+		IsochoreFamily isochoreFamily = null;
+		
+		//L1, L2, H1, H2 and H3, with GC contents of
+		//38%, 38–42%, 42–47%, 47–52%, respectively
+		
+		if (gcPercentage<38){
+			isochoreFamily = IsochoreFamily.L1;
+		}else if (gcPercentage>=38 && gcPercentage <42){
+			isochoreFamily =  IsochoreFamily.L2;
+		}else if (gcPercentage>=42 && gcPercentage<47){
+			isochoreFamily =  IsochoreFamily.H1;
+		}else if (gcPercentage>=47 && gcPercentage<52){
+			isochoreFamily =  IsochoreFamily.H2;
+		}else if (gcPercentage>=52){
+			isochoreFamily =  IsochoreFamily.H3;
+		}
+		
+		return isochoreFamily;
+	}
+	
 	
 	public static void createGCIsochoreFile(String dataFolder,ChromosomeName chrName){
 		
@@ -61,6 +83,7 @@ public class GCISOCHORECreation {
 		int standardGCIntervalLength = Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE;
 		
 		float gcPercentage = 0; 
+		IsochoreFamily isochoreFamily;
 		
 		NumberFormat pf = GlanetPercentageFormat.getGlanetPercentageFormat();
 		
@@ -84,7 +107,7 @@ public class GCISOCHORECreation {
 
 			
 			//Write header file
-			bufferedWriter.write("#" + "OBasedStart" + "\t" + "OBasedEnd" + "\t"  + "intervalLength" + "\t" + "numberofGCsInTheInterval" + "\t" +  "GCContentPercentage" + System.getProperty("line.separator"));
+			bufferedWriter.write("#" + "OBasedStart" + "\t" + "OBasedEnd" + "\t"  + "intervalLength" + "\t" + "numberofGCsInTheInterval" + "\t" +  "GCContentPercentage" + "\t" + "Isochore Family" + System.getProperty("line.separator"));
 
 			
 			
@@ -117,8 +140,10 @@ public class GCISOCHORECreation {
 						
 						gcPercentage = (numberofGCsInStandardGCIntervalLength*1.0f/standardGCIntervalLength);
 						
+						isochoreFamily = calculateIsochoreFamily(gcPercentage*100);
+						
 						//Write to File
-						bufferedWriter.write( (nthBase-standardGCIntervalLength) + "\t" + (nthBase-1) + "\t"  + standardGCIntervalLength + "\t"  + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcPercentage)  + System.getProperty("line.separator"));
+						bufferedWriter.write( (nthBase-standardGCIntervalLength) + "\t" + (nthBase-1) + "\t"  + standardGCIntervalLength + "\t"  + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
 
 						//Set numberofGCs to zero 
 						numberofGCsInStandardGCIntervalLength = 0;
@@ -145,8 +170,10 @@ public class GCISOCHORECreation {
 				
 				gcPercentage = (numberofGCsInStandardGCIntervalLength*1.0f/lengthOfLastInterval);
 				 
+				isochoreFamily = calculateIsochoreFamily(gcPercentage*100);
+				
 				//Write to File
-				bufferedWriter.write( (nthBase-lengthOfLastInterval) + "\t" + (nthBase-1) + "\t"  + lengthOfLastInterval + "\t" + numberofGCsInStandardGCIntervalLength +  "\t" + pf.format(gcPercentage) + System.getProperty("line.separator"));
+				bufferedWriter.write( (nthBase-lengthOfLastInterval) + "\t" + (nthBase-1) + "\t"  + lengthOfLastInterval + "\t" + numberofGCsInStandardGCIntervalLength +  "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
 				
 			}
 			
