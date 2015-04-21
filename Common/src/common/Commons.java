@@ -274,6 +274,13 @@ public class Commons {
 	public static final String GIVEN_INPUT_DATA_CONSISTS_OF_SNPS = "GIVEN_INPUT_DATA_CONSISTS_OF_SNPS";
 	public static final String GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS = "GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS";
 
+	//EnumType Isochore Families
+	public static final String L1 = "L1";
+	public static final String L2 = "L2";
+	public static final String H1 = "H1";
+	public static final String H2 = "H2";
+	public static final String H3 = "H3";
+	
 	/*******************************************************************************************/
 	/************************ ChromosomeBased Given Input Files starts ***************************/
 	/*******************************************************************************************/
@@ -694,6 +701,8 @@ public class Commons {
 	
 	// GC
 	public static final String GC_FILE_END = ".fa";
+	public static final String GC_ISOCHORES_FILE_END = "_gc_isochores.txt";
+	
 	public static final String GC_INTERVALS_FILE_END = "_gc_intervals.txt";
 	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END = "_gc_intervals_consecutive_zeros_merged.txt";
 
