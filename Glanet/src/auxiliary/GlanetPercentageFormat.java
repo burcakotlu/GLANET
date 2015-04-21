@@ -13,7 +13,7 @@ import java.text.NumberFormat;
  */
 public class GlanetPercentageFormat {
 	
-		
+	//Get percentage Format
 	public static NumberFormat getGlanetPercentageFormat() {
 
 		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
