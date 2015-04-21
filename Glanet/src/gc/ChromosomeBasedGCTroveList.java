@@ -25,6 +25,7 @@ import gnu.trove.list.array.TByteArrayList;
  *
  *
  * This is the new way of filling GCByteList..
+ * Seven chars of a certain chromosome fill the last seven bits of a byte.
  */
 public class ChromosomeBasedGCTroveList {
 	

@@ -4,17 +4,22 @@
  * 1:32:16 PM
  * 2013
  *
- * 
+ * This class reads a given wig file
+ * And created chromosome based mapability files.
  */
 package mapability;
+
+import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -22,16 +27,13 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
-import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
-
 public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 	
 	final static Logger logger = Logger.getLogger(CreationofChromosomeBasedMapabilityFilesFromWigFiles.class);
 	
 
 	public static void readMapabilityFileWriteChromBasedMapabilityFiles(
-			Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap) {
+			TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
 
 		BufferedReader bufferedReader;
 
@@ -70,7 +72,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 					
 					//chrM	0	612	1
 					if (chromName!=null){
-						correspondingBufferedWriter = chromName2BufferedWriterHashMap.get(chromName);
+						correspondingBufferedWriter = chromName2BufferedWriterMap.get(chromName.getChromosomeName());
 						correspondingBufferedWriter.write(chromName.convertEnumtoString() + "\t" + low + "\t" + high + "\t" + mapability + System.getProperty("line.separator"));
 					}
 					
@@ -93,138 +95,46 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 
 	public static void createChromBasedBufferedWriters(
 			String dataFolder,
-			Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap) {
+			TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
+		
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
-		ChromosomeName chromName = null;
 		String chromBasedMapabilityFileName = null;
 
 		try {
-
-			for (int i = 1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++) {
-				switch (i) {
-					case 1:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR1_FILE;
-						chromName = ChromosomeName.CHROMOSOME1;
-						break;
-					case 2:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR2_FILE;
-						chromName = ChromosomeName.CHROMOSOME2;
-						break;
-					case 3:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR3_FILE;
-						chromName = ChromosomeName.CHROMOSOME3;
-						break;
-					case 4:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR4_FILE;
-						chromName = ChromosomeName.CHROMOSOME4;
-						break;
-					case 5:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR5_FILE;
-						chromName = ChromosomeName.CHROMOSOME5;
-						break;
-					case 6:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR6_FILE;
-						chromName = ChromosomeName.CHROMOSOME6;
-						break;
-					case 7:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR7_FILE;
-						chromName = ChromosomeName.CHROMOSOME7;
-						break;
-					case 8:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR8_FILE;
-						chromName = ChromosomeName.CHROMOSOME8;
-						break;
-					case 9:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR9_FILE;
-						chromName = ChromosomeName.CHROMOSOME9;
-						break;
-					case 10:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR10_FILE;
-						chromName = ChromosomeName.CHROMOSOME10;
-						break;
-					case 11:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR11_FILE;
-						chromName = ChromosomeName.CHROMOSOME11;
-						break;
-					case 12:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR12_FILE;
-						chromName = ChromosomeName.CHROMOSOME12;
-						break;
-					case 13:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR13_FILE;
-						chromName = ChromosomeName.CHROMOSOME13;
-						break;
-					case 14:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR14_FILE;
-						chromName = ChromosomeName.CHROMOSOME14;
-						break;
-					case 15:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR15_FILE;
-						chromName = ChromosomeName.CHROMOSOME15;
-						break;
-					case 16:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR16_FILE;
-						chromName = ChromosomeName.CHROMOSOME16;
-						break;
-					case 17:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR17_FILE;
-						chromName = ChromosomeName.CHROMOSOME17;
-						break;
-					case 18:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR18_FILE;
-						chromName = ChromosomeName.CHROMOSOME18;
-						break;
-					case 19:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR19_FILE;
-						chromName = ChromosomeName.CHROMOSOME19;
-						break;
-					case 20:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR20_FILE;
-						chromName = ChromosomeName.CHROMOSOME20;
-						break;
-					case 21:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR21_FILE;
-						chromName = ChromosomeName.CHROMOSOME21;
-						break;
-					case 22:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHR22_FILE;
-						chromName = ChromosomeName.CHROMOSOME22;
-						break;
-					case 23:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHRX_FILE;
-						chromName = ChromosomeName.CHROMOSOMEX;
-						break;
-					case 24:
-						chromBasedMapabilityFileName = Commons.MAPABILITY_HG19_CHRY_FILE;
-						chromName = ChromosomeName.CHROMOSOMEY;
-						break;
-
-				// todo
-				}// end of switch
-
+			
+			for(ChromosomeName chrName: ChromosomeName.values()){
+				
+				chromBasedMapabilityFileName =  Commons.MAPABILITY + System.getProperty("file.separator") + chrName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
 				fileWriter = FileOperations.createFileWriter(dataFolder,chromBasedMapabilityFileName);
 				bufferedWriter = new BufferedWriter(fileWriter);
-				chromName2BufferedWriterHashMap.put(chromName, bufferedWriter);
+				chromName2BufferedWriterMap.put(chrName.getChromosomeName(), bufferedWriter);
+				
+			}//End of For
 
-			}// end of for
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void closeChromBasedBufferedWriters(Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap) {
+	public static void closeChromBasedBufferedWriters(TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
 		BufferedWriter bufferedWriter;
 
-		for (Map.Entry<ChromosomeName, BufferedWriter> entry : chromName2BufferedWriterHashMap.entrySet()) {
-			bufferedWriter = entry.getValue();
+		for (TIntObjectIterator<BufferedWriter> it= chromName2BufferedWriterMap.iterator();it.hasNext();) {
+			
+			it.advance();
+			
+			bufferedWriter = it.value();
+			
+			//Close bufferedWriter
 			try {
 				bufferedWriter.close();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}//End of for
 
 	}
 
@@ -235,11 +145,12 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
 		
-		Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap = new HashMap<ChromosomeName, BufferedWriter>();
+		TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
+		//Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap = new HashMap<ChromosomeName, BufferedWriter>();
 
-		createChromBasedBufferedWriters(dataFolder,chromName2BufferedWriterHashMap);
-		readMapabilityFileWriteChromBasedMapabilityFiles(chromName2BufferedWriterHashMap);
-		closeChromBasedBufferedWriters(chromName2BufferedWriterHashMap);
+		createChromBasedBufferedWriters(dataFolder,chromName2BufferedWriterMap);
+		readMapabilityFileWriteChromBasedMapabilityFiles(chromName2BufferedWriterMap);
+		closeChromBasedBufferedWriters(chromName2BufferedWriterMap);
 
 	}
 

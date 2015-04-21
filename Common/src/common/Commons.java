@@ -742,6 +742,9 @@ public class Commons {
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_100 = 100;
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_1000 = 1000;
 	
+	//GC ISOCHORES Moving Window Size is 100 KB
+	public static final int GC_ISOCHORE_MOVING_WINDOW_SIZE = 100000;
+	
 
 	// Empirical P Value
 	public static final float GC_THRESHOLD_LOWER_VALUE = (float) 0.01;
