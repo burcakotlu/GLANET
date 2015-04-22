@@ -12,11 +12,12 @@ import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.GivenInputDataType;
+import enumtypes.IsochoreFamily;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
-import gc.ChromosomeBasedGCTroveList;
 import gc.ChromosomeBasedGCIntervalTree;
+import gc.ChromosomeBasedGCTroveList;
 import generate.randomdata.RandomDataGenerator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
@@ -41,6 +42,7 @@ import gnu.trove.map.hash.TLongObjectHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.Interval;
 import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
@@ -101,8 +103,15 @@ public class Enrichment {
 		
 		
 		private final TByteList gcByteList;
-		
 		private final IntervalTree gcIntervalTree;
+		private final IntervalTree gcIsochoreIntervalTree;
+		
+		private final List<Interval> gcIsochoreFamilyL1Pool;
+		private final List<Interval> gcIsochoreFamilyL2Pool;
+		private final List<Interval> gcIsochoreFamilyH1Pool;
+		private final List<Interval> gcIsochoreFamilyH2Pool;
+		private final List<Interval> gcIsochoreFamilyH3Pool;
+
 		
 		//private final IntervalTree mapabilityIntervalTree;
 		
@@ -126,6 +135,12 @@ public class Enrichment {
 				GivenInputDataType givenInputsSNPsorIntervals,
 				TByteList gcByteList,
 				IntervalTree gcIntervaTree,
+				IntervalTree gcIsochoreIntervalTree,
+				List<Interval> gcIsochoreFamilyL1Pool,
+				List<Interval> gcIsochoreFamilyL2Pool,
+				List<Interval> gcIsochoreFamilyH1Pool,
+				List<Interval> gcIsochoreFamilyH2Pool,
+				List<Interval> gcIsochoreFamilyH3Pool,
 				//IntervalTree mapabilityIntervalTree
 				TIntList mapabilityChromosomePositionList,
 				TShortList mapabilityShortValueList
@@ -153,6 +168,13 @@ public class Enrichment {
 			this.gcByteList = gcByteList;
 			//For Interval Data
 			this.gcIntervalTree = gcIntervaTree;
+			this.gcIsochoreIntervalTree = gcIsochoreIntervalTree;
+			
+			this.gcIsochoreFamilyL1Pool = gcIsochoreFamilyL1Pool;
+			this.gcIsochoreFamilyL2Pool = gcIsochoreFamilyL2Pool;
+			this.gcIsochoreFamilyH1Pool = gcIsochoreFamilyH1Pool;
+			this.gcIsochoreFamilyH2Pool = gcIsochoreFamilyH2Pool;
+			this.gcIsochoreFamilyH3Pool = gcIsochoreFamilyH3Pool;
 			
 			
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
@@ -174,8 +196,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_GENERATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
-				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData left = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, lowIndex, middleIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree,gcIsochoreIntervalTree, gcIsochoreFamilyL1Pool,gcIsochoreFamilyL2Pool,gcIsochoreFamilyH1Pool,gcIsochoreFamilyH2Pool,gcIsochoreFamilyH3Pool,mapabilityChromosomePositionList,mapabilityShortValueList);
+				GenerateRandomData right = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBasedOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, middleIndex, highIndex, permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree,gcIsochoreIntervalTree, gcIsochoreFamilyL1Pool,gcIsochoreFamilyL2Pool,gcIsochoreFamilyH1Pool,gcIsochoreFamilyH2Pool,gcIsochoreFamilyH3Pool,mapabilityChromosomePositionList,mapabilityShortValueList);
 				left.fork();
 				rightRandomlyGeneratedData = right.compute();
 				leftRandomlyGeneratedData = left.join();
@@ -195,7 +217,23 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(givenInputsSNPsorIntervals,gcByteList,gcIntervalTree,mapabilityChromosomePositionList,mapabilityShortValueList,chromSize,chromName, chromosomeBasedOriginalInputLines, ThreadLocalRandom.current(), generateRandomDataMode));
+					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(
+									givenInputsSNPsorIntervals,
+									gcByteList,
+									gcIntervalTree,
+									gcIsochoreIntervalTree,
+									gcIsochoreFamilyL1Pool,
+									gcIsochoreFamilyL2Pool,
+									gcIsochoreFamilyH1Pool,
+									gcIsochoreFamilyH2Pool,
+									gcIsochoreFamilyH3Pool,
+									mapabilityChromosomePositionList,
+									mapabilityShortValueList,
+									chromSize,
+									chromName, 
+									chromosomeBasedOriginalInputLines, 
+									ThreadLocalRandom.current(), 
+									generateRandomDataMode));
 
 					// Write Generated Random Data
 					if (writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()) {
@@ -1812,6 +1850,15 @@ public class Enrichment {
 		
 		//Will be used for Interval Data
 		IntervalTree gcIntervalTree = null;
+		
+		//Will be used for Interval Data
+		IntervalTree gcIsochoreIntervalTree = null;
+		
+		List<Interval> gcIsochoreFamilyL1Pool = null;
+		List<Interval> gcIsochoreFamilyL2Pool = null;
+		List<Interval> gcIsochoreFamilyH1Pool = null;
+		List<Interval> gcIsochoreFamilyH2Pool = null;
+		List<Interval> gcIsochoreFamilyH3Pool = null;
 		/************************************************/
 		/*********************GC*************************/
 		/************************************************/
@@ -1927,6 +1974,17 @@ public class Enrichment {
 				else{
 					//GCIntervalTree
 					gcIntervalTree = new IntervalTree();
+					
+					//GCIsochoreIntervalTree
+					gcIsochoreIntervalTree = new IntervalTree();
+					
+					
+					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
+					
 				}
 				/************************************************/
 				/*********************GC*************************/
@@ -1979,6 +2037,26 @@ public class Enrichment {
 					else{
 						//GC IntervalTree
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
+						
+						//GC Isochore IntervalTree
+						ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
+						
+						//GC Isochore Family L1 Pool
+						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
+						
+						//GC Isochore Family L2 Pool
+						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L2, gcIsochoreFamilyL2Pool);
+						
+						//GC Isochore Family H1 Pool
+						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H1, gcIsochoreFamilyH1Pool);
+						
+						//GC Isochore Family H2 Pool
+						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H2, gcIsochoreFamilyH2Pool);
+						
+						//GC Isochore Family H3 Pool
+						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H3, gcIsochoreFamilyH3Pool);
+						
+						
 					}
 					/************************************************/
 					/*********************GC*************************/
@@ -2026,7 +2104,7 @@ public class Enrichment {
 				startTimeGenerateRandomData = System.currentTimeMillis();
 				
 				
-				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree, mapabilityChromosomePositionList,mapabilityShortValueList);
+				generateRandomData = new GenerateRandomData(outputFolder, chromSize, chromName, chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode, Commons.ZERO, permutationNumberList.size(), permutationNumberList,givenInputsSNPsorIntervals,gcByteList,gcIntervalTree,gcIsochoreIntervalTree, gcIsochoreFamilyL1Pool,gcIsochoreFamilyL2Pool,gcIsochoreFamilyH1Pool,gcIsochoreFamilyH2Pool,gcIsochoreFamilyH3Pool,mapabilityChromosomePositionList,mapabilityShortValueList);
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 				
 				
@@ -2081,6 +2159,13 @@ public class Enrichment {
 				/***************************************** FREE MEMORY STARTS *****************************************/
 				gcByteList = null;
 				gcIntervalTree = null;
+				gcIsochoreIntervalTree = null;
+				
+				gcIsochoreFamilyL1Pool = null;
+				gcIsochoreFamilyL2Pool = null;
+				gcIsochoreFamilyH1Pool = null;
+				gcIsochoreFamilyH2Pool = null;
+				gcIsochoreFamilyH3Pool = null;
 				
 				mapabilityChromosomePositionList = null;
 				mapabilityShortValueList = null;

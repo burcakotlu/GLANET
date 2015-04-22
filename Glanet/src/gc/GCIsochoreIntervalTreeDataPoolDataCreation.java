@@ -26,9 +26,9 @@ import enumtypes.IsochoreFamily;
  * @project Glanet 
  *
  */
-public class GCISOCHORECreation {
+public class GCIsochoreIntervalTreeDataPoolDataCreation {
 	
-	final static Logger logger = Logger.getLogger(GCISOCHORECreation.class);
+	final static Logger logger = Logger.getLogger(GCIsochoreIntervalTreeDataPoolDataCreation.class);
 	
 	public static IsochoreFamily calculateIsochoreFamily(float gcPercentage){
 		
@@ -53,20 +53,50 @@ public class GCISOCHORECreation {
 	}
 	
 	
+	@SuppressWarnings("resource")
 	public static void createGCIsochoreFile(String dataFolder,ChromosomeName chrName){
 		
 		//Input File
 		String gcFastaFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_FILE_END;
 		
-		//Output File
-		String gcIsochoreFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHORES_FILE_END;
+		//Output File : Isochore Interval Data 
+		String gcIsochoreFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_INTERVAL_TREE_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHORES_FILE_END;
 		
+		//Output File : Isochore L1 Pool Data 
+		String gcIsochoreFamilyL1PoolFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_FAMILY_POOL_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHOREFAMILY_L1_POOL_FILE_END;
+
+		//Output File : Isochore L2 Pool Data 
+		String gcIsochoreFamilyL2PoolFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_FAMILY_POOL_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHOREFAMILY_L2_POOL_FILE_END;
+		
+		//Output File : Isochore H1 Pool Data 
+		String gcIsochoreFamilyH1PoolFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_FAMILY_POOL_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHOREFAMILY_H1_POOL_FILE_END;
+		
+		//Output File : Isochore H2 Pool Data 
+		String gcIsochoreFamilyH2PoolFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_FAMILY_POOL_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHOREFAMILY_H2_POOL_FILE_END;
+		
+		//Output File : Isochore H3 Pool Data 
+		String gcIsochoreFamilyH3PoolFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_ISOCHORE_FAMILY_POOL_DATA +  System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_ISOCHOREFAMILY_H3_POOL_FILE_END;
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
-		
+
+		FileWriter fileWriterL1;
+		FileWriter fileWriterL2;
+		FileWriter fileWriterH1;
+		FileWriter fileWriterH2;
+		FileWriter fileWriterH3;
+
+		BufferedWriter bufferedWriterL1;
+		BufferedWriter bufferedWriterL2;
+		BufferedWriter bufferedWriterH1;
+		BufferedWriter bufferedWriterH2;
+		BufferedWriter bufferedWriterH3;
+
+		BufferedWriter bufferedWriterPool = null;
+				
 		int numberofCharactersRead;
 
 		char[] cbuf = new char[10000];
@@ -93,9 +123,26 @@ public class GCISOCHORECreation {
 			fileReader = FileOperations.createFileReader(dataFolder + gcFastaFileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
+			//GC Isochore Interval Tree File
 			fileWriter = FileOperations.createFileWriter(dataFolder + gcIsochoreFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 
+			//GC Isochore Pool File
+			fileWriterL1 = FileOperations.createFileWriter(dataFolder + gcIsochoreFamilyL1PoolFileName);
+			bufferedWriterL1 = new BufferedWriter(fileWriterL1);
+
+			fileWriterL2 = FileOperations.createFileWriter(dataFolder + gcIsochoreFamilyL2PoolFileName);
+			bufferedWriterL2 = new BufferedWriter(fileWriterL2);
+
+			fileWriterH1 = FileOperations.createFileWriter(dataFolder + gcIsochoreFamilyH1PoolFileName);
+			bufferedWriterH1 = new BufferedWriter(fileWriterH1);
+
+			fileWriterH2 = FileOperations.createFileWriter(dataFolder + gcIsochoreFamilyH2PoolFileName);
+			bufferedWriterH2 = new BufferedWriter(fileWriterH2);
+
+			fileWriterH3 = FileOperations.createFileWriter(dataFolder + gcIsochoreFamilyH3PoolFileName);
+			bufferedWriterH3 = new BufferedWriter(fileWriterH3);
+			
 			// skip first informative line of fasta file
 			// >chr22
 			strLine = bufferedReader.readLine();
@@ -107,9 +154,7 @@ public class GCISOCHORECreation {
 
 			
 			//Write header file
-			bufferedWriter.write("#" + "OBasedStart" + "\t" + "OBasedEnd" + "\t"  + "intervalLength" + "\t" + "numberofGCsInTheInterval" + "\t" +  "GCContentPercentage" + "\t" + "Isochore Family" + System.getProperty("line.separator"));
-
-			
+			bufferedWriter.write("#" + "OBasedStart" + "\t" + "OBasedEnd" + "\t"  + "numberofGCsInTheInterval" + "\t" +  "GCContentPercentage" + "\t" + "Isochore Family" + System.getProperty("line.separator"));
 			
 			/*****************************************************************/
 			while ((numberofCharactersRead = bufferedReader.read(cbuf)) != -1) {
@@ -142,8 +187,26 @@ public class GCISOCHORECreation {
 						
 						isochoreFamily = calculateIsochoreFamily(gcPercentage*100);
 						
-						//Write to File
-						bufferedWriter.write( (nthBase-standardGCIntervalLength) + "\t" + (nthBase-1) + "\t"  + standardGCIntervalLength + "\t"  + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
+						switch(isochoreFamily) {
+						
+							case L1: 	bufferedWriterPool = bufferedWriterL1; 
+										break;
+							case L2: 	bufferedWriterPool = bufferedWriterL2;
+										break;
+							case H1: 	bufferedWriterPool = bufferedWriterH1;
+										break;
+							case H2: 	bufferedWriterPool = bufferedWriterH2;
+										break;
+							case H3:	bufferedWriterPool = bufferedWriterH3;
+										break;
+						}//End of switch
+						
+						
+						//Write to Isochore Pool File
+						bufferedWriterPool.write((nthBase-standardGCIntervalLength) + "\t" + (nthBase-1) + System.getProperty("line.separator"));
+						
+						//Write to Isochore Interval Tree File
+						bufferedWriter.write((nthBase-standardGCIntervalLength) + "\t" + (nthBase-1)  + "\t"  + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
 
 						//Set numberofGCs to zero 
 						numberofGCsInStandardGCIntervalLength = 0;
@@ -172,10 +235,29 @@ public class GCISOCHORECreation {
 				 
 				isochoreFamily = calculateIsochoreFamily(gcPercentage*100);
 				
-				//Write to File
-				bufferedWriter.write( (nthBase-lengthOfLastInterval) + "\t" + (nthBase-1) + "\t"  + lengthOfLastInterval + "\t" + numberofGCsInStandardGCIntervalLength +  "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
+				switch(isochoreFamily) {
 				
-			}
+					case L1: 	bufferedWriterPool = bufferedWriterL1; 
+								break;
+					case L2: 	bufferedWriterPool = bufferedWriterL2;
+								break;
+					case H1: 	bufferedWriterPool = bufferedWriterH1;
+								break;
+					case H2: 	bufferedWriterPool = bufferedWriterH2;
+								break;
+					case H3:	bufferedWriterPool = bufferedWriterH3;
+								break;
+				}//End of switch
+			
+			
+				//Write to Isochore Pool File
+				bufferedWriterPool.write((nthBase-lengthOfLastInterval) + "\t" + (nthBase-1)   + System.getProperty("line.separator"));
+			
+				
+				//Write to Isochore Interval Tree File
+				bufferedWriter.write( (nthBase-lengthOfLastInterval) + "\t" + (nthBase-1) + "\t" + numberofGCsInStandardGCIntervalLength +  "\t" + pf.format(gcPercentage) + "\t" + isochoreFamily + System.getProperty("line.separator"));
+				
+			}//End of IF there is a last interval
 			
 			if ((lengthOfLastInterval==0) && (numberofGCsInStandardGCIntervalLength>0)){
 				System.out.println("There is a situation1!");
@@ -189,6 +271,12 @@ public class GCISOCHORECreation {
 			//Close BufferedReader and BufferedWriter
 			bufferedReader.close();
 			bufferedWriter.close();
+			
+			bufferedWriterL1.close();
+			bufferedWriterL2.close();
+			bufferedWriterH1.close();
+			bufferedWriterH2.close();
+			bufferedWriterH3.close();
 			
 			System.out.println(chrName.convertEnumtoString());
 			System.out.println("nthBase: " + nthBase);

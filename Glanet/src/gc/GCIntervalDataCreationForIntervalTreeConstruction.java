@@ -33,8 +33,9 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 	//In this way number of nodes in the GC interval tree will be minimized
 	public static void createGCIntervalDataConsecutiveZerosAreMergedFile(String dataFolder, ChromosomeName  chrName){
 		
-		String gcIntervalDataFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_END;
-		String gcIntervalDataConsecutiveZerosMergedFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
+		String gcIntervalDataFileName =   Commons.GC + System.getProperty("file.separator") +Commons.GC_INTERVAL_TREE_DATA + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_END;
+		String gcIntervalDataConsecutiveZerosMergedFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
+		
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -178,7 +179,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 	public static void createGCIntervalDataFile(String dataFolder, ChromosomeName  chrName){
 		
 		String gcFastaFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_FILE_END;
-		String gcIntervalDataFileName =   Commons.GC + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_END;
+		String gcIntervalDataFileName =   Commons.GC + System.getProperty("file.separator") + Commons.GC_INTERVAL_TREE_DATA  + System.getProperty("file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_END;
 		
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -200,6 +201,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 		int totalNumberofGCs = 0;
 		
 		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_100;
+		
 		
 	
 		try {

@@ -700,8 +700,18 @@ public class Commons {
 	
 	
 	// GC
+	public static final String GC_INTERVAL_TREE_DATA = "IntervalTreeData";
+	public static final String GC_ISOCHORE_INTERVAL_TREE_DATA = "IsochoreIntervalTreeData";
+	public static final String GC_ISOCHORE_FAMILY_POOL_DATA = "IsochoreFamilyPoolData";
+
 	public static final String GC_FILE_END = ".fa";
 	public static final String GC_ISOCHORES_FILE_END = "_gc_isochores.txt";
+	
+	public static final String GC_ISOCHOREFAMILY_L1_POOL_FILE_END = "_gc_isochores_L1_pool.txt";
+	public static final String GC_ISOCHOREFAMILY_L2_POOL_FILE_END = "_gc_isochores_L2_pool.txt";
+	public static final String GC_ISOCHOREFAMILY_H1_POOL_FILE_END = "_gc_isochores_H1_pool.txt";
+	public static final String GC_ISOCHOREFAMILY_H2_POOL_FILE_END = "_gc_isochores_H2_pool.txt";
+	public static final String GC_ISOCHOREFAMILY_H3_POOL_FILE_END = "_gc_isochores_H3_pool.txt";
 	
 	public static final String GC_INTERVALS_FILE_END = "_gc_intervals.txt";
 	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END = "_gc_intervals_consecutive_zeros_merged.txt";

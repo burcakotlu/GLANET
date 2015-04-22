@@ -1030,6 +1030,36 @@ public class IntervalTree {
 		return mapability + mapabilityLeft + mapabilityRight;
 	}
 	
+	
+	//Find the number of hits while finding overlaps in GCIsochoreIntervalTree
+	public List<GCIsochoreIntervalTreeNode>  findAllOverlappingGCIsochoreIntervals(IntervalTreeNode node,InputLineMinimal interval){
+		
+		List<GCIsochoreIntervalTreeNode> hits = new ArrayList<GCIsochoreIntervalTreeNode>(); 
+		
+		GCIsochoreIntervalTreeNode castedNode = null;
+		
+		if (node instanceof GCIsochoreIntervalTreeNode) {
+			castedNode = (GCIsochoreIntervalTreeNode) node;
+		}
+		
+		if (overlaps(castedNode.getLow(),castedNode.getHigh(),interval.getLow(),interval.getHigh())){
+			hits.add(castedNode);
+		}
+		
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			hits.addAll(findAllOverlappingGCIsochoreIntervals(node.getLeft(),interval));
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			hits.addAll(findAllOverlappingGCIsochoreIntervals(node.getRight(),interval));
+
+		}
+		
+		return hits;
+		
+		
+	}
+	
 	// There can be gaps in the gcIntervalTree
 	public float findAllOverlappingGCIntervals(IntervalTreeNode node, InputLineMinimal interval) {
 		
@@ -1038,7 +1068,6 @@ public class IntervalTree {
 		float gcContent = 0f;
 		float gcContentLeft = 0f;
 		float gcContentRight = 0f;
-		
 		
 		
 		GCIntervalTreeNode castedNode = null;

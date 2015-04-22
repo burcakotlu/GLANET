@@ -8,10 +8,8 @@
  */
 package generate.randomdata;
 
-import gc.GC;
-import gnu.trove.list.TByteList;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.TShortList;
+import intervaltree.GCIsochoreIntervalTreeNode;
+import intervaltree.Interval;
 import intervaltree.IntervalTree;
 
 import java.util.ArrayList;
@@ -23,11 +21,17 @@ import mapability.Mapability;
 import org.apache.log4j.Logger;
 
 import common.Commons;
+
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GivenInputDataType;
 //import gnu.trove.list.TShortList;
+import enumtypes.IsochoreFamily;
+import gc.GC;
+import gnu.trove.list.TByteList;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
 
 public class RandomDataGenerator {
 	
@@ -38,6 +42,12 @@ public class RandomDataGenerator {
 			GivenInputDataType  givenInputsSNPsorIntervals,
 			TByteList gcByteList, 
 			IntervalTree gcIntervalTree,
+			IntervalTree gcIsochoreIntervalTree,
+			List<Interval> gcIsochoreFamilyL1Pool,
+			List<Interval> gcIsochoreFamilyL2Pool,
+			List<Interval> gcIsochoreFamilyH1Pool,
+			List<Interval> gcIsochoreFamilyH2Pool,
+			List<Interval> gcIsochoreFamilyH3Pool,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			//TByteList mapabilityByteValueList,
@@ -57,6 +67,7 @@ public class RandomDataGenerator {
 		int length;
 
 		float originalInputLineGC;
+		IsochoreFamily originalInputLineIsochoreFamily = null;
 		float randomlyGeneratedInputLineGC;
 
 		float originalInputLineMapability;
@@ -135,6 +146,12 @@ public class RandomDataGenerator {
 				else {
 					//GCIntervalTree Way
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree);
+					
+					List<GCIsochoreIntervalTreeNode> hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
+					
+					if (hits.size()==1){
+						originalInputLineIsochoreFamily= hits.get(0).getIsochoreFamily();
+					}
 				}
 				
 //				//debug start

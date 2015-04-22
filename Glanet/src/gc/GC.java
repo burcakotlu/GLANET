@@ -79,6 +79,19 @@ public class GC {
 		return gcContent;
 	}
 	
+	
+	//Calculate the GC of the given interval  using GCIsochoreIntervalTree
+	//In case of length of the given interval is greater than 100KB
+	public static float calculateGCofIntervalUsingIsochoreIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIsochoreIntervalTree){
+		Float gcContent = 0f;
+		
+		gcContent  = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(), givenInputLine);
+		
+		gcContent = gcContent / (givenInputLine.getHigh() - givenInputLine.getLow() +1);
+		
+		return gcContent;
+	}
+	
 	//new starts
 	public static float calculateGCofIntervalUsingTroveList(InputLineMinimal givenInputLine, TByteList gcByteList) {
 		
