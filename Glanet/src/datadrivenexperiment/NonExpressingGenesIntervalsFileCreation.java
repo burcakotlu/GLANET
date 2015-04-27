@@ -164,13 +164,13 @@ public class NonExpressingGenesIntervalsFileCreation {
 						
 						switch(strand){
 						
-							case '+': 	minusOneHundredFromTSS = low-100;  
-										plusFiveHundredFromTSS = low+500; 
+							case '+': 	minusOneHundredFromTSS = low-500;  
+										plusFiveHundredFromTSS = low+100; 
 										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + minusOneHundredFromTSS +"\t" + plusFiveHundredFromTSS + "\t" + geneSymbol + System.getProperty("line.separator"));
 										break;
 										
-							case '-': 	minusOneHundredFromTSS = high+100;  
-										plusFiveHundredFromTSS = high-500; 
+							case '-': 	minusOneHundredFromTSS = high+500;  
+										plusFiveHundredFromTSS = high-100; 
 										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + plusFiveHundredFromTSS +"\t" + minusOneHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator"));
 										break;
 							

@@ -150,7 +150,7 @@ public class GC {
 		if ((byteListStartByte > byteListEndByte) ||
 				( (byteListStartByte == byteListEndByte) && (byteListStartBit> byteListEndBit))){
 			
-			System.out.println("There is a situation");
+			logger.error("There is a situation");
 		}
 		//Debug purposes ends
 		
