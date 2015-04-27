@@ -211,8 +211,7 @@ public class Commons {
 	public static final String ANNOTATION_IN_PARALEL = "ANNOTATION_IN_PARALEL";
 	public static final String ANNOTATION_SEQUENTIALLY = "ANNOTATION_SEQUENTIALLY";
 	
-	//old  EnumType Enrichment Type to be deleted
-	//new EnumType Annotation Type
+	//EnumType Annotation Type
 	public static final String DO_DNASE_ANNOTATION = "DO_DNASE_ANNOTATION";
 	public static final String DO_NOT_DNASE_ANNOTATION = "DO_NOT_DNASE_ANNOTATION";
 	
@@ -280,6 +279,14 @@ public class Commons {
 	public static final String H1 = "H1";
 	public static final String H2 = "H2";
 	public static final String H3 = "H3";
+	
+	//EnumType CalculateGC
+	public static final String CALCULATE_GC_USING_GC_BYTE_LIST = "CALCULATE_GC_USING_GC_BYTE_LIST";
+	public static final String CALCULATE_GC_USING_GC_INTERVAL_TREE = "CALCULATE_GC_USING_GC_INTERVAL_TREE";
+	public static final String CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE = "CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE";
+	
+	public static final int VERY_SHORT_INTERVAL_LENGTH = 10;
+	public static final int SHORT_INTERVAL_LENGTH = 100;
 	
 	/*******************************************************************************************/
 	/************************ ChromosomeBased Given Input Files starts ***************************/

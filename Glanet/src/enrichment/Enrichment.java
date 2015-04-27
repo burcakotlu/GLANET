@@ -217,7 +217,8 @@ public class Enrichment {
 				for (int i = lowIndex; i < highIndex; i++) {
 					permutationNumber = permutationNumberList.get(i);
 
-					randomlyGeneratedDataMap.put(permutationNumber, RandomDataGenerator.generateRandomData(
+					randomlyGeneratedDataMap.put(permutationNumber, 
+							RandomDataGenerator.generateRandomData(
 									givenInputsSNPsorIntervals,
 									gcByteList,
 									gcIntervalTree,
@@ -1729,6 +1730,69 @@ public class Enrichment {
 		mapabilityFloatArray = null;
 	}
 
+	
+	public static boolean containsIntervalBetween(List<InputLineMinimal> inputLines,int intervalLengthLow, int intervalLengthHigh){
+		
+		int length;
+		boolean contains = false;
+		
+		for(int i = 0; i<inputLines.size(); i++){
+			
+			length = inputLines.get(i).getHigh() - inputLines.get(i).getLow() +1;
+			
+			if (length>intervalLengthLow && length<=intervalLengthHigh){
+				contains = true;
+				break;
+			}
+			
+		}//End of for 
+		
+		return contains;
+		
+	}
+
+	public static boolean containsIntervalLessThanOrEqualTo(List<InputLineMinimal> inputLines,int intervalLength){
+		
+		int length;
+		boolean contains = false;
+		
+		for(int i = 0; i<inputLines.size(); i++){
+			
+			length = inputLines.get(i).getHigh() - inputLines.get(i).getLow() +1;
+			
+			if (length<=intervalLength){
+				contains = true;
+				break;
+			}
+			
+		}//End of for 
+		
+		return contains;
+		
+	}
+	
+	
+	public static boolean containsIntervalGreaterThan(List<InputLineMinimal> inputLines,int intervalLength){
+		
+		int length;
+		boolean contains = false;
+		
+		for(int i = 0; i<inputLines.size(); i++){
+			
+			length = inputLines.get(i).getHigh() - inputLines.get(i).getLow() +1;
+			
+			if (length>intervalLength){
+				contains = true;
+				break;
+			}
+			
+		}//End of for 
+		
+		return contains;
+		
+	}
+
+	
 	// NEW FUNCIONALITY ADDED
 	// First Generate random data concurrently
 	// Then annotate permutations concurrently
@@ -1960,32 +2024,29 @@ public class Enrichment {
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
 
 			if (chromosomeBaseOriginalInputLines != null) {
+				
+				
 
 				
 				/************************************************/
 				/*********************GC*************************/
 				/************************************************/
-				//For SNP Data
-				if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
-					//GCByteList Way
-					gcByteList = new TByteArrayList();
-				}
+				//Fill GCByteList if givenData contains interval of length <= 10
+				gcByteList = new TByteArrayList();
+				
 				//For Interval Data
-				else{
-					//GCIntervalTree
-					gcIntervalTree = new IntervalTree();
-					
-					//GCIsochoreIntervalTree
-					gcIsochoreIntervalTree = new IntervalTree();
-					
-					
-					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
-					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
-					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
-					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
-					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
-					
-				}
+				//Fill GCIntervalTree if givenData contains interval of length >10 and <= 100
+				gcIntervalTree = new IntervalTree();
+				
+				//Fill GCIsochoreIntervalTree if givenData contains interval of length >100
+				gcIsochoreIntervalTree = new IntervalTree();
+				
+				//Always fill GCIsochorePools
+				gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
+				gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
+				gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
+				gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
+				gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
 				/************************************************/
 				/*********************GC*************************/
 				/************************************************/
@@ -2027,37 +2088,38 @@ public class Enrichment {
 					/************************************************/
 					//GC Old way
 					//gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
-					
-					//For SNP Data
-					if (givenInputsSNPsorIntervals.isGivenInputDataSNP()){
-						//GCByteList
+										
+					//GCByteList
+					if (containsIntervalLessThanOrEqualTo(chromosomeBaseOriginalInputLines,Commons.VERY_SHORT_INTERVAL_LENGTH)){
 						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 					}
-					//For Interval Data
-					else{
-						//GC IntervalTree
+					
+					//GC IntervalTree
+					if (containsIntervalBetween(chromosomeBaseOriginalInputLines,Commons.VERY_SHORT_INTERVAL_LENGTH, Commons.SHORT_INTERVAL_LENGTH)){
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
-						
-						//GC Isochore IntervalTree
-						ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
-						
-						//GC Isochore Family L1 Pool
-						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
-						
-						//GC Isochore Family L2 Pool
-						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L2, gcIsochoreFamilyL2Pool);
-						
-						//GC Isochore Family H1 Pool
-						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H1, gcIsochoreFamilyH1Pool);
-						
-						//GC Isochore Family H2 Pool
-						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H2, gcIsochoreFamilyH2Pool);
-						
-						//GC Isochore Family H3 Pool
-						ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H3, gcIsochoreFamilyH3Pool);
-						
-						
 					}
+					
+					//GC Isochore IntervalTree
+					if (containsIntervalGreaterThan(chromosomeBaseOriginalInputLines,Commons.SHORT_INTERVAL_LENGTH)){
+						ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
+					}
+					
+					
+					//Always fill Iscohore Family Pools
+					//GC Isochore Family L1 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
+					
+					//GC Isochore Family L2 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L2, gcIsochoreFamilyL2Pool);
+					
+					//GC Isochore Family H1 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H1, gcIsochoreFamilyH1Pool);
+					
+					//GC Isochore Family H2 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H2, gcIsochoreFamilyH2Pool);
+					
+					//GC Isochore Family H3 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H3, gcIsochoreFamilyH3Pool);
 					/************************************************/
 					/*********************GC*************************/
 					/************************************************/

@@ -10,6 +10,7 @@
  */
 package gc;
 
+import gnu.trove.list.TByteList;
 import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
@@ -20,13 +21,14 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
-import gnu.trove.list.TByteList;
 
 public class GC {
 	
@@ -83,6 +85,7 @@ public class GC {
 	//Calculate the GC of the given interval  using GCIsochoreIntervalTree
 	//In case of length of the given interval is greater than 100KB
 	public static float calculateGCofIntervalUsingIsochoreIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIsochoreIntervalTree){
+		
 		Float gcContent = 0f;
 		
 		gcContent  = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(), givenInputLine);
@@ -222,6 +225,7 @@ public class GC {
 		}
 		//Not a valid input
 		else {
+			logger.error("byteListStartByte: " + byteListStartByte + "\t"  +  "byteListEndByte: " + byteListEndByte +  "\t" + "gcByteList.size(): "+ gcByteList.size());
 			logger.error("Input line's high exceeds hg19 chromsome size");
 		}
 

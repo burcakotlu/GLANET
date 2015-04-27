@@ -29,7 +29,21 @@ public enum IsochoreFamily {
 	    	return isochoreFamily;
 	}
 
-	
+	public static IsochoreFamily convertInttoEnum(int  isochoreFamily){
+    	
+    	if (1 == isochoreFamily){
+    		return L1;
+    	}else if  (2 == isochoreFamily){
+    		return L2;
+    	}if (3 == isochoreFamily){
+    		return H1;
+    	}else if  (4 == isochoreFamily){
+    		return H2;
+    	}else if  (5 == isochoreFamily){
+    		return H3;
+    	}else     	
+    		return null;
+    }
 	
 	public static IsochoreFamily convertStringtoEnum(String isochoreFamily){
     	
@@ -42,7 +56,7 @@ public enum IsochoreFamily {
     	}else if  (Commons.H2.equals(isochoreFamily)){
     		return H2;
     	}else if  (Commons.H3.equals(isochoreFamily)){
-    		return H2;
+    		return H3;
     	}else     	
     		return null;
     }

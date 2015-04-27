@@ -70,6 +70,7 @@ public class ChromosomeBasedGCIntervalTree {
 		int highZeroBased;
 		
 		//example line
+		//low and high are zeroBased and they are both inclusive
 		//244500000	244599999
 		
 		try {
@@ -140,13 +141,17 @@ public class ChromosomeBasedGCIntervalTree {
 			bufferedReader = new BufferedReader(fileReader);
 
 		
+			//skip header line
+			//#OBasedStart	OBasedEnd	numberofGCsInTheInterval	GCContentPercentage	Isochore Family
+			strLine = bufferedReader.readLine();
+			
+			
 			//example line
 			//0Based End Inclusive Coordinates
 			//low	high	numberofGCs
 			//500000	599999	31353	31.35%	L1
 
 
-			
 			/*****************************************************************/
 			while ((strLine = bufferedReader.readLine()) != null) {
 				
@@ -163,14 +168,16 @@ public class ChromosomeBasedGCIntervalTree {
 				//Create the Interval Tree Node 
 				//Insert the created node into the interval tree
 				//if numberofGCs is greater than 0
-				if (numberofGCs>0){
-					
-					//Create new interval tree node
-					node = new GCIsochoreIntervalTreeNode(lowZeroBased, highZeroBased,numberofGCs,isochoreFamily);	
-					
-					//Add to the interval tree
-					gcIsochoreIntervalTree.intervalTreeInsert(gcIsochoreIntervalTree, node);
-				}
+				//Think about it
+				//Is it logical?
+				//No, since the given input interval can be on such a region with numberofGCs is equal to zero.
+				//If we don't add this node, then we can not find overlap
+				
+				//Create new interval tree node
+				node = new GCIsochoreIntervalTreeNode(lowZeroBased, highZeroBased,numberofGCs,isochoreFamily);	
+				
+				//Add to the interval tree
+				gcIsochoreIntervalTree.intervalTreeInsert(gcIsochoreIntervalTree, node);
 				
 			}//End of WHILE
 			/*****************************************************************/
