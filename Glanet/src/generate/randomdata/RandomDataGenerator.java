@@ -113,74 +113,7 @@ public class RandomDataGenerator {
 	//ends
 
 	
-//	public static IsochoreFamily calculateIsochoreFamily(
-//			InputLineMinimal inputLine,
-//			List<GCIsochoreIntervalTreeNode> hits){
-//		
-//		
-//		GCIsochoreIntervalTreeNode gcIsochoreIntervalTreeNode = null;
-//		IsochoreFamily isochoreFamilyofInputLine = null;
-//		IsochoreFamily isochoreFamilyofHit = null;
-//		int isochoreFamilyNumberofHit;
-//		int numberofOverlappingBasesofHit;
-//		TIntIntMap isochoreFamily2NumberofOverlappingBases = null;
-//		
-//		int maximumNumberofHits = Integer.MIN_VALUE;
-//		int isochoreFamilyNumberWithMaximumNumberofHits = 0;
-//		
-//		if (hits.size()==0){
-//			logger.error("There is a situation. Number of hits is 0");
-//		}
-//		
-//		//There is only one hit case
-//		else if (hits.size()==1){
-//			isochoreFamilyofInputLine =  hits.get(0).getIsochoreFamily();
-//		}
-//		
-//		//There is more than one hit case
-//		else {
-//			
-//			isochoreFamily2NumberofOverlappingBases = new TIntIntHashMap();
-//			
-//			for(int i = 0; i<hits.size();i++){
-//				
-//				gcIsochoreIntervalTreeNode = hits.get(i);
-//				
-//				isochoreFamilyofHit = gcIsochoreIntervalTreeNode.getIsochoreFamily();
-//				isochoreFamilyNumberofHit = isochoreFamilyofHit.getIsochoreFamily();
-//				
-//				numberofOverlappingBasesofHit = IntervalTree.findNumberofOverlapingBases(gcIsochoreIntervalTreeNode.getLow(), gcIsochoreIntervalTreeNode.getHigh(),inputLine.getLow(),inputLine.getHigh());
-//				
-//				//Accumulate
-//				if (!isochoreFamily2NumberofOverlappingBases.containsKey(isochoreFamilyNumberofHit)){
-//					isochoreFamily2NumberofOverlappingBases.put(isochoreFamilyNumberofHit, numberofOverlappingBasesofHit);
-//				}else{
-//					isochoreFamily2NumberofOverlappingBases.put(isochoreFamilyNumberofHit, isochoreFamily2NumberofOverlappingBases.get(isochoreFamilyNumberofHit) + numberofOverlappingBasesofHit);
-//				}
-//				
-//			}//End of for Each Hit
-//			
-//			//Choose the isochoreFamilyNumber with the maximum number of overlapping Bases
-//			for(TIntIntIterator itr = isochoreFamily2NumberofOverlappingBases.iterator();itr.hasNext();){
-//				itr.advance();
-//				
-//				if (itr.value()>maximumNumberofHits){
-//					maximumNumberofHits = itr.value();
-//					isochoreFamilyNumberWithMaximumNumberofHits = itr.key();
-//				}
-//				
-//			}//End of For Finding isochoreFamilyWithMaximumNumberofHits
-//			
-//			//Convert int to IsochoreFamily
-//			isochoreFamilyofInputLine = IsochoreFamily.convertInttoEnum(isochoreFamilyNumberWithMaximumNumberofHits);
-//			
-//		}//End of ELSE Part
-//		
-//		
-//		
-//		return isochoreFamilyofInputLine;
-//		
-//	}
+
 	
 	//Shall we consider chromSize
 	//so that isochoreFamilyPoolHigh will not greater than chromSize
@@ -538,16 +471,16 @@ public class RandomDataGenerator {
 					//GByteList Way
 					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 					
-					hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
-					randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
+//					hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
+//					randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
 					
 				}
 				else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
 					//GCIntervalTree Way
 					randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree,calculateGC);
 					
-					hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
-					randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
+//					hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
+//					randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
 					
 				}else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
 					//Using GCIsochoreIntervalTree
@@ -592,7 +525,7 @@ public class RandomDataGenerator {
 				/**************************************************************************************************/
 				/***********************WHILE LOOP For ByteList or IntervalTree starts*****************************/
 				/**************************************************************************************************/
-				//if (calculateGC.isCalculateGCUsingByteList() || calculateGC.isCalculateGCUsingGCIntervalTree()){
+				if (calculateGC.isCalculateGCUsingByteList() || calculateGC.isCalculateGCUsingGCIntervalTree()){
 					
 					count = 0;
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
@@ -601,8 +534,7 @@ public class RandomDataGenerator {
 					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
 
 					
-					while (	randomlyGeneratedInputLineIsochoreFamily!= originalInputLineIsochoreFamily || 
-							differencebetweenGCs > dynamicGCThreshold || 
+					while (	differencebetweenGCs > dynamicGCThreshold || 
 							differencebetweenMapabilities > dynamicMapabilityThreshold) {
 						
 						count++;
@@ -681,24 +613,16 @@ public class RandomDataGenerator {
 							//GByteList Way
 							randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine, gcByteList);
 							
-							hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
-							randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
+//							hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
+//							randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
 							
 						}
 						else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
 							//GCIntervalTree Way
 							randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree,calculateGC);
 							
-							hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
-							randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
-							
-						}else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-							//Using GCIsochoreIntervalTree
-							
-							result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine, gcIsochoreIntervalTree);
-							
-							randomlyGeneratedInputLineGC = result.getGc();
-							randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
+//							hits= gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
+//							randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(hits);
 							
 						}
 						
@@ -710,8 +634,7 @@ public class RandomDataGenerator {
 						
 						
 						
-						
-						
+			
 						
 						/**************************************************************************************************/
 						/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
@@ -734,7 +657,7 @@ public class RandomDataGenerator {
 
 						
 					}// End of While
-				//}//End of IF
+				}//End of IF
 				/**************************************************************************************************/
 				/***********************WHILE LOOP For ByteList or IntervalTree ends*******************************/
 				/**************************************************************************************************/
@@ -743,78 +666,109 @@ public class RandomDataGenerator {
 				/**************************************************************************************************/
 				/***********************WHILE LOOP For IsochoreIntervalTree starts*********************************/
 				/**************************************************************************************************/
-//				else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-//					
-//					count = 0;
-//					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
-//
-//					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
-//
-//					
-//					while (randomlyGeneratedInputLineIsochoreFamily != originalInputLineIsochoreFamily || differencebetweenMapabilities > dynamicMapabilityThreshold) {
-//						count++;
-//
-//						if (count > counterThreshold) {
-//
-//							//Increase dynamicMapabilityThreshold starts
-//							//as number of trials increases, increase dynamicMapabilityThreshold more
-//							if (differencebetweenMapabilities > dynamicMapabilityThreshold) {
-//								if (!(dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)) {
-//
-//									if (count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL) {
-//										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
-//									} else if (count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL) {
-//										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
-//									} else if (count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL) {
-//										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
-//									} else {
-//										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
-//									}
-//
-//								}
-//							}
-//							//Increase dynamicMapabilityThreshold ends
-//
-//							//Once count has reached to counterThreshold, increase counterThreshold by Commons.NUMBER_OF_TRIAL_FIRST_LEVEL each time 
-//							counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
-//						}
-//
-//						
-//						randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
-//								chromSize,
-//								threadLocalRandom,
-//								originalInputLineLength,
-//								originalInputLineIsochoreFamily,
-//								gcIsochoreFamilyL1Pool,
-//								gcIsochoreFamilyL2Pool,
-//								gcIsochoreFamilyH1Pool,
-//								gcIsochoreFamilyH2Pool,
-//								gcIsochoreFamilyH3Pool);
-//						/**************************************************************************************************/
-//						/**************************Calculate IsochoreFamily of random InputLine starts*********************/
-//						/**************************************************************************************************/
-//						if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-//							hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), randomlyGeneratedLine);
-//							randomlyGeneratedInputLineIsochoreFamily = calculateIsochoreFamily(randomlyGeneratedLine,hits);
-//						}
-//						/**************************************************************************************************/
-//						/**************************Calculate IsochoreFamily of random InputLine ends***********************/
-//						/**************************************************************************************************/
-//
-//							
-//						/**************************************************************************************************/
-//						/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
-//						/**************************************************************************************************/
-//						//Using MapabilityShortList
-//						randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);					
-//						/**************************************************************************************************/
-//						/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
-//						/**************************************************************************************************/
-//
-//						differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
-//
-//					}// End of While
-//				}//End of IF
+				else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+					
+					count = 0;
+					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
+
+					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
+					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
+
+					
+					while (	randomlyGeneratedInputLineIsochoreFamily != originalInputLineIsochoreFamily ||
+							differencebetweenGCs > dynamicGCThreshold || 
+							differencebetweenMapabilities > dynamicMapabilityThreshold) {
+						
+						count++;
+
+						if (count > counterThreshold) {
+							
+							
+							//Increase dynamicGCThreshold starts
+							//as number of trials increases, increase dynamicGCThreshold more
+							if (differencebetweenGCs > dynamicGCThreshold) {
+								if (!(dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)) {
+
+									if (count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL) {
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
+									} else if (count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL) {
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
+									} else if (count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL) {
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
+									} else {
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
+									}
+								}
+							}
+							//Increase dynamicGCThreshold ends
+							
+
+							//Increase dynamicMapabilityThreshold starts
+							//as number of trials increases, increase dynamicMapabilityThreshold more
+							if (differencebetweenMapabilities > dynamicMapabilityThreshold) {
+								if (!(dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)) {
+
+									if (count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL) {
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
+									} else if (count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL) {
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
+									} else if (count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL) {
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
+									} else {
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
+									}
+
+								}
+							}
+							//Increase dynamicMapabilityThreshold ends
+
+							//Once count has reached to counterThreshold, increase counterThreshold by Commons.NUMBER_OF_TRIAL_FIRST_LEVEL each time 
+							counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
+						}
+
+						
+						randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
+								chromSize,
+								threadLocalRandom,
+								originalInputLineLength,
+								originalInputLineIsochoreFamily,
+								gcIsochoreFamilyL1Pool,
+								gcIsochoreFamilyL2Pool,
+								gcIsochoreFamilyH1Pool,
+								gcIsochoreFamilyH2Pool,
+								gcIsochoreFamilyH3Pool);
+						
+						
+						/**************************************************************************************************/
+						/**************************Calculate IsochoreFamily of random InputLine starts*********************/
+						/**************************************************************************************************/
+						//Using GCIsochoreIntervalTree
+						
+						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine, gcIsochoreIntervalTree);
+						
+						randomlyGeneratedInputLineGC = result.getGc();
+						randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
+						
+						differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
+						/**************************************************************************************************/
+						/**************************Calculate IsochoreFamily of random InputLine ends***********************/
+						/**************************************************************************************************/
+
+							
+						/**************************************************************************************************/
+						/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
+						/**************************************************************************************************/
+						//Using MapabilityShortList
+						randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(randomlyGeneratedLine, mapabilityChromosomePositionList,mapabilityShortValueList);
+						
+						differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability-originalInputLineMapability);
+						/**************************************************************************************************/
+						/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
+						/**************************************************************************************************/
+
+						
+					}// End of While
+				}//End of IF
 				/**************************************************************************************************/
 				/***********************WHILE LOOP For IsochoreIntervalTree ends***********************************/
 				/**************************************************************************************************/
