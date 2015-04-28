@@ -288,8 +288,8 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 			
 			System.out.println(chrName.convertEnumtoString());
 			System.out.println("nthBase: " + nthBase);
-			System.out.println( "totalNumberofGCs: " + totalNumberofGCs);
-			System.out.println( "totalNumberofCharsRead: " + totalNumberofCharsRead);
+			System.out.println("totalNumberofGCs: " + totalNumberofGCs);
+			System.out.println("totalNumberofCharsRead: " + totalNumberofCharsRead);
 			
 				
 

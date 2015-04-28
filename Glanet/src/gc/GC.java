@@ -10,6 +10,7 @@
  */
 package gc;
 
+import generate.randomdata.RandomDataGenerator;
 import gnu.trove.list.TByteList;
 import intervaltree.IntervalTree;
 
@@ -27,6 +28,7 @@ import common.Commons;
 import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
+import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 
@@ -71,10 +73,10 @@ public class GC {
 	
 	
 	//There can be gaps in the intervals of GC Interval Tree
-	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIntervalTree){
+	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIntervalTree,CalculateGC calculateGC){
 		Float gcContent = 0f;
 		
-		gcContent  = gcIntervalTree.findAllOverlappingGCIntervals(gcIntervalTree.getRoot(), givenInputLine);
+		gcContent  = gcIntervalTree.findAllOverlappingGCIntervals(gcIntervalTree.getRoot(), givenInputLine,calculateGC);
 		
 		gcContent = gcContent / (givenInputLine.getHigh() - givenInputLine.getLow() +1);
 		
@@ -84,15 +86,18 @@ public class GC {
 	
 	//Calculate the GC of the given interval  using GCIsochoreIntervalTree
 	//In case of length of the given interval is greater than 100KB
-	public static float calculateGCofIntervalUsingIsochoreIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIsochoreIntervalTree){
+	public static GCIsochoreIntervalTreeFindAllOverlapsResult calculateGCofIntervalUsingIsochoreIntervalTree(InputLineMinimal givenInputLine, IntervalTree gcIsochoreIntervalTree){
 		
-		Float gcContent = 0f;
+		GCIsochoreIntervalTreeFindAllOverlapsResult result = new GCIsochoreIntervalTreeFindAllOverlapsResult();
 		
-		gcContent  = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(), givenInputLine);
+		gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), givenInputLine,result);
+		//gcContent  = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(), givenInputLine,calculateGC);
 		
-		gcContent = gcContent / (givenInputLine.getHigh() - givenInputLine.getLow() +1);
+		result.setGc(result.getNumberofGCs() / (givenInputLine.getHigh() - givenInputLine.getLow() +1));
 		
-		return gcContent;
+		result.setIsochoreFamily(RandomDataGenerator.calculateIsochoreFamily(result.getHits()));
+		
+		return result;
 	}
 	
 	//new starts

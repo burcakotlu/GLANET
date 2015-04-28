@@ -53,6 +53,7 @@ import common.Commons;
 
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
+import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
@@ -61,6 +62,7 @@ import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
+import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
 import gnu.trove.iterator.TShortIterator;
 import gnu.trove.list.TShortList;
 import gnu.trove.map.TIntByteMap;
@@ -1032,19 +1034,28 @@ public class IntervalTree {
 	
 	
 	//Find the number of hits while finding overlaps in GCIsochoreIntervalTree
-	public List<GCIsochoreIntervalTreeNode>  findAllOverlappingGCIsochoreIntervals(IntervalTreeNode node,InputLineMinimal interval){
+	public List<GCIsochoreIntervalTreeHitNode>  findAllOverlappingGCIsochoreIntervals(IntervalTreeNode node,InputLineMinimal interval){
 		
-		List<GCIsochoreIntervalTreeNode> hits = new ArrayList<GCIsochoreIntervalTreeNode>(); 
+		List<GCIsochoreIntervalTreeHitNode> hits = new ArrayList<GCIsochoreIntervalTreeHitNode>(); 
 		
 		GCIsochoreIntervalTreeNode castedNode = null;
+		
+		GCIsochoreIntervalTreeHitNode hit = null;
+		int numberofOverlappingBases = 0;
 		
 		if (node instanceof GCIsochoreIntervalTreeNode) {
 			castedNode = (GCIsochoreIntervalTreeNode) node;
 		}
 		
-		if (overlaps(castedNode.getLow(),castedNode.getHigh(),interval.getLow(),interval.getHigh())){
-			hits.add(castedNode);
+		numberofOverlappingBases = findNumberofOverlapingBases(castedNode.getLow(),castedNode.getHigh(),interval.getLow(),interval.getHigh());
+		
+		if (numberofOverlappingBases>0){
+			
+			hit = new GCIsochoreIntervalTreeHitNode(castedNode.getLow(),castedNode.getHigh(),castedNode.getNumberofGCs(),castedNode.getIsochoreFamily(),numberofOverlappingBases);
+			
+			hits.add(hit);
 		}
+		
 		
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
 			hits.addAll(findAllOverlappingGCIsochoreIntervals(node.getLeft(),interval));
@@ -1060,8 +1071,61 @@ public class IntervalTree {
 		
 	}
 	
+	//Return gc and all overlapping IsochoreIntervalTree hits starts
+	public void  findAllOverlappingGCIsochoreIntervals(IntervalTreeNode node,InputLineMinimal interval,GCIsochoreIntervalTreeFindAllOverlapsResult result){
+		
+		
+		GCIsochoreIntervalTreeNode castedNode = null;
+		
+		int numberofOverlappingBases = 0;
+		float numberofGCs = 0f;
+		
+		
+		if (node instanceof GCIsochoreIntervalTreeNode) {
+			castedNode = (GCIsochoreIntervalTreeNode) node;
+		}
+		
+		numberofOverlappingBases = findNumberofOverlapingBases(castedNode.getLow(),castedNode.getHigh(),interval.getLow(),interval.getHigh());
+		
+		if (numberofOverlappingBases>0){
+			
+			//Find hit
+			GCIsochoreIntervalTreeHitNode hit = new GCIsochoreIntervalTreeHitNode(
+					castedNode.getLow(), 
+					castedNode.getHigh(),
+					castedNode.getNumberofGCs(),
+					castedNode.getIsochoreFamily(),
+					numberofOverlappingBases);
+			
+			//Add hit
+			result.getHits().add(hit);
+			
+			//Find numberofGCs
+			numberofGCs = (numberofOverlappingBases *castedNode.getNumberofGCs()* 1.0f)/(castedNode.getHigh() -castedNode.getLow() +1);
+			
+			//Accumulate gcContent
+			result.setNumberofGCs(result.getNumberofGCs() + numberofGCs);
+			
+		}
+		
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingGCIsochoreIntervals(node.getLeft(),interval,result);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingGCIsochoreIntervals(node.getRight(),interval,result);
+
+		}
+		
+		
+		
+	}
+	//Return gc and all overlapping IsochoreIntervalTree hits ends
+	
+	
+	
 	// There can be gaps in the gcIntervalTree
-	public float findAllOverlappingGCIntervals(IntervalTreeNode node, InputLineMinimal interval) {
+	public float findAllOverlappingGCIntervals(IntervalTreeNode node, InputLineMinimal interval, CalculateGC calculateGC) {
 		
 		int numberofOverlappingBases = 0;
 		
@@ -1070,26 +1134,38 @@ public class IntervalTree {
 		float gcContentRight = 0f;
 		
 		
-		GCIntervalTreeNode castedNode = null;
+		GCIntervalTreeNode gcIntervalTreeNode = null;
+		GCIsochoreIntervalTreeNode gcIsochoreIntervalTreeNode = null;
 		
 		if (node instanceof GCIntervalTreeNode) {
-			castedNode = (GCIntervalTreeNode) node;
+			gcIntervalTreeNode = (GCIntervalTreeNode) node;
+		} else if (node instanceof GCIsochoreIntervalTreeNode) {
+			gcIsochoreIntervalTreeNode = (GCIsochoreIntervalTreeNode) node;
 		}
 		
 		numberofOverlappingBases = findNumberofOverlapingBases(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh());
 		
 		if (numberofOverlappingBases>0) {
 			
-			gcContent = (numberofOverlappingBases *castedNode.getNumberofGCs())/(castedNode.getHigh() -castedNode.getLow() +1);
+			switch(calculateGC){
+			
+				case CALCULATE_GC_USING_GC_INTERVAL_TREE: 	gcContent = (numberofOverlappingBases *gcIntervalTreeNode.getNumberofGCs()* 1.0f)/(gcIntervalTreeNode.getHigh() -gcIntervalTreeNode.getLow() +1);
+															break;
+															
+				case CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE: 		gcContent = (numberofOverlappingBases *gcIsochoreIntervalTreeNode.getNumberofGCs()* 1.0f)/(gcIsochoreIntervalTreeNode.getHigh() -gcIsochoreIntervalTreeNode.getLow() +1);
+																		break;	
+																		
+				default: break;
+			}//End of SWITCH
 			
 		}
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())) {
-			gcContentLeft = findAllOverlappingGCIntervals(node.getLeft(),interval);
+			gcContentLeft = findAllOverlappingGCIntervals(node.getLeft(),interval,calculateGC);
 		}
 
 		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
-			gcContentRight = findAllOverlappingGCIntervals(node.getRight(),interval);
+			gcContentRight = findAllOverlappingGCIntervals(node.getRight(),interval,calculateGC);
 
 		}
 		

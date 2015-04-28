@@ -164,10 +164,11 @@ public class Enrichment {
 			//EnumType
 			this.givenInputsSNPsorIntervals = givenInputsSNPsorIntervals;
 
-			//For SNP Data
+			//For Commons.VERY_SHORT_INTERVAL_LENGTH
 			this.gcByteList = gcByteList;
-			//For Interval Data
+			//For Commons.SHORT_INTERVAL_LENGTH
 			this.gcIntervalTree = gcIntervaTree;
+			
 			this.gcIsochoreIntervalTree = gcIsochoreIntervalTree;
 			
 			this.gcIsochoreFamilyL1Pool = gcIsochoreFamilyL1Pool;
@@ -2025,9 +2026,6 @@ public class Enrichment {
 
 			if (chromosomeBaseOriginalInputLines != null) {
 				
-				
-
-				
 				/************************************************/
 				/*********************GC*************************/
 				/************************************************/
@@ -2077,8 +2075,8 @@ public class Enrichment {
 				// Fill gcCharArray and mapabilityFloatArray
 				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
 					
-					GlanetRunner.appendLog("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					logger.info("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					GlanetRunner.appendLog("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
+					logger.info("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 					
 					startTimeFillingList = System.currentTimeMillis();
 					
@@ -2099,13 +2097,13 @@ public class Enrichment {
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					}
 					
+					
+					//Always fill GC Isochore IntervalTree for random interval selection from related Isochore Family Pool
 					//GC Isochore IntervalTree
-					if (containsIntervalGreaterThan(chromosomeBaseOriginalInputLines,Commons.SHORT_INTERVAL_LENGTH)){
-						ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
-					}
+					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
 					
 					
-					//Always fill Iscohore Family Pools
+					//Always fill Isochore Family Pools for isochoreFamily Calculation
 					//GC Isochore Family L1 Pool
 					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
 					
@@ -2146,8 +2144,8 @@ public class Enrichment {
 					
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
-					logger.info("Filling of gcByteList or gcIntervalTree, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					GlanetRunner.appendLog("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					logger.info("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
 						
 				}
 				/*******************************************************************************************************************************/

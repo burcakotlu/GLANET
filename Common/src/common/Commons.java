@@ -286,7 +286,7 @@ public class Commons {
 	public static final String CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE = "CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE";
 	
 	public static final int VERY_SHORT_INTERVAL_LENGTH = 10;
-	public static final int SHORT_INTERVAL_LENGTH = 100;
+	public static final int SHORT_INTERVAL_LENGTH = 500;
 	
 	/*******************************************************************************************/
 	/************************ ChromosomeBased Given Input Files starts ***************************/

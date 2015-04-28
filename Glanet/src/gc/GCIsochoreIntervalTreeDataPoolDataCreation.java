@@ -260,11 +260,11 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 			}//End of IF there is a last interval
 			
 			if ((lengthOfLastInterval==0) && (numberofGCsInStandardGCIntervalLength>0)){
-				System.out.println("There is a situation1!");
+				logger.error("There is a situation1!");
 			}
 			
 			if(nthBase!=totalNumberofCharsReadInChromosome){
-				System.out.println("There is a situation2!");
+				logger.error("There is a situation2!");
 			}
 			/*****************************************************************/
 			

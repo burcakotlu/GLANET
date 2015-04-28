@@ -216,8 +216,6 @@ public class ChromosomeBasedGCIntervalTree {
 		
 		GCIntervalTreeNode node = null;
 		
-
-	
 		try {
 			
 			fileReader = FileOperations.createFileReader(dataFolder + gcIntervalsConsecutiveZerosMergedFile);
@@ -252,14 +250,9 @@ public class ChromosomeBasedGCIntervalTree {
 				}
 				
 				
-				
-				
 			}//End of WHILE
 			/*****************************************************************/
-			
-			
-			
-			
+						
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
