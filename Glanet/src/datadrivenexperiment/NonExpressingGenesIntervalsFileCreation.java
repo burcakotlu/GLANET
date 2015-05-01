@@ -117,7 +117,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 				}
 				
 				if (low == high) {
-					System.out.println("Female.gtf has End Inclusive Coordinates. 0-based or 1-based, I don't know. Low: " + low + " High: " + high);
+					//System.out.println("Female.gtf has End Inclusive Coordinates. 0-based or 1-based, I don't know. Low: " + low + " High: " + high);
 				}
 				//For debug purposes ends
 				
@@ -186,7 +186,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 				
 			}//End of While
 			
-			System.out.println("Number of intervals created: " + numberofIntervalsCreated);
+			System.out.println("Number of NonExpressing protein coding genes intervals created: " + numberofIntervalsCreated);
 			
 			//Close BufferedReader
 			bufferedReader.close();
@@ -374,6 +374,18 @@ public class NonExpressingGenesIntervalsFileCreation {
 	}
 
 	
+	public static String getTPMString(float tpmThreshold){
+		if (tpmThreshold == 0.01f)
+			return Commons.TPM_001;
+		else if (tpmThreshold == 0.1f)
+			return Commons.TPM_01;
+		else if (tpmThreshold == 1f)
+			return Commons.TPM_1;
+		else
+			return Commons.TPM_UNKNOWN;
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
@@ -386,7 +398,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 1.0f;
+		float tpmThreshold = 0.01f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path
@@ -402,7 +414,8 @@ public class NonExpressingGenesIntervalsFileCreation {
 
 		//Output File
 		//Set NonExpressingGenesIntervalsFile
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + "NonExpressingGenesIntervals_EndInclusive.txt";
+		String TPMString = getTPMString(tpmThreshold);
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
 		
 		//Read GM12878 Rep1  results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile(GM12878Rep1GTFFileName);
@@ -417,7 +430,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 		System.out.println("Number of Non Expressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmThreshold);
 		
 		//Generate Intervals for the non expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to the tmpThreshold using female.gtf to nonExpressingGenesIntervalsFile
-		generateIntervalsFromFemaleGTFFile(ensemblGeneID2TPMMapforUnionofRep1andRep2,femaleGTFFileName,tpmThreshold,nonExpressingGenesIntervalsFile);
+		generateIntervalsFromFemaleGTFFile(ensemblGeneID2TPMMapforUnionofRep1andRep2,femaleGTFFileName,tpmThreshold,nonExpressingProteinCodingGenesIntervalsFile);
 		
 	}
 

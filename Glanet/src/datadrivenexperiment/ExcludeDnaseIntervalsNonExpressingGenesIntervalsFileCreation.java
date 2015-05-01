@@ -437,11 +437,15 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		
 		//Input File
 		//Set NonExpressingGenesIntervalsFile
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + "NonExpressingGenesIntervals_EndInclusive.txt";				
+		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_1 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
+		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_01 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
+		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_001 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
 		
 		//Output File
 		//Set NonExpressingGenesIntervalsFile
-		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + "DnaseIntervalsExcludedNonExpressingGenesIntervals_EndInclusive.txt";
+		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_1 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
+		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_01 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
+		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_001 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
 		
 		excludeDnaseIntervalsWriteToOutputFile(dataFolder,nonExpressingGenesIntervalsFile,dnaseIntervalsExcludedNonExpressingGenesIntervalsFile,dnaseCellLineNumberList);
 	}

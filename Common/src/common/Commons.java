@@ -35,11 +35,22 @@ public class Commons {
 	public static final String FTP = "FTP";
 	public static final String NCBI_REMAP = "REMAP";
 	
-	//GLANET DATA Driven 
+	//GLANET DATA Driven starts
 	public static final String RNA_SEQ_GM12878_K562 = "RNA_seq_GM12878_K562";
 	public static final String Gm12878Rep1_genes_results = "Gm12878Rep1.genes.results";
 	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
 	public static final String female_gtf = "female.gtf";
+	
+	public static final String TPM_1 	= "TPM1"; 
+	public static final String TPM_01 	= "TPM01"; 
+	public static final String TPM_001 	= "TPM001"; 
+	public static final String TPM_UNKNOWN 	= "TPM"; 
+	
+	public static final String DNASE_OVERLAPS_EXCLUDED 	= "DnaseOverlapsExcluded"; 
+	public static final String SIMULATION_DATA = "SimulationData";
+	public static final String SIMULATION = "Sim";
+	//GLANET DATA Driven ends
+	
 	public static final String demo_input_data = "demo_input_data";
 	
 	public static final String OUTPUT = "Output";
