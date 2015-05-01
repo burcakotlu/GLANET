@@ -3,7 +3,7 @@ package common;
 public class Commons {
 	
 	//Heap Size 
-	public static final int MIN_HEAP_FOR_GLANET = 6500;
+	public static final int MIN_HEAP_FOR_GLANET = 2000;
 	
 	//Number of processors
 	public static final int NUMBER_OF_AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
@@ -49,6 +49,9 @@ public class Commons {
 	public static final String DNASE_OVERLAPS_EXCLUDED 	= "DnaseOverlapsExcluded"; 
 	public static final String SIMULATION_DATA = "SimulationData";
 	public static final String SIMULATION = "Sim";
+	public static final String GM12878 = "GM12878";
+	public static final String POL2_GM12878 = "POL2_GM12878";
+	public static final String H3K4ME3_GM12878 = "H3K4ME3_GM12878";
 	//GLANET DATA Driven ends
 	
 	public static final String demo_input_data = "demo_input_data";
