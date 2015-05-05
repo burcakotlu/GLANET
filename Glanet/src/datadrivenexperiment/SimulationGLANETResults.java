@@ -180,6 +180,11 @@ public class SimulationGLANETResults {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
 		
+		String elementType1 = Commons.DNASE;
+		String elementType2 = Commons.TF;
+		String elementType3 = Commons.HISTONE;
+		String cellLine = Commons.GM12878;
+		
 		int numberofSimulations = 27;
 		
 		readSimulationGLANETResults(outputFolder,numberofSimulations);
