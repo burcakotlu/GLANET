@@ -9,6 +9,7 @@
 package auxiliary;
 
 import enumtypes.AnnotationType;
+import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import userdefined.library.UserDefinedLibraryUtility;
+
 import common.Commons;
 
 public class NumberofComparisons {
@@ -230,6 +232,57 @@ public class NumberofComparisons {
 		return 0;
 	}
 
+	
+	public static int  getNumberofElementsInCellLine(TIntObjectMap<String> elementCellLineNumber2NameMap, String cellLineName){
+		
+		int numberofElementsInThisCellLine = 0;		
+		String elementNameCellLineName = null;
+		
+		for(TIntObjectIterator<String> it = elementCellLineNumber2NameMap.iterator(); it.hasNext();){
+			
+			it.advance();
+			elementNameCellLineName = it.value();
+			
+			if (elementNameCellLineName.contains(cellLineName)){
+				numberofElementsInThisCellLine++;
+			}
+			
+		}//End of for 
+		
+		return numberofElementsInThisCellLine;
+		
+	}
+	
+	//6 May 2015 starts
+	public static int getNumberofComparisonsforBonferroniCorrection(String dataFolder, ElementType elementType, String cellLineName){
+		
+		int numberofComparisons = 0;
+		
+		switch(elementType){
+		
+			case TF: 	TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+						FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+						numberofComparisons = getNumberofElementsInCellLine(tfCellLineNumber2NameMap,cellLineName);
+						tfCellLineNumber2NameMap = null;
+						break;
+						
+			case HISTONE: 	TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+							FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+							numberofComparisons = getNumberofElementsInCellLine(histoneCellLineNumber2NameMap,cellLineName);
+							histoneCellLineNumber2NameMap = null;
+							break;
+							
+			default: 	
+						break;
+		
+		}//End of switch
+		
+		return numberofComparisons;
+		
+	}
+	//6 May 2015 ends
+	
+	
 		
 	public static NumberofComparisons getNumberofComparisonsforBonferroniCorrection(String dataFolder) {
 

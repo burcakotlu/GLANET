@@ -195,7 +195,7 @@ public class SimulationDataCreation {
 		//Parameters for Simulations
 		//TPM and DnaseOverlapsExclusion
 		String tpmString = Commons.TPM_1;
-		boolean dnaseOverlapsExcluded =  false;
+		boolean dnaseOverlapsExcluded =  true;
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
 		//Set IntervalPoolFile

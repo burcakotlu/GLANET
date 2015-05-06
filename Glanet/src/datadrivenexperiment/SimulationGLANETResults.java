@@ -9,12 +9,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import multipletesting.BenjaminiandHochberg;
+import multipletesting.BonferroniCorrection;
 import auxiliary.FileOperations;
+import auxiliary.FunctionalElementMinimal;
+import auxiliary.NumberofComparisons;
 
 import common.Commons;
 
 import enumtypes.CommandLineArguments;
+import enumtypes.ElementType;
+import enumtypes.MultipleTestingType;
 
 /**
  * @author Burçak Otlu
@@ -25,7 +34,7 @@ import enumtypes.CommandLineArguments;
 public class SimulationGLANETResults {
 	
 	
-	public static boolean isEnriched_POL2_GM12878(String strLine){
+	public static boolean isEnriched(String strLine){
 		
 		boolean isEnriched = false;
 		
@@ -63,44 +72,97 @@ public class SimulationGLANETResults {
 		
 	}
 	
-	public static void readSimulationGLANETResultsFilterGM12878(
-			String outputFolder,
-			int numberofSimulations,
-			String elementType,
-			String cellLineName,
-			String elementName_CellLineName) {
+	
+	public static FunctionalElementMinimal getElement(String strLine, int numberofComparisons){
 		
-		int numberofSimulations_POL2_GM12878_Enriched = 0;
+		
+		String elementName;
+		
+		int originalNumberofOverlaps;
+		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
+		int numberofPermutations;
+		
+		
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		
+		//example strLine
+		//50083	USF1_H1HESC	10	4	10000	406	4E-4	1.624E-1	5.933333E-3	true
+
+		indexofFirstTab 	= strLine.indexOf('\t');
+		indexofSecondTab 	= (indexofFirstTab>0) ? strLine.indexOf('\t',indexofFirstTab+1) : -1;
+		indexofThirdTab 	= (indexofSecondTab>0) ? strLine.indexOf('\t',indexofSecondTab+1) : -1;
+		indexofFourthTab 	= (indexofThirdTab>0) ? strLine.indexOf('\t',indexofThirdTab+1) : -1;
+		indexofFifthTab 	= (indexofFourthTab>0) ? strLine.indexOf('\t',indexofFourthTab+1) : -1;
+		
+		elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+		originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+		numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
+		numberofPermutations =  Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
+		
+		FunctionalElementMinimal element = new FunctionalElementMinimal();
+		
+		element.setName(elementName);
+		element.setNumberofPermutations(numberofPermutations);
+		element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
+		element.setOriginalNumberofOverlaps(originalNumberofOverlaps);
+		element.setNumberofComparisons(numberofComparisons);
+		
+		return element;
+		
+	}
+	
+	public static void readSimulationGLANETResults(
+			String outputFolder, 
+			int numberofSimulations,
+			int numberofComparisons, 
+			ElementType elementType, 
+			String cellLineName,
+			String elementNameCellLineName,
+			Float bonferroniCorrectionSignificanceLevel,
+			Float FDR, 
+			MultipleTestingType multipleTestingParameter){
+		
+		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
 		
 		String strLine =null;
 		
-		String tfEnrichmentFile = null;
-		File TFEnrichmentDirectory = null;
+		String enrichmentFile = null;
+		File enrichmentDirectory = null;
 		
-		
-		FileReader TFEnrichmentFileReader = null;
-		BufferedReader TFEnrichmentBufferedReader = null;
+		FileReader enrichmentFileReader = null;
+		BufferedReader enrichmentBufferedReader = null;
 
-		FileWriter TFGM12878EnrichmentFileWriter = null;
-		BufferedWriter TFGM12878EnrichmentBufferedWriter = null;
+		FileWriter cellLineFilteredEnrichmentFileWriter = null;
+		BufferedWriter cellLineFilteredEnrichmentBufferedWriter = null;
 		
+		List<FunctionalElementMinimal> elementList = null;
+		
+		FunctionalElementMinimal element = null;
+ 		
 		try {
 			
 			
 		
 			for(int i = 0; i<numberofSimulations; i++){
 			
-				TFEnrichmentDirectory = new File(outputFolder + Commons.SIMULATION + i + System.getProperty("file.separator") + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType);
+				elementList = new ArrayList<FunctionalElementMinimal>();
 				
-				//Get the file in this folder
-				if (TFEnrichmentDirectory.exists() && TFEnrichmentDirectory.isDirectory()) {
+				enrichmentDirectory = new File(outputFolder + Commons.SIMULATION + i + System.getProperty("file.separator") + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType.convertEnumtoString());
+				
+				//Get the enrichmentFile in this folder for this simulation
+				//There must one enrichmentFile
+				if (enrichmentDirectory.exists() && enrichmentDirectory.isDirectory()) {
 					
-					for (File eachTFEnrichmentFile : TFEnrichmentDirectory.listFiles()) {
+					for (File eachEnrichmentFile : enrichmentDirectory.listFiles()) {
 						
-						if (!eachTFEnrichmentFile.isDirectory()) {
+						if (!eachEnrichmentFile.isDirectory()) {
 	
-							tfEnrichmentFile = eachTFEnrichmentFile.getAbsolutePath();
-	
+							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
 						
 						}//End of IF TFEnrichmnentFile under TFEnrichmentDirectory
 						
@@ -110,84 +172,139 @@ public class SimulationGLANETResults {
 	
 				
 				
-				TFEnrichmentFileReader = FileOperations.createFileReader(tfEnrichmentFile);
-				TFEnrichmentBufferedReader = new BufferedReader(TFEnrichmentFileReader);
+				enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
+				enrichmentBufferedReader = new BufferedReader(enrichmentFileReader);
 						
-				TFGM12878EnrichmentFileWriter = FileOperations.createFileWriter(TFEnrichmentDirectory + System.getProperty("file.separator") +  elementType +  "_" + cellLineName + ".txt");
-				TFGM12878EnrichmentBufferedWriter = new BufferedWriter(TFGM12878EnrichmentFileWriter);
+				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty("file.separator") +  elementType.convertEnumtoString() +  "_" + cellLineName + ".txt");
+				cellLineFilteredEnrichmentBufferedWriter = new BufferedWriter(cellLineFilteredEnrichmentFileWriter);
 				
-				while((strLine = TFEnrichmentBufferedReader.readLine())!=null){
+				//Read enrichmentFile
+				//Filter lines that contain cellLine only
+				while((strLine = enrichmentBufferedReader.readLine())!=null){
 					
 					if (strLine.contains(cellLineName)){
-						TFGM12878EnrichmentBufferedWriter.write(strLine + System.getProperty("line.separator"));
-					
-						if (strLine.contains(elementName_CellLineName)){
-							
-							//IF POL2_GM12878 is enriched
-							if (isEnriched_POL2_GM12878(strLine)){
-								numberofSimulations_POL2_GM12878_Enriched++;
-							}
-							
-							
-						}
+						//Fill elementList
+						elementList.add(getElement(strLine,numberofComparisons));
 					}
 					
 				}//End of While
 				
+				//Calculate Bonferroni Corrected P 	Value
+				BonferroniCorrection.calculateBonferroniCorrectedPValue(elementList);
+				
+				//Sort w.r.t. empiricalPValue
+				Collections.sort(elementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
+				
+				//Calculate BH FDR Adjusted PValue
+				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue(elementList,FDR);
+				
+				// sort w.r.t. BH or BonferroniCorrection
+				switch(multipleTestingParameter){
+					case BONFERRONI_CORRECTION: 	Collections.sort(elementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
+													break;
+					case BENJAMINI_HOCHBERG_FDR: 	Collections.sort(elementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+													break;
+					default:	break;
+				
+				}//End of switch
+				
+				
+			
+				//Write new enrichmentFile
+				//while writing count the numberofSimulations that has found the elementNameCellLineName enriched
+				
+				//Header Line
+				cellLineFilteredEnrichmentBufferedWriter.write(	"ElementName" + "\t" + 
+						"OriginalNumberofOverlaps" + "\t" +  
+						"NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps" + "\t" +
+						"NumberofPermutations" + "\t" + 
+						"NumberofComparisons" + "\t" + 
+						"EmpiricalPValue" + "\t" + 
+						"BonferroniCorrectedPValue" + "\t" + 
+						"BHFDRAdjustedPValue" + "\t" + 
+						"isRejectNullHypothesis" +
+						System.getProperty("line.separator"));
+
+				//Write each element in elementList
+				for(int j = 0; j<elementList.size(); j++){
+					
+					element = elementList.get(j);
+					
+					if(element.getName().contains(elementNameCellLineName)){
+						
+						switch(multipleTestingParameter){
+							case BONFERRONI_CORRECTION: 	if (element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
+																numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+															}
+															break;
+															
+							case BENJAMINI_HOCHBERG_FDR: 	if (element.getBHFDRAdjustedPValue() <= FDR){
+																numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+															}
+															break;
+							default:	break;
+						
+						}//End of switch
+						
+					}//End of If elementName contains elementNameCellLineName
+					
+					
+					
+					cellLineFilteredEnrichmentBufferedWriter.write(	element.getName() + "\t" + 
+																	element.getOriginalNumberofOverlaps() + "\t" +  
+																	element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" +
+																	element.getNumberofPermutations() + "\t" + 
+																	element.getNumberofComparisons() + "\t" + 
+																	element.getEmpiricalPValue() + "\t" + 
+																	element.getBonferroniCorrectedPValue() + "\t" + 
+																	element.getBHFDRAdjustedPValue() + "\t" + 
+																	element.isRejectNullHypothesis() +
+																	System.getProperty("line.separator"));
+					
+				}//End of for each element
+				
 				
 				//Close 
-				TFEnrichmentBufferedReader.close();
-				TFGM12878EnrichmentBufferedWriter.close();
-				
-				}//End of for each simulation	
+				enrichmentBufferedReader.close();
+				cellLineFilteredEnrichmentBufferedWriter.close();
+					
+					elementList= null;
+			}//End of for each simulation	
 		
-				System.out.println("Number of simulations that has " +  elementName_CellLineName + " is enriched "  + numberofSimulations_POL2_GM12878_Enriched + " out of " + numberofSimulations + " simulations.");
+				System.out.println("Number of simulations that has " +  elementNameCellLineName + " is enriched "  + numberofSimulationsThatHasElementNameCellLineNameEnriched + " out of " + numberofSimulations + " simulations.");
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+		
 	}
 	
-	
-	public static void readSimulationGLANETResults(String outputFolder, int numberofSimulations){
-		
-		//Read Simulation TF Enrichment File
-		//Filter only GM12878 cell lines
-		//Write Simulation TF_GM12878 Enrichment File
-		readSimulationGLANETResultsFilterGM12878(outputFolder,numberofSimulations,Commons.TF, Commons.GM12878, Commons.POL2_GM12878);
-	
-		
-		//Read Simulation HM Enrichment File
-		//Filter only GM12878 cell lines
-		//Write Simulation HM_GM12878 Enrichment File
-		readSimulationGLANETResultsFilterGM12878(outputFolder,numberofSimulations,Commons.HISTONE, Commons.GM12878, Commons.H3K4ME3_GM12878);
-		
-		
-		//Read Simulation Dnase Enrichment File
-		//Filter only GM12878 cell lines
-		//Write Simulation DnaseGM12878 Enrichment File
-				
-				
-				
-				
-	}
+
 	
 	
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
 		
-		String elementType1 = Commons.DNASE;
-		String elementType2 = Commons.TF;
-		String elementType3 = Commons.HISTONE;
-		String cellLine = Commons.GM12878;
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + "TPM1_DnaseOverlapsExcluded" +  System.getProperty("file.separator") ;
+		//String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + "TPM1_NonExpress" +  System.getProperty("file.separator") ;
 		
-		int numberofSimulations = 27;
+		float FDR = 0.05f;
+		float bonferroniCorrectionSignificanceLevel = 0.05f;
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
+
 		
-		readSimulationGLANETResults(outputFolder,numberofSimulations);
+		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.TF,Commons.GM12878);
+		int numberofHistoneElementsInCellLine =NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.HISTONE,Commons.GM12878);
+		
+		int numberofSimulations = 50;
+		
+		readSimulationGLANETResults(outputFolder,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
+		readSimulationGLANETResults(outputFolder,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
 		
 
 	}

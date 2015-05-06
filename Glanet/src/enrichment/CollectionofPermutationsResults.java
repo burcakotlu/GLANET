@@ -114,7 +114,7 @@ public class CollectionofPermutationsResults {
 					annotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
 
 				bufferedWriter.write(element.getKeggPathwayName() + "\t");
 
@@ -144,13 +144,13 @@ public class CollectionofPermutationsResults {
 
 			} else if (annotationType.doUserDefinedGeneSetAnnotation()) {
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
 
 				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty("line.separator"));
 
 			} else {
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedEmpiricalPValue()) + "\t" + df.format(element.getBH_FDR_adjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));
 
 			}
 
@@ -534,13 +534,13 @@ public class CollectionofPermutationsResults {
 						}
 						// set keggPathwayNumber
 						element.setOriginalNumberofOverlaps(originalNumberofOverlaps);
-						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualto(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
+						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
 
 						elementNumber2ElementMap.put(mixedNumber, element);
 					} else {
 
 						element = elementNumber2ElementMap.get(mixedNumber);
-						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualto(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto() + numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
+						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
 						
 					}
 
@@ -568,7 +568,7 @@ public class CollectionofPermutationsResults {
 				mixedNumber = entry.getKey();
 				element = entry.getValue();
 
-				numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualto();
+				numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps();
 
 				empiricalPValue = (numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps * 1.0f) / numberofPermutations;
 				bonferroniCorrectedEmpiricalPValue = ((numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps * 1.0f) / numberofPermutations) * numberofComparisons;
@@ -578,7 +578,7 @@ public class CollectionofPermutationsResults {
 				}
 
 				element.setEmpiricalPValue(empiricalPValue);
-				element.setBonferroniCorrectedEmpiricalPValue(bonferroniCorrectedEmpiricalPValue);
+				element.setBonferroniCorrectedPValue(bonferroniCorrectedEmpiricalPValue);
 
 			}
 			/************************************************************************************/

@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import auxiliary.FunctionalElement;
+import auxiliary.FunctionalElementMinimal;
 
 public class BenjaminiandHochberg {
 
@@ -20,6 +21,33 @@ public class BenjaminiandHochberg {
 	 */
 	public BenjaminiandHochberg() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static void calculateBenjaminiHochbergFDRAdjustedPValue(List<FunctionalElementMinimal> list, float FDR) {
+
+		FunctionalElementMinimal element;
+
+		Iterator<FunctionalElementMinimal> itr = list.iterator();
+
+		int j = 1;
+		int m = list.size();
+		Float BH_FDR_AdjustedPValue;
+
+		while (itr.hasNext()) {
+
+			element = itr.next();
+			BH_FDR_AdjustedPValue = (element.getEmpiricalPValue() * m) / j;
+
+			element.setBHFDRAdjustedPValue(BH_FDR_AdjustedPValue);
+
+			if (element.getBHFDRAdjustedPValue() <= FDR) {
+				element.setRejectNullHypothesis(true);
+			} else {
+				element.setRejectNullHypothesis(false);
+			}
+			j++;
+		}
+
 	}
 
 	public static void calculateBenjaminiHochbergFDRAdjustedPValues(List<FunctionalElement> list, float FDR) {
@@ -37,9 +65,9 @@ public class BenjaminiandHochberg {
 			element = itr.next();
 			BH_FDR_AdjustedPValue = (element.getEmpiricalPValue() * m) / j;
 
-			element.setBH_FDR_adjustedPValue(BH_FDR_AdjustedPValue);
+			element.setBHFDRAdjustedPValue(BH_FDR_AdjustedPValue);
 
-			if (element.getBH_FDR_adjustedPValue() <= FDR) {
+			if (element.getBHFDRAdjustedPValue() <= FDR) {
 				element.setRejectNullHypothesis(true);
 			} else {
 				element.setRejectNullHypothesis(false);

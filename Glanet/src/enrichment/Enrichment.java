@@ -1216,11 +1216,11 @@ public class Enrichment {
 			functionalElement = new FunctionalElement();
 			functionalElement.setName(originalName);
 			functionalElement.setEmpiricalPValue(empiricalPValue);
-			functionalElement.setBonferroniCorrectedEmpiricalPValue(bonferroniCorrectedEmpiricalPValue);
+			functionalElement.setBonferroniCorrectedPValue(bonferroniCorrectedEmpiricalPValue);
 
 			// 18 FEB 2014
 			functionalElement.setOriginalNumberofOverlaps(originalNumberofOverlaps);
-			functionalElement.setNumberofPermutationsHavingOverlapsGreaterThanorEqualto(numberofPermutationsHavingOverlapsGreaterThanorEqualto);
+			functionalElement.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualto);
 			functionalElement.setNumberofPermutations(numberofRepeats * numberofPermutations);
 			functionalElement.setNumberofComparisons(numberofComparisons);
 
