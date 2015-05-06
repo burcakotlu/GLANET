@@ -398,7 +398,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 1f;
+		float tpmThreshold = 0.01f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path
@@ -415,7 +415,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 		//Output File
 		//Set NonExpressingGenesIntervalsFile
 		String TPMString = getTPMString(tpmThreshold);
-		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + Commons.NON_EXPRESSING_GENES+ "Intervals_EndInclusive.txt";
 		
 		//Read GM12878 Rep1  results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile(GM12878Rep1GTFFileName);

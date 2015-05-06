@@ -82,8 +82,6 @@ public class SimulationGLANETResults {
 		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
 		int numberofPermutations;
 		
-		
-		
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
@@ -113,7 +111,6 @@ public class SimulationGLANETResults {
 		element.setNumberofComparisons(numberofComparisons);
 		
 		return element;
-		
 	}
 	
 	public static void readSimulationGLANETResults(
@@ -141,21 +138,21 @@ public class SimulationGLANETResults {
 		BufferedWriter cellLineFilteredEnrichmentBufferedWriter = null;
 		
 		List<FunctionalElementMinimal> elementList = null;
-		
 		FunctionalElementMinimal element = null;
  		
 		try {
 			
 			
-		
+			//For each simulation
 			for(int i = 0; i<numberofSimulations; i++){
 			
+				//Initialize elementList
 				elementList = new ArrayList<FunctionalElementMinimal>();
 				
 				enrichmentDirectory = new File(outputFolder + Commons.SIMULATION + i + System.getProperty("file.separator") + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType.convertEnumtoString());
 				
 				//Get the enrichmentFile in this folder for this simulation
-				//There must one enrichmentFile
+				//There must only one enrichmentFile
 				if (enrichmentDirectory.exists() && enrichmentDirectory.isDirectory()) {
 					
 					for (File eachEnrichmentFile : enrichmentDirectory.listFiles()) {
@@ -207,7 +204,6 @@ public class SimulationGLANETResults {
 					default:	break;
 				
 				}//End of switch
-				
 				
 			
 				//Write new enrichmentFile
@@ -268,7 +264,7 @@ public class SimulationGLANETResults {
 				enrichmentBufferedReader.close();
 				cellLineFilteredEnrichmentBufferedWriter.close();
 					
-					elementList= null;
+				elementList= null;
 			}//End of for each simulation	
 		
 				System.out.println("Number of simulations that has " +  elementNameCellLineName + " is enriched "  + numberofSimulationsThatHasElementNameCellLineNameEnriched + " out of " + numberofSimulations + " simulations.");

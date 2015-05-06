@@ -437,15 +437,15 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		
 		//Input File
 		//Set NonExpressingGenesIntervalsFile
-		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_1 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
-		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_01 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_001 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";				
+		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_001 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
+		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_01 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
+		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_1 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
 		
 		//Output File
-		//Set NonExpressingGenesIntervalsFile
-		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_1 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
-		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_01 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
-		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  Commons.DNASE_OVERLAPS_EXCLUDED + "_" + Commons.TPM_001 + "_NonExpressingProteinCodingGenesIntervals_EndInclusive.txt";
+		//Set DnaseOverlapsExcluded NonExpressingGenesIntervalsFile
+		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_001 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
+		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_01 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
+		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_1 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
 		
 		excludeDnaseIntervalsWriteToOutputFile(dataFolder,nonExpressingGenesIntervalsFile,dnaseIntervalsExcludedNonExpressingGenesIntervalsFile,dnaseCellLineNumberList);
 	}

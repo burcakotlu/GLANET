@@ -46,7 +46,7 @@ public class BenjaminiandHochberg {
 				element.setRejectNullHypothesis(false);
 			}
 			j++;
-		}
+		}//End of while
 
 	}
 

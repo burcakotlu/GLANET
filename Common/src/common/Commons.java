@@ -47,6 +47,7 @@ public class Commons {
 	public static final String TPM_UNKNOWN 	= "TPM"; 
 	
 	public static final String DNASE_OVERLAPS_EXCLUDED 	= "DnaseOverlapsExcluded"; 
+	public static final String NON_EXPRESSING_GENES 	= "NonExpressingGenes"; 
 	public static final String SIMULATION_DATA = "SimulationData";
 	public static final String SIMULATION = "Sim";
 	public static final String GM12878 = "GM12878";
