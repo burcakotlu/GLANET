@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +18,9 @@ import multipletesting.BenjaminiandHochberg;
 import multipletesting.BonferroniCorrection;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
+import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;
 import enumtypes.MultipleTestingType;
@@ -115,6 +115,8 @@ public class SimulationGLANETResults {
 	
 	public static void readSimulationGLANETResults(
 			String outputFolder, 
+			String tpmString,
+			String dnaseOverlapsExcludedorNot,
 			int numberofSimulations,
 			int numberofComparisons, 
 			ElementType elementType, 
@@ -123,6 +125,8 @@ public class SimulationGLANETResults {
 			Float bonferroniCorrectionSignificanceLevel,
 			Float FDR, 
 			MultipleTestingType multipleTestingParameter){
+		
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
 		
 		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
 		
@@ -149,7 +153,7 @@ public class SimulationGLANETResults {
 				//Initialize elementList
 				elementList = new ArrayList<FunctionalElementMinimal>();
 				
-				enrichmentDirectory = new File(outputFolder + Commons.SIMULATION + i + System.getProperty("file.separator") + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType.convertEnumtoString());
+				enrichmentDirectory = new File(outputFolder + tpmString + dnaseOverlapsExcludedorNot + Commons.SIMULATION + i + System.getProperty("file.separator") + Commons.ENRICHMENT + System.getProperty("file.separator") + elementType.convertEnumtoString());
 				
 				//Get the enrichmentFile in this folder for this simulation
 				//There must only one enrichmentFile
@@ -251,9 +255,9 @@ public class SimulationGLANETResults {
 																	element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" +
 																	element.getNumberofPermutations() + "\t" + 
 																	element.getNumberofComparisons() + "\t" + 
-																	element.getEmpiricalPValue() + "\t" + 
-																	element.getBonferroniCorrectedPValue() + "\t" + 
-																	element.getBHFDRAdjustedPValue() + "\t" + 
+																	df.format(element.getEmpiricalPValue()) + "\t" + 
+																	df.format(element.getBonferroniCorrectedPValue()) + "\t" + 
+																	df.format(element.getBHFDRAdjustedPValue()) + "\t" + 
 																	element.isRejectNullHypothesis() +
 																	System.getProperty("line.separator"));
 					
@@ -286,8 +290,11 @@ public class SimulationGLANETResults {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + "TPM1_DnaseOverlapsExcluded" +  System.getProperty("file.separator") ;
-		//String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + "TPM1_NonExpress" +  System.getProperty("file.separator") ;
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
+		
+		String tpmString = Commons.TPM_01;
+		String dnaseOverlapsExcludedorNot = Commons.DNASE_OVERLAPS_EXCLUDED;
+		
 		
 		float FDR = 0.05f;
 		float bonferroniCorrectionSignificanceLevel = 0.05f;
@@ -299,8 +306,8 @@ public class SimulationGLANETResults {
 		
 		int numberofSimulations = 50;
 		
-		readSimulationGLANETResults(outputFolder,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
-		readSimulationGLANETResults(outputFolder,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
+		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
+		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
 		
 
 	}
