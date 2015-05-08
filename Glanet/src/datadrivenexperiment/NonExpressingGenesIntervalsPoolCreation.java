@@ -171,7 +171,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 				if (exonNumber==1){
 					
 					if (	ensemblGeneID2TPMMap.containsKey(ensemblGeneID) &&
-							(ensemblGeneID2TPMMap.get(ensemblGeneID) < tpmThreshold) &&
+							(ensemblGeneID2TPMMap.get(ensemblGeneID) <= tpmThreshold) &&
 							geneType.equals("\"protein_coding\"")){
 						
 						
@@ -181,13 +181,11 @@ public class NonExpressingGenesIntervalsPoolCreation {
 						
 							case '+': 	minusOneHundredFromTSS = low-500;  
 										plusFiveHundredFromTSS = low+100; 
-										//bufferedWriter.write(chrName.convertEnumtoString() + "\t" + minusOneHundredFromTSS +"\t" + plusFiveHundredFromTSS + "\t" + geneSymbol + System.getProperty("line.separator"));
 										geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(strand,minusOneHundredFromTSS, plusFiveHundredFromTSS, chrName, ensemblTranscriptID, geneSymbol);
 										break;
 										
 							case '-': 	minusOneHundredFromTSS = high+500;  
 										plusFiveHundredFromTSS = high-100; 
-										//bufferedWriter.write(chrName.convertEnumtoString() + "\t" + plusFiveHundredFromTSS +"\t" + minusOneHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator"));
 										geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(strand,plusFiveHundredFromTSS, minusOneHundredFromTSS, chrName, ensemblTranscriptID, geneSymbol);
 										break;
 							
@@ -226,6 +224,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 				proteinCodingGeneExonNumberOneIntervalList = entry.getValue();
 				
 				//get the strand
+				//there is at least one interval
 				strand = proteinCodingGeneExonNumberOneIntervalList.get(0).getStrand();
 				
 				//Select which transcript to write
@@ -494,7 +493,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 1f;
+		float tpmThreshold = 0.01f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path

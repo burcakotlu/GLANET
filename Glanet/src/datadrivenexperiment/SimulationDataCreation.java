@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -186,11 +184,15 @@ public class SimulationDataCreation {
 		//Parameters for Simulations
 		//TPM and DnaseOverlapsExclusion
 		String tpmString = Commons.TPM_1;
-		String dnaseOverlapsExcludedorNot =  Commons.NON_EXPRESSING_GENES;
+		
+		//boolean isDnaseOverlapsExclusionCompletely = true;
+		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
+		
+		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.NON_EXPRESSING_GENES;
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
 		//Set IntervalPoolFile
-		String intervalPoolFileName  = getIntervalPoolFileName(tpmString,dnaseOverlapsExcludedorNot,dataFolder);
+		String intervalPoolFileName  = getIntervalPoolFileName(tpmString,dnaseOverlapsExclusionPartiallyorCompletely,dataFolder);
 		
 		//Other Parameters for Simulations
 		//Number of Simulations
@@ -201,7 +203,7 @@ public class SimulationDataCreation {
 		
 		//Generate Simulations Data
 		//Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-		generateRandomSimulationData(dataFolder,tpmString, dnaseOverlapsExcludedorNot,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
+		generateRandomSimulationData(dataFolder,tpmString, dnaseOverlapsExclusionPartiallyorCompletely,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
 		
 		//Then for each simulationData I will run GLANET
 		//Count the numberofSimulations that have POL2_GM12878 enriched
