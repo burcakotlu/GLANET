@@ -1,6 +1,3 @@
-/**
- * 
- */
 package datadrivenexperiment;
 
 import enumtypes.ChromosomeName;
@@ -15,7 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import auxiliary.FileOperations;
 
@@ -27,7 +26,7 @@ import common.Commons;
  * @project Glanet 
  *
  */
-public class NonExpressingGenesIntervalsFileCreation {
+public class NonExpressingGenesIntervalsPoolCreation {
 	
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
@@ -35,7 +34,14 @@ public class NonExpressingGenesIntervalsFileCreation {
 			float tpmThreshold, 
 			String nonExpressingGenesIntervalsFileName){
 		
-		List<String> geneIDList = new ArrayList<String>(); 
+		//List<String> geneIDList = new ArrayList<String>(); 
+		Map<String,List<ProteinCodingGeneExonNumberOneInterval>> geneId2GeneExonNumberOneIntervalsMap = new HashMap<String,List<ProteinCodingGeneExonNumberOneInterval>>();
+		List<ProteinCodingGeneExonNumberOneInterval>  proteinCodingGeneExonNumberOneIntervalList = null;
+		ProteinCodingGeneExonNumberOneInterval geneExonNumberOneInterval = null;
+		
+		int minLow = Integer.MAX_VALUE;
+		int maxHigh = Integer.MIN_VALUE;
+		int savedIndex = 0;
 		
 		List<String> geneTypesList = new ArrayList<String>(); 
 		
@@ -53,6 +59,9 @@ public class NonExpressingGenesIntervalsFileCreation {
 		
 		String ensemblGeneIDWithPair = null;
 		String ensemblGeneID = null;
+		
+		String ensemblTranscriptIDWithPair = null;
+		String ensemblTranscriptID = null;
 		
 		String geneTypeWithPair = null;
 		String geneType = null;
@@ -92,9 +101,9 @@ public class NonExpressingGenesIntervalsFileCreation {
 			FileWriter fileWriter = FileOperations.createFileWriter(nonExpressingGenesIntervalsFileName);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
-			
 			//chr1	HAVANA	exon	11869	12227	.	+	.	gene_id "ENSG00000223972.4"; transcript_id "ENST00000456328.2"; gene_type "pseudogene"; gene_status "KNOWN"; gene_name "DDX11L1"; transcript_type "processed_transcript"; transcript_status "KNOWN"; transcript_name "DDX11L1-002"; exon_number 1;  exon_id "ENSE00002234944.1";  level 2; tag "basic"; havana_gene "OTTHUMG00000000961.2"; havana_transcript "OTTHUMT00000362751.1";
 			
+			//First Read the femaleGTFFile
 			while((strLine = bufferedReader.readLine())!=null){
 				
 				indexofFirstTab = strLine.indexOf('\t');
@@ -136,9 +145,15 @@ public class NonExpressingGenesIntervalsFileCreation {
 				indexofEigthSemiColon = (indexofSeventhSemiColon>0)? attribute.indexOf(';',indexofSeventhSemiColon+1):-1;
 				indexofNinethSemiColon = (indexofEigthSemiColon>0)? attribute.indexOf(';',indexofEigthSemiColon+1):-1;
 				
+				//geneID
 				ensemblGeneIDWithPair = attribute.substring(0, indexofFirstSemiColon);
 				ensemblGeneID = ensemblGeneIDWithPair.substring(ensemblGeneIDWithPair.indexOf(' ')+1).replace("\"", "");
 				
+				//transcriptID
+				ensemblTranscriptIDWithPair = attribute.substring(indexofFirstSemiColon+1, indexofSecondSemiColon).trim();
+				ensemblTranscriptID = ensemblTranscriptIDWithPair.substring(ensemblTranscriptIDWithPair.indexOf(' ')+1).replace("\"", "");
+				
+				//geneSymbol
 				geneSymbolWithPair = attribute.substring(indexofFourthSemiColon+1, indexofFifthSemiColon);
 				geneSymbol = geneSymbolWithPair.replace("gene_name", "").trim();
 				
@@ -155,10 +170,10 @@ public class NonExpressingGenesIntervalsFileCreation {
 				
 				if (exonNumber==1){
 					
-					if (ensemblGeneID2TPMMap.containsKey(ensemblGeneID) &&
+					if (	ensemblGeneID2TPMMap.containsKey(ensemblGeneID) &&
 							(ensemblGeneID2TPMMap.get(ensemblGeneID) < tpmThreshold) &&
-							!geneIDList.contains(ensemblGeneID) && 
 							geneType.equals("\"protein_coding\"")){
+						
 						
 						numberofIntervalsCreated++;
 						
@@ -166,18 +181,30 @@ public class NonExpressingGenesIntervalsFileCreation {
 						
 							case '+': 	minusOneHundredFromTSS = low-500;  
 										plusFiveHundredFromTSS = low+100; 
-										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + minusOneHundredFromTSS +"\t" + plusFiveHundredFromTSS + "\t" + geneSymbol + System.getProperty("line.separator"));
+										//bufferedWriter.write(chrName.convertEnumtoString() + "\t" + minusOneHundredFromTSS +"\t" + plusFiveHundredFromTSS + "\t" + geneSymbol + System.getProperty("line.separator"));
+										geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(strand,minusOneHundredFromTSS, plusFiveHundredFromTSS, chrName, ensemblTranscriptID, geneSymbol);
 										break;
 										
 							case '-': 	minusOneHundredFromTSS = high+500;  
 										plusFiveHundredFromTSS = high-100; 
-										bufferedWriter.write(chrName.convertEnumtoString() + "\t" + plusFiveHundredFromTSS +"\t" + minusOneHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator"));
+										//bufferedWriter.write(chrName.convertEnumtoString() + "\t" + plusFiveHundredFromTSS +"\t" + minusOneHundredFromTSS + "\t" + geneSymbol +  System.getProperty("line.separator"));
+										geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(strand,plusFiveHundredFromTSS, minusOneHundredFromTSS, chrName, ensemblTranscriptID, geneSymbol);
 										break;
 							
 						} //End of SWITCH
 						
+						proteinCodingGeneExonNumberOneIntervalList = geneId2GeneExonNumberOneIntervalsMap.get(ensemblGeneID);
+						
+						if (proteinCodingGeneExonNumberOneIntervalList == null){
+							proteinCodingGeneExonNumberOneIntervalList = new ArrayList<ProteinCodingGeneExonNumberOneInterval>();
+							proteinCodingGeneExonNumberOneIntervalList.add(geneExonNumberOneInterval);
+							geneId2GeneExonNumberOneIntervalsMap.put(ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
+						}else{
+							proteinCodingGeneExonNumberOneIntervalList.add(geneExonNumberOneInterval);
+						}
+						
 						//In order to generate only one interval for the first occurrence of exon number 1 of a certain ensemblGeneID
-						geneIDList.add(ensemblGeneID);
+						//geneIDList.add(ensemblGeneID);
 						
 					}//End of IF: For this geneId, interval will be created.
 					
@@ -185,6 +212,62 @@ public class NonExpressingGenesIntervalsFileCreation {
 					
 				
 			}//End of While
+			//Reading female.gtf file is accomplished
+			
+			//Writing NonExpressingGenes Intervals starts
+			for (Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : geneId2GeneExonNumberOneIntervalsMap.entrySet()) {
+				
+				
+				minLow = Integer.MAX_VALUE;
+				maxHigh = Integer.MIN_VALUE;
+				savedIndex = 0;
+				
+				//entry.getKey()
+				proteinCodingGeneExonNumberOneIntervalList = entry.getValue();
+				
+				//get the strand
+				strand = proteinCodingGeneExonNumberOneIntervalList.get(0).getStrand();
+				
+				//Select which transcript to write
+				//Find the lowest low for "+" genes
+				//Find the highest high for "-" genes
+				switch(strand){
+					case '+': 	for(int i = 0; i<proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+						
+									geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get(i);
+									
+									if(geneExonNumberOneInterval.getLow() < minLow){
+										minLow = geneExonNumberOneInterval.getLow();
+										savedIndex = i ;
+									}//End of IF
+									
+								}//End of FOR
+								break;
+								
+								
+					case '-': for(int i = 0; i<proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+						
+									geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get(i);
+									
+									if(geneExonNumberOneInterval.getHigh() > maxHigh){
+										maxHigh = geneExonNumberOneInterval.getHigh();
+										savedIndex = i ;
+									}//End of IF
+									
+								}//End of FOR
+		
+								break;
+				}//End of swicth
+				
+				
+				//Now write
+				geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get(savedIndex);
+				bufferedWriter.write(geneExonNumberOneInterval.getChrName().convertEnumtoString() + "\t" + geneExonNumberOneInterval.getLow() +"\t" + geneExonNumberOneInterval.getHigh() + "\t" + geneExonNumberOneInterval.getGeneSymbol() + System.getProperty("line.separator"));
+				
+				
+			}//End of for
+			//Writing NonExpressingGenes Intervals ends
+			
 			
 			System.out.println("Number of NonExpressing protein coding genes intervals created: " + numberofIntervalsCreated);
 			
@@ -375,12 +458,25 @@ public class NonExpressingGenesIntervalsFileCreation {
 
 	
 	public static String getTPMString(float tpmThreshold){
-		if (tpmThreshold == 0.01f)
+		
+		if (tpmThreshold == 0f)
+			return Commons.TPM_0;
+		
+		else if (tpmThreshold == 0.000001f)
+			return Commons.TPM_0000001;
+		
+		else if (tpmThreshold == 0.001f)
+			return Commons.TPM_0001;
+		
+		else if (tpmThreshold == 0.01f)
 			return Commons.TPM_001;
+		
 		else if (tpmThreshold == 0.1f)
 			return Commons.TPM_01;
+		
 		else if (tpmThreshold == 1f)
 			return Commons.TPM_1;
+		
 		else
 			return Commons.TPM_UNKNOWN;
 		
@@ -398,7 +494,7 @@ public class NonExpressingGenesIntervalsFileCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 0.01f;
+		float tpmThreshold = 1f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path

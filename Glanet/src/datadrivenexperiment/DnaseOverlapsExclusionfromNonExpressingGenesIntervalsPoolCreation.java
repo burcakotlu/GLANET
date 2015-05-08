@@ -34,7 +34,7 @@ import gnu.trove.map.hash.TObjectShortHashMap;
  * @project Glanet 
  *
  */
-public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
+public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 	
 	public static void fillMap(
 			ChromosomeName chrName,
@@ -243,6 +243,7 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 	public static void findOverlapsExcludeOverlaps(
 			IntervalTree dnaseIntervalTree,
 			List<IntervalDataDrivenExperiment> originalIntervalList,
+			boolean isDnaseOverlapsExclusionCompletely,
 			List<IntervalDataDrivenExperiment> dnaseOverlapsExcludedIntervalList ){
 		
 		int overlapDefinition = 1;
@@ -263,32 +264,48 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			
 			overlappingIntervalList = dnaseIntervalTree.findAllOverlappingIntervalsForExclusion(dnaseIntervalTree.getRoot(), originalInterval, overlapDefinition);
 			
-			//Should I merge the intervals in overlappingIntervalList?
-			//Not so important for the time being.
+			//Completely Discard NonExpressingGenesIntervals
+			if (isDnaseOverlapsExclusionCompletely){
+				
+				//There is no overlap
+				if(overlappingIntervalList.size()==0){
+					dnaseOverlapsExcludedIntervalList.add(originalInterval);	
+				}
+				//There is overlap, so discard original interval completely
+				//Do nothing	
+				
+			}
 			
-			//There is overlap, so put  overlappingIntervalsExcludedIntervalList into dnaseOverlapsExcludedIntervalList
-			if(overlappingIntervalList.size()>0){
-				
-				
-				
-				numberofIntervalsThatHasOverlaps++;
-				overlappingIntervalsExcludedIntervalList = excludeOverlaps(originalInterval,overlappingIntervalList);
-				
-				
-				//Add only intervals which is not removed!
-				for(int i=0; i<overlappingIntervalsExcludedIntervalList.size(); i++){
-					
-					if (!overlappingIntervalsExcludedIntervalList.get(i).isRemoved()){
-						dnaseOverlapsExcludedIntervalList.add(overlappingIntervalsExcludedIntervalList.get(i));
-					}//End of IF
-					
-				}//End of for
-				
-			}
-			//There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
+			//Partially Discard NonExpressingGenesIntervals
 			else{
-				dnaseOverlapsExcludedIntervalList.add(originalInterval);	
+				
+				//Should I merge the intervals in overlappingIntervalList?
+				//Not so important for the time being.
+				
+				//There is overlap, so put  overlappingIntervalsExcludedIntervalList into dnaseOverlapsExcludedIntervalList
+				if(overlappingIntervalList.size()>0){
+					
+					numberofIntervalsThatHasOverlaps++;
+					overlappingIntervalsExcludedIntervalList = excludeOverlaps(originalInterval,overlappingIntervalList);
+					
+					
+					//Add only intervals which is not removed!
+					for(int i=0; i<overlappingIntervalsExcludedIntervalList.size(); i++){
+						
+						if (!overlappingIntervalsExcludedIntervalList.get(i).isRemoved()){
+							dnaseOverlapsExcludedIntervalList.add(overlappingIntervalsExcludedIntervalList.get(i));
+						}//End of IF
+						
+					}//End of for
+					
+				}
+				//There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
+				else{
+					dnaseOverlapsExcludedIntervalList.add(originalInterval);	
+				}
 			}
+			
+			
 			
 			
 			
@@ -303,6 +320,7 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			String dataFolder,
 			TIntList dnaseCellLineNumberList,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2OriginalIntervalsListMap,
+			boolean isDnaseOverlapsExclusionCompletely,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2DnaseOverlapsExcludedIntervalsListMap,
 			String outputFileName){
 		
@@ -331,7 +349,7 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 			dnaseIntervalTree = Annotation.createDnaseIntervalTreeWithNumbers(dataFolder, chrName,dnaseCellLineNumberList);
 			
 			//Find DnaseOverlaps and Exclude DnaseOverlaps from originalIntervals
-			findOverlapsExcludeOverlaps(dnaseIntervalTree,originalIntervalList,dnaseOverlapsExcludedIntervalList);	
+			findOverlapsExcludeOverlaps(dnaseIntervalTree,originalIntervalList,isDnaseOverlapsExclusionCompletely,dnaseOverlapsExcludedIntervalList);	
 			
 			//Set chromosomeBased dnaseOverlapsExcludedIntervalsListMap
 			chrNumber2DnaseOverlapsExcludedIntervalsListMap.put(chrNumber,dnaseOverlapsExcludedIntervalList);
@@ -392,6 +410,7 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 	public static void excludeDnaseIntervalsWriteToOutputFile(
 			String dataFolder,
 			String inputFileName, 
+			boolean isDnaseOverlapsExclusionCompletely,
 			String outputFileName, 
 			TIntList dnaseCellLineNumberList){
 		
@@ -400,7 +419,8 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		
 		readInputIntervalFillChromosomeBasedInputIntervalsMap(inputFileName,chrNumber2OriginalIntervalsListMap);
 		
-		excludeDnaseCellLineOverlapsFromInputIntervals(dataFolder,dnaseCellLineNumberList,chrNumber2OriginalIntervalsListMap,chrNumber2DnaseOverlapsExcludedIntervalsListMap,outputFileName);
+		//todo isDnaseOverlapsExclusionCompletely
+		excludeDnaseCellLineOverlapsFromInputIntervals(dataFolder,dnaseCellLineNumberList,chrNumber2OriginalIntervalsListMap,isDnaseOverlapsExclusionCompletely,chrNumber2DnaseOverlapsExcludedIntervalsListMap,outputFileName);
 		
 		writeDnaseOverlapsExcludedIntervals(outputFileName,chrNumber2DnaseOverlapsExcludedIntervalsListMap);
 	}
@@ -421,10 +441,27 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		
 	}
 	
+	public static String getDnaseOverlapsExclusionString(boolean isDnaseOverlapsExclusionCompletely){
+		
+		if (isDnaseOverlapsExclusionCompletely){
+			return Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
+		}else {
+			return Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		
+		boolean isDnaseOverlapsExclusionCompletely = true;
+		String dnaseOverlapsExclusionPartiallyorCompletely = getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
+		
+		float tpm= 0.1f;
+		String tpmString = NonExpressingGenesIntervalsPoolCreation.getTPMString(tpm);
+		
 		
 		/********************************************************************************/
 		List<String> dnaseCellLineNameList = new ArrayList<String>();
@@ -439,15 +476,15 @@ public class ExcludeDnaseIntervalsNonExpressingGenesIntervalsFileCreation {
 		//Set NonExpressingGenesIntervalsFile
 		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_001 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
 		//String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_01 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + Commons.TPM_1 + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
+		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + tpmString + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";				
 		
 		//Output File
 		//Set DnaseOverlapsExcluded NonExpressingGenesIntervalsFile
 		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_001 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
 		//String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_01 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
-		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   Commons.TPM_1 + Commons.DNASE_OVERLAPS_EXCLUDED + "Intervals_EndInclusive.txt";
+		String dnaseIntervalsExcludedNonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +   tpmString + dnaseOverlapsExclusionPartiallyorCompletely + "Intervals_EndInclusive.txt";
 		
-		excludeDnaseIntervalsWriteToOutputFile(dataFolder,nonExpressingGenesIntervalsFile,dnaseIntervalsExcludedNonExpressingGenesIntervalsFile,dnaseCellLineNumberList);
+		excludeDnaseIntervalsWriteToOutputFile(dataFolder,nonExpressingGenesIntervalsFile,isDnaseOverlapsExclusionCompletely,dnaseIntervalsExcludedNonExpressingGenesIntervalsFile,dnaseCellLineNumberList);
 	}
 
 }

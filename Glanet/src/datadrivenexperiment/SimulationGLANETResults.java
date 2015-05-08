@@ -292,7 +292,7 @@ public class SimulationGLANETResults {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		String tpmString = Commons.TPM_01;
+		String tpmString = Commons.TPM_001;
 		String dnaseOverlapsExcludedorNot = Commons.DNASE_OVERLAPS_EXCLUDED;
 		
 		
@@ -304,7 +304,7 @@ public class SimulationGLANETResults {
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.TF,Commons.GM12878);
 		int numberofHistoneElementsInCellLine =NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.HISTONE,Commons.GM12878);
 		
-		int numberofSimulations = 50;
+		int numberofSimulations = 100;
 		
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
