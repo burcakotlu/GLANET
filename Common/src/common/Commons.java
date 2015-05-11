@@ -2,8 +2,8 @@ package common;
 
 public class Commons {
 	
-	//Heap Size 
-	public static final int MIN_HEAP_FOR_GLANET = 2000;
+	//Number of MegaBytes
+	public static final int MIN_HEAP_FOR_GLANET = 1000;
 	
 	//Number of processors
 	public static final int NUMBER_OF_AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();

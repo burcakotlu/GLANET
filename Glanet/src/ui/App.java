@@ -678,6 +678,9 @@ public class App {
 
 		if (args.length > 0 && isCommandLineEnabled(args)) {
 
+			//1024 means 1024 bytes
+			//If given memory is less than 1 GB then give error
+			// 1 GB (1000000000 B) / 1 MB (1000000 B) = 1000
 			if ((Runtime.getRuntime().maxMemory() / 1024) / 1024 < Commons.MIN_HEAP_FOR_GLANET) {
 
 				System.out.println("There is no enough available memory." + System.getProperty("line.separator") + "Please see http://glanet.readthedocs.org/en/latest/ to specify minimum required memory. (Also see -Xmx)\nAborting...");

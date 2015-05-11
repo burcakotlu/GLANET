@@ -22,12 +22,16 @@ public class SimulationGLANETRuns {
 	
 	public static void writeTPMIntervals(BufferedWriter bufferedWriter, int numberofSimulations,String tpm, String dnaseOverlapsExcludedorNot) throws IOException{
 		
+		//Desktop in METU
+		//C:\Users\aidata\Google Drive\GLANET
+		
 		for(int i = 0; i<numberofSimulations; i++){
 			
 			bufferedWriter.write("java -jar" + " "+
 								"\"C:" + System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") + System.getProperty("file.separator") +
-								"Burçak" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
+								//"Burçak" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
+								"aidata" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"GLANET" + System.getProperty("file.separator") +  System.getProperty("file.separator") +
 								"GLANET.jar\"" + " " + 
@@ -37,12 +41,14 @@ public class SimulationGLANETRuns {
 								"-g" + " " +  
 								"\"C:" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								//"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") + System.getProperty("file.separator") + "\"" + " " +
 								"-i" + " " +
 								"\"C:" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								//"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Data"+ System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"SimulationData" + System.getProperty("file.separator") +System.getProperty("file.separator") +
@@ -76,7 +82,8 @@ public class SimulationGLANETRuns {
 		try {
 			fileWriter = FileOperations.createFileWriter("C:" + System.getProperty("file.separator") + 
 																"Users" + System.getProperty("file.separator") +
-																"Burçak" + System.getProperty("file.separator") +
+																//"Burçak" + System.getProperty("file.separator") +
+																"aidata" + System.getProperty("file.separator") +
 																"Desktop" + System.getProperty("file.separator") +
 																"SimulationGLANETRuns.bat");
 			
