@@ -41,10 +41,12 @@ public class Commons {
 	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
 	public static final String female_gtf = "female.gtf";
 	
-	public static final String TPM_1 	= "TPM1"; 
-	public static final String TPM_01 	= "TPM01"; 
-	public static final String TPM_001 	= "TPM001"; 
+	public static final String TPM_1 		= "TPM1"; 
+	public static final String TPM_01 		= "TPM01"; 
+	public static final String TPM_001 		= "TPM001"; 
 	public static final String TPM_0001 	= "TPM0001"; 
+	public static final String TPM_00001 	= "TPM00001"; 
+	public static final String TPM_000001 	= "TPM000001"; 
 	public static final String TPM_0000001 	= "TPM0000001"; 
 	public static final String TPM_0 	= "TPM0"; 
 	public static final String TPM_UNKNOWN 	= "TPM"; 

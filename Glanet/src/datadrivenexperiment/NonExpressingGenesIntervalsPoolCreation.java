@@ -175,7 +175,6 @@ public class NonExpressingGenesIntervalsPoolCreation {
 							geneType.equals("\"protein_coding\"")){
 						
 						
-						numberofIntervalsCreated++;
 						
 						switch(strand){
 						
@@ -215,6 +214,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 			//Writing NonExpressingGenes Intervals starts
 			for (Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : geneId2GeneExonNumberOneIntervalsMap.entrySet()) {
 				
+				numberofIntervalsCreated++;
 				
 				minLow = Integer.MAX_VALUE;
 				maxHigh = Integer.MIN_VALUE;
@@ -292,7 +292,8 @@ public class NonExpressingGenesIntervalsPoolCreation {
 			
 			tpm = it.value();
 			
-			if (tpm<tpmThreshold){
+			//Less than or equal to 
+			if (tpm <= tpmThreshold){
 				numberofNonExpressingGenes++;
 			}
 		}//End of for
@@ -464,6 +465,12 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		else if (tpmThreshold == 0.000001f)
 			return Commons.TPM_0000001;
 		
+		else if (tpmThreshold == 0.00001f)
+			return Commons.TPM_000001;
+		
+		else if (tpmThreshold == 0.0001f)
+			return Commons.TPM_00001;
+		
 		else if (tpmThreshold == 0.001f)
 			return Commons.TPM_0001;
 		
@@ -493,7 +500,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 0.01f;
+		float tpmThreshold = 0f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path

@@ -292,14 +292,16 @@ public class SimulationGLANETResults {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		String tpmString = Commons.TPM_001;
-		String dnaseOverlapsExcludedorNot = Commons.DNASE_OVERLAPS_EXCLUDED;
+		String tpmString = Commons.TPM_0;
+		//String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
+		//String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
 		
 		
 		float FDR = 0.05f;
 		float bonferroniCorrectionSignificanceLevel = 0.05f;
-		MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
-
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.BONFERRONI_CORRECTION;
+		//MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
 		
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.TF,Commons.GM12878);
 		int numberofHistoneElementsInCellLine =NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.HISTONE,Commons.GM12878);

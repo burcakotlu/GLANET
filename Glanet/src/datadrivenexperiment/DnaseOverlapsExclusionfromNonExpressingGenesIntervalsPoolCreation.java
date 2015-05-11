@@ -247,7 +247,6 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 			List<IntervalDataDrivenExperiment> dnaseOverlapsExcludedIntervalList ){
 		
 		int overlapDefinition = 1;
-		int numberofIntervalsThatHasOverlaps = 0;
 		
 		//For each originalInterval, there can be more than one dnaseOverlapping Intervals
 		List<IntervalDataDrivenExperiment> overlappingIntervalList  = null;
@@ -285,9 +284,7 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 				//There is overlap, so put  overlappingIntervalsExcludedIntervalList into dnaseOverlapsExcludedIntervalList
 				if(overlappingIntervalList.size()>0){
 					
-					numberofIntervalsThatHasOverlaps++;
 					overlappingIntervalsExcludedIntervalList = excludeOverlaps(originalInterval,overlappingIntervalList);
-					
 					
 					//Add only intervals which is not removed!
 					for(int i=0; i<overlappingIntervalsExcludedIntervalList.size(); i++){
@@ -305,14 +302,9 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 				}
 			}
 			
-			
-			
-			
-			
 		}//End of for each original interval in the originalIntervalList
 		/*************************************************************/
 		
-		System.out.println("Number of intervals:" + "\t" + originalIntervalList.size() +  "\t" + "Number of intervals that has overaps:" +  "\t" + numberofIntervalsThatHasOverlaps);
 		
 	}
 	
@@ -372,6 +364,8 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 		ChromosomeName chrName;
 		List<IntervalDataDrivenExperiment> intervals;
 		
+		int numberofIntervals = 0;
+		
 		try {
 			fileWriter = FileOperations.createFileWriter(outputFileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
@@ -388,6 +382,7 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 				for(IntervalDataDrivenExperiment interval:intervals){
 					
 					if (!interval.isRemoved()){
+						numberofIntervals++;
 						bufferedWriter.write(ChromosomeName.convertEnumtoString(chrName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + System.getProperty("line.separator") );
 					}//End of IF interval is not removed
 					
@@ -395,6 +390,8 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 				
 				
 			}//End of For each chromosome
+			
+			System.out.println("numberofIntervals after dnase overlap exclusion is: "  + numberofIntervals);
 			
 			//Close
 			bufferedWriter.close();
@@ -459,8 +456,10 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 		boolean isDnaseOverlapsExclusionCompletely = false;
 		String dnaseOverlapsExclusionPartiallyorCompletely = getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		float tpm= 0.01f;
+		float tpm= 0.001f;
 		String tpmString = NonExpressingGenesIntervalsPoolCreation.getTPMString(tpm);
+		
+		System.out.println("tpm is: " + tpm + " DnaseOverlaps is: " + dnaseOverlapsExclusionPartiallyorCompletely);
 		
 		
 		/********************************************************************************/
