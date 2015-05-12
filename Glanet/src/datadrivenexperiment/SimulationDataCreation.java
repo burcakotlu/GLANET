@@ -181,14 +181,16 @@ public class SimulationDataCreation {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
+		
+		
 		//Parameters for Simulations
 		//TPM and DnaseOverlapsExclusion
-		String tpmString = Commons.TPM_1;
+		String tpmString = Commons.TPM_0;
 		
 		//boolean isDnaseOverlapsExclusionCompletely = true;
 		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.NON_EXPRESSING_GENES;
+		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
 		//Set IntervalPoolFile

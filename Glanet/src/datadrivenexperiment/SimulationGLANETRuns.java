@@ -90,22 +90,25 @@ public class SimulationGLANETRuns {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.NON_EXPRESSING_GENES);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.NON_EXPRESSING_GENES);
 			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.NON_EXPRESSING_GENES);
-			
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.NON_EXPRESSING_GENES);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.NON_EXPRESSING_GENES);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.NON_EXPRESSING_GENES);
+				
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
 			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
 			
 			
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
 			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+				
 			//Close BufferedWriter
 			bufferedWriter.close();
 			

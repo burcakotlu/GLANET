@@ -453,10 +453,10 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
-		boolean isDnaseOverlapsExclusionCompletely = false;
+		boolean isDnaseOverlapsExclusionCompletely = true;
 		String dnaseOverlapsExclusionPartiallyorCompletely = getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		float tpm= 0.001f;
+		float tpm= 0f;
 		String tpmString = NonExpressingGenesIntervalsPoolCreation.getTPMString(tpm);
 		
 		System.out.println("tpm is: " + tpm + " DnaseOverlaps is: " + dnaseOverlapsExclusionPartiallyorCompletely);

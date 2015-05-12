@@ -500,7 +500,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 0f;
+		float tpmThreshold = 1f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path
