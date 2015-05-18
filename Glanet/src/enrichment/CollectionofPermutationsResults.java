@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 import multipletesting.BenjaminiandHochberg;
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.log4j.Logger;
+
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
@@ -32,18 +37,25 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TLongIntMap;
+import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TLongIntHashMap;
+import gnu.trove.map.hash.TLongObjectHashMap;
 
 public class CollectionofPermutationsResults {
+	
+	
+	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
+
 
 	// How to decide enriched elements?
 	// with respect to Benjamini Hochberg FDR or
@@ -290,6 +302,20 @@ public class CollectionofPermutationsResults {
 			String userDefinedGeneSetOptionalDescriptionInputFile, 
 			String elementType, 
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		//13 May 2015 starts
+		TLongObjectMap<DescriptiveStatistics> elementNumber2StatsMap = new TLongObjectHashMap<DescriptiveStatistics>();
+		TLongIntMap elementNumber2OriginalNumberofOverlaps = new TLongIntHashMap();
+		DescriptiveStatistics statsPerElement = null;
+		List<Double> zScoreList = new ArrayList<Double>();
+		double mean = 0f;
+		double stdDev = 0f;
+		double zScorePerElement = 0f;
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		
+		//for control purpose
+		//13 May 2015 ends
+		
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -302,7 +328,7 @@ public class CollectionofPermutationsResults {
 		int indexofFormerComma;
 		int indexofLatterComma;
 
-		int originalNumberofOverlaps;
+		int originalNumberofOverlaps = 0;
 		int permutationNumberofOverlaps = Integer.MAX_VALUE;
 
 		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
@@ -311,6 +337,7 @@ public class CollectionofPermutationsResults {
 
 		FunctionalElement element;
 		long mixedNumber;
+		long elementNumber;
 		String tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol;
 
 		// In case of functionalElement contains kegg pathway
@@ -464,10 +491,17 @@ public class CollectionofPermutationsResults {
 
 					// debug starts
 					if (mixedNumber < 0) {
-						System.out.println("there is a situation 1");
-						System.out.println(mixedNumber);
+						logger.error("There is a situation 1");
+						logger.error(mixedNumber);
 					}
 					// debug ends
+					
+					
+					statsPerElement= elementNumber2StatsMap.get(mixedNumber);
+					if (statsPerElement == null){
+						statsPerElement = new DescriptiveStatistics();
+						elementNumber2StatsMap.put(mixedNumber,statsPerElement);
+					}
 
 					// mixedNumber can be in one of these formats
 					// INT_4DIGIT_DNASECELLLINENUMBER
@@ -481,13 +515,21 @@ public class CollectionofPermutationsResults {
 					
 					originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofTab + 1, indexofPipe));
 
+					//Original Number of Overlaps per each element
+					elementNumber2OriginalNumberofOverlaps.put(mixedNumber, originalNumberofOverlaps);
+					
+					
 					indexofFormerComma = indexofPipe;
 					indexofLatterComma = strLine.indexOf(',', indexofFormerComma + 1);
 
 					// Inner While
 					while (indexofFormerComma != -1 && indexofLatterComma != -1) {
+						
 						permutationNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFormerComma + 1, indexofLatterComma));
 
+						//13 May 2015 starts
+						statsPerElement.addValue(permutationNumberofOverlaps);
+						
 						if (permutationNumberofOverlaps >= originalNumberofOverlaps) {
 							numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps++;
 						}
@@ -555,8 +597,38 @@ public class CollectionofPermutationsResults {
 			/*********************** FOR EACH RUN ENDS ******************************************/
 			/************************************************************************************/
 
+			//13 May 2015 starts
+			//Compute mean of permutationNumberofOverlapsList for each element
+			//Compute standard deviation of permutationNumberofOverlapsList for each element
+			//Compute zscore for each element
+			FileWriter fileWriter = null;
+			BufferedWriter bufferedWriter = null;
 			
+			fileWriter = FileOperations.createFileWriter(outputFolder + runFileName + "_"  + "ZScores.txt" );
+			bufferedWriter = new BufferedWriter(fileWriter);
 			
+			for(TLongIntIterator it = elementNumber2OriginalNumberofOverlaps.iterator(); it.hasNext();){
+				
+				it.advance();
+				
+				elementNumber = it.key();
+				originalNumberofOverlaps = it.value();
+				
+				statsPerElement = elementNumber2StatsMap.get(elementNumber);
+				
+				mean = statsPerElement.getMean();
+				stdDev = statsPerElement.getStandardDeviation();
+				
+				zScorePerElement = (originalNumberofOverlaps - mean)/ stdDev;
+				
+				bufferedWriter.write(df.format(zScorePerElement) + System.getProperty("line.separator"));
+				
+				zScoreList.add(zScorePerElement);
+			}//End of for 
+			
+			//Close BufferedWriter
+			bufferedWriter.close();
+			//13 May 2015 ends
 			
 			/************************************************************************************/
 			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
@@ -861,10 +933,8 @@ public class CollectionofPermutationsResults {
 		/************************************************************/
 		/************ Collection of DNASE RESULTS starts ************/
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
-
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE, jobName, numberofRuns, numberofRemainders, numberofComparisons.getDnaseCellLineNumberofComparison(), dnaseAnnotationType, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_DNASECELLLINENUMBER);
 		}
-
 		/************ Collection of DNASE RESULTS ends **************/
 		/************************************************************/
 

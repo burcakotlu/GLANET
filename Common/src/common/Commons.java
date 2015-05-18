@@ -62,6 +62,10 @@ public class Commons {
 	public static final String GM12878 = "GM12878";
 	public static final String POL2_GM12878 = "POL2_GM12878";
 	public static final String H3K4ME3_GM12878 = "H3K4ME3_GM12878";
+	public static final String H3K27ME3_GM12878 = "H3K27ME3_GM12878";
+	
+	
+	
 	//GLANET DATA Driven ends
 	
 	public static final String demo_input_data = "demo_input_data";

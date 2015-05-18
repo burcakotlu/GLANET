@@ -293,15 +293,15 @@ public class SimulationGLANETResults {
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
 		String tpmString = Commons.TPM_0;
-		//String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
-		String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
+		String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		//String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
 		//String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
 		
 		
 		float FDR = 0.05f;
 		float bonferroniCorrectionSignificanceLevel = 0.05f;
-		MultipleTestingType multipleTestingParameter = MultipleTestingType.BONFERRONI_CORRECTION;
-		//MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
+		//MultipleTestingType multipleTestingParameter = MultipleTestingType.BONFERRONI_CORRECTION;
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
 		
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.TF,Commons.GM12878);
 		int numberofHistoneElementsInCellLine =NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.HISTONE,Commons.GM12878);
@@ -310,6 +310,7 @@ public class SimulationGLANETResults {
 		
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
+		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K27ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter);
 		
 
 	}
