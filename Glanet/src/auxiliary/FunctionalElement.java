@@ -31,6 +31,56 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 	List<Integer> 	keggPathwayGeneIdList;
 	List<String> 	keggPathwayRefSeqGeneNameList;
 	List<String> 	keggPathwayAlternateGeneNameList;
+	
+	//20 May 2015
+	double zScore;
+	double mean;
+	double stdDev;
+	double pValueConvertedFromZScore;
+	double bonferroniCorrectedPValueCalculatedFromZScore;
+	
+	
+	
+
+	public double getBonferroniCorrectedPValueCalculatedFromZScore() {
+		return bonferroniCorrectedPValueCalculatedFromZScore;
+	}
+
+	public void setBonferroniCorrectedPValueCalculatedFromZScore(double bonferroniCorrectedPValueCalculatedFromZScore) {
+		this.bonferroniCorrectedPValueCalculatedFromZScore = bonferroniCorrectedPValueCalculatedFromZScore;
+	}
+
+	public double getpValueConvertedFromZScore() {
+		return pValueConvertedFromZScore;
+	}
+
+	public void setpValueConvertedFromZScore(double pValueConvertedFromZScore) {
+		this.pValueConvertedFromZScore = pValueConvertedFromZScore;
+	}
+
+	public double getzScore() {
+		return zScore;
+	}
+
+	public void setzScore(double zScore) {
+		this.zScore = zScore;
+	}
+
+	public double getMean() {
+		return mean;
+	}
+
+	public void setMean(double mean) {
+		this.mean = mean;
+	}
+
+	public double getStdDev() {
+		return stdDev;
+	}
+
+	public void setStdDev(double stdDev) {
+		this.stdDev = stdDev;
+	}
 
 	public String getUserDefinedGeneSetDescription() {
 		return userDefinedGeneSetDescription;
