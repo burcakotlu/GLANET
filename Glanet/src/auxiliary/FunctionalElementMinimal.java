@@ -38,7 +38,7 @@ public class FunctionalElementMinimal  implements Comparable<FunctionalElementMi
 	public void setOriginalNumberofOverlaps(int originalNumberofOverlaps) {
 		this.originalNumberofOverlaps = originalNumberofOverlaps;
 	}
-	public int getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() {
+	public Integer getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() {
 		return numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
 	}
 	public void setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps) {

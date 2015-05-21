@@ -953,6 +953,8 @@ public class Commons {
 
 	public static final String ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE = "_wrt_BH_FDR_adjusted_pValue.txt";
 	public static final String ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE = "_wrt_Bonf_corrected_pValue.txt";
+	public static final String ALL_WITH_RESPECT_TO_ZSCORE = "_wrt_zScore.txt";
+	
 
 	// Enrichment Results starts
 	public static final String TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.DNASE + System.getProperty("file.separator") + RUNS_DIRECTORY + Commons.DNASE;

@@ -33,14 +33,33 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 	List<String> 	keggPathwayAlternateGeneNameList;
 	
 	//20 May 2015
-	double zScore;
 	double mean;
 	double stdDev;
-	double pValueConvertedFromZScore;
+	double zScore;
+	
+	double empiricalPValueCalculatedFromZScore;
 	double bonferroniCorrectedPValueCalculatedFromZScore;
+	double BHFDRAdjustedPValueFromZScore;
+	boolean rejectNullHypothesisFromZScore;
 	
 	
 	
+
+	public boolean isRejectNullHypothesisFromZScore() {
+		return rejectNullHypothesisFromZScore;
+	}
+
+	public void setRejectNullHypothesisFromZScore(boolean rejectNullHypothesisFromZScore) {
+		this.rejectNullHypothesisFromZScore = rejectNullHypothesisFromZScore;
+	}
+
+	public Double getBHFDRAdjustedPValueFromZScore() {
+		return BHFDRAdjustedPValueFromZScore;
+	}
+
+	public void setBHFDRAdjustedPValueFromZScore(double bHFDRAdjustedPValueFromZScore) {
+		BHFDRAdjustedPValueFromZScore = bHFDRAdjustedPValueFromZScore;
+	}
 
 	public double getBonferroniCorrectedPValueCalculatedFromZScore() {
 		return bonferroniCorrectedPValueCalculatedFromZScore;
@@ -50,19 +69,22 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 		this.bonferroniCorrectedPValueCalculatedFromZScore = bonferroniCorrectedPValueCalculatedFromZScore;
 	}
 
-	public double getpValueConvertedFromZScore() {
-		return pValueConvertedFromZScore;
+	
+	
+
+	public Double getEmpiricalPValueCalculatedFromZScore() {
+		return empiricalPValueCalculatedFromZScore;
 	}
 
-	public void setpValueConvertedFromZScore(double pValueConvertedFromZScore) {
-		this.pValueConvertedFromZScore = pValueConvertedFromZScore;
+	public void setEmpiricalPValueCalculatedFromZScore(double empiricalPValueCalculatedFromZScore) {
+		this.empiricalPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore;
 	}
 
-	public double getzScore() {
+	public Double getZScore() {
 		return zScore;
 	}
 
-	public void setzScore(double zScore) {
+	public void setZScore(double zScore) {
 		this.zScore = zScore;
 	}
 
@@ -257,20 +279,49 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 		// TODO Auto-generated method stub
 
 	}
+	
+	//In Descending Order
+	public static Comparator<FunctionalElement> Z_SCORE = new Comparator<FunctionalElement>() {
+		public int compare(FunctionalElement element1, FunctionalElement element2) {
+			int c;
+			
+			//zScore In Descending Order
+			c = element2.getZScore().compareTo(element1.getZScore());
+		
+			return c;
+		}
+	};
+	
+	//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
+	//zScore In Descending Order
+	public static Comparator<FunctionalElement> NUMBER_OF_PERMUTATIONS_HAVING_OVERLAPS_GREATER_THAN_EQUAL_TO_ORIGINAL_NUMBER_OF_OVERLAPS = new Comparator<FunctionalElement>() {
+		public int compare(FunctionalElement element1, FunctionalElement element2) {
+			int c;
+			
+			//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
+			c = element1.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps().compareTo(element2.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps());
 
+			if (c==0){
+				//zScore In Descending Order
+				c = element2.getZScore().compareTo(element1.getZScore());
+			}
+			return c;
+		}
+	};
+	
+	//In Ascending Order
+	public static Comparator<FunctionalElement> EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElement>() {
+		public int compare(FunctionalElement element1, FunctionalElement element2) {
+
+			return element1.getEmpiricalPValueCalculatedFromZScore().compareTo(element2.getEmpiricalPValueCalculatedFromZScore());
+		}
+	};
+	
 	public static Comparator<FunctionalElement> EMPIRICAL_P_VALUE = new Comparator<FunctionalElement>() {
 		public int compare(FunctionalElement element1, FunctionalElement element2) {
 
 			return element1.getEmpiricalPValue().compareTo(element2.getEmpiricalPValue());
 
-			// if (element1.getEmpiricalPValue() <
-			// element2.getEmpiricalPValue())
-			// return -1;
-			// else if (element1.getEmpiricalPValue() >
-			// element2.getEmpiricalPValue())
-			// return 1;
-			// else
-			// return 0;
 		}
 	};
 
@@ -278,18 +329,19 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 		public int compare(FunctionalElement element1, FunctionalElement element2) {
 
 			return element1.getBonferroniCorrectedPValue().compareTo(element2.getBonferroniCorrectedPValue());
-
-			// if (element1.getBonferroniCorrectedEmpiricalPValue() <
-			// element2.getBonferroniCorrectedEmpiricalPValue())
-			// return -1;
-			// else if (element1.getBonferroniCorrectedEmpiricalPValue() >
-			// element2.getBonferroniCorrectedEmpiricalPValue())
-			// return 1;
-			// else
-			// return 0;
 		}
 	};
 
+	//In Ascending Order
+	public static Comparator<FunctionalElement> BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElement>() {
+		public int compare(FunctionalElement element1, FunctionalElement element2) {
+
+			return element1.getBHFDRAdjustedPValueFromZScore().compareTo(element2.getBHFDRAdjustedPValueFromZScore());
+
+		}
+	};
+
+	
 	public static Comparator<FunctionalElement> BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE = new Comparator<FunctionalElement>() {
 		public int compare(FunctionalElement element1, FunctionalElement element2) {
 

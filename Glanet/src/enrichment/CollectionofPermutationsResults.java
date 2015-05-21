@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -58,6 +57,100 @@ public class CollectionofPermutationsResults {
 	
 	
 	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
+	
+	
+	public static void writeResultsWRTZScorestoOutputFiles(
+			String outputFolder, 
+			String fileName, 
+			String jobName, 
+			List<FunctionalElement> list, 
+			AnnotationType annotationType, 
+			MultipleTestingType multipleTestingParameter, 
+			float bonferroniCorrectionSignigicanceLevel, 
+			float FDR, 
+			int numberofPermutations, 
+			int numberofComparisons) throws IOException {
+		
+		BufferedWriter bufferedWriter = null;
+		FunctionalElement element = null;
+
+		/***********************************************************************************/
+		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
+		/***********************************************************************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		/***********************************************************************************/
+		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
+		/***********************************************************************************/
+		
+		
+		
+		// sort w.r.t. zScore in Descending Order
+		Collections.sort(list, FunctionalElement.Z_SCORE);
+
+		// write the results to a output file starts
+		bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_ZSCORE));
+
+		
+		
+		// header line in output file
+		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t" + "NumberofPermutations" + "\t" +"NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev"  + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromZScore" + "\t" +  "RejectNullHypothesisCalculatedFromZScore"  + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
+
+		Iterator<FunctionalElement> itr = list.iterator();
+
+		while (itr.hasNext()) {
+			element = itr.next();
+
+			if (annotationType.doKEGGPathwayAnnotation() || 
+					annotationType.doTFKEGGPathwayAnnotation() || 
+					annotationType.doTFCellLineKEGGPathwayAnnotation()) {
+
+				// line per element in output file
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" +  df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+
+				bufferedWriter.write(element.getKeggPathwayName() + "\t");
+
+				if (element.getKeggPathwayGeneIdList().size() >= 1) {
+					int i;
+					// Write the gene ids of the kegg pathway
+					for (i = 0; i < element.getKeggPathwayGeneIdList().size() - 1; i++) {
+						bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + ", ");
+					}
+					bufferedWriter.write(element.getKeggPathwayGeneIdList().get(i) + "\t");
+				}
+
+				if (element.getKeggPathwayAlternateGeneNameList().size() >= 1) {
+					int i;
+
+					// Write the alternate gene names of the kegg pathway
+					for (i = 0; i < element.getKeggPathwayAlternateGeneNameList().size() - 1; i++) {
+						bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i) + ", ");
+					}
+					bufferedWriter.write(element.getKeggPathwayAlternateGeneNameList().get(i));
+					
+					bufferedWriter.write("\t" + "NumberofGenesInThisKEGGPathway:" + "" + element.getKeggPathwayAlternateGeneNameList().size());
+					
+				}
+
+				bufferedWriter.write(System.getProperty("line.separator"));
+
+			} else if (annotationType.doUserDefinedGeneSetAnnotation()) {
+				// line per element in output file
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+
+				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty("line.separator"));
+
+			} else {
+				// line per element in output file
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));
+
+			}
+
+		}// End of while
+
+		// close the file
+		bufferedWriter.close();
+		    	
+	}
 
 
 	// How to decide enriched elements?
@@ -117,7 +210,7 @@ public class CollectionofPermutationsResults {
 		/***************** Common for BenjaminiHochberg and BonferroniCorrection starts ******************/
 		/*************************************************************************************************/
 		// header line in output file
-		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t" + "NumberofPermutations" + "\t" +"NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev"  + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromZScore" + "\t" +  "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
+		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t" + "NumberofPermutations" + "\t" +"NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev"  + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromZScore" + "\t" +  "RejectNullHypothesisCalculatedFromZScore"  + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
 
 		Iterator<FunctionalElement> itr = list.iterator();
 
@@ -129,7 +222,7 @@ public class CollectionofPermutationsResults {
 					annotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getzScore() + "\t" + df.format(element.getpValueConvertedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" +  df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
 
 				bufferedWriter.write(element.getKeggPathwayName() + "\t");
 
@@ -159,13 +252,13 @@ public class CollectionofPermutationsResults {
 
 			} else if (annotationType.doUserDefinedGeneSetAnnotation()) {
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getzScore() + "\t" + df.format(element.getpValueConvertedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
 
 				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty("line.separator"));
 
 			} else {
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getzScore() + "\t" + df.format(element.getpValueConvertedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));
+				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"  + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + "\t" + df.format(element.getEmpiricalPValue()) + "\t" + df.format(element.getBonferroniCorrectedPValue()) + "\t" + df.format(element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty("line.separator"));
 
 			}
 
@@ -313,9 +406,8 @@ public class CollectionofPermutationsResults {
 		double mean = 0f;
 		double stdDev = 0f;
 		double zScore = 0f;
-		double pValueConvertedFromZScore = 0f; 
+		double empiricalPValueCalculatedFromZScore = 0f; 
 		double bonferroniCorrectedPValueCalculatedFromZScore = 0f;
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
 		//13 May 2015 ends
 		
 		FileReader fileReader = null;
@@ -582,7 +674,7 @@ public class CollectionofPermutationsResults {
 							element.setKeggPathwayNumber(keggPathwayNumber);
 							
 						}
-						// set keggPathwayNumber
+						//Set keggPathwayNumber
 						element.setOriginalNumberofOverlaps(originalNumberofOverlaps);
 						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
 
@@ -604,21 +696,10 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			/*********************** FOR EACH RUN ENDS ******************************************/
 			/************************************************************************************/
-
 			//13 May 2015 starts
 			//Compute mean of permutationNumberofOverlapsList for each element
 			//Compute standard deviation of permutationNumberofOverlapsList for each element
 			//Compute zscore for each element
-			FileWriter fileWriter = null;
-			BufferedWriter bufferedWriter = null;
-			
-			fileWriter = FileOperations.createFileWriter(outputFolder + runFileName + "_"  + "ZScores.txt" );
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			//Header Line
-			bufferedWriter.write("elementNumber" + "\t" + "originalNumberofElements" + "\t"  + "mean"+ "\t" + "stdDev" +  "\t" + "zScore"   + "\t" + "pValueConvertedFromZScore" +  "\t" + "bonferroniCorrectedPValueCalculatedFromZScore" +  System.getProperty("line.separator"));
-			
-			
 			for(TLongIntIterator it = elementNumber2OriginalNumberofOverlaps.iterator(); it.hasNext();){
 				
 				it.advance();
@@ -631,24 +712,87 @@ public class CollectionofPermutationsResults {
 				mean = statsPerElement.getMean();
 				stdDev = statsPerElement.getStandardDeviation();
 				zScore = (originalNumberofOverlaps - mean)/ stdDev;
-				pValueConvertedFromZScore = StatisticsConversion.cumulativeProbability(zScore);
-				bonferroniCorrectedPValueCalculatedFromZScore = pValueConvertedFromZScore*numberofComparisons;
+				empiricalPValueCalculatedFromZScore = StatisticsConversion.cumulativeProbability(zScore);
+				bonferroniCorrectedPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore * numberofComparisons;
 				
 				element = elementNumber2ElementMap.get(elementNumber);
 				
 				element.setMean(mean);
 				element.setStdDev(stdDev);
-				element.setzScore(zScore);
-				element.setpValueConvertedFromZScore(pValueConvertedFromZScore);
-				element.setBonferroniCorrectedPValueCalculatedFromZScore(bonferroniCorrectedPValueCalculatedFromZScore);
+				element.setZScore(zScore);
+				element.setEmpiricalPValueCalculatedFromZScore(empiricalPValueCalculatedFromZScore);
 				
-				bufferedWriter.write(elementNumber + "\t" + originalNumberofOverlaps + "\t"  + mean + "\t" + stdDev +  "\t" +  df.format(zScore) + "\t" + df.format(pValueConvertedFromZScore)+ "\t" + df.format(bonferroniCorrectedPValueCalculatedFromZScore) +   System.getProperty("line.separator"));
+				if (bonferroniCorrectedPValueCalculatedFromZScore > 1f){
+					element.setBonferroniCorrectedPValueCalculatedFromZScore(1f);
+				}else{
+					element.setBonferroniCorrectedPValueCalculatedFromZScore(bonferroniCorrectedPValueCalculatedFromZScore);
+				}
 				
 			}//End of for 
-			
-			//Close BufferedWriter
-			bufferedWriter.close();
 			//13 May 2015 ends
+			
+//			/****************************************************************************************************************************/
+//			/*****SORT w.r.t. #ofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps in ascending order starts********/
+//			/*****SORT w.r.t. zScore in descending order starts**************************************************************************/
+//			/****************************************************************************************************************************/
+//			List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
+//			Collections.sort(list, FunctionalElement.NUMBER_OF_PERMUTATIONS_HAVING_OVERLAPS_GREATER_THAN_EQUAL_TO_ORIGINAL_NUMBER_OF_OVERLAPS);
+//			/****************************************************************************************************************************/
+//			/*****SORT w.r.t. #ofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps in ascending order ends**********/
+//			/*****SORT w.r.t. zScore in descending order ends****************************************************************************/
+//			/****************************************************************************************************************************/
+
+			
+			/****************************************************************************************************************************/
+			/*****SORT w.r.t. zScore in descending order starts**************************************************************************/
+			/****************************************************************************************************************************/
+			List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
+			Collections.sort(list, FunctionalElement.Z_SCORE);
+			/****************************************************************************************************************************/
+			/*****SORT w.r.t. zScore in descending order ends****************************************************************************/
+			/****************************************************************************************************************************/
+
+			
+			/************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE STARTS ****************/
+			/************************************************************************************/
+			// Before calculating BH FDR adjusted p values
+			// Sort w.r.t. Empirical P Value calculated From Z Scores in Ascending Order
+			Collections.sort(list, FunctionalElement.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
+			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores(list, FDR);
+			// Sort w.r.t. Benjamini and Hochberg FDR is Ascending Order
+			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
+			/************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
+			/************************************************************************************/
+			
+			
+//			/****************************************************************************************************************************/
+//			/*****Write w.r.t. zScore in descending order starts*************************************************************************/
+//			/****************************************************************************************************************************/
+//			FileWriter fileWriter = null;
+//			BufferedWriter bufferedWriter = null;
+//			
+//			fileWriter = FileOperations.createFileWriter(outputFolder + runFileName + "_"  + "ZScores.txt" );
+//			bufferedWriter = new BufferedWriter(fileWriter);
+//			
+//			//Header Line
+//			bufferedWriter.write("elementNumber" + "\t" +  "elementName" +  "\t" + "originalNumberofElements" + "\t"  + "mean"+ "\t" + "stdDev" +  "\t" + "NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps"  + "\t" + "zScore"   + "\t" + "pValueCalculatedFromZScore" +  "\t" + "bonferroniCorrectedPValueCalculatedFromZScore" + "\t" +  "BHFDRAdjustedPValueCalculatedFromZScore" +  "\t" +  "RejectNullHypothesisFromZScore" + System.getProperty("line.separator"));
+//			
+//			for(Iterator<FunctionalElement> it = list.iterator(); it.hasNext();){
+//				
+//				element = it.next();
+//				
+//				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t"+ element.getOriginalNumberofOverlaps() + "\t"  + element.getMean() + "\t" + element.getStdDev() +  "\t" +  element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + df.format(element.getZScore()) + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore())+ "\t" + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) +  "\t" + df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore() + System.getProperty("line.separator"));
+//				
+//			}//End of for 
+//			
+//			//Close BufferedWriter
+//			bufferedWriter.close();
+//			/****************************************************************************************************************************/
+//			/*****Write w.r.t. zScore in descending order ends***************************************************************************/
+//			/****************************************************************************************************************************/
+
 			
 			/************************************************************************************/
 			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
@@ -678,14 +822,13 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 
 			
-			
 			/************************************************************************************/
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE STARTS ****************/
 			/************************************************************************************/
 			// convert map.values() into a list
 			// sort w.r.t. empirical p value
-			// before calculating BH FDR adjusted p values
-			List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
+			// Before calculating BH FDR adjusted p values
+			list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
 
 			Collections.sort(list, FunctionalElement.EMPIRICAL_P_VALUE);
 			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues(list, FDR);
@@ -696,11 +839,9 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 
 			
-			
 			/************************************************************************************/
 			/***************** AUGMENT WITH USERDEFINEDGENESET INFORMATION STARTS ***************/
 			/************************************************************************************/
-
 			if (annotationType.doUserDefinedGeneSetAnnotation() && userDefinedGeneSetOptionalDescriptionInputFile != null && !userDefinedGeneSetOptionalDescriptionInputFile.equals(Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED)) {
 
 				UserDefinedGeneSetUtility.augmentUserDefinedGeneSetIDwithTerm(userDefinedGeneSetOptionalDescriptionInputFile, list);
@@ -711,9 +852,6 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			
 			
-			
-			
-
 			/************************************************************************************/
 			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION STARTS *********************/
 			/************************************************************************************/
@@ -754,6 +892,8 @@ public class CollectionofPermutationsResults {
 			// with respect to Benjamini Hochberg FDR or
 			// with respect to Bonferroni Correction Significance Level
 			writeResultstoOutputFiles(outputFolder, allFileName, jobName, list, annotationType, multipleTestingParameter, bonferroniCorrectionSignigicanceLevel, FDR, numberofPermutations, numberofComparisons);
+			
+			writeResultsWRTZScorestoOutputFiles(outputFolder, allFileName, jobName, list, annotationType, multipleTestingParameter, bonferroniCorrectionSignigicanceLevel, FDR, numberofPermutations, numberofComparisons);
 			/************************************************************************************/
 			/****************************** WRITE RESULTS ENDS **********************************/
 			/************************************************************************************/

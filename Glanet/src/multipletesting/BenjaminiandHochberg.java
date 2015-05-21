@@ -49,6 +49,32 @@ public class BenjaminiandHochberg {
 		}//End of while
 
 	}
+	
+	public static void calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores(List<FunctionalElement> list, float FDR) {
+
+		FunctionalElement element;
+		Iterator<FunctionalElement> itr = list.iterator();
+
+		int j = 1;
+		int m = list.size();
+		double BH_FDR_AdjustedPValue_FromZScore;
+
+		while (itr.hasNext()) {
+
+			element = itr.next();
+			BH_FDR_AdjustedPValue_FromZScore = (element.getEmpiricalPValueCalculatedFromZScore() * m) / j;
+
+			element.setBHFDRAdjustedPValueFromZScore(BH_FDR_AdjustedPValue_FromZScore);
+
+			if (element.getBHFDRAdjustedPValueFromZScore() <= FDR) {
+				element.setRejectNullHypothesisFromZScore(true);
+			} else {
+				element.setRejectNullHypothesisFromZScore(false);
+			}
+			j++;
+		}//End of while
+
+	}
 
 	public static void calculateBenjaminiHochbergFDRAdjustedPValues(List<FunctionalElement> list, float FDR) {
 
