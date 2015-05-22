@@ -25,6 +25,62 @@ public class FunctionalElementMinimal  implements Comparable<FunctionalElementMi
 	Float BHFDRAdjustedPValue;
 	boolean rejectNullHypothesis;
 	
+	//22 May 2015
+	double mean;
+	double stdDev;
+	double ZScore;
+	double empiricalPValueCalculatedFromZScore;
+	double bonferroniCorrectedPValueCalculatedFromZScore;
+	double BHFDRAdjustedPValueCalculatedFromZScore;
+	boolean rejectNullHypothesisCalculatedFromZScore;
+ 
+	
+	
+	
+	
+	
+	public double getMean() {
+		return mean;
+	}
+	public void setMean(double mean) {
+		this.mean = mean;
+	}
+	public double getStdDev() {
+		return stdDev;
+	}
+	public void setStdDev(double stdDev) {
+		this.stdDev = stdDev;
+	}
+	public Double getZScore() {
+		return ZScore;
+	}
+	public void setZScore(double zScore) {
+		ZScore = zScore;
+	}
+	public Double getEmpiricalPValueCalculatedFromZScore() {
+		return empiricalPValueCalculatedFromZScore;
+	}
+	public void setEmpiricalPValueCalculatedFromZScore(double empiricalPValueCalculatedFromZScore) {
+		this.empiricalPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore;
+	}
+	public double getBonferroniCorrectedPValueCalculatedFromZScore() {
+		return bonferroniCorrectedPValueCalculatedFromZScore;
+	}
+	public void setBonferroniCorrectedPValueCalculatedFromZScore(double bonferroniCorrectedPValueCalculatedFromZScore) {
+		this.bonferroniCorrectedPValueCalculatedFromZScore = bonferroniCorrectedPValueCalculatedFromZScore;
+	}
+	public Double getBHFDRAdjustedPValueCalculatedFromZScore() {
+		return BHFDRAdjustedPValueCalculatedFromZScore;
+	}
+	public void setBHFDRAdjustedPValueCalculatedFromZScore(double bHFDRAdjustedPValueCalculatedFromZScore) {
+		BHFDRAdjustedPValueCalculatedFromZScore = bHFDRAdjustedPValueCalculatedFromZScore;
+	}
+	public boolean isRejectNullHypothesisCalculatedFromZScore() {
+		return rejectNullHypothesisCalculatedFromZScore;
+	}
+	public void setRejectNullHypothesisCalculatedFromZScore(boolean rejectNullHypothesisCalculatedFromZScore) {
+		this.rejectNullHypothesisCalculatedFromZScore = rejectNullHypothesisCalculatedFromZScore;
+	}
 	
 	public String getName() {
 		return name;
@@ -116,7 +172,50 @@ public class FunctionalElementMinimal  implements Comparable<FunctionalElementMi
 	}
 
 
+	//In Descending Order
+	public static Comparator<FunctionalElementMinimal> Z_SCORE = new Comparator<FunctionalElementMinimal>() {
+		public int compare(FunctionalElementMinimal element1, FunctionalElementMinimal element2) {
+			int c;
+			
+			//zScore In Descending Order
+			c = element2.getZScore().compareTo(element1.getZScore());
+		
+			return c;
+		}
+	};
 	
+	//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
+	//zScore In Descending Order
+	public static Comparator<FunctionalElementMinimal> NUMBER_OF_PERMUTATIONS_HAVING_OVERLAPS_GREATER_THAN_EQUAL_TO_ORIGINAL_NUMBER_OF_OVERLAPS = new Comparator<FunctionalElementMinimal>() {
+		public int compare(FunctionalElementMinimal element1, FunctionalElementMinimal element2) {
+			int c;
+			
+			//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
+			c = element1.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps().compareTo(element2.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps());
 
+			if (c==0){
+				//zScore In Descending Order
+				c = element2.getZScore().compareTo(element1.getZScore());
+			}
+			return c;
+		}
+	};
+
+	//In Ascending Order
+		public static Comparator<FunctionalElementMinimal> BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElementMinimal>() {
+			public int compare(FunctionalElementMinimal element1, FunctionalElementMinimal element2) {
+
+				return element1.getBHFDRAdjustedPValueCalculatedFromZScore().compareTo(element2.getBHFDRAdjustedPValueCalculatedFromZScore());
+
+			}
+		};
+
+	//In Ascending Order
+	public static Comparator<FunctionalElementMinimal> EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElementMinimal>() {
+		public int compare(FunctionalElementMinimal element1, FunctionalElementMinimal element2) {
+
+			return element1.getEmpiricalPValueCalculatedFromZScore().compareTo(element2.getEmpiricalPValueCalculatedFromZScore());
+		}
+	};
 
 }

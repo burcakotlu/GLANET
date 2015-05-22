@@ -32,35 +32,7 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 	List<String> 	keggPathwayRefSeqGeneNameList;
 	List<String> 	keggPathwayAlternateGeneNameList;
 	
-	//20 May 2015
-	double mean;
-	double stdDev;
-	double zScore;
 	
-	double empiricalPValueCalculatedFromZScore;
-	double bonferroniCorrectedPValueCalculatedFromZScore;
-	double BHFDRAdjustedPValueFromZScore;
-	boolean rejectNullHypothesisFromZScore;
-	
-	
-	
-
-	public boolean isRejectNullHypothesisFromZScore() {
-		return rejectNullHypothesisFromZScore;
-	}
-
-	public void setRejectNullHypothesisFromZScore(boolean rejectNullHypothesisFromZScore) {
-		this.rejectNullHypothesisFromZScore = rejectNullHypothesisFromZScore;
-	}
-
-	public Double getBHFDRAdjustedPValueFromZScore() {
-		return BHFDRAdjustedPValueFromZScore;
-	}
-
-	public void setBHFDRAdjustedPValueFromZScore(double bHFDRAdjustedPValueFromZScore) {
-		BHFDRAdjustedPValueFromZScore = bHFDRAdjustedPValueFromZScore;
-	}
-
 	public double getBonferroniCorrectedPValueCalculatedFromZScore() {
 		return bonferroniCorrectedPValueCalculatedFromZScore;
 	}
@@ -69,23 +41,8 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 		this.bonferroniCorrectedPValueCalculatedFromZScore = bonferroniCorrectedPValueCalculatedFromZScore;
 	}
 
-	
-	
-
-	public Double getEmpiricalPValueCalculatedFromZScore() {
-		return empiricalPValueCalculatedFromZScore;
-	}
-
 	public void setEmpiricalPValueCalculatedFromZScore(double empiricalPValueCalculatedFromZScore) {
 		this.empiricalPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore;
-	}
-
-	public Double getZScore() {
-		return zScore;
-	}
-
-	public void setZScore(double zScore) {
-		this.zScore = zScore;
 	}
 
 	public double getMean() {
@@ -280,42 +237,10 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 
 	}
 	
-	//In Descending Order
-	public static Comparator<FunctionalElement> Z_SCORE = new Comparator<FunctionalElement>() {
-		public int compare(FunctionalElement element1, FunctionalElement element2) {
-			int c;
-			
-			//zScore In Descending Order
-			c = element2.getZScore().compareTo(element1.getZScore());
-		
-			return c;
-		}
-	};
 	
-	//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
-	//zScore In Descending Order
-	public static Comparator<FunctionalElement> NUMBER_OF_PERMUTATIONS_HAVING_OVERLAPS_GREATER_THAN_EQUAL_TO_ORIGINAL_NUMBER_OF_OVERLAPS = new Comparator<FunctionalElement>() {
-		public int compare(FunctionalElement element1, FunctionalElement element2) {
-			int c;
-			
-			//NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps In Ascending Order
-			c = element1.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps().compareTo(element2.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps());
-
-			if (c==0){
-				//zScore In Descending Order
-				c = element2.getZScore().compareTo(element1.getZScore());
-			}
-			return c;
-		}
-	};
 	
-	//In Ascending Order
-	public static Comparator<FunctionalElement> EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElement>() {
-		public int compare(FunctionalElement element1, FunctionalElement element2) {
-
-			return element1.getEmpiricalPValueCalculatedFromZScore().compareTo(element2.getEmpiricalPValueCalculatedFromZScore());
-		}
-	};
+	
+	
 	
 	public static Comparator<FunctionalElement> EMPIRICAL_P_VALUE = new Comparator<FunctionalElement>() {
 		public int compare(FunctionalElement element1, FunctionalElement element2) {
@@ -332,15 +257,7 @@ public class FunctionalElement extends FunctionalElementMinimal  {
 		}
 	};
 
-	//In Ascending Order
-	public static Comparator<FunctionalElement> BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE = new Comparator<FunctionalElement>() {
-		public int compare(FunctionalElement element1, FunctionalElement element2) {
-
-			return element1.getBHFDRAdjustedPValueFromZScore().compareTo(element2.getBHFDRAdjustedPValueFromZScore());
-
-		}
-	};
-
+	
 	
 	public static Comparator<FunctionalElement> BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE = new Comparator<FunctionalElement>() {
 		public int compare(FunctionalElement element1, FunctionalElement element2) {

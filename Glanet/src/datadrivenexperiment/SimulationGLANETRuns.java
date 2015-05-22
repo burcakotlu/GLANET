@@ -22,16 +22,20 @@ public class SimulationGLANETRuns {
 	
 	public static void writeTPMIntervals(BufferedWriter bufferedWriter, int numberofSimulations,String tpm, String dnaseOverlapsExcludedorNot) throws IOException{
 		
-		//Desktop in METU
+		//Desktop PC in METU
 		//C:\Users\aidata\Google Drive\GLANET
 		
+		//My Laptop
+		//C:\Users\Burçak\Google Drive\GLANET
+		
+	
 		for(int i = 0; i<numberofSimulations; i++){
 			
 			bufferedWriter.write("java -jar" + " "+
 								"\"C:" + System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") + System.getProperty("file.separator") +
-								//"Burçak" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
-								"aidata" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
+								"Burçak" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
+								//"aidata" +  System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") + System.getProperty("file.separator") +
 								"GLANET" + System.getProperty("file.separator") +  System.getProperty("file.separator") +
 								"GLANET.jar\"" + " " + 
@@ -41,14 +45,14 @@ public class SimulationGLANETRuns {
 								"-g" + " " +  
 								"\"C:" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								//"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								//"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") + System.getProperty("file.separator") + "\"" + " " +
 								"-i" + " " +
 								"\"C:" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Users" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								//"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
-								"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								"Burçak" + System.getProperty("file.separator") +System.getProperty("file.separator") +
+								//"aidata" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Google Drive" + System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"Data"+ System.getProperty("file.separator") +System.getProperty("file.separator") +
 								"SimulationData" + System.getProperty("file.separator") +System.getProperty("file.separator") +
@@ -74,7 +78,7 @@ public class SimulationGLANETRuns {
 	 */
 	public static void main(String[] args) {
 		
-		int numberofSimulations = 100;
+		int numberofSimulations = 2;
 	
 		FileWriter fileWriter= null ;
 		BufferedWriter bufferedWriter = null;
@@ -82,32 +86,32 @@ public class SimulationGLANETRuns {
 		try {
 			fileWriter = FileOperations.createFileWriter("C:" + System.getProperty("file.separator") + 
 																"Users" + System.getProperty("file.separator") +
-																//"Burçak" + System.getProperty("file.separator") +
-																"aidata" + System.getProperty("file.separator") +
+																"Burçak" + System.getProperty("file.separator") +
+																//"aidata" + System.getProperty("file.separator") +
 																"Desktop" + System.getProperty("file.separator") +
 																"SimulationGLANETRuns.bat");
 			
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.NON_EXPRESSING_GENES);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.NON_EXPRESSING_GENES);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.NON_EXPRESSING_GENES);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.NON_EXPRESSING_GENES);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.NON_EXPRESSING_GENES);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.NON_EXPRESSING_GENES);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.NON_EXPRESSING_GENES);
 				
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION);
 			
 			
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0001,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
 			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_001,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
-			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_01,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_1,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
+//			writeTPMIntervals(bufferedWriter,numberofSimulations,Commons.TPM_0,Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION);
 				
 			//Close BufferedWriter
 			bufferedWriter.close();
