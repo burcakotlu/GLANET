@@ -185,13 +185,19 @@ public class SimulationDataCreation {
 		
 		//Parameters for Simulations
 		//TPM and DnaseOverlapsExclusion
-		String tpmString = Commons.TPM_01;
+//		String tpmString = Commons.TPM_1;
+//		String tpmString = Commons.TPM_01;
+//		String tpmString = Commons.TPM_001;
+//		String tpmString = Commons.TPM_0001;
+		String tpmString = Commons.TPM_0;
 		
 		//boolean isDnaseOverlapsExclusionCompletely = true;
 		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		//String dnaseOverlapsExclusionPartiallyorCompletely = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
-		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		//String dnaseOverlapsExclusionPartiallyorCompletely = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+//		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
+		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.NON_EXPRESSING_GENES;
+		
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
 		//Set IntervalPoolFile
@@ -199,7 +205,7 @@ public class SimulationDataCreation {
 		
 		//Other Parameters for Simulations
 		//Number of Simulations
-		int numberofSimulations = 2;
+		int numberofSimulations = 100;
 		//Number of intervals in each simulation
 		int numberofIntervalsInEachSimulation = 500;
 		
