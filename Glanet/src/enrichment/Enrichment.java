@@ -2097,13 +2097,12 @@ public class Enrichment {
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
 					}
 					
-					
-					//Always fill GC Isochore IntervalTree for random interval selection from related Isochore Family Pool
+					//Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval
 					//GC Isochore IntervalTree
 					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
 					
 					
-					//Always fill Isochore Family Pools for isochoreFamily Calculation
+					//Always fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
 					//GC Isochore Family L1 Pool
 					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
 					
@@ -2130,6 +2129,7 @@ public class Enrichment {
 					//Mapability Old Way
 					//mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName, chromSize);
 					
+					//GLANET Always Fills
 					//Mapability
 					//mapabilityChromosomePositionList
 					//mapabilityShortValueList
