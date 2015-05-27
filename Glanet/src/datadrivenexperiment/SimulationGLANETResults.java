@@ -323,7 +323,7 @@ public class SimulationGLANETResults {
 								df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + 
 								df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + 
 								df.format(element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + 
-								element.isRejectNullHypothesisCalculatedFromZScore() + "\t" +
+								element.getRejectNullHypothesisCalculatedFromZScore() + "\t" +
 								
 								df.format(element.getEmpiricalPValue()) + "\t" + 
 								df.format(element.getBonferroniCorrectedPValue()) + "\t" + 

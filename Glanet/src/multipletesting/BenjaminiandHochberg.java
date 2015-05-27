@@ -99,20 +99,32 @@ public class BenjaminiandHochberg {
 		while (itr.hasNext()) {
 
 			element = itr.next();
-			BH_FDR_AdjustedPValue_FromZScore = (element.getEmpiricalPValueCalculatedFromZScore() * m) / j;
 			
-			if (BH_FDR_AdjustedPValue_FromZScore > 1){
-				BH_FDR_AdjustedPValue_FromZScore = 1;
-			}
+			if (element.getEmpiricalPValueCalculatedFromZScore()!=null){
+			
+				BH_FDR_AdjustedPValue_FromZScore = (element.getEmpiricalPValueCalculatedFromZScore() * m) / j;
+				
+				if (BH_FDR_AdjustedPValue_FromZScore > 1){
+					BH_FDR_AdjustedPValue_FromZScore = 1;
+				}
 
-			element.setBHFDRAdjustedPValueCalculatedFromZScore(BH_FDR_AdjustedPValue_FromZScore);
+				element.setBHFDRAdjustedPValueCalculatedFromZScore(BH_FDR_AdjustedPValue_FromZScore);
 
-			if (element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR) {
-				element.setRejectNullHypothesisCalculatedFromZScore(true);
-			} else {
-				element.setRejectNullHypothesisCalculatedFromZScore(false);
+				if (element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR) {
+					element.setRejectNullHypothesisCalculatedFromZScore(true);
+				} else {
+					element.setRejectNullHypothesisCalculatedFromZScore(false);
+				}
+			}else{
+			
+				element.setBHFDRAdjustedPValueCalculatedFromZScore(null);
+				element.setRejectNullHypothesisCalculatedFromZScore(null);
+				
 			}
+			
+			//Increment element Count
 			j++;
+			
 		}//End of while
 
 	}
