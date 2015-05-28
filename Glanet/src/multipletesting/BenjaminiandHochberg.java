@@ -38,19 +38,30 @@ public class BenjaminiandHochberg {
 		while (itr.hasNext()) {
 
 			element = itr.next();
-			BH_FDR_AdjustedPValue_CalculatedFromZScore = (element.getEmpiricalPValueCalculatedFromZScore() * m) / j;
+			
+			if(element.getEmpiricalPValueCalculatedFromZScore()!=null){
+				
+				BH_FDR_AdjustedPValue_CalculatedFromZScore = (element.getEmpiricalPValueCalculatedFromZScore() * m) / j;
 
-			if (BH_FDR_AdjustedPValue_CalculatedFromZScore > 1.0){
-				BH_FDR_AdjustedPValue_CalculatedFromZScore = 1.0;
+				if (BH_FDR_AdjustedPValue_CalculatedFromZScore > 1.0){
+					BH_FDR_AdjustedPValue_CalculatedFromZScore = 1.0;
+				}
+				
+				element.setBHFDRAdjustedPValueCalculatedFromZScore(BH_FDR_AdjustedPValue_CalculatedFromZScore);
+
+				if (element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR) {
+					element.setRejectNullHypothesisCalculatedFromZScore(true);
+				} else {
+					element.setRejectNullHypothesisCalculatedFromZScore(false);
+				}
+				
+			}else{
+				
+				element.setBHFDRAdjustedPValueCalculatedFromZScore(null);
+				element.setRejectNullHypothesisCalculatedFromZScore(null);
 			}
 			
-			element.setBHFDRAdjustedPValueCalculatedFromZScore(BH_FDR_AdjustedPValue_CalculatedFromZScore);
-
-			if (element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR) {
-				element.setRejectNullHypothesisCalculatedFromZScore(true);
-			} else {
-				element.setRejectNullHypothesisCalculatedFromZScore(false);
-			}
+			
 			j++;
 		}//End of while
 		

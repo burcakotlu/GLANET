@@ -29,7 +29,7 @@ import enumtypes.EnrichmentDecision;
 import enumtypes.MultipleTestingType;
 
 /**
- * @author Burçak Otlu
+ * @author Burcak Otlu
  * @date May 1, 2015
  * @project Glanet 
  *
@@ -155,12 +155,21 @@ public class SimulationGLANETResults {
 				break;
 				
 			case P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO: 
-				zScore  = Double.parseDouble(strLine.substring(indexofEigthTab+1, indexofNinethTab));
-				empiricalPValueCalculatedFromZScore  = Double.parseDouble(strLine.substring(indexofNinethTab+1, indexofTenthTab)); 
-				empiricalPValue = Float.parseFloat(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab)); 
 				
-				element.setZScore(zScore);
-				element.setEmpiricalPValueCalculatedFromZScore(empiricalPValueCalculatedFromZScore);
+				if (!strLine.substring(indexofEigthTab+1, indexofNinethTab).equals("NaN")){
+					
+					zScore  = Double.parseDouble(strLine.substring(indexofEigthTab+1, indexofNinethTab));
+					element.setZScore(zScore);
+					
+					empiricalPValueCalculatedFromZScore  = Double.parseDouble(strLine.substring(indexofNinethTab+1, indexofTenthTab)); 
+					element.setEmpiricalPValueCalculatedFromZScore(empiricalPValueCalculatedFromZScore);
+					
+				}else{
+					element.setZScore(null);
+					element.setEmpiricalPValueCalculatedFromZScore(null);
+				}
+				
+				empiricalPValue = Float.parseFloat(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab)); 
 				element.setEmpiricalPValue(empiricalPValue);
 				break;
 				
@@ -318,13 +327,11 @@ public class SimulationGLANETResults {
 								element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" +
 								element.getNumberofPermutations() + "\t" + 
 								element.getNumberofComparisons() + "\t" + 
-								
-								df.format(element.getZScore()) + "\t" + 
-								df.format(element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + 
-								df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + 
-								df.format(element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + 
+  								(element.getZScore() == null ? element.getZScore() : df.format(element.getZScore())) + "\t" + 
+								(element.getEmpiricalPValueCalculatedFromZScore() == null ? element.getEmpiricalPValueCalculatedFromZScore() : df.format(element.getEmpiricalPValueCalculatedFromZScore())) + "\t" + 
+								(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null ? element.getBonferroniCorrectedPValueCalculatedFromZScore() : df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t" + 
+								(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null ? element.getBHFDRAdjustedPValueCalculatedFromZScore() : df.format(element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t" + 
 								element.getRejectNullHypothesisCalculatedFromZScore() + "\t" +
-								
 								df.format(element.getEmpiricalPValue()) + "\t" + 
 								df.format(element.getBonferroniCorrectedPValue()) + "\t" + 
 								df.format(element.getBHFDRAdjustedPValue()) + "\t" + 
@@ -397,9 +404,11 @@ public class SimulationGLANETResults {
 					
 					for (File eachEnrichmentFile : enrichmentDirectory.listFiles()) {
 						
-						if (!eachEnrichmentFile.isDirectory()) {
+						if (!eachEnrichmentFile.isDirectory() && eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)) {
 	
 							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
+							
+							break;
 						
 						}//End of IF TFEnrichmnentFile under TFEnrichmentDirectory
 						
@@ -498,16 +507,16 @@ public class SimulationGLANETResults {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") ;
 		
-		//String tpmString = Commons.TPM_1;
+		String tpmString = Commons.TPM_1;
 		//String tpmString = Commons.TPM_01;
-		String tpmString = Commons.TPM_001;
+		//String tpmString = Commons.TPM_001;
 		//String tpmString = Commons.TPM_0001;
 		//String tpmString = Commons.TPM_0;
 		
 		
-		String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
 		//String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
-		//String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
+		//String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
 		
 		
 		float FDR = 0.05f;
@@ -518,7 +527,7 @@ public class SimulationGLANETResults {
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.TF,Commons.GM12878);
 		int numberofHistoneElementsInCellLine =NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder,ElementType.HISTONE,Commons.GM12878);
 		
-		int numberofSimulations = 2;
+		int numberofSimulations = 100;
 		
 		//EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
 		EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO;

@@ -32,16 +32,23 @@ public class BonferroniCorrection {
 			
 			element = elementList.get(i);
 			
-			empiricalPValueCalculatedFromZScore = element.getEmpiricalPValueCalculatedFromZScore();
-			
-			bonferroniCorrectedPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore * element.getNumberofComparisons();
-			
+			if (element.getEmpiricalPValueCalculatedFromZScore()!=null){
+				
+				empiricalPValueCalculatedFromZScore = element.getEmpiricalPValueCalculatedFromZScore();
+				
+				bonferroniCorrectedPValueCalculatedFromZScore = empiricalPValueCalculatedFromZScore * element.getNumberofComparisons();
+				
 
-			if (bonferroniCorrectedPValueCalculatedFromZScore > 1.0f) {
-				bonferroniCorrectedPValueCalculatedFromZScore = 1.0f;
+				if (bonferroniCorrectedPValueCalculatedFromZScore > 1.0f) {
+					bonferroniCorrectedPValueCalculatedFromZScore = 1.0f;
+				}
+
+				element.setBonferroniCorrectedPValueCalculatedFromZScore(bonferroniCorrectedPValueCalculatedFromZScore);
+			}else{
+				element.setBonferroniCorrectedPValueCalculatedFromZScore(null);
 			}
-
-			element.setBonferroniCorrectedPValueCalculatedFromZScore(bonferroniCorrectedPValueCalculatedFromZScore);
+			
+			
 			
 		}//End of For each element
 		
