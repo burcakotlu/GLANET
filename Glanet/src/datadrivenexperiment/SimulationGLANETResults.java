@@ -149,13 +149,17 @@ public class SimulationGLANETResults {
 	
 		
 		switch(enrichmentDecision){
-			case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+		
+			case OLD_RESULT_FILE_VERSION:
+				
 				empiricalPValue = Float.parseFloat(strLine.substring(indexofSixthTab+1,indexofSeventhTab));
 				element.setEmpiricalPValue(empiricalPValue);
 				break;
 				
-			case P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO: 
-				
+			case P_VALUE_CALCULATED_FROM_Z_SCORE: 
+			case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+			case BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO:
+					
 				if (!strLine.substring(indexofEigthTab+1, indexofNinethTab).equals("NaN")){
 					
 					zScore  = Double.parseDouble(strLine.substring(indexofEigthTab+1, indexofNinethTab));
@@ -165,8 +169,10 @@ public class SimulationGLANETResults {
 					element.setEmpiricalPValueCalculatedFromZScore(empiricalPValueCalculatedFromZScore);
 					
 				}else{
+					
 					element.setZScore(null);
 					element.setEmpiricalPValueCalculatedFromZScore(null);
+					
 				}
 				
 				empiricalPValue = Float.parseFloat(strLine.substring(indexofThirteenthTab+1, indexofFourteenthTab)); 
@@ -177,7 +183,6 @@ public class SimulationGLANETResults {
 				break;
 		
 		}//End of SWITCH
-		
 		
 		return element;
 	}
@@ -206,7 +211,8 @@ public class SimulationGLANETResults {
 			//Write Header Line
 			switch(enrichmentDecision){
 				
-				case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+				case OLD_RESULT_FILE_VERSION: 
+					
 					cellLineFilteredEnrichmentBufferedWriter.write(	
 							"ElementName" + "\t" + 
 							"OriginalNumberofOverlaps" + "\t" +  
@@ -220,7 +226,10 @@ public class SimulationGLANETResults {
 							System.getProperty("line.separator"));
 					break;
 												
-				case P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO: 
+				case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+				case P_VALUE_CALCULATED_FROM_Z_SCORE: 
+				case BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO:
+					
 					cellLineFilteredEnrichmentBufferedWriter.write(	
 							"ElementName" + "\t" + 
 							"OriginalNumberofOverlaps" + "\t" +  
@@ -238,7 +247,6 @@ public class SimulationGLANETResults {
 							"BonferroniCorrectedPValue" + "\t" + 
 							"BHFDRAdjustedPValue" + "\t" + 
 							"isRejectNullHypothesis" +
-							
 							System.getProperty("line.separator"));
 					break;
 
@@ -259,7 +267,7 @@ public class SimulationGLANETResults {
 				
 				if(element.getName().contains(elementNameCellLineName)){
 					
-					//Classical Way
+					//Take care of numberofPermutationsRatio
 					if(enrichmentDecision.isPValueCalculatedFromNumberofPermutationsRatio()){
 						
 						switch(multipleTestingParameter){
@@ -277,8 +285,28 @@ public class SimulationGLANETResults {
 						}//End of switch
 						
 					}
-					//ZScore and Classical Way
-					else if (enrichmentDecision.isPValueCalculatedFromZScoreAndNumberofPermutationsRatio()){
+					//Take care of ZScore
+					else if (enrichmentDecision.isPValueCalculatedFromZScore()){
+						
+						switch(multipleTestingParameter){
+							case BONFERRONI_CORRECTION: 	if (element.getBonferroniCorrectedPValueCalculatedFromZScore() != null &&
+																element.getBonferroniCorrectedPValueCalculatedFromZScore() <= bonferroniCorrectionSignificanceLevel){
+																numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+															}
+															break;
+															
+							case BENJAMINI_HOCHBERG_FDR: 	if (element.getBHFDRAdjustedPValueCalculatedFromZScore() != null &&
+																element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR){
+																numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+															}
+															break;
+							default:	break;
+						
+						}//End of switch						
+						
+					}
+					//Take care of ZScore and numberofPermutationsRatio
+					else if (enrichmentDecision.isBothZScoreandNumberofPermutationRatio()){
 						
 						switch(multipleTestingParameter){
 							case BONFERRONI_CORRECTION: 	if (element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel &&
@@ -294,8 +322,7 @@ public class SimulationGLANETResults {
 															break;
 							default:	break;
 						
-						}//End of switch						
-						
+						}//End of switch		
 					}
 					
 					
@@ -306,7 +333,7 @@ public class SimulationGLANETResults {
 				//Write content of the file
 				switch(enrichmentDecision){
 				
-					case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+					case OLD_RESULT_FILE_VERSION: 
 						cellLineFilteredEnrichmentBufferedWriter.write(	
 								element.getName() + "\t" + 
 								element.getOriginalNumberofOverlaps() + "\t" +  
@@ -320,7 +347,9 @@ public class SimulationGLANETResults {
 								System.getProperty("line.separator"));
 						break;
 						
-					case P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO: 
+					case P_VALUE_CALCULATED_FROM_Z_SCORE:
+					case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO: 
+					case BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO:
 						cellLineFilteredEnrichmentBufferedWriter.write(	
 								element.getName() + "\t" + 
 								element.getOriginalNumberofOverlaps() + "\t" +  
@@ -466,8 +495,10 @@ public class SimulationGLANETResults {
 				
 					case BONFERRONI_CORRECTION: 	Collections.sort(elementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
 													break;
+													
 					case BENJAMINI_HOCHBERG_FDR: 	Collections.sort(elementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
 													break;
+													
 					default:	break;
 				
 				}//End of switch
@@ -529,8 +560,9 @@ public class SimulationGLANETResults {
 		
 		int numberofSimulations = 100;
 		
+		//Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
 		//EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
-		EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE_AND_NUMBER_OF_PERMUTATIONS_RATIO;
+		EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE;
 		
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofTFElementsInCellLine,ElementType.TF,Commons.GM12878,Commons.POL2_GM12878, bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter,enrichmentDecision);
 		readSimulationGLANETResults(outputFolder,tpmString,dnaseOverlapsExcludedorNot,numberofSimulations,numberofHistoneElementsInCellLine,ElementType.HISTONE,Commons.GM12878,Commons.H3K4ME3_GM12878,bonferroniCorrectionSignificanceLevel,FDR, multipleTestingParameter,enrichmentDecision);
