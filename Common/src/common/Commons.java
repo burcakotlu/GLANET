@@ -41,21 +41,23 @@ public class Commons {
 	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
 	public static final String female_gtf = "female.gtf";
 	
-	public static final String TPM_1 		= "TPM1"; 
-	public static final String TPM_01 		= "TPM01"; 
-	public static final String TPM_001 		= "TPM001"; 
-	public static final String TPM_0001 	= "TPM0001"; 
-	public static final String TPM_00001 	= "TPM00001"; 
-	public static final String TPM_000001 	= "TPM000001"; 
-	public static final String TPM_0000001 	= "TPM0000001"; 
-	public static final String TPM_0 	= "TPM0"; 
-	public static final String TPM_UNKNOWN 	= "TPM"; 
+	public static final String TPM_1 		= "TPM_1"; 
+	public static final String TPM_0_1 		= "TPM_0_1"; 
+	public static final String TPM_0_01 	= "TPM_0_01"; 
+	public static final String TPM_0_001 	= "TPM_0_001"; 
+	public static final String TPM_0_0001 	= "TPM_0_0001"; 
+	public static final String TPM_0_00001 	= "TPM_0_00001"; 
+	public static final String TPM_0_000001 = "TPM_0_000001"; 
+	public static final String TPM_0 		= "TPM_0"; 
+	public static final String TPM_UNKNOWN 	= "TPM_UNKNOWN"; 
 	
 	public static final String DNASE_OVERLAPS_EXCLUDED 	= "DnaseOverlapsExcluded"; 
 	public static final String NON_EXPRESSING_GENES 	= "NonExpressingGenes"; 
 	
-	public static final String COMPLETELY_DNASE_OVERLAPS_EXCLUSION = "CompletelyDnaseOverlapsExcluded";
-	public static final String PARTIALLY_DNASE_OVERLAPS_EXCLUSION = "PartiallyDnaseOverlapsExcluded";
+	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscardIntervalInCaseOfDnaseOverlap";
+	public static final String PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalInCaseOfDnaseOverlap";
+	public static final String PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalRemainOnlyTheLongestIntervalInCaseOfDnaseOverlap";
+	public static final String NON_EXPRESSING_GENES_INTERVALS = "NonExpressingGenesIntervals";
 	
 	public static final String SIMULATION_DATA = "SimulationData";
 	public static final String SIMULATION = "Sim";

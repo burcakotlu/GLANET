@@ -25,6 +25,8 @@ import common.Commons;
  * @date Apr 8, 2015
  * @project Glanet 
  *
+ * In this class we create interval pool of nonExpressingGenes Intervals of 600 base long each for various TPM values.
+ * 
  */
 public class NonExpressingGenesIntervalsPoolCreation {
 	
@@ -459,29 +461,29 @@ public class NonExpressingGenesIntervalsPoolCreation {
 	
 	public static String getTPMString(float tpmThreshold){
 		
-		if (tpmThreshold == 0f)
+		if (tpmThreshold == 1f)
+			return Commons.TPM_1;
+		
+		else if (tpmThreshold == 0f)
 			return Commons.TPM_0;
 		
-		else if (tpmThreshold == 0.000001f)
-			return Commons.TPM_0000001;
-		
-		else if (tpmThreshold == 0.00001f)
-			return Commons.TPM_000001;
-		
-		else if (tpmThreshold == 0.0001f)
-			return Commons.TPM_00001;
+		else if (tpmThreshold == 0.1f)
+			return Commons.TPM_0_1;
+	
+		else if (tpmThreshold == 0.01f)
+			return Commons.TPM_0_01;
 		
 		else if (tpmThreshold == 0.001f)
-			return Commons.TPM_0001;
+			return Commons.TPM_0_001;
 		
-		else if (tpmThreshold == 0.01f)
-			return Commons.TPM_001;
+		else if (tpmThreshold == 0.0001f)
+			return Commons.TPM_0_0001;
 		
-		else if (tpmThreshold == 0.1f)
-			return Commons.TPM_01;
+		else if (tpmThreshold == 0.00001f)
+			return Commons.TPM_0_00001;
 		
-		else if (tpmThreshold == 1f)
-			return Commons.TPM_1;
+		else if (tpmThreshold == 0.000001f)
+			return Commons.TPM_0_000001;
 		
 		else
 			return Commons.TPM_UNKNOWN;
@@ -500,7 +502,12 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
 		
 		int numberofNonExpressingGenes = 0;
-		float tpmThreshold = 1f;
+		
+		//We will create the interval pool of nonExpressingGenes intervals (of 600 base long) for various TPM Values
+		//Such as 0.1f, 0.01f, 0.001f
+		//float tpmThreshold = 0.1f;
+		//float tpmThreshold = 0.01f;
+		float tpmThreshold = 0.001f;
 			
 		//Input File
 		//Set GM12878 Replicate1 gtf file with path
@@ -517,7 +524,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		//Output File
 		//Set NonExpressingGenesIntervalsFile
 		String TPMString = getTPMString(tpmThreshold);
-		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + Commons.NON_EXPRESSING_GENES+ "Intervals_EndInclusive.txt";
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString +  "_" + Commons.NON_EXPRESSING_GENES+ "Intervals_EndInclusive.txt";
 		
 		//Read GM12878 Rep1  results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile(GM12878Rep1GTFFileName);

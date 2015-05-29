@@ -17,6 +17,7 @@ import common.Commons;
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.DnaseOverlapExclusionType;
 
 /**
  * @author Burçak Otlu
@@ -26,9 +27,9 @@ import enumtypes.CommandLineArguments;
  */
 public class SimulationDataCreation {
 	
-	public static String getIntervalPoolFileName(String tpmString, String dnaseOverlapsExcludedorNot,String dataFolder){
+	public static String getIntervalPoolFileName(String tpmString, DnaseOverlapExclusionType dnaseOverlapExclusionType,String dataFolder){
 		
-		String intervalPoolFileName =  dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  tpmString + dnaseOverlapsExcludedorNot +  "Intervals_EndInclusive.txt";
+		String intervalPoolFileName =  dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() +  "Intervals_EndInclusive.txt";
 		
 		return intervalPoolFileName;
 	}
@@ -138,7 +139,7 @@ public class SimulationDataCreation {
 	public static void generateRandomSimulationData(
 			String dataFolder,
 			String tpmString, 
-			String dnaseOverlapsExcludedorNot,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType,
 			String intervalPoolFileName,
 			int numberofSimulations,
 			int numberofIntervalsInEachSimulation){
@@ -155,7 +156,7 @@ public class SimulationDataCreation {
 		String baseFolderName = null;
 		
 		//Set baseFolderName
-		baseFolderName = dataFolder + System.getProperty("file.separator") + Commons.SIMULATION_DATA + System.getProperty("file.separator") + tpmString +  dnaseOverlapsExcludedorNot ;
+		baseFolderName = dataFolder + System.getProperty("file.separator") + Commons.SIMULATION_DATA + System.getProperty("file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() ;
 		
 		
 		for(int i = 0; i <numberofSimulations; i++){
@@ -184,35 +185,32 @@ public class SimulationDataCreation {
 		
 		
 		//Parameters for Simulations
-		//TPM and DnaseOverlapsExclusion
-//		String tpmString = Commons.TPM_1;
-//		String tpmString = Commons.TPM_01;
-//		String tpmString = Commons.TPM_001;
-//		String tpmString = Commons.TPM_0001;
-		String tpmString = Commons.TPM_0;
+		//TPM Run simulations 
+		//String tpmString = Commons.TPM_0_1;
+		//String tpmString = Commons.TPM_0_01;
+		String tpmString = Commons.TPM_0_001;
 		
 		//boolean isDnaseOverlapsExclusionCompletely = true;
 		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		//String dnaseOverlapsExclusionPartiallyorCompletely = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
-//		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
-		String dnaseOverlapsExclusionPartiallyorCompletely = Commons.NON_EXPRESSING_GENES;
+		//DnaseOverlapExclusionType dnaseOverlapExclusionType  = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		DnaseOverlapExclusionType dnaseOverlapExclusionType  = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
 		//Set IntervalPoolFile
-		String intervalPoolFileName  = getIntervalPoolFileName(tpmString,dnaseOverlapsExclusionPartiallyorCompletely,dataFolder);
+		String intervalPoolFileName  = getIntervalPoolFileName(tpmString,dnaseOverlapExclusionType,dataFolder);
 		
 		//Other Parameters for Simulations
 		//Number of Simulations
-		int numberofSimulations = 100;
+		int numberofSimulations = 1000;
 		//Number of intervals in each simulation
 		int numberofIntervalsInEachSimulation = 500;
 		
 		
 		//Generate Simulations Data
 		//Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-		generateRandomSimulationData(dataFolder,tpmString, dnaseOverlapsExclusionPartiallyorCompletely,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
+		generateRandomSimulationData(dataFolder,tpmString, dnaseOverlapExclusionType,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
 		
 		//Then for each simulationData I will run GLANET
 		//Count the numberofSimulations that have POL2_GM12878 enriched
