@@ -5926,6 +5926,7 @@ public class Annotation {
 		FileWriter fileWriter = null;
 
 		try {
+			
 			for (ChromosomeName chrName: ChromosomeName.values()) {
 				
 				bufferedWriter = chrNumber2BufferedWriterMap.get(chrName.getChromosomeName());
@@ -5934,7 +5935,8 @@ public class Annotation {
 				//Close BufferedWriter and FileWriter
 				bufferedWriter.close();
 				fileWriter.close();
-			}
+				
+			}//End of for
 
 		} catch (IOException e) {
 			logger.error(e.toString());
@@ -7091,7 +7093,6 @@ public class Annotation {
 	public void annotate(String[] args) {
 		
 		
-		
 		/***********************************************************************************/
 		/**************Memory Usage Before Annotation***************************************/
 		/***********************************************************************************/
@@ -7141,6 +7142,10 @@ public class Annotation {
 		/**************************GET CHECKED ANNOTATION TYPES STARTS ***********************************/
 		/*************************************************************************************************/
 		
+		
+		/***********************************************************************************/
+		/*************DEFAULT ANNOTATION ARGUMENTS STARTS***********************************/
+		/***********************************************************************************/
 		/**************************DNASE ANNOTATION*****************************************/
 		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
 		
@@ -7161,6 +7166,9 @@ public class Annotation {
 		
 		/**************************TF CellLine KEGG Pathway ANNOTATION**********************/
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
+		/***********************************************************************************/
+		/*************DEFAULT ANNOTATION ARGUMENTS ENDS*************************************/
+		/***********************************************************************************/
 		
 		
 		/***********************************************************************************/
@@ -7193,7 +7201,7 @@ public class Annotation {
 		/*******************USER DEFINED LIBRARY ANNOTATION ARGUMENTS ENDS******************/
 		/***********************************************************************************/
 	
-		
+
 		/*************************************************************************************************/
 		/**************************GET CHECKED ANNOTATION TYPES ENDS**************************************/
 		/*************************************************************************************************/
@@ -7472,9 +7480,8 @@ public class Annotation {
 				// DNASE
 				TShortIntMap dnaseCellLineNumber2KMap = new TShortIntHashMap();
 
-
 				GlanetRunner.appendLog("**********************************************************");
-				GlanetRunner.appendLog("CellLine Based DNASE annotation using TShortObjectMap<String> starts: " + new Date());
+				GlanetRunner.appendLog("CellLine Based DNASE annotation using TShortIntMap starts: " + new Date());
 				dateBefore = System.currentTimeMillis();
 
 				searchDnaseWithNumbers(dataFolder,outputFolder,writeElementBasedAnnotationFoundOverlapsMode,dnaseCellLineNumber2KMap, overlapDefinition, dnaseCellLineNumber2NameMap, fileNumber2NameMap);
@@ -7482,9 +7489,9 @@ public class Annotation {
 
 				dateAfter = System.currentTimeMillis();
 				
-				GlanetRunner.appendLog("CellLine Based DNASE annotation using TShortObjectMap<String> ends: " + new Date());
+				GlanetRunner.appendLog("CellLine Based DNASE annotation using TShortIntMap ends: " + new Date());
 
-				GlanetRunner.appendLog("CellLine Based Dnase annotation using TShortObjectMap<String> took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("CellLine Based Dnase annotation using TShortIntMap took: " + (float) ((dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog("**********************************************************");
 
 				dnaseCellLineNumber2KMap = null;
@@ -7707,7 +7714,6 @@ public class Annotation {
 				
 				// TF
 				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
-
 
 				GlanetRunner.appendLog("**********************************************************");
 				GlanetRunner.appendLog("CellLine Based TF annotation starts: " + new Date());
