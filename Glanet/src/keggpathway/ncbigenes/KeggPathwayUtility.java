@@ -669,7 +669,7 @@ public class KeggPathwayUtility {
 
 	// @todo
 
-	// @todo ncbiGeneId2ListofKeggPathwayNumber starts
+	// Filling of ncbiGeneId2ListofKeggPathwayNumber starts
 	/*
 	 * pathway_hsa.list file is read. Map<String,List<String>>
 	 * ncbiGeneId2KeggPathwayHashMap will be created.
@@ -688,7 +688,7 @@ public class KeggPathwayUtility {
 		String keggPathwayName;
 		String ncbiGeneIdName;
 
-		short keggPathwayNumber;
+		Short keggPathwayNumber;
 		int ncbiGeneId;
 
 		TShortList existingKeggPathwayNumberList = null;
@@ -714,29 +714,34 @@ public class KeggPathwayUtility {
 				keggPathwayName = keggPathwayName.substring(indexofFirstColon + 1);
 				ncbiGeneId = Integer.parseInt(ncbiGeneIdName.substring(indexofSecondColon + 1));
 
-				// What if it is null? check this situation
+				// What if it is null? Check this situation
 				keggPathwayNumber = keggPathwayName2KeggPathwayNumberMap.get(keggPathwayName);
-
-				// fill ncbiGeneId2KeggPathwayHashMap
-				// Hash Map does not contain this ncbiGeneId
-				if (!ncbiGeneId2ListofKeggPathwayNumberHashMap.containsKey(ncbiGeneId)) {
-					TShortArrayList keggPathwayNumberList = new TShortArrayList();
-					keggPathwayNumberList.add(keggPathwayNumber);
-					ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, keggPathwayNumberList);
-				}
-				// Hash Map contains this ncbiGeneId
-				else {
-					existingKeggPathwayNumberList = ncbiGeneId2ListofKeggPathwayNumberHashMap.get(ncbiGeneId);
-
-					if (!(existingKeggPathwayNumberList.contains(keggPathwayNumber))) {
-						existingKeggPathwayNumberList.add(keggPathwayNumber);
-					} else {
-						GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
+				
+				if (keggPathwayNumber!=null){
+					
+					// Fill ncbiGeneId2KeggPathwayHashMap
+					// Hash Map does not contain this ncbiGeneId
+					if (!ncbiGeneId2ListofKeggPathwayNumberHashMap.containsKey(ncbiGeneId)) {
+						TShortArrayList keggPathwayNumberList = new TShortArrayList();
+						keggPathwayNumberList.add(keggPathwayNumber);
+						ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, keggPathwayNumberList);
 					}
+					// Hash Map contains this ncbiGeneId
+					else {
+						existingKeggPathwayNumberList = ncbiGeneId2ListofKeggPathwayNumberHashMap.get(ncbiGeneId);
 
-					ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, existingKeggPathwayNumberList);
+						if (!(existingKeggPathwayNumberList.contains(keggPathwayNumber))) {
+							existingKeggPathwayNumberList.add(keggPathwayNumber);
+						} else {
+							GlanetRunner.appendLog("More than one same kegg pathway for the same ncbi gene id");
+						}
 
-				}
+						ncbiGeneId2ListofKeggPathwayNumberHashMap.put(ncbiGeneId, existingKeggPathwayNumberList);
+					}
+					
+				}//End of IF
+
+		
 			} // End of While
 
 		} catch (FileNotFoundException e) {

@@ -2677,14 +2677,25 @@ public class IntervalTree {
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
-		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
+	public static short getCellLineNumber(
+			int elementNumberCellLineNumberKeggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		//INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
+		short cellLineNumber = Short.MIN_VALUE;
 
-		short cellLineNumber;
-
-		// example 100_300_020
-		cellLineNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber / 1000) % 1000);
-
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER: 
+				// example 100_300_020
+				cellLineNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber / 1000) % 1000);
+				break;
+				
+			default: 
+				break;
+		
+		}//End of SWITCH
+		
 		return cellLineNumber;
 	}
 
@@ -2727,21 +2738,22 @@ public class IntervalTree {
 	//4 Mart 2015
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	// @todo add parameter then it will be more readable
 	public static short getShortElementNumber(
 			int elementNumberCellLineNumberKeggPathwayNumber, 
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 		
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
 		short elementNumber = Short.MIN_VALUE;
-		int cellLineNumberKeggPathwayNumber;
 		
 		switch(generatedMixedNumberDescriptionOrderLength) {
 		
 			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
 				// example 100_300_020
-				cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
-				elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber) / 1000000);
+				//cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
+				//elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber) / 1000000);
+				
+				elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber) / 1000000);
+				
 				break;
 			default:
 				break;
@@ -5125,6 +5137,7 @@ public class IntervalTree {
 		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
 
 		if (Commons.NCBI_GENE_ID.equals(type)) {
+			
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 
 				if (node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) {
@@ -5145,8 +5158,7 @@ public class IntervalTree {
 					/*******************************************************************************/
 					overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
 
-					// For this given interval, an overlap is put for the first
-					// time.
+					// For this given interval, an overlap is put for the first time.
 					if (overlapInformation == null) {
 
 						overlapInformation = new OverlapInformation();
@@ -5209,12 +5221,11 @@ public class IntervalTree {
 
 								break;
 
-						}// End of Switch
+						}// End of SWITCH
 
 						givenIntervalNumber2OverlapInformationMap.put(givenIntervalNumber, overlapInformation);
 
-					}// End of IF: For this given interval , an overlap is put
-						// for the first time.
+					}// End of IF: For this given interval , an overlap is put for the first time.
 
 					// For this given interval, new overlap is seen
 					// Check whether we have to put it or not.
@@ -5362,7 +5373,7 @@ public class IntervalTree {
 
 					}// End of ELSE
 					/*******************************************************************************/
-					/******** GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP ends *******************/
+					/******** GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP ends *****************/
 					/*******************************************************************************/
 
 					//Write Annotation Found Overlaps to element Named File
@@ -5375,7 +5386,7 @@ public class IntervalTree {
 					logger.error(e.toString());
 				}
 			}// End of IF: overlaps
-		} // End of If: type is NCBI_GENE_ID
+		} // End of IF: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
 			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode,bufferedWriter, givenIntervalNumber, givenIntervalNumber2OverlapInformationMap, node.getLeft(), interval, chromName, entrezGeneID2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap);
@@ -5389,7 +5400,7 @@ public class IntervalTree {
 
 	// @todo Gene Annotation with numbers ends
 
-	// @todo for Annotation with Numbers starts
+	//Annotation with Numbers starts
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 			String outputFolder, 
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
@@ -5417,6 +5428,7 @@ public class IntervalTree {
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
 		if (Commons.NCBI_GENE_ID.equals(type)) {
+			
 			if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 
 				if (node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) {
@@ -5433,6 +5445,7 @@ public class IntervalTree {
 						if (geneSetNumberListContainingThisGeneId != null) {
 
 							for (TShortIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();) {
+								
 								geneSetNumber = it.next();
 								
 								/*******************************************************************/				
@@ -5476,22 +5489,24 @@ public class IntervalTree {
 								/*******************************************************************/
 								
 								
-								
-							}// End of For: for all keggpathways having this
-								// gene in their gene list
-						} // End of If: keggPathWayListContainingThisGeneId is
-							// not null
-					}// End of If: Exon Based Kegg Pathway Analysis, Overlapped
-						// node is an exon
+							}// End of FOR: for all geneSets having this gene in their gene list
+							
+						} // End of IF: keggPathWayListContainingThisGeneId is not null
+						
+					}// End of IF: Exon Based Kegg Pathway Analysis, Overlapped node is an exon
 
 					// write REGULATION based GeneSet results
-					if (castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()) {
+					if (castedNode.getIntervalName().isIntron() || 
+							castedNode.getIntervalName().isFivePOne() || 
+							castedNode.getIntervalName().isFivePTwo() || 
+							castedNode.getIntervalName().isThreePOne() || 
+							castedNode.getIntervalName().isThreePTwo()) {
 
 						if (geneSetNumberListContainingThisGeneId != null) {
 
 							for (TShortIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();) {
-								geneSetNumber = it.next();
 								
+								geneSetNumber = it.next();
 								
 								/*******************************************************************/				
 								//Write Annotation Found Overlaps to element Named File
@@ -5533,12 +5548,11 @@ public class IntervalTree {
 								
 								
 
-							}// End of For: for all kegg pathways having this
-								// gene in their gene list
-						} // End of If: keggPathWayListContainingThisGeneId is
-							// not null
-					}// End of If: Regulation Based kegg pathway Analysis,
-						// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+							}// End of FOR: for all gene sets having this gene in their gene list
+							
+						} // End of IF: keggPathWayListContainingThisGeneId is not null
+						
+					}// End of IF: Regulation Based Gene Set Analysis, Overlapped node is an Intron, 5P1, 5P2, 3P1, 3P2
 
 					// write ALL Based GeneSet results
 					if (geneSetNumberListContainingThisGeneId != null) {
@@ -5587,16 +5601,16 @@ public class IntervalTree {
 							
 							
 
-						}// End of For: for all kegg pathways having this gene
-							// in their gene list
-					} // End of If: keggPathWayListContainingThisGeneId is not
-						// null
+						}// End of FOR: for all gene sets having this gene in their gene list
+					} // End of IF: geneSetListContainingThisGeneId is not null
 
 				} catch (IOException e) {
 					logger.error(e.toString());
 				}
-			}
-		} // End of If: type is NCBI_GENE_ID
+				
+			}//End of IF: there is an overlap
+			
+		} // End of IF: type is NCBI_GENE_ID
 
 		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
 			findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(outputFolder,writeElementBasedAnnotationFoundOverlapsMode, node.getLeft(), interval, chromName, exonBasedGeneSet2OneorZeroMap, regulationBasedGeneSet2OneorZeroMap, allBasedGeneSet2OneorZeroMap, type, overlapDefinition, geneSetNumber2GeneSetNameMap, geneId2ListofGeneSetNumberMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap, refSeqGeneNumber2RefSeqGeneNameMap, geneSetName, geneSetType);
@@ -5607,8 +5621,7 @@ public class IntervalTree {
 
 		}
 	}
-
-	// @todo for Annotation with Numbers ends
+	
 
 	// Annotation
 	// with Numbers with OverlapList starts
