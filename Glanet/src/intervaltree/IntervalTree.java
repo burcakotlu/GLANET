@@ -48,9 +48,7 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
@@ -2665,13 +2663,25 @@ public class IntervalTree {
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getKeggPathwayNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
-		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
-		short keggPathwayNumber;
+	public static short getKeggPathwayNumber(
+			int elementNumberCellLineNumberKeggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		short keggPathwayNumber = Short.MIN_VALUE;
+		
+		switch(generatedMixedNumberDescriptionOrderLength){
+		
+			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER: 
+					// example 100_300_020
+					keggPathwayNumber = (short) (elementNumberCellLineNumberKeggPathwayNumber % 1000);
+					break;
+					
+			default:
+					break;
+		
+		} //End of SWITCH
 
-		// example 100_300_020
-		keggPathwayNumber = (short) (elementNumberCellLineNumberKeggPathwayNumber % 1000);
-
+		
 		return keggPathwayNumber;
 	}
 

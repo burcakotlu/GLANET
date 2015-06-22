@@ -2285,7 +2285,8 @@ public class Annotation {
 				regulationBasedGeneSet2OneorZeroMap = null;
 				allBasedGeneSet2OneorZeroMap = null;
 
-			}// End of while
+			}// End of WHILE
+			
 		} catch (NumberFormatException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
@@ -2341,6 +2342,7 @@ public class Annotation {
 		int tfNumberCellLineNumberKeggPathwayNumber;
 
 		try {
+			
 			while ((strLine = bufferedReader.readLine()) != null) {
 
 				// TF CellLine
@@ -2356,8 +2358,7 @@ public class Annotation {
 				TIntByteMap tfRegulationBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
 				TIntByteMap tfAllBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
 
-				// Fill these lists during search for tfs and search for
-				// ucscRefSeqGenes
+				// Fill these lists during search for TFs and search for UCSCRefSeqGenes
 				List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList = new ArrayList<TfCellLineOverlapWithNumbers>();
 				List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
 				List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
@@ -2409,7 +2410,7 @@ public class Annotation {
 					}
 
 				}// End of for
-					// TF Search ends here
+				// TF Search ends here
 
 				// UCSCRefSeqGenes Search starts here
 				if (ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()) {
@@ -2480,8 +2481,7 @@ public class Annotation {
 				}// End of for
 					// code will be added here
 
-				// New search for given input SNP or interval case, does not
-				// matter.
+				// New search for given input SNP or interval case, does not matter.
 				// starts here
 				// for each tf overlap
 				// for each ucscRefSeqGene overlap
@@ -2637,7 +2637,7 @@ public class Annotation {
 					/****************************************************************************/
 
 				}// for each tfOverlap for the given query
-				// ends here
+				
 
 
 				// TF EXONBASED_KEGGPATHWAY
@@ -2693,9 +2693,27 @@ public class Annotation {
 
 				}// End of for inner loop
 
-				// added here ends
+			
+				//After accumulation set to null
+				tfNumberCellLineNumber2ZeroorOneMap = null;
+				
+				exonBasedKeggPathway2OneorZeroMap = null;
+				regulationBasedKeggPathway2OneorZeroMap = null;
+				allBasedKeggPathway2OneorZeroMap = null;
 
-			}
+				tfExonBasedKeggPathway2OneorZeroMap = null;
+				tfRegulationBasedKeggPathway2OneorZeroMap = null;
+				tfAllBasedKeggPathway2OneorZeroMap = null;
+				
+				tfandCellLineOverlapList = null;
+				exonBasedKeggPathwayOverlapList = null;
+				regulationBasedKeggPathwayOverlapList = null;
+				allBasedKeggPathwayOverlapList = null;
+
+
+
+			}//End of WHILE
+			
 		} catch (NumberFormatException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
@@ -3024,12 +3042,11 @@ public class Annotation {
 					/***********************************************************************/
 
 				}// for each tfOverlap for the given query
-				// ends here
+			
 
 
 				// TF CELLLINE EXONBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndExonBasedKeggPathway2KMap using
-				// tfandExonBasedKeggPathway2OneorZeroMap
+				// Fill tfbsAndCellLineAndExonBasedKeggPathway2KMap using tfandExonBasedKeggPathway2OneorZeroMap
 				for (TIntByteIterator it = tfCellLineExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();) {
 
 					it.advance();
@@ -3078,7 +3095,26 @@ public class Annotation {
 
 				}// End of for inner loop
 
-			}
+				//After accumulation set to null
+				tfNumberCellLineNumber2ZeroorOneMap = null;
+
+				exonBasedKeggPathway2OneorZeroMap = null;
+				regulationBasedKeggPathway2OneorZeroMap = null;
+				allBasedKeggPathway2OneorZeroMap = null;
+
+				tfCellLineExonBasedKeggPathway2OneorZeroMap = null;
+				tfCellLineRegulationBasedKeggPathway2OneorZeroMap = null;
+				tfCellLineAllBasedKeggPathway2OneorZeroMap = null;
+
+				tfandCellLineOverlapList = null;
+				exonBasedKeggPathwayOverlapList = null;
+				regulationBasedKeggPathwayOverlapList = null;
+				allBasedKeggPathwayOverlapList = null;
+
+				
+			}//End of WHILE
+			
+			
 		} catch (NumberFormatException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
@@ -3627,8 +3663,29 @@ public class Annotation {
 				}// End of for inner loop
 
 				// added here ends
+				
+				//After accumulation set to null
+				tfNumberCellLineNumber2ZeroorOneMap = null;
 
-			}
+				exonBasedKeggPathway2OneorZeroMap = null;
+				regulationBasedKeggPathway2OneorZeroMap = null;
+				allBasedKeggPathway2OneorZeroMap = null;
+
+				tfExonBasedKeggPathway2OneorZeroMap = null;
+				tfRegulationBasedKeggPathway2OneorZeroMap = null;
+				tfAllBasedKeggPathway2OneorZeroMap = null;
+
+				tfCellLineExonBasedKeggPathway2OneorZeroMap = null;
+				tfCellLineRegulationBasedKeggPathway2OneorZeroMap = null;
+				tfCellLineAllBasedKeggPathway2OneorZeroMap = null;
+
+				tfandCellLineOverlapList = null;
+				exonBasedKeggPathwayOverlapList = null;
+				regulationBasedKeggPathwayOverlapList = null;
+				allBasedKeggPathwayOverlapList = null;
+
+
+			}//End of WHILE
 		} catch (NumberFormatException e) {
 			logger.error(e.toString());
 		} catch (IOException e) {
@@ -5742,7 +5799,7 @@ public class Annotation {
 				cellLineNumber = IntervalTree.getCellLineNumber(elementNumberCellLineNumberKeggPathwayNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				cellLineName = cellLineNumber2CellLineNameMap.get(cellLineNumber);
 
-				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumberKeggPathwayNumber);
+				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumberKeggPathwayNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				keggPathwayName = keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber);
 
 				numberofOverlaps = element.getElementNumberofOverlaps();
@@ -5817,7 +5874,7 @@ public class Annotation {
 				elementNumber = IntervalTree.getShortElementNumber(elementNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				elementName = elementNumber2ElementNameMap.get(elementNumber);
 
-				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumber);
+				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(elementNumberCellLineNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 				keggPathwayName = KEGGPathwayNumber2KEGGPathwayNameMap.get(keggPathwayNumber);
 				
 				numberofOverlaps = element.getElementNumberofOverlaps();
@@ -7896,7 +7953,7 @@ public class Annotation {
 
 				dateBefore = System.currentTimeMillis();
 
-				// Used in write results
+				// Used in writing results
 				TShortObjectMap<String> userDefinedGeneSetNumber2NameMap = new TShortObjectHashMap<String>();
 				// Used in filling geneId2ListofUserDefinedGeneSetNumberMap
 				TObjectShortMap<String> userDefinedGeneSetName2NumberMap = new TObjectShortHashMap<String>();
@@ -7926,7 +7983,10 @@ public class Annotation {
 				exonBasedUserDefinedGeneSet2KMap = null;
 				regulationBasedUserDefinedGeneSet2KMap = null;
 				allBasedUserDefinedGeneSet2KMap = null;
-
+				
+				userDefinedGeneSetNumber2NameMap = null;
+				userDefinedGeneSetName2NumberMap = null;
+				
 				System.gc();
 				System.runFinalization();
 
