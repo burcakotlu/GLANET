@@ -24,8 +24,11 @@ import common.Commons;
  * @author Burçak Otlu
  * @date Apr 8, 2015
  * @project Glanet 
+ * 
+ * Data Driven Experiment Step 1
  *
- * In this class we create interval pool of nonExpressingGenes Intervals of 600 base long each for various TPM values.
+ * In this class we create interval pool of nonExpressingGenes 
+ * Intervals of 600 base long each for various TPM values.
  * 
  */
 public class NonExpressingGenesIntervalsPoolCreation {
