@@ -4,6 +4,7 @@
  * 1:15:47 PM
  * 2014
  *
+ * zScore computation is achieved in this class.
  * 
  */
 package enrichment;
@@ -559,11 +560,8 @@ public class CollectionofPermutationsResults {
 		// Here using same variable name "cellLineNumber2NameMap" for case
 		// DO_DNASE_ENRICHMENT and case DO_TF_ENRICHMENT is not important
 		// How it is filled is important, I mean its source
-		// For example in case DO_DNASE_ENRICHMENT cellLineNumber2NameMap is
-		// filled by using
-		// ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME
-		// For example in case DO_TF_ENRICHMENT cellLineNumber2NameMap is filled
-		// by using ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME
+		// For example in case DO_DNASE_ENRICHMENT cellLineNumber2NameMap is filled by using ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME
+		// For example in case DO_TF_ENRICHMENT cellLineNumber2NameMap is filled by using ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME
 
 		switch (annotationType) {
 
@@ -671,9 +669,7 @@ public class CollectionofPermutationsResults {
 				// Outer While
 				while ((strLine = bufferedReader.readLine()) != null) {
 
-					// Initialize
-					// numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps
-					// to zero
+					// Initialize numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps to zero
 					numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = 0;
 
 					indexofTab = strLine.indexOf('\t');
@@ -691,6 +687,7 @@ public class CollectionofPermutationsResults {
 					
 					
 					statsPerElement= elementNumber2StatsMap.get(mixedNumber);
+					
 					if (statsPerElement == null){
 						statsPerElement = new DescriptiveStatistics();
 						elementNumber2StatsMap.put(mixedNumber,statsPerElement);
@@ -713,6 +710,7 @@ public class CollectionofPermutationsResults {
 						elementNumber2OriginalNumberofOverlaps.put(mixedNumber, originalNumberofOverlaps);
 					}
 					//For Control Purposes
+					//originalNumberofOverlaps coming from other run results
 					else if (elementNumber2OriginalNumberofOverlaps.get(mixedNumber)!=originalNumberofOverlaps){
 						logger.error("There is a situation: Original Number of Overlaps differ");
 					}
@@ -736,12 +734,9 @@ public class CollectionofPermutationsResults {
 						indexofFormerComma = indexofLatterComma;
 						indexofLatterComma = strLine.indexOf(',', indexofLatterComma + 1);
 
-					}// End of Inner While loop: all permutations, number of
-						// overlaps of an element
+					}// End of Inner WHILE loop: all permutations, number of overlaps of an element
 
-					// write
-					// numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps
-					// to map
+					// Write numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps to map
 					if (elementNumber2ElementMap.get(mixedNumber) == null) {
 						element = new FunctionalElement();
 
@@ -785,7 +780,7 @@ public class CollectionofPermutationsResults {
 						
 					}
 
-				}// End of Outer While loop: Read all lines of a run
+				}// End of Outer WHILE loop: Read all lines of a run
 
 				// Close bufferedReader
 				bufferedReader.close();
@@ -833,7 +828,8 @@ public class CollectionofPermutationsResults {
 				if (stdDev == 0 || stdDev == null){
 					
 					//There is a situation
-					//Division by Zero
+					//Division by zero
+					//Division by not a number
 					//Do not calculate zScore
 					
 					//zScore is infinity and further calculations are not applicable
@@ -842,7 +838,9 @@ public class CollectionofPermutationsResults {
 					element.setEmpiricalPValueCalculatedFromZScore(null);
 					element.setBonferroniCorrectedPValueCalculatedFromZScore(null);
 					
-				}else{
+				}//END of IF
+				
+				else{
 					
 					zScore = (originalNumberofOverlaps - mean)/ stdDev;
 					empiricalPValueCalculatedFromZScore = StatisticsConversion.cumulativeProbability(zScore);
@@ -857,7 +855,7 @@ public class CollectionofPermutationsResults {
 						element.setBonferroniCorrectedPValueCalculatedFromZScore(bonferroniCorrectedPValueCalculatedFromZScore);
 					}
 					
-				}//End of Else stdDev != 0
+				}//End of ELSE stdDev != 0 or stdDev!= bull
 					
 				
 			}//End of for 
@@ -1245,7 +1243,9 @@ public class CollectionofPermutationsResults {
 		
 		/************************************************************/
 		/************ Collection of TF RESULTS starts ***************/
-		if (tfAnnotationType.doTFAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (	tfAnnotationType.doTFAnnotation() && 
+				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(), tfAnnotationType, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 		}
@@ -1326,7 +1326,7 @@ public class CollectionofPermutationsResults {
 		
 		/****************************************************************************/
 		/************ Collection of KEGG Pathway RESULTS starts *********************/
-		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+		if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
 				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
@@ -1343,7 +1343,8 @@ public class CollectionofPermutationsResults {
 		
 		/****************************************************************************/
 		/************ Collection of TF KEGG Pathway RESULTS starts ******************/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+		if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(), AnnotationType.DO_TF_ANNOTATION, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 
@@ -1363,7 +1364,8 @@ public class CollectionofPermutationsResults {
 		
 		/****************************************************************************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
-		if (tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
+		if (	tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+				!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(), AnnotationType.DO_TF_ANNOTATION, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 
@@ -1385,7 +1387,8 @@ public class CollectionofPermutationsResults {
 		/******************************* BOTH ***************************************/
 		/************ Collection of TF KEGG Pathway RESULTS starts ******************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
-		if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+		if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 			CollectionofPermutationsResults.collectPermutationResults(numberofPermutationsInEachRun, bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF, jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(), AnnotationType.DO_TF_ANNOTATION, null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 

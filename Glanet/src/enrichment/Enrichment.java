@@ -2356,6 +2356,7 @@ public class Enrichment {
 				/***********************Using AnnotateWithNumbers starts*************************************************/
 				/********************************************************************************************************/
 				if (dnaseAnnotationType.doDnaseAnnotation()) {
+					
 					// dnase
 					// generate dnase interval tree
 					intervalTree = generateDnaseIntervalTreeWithNumbers(dataFolder, chromName);
@@ -2407,7 +2408,7 @@ public class Enrichment {
 				
 				
 				//Using AnnotateWithNumbers
-				if ((tfAnnotationType.doTFAnnotation()) && 
+				if (	(tfAnnotationType.doTFAnnotation()) && 
 						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 					// tf
@@ -2467,7 +2468,7 @@ public class Enrichment {
 					System.runFinalization();
 				}
 
-				// UserDefinedLibrary starts
+				// UserDefinedLibrary
 				if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
 
 					int elementTypeNumber;
@@ -2493,8 +2494,9 @@ public class Enrichment {
 
 					}// End of for each elementTypeNumber
 				}
-				// UserDefinedLibrary ends
+				
 
+				//KEGGPathway
 				if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
 						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
@@ -2511,7 +2513,7 @@ public class Enrichment {
 					System.runFinalization();
 				}
 
-				if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
 
 					// New Functionality START
@@ -2541,7 +2543,7 @@ public class Enrichment {
 
 				}
 
-				if (!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) &&
+				if (	!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) &&
 						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 					// New Functionality START
@@ -2571,7 +2573,7 @@ public class Enrichment {
 
 				}
 
-				if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 					tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
@@ -3465,7 +3467,9 @@ public class Enrichment {
 		TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
 		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectShortHashMap<String>();
 
-		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation() || tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+		if ( 	keggPathwayAnnotationType.doKEGGPathwayAnnotation() || 
+				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 
 			// all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
 			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap(dataFolder, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME, keggPathwayName2KeggPathwayNumberMap);
