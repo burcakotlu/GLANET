@@ -180,6 +180,7 @@ public class FunctionalElementMinimal  implements Comparable<FunctionalElementMi
 
 	//In Descending Order
 	public static Comparator<FunctionalElementMinimal> Z_SCORE = new Comparator<FunctionalElementMinimal>() {
+		
 		public int compare(FunctionalElementMinimal element1, FunctionalElementMinimal element2) {
 
 			//dummy initialization

@@ -8,6 +8,7 @@ package enrichment;
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
@@ -19,9 +20,11 @@ import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
 import gc.ChromosomeBasedGCIntervalTree;
 import gc.ChromosomeBasedGCTroveList;
 import generate.randomdata.RandomDataGenerator;
+import gnu.trove.iterator.TIntByteIterator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.iterator.TLongByteIterator;
 import gnu.trove.iterator.TLongIntIterator;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
@@ -29,8 +32,10 @@ import gnu.trove.list.TShortList;
 import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TShortArrayList;
+import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TLongByteMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.TObjectShortMap;
@@ -70,6 +75,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -79,6 +85,7 @@ public class Enrichment {
 
 	final static Logger logger = Logger.getLogger(Enrichment.class);
 
+	//Static Nested Class starts
 	static class GenerateRandomData extends RecursiveTask<TIntObjectMap<List<InputLineMinimal>>> {
 
 		/**
@@ -295,7 +302,8 @@ public class Enrichment {
 
 		}
 	}// End of GenerateRandomData Class
-	
+	//Static Nested Class ends
+
 	
 	//Testing Purposes starts
 	static class AnnotateDnaseTFHistoneWithNumbers extends RecursiveTask<AllMapsDnaseTFHistoneWithNumbers> {
@@ -475,7 +483,6 @@ public class Enrichment {
 			leftMapWithNumbers = null;
 
 		}
-
 		// TIntIntMap version ends
 
 		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
@@ -511,6 +518,1282 @@ public class Enrichment {
 	}
 
 	//Testing Purposes ends
+	
+	
+	//Static Nested Class starts
+	//AnnotateWithNumbersForAllChromosomes 
+	static class AnnotateWithNumbersForAllChromosomes extends RecursiveTask<AllMapsWithNumbersForAllChromosomes> {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 793082641696132194L;
+
+		private final TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap;
+		
+		private final int runNumber;
+		private final int numberofPermutations;
+
+		private final WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode;
+
+		private final TIntList permutationNumberList;
+		private final TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap;
+		private final TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap;
+
+		private final AnnotationType annotationType;
+
+		private final int lowIndex;
+		private final int highIndex;
+
+		private final TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap;
+
+		private final String outputFolder;
+
+		private final int overlapDefinition;
+		
+		private TIntIntMap dnaseCellLineNumber2OriginalKMap;
+
+		public AnnotateWithNumbersForAllChromosomes(
+				String outputFolder, 
+				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+				int runNumber, 
+				int numberofPermutations, 
+				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode, 
+				int lowIndex, 
+				int highIndex, 
+				TIntList permutationNumberList, 
+				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap, 
+				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+				AnnotationType annotationType, 
+				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+				int overlapDefinition,
+				TIntIntMap dnaseCellLineNumber2OriginalKMap) {
+
+			this.outputFolder = outputFolder;
+
+			this.chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap;
+			this.runNumber = runNumber;
+			this.numberofPermutations = numberofPermutations;
+
+			this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
+
+			this.lowIndex = lowIndex;
+			this.highIndex = highIndex;
+
+			this.permutationNumberList = permutationNumberList;
+			this.chrNumber2IntervalTreeMap = chrNumber2IntervalTreeMap;
+
+			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is
+			// TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
+			// otherwise sent null
+			this.chrNumber2UcscRefSeqGenesIntervalTreeMap = chrNumber2UcscRefSeqGenesIntervalTreeMap;
+
+			this.annotationType = annotationType;
+			// this.tfandKeggPathwayEnrichmentType =
+			// tfandKeggPathwayEnrichmentType;
+
+			// geneId2ListofGeneSetNumberMap
+			// sent full when annotationType is KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is USER_DEFINED_GENE_SET_ANNOTATION
+			// otherwise sent null
+			this.geneId2ListofGeneSetNumberMap = geneId2ListofGeneSetNumberMap;
+
+			this.overlapDefinition = overlapDefinition;
+			
+			this.dnaseCellLineNumber2OriginalKMap = dnaseCellLineNumber2OriginalKMap;
+		}
+
+		protected AllMapsWithNumbersForAllChromosomes compute() {
+
+			int middleIndex;
+			AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes;
+			AllMapsWithNumbersForAllChromosomes leftAllMapsWithNumbersForAllChromosomes;
+
+			Integer permutationNumber;
+			AllMapsWithNumbersForAllChromosomes allMapsWithNumbersForAllChromosomes;
+
+			// DIVIDE
+			if (highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
+				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
+				AnnotateWithNumbersForAllChromosomes left = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap);
+				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap);
+				left.fork();
+				rightAllMapsWithNumbersForAllChromosomes = right.compute();
+				leftAllMapsWithNumbersForAllChromosomes = left.join();
+				accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(leftAllMapsWithNumbersForAllChromosomes, rightAllMapsWithNumbersForAllChromosomes,annotationType);
+				leftAllMapsWithNumbersForAllChromosomes = null;
+				return rightAllMapsWithNumbersForAllChromosomes;
+			}
+			// CONQUER
+			else {
+
+				allMapsWithNumbersForAllChromosomes = new AllMapsWithNumbersForAllChromosomes();
+				
+				TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData = new TIntObjectHashMap<List<InputLineMinimal>>();
+
+				for (int i = lowIndex; i < highIndex; i++) {
+					
+					permutationNumber = permutationNumberList.get(i);
+					
+					//Fill TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData using chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap
+					fillPermutationRandomlyGeneratedData(permutationNumber,chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,chrNumber2RandomlyGeneratedData);
+					
+					//Annotate each permutation with permutationNumber
+					// WITHOUT IO 
+					// WITH NUMBERS
+					// For All Chromosomes
+					if (writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()) {
+						
+						accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+								Annotation.annotatePermutationWithoutIOWithNumbersForAllChromosomes(
+										permutationNumber, 
+										chrNumber2RandomlyGeneratedData, 
+										chrNumber2IntervalTreeMap, 
+										chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+										annotationType, 
+										geneId2ListofGeneSetNumberMap, 
+										overlapDefinition,
+										dnaseCellLineNumber2OriginalKMap),
+								allMapsWithNumbersForAllChromosomes);
+					}
+
+					//Annotate each permutation with permutationNumber
+					//WITH IO 
+					//WITH NUMBERS
+					//For All Chromosomes
+					else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()) {
+						
+						accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+								Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes(
+										outputFolder, 
+										permutationNumber, 
+										chrNumber2RandomlyGeneratedData, 
+										chrNumber2IntervalTreeMap, 
+										chrNumber2UcscRefSeqGenesIntervalTreeMap,
+										annotationType, 
+										geneId2ListofGeneSetNumberMap, 
+										overlapDefinition,
+										dnaseCellLineNumber2OriginalKMap),
+								allMapsWithNumbersForAllChromosomes);
+					}
+				}// End of FOR
+
+				
+				return allMapsWithNumbersForAllChromosomes;
+
+			}
+		}
+
+	
+		protected void fillPermutationRandomlyGeneratedData(
+				int permutationNumber,
+				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
+				TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData){
+			
+			
+			for(int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++ ){
+				
+				chrNumber2RandomlyGeneratedData.put(permutationNumber, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.get(chrNumber).get(permutationNumber));
+				
+			}// End of FOR 
+			
+		}
+		
+		
+		
+		
+		
+
+		//29 June 2015
+		//Accumulate Permutation's 1s or 0s in the Right Map
+		// Accumulate leftAllMapsKeysWithNumbersAndValuesOneorZero in rightAllMapsWithNumbersForAllChromosomes 
+		// Then Free Space of leftAllMapsKeysWithNumbersAndValuesOneorZero
+		protected void accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+				AllMapsKeysWithNumbersAndValuesOneorZero leftAllMapsKeysWithNumbersAndValuesOneorZero, 
+				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes) {
+
+
+			/*********************************************************************************************************************************************/
+			// LEFT ALL MAPS WITH NUMBERS FOR ALL CHROMOSOMES
+			// DNASE
+			TIntByteMap leftDnaseCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getDnaseCellLineNumber2PermutationOneorZeroMap();
+
+			// TF
+			TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+
+			// HISTONE
+			TIntByteMap leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getHistoneNumberCellLineNumber2PermutationOneorZeroMap();
+			
+			// Gene
+			TIntByteMap leftGeneNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getGeneNumber2PermutationOneorZeroMap();
+			
+			// USERDEFINED GENESET
+			TIntByteMap leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+			TIntByteMap leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+			TIntByteMap leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+
+			// USERDEFINED LIBRARY
+			TIntByteMap leftElementTypeNumberElementNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getElementTypeNumberElementNumber2PermutationOneorZeroMap();
+
+			// KEGGPathway
+			TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+			// TF KEGGPathway
+			TIntByteMap leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+			// TF CellLine KEGGPathway
+			TLongByteMap leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+			/*********************************************************************************************************************************************/
+			// RIGHT ALL MAPS WITH NUMBERS FOR ALL CHROMOSOMES
+			// DNASE
+			TIntIntMap rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// TF
+			TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// HISTONE
+			TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			
+			// Gene
+			TIntIntMap rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			
+			// USERDEFINED GENESET
+			TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// USERDEFINED LIBRARY
+			TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// KEGG Pathway
+			TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// TF KEGGPathway
+			TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			// TF CellLine KEGGPathway
+			TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+			/*********************************************************************************************************************************************/
+			
+			// DNASE
+			if (leftDnaseCellLineNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftDnaseCellLineNumber2PermutationOneorZeroMap, 
+						rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftDnaseCellLineNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF
+			if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
+						rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
+			}
+
+			// HISTONE
+			if (leftHistoneNumberCellLineNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftHistoneNumberCellLineNumber2PermutationOneorZeroMap, 
+						rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = null;
+			}
+			
+			// GENE
+			if (leftGeneNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftGeneNumber2PermutationOneorZeroMap, 
+						rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftGeneNumber2PermutationOneorZeroMap = null;
+			}
+			
+			
+			// USERDEFINED GENESET starts
+			// EXON BASED USERDEFINED GENESET
+			if (leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+						rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+			}
+
+			// REGULATION BASED USERDEFINED GENESET
+			if (leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+						rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+			}
+
+			// ALL BASED USERDEFINED GENESET
+			if (leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+						rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+			}
+			// USERDEFINED GENESET ends
+
+			// USERDEFINED LIBRARY starts
+			if (leftElementTypeNumberElementNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftElementTypeNumberElementNumber2PermutationOneorZeroMap, 
+						rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftElementTypeNumberElementNumber2PermutationOneorZeroMap = null;
+			}
+			// USERDEFINED LIBRARY ends
+
+			// EXON BASED KEGG PATHWAY
+			if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// REGULATION BASED KEGG PATHWAY
+			if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// ALL BASED KEGG PATHWAY
+			if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF and EXON BASED KEGG PATHWAY
+			if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF and REGULATION BASED KEGG PATHWAY
+			if (leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF and ALL BASED KEGG PATHWAY
+			if (leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			
+			// TF and CellLine and EXON BASED KEGG PATHWAY
+			if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF and CellLine and REGULATION BASED KEGG PATHWAY
+			if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			// TF and CellLine and ALL BASED KEGG PATHWAY
+			if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+				
+				accumulateLeftMapInRightMapForAllChromosomes(
+						leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+						rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+				
+				leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+			}
+
+			/*********************************************************************************************************************************************/
+
+			// delete AllMaps
+			// deleteAllMaps(leftAllMaps);
+			//Free space
+			leftAllMapsKeysWithNumbersAndValuesOneorZero = null;
+
+		}// End of Accumulation of left maps in right maps
+		//29 June 2015
+		
+		
+		
+		// Accumulate leftPermutationsMap in rightPermutationsMap
+		// Then Free Space of leftPermutationsMap
+		// Accumulate leftAllMapsWithNumbersForAllChromosomes in rightAllMapsWithNumbersForAllChromosomes 
+		// Then Free space for leftAllMapsWithNumbersForAllChromosomes
+		protected void accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(
+				AllMapsWithNumbersForAllChromosomes leftAllMapsWithNumbersForAllChromosomes, 
+				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes,
+				AnnotationType annotationType) {
+			
+			//DNase
+			TIntIntMap leftDnaseCellLineNumber2NumberofPermutations = null;
+			TIntIntMap rightDnaseCellLineNumber2NumberofPermutations = null;
+			
+			//TF
+			TIntIntMap leftTfNumberCellLineNumber2NumberofPermutations = null;
+			TIntIntMap rightTfNumberCellLineNumber2NumberofPermutations = null;
+			
+			//Histone
+			TIntIntMap leftHistoneNumberCellLineNumber2NumberofPermutations = null;
+			TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutations  = null;
+			
+			//Gene
+			TIntIntMap leftGeneNumber2NumberofPermutations = null;
+			TIntIntMap rightGeneNumber2NumberofPermutations = null;
+			
+			//UserDefinedGeneSet
+			TIntIntMap leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			TIntIntMap leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			TIntIntMap leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			
+			TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+			
+			// USERDEFINED LIBRARY
+			TIntIntMap leftElementTypeNumberElementNumber2NumberofPermutations = null;
+			TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutations = null;
+			
+			// KEGGPathway
+			TIntIntMap leftExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap leftRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap leftAllBasedKeggPathwayNumber2NumberofPermutations = null;
+			
+			TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutations = null;
+
+			// TF KEGGPathway
+			TIntIntMap leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+			
+			TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+			
+			// TF CellLine KEGGPathway
+			TLongIntMap leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TLongIntMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TLongIntMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+
+			TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+			TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+			TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+
+
+			
+			switch(annotationType){
+			
+				case DO_DNASE_ANNOTATION: 
+					// DNASE
+					leftDnaseCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightDnaseCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					if (leftDnaseCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftDnaseCellLineNumber2NumberofPermutations, 
+								rightDnaseCellLineNumber2NumberofPermutations);
+						
+						leftDnaseCellLineNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_TF_ANNOTATION:
+					// TF
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumber2NumberofPermutations = null;
+					}
+
+					break;
+					
+				case DO_HISTONE_ANNOTATION:
+					// HISTONE
+					leftHistoneNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightHistoneNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+					if (leftHistoneNumberCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftHistoneNumberCellLineNumber2NumberofPermutations, 
+								rightHistoneNumberCellLineNumber2NumberofPermutations);
+						
+						leftHistoneNumberCellLineNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_GENE_ANNOTATION:
+					//Gene
+					leftGeneNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightGeneNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftGeneNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftGeneNumber2NumberofPermutations, 
+								rightGeneNumber2NumberofPermutations);
+						
+						leftGeneNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_USER_DEFINED_GENESET_ANNOTATION:
+					// USERDEFINED GENESET
+					leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightExonBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightAllBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					// EXON BASED USERDEFINED GENESET
+					if (leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations, 
+								rightExonBasedUserDefinedGeneSetNumber2NumberofPermutations);
+						
+						leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+					}
+
+					// REGULATION BASED USERDEFINED GENESET
+					if (leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations, 
+								rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations);
+						
+						leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+					}
+
+					// ALL BASED USERDEFINED GENESET
+					if (leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations, 
+								rightAllBasedUserDefinedGeneSetNumber2NumberofPermutations);
+						
+						leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_USER_DEFINED_LIBRARY_ANNOTATION:
+					// USERDEFINED LIBRARY
+					leftElementTypeNumberElementNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightElementTypeNumberElementNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftElementTypeNumberElementNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftElementTypeNumberElementNumber2NumberofPermutations, 
+								rightElementTypeNumberElementNumber2NumberofPermutations);
+						
+						leftElementTypeNumberElementNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_KEGGPATHWAY_ANNOTATION:
+					// KEGGPathway
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// EXON BASED KEGG PATHWAY
+					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// REGULATION BASED KEGG PATHWAY
+					if (leftRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// ALL BASED KEGG PATHWAY
+					if (leftAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_TF_KEGGPATHWAY_ANNOTATION:
+					
+					// TF
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumber2NumberofPermutations = null;
+					}
+
+					// KEGGPathway
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// EXON BASED KEGG PATHWAY
+					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// REGULATION BASED KEGG PATHWAY
+					if (leftRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// ALL BASED KEGG PATHWAY
+					if (leftAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+					
+					// TF KEGGPathway
+					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// TF and EXON BASED KEGG PATHWAY
+					if (leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and REGULATION BASED KEGG PATHWAY
+					if (leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and ALL BASED KEGG PATHWAY
+					if (leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+					break;
+					
+				case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+					
+					// TF
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumber2NumberofPermutations = null;
+					}
+					
+					// KEGGPathway
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// EXON BASED KEGG PATHWAY
+					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// REGULATION BASED KEGG PATHWAY
+					if (leftRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// ALL BASED KEGG PATHWAY
+					if (leftAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+					
+					// TF CellLine KEGGPathway
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// TF and CellLine and EXON BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and CellLine and REGULATION BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and CellLine and ALL BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					break;
+					
+				case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+					// TF
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumber2NumberofPermutations = null;
+					}
+					
+					// KEGGPathway
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// EXON BASED KEGG PATHWAY
+					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// REGULATION BASED KEGG PATHWAY
+					if (leftRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// ALL BASED KEGG PATHWAY
+					if (leftAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+					
+					// TF KEGGPathway
+					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					
+					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// TF and EXON BASED KEGG PATHWAY
+					if (leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and REGULATION BASED KEGG PATHWAY
+					if (leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and ALL BASED KEGG PATHWAY
+					if (leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					
+					// TF CellLine KEGGPathway
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+					// TF and CellLine and EXON BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and CellLine and REGULATION BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					// TF and CellLine and ALL BASED KEGG PATHWAY
+					if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations != null) {
+						
+						accumulateLeftMapInRightMapForAllChromosomes(
+								leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations, 
+								rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations);
+						
+						leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = null;
+					}
+
+					break;
+					
+					
+				default: 
+					break;
+					
+			
+			}//End of SWITCH
+
+
+					
+			
+
+			
+
+			
+			
+
+			
+			
+			/*********************************************************************************************************************************************/
+
+			// delete AllMaps
+			// deleteAllMaps(leftAllMaps);
+			//Free space
+			leftAllMapsWithNumbersForAllChromosomes = null;
+
+		}// End of Accumulation of left maps in right maps
+		
+		
+		//30 June 2015 starts
+		protected void accumulateLeftMapInRightMapForAllChromosomes(
+				TLongByteMap leftElementNumberNumber2PermutationOneorZeroMap, 
+				TLongIntMap rightMapWithNumbersForAllChromosomes) {
+			
+			long elementNumber;
+			byte permutationOneorZero;
+
+			for (TLongByteIterator it = leftElementNumberNumber2PermutationOneorZeroMap.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				elementNumber = it.key();
+				permutationOneorZero = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
+				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, permutationOneorZero);
+				} else {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, rightMapWithNumbersForAllChromosomes.get(elementNumber) + permutationOneorZero);
+				}
+			}//End of FOR traversing each elementNumber
+
+			leftElementNumberNumber2PermutationOneorZeroMap.clear();
+			leftElementNumberNumber2PermutationOneorZeroMap = null;
+
+		}
+		//30 June 2015 ends
+		
+		
+		//29 June 2015 starts
+		protected void accumulateLeftMapInRightMapForAllChromosomes(
+				TIntByteMap leftElementNumberNumber2PermutationOneorZeroMap, 
+				TIntIntMap rightMapWithNumbersForAllChromosomes) {
+			
+			int elementNumber;
+			byte permutationOneorZero;
+
+			for (TIntByteIterator it = leftElementNumberNumber2PermutationOneorZeroMap.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				elementNumber = it.key();
+				permutationOneorZero = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
+				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, permutationOneorZero);
+				} else {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, rightMapWithNumbersForAllChromosomes.get(elementNumber) + permutationOneorZero);
+				}
+			}//End of FOR traversing each elementNumber
+
+			leftElementNumberNumber2PermutationOneorZeroMap.clear();
+			leftElementNumberNumber2PermutationOneorZeroMap = null;
+
+		}
+		//29 June 2015 ends
+		
+		
+		//30 June 2015 starts
+		protected void accumulateLeftMapInRightMapForAllChromosomes(
+				TLongIntMap leftMapWithNumbersForAllChromosomes, 
+				TLongIntMap rightMapWithNumbersForAllChromosomes) {
+			
+			long elementNumber;
+			int numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps;
+
+			for (TLongIntIterator it = leftMapWithNumbersForAllChromosomes.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				elementNumber = it.key();
+				numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
+				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
+				} else {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, rightMapWithNumbersForAllChromosomes.get(elementNumber) + numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
+				}
+			}//End of FOR
+
+			leftMapWithNumbersForAllChromosomes.clear();
+			leftMapWithNumbersForAllChromosomes = null;
+
+		}
+		//30 June 2015 ends
+		
+		//26 June 2015 starts
+		// TIntIntMap version starts
+		// Accumulate numberofPermutations that has numberOfOverlaps greater than or equal to the original number of overlaps  in the leftMap to the rightMap
+		// based on elementNumber
+		protected void accumulateLeftMapInRightMapForAllChromosomes(
+				TIntIntMap leftMapWithNumbersForAllChromosomes, 
+				TIntIntMap rightMapWithNumbersForAllChromosomes) {
+			
+			int elementNumber;
+			int numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps;
+
+			for (TIntIntIterator it = leftMapWithNumbersForAllChromosomes.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				elementNumber = it.key();
+				numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: " + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
+				} else {
+					rightMapWithNumbersForAllChromosomes.put(elementNumber, rightMapWithNumbersForAllChromosomes.get(elementNumber) + numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
+				}
+			}//End of FOR
+
+			leftMapWithNumbersForAllChromosomes.clear();
+			leftMapWithNumbersForAllChromosomes = null;
+
+		}
+		//26 June 2015 ends
+
+		// TIntIntMap version starts
+		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
+		// Accumulate number of overlaps
+		// based on permutationNumber and ElementName
+		protected void combineLeftMapandRightMap(TIntIntMap leftMapWithNumbers, TIntIntMap rightMapWithNumbers) {
+			
+			int permutationNumberCellLineNumberOrKeggPathwayNumber;
+			int numberofOverlaps;
+
+			for (TIntIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				permutationNumberCellLineNumberOrKeggPathwayNumber = it.key();
+				numberofOverlaps = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
+				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if (!(rightMapWithNumbers.containsKey(permutationNumberCellLineNumberOrKeggPathwayNumber))) {
+					rightMapWithNumbers.put(permutationNumberCellLineNumberOrKeggPathwayNumber, numberofOverlaps);
+				} else {
+					rightMapWithNumbers.put(permutationNumberCellLineNumberOrKeggPathwayNumber, rightMapWithNumbers.get(permutationNumberCellLineNumberOrKeggPathwayNumber) + numberofOverlaps);
+				}
+			}
+
+			leftMapWithNumbers.clear();
+			leftMapWithNumbers = null;
+
+		}
+
+		// TIntIntMap version ends
+
+		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
+		// Accumulate number of overlaps
+		// based on permutationNumber and ElementNumber
+		protected void combineLeftMapandRightMap(TLongIntMap leftMapWithNumbers, TLongIntMap rightMapWithNumbers) {
+			
+			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
+			int numberofOverlaps;
+
+			for (TLongIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();) {
+
+				it.advance();
+
+				permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
+				numberofOverlaps = it.value();
+
+				if (!(rightMapWithNumbers.containsKey(permutationNumberElementNumberCellLineNumberKeggPathwayNumber))) {
+					rightMapWithNumbers.put(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, numberofOverlaps);
+				} else {
+					rightMapWithNumbers.put(permutationNumberElementNumberCellLineNumberKeggPathwayNumber, rightMapWithNumbers.get(permutationNumberElementNumberCellLineNumberKeggPathwayNumber) + numberofOverlaps);
+				}
+			}
+
+			leftMapWithNumbers.clear();
+			leftMapWithNumbers = null;
+
+		}
+
+		protected void deleteRandomlyGeneratedData(List<InputLine> randomlyGeneratedData) {
+			for (InputLine inputLine : randomlyGeneratedData) {
+				inputLine.setChrName(null);
+				inputLine = null;
+			}
+
+			randomlyGeneratedData.clear();
+		}
+
+		protected void deleteMap(Map<String, Integer> map) {
+			if (map != null) {
+				for (Map.Entry<String, Integer> entry : map.entrySet()) {
+					entry.setValue(null);
+					entry = null;
+				}
+				map = null;
+			}
+
+		}
+
+		protected void deleteAllMaps(AllMaps allMaps) {
+			Map<String, Integer> map = allMaps.getPermutationNumberDnaseCellLineName2KMap();
+			deleteMap(map);
+			map = allMaps.getPermutationNumberTfNameCellLineName2KMap();
+			deleteMap(map);
+			map = allMaps.getPermutationNumberHistoneNameCellLineName2KMap();
+			deleteMap(map);
+			map = allMaps.getPermutationNumberExonBasedKeggPathway2KMap();
+			deleteMap(map);
+			map = allMaps.getPermutationNumberRegulationBasedKeggPathway2KMap();
+			deleteMap(map);
+			allMaps = null;
+		}
+
+		
+	}
+	//AnnotateWithNumbersForAllChromosomes 
+	//Static Nested Class ends
+	
 	
 
 	static class AnnotateWithNumbers extends RecursiveTask<AllMapsWithNumbers> {
@@ -977,7 +2260,9 @@ public class Enrichment {
 
 	}
 
-	public static void partitionDataChromosomeBased(List<InputLine> originalInputLines, Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap) {
+	public static void partitionDataChromosomeBased(
+			List<InputLine> originalInputLines, 
+			Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap) {
 		
 		InputLineMinimal inputLineMinimal = null;
 		ChromosomeName chrName;
@@ -1792,7 +3077,746 @@ public class Enrichment {
 		return contains;
 		
 	}
+	
+	
+	//1 July 2015
+	public static void writeToBeCollectedNumberofPermutations(
+			String outputFolder,
+			String outputFileName,
+			int runNumber,
+			TIntIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap){
+		
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		int elementNumber;
+		int numberofPermutations;
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(outputFolder + outputFileName + "_" + runNumber + ".txt");
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//Header Line
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty("line.separator"));
+			
+			
+			for(TIntIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
+				
+				itr.advance();
+				
+				elementNumber = itr.key();
+				numberofPermutations = itr.value();
+				
+				bufferedWriter.write(elementNumber+ "\t" + numberofPermutations + System.getProperty("line.separator"));
+				
+			}//End of FOR 
+			
+			//Close  bufferedWriter
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	//1 July 2015
+	
+	//1 July 2015
+	public static void fillElementNumber2OriginalKMap(
+			TLongIntMap elementNumber2OriginalKMap,
+			String outputFolder, 
+			String originalNumberofOverlapsFileName){
+		
+			
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			
+			String strLine = null;
+			
+			long elementNumber;
+			int numberofOriginalOverlaps;
+			
+			int indexofFirstTab;
+			int indexofSecondTab;
+			
+		
+			try {
+				
+				fileReader = FileOperations.createFileReader(outputFolder + originalNumberofOverlapsFileName);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				//strLine
+				//elementNumber elementName originalNumberofOverlaps
+				
+				while((strLine = bufferedReader.readLine())!=null){
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab>-1)? strLine.indexOf('\t', indexofFirstTab+1):-1;
+					
+					elementNumber = Long.parseLong(strLine.substring(0, indexofFirstTab));
+					numberofOriginalOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					
+					elementNumber2OriginalKMap.put(elementNumber, numberofOriginalOverlaps);
+					
+				}//End of WHILE
+				
+				
+				bufferedReader.close();
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	}
+	//1 July 2015
+	
+	//29 June 2015
+	public static void fillElementNumber2OriginalKMap(
+			TIntIntMap elementNumber2OriginalKMap,
+			String outputFolder, 
+			String originalNumberofOverlapsFileName){
+		
+			
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+			
+			String strLine = null;
+			
+			int elementNumber;
+			int numberofOriginalOverlaps;
+			
+			int indexofFirstTab;
+			int indexofSecondTab;
+			
+		
+			try {
+				
+				fileReader = FileOperations.createFileReader(outputFolder + originalNumberofOverlapsFileName);
+				bufferedReader = new BufferedReader(fileReader);
+				
+				//strLine
+				//elementNumber elementName originalNumberofOverlaps
+				
+				while((strLine = bufferedReader.readLine())!=null){
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab>-1)? strLine.indexOf('\t', indexofFirstTab+1):-1;
+					
+					elementNumber = Integer.parseInt(strLine.substring(0, indexofFirstTab));
+					numberofOriginalOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					
+					elementNumber2OriginalKMap.put(elementNumber, numberofOriginalOverlaps);
+					
+				}//End of WHILE
+				
+				bufferedReader.close();
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	}
+	//29 June 2015
 
+
+	//24 June 2015 starts
+	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION starts
+	public static void annotateAllPermutationsInThreadsForAllChromosomes(
+			String outputFolder, 
+			String dataFolder, 
+			GivenInputDataType givenInputsSNPsorIntervals,
+			int NUMBER_OF_AVAILABLE_PROCESSORS, 
+			int runNumber, 
+			int numberofPermutationsinThisRun, 
+			int numberofPermutationsinEachRun, 
+			List<InputLine> allOriginalInputLines, 
+			GenerateRandomDataMode generateRandomDataMode, 
+			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, 
+			WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode, 
+			WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode, 
+			TIntIntMap dnaseCellLineNumber2OriginalKMap, 
+			TIntIntMap tfNumberCellLineNumber2OriginalKMap, 
+			TIntIntMap histoneNumberCellLineNumber2OriginalKMap, 
+			TIntIntMap gene2OriginalKMap, 
+			TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap, 
+			TIntIntMap regulationBasedUserDefinedGeneSet2OriginalKMap, 
+			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap, 
+			TIntIntMap elementTypeNumberElementNumber2OriginalKMap, 
+			TIntIntMap exonBasedKeggPathway2OriginalKMap, 
+			TIntIntMap regulationBasedKeggPathway2OriginalKMap, 
+			TIntIntMap allBasedKeggPathway2OriginalKMap, 
+			TIntIntMap tfExonBasedKeggPathway2OriginalKMap, 
+			TIntIntMap tfRegulationBasedKeggPathway2OriginalKMap, 
+			TIntIntMap tfAllBasedKeggPathway2OriginalKMap, 
+			TLongIntMap tfCellLineExonBasedKeggPathway2OriginalKMap, 
+			TLongIntMap tfCellLineRegulationBasedKeggPathway2OriginalKMap, 
+			TLongIntMap tfCellLineAllBasedKeggPathway2OriginalKMap, 
+			AnnotationType dnaseAnnotationType, 
+			AnnotationType histoneAnnotationType, 
+			AnnotationType tfAnnotationType, 
+			AnnotationType geneAnnotationType,
+			AnnotationType userDefinedGeneSetAnnotationType, 
+			AnnotationType userDefinedLibraryAnnotationType, 
+			AnnotationType keggPathwayAnnotationType, 
+			AnnotationType tfKeggPathwayAnnotationType, 
+			AnnotationType tfCellLineKeggPathwayAnnotationType, 
+			int overlapDefinition, 
+			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap, 
+			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap, 
+			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
+
+		//26 June 2015
+		//AllMapsWithNumbersForAllChromosomes stores all chromosomes results
+		AllMapsWithNumbersForAllChromosomes allMapsWithNumbersForAllChromosomes = new AllMapsWithNumbersForAllChromosomes();
+		
+		long startTimeAllPermutationsAllChromosomes;
+		long endTimeAllPermutationsAllChromosomes;
+
+		long startTimeFillingList;
+		long endTimeFillingList;
+		
+		long startTimeGenerateRandomData;
+		long endTimeGenerateRandomData;
+		
+		long startTimeOnlyAnnotationPermutationsForEachChromosome;
+		long endTimeOnlyAnnotationPermutationsForEachChromosome;
+		
+		long startTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
+		long endTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
+		
+		
+		/********************************************************************************************************/
+		/******************************* ORIGINAL INPUT LINES ***************************************************/
+		Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap = new HashMap<ChromosomeName, List<InputLineMinimal>>();
+		/******************************* ORIGINAL INPUT LINES ***************************************************/
+		/********************************************************************************************************/
+
+		TIntList permutationNumberList = null;
+		
+		//For DNase, TF, Histone, Gene, KEGGPathway, UserDefinedGeneSet, UserDefinedLibrary Enrichment
+		IntervalTree intervalTree = null;
+
+		//For joint TF and KEGGPathway Enrichment
+		IntervalTree tfIntervalTree = null;
+		IntervalTree ucscRefSeqGenesIntervalTree = null;
+
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		//Will be used for SNP Data or Short Length Interval
+		TByteList gcByteList = null;
+		
+		//Will be used for Interval Data or Medium Length Interval
+		IntervalTree gcIntervalTree = null;
+		
+		//Will be used for Interval Data or Long Length Interval
+		IntervalTree gcIsochoreIntervalTree = null;
+		
+		//Will be always used
+		List<Interval> gcIsochoreFamilyL1Pool = null;
+		List<Interval> gcIsochoreFamilyL2Pool = null;
+		List<Interval> gcIsochoreFamilyH1Pool = null;
+		List<Interval> gcIsochoreFamilyH2Pool = null;
+		List<Interval> gcIsochoreFamilyH3Pool = null;
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		
+		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+		//Will be used for SNP and Interval Data
+		TIntList mapabilityChromosomePositionList = null;
+		TShortList mapabilityShortValueList = null;		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+
+		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
+
+		/******************************************************************************************************/
+		/************** * PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES STARTS *************/
+		// Partition the original input data lines in a chromosome based manner
+		partitionDataChromosomeBased(allOriginalInputLines, chromosomeName2OriginalInputLinesMap);
+		/*************** PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES ENDS*****************/
+		/******************************************************************************************************/
+
+		/********************************************************************************************************/
+		/******************************* GET HG19 CHROMOSOME SIZES STARTS ***************************************/
+		hg19.GRCh37Hg19Chromosome.initializeChromosomeSizes(hg19ChromosomeSizes);
+		// get the hg19 chromosome sizes
+		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes(hg19ChromosomeSizes, dataFolder, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		/******************************* GET HG19 CHROMOSOME SIZES ENDS *****************************************/
+		/********************************************************************************************************/
+
+		
+		//Do we need it? Yes
+		ChromosomeName chromName;
+		int chromSize;
+		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
+		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataMap;
+		//Do we need it? Yes
+	
+		AnnotateWithNumbersForAllChromosomes annotateWithNumbersForAllChromosomes;
+		
+		GenerateRandomData generateRandomData;
+		
+		ForkJoinPool pool = new ForkJoinPool(NUMBER_OF_AVAILABLE_PROCESSORS);
+
+		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
+
+		GlanetRunner.appendLog("Run Number: " + runNumber);
+		logger.info("Run Number: " + runNumber);
+		
+		
+		/********************************************************************************************************/
+		/****************************** GENERATE PERMUTATION NUMBER LIST STARTS *********************************/
+		/********************************************************************************************************/
+		permutationNumberList = new TIntArrayList();
+		
+		GlanetRunner.appendLog("PermutationNumberList is filled.");
+		logger.info("PermutationNumberList is filled.");
+		fillPermutationNumberList(permutationNumberList, runNumber, numberofPermutationsinThisRun, numberofPermutationsinEachRun);
+		/********************************************************************************************************/
+		/****************************** GENERATE PERMUTATION NUMBER LIST ENDS ***********************************/
+		/********************************************************************************************************/
+		
+		
+
+		/******************************************************************************************************/
+		/**********************************24 JUNE 2015 starts*************************************************/
+		/******************************************************************************************************/
+		//FOR GC
+		//TIntObjectMap<TByteList> 	chrNumber2GCByteListMap 			= new TIntObjectHashMap<TByteList>();
+		//TIntObjectMap<IntervalTree> chrNumber2GCIntervalTreeMap 		= new TIntObjectHashMap<IntervalTree>();
+		//TIntObjectMap<IntervalTree> chrNumber2GCIsochoreIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+		
+		//TIntObjectMap<List<Interval>> chrNumber2GCIsochoreFamilyL1PoolMap = new TIntObjectHashMap<List<Interval>>();
+		//TIntObjectMap<List<Interval>> chrNumber2GCIsochoreFamilyL2PoolMap = new TIntObjectHashMap<List<Interval>>();
+		//TIntObjectMap<List<Interval>> chrNumber2GCIsochoreFamilyH1PoolMap = new TIntObjectHashMap<List<Interval>>();
+		//TIntObjectMap<List<Interval>> chrNumber2GCIsochoreFamilyH2PoolMap = new TIntObjectHashMap<List<Interval>>();
+		//TIntObjectMap<List<Interval>> chrNumber2GCIsochoreFamilyH3PoolMap = new TIntObjectHashMap<List<Interval>>();
+	
+		//FOR MAPABILITY
+		//TIntObjectMap<TIntList> chrNumber2MapabilityChromosomePositionListMap 	= new TIntObjectHashMap<TIntList>();
+		//TIntObjectMap<TShortList> chrNumber2MapabilityShortValueListMap 		= new TIntObjectHashMap<TShortList>();
+
+		// DO I HAVE TO KEEP IT? YES. READ THE EXPLANTION BELOW.
+		// I CAN FIRST GENERATE RANDOM DATA AND THEN ANNOTATE RANDOMLY GENERATED DATA
+		// RANDOM DATA FOR EACH PERMUTATION
+		
+		//Do not forget Generate random data takes time!!!
+		
+		//There are two options
+		//First option: Only once Generate Random Data separately, keep it in memory
+		//Generate and keep dnaseIntervalTrees in memory, annotate randomly generated data, free dnaseIntervalTrees
+		//Generate and keep tfIntervalTrees in memory, annotate randomly generated data, free tfIntervalTrees
+		//Generate and keep histoneIntervalTrees in memory, annotate randomly generated data, free histoneIntervalTrees
+		//... and so on...
+		
+		
+		//Second option: Each time Generate Random Data separately, keep it in memory
+		//Generate and keep dnaseIntervalTrees in memory, annotate randomly generated data, free dnaseIntervalTrees, free randomly generated data
+		//Generate and keep tfIntervalTrees in memory, annotate randomly generated data, free tfIntervalTrees, free randomly generated data
+		//Generate and keep histoneIntervalTrees in memory, annotate randomly generated data, free histoneIntervalTrees, free randomly generated data
+		//... and so on...
+		//No need for this
+		
+		//Decision: First option is selected
+		
+		TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<TIntObjectMap<List<InputLineMinimal>>>();				
+		/******************************************************************************************************/
+		/**********************************24 JUNE 2015 ends*************************************************/
+		/******************************************************************************************************/
+		
+
+		/******************************************************************************************************/
+		/*********************FILL ALL NECCESSARY DATA STRUCTURES STARTS***************************************/
+		/******************************************************************************************************/
+		
+		/******************************************************************************************************/
+		/********************************* FOR EACH HG19 CHROMOSOME STARTS ************************************/
+		/******************************************************************************************************/
+		for (int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++) {
+
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			chromSize = hg19ChromosomeSizes.get(chrNumber - 1);
+
+			GlanetRunner.appendLog("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			logger.info("chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			
+			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
+
+			if (chromosomeBaseOriginalInputLines != null) {
+				
+				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+				
+				/*******************************************************************************************************************************/
+				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList STARTS *****************/
+				/*******************************************************************************************************************************/
+				// Fill GC and Mapability Data Structures
+				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()) {
+					
+					GlanetRunner.appendLog("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
+					logger.info("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					
+					startTimeFillingList = System.currentTimeMillis();
+					
+					
+					/************************************************/
+					/*********************GC*************************/
+					/************************************************/
+					//GCByteList
+					if (containsIntervalLessThanOrEqualTo(chromosomeBaseOriginalInputLines,Commons.VERY_SHORT_INTERVAL_LENGTH)){
+						
+						//Fill GCByteList if givenData contains interval of length <= 10
+						gcByteList = new TByteArrayList();
+						
+						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+						
+						//No need 
+						//24 June 2015 
+						//chrNumber2GCByteListMap.put(chrNumber, gcByteList);
+					}
+					
+					//GC IntervalTree
+					if (containsIntervalBetween(chromosomeBaseOriginalInputLines,Commons.VERY_SHORT_INTERVAL_LENGTH, Commons.SHORT_INTERVAL_LENGTH)){
+						
+						//For Interval Data
+						//Fill GCIntervalTree if givenData contains interval of length >10 and <= 100
+						gcIntervalTree = new IntervalTree();
+						
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder, chromName, gcIntervalTree);
+						
+						//No need
+						//24 June 2015 
+						//chrNumber2GCIntervalTreeMap.put(chrNumber, gcIntervalTree);
+					}
+					
+					//Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval
+					//GC Isochore IntervalTree
+					
+					//Fill GCIsochoreIntervalTree if givenData contains interval of length >100
+					gcIsochoreIntervalTree = new IntervalTree();
+				
+					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree(dataFolder, chromName, gcIsochoreIntervalTree);
+					
+					//Always fill GCIsochorePools
+					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
+					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
+				
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreIntervalTreeMap.put(chrNumber, gcIsochoreIntervalTree);
+					
+					//Always fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
+					//GC Isochore Family L1 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L1, gcIsochoreFamilyL1Pool);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreFamilyL1PoolMap.put(chrNumber, gcIsochoreFamilyL1Pool);
+					
+					//GC Isochore Family L2 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.L2, gcIsochoreFamilyL2Pool);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreFamilyL2PoolMap.put(chrNumber, gcIsochoreFamilyL2Pool);
+					
+					//GC Isochore Family H1 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H1, gcIsochoreFamilyH1Pool);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreFamilyH1PoolMap.put(chrNumber, gcIsochoreFamilyH1Pool);
+					
+					//GC Isochore Family H2 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H2, gcIsochoreFamilyH2Pool);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreFamilyH2PoolMap.put(chrNumber, gcIsochoreFamilyH2Pool);
+				
+					//GC Isochore Family H3 Pool
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(dataFolder, chromName, IsochoreFamily.H3, gcIsochoreFamilyH3Pool);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2GCIsochoreFamilyH3PoolMap.put(chrNumber, gcIsochoreFamilyH3Pool);
+					/************************************************/
+					/*********************GC*************************/
+					/************************************************/
+				
+					
+					
+					/************************************************/
+					/**************MAPABILITY************************/
+					/************************************************/
+					mapabilityChromosomePositionList = new TIntArrayList();
+					mapabilityShortValueList = new TShortArrayList();
+					
+					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList,mapabilityShortValueList);
+					
+					//No need
+					//24 June 2015 
+					//chrNumber2MapabilityChromosomePositionListMap.put(chrNumber, mapabilityChromosomePositionList);
+					//chrNumber2MapabilityShortValueListMap.put(chrNumber, mapabilityShortValueList);
+					/************************************************/
+					/**************MAPABILITY************************/
+					/************************************************/
+					
+					endTimeFillingList = System.currentTimeMillis();
+
+					GlanetRunner.appendLog("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+					logger.info("Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + (float)((endTimeFillingList-startTimeFillingList)/1000)+ " seconds.");
+						
+				}//Generate Random Data WITH GC and Mapability
+				/*******************************************************************************************************************************/
+				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList ENDS *******************/
+				/*******************************************************************************************************************************/
+
+				
+				
+				/********************************************************************************************************/
+				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
+				/********************************************************************************************************/
+				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
+				logger.info("Generate Random Data for permutations has started.");
+				// First generate Random Data
+				
+				startTimeGenerateRandomData = System.currentTimeMillis();
+				
+				generateRandomData = new GenerateRandomData(
+						outputFolder, 
+						chromSize, 
+						chromName, 
+						chromosomeBaseOriginalInputLines, 
+						generateRandomDataMode, 
+						writeGeneratedRandomDataMode, 
+						Commons.ZERO, 
+						permutationNumberList.size(), 
+						permutationNumberList,
+						givenInputsSNPsorIntervals,
+						gcByteList,
+						gcIntervalTree,
+						gcIsochoreIntervalTree, 
+						gcIsochoreFamilyL1Pool,
+						gcIsochoreFamilyL2Pool,
+						gcIsochoreFamilyH1Pool,
+						gcIsochoreFamilyH2Pool,
+						gcIsochoreFamilyH3Pool,
+						mapabilityChromosomePositionList,
+						mapabilityShortValueList);
+				
+				permutationNumber2RandomlyGeneratedDataMap = pool.invoke(generateRandomData);
+				
+				endTimeGenerateRandomData = System.currentTimeMillis();
+
+				GlanetRunner.appendLog("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
+				logger.info("Generate Random Data for permutations has taken " + (float)((endTimeGenerateRandomData-startTimeGenerateRandomData)/1000) + " seconds.");
+				/********************************************************************************************************/
+				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
+				/******************************************************************************************************/
+
+				
+				//24 June 2015
+				chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.put(chrNumber,permutationNumber2RandomlyGeneratedDataMap);
+				
+				//Do not clear permutationNumber2RandomlyGeneratedDataHashMap, DO NOT LOSE just created Random Data.
+				//permutationNumber2RandomlyGeneratedDataHashMap.clear();
+				
+				endTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+				GlanetRunner.appendLog("******************************************************************************************");
+				
+				logger.info("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+				logger.info("******************************************************************************************");
+				
+				
+				System.gc();
+				System.runFinalization();
+
+			}//End of IF: Chromosome Based Input Lines are not NULL
+
+		}// End of FOR each CHROMOSOME
+		/******************************************************************************************************/
+		/******************************** FOR EACH HG19 CHROMOSOME ********************************************/
+		/******************************************************************************************************/
+	
+		/******************************************************************************************************/
+		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
+		/******************************************************************************************************/
+
+		
+		/******************************************************************************************************/
+		/*************************ALL DATA STRUCTURES ARE READY************************************************/
+		/*************************************ANNOTATION STARTS************************************************/
+		/******************************************************************************************************/
+		
+		/********************************************************************************************************/
+		/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
+		/********************************************************************************************************/
+		GlanetRunner.appendLog("Annotation of Permutations has started.");
+		logger.info("Annotation of Permutations has started.");
+		
+		startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+		
+		//Initialization starts
+		TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = null;
+		//TLinkable<IntervalTree> dnaseIntervalTreeList = null;
+		
+		//Initialization ends
+		
+		if (dnaseAnnotationType.doDnaseAnnotation()) {
+			
+			dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+			
+			//Fill chrNumber2IntervalTreeMap
+			//For each chromosome, generate intervalTree and fill intervalTreeMap
+			for(int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+				
+				chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
+
+				if (chromosomeBaseOriginalInputLines != null) {
+					
+					intervalTree = generateDnaseIntervalTreeWithNumbers(dataFolder, chromName);
+					dnaseIntervalTreeMap.put(chrNumber, intervalTree);
+					
+				}//End of IF chromosomeBaseOriginalInputLines is NOT NULL
+				
+			}//End of FOR each CHROMOSOME
+			
+			//Fill dnaseCellLineNumber2OriginalKMap
+			fillElementNumber2OriginalKMap(dnaseCellLineNumber2OriginalKMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
+			
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes(
+					outputFolder, 
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun, 
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO, 
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					dnaseIntervalTreeMap, 
+					null, 
+					AnnotationType.DO_DNASE_ANNOTATION, 
+					null, 
+					overlapDefinition,
+					dnaseCellLineNumber2OriginalKMap);
+			
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+			
+			writeToBeCollectedNumberofPermutations(
+					outputFolder,
+					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap());
+	
+			
+			//Free memory
+			dnaseIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+				
+		}//End of IF DNase Annotation
+		
+		
+	
+		
+		
+		endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
+		
+		GlanetRunner.appendLog("Annotation of Permutations has took " + (float)((endTimeOnlyAnnotationPermutationsForEachChromosome-startTimeOnlyAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+		logger.info("Annotation of Permutations has took " + (float)((endTimeOnlyAnnotationPermutationsForEachChromosome-startTimeOnlyAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+		/********************************************************************************************************/
+		/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
+		/********************************************************************************************************/
+
+		/******************************************************************************************************/
+		/*************************ALL DATA STRUCTURES ARE READY************************************************/
+		/*************************************ANNOTATION ENDS**************************************************/
+		/******************************************************************************************************/
+		
+		
+		/******************************************************************************************************/
+		/***************************************** FREE MEMORY STARTS *****************************************/	
+		chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = null;
+		
+		
+		gcByteList = null;
+		gcIntervalTree = null;
+		gcIsochoreIntervalTree = null;
+		 
+		gcIsochoreFamilyL1Pool = null;
+		gcIsochoreFamilyL2Pool = null;
+		gcIsochoreFamilyH1Pool = null;
+		gcIsochoreFamilyH2Pool = null;
+		gcIsochoreFamilyH3Pool = null;
+		
+		mapabilityChromosomePositionList = null;
+		mapabilityShortValueList = null;
+		
+		
+		annotateWithNumbersForAllChromosomes = null;
+			
+		generateRandomData = null;
+		chromosomeBaseOriginalInputLines = null;
+		
+		System.gc();
+		System.runFinalization();
+		/***************************************** FREE MEMORY ENDS *******************************************/
+		/******************************************************************************************************/
+
+		
+		
+		permutationNumberList = null;
+		
+		pool.shutdown();
+
+		if (pool.isTerminated()) {
+			GlanetRunner.appendLog("ForkJoinPool is terminated ");
+			logger.info("ForkJoinPool is terminated ");
+		}
+
+		endTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
+
+		GlanetRunner.appendLog("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes)/1000) + " seconds.");
+		logger.info("RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + (float)((endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes)/1000) + " seconds.");
+
+		
+		
+		/*************************************************************************************************************************/
+		/********************** Make null starts**********************************************************************************/
+		/*************************************************************************************************************************/
+		allMapsWithNumbersForAllChromosomes = null;
+		
+		System.gc();
+		System.runFinalization();
+		/*************************************************************************************************************************/
+		/********************** Make null ends************************************************************************************/
+		/*************************************************************************************************************************/
+				
+
+	}
+	// 24 June 2015 ends 
+	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION ends
+
+	
 	
 	// NEW FUNCIONALITY ADDED
 	// First Generate random data concurrently
@@ -3325,6 +5349,7 @@ public class Enrichment {
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
+		
 		if (jobName.isEmpty()) {
 			jobName = Commons.NO_NAME;
 		}
@@ -3336,7 +5361,6 @@ public class Enrichment {
 
 		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
-		
 		// Set the number of total permutations
 		int numberofTotalPermutations = Integer.parseInt(args[CommandLineArguments.NumberOfPermutation.value()]);
 
@@ -3379,6 +5403,9 @@ public class Enrichment {
 		
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum(args[CommandLineArguments.GivenInputDataType.value()]);
 		
+		//23 May 2015
+		EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType enrichmentKeepingNumberofOverlapsDecision = EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType.convertStringtoEnum(args[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()]);
+		
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls
 		// Enrichment.main() function in case of performEnrichment is DO_ENRICH
@@ -3408,10 +5435,6 @@ public class Enrichment {
 
 		writeJavaRunTimeMemoryInformation();
 
-		// Random Class for generating small values instead of zero valued p
-		// values
-		// Random random = new Random();
-
 		/***********************************************************************************************/
 		/************************** READ ORIGINAL INPUT LINES STARTS ***********************************/
 		/***********************************************************************************************/
@@ -3426,6 +5449,8 @@ public class Enrichment {
 		/************************** READ ORIGINAL INPUT LINES ENDS *************************************/
 		/***********************************************************************************************/
 
+		
+		
 		/***********************************************************************************************/
 		/********************* DELETE OLD FILES STARTS *************************************************/
 		String annotationForPermutationsOutputDirectory = outputFolder + Commons.ANNOTATION_FOR_PERMUTATIONS;
@@ -3524,491 +5549,844 @@ public class Enrichment {
 		/**********************************************************************************************/
 
 		
-		
-		/**********************************************************************************************/
-		/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
-		for (int runNumber = 1; runNumber <= numberofRuns; runNumber++) {
-
-			GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
-			logger.info("**************	" + runNumber + ". Run" + "	******************	starts");
-
-			runName = jobName + "_" + Commons.RUN + runNumber;
-
-			/***********************************************************************************************/
-			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA STARTS ***************/
-			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA STARTS ***************************/
-			/***********************************************************************************************/
-			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA STARTS **********/
-			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS STARTS ************************/
-			/***********************************************************************************************/
-			// ElementNumber2K
-			// Annotation of original data 
-			// number of overlaps: k out of n for original data
-			// Annotation of original data has permutation number zero
+		//Perform Enrichment WITHOUT Keeping Number of Overlaps Coming from Each Permutation starts
+		//Consumes Less Memory
+		if (enrichmentKeepingNumberofOverlapsDecision.isPerformEnrichmentWithoutKeepingNumberofOverlapsComingFromEachPermutationType()){
 			
-			// ElementNumber2AllK
-			// Annotation of each permutation's randomly generated data 
-			// number of overlaps: k out of n for all permutations
-						
-			/********************** INITIALIZATION TO NULL *************************************************/
-			//DNase
-			TIntIntMap originalDnase2KMap = null;
-			TIntObjectMap<TIntList> dnase2AllKMap = null;
-			
-			//TF
-			TIntIntMap originalTfbs2KMap = null;
-			TIntObjectMap<TIntList> tfbs2AllKMap = null;
-			
-			//Histone
-			TIntIntMap originalHistone2KMap = null;
-			TIntObjectMap<TIntList> histone2AllKMap  = null;
-			
-			//Gene
-			TIntIntMap originalGene2KMap  = null;
-			TIntObjectMap<TIntList> gene2AllKMap = null;
-			
-			//UserDefinedGeneSet
-			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap = null;
-			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap = null;
-			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap = null;
-
-			TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap = null;
-			TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap = null;
-			TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap = null;
-			
-			//UserDefinedLibrary
-			TIntIntMap originalElementTypeNumberElementNumber2KMap = null;
-			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap = null;
-			
-			//KEGG Pathway
-			TIntIntMap originalExonBasedKeggPathway2KMap = null;
-			TIntIntMap originalRegulationBasedKeggPathway2KMap = null;
-			TIntIntMap originalAllBasedKeggPathway2KMap = null;
-			
-			TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap = null;
-			TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap = null;
-			TIntObjectMap<TIntList> allBasedKeggPathway2AllKMap = null;
-			
-			// TF and KEGG Pathway Enrichment
-			TIntIntMap originalTfExonBasedKeggPathway2KMap = null;
-			TIntIntMap originalTfRegulationBasedKeggPathway2KMap = null;
-			TIntIntMap originalTfAllBasedKeggPathway2KMap = null;
-
-			TIntObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap = null;
-			TIntObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap = null;
-			TIntObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap = null;
-
-			// TF and CellLine and KEGG Pathway Enrichment
-			TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap = null;
-			TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap = null;
-			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap = null;
-			
-			TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap = null;
-			TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap = null;
-			TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap = null;
-			/********************** INITIALIZATION TO NULL *************************************************/
-
-			
-			//DNase
-			if (dnaseAnnotationType.doDnaseAnnotation()) {
-				originalDnase2KMap = new TIntIntHashMap();
-				dnase2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-			
-			//TF
-			if (	tfAnnotationType.doTFAnnotation() &&
-					!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-					!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-				
-				originalTfbs2KMap = new TIntIntHashMap();
-				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-			
-			//Histone
-			if (histoneAnnotationType.doHistoneAnnotation()){
-				originalHistone2KMap = new TIntIntHashMap();
-				histone2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-			
-			//Gene
-			if (geneAnnotationType.doGeneAnnotation()){
-				originalGene2KMap = new TIntIntHashMap();
-				gene2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-			
-			// User Defined GeneSet
-			if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
-				
-				originalExonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-				originalRegulationBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-				originalAllBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
-
-				exonBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-				regulationBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-				allBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-
-			// User Defined Library
-			if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
-				originalElementTypeNumberElementNumber2KMap = new TIntIntHashMap();
-				elementTypeNumberElementNumber2AllKMap = new TIntObjectHashMap<TIntList>();
-			}
-			
-			
-			// KEGGPathway
-			if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() &&
-					!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-					!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-				
-				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
-				
-				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-
-			}
-			
-			
-			// TF KEGGPathway Enrichment
-			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-					!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-				
-				//TF
-				originalTfbs2KMap = new TIntIntHashMap();
-				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
-				
-				//KEGGPathway
-				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
-				
-				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-		
-				//TF KEGGPathway
-				originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-				tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-
-			}
-			
-			// TF CellLine KEGGPathway Enrichment
-			if (	tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() &&
-					!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
-				
-				//TF
-				originalTfbs2KMap = new TIntIntHashMap();
-				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
-				
-				//KEGGPathway
-				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
-				
-				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				
-				//TF CellLine KEGGPathway
-				originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
-				originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
-				originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
-				
-				tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				
-			}
-			
-			// BOTH
-			// TF KEGGPathway Enrichment
-			// TF CellLine KEGGPathway Enrichment
-			if(	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-				
-				//TF
-				originalTfbs2KMap = new TIntIntHashMap();
-				tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
-				
-				//KEGGPathway
-				originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
-				
-				exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				
-				//TF KEGGPathway
-				originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
-				originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
-
-				tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-				tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
-		
-		
-				//TF CellLine KEGGPathway
-				originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
-				originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
-				originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
-				
-				tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
-				
-			}
-			/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
-			/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
-			/***********************************************************************************************/
-			/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS ENDS **************************/
-			/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA ENDS ************/
-			/***********************************************************************************************/
-			
-			
-			
-			/***********************************************************************************************/
-			/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
-			/***********************************************************************************************/
-			GlanetRunner.appendLog("Concurrent programming has started.");
-			logger.info("Concurrent programming has started.");
-			// Concurrent Programming
-			// First Generate Random Data for all permutations
-			// Then Annotate Permutations (Random Data) concurrently
-			// elementName2AllKMap and originalElementName2KMap will be filled here
-			if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals,Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
-			} else {
-				Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
-			}
-			GlanetRunner.appendLog("Concurrent programming has ended.");
-			logger.info("Concurrent programming has ended.");
 			/**********************************************************************************************/
-			/************************** ANNOTATE PERMUTATIONS ENDS ****************************************/
-			/**********************************************************************************************/
-
-			
-			
-			/***********************************************************************************************/
-			/************************** WRITE TO BE COLLECTED RESULTS STARTS *******************************/
-			/***********************************************************************************************/
-			//DNase
-			if (dnaseAnnotationType.doDnaseAnnotation()) {
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalDnase2KMap, dnase2AllKMap, Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, runName);
-			}
-
-			//Histone
-			if (histoneAnnotationType.doHistoneAnnotation()) {
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalHistone2KMap, histone2AllKMap, Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, runName);
-			}
-
-			//TF
-			if (	tfAnnotationType.doTFAnnotation() && 
-					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
-			}
-
-			
-			//Gene
-			if (geneAnnotationType.doGeneAnnotation()){
+			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
+			for (int runNumber = 1; runNumber <= numberofRuns; runNumber++) {
+	
+				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
+				logger.info("**************	" + runNumber + ". Run" + "	******************	starts");
+	
+				runName = jobName + "_" + Commons.RUN + runNumber;
+	
+				/***********************************************************************************************/
+				/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA STARTS ***************/
+				/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA STARTS ***************************/
+				/***********************************************************************************************/
+				// ElementNumber2OriginalK
+				// Annotation of original data 
+				// number of overlaps: k out of n for original data
+							
+				/********************** INITIALIZATION TO NULL *************************************************/
+				//DNase
+				TIntIntMap dnaseCellLineNumber2OriginalKMap = null;
 				
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalGene2KMap, gene2AllKMap, Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
-			}
+				//TF
+				TIntIntMap tfNumberCellLineNumber2OriginalKMap = null;
+				
+				//Histone
+				TIntIntMap histoneNumberCellLineNumber2OriginalKMap = null;
+				
+				//Gene
+				TIntIntMap gene2OriginalKMap  = null;
+				
+				//UserDefinedGeneSet
+				TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap = null;
+				TIntIntMap regulationBasedUserDefinedGeneSet2OriginalKMap = null;
+				TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap = null;
+	
+				//UserDefinedLibrary
+				TIntIntMap elementTypeNumberElementNumber2OriginalKMap = null;
+				
+				//KEGGPathway
+				TIntIntMap exonBasedKeggPathway2OriginalKMap = null;
+				TIntIntMap regulationBasedKeggPathway2OriginalKMap = null;
+				TIntIntMap allBasedKeggPathway2OriginalKMap = null;
+					
+				// TF and KEGGPathway Enrichment
+				TIntIntMap tfExonBasedKeggPathway2OriginalKMap = null;
+				TIntIntMap tfRegulationBasedKeggPathway2OriginalKMap = null;
+				TIntIntMap tfAllBasedKeggPathway2OriginalKMap = null;
+	
+				// TF and CellLine and KEGGPathway Enrichment
+				TLongIntMap tfCellLineExonBasedKeggPathway2OriginalKMap = null;
+				TLongIntMap tfCellLineRegulationBasedKeggPathway2OriginalKMap = null;
+				TLongIntMap tfCellLineAllBasedKeggPathway2OriginalKMap = null;
+				/********************** INITIALIZATION TO NULL *************************************************/
+	
+				
+				//DNase
+				if (dnaseAnnotationType.doDnaseAnnotation()) {
+					dnaseCellLineNumber2OriginalKMap = new TIntIntHashMap();
+				}
+				
+				//TF
+				if (	tfAnnotationType.doTFAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+						tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+				}
+				
+				//Histone
+				if (histoneAnnotationType.doHistoneAnnotation()){
+					histoneNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+				}
+				
+				//Gene
+				if (geneAnnotationType.doGeneAnnotation()){
+					gene2OriginalKMap = new TIntIntHashMap();
+				}
+				
+				// User Defined GeneSet
+				if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+					
+					exonBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
+					regulationBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
+					allBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
+	
+				}
+	
+				// User Defined Library
+				if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+					elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
+				}
+				
+				
+				// KEGGPathway
+				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					
+				}
+				
+				
+				// TF KEGGPathway Enrichment
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					//TF
+					tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+					
+					//KEGGPathway
+					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					
+					//TF KEGGPathway
+					tfExonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					tfRegulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					tfAllBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+	
+				}
+				
+				// TF CellLine KEGGPathway Enrichment
+				if (	tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+					
+					//TF
+					tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+					
+					//KEGGPathway
+					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					
+					//TF CellLine KEGGPathway
+					tfCellLineExonBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+					tfCellLineAllBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+					
+				}
+				
+				// BOTH
+				// TF KEGGPathway Enrichment
+				// TF CellLine KEGGPathway Enrichment
+				if(	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					//TF
+					tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+					
+					//KEGGPathway
+					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					
+					//TF KEGGPathway
+					tfExonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					tfRegulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+					tfAllBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+	
+					//TF CellLine KEGGPathway
+					tfCellLineExonBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+					tfCellLineAllBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
+				}
+				/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
+				/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
+				/***********************************************************************************************/
+				
+				/***********************************************************************************************/
+				/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
+				/***********************************************************************************************/
+				GlanetRunner.appendLog("Concurrent programming has started.");
+				logger.info("Concurrent programming has started.");
+				
+				// Concurrent Programming
+				// First Generate Random Data for all permutations
+				// Then Annotate Permutations (Random Data) concurrently
+				// elementName2AllKMap and originalElementName2KMap will be filled here
+				if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {
+					
+					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
+							outputFolder, 
+							dataFolder, 
+							givenInputsSNPsorIntervals,
+							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, 
+							runNumber, 
+							numberofRemainedPermutations, 
+							numberofPermutationsInEachRun, 
+							originalInputLines, 
+							generateRandomDataMode, 
+							writeGeneratedRandomDataMode, 
+							writePermutationBasedandParametricBasedAnnotationResultMode, 
+							writePermutationBasedAnnotationResultMode, 
+							dnaseCellLineNumber2OriginalKMap, 
+							tfNumberCellLineNumber2OriginalKMap, 
+							histoneNumberCellLineNumber2OriginalKMap, 
+							gene2OriginalKMap, 
+							exonBasedUserDefinedGeneSet2OriginalKMap, 
+							regulationBasedUserDefinedGeneSet2OriginalKMap, 
+							allBasedUserDefinedGeneSet2OriginalKMap, 
+							elementTypeNumberElementNumber2OriginalKMap, 
+							exonBasedKeggPathway2OriginalKMap, 
+							regulationBasedKeggPathway2OriginalKMap, 
+							allBasedKeggPathway2OriginalKMap, 
+							tfExonBasedKeggPathway2OriginalKMap, 
+							tfRegulationBasedKeggPathway2OriginalKMap, 
+							tfAllBasedKeggPathway2OriginalKMap, 
+							tfCellLineExonBasedKeggPathway2OriginalKMap, 
+							tfCellLineRegulationBasedKeggPathway2OriginalKMap, 
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType, 
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType, 
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType, 
+							tfCellLineKeggPathwayAnnotationType, 
+							overlapDefinition, 
+							geneId2KeggPathwayNumberMap, 
+							geneId2ListofUserDefinedGeneSetNumberMap, 
+							elementTypeNumber2ElementTypeMap);
+					
+				} else {
+					
+					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
+							outputFolder, 
+							dataFolder, 
+							givenInputsSNPsorIntervals, 
+							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, 
+							runNumber, 
+							numberofPermutationsInEachRun, 
+							numberofPermutationsInEachRun, 
+							originalInputLines, 
+							generateRandomDataMode, 
+							writeGeneratedRandomDataMode, 
+							writePermutationBasedandParametricBasedAnnotationResultMode, 
+							writePermutationBasedAnnotationResultMode, 
+							dnaseCellLineNumber2OriginalKMap, 
+							tfNumberCellLineNumber2OriginalKMap, 
+							histoneNumberCellLineNumber2OriginalKMap, 
+							gene2OriginalKMap, 
+							exonBasedUserDefinedGeneSet2OriginalKMap, 
+							regulationBasedUserDefinedGeneSet2OriginalKMap, 
+							allBasedUserDefinedGeneSet2OriginalKMap, 
+							elementTypeNumberElementNumber2OriginalKMap, 
+							exonBasedKeggPathway2OriginalKMap, 
+							regulationBasedKeggPathway2OriginalKMap, 
+							allBasedKeggPathway2OriginalKMap, 
+							tfExonBasedKeggPathway2OriginalKMap, 
+							tfRegulationBasedKeggPathway2OriginalKMap, 
+							tfAllBasedKeggPathway2OriginalKMap, 
+							tfCellLineExonBasedKeggPathway2OriginalKMap, 
+							tfCellLineRegulationBasedKeggPathway2OriginalKMap, 
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType, 
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType, 
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType, 
+							tfCellLineKeggPathwayAnnotationType, 
+							overlapDefinition, 
+							geneId2KeggPathwayNumberMap, 
+							geneId2ListofUserDefinedGeneSetNumberMap, 
+							elementTypeNumber2ElementTypeMap);
+				}
+				
+				GlanetRunner.appendLog("Concurrent programming has ended.");
+				logger.info("Concurrent programming has ended.");
+				/**********************************************************************************************/
+				/************************** ANNOTATE PERMUTATIONS ENDS ****************************************/
+				/**********************************************************************************************/
+	
+				
+				/***********************************************************************************************/
+				/********************************** FREE MEMORY STARTS *****************************************/
+				/********************* MAPS FOR ORIGINAL DATA STARTS *******************************************/
+				/***********************************************************************************************/
+				// DNASE TF HISTONE
+				dnaseCellLineNumber2OriginalKMap = null;
+				tfNumberCellLineNumber2OriginalKMap = null;
+				histoneNumberCellLineNumber2OriginalKMap = null;
+	
+				// Gene
+				gene2OriginalKMap = null;
+	
+				// USERDEFINEDGENESET
+				exonBasedUserDefinedGeneSet2OriginalKMap = null;
+				regulationBasedUserDefinedGeneSet2OriginalKMap = null;
+				allBasedUserDefinedGeneSet2OriginalKMap = null;
+	
+				// USERDEFINEDLIBRARY
+				elementTypeNumberElementNumber2OriginalKMap = null;
+	
+				// KEGG PATHWAY
+				exonBasedKeggPathway2OriginalKMap = null;
+				regulationBasedKeggPathway2OriginalKMap = null;
+				allBasedKeggPathway2OriginalKMap = null;
+	
+				// TF KEGGPATHWAY
+				tfExonBasedKeggPathway2OriginalKMap = null;
+				tfRegulationBasedKeggPathway2OriginalKMap = null;
+				tfAllBasedKeggPathway2OriginalKMap = null;
+	
+				// TF CELLLINE KEGGPATHWAY
+				tfCellLineExonBasedKeggPathway2OriginalKMap = null;
+				tfCellLineRegulationBasedKeggPathway2OriginalKMap = null;
+				tfCellLineAllBasedKeggPathway2OriginalKMap = null;
+				/********************* MAPS FOR ORIGINAL DATA ENDS *******************************************/
+	
+				/********************* MAPS FOR PERMUTATIONS DATA STARTS *************************************/
+				// functionalElementName based
+				// number of overlaps: k out of n for all permutations
+	
+				
+				
+				System.gc();
+				System.runFinalization();
+				/***********************************************************************************************/
+				/********************* MAPS FOR PERMUTATIONS DATA ENDS *****************************************/
+				/*********************************** FREE MEMORY ENDS ******************************************/
+				/***********************************************************************************************/
+	
+				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	ends");
+				logger.info("**************	" + runNumber + ". Run" + "	******************	ends");
+	
+			}//End of FOR each run number
+			/*********************************************************************************************/
+			/********************* FOR LOOP FOR RUN NUMBERS ENDS *****************************************/
+			/*********************************************************************************************/
+
+			
+		}
+		//Perform Enrichment WITHOUT Keeping Number of Overlaps Coming from Each Permutation ends
+
+
+		//Perform Enrichment WITH Keeping Number of Overlaps Coming from Each Permutation starts
+		//Consumes more memory
+		else if (enrichmentKeepingNumberofOverlapsDecision.isPerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutationType()){
+			
+			/**********************************************************************************************/
+			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
+			for (int runNumber = 1; runNumber <= numberofRuns; runNumber++) {
+	
+				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	starts");
+				logger.info("**************	" + runNumber + ". Run" + "	******************	starts");
+	
+				runName = jobName + "_" + Commons.RUN + runNumber;
+	
+				/***********************************************************************************************/
+				/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA STARTS ***************/
+				/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA STARTS ***************************/
+				/***********************************************************************************************/
+				/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA STARTS **********/
+				/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS STARTS ************************/
+				/***********************************************************************************************/
+				// ElementNumber2K
+				// Annotation of original data 
+				// number of overlaps: k out of n for original data
+				// Annotation of original data has permutation number zero
+				
+				// ElementNumber2AllK
+				// Annotation of each permutation's randomly generated data 
+				// number of overlaps: k out of n for all permutations
+							
+				/********************** INITIALIZATION TO NULL *************************************************/
+				//DNase
+				TIntIntMap originalDnase2KMap = null;
+				TIntObjectMap<TIntList> dnase2AllKMap = null;
+				
+				//TF
+				TIntIntMap originalTfbs2KMap = null;
+				TIntObjectMap<TIntList> tfbs2AllKMap = null;
+				
+				//Histone
+				TIntIntMap originalHistone2KMap = null;
+				TIntObjectMap<TIntList> histone2AllKMap  = null;
+				
+				//Gene
+				TIntIntMap originalGene2KMap  = null;
+				TIntObjectMap<TIntList> gene2AllKMap = null;
+				
+				//UserDefinedGeneSet
+				TIntIntMap originalExonBasedUserDefinedGeneSet2KMap = null;
+				TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap = null;
+				TIntIntMap originalAllBasedUserDefinedGeneSet2KMap = null;
+	
+				TIntObjectMap<TIntList> exonBasedUserDefinedGeneSet2AllKMap = null;
+				TIntObjectMap<TIntList> regulationBasedUserDefinedGeneSet2AllKMap = null;
+				TIntObjectMap<TIntList> allBasedUserDefinedGeneSet2AllKMap = null;
+				
+				//UserDefinedLibrary
+				TIntIntMap originalElementTypeNumberElementNumber2KMap = null;
+				TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap = null;
+				
+				//KEGGPathway
+				TIntIntMap originalExonBasedKeggPathway2KMap = null;
+				TIntIntMap originalRegulationBasedKeggPathway2KMap = null;
+				TIntIntMap originalAllBasedKeggPathway2KMap = null;
+				
+				TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap = null;
+				TIntObjectMap<TIntList> regulationBasedKeggPathway2AllKMap = null;
+				TIntObjectMap<TIntList> allBasedKeggPathway2AllKMap = null;
+				
+				// TF and KEGGPathway Enrichment
+				TIntIntMap originalTfExonBasedKeggPathway2KMap = null;
+				TIntIntMap originalTfRegulationBasedKeggPathway2KMap = null;
+				TIntIntMap originalTfAllBasedKeggPathway2KMap = null;
+	
+				TIntObjectMap<TIntList> tfExonBasedKeggPathway2AllKMap = null;
+				TIntObjectMap<TIntList> tfRegulationBasedKeggPathway2AllKMap = null;
+				TIntObjectMap<TIntList> tfAllBasedKeggPathway2AllKMap = null;
+	
+				// TF and CellLine and KEGGPathway Enrichment
+				TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap = null;
+				TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap = null;
+				TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap = null;
+				
+				TLongObjectMap<TIntList> tfCellLineExonBasedKeggPathway2AllKMap = null;
+				TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap = null;
+				TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap = null;
+				/********************** INITIALIZATION TO NULL *************************************************/
+	
+				
+				//DNase
+				if (dnaseAnnotationType.doDnaseAnnotation()) {
+					originalDnase2KMap = new TIntIntHashMap();
+					dnase2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+				
+				//TF
+				if (	tfAnnotationType.doTFAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					originalTfbs2KMap = new TIntIntHashMap();
+					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+				
+				//Histone
+				if (histoneAnnotationType.doHistoneAnnotation()){
+					originalHistone2KMap = new TIntIntHashMap();
+					histone2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+				
+				//Gene
+				if (geneAnnotationType.doGeneAnnotation()){
+					originalGene2KMap = new TIntIntHashMap();
+					gene2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+				
+				// User Defined GeneSet
+				if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+					
+					originalExonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
+					originalRegulationBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
+					originalAllBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
+	
+					exonBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+					regulationBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+					allBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+	
+				// User Defined Library
+				if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+					originalElementTypeNumberElementNumber2KMap = new TIntIntHashMap();
+					elementTypeNumberElementNumber2AllKMap = new TIntObjectHashMap<TIntList>();
+				}
+				
+				
+				// KEGGPathway
+				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+					
+					exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+	
+				}
+				
+				
+				// TF KEGGPathway Enrichment
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					//TF
+					originalTfbs2KMap = new TIntIntHashMap();
+					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//KEGGPathway
+					originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+					
+					exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+			
+					//TF KEGGPathway
+					originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+	
+					tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+	
+				}
+				
+				// TF CellLine KEGGPathway Enrichment
+				if (	tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() &&
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+					
+					//TF
+					originalTfbs2KMap = new TIntIntHashMap();
+					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//KEGGPathway
+					originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+					
+					exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//TF CellLine KEGGPathway
+					originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
+					originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
+					originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
+					
+					tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					
+				}
+				
+				// BOTH
+				// TF KEGGPathway Enrichment
+				// TF CellLine KEGGPathway Enrichment
+				if(	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+					
+					//TF
+					originalTfbs2KMap = new TIntIntHashMap();
+					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//KEGGPathway
+					originalExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalAllBasedKeggPathway2KMap = new TIntIntHashMap();
+					
+					exonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					regulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					allBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//TF KEGGPathway
+					originalTfExonBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalTfRegulationBasedKeggPathway2KMap = new TIntIntHashMap();
+					originalTfAllBasedKeggPathway2KMap = new TIntIntHashMap();
+	
+					tfExonBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					tfRegulationBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
+					tfAllBasedKeggPathway2AllKMap = new TIntObjectHashMap<TIntList>();
 			
 			
-			// UserDefinedGeneset
-			if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
-
-				final String TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
-				final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
-				final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
-
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedUserDefinedGeneSet2KMap, exonBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedUserDefinedGeneSet2KMap, regulationBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedUserDefinedGeneSet2KMap, allBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
-
-			}
-
-			// UserDefinedLibrary
-			if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
-
-				writeToBeCollectedNumberofOverlapsForUserDefinedLibrary(outputFolder, elementTypeNumber2ElementTypeMap, originalElementTypeNumberElementNumber2KMap, elementTypeNumberElementNumber2AllKMap, runName);
-
-			}
-
-			//KEGGPathway
-			if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
-					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-			}
-
-			//TFKEGGPathway
-			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
-
-				// TF
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
-
-				// KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-				// TF KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfExonBasedKeggPathway2KMap, tfExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfRegulationBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfAllBasedKeggPathway2KMap, tfAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-			}
-
-			if (	!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
-
-				// TF
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
-
-				// KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-				// TF CELLLINE KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineExonBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineRegulationBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineAllBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-			}
-
-			if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
-
-				// TF
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
-
-				// KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-				// TF KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfExonBasedKeggPathway2KMap, tfExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfRegulationBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfAllBasedKeggPathway2KMap, tfAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-				// TF CELLLINE KEGG
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineExonBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineRegulationBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-				writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineAllBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
-
-			}
-			// Calculate Empirical P Values and Bonferroni Corrected Empirical P
-			// Values ends
-			/***********************************************************************************************/
-			/************************** WRITE TO BE COLLECTED RESULTS ENDS *********************************/
-			/***********************************************************************************************/
-
-			
-			
-			/***********************************************************************************************/
-			/********************************** FREE MEMORY STARTS *****************************************/
-			/********************* MAPS FOR ORIGINAL DATA STARTS *******************************************/
-			/***********************************************************************************************/
-			// DNASE TF HISTONE
-			originalDnase2KMap = null;
-			originalTfbs2KMap = null;
-			originalHistone2KMap = null;
-
-			// Gene
-			originalGene2KMap = null;
-
-			// USERDEFINEDGENESET
-			originalExonBasedUserDefinedGeneSet2KMap = null;
-			originalRegulationBasedUserDefinedGeneSet2KMap = null;
-			originalAllBasedUserDefinedGeneSet2KMap = null;
-
-			// USERDEFINEDLIBRARY
-			originalElementTypeNumberElementNumber2KMap = null;
-
-			// KEGG PATHWAY
-			originalExonBasedKeggPathway2KMap = null;
-			originalRegulationBasedKeggPathway2KMap = null;
-			originalAllBasedKeggPathway2KMap = null;
-
-			// TF KEGGPATHWAY
-			originalTfExonBasedKeggPathway2KMap = null;
-			originalTfRegulationBasedKeggPathway2KMap = null;
-			originalTfAllBasedKeggPathway2KMap = null;
-
-			// TF CELLLINE KEGGPATHWAY
-			originalTfCellLineExonBasedKeggPathway2KMap = null;
-			originalTfCellLineRegulationBasedKeggPathway2KMap = null;
-			originalTfCellLineAllBasedKeggPathway2KMap = null;
-			/********************* MAPS FOR ORIGINAL DATA ENDS *******************************************/
-
-			/********************* MAPS FOR PERMUTATIONS DATA STARTS *************************************/
-			// functionalElementName based
-			// number of overlaps: k out of n for all permutations
-
-			// DNASE HISTONE TF
-			dnase2AllKMap = null; 
-			histone2AllKMap = null;
-			tfbs2AllKMap = null;
-
-			// Gene
-			gene2AllKMap = null;
-
-			// USERDEFINED GENESET
-			exonBasedUserDefinedGeneSet2AllKMap = null;
-			regulationBasedUserDefinedGeneSet2AllKMap = null;
-			allBasedUserDefinedGeneSet2AllKMap = null;
-
-			// USERDEFINED LIBRARY
-			elementTypeNumberElementNumber2AllKMap = null;
-
-			// KEGG PATHWAY
-			exonBasedKeggPathway2AllKMap = null;
-			regulationBasedKeggPathway2AllKMap = null;
-			allBasedKeggPathway2AllKMap = null;
-
-			// TF KEGGPathway
-			tfExonBasedKeggPathway2AllKMap = null;
-			tfRegulationBasedKeggPathway2AllKMap = null;
-			tfAllBasedKeggPathway2AllKMap = null;
-
-			// TF CellLine KEGGPathway
-			tfCellLineExonBasedKeggPathway2AllKMap = null;
-			tfCellLineRegulationBasedKeggPathway2AllKMap = null;
-			tfCellLineAllBasedKeggPathway2AllKMap = null;
-			
-			System.gc();
-			System.runFinalization();
-			/***********************************************************************************************/
-			/********************* MAPS FOR PERMUTATIONS DATA ENDS *****************************************/
-			/*********************************** FREE MEMORY ENDS ******************************************/
-			/***********************************************************************************************/
-
-			GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	ends");
-			logger.info("**************	" + runNumber + ". Run" + "	******************	ends");
-
-		}//End of for each run number
-		/*********************************************************************************************/
-		/********************* FOR LOOP FOR RUN NUMBERS ENDS *****************************************/
-		/*********************************************************************************************/
+					//TF CellLine KEGGPathway
+					originalTfCellLineExonBasedKeggPathway2KMap = new TLongIntHashMap();
+					originalTfCellLineRegulationBasedKeggPathway2KMap = new TLongIntHashMap();
+					originalTfCellLineAllBasedKeggPathway2KMap = new TLongIntHashMap();
+					
+					tfCellLineExonBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					tfCellLineRegulationBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					tfCellLineAllBasedKeggPathway2AllKMap = new TLongObjectHashMap<TIntList>();
+					
+				}
+				/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA ENDS *****************************/
+				/********************** INITIALIZATION OF NUMBER2K MAPS for ORIGINAL DATA ENDS *****************/
+				/***********************************************************************************************/
+				/*********************** NUMBER OF OVERLAPS FOR ALL PERMUTATIONS ENDS **************************/
+				/********************* INITIALIZATION OF NUMBER2AllK MAPS for PERMUTATION DATA ENDS ************/
+				/***********************************************************************************************/
+				
+				
+				
+				/***********************************************************************************************/
+				/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
+				/***********************************************************************************************/
+				GlanetRunner.appendLog("Concurrent programming has started.");
+				logger.info("Concurrent programming has started.");
+				// Concurrent Programming
+				// First Generate Random Data for all permutations
+				// Then Annotate Permutations (Random Data) concurrently
+				// elementName2AllKMap and originalElementName2KMap will be filled here
+				if ((runNumber == numberofRuns) && (numberofRemainedPermutations > 0)) {
+					Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals,Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+				} else {
+					Enrichment.annotateAllPermutationsInThreads(outputFolder, dataFolder, givenInputsSNPsorIntervals, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap, histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap, regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap, elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap, regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap, tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap, tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap, tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap, generateRandomDataMode, writeGeneratedRandomDataMode, writePermutationBasedandParametricBasedAnnotationResultMode, writePermutationBasedAnnotationResultMode, originalDnase2KMap, originalTfbs2KMap, originalHistone2KMap, originalGene2KMap, originalExonBasedUserDefinedGeneSet2KMap, originalRegulationBasedUserDefinedGeneSet2KMap, originalAllBasedUserDefinedGeneSet2KMap, originalElementTypeNumberElementNumber2KMap, originalExonBasedKeggPathway2KMap, originalRegulationBasedKeggPathway2KMap, originalAllBasedKeggPathway2KMap, originalTfExonBasedKeggPathway2KMap, originalTfRegulationBasedKeggPathway2KMap, originalTfAllBasedKeggPathway2KMap, originalTfCellLineExonBasedKeggPathway2KMap, originalTfCellLineRegulationBasedKeggPathway2KMap, originalTfCellLineAllBasedKeggPathway2KMap, dnaseAnnotationType, histoneAnnotationType, tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType, userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType, tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+				}
+				GlanetRunner.appendLog("Concurrent programming has ended.");
+				logger.info("Concurrent programming has ended.");
+				/**********************************************************************************************/
+				/************************** ANNOTATE PERMUTATIONS ENDS ****************************************/
+				/**********************************************************************************************/
+	
+				
+				
+				/***********************************************************************************************/
+				/************************** WRITE TO BE COLLECTED RESULTS STARTS *******************************/
+				/***********************************************************************************************/
+				//DNase
+				if (dnaseAnnotationType.doDnaseAnnotation()) {
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalDnase2KMap, dnase2AllKMap, Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS, runName);
+				}
+	
+				//Histone
+				if (histoneAnnotationType.doHistoneAnnotation()) {
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalHistone2KMap, histone2AllKMap, Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS, runName);
+				}
+	
+				//TF
+				if (	tfAnnotationType.doTFAnnotation() && 
+						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+	
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
+				}
+	
+				
+				//Gene
+				if (geneAnnotationType.doGeneAnnotation()){
+					
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalGene2KMap, gene2AllKMap, Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
+				}
+				
+				
+				// UserDefinedGeneset
+				if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()) {
+	
+					final String TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_EXONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
+					final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
+					final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
+	
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedUserDefinedGeneSet2KMap, exonBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedUserDefinedGeneSet2KMap, regulationBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedUserDefinedGeneSet2KMap, allBasedUserDefinedGeneSet2AllKMap, TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
+	
+				}
+	
+				// UserDefinedLibrary
+				if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()) {
+	
+					writeToBeCollectedNumberofOverlapsForUserDefinedLibrary(outputFolder, elementTypeNumber2ElementTypeMap, originalElementTypeNumberElementNumber2KMap, elementTypeNumberElementNumber2AllKMap, runName);
+	
+				}
+	
+				//KEGGPathway
+				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+						!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+	
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+				}
+	
+				//TFKEGGPathway
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())) {
+	
+					// TF
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
+	
+					// KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+					// TF KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfExonBasedKeggPathway2KMap, tfExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfRegulationBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfAllBasedKeggPathway2KMap, tfAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+				}
+	
+				if (	!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+	
+					// TF
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
+	
+					// KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+					// TF CELLLINE KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineExonBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineRegulationBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineAllBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+				}
+	
+				if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
+	
+					// TF
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfbs2KMap, tfbs2AllKMap, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, runName);
+	
+					// KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalExonBasedKeggPathway2KMap, exonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalRegulationBasedKeggPathway2KMap, regulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalAllBasedKeggPathway2KMap, allBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+					// TF KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfExonBasedKeggPathway2KMap, tfExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfRegulationBasedKeggPathway2KMap, tfRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfAllBasedKeggPathway2KMap, tfAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+					// TF CELLLINE KEGG
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineExonBasedKeggPathway2KMap, tfCellLineExonBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineRegulationBasedKeggPathway2KMap, tfCellLineRegulationBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps(outputFolder, originalTfCellLineAllBasedKeggPathway2KMap, tfCellLineAllBasedKeggPathway2AllKMap, Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS, runName);
+	
+				}
+				// Calculate Empirical P Values and Bonferroni Corrected Empirical P
+				// Values ends
+				/***********************************************************************************************/
+				/************************** WRITE TO BE COLLECTED RESULTS ENDS *********************************/
+				/***********************************************************************************************/
+	
+				
+				
+				/***********************************************************************************************/
+				/********************************** FREE MEMORY STARTS *****************************************/
+				/********************* MAPS FOR ORIGINAL DATA STARTS *******************************************/
+				/***********************************************************************************************/
+				// DNASE TF HISTONE
+				originalDnase2KMap = null;
+				originalTfbs2KMap = null;
+				originalHistone2KMap = null;
+	
+				// Gene
+				originalGene2KMap = null;
+	
+				// USERDEFINEDGENESET
+				originalExonBasedUserDefinedGeneSet2KMap = null;
+				originalRegulationBasedUserDefinedGeneSet2KMap = null;
+				originalAllBasedUserDefinedGeneSet2KMap = null;
+	
+				// USERDEFINEDLIBRARY
+				originalElementTypeNumberElementNumber2KMap = null;
+	
+				// KEGG PATHWAY
+				originalExonBasedKeggPathway2KMap = null;
+				originalRegulationBasedKeggPathway2KMap = null;
+				originalAllBasedKeggPathway2KMap = null;
+	
+				// TF KEGGPATHWAY
+				originalTfExonBasedKeggPathway2KMap = null;
+				originalTfRegulationBasedKeggPathway2KMap = null;
+				originalTfAllBasedKeggPathway2KMap = null;
+	
+				// TF CELLLINE KEGGPATHWAY
+				originalTfCellLineExonBasedKeggPathway2KMap = null;
+				originalTfCellLineRegulationBasedKeggPathway2KMap = null;
+				originalTfCellLineAllBasedKeggPathway2KMap = null;
+				/********************* MAPS FOR ORIGINAL DATA ENDS *******************************************/
+	
+				/********************* MAPS FOR PERMUTATIONS DATA STARTS *************************************/
+				// functionalElementName based
+				// number of overlaps: k out of n for all permutations
+	
+				// DNASE HISTONE TF
+				dnase2AllKMap = null; 
+				histone2AllKMap = null;
+				tfbs2AllKMap = null;
+	
+				// Gene
+				gene2AllKMap = null;
+	
+				// USERDEFINED GENESET
+				exonBasedUserDefinedGeneSet2AllKMap = null;
+				regulationBasedUserDefinedGeneSet2AllKMap = null;
+				allBasedUserDefinedGeneSet2AllKMap = null;
+	
+				// USERDEFINED LIBRARY
+				elementTypeNumberElementNumber2AllKMap = null;
+	
+				// KEGG PATHWAY
+				exonBasedKeggPathway2AllKMap = null;
+				regulationBasedKeggPathway2AllKMap = null;
+				allBasedKeggPathway2AllKMap = null;
+	
+				// TF KEGGPathway
+				tfExonBasedKeggPathway2AllKMap = null;
+				tfRegulationBasedKeggPathway2AllKMap = null;
+				tfAllBasedKeggPathway2AllKMap = null;
+	
+				// TF CellLine KEGGPathway
+				tfCellLineExonBasedKeggPathway2AllKMap = null;
+				tfCellLineRegulationBasedKeggPathway2AllKMap = null;
+				tfCellLineAllBasedKeggPathway2AllKMap = null;
+				
+				System.gc();
+				System.runFinalization();
+				/***********************************************************************************************/
+				/********************* MAPS FOR PERMUTATIONS DATA ENDS *****************************************/
+				/*********************************** FREE MEMORY ENDS ******************************************/
+				/***********************************************************************************************/
+	
+				GlanetRunner.appendLog("**************	" + runNumber + ". Run" + "	******************	ends");
+				logger.info("**************	" + runNumber + ". Run" + "	******************	ends");
+	
+			}//End of FOR each run number
+			/*********************************************************************************************/
+			/********************* FOR LOOP FOR RUN NUMBERS ENDS *****************************************/
+			/*********************************************************************************************/
 		
+		}
+		//Perform Enrichment WITH Keeping Number of Overlaps Coming from Each Permutation ends
+
 		
 		/***********************************************************************************/
 		/**********************FREE AUXILIARY MAPS starts***********************************/

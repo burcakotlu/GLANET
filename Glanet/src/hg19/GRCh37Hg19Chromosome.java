@@ -24,6 +24,10 @@ import enumtypes.ChromosomeName;
 
 public class GRCh37Hg19Chromosome {
 
+	
+	//Initialize chromosomes' sizes with ZERO
+	//Chr1 is at index ZERO
+	//ChrY is at index 23
 	public static void initializeChromosomeSizes(List<Integer> chromosomeSizes) {
 		for (int i = 0; i < Commons.NUMBER_OF_CHROMOSOMES_HG19; i++) {
 			chromosomeSizes.add(i, 0);
