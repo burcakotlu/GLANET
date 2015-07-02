@@ -623,7 +623,10 @@ public class Enrichment {
 				left.fork();
 				rightAllMapsWithNumbersForAllChromosomes = right.compute();
 				leftAllMapsWithNumbersForAllChromosomes = left.join();
-				accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(leftAllMapsWithNumbersForAllChromosomes, rightAllMapsWithNumbersForAllChromosomes,annotationType);
+				accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(
+						leftAllMapsWithNumbersForAllChromosomes, 
+						rightAllMapsWithNumbersForAllChromosomes,
+						annotationType);
 				leftAllMapsWithNumbersForAllChromosomes = null;
 				return rightAllMapsWithNumbersForAllChromosomes;
 			}
@@ -657,7 +660,8 @@ public class Enrichment {
 										geneId2ListofGeneSetNumberMap, 
 										overlapDefinition,
 										dnaseCellLineNumber2OriginalKMap),
-								allMapsWithNumbersForAllChromosomes);
+								allMapsWithNumbersForAllChromosomes,
+								annotationType);
 					}
 
 					//Annotate each permutation with permutationNumber
@@ -677,7 +681,8 @@ public class Enrichment {
 										geneId2ListofGeneSetNumberMap, 
 										overlapDefinition,
 										dnaseCellLineNumber2OriginalKMap),
-								allMapsWithNumbersForAllChromosomes);
+								allMapsWithNumbersForAllChromosomes,
+								annotationType);
 					}
 				}// End of FOR
 
@@ -713,264 +718,511 @@ public class Enrichment {
 		// Then Free Space of leftAllMapsKeysWithNumbersAndValuesOneorZero
 		protected void accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
 				AllMapsKeysWithNumbersAndValuesOneorZero leftAllMapsKeysWithNumbersAndValuesOneorZero, 
-				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes) {
+				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes,
+				AnnotationType annotationType) {
 
-
-			/*********************************************************************************************************************************************/
-			// LEFT ALL MAPS WITH NUMBERS FOR ALL CHROMOSOMES
 			// DNASE
-			TIntByteMap leftDnaseCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getDnaseCellLineNumber2PermutationOneorZeroMap();
+			if (annotationType.doDnaseAnnotation()){
+				
+				TIntByteMap leftDnaseCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getDnaseCellLineNumber2PermutationOneorZeroMap();
 
+				TIntIntMap rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				if (leftDnaseCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftDnaseCellLineNumber2PermutationOneorZeroMap, 
+							rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftDnaseCellLineNumber2PermutationOneorZeroMap = null;
+				}
+			}
+			
 			// TF
-			TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+			if (annotationType.doTFAnnotation()){
+				
+				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
+				}
+			}
 
 			// HISTONE
-			TIntByteMap leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getHistoneNumberCellLineNumber2PermutationOneorZeroMap();
+			if(annotationType.doHistoneAnnotation()){
+				
+				TIntByteMap leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getHistoneNumberCellLineNumber2PermutationOneorZeroMap();
+				TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftHistoneNumberCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftHistoneNumberCellLineNumber2PermutationOneorZeroMap, 
+							rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = null;
+				}
+			}
 			
-			// Gene
-			TIntByteMap leftGeneNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getGeneNumber2PermutationOneorZeroMap();
+			
+			//GENE
+			if (annotationType.doGeneAnnotation()){
+				
+				TIntByteMap leftGeneNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getGeneNumber2PermutationOneorZeroMap();
+				TIntIntMap rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftGeneNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftGeneNumber2PermutationOneorZeroMap, 
+							rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftGeneNumber2PermutationOneorZeroMap = null;
+				}
+				
+			}
 			
 			// USERDEFINED GENESET
-			TIntByteMap leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
-			TIntByteMap leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
-			TIntByteMap leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+			if (annotationType.doUserDefinedGeneSetAnnotation()){
+				
+				TIntByteMap leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+				TIntByteMap leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
+				TIntByteMap leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
 
+				TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// EXON BASED USERDEFINED GENESET
+				if (leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+							rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+				}
+
+				// REGULATION BASED USERDEFINED GENESET
+				if (leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+							rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+				}
+
+				// ALL BASED USERDEFINED GENESET
+				if (leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
+							rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+				}
+				
+			}
+			
 			// USERDEFINED LIBRARY
-			TIntByteMap leftElementTypeNumberElementNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getElementTypeNumberElementNumber2PermutationOneorZeroMap();
+			if(annotationType.doUserDefinedLibraryAnnotation()){
+				
+				TIntByteMap leftElementTypeNumberElementNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getElementTypeNumberElementNumber2PermutationOneorZeroMap();
 
-			// KEGGPathway
-			TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
 
+				if (leftElementTypeNumberElementNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftElementTypeNumberElementNumber2PermutationOneorZeroMap, 
+							rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftElementTypeNumberElementNumber2PermutationOneorZeroMap = null;
+				}
+				
+			}
+			
+			if (annotationType.doKEGGPathwayAnnotation()){
+				
+				// KEGGPathway
+				TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// EXON BASED KEGG PATHWAY
+				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// REGULATION BASED KEGG PATHWAY
+				if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// ALL BASED KEGG PATHWAY
+				if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+			}
+			
 			// TF KEGGPathway
-			TIntByteMap leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			if (annotationType.doTFKEGGPathwayAnnotation()){
+				
+				//TF
+				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
+				}
+				
+				// KEGGPathway
+				TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// EXON BASED KEGG PATHWAY
+				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// REGULATION BASED KEGG PATHWAY
+				if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// ALL BASED KEGG PATHWAY
+				if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+				
+				// TF KEGGPathway
+				TIntByteMap leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// TF and EXON BASED KEGG PATHWAY
+				if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and REGULATION BASED KEGG PATHWAY
+				if (leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and ALL BASED KEGG PATHWAY
+				if (leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				
+			}
+			
 			// TF CellLine KEGGPathway
-			TLongByteMap leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
-			TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+			if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
+				
+				//TF
+				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
+				}
+				
+				// KEGGPathway
+				TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-			/*********************************************************************************************************************************************/
-			// RIGHT ALL MAPS WITH NUMBERS FOR ALL CHROMOSOMES
-			// DNASE
-			TIntIntMap rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
 
-			// TF
-			TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				// EXON BASED KEGG PATHWAY
+				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
 
-			// HISTONE
-			TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				// REGULATION BASED KEGG PATHWAY
+				if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// ALL BASED KEGG PATHWAY
+				if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF CellLine KEGGPathway
+				TLongByteMap leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// TF and CellLine and EXON BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and CellLine and REGULATION BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and CellLine and ALL BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+			}
 			
-			// Gene
-			TIntIntMap rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+			//BOTH
+			//TF KEGGPathway
+			//TF CellLine KEGGPathway
+			if (annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+				
+				//TF
+				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				
+				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
+				}
+				
+				// KEGGPathway
+				TIntByteMap leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// EXON BASED KEGG PATHWAY
+				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// REGULATION BASED KEGG PATHWAY
+				if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// ALL BASED KEGG PATHWAY
+				if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+				
+				// TF KEGGPathway
+				TIntByteMap leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// TF and EXON BASED KEGG PATHWAY
+				if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and REGULATION BASED KEGG PATHWAY
+				if (leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and ALL BASED KEGG PATHWAY
+				if (leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+
+				// TF CellLine KEGGPathway
+				TLongByteMap leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
+				TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
+
+				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+
+				// TF and CellLine and EXON BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and CellLine and REGULATION BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+				// TF and CellLine and ALL BASED KEGG PATHWAY
+				if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
+					
+					accumulateLeftMapInRightMapForAllChromosomes(
+							leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
+							rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
+					
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
+				}
+
+			}
 			
-			// USERDEFINED GENESET
-			TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
 
-			// USERDEFINED LIBRARY
-			TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-
-			// KEGG Pathway
-			TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-
-			// TF KEGGPathway
-			TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-
-			// TF CellLine KEGGPathway
-			TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-			TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-
-			/*********************************************************************************************************************************************/
-			
-			// DNASE
-			if (leftDnaseCellLineNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftDnaseCellLineNumber2PermutationOneorZeroMap, 
-						rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftDnaseCellLineNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF
-			if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberCellLineNumber2PermutationOneorZeroMap, 
-						rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberCellLineNumber2PermutationOneorZeroMap = null;
-			}
-
-			// HISTONE
-			if (leftHistoneNumberCellLineNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftHistoneNumberCellLineNumber2PermutationOneorZeroMap, 
-						rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = null;
-			}
-			
-			// GENE
-			if (leftGeneNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftGeneNumber2PermutationOneorZeroMap, 
-						rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftGeneNumber2PermutationOneorZeroMap = null;
-			}
-			
-			
-			// USERDEFINED GENESET starts
-			// EXON BASED USERDEFINED GENESET
-			if (leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
-						rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
-			}
-
-			// REGULATION BASED USERDEFINED GENESET
-			if (leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
-						rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
-			}
-
-			// ALL BASED USERDEFINED GENESET
-			if (leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap, 
-						rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = null;
-			}
-			// USERDEFINED GENESET ends
-
-			// USERDEFINED LIBRARY starts
-			if (leftElementTypeNumberElementNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftElementTypeNumberElementNumber2PermutationOneorZeroMap, 
-						rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftElementTypeNumberElementNumber2PermutationOneorZeroMap = null;
-			}
-			// USERDEFINED LIBRARY ends
-
-			// EXON BASED KEGG PATHWAY
-			if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// REGULATION BASED KEGG PATHWAY
-			if (leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// ALL BASED KEGG PATHWAY
-			if (leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF and EXON BASED KEGG PATHWAY
-			if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF and REGULATION BASED KEGG PATHWAY
-			if (leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF and ALL BASED KEGG PATHWAY
-			if (leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			
-			// TF and CellLine and EXON BASED KEGG PATHWAY
-			if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF and CellLine and REGULATION BASED KEGG PATHWAY
-			if (leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			// TF and CellLine and ALL BASED KEGG PATHWAY
-			if (leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
-				
-				accumulateLeftMapInRightMapForAllChromosomes(
-						leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap, 
-						rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap);
-				
-				leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = null;
-			}
-
-			/*********************************************************************************************************************************************/
-
-			// delete AllMaps
-			// deleteAllMaps(leftAllMaps);
 			//Free space
 			leftAllMapsKeysWithNumbersAndValuesOneorZero = null;
 
@@ -1536,20 +1788,6 @@ public class Enrichment {
 			
 			}//End of SWITCH
 
-
-					
-			
-
-			
-
-			
-			
-
-			
-			
-			/*********************************************************************************************************************************************/
-
-			// delete AllMaps
 			// deleteAllMaps(leftAllMaps);
 			//Free space
 			leftAllMapsWithNumbersForAllChromosomes = null;
@@ -3150,6 +3388,9 @@ public class Enrichment {
 				//strLine
 				//elementNumber elementName originalNumberofOverlaps
 				
+				//Skip header line
+				strLine = bufferedReader.readLine();
+				
 				while((strLine = bufferedReader.readLine())!=null){
 					
 					indexofFirstTab = strLine.indexOf('\t');
@@ -3266,6 +3507,7 @@ public class Enrichment {
 			AnnotationType keggPathwayAnnotationType, 
 			AnnotationType tfKeggPathwayAnnotationType, 
 			AnnotationType tfCellLineKeggPathwayAnnotationType, 
+			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 			int overlapDefinition, 
 			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap, 
 			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap, 
@@ -5399,7 +5641,14 @@ public class Enrichment {
 
 		// TFCellLineKEGGPathway Annotation, DO or DO_NOT
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
-
+		
+		
+		//Will be set below.
+		AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType = AnnotationType.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+		
+		
+		
+		
 		
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum(args[CommandLineArguments.GivenInputDataType.value()]);
 		
@@ -5524,6 +5773,32 @@ public class Enrichment {
 		/***********************************************************************************************/
 
 		
+		//2 June 2015
+		/*********************************************************************************/
+		/*************DO NOT MAKE SAME CALCULATIONS AGAIN starts**************************/
+		/*********************************************************************************/
+		if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() ||
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+			
+			tfAnnotationType = AnnotationType.DO_NOT_TF_ANNOTATION;
+			keggPathwayAnnotationType = AnnotationType.DO_NOT_KEGGPATHWAY_ANNOTATION;
+	
+		}
+		
+		if (	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+			
+			tfKeggPathwayAnnotationType = AnnotationType.DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
+			tfCellLineKeggPathwayAnnotationType = AnnotationType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+			
+			bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType = AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
+		}
+		/*********************************************************************************/
+		/*************DO NOT MAKE SAME CALCULATIONS AGAIN ends****************************/
+		/*********************************************************************************/
+		//2 June 2015
+		
+		
 		/************************************************************************************************/
 		/******************************* CALCULATE NUMBER OF RUNS STARTS ********************************/
 		// for loop starts
@@ -5614,9 +5889,11 @@ public class Enrichment {
 				}
 				
 				//TF
-				if (	tfAnnotationType.doTFAnnotation() &&
-						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				if (	tfAnnotationType.doTFAnnotation()){ 
+						
+						//&&
+						//!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						//!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 					
 						tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
 				}
@@ -5647,9 +5924,11 @@ public class Enrichment {
 				
 				
 				// KEGGPathway
-				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation() &&
-						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
+						
+						//&&
+						//!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
+						//!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 					
 					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
@@ -5699,8 +5978,7 @@ public class Enrichment {
 				// BOTH
 				// TF KEGGPathway Enrichment
 				// TF CellLine KEGGPathway Enrichment
-				if(	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				if(	bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 					
 					//TF
 					tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
@@ -5775,6 +6053,7 @@ public class Enrichment {
 							keggPathwayAnnotationType, 
 							tfKeggPathwayAnnotationType, 
 							tfCellLineKeggPathwayAnnotationType, 
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							overlapDefinition, 
 							geneId2KeggPathwayNumberMap, 
 							geneId2ListofUserDefinedGeneSetNumberMap, 
@@ -5820,7 +6099,8 @@ public class Enrichment {
 							userDefinedLibraryAnnotationType, 
 							keggPathwayAnnotationType, 
 							tfKeggPathwayAnnotationType, 
-							tfCellLineKeggPathwayAnnotationType, 
+							tfCellLineKeggPathwayAnnotationType,
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							overlapDefinition, 
 							geneId2KeggPathwayNumberMap, 
 							geneId2ListofUserDefinedGeneSetNumberMap, 
