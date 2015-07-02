@@ -524,9 +524,6 @@ public class Enrichment {
 	//AnnotateWithNumbersForAllChromosomes 
 	static class AnnotateWithNumbersForAllChromosomes extends RecursiveTask<AllMapsWithNumbersForAllChromosomes> {
 		
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 793082641696132194L;
 
 		private final TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap;
@@ -650,7 +647,11 @@ public class Enrichment {
 					// For All Chromosomes
 					if (writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()) {
 						
-						accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+						//What does this function do?
+						//This function accumulates the number of permutations that has number of overlaps greater than or equal to the number of original overlaps
+						//By annotating each permutation one by one.
+						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
+								
 								Annotation.annotatePermutationWithoutIOWithNumbersForAllChromosomes(
 										permutationNumber, 
 										chrNumber2RandomlyGeneratedData, 
@@ -660,6 +661,7 @@ public class Enrichment {
 										geneId2ListofGeneSetNumberMap, 
 										overlapDefinition,
 										dnaseCellLineNumber2OriginalKMap),
+										
 								allMapsWithNumbersForAllChromosomes,
 								annotationType);
 					}
@@ -670,7 +672,7 @@ public class Enrichment {
 					//For All Chromosomes
 					else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()) {
 						
-						accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
 								Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes(
 										outputFolder, 
 										permutationNumber, 
@@ -701,7 +703,11 @@ public class Enrichment {
 			
 			for(int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++ ){
 				
-				chrNumber2RandomlyGeneratedData.put(permutationNumber, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.get(chrNumber).get(permutationNumber));
+				if(chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.get(chrNumber)!=null){
+					
+					chrNumber2RandomlyGeneratedData.put(chrNumber, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.get(chrNumber).get(permutationNumber));
+					
+				}//End of IF
 				
 			}// End of FOR 
 			
@@ -716,7 +722,7 @@ public class Enrichment {
 		//Accumulate Permutation's 1s or 0s in the Right Map
 		// Accumulate leftAllMapsKeysWithNumbersAndValuesOneorZero in rightAllMapsWithNumbersForAllChromosomes 
 		// Then Free Space of leftAllMapsKeysWithNumbersAndValuesOneorZero
-		protected void accumulateLeftPermutationOneorZerosAllMapsInRightAllMaps(
+		protected void accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
 				AllMapsKeysWithNumbersAndValuesOneorZero leftAllMapsKeysWithNumbersAndValuesOneorZero, 
 				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes,
 				AnnotationType annotationType) {
@@ -726,7 +732,7 @@ public class Enrichment {
 				
 				TIntByteMap leftDnaseCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getDnaseCellLineNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations();
 
 				if (leftDnaseCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -742,7 +748,7 @@ public class Enrichment {
 			if (annotationType.doTFAnnotation()){
 				
 				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
-				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 				
 				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -758,7 +764,7 @@ public class Enrichment {
 			if(annotationType.doHistoneAnnotation()){
 				
 				TIntByteMap leftHistoneNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getHistoneNumberCellLineNumber2PermutationOneorZeroMap();
-				TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations();
 				
 				if (leftHistoneNumberCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -775,7 +781,7 @@ public class Enrichment {
 			if (annotationType.doGeneAnnotation()){
 				
 				TIntByteMap leftGeneNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getGeneNumber2PermutationOneorZeroMap();
-				TIntIntMap rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutations();
 				
 				if (leftGeneNumber2PermutationOneorZeroMap != null) {
 					
@@ -795,9 +801,9 @@ public class Enrichment {
 				TIntByteMap leftRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
 				TIntByteMap leftAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations();
+				TIntIntMap rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations();
+				TIntIntMap rightAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations();
 
 				// EXON BASED USERDEFINED GENESET
 				if (leftExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap != null) {
@@ -836,7 +842,7 @@ public class Enrichment {
 				
 				TIntByteMap leftElementTypeNumberElementNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getElementTypeNumberElementNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutations();
 
 				if (leftElementTypeNumberElementNumber2PermutationOneorZeroMap != null) {
 					
@@ -856,9 +862,9 @@ public class Enrichment {
 				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// EXON BASED KEGG PATHWAY
 				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -897,7 +903,7 @@ public class Enrichment {
 				
 				//TF
 				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
-				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 				
 				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -913,9 +919,9 @@ public class Enrichment {
 				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// EXON BASED KEGG PATHWAY
 				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -952,9 +958,9 @@ public class Enrichment {
 				TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// TF and EXON BASED KEGG PATHWAY
 				if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -994,7 +1000,7 @@ public class Enrichment {
 				
 				//TF
 				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
-				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 				
 				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -1010,9 +1016,9 @@ public class Enrichment {
 				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// EXON BASED KEGG PATHWAY
 				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -1049,9 +1055,9 @@ public class Enrichment {
 				TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// TF and CellLine and EXON BASED KEGG PATHWAY
 				if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -1091,7 +1097,7 @@ public class Enrichment {
 				
 				//TF
 				TIntByteMap leftTfNumberCellLineNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumber2PermutationOneorZeroMap();
-				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 				
 				if (leftTfNumberCellLineNumber2PermutationOneorZeroMap != null) {
 					
@@ -1107,9 +1113,9 @@ public class Enrichment {
 				TIntByteMap leftRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// EXON BASED KEGG PATHWAY
 				if (leftExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -1146,9 +1152,9 @@ public class Enrichment {
 				TIntByteMap leftTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TIntByteMap leftTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TIntIntMap rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TIntIntMap rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// TF and EXON BASED KEGG PATHWAY
 				if (leftTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -1186,9 +1192,9 @@ public class Enrichment {
 				TLongByteMap leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap();
 				TLongByteMap leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap = leftAllMapsKeysWithNumbersAndValuesOneorZero.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap();
 
-				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+				TLongIntMap rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+				TLongIntMap rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+				TLongIntMap rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 				// TF and CellLine and EXON BASED KEGG PATHWAY
 				if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap != null) {
@@ -1302,8 +1308,8 @@ public class Enrichment {
 			
 				case DO_DNASE_ANNOTATION: 
 					// DNASE
-					leftDnaseCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightDnaseCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftDnaseCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations();
+					rightDnaseCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations();
 
 					if (leftDnaseCellLineNumber2NumberofPermutations != null) {
 						
@@ -1317,8 +1323,8 @@ public class Enrichment {
 					
 				case DO_TF_ANNOTATION:
 					// TF
-					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 					
 					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
 						
@@ -1333,8 +1339,8 @@ public class Enrichment {
 					
 				case DO_HISTONE_ANNOTATION:
 					// HISTONE
-					leftHistoneNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightHistoneNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftHistoneNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations();
+					rightHistoneNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations();
 				
 					if (leftHistoneNumberCellLineNumber2NumberofPermutations != null) {
 						
@@ -1348,8 +1354,8 @@ public class Enrichment {
 					
 				case DO_GENE_ANNOTATION:
 					//Gene
-					leftGeneNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightGeneNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftGeneNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutations();
+					rightGeneNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutations();
 					
 					if (leftGeneNumber2NumberofPermutations != null) {
 						
@@ -1363,13 +1369,13 @@ public class Enrichment {
 					
 				case DO_USER_DEFINED_GENESET_ANNOTATION:
 					// USERDEFINED GENESET
-					leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations();
+					leftRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations();
+					leftAllBasedUserDefinedGeneSetNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations();
 					
-					rightExonBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightAllBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightExonBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations();
+					rightRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations();
+					rightAllBasedUserDefinedGeneSetNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations();
 					
 					// EXON BASED USERDEFINED GENESET
 					if (leftExonBasedUserDefinedGeneSetNumber2NumberofPermutations != null) {
@@ -1404,8 +1410,8 @@ public class Enrichment {
 					
 				case DO_USER_DEFINED_LIBRARY_ANNOTATION:
 					// USERDEFINED LIBRARY
-					leftElementTypeNumberElementNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightElementTypeNumberElementNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftElementTypeNumberElementNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutations();
+					rightElementTypeNumberElementNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutations();
 					
 					if (leftElementTypeNumberElementNumber2NumberofPermutations != null) {
 						
@@ -1419,13 +1425,13 @@ public class Enrichment {
 					
 				case DO_KEGGPATHWAY_ANNOTATION:
 					// KEGGPathway
-					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// EXON BASED KEGG PATHWAY
 					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1461,8 +1467,8 @@ public class Enrichment {
 				case DO_TF_KEGGPATHWAY_ANNOTATION:
 					
 					// TF
-					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 					
 					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
 						
@@ -1474,13 +1480,13 @@ public class Enrichment {
 					}
 
 					// KEGGPathway
-					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// EXON BASED KEGG PATHWAY
 					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1513,13 +1519,13 @@ public class Enrichment {
 					}
 					
 					// TF KEGGPathway
-					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// TF and EXON BASED KEGG PATHWAY
 					if (leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1555,8 +1561,8 @@ public class Enrichment {
 				case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
 					
 					// TF
-					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 					
 					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
 						
@@ -1568,13 +1574,13 @@ public class Enrichment {
 					}
 					
 					// KEGGPathway
-					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// EXON BASED KEGG PATHWAY
 					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1607,13 +1613,13 @@ public class Enrichment {
 					}
 					
 					// TF CellLine KEGGPathway
-					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
-					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// TF and CellLine and EXON BASED KEGG PATHWAY
 					if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1649,8 +1655,8 @@ public class Enrichment {
 					
 				case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
 					// TF
-					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
+					rightTfNumberCellLineNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations();
 					
 					if (leftTfNumberCellLineNumber2NumberofPermutations != null) {
 						
@@ -1662,13 +1668,13 @@ public class Enrichment {
 					}
 					
 					// KEGGPathway
-					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// EXON BASED KEGG PATHWAY
 					if (leftExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1701,13 +1707,13 @@ public class Enrichment {
 					}
 					
 					// TF KEGGPathway
-					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 					
-					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// TF and EXON BASED KEGG PATHWAY
 					if (leftTfNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1741,13 +1747,13 @@ public class Enrichment {
 
 					
 					// TF CellLine KEGGPathway
-					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					leftTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = leftAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
-					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
-					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap();
+					rightTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations();
+					rightTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations = rightAllMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations();
 
 					// TF and CellLine and EXON BASED KEGG PATHWAY
 					if (leftTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations != null) {
@@ -1810,11 +1816,6 @@ public class Enrichment {
 				elementNumber = it.key();
 				permutationOneorZero = it.value();
 
-				// For debug purposes starts
-				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
-				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
-				// For debug purposes ends
-
 				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
 					rightMapWithNumbersForAllChromosomes.put(elementNumber, permutationOneorZero);
 				} else {
@@ -1831,13 +1832,13 @@ public class Enrichment {
 		
 		//29 June 2015 starts
 		protected void accumulateLeftMapInRightMapForAllChromosomes(
-				TIntByteMap leftElementNumberNumber2PermutationOneorZeroMap, 
+				TIntByteMap leftElementNumber2PermutationOneorZeroMap, 
 				TIntIntMap rightMapWithNumbersForAllChromosomes) {
 			
 			int elementNumber;
 			byte permutationOneorZero;
 
-			for (TIntByteIterator it = leftElementNumberNumber2PermutationOneorZeroMap.iterator(); it.hasNext();) {
+			for (TIntByteIterator it = leftElementNumber2PermutationOneorZeroMap.iterator(); it.hasNext();) {
 
 				it.advance();
 
@@ -1856,8 +1857,8 @@ public class Enrichment {
 				}
 			}//End of FOR traversing each elementNumber
 
-			leftElementNumberNumber2PermutationOneorZeroMap.clear();
-			leftElementNumberNumber2PermutationOneorZeroMap = null;
+			leftElementNumber2PermutationOneorZeroMap.clear();
+			leftElementNumber2PermutationOneorZeroMap = null;
 
 		}
 		//29 June 2015 ends
@@ -1878,16 +1879,12 @@ public class Enrichment {
 				elementNumber = it.key();
 				numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps = it.value();
 
-				// For debug purposes starts
-				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
-				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
-				// For debug purposes ends
-
 				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
 					rightMapWithNumbersForAllChromosomes.put(elementNumber, numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
 				} else {
 					rightMapWithNumbersForAllChromosomes.put(elementNumber, rightMapWithNumbersForAllChromosomes.get(elementNumber) + numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
 				}
+				
 			}//End of FOR
 
 			leftMapWithNumbersForAllChromosomes.clear();
@@ -1913,10 +1910,6 @@ public class Enrichment {
 
 				elementNumber = it.key();
 				numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps = it.value();
-
-				// For debug purposes starts
-				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: " + permutationNumberCellLineNumberOrKeggPathwayNumber);
-				// For debug purposes ends
 
 				if (!(rightMapWithNumbersForAllChromosomes.containsKey(elementNumber))) {
 					rightMapWithNumbersForAllChromosomes.put(elementNumber, numberofPermutationsGreaterThanEqualToOriginalNumberofOverlaps);
@@ -3442,6 +3435,9 @@ public class Enrichment {
 				//strLine
 				//elementNumber elementName originalNumberofOverlaps
 				
+				//Skip header line
+				strLine = bufferedReader.readLine();
+				
 				while((strLine = bufferedReader.readLine())!=null){
 					
 					indexofFirstTab = strLine.indexOf('\t');
@@ -3529,8 +3525,6 @@ public class Enrichment {
 		long startTimeOnlyAnnotationPermutationsForEachChromosome;
 		long endTimeOnlyAnnotationPermutationsForEachChromosome;
 		
-		long startTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
-		long endTimeEverythingIncludedAnnotationPermutationsForEachChromosome;
 		
 		
 		/********************************************************************************************************/
@@ -3698,7 +3692,6 @@ public class Enrichment {
 
 			if (chromosomeBaseOriginalInputLines != null) {
 				
-				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
 				/*******************************************************************************************************************************/
 				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList STARTS *****************/
@@ -3879,13 +3872,6 @@ public class Enrichment {
 				//Do not clear permutationNumber2RandomlyGeneratedDataHashMap, DO NOT LOSE just created Random Data.
 				//permutationNumber2RandomlyGeneratedDataHashMap.clear();
 				
-				endTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
-				GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
-				GlanetRunner.appendLog("******************************************************************************************");
-				
-				logger.info("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
-				logger.info("******************************************************************************************");
-				
 				
 				System.gc();
 				System.runFinalization();
@@ -3915,15 +3901,12 @@ public class Enrichment {
 		
 		startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 		
-		//Initialization starts
-		TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = null;
-		//TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 		
-		//Initialization ends
 		
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 			
-			dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+			//TLinkable<IntervalTree> dnaseIntervalTreeList = null;
+			TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			
 			//Fill chrNumber2IntervalTreeMap
 			//For each chromosome, generate intervalTree and fill intervalTreeMap
@@ -3966,7 +3949,7 @@ public class Enrichment {
 					outputFolder,
 					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
 					runNumber,
-					allMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap());
+					allMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations());
 	
 			
 			//Free memory
@@ -3975,11 +3958,14 @@ public class Enrichment {
 			System.gc();
 			System.runFinalization();
 				
-		}//End of IF DNase Annotation
+		}//End of IF DO DNase Annotation
 		
+		GlanetRunner.appendLog("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+		GlanetRunner.appendLog("******************************************************************************************");
 		
-	
-		
+		logger.info("RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + (float)((endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome)/1000) + " seconds.");
+		logger.info("******************************************************************************************");
+
 		
 		endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 		
@@ -5643,12 +5629,8 @@ public class Enrichment {
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 		
 		
-		//Will be set below.
+		//Will be set
 		AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType = AnnotationType.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		
-		
-		
-		
 		
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum(args[CommandLineArguments.GivenInputDataType.value()]);
 		
@@ -5842,8 +5824,7 @@ public class Enrichment {
 				/*********************** NUMBER OF OVERLAPS FOR ORIGINAL DATA STARTS ***************************/
 				/***********************************************************************************************/
 				// ElementNumber2OriginalK
-				// Annotation of original data 
-				// number of overlaps: k out of n for original data
+				// Annotation of original data: number of overlaps: k out of n for original data
 							
 				/********************** INITIALIZATION TO NULL *************************************************/
 				//DNase
@@ -5889,12 +5870,7 @@ public class Enrichment {
 				}
 				
 				//TF
-				if (	tfAnnotationType.doTFAnnotation()){ 
-						
-						//&&
-						//!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
-						//!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-					
+				if (	tfAnnotationType.doTFAnnotation()){ 					
 						tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
 				}
 				
@@ -5926,10 +5902,6 @@ public class Enrichment {
 				// KEGGPathway
 				if (	keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
 						
-						//&&
-						//!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() &&
-						//!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-					
 					exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 					regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 					allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
@@ -6148,18 +6120,11 @@ public class Enrichment {
 				tfCellLineExonBasedKeggPathway2OriginalKMap = null;
 				tfCellLineRegulationBasedKeggPathway2OriginalKMap = null;
 				tfCellLineAllBasedKeggPathway2OriginalKMap = null;
-				/********************* MAPS FOR ORIGINAL DATA ENDS *******************************************/
-	
-				/********************* MAPS FOR PERMUTATIONS DATA STARTS *************************************/
-				// functionalElementName based
-				// number of overlaps: k out of n for all permutations
-	
-				
 				
 				System.gc();
 				System.runFinalization();
 				/***********************************************************************************************/
-				/********************* MAPS FOR PERMUTATIONS DATA ENDS *****************************************/
+				/********************* MAPS FOR ORIGINAL DATA ENDS *******************************************/
 				/*********************************** FREE MEMORY ENDS ******************************************/
 				/***********************************************************************************************/
 	

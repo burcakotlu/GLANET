@@ -9114,17 +9114,17 @@ public class Annotation {
 	}
 	
 	
+
+	
 	//26 June 2015
 	//Enrichment
-	//Annotate Permutation 
+	//Annotate each Permutation 
 	//Without IO
 	//With Numbers 
 	//For All Chromosomes
 	//We know the original number of overlaps for each elemennt
-	//With permuatation annotation we will learn the number of overlaps for each element
-	//We will return 1, if permutation has numberofOverlaps greater than equal to original number of overlaps, otherwise 0.
-	
-	
+	//With permutation annotation we will learn the number of overlaps for each element for each permutation
+	//It will return 1, if permutation has numberofOverlaps greater than equal to original number of overlaps, otherwise 0.
 	public static AllMapsKeysWithNumbersAndValuesOneorZero annotatePermutationWithoutIOWithNumbersForAllChromosomes(
 			int permutationNumber,
 			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
@@ -9134,8 +9134,6 @@ public class Annotation {
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 			int overlapDefinition,
 			TIntIntMap dnaseCellLineNumber2OriginalKMap) {
-		
-		
 		
 		// For each Permutation we have TIntByteMap  
 		// Key is elementNumber and Value is be 1 or 0.
@@ -9168,7 +9166,6 @@ public class Annotation {
 			
 			//Free space
 			dnaseCellLineNumber2PermutationKMap = null;
-
 		}
 		
 		return allMapsKeysWithNumbersAndValuesOneorZero;
@@ -9186,14 +9183,14 @@ public class Annotation {
 			int permutationNumberofOverlaps;
 			
 		
-			for(TIntIntIterator itr= elementNumber2OriginalKMap.iterator(); itr.hasNext();){
+			for(TIntIntIterator itr= elementNumber2PermutationKMap.iterator(); itr.hasNext();){
 				
 				itr.advance();
 				
 				elementNumber = itr.key();
-				originalNumberofOverlaps = itr.value();
+				permutationNumberofOverlaps = itr.value();
 				
-				permutationNumberofOverlaps = elementNumber2PermutationKMap.get(elementNumber);
+				originalNumberofOverlaps = elementNumber2OriginalKMap.get(elementNumber);
 				
 				if(permutationNumberofOverlaps >= originalNumberofOverlaps){
 					elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_1);

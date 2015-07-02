@@ -76,12 +76,18 @@ public class GlanetRunner implements Runnable {
 			Enrichment.main(args);
 			/************************ Annotate Permutations ends ******************************/
 
-			/******************* Collection of Permutations Results starts *******************/
-			setCurrentProcessInfo("Collection of Permutations Results...");
+			
+			if (getArgs()[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()].equalsIgnoreCase(Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION)){
+				
+				/******************* Collection of Permutations Results starts *******************/
+				setCurrentProcessInfo("Collection of Permutations Results...");
 
-			CollectionofPermutationsResults.main(args);
-			/******************* Collection of Permutations Results ends *********************/
+				CollectionofPermutationsResults.main(args);
+				/******************* Collection of Permutations Results ends *********************/
 
+			}
+			
+		
 			/************** Augmentation of Enriched Elements with Given Input Data starts in** GRCh37.p13*******/
 			if(getArgs()[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS)){
 				setCurrentProcessInfo("Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");
