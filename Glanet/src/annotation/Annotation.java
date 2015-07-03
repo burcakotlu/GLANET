@@ -5660,7 +5660,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			
 			//Write sorted elementList
@@ -5716,10 +5716,9 @@ public class Annotation {
 
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
-			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Number" + "\t" + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			// Header Line
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "ElementName" + "\t" + "NumberofOverlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			
 			//Write sorted elementList
 			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
 				
@@ -5750,8 +5749,6 @@ public class Annotation {
 		}
 
 	}
-
-	// @todo ends
 	
 	
 	public List<Element> transformMapToCollection(int[] kArray){

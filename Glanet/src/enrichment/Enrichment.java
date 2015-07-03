@@ -105,7 +105,6 @@ public class Enrichment {
 		private final TIntList permutationNumberList;
 
 		//private final GCCharArray gcCharArray; 
-		
 		private final GivenInputDataType givenInputsSNPsorIntervals;
 		
 		
@@ -673,6 +672,7 @@ public class Enrichment {
 					else if (writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()) {
 						
 						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
+								
 								Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes(
 										outputFolder, 
 										permutationNumber, 
@@ -719,8 +719,12 @@ public class Enrichment {
 		
 
 		//29 June 2015
+		//LEft Map contains permutations results
 		//Accumulate Permutation's 1s or 0s in the Right Map
+		//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+		//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps 
 		// Accumulate leftAllMapsKeysWithNumbersAndValuesOneorZero in rightAllMapsWithNumbersForAllChromosomes 
+		//Right Map contains the results up to know.
 		// Then Free Space of leftAllMapsKeysWithNumbersAndValuesOneorZero
 		protected void accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
 				AllMapsKeysWithNumbersAndValuesOneorZero leftAllMapsKeysWithNumbersAndValuesOneorZero, 
@@ -1238,9 +1242,10 @@ public class Enrichment {
 		
 		
 		// Accumulate leftPermutationsMap in rightPermutationsMap
-		// Then Free Space of leftPermutationsMap
-		// Accumulate leftAllMapsWithNumbersForAllChromosomes in rightAllMapsWithNumbersForAllChromosomes 
-		// Then Free space for leftAllMapsWithNumbersForAllChromosomes
+		//LeftMap contains the numberofPermutations that has numberofOverlaps greaterThanOrEqual to the originalNumberofOverlaps coming from forkandjoin
+		//RightMap contains the numberofPermutations that has numberofOverlaps greaterThanOrEqual to the originalNumberofOverlaps coming from forkandjoin
+		// Accumulate leftMap in rightMap
+		// Then Free space for leftMap
 		protected void accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(
 				AllMapsWithNumbersForAllChromosomes leftAllMapsWithNumbersForAllChromosomes, 
 				AllMapsWithNumbersForAllChromosomes rightAllMapsWithNumbersForAllChromosomes,
@@ -3865,7 +3870,6 @@ public class Enrichment {
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/
 
-				
 				//24 June 2015
 				chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.put(chrNumber,permutationNumber2RandomlyGeneratedDataMap);
 				

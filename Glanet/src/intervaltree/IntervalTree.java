@@ -3389,7 +3389,7 @@ public class IntervalTree  {
 			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
 			int overlapDefinition) {
 
-		int permutationNumberDnaseCellLineNumber;
+		int dnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
 		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
@@ -3398,10 +3398,10 @@ public class IntervalTree  {
 				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
 			}
 
-			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber, castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
+			dnaseCellLineNumber = castedNode.getCellLineNumber();
 
-			if (!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))) {
-				dnaseCellLineNumber2PermutationZeroorOneMap.put(permutationNumberDnaseCellLineNumber, Commons.BYTE_1);
+			if (!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(dnaseCellLineNumber))) {
+				dnaseCellLineNumber2PermutationZeroorOneMap.put(dnaseCellLineNumber, Commons.BYTE_1);
 			}
 		}// End of IF OVERLAPS
 
@@ -3415,7 +3415,7 @@ public class IntervalTree  {
 		}
 
 	}
-	// with Numbers ends
+	
 
 	//1 June 2015
 	
