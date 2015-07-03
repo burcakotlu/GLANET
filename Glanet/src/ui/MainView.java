@@ -212,7 +212,7 @@ public class MainView extends JPanel {
 						inputFormatCombo.getSelectedItem().toString(), 
 						numberOfBases.getText(), 
 						performEnrichmentCheckBox.isSelected() ? Commons.DO_ENRICH : Commons.DO_NOT_ENRICH, 
-						Commons.PERFORM_ENRICHMENT_WITHOUT_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION,		
+						Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION,		
 						generateRandomDataModeCombo.getSelectedItem().toString(), 
 						multipleTestingCombo.getSelectedItem().toString(), 
 						signifanceCriteria.getText(), 

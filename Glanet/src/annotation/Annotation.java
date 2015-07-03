@@ -1478,6 +1478,69 @@ public class Annotation {
 	// @todo
 
 	
+	//3 July 2015
+	//Enrichment
+	//Without IO
+	//With Numbers
+	//For All Chromosomes
+	public static void searchTFWithoutIOWithNumbersForAllChromosomes(
+			int permutationNumber, 
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines, 
+			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap, 
+			TIntIntMap tfNumberCellLineNumber2PermutationKMap, 
+			int overlapDefinition){
+		
+		ChromosomeName chromName;
+		
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+		
+		IntervalTree tfIntervalTree;
+			
+		for (int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+			
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2InputLines.get(chrNumber);
+			tfIntervalTree = chrNumber2TFIntervalTreeMap.get(chrNumber);
+			
+			if(inputLines!=null){
+				
+				for (int i = 0; i < inputLines.size(); i++) {
+					
+					TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+
+					inputLine = inputLines.get(i);
+					
+
+					if (tfIntervalTree.getRoot().getNodeName().isNotSentinel()) {
+						tfIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, tfIntervalTree.getRoot(), inputLine, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+					}
+
+					// accumulate search results of dnaseCellLineNumber2PermutationZeroorOneMap in dnaseCellLineNumber2PermutationKMap
+					for (TIntByteIterator it = tfNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();) {
+
+						it.advance();
+
+						if (!(tfNumberCellLineNumber2PermutationKMap.containsKey(it.key()))) {
+							tfNumberCellLineNumber2PermutationKMap.put(it.key(), it.value());
+						} else {
+							tfNumberCellLineNumber2PermutationKMap.put(it.key(), tfNumberCellLineNumber2PermutationKMap.get(it.key()) + it.value());
+						}
+
+					}// End of FOR
+					
+					//Free space
+					tfNumberCellLineNumber2PermutationZeroorOneMap = null;
+					
+				}// End of FOR each Randomly Generated Interval
+
+			}//End of IF inputLines is not NULL
+			
+		}// End of FOR each Chromosome
+		
+	}
+	//3 July 2015
+	
 	//26 June 2015
 	//Enrichment
 	//Without IO
@@ -1538,8 +1601,7 @@ public class Annotation {
 			
 		
 		}// End of FOR each Chromosome
-		
-		
+				
 	}
 	//26 June 2015
 
@@ -7348,7 +7410,6 @@ public class Annotation {
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
 	
-		
 		RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT =  RegulatorySequenceAnalysisType.convertStringtoEnum(args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()]);
 		
 		//This argument is set internally.
@@ -7365,7 +7426,6 @@ public class Annotation {
 		/*************************************************************************************************/
 
 			
-		
 		
 		
 		/*************************************************************************************************/
@@ -7538,8 +7598,6 @@ public class Annotation {
 		/********************************************************************************************************/
 		/*************** FILL NUMBER 2 NAME TROVE MAP STRING ends************************************************/
 		/********************************************************************************************************/
-		
-		
 		
 		
 		
@@ -9130,15 +9188,15 @@ public class Annotation {
 			AnnotationType annotationType,
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 			int overlapDefinition,
-			TIntIntMap dnaseCellLineNumber2OriginalKMap) {
+			TIntIntMap dnaseCellLineNumber2OriginalKMap,
+			TIntIntMap tfNumberCellLineNumber2OriginalKMap) {
 		
 		// For each Permutation we have TIntByteMap  
 		// Key is elementNumber and Value is be 1 or 0.
 		AllMapsKeysWithNumbersAndValuesOneorZero allMapsKeysWithNumbersAndValuesOneorZero = new AllMapsKeysWithNumbersAndValuesOneorZero();
 
-		
+		// DNASE
 		if (annotationType.doDnaseAnnotation()) {
-			// DNASE
 			//This will be filled and set.
 			//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
 			//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
@@ -9165,7 +9223,38 @@ public class Annotation {
 			
 			//Free space
 			dnaseCellLineNumber2PermutationKMap = null;
-		}
+		}//End of DNase
+		
+		//TF
+		if (annotationType.doTFAnnotation()) {
+			//This will be filled and set.
+			//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap tfNumberCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			
+			//This will be filled during search method call, after setting tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
+			TIntIntMap tfNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
+			
+			searchTFWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap, 
+					tfNumberCellLineNumber2PermutationKMap, 
+					overlapDefinition);
+			
+			//Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and dnaseCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					tfNumberCellLineNumber2OriginalKMap,
+					tfNumberCellLineNumber2PermutationKMap,
+					tfNumberCellLineNumber2PermutationOneorZeroMap);
+			
+			//Set DnaseCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
+			
+			//Free space
+			tfNumberCellLineNumber2PermutationKMap = null;
+		}//End of TF
+		
 		
 		return allMapsKeysWithNumbersAndValuesOneorZero;
 	}

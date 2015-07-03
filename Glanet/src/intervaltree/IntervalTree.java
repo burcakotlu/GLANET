@@ -2241,7 +2241,9 @@ public class IntervalTree  {
 		}
 
 		// KEGG Pathway number included
-		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumberKeggPathwayNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short) 0, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+		//WHY?
+		//int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumberKeggPathwayNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short) 0, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
 		if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 			try {
@@ -3236,6 +3238,36 @@ public class IntervalTree  {
 		
 		return mixedNumber;
 	}
+	
+	
+	//3 July 2015
+	//Annotation
+	//TF
+	public static int generateElementNumberCellLineNumber(
+			int elementNumber, 
+			int cellLineNumber, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		int elementNumberCellLineNumber = Integer.MIN_VALUE;
+
+		// Integer.MAX 2147_483_647
+		// Integer.MIN -2147_483_648
+
+		switch (generatedMixedNumberDescriptionOrderLength) {
+
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
+				elementNumberCellLineNumber = elementNumber * 100000 + cellLineNumber;
+				break;
+			}
+			default: {
+				break;
+			}
+
+		}// End of switch
+
+		return elementNumberCellLineNumber;
+	}
+	//3 July 2015
 
 	// Annotation
 	// AnnotateGivenIntervals with numbers
@@ -3375,6 +3407,50 @@ public class IntervalTree  {
 
 	}
 	//26 June 2015
+	
+	//3 July 2015
+	//For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the related tfNumberCellLineNumber
+	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition){
+		
+		int tfNumberCellLineNumber;
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+
+			if (node instanceof TforHistoneIntervalTreeNodeWithNumbers) {
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
+			}
+
+			//@todo 
+			//How to generate tfNumberCellLineNumber from tfNumber and cellLineNumber?
+			//How does Annotation writes tfNumberCellLineNumber
+			//INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
+			
+			tfNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+			
+			if (!(tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tfNumberCellLineNumber))) {
+				tfNumberCellLineNumber2PermutationZeroorOneMap.put(tfNumberCellLineNumber, Commons.BYTE_1);
+			}
+		}// End of IF OVERLAPS
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, node.getLeft(), interval, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, node.getRight(), interval, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+
+		}
+
+		
+	}
+	//3 July 2015
 
 	//1 June 2015
 	// with Numbers starts

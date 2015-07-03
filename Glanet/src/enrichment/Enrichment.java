@@ -548,6 +548,7 @@ public class Enrichment {
 		private final int overlapDefinition;
 		
 		private TIntIntMap dnaseCellLineNumber2OriginalKMap;
+		private TIntIntMap tfNumberCellLineNumber2OriginalKMap;
 
 		public AnnotateWithNumbersForAllChromosomes(
 				String outputFolder, 
@@ -563,7 +564,8 @@ public class Enrichment {
 				AnnotationType annotationType, 
 				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 				int overlapDefinition,
-				TIntIntMap dnaseCellLineNumber2OriginalKMap) {
+				TIntIntMap dnaseCellLineNumber2OriginalKMap,
+				TIntIntMap tfNumberCellLineNumber2OriginalKMap) {
 
 			this.outputFolder = outputFolder;
 
@@ -600,6 +602,7 @@ public class Enrichment {
 			this.overlapDefinition = overlapDefinition;
 			
 			this.dnaseCellLineNumber2OriginalKMap = dnaseCellLineNumber2OriginalKMap;
+			this.tfNumberCellLineNumber2OriginalKMap = tfNumberCellLineNumber2OriginalKMap;
 		}
 
 		protected AllMapsWithNumbersForAllChromosomes compute() {
@@ -614,8 +617,8 @@ public class Enrichment {
 			// DIVIDE
 			if (highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY) {
 				middleIndex = lowIndex + (highIndex - lowIndex) / 2;
-				AnnotateWithNumbersForAllChromosomes left = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap);
-				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap);
+				AnnotateWithNumbersForAllChromosomes left = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap,tfNumberCellLineNumber2OriginalKMap);
+				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes(outputFolder, chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex, permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,dnaseCellLineNumber2OriginalKMap,tfNumberCellLineNumber2OriginalKMap);
 				left.fork();
 				
 				rightAllMapsWithNumbersForAllChromosomes = right.compute();
@@ -662,7 +665,8 @@ public class Enrichment {
 										annotationType, 
 										geneId2ListofGeneSetNumberMap, 
 										overlapDefinition,
-										dnaseCellLineNumber2OriginalKMap),
+										dnaseCellLineNumber2OriginalKMap,
+										tfNumberCellLineNumber2OriginalKMap),
 										
 								allMapsWithNumbersForAllChromosomes,
 								annotationType);
@@ -3842,16 +3846,15 @@ public class Enrichment {
 		/******************************************************************************************************/
 		
 		/********************************************************************************************************/
-		/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
+		/***************************** DNASE ANNOTATION OF PERMUTATIONS STARTS **********************************/
 		/********************************************************************************************************/
-		GlanetRunner.appendLog("Annotation of Permutations has started.");
-		logger.info("Annotation of Permutations has started.");
-		
 		startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
-	
 		
 		if (dnaseAnnotationType.doDnaseAnnotation()) {
 			
+			GlanetRunner.appendLog("DNase Annotation of Permutations has started.");
+			logger.info("DNase Annotation of Permutations has started.");
+
 			//TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 			TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			
@@ -3889,7 +3892,8 @@ public class Enrichment {
 					AnnotationType.DO_DNASE_ANNOTATION, 
 					null, 
 					overlapDefinition,
-					dnaseCellLineNumber2OriginalKMap);
+					dnaseCellLineNumber2OriginalKMap,
+					tfNumberCellLineNumber2OriginalKMap);
 			
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 			
@@ -3905,20 +3909,106 @@ public class Enrichment {
 
 			System.gc();
 			System.runFinalization();
+			
+			GlanetRunner.appendLog("DNase Annotation of Permutations has ended.");
+			logger.info("DNase Annotation of Permutations has ended.");
+
 				
 		}//End of IF DO DNase Annotation
 		
 		endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 		
-		
-		GlanetRunner.appendLog("RunNumber: " + runNumber + " Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
+		GlanetRunner.appendLog("RunNumber: " + runNumber + " DNase Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
 		GlanetRunner.appendLog("******************************************************************************************");
 		
-		logger.info("RunNumber: " + runNumber + " Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
+		logger.info("RunNumber: " + runNumber + " DNase Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
 		logger.info("******************************************************************************************");
 		/********************************************************************************************************/
-		/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
+		/***************************** DNASE ANNOTATION OF PERMUTATIONS ENDS ************************************/
 		/********************************************************************************************************/
+		
+		/********************************************************************************************************/
+		/***************************** TF ANNOTATION OF PERMUTATIONS STARTS *************************************/
+		/********************************************************************************************************/
+		startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+		
+		if (tfAnnotationType.doTFAnnotation()) {
+			
+			GlanetRunner.appendLog("Transcription Factor Annotation of Permutations has started.");
+			logger.info("Transcription Factor Annotation of Permutations has started.");
+
+			//TLinkable<IntervalTree> dnaseIntervalTreeList = null;
+			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+			
+			//Fill chrNumber2IntervalTreeMap
+			//For each chromosome, generate intervalTree and fill intervalTreeMap
+			for(int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+				
+				chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
+
+				if (chromosomeBaseOriginalInputLines != null) {
+					
+					intervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
+					tfIntervalTreeMap.put(chrNumber, intervalTree);
+					
+				}//End of IF chromosomeBaseOriginalInputLines is NOT NULL
+				
+			}//End of FOR each CHROMOSOME
+			
+			//Why don't we fill it before?
+			//Fill dnaseCellLineNumber2OriginalKMap
+			fillElementNumber2OriginalKMap(tfNumberCellLineNumber2OriginalKMap,outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+			
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes(
+					outputFolder, 
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun, 
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO, 
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					tfIntervalTreeMap, 
+					null, 
+					AnnotationType.DO_TF_ANNOTATION, 
+					null, 
+					overlapDefinition,
+					dnaseCellLineNumber2OriginalKMap,
+					tfNumberCellLineNumber2OriginalKMap);
+			
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+			
+			writeToBeCollectedNumberofPermutations(
+					outputFolder,
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations());
+	
+			
+			//Free memory
+			tfIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+			
+			GlanetRunner.appendLog("Transcription Factor Annotation of Permutations has ended.");
+			logger.info("Transcription Factor Annotation of Permutations has ended.");
+
+				
+		}//End of IF DO DNase Annotation
+		
+		endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+		
+		GlanetRunner.appendLog("RunNumber: " + runNumber + " TF Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
+		GlanetRunner.appendLog("******************************************************************************************");
+		
+		logger.info("RunNumber: " + runNumber + " TF Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes"  + " numberof intervals took  " + (float)((endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome)/1000) + " seconds.");
+		logger.info("******************************************************************************************");
+		/********************************************************************************************************/
+		/***************************** TF ANNOTATION OF PERMUTATIONS STARTS *************************************/
+		/********************************************************************************************************/
+
 
 		/******************************************************************************************************/
 		/*************************ALL DATA STRUCTURES ARE READY************************************************/
@@ -5801,7 +5891,7 @@ public class Enrichment {
 		
 		//TF
 		if (tfAnnotationType.doTFAnnotation()){ 					
-				tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
+			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
 		}
 		
 		//Histone
@@ -5921,9 +6011,7 @@ public class Enrichment {
 				logger.info("**************	" + runNumber + ". Run" + "	******************	starts");
 	
 				runName = jobName + "_" + Commons.RUN + runNumber;
-	
-							
-				
+		
 				/***********************************************************************************************/
 				/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
 				/***********************************************************************************************/

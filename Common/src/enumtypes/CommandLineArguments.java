@@ -94,7 +94,7 @@ public enum CommandLineArguments {
 	InputFileDataFormat(3,Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES),
 	NumberOfBasesRequiredForOverlap(4, Commons.NUMBER_BASES_DEFAULT),
 	PerformEnrichment(5, Commons.DO_NOT_ENRICH),
-	PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation(6, Commons.PERFORM_ENRICHMENT_WITHOUT_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION),
+	PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation(6, Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION),
 	GenerateRandomDataMode(7, Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT),
 	MultipleTesting(8, Commons.BENJAMINI_HOCHBERG_FDR),
 	BonferroniCorrectionSignificanceCriteria(9, Commons.SIGNIFICANCE_CRITERIA_DEFAULT),
