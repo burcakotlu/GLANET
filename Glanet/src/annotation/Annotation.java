@@ -9140,6 +9140,8 @@ public class Annotation {
 		if (annotationType.doDnaseAnnotation()) {
 			// DNASE
 			//This will be filled and set.
+			//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
 			TIntByteMap dnaseCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
 			
 			//This will be filled during search method call, after setting dnaseCellLineNumber2OneorZeroMap, then it will be set to null.
@@ -9170,6 +9172,7 @@ public class Annotation {
 	//26 June 2015 
 	
 			
+	//We must consider each of the elementNumber
 	public static void fillPermutationOneorZeroMap(
 			TIntIntMap elementNumber2OriginalKMap,
 			TIntIntMap elementNumber2PermutationKMap,
@@ -9177,26 +9180,33 @@ public class Annotation {
 		
 			int elementNumber;
 			int originalNumberofOverlaps;
-			int permutationNumberofOverlaps;
+			Integer permutationNumberofOverlaps;
 			
 		
-			for(TIntIntIterator itr= elementNumber2PermutationKMap.iterator(); itr.hasNext();){
+			for(TIntIntIterator itr= elementNumber2OriginalKMap.iterator(); itr.hasNext();){
 				
 				itr.advance();
 				
 				elementNumber = itr.key();
-				permutationNumberofOverlaps = itr.value();
+				originalNumberofOverlaps = itr.value();
 				
-				originalNumberofOverlaps = elementNumber2OriginalKMap.get(elementNumber);
+				permutationNumberofOverlaps = elementNumber2PermutationKMap.get(elementNumber);
 				
-				if(permutationNumberofOverlaps >= originalNumberofOverlaps){
-					elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_1);
-				}else{
+				if (permutationNumberofOverlaps!=null){
+					
+					if(permutationNumberofOverlaps >= originalNumberofOverlaps){
+						elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_1);
+					}else{
+						elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_0);
+					}//End of IF
+					
+				}//End of IF permutationNumberofOverlaps is not NULL
+				
+				else{
 					elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_0);
-				}//End of IF
+				}//End of ELSE permutationNumberofOverlaps is NULL
 				
-				
-			}//End of FOR each elementNumber
+			}//End of FOR each elementNumber in elementNumber2OriginalKMap
 		
 	}
 	
