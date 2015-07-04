@@ -36,6 +36,7 @@ import gnu.trove.map.hash.TObjectShortHashMap;
 import gnu.trove.map.hash.TShortByteHashMap;
 import gnu.trove.map.hash.TShortIntHashMap;
 import gnu.trove.map.hash.TShortObjectHashMap;
+import hg19.GRCh37Hg19Chromosome;
 import intervaltree.DnaseIntervalTreeNode;
 import intervaltree.DnaseIntervalTreeNodeWithNumbers;
 import intervaltree.Interval;
@@ -79,6 +80,7 @@ import common.Commons;
 
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
+import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
@@ -1366,6 +1368,74 @@ public class Annotation {
 		return ucscRefSeqGenesIntervalTree;
 
 	}
+	
+	//29 June 2015
+	//Search Dnase 
+	//With IO
+	//With Numbers
+	//For All Chromosomes
+	public static void searchDnaseWithIOWithNumbersForAllChromosomes(
+			String outputFolder, 
+			int permutationNumber,
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<IntervalTree> chrNumber2DnaseIntervalTreeMap, 
+			TIntObjectMap<BufferedWriter> dnaseBufferedWriterHashMap, 
+			TIntIntMap dnaseCellLineNumber2PermutationKMap, 
+			int overlapDefinition) {
+		
+		
+		ChromosomeName chromName;
+		
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+		
+		IntervalTree dnaseIntervalTree;
+			
+		for (int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+			
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2RandomlyGeneratedData.get(chrNumber);
+			dnaseIntervalTree = chrNumber2DnaseIntervalTreeMap.get(chrNumber);
+			
+			for (int i = 0; i < inputLines.size(); i++) {
+				
+				
+				TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+
+				inputLine = inputLines.get(i);
+				
+				
+				if (dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()) {
+					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, dnaseIntervalTree.getRoot(), inputLine, chromName, dnaseBufferedWriterHashMap, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+				}
+
+				// accumulate search results of dnaseCellLine2OneorZeroMap in
+				// permutationNumberDnaseCellLineName2KMap
+				for (TIntByteIterator it = dnaseCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();) {
+					
+					it.advance();
+
+					if (!(dnaseCellLineNumber2PermutationKMap.containsKey(it.key()))) {
+						dnaseCellLineNumber2PermutationKMap.put(it.key(), it.value());
+					} else {
+						dnaseCellLineNumber2PermutationKMap.put(it.key(), dnaseCellLineNumber2PermutationKMap.get(it.key()) + it.value());
+					}
+
+				}// End of for
+
+				dnaseCellLineNumber2PermutationZeroorOneMap = null;
+
+			}// End of for each Randomly Generated Interval
+			
+		} //End of FOR each CHROMOSOME
+		
+		
+
+		
+	}
+	
+	//29 June 2015
+	
 
 	// Enrichment
 	// With IO
@@ -1407,6 +1477,135 @@ public class Annotation {
 	// with numbers ends
 	// @todo
 
+	
+	//3 July 2015
+	//Enrichment
+	//Without IO
+	//With Numbers
+	//For All Chromosomes
+	public static void searchTFWithoutIOWithNumbersForAllChromosomes(
+			int permutationNumber, 
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines, 
+			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap, 
+			TIntIntMap tfNumberCellLineNumber2PermutationKMap, 
+			int overlapDefinition){
+		
+		ChromosomeName chromName;
+		
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+		
+		IntervalTree tfIntervalTree;
+			
+		for (int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+			
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2InputLines.get(chrNumber);
+			tfIntervalTree = chrNumber2TFIntervalTreeMap.get(chrNumber);
+			
+			if(inputLines!=null){
+				
+				for (int i = 0; i < inputLines.size(); i++) {
+					
+					TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+
+					inputLine = inputLines.get(i);
+					
+
+					if (tfIntervalTree.getRoot().getNodeName().isNotSentinel()) {
+						tfIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, tfIntervalTree.getRoot(), inputLine, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+					}
+
+					// accumulate search results of dnaseCellLineNumber2PermutationZeroorOneMap in dnaseCellLineNumber2PermutationKMap
+					for (TIntByteIterator it = tfNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();) {
+
+						it.advance();
+
+						if (!(tfNumberCellLineNumber2PermutationKMap.containsKey(it.key()))) {
+							tfNumberCellLineNumber2PermutationKMap.put(it.key(), it.value());
+						} else {
+							tfNumberCellLineNumber2PermutationKMap.put(it.key(), tfNumberCellLineNumber2PermutationKMap.get(it.key()) + it.value());
+						}
+
+					}// End of FOR
+					
+					//Free space
+					tfNumberCellLineNumber2PermutationZeroorOneMap = null;
+					
+				}// End of FOR each Randomly Generated Interval
+
+			}//End of IF inputLines is not NULL
+			
+		}// End of FOR each Chromosome
+		
+	}
+	//3 July 2015
+	
+	//26 June 2015
+	//Enrichment
+	//Without IO
+	//With Numbers
+	//For All Chromosomes
+	public static void searchDnaseWithoutIOWithNumbersForAllChromosomes(
+			int permutationNumber, 
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines, 
+			TIntObjectMap<IntervalTree> chrNumber2DnaseIntervalTreeMap, 
+			TIntIntMap dnaseCellLineNumber2PermutationKMap, 
+			int overlapDefinition) {
+		
+		ChromosomeName chromName;
+		
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+		
+		IntervalTree dnaseIntervalTree;
+			
+		for (int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+			
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2InputLines.get(chrNumber);
+			dnaseIntervalTree = chrNumber2DnaseIntervalTreeMap.get(chrNumber);
+			
+			if(inputLines!=null){
+				
+				for (int i = 0; i < inputLines.size(); i++) {
+					
+					TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+
+					inputLine = inputLines.get(i);
+					
+
+					if (dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()) {
+						dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(permutationNumber, dnaseIntervalTree.getRoot(), inputLine, chromName, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+					}
+
+					// accumulate search results of dnaseCellLineNumber2PermutationZeroorOneMap in dnaseCellLineNumber2PermutationKMap
+					for (TIntByteIterator it = dnaseCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();) {
+
+						it.advance();
+
+						if (!(dnaseCellLineNumber2PermutationKMap.containsKey(it.key()))) {
+							dnaseCellLineNumber2PermutationKMap.put(it.key(), it.value());
+						} else {
+							dnaseCellLineNumber2PermutationKMap.put(it.key(), dnaseCellLineNumber2PermutationKMap.get(it.key()) + it.value());
+						}
+
+					}// End of FOR
+					
+					//Free space
+					dnaseCellLineNumber2PermutationZeroorOneMap = null;
+					
+				}// End of FOR each Randomly Generated Interval
+
+			}//End of IF inputLines is not NULL
+			
+		
+		}// End of FOR each Chromosome
+				
+	}
+	//26 June 2015
+
+	
 	// Enrichment
 	// Without IO
 	// With Numbers
@@ -5523,7 +5722,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			
 			//Write sorted elementList
@@ -5579,10 +5778,9 @@ public class Annotation {
 
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
-			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			// Header Line
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "ElementName" + "\t" + "NumberofOverlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
-			
 			//Write sorted elementList
 			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
 				
@@ -5594,9 +5792,9 @@ public class Annotation {
 				
 				numberofOverlaps = element.getElementNumberofOverlaps();
 				
-				bufferedWriter.write(elementName + "\t" + numberofOverlaps + System.getProperty("line.separator"));			
+				bufferedWriter.write(elementNumber + "\t" + elementName + "\t" + numberofOverlaps + System.getProperty("line.separator"));			
 				
-			}//End of For
+			}//End of FOR
 			
 //			// accessing keys/values through an iterator:
 //			for (TShortIntIterator it = number2KMap.iterator(); it.hasNext();) {
@@ -5613,8 +5811,6 @@ public class Annotation {
 		}
 
 	}
-
-	// @todo ends
 	
 	
 	public List<Element> transformMapToCollection(int[] kArray){
@@ -5714,7 +5910,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "Element Name" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			
 			//Write sorted elementList
@@ -5784,7 +5980,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumberCellLineNumberKEGGPathwayNumber" + "\t" + "ElementName" + "_" + "CellLineName" + "_" + "KeggPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			//Write sorted elementList
 			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
@@ -5804,7 +6000,7 @@ public class Annotation {
 
 				numberofOverlaps = element.getElementNumberofOverlaps();
 				
-				bufferedWriter.write(elementName + "_" + cellLineName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+				bufferedWriter.write(elementNumberCellLineNumberKeggPathwayNumber + "\t" + elementName + "_" + cellLineName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
 	
 			}//End of For
 			
@@ -5862,7 +6058,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumberCellLineNumberKEGGPathwayNumber" + "\t" + "ElementName_KEGGPathwayName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 			
 			//Write sorted elementList
 			for(Iterator<Element> it = elementList.iterator(); it.hasNext(); ){
@@ -5879,7 +6075,7 @@ public class Annotation {
 				
 				numberofOverlaps = element.getElementNumberofOverlaps();
 				
-				bufferedWriter.write(elementName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+				bufferedWriter.write(elementNumberCellLineNumber+ "\t" + elementName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
 				
 			}//End of For
 			
@@ -5966,7 +6162,7 @@ public class Annotation {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + outputFileName));
 
 			// header line
-			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "ElementNumber_CellLineNumber"  + "\t" + "ElementName_CellLineName" + "\t" + "Number of Overlaps: k out of n given intervals overlaps with the intervals of element" + System.getProperty("line.separator"));
 
 			
 			//Write sorted elementList
@@ -5984,7 +6180,7 @@ public class Annotation {
 
 				numberofOverlaps = element.getElementNumberofOverlaps();
 				
-				bufferedWriter.write(elementName + "_" + cellLineName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
+				bufferedWriter.write(elementNumberCellLineNumber+ "\t" + elementName + "_" + cellLineName + "\t" + numberofOverlaps + System.getProperty("line.separator"));
 				
 			}//End of For
 			
@@ -7214,7 +7410,6 @@ public class Annotation {
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
 	
-		
 		RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT =  RegulatorySequenceAnalysisType.convertStringtoEnum(args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()]);
 		
 		//This argument is set internally.
@@ -7231,7 +7426,6 @@ public class Annotation {
 		/*************************************************************************************************/
 
 			
-		
 		
 		
 		/*************************************************************************************************/
@@ -7404,8 +7598,6 @@ public class Annotation {
 		/********************************************************************************************************/
 		/*************** FILL NUMBER 2 NAME TROVE MAP STRING ends************************************************/
 		/********************************************************************************************************/
-		
-		
 		
 		
 		
@@ -8240,7 +8432,7 @@ public class Annotation {
 			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
 			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
 			/*********************************************************************************/
-			if (tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+			if ( 	tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()) {
 				
 				// KEGGPathway
@@ -8547,6 +8739,72 @@ public class Annotation {
 	}
 
 
+	
+	//29 June 2015
+	//Enrichment
+	//Annotate Permutation 
+	//With IO
+	//With Numbers
+	//For All Chromosomes
+	public static AllMapsKeysWithNumbersAndValuesOneorZero annotatePermutationWithIOWithNumbersForAllChromosomes(
+			String outputFolder, 
+			int permutationNumber,  
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap, 
+			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+			AnnotationType annotationType, 
+			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+			int overlapDefinition,
+			TIntIntMap dnaseCellLineNumber2OriginalKMap) {
+		
+		// For each Permutation, we have TIntByteMap  
+		// Key is elementNumber and Value is be 1 or 0.
+		AllMapsKeysWithNumbersAndValuesOneorZero allMapsKeysWithNumbersAndValuesOneorZero = new AllMapsKeysWithNumbersAndValuesOneorZero();
+
+		if (annotationType.doDnaseAnnotation()) {
+			
+			// DNASE
+			//This will be filled and set.
+			TIntByteMap dnaseCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			
+			//This will be filled during search method call, after setting dnaseCellLineNumber2OneorZeroMap, then it will be set to null.
+			TIntIntMap dnaseCellLineNumber2PermutationKMap = new TIntIntHashMap();
+			
+			
+			TIntObjectMap<BufferedWriter> dnaseBufferedWriterHashMap = new TIntObjectHashMap<BufferedWriter>();
+			
+			searchDnaseWithIOWithNumbersForAllChromosomes(
+					outputFolder, 
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap, 
+					dnaseBufferedWriterHashMap, 
+					dnaseCellLineNumber2PermutationKMap, 
+					overlapDefinition);
+			
+			closeBufferedWritersWithNumbers(dnaseBufferedWriterHashMap);
+			
+			//Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and dnaseCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					dnaseCellLineNumber2OriginalKMap,
+					dnaseCellLineNumber2PermutationKMap,
+					dnaseCellLineNumber2PermutationOneorZeroMap);
+			
+			//Set DnaseCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setDnaseCellLineNumber2PermutationOneorZeroMap(dnaseCellLineNumber2PermutationOneorZeroMap);
+			
+			
+			//Free space
+			dnaseCellLineNumber2PermutationKMap = null;
+			
+			
+		}
+		
+		return allMapsKeysWithNumbersAndValuesOneorZero;
+
+	}
+	//29 June 2015
+	
 	
 	// Enrichment
 	// With IO
@@ -8908,6 +9166,137 @@ public class Annotation {
 		}
 		
 		return allMapsWithNumbers;
+	}
+	
+	
+
+	
+	//26 June 2015
+	//Enrichment
+	//Annotate each Permutation 
+	//Without IO
+	//With Numbers 
+	//For All Chromosomes
+	//We know the original number of overlaps for each elemennt
+	//With permutation annotation we will learn the number of overlaps for each element for each permutation
+	//It will return 1, if permutation has numberofOverlaps greater than equal to original number of overlaps, otherwise 0.
+	public static AllMapsKeysWithNumbersAndValuesOneorZero annotatePermutationWithoutIOWithNumbersForAllChromosomes(
+			int permutationNumber,
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap, 
+			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+			AnnotationType annotationType,
+			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+			int overlapDefinition,
+			TIntIntMap dnaseCellLineNumber2OriginalKMap,
+			TIntIntMap tfNumberCellLineNumber2OriginalKMap) {
+		
+		// For each Permutation we have TIntByteMap  
+		// Key is elementNumber and Value is be 1 or 0.
+		AllMapsKeysWithNumbersAndValuesOneorZero allMapsKeysWithNumbersAndValuesOneorZero = new AllMapsKeysWithNumbersAndValuesOneorZero();
+
+		// DNASE
+		if (annotationType.doDnaseAnnotation()) {
+			//This will be filled and set.
+			//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap dnaseCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			
+			//This will be filled during search method call, after setting dnaseCellLineNumber2OneorZeroMap, then it will be set to null.
+			TIntIntMap dnaseCellLineNumber2PermutationKMap = new TIntIntHashMap();
+			
+			searchDnaseWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap, 
+					dnaseCellLineNumber2PermutationKMap, 
+					overlapDefinition);
+			
+			//Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and dnaseCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					dnaseCellLineNumber2OriginalKMap,
+					dnaseCellLineNumber2PermutationKMap,
+					dnaseCellLineNumber2PermutationOneorZeroMap);
+			
+			//Set DnaseCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setDnaseCellLineNumber2PermutationOneorZeroMap(dnaseCellLineNumber2PermutationOneorZeroMap);
+			
+			//Free space
+			dnaseCellLineNumber2PermutationKMap = null;
+		}//End of DNase
+		
+		//TF
+		if (annotationType.doTFAnnotation()) {
+			//This will be filled and set.
+			//1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			//0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap tfNumberCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			
+			//This will be filled during search method call, after setting tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
+			TIntIntMap tfNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
+			
+			searchTFWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap, 
+					tfNumberCellLineNumber2PermutationKMap, 
+					overlapDefinition);
+			
+			//Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and dnaseCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					tfNumberCellLineNumber2OriginalKMap,
+					tfNumberCellLineNumber2PermutationKMap,
+					tfNumberCellLineNumber2PermutationOneorZeroMap);
+			
+			//Set DnaseCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
+			
+			//Free space
+			tfNumberCellLineNumber2PermutationKMap = null;
+		}//End of TF
+		
+		
+		return allMapsKeysWithNumbersAndValuesOneorZero;
+	}
+	//26 June 2015 
+	
+			
+	//We must consider each of the elementNumber
+	public static void fillPermutationOneorZeroMap(
+			TIntIntMap elementNumber2OriginalKMap,
+			TIntIntMap elementNumber2PermutationKMap,
+			TIntByteMap elementNumber2PermutationOneorZeroMap){
+		
+			int elementNumber;
+			int originalNumberofOverlaps;
+			Integer permutationNumberofOverlaps;
+			
+		
+			for(TIntIntIterator itr= elementNumber2OriginalKMap.iterator(); itr.hasNext();){
+				
+				itr.advance();
+				
+				elementNumber = itr.key();
+				originalNumberofOverlaps = itr.value();
+				
+				permutationNumberofOverlaps = elementNumber2PermutationKMap.get(elementNumber);
+				
+				if (permutationNumberofOverlaps!=null){
+					
+					if(permutationNumberofOverlaps >= originalNumberofOverlaps){
+						elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_1);
+					}else{
+						elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_0);
+					}//End of IF
+					
+				}//End of IF permutationNumberofOverlaps is not NULL
+				
+				else{
+					elementNumber2PermutationOneorZeroMap.put(elementNumber,Commons.BYTE_0);
+				}//End of ELSE permutationNumberofOverlaps is NULL
+				
+			}//End of FOR each elementNumber in elementNumber2OriginalKMap
+		
 	}
 	
 	

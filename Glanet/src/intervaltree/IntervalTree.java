@@ -48,7 +48,9 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
@@ -71,8 +73,10 @@ import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.TShortByteMap;
 import gnu.trove.map.TShortObjectMap;
 
-public class IntervalTree {
+//public class IntervalTree  extends TLinkableAdapter<IntervalTree>{
+public class IntervalTree  {
 
+	
 	final static Logger logger = Logger.getLogger(IntervalTree.class);
 
 	IntervalTreeNode root;
@@ -2237,7 +2241,9 @@ public class IntervalTree {
 		}
 
 		// KEGG Pathway number included
-		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumberKeggPathwayNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short) 0, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+		//WHY?
+		//int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumberKeggPathwayNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), (short) 0, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
 		if (overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
 			try {
@@ -2481,6 +2487,76 @@ public class IntervalTree {
 		}
 
 	}
+	
+	
+	//1 July 2015
+	// with Numbers
+	// Empirical P Value Calculation
+	// with IO
+	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers(
+			String outputFolder, 
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntObjectMap<BufferedWriter> bufferedWriterHashMap, 
+			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition) {
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		int permutationNumberDnaseCellLineNumber;
+
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+
+			if (node instanceof DnaseIntervalTreeNodeWithNumbers) {
+				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
+			}
+
+			try {
+
+				permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(permutationNumber, castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
+
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberDnaseCellLineNumber);
+
+				if (bufferedWriter == null) {
+
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberDnaseCellLineNumber + ".txt", true);
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "dnase" + "\t" + "dnaseChromName" + "\t" + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" + System.getProperty("line.separator"));
+					bufferedWriter.flush();
+
+					bufferedWriterHashMap.put(permutationNumberDnaseCellLineNumber, bufferedWriter);
+				}
+
+				if (!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))) {
+					dnaseCellLineNumber2PermutationZeroorOneMap.put(permutationNumberDnaseCellLineNumber, Commons.BYTE_1);
+				}
+
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "dnase" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
+				bufferedWriter.flush();
+
+			} catch (IOException e) {
+
+				logger.error(e.toString());
+			}
+		}
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(), interval, chromName, bufferedWriterHashMap, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(), interval, chromName, bufferedWriterHashMap, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+
+		}
+
+	}
+
+	// with Numbers
+	//1 July 2015
 
 	// @todo
 	// with Numbers
@@ -3162,6 +3238,36 @@ public class IntervalTree {
 		
 		return mixedNumber;
 	}
+	
+	
+	//3 July 2015
+	//Annotation
+	//TF
+	public static int generateElementNumberCellLineNumber(
+			int elementNumber, 
+			int cellLineNumber, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		int elementNumberCellLineNumber = Integer.MIN_VALUE;
+
+		// Integer.MAX 2147_483_647
+		// Integer.MIN -2147_483_648
+
+		switch (generatedMixedNumberDescriptionOrderLength) {
+
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
+				elementNumberCellLineNumber = elementNumber * 100000 + cellLineNumber;
+				break;
+			}
+			default: {
+				break;
+			}
+
+		}// End of switch
+
+		return elementNumberCellLineNumber;
+	}
+	//3 July 2015
 
 	// Annotation
 	// AnnotateGivenIntervals with numbers
@@ -3259,12 +3365,147 @@ public class IntervalTree {
 		return cellLineRemovedKeggPathwayAdded;
 
 	}
+	
+	//26 June 2015
+	// Find All Overlapping Dnase Intervals 
+	// Without IO
+	// With Numbers
+	// Without overlappedNodeList
+	// For All Chromosomes
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntIntMap dnaseCellLineName2ZeroorOneMap, 
+			int overlapDefinition) {
 
+		int dnaseCellLineNumber;
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+
+			if (node instanceof DnaseIntervalTreeNodeWithNumbers) {
+				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
+			}
+
+			dnaseCellLineNumber = castedNode.getCellLineNumber();
+
+			if (!(dnaseCellLineName2ZeroorOneMap.containsKey(dnaseCellLineNumber))) {
+				dnaseCellLineName2ZeroorOneMap.put(dnaseCellLineNumber, 1);
+			}
+		}// End of IF OVERLAPS
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(permutationNumber, node.getLeft(), interval, chromName, dnaseCellLineName2ZeroorOneMap, overlapDefinition);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(permutationNumber, node.getRight(), interval, chromName, dnaseCellLineName2ZeroorOneMap, overlapDefinition);
+
+		}
+
+	}
+	//26 June 2015
+	
+	//3 July 2015
+	//For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the related tfNumberCellLineNumber
+	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition){
+		
+		int tfNumberCellLineNumber;
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+
+			if (node instanceof TforHistoneIntervalTreeNodeWithNumbers) {
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers) node;
+			}
+
+			//@todo 
+			//How to generate tfNumberCellLineNumber from tfNumber and cellLineNumber?
+			//How does Annotation writes tfNumberCellLineNumber
+			//INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
+			
+			tfNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(), GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+			
+			if (!(tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tfNumberCellLineNumber))) {
+				tfNumberCellLineNumber2PermutationZeroorOneMap.put(tfNumberCellLineNumber, Commons.BYTE_1);
+			}
+		}// End of IF OVERLAPS
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, node.getLeft(), interval, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(permutationNumber, node.getRight(), interval, chromName, tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+
+		}
+
+		
+	}
+	//3 July 2015
+
+	//1 June 2015
 	// with Numbers starts
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName, TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition) {
+
+		int dnaseCellLineNumber;
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+
+		if (overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)) {
+
+			if (node instanceof DnaseIntervalTreeNodeWithNumbers) {
+				castedNode = (DnaseIntervalTreeNodeWithNumbers) node;
+			}
+
+			dnaseCellLineNumber = castedNode.getCellLineNumber();
+
+			if (!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(dnaseCellLineNumber))) {
+				dnaseCellLineNumber2PermutationZeroorOneMap.put(dnaseCellLineNumber, Commons.BYTE_1);
+			}
+		}// End of IF OVERLAPS
+
+		if ((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())) {
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(permutationNumber, node.getLeft(), interval, chromName, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+		}
+
+		if ((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())) {
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(permutationNumber, node.getRight(), interval, chromName, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+
+		}
+
+	}
+	
+
+	//1 June 2015
+	
+	// with Numbers starts
+	// Empirical P Value Calculation
+	// without IO
+	// without overlappedNodeList
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName, 
+			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, 
+			int overlapDefinition) {
 
 		int permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
@@ -3292,7 +3533,6 @@ public class IntervalTree {
 		}
 
 	}
-
 	// with Numbers ends
 	
 //	TShortObjectMap<StringBuilder>
