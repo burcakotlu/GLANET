@@ -489,7 +489,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 			return Commons.TPM_UNKNOWN;
 
 	}
-	
+
 	/*
 	 * args[0] = glanet folder (which includes Data folder inside)
 	 * args[1] = tpm value (0.1, 0.01, 0.001)
@@ -507,11 +507,10 @@ public class NonExpressingGenesIntervalsPoolCreation {
 
 		int numberofNonExpressingGenes = 0;
 
-		
 		// We will create the interval pool of nonExpressingGenes intervals (of 600 base long) for various TPM Values
 		// Such as 0.1f, 0.01f, 0.001f
-		//float tpmThreshold = 0.1f;
-		//float tpmThreshold = 0.01f;
+		// float tpmThreshold = 0.1f;
+		// float tpmThreshold = 0.01f;
 		float tpmThreshold = Float.parseFloat( args[1]);
 
 		// Input File

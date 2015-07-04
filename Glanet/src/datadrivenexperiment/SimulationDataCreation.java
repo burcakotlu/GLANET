@@ -27,208 +27,194 @@ import enumtypes.DnaseOverlapExclusionType;
  *
  */
 public class SimulationDataCreation {
-	
-	public static String getIntervalPoolFileName(String tpmString, DnaseOverlapExclusionType dnaseOverlapExclusionType,String dataFolder){
-		
-		String intervalPoolFileName =  dataFolder + Commons.demo_input_data + System.getProperty("file.separator") +  tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() +  "Intervals_EndInclusive.txt";
-		
+
+	public static String getIntervalPoolFileName( String tpmString,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType, String dataFolder) {
+
+		String intervalPoolFileName = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Intervals_EndInclusive.txt";
+
 		return intervalPoolFileName;
 	}
-	
-	public static void fillIntervalPoolData(
-			String intervalPoolFileName,
-			List<InputLine>  intervalPoolData){
-		
+
+	public static void fillIntervalPoolData( String intervalPoolFileName, List<InputLine> intervalPoolData) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
-		
+
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
-		
+
 		ChromosomeName chrName;
 		int low;
 		int high;
-		
+
 		InputLine inputLine = null;
-		
-		try {
-			
-			fileReader = FileOperations.createFileReader(intervalPoolFileName);
-			bufferedReader = new BufferedReader(fileReader);
-			
-			//chr1	68591	69191	"OR4F5"
-			//chrX	2669591	2670191
-			
-			while((strLine= bufferedReader.readLine())!=null){
-				
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = (indexofFirstTab>0)? strLine.indexOf('\t',indexofFirstTab+1) : -1;
-				indexofThirdTab = (indexofSecondTab>0)? strLine.indexOf('\t',indexofSecondTab+1) : -1;
-				
-				chrName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
-				low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
-				
-				if (indexofThirdTab>0){
-					high = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+
+		try{
+
+			fileReader = FileOperations.createFileReader( intervalPoolFileName);
+			bufferedReader = new BufferedReader( fileReader);
+
+			// chr1 68591 69191 "OR4F5"
+			// chrX 2669591 2670191
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+				indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+
+				chrName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));
+				low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+
+				if( indexofThirdTab > 0){
+					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 				}else{
-					high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
 				}
-				
-				inputLine = new InputLine(chrName, low, high);
-				intervalPoolData.add(inputLine);
-				
-			}//End of while
-					
-			
-			//Close bufferedReader
+
+				inputLine = new InputLine( chrName, low, high);
+				intervalPoolData.add( inputLine);
+
+			}// End of while
+
+			// Close bufferedReader
 			bufferedReader.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		
-	}
-	
-	public static void fillRandomIntervalIndexes(
-			int[] randomIntervalIndexes,
-			int numberofIntervalsInEachSimulation,
-			int numberofIntervalsInIntervalPool){
-		
-		Random rand = new Random(); 
-		
-		for(int i = 0; i < numberofIntervalsInEachSimulation ; i++ ){
-			randomIntervalIndexes[i] = rand.nextInt(numberofIntervalsInIntervalPool); 
-		}//End of For
-		
-	}
-	
-	public static void writeSimulationData(
-			int[] randomIntervalIndexes,
-			List<InputLine> intervalPoolData,
-			String simulationDataFile){
-		
-		InputLine inputLine = null;
-		
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-		
-		try {
-			fileWriter = FileOperations.createFileWriter(simulationDataFile);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			for(int i = 0; i<randomIntervalIndexes.length; i++){
-				inputLine = intervalPoolData.get(randomIntervalIndexes[i]);
-				
-				bufferedWriter.write(inputLine.getChrName().convertEnumtoString() + "\t" + inputLine.getLow() + "\t" + inputLine.getHigh() + System.getProperty("line.separator"));
-			}
-			
-			//Close bufferedWriter
-			bufferedWriter.close();
-			
-		} catch (IOException e) {
+
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
-	
-	public static void generateRandomSimulationData(
-			String dataFolder,
-			String tpmString, 
-			DnaseOverlapExclusionType dnaseOverlapExclusionType,
-			String intervalPoolFileName,
-			int numberofSimulations,
-			int numberofIntervalsInEachSimulation){
-		
-		//There will be one interval pool
+
+	public static void fillRandomIntervalIndexes( int[] randomIntervalIndexes, int numberofIntervalsInEachSimulation,
+			int numberofIntervalsInIntervalPool) {
+
+		Random rand = new Random();
+
+		for( int i = 0; i < numberofIntervalsInEachSimulation; i++){
+			randomIntervalIndexes[i] = rand.nextInt( numberofIntervalsInIntervalPool);
+		}// End of For
+
+	}
+
+	public static void writeSimulationData( int[] randomIntervalIndexes, List<InputLine> intervalPoolData,
+			String simulationDataFile) {
+
+		InputLine inputLine = null;
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try{
+			fileWriter = FileOperations.createFileWriter( simulationDataFile);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( int i = 0; i < randomIntervalIndexes.length; i++){
+				inputLine = intervalPoolData.get( randomIntervalIndexes[i]);
+
+				bufferedWriter.write( inputLine.getChrName().convertEnumtoString() + "\t" + inputLine.getLow() + "\t" + inputLine.getHigh() + System.getProperty( "line.separator"));
+			}
+
+			// Close bufferedWriter
+			bufferedWriter.close();
+
+		}catch( IOException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void generateRandomSimulationData( String dataFolder, String tpmString,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType, String intervalPoolFileName, int numberofSimulations,
+			int numberofIntervalsInEachSimulation) {
+
+		// There will be one interval pool
 		List<InputLine> intervalPoolData = new ArrayList<InputLine>();
-		
-		//There will be one for each simulation
+
+		// There will be one for each simulation
 		String simulationDataFile = null;
 		int[] randomIntervalIndexes = null;
-		
-		fillIntervalPoolData(intervalPoolFileName,intervalPoolData);
-		
+
+		fillIntervalPoolData( intervalPoolFileName, intervalPoolData);
+
 		String baseFolderName = null;
-		
-		//Set baseFolderName
-		baseFolderName = dataFolder + System.getProperty("file.separator") + Commons.SIMULATION_DATA + System.getProperty("file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() ;
-		
-		
-		for(int i = 0; i <numberofSimulations; i++){
-			
-			//Set simulationDataFile
-			simulationDataFile = baseFolderName + Commons.SIMULATION +  i + ".txt"; 
-			
+
+		// Set baseFolderName
+		baseFolderName = dataFolder + System.getProperty( "file.separator") + Commons.SIMULATION_DATA + System.getProperty( "file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString();
+
+		for( int i = 0; i < numberofSimulations; i++){
+
+			// Set simulationDataFile
+			simulationDataFile = baseFolderName + Commons.SIMULATION + i + ".txt";
+
 			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
-			
-			//Get random indexes for each simulation
-			fillRandomIntervalIndexes(randomIntervalIndexes,numberofIntervalsInEachSimulation,intervalPoolData.size());
-			
-			//Write Simulation Data
-			writeSimulationData(randomIntervalIndexes,intervalPoolData,simulationDataFile);
-		
-			
-		}//End of for each simulation
-		
+
+			// Get random indexes for each simulation
+			fillRandomIntervalIndexes( randomIntervalIndexes, numberofIntervalsInEachSimulation,
+					intervalPoolData.size());
+
+			// Write Simulation Data
+			writeSimulationData( randomIntervalIndexes, intervalPoolData, simulationDataFile);
+
+		}// End of for each simulation
+
 	}
-	
+
 	/*
-	 *  args[0] = glanet folder (which includes Data folder inside)
-	 *  args[1] = tpm value (0.1, 0.01, 0.001)
-	 *  args[2] = 0 or otherwise (any value except 0).
-	 * 			 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
-	 * 			 any value except 0 (e.g. 1) = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * args[0] = glanet folder (which includes Data folder inside)
+	 * args[1] = tpm value (0.1, 0.01, 0.001)
+	 * args[2] = 0 or otherwise (any value except 0).
+	 * 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * any value except 0 (e.g. 1) =
+	 * DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
 	 */
-	public static void main(String[] args) {
-		
+	public static void main( String[] args) {
+
 		String glanetFolder = args[0];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-		
-		//default
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+
+		// default
 		String tpmString = Commons.TPM_0_001;
-		
+
 		if( Float.parseFloat( args[1]) == 0.1)
 			tpmString = Commons.TPM_0_1;
 		else if( Float.parseFloat( args[1]) == 0.01)
 			tpmString = Commons.TPM_0_01;
 		else if( Float.parseFloat( args[1]) == 0.001)
 			tpmString = Commons.TPM_0_001;
-		
-		//boolean isDnaseOverlapsExclusionCompletely = true;
-		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
-		
-		DnaseOverlapExclusionType  dnaseOverlapExclusionType;
-		
-		dnaseOverlapExclusionType = (Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
-																	 :DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-		
-		
-		//Depending on tpmString and dnaseOverlapsExcluded
-		//Set IntervalPoolFile
-		String intervalPoolFileName  = getIntervalPoolFileName(tpmString,dnaseOverlapExclusionType,dataFolder);
-		
-		//Other Parameters for Simulations
-		//Number of Simulations
+
+		// boolean isDnaseOverlapsExclusionCompletely = true;
+		// String dnaseOverlapsExclusionPartiallyorCompletely =
+		// DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
+
+		DnaseOverlapExclusionType dnaseOverlapExclusionType;
+
+		dnaseOverlapExclusionType = ( Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+
+		// Depending on tpmString and dnaseOverlapsExcluded
+		// Set IntervalPoolFile
+		String intervalPoolFileName = getIntervalPoolFileName( tpmString, dnaseOverlapExclusionType, dataFolder);
+
+		// Other Parameters for Simulations
+		// Number of Simulations
 		int numberofSimulations = 1000;
-		//Number of intervals in each simulation
+		// Number of intervals in each simulation
 		int numberofIntervalsInEachSimulation = 500;
-		
-		
-		//Generate Simulations Data
-		//Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-		generateRandomSimulationData( dataFolder,tpmString, dnaseOverlapExclusionType,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
-		
-		//Then for each simulationData I will run GLANET
-		//Count the numberofSimulations that have POL2_GM12878 enriched
-		//NumberofSimulations/totalNumberofSimulations will be my false positive rate for POL2_GM12878
-		
-		
+
+		// Generate Simulations Data
+		// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
+		generateRandomSimulationData( dataFolder, tpmString, dnaseOverlapExclusionType, intervalPoolFileName,
+				numberofSimulations, numberofIntervalsInEachSimulation);
+
+		// Then for each simulationData I will run GLANET
+		// Count the numberofSimulations that have POL2_GM12878 enriched
+		// NumberofSimulations/totalNumberofSimulations will be my false positive rate for POL2_GM12878
+
 	}
 
 }

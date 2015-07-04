@@ -439,8 +439,8 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 			
 			//Close
 			bufferedWriter.close();
-			
-		} catch (IOException e) {
+
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -14,9 +14,9 @@ import auxiliary.FileOperations;
 /**
  * @author Bur�ak Otlu
  * @date May 7, 2015
- * @project Glanet 
+ * @project Glanet
  * 
- * Data Driven Experiment Step 4
+ *          Data Driven Experiment Step 4
  *
  */
 public class SimulationGLANETRuns {
@@ -39,7 +39,7 @@ public class SimulationGLANETRuns {
 
 			case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
 
-				bufferedWriter.write( command + "-rd -pe 10000 -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim" + i +"Wo" + System.getProperty( "line.separator"));
+				bufferedWriter.write( command + "-rd -pe 10000 -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim" + i + "Wo" + System.getProperty( "line.separator"));
 				break;
 
 			default:
@@ -53,8 +53,17 @@ public class SimulationGLANETRuns {
 
 	/**
 	 * @param args
-	 *            args[0] = jar location || args[1] = glanet folder (which includes Data folder inside) || args[2] =
-	 *            numbeOfSimulations || args[3] = location to save bat file
+	 * args[0] = jar location
+	 * args[1] = glanet folder (which includes Data folder inside)
+	 * args[2] = numbeOfSimulations
+	 * args[3] = location to save bat file
+	 * 
+	 * Example:
+	 * 
+	 * GLANET.jar (args[0])
+	 * "/Volumes/External/Documents/GLANET/" (args[1])
+	 * "100" (args[2])
+	 * "/Volumes/Macintosh/Users/CanFirtina/Desktop/" (args[3])
 	 */
 	public static void main( String[] args) {
 
@@ -72,7 +81,7 @@ public class SimulationGLANETRuns {
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRuns(1).sh");
 			bufferedWriter = new BufferedWriter( fileWriter);
 			bufferedWriter.write( "#!/bin/bash\n");
-			
+
 			// x12
 			// With GC and Mapability
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_001,
@@ -84,7 +93,7 @@ public class SimulationGLANETRuns {
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_1,
 					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP, withGCandMapability,
 					args);
-			
+
 			bufferedWriter.close();
 			fileWriter.close();
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRuns(2).sh");
@@ -101,7 +110,7 @@ public class SimulationGLANETRuns {
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_1,
 					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
-			
+
 			bufferedWriter.close();
 			fileWriter.close();
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRuns(3).sh");
@@ -127,7 +136,7 @@ public class SimulationGLANETRuns {
 					Commons.TPM_0_1,
 					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withGCandMapability, args);
-			
+
 			bufferedWriter.close();
 			fileWriter.close();
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRuns(4).sh");
