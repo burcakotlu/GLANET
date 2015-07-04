@@ -28,7 +28,7 @@ public class Commons {
 	public static final String ENRICHMENT_BINARY_MATRIX_FOR_ALL_PHENOTYPES = "EnrichmentBinaryMatrixForAllPhenotypes";
 
 	public static final String BYGLANET = "byGLANET";
-	public static final String LOCAL_DISK_G_GLANET_DATA = "G:" + System.getProperty("file.separator") + "GLANET_DATA" + System.getProperty("file.separator");
+	//public static final String LOCAL_DISK_G_GLANET_DATA = "/Volumes/My Passport" + System.getProperty("file.separator") + "GLANET" + System.getProperty("file.separator");
 	public static final String ENCODE = "ENCODE";
 	public static final String UCSCGENOME = "UCSCGENOME";
 	public static final String NCBI = "NCBI";

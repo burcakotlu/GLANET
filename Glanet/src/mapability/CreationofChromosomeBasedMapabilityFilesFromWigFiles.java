@@ -32,7 +32,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 	final static Logger logger = Logger.getLogger(CreationofChromosomeBasedMapabilityFilesFromWigFiles.class);
 	
 
-	public static void readMapabilityFileWriteChromBasedMapabilityFiles(
+	public static void readMapabilityFileWriteChromBasedMapabilityFiles( String dataFolder,
 			TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
 
 		BufferedReader bufferedReader;
@@ -52,7 +52,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 		BufferedWriter correspondingBufferedWriter = null;
 
 		try {
-			bufferedReader = FileOperations.createBufferedReader(Commons.LOCAL_DISK_G_GLANET_DATA , Commons.WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG);
+			bufferedReader = FileOperations.createBufferedReader( dataFolder , Commons.WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG);
 
 			while ((strLine = bufferedReader.readLine()) != null) {
 				indexofNumber = strLine.indexOf('#');
@@ -144,13 +144,12 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
-		
 		TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
 		//Map<ChromosomeName, BufferedWriter> chromName2BufferedWriterHashMap = new HashMap<ChromosomeName, BufferedWriter>();
 
-		createChromBasedBufferedWriters(dataFolder,chromName2BufferedWriterMap);
-		readMapabilityFileWriteChromBasedMapabilityFiles(chromName2BufferedWriterMap);
-		closeChromBasedBufferedWriters(chromName2BufferedWriterMap);
+		createChromBasedBufferedWriters( dataFolder,chromName2BufferedWriterMap);
+		readMapabilityFileWriteChromBasedMapabilityFiles( dataFolder, chromName2BufferedWriterMap);
+		closeChromBasedBufferedWriters( chromName2BufferedWriterMap);
 
 	}
 

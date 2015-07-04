@@ -610,10 +610,10 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 
-		File dnaseDir1 = new File(Commons.LOCAL_DISK_G_GLANET_DATA + common.Commons.ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 = new File(Commons.LOCAL_DISK_G_GLANET_DATA + common.Commons.ENCODE_DNASE_DIRECTORY2);
-		File tfDir = new File(Commons.LOCAL_DISK_G_GLANET_DATA + common.Commons.ENCODE_TFBS_DIRECTORY);
-		File histoneDir = new File(Commons.LOCAL_DISK_G_GLANET_DATA + common.Commons.ENCODE_HISTONE_DIRECTORY);
+		File dnaseDir1 = new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir2 = new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
+		File tfDir = new File( dataFolder+ common.Commons.ENCODE_TFBS_DIRECTORY);
+		File histoneDir = new File( dataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
 
 		List<BufferedWriter> ENCODEDnaseBufferedWriterList = new ArrayList<BufferedWriter>();
 		List<BufferedWriter> ENCODETFBufferedWriterList = new ArrayList<BufferedWriter>();

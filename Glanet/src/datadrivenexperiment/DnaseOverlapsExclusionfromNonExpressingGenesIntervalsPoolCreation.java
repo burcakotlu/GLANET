@@ -4,7 +4,6 @@
 package datadrivenexperiment;
 
 import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -12,7 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import common.Commons;
@@ -28,7 +26,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Apr 16, 2015
  * @project Glanet 
  *
@@ -483,24 +481,29 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 	}
 	
 
-	
+	/*
+	 * args[0] = glanet folder (which includes Data folder inside)
+	 * args[1] = tpm value (0.1, 0.01, 0.001)
+	 * args[2] = 0 or otherwise (any value except 0).
+	 * 			 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * 			 any value except 0 (e.g. 1) = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 */
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String glanetFolder = args[0];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
-		DnaseOverlapExclusionType  dnaseOverlapExclusionType = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-		//DnaseOverlapExclusionType  dnaseOverlapExclusionType = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		DnaseOverlapExclusionType  dnaseOverlapExclusionType;
+		
+		dnaseOverlapExclusionType = (Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+																	 :DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
 		//We will create interval pools of 
-		//float tpm= 0.1f;
-		//float tpm= 0.01f;
-		float tpm= 0.001f;
+		float tpm = Float.parseFloat( args[1]);
 		
 		String tpmString = NonExpressingGenesIntervalsPoolCreation.getTPMString(tpm);
 		
 		System.out.println("tpm is: " + tpm + " DnaseOverlaps is: " + dnaseOverlapExclusionType.convertEnumtoString());
-		
 		
 		/********************************************************************************/
 		List<String> dnaseCellLineNameList = new ArrayList<String>();

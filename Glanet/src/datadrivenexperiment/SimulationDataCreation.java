@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import auxiliary.FileOperations;
 import common.Commons;
 import enrichment.InputLine;
@@ -20,7 +19,7 @@ import enumtypes.CommandLineArguments;
 import enumtypes.DnaseOverlapExclusionType;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date May 1, 2015
  * @project Glanet 
  *
@@ -177,24 +176,35 @@ public class SimulationDataCreation {
 		
 	}
 	
+	/*
+	 *  args[0] = glanet folder (which includes Data folder inside)
+	 *  args[1] = tpm value (0.1, 0.01, 0.001)
+	 *  args[2] = 0 or otherwise (any value except 0).
+	 * 			 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * 			 any value except 0 (e.g. 1) = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 */
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		String glanetFolder = args[0];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 		
-		
-		
-		//Parameters for Simulations
-		//TPM Run simulations 
-		//String tpmString = Commons.TPM_0_1;
-		//String tpmString = Commons.TPM_0_01;
+		//default
 		String tpmString = Commons.TPM_0_001;
+		
+		if( Float.parseFloat( args[1]) == 0.1)
+			tpmString = Commons.TPM_0_1;
+		else if( Float.parseFloat( args[1]) == 0.01)
+			tpmString = Commons.TPM_0_01;
+		else if( Float.parseFloat( args[1]) == 0.001)
+			tpmString = Commons.TPM_0_001;
 		
 		//boolean isDnaseOverlapsExclusionCompletely = true;
 		//String dnaseOverlapsExclusionPartiallyorCompletely = DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation.getDnaseOverlapsExclusionString(isDnaseOverlapsExclusionCompletely);
 		
-		//DnaseOverlapExclusionType dnaseOverlapExclusionType  = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-		DnaseOverlapExclusionType dnaseOverlapExclusionType  = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		DnaseOverlapExclusionType  dnaseOverlapExclusionType;
+		
+		dnaseOverlapExclusionType = (Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+																	 :DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
 		
 		//Depending on tpmString and dnaseOverlapsExcluded
@@ -210,7 +220,7 @@ public class SimulationDataCreation {
 		
 		//Generate Simulations Data
 		//Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-		generateRandomSimulationData(dataFolder,tpmString, dnaseOverlapExclusionType,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
+		generateRandomSimulationData( dataFolder,tpmString, dnaseOverlapExclusionType,intervalPoolFileName,numberofSimulations,numberofIntervalsInEachSimulation);
 		
 		//Then for each simulationData I will run GLANET
 		//Count the numberofSimulations that have POL2_GM12878 enriched
