@@ -9,40 +9,37 @@ package enumtypes;
  * 
  */
 public enum KeggPathwayAnalysisType {
-	
-	EXONBASEDKEGGPATHWAYANALYSIS(1),
-	REGULATIONBASEDKEGGPATHWAYANALYSIS(2),
-	ALLBASEDKEGGPATHWAYANALYSIS(3);
-	
+
+	EXONBASEDKEGGPATHWAYANALYSIS( 1), REGULATIONBASEDKEGGPATHWAYANALYSIS( 2), ALLBASEDKEGGPATHWAYANALYSIS( 3);
+
 	private final int keggPathwayAnalysisType;
-	
-	
-	
+
 	public int getKeggPathwayAnalysisType() {
+
 		return keggPathwayAnalysisType;
 	}
 
-
-
 	// Constructor
-	private KeggPathwayAnalysisType(int keggPathwayAnalysisType){
-      this.keggPathwayAnalysisType = keggPathwayAnalysisType;
-   }
-	
-	
-	 
-    /** An added method.  */
-    public boolean isExonBasedKeggPathwayAnalysis() {
-     return  this == EXONBASEDKEGGPATHWAYANALYSIS;
-    }
+	private KeggPathwayAnalysisType( int keggPathwayAnalysisType) {
 
-    /** An added method.  */
-    public boolean isRegulationBasedKeggPathwayAnalysis() {
-     return  this == REGULATIONBASEDKEGGPATHWAYANALYSIS;
-    }
-    
-    /** An added method.  */
-    public boolean isAllBasedKeggPathwayAnalysis() {
-     return  this == ALLBASEDKEGGPATHWAYANALYSIS;
-    }
+		this.keggPathwayAnalysisType = keggPathwayAnalysisType;
+	}
+
+	/** An added method.  */
+	public boolean isExonBasedKeggPathwayAnalysis() {
+
+		return this == EXONBASEDKEGGPATHWAYANALYSIS;
+	}
+
+	/** An added method.  */
+	public boolean isRegulationBasedKeggPathwayAnalysis() {
+
+		return this == REGULATIONBASEDKEGGPATHWAYANALYSIS;
+	}
+
+	/** An added method.  */
+	public boolean isAllBasedKeggPathwayAnalysis() {
+
+		return this == ALLBASEDKEGGPATHWAYANALYSIS;
+	}
 }

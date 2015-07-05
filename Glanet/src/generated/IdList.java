@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,12 +18,12 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "id" })
-@XmlRootElement(name = "IdList")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"id"})
+@XmlRootElement( name = "IdList")
 public class IdList {
 
-	@XmlElement(name = "Id")
+	@XmlElement( name = "Id")
 	protected List<Id> id;
 
 	/**
@@ -50,7 +49,8 @@ public class IdList {
 	 * 
 	 */
 	public List<Id> getId() {
-		if (id == null) {
+
+		if( id == null){
 			id = new ArrayList<Id>();
 		}
 		return this.id;

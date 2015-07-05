@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,12 +19,12 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "termSetOrOP" })
-@XmlRootElement(name = "TranslationStack")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"termSetOrOP"})
+@XmlRootElement( name = "TranslationStack")
 public class TranslationStack {
 
-	@XmlElements({ @XmlElement(name = "TermSet", type = TermSet.class), @XmlElement(name = "OP", type = OP.class) })
+	@XmlElements( {@XmlElement( name = "TermSet", type = TermSet.class), @XmlElement( name = "OP", type = OP.class)})
 	protected List<Object> termSetOrOP;
 
 	/**
@@ -52,7 +51,8 @@ public class TranslationStack {
 	 * 
 	 */
 	public List<Object> getTermSetOrOP() {
-		if (termSetOrOP == null) {
+
+		if( termSetOrOP == null){
 			termSetOrOP = new ArrayList<Object>();
 		}
 		return this.termSetOrOP;

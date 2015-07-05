@@ -51,61 +51,58 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.rpc.ServiceException;
-
 import org.apache.log4j.Logger;
-
 import RSATWS.MatrixScanRequest;
 import RSATWS.MatrixScanResponse;
 import RSATWS.RSATWSPortType;
 import RSATWS.RSATWebServicesLocator;
 import auxiliary.FileOperations;
 import auxiliary.GlanetDecimalFormat;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
-	final static Logger logger = Logger.getLogger(RegulatorySequenceAnalysisUsingRSATMatrixScan.class);
+	final static Logger logger = Logger.getLogger( RegulatorySequenceAnalysisUsingRSATMatrixScan.class);
 
 	/**
 	 * 
 	 */
 	public RegulatorySequenceAnalysisUsingRSATMatrixScan() {
+
 		// TODO Auto-generated constructor stub
 	}
 
-	public static String readFirstLinefromFasta(String fasta) {
+	public static String readFirstLinefromFasta( String fasta) {
 
 		String firstLine = null;
 
 		int indexofLineSeparator;
 
-		indexofLineSeparator = fasta.indexOf(System.getProperty("line.separator"));
+		indexofLineSeparator = fasta.indexOf( System.getProperty( "line.separator"));
 
-		if (indexofLineSeparator > 0) {
-			firstLine = fasta.substring(0, indexofLineSeparator);
+		if( indexofLineSeparator > 0){
+			firstLine = fasta.substring( 0, indexofLineSeparator);
 		}
 
 		return firstLine;
 
 	}
 
-	public static String readFirstLinefromFile(String inputFileName) {
+	public static String readFirstLinefromFile( String inputFileName) {
+
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
 		String strLine = null;
 		String firstLine = "";
 
-		try {
-			fileReader = new FileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				firstLine = firstLine + strLine;
 				break;
 			}
@@ -113,34 +110,35 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			// Close BufferedReader
 			bufferedReader.close();
 
-		} catch (IOException e) {
-			logger.error(e.toString());
+		}catch( IOException e){
+			logger.error( e.toString());
 		}
 
 		return firstLine;
 
 	}
 
-	public static String readAllfromFile(String inputFileName) {
+	public static String readAllfromFile( String inputFileName) {
+
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
 		String strLine = null;
 		String all = "";
 
-		try {
-			fileReader = new FileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				all = all + strLine + System.getProperty("line.separator");
+			while( ( strLine = bufferedReader.readLine()) != null){
+				all = all + strLine + System.getProperty( "line.separator");
 
 			}
 
 			bufferedReader.close();
 
-		} catch (IOException e) {
-			logger.error(e.toString());
+		}catch( IOException e){
+			logger.error( e.toString());
 		}
 
 		return all;
@@ -149,15 +147,14 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 	// direction does not matter
 	// start is always less than end
-	public static boolean constainsSNP(int start, int end, int snpPosition) {
-		if (snpPosition <= end && snpPosition >= start) {
-			return true;
-		}
+	public static boolean constainsSNP( int start, int end, int snpPosition) {
+
+		if( snpPosition <= end && snpPosition >= start){ return true; }
 
 		return false;
 	}
 
-	public static int getTFPeakOneBasedStartPosition(String resultLine) {
+	public static int getTFPeakOneBasedStartPosition( String resultLine) {
 
 		// example
 		// gi|224589818:170862228-170862467 site matrix-scan-matrix_2014-04-14.5
@@ -165,10 +162,10 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		// gi|568815576:21628381-21630286 site matrix-scan-matrix_2015-01-27.11
 		// D 695 704 GGCACGCGCG 8.0 4.4e-07 -14.632 6.354 1 1
 
-		int indexofFirstColon = resultLine.indexOf(':');
-		int indexofFirstHyphen = resultLine.indexOf('-');
+		int indexofFirstColon = resultLine.indexOf( ':');
+		int indexofFirstHyphen = resultLine.indexOf( '-');
 
-		return Integer.parseInt(resultLine.substring(indexofFirstColon + 1, indexofFirstHyphen));
+		return Integer.parseInt( resultLine.substring( indexofFirstColon + 1, indexofFirstHyphen));
 
 	}
 
@@ -185,16 +182,16 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	//
 	// }
 
-	public static int getSNPOneBasedPosition(String snpReferenceSequence) {
+	public static int getSNPOneBasedPosition( String snpReferenceSequence) {
 
 		// example snp reference sequence
 		// >gi|568815587:47291327-47291355 Homo sapiens chromosome 11, GRCh38
 		// Primary Assembly SNPReferenceSequence_chr11_47291341
 		// GTTCTTTAAATGCTTCTTCACTGGACTTG
-		int indexofFirstColon = snpReferenceSequence.indexOf(':');
-		int indexofFirstHyphen = snpReferenceSequence.indexOf('-');
+		int indexofFirstColon = snpReferenceSequence.indexOf( ':');
+		int indexofFirstHyphen = snpReferenceSequence.indexOf( '-');
 
-		return Integer.parseInt(snpReferenceSequence.substring(indexofFirstColon + 1, indexofFirstHyphen)) + Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION;
+		return Integer.parseInt( snpReferenceSequence.substring( indexofFirstColon + 1, indexofFirstHyphen)) + Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION;
 
 	}
 
@@ -203,10 +200,12 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	// SNP_REFERENCE_SEQUENCE
 	// SNP_ALTERED_SEQUENCE
 	// TF_EXTENDED_PEAK_SEQUENCE
-	public static Result checkWhetherResultLineContainsSNPPositionAndWriteIfContains(SequenceType sequenceType, String description, String resultLine, BufferedWriter bufferedWriter, Integer snpOneBasedPosition, Result snpReferenceSequenceResultContaingSNPPosition) {
+	public static Result checkWhetherResultLineContainsSNPPositionAndWriteIfContains( SequenceType sequenceType,
+			String description, String resultLine, BufferedWriter bufferedWriter, Integer snpOneBasedPosition,
+			Result snpReferenceSequenceResultContaingSNPPosition) {
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
 		int start = 0;
@@ -227,79 +226,79 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		int tfPeakOneBasedStartPosition = 0;
 		int snpOneBasedPositionWithRespectoPeakSequence = 0;
 
-		int indexofFirstTab = resultLine.indexOf('\t');
-		int indexofSecondTab = (indexofFirstTab > 0) ? resultLine.indexOf('\t', indexofFirstTab + 1) : -1;
-		int indexofThirdTab = (indexofSecondTab > 0) ? resultLine.indexOf('\t', indexofSecondTab + 1) : -1;
-		int indexofFourthTab = (indexofThirdTab > 0) ? resultLine.indexOf('\t', indexofThirdTab + 1) : -1;
-		int indexofFifthTab = (indexofFourthTab > 0) ? resultLine.indexOf('\t', indexofFourthTab + 1) : -1;
-		int indexofSixthTab = (indexofFifthTab > 0) ? resultLine.indexOf('\t', indexofFifthTab + 1) : -1;
-		int indexofSeventhTab = (indexofSixthTab > 0) ? resultLine.indexOf('\t', indexofSixthTab + 1) : -1;
-		int indexofEigthTab = (indexofSeventhTab > 0) ? resultLine.indexOf('\t', indexofSeventhTab + 1) : -1;
-		int indexofNinethTab = (indexofEigthTab > 0) ? resultLine.indexOf('\t', indexofEigthTab + 1) : -1;
+		int indexofFirstTab = resultLine.indexOf( '\t');
+		int indexofSecondTab = ( indexofFirstTab > 0)?resultLine.indexOf( '\t', indexofFirstTab + 1):-1;
+		int indexofThirdTab = ( indexofSecondTab > 0)?resultLine.indexOf( '\t', indexofSecondTab + 1):-1;
+		int indexofFourthTab = ( indexofThirdTab > 0)?resultLine.indexOf( '\t', indexofThirdTab + 1):-1;
+		int indexofFifthTab = ( indexofFourthTab > 0)?resultLine.indexOf( '\t', indexofFourthTab + 1):-1;
+		int indexofSixthTab = ( indexofFifthTab > 0)?resultLine.indexOf( '\t', indexofFifthTab + 1):-1;
+		int indexofSeventhTab = ( indexofSixthTab > 0)?resultLine.indexOf( '\t', indexofSixthTab + 1):-1;
+		int indexofEigthTab = ( indexofSeventhTab > 0)?resultLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+		int indexofNinethTab = ( indexofEigthTab > 0)?resultLine.indexOf( '\t', indexofEigthTab + 1):-1;
 
-		start = Integer.parseInt(resultLine.substring(indexofFourthTab + 1, indexofFifthTab));
-		end = Integer.parseInt(resultLine.substring(indexofFifthTab + 1, indexofSixthTab));
+		start = Integer.parseInt( resultLine.substring( indexofFourthTab + 1, indexofFifthTab));
+		end = Integer.parseInt( resultLine.substring( indexofFifthTab + 1, indexofSixthTab));
 
-		switch (sequenceType) {
+		switch( sequenceType){
 
-			case SNP_REFERENCE_SEQUENCE:
-			case SNP_ALTERED_SEQUENCE:
-				containsSNP = constainsSNP(start, end, Commons.ONE_BASED_SNP_POSITION);
-				break;
+		case SNP_REFERENCE_SEQUENCE:
+		case SNP_ALTERED_SEQUENCE:
+			containsSNP = constainsSNP( start, end, Commons.ONE_BASED_SNP_POSITION);
+			break;
 
-			case TF_EXTENDED_PEAK_SEQUENCE:
-				tfPeakOneBasedStartPosition = getTFPeakOneBasedStartPosition(resultLine);
+		case TF_EXTENDED_PEAK_SEQUENCE:
+			tfPeakOneBasedStartPosition = getTFPeakOneBasedStartPosition( resultLine);
 
-				snpOneBasedPositionWithRespectoPeakSequence = snpOneBasedPosition - tfPeakOneBasedStartPosition + 1;
+			snpOneBasedPositionWithRespectoPeakSequence = snpOneBasedPosition - tfPeakOneBasedStartPosition + 1;
 
-				containsSNP = constainsSNP(start, end, snpOneBasedPositionWithRespectoPeakSequence);
-				break;
+			containsSNP = constainsSNP( start, end, snpOneBasedPositionWithRespectoPeakSequence);
+			break;
 
 		}// End of SWITCH
 
-		if (containsSNP) {
+		if( containsSNP){
 
 			// matrix-scan-matrix_2014-08-29.14 means 13rd matrix in the file
-			matrixName = resultLine.substring(indexofSecondTab + 1, indexofThirdTab);
-			indexofDot = matrixName.indexOf('.');
-			if (indexofDot >= 0) {
-				matrixNumber = Integer.parseInt(matrixName.substring(indexofDot + 1)) - 1;
-			} else {
+			matrixName = resultLine.substring( indexofSecondTab + 1, indexofThirdTab);
+			indexofDot = matrixName.indexOf( '.');
+			if( indexofDot >= 0){
+				matrixNumber = Integer.parseInt( matrixName.substring( indexofDot + 1)) - 1;
+			}else{
 				// if there is no '.' this means that there is only one matrix
 				// which is numbered 1.
 				matrixNumber = 1;
 			}
 
-			direction = resultLine.substring(indexofThirdTab + 1, indexofFourthTab).charAt(0);
-			sequence = resultLine.substring(indexofSixthTab + 1, indexofSeventhTab);
-			pValue = Double.parseDouble(resultLine.substring(indexofEigthTab + 1, indexofNinethTab));
+			direction = resultLine.substring( indexofThirdTab + 1, indexofFourthTab).charAt( 0);
+			sequence = resultLine.substring( indexofSixthTab + 1, indexofSeventhTab);
+			pValue = Double.parseDouble( resultLine.substring( indexofEigthTab + 1, indexofNinethTab));
 
 			result = new Result();
 
-			result.setResultLine(resultLine);
-			result.setpValue(pValue);
+			result.setResultLine( resultLine);
+			result.setpValue( pValue);
 
-			try {
+			try{
 
-				switch (sequenceType) {
-					case SNP_REFERENCE_SEQUENCE:
-					case TF_EXTENDED_PEAK_SEQUENCE:
-						bufferedWriter.write(sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + System.getProperty("line.separator"));
-						break;
+				switch( sequenceType){
+				case SNP_REFERENCE_SEQUENCE:
+				case TF_EXTENDED_PEAK_SEQUENCE:
+					bufferedWriter.write( sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format( pValue) + System.getProperty( "line.separator"));
+					break;
 
-					case SNP_ALTERED_SEQUENCE:
-						if (snpReferenceSequenceResultContaingSNPPosition != null) {
-							logRatio = Math.log10(snpReferenceSequenceResultContaingSNPPosition.getpValue() / pValue);
-							bufferedWriter.write(sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + "\t" + df.format(logRatio) + System.getProperty("line.separator"));
-						} else {
-							bufferedWriter.write(sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + System.getProperty("line.separator"));
-						}
-						break;
+				case SNP_ALTERED_SEQUENCE:
+					if( snpReferenceSequenceResultContaingSNPPosition != null){
+						logRatio = Math.log10( snpReferenceSequenceResultContaingSNPPosition.getpValue() / pValue);
+						bufferedWriter.write( sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format( pValue) + "\t" + df.format( logRatio) + System.getProperty( "line.separator"));
+					}else{
+						bufferedWriter.write( sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format( pValue) + System.getProperty( "line.separator"));
+					}
+					break;
 
 				}// End of SWITCH
-			} catch (IOException e) {
+			}catch( IOException e){
 
-				logger.error(e.toString());
+				logger.error( e.toString());
 			}
 
 		}// End of IF resultLine contains SNP Position
@@ -309,10 +308,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	}
 
 	// 27 January 2015
-	public static void writeResultLine(SequenceType sequenceType, String description, String resultLine, BufferedWriter bufferedWriter) {
+	public static void writeResultLine( SequenceType sequenceType, String description, String resultLine,
+			BufferedWriter bufferedWriter) {
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
 		String matrixName = null;
@@ -329,15 +329,15 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		// gi|568815587:47291327-47291355 site matrix-scan-matrix_2015-01-27.7 D
 		// 17 26 TTCACTGGAC 2.8 1.0e-02 -4.562 1.981 1 1
 
-		int indexofFirstTab = resultLine.indexOf('\t');
-		int indexofSecondTab = (indexofFirstTab > 0) ? resultLine.indexOf('\t', indexofFirstTab + 1) : -1;
-		int indexofThirdTab = (indexofSecondTab > 0) ? resultLine.indexOf('\t', indexofSecondTab + 1) : -1;
-		int indexofFourthTab = (indexofThirdTab > 0) ? resultLine.indexOf('\t', indexofThirdTab + 1) : -1;
-		int indexofFifthTab = (indexofFourthTab > 0) ? resultLine.indexOf('\t', indexofFourthTab + 1) : -1;
-		int indexofSixthTab = (indexofFifthTab > 0) ? resultLine.indexOf('\t', indexofFifthTab + 1) : -1;
-		int indexofSeventhTab = (indexofSixthTab > 0) ? resultLine.indexOf('\t', indexofSixthTab + 1) : -1;
-		int indexofEigthTab = (indexofSeventhTab > 0) ? resultLine.indexOf('\t', indexofSeventhTab + 1) : -1;
-		int indexofNinethTab = (indexofEigthTab > 0) ? resultLine.indexOf('\t', indexofEigthTab + 1) : -1;
+		int indexofFirstTab = resultLine.indexOf( '\t');
+		int indexofSecondTab = ( indexofFirstTab > 0)?resultLine.indexOf( '\t', indexofFirstTab + 1):-1;
+		int indexofThirdTab = ( indexofSecondTab > 0)?resultLine.indexOf( '\t', indexofSecondTab + 1):-1;
+		int indexofFourthTab = ( indexofThirdTab > 0)?resultLine.indexOf( '\t', indexofThirdTab + 1):-1;
+		int indexofFifthTab = ( indexofFourthTab > 0)?resultLine.indexOf( '\t', indexofFourthTab + 1):-1;
+		int indexofSixthTab = ( indexofFifthTab > 0)?resultLine.indexOf( '\t', indexofFifthTab + 1):-1;
+		int indexofSeventhTab = ( indexofSixthTab > 0)?resultLine.indexOf( '\t', indexofSixthTab + 1):-1;
+		int indexofEigthTab = ( indexofSeventhTab > 0)?resultLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+		int indexofNinethTab = ( indexofEigthTab > 0)?resultLine.indexOf( '\t', indexofEigthTab + 1):-1;
 
 		// RSAT convention MatrixNumber = LastNumber -1
 		// matrix name
@@ -348,44 +348,45 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		// can be matrix-scan_2014-08-29
 
 		// matrix-scan-matrix_2014-08-29.14 means 13rd matrix in the file
-		matrixName = resultLine.substring(indexofSecondTab + 1, indexofThirdTab);
-		indexofDot = matrixName.indexOf('.');
-		if (indexofDot >= 0) {
-			matrixNumber = Integer.parseInt(matrixName.substring(indexofDot + 1)) - 1;
-		} else {
+		matrixName = resultLine.substring( indexofSecondTab + 1, indexofThirdTab);
+		indexofDot = matrixName.indexOf( '.');
+		if( indexofDot >= 0){
+			matrixNumber = Integer.parseInt( matrixName.substring( indexofDot + 1)) - 1;
+		}else{
 			// if there is no '.' this means that there is only one matrix which
 			// is numbered 1.
 			matrixNumber = 1;
 		}
 
-		direction = resultLine.substring(indexofThirdTab + 1, indexofFourthTab).charAt(0);
-		start = Integer.parseInt(resultLine.substring(indexofFourthTab + 1, indexofFifthTab));
-		end = Integer.parseInt(resultLine.substring(indexofFifthTab + 1, indexofSixthTab));
-		sequence = resultLine.substring(indexofSixthTab + 1, indexofSeventhTab);
-		pValue = Double.parseDouble(resultLine.substring(indexofEigthTab + 1, indexofNinethTab));
+		direction = resultLine.substring( indexofThirdTab + 1, indexofFourthTab).charAt( 0);
+		start = Integer.parseInt( resultLine.substring( indexofFourthTab + 1, indexofFifthTab));
+		end = Integer.parseInt( resultLine.substring( indexofFifthTab + 1, indexofSixthTab));
+		sequence = resultLine.substring( indexofSixthTab + 1, indexofSeventhTab);
+		pValue = Double.parseDouble( resultLine.substring( indexofEigthTab + 1, indexofNinethTab));
 
-		try {
-			bufferedWriter.write(sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format(pValue) + System.getProperty("line.separator"));
-		} catch (IOException e) {
+		try{
+			bufferedWriter.write( sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format( pValue) + System.getProperty( "line.separator"));
+		}catch( IOException e){
 
-			logger.error(e.toString());
+			logger.error( e.toString());
 		}
 
 	}
 
 	// 27 January 2015
-	public static void findAndWriteFirstResultLine(SequenceType sequenceType, String description, String matrixScanResult, BufferedWriter bufferedWriter, Result resultLineToBeCompared) {
+	public static void findAndWriteFirstResultLine( SequenceType sequenceType, String description,
+			String matrixScanResult, BufferedWriter bufferedWriter, Result resultLineToBeCompared) {
 
 		String resultLine = null;
 
-		BufferedReader bufferedReader = new BufferedReader(new StringReader(matrixScanResult));
+		BufferedReader bufferedReader = new BufferedReader( new StringReader( matrixScanResult));
 
-		try {
+		try{
 
-			while ((resultLine = bufferedReader.readLine()) != null) {
+			while( ( resultLine = bufferedReader.readLine()) != null){
 
-				if (resultLine.charAt(0) != ';' && resultLine.charAt(0) != '#') {
-					writeResultLine(sequenceType, description, resultLine, bufferedWriter);
+				if( resultLine.charAt( 0) != ';' && resultLine.charAt( 0) != '#'){
+					writeResultLine( sequenceType, description, resultLine, bufferedWriter);
 					break;
 				}// End of IF
 
@@ -394,15 +395,17 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			// Close bufferedReader
 			bufferedReader.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 
-			logger.error(e.toString());
+			logger.error( e.toString());
 		}
 
 	}
 
 	// 27 January 2015
-	public static Result findAndWriteResultLineContainingSNPPosition(SequenceType sequenceType, String description, String matrixScanResult, BufferedWriter bufferedWriter, Integer snpOneBasedPosition, Result snpReferenceSequenceResultContaingSNPPosition) {
+	public static Result findAndWriteResultLineContainingSNPPosition( SequenceType sequenceType, String description,
+			String matrixScanResult, BufferedWriter bufferedWriter, Integer snpOneBasedPosition,
+			Result snpReferenceSequenceResultContaingSNPPosition) {
 
 		String resultLine = null;
 		Result resultLineContainingSNPPosition = null;
@@ -411,22 +414,24 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 		String lineNumberAddedDescription = null;
 
-		BufferedReader bufferedReader = new BufferedReader(new StringReader(matrixScanResult));
+		BufferedReader bufferedReader = new BufferedReader( new StringReader( matrixScanResult));
 
-		try {
-			while ((resultLine = bufferedReader.readLine()) != null && !containsSNP) {
+		try{
+			while( ( resultLine = bufferedReader.readLine()) != null && !containsSNP){
 
-				if (resultLine.charAt(0) != ';' && resultLine.charAt(0) != '#') {
+				if( resultLine.charAt( 0) != ';' && resultLine.charAt( 0) != '#'){
 
 					lineNumberAddedDescription = resultLineCount + ". " + description;
 
-					resultLineContainingSNPPosition = checkWhetherResultLineContainsSNPPositionAndWriteIfContains(sequenceType, lineNumberAddedDescription, resultLine, bufferedWriter, snpOneBasedPosition, snpReferenceSequenceResultContaingSNPPosition);
+					resultLineContainingSNPPosition = checkWhetherResultLineContainsSNPPositionAndWriteIfContains(
+							sequenceType, lineNumberAddedDescription, resultLine, bufferedWriter, snpOneBasedPosition,
+							snpReferenceSequenceResultContaingSNPPosition);
 
 					resultLineCount++;
 
 					// Not null resultLineContainingSNPPosition means that this
 					// result line contains SNP Position
-					if (resultLineContainingSNPPosition != null) {
+					if( resultLineContainingSNPPosition != null){
 						break;
 					}
 				}// End of IF
@@ -436,15 +441,15 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			// Close reader
 			bufferedReader.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 
-			logger.error(e.toString());
+			logger.error( e.toString());
 		}
 
 		return resultLineContainingSNPPosition;
 	}
 
-	public static void initializeMatrixScanParameters(MatrixScanRequest matrixScanRequest) {
+	public static void initializeMatrixScanParameters( MatrixScanRequest matrixScanRequest) {
 
 		String sequence_format;
 		String matrixFormat;
@@ -458,16 +463,16 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		Integer pseudo_counts;
 		Integer score_decimals;
 		String n_treatment;
-		String[] uth = { "pval 0.1" };
+		String[] uth = {"pval 0.1"};
 
 		sequence_format = "fasta";
-		matrixScanRequest.setSequence_format(sequence_format);
+		matrixScanRequest.setSequence_format( sequence_format);
 
 		// How to set this parameter?
 		// mask = "non-dna";
 
 		matrixFormat = "tab";
-		matrixScanRequest.setMatrix_format(matrixFormat);
+		matrixScanRequest.setMatrix_format( matrixFormat);
 
 		// While running RSAT from web site with homo sapiens grch37
 		// precalculated background model
@@ -499,69 +504,71 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		// Error: You must specify the method for background estimation (an
 		// option among -bgfile, -bginput, -window)
 		markov = 1;
-		matrixScanRequest.setMarkov(markov);
+		matrixScanRequest.setMarkov( markov);
 
 		organism = Commons.RSAT_ORGANISM_Homo_sapiens_GRCh38;
-		matrixScanRequest.setOrganism(organism);
+		matrixScanRequest.setOrganism( organism);
 
 		background = Commons.RSAT_BACKGROUND_upstream_noorf;
-		matrixScanRequest.setBackground(background);
+		matrixScanRequest.setBackground( background);
 
 		pseudo_frequencies = 0.01f;
-		matrixScanRequest.setBackground_pseudo(new Float(pseudo_frequencies));
+		matrixScanRequest.setBackground_pseudo( new Float( pseudo_frequencies));
 
-		search_strands = new Integer(2);
-		matrixScanRequest.setStr(search_strands);
+		search_strands = new Integer( 2);
+		matrixScanRequest.setStr( search_strands);
 
 		// Although it is set to start
 		// It is not set in the called matrixScan
 		origin = "start";
-		matrixScanRequest.setOrigin(origin);
+		matrixScanRequest.setOrigin( origin);
 
 		// how to set this parameter?
 		// offset = "0";
 
-		verbosity = new Integer(1);
-		matrixScanRequest.setVerbosity(verbosity);
+		verbosity = new Integer( 1);
+		matrixScanRequest.setVerbosity( verbosity);
 
-		pseudo_counts = new Integer(1);
-		matrixScanRequest.setPseudo(pseudo_counts);
+		pseudo_counts = new Integer( 1);
+		matrixScanRequest.setPseudo( pseudo_counts);
 
-		score_decimals = new Integer(1);
-		matrixScanRequest.setDecimals(score_decimals);
+		score_decimals = new Integer( 1);
+		matrixScanRequest.setDecimals( score_decimals);
 
 		n_treatment = "score";
-		matrixScanRequest.setN_treatment(n_treatment);
+		matrixScanRequest.setN_treatment( n_treatment);
 
 		// If you do not set these parameters
 		// they are set to NONE
 
-		matrixScanRequest.setUth(uth);
-		matrixScanRequest.setReturn_fields("sites,pval,rank");
+		matrixScanRequest.setUth( uth);
+		matrixScanRequest.setReturn_fields( "sites,pval,rank");
 
 	}
 
-	public static String matrixScan(String sequence, String resultKey, String pfmMatrices, Map<String, String> sequence2RSATResultMap, MatrixScanRequest matrixScanRequest, RSATWSPortType proxy, BufferedWriter bufferedWriter) {
+	public static String matrixScan( String sequence, String resultKey, String pfmMatrices,
+			Map<String, String> sequence2RSATResultMap, MatrixScanRequest matrixScanRequest, RSATWSPortType proxy,
+			BufferedWriter bufferedWriter) {
 
 		String result = null;
 
-		try {
+		try{
 
-			matrixScanRequest.setSequence(sequence);
-			matrixScanRequest.setMatrix(pfmMatrices);
+			matrixScanRequest.setSequence( sequence);
+			matrixScanRequest.setMatrix( pfmMatrices);
 
 			/***************************************************/
 			/************ Old Code starts ************************/
 			/***************************************************/
 			/* Call the service */
 			MatrixScanResponse response;
-			response = proxy.matrix_scan(matrixScanRequest);
+			response = proxy.matrix_scan( matrixScanRequest);
 
 			/* Get the result */
 			result = response.getClient();
 
 			/* Put the result */
-			sequence2RSATResultMap.put(resultKey, result);
+			sequence2RSATResultMap.put( resultKey, result);
 			/***************************************************/
 			/************ Old Code ends **************************/
 			/***************************************************/
@@ -624,19 +631,24 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			// /************New Code ends**************************/
 			// /***************************************************/
 
-		} catch (RemoteException e) {
+		}catch( RemoteException e){
 
-			logger.error(e.toString());
-			logger.error(sequence);
+			logger.error( e.toString());
+			logger.error( sequence);
 
 		}
 
 		return result;
 	}
 
-	public static void matrixScan(String eachSNPDirectoryName, Map<String, String> tfName2TFPfmMatricesFileMap, String snpReferenceSequenceFile, List<String> snpAlteredSequenceFileList, Map<String, String> tfName2TfExtendedPeakSequenceFileMap, RSATWSPortType proxy, MatrixScanRequest matrixScanRequest, BufferedWriter bufferedWriter, Map<String, String> snpReferenceSequence2RSATResultMap, Map<String, String> alteredSequence2RSATResultMap, Map<String, String> peakSequence2RSATResultMap) {
+	public static void matrixScan( String eachSNPDirectoryName, Map<String, String> tfName2TFPfmMatricesFileMap,
+			String snpReferenceSequenceFile, List<String> snpAlteredSequenceFileList,
+			Map<String, String> tfName2TfExtendedPeakSequenceFileMap, RSATWSPortType proxy,
+			MatrixScanRequest matrixScanRequest, BufferedWriter bufferedWriter,
+			Map<String, String> snpReferenceSequence2RSATResultMap, Map<String, String> alteredSequence2RSATResultMap,
+			Map<String, String> peakSequence2RSATResultMap) {
 
-		try {
+		try{
 
 			/**************************************************************************************************************************/
 			/************************* Initialization starts ****************************************************************************/
@@ -673,13 +685,13 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			/************************* RSAT Matrix Calls Starts *************************************************************************/
 			/**************************************************************************************************************************/
 			// Get SNP Sequence
-			referenceSequence = readAllfromFile(snpReferenceSequenceFile);
+			referenceSequence = readAllfromFile( snpReferenceSequenceFile);
 
-			snpOneBasedPosition = getSNPOneBasedPosition(referenceSequence);
+			snpOneBasedPosition = getSNPOneBasedPosition( referenceSequence);
 			/**************************************************************************************************************************/
 			/************************* For each TF Peak Sequence Starts *****************************************************************/
 			/**************************************************************************************************************************/
-			for (Map.Entry<String, String> tfEntry : tfName2TfExtendedPeakSequenceFileMap.entrySet()) {
+			for( Map.Entry<String, String> tfEntry : tfName2TfExtendedPeakSequenceFileMap.entrySet()){
 
 				// Get TF Name
 				tfName = tfEntry.getKey();
@@ -691,16 +703,16 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				pfmMatrices = null;
 
 				// Get TF PFM Matrix File
-				tfPfmMatricesFileName = tfName2TFPfmMatricesFileMap.get(tfName);
+				tfPfmMatricesFileName = tfName2TFPfmMatricesFileMap.get( tfName);
 
 				// If there is no tf pfm matrices we can not realize regulatory
 				// sequence analysis
-				if (tfPfmMatricesFileName == null) {
-					bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + " No PFM Matrices found for " + tfName + System.getProperty("line.separator"));
+				if( tfPfmMatricesFileName == null){
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + " No PFM Matrices found for " + tfName + System.getProperty( "line.separator"));
 					continue;
-				} else {
+				}else{
 					// Set PFM Matrices for this TF Name
-					pfmMatrices = readAllfromFile(tfPfmMatricesFileName);
+					pfmMatrices = readAllfromFile( tfPfmMatricesFileName);
 				}
 
 				/**************************************************************************************************/
@@ -710,39 +722,46 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				 ****************/
 				/**************************************************************************************************/
 
-				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + "**********************************" + System.getProperty("line.separator"));
+				bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "******************************" + snpReferenceResultKey + "**********************************" + System.getProperty( "line.separator"));
 
 				// Write header to the outputFile
-				bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "SequenceType" + "\t" + "nth Result Line (snp is at " + Commons.ONE_BASED_SNP_POSITION + ". position)" + "\t" + "Matrix Name" + "\t" + "nth Matrix in the file(First matrix is numbered with 1)" + "\t" + "Direction" + "\t" + "Start" + "\t" + "End" + "\t" + "Sequence" + "\t" + "pValue" + "\t" + "log(referenceSequenceResultPValue/alteredSequenceResultPValue)" + System.getProperty("line.separator"));
+				bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "SequenceType" + "\t" + "nth Result Line (snp is at " + Commons.ONE_BASED_SNP_POSITION + ". position)" + "\t" + "Matrix Name" + "\t" + "nth Matrix in the file(First matrix is numbered with 1)" + "\t" + "Direction" + "\t" + "Start" + "\t" + "End" + "\t" + "Sequence" + "\t" + "pValue" + "\t" + "log(referenceSequenceResultPValue/alteredSequenceResultPValue)" + System.getProperty( "line.separator"));
 
 				// Matrix Scan for Reference Sequence for this tfName
-				snpReferenceRSATMatrixScanResult = snpReferenceSequence2RSATResultMap.get(snpReferenceResultKey);
+				snpReferenceRSATMatrixScanResult = snpReferenceSequence2RSATResultMap.get( snpReferenceResultKey);
 
-				if (snpReferenceRSATMatrixScanResult == null) {
+				if( snpReferenceRSATMatrixScanResult == null){
 
-					snpReferenceRSATMatrixScanResult = matrixScan(referenceSequence, snpReferenceResultKey, pfmMatrices, snpReferenceSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
+					snpReferenceRSATMatrixScanResult = matrixScan( referenceSequence, snpReferenceResultKey,
+							pfmMatrices, snpReferenceSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
 
-					if (snpReferenceRSATMatrixScanResult != null) {
+					if( snpReferenceRSATMatrixScanResult != null){
 
 						snpReferenceSequenceResultContaingSNPPosition = null;
 
 						description = "1. Result Line";
-						findAndWriteFirstResultLine(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null);
+						findAndWriteFirstResultLine( SequenceType.SNP_REFERENCE_SEQUENCE, description,
+								snpReferenceRSATMatrixScanResult, bufferedWriter, null);
 
 						description = "Result Line Containing SNP Position";
-						snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null, null);
+						snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(
+								SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult,
+								bufferedWriter, null, null);
 					}// End of IF: snpReferenceRSATMatrixScanResult null check
 
-				} else {
-					System.out.println("I guess this part is unnnecessary");
+				}else{
+					System.out.println( "I guess this part is unnnecessary");
 
 					snpReferenceSequenceResultContaingSNPPosition = null;
 
 					description = "1. Result Line";
-					findAndWriteFirstResultLine(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null);
+					findAndWriteFirstResultLine( SequenceType.SNP_REFERENCE_SEQUENCE, description,
+							snpReferenceRSATMatrixScanResult, bufferedWriter, null);
 
 					description = "Result Line Containing SNP Position";
-					snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult, bufferedWriter, null, null);
+					snpReferenceSequenceResultContaingSNPPosition = findAndWriteResultLineContainingSNPPosition(
+							SequenceType.SNP_REFERENCE_SEQUENCE, description, snpReferenceRSATMatrixScanResult,
+							bufferedWriter, null, null);
 
 				}
 				/**************************************************************************************************/
@@ -752,47 +771,54 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/**********************************************************************************************************************/
 				/************************* For each SNP Altered Sequence Starts *********************************************************/
 				/**********************************************************************************************************************/
-				for (Iterator<String> itr = snpAlteredSequenceFileList.iterator(); itr.hasNext();) {
+				for( Iterator<String> itr = snpAlteredSequenceFileList.iterator(); itr.hasNext();){
 
 					/**************************************************************************************************/
 					/******************** RSAT Matrix Scan for SNP Altered Sequence Starts ******************************/
 					/**************************************************************************************************/
 					// Get Altered Sequence
-					alteredSequence = readAllfromFile(itr.next());
+					alteredSequence = readAllfromFile( itr.next());
 
-					alteredSequenceFirstLine = readFirstLinefromFasta(alteredSequence);
+					alteredSequenceFirstLine = readFirstLinefromFasta( alteredSequence);
 
 					// Set Altered Result Key
 					snpAlteredResultKey = alteredSequenceFirstLine + "_" + tfName;
 
-					snpAlteredRSATMatrixScanResult = alteredSequence2RSATResultMap.get(snpAlteredResultKey);
+					snpAlteredRSATMatrixScanResult = alteredSequence2RSATResultMap.get( snpAlteredResultKey);
 
-					if (snpAlteredRSATMatrixScanResult == null) {
+					if( snpAlteredRSATMatrixScanResult == null){
 
 						// Altered Result
-						snpAlteredRSATMatrixScanResult = matrixScan(alteredSequence, snpAlteredResultKey, pfmMatrices, alteredSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
+						snpAlteredRSATMatrixScanResult = matrixScan( alteredSequence, snpAlteredResultKey, pfmMatrices,
+								alteredSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
 
-						if (snpAlteredRSATMatrixScanResult != null) {
+						if( snpAlteredRSATMatrixScanResult != null){
 
 							description = "1. Result Line";
-							findAndWriteFirstResultLine(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null);
+							findAndWriteFirstResultLine( SequenceType.SNP_ALTERED_SEQUENCE, description,
+									snpAlteredRSATMatrixScanResult, bufferedWriter, null);
 
 							description = "Result Line Containing SNP Position";
-							findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null, snpReferenceSequenceResultContaingSNPPosition);
+							findAndWriteResultLineContainingSNPPosition( SequenceType.SNP_ALTERED_SEQUENCE,
+									description, snpAlteredRSATMatrixScanResult, bufferedWriter, null,
+									snpReferenceSequenceResultContaingSNPPosition);
 
 						}// End of IF: snpAlteredRSATMatrixScanResult null check
 
-					} else {
+					}else{
 
-						System.out.println("I guess this part is unnnecessary");
+						System.out.println( "I guess this part is unnnecessary");
 						// Get best altered result line containing snp position
 						// if it exists
 
 						description = "1. Result Line";
-						findAndWriteFirstResultLine(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null);
+						findAndWriteFirstResultLine( SequenceType.SNP_ALTERED_SEQUENCE, description,
+								snpAlteredRSATMatrixScanResult, bufferedWriter, null);
 
 						description = "Result Line Containing SNP Position";
-						findAndWriteResultLineContainingSNPPosition(SequenceType.SNP_ALTERED_SEQUENCE, description, snpAlteredRSATMatrixScanResult, bufferedWriter, null, snpReferenceSequenceResultContaingSNPPosition);
+						findAndWriteResultLineContainingSNPPosition( SequenceType.SNP_ALTERED_SEQUENCE, description,
+								snpAlteredRSATMatrixScanResult, bufferedWriter, null,
+								snpReferenceSequenceResultContaingSNPPosition);
 
 					}
 					// Matrix Scan for Altered Sequence for this tfName
@@ -809,38 +835,44 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				/******************** RSAT Matrix Scan for TF Extended Peak Sequence Starts *************************/
 				/**************************************************************************************************/
 				// Get Peak Sequence
-				peakSequence = readAllfromFile(tfEntry.getValue());
+				peakSequence = readAllfromFile( tfEntry.getValue());
 
 				// Set Peak Result Key
 				tfExtendedPeakResultKey = eachSNPDirectoryName + "_" + tfName;
 
 				// Matrix Scan for Peak Sequence for this tfName
-				tfExtendedPeakRSATMatrixScanResult = peakSequence2RSATResultMap.get(tfExtendedPeakResultKey);
+				tfExtendedPeakRSATMatrixScanResult = peakSequence2RSATResultMap.get( tfExtendedPeakResultKey);
 
-				if (tfExtendedPeakRSATMatrixScanResult == null) {
+				if( tfExtendedPeakRSATMatrixScanResult == null){
 
 					// Extended Peak Result
-					tfExtendedPeakRSATMatrixScanResult = matrixScan(peakSequence, tfExtendedPeakResultKey, pfmMatrices, peakSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
+					tfExtendedPeakRSATMatrixScanResult = matrixScan( peakSequence, tfExtendedPeakResultKey,
+							pfmMatrices, peakSequence2RSATResultMap, matrixScanRequest, proxy, bufferedWriter);
 
-					if (tfExtendedPeakRSATMatrixScanResult != null) {
+					if( tfExtendedPeakRSATMatrixScanResult != null){
 
 						description = "1. Result Line";
-						findAndWriteFirstResultLine(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, null);
+						findAndWriteFirstResultLine( SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description,
+								tfExtendedPeakRSATMatrixScanResult, bufferedWriter, null);
 
 						description = "Result Line Containing SNP Position";
-						findAndWriteResultLineContainingSNPPosition(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition, null);
+						findAndWriteResultLineContainingSNPPosition( SequenceType.TF_EXTENDED_PEAK_SEQUENCE,
+								description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition,
+								null);
 
 					}// End of IF: tfExtendedPeakRSATMatrixScanResult null check
 
-				} else {
+				}else{
 
-					System.out.println("I guess this part is unnnecessary");
+					System.out.println( "I guess this part is unnnecessary");
 
 					description = "1. Result Line";
-					findAndWriteFirstResultLine(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, null);
+					findAndWriteFirstResultLine( SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description,
+							tfExtendedPeakRSATMatrixScanResult, bufferedWriter, null);
 
 					description = "Result Line Containing SNP Position";
-					findAndWriteResultLineContainingSNPPosition(SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description, tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition, null);
+					findAndWriteResultLineContainingSNPPosition( SequenceType.TF_EXTENDED_PEAK_SEQUENCE, description,
+							tfExtendedPeakRSATMatrixScanResult, bufferedWriter, snpOneBasedPosition, null);
 
 				}
 				/**************************************************************************************************/
@@ -859,40 +891,41 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			/************************* RSAT Matrix Calls Ends ***************************************************************************/
 			/**************************************************************************************************************************/
 
-		} catch (Exception e) {
-			System.out.println(e.toString());
+		}catch( Exception e){
+			System.out.println( e.toString());
 
 		}
 
 	}
 
-	public static String fillTFName2TFPFMMatriceFileMap(File mainTFPFMAndLogoMatricesDirectory, String tfName, Map<String, String> tfName2TFPfmMatricesFileMap) {
+	public static String fillTFName2TFPFMMatriceFileMap( File mainTFPFMAndLogoMatricesDirectory, String tfName,
+			Map<String, String> tfName2TFPfmMatricesFileMap) {
 
 		String fileName = null;
 		String fileAbsolutePath = null;
 		String tfPfmMatricesFileName = null;
 
-		tfPfmMatricesFileName = tfName2TFPfmMatricesFileMap.get(tfName);
+		tfPfmMatricesFileName = tfName2TFPfmMatricesFileMap.get( tfName);
 
 		// Not found yet
-		if (tfPfmMatricesFileName == null) {
+		if( tfPfmMatricesFileName == null){
 
 			// mainTFPFMAndLogoMatricesDirectory is
 			// Commons.TF_PFM_AND_LOGO_Matrices
-			if (mainTFPFMAndLogoMatricesDirectory.exists() && mainTFPFMAndLogoMatricesDirectory.isDirectory()) {
+			if( mainTFPFMAndLogoMatricesDirectory.exists() && mainTFPFMAndLogoMatricesDirectory.isDirectory()){
 
 				search:
 
-				for (File eachTFPFMAndLogoMatricesDirectory : mainTFPFMAndLogoMatricesDirectory.listFiles()) {
+				for( File eachTFPFMAndLogoMatricesDirectory : mainTFPFMAndLogoMatricesDirectory.listFiles()){
 
-					for (File eachTFFile : eachTFPFMAndLogoMatricesDirectory.listFiles()) {
+					for( File eachTFFile : eachTFPFMAndLogoMatricesDirectory.listFiles()){
 
 						fileName = eachTFFile.getName();
 						fileAbsolutePath = eachTFFile.getAbsolutePath();
 
-						if (tfName.equals(getTFName(fileName)) && fileName.startsWith(Commons.PFM_MATRICES)) {
+						if( tfName.equals( getTFName( fileName)) && fileName.startsWith( Commons.PFM_MATRICES)){
 							tfPfmMatricesFileName = fileAbsolutePath;
-							tfName2TFPfmMatricesFileMap.put(tfName, tfPfmMatricesFileName);
+							tfName2TFPfmMatricesFileMap.put( tfName, tfPfmMatricesFileName);
 							break search;
 
 						}// End of IF
@@ -910,20 +943,21 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 	}
 
-	public static String getTFName(String fileName) {
+	public static String getTFName( String fileName) {
 
 		String tfName = null;
 
-		int indexofUnderscore = fileName.indexOf(Commons.UNDERSCORE);
-		int indexofDot = fileName.indexOf(Commons.DOT);
+		int indexofUnderscore = fileName.indexOf( Commons.UNDERSCORE);
+		int indexofDot = fileName.indexOf( Commons.DOT);
 
-		tfName = fileName.substring(indexofUnderscore + 1, indexofDot);
+		tfName = fileName.substring( indexofUnderscore + 1, indexofDot);
 
 		return tfName;
 
 	}
 
-	public static void matrixScan(String outputFolder, String forRSASNPTFSequencesMatricesDirectory, BufferedWriter bufferedWriter) {
+	public static void matrixScan( String outputFolder, String forRSASNPTFSequencesMatricesDirectory,
+			BufferedWriter bufferedWriter) {
 
 		int matrixScanNumber = 1;
 
@@ -931,8 +965,9 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		Map<String, String> snpAlteredSequence2RSATResultMap = new HashMap<String, String>();
 		Map<String, String> tfExtendedPeakSequence2RSATResultMap = new HashMap<String, String>();
 
-		File mainSNPsDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.SNPs);
-		File mainTFPFMAndLogoMatricesDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
+		File mainSNPsDirectory = new File( outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.SNPs);
+		File mainTFPFMAndLogoMatricesDirectory = new File(
+				outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
 
 		String snpReferenceSequenceFile = null;
 		String snpAlteredSequenceFile = null;
@@ -949,19 +984,19 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		String fileAbsolutePath = null;
 
 		RSATWebServicesLocator service = new RSATWebServicesLocator();
-		
-		//User the server address for RSAT Metazoa
-		service.setRSATWSPortTypeEndpointAddress("http://rsat.sb-roscoff.fr/web_services/RSATWS.cgi");
-		
+
+		// User the server address for RSAT Metazoa
+		service.setRSATWSPortTypeEndpointAddress( "http://rsat.sb-roscoff.fr/web_services/RSATWS.cgi");
+
 		RSATWSPortType proxy = null;
 
 		// mainSNPsDirectory is Commons.SNPs
-		if (mainSNPsDirectory.exists() && mainSNPsDirectory.isDirectory()) {
+		if( mainSNPsDirectory.exists() && mainSNPsDirectory.isDirectory()){
 
-			try {
+			try{
 				proxy = service.getRSATWSPortType();
-			} catch (ServiceException e) {
-				logger.error(e.toString());
+			}catch( ServiceException e){
+				logger.error( e.toString());
 			}
 
 			MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
@@ -969,13 +1004,13 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			/**************************************************************************************************************************/
 			/************************* Initialize Matrix Scan Request Parameters starts *************************************************/
 			/**************************************************************************************************************************/
-			initializeMatrixScanParameters(matrixScanRequest);
+			initializeMatrixScanParameters( matrixScanRequest);
 			/**************************************************************************************************************************/
 			/************************* Initialize Matrix Scan Request Parameters ends ***************************************************/
 			/**************************************************************************************************************************/
 
 			// example eachSNPDirectory is chr1_11802721_rs17367504
-			for (File eachSNPDirectory : mainSNPsDirectory.listFiles()) {
+			for( File eachSNPDirectory : mainSNPsDirectory.listFiles()){
 
 				// Initialize input files
 				snpReferenceSequenceFile = null;
@@ -991,41 +1026,45 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				fileAbsolutePath = null;
 
 				// example eachSNPDirectory chr21_42416281_rs9976767
-				if (eachSNPDirectory.isDirectory()) {
+				if( eachSNPDirectory.isDirectory()){
 
 					// Now get the SNP specific files
-					for (File eachSNPFile : eachSNPDirectory.listFiles()) {
+					for( File eachSNPFile : eachSNPDirectory.listFiles()){
 
 						fileName = eachSNPFile.getName();
 						fileAbsolutePath = eachSNPFile.getAbsolutePath();
 
-						if (fileName.startsWith(Commons.SNP_REFERENCE_SEQUENCE)) {
+						if( fileName.startsWith( Commons.SNP_REFERENCE_SEQUENCE)){
 							snpReferenceSequenceFile = fileAbsolutePath;
-						} else if (fileName.startsWith(Commons.SNP_ALTERED_SEQUENCE)) {
+						}else if( fileName.startsWith( Commons.SNP_ALTERED_SEQUENCE)){
 							snpAlteredSequenceFile = fileAbsolutePath;
-							snpAlteredSequenceFileList.add(snpAlteredSequenceFile);
-						} else if (fileName.startsWith(Commons.TF_EXTENDED_PEAK_SEQUENCE)) {
+							snpAlteredSequenceFileList.add( snpAlteredSequenceFile);
+						}else if( fileName.startsWith( Commons.TF_EXTENDED_PEAK_SEQUENCE)){
 							tfExtendedPeakSequenceFile = fileAbsolutePath;
 
 							// Get TF Name from fileName
-							tfName = getTFName(fileName);
-							tfName2TfExtendedPeakSequenceFileMap.put(tfName, tfExtendedPeakSequenceFile);
+							tfName = getTFName( fileName);
+							tfName2TfExtendedPeakSequenceFileMap.put( tfName, tfExtendedPeakSequenceFile);
 
 							// Get TF PFM Matrix File
-							fillTFName2TFPFMMatriceFileMap(mainTFPFMAndLogoMatricesDirectory, tfName, tfName2TFPfmMatricesFileMap);
+							fillTFName2TFPFMMatriceFileMap( mainTFPFMAndLogoMatricesDirectory, tfName,
+									tfName2TFPfmMatricesFileMap);
 
 						}
 
 					}// End of FOR eachSNPFile under eachSNPDirectory
 
 					// If all necessary files are not null
-					if (snpReferenceSequenceFile != null && snpAlteredSequenceFileList.size() > 0 && tfName2TfExtendedPeakSequenceFileMap.size() > 0) {
+					if( snpReferenceSequenceFile != null && snpAlteredSequenceFileList.size() > 0 && tfName2TfExtendedPeakSequenceFileMap.size() > 0){
 						// Matrix Scan Call
 						// what is enrichedElement
 						// what is given interval name
 						// what is snp
-						logger.info("RSAT MatrixScan " + matrixScanNumber++ + " for " + eachSNPDirectory.getPath());
-						matrixScan(eachSNPDirectory.getName(), tfName2TFPfmMatricesFileMap, snpReferenceSequenceFile, snpAlteredSequenceFileList, tfName2TfExtendedPeakSequenceFileMap, proxy, matrixScanRequest, bufferedWriter, snpReferenceSequence2RSATResultMap, snpAlteredSequence2RSATResultMap, tfExtendedPeakSequence2RSATResultMap);
+						logger.info( "RSAT MatrixScan " + matrixScanNumber++ + " for " + eachSNPDirectory.getPath());
+						matrixScan( eachSNPDirectory.getName(), tfName2TFPfmMatricesFileMap, snpReferenceSequenceFile,
+								snpAlteredSequenceFileList, tfName2TfExtendedPeakSequenceFileMap, proxy,
+								matrixScanRequest, bufferedWriter, snpReferenceSequence2RSATResultMap,
+								snpAlteredSequence2RSATResultMap, tfExtendedPeakSequence2RSATResultMap);
 
 					}// End of IF RSAT matrix scan
 
@@ -1131,34 +1170,34 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if (jobName.isEmpty()) {
+		if( jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 
 		String forRSASNPTFSequencesMatricesDirectory = Commons.FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY;
 
 		FileWriter fileWriter;
 		BufferedWriter bufferedWriter;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY + Commons.RSA_RESULTS_FOR_ALL_ANNOTATED_TFS);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter( outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY + Commons.RSA_RESULTS_FOR_ALL_ANNOTATED_TFS);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
 			/***************************************************************************************************/
 			/***************** Regulatory Sequence Analysis for All TF Annotations starts ************************/
 			/***************************************************************************************************/
-			logger.info("RSAT starts for TF");
-			matrixScan(outputFolder, forRSASNPTFSequencesMatricesDirectory, bufferedWriter);
-			logger.info("RSAT ends for TF");
+			logger.info( "RSAT starts for TF");
+			matrixScan( outputFolder, forRSASNPTFSequencesMatricesDirectory, bufferedWriter);
+			logger.info( "RSAT ends for TF");
 			/***************************************************************************************************/
 			/***************** Regulatory Sequence Analysis for All TF Annotations ends **************************/
 			/***************************************************************************************************/
@@ -1166,9 +1205,9 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			// Close bufferedWriter
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 
-			logger.error(e.toString());
+			logger.error( e.toString());
 		}
 
 	}

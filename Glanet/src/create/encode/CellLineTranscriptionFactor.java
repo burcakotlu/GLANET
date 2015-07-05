@@ -7,30 +7,37 @@ public class CellLineTranscriptionFactor {
 	String fileName;
 
 	public String getCellLineName() {
+
 		return cellLineName;
 	}
 
-	public void setCellLineName(String cellLineName) {
+	public void setCellLineName( String cellLineName) {
+
 		this.cellLineName = cellLineName;
 	}
 
 	public String getTranscriptionFactorName() {
+
 		return transcriptionFactorName;
 	}
 
-	public void setTranscriptionFactorName(String transcriptionFactorName) {
+	public void setTranscriptionFactorName( String transcriptionFactorName) {
+
 		this.transcriptionFactorName = transcriptionFactorName;
 	}
 
 	public String getFileName() {
+
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+	public void setFileName( String fileName) {
+
 		this.fileName = fileName;
 	}
 
-	public CellLineTranscriptionFactor(String cellLineName, String transcriptionFactorName, String fileName) {
+	public CellLineTranscriptionFactor( String cellLineName, String transcriptionFactorName, String fileName) {
+
 		super();
 		this.cellLineName = cellLineName;
 		this.transcriptionFactorName = transcriptionFactorName;
@@ -38,6 +45,7 @@ public class CellLineTranscriptionFactor {
 	}
 
 	public CellLineTranscriptionFactor() {
+
 		super();
 		// TODO Auto-generated constructor stub
 	}

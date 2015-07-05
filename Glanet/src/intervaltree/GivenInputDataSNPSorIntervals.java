@@ -14,10 +14,12 @@ public class GivenInputDataSNPSorIntervals {
 	Boolean givenInputDataSNPs;
 
 	public Boolean getGivenInputDataSNPs() {
+
 		return givenInputDataSNPs;
 	}
 
-	public void setGivenInputDataSNPs(Boolean givenInputDataSNPs) {
+	public void setGivenInputDataSNPs( Boolean givenInputDataSNPs) {
+
 		this.givenInputDataSNPs = givenInputDataSNPs;
 	}
 

@@ -29,6 +29,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ObjectFactory() {
+
 	}
 
 	/**
@@ -36,6 +37,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Ss createSs() {
+
 		return new Ss();
 	}
 
@@ -44,6 +46,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Assay createAssay() {
+
 		return new Assay();
 	}
 
@@ -52,6 +55,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ExchangeSet createExchangeSet() {
+
 		return new ExchangeSet();
 	}
 
@@ -60,6 +64,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs createRs() {
+
 		return new Rs();
 	}
 
@@ -68,6 +73,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Assembly createAssembly() {
+
 		return new Assembly();
 	}
 
@@ -76,6 +82,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Ss.Sequence createSsSequence() {
+
 		return new Ss.Sequence();
 	}
 
@@ -84,6 +91,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Assay.Method createAssayMethod() {
+
 		return new Assay.Method();
 	}
 
@@ -92,6 +100,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Assay.Taxonomy createAssayTaxonomy() {
+
 		return new Assay.Taxonomy();
 	}
 
@@ -100,6 +109,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ExchangeSet.SourceDatabase createExchangeSetSourceDatabase() {
+
 		return new ExchangeSet.SourceDatabase();
 	}
 
@@ -108,6 +118,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Het createRsHet() {
+
 		return new Rs.Het();
 	}
 
@@ -116,6 +127,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Validation createRsValidation() {
+
 		return new Rs.Validation();
 	}
 
@@ -124,6 +136,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Create createRsCreate() {
+
 		return new Rs.Create();
 	}
 
@@ -132,6 +145,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Update createRsUpdate() {
+
 		return new Rs.Update();
 	}
 
@@ -140,6 +154,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Sequence createRsSequence() {
+
 		return new Rs.Sequence();
 	}
 
@@ -148,6 +163,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Component createComponent() {
+
 		return new Component();
 	}
 
@@ -156,6 +172,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public MapLoc createMapLoc() {
+
 		return new MapLoc();
 	}
 
@@ -164,6 +181,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public FxnSet createFxnSet() {
+
 		return new FxnSet();
 	}
 
@@ -172,6 +190,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Assembly.SnpStat createAssemblySnpStat() {
+
 		return new Assembly.SnpStat();
 	}
 
@@ -180,6 +199,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public PrimarySequence createPrimarySequence() {
+
 		return new PrimarySequence();
 	}
 
@@ -188,6 +208,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public RsStruct createRsStruct() {
+
 		return new RsStruct();
 	}
 
@@ -196,6 +217,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public RsLinkout createRsLinkout() {
+
 		return new RsLinkout();
 	}
 
@@ -204,6 +226,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.MergeHistory createRsMergeHistory() {
+
 		return new Rs.MergeHistory();
 	}
 
@@ -212,6 +235,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.AlleleOrigin createRsAlleleOrigin() {
+
 		return new Rs.AlleleOrigin();
 	}
 
@@ -220,6 +244,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Phenotype createRsPhenotype() {
+
 		return new Rs.Phenotype();
 	}
 
@@ -228,6 +253,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.BioSource createRsBioSource() {
+
 		return new Rs.BioSource();
 	}
 
@@ -236,6 +262,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Rs.Frequency createRsFrequency() {
+
 		return new Rs.Frequency();
 	}
 
@@ -244,6 +271,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ExchangeSet.Query createExchangeSetQuery() {
+
 		return new ExchangeSet.Query();
 	}
 
@@ -252,6 +280,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ExchangeSet.Summary createExchangeSetSummary() {
+
 		return new ExchangeSet.Summary();
 	}
 
@@ -260,6 +289,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public BaseURL createBaseURL() {
+
 		return new BaseURL();
 	}
 

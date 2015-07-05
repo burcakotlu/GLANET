@@ -6,11 +6,8 @@
 package giveninputdata;
 
 import org.apache.log4j.Logger;
-
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 /**
@@ -18,7 +15,7 @@ import enumtypes.CommandLineArguments;
  */
 public class Preparation {
 
-	final static Logger logger = Logger.getLogger(Preparation.class);
+	final static Logger logger = Logger.getLogger( Preparation.class);
 
 	// args[0] ---> Input File Name with folder
 	// args[1] ---> GLANET installation folder with "\\" at the end. This folder
@@ -107,25 +104,25 @@ public class Preparation {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if (jobName.isEmpty()) {
+		if( jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
 		// jobName ends
 
 		// String dataFolder = glanetFolder + Commons.DATA +
 		// System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 
 		// Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
 
 		// Create outputFolder it it does not exists
-		FileOperations.createFolder(outputFolder);
+		FileOperations.createFolder( outputFolder);
 
 		// FileOperations.deleteDummyLogFiles(glanetFolder, "log");
 
@@ -133,7 +130,7 @@ public class Preparation {
 		// outputFolder);
 
 		// delete old files starts
-		FileOperations.deleteOldFiles(outputFolder);
+		FileOperations.deleteOldFiles( outputFolder);
 		// delete old files ends
 
 	}

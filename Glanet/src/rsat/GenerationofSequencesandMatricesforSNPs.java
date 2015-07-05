@@ -18,18 +18,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.PositionFrequency;
 import jaxbxjctool.RsInformation;
-
 import org.apache.log4j.Logger;
-
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -39,9 +34,10 @@ import enumtypes.CommandLineArguments;
  */
 public class GenerationofSequencesandMatricesforSNPs {
 
-	final static Logger logger = Logger.getLogger(GenerationofSequencesandMatricesforSNPs.class);
+	final static Logger logger = Logger.getLogger( GenerationofSequencesandMatricesforSNPs.class);
 
-	public static void constructLogoMatricesfromEncodeMotifs(String dataFolder, String encodeMotifsInputFileName, Map<String, String> tfName2LogoMatrices) {
+	public static void constructLogoMatricesfromEncodeMotifs( String dataFolder, String encodeMotifsInputFileName,
+			Map<String, String> tfName2LogoMatrices) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -51,11 +47,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// Order is ACGT
 		String tfName = null;
 
-		try {
-			fileReader = new FileReader(dataFolder + encodeMotifsInputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + encodeMotifsInputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
 				// Encode-motif matrix
 				// Order is ACGT
@@ -72,39 +68,43 @@ public class GenerationofSequencesandMatricesforSNPs {
 				// C 0.000000 1.000000 0.000000 0.000000
 				// C 0.000000 1.000000 0.000000 0.000000
 
-				if (strLine.startsWith(">")) {
+				if( strLine.startsWith( ">")){
 
 					// start reading from first character, skip '>' character
-					tfName = strLine.substring(1);
+					tfName = strLine.substring( 1);
 
-					if (tfName2LogoMatrices.get(tfName) == null) {
-						tfName2LogoMatrices.put(tfName, strLine + System.getProperty("line.separator"));
+					if( tfName2LogoMatrices.get( tfName) == null){
+						tfName2LogoMatrices.put( tfName, strLine + System.getProperty( "line.separator"));
 
-					} else {
-						tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName) + strLine + System.getProperty("line.separator"));
+					}else{
+						tfName2LogoMatrices.put( tfName,
+								tfName2LogoMatrices.get( tfName) + strLine + System.getProperty( "line.separator"));
 					}
 
 				}// End of if
 
-				else {
-					tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName) + strLine + System.getProperty("line.separator"));
+				else{
+					tfName2LogoMatrices.put( tfName,
+							tfName2LogoMatrices.get( tfName) + strLine + System.getProperty( "line.separator"));
 				}
 
 			}// end of while
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void constructPfmMatricesfromEncodeMotifs(String dataFolder, String encodeMotifsInputFileName, Map<String, String> tfName2PfmMatrices) {
+	public static void constructPfmMatricesfromEncodeMotifs( String dataFolder, String encodeMotifsInputFileName,
+			Map<String, String> tfName2PfmMatrices) {
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -119,8 +119,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		float _GFrequency;
 		float _TFrequency;
 
-		List<PositionFrequency> positionfrequencyList = new ArrayList<PositionFrequency>();
-		;
+		List<PositionFrequency> positionfrequencyList = new ArrayList<PositionFrequency>();;
 
 		// Attention
 		// Order is ACGT
@@ -134,11 +133,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		Iterator<PositionFrequency> iterator;
 
-		try {
-			fileReader = new FileReader(dataFolder + encodeMotifsInputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + encodeMotifsInputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
 				// Encode-motif matrix
 				// Order is ACGT
@@ -155,12 +154,12 @@ public class GenerationofSequencesandMatricesforSNPs {
 				// C 0.000000 1.000000 0.000000 0.000000
 				// C 0.000000 1.000000 0.000000 0.000000
 
-				if (strLine.startsWith(">")) {
+				if( strLine.startsWith( ">")){
 
 					// start reading from first character, skip '>' character
-					tfName = strLine.substring(1);
+					tfName = strLine.substring( 1);
 
-					if (formerTfName != null) {
+					if( formerTfName != null){
 						// Write former positionfrequencyList to the output file
 						// starts
 						// if it is full
@@ -171,8 +170,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 						iterator = positionfrequencyList.iterator();
 
-						while (iterator.hasNext()) {
-							PositionFrequency positionFrequency = (PositionFrequency) iterator.next();
+						while( iterator.hasNext()){
+							PositionFrequency positionFrequency = ( PositionFrequency)iterator.next();
 							ALine = ALine + positionFrequency.get_AFrequency() + "\t";
 							CLine = CLine + positionFrequency.get_CFrequency() + "\t";
 							GLine = GLine + positionFrequency.get_GFrequency() + "\t";
@@ -181,41 +180,50 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 						// We must have the former tfName
 						// We must have inserted the header line
-						tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + ALine + System.getProperty("line.separator"));
-						tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + CLine + System.getProperty("line.separator"));
-						tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + GLine + System.getProperty("line.separator"));
-						tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + TLine + System.getProperty("line.separator"));
-						tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + "//" + System.getProperty("line.separator"));
+						tfName2PfmMatrices.put( formerTfName,
+								tfName2PfmMatrices.get( formerTfName) + ALine + System.getProperty( "line.separator"));
+						tfName2PfmMatrices.put( formerTfName,
+								tfName2PfmMatrices.get( formerTfName) + CLine + System.getProperty( "line.separator"));
+						tfName2PfmMatrices.put( formerTfName,
+								tfName2PfmMatrices.get( formerTfName) + GLine + System.getProperty( "line.separator"));
+						tfName2PfmMatrices.put( formerTfName,
+								tfName2PfmMatrices.get( formerTfName) + TLine + System.getProperty( "line.separator"));
+						tfName2PfmMatrices.put( formerTfName,
+								tfName2PfmMatrices.get( formerTfName) + "//" + System.getProperty( "line.separator"));
 						// Write former full pfList to the output file ends
 					}// End of if
 
 					// if tfName is inserted for the first time
-					if (tfName2PfmMatrices.get(tfName) == null) {
-						tfName2PfmMatrices.put(tfName, "; " + strLine.substring(1) + System.getProperty("line.separator"));
+					if( tfName2PfmMatrices.get( tfName) == null){
+						tfName2PfmMatrices.put( tfName,
+								"; " + strLine.substring( 1) + System.getProperty( "line.separator"));
 					}
 					// else start appending the new coming matrix to the already
 					// existing matrices for this tfName
-					else {
-						tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + strLine.substring(1) + System.getProperty("line.separator"));
+					else{
+						tfName2PfmMatrices.put(
+								tfName,
+								tfName2PfmMatrices.get( tfName) + "; " + strLine.substring( 1) + System.getProperty( "line.separator"));
 					}
 
 					// Initialize positionfrequencyList
 					positionfrequencyList = new ArrayList<PositionFrequency>();
 
-				} else {
+				}else{
 
-					indexofFirstBlank = strLine.indexOf(' ');
-					indexofSecondBlank = strLine.indexOf(' ', indexofFirstBlank + 1);
-					indexofThirdBlank = strLine.indexOf(' ', indexofSecondBlank + 1);
-					indexofFourthBlank = strLine.indexOf(' ', indexofThirdBlank + 1);
+					indexofFirstBlank = strLine.indexOf( ' ');
+					indexofSecondBlank = strLine.indexOf( ' ', indexofFirstBlank + 1);
+					indexofThirdBlank = strLine.indexOf( ' ', indexofSecondBlank + 1);
+					indexofFourthBlank = strLine.indexOf( ' ', indexofThirdBlank + 1);
 
-					_AFrequency = Float.parseFloat(strLine.substring(indexofFirstBlank + 1, indexofSecondBlank));
-					_CFrequency = Float.parseFloat(strLine.substring(indexofSecondBlank + 1, indexofThirdBlank));
-					_GFrequency = Float.parseFloat(strLine.substring(indexofThirdBlank + 1, indexofFourthBlank));
-					_TFrequency = Float.parseFloat(strLine.substring(indexofFourthBlank + 1));
+					_AFrequency = Float.parseFloat( strLine.substring( indexofFirstBlank + 1, indexofSecondBlank));
+					_CFrequency = Float.parseFloat( strLine.substring( indexofSecondBlank + 1, indexofThirdBlank));
+					_GFrequency = Float.parseFloat( strLine.substring( indexofThirdBlank + 1, indexofFourthBlank));
+					_TFrequency = Float.parseFloat( strLine.substring( indexofFourthBlank + 1));
 
-					PositionFrequency positionFrequency = new PositionFrequency(_AFrequency, _CFrequency, _GFrequency, _TFrequency);
-					positionfrequencyList.add(positionFrequency);
+					PositionFrequency positionFrequency = new PositionFrequency( _AFrequency, _CFrequency, _GFrequency,
+							_TFrequency);
+					positionfrequencyList.add( positionFrequency);
 					formerTfName = tfName;
 				}
 
@@ -230,8 +238,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 			iterator = positionfrequencyList.iterator();
 
-			while (iterator.hasNext()) {
-				PositionFrequency positionFrequency = (PositionFrequency) iterator.next();
+			while( iterator.hasNext()){
+				PositionFrequency positionFrequency = ( PositionFrequency)iterator.next();
 				ALine = ALine + positionFrequency.get_AFrequency() + "\t";
 				CLine = CLine + positionFrequency.get_CFrequency() + "\t";
 				GLine = GLine + positionFrequency.get_GFrequency() + "\t";
@@ -240,45 +248,52 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 			// We must use former tfName
 			// We must have inserted the header line
-			tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + ALine + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + CLine + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + GLine + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + TLine + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(formerTfName, tfName2PfmMatrices.get(formerTfName) + "//" + System.getProperty("line.separator"));
+			tfName2PfmMatrices.put( formerTfName,
+					tfName2PfmMatrices.get( formerTfName) + ALine + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( formerTfName,
+					tfName2PfmMatrices.get( formerTfName) + CLine + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( formerTfName,
+					tfName2PfmMatrices.get( formerTfName) + GLine + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( formerTfName,
+					tfName2PfmMatrices.get( formerTfName) + TLine + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( formerTfName,
+					tfName2PfmMatrices.get( formerTfName) + "//" + System.getProperty( "line.separator"));
 			// Write the last positionFrequencyList ends
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void fillFrequencyListUsingCountList(List<Float> frequencyList, List<Integer> countList, Integer totalCount) {
+	public static void fillFrequencyListUsingCountList( List<Float> frequencyList, List<Integer> countList,
+			Integer totalCount) {
 
 		Iterator<Integer> iterator = countList.iterator();
 
 		Integer count;
 		Float frequency;
 
-		while (iterator.hasNext()) {
+		while( iterator.hasNext()){
 
 			count = iterator.next();
-			frequency = (count * 1.0f) / totalCount;
+			frequency = ( count * 1.0f) / totalCount;
 
-			frequencyList.add(frequency);
+			frequencyList.add( frequency);
 
 		}
 
 	}
 
 	// Fill CountList using CountLine
-	public static void fillCountList(String countLine, List<Integer> countList) {
+	public static void fillCountList( String countLine, List<Integer> countList) {
+
 		// example Count line
 		// 4 19 0 0 0 0
 		int indexofFormerTab = 0;
@@ -287,39 +302,40 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int count = 0;
 
 		indexofFormerTab = 0;
-		indexofLatterTab = countLine.indexOf('\t');
+		indexofLatterTab = countLine.indexOf( '\t');
 
 		// Insert the first count
-		if (indexofLatterTab >= 0) {
-			count = Integer.parseInt(countLine.substring(indexofFormerTab, indexofLatterTab));
-			countList.add(count);
+		if( indexofLatterTab >= 0){
+			count = Integer.parseInt( countLine.substring( indexofFormerTab, indexofLatterTab));
+			countList.add( count);
 		}
 
 		indexofFormerTab = indexofLatterTab;
-		indexofLatterTab = countLine.indexOf('\t', indexofFormerTab + 1);
+		indexofLatterTab = countLine.indexOf( '\t', indexofFormerTab + 1);
 
 		// Insert the rest of the counts
-		while (indexofLatterTab >= 0) {
+		while( indexofLatterTab >= 0){
 
-			count = Integer.parseInt(countLine.substring(indexofFormerTab + 1, indexofLatterTab));
+			count = Integer.parseInt( countLine.substring( indexofFormerTab + 1, indexofLatterTab));
 
-			countList.add(count);
+			countList.add( count);
 
 			indexofFormerTab = indexofLatterTab;
-			indexofLatterTab = countLine.indexOf('\t', indexofFormerTab + 1);
+			indexofLatterTab = countLine.indexOf( '\t', indexofFormerTab + 1);
 
 		}
 
 		// Insert the last count
-		if (indexofFormerTab >= 0) {
-			count = Integer.parseInt(countLine.substring(indexofFormerTab + 1));
-			countList.add(count);
+		if( indexofFormerTab >= 0){
+			count = Integer.parseInt( countLine.substring( indexofFormerTab + 1));
+			countList.add( count);
 
 		}
 
 	}
 
-	public static int getTotalCount(List<Integer> ACountList, List<Integer> CCountList, List<Integer> GCountList, List<Integer> TCountList) {
+	public static int getTotalCount( List<Integer> ACountList, List<Integer> CCountList, List<Integer> GCountList,
+			List<Integer> TCountList) {
 
 		Iterator<Integer> iteratorA = ACountList.iterator();
 		Integer countA;
@@ -333,10 +349,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 		Iterator<Integer> iteratorT = TCountList.iterator();
 		Integer countT;
 
-		int totalCount = 0;
-		;
+		int totalCount = 0;;
 
-		while (iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()) {
+		while( iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()){
 
 			countA = iteratorA.next();
 			countC = iteratorC.next();
@@ -352,7 +367,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static void putPFM(String tfName, List<Float> AFrequencyList, List<Float> CFrequencyList, List<Float> GFrequencyList, List<Float> TFrequencyList, Map<String, String> tfName2PfmMatrices) {
+	public static void putPFM( String tfName, List<Float> AFrequencyList, List<Float> CFrequencyList,
+			List<Float> GFrequencyList, List<Float> TFrequencyList, Map<String, String> tfName2PfmMatrices) {
 
 		// example matrix in tab format
 		// ; NFKB_known3 NFKB_1 NF-kappaB_transfac_M00054
@@ -377,7 +393,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		String strLineG = "";
 		String strLineT = "";
 
-		while (iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()) {
+		while( iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()){
 
 			frequencyA = iteratorA.next();
 			frequencyC = iteratorC.next();
@@ -392,30 +408,42 @@ public class GenerationofSequencesandMatricesforSNPs {
 		}// end of while
 
 		// this tfName has no previous position frequency matrix inserted
-		if (tfName2PfmMatrices.get(tfName) == null) {
-			tfName2PfmMatrices.put(tfName, "; " + tfName + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|" + strLineA + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|" + strLineC + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|" + strLineG + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|" + strLineT + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//" + System.getProperty("line.separator"));
+		if( tfName2PfmMatrices.get( tfName) == null){
+			tfName2PfmMatrices.put( tfName, "; " + tfName + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "A|" + strLineA + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "C|" + strLineC + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "G|" + strLineG + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "T|" + strLineT + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "//" + System.getProperty( "line.separator"));
 
 		}
 		// this tfName already has position frequency matrices
 		// append the new position frequency matrix
-		else {
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "; " + tfName + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "A|" + strLineA + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "C|" + strLineC + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "G|" + strLineG + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "T|" + strLineT + System.getProperty("line.separator"));
-			tfName2PfmMatrices.put(tfName, tfName2PfmMatrices.get(tfName) + "//" + System.getProperty("line.separator"));
+		else{
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "; " + tfName + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "A|" + strLineA + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "C|" + strLineC + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "G|" + strLineG + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "T|" + strLineT + System.getProperty( "line.separator"));
+			tfName2PfmMatrices.put( tfName,
+					tfName2PfmMatrices.get( tfName) + "//" + System.getProperty( "line.separator"));
 
 		}
 
 	}
 
-	public static void putLogoMatrix(String tfName, List<Float> AFrequencyList, List<Float> CFrequencyList, List<Float> GFrequencyList, List<Float> TFrequencyList, Map<String, String> tfName2LogoMatrices) {
+	public static void putLogoMatrix( String tfName, List<Float> AFrequencyList, List<Float> CFrequencyList,
+			List<Float> GFrequencyList, List<Float> TFrequencyList, Map<String, String> tfName2LogoMatrices) {
 
 		// Example logo matrix
 		// G 0.008511 0.004255 0.987234 0.000000
@@ -441,29 +469,33 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		String strLine = null;
 
-		if (tfName2LogoMatrices.get(tfName) == null) {
-			tfName2LogoMatrices.put(tfName, tfName + System.getProperty("line.separator"));
+		if( tfName2LogoMatrices.get( tfName) == null){
+			tfName2LogoMatrices.put( tfName, tfName + System.getProperty( "line.separator"));
 		}
 
-		else {
-			tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName) + tfName + System.getProperty("line.separator"));
+		else{
+			tfName2LogoMatrices.put( tfName,
+					tfName2LogoMatrices.get( tfName) + tfName + System.getProperty( "line.separator"));
 		}
 
-		while (iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()) {
+		while( iteratorA.hasNext() && iteratorC.hasNext() && iteratorG.hasNext() && iteratorT.hasNext()){
 
 			frequencyA = iteratorA.next();
 			frequencyC = iteratorC.next();
 			frequencyG = iteratorG.next();
 			frequencyT = iteratorT.next();
 
-			strLine = "X" + "\t" + frequencyA + "\t" + frequencyC + "\t" + frequencyG + "\t" + frequencyT + System.getProperty("line.separator");
-			tfName2LogoMatrices.put(tfName, tfName2LogoMatrices.get(tfName) + strLine);
+			strLine = "X" + "\t" + frequencyA + "\t" + frequencyC + "\t" + frequencyG + "\t" + frequencyT + System.getProperty( "line.separator");
+			tfName2LogoMatrices.put( tfName, tfName2LogoMatrices.get( tfName) + strLine);
 
 		}// end of while
 
 	}
 
-	public static void constructPfmMatricesandLogoMatricesfromJasparCore(String dataFolder, String jasparCoreInputFileName, Map<String, String> tfName2PfmMatrices, Map<String, String> tfName2LogoMatrices) {
+	public static void constructPfmMatricesandLogoMatricesfromJasparCore( String dataFolder,
+			String jasparCoreInputFileName, Map<String, String> tfName2PfmMatrices,
+			Map<String, String> tfName2LogoMatrices) {
+
 		// Attention
 		// Order is ACGT
 
@@ -495,9 +527,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		int totalCount;
 
-		try {
-			fileReader = new FileReader(dataFolder + jasparCoreInputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + jasparCoreInputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
 			// Example matrix from jaspar core pfm_all.txt
 			// >MA0004.1 Arnt
@@ -506,9 +538,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 			// 0 1 0 20 0 20
 			// 0 0 0 0 20 0
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				if (strLine.startsWith(">")) {
-					tfName = strLine.substring(1);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				if( strLine.startsWith( ">")){
+					tfName = strLine.substring( 1);
 
 					// Initialize array lists
 					// for the new coming position count matrix and position
@@ -529,47 +561,48 @@ public class GenerationofSequencesandMatricesforSNPs {
 					continue;
 				}
 
-				switch (whichLine) {
-					case ALine: {
-						fillCountList(strLine, ACountList);
-						whichLine = CLine;
-						break;
-					}
+				switch( whichLine){
+				case ALine:{
+					fillCountList( strLine, ACountList);
+					whichLine = CLine;
+					break;
+				}
 
-					case CLine: {
-						fillCountList(strLine, CCountList);
-						whichLine = GLine;
-						break;
-					}
+				case CLine:{
+					fillCountList( strLine, CCountList);
+					whichLine = GLine;
+					break;
+				}
 
-					case GLine: {
-						fillCountList(strLine, GCountList);
-						whichLine = TLine;
-						break;
-					}
+				case GLine:{
+					fillCountList( strLine, GCountList);
+					whichLine = TLine;
+					break;
+				}
 
-					case TLine: {
-						fillCountList(strLine, TCountList);
-						whichLine = headerLine;
+				case TLine:{
+					fillCountList( strLine, TCountList);
+					whichLine = headerLine;
 
-						// Since count lists are available
-						// Then compute frequency lists
-						totalCount = getTotalCount(ACountList, CCountList, GCountList, TCountList);
-						fillFrequencyListUsingCountList(AFrequencyList, ACountList, totalCount);
-						fillFrequencyListUsingCountList(CFrequencyList, CCountList, totalCount);
-						fillFrequencyListUsingCountList(GFrequencyList, GCountList, totalCount);
-						fillFrequencyListUsingCountList(TFrequencyList, TCountList, totalCount);
+					// Since count lists are available
+					// Then compute frequency lists
+					totalCount = getTotalCount( ACountList, CCountList, GCountList, TCountList);
+					fillFrequencyListUsingCountList( AFrequencyList, ACountList, totalCount);
+					fillFrequencyListUsingCountList( CFrequencyList, CCountList, totalCount);
+					fillFrequencyListUsingCountList( GFrequencyList, GCountList, totalCount);
+					fillFrequencyListUsingCountList( TFrequencyList, TCountList, totalCount);
 
-						// Now put the new matrix to the hashmap in tab format
-						putPFM(tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList, tfName2PfmMatrices);
+					// Now put the new matrix to the hashmap in tab format
+					putPFM( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList, tfName2PfmMatrices);
 
-						// Put the transpose of the matrix for logo generation
-						putLogoMatrix(tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList, tfName2LogoMatrices);
-						// writeLogoMatrix(tfName,AFrequencyList,CFrequencyList,GFrequencyList,TFrequencyList,bufferedWriter);
+					// Put the transpose of the matrix for logo generation
+					putLogoMatrix( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList,
+							tfName2LogoMatrices);
+					// writeLogoMatrix(tfName,AFrequencyList,CFrequencyList,GFrequencyList,TFrequencyList,bufferedWriter);
 
-						break;
+					break;
 
-					}
+				}
 
 				}// End of switch
 
@@ -577,68 +610,70 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public static String getTfNamewithoutNumber(String tfName) {
+	public static String getTfNamewithoutNumber( String tfName) {
 
 		int n = tfName.length();
 		char c;
 		int i;
 
-		for (i = 0; i < n; i++) {
-			c = tfName.charAt(i);
-			if (Character.isDigit(c)) {
+		for( i = 0; i < n; i++){
+			c = tfName.charAt( i);
+			if( Character.isDigit( c)){
 				break;
 			}
 		}
 
-		return tfName.substring(0, i);
+		return tfName.substring( 0, i);
 	}
 
-	public static String getTfNameWithFirstNumberWithNextCharacter(String tfName) {
+	public static String getTfNameWithFirstNumberWithNextCharacter( String tfName) {
 
 		int n = tfName.length();
 		char c;
 		int i;
 
-		for (i = 0; i < n; i++) {
-			c = tfName.charAt(i);
-			if (Character.isDigit(c)) {
-				if ((i + 1) < n) {
-					return tfName.substring(0, i + 2);
+		for( i = 0; i < n; i++){
+			c = tfName.charAt( i);
+			if( Character.isDigit( c)){
+				if( ( i + 1) < n){
+					return tfName.substring( 0, i + 2);
 
-				} else {
-					return tfName.substring(0, i + 1);
+				}else{
+					return tfName.substring( 0, i + 1);
 
 				}
 			}
 		}
 
-		return tfName.substring(0, i);
+		return tfName.substring( 0, i);
 	}
 
-	public static String removeLastCharacter(String tfName) {
+	public static String removeLastCharacter( String tfName) {
 
 		int n = tfName.length();
 
-		if (n >= 6) {
-			return tfName.substring(0, n - 1);
+		if( n >= 6){
+			return tfName.substring( 0, n - 1);
 
-		} else {
+		}else{
 			return tfName;
 
 		}
 	}
 
-	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(String snpDirectory, Map<String, TFOverlaps> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr, Map<String, String> chrName2RefSeqIdforGrch38Map) {
+	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( String snpDirectory,
+			Map<String, TFOverlaps> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr,
+			Map<String, String> chrName2RefSeqIdforGrch38Map) {
 
 		String tfName;
 		TFOverlaps tfOverlap;
@@ -647,34 +682,34 @@ public class GenerationofSequencesandMatricesforSNPs {
 		FileWriter TFNameBasedTFOverlapsFileWriter = null;
 		BufferedWriter TFNameBasedTFOverlapsBufferedWriter = null;
 
-		try {
+		try{
 
-			for (Map.Entry<String, TFOverlaps> tfEntry : tfName2TFOverlapMap.entrySet()) {
+			for( Map.Entry<String, TFOverlaps> tfEntry : tfName2TFOverlapMap.entrySet()){
 
 				tfName = tfEntry.getKey();
 				tfOverlap = tfEntry.getValue();
 
-				TFNameBasedTFOverlapsFileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + Commons.TF_OVERLAPS + Commons.UNDERSCORE + tfName + ".txt");
-				TFNameBasedTFOverlapsBufferedWriter = new BufferedWriter(TFNameBasedTFOverlapsFileWriter);
+				TFNameBasedTFOverlapsFileWriter = FileOperations.createFileWriter( snpDirectory + System.getProperty( "file.separator") + Commons.TF_OVERLAPS + Commons.UNDERSCORE + tfName + ".txt");
+				TFNameBasedTFOverlapsBufferedWriter = new BufferedWriter( TFNameBasedTFOverlapsFileWriter);
 
 				Iterator<TFCellLineOverlap> iterator = tfOverlap.getTfCellLineOverlaps().iterator();
 
 				// Write TF Based TFCellLineOverlaps into a file
-				while (iterator.hasNext()) {
+				while( iterator.hasNext()){
 					tfCellLineOverlap = iterator.next();
 
 					// Write TF CellLine Based TFOverlap File
 					// write snp based tf Intervals file
-					TFNameBasedTFOverlapsBufferedWriter.write(ChromosomeName.convertEnumtoString(tfOverlap.getChrNameWithPreceedingChr()) + "\t" + tfCellLineOverlap.getOneBasedStart() + "\t" + tfCellLineOverlap.getOneBasedEnd() + "\t" + tfCellLineOverlap.getTfName() + "\t" + tfCellLineOverlap.getCellLineName() + "\t" + tfCellLineOverlap.getFileName() + System.getProperty("line.separator"));
+					TFNameBasedTFOverlapsBufferedWriter.write( ChromosomeName.convertEnumtoString( tfOverlap.getChrNameWithPreceedingChr()) + "\t" + tfCellLineOverlap.getOneBasedStart() + "\t" + tfCellLineOverlap.getOneBasedEnd() + "\t" + tfCellLineOverlap.getTfName() + "\t" + tfCellLineOverlap.getCellLineName() + "\t" + tfCellLineOverlap.getFileName() + System.getProperty( "line.separator"));
 
 					// Set TFOverlap Minimum One Based Start
-					if (tfOverlap.getMinimumOneBasedStart() > tfCellLineOverlap.getOneBasedStart()) {
-						tfOverlap.setMinimumOneBasedStart(tfCellLineOverlap.getOneBasedStart());
+					if( tfOverlap.getMinimumOneBasedStart() > tfCellLineOverlap.getOneBasedStart()){
+						tfOverlap.setMinimumOneBasedStart( tfCellLineOverlap.getOneBasedStart());
 					}// End of IF
 
 					// Set TFOverlap Maximum One Based End
-					if (tfOverlap.getMaximumOneBasedEnd() < tfCellLineOverlap.getOneBasedEnd()) {
-						tfOverlap.setMaximumOneBasedEnd(tfCellLineOverlap.getOneBasedEnd());
+					if( tfOverlap.getMaximumOneBasedEnd() < tfCellLineOverlap.getOneBasedEnd()){
+						tfOverlap.setMaximumOneBasedEnd( tfCellLineOverlap.getOneBasedEnd());
 					}// End of IF
 
 				}// End of WHILE
@@ -683,89 +718,92 @@ public class GenerationofSequencesandMatricesforSNPs {
 				TFNameBasedTFOverlapsBufferedWriter.close();
 
 				// Get TF Name Based TFOverlap Peak Sequence
-				tfOverlap.setPeakSequence(getDNASequence(chrNameWithoutPreceedingChr, tfOverlap.getMinimumOneBasedStart(), tfOverlap.getMaximumOneBasedEnd(), chrName2RefSeqIdforGrch38Map));
+				tfOverlap.setPeakSequence( getDNASequence( chrNameWithoutPreceedingChr,
+						tfOverlap.getMinimumOneBasedStart(), tfOverlap.getMaximumOneBasedEnd(),
+						chrName2RefSeqIdforGrch38Map));
 
 				// Write TF Name Based TFOverlap Peak Sequence
-				writeSequenceFile(snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName, tfOverlap.getPeakSequence());
+				writeSequenceFile( snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName,
+						tfOverlap.getPeakSequence());
 
 			}// End of FOR TF Name Based TF CellLine Overlaps
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void writeSequenceFile(String snpDirectory, String fileName, String sequence) {
+	public static void writeSequenceFile( String snpDirectory, String fileName, String sequence) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		int indexofLineSeparator;
 		String firstLineofFastaFile;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + fileName + ".txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter( snpDirectory + System.getProperty( "file.separator") + fileName + ".txt");
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			indexofLineSeparator = sequence.indexOf(System.getProperty("line.separator"));
+			indexofLineSeparator = sequence.indexOf( System.getProperty( "line.separator"));
 
 			// fastaFile is sent
-			if (indexofLineSeparator != -1) {
-				firstLineofFastaFile = sequence.substring(0, indexofLineSeparator);
+			if( indexofLineSeparator != -1){
+				firstLineofFastaFile = sequence.substring( 0, indexofLineSeparator);
 
-				bufferedWriter.write(firstLineofFastaFile + "\t" + fileName + System.getProperty("line.separator"));
-				bufferedWriter.write(sequence.substring(indexofLineSeparator + 1).trim());
+				bufferedWriter.write( firstLineofFastaFile + "\t" + fileName + System.getProperty( "line.separator"));
+				bufferedWriter.write( sequence.substring( indexofLineSeparator + 1).trim());
 
 			}
 			// only sequence is sent
 			// so add '>' character to make it in fasta format
-			else {
-				bufferedWriter.write(">" + fileName + System.getProperty("line.separator"));
-				bufferedWriter.write(sequence);
+			else{
+				bufferedWriter.write( ">" + fileName + System.getProperty( "line.separator"));
+				bufferedWriter.write( sequence);
 
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static String takeComplementforeachAllele(String allele) {
+	public static String takeComplementforeachAllele( String allele) {
 
 		String complementedAllele = "";
 
-		for (char nucleotide : allele.toCharArray()) {
-			switch (nucleotide) {
-				case 'A':
-				case 'a':
-					complementedAllele = complementedAllele + "T";
-					break;
+		for( char nucleotide : allele.toCharArray()){
+			switch( nucleotide){
+			case 'A':
+			case 'a':
+				complementedAllele = complementedAllele + "T";
+				break;
 
-				case 'C':
-				case 'c':
-					complementedAllele = complementedAllele + "G";
-					break;
+			case 'C':
+			case 'c':
+				complementedAllele = complementedAllele + "G";
+				break;
 
-				case 'G':
-				case 'g':
-					complementedAllele = complementedAllele + "C";
-					break;
+			case 'G':
+			case 'g':
+				complementedAllele = complementedAllele + "C";
+				break;
 
-				case 'T':
-				case 't':
-					complementedAllele = complementedAllele + "A";
-					break;
+			case 'T':
+			case 't':
+				complementedAllele = complementedAllele + "A";
+				break;
 
-				case '-':
-					complementedAllele = complementedAllele + "-";
-					break;
+			case '-':
+				complementedAllele = complementedAllele + "-";
+				break;
 
-				default:
-					return null;
+			default:
+				return null;
 
 			}// End of switch
 		}// End of for
@@ -773,15 +811,15 @@ public class GenerationofSequencesandMatricesforSNPs {
 		return complementedAllele;
 	}
 
-	public static List<String> takeComplement(List<String> observedAllelesList) {
+	public static List<String> takeComplement( List<String> observedAllelesList) {
 
 		String complementedAllele = null;
 		List<String> complementedAlleles = new ArrayList<String>();
 
-		for (String allele : observedAllelesList) {
-			complementedAllele = takeComplementforeachAllele(allele);
-			if (complementedAllele != null) {
-				complementedAlleles.add(complementedAllele);
+		for( String allele : observedAllelesList){
+			complementedAllele = takeComplementforeachAllele( allele);
+			if( complementedAllele != null){
+				complementedAlleles.add( complementedAllele);
 			}
 
 		}// End of for each observed Allele
@@ -790,7 +828,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static boolean checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(List<String> snpAlteredSequenceNames, List<String> snpAlteredSequences, List<String> usedObservedAlleles, String snpForwardReferenceSequence, int rsId, List<String> observedAllelesList) {
+	public static boolean checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
+			List<String> snpAlteredSequenceNames, List<String> snpAlteredSequences, List<String> usedObservedAlleles,
+			String snpForwardReferenceSequence, int rsId, List<String> observedAllelesList) {
 
 		boolean contains = false;
 		String formerSNPReferenceSequence = null;
@@ -800,44 +840,46 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int lengthOfObservedAllele;
 		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = null;
 
-		for (String observedAllele : observedAllelesList) {
+		for( String observedAllele : observedAllelesList){
 
 			lengthOfObservedAllele = observedAllele.length();
 
-			try {
+			try{
 
-				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(
+						Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
-			} catch (StringIndexOutOfBoundsException e) {
-				logger.error("Exception Message:" + e.getMessage());
-				logger.error("Exception toString:" + e.toString());
-				logger.error("snpForwardReferenceSequence: " + snpForwardReferenceSequence);
-				logger.error("ObservedAllele: " + observedAllele);
+			}catch( StringIndexOutOfBoundsException e){
+				logger.error( "Exception Message:" + e.getMessage());
+				logger.error( "Exception toString:" + e.toString());
+				logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+				logger.error( "ObservedAllele: " + observedAllele);
 			}
 
 			// This observed allele is already in the SNP Reference Sequence
-			if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)) {
+			if( SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals( observedAllele)){
 				contains = true;
 			}
 			// This observed allele is not in the SNP Reference Sequence
-			else {
+			else{
 
-				if (!usedObservedAlleles.contains(observedAllele)) {
+				if( !usedObservedAlleles.contains( observedAllele)){
 
-					formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0, Commons.ZERO_BASED_SNP_POSITION);
-					latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+					formerSNPReferenceSequence = snpForwardReferenceSequence.substring( 0,
+							Commons.ZERO_BASED_SNP_POSITION);
+					latterSNPReferenceSequence = snpForwardReferenceSequence.substring( Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
-					if (!observedAllele.equals(Commons.STRING_HYPHEN)) {
+					if( !observedAllele.equals( Commons.STRING_HYPHEN)){
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+						snpAlteredSequenceNames.add( Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 
-					} else {
+					}else{
 						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
+						snpAlteredSequenceNames.add( Commons.RS + rsId + Commons.UNDERSCORE);
 					}
 
-					usedObservedAlleles.add(observedAllele);
-					snpAlteredSequences.add(alteredSNPSequence);
+					usedObservedAlleles.add( observedAllele);
+					snpAlteredSequences.add( alteredSNPSequence);
 
 				}// End of IF: this observed allele is not used yet
 
@@ -848,7 +890,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		return contains;
 	}
 
-	public static void createSNPAlteredSequences(SNPInformation snpInformation, int rsId, List<String> observedAllelesList) {
+	public static void createSNPAlteredSequences( SNPInformation snpInformation, int rsId,
+			List<String> observedAllelesList) {
 
 		// For each observed allele
 		// Check whether snpReferenceSequence contains any of these observed
@@ -859,20 +902,23 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// observed allele starting at snp start position
 		Boolean snpContainsAnyOfObservedAlleles;
 
-		snpContainsAnyOfObservedAlleles = checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(snpInformation.getSnpAlteredSequenceNames(), snpInformation.getSnpAlteredSequences(), snpInformation.getUsedObservedAlleles(), snpInformation.getSnpReferenceSequence(), rsId, observedAllelesList);
+		snpContainsAnyOfObservedAlleles = checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
+				snpInformation.getSnpAlteredSequenceNames(), snpInformation.getSnpAlteredSequences(),
+				snpInformation.getUsedObservedAlleles(), snpInformation.getSnpReferenceSequence(), rsId,
+				observedAllelesList);
 
-		if (!snpContainsAnyOfObservedAlleles) {
+		if( !snpContainsAnyOfObservedAlleles){
 			// Give alarm
-			logger.error("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
-			logger.error("rsID: " + rsId);
-			logger.error("snp Reference Sequence: " + snpInformation.getFastaFile());
+			logger.error( "There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
+			logger.error( "rsID: " + rsId);
+			logger.error( "snp Reference Sequence: " + snpInformation.getFastaFile());
 		}
 
-		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
+		snpInformation.setSnpContainsAnyOfObservedAlleles( snpContainsAnyOfObservedAlleles);
 
 	}
 
-	public static List<String> convertSlashSeparatedObservedAllelesIntoAStringList(String slashSeparatedObservedAlleles) {
+	public static List<String> convertSlashSeparatedObservedAllelesIntoAStringList( String slashSeparatedObservedAlleles) {
 
 		List<String> observedAllelesList = new ArrayList<String>();
 
@@ -880,28 +926,28 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int indexofLatterSlash;
 		String allele;
 
-		indexofFormerSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH);
+		indexofFormerSlash = slashSeparatedObservedAlleles.indexOf( Commons.SLASH);
 
 		/*****************************************************************/
 		/************* For the first allele starts *************************/
 		/*****************************************************************/
-		allele = slashSeparatedObservedAlleles.substring(0, indexofFormerSlash);
-		observedAllelesList.add(allele);
+		allele = slashSeparatedObservedAlleles.substring( 0, indexofFormerSlash);
+		observedAllelesList.add( allele);
 		/*****************************************************************/
 		/************* For the first allele ends ***************************/
 		/*****************************************************************/
 
-		indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH, indexofFormerSlash + 1);
+		indexofLatterSlash = slashSeparatedObservedAlleles.indexOf( Commons.SLASH, indexofFormerSlash + 1);
 
 		/*****************************************************************/
 		/************* For the middle allele starts ************************/
 		/*****************************************************************/
-		while (indexofFormerSlash != -1 && indexofLatterSlash != -1) {
-			allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash + 1, indexofLatterSlash);
-			observedAllelesList.add(allele);
+		while( indexofFormerSlash != -1 && indexofLatterSlash != -1){
+			allele = slashSeparatedObservedAlleles.substring( indexofFormerSlash + 1, indexofLatterSlash);
+			observedAllelesList.add( allele);
 
 			indexofFormerSlash = indexofLatterSlash;
-			indexofLatterSlash = slashSeparatedObservedAlleles.indexOf(Commons.SLASH, indexofFormerSlash + 1);
+			indexofLatterSlash = slashSeparatedObservedAlleles.indexOf( Commons.SLASH, indexofFormerSlash + 1);
 		}
 		/*****************************************************************/
 		/************* For the middle allele ends **************************/
@@ -910,8 +956,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		/*****************************************************************/
 		/************* For the last allele starts **************************/
 		/*****************************************************************/
-		allele = slashSeparatedObservedAlleles.substring(indexofFormerSlash + 1);
-		observedAllelesList.add(allele);
+		allele = slashSeparatedObservedAlleles.substring( indexofFormerSlash + 1);
+		observedAllelesList.add( allele);
 		/*****************************************************************/
 		/************* For the last allele ends ****************************/
 		/*****************************************************************/
@@ -920,43 +966,45 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static void createSNPAlteredSequences(SNPInformation snpInformation, RsInformation rsInformation) {
+	public static void createSNPAlteredSequences( SNPInformation snpInformation, RsInformation rsInformation) {
 
-		List<String> observedAllelesList = convertSlashSeparatedObservedAllelesIntoAStringList(rsInformation.getSlashSeparatedObservedAlleles());
+		List<String> observedAllelesList = convertSlashSeparatedObservedAllelesIntoAStringList( rsInformation.getSlashSeparatedObservedAlleles());
 
 		List<String> complementedObservedAllelesList = null;
 
 		// rsID Orient is Forward
-		if (rsInformation.getOrient().isForward()) {
-			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), observedAllelesList);
+		if( rsInformation.getOrient().isForward()){
+			createSNPAlteredSequences( snpInformation, rsInformation.getRsId(), observedAllelesList);
 		}
 		// rsID Orient is Reverse
-		else {
+		else{
 			// Take Complement of slashSeparatedObservedAlleles
-			complementedObservedAllelesList = takeComplement(observedAllelesList);
-			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), complementedObservedAllelesList);
+			complementedObservedAllelesList = takeComplement( observedAllelesList);
+			createSNPAlteredSequences( snpInformation, rsInformation.getRsId(), complementedObservedAllelesList);
 		}
 
 	}
 
-	public static void writeObservedAllelesFile(String snpDirectory, String fileName, String observedAlleles) {
+	public static void writeObservedAllelesFile( String snpDirectory, String fileName, String observedAlleles) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		try {
-			fileWriter = FileOperations.createFileWriter(snpDirectory + System.getProperty("file.separator") + fileName + ".txt");
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter( snpDirectory + System.getProperty( "file.separator") + fileName + ".txt");
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			bufferedWriter.write(observedAlleles + System.getProperty("line.separator"));
+			bufferedWriter.write( observedAlleles + System.getProperty( "line.separator"));
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void createPeakSequencesFile(String outputFolder, String directoryBase, String sequenceFileDirectory, String fileName, String peakName, String peakSequence) {
+	public static void createPeakSequencesFile( String outputFolder, String directoryBase,
+			String sequenceFileDirectory, String fileName, String peakName, String peakSequence) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -964,38 +1012,43 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int indexofFirstLineSeparator;
 		String firstLineofFastaFile;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + sequenceFileDirectory + System.getProperty("file.separator") + fileName + ".txt", true);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter(
+					outputFolder + directoryBase + sequenceFileDirectory + System.getProperty( "file.separator") + fileName + ".txt",
+					true);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			indexofFirstLineSeparator = peakSequence.indexOf(System.getProperty("line.separator"));
-			firstLineofFastaFile = peakSequence.substring(0, indexofFirstLineSeparator);
+			indexofFirstLineSeparator = peakSequence.indexOf( System.getProperty( "line.separator"));
+			firstLineofFastaFile = peakSequence.substring( 0, indexofFirstLineSeparator);
 
-			bufferedWriter.write(firstLineofFastaFile + "\t" + peakName + System.getProperty("line.separator"));
-			bufferedWriter.write(peakSequence.substring(indexofFirstLineSeparator + 1).trim());
+			bufferedWriter.write( firstLineofFastaFile + "\t" + peakName + System.getProperty( "line.separator"));
+			bufferedWriter.write( peakSequence.substring( indexofFirstLineSeparator + 1).trim());
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void writeMatrixFile(String outputFolder, String directoryBase, String tfNameCellLineNameorKeggPathwayName, String matrixName, String matrix) {
+	public static void writeMatrixFile( String outputFolder, String directoryBase,
+			String tfNameCellLineNameorKeggPathwayName, String matrixName, String matrix) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		try {
-			fileWriter = FileOperations.createFileWriter(outputFolder + directoryBase + tfNameCellLineNameorKeggPathwayName + System.getProperty("file.separator") + matrixName + ".txt", true);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter(
+					outputFolder + directoryBase + tfNameCellLineNameorKeggPathwayName + System.getProperty( "file.separator") + matrixName + ".txt",
+					true);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			bufferedWriter.write(matrix);
+			bufferedWriter.write( matrix);
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -1003,20 +1056,21 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	// Requires chrName without preceeding "chr" string
 	// Requires oneBased coordinates
-	public static String getDNASequence(String chrNamewithoutPreceedingChr, int oneBasedStart, int oneBasedEnd, Map<String, String> chrName2RefSeqIdforGrch38Map) {
+	public static String getDNASequence( String chrNamewithoutPreceedingChr, int oneBasedStart, int oneBasedEnd,
+			Map<String, String> chrName2RefSeqIdforGrch38Map) {
 
 		String sourceHTML = null;
 		String refSeqId;
 
-		refSeqId = chrName2RefSeqIdforGrch38Map.get(chrNamewithoutPreceedingChr);
+		refSeqId = chrName2RefSeqIdforGrch38Map.get( chrNamewithoutPreceedingChr);
 
 		// GlanetRunner.appendLog("EFETCH RESULT:");
 		// Read from the URL
-		try {
+		try{
 			String eFetchString = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id=" + refSeqId + "&strand=1" + "&seq_start=" + oneBasedStart + "&seq_stop=" + oneBasedEnd + "&rettype=fasta&retmode=text";
-			URL url = new URL(eFetchString);
+			URL url = new URL( eFetchString);
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			BufferedReader in = new BufferedReader( new InputStreamReader( url.openStream()));
 			String inputLine; // one line of the result, as it is read line by
 								// line
 			sourceHTML = ""; // will eventually contain the whole result
@@ -1024,44 +1078,50 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 			// Pay attention
 			// Each line including last line has new line character at the end.
-			while ((inputLine = in.readLine()) != null) // read one line of the
-														// input stream
+			while( ( inputLine = in.readLine()) != null) // read one line of the
+															// input stream
 			{
-				sourceHTML += inputLine + System.getProperty("line.separator"); // add
-																				// this
-																				// line
-																				// to
-																				// end
-																				// of
-																				// the
-																				// whole
-																				// shebang
+				sourceHTML += inputLine + System.getProperty( "line.separator"); // add
+																					// this
+																					// line
+																					// to
+																					// end
+																					// of
+																					// the
+																					// whole
+																					// shebang
 				// ++lineCount; // count the number of lines read
 			}
 
 			// Close the connection
 			in.close();
-		} catch (Exception e) {
-			logger.error("Error reading from the URL:");
-			logger.error(e);
+		}catch( Exception e){
+			logger.error( "Error reading from the URL:");
+			logger.error( e);
 		}
 
 		return sourceHTML;
 	}
 
-	public static String getDNASequenceFromFastaFile(String fastaFile) {
+	public static String getDNASequenceFromFastaFile( String fastaFile) {
+
 		String referenceSequence;
 		int indexofFirstLineSeparator;
 
-		indexofFirstLineSeparator = fastaFile.indexOf(System.getProperty("line.separator"));
-		referenceSequence = fastaFile.substring(indexofFirstLineSeparator + 1).trim();
+		indexofFirstLineSeparator = fastaFile.indexOf( System.getProperty( "line.separator"));
+		referenceSequence = fastaFile.substring( indexofFirstLineSeparator + 1).trim();
 
 		return referenceSequence;
 
 	}
 
 	// TF starts
-	public static void readAllTFAnnotationsWriteSequencesandMatrices(AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs, AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation, Map<String, String> chrName2RefSeqIdforGrch38Map, String forRSAFolder, String all_TF_Annotations_File_1Based_Start_End_GRCh38, Map<String, String> tfName2PfmMatrices, Map<String, String> tfName2LogoMatrices, String enrichmentType) {
+	public static void readAllTFAnnotationsWriteSequencesandMatrices(
+			AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs,
+			AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation,
+			Map<String, String> chrName2RefSeqIdforGrch38Map, String forRSAFolder,
+			String all_TF_Annotations_File_1Based_Start_End_GRCh38, Map<String, String> tfName2PfmMatrices,
+			Map<String, String> tfName2LogoMatrices, String enrichmentType) {
 
 		FileReader allTFAnnotationsFileReader;
 		BufferedReader allTFAnnotationsBufferedReader;
@@ -1096,7 +1156,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		boolean thereExistsPFMMatrix = false;
 		boolean thereExistsLOGOMatrix = false;
 
-		String directoryBase = Commons.TF_PFM_AND_LOGO_Matrices + System.getProperty("file.separator");
+		String directoryBase = Commons.TF_PFM_AND_LOGO_Matrices + System.getProperty( "file.separator");
 
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 
@@ -1161,41 +1221,41 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// Therefore each rsInformation can have observedAlleles String. It is
 		// rare but it is possible.
 
-		try {
-			allTFAnnotationsFileReader = new FileReader(forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
-			allTFAnnotationsBufferedReader = new BufferedReader(allTFAnnotationsFileReader);
+		try{
+			allTFAnnotationsFileReader = new FileReader( forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
+			allTFAnnotationsBufferedReader = new BufferedReader( allTFAnnotationsFileReader);
 
 			/****************************************************************************************/
 			/********************* Reading All TF Annotations File Starts ****************************/
 			/****************************************************************************************/
-			while ((strLine = allTFAnnotationsBufferedReader.readLine()) != null) {
+			while( ( strLine = allTFAnnotationsBufferedReader.readLine()) != null){
 
 				// skip strLine starts with '#' comment character
-				if (strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER) {
+				if( strLine.charAt( 0) != Commons.GLANET_COMMENT_CHARACTER){
 
-					indexofFirstTab = strLine.indexOf('\t');
-					indexofSecondTab = (indexofFirstTab > 0) ? strLine.indexOf('\t', indexofFirstTab + 1) : -1;
-					indexofThirdTab = (indexofSecondTab > 0) ? strLine.indexOf('\t', indexofSecondTab + 1) : -1;
-					indexofFourthTab = (indexofThirdTab > 0) ? strLine.indexOf('\t', indexofThirdTab + 1) : -1;
-					indexofFifthTab = (indexofFourthTab > 0) ? strLine.indexOf('\t', indexofFourthTab + 1) : -1;
-					indexofSixthTab = (indexofFifthTab > 0) ? strLine.indexOf('\t', indexofFifthTab + 1) : -1;
-					indexofSeventhTab = (indexofSixthTab > 0) ? strLine.indexOf('\t', indexofSixthTab + 1) : -1;
-					indexofEigthTab = (indexofSeventhTab > 0) ? strLine.indexOf('\t', indexofSeventhTab + 1) : -1;
+					indexofFirstTab = strLine.indexOf( '\t');
+					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+					indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+					indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+					indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+					indexofSeventhTab = ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
+					indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
 
-					chrNameWithPreceedingChr = strLine.substring(0, indexofFirstTab);
-					chrNameWithoutPreceedingChr = chrNameWithPreceedingChr.substring(3);
+					chrNameWithPreceedingChr = strLine.substring( 0, indexofFirstTab);
+					chrNameWithoutPreceedingChr = chrNameWithPreceedingChr.substring( 3);
 
 					// Used in finding list of rsIds in this given GRCH38
 					// coordinate
-					snpOneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
-					snpOneBasedEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1, indexofThirdTab));
+					snpOneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+					snpOneBasedEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 
-					tfOneBasedStart = Integer.parseInt(strLine.substring(indexofFourthTab + 1, indexofFifthTab));
-					tfOneBasedEnd = Integer.parseInt(strLine.substring(indexofFifthTab + 1, indexofSixthTab));
+					tfOneBasedStart = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
+					tfOneBasedEnd = Integer.parseInt( strLine.substring( indexofFifthTab + 1, indexofSixthTab));
 
-					tfName = strLine.substring(indexofSixthTab + 1, indexofSeventhTab);
-					cellLineName = strLine.substring(indexofSeventhTab + 1, indexofEigthTab);
-					fileName = strLine.substring(indexofEigthTab + 1);
+					tfName = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
+					cellLineName = strLine.substring( indexofSeventhTab + 1, indexofEigthTab);
+					fileName = strLine.substring( indexofEigthTab + 1);
 
 					// Initialize tfNameRemovedLastCharacter to tfName
 					tfNameRemovedLastCharacter = tfName;
@@ -1203,57 +1263,62 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*************************************************************************/
 					/********** Create Files for pfm Matrices and logo Matrices starts *********/
 					/*************************************************************************/
-					if (tf2PFMLogoMatriceAlreadyExistsMap.get(tfName) == null) {
+					if( tf2PFMLogoMatriceAlreadyExistsMap.get( tfName) == null){
 
 						isThereAnExactTfNamePfmMatrix = false;
 
 						// Find PFM entry
-						for (Map.Entry<String, String> pfmEntry : tfName2PfmMatrices.entrySet()) {
-							if (pfmEntry.getKey().contains(tfName)) {
+						for( Map.Entry<String, String> pfmEntry : tfName2PfmMatrices.entrySet()){
+							if( pfmEntry.getKey().contains( tfName)){
 								isThereAnExactTfNamePfmMatrix = true;
-								writeMatrixFile(forRSAFolder, directoryBase, tfName, Commons.PFM_MATRICES + Commons.UNDERSCORE + tfName, pfmEntry.getValue());
+								writeMatrixFile( forRSAFolder, directoryBase, tfName,
+										Commons.PFM_MATRICES + Commons.UNDERSCORE + tfName, pfmEntry.getValue());
 
 							}
 						}// End of for
 
 						// Find LOGO entry
-						for (Map.Entry<String, String> logoEntry : tfName2LogoMatrices.entrySet()) {
-							if (logoEntry.getKey().contains(tfName)) {
-								writeMatrixFile(forRSAFolder, directoryBase, tfName, Commons.LOGO_MATRICES + Commons.UNDERSCORE + tfName, logoEntry.getValue());
+						for( Map.Entry<String, String> logoEntry : tfName2LogoMatrices.entrySet()){
+							if( logoEntry.getKey().contains( tfName)){
+								writeMatrixFile( forRSAFolder, directoryBase, tfName,
+										Commons.LOGO_MATRICES + Commons.UNDERSCORE + tfName, logoEntry.getValue());
 
 							}
 						}
 
-						if (!isThereAnExactTfNamePfmMatrix) {
+						if( !isThereAnExactTfNamePfmMatrix){
 
 							thereExistsPFMMatrix = false;
 							thereExistsLOGOMatrix = false;
 
-							while (!thereExistsPFMMatrix && !thereExistsLOGOMatrix) {
+							while( !thereExistsPFMMatrix && !thereExistsLOGOMatrix){
 								previousTfNameRemovedLastCharacter = tfNameRemovedLastCharacter;
 								// @todo removeLastCharacter may need further
 								// check
-								tfNameRemovedLastCharacter = removeLastCharacter(tfNameRemovedLastCharacter);
+								tfNameRemovedLastCharacter = removeLastCharacter( tfNameRemovedLastCharacter);
 
 								// If no change
-								if (previousTfNameRemovedLastCharacter.equals(tfNameRemovedLastCharacter)) {
+								if( previousTfNameRemovedLastCharacter.equals( tfNameRemovedLastCharacter)){
 									break;
 								}
 
 								// find pfm entry
-								for (Map.Entry<String, String> pfmEntry : tfName2PfmMatrices.entrySet()) {
-									if (pfmEntry.getKey().contains(tfNameRemovedLastCharacter)) {
+								for( Map.Entry<String, String> pfmEntry : tfName2PfmMatrices.entrySet()){
+									if( pfmEntry.getKey().contains( tfNameRemovedLastCharacter)){
 										thereExistsPFMMatrix = true;
-										writeMatrixFile(forRSAFolder, directoryBase, tfName, Commons.PFM_MATRICES + Commons.UNDERSCORE + tfName, pfmEntry.getValue());
+										writeMatrixFile( forRSAFolder, directoryBase, tfName,
+												Commons.PFM_MATRICES + Commons.UNDERSCORE + tfName, pfmEntry.getValue());
 
 									}
 								}// End of for PFM
 
 								// find logo entry
-								for (Map.Entry<String, String> logoEntry : tfName2LogoMatrices.entrySet()) {
-									if (logoEntry.getKey().contains(tfNameRemovedLastCharacter)) {
+								for( Map.Entry<String, String> logoEntry : tfName2LogoMatrices.entrySet()){
+									if( logoEntry.getKey().contains( tfNameRemovedLastCharacter)){
 										thereExistsLOGOMatrix = true;
-										writeMatrixFile(forRSAFolder, directoryBase, tfName, Commons.LOGO_MATRICES + Commons.UNDERSCORE + tfName, logoEntry.getValue());
+										writeMatrixFile( forRSAFolder, directoryBase, tfName,
+												Commons.LOGO_MATRICES + Commons.UNDERSCORE + tfName,
+												logoEntry.getValue());
 
 									}
 								}// End of for LOGO
@@ -1262,7 +1327,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 						}// End of IF there is no exact TF NAME PFM Matrix Match
 
-						tf2PFMLogoMatriceAlreadyExistsMap.put(tfName, true);
+						tf2PFMLogoMatriceAlreadyExistsMap.put( tfName, true);
 					} // End of if
 					/*************************************************************************/
 					/********** Create Files for pfm Matrices and logo Matrices ends ***********/
@@ -1284,38 +1349,39 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*************************************************************************/
 					/***************** Fill givenSNP2SNPInformationMap starts ******************/
 					/*************************************************************************/
-					snpInformation = givenSNP2SNPInformationMap.get(givenSNPKey);
+					snpInformation = givenSNP2SNPInformationMap.get( givenSNPKey);
 
 					// This SNP is looked for for the first time
-					if (snpInformation == null) {
+					if( snpInformation == null){
 
 						snpInformation = new SNPInformation();
 
-						snpInformation.setChrNameWithoutPreceedingChr(chrNameWithoutPreceedingChr);
-						snpInformation.setOneBasedStart(snpOneBasedStart);
-						snpInformation.setOneBasedEnd(snpOneBasedEnd);
+						snpInformation.setChrNameWithoutPreceedingChr( chrNameWithoutPreceedingChr);
+						snpInformation.setOneBasedStart( snpOneBasedStart);
+						snpInformation.setOneBasedEnd( snpOneBasedEnd);
 
 						// Get all the rsIDs in this given interval
 						// We have to provide 1-based coordinates as arguments
 						// Caution: This rsIdList may contain merged rsIds
 						// rsIdList is a list of integers
 						// rsId is an integer without --rs-- prefix
-						rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNameWithoutPreceedingChr, snpOneBasedStart, snpOneBasedEnd);
+						rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(
+								chrNameWithoutPreceedingChr, snpOneBasedStart, snpOneBasedEnd);
 						validRsIdList = new ArrayList<Integer>();
 
 						/*************************************************************************/
 						/*************** Fill rsID2RsIDInformationMap starts ***********************/
 						/*************************************************************************/
-						for (Integer rsId : rsIdList) {
+						for( Integer rsId : rsIdList){
 
-							rsInformation = rsID2RsIDInformationMap.get(rsId);
+							rsInformation = rsID2RsIDInformationMap.get( rsId);
 
 							// For this rsID, We are getting rsInformation for
 							// the first time
-							if (rsInformation == null) {
+							if( rsInformation == null){
 
 								// For each rsId get rsInformation
-								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(String.valueOf(rsId));
+								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId( String.valueOf( rsId));
 
 								// Option 1---Here we can either return a not
 								// null rsInformation with a different rsId
@@ -1328,7 +1394,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 								// I have chosen ---Option 2--- since I exit the
 								// loop and return null, do not continue unused
 								// assignments
-								if (rsInformation != null) {
+								if( rsInformation != null){
 
 									// @todo Here we can check whether this rsId
 									// is in the given input rsID list if the
@@ -1341,24 +1407,24 @@ public class GenerationofSequencesandMatricesforSNPs {
 									// rsId and and rsInformation.getRsId()
 									// might be different because of merge
 									// situation
-									if (!rsID2RsIDInformationMap.containsKey(rsInformation.getRsId())) {
-										rsID2RsIDInformationMap.put(rsInformation.getRsId(), rsInformation);
+									if( !rsID2RsIDInformationMap.containsKey( rsInformation.getRsId())){
+										rsID2RsIDInformationMap.put( rsInformation.getRsId(), rsInformation);
 									}
 
-									if (!validRsIdList.contains(rsInformation.getRsId())) {
-										validRsIdList.add(rsInformation.getRsId());
+									if( !validRsIdList.contains( rsInformation.getRsId())){
+										validRsIdList.add( rsInformation.getRsId());
 									}
 								}// End of IF rsInformation is not NULL
 
 							}// End of if rsInformation is null
-							else {
+							else{
 
-								logger.error("I guess this else part is unnecessary!");
+								logger.error( "I guess this else part is unnecessary!");
 
 								// Means that rsInformation is already put
 								// so this rsId is not a merged rsId
-								if (!validRsIdList.contains(rsInformation.getRsId())) {
-									validRsIdList.add(rsInformation.getRsId());
+								if( !validRsIdList.contains( rsInformation.getRsId())){
+									validRsIdList.add( rsInformation.getRsId());
 								}
 
 							}// End of ELSE: this chrName_OneBasedCoordinate is
@@ -1370,8 +1436,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 						/*************** Fill rsID2RsIDInformationMap ends *************************/
 						/*************************************************************************/
 
-						snpInformation.setValidRsIDList(validRsIdList);
-						givenSNP2SNPInformationMap.put(givenSNPKey, snpInformation);
+						snpInformation.setValidRsIDList( validRsIdList);
+						givenSNP2SNPInformationMap.put( givenSNPKey, snpInformation);
 
 					}// End of IF snpInformation is null
 					/*************************************************************************/
@@ -1381,59 +1447,64 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*************************************************************************/
 					/*********** Fill givenSNP2TFName2TFOverlapsMapMap starts ******************/
 					/*************************************************************************/
-					tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get(givenSNPKey);
+					tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get( givenSNPKey);
 
 					// This SNP is looked for for the first time
-					if (tfName2TFOverlapsMap == null) {
+					if( tfName2TFOverlapsMap == null){
 
 						tfName2TFOverlapsMap = new HashMap<String, TFOverlaps>();
 
-						tfOverlaps = tfName2TFOverlapsMap.get(tfName);
+						tfOverlaps = tfName2TFOverlapsMap.get( tfName);
 
 						// For this SNP, This TF is looked for the first time
-						if (tfOverlaps == null) {
+						if( tfOverlaps == null){
 
-							tfOverlaps = new TFOverlaps(tfName, ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
+							tfOverlaps = new TFOverlaps( tfName,
+									ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
 
-							tfCellLineOverlap = new TFCellLineOverlap(tfName, cellLineName, fileName, tfOneBasedStart, tfOneBasedEnd);
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
+									tfOneBasedEnd);
 
-							tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
+							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
-							tfName2TFOverlapsMap.put(tfName, tfOverlaps);
+							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
 						}
 
-						givenSNP2TFName2TFOverlapsMapMap.put(givenSNPKey, tfName2TFOverlapsMap);
+						givenSNP2TFName2TFOverlapsMapMap.put( givenSNPKey, tfName2TFOverlapsMap);
 
 					}
 					// For this SNP, we have another kind of TF Overlap
-					else {
-						tfOverlaps = tfName2TFOverlapsMap.get(tfName);
+					else{
+						tfOverlaps = tfName2TFOverlapsMap.get( tfName);
 
 						// For this SNP, This TF Overlap is looked for the first
 						// time.
-						if (tfOverlaps == null) {
+						if( tfOverlaps == null){
 
-							tfOverlaps = new TFOverlaps(tfName, ChromosomeName.convertStringtoEnum(chrNameWithPreceedingChr));
+							tfOverlaps = new TFOverlaps( tfName,
+									ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
 
-							tfCellLineOverlap = new TFCellLineOverlap(tfName, cellLineName, fileName, tfOneBasedStart, tfOneBasedEnd);
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
+									tfOneBasedEnd);
 
-							tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
+							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
-							tfName2TFOverlapsMap.put(tfName, tfOverlaps);
+							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
 
 						}
 						// For this SNP, we have another TF Overlap for an
 						// already existing TF Overlap
-						else {
-							tfCellLineOverlap = new TFCellLineOverlap(tfName, cellLineName, fileName, tfOneBasedStart, tfOneBasedEnd);
+						else{
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
+									tfOneBasedEnd);
 
-							tfOverlaps.getTfCellLineOverlaps().add(tfCellLineOverlap);
+							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
-							tfName2TFOverlapsMap.put(tfName, tfOverlaps);
+							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
 
 						}
 
-						givenSNP2TFName2TFOverlapsMapMap.put(givenSNPKey, tfName2TFOverlapsMap);
+						givenSNP2TFName2TFOverlapsMapMap.put( givenSNPKey, tfName2TFOverlapsMap);
 					}
 					/*************************************************************************/
 					/*********** Fill givenSNP2TFName2TFOverlapsMapMap ends ********************/
@@ -1463,29 +1534,32 @@ public class GenerationofSequencesandMatricesforSNPs {
 			/**************** SNP Reference Sequence *****************************************************************************************/
 			/**************** SNP Alternate Sequences ****************************************************************************************/
 			/**************** TF OVERLAP Peak Sequence ***************************************************************************************/
-			for (Map.Entry<String, SNPInformation> entry : givenSNP2SNPInformationMap.entrySet()) {
+			for( Map.Entry<String, SNPInformation> entry : givenSNP2SNPInformationMap.entrySet()){
 				givenSNPKey = entry.getKey();
 				snpInformation = entry.getValue();
 
 				// Get Fasta File for each SNP
 				// Get SNP Reference DNA Sequence from fasta file for each SNP
-				fastaFile = getDNASequence(snpInformation.getChrNameWithoutPreceedingChr(), snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION, snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION, chrName2RefSeqIdforGrch38Map);
+				fastaFile = getDNASequence( snpInformation.getChrNameWithoutPreceedingChr(),
+						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
+						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,
+						chrName2RefSeqIdforGrch38Map);
 
-				snpInformation.setFastaFile(fastaFile);
-				snpReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
-				snpInformation.setSnpReferenceSequence(snpReferenceSequence);
+				snpInformation.setFastaFile( fastaFile);
+				snpReferenceSequence = getDNASequenceFromFastaFile( fastaFile);
+				snpInformation.setSnpReferenceSequence( snpReferenceSequence);
 
 				/*****************************************************************/
 				/***************** Set SNP directory starts ************************/
 				/*****************************************************************/
-				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty("file.separator") + entry.getKey();
+				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty( "file.separator") + entry.getKey();
 
 				// Add valid rsIDs to the snpDirectory
-				for (Integer validRsId : snpInformation.getValidRsIDList()) {
+				for( Integer validRsId : snpInformation.getValidRsIDList()){
 					snpDirectory = snpDirectory + Commons.UNDERSCORE + Commons.RS + validRsId;
 				}// End of for each valid rsID in this SNP
 
-				snpDirectory = snpDirectory + System.getProperty("file.separator");
+				snpDirectory = snpDirectory + System.getProperty( "file.separator");
 				/*****************************************************************/
 				/***************** Set SNP directory ends **************************/
 				/*****************************************************************/
@@ -1493,7 +1567,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence starts ******************/
 				/*****************************************************************/
-				writeSequenceFile(snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(), entry.getValue().getFastaFile());
+				writeSequenceFile( snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),
+						entry.getValue().getFastaFile());
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence ends ********************/
 				/*****************************************************************/
@@ -1501,15 +1576,18 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/**********************************************************************************/
 				/*********** Write valid rsID Based SNP Observed Alleles Files starts ***************/
 				/**********************************************************************************/
-				for (Integer validRsId : snpInformation.getValidRsIDList()) {
+				for( Integer validRsId : snpInformation.getValidRsIDList()){
 
-					rsInformation = rsID2RsIDInformationMap.get(validRsId);
-					writeObservedAllelesFile(snpDirectory, Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS + validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(), rsInformation.getSlashSeparatedObservedAlleles());
+					rsInformation = rsID2RsIDInformationMap.get( validRsId);
+					writeObservedAllelesFile(
+							snpDirectory,
+							Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS + validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(),
+							rsInformation.getSlashSeparatedObservedAlleles());
 
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/
-					createSNPAlteredSequences(snpInformation, rsInformation);
+					createSNPAlteredSequences( snpInformation, rsInformation);
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/
@@ -1517,11 +1595,15 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************/
 					/************* Write SNP Altered Sequences starts ********************/
 					/*******************************************************************/
-					if (snpInformation.isSnpContainsAnyOfObservedAlleles()) {
+					if( snpInformation.isSnpContainsAnyOfObservedAlleles()){
 						alteredSequenceCount = 0;
 
-						for (String alteredSequence : snpInformation.getSnpAlteredSequences()) {
-							writeSequenceFile(snpDirectory, Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(), alteredSequence);
+						for( String alteredSequence : snpInformation.getSnpAlteredSequences()){
+							writeSequenceFile(
+									snpDirectory,
+									Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(
+											alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
+									alteredSequence);
 							alteredSequenceCount++;
 						}
 					}
@@ -1538,8 +1620,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/************** Write TF Name Based TF Overlaps File starts *************************/
 				/************** Write TF PEAK Sequence starts ***************************************/
 				/**********************************************************************************/
-				tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get(givenSNPKey);
-				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(snpDirectory, tfName2TFOverlapsMap, snpInformation.getChrNameWithoutPreceedingChr(), chrName2RefSeqIdforGrch38Map);
+				tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get( givenSNPKey);
+				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( snpDirectory, tfName2TFOverlapsMap,
+						snpInformation.getChrNameWithoutPreceedingChr(), chrName2RefSeqIdforGrch38Map);
 				/**********************************************************************************/
 				/************** Write TF Name Based TF Overlaps File ends ***************************/
 				/************** Write TF PEAK Sequence ends *****************************************/
@@ -1553,13 +1636,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 			/**************** Get DNA sequences ends *****************************************************************************************/
 			/*******************************************************************************************************************************/
 
-		} catch (FileNotFoundException e1) {
+		}catch( FileNotFoundException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		}catch( Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -1579,7 +1662,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 	// Assembly
 	// X assembled-molecule X Chromosome CM000685.1 = NC_000023.10 Primary
 	// Assembly
-	public static void fillMap(String dataFolder, String refSeqIdsforGRChXXInputFile, Map<String, String> chrName2RefSeqIdforGrchXXMap) {
+	public static void fillMap( String dataFolder, String refSeqIdsforGRChXXInputFile,
+			Map<String, String> chrName2RefSeqIdforGrchXXMap) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -1599,29 +1683,29 @@ public class GenerationofSequencesandMatricesforSNPs {
 		String chrName;
 		String refSeqId;
 
-		try {
-			fileReader = new FileReader(dataFolder + refSeqIdsforGRChXXInputFile);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + refSeqIdsforGRChXXInputFile);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				if (strLine.startsWith("#")) {
+			while( ( strLine = bufferedReader.readLine()) != null){
+				if( strLine.startsWith( "#")){
 					continue;
-				} else {
-					if (count < numberofChromosomesinHomoSapiens) {
+				}else{
+					if( count < numberofChromosomesinHomoSapiens){
 						count++;
 
-						indexofFirstTab = strLine.indexOf('\t');
-						indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-						indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-						indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-						indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-						indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-						indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
+						indexofFirstTab = strLine.indexOf( '\t');
+						indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+						indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+						indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+						indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+						indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+						indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
 
-						chrName = strLine.substring(0, indexofFirstTab);
-						refSeqId = strLine.substring(indexofSixthTab + 1, indexofSeventhTab);
+						chrName = strLine.substring( 0, indexofFirstTab);
+						refSeqId = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
 
-						chrName2RefSeqIdforGrchXXMap.put(chrName, refSeqId);
+						chrName2RefSeqIdforGrchXXMap.put( chrName, refSeqId);
 						continue;
 
 					}
@@ -1629,7 +1713,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 				break;
 			}
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -1645,7 +1729,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 	// Assembly
 	// X assembled-molecule X Chromosome CM000685.1 = NC_000023.10 Primary
 	// Assembly
-	public Map<String, String> fillMap(String refSeqIdsforGRCh37InputFile) {
+	public Map<String, String> fillMap( String refSeqIdsforGRCh37InputFile) {
 
 		Map<String, String> chrName2RefSeqIdforGrch37Map = new HashMap<String, String>();
 
@@ -1667,29 +1751,29 @@ public class GenerationofSequencesandMatricesforSNPs {
 		String chrName;
 		String refSeqId;
 
-		try {
-			fileReader = new FileReader(refSeqIdsforGRCh37InputFile);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( refSeqIdsforGRCh37InputFile);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				if (strLine.startsWith("#")) {
+			while( ( strLine = bufferedReader.readLine()) != null){
+				if( strLine.startsWith( "#")){
 					continue;
-				} else {
-					if (count < numberofChromosomesinHomoSapiens) {
+				}else{
+					if( count < numberofChromosomesinHomoSapiens){
 						count++;
 
-						indexofFirstTab = strLine.indexOf('\t');
-						indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-						indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-						indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-						indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-						indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-						indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
+						indexofFirstTab = strLine.indexOf( '\t');
+						indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+						indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+						indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+						indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+						indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+						indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
 
-						chrName = strLine.substring(0, indexofFirstTab);
-						refSeqId = strLine.substring(indexofSixthTab + 1, indexofSeventhTab);
+						chrName = strLine.substring( 0, indexofFirstTab);
+						refSeqId = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
 
-						chrName2RefSeqIdforGrch37Map.put(chrName, refSeqId);
+						chrName2RefSeqIdforGrch37Map.put( chrName, refSeqId);
 						continue;
 
 					}
@@ -1701,7 +1785,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 			bufferedReader.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -1796,24 +1880,24 @@ public class GenerationofSequencesandMatricesforSNPs {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if (jobName.isEmpty()) {
+		if( jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
 		// jobName ends
 
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 
-		String forRSAFolder = outputFolder + Commons.FOR_RSA + System.getProperty("file.separator");
+		String forRSAFolder = outputFolder + Commons.FOR_RSA + System.getProperty( "file.separator");
 
 		// TfEnrichment, DO or DO_NOT
-		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
+		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.TfAnnotation.value()]);
 
 		// pfm matrices
 		String encodeMotifsInputFileName = Commons.ENCODE_MOTIFS;
@@ -1830,7 +1914,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// @todo We have to update this file regularly
 		// Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
-		fillMap(dataFolder, refSeqIdsforGRCh38InputFile, chrName2RefSeqIdforGrch38Map);
+		fillMap( dataFolder, refSeqIdsforGRCh38InputFile, chrName2RefSeqIdforGrch38Map);
 
 		// Construct pfm matrices from encode-motif.txt file
 		// A tf can have more than one pfm matrices
@@ -1841,31 +1925,35 @@ public class GenerationofSequencesandMatricesforSNPs {
 		Map<String, String> tfName2LogoMatrices = new HashMap<String, String>();
 
 		// Construct position frequency matrices from Encode Motifs
-		constructPfmMatricesfromEncodeMotifs(dataFolder, encodeMotifsInputFileName, tfName2PfmMatrices);
+		constructPfmMatricesfromEncodeMotifs( dataFolder, encodeMotifsInputFileName, tfName2PfmMatrices);
 
 		// Construct logo matrices from Encode Motifs
-		constructLogoMatricesfromEncodeMotifs(dataFolder, encodeMotifsInputFileName, tfName2LogoMatrices);
+		constructLogoMatricesfromEncodeMotifs( dataFolder, encodeMotifsInputFileName, tfName2LogoMatrices);
 
 		// Construct position frequency matrices from Jaspar Core
 		// Construct logo matrices from Jaspar Core
-		constructPfmMatricesandLogoMatricesfromJasparCore(dataFolder, jasparCoreInputFileName, tfName2PfmMatrices, tfName2LogoMatrices);
+		constructPfmMatricesandLogoMatricesfromJasparCore( dataFolder, jasparCoreInputFileName, tfName2PfmMatrices,
+				tfName2LogoMatrices);
 
 		AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs;
 		AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation;
 
-		try {
+		try{
 			augmentationOfAGivenIntervalWithRsIDs = new AugmentationofGivenIntervalwithRsIds();
 			augmentationOfAGivenRsIdWithInformation = new AugmentationofGivenRsIdwithInformation();
 
 			// TF Annotations are used
-			if (tfAnnotationType.doTFAnnotation()) {
+			if( tfAnnotationType.doTFAnnotation()){
 
 				// Generate Sequences and Matrices for Annotated TF Elements
-				readAllTFAnnotationsWriteSequencesandMatrices(augmentationOfAGivenIntervalWithRsIDs, augmentationOfAGivenRsIdWithInformation, chrName2RefSeqIdforGrch38Map, forRSAFolder, all_TF_Annotations_File_1Based_Start_End_GRCh38, tfName2PfmMatrices, tfName2LogoMatrices, Commons.TF);
+				readAllTFAnnotationsWriteSequencesandMatrices( augmentationOfAGivenIntervalWithRsIDs,
+						augmentationOfAGivenRsIdWithInformation, chrName2RefSeqIdforGrch38Map, forRSAFolder,
+						all_TF_Annotations_File_1Based_Start_End_GRCh38, tfName2PfmMatrices, tfName2LogoMatrices,
+						Commons.TF);
 
 			}
 
-		} catch (Exception e) {
+		}catch( Exception e){
 			e.printStackTrace();
 		}
 

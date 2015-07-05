@@ -9,7 +9,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -65,34 +64,34 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "mapLoc" })
-@XmlRootElement(name = "Component")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"mapLoc"})
+@XmlRootElement( name = "Component")
 public class Component {
 
-	@XmlElement(name = "MapLoc", required = true)
+	@XmlElement( name = "MapLoc", required = true)
 	protected List<MapLoc> mapLoc;
-	@XmlAttribute(name = "componentType")
+	@XmlAttribute( name = "componentType")
 	protected String componentType;
-	@XmlAttribute(name = "ctgId")
+	@XmlAttribute( name = "ctgId")
 	protected Integer ctgId;
-	@XmlAttribute(name = "accession")
+	@XmlAttribute( name = "accession")
 	protected String accession;
-	@XmlAttribute(name = "name")
+	@XmlAttribute( name = "name")
 	protected String name;
-	@XmlAttribute(name = "chromosome")
+	@XmlAttribute( name = "chromosome")
 	protected String chromosome;
-	@XmlAttribute(name = "start")
+	@XmlAttribute( name = "start")
 	protected Integer start;
-	@XmlAttribute(name = "end")
+	@XmlAttribute( name = "end")
 	protected Integer end;
-	@XmlAttribute(name = "orientation")
+	@XmlAttribute( name = "orientation")
 	protected String orientation;
-	@XmlAttribute(name = "gi")
+	@XmlAttribute( name = "gi")
 	protected String gi;
-	@XmlAttribute(name = "groupTerm")
+	@XmlAttribute( name = "groupTerm")
 	protected String groupTerm;
-	@XmlAttribute(name = "contigLabel")
+	@XmlAttribute( name = "contigLabel")
 	protected String contigLabel;
 
 	/**
@@ -118,7 +117,8 @@ public class Component {
 	 * 
 	 */
 	public List<MapLoc> getMapLoc() {
-		if (mapLoc == null) {
+
+		if( mapLoc == null){
 			mapLoc = new ArrayList<MapLoc>();
 		}
 		return this.mapLoc;
@@ -131,6 +131,7 @@ public class Component {
 	 * 
 	 */
 	public String getComponentType() {
+
 		return componentType;
 	}
 
@@ -141,7 +142,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setComponentType(String value) {
+	public void setComponentType( String value) {
+
 		this.componentType = value;
 	}
 
@@ -152,6 +154,7 @@ public class Component {
 	 * 
 	 */
 	public Integer getCtgId() {
+
 		return ctgId;
 	}
 
@@ -162,7 +165,8 @@ public class Component {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setCtgId(Integer value) {
+	public void setCtgId( Integer value) {
+
 		this.ctgId = value;
 	}
 
@@ -173,6 +177,7 @@ public class Component {
 	 * 
 	 */
 	public String getAccession() {
+
 		return accession;
 	}
 
@@ -183,7 +188,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setAccession(String value) {
+	public void setAccession( String value) {
+
 		this.accession = value;
 	}
 
@@ -194,6 +200,7 @@ public class Component {
 	 * 
 	 */
 	public String getName() {
+
 		return name;
 	}
 
@@ -204,7 +211,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setName(String value) {
+	public void setName( String value) {
+
 		this.name = value;
 	}
 
@@ -215,6 +223,7 @@ public class Component {
 	 * 
 	 */
 	public String getChromosome() {
+
 		return chromosome;
 	}
 
@@ -225,7 +234,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setChromosome(String value) {
+	public void setChromosome( String value) {
+
 		this.chromosome = value;
 	}
 
@@ -236,6 +246,7 @@ public class Component {
 	 * 
 	 */
 	public Integer getStart() {
+
 		return start;
 	}
 
@@ -246,7 +257,8 @@ public class Component {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setStart(Integer value) {
+	public void setStart( Integer value) {
+
 		this.start = value;
 	}
 
@@ -257,6 +269,7 @@ public class Component {
 	 * 
 	 */
 	public Integer getEnd() {
+
 		return end;
 	}
 
@@ -267,7 +280,8 @@ public class Component {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setEnd(Integer value) {
+	public void setEnd( Integer value) {
+
 		this.end = value;
 	}
 
@@ -278,6 +292,7 @@ public class Component {
 	 * 
 	 */
 	public String getOrientation() {
+
 		return orientation;
 	}
 
@@ -288,7 +303,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setOrientation(String value) {
+	public void setOrientation( String value) {
+
 		this.orientation = value;
 	}
 
@@ -299,6 +315,7 @@ public class Component {
 	 * 
 	 */
 	public String getGi() {
+
 		return gi;
 	}
 
@@ -309,7 +326,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setGi(String value) {
+	public void setGi( String value) {
+
 		this.gi = value;
 	}
 
@@ -320,6 +338,7 @@ public class Component {
 	 * 
 	 */
 	public String getGroupTerm() {
+
 		return groupTerm;
 	}
 
@@ -330,7 +349,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setGroupTerm(String value) {
+	public void setGroupTerm( String value) {
+
 		this.groupTerm = value;
 	}
 
@@ -341,6 +361,7 @@ public class Component {
 	 * 
 	 */
 	public String getContigLabel() {
+
 		return contigLabel;
 	}
 
@@ -351,7 +372,8 @@ public class Component {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setContigLabel(String value) {
+	public void setContigLabel( String value) {
+
 		this.contigLabel = value;
 	}
 

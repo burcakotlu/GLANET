@@ -16,18 +16,18 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "term", "field", "count", "explode" })
-@XmlRootElement(name = "TermSet")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"term", "field", "count", "explode"})
+@XmlRootElement( name = "TermSet")
 public class TermSet {
 
-	@XmlElement(name = "Term", required = true)
+	@XmlElement( name = "Term", required = true)
 	protected String term;
-	@XmlElement(name = "Field", required = true)
+	@XmlElement( name = "Field", required = true)
 	protected String field;
-	@XmlElement(name = "Count", required = true)
+	@XmlElement( name = "Count", required = true)
 	protected Count count;
-	@XmlElement(name = "Explode", required = true)
+	@XmlElement( name = "Explode", required = true)
 	protected String explode;
 
 	/**
@@ -37,6 +37,7 @@ public class TermSet {
 	 * 
 	 */
 	public String getTerm() {
+
 		return term;
 	}
 
@@ -47,7 +48,8 @@ public class TermSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setTerm(String value) {
+	public void setTerm( String value) {
+
 		this.term = value;
 	}
 
@@ -58,6 +60,7 @@ public class TermSet {
 	 * 
 	 */
 	public String getField() {
+
 		return field;
 	}
 
@@ -68,7 +71,8 @@ public class TermSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setField(String value) {
+	public void setField( String value) {
+
 		this.field = value;
 	}
 
@@ -79,6 +83,7 @@ public class TermSet {
 	 * 
 	 */
 	public Count getCount() {
+
 		return count;
 	}
 
@@ -89,7 +94,8 @@ public class TermSet {
 	 *            allowed object is {@link Count }
 	 * 
 	 */
-	public void setCount(Count value) {
+	public void setCount( Count value) {
+
 		this.count = value;
 	}
 
@@ -100,6 +106,7 @@ public class TermSet {
 	 * 
 	 */
 	public String getExplode() {
+
 		return explode;
 	}
 
@@ -110,7 +117,8 @@ public class TermSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setExplode(String value) {
+	public void setExplode( String value) {
+
 		this.explode = value;
 	}
 

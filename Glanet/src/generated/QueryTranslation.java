@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "value" })
-@XmlRootElement(name = "QueryTranslation")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"value"})
+@XmlRootElement( name = "QueryTranslation")
 public class QueryTranslation {
 
 	@XmlValue
@@ -31,6 +31,7 @@ public class QueryTranslation {
 	 * 
 	 */
 	public String getvalue() {
+
 		return value;
 	}
 
@@ -41,7 +42,8 @@ public class QueryTranslation {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setvalue(String value) {
+	public void setvalue( String value) {
+
 		this.value = value;
 	}
 

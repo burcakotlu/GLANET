@@ -14,18 +14,22 @@ public class Result {
 	double pValue;
 
 	public String getResultLine() {
+
 		return resultLine;
 	}
 
-	public void setResultLine(String resultLine) {
+	public void setResultLine( String resultLine) {
+
 		this.resultLine = resultLine;
 	}
 
 	public double getpValue() {
+
 		return pValue;
 	}
 
-	public void setpValue(double pValue) {
+	public void setpValue( double pValue) {
+
 		this.pValue = pValue;
 	}
 
@@ -33,6 +37,7 @@ public class Result {
 	 * 
 	 */
 	public Result() {
+
 		// TODO Auto-generated constructor stub
 	}
 

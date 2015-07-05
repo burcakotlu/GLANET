@@ -10,7 +10,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -221,59 +220,61 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "het", "validation", "create", "update", "sequence", "ss", "assembly", "primarySequence", "rsStruct", "rsLinkout", "mergeHistory", "hgvs", "alleleOrigin", "phenotype", "bioSource", "frequency" })
-@XmlRootElement(name = "Rs")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"het", "validation", "create", "update", "sequence", "ss", "assembly",
+		"primarySequence", "rsStruct", "rsLinkout", "mergeHistory", "hgvs", "alleleOrigin", "phenotype", "bioSource",
+		"frequency"})
+@XmlRootElement( name = "Rs")
 public class Rs {
 
-	@XmlElement(name = "Het")
+	@XmlElement( name = "Het")
 	protected Rs.Het het;
-	@XmlElement(name = "Validation", required = true)
+	@XmlElement( name = "Validation", required = true)
 	protected Rs.Validation validation;
-	@XmlElement(name = "Create", required = true)
+	@XmlElement( name = "Create", required = true)
 	protected Rs.Create create;
-	@XmlElement(name = "Update")
+	@XmlElement( name = "Update")
 	protected Rs.Update update;
-	@XmlElement(name = "Sequence", required = true)
+	@XmlElement( name = "Sequence", required = true)
 	protected Rs.Sequence sequence;
-	@XmlElement(name = "Ss", required = true)
+	@XmlElement( name = "Ss", required = true)
 	protected List<Ss> ss;
-	@XmlElement(name = "Assembly")
+	@XmlElement( name = "Assembly")
 	protected List<Assembly> assembly;
-	@XmlElement(name = "PrimarySequence")
+	@XmlElement( name = "PrimarySequence")
 	protected List<PrimarySequence> primarySequence;
-	@XmlElement(name = "RsStruct")
+	@XmlElement( name = "RsStruct")
 	protected List<RsStruct> rsStruct;
-	@XmlElement(name = "RsLinkout")
+	@XmlElement( name = "RsLinkout")
 	protected List<RsLinkout> rsLinkout;
-	@XmlElement(name = "MergeHistory")
+	@XmlElement( name = "MergeHistory")
 	protected List<Rs.MergeHistory> mergeHistory;
 	protected List<String> hgvs;
-	@XmlElement(name = "AlleleOrigin")
+	@XmlElement( name = "AlleleOrigin")
 	protected List<Rs.AlleleOrigin> alleleOrigin;
-	@XmlElement(name = "Phenotype")
+	@XmlElement( name = "Phenotype")
 	protected List<Rs.Phenotype> phenotype;
-	@XmlElement(name = "BioSource")
+	@XmlElement( name = "BioSource")
 	protected List<Rs.BioSource> bioSource;
-	@XmlElement(name = "Frequency")
+	@XmlElement( name = "Frequency")
 	protected List<Rs.Frequency> frequency;
-	@XmlAttribute(name = "rsId", required = true)
+	@XmlAttribute( name = "rsId", required = true)
 	protected int rsId;
-	@XmlAttribute(name = "snpClass", required = true)
+	@XmlAttribute( name = "snpClass", required = true)
 	protected String snpClass;
-	@XmlAttribute(name = "snpType", required = true)
+	@XmlAttribute( name = "snpType", required = true)
 	protected String snpType;
-	@XmlAttribute(name = "molType", required = true)
+	@XmlAttribute( name = "molType", required = true)
 	protected String molType;
-	@XmlAttribute(name = "validProbMin")
+	@XmlAttribute( name = "validProbMin")
 	protected BigInteger validProbMin;
-	@XmlAttribute(name = "validProbMax")
+	@XmlAttribute( name = "validProbMax")
 	protected BigInteger validProbMax;
-	@XmlAttribute(name = "genotype")
+	@XmlAttribute( name = "genotype")
 	protected Boolean genotype;
-	@XmlAttribute(name = "bitField")
+	@XmlAttribute( name = "bitField")
 	protected String bitField;
-	@XmlAttribute(name = "taxId")
+	@XmlAttribute( name = "taxId")
 	protected Integer taxId;
 
 	/**
@@ -283,6 +284,7 @@ public class Rs {
 	 * 
 	 */
 	public Rs.Het getHet() {
+
 		return het;
 	}
 
@@ -293,7 +295,8 @@ public class Rs {
 	 *            allowed object is {@link Rs.Het }
 	 * 
 	 */
-	public void setHet(Rs.Het value) {
+	public void setHet( Rs.Het value) {
+
 		this.het = value;
 	}
 
@@ -304,6 +307,7 @@ public class Rs {
 	 * 
 	 */
 	public Rs.Validation getValidation() {
+
 		return validation;
 	}
 
@@ -314,7 +318,8 @@ public class Rs {
 	 *            allowed object is {@link Rs.Validation }
 	 * 
 	 */
-	public void setValidation(Rs.Validation value) {
+	public void setValidation( Rs.Validation value) {
+
 		this.validation = value;
 	}
 
@@ -325,6 +330,7 @@ public class Rs {
 	 * 
 	 */
 	public Rs.Create getCreate() {
+
 		return create;
 	}
 
@@ -335,7 +341,8 @@ public class Rs {
 	 *            allowed object is {@link Rs.Create }
 	 * 
 	 */
-	public void setCreate(Rs.Create value) {
+	public void setCreate( Rs.Create value) {
+
 		this.create = value;
 	}
 
@@ -346,6 +353,7 @@ public class Rs {
 	 * 
 	 */
 	public Rs.Update getUpdate() {
+
 		return update;
 	}
 
@@ -356,7 +364,8 @@ public class Rs {
 	 *            allowed object is {@link Rs.Update }
 	 * 
 	 */
-	public void setUpdate(Rs.Update value) {
+	public void setUpdate( Rs.Update value) {
+
 		this.update = value;
 	}
 
@@ -367,6 +376,7 @@ public class Rs {
 	 * 
 	 */
 	public Rs.Sequence getSequence() {
+
 		return sequence;
 	}
 
@@ -377,7 +387,8 @@ public class Rs {
 	 *            allowed object is {@link Rs.Sequence }
 	 * 
 	 */
-	public void setSequence(Rs.Sequence value) {
+	public void setSequence( Rs.Sequence value) {
+
 		this.sequence = value;
 	}
 
@@ -404,7 +415,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Ss> getSs() {
-		if (ss == null) {
+
+		if( ss == null){
 			ss = new ArrayList<Ss>();
 		}
 		return this.ss;
@@ -433,7 +445,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Assembly> getAssembly() {
-		if (assembly == null) {
+
+		if( assembly == null){
 			assembly = new ArrayList<Assembly>();
 		}
 		return this.assembly;
@@ -463,7 +476,8 @@ public class Rs {
 	 * 
 	 */
 	public List<PrimarySequence> getPrimarySequence() {
-		if (primarySequence == null) {
+
+		if( primarySequence == null){
 			primarySequence = new ArrayList<PrimarySequence>();
 		}
 		return this.primarySequence;
@@ -492,7 +506,8 @@ public class Rs {
 	 * 
 	 */
 	public List<RsStruct> getRsStruct() {
-		if (rsStruct == null) {
+
+		if( rsStruct == null){
 			rsStruct = new ArrayList<RsStruct>();
 		}
 		return this.rsStruct;
@@ -522,7 +537,8 @@ public class Rs {
 	 * 
 	 */
 	public List<RsLinkout> getRsLinkout() {
-		if (rsLinkout == null) {
+
+		if( rsLinkout == null){
 			rsLinkout = new ArrayList<RsLinkout>();
 		}
 		return this.rsLinkout;
@@ -552,7 +568,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Rs.MergeHistory> getMergeHistory() {
-		if (mergeHistory == null) {
+
+		if( mergeHistory == null){
 			mergeHistory = new ArrayList<Rs.MergeHistory>();
 		}
 		return this.mergeHistory;
@@ -581,7 +598,8 @@ public class Rs {
 	 * 
 	 */
 	public List<String> getHgvs() {
-		if (hgvs == null) {
+
+		if( hgvs == null){
 			hgvs = new ArrayList<String>();
 		}
 		return this.hgvs;
@@ -611,7 +629,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Rs.AlleleOrigin> getAlleleOrigin() {
-		if (alleleOrigin == null) {
+
+		if( alleleOrigin == null){
 			alleleOrigin = new ArrayList<Rs.AlleleOrigin>();
 		}
 		return this.alleleOrigin;
@@ -641,7 +660,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Rs.Phenotype> getPhenotype() {
-		if (phenotype == null) {
+
+		if( phenotype == null){
 			phenotype = new ArrayList<Rs.Phenotype>();
 		}
 		return this.phenotype;
@@ -671,7 +691,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Rs.BioSource> getBioSource() {
-		if (bioSource == null) {
+
+		if( bioSource == null){
 			bioSource = new ArrayList<Rs.BioSource>();
 		}
 		return this.bioSource;
@@ -701,7 +722,8 @@ public class Rs {
 	 * 
 	 */
 	public List<Rs.Frequency> getFrequency() {
-		if (frequency == null) {
+
+		if( frequency == null){
 			frequency = new ArrayList<Rs.Frequency>();
 		}
 		return this.frequency;
@@ -712,6 +734,7 @@ public class Rs {
 	 * 
 	 */
 	public int getRsId() {
+
 		return rsId;
 	}
 
@@ -719,7 +742,8 @@ public class Rs {
 	 * Sets the value of the rsId property.
 	 * 
 	 */
-	public void setRsId(int value) {
+	public void setRsId( int value) {
+
 		this.rsId = value;
 	}
 
@@ -730,6 +754,7 @@ public class Rs {
 	 * 
 	 */
 	public String getSnpClass() {
+
 		return snpClass;
 	}
 
@@ -740,7 +765,8 @@ public class Rs {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSnpClass(String value) {
+	public void setSnpClass( String value) {
+
 		this.snpClass = value;
 	}
 
@@ -751,6 +777,7 @@ public class Rs {
 	 * 
 	 */
 	public String getSnpType() {
+
 		return snpType;
 	}
 
@@ -761,7 +788,8 @@ public class Rs {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSnpType(String value) {
+	public void setSnpType( String value) {
+
 		this.snpType = value;
 	}
 
@@ -772,6 +800,7 @@ public class Rs {
 	 * 
 	 */
 	public String getMolType() {
+
 		return molType;
 	}
 
@@ -782,7 +811,8 @@ public class Rs {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setMolType(String value) {
+	public void setMolType( String value) {
+
 		this.molType = value;
 	}
 
@@ -793,6 +823,7 @@ public class Rs {
 	 * 
 	 */
 	public BigInteger getValidProbMin() {
+
 		return validProbMin;
 	}
 
@@ -803,7 +834,8 @@ public class Rs {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setValidProbMin(BigInteger value) {
+	public void setValidProbMin( BigInteger value) {
+
 		this.validProbMin = value;
 	}
 
@@ -814,6 +846,7 @@ public class Rs {
 	 * 
 	 */
 	public BigInteger getValidProbMax() {
+
 		return validProbMax;
 	}
 
@@ -824,7 +857,8 @@ public class Rs {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setValidProbMax(BigInteger value) {
+	public void setValidProbMax( BigInteger value) {
+
 		this.validProbMax = value;
 	}
 
@@ -835,6 +869,7 @@ public class Rs {
 	 * 
 	 */
 	public Boolean isGenotype() {
+
 		return genotype;
 	}
 
@@ -845,7 +880,8 @@ public class Rs {
 	 *            allowed object is {@link Boolean }
 	 * 
 	 */
-	public void setGenotype(Boolean value) {
+	public void setGenotype( Boolean value) {
+
 		this.genotype = value;
 	}
 
@@ -856,6 +892,7 @@ public class Rs {
 	 * 
 	 */
 	public String getBitField() {
+
 		return bitField;
 	}
 
@@ -866,7 +903,8 @@ public class Rs {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setBitField(String value) {
+	public void setBitField( String value) {
+
 		this.bitField = value;
 	}
 
@@ -877,6 +915,7 @@ public class Rs {
 	 * 
 	 */
 	public Integer getTaxId() {
+
 		return taxId;
 	}
 
@@ -887,7 +926,8 @@ public class Rs {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setTaxId(Integer value) {
+	public void setTaxId( Integer value) {
+
 		this.taxId = value;
 	}
 
@@ -911,13 +951,13 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "value" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"value"})
 	public static class AlleleOrigin {
 
 		@XmlValue
 		protected BigInteger value;
-		@XmlAttribute(name = "allele")
+		@XmlAttribute( name = "allele")
 		protected String allele;
 
 		/**
@@ -927,6 +967,7 @@ public class Rs {
 		 * 
 		 */
 		public BigInteger getValue() {
+
 			return value;
 		}
 
@@ -937,7 +978,8 @@ public class Rs {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setValue(BigInteger value) {
+		public void setValue( BigInteger value) {
+
 			this.value = value;
 		}
 
@@ -948,6 +990,7 @@ public class Rs {
 		 * 
 		 */
 		public String getAllele() {
+
 			return allele;
 		}
 
@@ -958,7 +1001,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setAllele(String value) {
+		public void setAllele( String value) {
+
 			this.allele = value;
 		}
 
@@ -987,13 +1031,13 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "genome", "origin" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"genome", "origin"})
 	public static class BioSource {
 
-		@XmlElement(name = "Genome")
+		@XmlElement( name = "Genome")
 		protected List<String> genome;
-		@XmlElement(name = "Origin")
+		@XmlElement( name = "Origin")
 		protected List<String> origin;
 
 		/**
@@ -1020,7 +1064,8 @@ public class Rs {
 		 * 
 		 */
 		public List<String> getGenome() {
-			if (genome == null) {
+
+			if( genome == null){
 				genome = new ArrayList<String>();
 			}
 			return this.genome;
@@ -1050,7 +1095,8 @@ public class Rs {
 		 * 
 		 */
 		public List<String> getOrigin() {
-			if (origin == null) {
+
+			if( origin == null){
 				origin = new ArrayList<String>();
 			}
 			return this.origin;
@@ -1079,13 +1125,13 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Create {
 
-		@XmlAttribute(name = "build")
+		@XmlAttribute( name = "build")
 		protected Integer build;
-		@XmlAttribute(name = "date")
+		@XmlAttribute( name = "date")
 		protected String date;
 
 		/**
@@ -1095,6 +1141,7 @@ public class Rs {
 		 * 
 		 */
 		public Integer getBuild() {
+
 			return build;
 		}
 
@@ -1105,7 +1152,8 @@ public class Rs {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setBuild(Integer value) {
+		public void setBuild( Integer value) {
+
 			this.build = value;
 		}
 
@@ -1116,6 +1164,7 @@ public class Rs {
 		 * 
 		 */
 		public String getDate() {
+
 			return date;
 		}
 
@@ -1126,7 +1175,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setDate(String value) {
+		public void setDate( String value) {
+
 			this.date = value;
 		}
 
@@ -1155,17 +1205,17 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Frequency {
 
-		@XmlAttribute(name = "freq")
+		@XmlAttribute( name = "freq")
 		protected Double freq;
-		@XmlAttribute(name = "allele")
+		@XmlAttribute( name = "allele")
 		protected String allele;
-		@XmlAttribute(name = "popId")
+		@XmlAttribute( name = "popId")
 		protected BigInteger popId;
-		@XmlAttribute(name = "sampleSize")
+		@XmlAttribute( name = "sampleSize")
 		protected BigInteger sampleSize;
 
 		/**
@@ -1175,6 +1225,7 @@ public class Rs {
 		 * 
 		 */
 		public Double getFreq() {
+
 			return freq;
 		}
 
@@ -1185,7 +1236,8 @@ public class Rs {
 		 *            allowed object is {@link Double }
 		 * 
 		 */
-		public void setFreq(Double value) {
+		public void setFreq( Double value) {
+
 			this.freq = value;
 		}
 
@@ -1196,6 +1248,7 @@ public class Rs {
 		 * 
 		 */
 		public String getAllele() {
+
 			return allele;
 		}
 
@@ -1206,7 +1259,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setAllele(String value) {
+		public void setAllele( String value) {
+
 			this.allele = value;
 		}
 
@@ -1217,6 +1271,7 @@ public class Rs {
 		 * 
 		 */
 		public BigInteger getPopId() {
+
 			return popId;
 		}
 
@@ -1227,7 +1282,8 @@ public class Rs {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setPopId(BigInteger value) {
+		public void setPopId( BigInteger value) {
+
 			this.popId = value;
 		}
 
@@ -1238,6 +1294,7 @@ public class Rs {
 		 * 
 		 */
 		public BigInteger getSampleSize() {
+
 			return sampleSize;
 		}
 
@@ -1248,7 +1305,8 @@ public class Rs {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setSampleSize(BigInteger value) {
+		public void setSampleSize( BigInteger value) {
+
 			this.sampleSize = value;
 		}
 
@@ -1283,15 +1341,15 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Het {
 
-		@XmlAttribute(name = "type", required = true)
+		@XmlAttribute( name = "type", required = true)
 		protected String type;
-		@XmlAttribute(name = "value", required = true)
+		@XmlAttribute( name = "value", required = true)
 		protected float value;
-		@XmlAttribute(name = "stdError")
+		@XmlAttribute( name = "stdError")
 		protected Float stdError;
 
 		/**
@@ -1301,6 +1359,7 @@ public class Rs {
 		 * 
 		 */
 		public String getType() {
+
 			return type;
 		}
 
@@ -1311,7 +1370,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setType(String value) {
+		public void setType( String value) {
+
 			this.type = value;
 		}
 
@@ -1320,6 +1380,7 @@ public class Rs {
 		 * 
 		 */
 		public float getValue() {
+
 			return value;
 		}
 
@@ -1327,7 +1388,8 @@ public class Rs {
 		 * Sets the value of the value property.
 		 * 
 		 */
-		public void setValue(float value) {
+		public void setValue( float value) {
+
 			this.value = value;
 		}
 
@@ -1338,6 +1400,7 @@ public class Rs {
 		 * 
 		 */
 		public Float getStdError() {
+
 			return stdError;
 		}
 
@@ -1348,7 +1411,8 @@ public class Rs {
 		 *            allowed object is {@link Float }
 		 * 
 		 */
-		public void setStdError(Float value) {
+		public void setStdError( Float value) {
+
 			this.stdError = value;
 		}
 
@@ -1376,15 +1440,15 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class MergeHistory {
 
-		@XmlAttribute(name = "rsId", required = true)
+		@XmlAttribute( name = "rsId", required = true)
 		protected int rsId;
-		@XmlAttribute(name = "buildId")
+		@XmlAttribute( name = "buildId")
 		protected Integer buildId;
-		@XmlAttribute(name = "orientFlip")
+		@XmlAttribute( name = "orientFlip")
 		protected Boolean orientFlip;
 
 		/**
@@ -1392,6 +1456,7 @@ public class Rs {
 		 * 
 		 */
 		public int getRsId() {
+
 			return rsId;
 		}
 
@@ -1399,7 +1464,8 @@ public class Rs {
 		 * Sets the value of the rsId property.
 		 * 
 		 */
-		public void setRsId(int value) {
+		public void setRsId( int value) {
+
 			this.rsId = value;
 		}
 
@@ -1410,6 +1476,7 @@ public class Rs {
 		 * 
 		 */
 		public Integer getBuildId() {
+
 			return buildId;
 		}
 
@@ -1420,7 +1487,8 @@ public class Rs {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setBuildId(Integer value) {
+		public void setBuildId( Integer value) {
+
 			this.buildId = value;
 		}
 
@@ -1431,6 +1499,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isOrientFlip() {
+
 			return orientFlip;
 		}
 
@@ -1441,7 +1510,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setOrientFlip(Boolean value) {
+		public void setOrientFlip( Boolean value) {
+
 			this.orientFlip = value;
 		}
 
@@ -1469,11 +1539,11 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "clinicalSignificance" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"clinicalSignificance"})
 	public static class Phenotype {
 
-		@XmlElement(name = "ClinicalSignificance")
+		@XmlElement( name = "ClinicalSignificance")
 		protected List<String> clinicalSignificance;
 
 		/**
@@ -1500,7 +1570,8 @@ public class Rs {
 		 * 
 		 */
 		public List<String> getClinicalSignificance() {
-			if (clinicalSignificance == null) {
+
+			if( clinicalSignificance == null){
 				clinicalSignificance = new ArrayList<String>();
 			}
 			return this.clinicalSignificance;
@@ -1534,19 +1605,19 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "seq5", "observed", "seq3" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"seq5", "observed", "seq3"})
 	public static class Sequence {
 
-		@XmlElement(name = "Seq5")
+		@XmlElement( name = "Seq5")
 		protected String seq5;
-		@XmlElement(name = "Observed", required = true)
+		@XmlElement( name = "Observed", required = true)
 		protected String observed;
-		@XmlElement(name = "Seq3")
+		@XmlElement( name = "Seq3")
 		protected String seq3;
-		@XmlAttribute(name = "exemplarSs", required = true)
+		@XmlAttribute( name = "exemplarSs", required = true)
 		protected int exemplarSs;
-		@XmlAttribute(name = "ancestralAllele")
+		@XmlAttribute( name = "ancestralAllele")
 		protected String ancestralAllele;
 
 		/**
@@ -1556,6 +1627,7 @@ public class Rs {
 		 * 
 		 */
 		public String getSeq5() {
+
 			return seq5;
 		}
 
@@ -1566,7 +1638,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setSeq5(String value) {
+		public void setSeq5( String value) {
+
 			this.seq5 = value;
 		}
 
@@ -1577,6 +1650,7 @@ public class Rs {
 		 * 
 		 */
 		public String getObserved() {
+
 			return observed;
 		}
 
@@ -1587,7 +1661,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setObserved(String value) {
+		public void setObserved( String value) {
+
 			this.observed = value;
 		}
 
@@ -1598,6 +1673,7 @@ public class Rs {
 		 * 
 		 */
 		public String getSeq3() {
+
 			return seq3;
 		}
 
@@ -1608,7 +1684,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setSeq3(String value) {
+		public void setSeq3( String value) {
+
 			this.seq3 = value;
 		}
 
@@ -1617,6 +1694,7 @@ public class Rs {
 		 * 
 		 */
 		public int getExemplarSs() {
+
 			return exemplarSs;
 		}
 
@@ -1624,7 +1702,8 @@ public class Rs {
 		 * Sets the value of the exemplarSs property.
 		 * 
 		 */
-		public void setExemplarSs(int value) {
+		public void setExemplarSs( int value) {
+
 			this.exemplarSs = value;
 		}
 
@@ -1635,6 +1714,7 @@ public class Rs {
 		 * 
 		 */
 		public String getAncestralAllele() {
+
 			return ancestralAllele;
 		}
 
@@ -1645,7 +1725,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setAncestralAllele(String value) {
+		public void setAncestralAllele( String value) {
+
 			this.ancestralAllele = value;
 		}
 
@@ -1672,13 +1753,13 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Update {
 
-		@XmlAttribute(name = "build")
+		@XmlAttribute( name = "build")
 		protected Integer build;
-		@XmlAttribute(name = "date")
+		@XmlAttribute( name = "date")
 		protected String date;
 
 		/**
@@ -1688,6 +1769,7 @@ public class Rs {
 		 * 
 		 */
 		public Integer getBuild() {
+
 			return build;
 		}
 
@@ -1698,7 +1780,8 @@ public class Rs {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setBuild(Integer value) {
+		public void setBuild( Integer value) {
+
 			this.build = value;
 		}
 
@@ -1709,6 +1792,7 @@ public class Rs {
 		 * 
 		 */
 		public String getDate() {
+
 			return date;
 		}
 
@@ -1719,7 +1803,8 @@ public class Rs {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setDate(String value) {
+		public void setDate( String value) {
+
 			this.date = value;
 		}
 
@@ -1759,35 +1844,36 @@ public class Rs {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "otherPopBatchId", "twoHit2AlleleBatchId", "frequencyClass", "hapMapPhase", "tgpPhase", "suspectEvidence" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"otherPopBatchId", "twoHit2AlleleBatchId", "frequencyClass", "hapMapPhase",
+			"tgpPhase", "suspectEvidence"})
 	public static class Validation {
 
-		@XmlElement(type = Integer.class)
+		@XmlElement( type = Integer.class)
 		protected List<Integer> otherPopBatchId;
-		@XmlElement(type = Integer.class)
+		@XmlElement( type = Integer.class)
 		protected List<Integer> twoHit2AlleleBatchId;
-		@XmlElement(name = "FrequencyClass", type = Integer.class)
+		@XmlElement( name = "FrequencyClass", type = Integer.class)
 		protected List<Integer> frequencyClass;
-		@XmlElement(name = "HapMapPhase", type = Integer.class)
+		@XmlElement( name = "HapMapPhase", type = Integer.class)
 		protected List<Integer> hapMapPhase;
-		@XmlElement(name = "TGPPhase", type = Integer.class)
+		@XmlElement( name = "TGPPhase", type = Integer.class)
 		protected List<Integer> tgpPhase;
-		@XmlElement(name = "SuspectEvidence")
+		@XmlElement( name = "SuspectEvidence")
 		protected List<String> suspectEvidence;
-		@XmlAttribute(name = "byCluster")
+		@XmlAttribute( name = "byCluster")
 		protected Boolean byCluster;
-		@XmlAttribute(name = "byFrequency")
+		@XmlAttribute( name = "byFrequency")
 		protected Boolean byFrequency;
-		@XmlAttribute(name = "byOtherPop")
+		@XmlAttribute( name = "byOtherPop")
 		protected Boolean byOtherPop;
-		@XmlAttribute(name = "by2Hit2Allele")
+		@XmlAttribute( name = "by2Hit2Allele")
 		protected Boolean by2Hit2Allele;
-		@XmlAttribute(name = "byHapMap")
+		@XmlAttribute( name = "byHapMap")
 		protected Boolean byHapMap;
-		@XmlAttribute(name = "by1000G")
+		@XmlAttribute( name = "by1000G")
 		protected Boolean by1000G;
-		@XmlAttribute(name = "suspect")
+		@XmlAttribute( name = "suspect")
 		protected Boolean suspect;
 
 		/**
@@ -1814,7 +1900,8 @@ public class Rs {
 		 * 
 		 */
 		public List<Integer> getOtherPopBatchId() {
-			if (otherPopBatchId == null) {
+
+			if( otherPopBatchId == null){
 				otherPopBatchId = new ArrayList<Integer>();
 			}
 			return this.otherPopBatchId;
@@ -1844,7 +1931,8 @@ public class Rs {
 		 * 
 		 */
 		public List<Integer> getTwoHit2AlleleBatchId() {
-			if (twoHit2AlleleBatchId == null) {
+
+			if( twoHit2AlleleBatchId == null){
 				twoHit2AlleleBatchId = new ArrayList<Integer>();
 			}
 			return this.twoHit2AlleleBatchId;
@@ -1874,7 +1962,8 @@ public class Rs {
 		 * 
 		 */
 		public List<Integer> getFrequencyClass() {
-			if (frequencyClass == null) {
+
+			if( frequencyClass == null){
 				frequencyClass = new ArrayList<Integer>();
 			}
 			return this.frequencyClass;
@@ -1904,7 +1993,8 @@ public class Rs {
 		 * 
 		 */
 		public List<Integer> getHapMapPhase() {
-			if (hapMapPhase == null) {
+
+			if( hapMapPhase == null){
 				hapMapPhase = new ArrayList<Integer>();
 			}
 			return this.hapMapPhase;
@@ -1934,7 +2024,8 @@ public class Rs {
 		 * 
 		 */
 		public List<Integer> getTGPPhase() {
-			if (tgpPhase == null) {
+
+			if( tgpPhase == null){
 				tgpPhase = new ArrayList<Integer>();
 			}
 			return this.tgpPhase;
@@ -1964,7 +2055,8 @@ public class Rs {
 		 * 
 		 */
 		public List<String> getSuspectEvidence() {
-			if (suspectEvidence == null) {
+
+			if( suspectEvidence == null){
 				suspectEvidence = new ArrayList<String>();
 			}
 			return this.suspectEvidence;
@@ -1977,6 +2069,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isByCluster() {
+
 			return byCluster;
 		}
 
@@ -1987,7 +2080,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setByCluster(Boolean value) {
+		public void setByCluster( Boolean value) {
+
 			this.byCluster = value;
 		}
 
@@ -1998,6 +2092,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isByFrequency() {
+
 			return byFrequency;
 		}
 
@@ -2008,7 +2103,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setByFrequency(Boolean value) {
+		public void setByFrequency( Boolean value) {
+
 			this.byFrequency = value;
 		}
 
@@ -2019,6 +2115,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isByOtherPop() {
+
 			return byOtherPop;
 		}
 
@@ -2029,7 +2126,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setByOtherPop(Boolean value) {
+		public void setByOtherPop( Boolean value) {
+
 			this.byOtherPop = value;
 		}
 
@@ -2040,6 +2138,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isBy2Hit2Allele() {
+
 			return by2Hit2Allele;
 		}
 
@@ -2050,7 +2149,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setBy2Hit2Allele(Boolean value) {
+		public void setBy2Hit2Allele( Boolean value) {
+
 			this.by2Hit2Allele = value;
 		}
 
@@ -2061,6 +2161,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isByHapMap() {
+
 			return byHapMap;
 		}
 
@@ -2071,7 +2172,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setByHapMap(Boolean value) {
+		public void setByHapMap( Boolean value) {
+
 			this.byHapMap = value;
 		}
 
@@ -2082,6 +2184,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isBy1000G() {
+
 			return by1000G;
 		}
 
@@ -2092,7 +2195,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setBy1000G(Boolean value) {
+		public void setBy1000G( Boolean value) {
+
 			this.by1000G = value;
 		}
 
@@ -2103,6 +2207,7 @@ public class Rs {
 		 * 
 		 */
 		public Boolean isSuspect() {
+
 			return suspect;
 		}
 
@@ -2113,7 +2218,8 @@ public class Rs {
 		 *            allowed object is {@link Boolean }
 		 * 
 		 */
-		public void setSuspect(Boolean value) {
+		public void setSuspect( Boolean value) {
+
 			this.suspect = value;
 		}
 

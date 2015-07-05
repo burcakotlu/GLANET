@@ -19,50 +19,62 @@ public class MeanandStandardDeviation {
 	String name;
 
 	public String getName() {
+
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName( String name) {
+
 		this.name = name;
 	}
 
 	public float getMean() {
+
 		return mean;
 	}
 
-	public void setMean(float mean) {
+	public void setMean( float mean) {
+
 		this.mean = mean;
 	}
 
 	public float getStandardDeviation() {
+
 		return standardDeviation;
 	}
 
-	public void setStandardDeviation(float standardDeviation) {
+	public void setStandardDeviation( float standardDeviation) {
+
 		this.standardDeviation = standardDeviation;
 	}
 
 	public float getSumofGCs() {
+
 		return sumofGCs;
 	}
 
-	public void setSumofGCs(float sumofGCs) {
+	public void setSumofGCs( float sumofGCs) {
+
 		this.sumofGCs = sumofGCs;
 	}
 
 	public float getSumofMapabilities() {
+
 		return sumofMapabilities;
 	}
 
-	public void setSumofMapabilities(float sumofMapabilities) {
+	public void setSumofMapabilities( float sumofMapabilities) {
+
 		this.sumofMapabilities = sumofMapabilities;
 	}
 
 	public int getNumberofIntervals() {
+
 		return numberofIntervals;
 	}
 
-	public void setNumberofIntervals(int numberofIntervals) {
+	public void setNumberofIntervals( int numberofIntervals) {
+
 		this.numberofIntervals = numberofIntervals;
 	}
 
@@ -70,6 +82,7 @@ public class MeanandStandardDeviation {
 	 * 
 	 */
 	public MeanandStandardDeviation() {
+
 		this.mean = 0;
 		this.standardDeviation = 0;
 		this.numberofIntervals = 0;

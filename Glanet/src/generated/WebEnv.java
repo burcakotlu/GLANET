@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "value" })
-@XmlRootElement(name = "WebEnv")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"value"})
+@XmlRootElement( name = "WebEnv")
 public class WebEnv {
 
 	@XmlValue
@@ -31,6 +31,7 @@ public class WebEnv {
 	 * 
 	 */
 	public String getvalue() {
+
 		return value;
 	}
 
@@ -41,7 +42,8 @@ public class WebEnv {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setvalue(String value) {
+	public void setvalue( String value) {
+
 		this.value = value;
 	}
 

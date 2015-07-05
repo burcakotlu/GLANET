@@ -11,7 +11,6 @@
 package binomialdistribution;
 
 import hg19.GRCh37Hg19Chromosome;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -26,20 +25,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.commons.math3.util.FastMath;
-
 import auxiliary.GlanetDecimalFormat;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 public class CalculateBinomialDistributions {
 
-	public static void fillHashMapwithOccurences(Map<String, Integer> hashMap, String outputFolder, String inputFileName) {
+	public static void fillHashMapwithOccurences( Map<String, Integer> hashMap, String outputFolder,
+			String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -48,140 +45,149 @@ public class CalculateBinomialDistributions {
 		String name;
 		Integer occurrence;
 
-		try {
-			fileReader = new FileReader(outputFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( outputFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
-				indexofFirstTab = strLine.indexOf('\t');
+				indexofFirstTab = strLine.indexOf( '\t');
 
-				name = strLine.substring(0, indexofFirstTab);
-				occurrence = Integer.valueOf(strLine.substring(indexofFirstTab + 1));
+				name = strLine.substring( 0, indexofFirstTab);
+				occurrence = Integer.valueOf( strLine.substring( indexofFirstTab + 1));
 
-				if (!(hashMap.containsKey(name))) {
+				if( !( hashMap.containsKey( name))){
 					// hashMap.put(strLine.toUpperCase(Locale.ENGLISH),
 					// Commons.LONG_ZERO);
-					hashMap.put(name, occurrence);
+					hashMap.put( name, occurrence);
 				}
 
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	public Long calculateWholeGenomeSize(List<Integer> chromosomeSizes, Long genomeSize) {
-		for (int i = 0; i < chromosomeSizes.size(); i++) {
-			genomeSize = genomeSize + chromosomeSizes.get(i);
+	public Long calculateWholeGenomeSize( List<Integer> chromosomeSizes, Long genomeSize) {
+
+		for( int i = 0; i < chromosomeSizes.size(); i++){
+			genomeSize = genomeSize + chromosomeSizes.get( i);
 		}
 		return genomeSize;
 	}
 
-	public Integer calculateSearchInputSize(String inputFileName) {
+	public Integer calculateSearchInputSize( String inputFileName) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		int count = 0;
 
-		try {
+		try{
 
-			fileReader = new FileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+			fileReader = new FileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((bufferedReader.readLine()) != null) {
+			while( ( bufferedReader.readLine()) != null){
 				count++;
 			}
 
 			bufferedReader.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 		return count;
 	}
 
-	public void fillFunctionalElementList(Map<String, Integer> funcElementOccurrencesSearchInputHashMap, Map<String, Integer> funcElementOccurrencesWholeGenomeHashMap, Integer searchInputDataSize, long genomeSize, List<FunctionalElement> functionalElementList) {
+	public void fillFunctionalElementList( Map<String, Integer> funcElementOccurrencesSearchInputHashMap,
+			Map<String, Integer> funcElementOccurrencesWholeGenomeHashMap, Integer searchInputDataSize,
+			long genomeSize, List<FunctionalElement> functionalElementList) {
 
 		Set<Map.Entry<String, Integer>> setSearchInput = funcElementOccurrencesSearchInputHashMap.entrySet();
 		Iterator<Map.Entry<String, Integer>> itr = setSearchInput.iterator();
 		double probability;
 
-		while (itr.hasNext()) {
+		while( itr.hasNext()){
 
-			Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) itr.next();
+			Map.Entry<String, Integer> entry = ( Map.Entry<String, Integer>)itr.next();
 			String functionalElementName = entry.getKey();
 			Integer numberofOccurrencesinSearchInput = entry.getValue();
 
 			// Get the corresponding numberofOccurrences of this functional
 			// Element from funcElementOccurrencesWholeGenomeHashMap
 
-			int numberofOccurrencesinWholeGenome = funcElementOccurrencesWholeGenomeHashMap.get(functionalElementName);
+			int numberofOccurrencesinWholeGenome = funcElementOccurrencesWholeGenomeHashMap.get( functionalElementName);
 
-			probability = (numberofOccurrencesinWholeGenome * 1.0) / genomeSize;
+			probability = ( numberofOccurrencesinWholeGenome * 1.0) / genomeSize;
 
-			FunctionalElement functionalElement = new FunctionalElement(numberofOccurrencesinSearchInput, numberofOccurrencesinWholeGenome, probability, genomeSize, searchInputDataSize, functionalElementName);
+			FunctionalElement functionalElement = new FunctionalElement( numberofOccurrencesinSearchInput,
+					numberofOccurrencesinWholeGenome, probability, genomeSize, searchInputDataSize,
+					functionalElementName);
 
-			functionalElementList.add(functionalElement);
+			functionalElementList.add( functionalElement);
 		}
 
 	}
 
-	public double logCombination(int n, int k) {
-		return ArithmeticUtils.factorialLog(n) - ArithmeticUtils.factorialLog(k) - ArithmeticUtils.factorialLog(n - k);
+	public double logCombination( int n, int k) {
+
+		return ArithmeticUtils.factorialLog( n) - ArithmeticUtils.factorialLog( k) - ArithmeticUtils.factorialLog( n - k);
 
 	}
 
-	public double func(int k, int n, double p) {
+	public double func( int k, int n, double p) {
 
-		return logCombination(n, k) + (k * FastMath.log(p)) + ((n - k) * FastMath.log(1 - p));
+		return logCombination( n, k) + ( k * FastMath.log( p)) + ( ( n - k) * FastMath.log( 1 - p));
 	}
 
-	public double computePvalue(FunctionalElement element) {
+	public double computePvalue( FunctionalElement element) {
+
 		double probability = element.getProbability();
 		int numberofOccurrencesinSearchInputData = element.getNumberofOccurrencesinSearchInputData();
 		int searchInputSize = element.getSearchInputSize();
 		double pValue = 0.0;
 
-		for (int k = numberofOccurrencesinSearchInputData; k <= searchInputSize; k++) {
-			pValue = pValue + FastMath.pow(FastMath.E, func(k, searchInputSize, probability));
+		for( int k = numberofOccurrencesinSearchInputData; k <= searchInputSize; k++){
+			pValue = pValue + FastMath.pow( FastMath.E, func( k, searchInputSize, probability));
 		}
 
 		return pValue;
 
 	}
 
-	public double calculatePvalueUsingBinomialDistribution(FunctionalElement element) {
+	public double calculatePvalueUsingBinomialDistribution( FunctionalElement element) {
+
 		double probability = element.getProbability();
 		int numberofOccurrencesinSearchInputData = element.getNumberofOccurrencesinSearchInputData();
 		int searchInputSize = element.getSearchInputSize();
 		double pValue = 0.0;
 
-		BinomialDistribution binomialDistribution = new BinomialDistribution(searchInputSize, probability);
-		pValue = 1 - binomialDistribution.cumulativeProbability(numberofOccurrencesinSearchInputData - 1);
+		BinomialDistribution binomialDistribution = new BinomialDistribution( searchInputSize, probability);
+		pValue = 1 - binomialDistribution.cumulativeProbability( numberofOccurrencesinSearchInputData - 1);
 
 		return pValue;
 	}
 
-	public void fillPvalues(List<FunctionalElement> functionalElementList) {
-		for (int i = 0; i < functionalElementList.size(); i++) {
-			FunctionalElement element = functionalElementList.get(i);
+	public void fillPvalues( List<FunctionalElement> functionalElementList) {
 
-			double pValue = computePvalue(element);
-			element.setPValue(pValue);
-			if (pValue < 0.00001) {
+		for( int i = 0; i < functionalElementList.size(); i++){
+			FunctionalElement element = functionalElementList.get( i);
+
+			double pValue = computePvalue( element);
+			element.setPValue( pValue);
+			if( pValue < 0.00001){
 				// GlanetRunner.appendLog(element.getName() + "\tp-value:\t" +
 				// pValue);
 			}
@@ -189,38 +195,41 @@ public class CalculateBinomialDistributions {
 
 	}
 
-	public void calculatePValuesUsingBinomialDistribution(List<FunctionalElement> functionalElementList) {
-		for (int i = 0; i < functionalElementList.size(); i++) {
-			FunctionalElement element = functionalElementList.get(i);
+	public void calculatePValuesUsingBinomialDistribution( List<FunctionalElement> functionalElementList) {
 
-			double pValue = calculatePvalueUsingBinomialDistribution(element);
-			element.setPValue(pValue);
+		for( int i = 0; i < functionalElementList.size(); i++){
+			FunctionalElement element = functionalElementList.get( i);
+
+			double pValue = calculatePvalueUsingBinomialDistribution( element);
+			element.setPValue( pValue);
 		}
 
 	}
 
-	public void writeRawPValues(List<FunctionalElement> functionalElementList, String outputFileName) {
+	public void writeRawPValues( List<FunctionalElement> functionalElementList, String outputFileName) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
-		try {
-			fileWriter = new FileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			for (int i = 0; i < functionalElementList.size(); i++) {
+			for( int i = 0; i < functionalElementList.size(); i++){
 
 				// Both have the same results
-				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(functionalElementList.get(i).getPValue()) + System.getProperty("line.separator"));
+				bufferedWriter.write( functionalElementList.get( i).getName() + "\t" + df.format( functionalElementList.get(
+						i).getPValue()) + System.getProperty( "line.separator"));
 
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
@@ -228,103 +237,107 @@ public class CalculateBinomialDistributions {
 
 	// Bonferroni's correction
 	// multiply with numberofComparison
-	public void writeAdjustedPValues(List<FunctionalElement> functionalElementList, String outputFileName, int numberofComparison) {
+	public void writeAdjustedPValues( List<FunctionalElement> functionalElementList, String outputFileName,
+			int numberofComparison) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		Double bonferroniCorrectedPValue;
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
-		try {
-			fileWriter = new FileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			for (int i = 0; i < functionalElementList.size(); i++) {
+			for( int i = 0; i < functionalElementList.size(); i++){
 
-				bonferroniCorrectedPValue = functionalElementList.get(i).getPValue() * numberofComparison;
+				bonferroniCorrectedPValue = functionalElementList.get( i).getPValue() * numberofComparison;
 
-				if (bonferroniCorrectedPValue > 1.0) {
+				if( bonferroniCorrectedPValue > 1.0){
 					bonferroniCorrectedPValue = 1.0;
 				}
 				// Both have the same results
-				bufferedWriter.write(functionalElementList.get(i).getName() + "\t" + df.format(bonferroniCorrectedPValue) + System.getProperty("line.separator"));
+				bufferedWriter.write( functionalElementList.get( i).getName() + "\t" + df.format( bonferroniCorrectedPValue) + System.getProperty( "line.separator"));
 
 			}// End of For
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public void writeRawAll(List<FunctionalElement> dnaseCellLineNameList, String outputFileName) {
+	public void writeRawAll( List<FunctionalElement> dnaseCellLineNameList, String outputFileName) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
-		try {
-			fileWriter = new FileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 			FunctionalElement element;
 
 			// Header Row
-			bufferedWriter.write("Name" + "\t" + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t" + "WholeGenomeSize" + "\t" + "Raw PValue" + System.getProperty("line.separator"));
+			bufferedWriter.write( "Name" + "\t" + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t" + "WholeGenomeSize" + "\t" + "Raw PValue" + System.getProperty( "line.separator"));
 
-			for (int i = 0; i < dnaseCellLineNameList.size(); i++) {
-				element = dnaseCellLineNameList.get(i);
-				bufferedWriter.write(element.getName() + "\t" + element.getNumberofOccurrencesinSearchInputData() + "\t" + element.getSearchInputSize() + "\t" + element.getNumberofOccurrencesinWholeGenome() + "\t" + element.getGenomeSize() + "\t" + df.format(element.getPValue()) + System.getProperty("line.separator"));
+			for( int i = 0; i < dnaseCellLineNameList.size(); i++){
+				element = dnaseCellLineNameList.get( i);
+				bufferedWriter.write( element.getName() + "\t" + element.getNumberofOccurrencesinSearchInputData() + "\t" + element.getSearchInputSize() + "\t" + element.getNumberofOccurrencesinWholeGenome() + "\t" + element.getGenomeSize() + "\t" + df.format( element.getPValue()) + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
 	// Bonferroni's correction
 	// multiply with numberofComparison
-	public void writeAdjustedAll(List<FunctionalElement> nameList, String outputFileName, int numberofComparison) {
+	public void writeAdjustedAll( List<FunctionalElement> nameList, String outputFileName, int numberofComparison) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		Double bonferroniCorrectedPValue;
 
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
-		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat("0.######E0");
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 
-		try {
-			fileWriter = new FileWriter(outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 			FunctionalElement element;
 
 			// Header Row
-			bufferedWriter.write("Name" + "\t" + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t" + "WholeGenomeSize" + "\t" + "Adjusted PValue" + System.getProperty("line.separator"));
+			bufferedWriter.write( "Name" + "\t" + "OccurrencesInSearchInputData" + "\t" + "SearchInputDataSize" + "\t" + "OccurencesInWholeGenome" + "\t" + "WholeGenomeSize" + "\t" + "Adjusted PValue" + System.getProperty( "line.separator"));
 
-			for (int i = 0; i < nameList.size(); i++) {
-				element = nameList.get(i);
+			for( int i = 0; i < nameList.size(); i++){
+				element = nameList.get( i);
 
 				bonferroniCorrectedPValue = element.getPValue() * numberofComparison;
 
-				if (bonferroniCorrectedPValue > 1.0) {
+				if( bonferroniCorrectedPValue > 1.0){
 					bonferroniCorrectedPValue = 1.0;
 				}
 
-				bufferedWriter.write(element.getName() + "\t" + element.getNumberofOccurrencesinSearchInputData() + "\t" + element.getSearchInputSize() + "\t" + element.getNumberofOccurrencesinWholeGenome() + "\t" + element.getGenomeSize() + "\t" + df.format(bonferroniCorrectedPValue) + System.getProperty("line.separator"));
+				bufferedWriter.write( element.getName() + "\t" + element.getNumberofOccurrencesinSearchInputData() + "\t" + element.getSearchInputSize() + "\t" + element.getNumberofOccurrencesinWholeGenome() + "\t" + element.getGenomeSize() + "\t" + df.format( bonferroniCorrectedPValue) + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -347,11 +360,11 @@ public class CalculateBinomialDistributions {
 	// args[7] must have
 	// writePermutationBasedandParametricBasedAnnotationResultMode checkBox
 	// args[8] must have writePermutationBasedAnnotationResultMode checkBox
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
 
 		String calculateMode;
 
@@ -360,7 +373,7 @@ public class CalculateBinomialDistributions {
 
 		CalculateBinomialDistributions calculate = new CalculateBinomialDistributions();
 
-		List<Integer> chromosomeSizes = new ArrayList<Integer>(24);
+		List<Integer> chromosomeSizes = new ArrayList<Integer>( 24);
 		Long genomeSize = Commons.LONG_ZERO;
 		Integer searchInputDataSize = null;
 
@@ -388,9 +401,10 @@ public class CalculateBinomialDistributions {
 		calculateMode = Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION;
 
 		// Calculate whole genome size using hg19_chromosome_sizes input file
-		GRCh37Hg19Chromosome.initializeChromosomeSizes(chromosomeSizes);
-		GRCh37Hg19Chromosome.getHg19ChromosomeSizes(chromosomeSizes, dataFolder, Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
-		genomeSize = calculate.calculateWholeGenomeSize(chromosomeSizes, genomeSize);
+		GRCh37Hg19Chromosome.initializeChromosomeSizes( chromosomeSizes);
+		GRCh37Hg19Chromosome.getHg19ChromosomeSizes( chromosomeSizes, dataFolder,
+				Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		genomeSize = calculate.calculateWholeGenomeSize( chromosomeSizes, genomeSize);
 
 		// calculate search input size using
 		// C:\eclipse_juno_workspace\Doktora\src\inputdata\process\output\TCGAInputDataWithNonBlankSNPsWithoutOverlaps.txt
@@ -403,119 +417,148 @@ public class CalculateBinomialDistributions {
 
 		/*---------------------------------------------------------*/
 		// Dnase
-		fillHashMapwithOccurences(dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_DNASE);
-		fillHashMapwithOccurences(dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder, Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
+		fillHashMapwithOccurences( dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder,
+				Commons.ANNOTATION_RESULTS_FOR_DNASE);
+		fillHashMapwithOccurences( dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder,
+				Commons.DNASE_CELL_LINE_WHOLE_GENOME_USING_INTERVAL_TREE);
 
 		// set number of comparison
 		numberofComparison = dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap.size();
 
-		calculate.fillFunctionalElementList(dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap, dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize, genomeSize, dnaseCellLineList);
-		if (Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.fillPvalues(dnaseCellLineList);
-		} else if (Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.calculatePValuesUsingBinomialDistribution(dnaseCellLineList);
+		calculate.fillFunctionalElementList( dnaseCellLineNumberofNonoverlappingOccurrencesSearchInputHashMap,
+				dnaseCellLineNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize, genomeSize,
+				dnaseCellLineList);
+		if( Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.fillPvalues( dnaseCellLineList);
+		}else if( Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.calculatePValuesUsingBinomialDistribution( dnaseCellLineList);
 		}
 
 		// sort before writing
-		Collections.sort(dnaseCellLineList, FunctionalElement.P_VALUE);
+		Collections.sort( dnaseCellLineList, FunctionalElement.P_VALUE);
 		// calculate.writeRawPValues(dnaseCellLineList,
 		// Commons.DNASE_CELLLINE_NAMES_P_VALUES);
 		// calculate.writeRawAll(dnaseCellLineList,
 		// Commons.DNASE_CELLLINE_NAMES_ALL_VALUES);
-		calculate.writeAdjustedPValues(dnaseCellLineList, Commons.DNASE_CELLLINE_NAMES_ADJUSTED_P_VALUES, numberofComparison);
-		calculate.writeAdjustedAll(dnaseCellLineList, Commons.DNASE_CELLLINE_NAMES_ADJUSTED_ALL_VALUES, numberofComparison);
+		calculate.writeAdjustedPValues( dnaseCellLineList, Commons.DNASE_CELLLINE_NAMES_ADJUSTED_P_VALUES,
+				numberofComparison);
+		calculate.writeAdjustedAll( dnaseCellLineList, Commons.DNASE_CELLLINE_NAMES_ADJUSTED_ALL_VALUES,
+				numberofComparison);
 
 		/*---------------------------------------------------------*/
 		// Tfbs
-		fillHashMapwithOccurences(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
-		fillHashMapwithOccurences(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder, Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE);
+		fillHashMapwithOccurences( tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap,
+				outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+		fillHashMapwithOccurences( tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap,
+				outputFolder, Commons.TFBS_WHOLE_GENOME_USING_INTERVAL_TREE);
 
 		// set number of comparison
 		numberofComparison = tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap.size();
 
-		calculate.fillFunctionalElementList(tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize, genomeSize, tfbsList);
-		if (Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.fillPvalues(tfbsList);
-		} else if (Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.calculatePValuesUsingBinomialDistribution(tfbsList);
+		calculate.fillFunctionalElementList(
+				tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap,
+				tfbsNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize,
+				genomeSize, tfbsList);
+		if( Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.fillPvalues( tfbsList);
+		}else if( Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.calculatePValuesUsingBinomialDistribution( tfbsList);
 		}
 
 		// sort before writing
-		Collections.sort(tfbsList, FunctionalElement.P_VALUE);
+		Collections.sort( tfbsList, FunctionalElement.P_VALUE);
 		// calculate.writeRawPValues(tfbsList, Commons.TFBS_P_VALUES);
 		// calculate.writeRawAll(tfbsList, Commons.TFBS_ALL_VALUES);
-		calculate.writeAdjustedPValues(tfbsList, Commons.TFBS_ADJUSTED_P_VALUES, numberofComparison);
-		calculate.writeAdjustedAll(tfbsList, Commons.TFBS_ADJUSTED_ALL_VALUES, numberofComparison);
+		calculate.writeAdjustedPValues( tfbsList, Commons.TFBS_ADJUSTED_P_VALUES, numberofComparison);
+		calculate.writeAdjustedAll( tfbsList, Commons.TFBS_ADJUSTED_ALL_VALUES, numberofComparison);
 
 		/*---------------------------------------------------------*/
 		// histone
-		fillHashMapwithOccurences(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_HISTONE);
-		fillHashMapwithOccurences(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, outputFolder, Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE);
+		fillHashMapwithOccurences( histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap,
+				outputFolder, Commons.ANNOTATION_RESULTS_FOR_HISTONE);
+		fillHashMapwithOccurences( histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap,
+				outputFolder, Commons.HISTONE_WHOLE_GENOME_USING_INTERVAL_TREE);
 
 		// set number of comparison
 		numberofComparison = histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap.size();
 
-		calculate.fillFunctionalElementList(histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap, histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize, genomeSize, histoneList);
-		if (Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.fillPvalues(histoneList);
-		} else if (Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.calculatePValuesUsingBinomialDistribution(histoneList);
+		calculate.fillFunctionalElementList(
+				histoneNameandCellLineNameNumberofNonoverlappingOccurrencesSearchInputHashMap,
+				histoneNameandCellLineNameNumberofNonoverlappingOccurrencesWholeGenomeHashMap, searchInputDataSize,
+				genomeSize, histoneList);
+		if( Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.fillPvalues( histoneList);
+		}else if( Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.calculatePValuesUsingBinomialDistribution( histoneList);
 		}
 
 		// sort before writing
-		Collections.sort(histoneList, FunctionalElement.P_VALUE);
+		Collections.sort( histoneList, FunctionalElement.P_VALUE);
 		// calculate.writeRawPValues(histoneList, Commons.HISTONE_P_VALUES);
 		// calculate.writeRawAll(histoneList, Commons.HISTONE_ALL_VALUES);
-		calculate.writeAdjustedPValues(histoneList, Commons.HISTONE_ADJUSTED_P_VALUES, numberofComparison);
-		calculate.writeAdjustedAll(histoneList, Commons.HISTONE_ADJUSTED_ALL_VALUES, numberofComparison);
+		calculate.writeAdjustedPValues( histoneList, Commons.HISTONE_ADJUSTED_P_VALUES, numberofComparison);
+		calculate.writeAdjustedAll( histoneList, Commons.HISTONE_ADJUSTED_ALL_VALUES, numberofComparison);
 
 		/*---------------------------------------------------------*/
 		// exon based kegg pathway
-		fillHashMapwithOccurences(exonBasedKeggPathwaySearchInputMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
-		fillHashMapwithOccurences(exonBasedKeggPathwayWholeGenomeMap, outputFolder, Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
+		fillHashMapwithOccurences( exonBasedKeggPathwaySearchInputMap, outputFolder,
+				Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+		fillHashMapwithOccurences( exonBasedKeggPathwayWholeGenomeMap, outputFolder,
+				Commons.EXON_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 
 		// set number of comparison
 		numberofComparison = exonBasedKeggPathwayWholeGenomeMap.size();
 
-		calculate.fillFunctionalElementList(exonBasedKeggPathwaySearchInputMap, exonBasedKeggPathwayWholeGenomeMap, searchInputDataSize, genomeSize, exonBasedKeggPathwayList);
-		if (Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.fillPvalues(exonBasedKeggPathwayList);
-		} else if (Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.calculatePValuesUsingBinomialDistribution(exonBasedKeggPathwayList);
+		calculate.fillFunctionalElementList( exonBasedKeggPathwaySearchInputMap, exonBasedKeggPathwayWholeGenomeMap,
+				searchInputDataSize, genomeSize, exonBasedKeggPathwayList);
+		if( Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.fillPvalues( exonBasedKeggPathwayList);
+		}else if( Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.calculatePValuesUsingBinomialDistribution( exonBasedKeggPathwayList);
 		}
 
 		// sort before writing
-		Collections.sort(exonBasedKeggPathwayList, FunctionalElement.P_VALUE);
+		Collections.sort( exonBasedKeggPathwayList, FunctionalElement.P_VALUE);
 		// calculate.writeRawPValues(exonBasedKeggPathwayList,
 		// Commons.EXON_BASED_KEGG_PATHWAY_P_VALUES);
 		// calculate.writeRawAll(exonBasedKeggPathwayList,
 		// Commons.EXON_BASED_KEGG_PATHWAY_ALL_VALUES);
-		calculate.writeAdjustedPValues(exonBasedKeggPathwayList, Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES, numberofComparison);
-		calculate.writeAdjustedAll(exonBasedKeggPathwayList, Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES, numberofComparison);
+		calculate.writeAdjustedPValues( exonBasedKeggPathwayList, Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES,
+				numberofComparison);
+		calculate.writeAdjustedAll( exonBasedKeggPathwayList, Commons.EXON_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES,
+				numberofComparison);
 
 		/*---------------------------------------------------------*/
 		// regulation based kegg pathway
-		fillHashMapwithOccurences(regulationBasedKeggPathwaySearchInputMap, outputFolder, Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
-		fillHashMapwithOccurences(regulationBasedKeggPathwayWholeGenomeMap, outputFolder, Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
+		fillHashMapwithOccurences(
+				regulationBasedKeggPathwaySearchInputMap,
+				outputFolder,
+				Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+		fillHashMapwithOccurences( regulationBasedKeggPathwayWholeGenomeMap, outputFolder,
+				Commons.REGULATION_BASED_KEGG_PATHWAY_WHOLE_GENOME_USING_INTERVAL_TREE);
 
 		// set number of comparison
 		numberofComparison = regulationBasedKeggPathwayWholeGenomeMap.size();
 
-		calculate.fillFunctionalElementList(regulationBasedKeggPathwaySearchInputMap, regulationBasedKeggPathwayWholeGenomeMap, searchInputDataSize, genomeSize, regulationBasedKeggPathwayList);
-		if (Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.fillPvalues(regulationBasedKeggPathwayList);
-		} else if (Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals(calculateMode)) {
-			calculate.calculatePValuesUsingBinomialDistribution(regulationBasedKeggPathwayList);
+		calculate.fillFunctionalElementList( regulationBasedKeggPathwaySearchInputMap,
+				regulationBasedKeggPathwayWholeGenomeMap, searchInputDataSize, genomeSize,
+				regulationBasedKeggPathwayList);
+		if( Commons.CALCULATE_USING_BURCAK_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.fillPvalues( regulationBasedKeggPathwayList);
+		}else if( Commons.CALCULATE_USING_BINOMIAL_DISTRIBUTION.equals( calculateMode)){
+			calculate.calculatePValuesUsingBinomialDistribution( regulationBasedKeggPathwayList);
 		}
 
 		// sort before writing
-		Collections.sort(regulationBasedKeggPathwayList, FunctionalElement.P_VALUE);
+		Collections.sort( regulationBasedKeggPathwayList, FunctionalElement.P_VALUE);
 		// calculate.writeRawPValues(regulationBasedKeggPathwayList,
 		// Commons.REGULATION_BASED_KEGG_PATHWAY_P_VALUES);
 		// calculate.writeRawAll(regulationBasedKeggPathwayList,
 		// Commons.REGULATION_BASED_KEGG_PATHWAY_ALL_VALUES);
-		calculate.writeAdjustedPValues(regulationBasedKeggPathwayList, Commons.REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES, numberofComparison);
-		calculate.writeAdjustedAll(regulationBasedKeggPathwayList, Commons.REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES, numberofComparison);
+		calculate.writeAdjustedPValues( regulationBasedKeggPathwayList,
+				Commons.REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_P_VALUES, numberofComparison);
+		calculate.writeAdjustedAll( regulationBasedKeggPathwayList,
+				Commons.REGULATION_BASED_KEGG_PATHWAY_ADJUSTED_ALL_VALUES, numberofComparison);
 
 	}
 

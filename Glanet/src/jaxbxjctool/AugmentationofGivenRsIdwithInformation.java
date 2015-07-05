@@ -20,7 +20,6 @@ import gov.nih.nlm.ncbi.snp.docsum.Assembly;
 import gov.nih.nlm.ncbi.snp.docsum.Component;
 import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
 import gov.nih.nlm.ncbi.snp.docsum.Rs;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -28,7 +27,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -37,7 +35,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -47,7 +44,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
-
 import common.Commons;
 
 /**
@@ -55,7 +51,7 @@ import common.Commons;
  */
 public class AugmentationofGivenRsIdwithInformation {
 
-	final static Logger logger = Logger.getLogger(AugmentationofGivenRsIdwithInformation.class);
+	final static Logger logger = Logger.getLogger( AugmentationofGivenRsIdwithInformation.class);
 
 	private Unmarshaller unmarshaller;
 	// private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory
@@ -65,18 +61,20 @@ public class AugmentationofGivenRsIdwithInformation {
 	public AugmentationofGivenRsIdwithInformation() throws Exception {
 
 		this.xmlInputFactory = XMLInputFactory.newInstance();
-		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
-		xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
-		xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
+		xmlInputFactory.setProperty( XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
+		xmlInputFactory.setProperty( XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+		xmlInputFactory.setProperty( XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
 
-		xmlInputFactory.setXMLResolver(new javax.xml.stream.XMLResolver() {
+		xmlInputFactory.setXMLResolver( new javax.xml.stream.XMLResolver() {
+
 			@Override
-			public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) {
-				return new java.io.ByteArrayInputStream(new byte[0]);
+			public Object resolveEntity( String publicID, String systemID, String baseURI, String namespace) {
+
+				return new java.io.ByteArrayInputStream( new byte[0]);
 			}
 		});
 
-		JAXBContext jaxbCtxt = JAXBContext.newInstance("gov.nih.nlm.ncbi.snp.docsum");
+		JAXBContext jaxbCtxt = JAXBContext.newInstance( "gov.nih.nlm.ncbi.snp.docsum");
 		this.unmarshaller = jaxbCtxt.createUnmarshaller();
 
 	}
@@ -84,47 +82,48 @@ public class AugmentationofGivenRsIdwithInformation {
 	// What does this method do?
 	// We are looking at the length of the each of the observed alleles
 	// Setting the numberOfBasesAtMost to the maximum length of observed alleles
-	public int getTheNumberofBasesIntheObservedAlleles(String observedAllelesSeparatedwithSlash) {
+	public int getTheNumberofBasesIntheObservedAlleles( String observedAllelesSeparatedwithSlash) {
+
 		int numberOfBasesAtMost = Integer.MIN_VALUE;
 		int num;
 
-		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/', indexofFormerSlash + 1);
+		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf( '/');
+		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf( '/', indexofFormerSlash + 1);
 
 		String allele;
 
 		// First allele starts
-		allele = observedAllelesSeparatedwithSlash.substring(0, indexofFormerSlash);
+		allele = observedAllelesSeparatedwithSlash.substring( 0, indexofFormerSlash);
 
 		num = allele.length();
 
-		if (num > numberOfBasesAtMost) {
+		if( num > numberOfBasesAtMost){
 			numberOfBasesAtMost = num;
 		}
 		// First allele ends
 
 		// Middle alleles starts
-		while (indexofFormerSlash >= 0 && indexofLatterSlash >= 0) {
+		while( indexofFormerSlash >= 0 && indexofLatterSlash >= 0){
 
-			allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash + 1, indexofLatterSlash);
+			allele = observedAllelesSeparatedwithSlash.substring( indexofFormerSlash + 1, indexofLatterSlash);
 
 			num = allele.length();
 
-			if (num > numberOfBasesAtMost) {
+			if( num > numberOfBasesAtMost){
 				numberOfBasesAtMost = num;
 			}
 
 			indexofFormerSlash = indexofLatterSlash;
-			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/', indexofFormerSlash + 1);
+			indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf( '/', indexofFormerSlash + 1);
 		}
 		// Middle alleles ends
 
 		// Last allele starts
-		allele = observedAllelesSeparatedwithSlash.substring(indexofFormerSlash + 1);
+		allele = observedAllelesSeparatedwithSlash.substring( indexofFormerSlash + 1);
 
 		num = allele.length();
 
-		if (num > numberOfBasesAtMost) {
+		if( num > numberOfBasesAtMost){
 			numberOfBasesAtMost = num;
 		}
 		// Last allele ends
@@ -138,7 +137,8 @@ public class AugmentationofGivenRsIdwithInformation {
 	 * @param commaSeparatedRsIdList
 	 * @return
 	 */
-	public List<RsInformation> getInformationforGivenRsIdList(String commaSeparatedRsIdList, NCBIEutilStatistics ncbiEutilStatistics) {
+	public List<RsInformation> getInformationforGivenRsIdList( String commaSeparatedRsIdList,
+			NCBIEutilStatistics ncbiEutilStatistics) {
 
 		RsInformation rsInformation;
 		int numberofBasesInTheSNPAtMost = Integer.MIN_VALUE;
@@ -158,7 +158,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		// Field f;
 
-		try {
+		try{
 
 			// Old way
 			// String url =
@@ -172,31 +172,34 @@ public class AugmentationofGivenRsIdwithInformation {
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
+			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", commaSeparatedRsIdList).setParameter(
+					"retmode", "xml").build();
 
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout( 60000).setConnectTimeout(
+					60000).setConnectionRequestTimeout( 60000).setStaleConnectionCheckEnabled( true).build();
 
-			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
-			HttpPost post = new HttpPost(uri);
-			post.addHeader("Content-Type", "application/xml");
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
+			HttpPost post = new HttpPost( uri);
+			post.addHeader( "Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			CloseableHttpResponse response = httpclient.execute(post);
+			CloseableHttpResponse response = httpclient.execute( post);
 
 			HttpEntity entity = response.getEntity();
 
-			if (response.getEntity() != null) {
+			if( response.getEntity() != null){
 
 				InputStream is = entity.getContent();
-				reader = xmlInputFactory.createXMLEventReader(is);
+				reader = xmlInputFactory.createXMLEventReader( is);
 			}
 			// HTTP POST ends
 
-			while (reader.hasNext()) {
+			while( reader.hasNext()){
 
 				XMLEvent evt = reader.peek();
 
-				if (!evt.isStartElement()) {
+				if( !evt.isStartElement()){
 					reader.nextEvent();
 					continue;
 				}
@@ -204,36 +207,36 @@ public class AugmentationofGivenRsIdwithInformation {
 				StartElement start = evt.asStartElement();
 				String localName = start.getName().getLocalPart();
 
-				if (!localName.toLowerCase().equals(Commons.RS)) {
+				if( !localName.toLowerCase().equals( Commons.RS)){
 					reader.nextEvent();
 					continue;
 				}
 
-				try {
+				try{
 
-					rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
+					rs = unmarshaller.unmarshal( reader, Rs.class).getValue();
 
-					for (Assembly as : rs.getAssembly()) {
+					for( Assembly as : rs.getAssembly()){
 						String groupLabel = as.getGroupLabel();
 
-						if (groupLabel != null) {
+						if( groupLabel != null){
 
-							for (Component comp : as.getComponent()) {
-								for (MapLoc maploc : comp.getMapLoc()) {
-									if (maploc.getPhysMapInt() != null) {
+							for( Component comp : as.getComponent()){
+								for( MapLoc maploc : comp.getMapLoc()){
+									if( maploc.getPhysMapInt() != null){
 
 										rsInformation = new RsInformation();
 
 										// Set groupName
-										rsInformation.setGroupLabel(groupLabel);
+										rsInformation.setGroupLabel( groupLabel);
 
 										// starts 31st August 2014
 										// forward or reverse
-										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
+										rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
 										// ends 31st August 2014
 
 										// set rsId
-										rsInformation.setRsId(rs.getRsId());
+										rsInformation.setRsId( rs.getRsId());
 
 										// Set the last successful rsID
 										lastSuccessfullRsID = rs.getRsId();
@@ -242,24 +245,24 @@ public class AugmentationofGivenRsIdwithInformation {
 										// This chrName is without "chr"
 										// ex: 2, X, Y, 17
 
-										rsInformation.setChrNameWithoutChr(comp.getChromosome());
+										rsInformation.setChrNameWithoutChr( comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
+										rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setSlashSeparatedObservedAlleles(rs.getSequence().getObserved());
+										rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
+										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
 
 										// set rsId end position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setZeroBasedEnd(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+										rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
-										rsInformationList.add(rsInformation);
+										rsInformationList.add( rsInformation);
 
 									}// End of if maploc.getPhysMapInt() is not
 										// null
@@ -270,50 +273,52 @@ public class AugmentationofGivenRsIdwithInformation {
 
 						}// End of IF groupLabel startsWith "GRCh38"
 
-						else {
+						else{
 
-							ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly(ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + 1);
+							ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly( ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + 1);
 
 							// Declare rsIDs that does not map to any assembly
-							logger.info("rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+							logger.info( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
 
 						}
 
 					}// End of for Assembly
 
-				} catch (JAXBException e) {
+				}catch( JAXBException e){
 					// e.printStackTrace();
-					logger.error(e.toString());
+					logger.error( e.toString());
 
-				} catch (NumberFormatException e) {
+				}catch( NumberFormatException e){
 					// e.printStackTrace();
 
 					// get the next rsId
-					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf(Commons.RS + lastSuccessfullRsID);
-					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf(',', indexofLastSuccessfulRSID + 1);
-					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf(',', indexofCommaBeforeProblemRSID + 1);
+					indexofLastSuccessfulRSID = commaSeparatedRsIdList.indexOf( Commons.RS + lastSuccessfullRsID);
+					indexofCommaBeforeProblemRSID = commaSeparatedRsIdList.indexOf( ',', indexofLastSuccessfulRSID + 1);
+					indexofCommaAfterProblemRSID = commaSeparatedRsIdList.indexOf( ',',
+							indexofCommaBeforeProblemRSID + 1);
 
-					if (indexofCommaAfterProblemRSID < 0) {
-						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID + 1);
-					} else {
-						problemRsId = commaSeparatedRsIdList.substring(indexofCommaBeforeProblemRSID + 1, indexofCommaAfterProblemRSID);
+					if( indexofCommaAfterProblemRSID < 0){
+						problemRsId = commaSeparatedRsIdList.substring( indexofCommaBeforeProblemRSID + 1);
+					}else{
+						problemRsId = commaSeparatedRsIdList.substring( indexofCommaBeforeProblemRSID + 1,
+								indexofCommaAfterProblemRSID);
 					}
 
-					logger.info(e.toString() + " for " + problemRsId);
+					logger.info( e.toString() + " for " + problemRsId);
 
-					problemRsInformation = getInformationforGivenRsId(problemRsId);
+					problemRsInformation = getInformationforGivenRsId( problemRsId);
 
 					// If null then don't put it
-					if (problemRsInformation != null) {
-						rsInformationList.add(problemRsInformation);
+					if( problemRsInformation != null){
+						rsInformationList.add( problemRsInformation);
 					}// End of if not null
 				}// End of catch
 
 			}// End of while
 
-			if (rs == null) {
+			if( rs == null){
 
-				ncbiEutilStatistics.setNumberofRsIDsDoesNotReturnAnyRs(ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + 1);
+				ncbiEutilStatistics.setNumberofRsIDsDoesNotReturnAnyRs( ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + 1);
 
 				// f = Integer.class.getDeclaredField("value");
 				// f.setAccessible(true);
@@ -322,20 +327,20 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				// Declare no information is gathered for a rsID in the given
 				// commaSeparatedRsIdList
-				logger.info("rsId that does not return any rsID Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");
+				logger.info( "rsId that does not return any rsID Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");
 
 			}
 
 			reader.close();
 
-		} catch (XMLStreamException e) {
-			logger.error(e.toString());
-		} catch (ClientProtocolException e) {
-			logger.error(e.toString());
-		} catch (IOException e) {
-			logger.error(e.toString());
-		} catch (URISyntaxException e) {
-			logger.error(e.toString());
+		}catch( XMLStreamException e){
+			logger.error( e.toString());
+		}catch( ClientProtocolException e){
+			logger.error( e.toString());
+		}catch( IOException e){
+			logger.error( e.toString());
+		}catch( URISyntaxException e){
+			logger.error( e.toString());
 		}
 
 		return rsInformationList;
@@ -344,7 +349,8 @@ public class AugmentationofGivenRsIdwithInformation {
 	// 24 NOV 2014
 
 	// 24 NOV 2014 starts
-	public List<RsInformation> getInformationforGivenRsIdList(List<String> rsIdList, NCBIEutilStatistics ncbiEutilStatistics) {
+	public List<RsInformation> getInformationforGivenRsIdList( List<String> rsIdList,
+			NCBIEutilStatistics ncbiEutilStatistics) {
 
 		String commaSeparatedRsIdList = null;
 		List<RsInformation> rsInformationList = new ArrayList<RsInformation>();
@@ -358,7 +364,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		int numberofRemaining = rsIdList.size() % numberofRsIdsSentInOneBatch;
 
-		if (numberofRemaining != 0) {
+		if( numberofRemaining != 0){
 			numberofRequest = numberofRequest + 1;
 		}
 		/**************************************************************/
@@ -366,22 +372,22 @@ public class AugmentationofGivenRsIdwithInformation {
 		/**************************************************************/
 
 		/**************************************************************/
-		for (int i = 0; i < numberofRequest; i++) {
+		for( int i = 0; i < numberofRequest; i++){
 
-			if ((i == (numberofRequest - 1)) && (numberofRemaining != 0)) {
+			if( ( i == ( numberofRequest - 1)) && ( numberofRemaining != 0)){
 
 				// Set commaSeparatedRsIdList to empty string
 				commaSeparatedRsIdList = "";
 
-				for (int j = 0; j < numberofRemaining - 1; j++) {
-					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
+				for( int j = 0; j < numberofRemaining - 1; j++){
+					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get( i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
 
 				}// End of for
 
 				// Append the last rsID
-				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRemaining - 1));
+				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get( i * numberofRsIdsSentInOneBatch + ( numberofRemaining - 1));
 
-			} else {
+			}else{
 
 				// Set commaSeparatedRsIdList to empty string
 				commaSeparatedRsIdList = "";
@@ -389,13 +395,13 @@ public class AugmentationofGivenRsIdwithInformation {
 				// Make commaSeparatedRsIdList of at most
 				// numberofRsIdsInOneBatch elements
 				// Get comma separated rsIDString
-				for (int j = 0; j < numberofRsIdsSentInOneBatch - 1; j++) {
-					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
+				for( int j = 0; j < numberofRsIdsSentInOneBatch - 1; j++){
+					commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get( i * numberofRsIdsSentInOneBatch + j) + Commons.COMMA;
 
 				}// End of for
 
 				// Append the last rsID
-				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get(i * numberofRsIdsSentInOneBatch + (numberofRsIdsSentInOneBatch - 1));
+				commaSeparatedRsIdList = commaSeparatedRsIdList + rsIdList.get( i * numberofRsIdsSentInOneBatch + ( numberofRsIdsSentInOneBatch - 1));
 
 			}
 
@@ -416,7 +422,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			// Send ready commaSeparatedRsIdList
 			// Get rsInformationList for commaSeparatedRsIdList
 			// Add gathered rsInformationList to the existing rsInformationList
-			rsInformationList.addAll(getInformationforGivenRsIdList(commaSeparatedRsIdList, ncbiEutilStatistics));
+			rsInformationList.addAll( getInformationforGivenRsIdList( commaSeparatedRsIdList, ncbiEutilStatistics));
 
 			/**************************************************************/
 			/***** GET rsInformation using NCBI EUTILS call ends ***********/
@@ -433,7 +439,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 	// Even if you search for a merged rsID
 	// It returns you a rs with a valid rsID
-	public RsInformation getInformationforGivenRsId(String rsId) {
+	public RsInformation getInformationforGivenRsId( String rsId) {
 
 		RsInformation rsInformation = null;
 		int numberofBasesInTheSNPAtMost;
@@ -446,7 +452,7 @@ public class AugmentationofGivenRsIdwithInformation {
 		// rsId + "&retmode=xml";
 		// reader = xmlInputFactory.createXMLEventReader(new StreamSource(uri));
 
-		try {
+		try{
 
 			// //HTTP POST starts
 			// String url =
@@ -477,29 +483,32 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			// new HTTP POST starts
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", rsId).setParameter("retmode", "xml").build();
+			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", rsId).setParameter(
+					"retmode", "xml").build();
 
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout( 60000).setConnectTimeout(
+					60000).setConnectionRequestTimeout( 60000).setStaleConnectionCheckEnabled( true).build();
 
-			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
-			HttpPost post = new HttpPost(uri);
-			post.addHeader("Content-Type", "application/xml");
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
+			HttpPost post = new HttpPost( uri);
+			post.addHeader( "Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			CloseableHttpResponse response = httpclient.execute(post);
+			CloseableHttpResponse response = httpclient.execute( post);
 			HttpEntity entity = response.getEntity();
 
-			if (response.getEntity() != null) {
+			if( response.getEntity() != null){
 
 				InputStream is = entity.getContent();
-				reader = xmlInputFactory.createXMLEventReader(is);
+				reader = xmlInputFactory.createXMLEventReader( is);
 			}
 			// new HTTP POST ends
 
-			while (reader.hasNext()) {
+			while( reader.hasNext()){
 				XMLEvent evt = reader.peek();
 
-				if (!evt.isStartElement()) {
+				if( !evt.isStartElement()){
 					reader.nextEvent();
 					continue;
 				}
@@ -507,13 +516,13 @@ public class AugmentationofGivenRsIdwithInformation {
 				StartElement start = evt.asStartElement();
 				String localName = start.getName().getLocalPart();
 
-				if (!localName.toLowerCase().equals(Commons.RS)) {
+				if( !localName.toLowerCase().equals( Commons.RS)){
 					reader.nextEvent();
 					continue;
 				}
 
-				try {
-					Rs rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
+				try{
+					Rs rs = unmarshaller.unmarshal( reader, Rs.class).getValue();
 
 					// 8 DEC 2014
 					// NCBI EUtil has returned the latest valid rsID in the
@@ -521,51 +530,51 @@ public class AugmentationofGivenRsIdwithInformation {
 					// And NCBI returned rsId and given rsId does not match
 					// Means that given rsId is a merged rsID
 					// Valid rsID is returned rsId
-					if (Integer.parseInt(rsId) != rs.getRsId()) {
-						logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
+					if( Integer.parseInt( rsId) != rs.getRsId()){
+						logger.debug( "Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
 						return null;
 					}
 
-					for (Assembly as : rs.getAssembly()) {
+					for( Assembly as : rs.getAssembly()){
 						String groupLabel = as.getGroupLabel();
 
-						if (groupLabel != null) {
+						if( groupLabel != null){
 
-							for (Component comp : as.getComponent()) {
+							for( Component comp : as.getComponent()){
 
-								for (MapLoc maploc : comp.getMapLoc()) {
-									if (maploc.getPhysMapInt() != null) {
+								for( MapLoc maploc : comp.getMapLoc()){
+									if( maploc.getPhysMapInt() != null){
 
 										rsInformation = new RsInformation();
 
 										// Set groupLabel
-										rsInformation.setGroupLabel(groupLabel);
+										rsInformation.setGroupLabel( groupLabel);
 
 										// Set Forward or Reverse
-										rsInformation.setOrient(Orient.convertStringtoEnum(maploc.getOrient()));
+										rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
 
 										// Set rsId
-										rsInformation.setRsId(rs.getRsId());
+										rsInformation.setRsId( rs.getRsId());
 
 										// Set chromosome name
 										// This chrName is without "chr"
 										// e.g.: 2, X, Y, 17
-										rsInformation.setChrNameWithoutChr(comp.getChromosome());
+										rsInformation.setChrNameWithoutChr( comp.getChromosome());
 
 										// set rsId start position
 										// eutil efetch returns 0-based
 										// coordinates
-										rsInformation.setZeroBasedStart(maploc.getPhysMapInt());
+										rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
 										// set rsId observed Alleles
-										rsInformation.setSlashSeparatedObservedAlleles(rs.getSequence().getObserved());
+										rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
+										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
 
 										// Set rsId end position
 										// NCBI EUTIL efetch returns 0-based
 										// coordinates
-										rsInformation.setZeroBasedEnd(maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+										rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
 									}// End of if maploc.getPhysMapInt() is not
 
@@ -576,33 +585,33 @@ public class AugmentationofGivenRsIdwithInformation {
 						}// End of IF groupLabel startsWith "GRCh38"
 
 					}// End of for Assembly
-				} catch (NumberFormatException e) {
+				}catch( NumberFormatException e){
 					// e.printStackTrace();
-					logger.error(e.toString());
+					logger.error( e.toString());
 				}
 
 			}// End of while
 
 			reader.close();
 
-		} catch (XMLStreamException e) {
+		}catch( XMLStreamException e){
 			// e.printStackTrace();
-			logger.error(e.toString() + " for " + rsId);
+			logger.error( e.toString() + " for " + rsId);
 
-		} catch (JAXBException e) {
+		}catch( JAXBException e){
 			// e.printStackTrace();
-			logger.error(e.toString() + " for " + rsId);
+			logger.error( e.toString() + " for " + rsId);
 
-		} catch (UnsupportedEncodingException e1) {
+		}catch( UnsupportedEncodingException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (ClientProtocolException e1) {
+		}catch( ClientProtocolException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (IOException e1) {
+		}catch( IOException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
+		}catch( URISyntaxException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -612,15 +621,15 @@ public class AugmentationofGivenRsIdwithInformation {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
-		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0, 0);
+		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics( 0, 0);
 
 		// String rsId = "rs7534993";
 		AugmentationofGivenRsIdwithInformation app = null;
 		// RsInformation test = null;
 
-		try {
+		try{
 
 			List<String> testRsidList = new ArrayList<String>();
 			app = new AugmentationofGivenRsIdwithInformation();
@@ -629,19 +638,20 @@ public class AugmentationofGivenRsIdwithInformation {
 			// taken from OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt file.
 			// first nine should be either merged or does not map to
 			// any assembly. last ones should work properly
-			testRsidList.add("rs3737959"); // merged
-			testRsidList.add("rs4959515"); // does not map to any assembly
-			testRsidList.add("rs6937363"); // does not map to any assembly
-			testRsidList.add("rs4730283"); // merged
-			testRsidList.add("rs3855349"); // does not map to any assembly
-			testRsidList.add("rs12560420"); // no result
-			testRsidList.add("rs17085433"); // merged
-			testRsidList.add("rs10775043"); // merged
-			testRsidList.add("rs11089853"); // merged
-			testRsidList.add("rs7534993"); // proper
-			testRsidList.add("rs6695488"); // proper
+			testRsidList.add( "rs3737959"); // merged
+			testRsidList.add( "rs4959515"); // does not map to any assembly
+			testRsidList.add( "rs6937363"); // does not map to any assembly
+			testRsidList.add( "rs4730283"); // merged
+			testRsidList.add( "rs3855349"); // does not map to any assembly
+			testRsidList.add( "rs12560420"); // no result
+			testRsidList.add( "rs17085433"); // merged
+			testRsidList.add( "rs10775043"); // merged
+			testRsidList.add( "rs11089853"); // merged
+			testRsidList.add( "rs7534993"); // proper
+			testRsidList.add( "rs6695488"); // proper
 
-			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(testRsidList, ncbiEutilStatistics);
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList( testRsidList,
+					ncbiEutilStatistics);
 
 			// if (test != null) {
 			// GlanetRunner.appendLog(test.getRsId());
@@ -652,10 +662,10 @@ public class AugmentationofGivenRsIdwithInformation {
 			//
 			// }
 
-			for (int i = 0; i < rsInformationList.size(); i++)
-				System.out.println(rsInformationList.get(i).getRsId());
+			for( int i = 0; i < rsInformationList.size(); i++)
+				System.out.println( rsInformationList.get( i).getRsId());
 
-		} catch (Exception e) {
+		}catch( Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

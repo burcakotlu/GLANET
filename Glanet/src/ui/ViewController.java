@@ -14,15 +14,17 @@ public abstract class ViewController {
 													// presented by this
 													// viewController
 
-	public ViewController(JPanel contentPanel) {
+	public ViewController( JPanel contentPanel) {
+
 		this.contentPanel = contentPanel;
-		if (contentPanel == null)
-			throw new NullPointerException("contentPanel cannot be NULL");
+		if( contentPanel == null)
+			throw new NullPointerException( "contentPanel cannot be NULL");
 	}
 
 	public abstract void loadView();
 
-	public void presentViewController(ViewController viewController) {
+	public void presentViewController( ViewController viewController) {
+
 		contentPanel.removeAll();
 		contentPanel.invalidate();
 		viewController.loadView();

@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,16 +19,27 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR", "errorList", "warningList" })
-@XmlRootElement(name = "eSearchResult")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {
+		"countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR",
+		"errorList", "warningList"})
+@XmlRootElement( name = "eSearchResult")
 public class ESearchResult {
 
-	@XmlElements({ @XmlElement(name = "Count", required = true, type = Count.class), @XmlElement(name = "RetMax", required = true, type = RetMax.class), @XmlElement(name = "RetStart", required = true, type = RetStart.class), @XmlElement(name = "QueryKey", required = true, type = QueryKey.class), @XmlElement(name = "WebEnv", required = true, type = WebEnv.class), @XmlElement(name = "IdList", required = true, type = IdList.class), @XmlElement(name = "TranslationSet", required = true, type = TranslationSet.class), @XmlElement(name = "TranslationStack", required = true, type = TranslationStack.class), @XmlElement(name = "QueryTranslation", required = true, type = QueryTranslation.class), @XmlElement(name = "ERROR", required = true, type = ERROR.class) })
+	@XmlElements( {@XmlElement( name = "Count", required = true, type = Count.class),
+			@XmlElement( name = "RetMax", required = true, type = RetMax.class),
+			@XmlElement( name = "RetStart", required = true, type = RetStart.class),
+			@XmlElement( name = "QueryKey", required = true, type = QueryKey.class),
+			@XmlElement( name = "WebEnv", required = true, type = WebEnv.class),
+			@XmlElement( name = "IdList", required = true, type = IdList.class),
+			@XmlElement( name = "TranslationSet", required = true, type = TranslationSet.class),
+			@XmlElement( name = "TranslationStack", required = true, type = TranslationStack.class),
+			@XmlElement( name = "QueryTranslation", required = true, type = QueryTranslation.class),
+			@XmlElement( name = "ERROR", required = true, type = ERROR.class)})
 	protected List<Object> countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR;
-	@XmlElement(name = "ErrorList")
+	@XmlElement( name = "ErrorList")
 	protected ErrorList errorList;
-	@XmlElement(name = "WarningList")
+	@XmlElement( name = "WarningList")
 	protected WarningList warningList;
 
 	/**
@@ -62,7 +72,8 @@ public class ESearchResult {
 	 * 
 	 */
 	public List<Object> getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR() {
-		if (countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR == null) {
+
+		if( countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR == null){
 			countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR = new ArrayList<Object>();
 		}
 		return this.countOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR;
@@ -75,6 +86,7 @@ public class ESearchResult {
 	 * 
 	 */
 	public ErrorList getErrorList() {
+
 		return errorList;
 	}
 
@@ -85,7 +97,8 @@ public class ESearchResult {
 	 *            allowed object is {@link ErrorList }
 	 * 
 	 */
-	public void setErrorList(ErrorList value) {
+	public void setErrorList( ErrorList value) {
+
 		this.errorList = value;
 	}
 
@@ -96,6 +109,7 @@ public class ESearchResult {
 	 * 
 	 */
 	public WarningList getWarningList() {
+
 		return warningList;
 	}
 
@@ -106,7 +120,8 @@ public class ESearchResult {
 	 *            allowed object is {@link WarningList }
 	 * 
 	 */
-	public void setWarningList(WarningList value) {
+	public void setWarningList( WarningList value) {
+
 		this.warningList = value;
 	}
 

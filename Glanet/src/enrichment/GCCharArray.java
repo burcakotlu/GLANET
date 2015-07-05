@@ -13,18 +13,22 @@ public class GCCharArray {
 	char[] gcArray;
 
 	public char[] getGcArray() {
+
 		return gcArray;
 	}
 
-	public void setGcArray(char[] gcArray) {
+	public void setGcArray( char[] gcArray) {
+
 		this.gcArray = gcArray;
 	}
 
-	public GCCharArray(int chromSize) {
+	public GCCharArray( int chromSize) {
+
 		this.gcArray = new char[chromSize];
 	}
 
 	public GCCharArray() {
+
 	}
 
 }

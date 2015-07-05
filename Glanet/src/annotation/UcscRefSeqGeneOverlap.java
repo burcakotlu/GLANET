@@ -9,7 +9,6 @@
 package annotation;
 
 import java.util.List;
-
 import enumtypes.IntervalName;
 
 public class UcscRefSeqGeneOverlap {
@@ -32,70 +31,88 @@ public class UcscRefSeqGeneOverlap {
 	int high;
 
 	public String getRefSeqGeneName() {
+
 		return refSeqGeneName;
 	}
 
-	public void setRefSeqGeneName(String refSeqGeneName) {
+	public void setRefSeqGeneName( String refSeqGeneName) {
+
 		this.refSeqGeneName = refSeqGeneName;
 	}
 
 	public IntervalName getIntervalName() {
+
 		return intervalName;
 	}
 
-	public void setIntervalName(IntervalName intervalName) {
+	public void setIntervalName( IntervalName intervalName) {
+
 		this.intervalName = intervalName;
 	}
 
 	public int getIntervalNumber() {
+
 		return intervalNumber;
 	}
 
-	public void setIntervalNumber(int intervalNumber) {
+	public void setIntervalNumber( int intervalNumber) {
+
 		this.intervalNumber = intervalNumber;
 	}
 
 	public String getGeneHugoSymbol() {
+
 		return geneHugoSymbol;
 	}
 
-	public void setGeneHugoSymbol(String geneHugoSymbol) {
+	public void setGeneHugoSymbol( String geneHugoSymbol) {
+
 		this.geneHugoSymbol = geneHugoSymbol;
 	}
 
 	public int getGeneEntrezId() {
+
 		return geneEntrezId;
 	}
 
-	public void setGeneEntrezId(int geneEntrezId) {
+	public void setGeneEntrezId( int geneEntrezId) {
+
 		this.geneEntrezId = geneEntrezId;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
 	public List<String> getKeggPathwayNameList() {
+
 		return keggPathwayNameList;
 	}
 
-	public void setKeggPathwayNameList(List<String> keggPathwayNameList) {
+	public void setKeggPathwayNameList( List<String> keggPathwayNameList) {
+
 		this.keggPathwayNameList = keggPathwayNameList;
 	}
 
-	public UcscRefSeqGeneOverlap(String refSeqGeneName, IntervalName intervalName, int intervalNumber, String geneHugoSymbol, int geneEntrezId, int low, int high, List<String> keggPathwayNameList) {
+	public UcscRefSeqGeneOverlap( String refSeqGeneName, IntervalName intervalName, int intervalNumber,
+			String geneHugoSymbol, int geneEntrezId, int low, int high, List<String> keggPathwayNameList) {
+
 		super();
 		this.refSeqGeneName = refSeqGeneName;
 		this.intervalName = intervalName;
@@ -111,13 +128,15 @@ public class UcscRefSeqGeneOverlap {
 	 * 
 	 */
 	public UcscRefSeqGeneOverlap() {
+
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

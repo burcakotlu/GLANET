@@ -54,98 +54,122 @@ public class FivePrimeThreePrime {
 	Integer _3dEnd = 0;
 
 	public Integer get_5p1Start() {
+
 		return _5p1Start;
 	}
 
-	public void set_5p1Start(Integer start) {
+	public void set_5p1Start( Integer start) {
+
 		_5p1Start = start;
 	}
 
 	public Integer get_5p1End() {
+
 		return _5p1End;
 	}
 
-	public void set_5p1End(Integer end) {
+	public void set_5p1End( Integer end) {
+
 		_5p1End = end;
 	}
 
 	public Integer get_5p2Start() {
+
 		return _5p2Start;
 	}
 
-	public void set_5p2Start(Integer start) {
+	public void set_5p2Start( Integer start) {
+
 		_5p2Start = start;
 	}
 
 	public Integer get_5p2End() {
+
 		return _5p2End;
 	}
 
-	public void set_5p2End(Integer end) {
+	public void set_5p2End( Integer end) {
+
 		_5p2End = end;
 	}
 
 	public Integer get_5dStart() {
+
 		return _5dStart;
 	}
 
-	public void set_5dStart(Integer start) {
+	public void set_5dStart( Integer start) {
+
 		_5dStart = start;
 	}
 
 	public Integer get_5dEnd() {
+
 		return _5dEnd;
 	}
 
-	public void set_5dEnd(Integer end) {
+	public void set_5dEnd( Integer end) {
+
 		_5dEnd = end;
 	}
 
 	public Integer get_3p1Start() {
+
 		return _3p1Start;
 	}
 
-	public void set_3p1Start(Integer start) {
+	public void set_3p1Start( Integer start) {
+
 		_3p1Start = start;
 	}
 
 	public Integer get_3p1End() {
+
 		return _3p1End;
 	}
 
-	public void set_3p1End(Integer end) {
+	public void set_3p1End( Integer end) {
+
 		_3p1End = end;
 	}
 
 	public Integer get_3p2Start() {
+
 		return _3p2Start;
 	}
 
-	public void set_3p2Start(Integer start) {
+	public void set_3p2Start( Integer start) {
+
 		_3p2Start = start;
 	}
 
 	public Integer get_3p2End() {
+
 		return _3p2End;
 	}
 
-	public void set_3p2End(Integer end) {
+	public void set_3p2End( Integer end) {
+
 		_3p2End = end;
 	}
 
 	public Integer get_3dStart() {
+
 		return _3dStart;
 	}
 
-	public void set_3dStart(Integer start) {
+	public void set_3dStart( Integer start) {
+
 		_3dStart = start;
 	}
 
 	public Integer get_3dEnd() {
+
 		return _3dEnd;
 	}
 
-	public void set_3dEnd(Integer end) {
+	public void set_3dEnd( Integer end) {
+
 		_3dEnd = end;
 	}
 

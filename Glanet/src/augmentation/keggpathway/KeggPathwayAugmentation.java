@@ -10,7 +10,6 @@ package augmentation.keggpathway;
 
 import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,16 +18,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import ui.GlanetRunner;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 public class KeggPathwayAugmentation {
 
-	public static void fillKeggPathwayEntry2NameMap(String dataFolder, Map<String, String> entry2Name) {
+	public static void fillKeggPathwayEntry2NameMap( String dataFolder, Map<String, String> entry2Name) {
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -38,34 +36,35 @@ public class KeggPathwayAugmentation {
 		String entry;
 		String name;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + Commons.KEGG_PATHWAY_ENTRY_2_NAME_INPUT_FILE);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// path:hsa00010 Glycolysis / Gluconeogenesis - Homo sapiens
 				// (human)
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofFirstColon = strLine.indexOf(':');
-				entry = strLine.substring(indexofFirstColon + 1, indexofFirstTab);
-				name = strLine.substring(indexofFirstTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofFirstColon = strLine.indexOf( ':');
+				entry = strLine.substring( indexofFirstColon + 1, indexofFirstTab);
+				name = strLine.substring( indexofFirstTab + 1);
 
-				entry2Name.put(entry, name);
+				entry2Name.put( entry, name);
 
 			}// End of While
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void fillKeggPathwayEntry2GeneIdListMap(String dataFolder, Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap) {
+	public static void fillKeggPathwayEntry2GeneIdListMap( String dataFolder,
+			Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap) {
 
 		String strLine;
 		FileReader fileReader = null;
@@ -82,41 +81,41 @@ public class KeggPathwayAugmentation {
 
 		List<Integer> existingNcbiGeneIdList = null;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
 				// example line
 				// path:hsa00010 hsa:10327 reverse
 
-				indexofFirstColon = strLine.indexOf(':');
-				indexofFirstTab = strLine.indexOf('\t');
+				indexofFirstColon = strLine.indexOf( ':');
+				indexofFirstTab = strLine.indexOf( '\t');
 
-				keggPathwayEntry = strLine.substring(indexofFirstColon + 1, indexofFirstTab);
+				keggPathwayEntry = strLine.substring( indexofFirstColon + 1, indexofFirstTab);
 
-				indexofSecondColon = strLine.indexOf(':', indexofFirstColon + 1);
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
+				indexofSecondColon = strLine.indexOf( ':', indexofFirstColon + 1);
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
 
-				ncbiGeneId = Integer.parseInt(strLine.substring(indexofSecondColon + 1, indexofSecondTab));
+				ncbiGeneId = Integer.parseInt( strLine.substring( indexofSecondColon + 1, indexofSecondTab));
 
 				// Fill keggPathway2NcbiGeneIdHashMap
 				// Hash Map does not contain this keggPathwayName
-				if (keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry) == null) {
+				if( keggPathwayEntry2GeneIdListMap.get( keggPathwayEntry) == null){
 
 					List<Integer> ncbiGeneIdList = new ArrayList<Integer>();
-					ncbiGeneIdList.add(ncbiGeneId);
-					keggPathwayEntry2GeneIdListMap.put(keggPathwayEntry, ncbiGeneIdList);
+					ncbiGeneIdList.add( ncbiGeneId);
+					keggPathwayEntry2GeneIdListMap.put( keggPathwayEntry, ncbiGeneIdList);
 				}
 				// Hash Map contains this keggPathwayName
-				else {
-					existingNcbiGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
+				else{
+					existingNcbiGeneIdList = keggPathwayEntry2GeneIdListMap.get( keggPathwayEntry);
 
-					if (!(existingNcbiGeneIdList.contains(ncbiGeneId))) {
-						existingNcbiGeneIdList.add(ncbiGeneId);
-					} else {
-						GlanetRunner.appendLog("More than one ncbi gene ids for the same kegg pathway");
+					if( !( existingNcbiGeneIdList.contains( ncbiGeneId))){
+						existingNcbiGeneIdList.add( ncbiGeneId);
+					}else{
+						GlanetRunner.appendLog( "More than one ncbi gene ids for the same kegg pathway");
 					}
 
 				}
@@ -125,39 +124,35 @@ public class KeggPathwayAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
 	public static void augmentKeggPathwayNumberWithKeggPathwayEntry(
-			TIntObjectMap<String> keggPathwayNumber2KeggPathwayEntryMap, 
-			List<FunctionalElement> list) {
+			TIntObjectMap<String> keggPathwayNumber2KeggPathwayEntryMap, List<FunctionalElement> list) {
 
 		int keggPathwayNumber;
 		String keggPathwayEntry;
 
-		for (FunctionalElement element : list) {
+		for( FunctionalElement element : list){
 
 			keggPathwayNumber = element.getKeggPathwayNumber();
-			keggPathwayEntry = keggPathwayNumber2KeggPathwayEntryMap.get(keggPathwayNumber);
+			keggPathwayEntry = keggPathwayNumber2KeggPathwayEntryMap.get( keggPathwayNumber);
 
-			element.setKeggPathwayEntry(keggPathwayEntry);
+			element.setKeggPathwayEntry( keggPathwayEntry);
 		}
 
 	}
 
 	// example hsa05016
 	// augment KeggPathwayEntry with KeggPathwayName
-	public static void augmentKeggPathwayEntrywithKeggPathwayName(
-			String dataFolder, 
-			List<FunctionalElement> list1, 
-			List<FunctionalElement> list2, 
-			List<FunctionalElement> list3) {
-		
+	public static void augmentKeggPathwayEntrywithKeggPathwayName( String dataFolder, List<FunctionalElement> list1,
+			List<FunctionalElement> list2, List<FunctionalElement> list3) {
+
 		Map<String, String> entry2NameMap = new HashMap<String, String>();
 
 		String keggPathwayEntry;
@@ -165,27 +160,27 @@ public class KeggPathwayAugmentation {
 
 		List<List<FunctionalElement>> allList = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allList.add(list1);
+		if( list1 != null){
+			allList.add( list1);
 		}
 
-		if (list2 != null) {
-			allList.add(list2);
+		if( list2 != null){
+			allList.add( list2);
 		}
 
-		if (list3 != null) {
-			allList.add(list3);
+		if( list3 != null){
+			allList.add( list3);
 		}
 
-		fillKeggPathwayEntry2NameMap(dataFolder, entry2NameMap);
+		fillKeggPathwayEntry2NameMap( dataFolder, entry2NameMap);
 
-		for (List<FunctionalElement> list : allList) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allList){
+			for( FunctionalElement element : list){
 
 				keggPathwayEntry = element.getKeggPathwayEntry();
 
-				keggPathwayName = entry2NameMap.get(keggPathwayEntry);
-				element.setKeggPathwayName(keggPathwayName);
+				keggPathwayName = entry2NameMap.get( keggPathwayEntry);
+				element.setKeggPathwayName( keggPathwayName);
 			}// For each element
 		}// For each list
 	}
@@ -194,58 +189,58 @@ public class KeggPathwayAugmentation {
 	// example: hsa05016
 	// augment KeggPathwayEntry with KeggPathwayGeneList
 	// Why I have used three lists
-	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList(
-			String dataFolder, 
-			String outputFolder, 
-			List<FunctionalElement> list1, 
-			List<FunctionalElement> list2, 
-			List<FunctionalElement> list3
-			) {
+	public static void augmentKeggPathwayEntrywithKeggPathwayGeneList( String dataFolder, String outputFolder,
+			List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
 
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allLists.add(list1);
+		if( list1 != null){
+			allLists.add( list1);
 		}
 
-		if (list2 != null) {
-			allLists.add(list2);
+		if( list2 != null){
+			allLists.add( list2);
 		}
 
-		if (list3 != null) {
-			allLists.add(list3);
+		if( list3 != null){
+			allLists.add( list3);
 		}
 
-		Map<String, List<Integer>> 	keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
-		Map<Integer, List<String>> 	humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer, List<String>>();
-		Map<String, List<String>> 	humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String, List<String>>();
+		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
+		Map<Integer, List<String>> humanGeneId2RefSeqGeneNameListMap = new HashMap<Integer, List<String>>();
+		Map<String, List<String>> humanRefSeqGeneName2AlternateGeneNameListMap = new HashMap<String, List<String>>();
 
 		String keggPathwayEntry;
 		List<Integer> keggPathwayGeneIdList;
 		List<String> keggPathwayRefSeqGeneNameList;
 		List<String> keggPathwayAlternateGeneNameList;
 
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder, keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(dataFolder, humanGeneId2RefSeqGeneNameListMap);
-		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder, humanRefSeqGeneName2AlternateGeneNameListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap( dataFolder, keggPathwayEntry2GeneIdListMap);
+		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap( dataFolder,
+				humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap( dataFolder,
+				humanRefSeqGeneName2AlternateGeneNameListMap);
 
-		for (List<FunctionalElement> list : allLists) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allLists){
+			for( FunctionalElement element : list){
 
 				keggPathwayEntry = element.getKeggPathwayEntry();
 
-				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
+				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get( keggPathwayEntry);
 
 				// Initialize the lists for each element
 				keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 				keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
-				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
-				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
+				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,
+						keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
+				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(
+						keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList,
+						humanRefSeqGeneName2AlternateGeneNameListMap);
 
-				element.setKeggPathwayGeneIdList(keggPathwayGeneIdList);
-				element.setKeggPathwayRefSeqGeneNameList(keggPathwayRefSeqGeneNameList);
-				element.setKeggPathwayAlternateGeneNameList(keggPathwayAlternateGeneNameList);
+				element.setKeggPathwayGeneIdList( keggPathwayGeneIdList);
+				element.setKeggPathwayRefSeqGeneNameList( keggPathwayRefSeqGeneNameList);
+				element.setKeggPathwayAlternateGeneNameList( keggPathwayAlternateGeneNameList);
 			}// For each element
 		}// For each list
 	}
@@ -255,7 +250,9 @@ public class KeggPathwayAugmentation {
 	// all lists start
 	// example: GABP_hsa05016
 	// augment TfNameCellLineNameKeggPathwayEntry with KeggPathwayName
-	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayName(String dataFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayName( String dataFolder,
+			List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+
 		Map<String, String> entry2NameMap = new HashMap<String, String>();
 
 		String keggPathwayEntry;
@@ -263,32 +260,32 @@ public class KeggPathwayAugmentation {
 
 		List<List<FunctionalElement>> allList = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allList.add(list1);
+		if( list1 != null){
+			allList.add( list1);
 		}
 
-		if (list2 != null) {
-			allList.add(list2);
+		if( list2 != null){
+			allList.add( list2);
 		}
 
-		if (list3 != null) {
-			allList.add(list3);
+		if( list3 != null){
+			allList.add( list3);
 		}
 
 		String tfName_keggPathwayEntry;
 		int indexofFirstUnderscore;
 
-		fillKeggPathwayEntry2NameMap(dataFolder, entry2NameMap);
+		fillKeggPathwayEntry2NameMap( dataFolder, entry2NameMap);
 
-		for (List<FunctionalElement> list : allList) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allList){
+			for( FunctionalElement element : list){
 
 				tfName_keggPathwayEntry = element.getKeggPathwayEntry();
-				indexofFirstUnderscore = tfName_keggPathwayEntry.indexOf('_');
-				keggPathwayEntry = tfName_keggPathwayEntry.substring(indexofFirstUnderscore + 1);
+				indexofFirstUnderscore = tfName_keggPathwayEntry.indexOf( '_');
+				keggPathwayEntry = tfName_keggPathwayEntry.substring( indexofFirstUnderscore + 1);
 
-				keggPathwayName = entry2NameMap.get(keggPathwayEntry);
-				element.setKeggPathwayName(keggPathwayName);
+				keggPathwayName = entry2NameMap.get( keggPathwayEntry);
+				element.setKeggPathwayName( keggPathwayName);
 			}// For each element
 		}// For each list
 	}
@@ -298,7 +295,9 @@ public class KeggPathwayAugmentation {
 	// all lists start
 	// example: GABP_HELAS3_hsa05016
 	// augment TfNameCellLineNameKeggPathwayEntry with KeggPathwayName
-	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName(String dataFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( String dataFolder,
+			List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+
 		Map<String, String> entry2NameMap = new HashMap<String, String>();
 
 		String keggPathwayEntry;
@@ -306,34 +305,34 @@ public class KeggPathwayAugmentation {
 
 		List<List<FunctionalElement>> allList = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allList.add(list1);
+		if( list1 != null){
+			allList.add( list1);
 		}
 
-		if (list2 != null) {
-			allList.add(list2);
+		if( list2 != null){
+			allList.add( list2);
 		}
 
-		if (list3 != null) {
-			allList.add(list3);
+		if( list3 != null){
+			allList.add( list3);
 		}
 
 		String tfName_cellLineName_keggPathwayEntry;
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 
-		fillKeggPathwayEntry2NameMap(dataFolder, entry2NameMap);
+		fillKeggPathwayEntry2NameMap( dataFolder, entry2NameMap);
 
-		for (List<FunctionalElement> list : allList) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allList){
+			for( FunctionalElement element : list){
 
 				tfName_cellLineName_keggPathwayEntry = element.getName();
-				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_');
-				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_', indexofFirstUnderscore + 1);
-				keggPathwayEntry = tfName_cellLineName_keggPathwayEntry.substring(indexofSecondUnderscore + 1);
+				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf( '_');
+				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf( '_', indexofFirstUnderscore + 1);
+				keggPathwayEntry = tfName_cellLineName_keggPathwayEntry.substring( indexofSecondUnderscore + 1);
 
-				keggPathwayName = entry2NameMap.get(keggPathwayEntry);
-				element.setKeggPathwayName(keggPathwayName);
+				keggPathwayName = entry2NameMap.get( keggPathwayEntry);
+				element.setKeggPathwayName( keggPathwayName);
 			}// For each element
 		}// For each list
 	}
@@ -343,20 +342,22 @@ public class KeggPathwayAugmentation {
 	// all lists start
 	// example: GABP_HELAS3_hsa05016
 	// augment TfNameCellLineNameKeggPathwayEntry with KeggPathwayGeneList
-	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder, String outputFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	public static void augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( String dataFolder,
+			String outputFolder, List<FunctionalElement> list1, List<FunctionalElement> list2,
+			List<FunctionalElement> list3) {
 
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allLists.add(list1);
+		if( list1 != null){
+			allLists.add( list1);
 		}
 
-		if (list2 != null) {
-			allLists.add(list2);
+		if( list2 != null){
+			allLists.add( list2);
 		}
 
-		if (list3 != null) {
-			allLists.add(list3);
+		if( list3 != null){
+			allLists.add( list3);
 		}
 
 		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
@@ -372,30 +373,35 @@ public class KeggPathwayAugmentation {
 		int indexofFirstUnderscore;
 		int indexofSecondUnderscore;
 
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder, keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(dataFolder, humanGeneId2RefSeqGeneNameListMap);
-		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder, humanRefSeqGeneName2AlternateGeneNameListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap( dataFolder, keggPathwayEntry2GeneIdListMap);
+		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap( dataFolder,
+				humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap( dataFolder,
+				humanRefSeqGeneName2AlternateGeneNameListMap);
 
-		for (List<FunctionalElement> list : allLists) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allLists){
+			for( FunctionalElement element : list){
 
 				tfName_cellLineName_keggPathwayEntry = element.getName();
-				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_');
-				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf('_', indexofFirstUnderscore + 1);
-				keggPathwayEntry = tfName_cellLineName_keggPathwayEntry.substring(indexofSecondUnderscore + 1);
+				indexofFirstUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf( '_');
+				indexofSecondUnderscore = tfName_cellLineName_keggPathwayEntry.indexOf( '_', indexofFirstUnderscore + 1);
+				keggPathwayEntry = tfName_cellLineName_keggPathwayEntry.substring( indexofSecondUnderscore + 1);
 
-				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
+				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get( keggPathwayEntry);
 
 				// Initialise the lists for each element
 				keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 				keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
-				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
-				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
+				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,
+						keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
+				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(
+						keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList,
+						humanRefSeqGeneName2AlternateGeneNameListMap);
 
-				element.setKeggPathwayGeneIdList(keggPathwayGeneIdList);
-				element.setKeggPathwayRefSeqGeneNameList(keggPathwayRefSeqGeneNameList);
-				element.setKeggPathwayAlternateGeneNameList(keggPathwayAlternateGeneNameList);
+				element.setKeggPathwayGeneIdList( keggPathwayGeneIdList);
+				element.setKeggPathwayRefSeqGeneNameList( keggPathwayRefSeqGeneNameList);
+				element.setKeggPathwayAlternateGeneNameList( keggPathwayAlternateGeneNameList);
 			}
 		}
 
@@ -406,20 +412,21 @@ public class KeggPathwayAugmentation {
 	// all lists start
 	// example: GABP_hsa05016
 	// augment TfNameKeggPathwayEntry with KeggPathwayGeneList
-	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList(String dataFolder, String outputFolder, List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
+	public static void augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( String dataFolder, String outputFolder,
+			List<FunctionalElement> list1, List<FunctionalElement> list2, List<FunctionalElement> list3) {
 
 		List<List<FunctionalElement>> allLists = new ArrayList<List<FunctionalElement>>();
 
-		if (list1 != null) {
-			allLists.add(list1);
+		if( list1 != null){
+			allLists.add( list1);
 		}
 
-		if (list2 != null) {
-			allLists.add(list2);
+		if( list2 != null){
+			allLists.add( list2);
 		}
 
-		if (list3 != null) {
-			allLists.add(list3);
+		if( list3 != null){
+			allLists.add( list3);
 		}
 
 		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
@@ -431,27 +438,32 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayRefSeqGeneNameList;
 		List<String> keggPathwayAlternateGeneNameList;
 
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder, keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(dataFolder, humanGeneId2RefSeqGeneNameListMap);
-		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder, humanRefSeqGeneName2AlternateGeneNameListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap( dataFolder, keggPathwayEntry2GeneIdListMap);
+		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap( dataFolder,
+				humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap( dataFolder,
+				humanRefSeqGeneName2AlternateGeneNameListMap);
 
-		for (List<FunctionalElement> list : allLists) {
-			for (FunctionalElement element : list) {
+		for( List<FunctionalElement> list : allLists){
+			for( FunctionalElement element : list){
 
 				keggPathwayEntry = element.getKeggPathwayEntry();
 
-				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get(keggPathwayEntry);
+				keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get( keggPathwayEntry);
 
 				// Initialise the lists for each element
 				keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 				keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
-				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
-				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
+				HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,
+						keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
+				HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(
+						keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList,
+						humanRefSeqGeneName2AlternateGeneNameListMap);
 
-				element.setKeggPathwayGeneIdList(keggPathwayGeneIdList);
-				element.setKeggPathwayRefSeqGeneNameList(keggPathwayRefSeqGeneNameList);
-				element.setKeggPathwayAlternateGeneNameList(keggPathwayAlternateGeneNameList);
+				element.setKeggPathwayGeneIdList( keggPathwayGeneIdList);
+				element.setKeggPathwayRefSeqGeneNameList( keggPathwayRefSeqGeneNameList);
+				element.setKeggPathwayAlternateGeneNameList( keggPathwayAlternateGeneNameList);
 			}
 		}
 
@@ -463,6 +475,7 @@ public class KeggPathwayAugmentation {
 	 * 
 	 */
 	public KeggPathwayAugmentation() {
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -488,11 +501,11 @@ public class KeggPathwayAugmentation {
 	// DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or
 	// DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
 	// args[13] must have a job name exampe: any_string
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
 
 		// for testing purposes
 		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
@@ -503,13 +516,17 @@ public class KeggPathwayAugmentation {
 		List<String> keggPathwayRefSeqGeneNameList = new ArrayList<String>();
 		List<String> keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
-		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap(dataFolder, keggPathwayEntry2GeneIdListMap);
-		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(outputFolder, humanGeneId2RefSeqGeneNameListMap);
-		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder, humanRefSeqGeneName2AlternateGeneNameListMap);
+		KeggPathwayAugmentation.fillKeggPathwayEntry2GeneIdListMap( dataFolder, keggPathwayEntry2GeneIdListMap);
+		HumanGenesAugmentation.fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap( outputFolder,
+				humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap( dataFolder,
+				humanRefSeqGeneName2AlternateGeneNameListMap);
 
-		keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get("hsa00860");
-		HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
-		HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqGeneNameList, keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
+		keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get( "hsa00860");
+		HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,
+				keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
+		HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName( keggPathwayRefSeqGeneNameList,
+				keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
 
 	}
 

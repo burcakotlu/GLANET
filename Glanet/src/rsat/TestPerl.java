@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
  */
 public class TestPerl {
 
-	public static void main(String[] args) throws IOException {
+	public static void main( String[] args) throws IOException {
 
 		// here we write the args. Think about command prompt.
 		// we would write
@@ -33,28 +33,28 @@ public class TestPerl {
 		// String command =
 		// "Perl C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\rsat\\remap_api.pl batches";
 		String command = "Perl C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\rsat\\remap_api.pl --mode asm-asm --from GCF_000001405.13 --dest GCF_000001405.12 --annotation C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\rsat\\REMAP_inputFile_LineByLine_AugmentedExonBasedKEGGPathwayResults_chrNumber_0BasedStart_1BasedEnd_GRCh37_coordinates.bed --annot_out C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\rsat\\test_out.bed";
-		String[] argsForPerlProgram = command.split(" ");
+		String[] argsForPerlProgram = command.split( " ");
 		Runtime runtime = Runtime.getRuntime();
 		Process process = null;
 
-		try {
+		try{
 
-			process = runtime.exec(argsForPerlProgram);
+			process = runtime.exec( argsForPerlProgram);
 			process.waitFor();
-		} catch (Exception e) {
+		}catch( Exception e){
 
-			System.out.println("Error while executin: " + argsForPerlProgram[0]);
+			System.out.println( "Error while executin: " + argsForPerlProgram[0]);
 		}
 
 		// output of the perl execution is here
-		BufferedReader is = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		BufferedReader is = new BufferedReader( new InputStreamReader( process.getInputStream()));
 		String line;
-		while ((line = is.readLine()) != null)
-			System.out.println(line);
+		while( ( line = is.readLine()) != null)
+			System.out.println( line);
 
 		System.out.flush();
 
-		System.err.println(System.getProperty("line.separator") + "Exit status = " + process.exitValue());
+		System.err.println( System.getProperty( "line.separator") + "Exit status = " + process.exitValue());
 		return;
 	}
 }

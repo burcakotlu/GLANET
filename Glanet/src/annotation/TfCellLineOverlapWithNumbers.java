@@ -9,6 +9,7 @@ package annotation;
  * 
  */
 public class TfCellLineOverlapWithNumbers {
+
 	// 10., 9., 8. and 7. digits have tfNumber
 	// 6., 5. and 4. digits have cellLineNumber
 	// 3., 2. and 1. digits have cellLineNumber
@@ -18,30 +19,37 @@ public class TfCellLineOverlapWithNumbers {
 	int high;
 
 	public int getTfNumberCellLineNumber() {
+
 		return tfNumberCellLineNumber;
 	}
 
-	public void setTfNumberCellLineNumber(int tfNumberCellLineNumber) {
+	public void setTfNumberCellLineNumber( int tfNumberCellLineNumber) {
+
 		this.tfNumberCellLineNumber = tfNumberCellLineNumber;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
-	public TfCellLineOverlapWithNumbers(int tfNumberCellLineNumber, int low, int high) {
+	public TfCellLineOverlapWithNumbers( int tfNumberCellLineNumber, int low, int high) {
+
 		super();
 		this.tfNumberCellLineNumber = tfNumberCellLineNumber;
 		this.low = low;

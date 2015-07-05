@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,16 +18,16 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "phraseIgnored", "quotedPhraseNotFound", "outputMessage" })
-@XmlRootElement(name = "WarningList")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"phraseIgnored", "quotedPhraseNotFound", "outputMessage"})
+@XmlRootElement( name = "WarningList")
 public class WarningList {
 
-	@XmlElement(name = "PhraseIgnored")
+	@XmlElement( name = "PhraseIgnored")
 	protected List<PhraseIgnored> phraseIgnored;
-	@XmlElement(name = "QuotedPhraseNotFound")
+	@XmlElement( name = "QuotedPhraseNotFound")
 	protected List<QuotedPhraseNotFound> quotedPhraseNotFound;
-	@XmlElement(name = "OutputMessage")
+	@XmlElement( name = "OutputMessage")
 	protected List<OutputMessage> outputMessage;
 
 	/**
@@ -55,7 +54,8 @@ public class WarningList {
 	 * 
 	 */
 	public List<PhraseIgnored> getPhraseIgnored() {
-		if (phraseIgnored == null) {
+
+		if( phraseIgnored == null){
 			phraseIgnored = new ArrayList<PhraseIgnored>();
 		}
 		return this.phraseIgnored;
@@ -85,7 +85,8 @@ public class WarningList {
 	 * 
 	 */
 	public List<QuotedPhraseNotFound> getQuotedPhraseNotFound() {
-		if (quotedPhraseNotFound == null) {
+
+		if( quotedPhraseNotFound == null){
 			quotedPhraseNotFound = new ArrayList<QuotedPhraseNotFound>();
 		}
 		return this.quotedPhraseNotFound;
@@ -115,7 +116,8 @@ public class WarningList {
 	 * 
 	 */
 	public List<OutputMessage> getOutputMessage() {
-		if (outputMessage == null) {
+
+		if( outputMessage == null){
 			outputMessage = new ArrayList<OutputMessage>();
 		}
 		return this.outputMessage;

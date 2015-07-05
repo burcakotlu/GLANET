@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "value" })
-@XmlRootElement(name = "QuotedPhraseNotFound")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"value"})
+@XmlRootElement( name = "QuotedPhraseNotFound")
 public class QuotedPhraseNotFound {
 
 	@XmlValue
@@ -31,6 +31,7 @@ public class QuotedPhraseNotFound {
 	 * 
 	 */
 	public String getvalue() {
+
 		return value;
 	}
 
@@ -41,7 +42,8 @@ public class QuotedPhraseNotFound {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setvalue(String value) {
+	public void setvalue( String value) {
+
 		this.value = value;
 	}
 

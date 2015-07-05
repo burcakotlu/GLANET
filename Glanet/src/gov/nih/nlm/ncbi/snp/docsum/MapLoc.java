@@ -10,7 +10,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -71,38 +70,38 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "fxnSet" })
-@XmlRootElement(name = "MapLoc")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"fxnSet"})
+@XmlRootElement( name = "MapLoc")
 public class MapLoc {
 
-	@XmlElement(name = "FxnSet")
+	@XmlElement( name = "FxnSet")
 	protected List<FxnSet> fxnSet;
-	@XmlAttribute(name = "asnFrom", required = true)
+	@XmlAttribute( name = "asnFrom", required = true)
 	protected BigInteger asnFrom;
-	@XmlAttribute(name = "asnTo", required = true)
+	@XmlAttribute( name = "asnTo", required = true)
 	protected BigInteger asnTo;
-	@XmlAttribute(name = "locType", required = true)
+	@XmlAttribute( name = "locType", required = true)
 	protected String locType;
-	@XmlAttribute(name = "alnQuality")
+	@XmlAttribute( name = "alnQuality")
 	protected Double alnQuality;
-	@XmlAttribute(name = "orient")
+	@XmlAttribute( name = "orient")
 	protected String orient;
-	@XmlAttribute(name = "physMapInt")
+	@XmlAttribute( name = "physMapInt")
 	protected Integer physMapInt;
-	@XmlAttribute(name = "leftFlankNeighborPos")
+	@XmlAttribute( name = "leftFlankNeighborPos")
 	protected Integer leftFlankNeighborPos;
-	@XmlAttribute(name = "rightFlankNeighborPos")
+	@XmlAttribute( name = "rightFlankNeighborPos")
 	protected Integer rightFlankNeighborPos;
-	@XmlAttribute(name = "leftContigNeighborPos")
+	@XmlAttribute( name = "leftContigNeighborPos")
 	protected Integer leftContigNeighborPos;
-	@XmlAttribute(name = "rightContigNeighborPos")
+	@XmlAttribute( name = "rightContigNeighborPos")
 	protected Integer rightContigNeighborPos;
-	@XmlAttribute(name = "numberOfMismatches")
+	@XmlAttribute( name = "numberOfMismatches")
 	protected Integer numberOfMismatches;
-	@XmlAttribute(name = "numberOfDeletions")
+	@XmlAttribute( name = "numberOfDeletions")
 	protected Integer numberOfDeletions;
-	@XmlAttribute(name = "numberOfInsertions")
+	@XmlAttribute( name = "numberOfInsertions")
 	protected Integer numberOfInsertions;
 
 	/**
@@ -128,7 +127,8 @@ public class MapLoc {
 	 * 
 	 */
 	public List<FxnSet> getFxnSet() {
-		if (fxnSet == null) {
+
+		if( fxnSet == null){
 			fxnSet = new ArrayList<FxnSet>();
 		}
 		return this.fxnSet;
@@ -141,6 +141,7 @@ public class MapLoc {
 	 * 
 	 */
 	public BigInteger getAsnFrom() {
+
 		return asnFrom;
 	}
 
@@ -151,7 +152,8 @@ public class MapLoc {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setAsnFrom(BigInteger value) {
+	public void setAsnFrom( BigInteger value) {
+
 		this.asnFrom = value;
 	}
 
@@ -162,6 +164,7 @@ public class MapLoc {
 	 * 
 	 */
 	public BigInteger getAsnTo() {
+
 		return asnTo;
 	}
 
@@ -172,7 +175,8 @@ public class MapLoc {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setAsnTo(BigInteger value) {
+	public void setAsnTo( BigInteger value) {
+
 		this.asnTo = value;
 	}
 
@@ -183,6 +187,7 @@ public class MapLoc {
 	 * 
 	 */
 	public String getLocType() {
+
 		return locType;
 	}
 
@@ -193,7 +198,8 @@ public class MapLoc {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setLocType(String value) {
+	public void setLocType( String value) {
+
 		this.locType = value;
 	}
 
@@ -204,6 +210,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Double getAlnQuality() {
+
 		return alnQuality;
 	}
 
@@ -214,7 +221,8 @@ public class MapLoc {
 	 *            allowed object is {@link Double }
 	 * 
 	 */
-	public void setAlnQuality(Double value) {
+	public void setAlnQuality( Double value) {
+
 		this.alnQuality = value;
 	}
 
@@ -225,6 +233,7 @@ public class MapLoc {
 	 * 
 	 */
 	public String getOrient() {
+
 		return orient;
 	}
 
@@ -235,7 +244,8 @@ public class MapLoc {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setOrient(String value) {
+	public void setOrient( String value) {
+
 		this.orient = value;
 	}
 
@@ -246,6 +256,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getPhysMapInt() {
+
 		return physMapInt;
 	}
 
@@ -256,7 +267,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setPhysMapInt(Integer value) {
+	public void setPhysMapInt( Integer value) {
+
 		this.physMapInt = value;
 	}
 
@@ -267,6 +279,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getLeftFlankNeighborPos() {
+
 		return leftFlankNeighborPos;
 	}
 
@@ -277,7 +290,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setLeftFlankNeighborPos(Integer value) {
+	public void setLeftFlankNeighborPos( Integer value) {
+
 		this.leftFlankNeighborPos = value;
 	}
 
@@ -288,6 +302,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getRightFlankNeighborPos() {
+
 		return rightFlankNeighborPos;
 	}
 
@@ -298,7 +313,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setRightFlankNeighborPos(Integer value) {
+	public void setRightFlankNeighborPos( Integer value) {
+
 		this.rightFlankNeighborPos = value;
 	}
 
@@ -309,6 +325,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getLeftContigNeighborPos() {
+
 		return leftContigNeighborPos;
 	}
 
@@ -319,7 +336,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setLeftContigNeighborPos(Integer value) {
+	public void setLeftContigNeighborPos( Integer value) {
+
 		this.leftContigNeighborPos = value;
 	}
 
@@ -330,6 +348,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getRightContigNeighborPos() {
+
 		return rightContigNeighborPos;
 	}
 
@@ -340,7 +359,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setRightContigNeighborPos(Integer value) {
+	public void setRightContigNeighborPos( Integer value) {
+
 		this.rightContigNeighborPos = value;
 	}
 
@@ -351,6 +371,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getNumberOfMismatches() {
+
 		return numberOfMismatches;
 	}
 
@@ -361,7 +382,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setNumberOfMismatches(Integer value) {
+	public void setNumberOfMismatches( Integer value) {
+
 		this.numberOfMismatches = value;
 	}
 
@@ -372,6 +394,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getNumberOfDeletions() {
+
 		return numberOfDeletions;
 	}
 
@@ -382,7 +405,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setNumberOfDeletions(Integer value) {
+	public void setNumberOfDeletions( Integer value) {
+
 		this.numberOfDeletions = value;
 	}
 
@@ -393,6 +417,7 @@ public class MapLoc {
 	 * 
 	 */
 	public Integer getNumberOfInsertions() {
+
 		return numberOfInsertions;
 	}
 
@@ -403,7 +428,8 @@ public class MapLoc {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setNumberOfInsertions(Integer value) {
+	public void setNumberOfInsertions( Integer value) {
+
 		this.numberOfInsertions = value;
 	}
 

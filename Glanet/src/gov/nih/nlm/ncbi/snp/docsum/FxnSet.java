@@ -78,34 +78,34 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "FxnSet")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "")
+@XmlRootElement( name = "FxnSet")
 public class FxnSet {
 
-	@XmlAttribute(name = "geneId")
+	@XmlAttribute( name = "geneId")
 	protected Integer geneId;
-	@XmlAttribute(name = "symbol")
+	@XmlAttribute( name = "symbol")
 	protected String symbol;
-	@XmlAttribute(name = "mrnaAcc")
+	@XmlAttribute( name = "mrnaAcc")
 	protected String mrnaAcc;
-	@XmlAttribute(name = "mrnaVer")
+	@XmlAttribute( name = "mrnaVer")
 	protected Integer mrnaVer;
-	@XmlAttribute(name = "protAcc")
+	@XmlAttribute( name = "protAcc")
 	protected String protAcc;
-	@XmlAttribute(name = "protVer")
+	@XmlAttribute( name = "protVer")
 	protected Integer protVer;
-	@XmlAttribute(name = "fxnClass")
+	@XmlAttribute( name = "fxnClass")
 	protected String fxnClass;
-	@XmlAttribute(name = "readingFrame")
+	@XmlAttribute( name = "readingFrame")
 	protected Integer readingFrame;
-	@XmlAttribute(name = "allele")
+	@XmlAttribute( name = "allele")
 	protected String allele;
-	@XmlAttribute(name = "residue")
+	@XmlAttribute( name = "residue")
 	protected String residue;
-	@XmlAttribute(name = "aaPosition")
+	@XmlAttribute( name = "aaPosition")
 	protected Integer aaPosition;
-	@XmlAttribute(name = "mrnaPosition")
+	@XmlAttribute( name = "mrnaPosition")
 	protected Integer mrnaPosition;
 
 	/**
@@ -115,6 +115,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getGeneId() {
+
 		return geneId;
 	}
 
@@ -125,7 +126,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setGeneId(Integer value) {
+	public void setGeneId( Integer value) {
+
 		this.geneId = value;
 	}
 
@@ -136,6 +138,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getSymbol() {
+
 		return symbol;
 	}
 
@@ -146,7 +149,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSymbol(String value) {
+	public void setSymbol( String value) {
+
 		this.symbol = value;
 	}
 
@@ -157,6 +161,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getMrnaAcc() {
+
 		return mrnaAcc;
 	}
 
@@ -167,7 +172,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setMrnaAcc(String value) {
+	public void setMrnaAcc( String value) {
+
 		this.mrnaAcc = value;
 	}
 
@@ -178,6 +184,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getMrnaVer() {
+
 		return mrnaVer;
 	}
 
@@ -188,7 +195,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setMrnaVer(Integer value) {
+	public void setMrnaVer( Integer value) {
+
 		this.mrnaVer = value;
 	}
 
@@ -199,6 +207,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getProtAcc() {
+
 		return protAcc;
 	}
 
@@ -209,7 +218,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setProtAcc(String value) {
+	public void setProtAcc( String value) {
+
 		this.protAcc = value;
 	}
 
@@ -220,6 +230,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getProtVer() {
+
 		return protVer;
 	}
 
@@ -230,7 +241,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setProtVer(Integer value) {
+	public void setProtVer( Integer value) {
+
 		this.protVer = value;
 	}
 
@@ -241,6 +253,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getFxnClass() {
+
 		return fxnClass;
 	}
 
@@ -251,7 +264,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setFxnClass(String value) {
+	public void setFxnClass( String value) {
+
 		this.fxnClass = value;
 	}
 
@@ -262,6 +276,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getReadingFrame() {
+
 		return readingFrame;
 	}
 
@@ -272,7 +287,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setReadingFrame(Integer value) {
+	public void setReadingFrame( Integer value) {
+
 		this.readingFrame = value;
 	}
 
@@ -283,6 +299,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getAllele() {
+
 		return allele;
 	}
 
@@ -293,7 +310,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setAllele(String value) {
+	public void setAllele( String value) {
+
 		this.allele = value;
 	}
 
@@ -304,6 +322,7 @@ public class FxnSet {
 	 * 
 	 */
 	public String getResidue() {
+
 		return residue;
 	}
 
@@ -314,7 +333,8 @@ public class FxnSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setResidue(String value) {
+	public void setResidue( String value) {
+
 		this.residue = value;
 	}
 
@@ -325,6 +345,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getAaPosition() {
+
 		return aaPosition;
 	}
 
@@ -335,7 +356,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setAaPosition(Integer value) {
+	public void setAaPosition( Integer value) {
+
 		this.aaPosition = value;
 	}
 
@@ -346,6 +368,7 @@ public class FxnSet {
 	 * 
 	 */
 	public Integer getMrnaPosition() {
+
 		return mrnaPosition;
 	}
 
@@ -356,7 +379,8 @@ public class FxnSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setMrnaPosition(Integer value) {
+	public void setMrnaPosition( Integer value) {
+
 		this.mrnaPosition = value;
 	}
 

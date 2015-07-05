@@ -9,7 +9,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -89,36 +88,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "method", "taxonomy", "strains", "comment", "citation" })
-@XmlRootElement(name = "Assay")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"method", "taxonomy", "strains", "comment", "citation"})
+@XmlRootElement( name = "Assay")
 public class Assay {
 
-	@XmlElement(name = "Method", required = true)
+	@XmlElement( name = "Method", required = true)
 	protected Assay.Method method;
-	@XmlElement(name = "Taxonomy", required = true)
+	@XmlElement( name = "Taxonomy", required = true)
 	protected Assay.Taxonomy taxonomy;
-	@XmlElement(name = "Strains")
+	@XmlElement( name = "Strains")
 	protected List<String> strains;
-	@XmlElement(name = "Comment")
+	@XmlElement( name = "Comment")
 	protected String comment;
-	@XmlElement(name = "Citation")
+	@XmlElement( name = "Citation")
 	protected List<String> citation;
-	@XmlAttribute(name = "handle")
+	@XmlAttribute( name = "handle")
 	protected String handle;
-	@XmlAttribute(name = "batch")
+	@XmlAttribute( name = "batch")
 	protected String batch;
-	@XmlAttribute(name = "batchId")
+	@XmlAttribute( name = "batchId")
 	protected Integer batchId;
-	@XmlAttribute(name = "batchType")
+	@XmlAttribute( name = "batchType")
 	protected String batchType;
-	@XmlAttribute(name = "molType")
+	@XmlAttribute( name = "molType")
 	protected String molType;
-	@XmlAttribute(name = "sampleSize")
+	@XmlAttribute( name = "sampleSize")
 	protected Integer sampleSize;
-	@XmlAttribute(name = "population")
+	@XmlAttribute( name = "population")
 	protected String population;
-	@XmlAttribute(name = "linkoutUrl")
+	@XmlAttribute( name = "linkoutUrl")
 	protected String linkoutUrl;
 
 	/**
@@ -128,6 +127,7 @@ public class Assay {
 	 * 
 	 */
 	public Assay.Method getMethod() {
+
 		return method;
 	}
 
@@ -138,7 +138,8 @@ public class Assay {
 	 *            allowed object is {@link Assay.Method }
 	 * 
 	 */
-	public void setMethod(Assay.Method value) {
+	public void setMethod( Assay.Method value) {
+
 		this.method = value;
 	}
 
@@ -149,6 +150,7 @@ public class Assay {
 	 * 
 	 */
 	public Assay.Taxonomy getTaxonomy() {
+
 		return taxonomy;
 	}
 
@@ -159,7 +161,8 @@ public class Assay {
 	 *            allowed object is {@link Assay.Taxonomy }
 	 * 
 	 */
-	public void setTaxonomy(Assay.Taxonomy value) {
+	public void setTaxonomy( Assay.Taxonomy value) {
+
 		this.taxonomy = value;
 	}
 
@@ -186,7 +189,8 @@ public class Assay {
 	 * 
 	 */
 	public List<String> getStrains() {
-		if (strains == null) {
+
+		if( strains == null){
 			strains = new ArrayList<String>();
 		}
 		return this.strains;
@@ -199,6 +203,7 @@ public class Assay {
 	 * 
 	 */
 	public String getComment() {
+
 		return comment;
 	}
 
@@ -209,7 +214,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setComment(String value) {
+	public void setComment( String value) {
+
 		this.comment = value;
 	}
 
@@ -236,7 +242,8 @@ public class Assay {
 	 * 
 	 */
 	public List<String> getCitation() {
-		if (citation == null) {
+
+		if( citation == null){
 			citation = new ArrayList<String>();
 		}
 		return this.citation;
@@ -249,6 +256,7 @@ public class Assay {
 	 * 
 	 */
 	public String getHandle() {
+
 		return handle;
 	}
 
@@ -259,7 +267,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setHandle(String value) {
+	public void setHandle( String value) {
+
 		this.handle = value;
 	}
 
@@ -270,6 +279,7 @@ public class Assay {
 	 * 
 	 */
 	public String getBatch() {
+
 		return batch;
 	}
 
@@ -280,7 +290,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setBatch(String value) {
+	public void setBatch( String value) {
+
 		this.batch = value;
 	}
 
@@ -291,6 +302,7 @@ public class Assay {
 	 * 
 	 */
 	public Integer getBatchId() {
+
 		return batchId;
 	}
 
@@ -301,7 +313,8 @@ public class Assay {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setBatchId(Integer value) {
+	public void setBatchId( Integer value) {
+
 		this.batchId = value;
 	}
 
@@ -312,6 +325,7 @@ public class Assay {
 	 * 
 	 */
 	public String getBatchType() {
+
 		return batchType;
 	}
 
@@ -322,7 +336,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setBatchType(String value) {
+	public void setBatchType( String value) {
+
 		this.batchType = value;
 	}
 
@@ -333,6 +348,7 @@ public class Assay {
 	 * 
 	 */
 	public String getMolType() {
+
 		return molType;
 	}
 
@@ -343,7 +359,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setMolType(String value) {
+	public void setMolType( String value) {
+
 		this.molType = value;
 	}
 
@@ -354,6 +371,7 @@ public class Assay {
 	 * 
 	 */
 	public Integer getSampleSize() {
+
 		return sampleSize;
 	}
 
@@ -364,7 +382,8 @@ public class Assay {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setSampleSize(Integer value) {
+	public void setSampleSize( Integer value) {
+
 		this.sampleSize = value;
 	}
 
@@ -375,6 +394,7 @@ public class Assay {
 	 * 
 	 */
 	public String getPopulation() {
+
 		return population;
 	}
 
@@ -385,7 +405,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setPopulation(String value) {
+	public void setPopulation( String value) {
+
 		this.population = value;
 	}
 
@@ -396,6 +417,7 @@ public class Assay {
 	 * 
 	 */
 	public String getLinkoutUrl() {
+
 		return linkoutUrl;
 	}
 
@@ -406,7 +428,8 @@ public class Assay {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setLinkoutUrl(String value) {
+	public void setLinkoutUrl( String value) {
+
 		this.linkoutUrl = value;
 	}
 
@@ -434,15 +457,15 @@ public class Assay {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "exception" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"exception"})
 	public static class Method {
 
-		@XmlElement(name = "Exception")
+		@XmlElement( name = "Exception")
 		protected String exception;
-		@XmlAttribute(name = "name")
+		@XmlAttribute( name = "name")
 		protected String name;
-		@XmlAttribute(name = "Id")
+		@XmlAttribute( name = "Id")
 		protected String id;
 
 		/**
@@ -452,6 +475,7 @@ public class Assay {
 		 * 
 		 */
 		public String getException() {
+
 			return exception;
 		}
 
@@ -462,7 +486,8 @@ public class Assay {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setException(String value) {
+		public void setException( String value) {
+
 			this.exception = value;
 		}
 
@@ -473,6 +498,7 @@ public class Assay {
 		 * 
 		 */
 		public String getName() {
+
 			return name;
 		}
 
@@ -483,7 +509,8 @@ public class Assay {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setName(String value) {
+		public void setName( String value) {
+
 			this.name = value;
 		}
 
@@ -494,6 +521,7 @@ public class Assay {
 		 * 
 		 */
 		public String getId() {
+
 			return id;
 		}
 
@@ -504,7 +532,8 @@ public class Assay {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setId(String value) {
+		public void setId( String value) {
+
 			this.id = value;
 		}
 
@@ -531,13 +560,13 @@ public class Assay {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Taxonomy {
 
-		@XmlAttribute(name = "id", required = true)
+		@XmlAttribute( name = "id", required = true)
 		protected int id;
-		@XmlAttribute(name = "organism")
+		@XmlAttribute( name = "organism")
 		protected String organism;
 
 		/**
@@ -545,6 +574,7 @@ public class Assay {
 		 * 
 		 */
 		public int getId() {
+
 			return id;
 		}
 
@@ -552,7 +582,8 @@ public class Assay {
 		 * Sets the value of the id property.
 		 * 
 		 */
-		public void setId(int value) {
+		public void setId( int value) {
+
 			this.id = value;
 		}
 
@@ -563,6 +594,7 @@ public class Assay {
 		 * 
 		 */
 		public String getOrganism() {
+
 			return organism;
 		}
 
@@ -573,7 +605,8 @@ public class Assay {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setOrganism(String value) {
+		public void setOrganism( String value) {
+
 			this.organism = value;
 		}
 

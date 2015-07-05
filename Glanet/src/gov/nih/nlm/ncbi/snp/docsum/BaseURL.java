@@ -36,18 +36,18 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "value" })
-@XmlRootElement(name = "BaseURL")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"value"})
+@XmlRootElement( name = "BaseURL")
 public class BaseURL {
 
 	@XmlValue
 	protected String value;
-	@XmlAttribute(name = "urlId")
+	@XmlAttribute( name = "urlId")
 	protected Integer urlId;
-	@XmlAttribute(name = "resourceName")
+	@XmlAttribute( name = "resourceName")
 	protected String resourceName;
-	@XmlAttribute(name = "resourceId")
+	@XmlAttribute( name = "resourceId")
 	protected String resourceId;
 
 	/**
@@ -57,6 +57,7 @@ public class BaseURL {
 	 * 
 	 */
 	public String getValue() {
+
 		return value;
 	}
 
@@ -67,7 +68,8 @@ public class BaseURL {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setValue(String value) {
+	public void setValue( String value) {
+
 		this.value = value;
 	}
 
@@ -78,6 +80,7 @@ public class BaseURL {
 	 * 
 	 */
 	public Integer getUrlId() {
+
 		return urlId;
 	}
 
@@ -88,7 +91,8 @@ public class BaseURL {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setUrlId(Integer value) {
+	public void setUrlId( Integer value) {
+
 		this.urlId = value;
 	}
 
@@ -99,6 +103,7 @@ public class BaseURL {
 	 * 
 	 */
 	public String getResourceName() {
+
 		return resourceName;
 	}
 
@@ -109,7 +114,8 @@ public class BaseURL {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setResourceName(String value) {
+	public void setResourceName( String value) {
+
 		this.resourceName = value;
 	}
 
@@ -120,6 +126,7 @@ public class BaseURL {
 	 * 
 	 */
 	public String getResourceId() {
+
 		return resourceId;
 	}
 
@@ -130,7 +137,8 @@ public class BaseURL {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setResourceId(String value) {
+	public void setResourceId( String value) {
+
 		this.resourceId = value;
 	}
 

@@ -18,20 +18,22 @@ public class StandardDeviationComparator implements Comparator<Object> {
 	/**
 	 * 
 	 */
-	public StandardDeviationComparator(Map<String, MeanandStandardDeviation> mapToBeSorted) {
+	public StandardDeviationComparator( Map<String, MeanandStandardDeviation> mapToBeSorted) {
+
 		this.mapToBeSorted = mapToBeSorted;
 	}
 
 	// In descending order
 	@Override
-	public int compare(Object key1, Object key2) {
-		MeanandStandardDeviation val1 = (MeanandStandardDeviation) mapToBeSorted.get(key1);
-		MeanandStandardDeviation val2 = (MeanandStandardDeviation) mapToBeSorted.get(key2);
-		if (val1.getStandardDeviation() < val2.getStandardDeviation()) {
+	public int compare( Object key1, Object key2) {
+
+		MeanandStandardDeviation val1 = ( MeanandStandardDeviation)mapToBeSorted.get( key1);
+		MeanandStandardDeviation val2 = ( MeanandStandardDeviation)mapToBeSorted.get( key2);
+		if( val1.getStandardDeviation() < val2.getStandardDeviation()){
 			return +1;
-		} else if (val1.getStandardDeviation() > val2.getStandardDeviation()) {
+		}else if( val1.getStandardDeviation() > val2.getStandardDeviation()){
 			return -1;
-		} else {
+		}else{
 			return 0;
 		}
 	}

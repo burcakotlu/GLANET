@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,12 +18,12 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "translation" })
-@XmlRootElement(name = "TranslationSet")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"translation"})
+@XmlRootElement( name = "TranslationSet")
 public class TranslationSet {
 
-	@XmlElement(name = "Translation")
+	@XmlElement( name = "Translation")
 	protected List<Translation> translation;
 
 	/**
@@ -51,7 +50,8 @@ public class TranslationSet {
 	 * 
 	 */
 	public List<Translation> getTranslation() {
-		if (translation == null) {
+
+		if( translation == null){
 			translation = new ArrayList<Translation>();
 		}
 		return this.translation;

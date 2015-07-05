@@ -5,6 +5,7 @@
 // Generated on: 2014.11.25 at 09:13:08 AM EET 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ncbi.nlm.nih.gov/SNP/docsum", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema( namespace = "http://www.ncbi.nlm.nih.gov/SNP/docsum",
+		elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package gov.nih.nlm.ncbi.snp.docsum;
 

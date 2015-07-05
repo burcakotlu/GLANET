@@ -15,12 +15,9 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import userdefined.library.UserDefinedLibraryUtility;
-
 import common.Commons;
 
 public class NumberofComparisons {
@@ -30,9 +27,9 @@ public class NumberofComparisons {
 	int tfNumberofComparison;
 	int tfCellLineNumberofComparison;
 	int histoneCellLineNumberofComparison;
-	
-	//Gene
-	//28 FEB 2015
+
+	// Gene
+	// 28 FEB 2015
 	int geneNumberofComparison;
 
 	int exonBasedKEGGPathwayNumberofComparison;
@@ -62,229 +59,279 @@ public class NumberofComparisons {
 	TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap;
 
 	public int getDnaseCellLineNumberofComparison() {
+
 		return dnaseCellLineNumberofComparison;
 	}
 
-	public void setDnaseCellLineNumberofComparison(int dnaseCellLineNumberofComparison) {
+	public void setDnaseCellLineNumberofComparison( int dnaseCellLineNumberofComparison) {
+
 		this.dnaseCellLineNumberofComparison = dnaseCellLineNumberofComparison;
 	}
 
 	public int getTfNumberofComparison() {
+
 		return tfNumberofComparison;
 	}
 
-	public void setTfNumberofComparison(int tfNumberofComparison) {
+	public void setTfNumberofComparison( int tfNumberofComparison) {
+
 		this.tfNumberofComparison = tfNumberofComparison;
 	}
 
 	public int getTfCellLineNumberofComparison() {
+
 		return tfCellLineNumberofComparison;
 	}
 
-	public void setTfCellLineNumberofComparison(int tfCellLineNumberofComparison) {
+	public void setTfCellLineNumberofComparison( int tfCellLineNumberofComparison) {
+
 		this.tfCellLineNumberofComparison = tfCellLineNumberofComparison;
 	}
 
 	public int getHistoneCellLineNumberofComparison() {
+
 		return histoneCellLineNumberofComparison;
 	}
 
-	public void setHistoneCellLineNumberofComparison(int histoneCellLineNumberofComparison) {
+	public void setHistoneCellLineNumberofComparison( int histoneCellLineNumberofComparison) {
+
 		this.histoneCellLineNumberofComparison = histoneCellLineNumberofComparison;
 	}
 
 	public int getExonBasedKEGGPathwayNumberofComparison() {
+
 		return exonBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setExonBasedKEGGPathwayNumberofComparison(int exonBasedKEGGPathwayNumberofComparison) {
+	public void setExonBasedKEGGPathwayNumberofComparison( int exonBasedKEGGPathwayNumberofComparison) {
+
 		this.exonBasedKEGGPathwayNumberofComparison = exonBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getRegulationBasedKEGGPathwayNumberofComparison() {
+
 		return regulationBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setRegulationBasedKEGGPathwayNumberofComparison(int regulationBasedKEGGPathwayNumberofComparison) {
+	public void setRegulationBasedKEGGPathwayNumberofComparison( int regulationBasedKEGGPathwayNumberofComparison) {
+
 		this.regulationBasedKEGGPathwayNumberofComparison = regulationBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getAllBasedKEGGPathwayNumberofComparison() {
+
 		return allBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setAllBasedKEGGPathwayNumberofComparison(int allBasedKEGGPathwayNumberofComparison) {
+	public void setAllBasedKEGGPathwayNumberofComparison( int allBasedKEGGPathwayNumberofComparison) {
+
 		this.allBasedKEGGPathwayNumberofComparison = allBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfExonBasedKEGGPathwayNumberofComparison() {
+
 		return tfExonBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfExonBasedKEGGPathwayNumberofComparison(int tfExonBasedKEGGPathwayNumberofComparison) {
+	public void setTfExonBasedKEGGPathwayNumberofComparison( int tfExonBasedKEGGPathwayNumberofComparison) {
+
 		this.tfExonBasedKEGGPathwayNumberofComparison = tfExonBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfRegulationBasedKEGGPathwayNumberofComparison() {
+
 		return tfRegulationBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfRegulationBasedKEGGPathwayNumberofComparison(int tfRegulationBasedKEGGPathwayNumberofComparison) {
+	public void setTfRegulationBasedKEGGPathwayNumberofComparison( int tfRegulationBasedKEGGPathwayNumberofComparison) {
+
 		this.tfRegulationBasedKEGGPathwayNumberofComparison = tfRegulationBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfAllBasedKEGGPathwayNumberofComparison() {
+
 		return tfAllBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfAllBasedKEGGPathwayNumberofComparison(int tfAllBasedKEGGPathwayNumberofComparison) {
+	public void setTfAllBasedKEGGPathwayNumberofComparison( int tfAllBasedKEGGPathwayNumberofComparison) {
+
 		this.tfAllBasedKEGGPathwayNumberofComparison = tfAllBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfCellLineExonBasedKEGGPathwayNumberofComparison() {
+
 		return tfCellLineExonBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfCellLineExonBasedKEGGPathwayNumberofComparison(int tfCellLineExonBasedKEGGPathwayNumberofComparison) {
+	public void setTfCellLineExonBasedKEGGPathwayNumberofComparison(
+			int tfCellLineExonBasedKEGGPathwayNumberofComparison) {
+
 		this.tfCellLineExonBasedKEGGPathwayNumberofComparison = tfCellLineExonBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfCellLineRegulationBasedKEGGPathwayNumberofComparison() {
+
 		return tfCellLineRegulationBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfCellLineRegulationBasedKEGGPathwayNumberofComparison(int tfCellLineRegulationBasedKEGGPathwayNumberofComparison) {
+	public void setTfCellLineRegulationBasedKEGGPathwayNumberofComparison(
+			int tfCellLineRegulationBasedKEGGPathwayNumberofComparison) {
+
 		this.tfCellLineRegulationBasedKEGGPathwayNumberofComparison = tfCellLineRegulationBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getTfCellLineAllBasedKEGGPathwayNumberofComparison() {
+
 		return tfCellLineAllBasedKEGGPathwayNumberofComparison;
 	}
 
-	public void setTfCellLineAllBasedKEGGPathwayNumberofComparison(int tfCellLineAllBasedKEGGPathwayNumberofComparison) {
+	public void setTfCellLineAllBasedKEGGPathwayNumberofComparison( int tfCellLineAllBasedKEGGPathwayNumberofComparison) {
+
 		this.tfCellLineAllBasedKEGGPathwayNumberofComparison = tfCellLineAllBasedKEGGPathwayNumberofComparison;
 	}
 
 	public int getExonBasedUserDefinedGeneSetNumberofComparison() {
+
 		return exonBasedUserDefinedGeneSetNumberofComparison;
 	}
 
-	public void setExonBasedUserDefinedGeneSetNumberofComparison(int exonBasedUserDefinedGeneSetNumberofComparison) {
+	public void setExonBasedUserDefinedGeneSetNumberofComparison( int exonBasedUserDefinedGeneSetNumberofComparison) {
+
 		this.exonBasedUserDefinedGeneSetNumberofComparison = exonBasedUserDefinedGeneSetNumberofComparison;
 	}
 
 	public int getRegulationBasedUserDefinedGeneSetNumberofComparison() {
+
 		return regulationBasedUserDefinedGeneSetNumberofComparison;
 	}
 
-	public void setRegulationBasedUserDefinedGeneSetNumberofComparison(int regulationBasedUserDefinedGeneSetNumberofComparison) {
+	public void setRegulationBasedUserDefinedGeneSetNumberofComparison(
+			int regulationBasedUserDefinedGeneSetNumberofComparison) {
+
 		this.regulationBasedUserDefinedGeneSetNumberofComparison = regulationBasedUserDefinedGeneSetNumberofComparison;
 	}
 
 	public int getAllBasedUserDefinedGeneSetNumberofComparison() {
+
 		return allBasedUserDefinedGeneSetNumberofComparison;
 	}
 
-	public void setAllBasedUserDefinedGeneSetNumberofComparison(int allBasedUserDefinedGeneSetNumberofComparison) {
+	public void setAllBasedUserDefinedGeneSetNumberofComparison( int allBasedUserDefinedGeneSetNumberofComparison) {
+
 		this.allBasedUserDefinedGeneSetNumberofComparison = allBasedUserDefinedGeneSetNumberofComparison;
 	}
 
 	public TIntIntMap getUserDefinedLibraryElementTypeNumber2NumberofComparisonMap() {
+
 		return userDefinedLibraryElementTypeNumber2NumberofComparisonMap;
 	}
 
-	public void setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap) {
+	public void setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(
+			TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap) {
+
 		this.userDefinedLibraryElementTypeNumber2NumberofComparisonMap = userDefinedLibraryElementTypeNumber2NumberofComparisonMap;
 	}
-	
-	
 
 	public int getGeneNumberofComparison() {
+
 		return geneNumberofComparison;
 	}
 
-	public void setGeneNumberofComparison(int geneNumberofComparison) {
+	public void setGeneNumberofComparison( int geneNumberofComparison) {
+
 		this.geneNumberofComparison = geneNumberofComparison;
 	}
 
-	public static int getNumberofComparisonsforBonferroniCorrection(String dataFolder, AnnotationType annotationType) {
-		
-		switch(annotationType) {
-		
-			case DO_DNASE_ANNOTATION: 	TIntObjectMap<String> dnaseCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-										FileOperations.fillNumber2NameMap(dnaseCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-										return dnaseCellLineNumber2NameMap.size();
-			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION: 	
-										TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
-										TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-				
-										FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
-										FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-										
-										return keggPathwayNumber2NameMap.size()*tfCellLineNumber2NameMap.size();
-										
-			default: 				
-					break;					
-		
-		}//End of SWITCH
-		
-		
+	public static int getNumberofComparisonsforBonferroniCorrection( String dataFolder, AnnotationType annotationType) {
+
+		switch( annotationType){
+
+		case DO_DNASE_ANNOTATION:
+			TIntObjectMap<String> dnaseCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+			FileOperations.fillNumber2NameMap( dnaseCellLineNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			return dnaseCellLineNumber2NameMap.size();
+		case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+			TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+			TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+
+			FileOperations.fillNumber2NameMap( keggPathwayNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+			FileOperations.fillNumber2NameMap( tfCellLineNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+			return keggPathwayNumber2NameMap.size() * tfCellLineNumber2NameMap.size();
+
+		default:
+			break;
+
+		}// End of SWITCH
+
 		return 0;
 	}
 
-	
-	public static int  getNumberofElementsInCellLine(TIntObjectMap<String> elementCellLineNumber2NameMap, String cellLineName){
-		
-		int numberofElementsInThisCellLine = 0;		
+	public static int getNumberofElementsInCellLine( TIntObjectMap<String> elementCellLineNumber2NameMap,
+			String cellLineName) {
+
+		int numberofElementsInThisCellLine = 0;
 		String elementNameCellLineName = null;
-		
-		for(TIntObjectIterator<String> it = elementCellLineNumber2NameMap.iterator(); it.hasNext();){
-			
+
+		for( TIntObjectIterator<String> it = elementCellLineNumber2NameMap.iterator(); it.hasNext();){
+
 			it.advance();
 			elementNameCellLineName = it.value();
-			
-			if (elementNameCellLineName.contains(cellLineName)){
+
+			if( elementNameCellLineName.contains( cellLineName)){
 				numberofElementsInThisCellLine++;
 			}
-			
-		}//End of for 
-		
+
+		}// End of for
+
 		return numberofElementsInThisCellLine;
-		
+
 	}
-	
-	//6 May 2015 starts
-	public static int getNumberofComparisonsforBonferroniCorrection(String dataFolder, ElementType elementType, String cellLineName){
-		
+
+	// 6 May 2015 starts
+	public static int getNumberofComparisonsforBonferroniCorrection( String dataFolder, ElementType elementType,
+			String cellLineName) {
+
 		int numberofComparisons = 0;
-		
-		switch(elementType){
-		
-			case TF: 	TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-						FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-						numberofComparisons = getNumberofElementsInCellLine(tfCellLineNumber2NameMap,cellLineName);
-						tfCellLineNumber2NameMap = null;
-						break;
-						
-			case HISTONE: 	TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-							FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-							numberofComparisons = getNumberofElementsInCellLine(histoneCellLineNumber2NameMap,cellLineName);
-							histoneCellLineNumber2NameMap = null;
-							break;
-							
-			default: 	
-						break;
-		
-		}//End of switch
-		
+
+		switch( elementType){
+
+		case TF:
+			TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+			FileOperations.fillNumber2NameMap( tfCellLineNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			numberofComparisons = getNumberofElementsInCellLine( tfCellLineNumber2NameMap, cellLineName);
+			tfCellLineNumber2NameMap = null;
+			break;
+
+		case HISTONE:
+			TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+			FileOperations.fillNumber2NameMap( histoneCellLineNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			numberofComparisons = getNumberofElementsInCellLine( histoneCellLineNumber2NameMap, cellLineName);
+			histoneCellLineNumber2NameMap = null;
+			break;
+
+		default:
+			break;
+
+		}// End of switch
+
 		return numberofComparisons;
-		
+
 	}
-	//6 May 2015 ends
-	
-	
-		
-	public static NumberofComparisons getNumberofComparisonsforBonferroniCorrection(String dataFolder) {
+
+	// 6 May 2015 ends
+
+	public static NumberofComparisons getNumberofComparisonsforBonferroniCorrection( String dataFolder) {
 
 		NumberofComparisons numberofComparisons = new NumberofComparisons();
 
@@ -293,62 +340,76 @@ public class NumberofComparisons {
 		TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
-		TIntIntMap geneIDNumber2GeneIDMap =  new TIntIntHashMap();
+		TIntIntMap geneIDNumber2GeneIDMap = new TIntIntHashMap();
 
 		// Bonferroni Correction
 		// Dnase
-		FileOperations.fillNumber2NameMap(dnaseCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		numberofComparisons.setDnaseCellLineNumberofComparison(dnaseCellLineNumber2NameMap.size());
+		FileOperations.fillNumber2NameMap( dnaseCellLineNumber2NameMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		numberofComparisons.setDnaseCellLineNumberofComparison( dnaseCellLineNumber2NameMap.size());
 
 		// TF
-		FileOperations.fillNumber2NameMap(tfNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.fillNumber2NameMap(tfCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		numberofComparisons.setTfNumberofComparison(tfNumber2NameMap.size());
-		numberofComparisons.setTfCellLineNumberofComparison(tfCellLineNumber2NameMap.size());
+		FileOperations.fillNumber2NameMap( tfNumber2NameMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap( tfCellLineNumber2NameMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		numberofComparisons.setTfNumberofComparison( tfNumber2NameMap.size());
+		numberofComparisons.setTfCellLineNumberofComparison( tfCellLineNumber2NameMap.size());
 
 		// HISTONE
-		FileOperations.fillNumber2NameMap(histoneCellLineNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-		numberofComparisons.setHistoneCellLineNumberofComparison(histoneCellLineNumber2NameMap.size());
+		FileOperations.fillNumber2NameMap( histoneCellLineNumber2NameMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		numberofComparisons.setHistoneCellLineNumberofComparison( histoneCellLineNumber2NameMap.size());
 
-		//GENE
-		FileOperations.fillNumber2NumberMap(geneIDNumber2GeneIDMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEIDNUMBER_2_GENEID_OUTPUT_FILENAME);
-		numberofComparisons.setGeneNumberofComparison(geneIDNumber2GeneIDMap.size());
+		// GENE
+		FileOperations.fillNumber2NumberMap( geneIDNumber2GeneIDMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENEIDNUMBER_2_GENEID_OUTPUT_FILENAME);
+		numberofComparisons.setGeneNumberofComparison( geneIDNumber2GeneIDMap.size());
 
 		// KEGG PATHWAY
 		// Important ASK
 		// QUESTION:Should we use the number of annotated Exon Based KEGG
 		// Pathways or the number of KEGG Pathways?
-		FileOperations.fillNumber2NameMap(keggPathwayNumber2NameMap, dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap( keggPathwayNumber2NameMap,
+				dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
 		// EXON BASED KEGG PATHWAY
-		numberofComparisons.setExonBasedKEGGPathwayNumberofComparison(keggPathwayNumber2NameMap.size());
+		numberofComparisons.setExonBasedKEGGPathwayNumberofComparison( keggPathwayNumber2NameMap.size());
 		// REGULATION BASED KEGG PATHWAY
-		numberofComparisons.setRegulationBasedKEGGPathwayNumberofComparison(keggPathwayNumber2NameMap.size());
+		numberofComparisons.setRegulationBasedKEGGPathwayNumberofComparison( keggPathwayNumber2NameMap.size());
 		// ALL BASED KEGG PATHWAY
-		numberofComparisons.setAllBasedKEGGPathwayNumberofComparison(keggPathwayNumber2NameMap.size());
+		numberofComparisons.setAllBasedKEGGPathwayNumberofComparison( keggPathwayNumber2NameMap.size());
 
 		// TF KEGGPathway
 		// Number of Different Tf 149
 		// Number of Different Kegg Pathways 269
 		// 149 * 269 = 40081
-		numberofComparisons.setTfExonBasedKEGGPathwayNumberofComparison(tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
-		numberofComparisons.setTfRegulationBasedKEGGPathwayNumberofComparison(tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
-		numberofComparisons.setTfAllBasedKEGGPathwayNumberofComparison(tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfExonBasedKEGGPathwayNumberofComparison( tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfRegulationBasedKEGGPathwayNumberofComparison( tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfAllBasedKEGGPathwayNumberofComparison( tfNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
 
 		// TF CellLine KEGGPathway
 		// Number of Different Tf Cell Line Combinations 406
 		// Number of Different Kegg Pathways 269
 		// 406 * 269 = 109214
-		numberofComparisons.setTfCellLineExonBasedKEGGPathwayNumberofComparison(tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
-		numberofComparisons.setTfCellLineRegulationBasedKEGGPathwayNumberofComparison(tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
-		numberofComparisons.setTfCellLineAllBasedKEGGPathwayNumberofComparison(tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfCellLineExonBasedKEGGPathwayNumberofComparison( tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfCellLineRegulationBasedKEGGPathwayNumberofComparison( tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
+		numberofComparisons.setTfCellLineAllBasedKEGGPathwayNumberofComparison( tfCellLineNumber2NameMap.size() * keggPathwayNumber2NameMap.size());
 
 		// User Defined GeneSet
 		List<String> nameList = new ArrayList<String>();
 
-		FileOperations.readNames(dataFolder, nameList, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
-		numberofComparisons.setExonBasedUserDefinedGeneSetNumberofComparison(nameList.size());
-		numberofComparisons.setRegulationBasedUserDefinedGeneSetNumberofComparison(nameList.size());
-		numberofComparisons.setAllBasedUserDefinedGeneSetNumberofComparison(nameList.size());
+		FileOperations.readNames( dataFolder, nameList,
+				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
+		numberofComparisons.setExonBasedUserDefinedGeneSetNumberofComparison( nameList.size());
+		numberofComparisons.setRegulationBasedUserDefinedGeneSetNumberofComparison( nameList.size());
+		numberofComparisons.setAllBasedUserDefinedGeneSetNumberofComparison( nameList.size());
 
 		// UserDefinedLibrary starts
 		TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap = new TIntIntHashMap();
@@ -356,30 +417,38 @@ public class NumberofComparisons {
 		int elementTypeNumber;
 		String elementType;
 
-		UserDefinedLibraryUtility.fillNumber2NameMap(userDefinedLibraryElementTypeNumber2ElementTypeMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME, Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+		UserDefinedLibraryUtility.fillNumber2NameMap( userDefinedLibraryElementTypeNumber2ElementTypeMap, dataFolder,
+				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
 
 		// For each elementTypeNumber starts
-		for (TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();) {
+		for( TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
 			it.advance();
 
 			elementTypeNumber = it.key();
 			elementType = it.value();
 
 			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
-			UserDefinedLibraryUtility.fillNumber2NameMap(userDefinedLibraryElementNumber2ElementNameMap, dataFolder, Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty("file.separator"), Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
+			UserDefinedLibraryUtility.fillNumber2NameMap(
+					userDefinedLibraryElementNumber2ElementNameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty( "file.separator"),
+					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
 
-			userDefinedLibraryElementTypeNumber2NumberofComparisonMap.put(elementTypeNumber, userDefinedLibraryElementNumber2ElementNameMap.size());
+			userDefinedLibraryElementTypeNumber2NumberofComparisonMap.put( elementTypeNumber,
+					userDefinedLibraryElementNumber2ElementNameMap.size());
 		}
 		// For each elementTypeNumber ends
 
-		numberofComparisons.setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(userDefinedLibraryElementTypeNumber2NumberofComparisonMap);
+		numberofComparisons.setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap( userDefinedLibraryElementTypeNumber2NumberofComparisonMap);
 		// UserDefinedLibrary ends
 
 		return numberofComparisons;
 
 	}
 
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

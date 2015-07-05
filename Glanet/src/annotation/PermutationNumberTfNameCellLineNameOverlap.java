@@ -14,7 +14,8 @@ public class PermutationNumberTfNameCellLineNameOverlap {
 	int low;
 	int high;
 
-	public PermutationNumberTfNameCellLineNameOverlap(String permutationNumberTfNameCellLineName, int low, int high) {
+	public PermutationNumberTfNameCellLineNameOverlap( String permutationNumberTfNameCellLineName, int low, int high) {
+
 		super();
 		this.permutationNumberTfNameCellLineName = permutationNumberTfNameCellLineName;
 		this.low = low;
@@ -22,26 +23,32 @@ public class PermutationNumberTfNameCellLineNameOverlap {
 	}
 
 	public String getPermutationNumberTfNameCellLineName() {
+
 		return permutationNumberTfNameCellLineName;
 	}
 
-	public void setPermutationNumberTfNameCellLineName(String permutationNumberTfNameCellLineName) {
+	public void setPermutationNumberTfNameCellLineName( String permutationNumberTfNameCellLineName) {
+
 		this.permutationNumberTfNameCellLineName = permutationNumberTfNameCellLineName;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
@@ -49,13 +56,15 @@ public class PermutationNumberTfNameCellLineNameOverlap {
 	 * 
 	 */
 	public PermutationNumberTfNameCellLineNameOverlap() {
+
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

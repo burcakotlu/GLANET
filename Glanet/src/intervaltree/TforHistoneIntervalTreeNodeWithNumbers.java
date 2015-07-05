@@ -17,15 +17,19 @@ public class TforHistoneIntervalTreeNodeWithNumbers extends DnaseIntervalTreeNod
 	short tforHistoneNumber;
 
 	public short getTforHistoneNumber() {
+
 		return tforHistoneNumber;
 	}
 
-	public void setTforHistoneNumber(short tforHistoneNumber) {
+	public void setTforHistoneNumber( short tforHistoneNumber) {
+
 		this.tforHistoneNumber = tforHistoneNumber;
 	}
 
-	public TforHistoneIntervalTreeNodeWithNumbers(ChromosomeName chromName, int low, int high, short tforHistoneNumber, short cellLineNumber, short fileNumber, NodeType nodeType) {
-		super(chromName, low, high, cellLineNumber, fileNumber, nodeType);
+	public TforHistoneIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
+			short tforHistoneNumber, short cellLineNumber, short fileNumber, NodeType nodeType) {
+
+		super( chromName, low, high, cellLineNumber, fileNumber, nodeType);
 
 		this.tforHistoneNumber = tforHistoneNumber;
 	}

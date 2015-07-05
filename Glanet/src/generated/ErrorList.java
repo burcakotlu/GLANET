@@ -9,7 +9,6 @@ package generated;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,14 +18,14 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "phraseNotFound", "fieldNotFound" })
-@XmlRootElement(name = "ErrorList")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"phraseNotFound", "fieldNotFound"})
+@XmlRootElement( name = "ErrorList")
 public class ErrorList {
 
-	@XmlElement(name = "PhraseNotFound")
+	@XmlElement( name = "PhraseNotFound")
 	protected List<PhraseNotFound> phraseNotFound;
-	@XmlElement(name = "FieldNotFound")
+	@XmlElement( name = "FieldNotFound")
 	protected List<FieldNotFound> fieldNotFound;
 
 	/**
@@ -53,7 +52,8 @@ public class ErrorList {
 	 * 
 	 */
 	public List<PhraseNotFound> getPhraseNotFound() {
-		if (phraseNotFound == null) {
+
+		if( phraseNotFound == null){
 			phraseNotFound = new ArrayList<PhraseNotFound>();
 		}
 		return this.phraseNotFound;
@@ -83,7 +83,8 @@ public class ErrorList {
 	 * 
 	 */
 	public List<FieldNotFound> getFieldNotFound() {
-		if (fieldNotFound == null) {
+
+		if( fieldNotFound == null){
 			fieldNotFound = new ArrayList<FieldNotFound>();
 		}
 		return this.fieldNotFound;

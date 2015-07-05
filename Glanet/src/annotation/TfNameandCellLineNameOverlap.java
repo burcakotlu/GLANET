@@ -15,26 +15,32 @@ public class TfNameandCellLineNameOverlap {
 	int high;
 
 	public String getTfNameandCellLineName() {
+
 		return tfNameandCellLineName;
 	}
 
-	public void setTfNameandCellLineName(String tfNameandCellLineName) {
+	public void setTfNameandCellLineName( String tfNameandCellLineName) {
+
 		this.tfNameandCellLineName = tfNameandCellLineName;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
@@ -42,10 +48,12 @@ public class TfNameandCellLineNameOverlap {
 	 * 
 	 */
 	public TfNameandCellLineNameOverlap() {
+
 		// TODO Auto-generated constructor stub
 	}
 
-	public TfNameandCellLineNameOverlap(String tfNameandCellLineName, int low, int high) {
+	public TfNameandCellLineNameOverlap( String tfNameandCellLineName, int low, int high) {
+
 		super();
 		this.tfNameandCellLineName = tfNameandCellLineName;
 		this.low = low;
@@ -55,7 +63,8 @@ public class TfNameandCellLineNameOverlap {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

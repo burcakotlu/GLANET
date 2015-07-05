@@ -10,7 +10,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -86,32 +85,32 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "sourceDatabase", "rs", "assay", "query", "summary", "baseURL" })
-@XmlRootElement(name = "ExchangeSet")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"sourceDatabase", "rs", "assay", "query", "summary", "baseURL"})
+@XmlRootElement( name = "ExchangeSet")
 public class ExchangeSet {
 
-	@XmlElement(name = "SourceDatabase")
+	@XmlElement( name = "SourceDatabase")
 	protected ExchangeSet.SourceDatabase sourceDatabase;
-	@XmlElement(name = "Rs")
+	@XmlElement( name = "Rs")
 	protected List<Rs> rs;
-	@XmlElement(name = "Assay")
+	@XmlElement( name = "Assay")
 	protected Assay assay;
-	@XmlElement(name = "Query")
+	@XmlElement( name = "Query")
 	protected ExchangeSet.Query query;
-	@XmlElement(name = "Summary")
+	@XmlElement( name = "Summary")
 	protected ExchangeSet.Summary summary;
-	@XmlElement(name = "BaseURL")
+	@XmlElement( name = "BaseURL")
 	protected List<BaseURL> baseURL;
-	@XmlAttribute(name = "setType")
+	@XmlAttribute( name = "setType")
 	protected String setType;
-	@XmlAttribute(name = "setDepth")
+	@XmlAttribute( name = "setDepth")
 	protected String setDepth;
-	@XmlAttribute(name = "specVersion")
+	@XmlAttribute( name = "specVersion")
 	protected String specVersion;
-	@XmlAttribute(name = "dbSnpBuild")
+	@XmlAttribute( name = "dbSnpBuild")
 	protected Integer dbSnpBuild;
-	@XmlAttribute(name = "generated")
+	@XmlAttribute( name = "generated")
 	protected String generated;
 
 	/**
@@ -121,6 +120,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public ExchangeSet.SourceDatabase getSourceDatabase() {
+
 		return sourceDatabase;
 	}
 
@@ -131,7 +131,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link ExchangeSet.SourceDatabase }
 	 * 
 	 */
-	public void setSourceDatabase(ExchangeSet.SourceDatabase value) {
+	public void setSourceDatabase( ExchangeSet.SourceDatabase value) {
+
 		this.sourceDatabase = value;
 	}
 
@@ -158,7 +159,8 @@ public class ExchangeSet {
 	 * 
 	 */
 	public List<Rs> getRs() {
-		if (rs == null) {
+
+		if( rs == null){
 			rs = new ArrayList<Rs>();
 		}
 		return this.rs;
@@ -171,6 +173,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public Assay getAssay() {
+
 		return assay;
 	}
 
@@ -181,7 +184,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link Assay }
 	 * 
 	 */
-	public void setAssay(Assay value) {
+	public void setAssay( Assay value) {
+
 		this.assay = value;
 	}
 
@@ -192,6 +196,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public ExchangeSet.Query getQuery() {
+
 		return query;
 	}
 
@@ -202,7 +207,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link ExchangeSet.Query }
 	 * 
 	 */
-	public void setQuery(ExchangeSet.Query value) {
+	public void setQuery( ExchangeSet.Query value) {
+
 		this.query = value;
 	}
 
@@ -213,6 +219,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public ExchangeSet.Summary getSummary() {
+
 		return summary;
 	}
 
@@ -223,7 +230,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link ExchangeSet.Summary }
 	 * 
 	 */
-	public void setSummary(ExchangeSet.Summary value) {
+	public void setSummary( ExchangeSet.Summary value) {
+
 		this.summary = value;
 	}
 
@@ -250,7 +258,8 @@ public class ExchangeSet {
 	 * 
 	 */
 	public List<BaseURL> getBaseURL() {
-		if (baseURL == null) {
+
+		if( baseURL == null){
 			baseURL = new ArrayList<BaseURL>();
 		}
 		return this.baseURL;
@@ -263,6 +272,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public String getSetType() {
+
 		return setType;
 	}
 
@@ -273,7 +283,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSetType(String value) {
+	public void setSetType( String value) {
+
 		this.setType = value;
 	}
 
@@ -284,6 +295,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public String getSetDepth() {
+
 		return setDepth;
 	}
 
@@ -294,7 +306,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSetDepth(String value) {
+	public void setSetDepth( String value) {
+
 		this.setDepth = value;
 	}
 
@@ -305,6 +318,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public String getSpecVersion() {
+
 		return specVersion;
 	}
 
@@ -315,7 +329,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSpecVersion(String value) {
+	public void setSpecVersion( String value) {
+
 		this.specVersion = value;
 	}
 
@@ -326,6 +341,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public Integer getDbSnpBuild() {
+
 		return dbSnpBuild;
 	}
 
@@ -336,7 +352,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setDbSnpBuild(Integer value) {
+	public void setDbSnpBuild( Integer value) {
+
 		this.dbSnpBuild = value;
 	}
 
@@ -347,6 +364,7 @@ public class ExchangeSet {
 	 * 
 	 */
 	public String getGenerated() {
+
 		return generated;
 	}
 
@@ -357,7 +375,8 @@ public class ExchangeSet {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setGenerated(String value) {
+	public void setGenerated( String value) {
+
 		this.generated = value;
 	}
 
@@ -382,13 +401,13 @@ public class ExchangeSet {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Query {
 
-		@XmlAttribute(name = "date")
+		@XmlAttribute( name = "date")
 		protected String date;
-		@XmlAttribute(name = "string")
+		@XmlAttribute( name = "string")
 		protected String string;
 
 		/**
@@ -398,6 +417,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public String getDate() {
+
 			return date;
 		}
 
@@ -408,7 +428,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setDate(String value) {
+		public void setDate( String value) {
+
 			this.date = value;
 		}
 
@@ -419,6 +440,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public String getString() {
+
 			return string;
 		}
 
@@ -429,7 +451,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setString(String value) {
+		public void setString( String value) {
+
 			this.string = value;
 		}
 
@@ -458,17 +481,17 @@ public class ExchangeSet {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class SourceDatabase {
 
-		@XmlAttribute(name = "taxId", required = true)
+		@XmlAttribute( name = "taxId", required = true)
 		protected int taxId;
-		@XmlAttribute(name = "organism", required = true)
+		@XmlAttribute( name = "organism", required = true)
 		protected String organism;
-		@XmlAttribute(name = "dbSnpOrgAbbr")
+		@XmlAttribute( name = "dbSnpOrgAbbr")
 		protected String dbSnpOrgAbbr;
-		@XmlAttribute(name = "gpipeOrgAbbr")
+		@XmlAttribute( name = "gpipeOrgAbbr")
 		protected String gpipeOrgAbbr;
 
 		/**
@@ -476,6 +499,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public int getTaxId() {
+
 			return taxId;
 		}
 
@@ -483,7 +507,8 @@ public class ExchangeSet {
 		 * Sets the value of the taxId property.
 		 * 
 		 */
-		public void setTaxId(int value) {
+		public void setTaxId( int value) {
+
 			this.taxId = value;
 		}
 
@@ -494,6 +519,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public String getOrganism() {
+
 			return organism;
 		}
 
@@ -504,7 +530,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setOrganism(String value) {
+		public void setOrganism( String value) {
+
 			this.organism = value;
 		}
 
@@ -515,6 +542,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public String getDbSnpOrgAbbr() {
+
 			return dbSnpOrgAbbr;
 		}
 
@@ -525,7 +553,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setDbSnpOrgAbbr(String value) {
+		public void setDbSnpOrgAbbr( String value) {
+
 			this.dbSnpOrgAbbr = value;
 		}
 
@@ -536,6 +565,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public String getGpipeOrgAbbr() {
+
 			return gpipeOrgAbbr;
 		}
 
@@ -546,7 +576,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setGpipeOrgAbbr(String value) {
+		public void setGpipeOrgAbbr( String value) {
+
 			this.gpipeOrgAbbr = value;
 		}
 
@@ -580,27 +611,27 @@ public class ExchangeSet {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class Summary {
 
-		@XmlAttribute(name = "numRsIds")
+		@XmlAttribute( name = "numRsIds")
 		protected BigInteger numRsIds;
-		@XmlAttribute(name = "totalSeqLength")
+		@XmlAttribute( name = "totalSeqLength")
 		protected BigInteger totalSeqLength;
-		@XmlAttribute(name = "numContigHits")
+		@XmlAttribute( name = "numContigHits")
 		protected BigInteger numContigHits;
-		@XmlAttribute(name = "numGeneHits")
+		@XmlAttribute( name = "numGeneHits")
 		protected BigInteger numGeneHits;
-		@XmlAttribute(name = "numGiHits")
+		@XmlAttribute( name = "numGiHits")
 		protected BigInteger numGiHits;
-		@XmlAttribute(name = "num3dStructs")
+		@XmlAttribute( name = "num3dStructs")
 		protected BigInteger num3DStructs;
-		@XmlAttribute(name = "numAlleleFreqs")
+		@XmlAttribute( name = "numAlleleFreqs")
 		protected BigInteger numAlleleFreqs;
-		@XmlAttribute(name = "numStsHits")
+		@XmlAttribute( name = "numStsHits")
 		protected BigInteger numStsHits;
-		@XmlAttribute(name = "numUnigeneCids")
+		@XmlAttribute( name = "numUnigeneCids")
 		protected BigInteger numUnigeneCids;
 
 		/**
@@ -610,6 +641,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumRsIds() {
+
 			return numRsIds;
 		}
 
@@ -620,7 +652,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumRsIds(BigInteger value) {
+		public void setNumRsIds( BigInteger value) {
+
 			this.numRsIds = value;
 		}
 
@@ -631,6 +664,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getTotalSeqLength() {
+
 			return totalSeqLength;
 		}
 
@@ -641,7 +675,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setTotalSeqLength(BigInteger value) {
+		public void setTotalSeqLength( BigInteger value) {
+
 			this.totalSeqLength = value;
 		}
 
@@ -652,6 +687,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumContigHits() {
+
 			return numContigHits;
 		}
 
@@ -662,7 +698,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumContigHits(BigInteger value) {
+		public void setNumContigHits( BigInteger value) {
+
 			this.numContigHits = value;
 		}
 
@@ -673,6 +710,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumGeneHits() {
+
 			return numGeneHits;
 		}
 
@@ -683,7 +721,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumGeneHits(BigInteger value) {
+		public void setNumGeneHits( BigInteger value) {
+
 			this.numGeneHits = value;
 		}
 
@@ -694,6 +733,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumGiHits() {
+
 			return numGiHits;
 		}
 
@@ -704,7 +744,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumGiHits(BigInteger value) {
+		public void setNumGiHits( BigInteger value) {
+
 			this.numGiHits = value;
 		}
 
@@ -715,6 +756,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNum3DStructs() {
+
 			return num3DStructs;
 		}
 
@@ -725,7 +767,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNum3DStructs(BigInteger value) {
+		public void setNum3DStructs( BigInteger value) {
+
 			this.num3DStructs = value;
 		}
 
@@ -736,6 +779,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumAlleleFreqs() {
+
 			return numAlleleFreqs;
 		}
 
@@ -746,7 +790,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumAlleleFreqs(BigInteger value) {
+		public void setNumAlleleFreqs( BigInteger value) {
+
 			this.numAlleleFreqs = value;
 		}
 
@@ -757,6 +802,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumStsHits() {
+
 			return numStsHits;
 		}
 
@@ -767,7 +813,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumStsHits(BigInteger value) {
+		public void setNumStsHits( BigInteger value) {
+
 			this.numStsHits = value;
 		}
 
@@ -778,6 +825,7 @@ public class ExchangeSet {
 		 * 
 		 */
 		public BigInteger getNumUnigeneCids() {
+
 			return numUnigeneCids;
 		}
 
@@ -788,7 +836,8 @@ public class ExchangeSet {
 		 *            allowed object is {@link BigInteger }
 		 * 
 		 */
-		public void setNumUnigeneCids(BigInteger value) {
+		public void setNumUnigeneCids( BigInteger value) {
+
 			this.numUnigeneCids = value;
 		}
 

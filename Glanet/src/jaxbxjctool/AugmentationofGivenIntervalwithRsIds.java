@@ -10,7 +10,6 @@ package jaxbxjctool;
 import generated.ESearchResult;
 import generated.Id;
 import generated.IdList;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -18,7 +17,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -27,7 +25,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -36,7 +33,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-
 import ui.GlanetRunner;
 
 /**
@@ -49,26 +45,31 @@ public class AugmentationofGivenIntervalwithRsIds {
 	private XMLInputFactory xmlInputFactory = null;
 
 	public AugmentationofGivenIntervalwithRsIds() throws Exception {
-		this.xmlInputFactory = XMLInputFactory.newInstance();
-		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
-		xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
-		xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
 
-		xmlInputFactory.setXMLResolver(new javax.xml.stream.XMLResolver() {
+		this.xmlInputFactory = XMLInputFactory.newInstance();
+		xmlInputFactory.setProperty( XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
+		xmlInputFactory.setProperty( XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+		xmlInputFactory.setProperty( XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
+
+		xmlInputFactory.setXMLResolver( new javax.xml.stream.XMLResolver() {
+
 			@Override
-			public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) {
-				return new java.io.ByteArrayInputStream(new byte[0]);
+			public Object resolveEntity( String publicID, String systemID, String baseURI, String namespace) {
+
+				return new java.io.ByteArrayInputStream( new byte[0]);
 			}
 		});
 
-		JAXBContext jaxbCtxt = JAXBContext.newInstance("generated");
+		JAXBContext jaxbCtxt = JAXBContext.newInstance( "generated");
 		this.unmarshaller = jaxbCtxt.createUnmarshaller();
 
 	}
 
 	// Requires oneBased positions
 	// Requires chrName without preceeding "chr" string
-	public List<Integer> getRsIdsInAGivenInterval(String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased, int givenIntervalEndOneBased) {
+	public List<Integer> getRsIdsInAGivenInterval( String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased,
+			int givenIntervalEndOneBased) {
+
 		List<Integer> rsIdList = new ArrayList<Integer>();
 		XMLEventReader readerSearch = null;
 
@@ -84,38 +85,41 @@ public class AugmentationofGivenIntervalwithRsIds {
 		// XMLEventReader readerSearch= xmlInputFactory.createXMLEventReader(new
 		// StreamSource(eSearchString));
 
-		try {
+		try{
 
 			// HTTP POST starts
 			// String url =
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
 			String termParameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termParameter).setParameter("usehistory", "y").build();
+			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+					"/entrez/eutils/esearch.fcgi").setParameter( "db", "snp").setParameter( "term", termParameter).setParameter(
+					"usehistory", "y").build();
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout( 60000).setConnectTimeout(
+					60000).setConnectionRequestTimeout( 60000).setStaleConnectionCheckEnabled( true).build();
 
-			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
 
-			HttpPost post = new HttpPost(uri);
-			post.addHeader("Content-Type", "application/xml");
+			HttpPost post = new HttpPost( uri);
+			post.addHeader( "Content-Type", "application/xml");
 
-			CloseableHttpResponse response = httpclient.execute(post);
+			CloseableHttpResponse response = httpclient.execute( post);
 			HttpEntity entity = response.getEntity();
 
-			if (response.getEntity() != null) {
+			if( response.getEntity() != null){
 
 				InputStream is = entity.getContent();
-				readerSearch = xmlInputFactory.createXMLEventReader(is);
+				readerSearch = xmlInputFactory.createXMLEventReader( is);
 
 			}
 			// HTTP POST ends
 
-			while (readerSearch.hasNext()) {
+			while( readerSearch.hasNext()){
 				XMLEvent evtSearch = readerSearch.peek();
 
-				if (!evtSearch.isStartElement()) {
+				if( !evtSearch.isStartElement()){
 					readerSearch.nextEvent();
 					continue;
 				}
@@ -123,38 +127,39 @@ public class AugmentationofGivenIntervalwithRsIds {
 				StartElement startSearch = evtSearch.asStartElement();
 				String localNameSearch = startSearch.getName().getLocalPart();
 
-				if (!localNameSearch.equals("eSearchResult")) {
+				if( !localNameSearch.equals( "eSearchResult")){
 					readerSearch.nextEvent();
 					continue;
 				}
 
-				ESearchResult eSearchResult = unmarshaller.unmarshal(readerSearch, ESearchResult.class).getValue();
-				IdList idList = (IdList) eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
+				ESearchResult eSearchResult = unmarshaller.unmarshal( readerSearch, ESearchResult.class).getValue();
+				IdList idList = ( IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(
+						5);
 
-				for (Id id : idList.getId()) {
-					rsIdList.add(Integer.parseInt(id.getvalue()));
+				for( Id id : idList.getId()){
+					rsIdList.add( Integer.parseInt( id.getvalue()));
 				}
 
 			}// End of while
 
 			readerSearch.close();
 
-		} catch (UnsupportedEncodingException e) {
+		}catch( UnsupportedEncodingException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClientProtocolException e) {
+		}catch( ClientProtocolException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (XMLStreamException e) {
+		}catch( XMLStreamException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JAXBException e) {
+		}catch( JAXBException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		}catch( URISyntaxException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -165,7 +170,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		AugmentationofGivenIntervalwithRsIds app = null;
 
@@ -174,15 +179,15 @@ public class AugmentationofGivenIntervalwithRsIds {
 		int endOneBased = 204924685;
 		List<Integer> rsIdList = null;
 
-		try {
+		try{
 			app = new AugmentationofGivenIntervalwithRsIds();
-			rsIdList = app.getRsIdsInAGivenInterval(chrName, startOneBased, endOneBased);
+			rsIdList = app.getRsIdsInAGivenInterval( chrName, startOneBased, endOneBased);
 
-			for (Integer rsId : rsIdList) {
-				GlanetRunner.appendLog(rsId);
+			for( Integer rsId : rsIdList){
+				GlanetRunner.appendLog( rsId);
 			}
 
-		} catch (Exception e) {
+		}catch( Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

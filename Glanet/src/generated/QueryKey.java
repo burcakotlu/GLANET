@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "value" })
-@XmlRootElement(name = "QueryKey")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"value"})
+@XmlRootElement( name = "QueryKey")
 public class QueryKey {
 
 	@XmlValue
@@ -31,6 +31,7 @@ public class QueryKey {
 	 * 
 	 */
 	public String getvalue() {
+
 		return value;
 	}
 
@@ -41,7 +42,8 @@ public class QueryKey {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setvalue(String value) {
+	public void setvalue( String value) {
+
 		this.value = value;
 	}
 

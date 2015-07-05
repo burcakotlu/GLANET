@@ -13,20 +13,24 @@ public class MapabilityFloatArray {
 	float[] mapabilityArray;
 
 	public float[] getMapabilityArray() {
+
 		return mapabilityArray;
 	}
 
-	public void setMapabilityArray(float[] mapabilityArray) {
+	public void setMapabilityArray( float[] mapabilityArray) {
+
 		this.mapabilityArray = mapabilityArray;
 	}
 
 	/**
 	 * 
 	 */
-	public MapabilityFloatArray(int chromSize) {
+	public MapabilityFloatArray( int chromSize) {
+
 		this.mapabilityArray = new float[chromSize];
 	}
 
 	public MapabilityFloatArray() {
+
 	}
 }

@@ -19,13 +19,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
-
 import ui.GlanetRunner;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -38,113 +34,115 @@ import gnu.trove.map.TShortObjectMap;
 
 public class FileOperations {
 
-	private static Logger logger = Logger.getLogger(FileOperations.class);
+	private static Logger logger = Logger.getLogger( FileOperations.class);
 
 	// 15 DEC 2014
-	public static void createFolder(String path) {
+	public static void createFolder( String path) {
 
-		File f = new File(path);
+		File f = new File( path);
 
-		if (f.isDirectory() && !f.exists())
+		if( f.isDirectory() && !f.exists())
 			f.mkdirs();
 
 	}
 
 	// 15 DEC 2014
-	public static void createFile(String fileName) {
+	public static void createFile( String fileName) {
 
-		File f = new File(fileName);
+		File f = new File( fileName);
 		String parent = f.getParent();
 
-		if (parent != null) {
-			if (f.isDirectory() && !f.exists())
+		if( parent != null){
+			if( f.isDirectory() && !f.exists())
 				f.mkdirs();
-			else if (!f.isDirectory() && !f.getParentFile().exists())
+			else if( !f.isDirectory() && !f.getParentFile().exists())
 				f.getParentFile().mkdirs();
 		}// End of IF parent is not null
 
 	}
 
 	// Can Firtina
-	public static FileWriter createFileWriter(String path) throws IOException {
+	public static FileWriter createFileWriter( String path) throws IOException {
 
-		File f = new File(path);
+		File f = new File( path);
 
 		FileWriter fileWriter = null;
 
-		if (f.isDirectory() && !f.exists())
+		if( f.isDirectory() && !f.exists())
 			f.mkdirs();
-		else if (!f.isDirectory() && !f.getParentFile().exists())
+		else if( !f.isDirectory() && !f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 
-		if (!f.isDirectory() && f.exists())
+		if( !f.isDirectory() && f.exists())
 			f.delete();
 
-		fileWriter = new FileWriter(f, false);
+		fileWriter = new FileWriter( f, false);
 
 		return fileWriter;
 	}
 
-	public static FileWriter createFileWriter(String path, boolean appendMode) throws IOException {
+	public static FileWriter createFileWriter( String path, boolean appendMode) throws IOException {
 
-		if (!appendMode)
-			return createFileWriter(path);
+		if( !appendMode)
+			return createFileWriter( path);
 
-		File f = new File(path);
+		File f = new File( path);
 		FileWriter fileWriter = null;
 
-		if (f.isDirectory() && !f.exists())
+		if( f.isDirectory() && !f.exists())
 			f.mkdirs();
-		else if (!f.isDirectory() && !f.getParentFile().exists())
+		else if( !f.isDirectory() && !f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 
-		fileWriter = new FileWriter(path, appendMode);
+		fileWriter = new FileWriter( path, appendMode);
 
 		return fileWriter;
 	}
 
-	public static FileWriter createFileWriter(String directoryName, String fileName) throws IOException {
+	public static FileWriter createFileWriter( String directoryName, String fileName) throws IOException {
 
-		return createFileWriter(directoryName + fileName);
+		return createFileWriter( directoryName + fileName);
 	}
 
-	public static FileReader createFileReader(String directoryName, String fileName) throws IOException {
+	public static FileReader createFileReader( String directoryName, String fileName) throws IOException {
 
-		return new FileReader(directoryName + fileName);
+		return new FileReader( directoryName + fileName);
 	}
 
-	public static FileReader createFileReader(String directoryNameandfileName) throws IOException {
+	public static FileReader createFileReader( String directoryNameandfileName) throws IOException {
 
-		return new FileReader(directoryNameandfileName);
+		return new FileReader( directoryNameandfileName);
 	}
 
 	// Added 18 NOV 2014
-	public static BufferedReader createBufferedReader(String outputFolder, String fileName) {
+	public static BufferedReader createBufferedReader( String outputFolder, String fileName) {
+
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
-		try {
-			fileReader = new FileReader(outputFolder + fileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( outputFolder + fileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
 		}
 
 		return bufferedReader;
 	}
 
-	public static void deleteDummyLogFiles(String directoryName, String fileExtension) {
+	public static void deleteDummyLogFiles( String directoryName, String fileExtension) {
+
 		// Delete dummy log files before new run
 
-		File folder = new File(directoryName);
+		File folder = new File( directoryName);
 
-		if (folder.isDirectory()) {
+		if( folder.isDirectory()){
 			File[] files = folder.listFiles();
-			for (File file : files) {
+			for( File file : files){
 
-				if (file.getAbsolutePath().contains(fileExtension)) {
-					deleteFile(directoryName, file.getName());
+				if( file.getAbsolutePath().contains( fileExtension)){
+					deleteFile( directoryName, file.getName());
 				}
 
 			}
@@ -153,36 +151,38 @@ public class FileOperations {
 	}
 
 	// Called from GLANET
-	public static void deleteOldFiles(String directoryName) {
+	public static void deleteOldFiles( String directoryName) {
+
 		// Delete old files before new run
-		File folder = new File(directoryName);
+		File folder = new File( directoryName);
 
 		// if(folder.isFile() && folder.getName()!=Commons.GLANET_LOG_FILE){
-		if (folder.isFile()) {
-			logger.debug("Deleting " + folder.getAbsolutePath());
+		if( folder.isFile()){
+			logger.debug( "Deleting " + folder.getAbsolutePath());
 			folder.delete();
-		} else if (folder.isDirectory()) {
+		}else if( folder.isDirectory()){
 			File[] files = folder.listFiles();
-			for (File file : files) {
-				deleteOldFiles(file.getAbsolutePath());
+			for( File file : files){
+				deleteOldFiles( file.getAbsolutePath());
 			}
 			folder.delete();
 		}
 	}
 
-	public static void deleteOldFiles(String directoryName, List<String> notToBeDeleted) {
-		// Delete old files before new run
-		File folder = new File(directoryName);
+	public static void deleteOldFiles( String directoryName, List<String> notToBeDeleted) {
 
-		if (folder.isFile()) {
-			GlanetRunner.appendLog("Deleting " + folder.getAbsolutePath());
+		// Delete old files before new run
+		File folder = new File( directoryName);
+
+		if( folder.isFile()){
+			GlanetRunner.appendLog( "Deleting " + folder.getAbsolutePath());
 			folder.delete();
-		} else if (folder.isDirectory()) {
-			if (!(notToBeDeleted.contains(folder.getName()))) {
+		}else if( folder.isDirectory()){
+			if( !( notToBeDeleted.contains( folder.getName()))){
 
 				File[] files = folder.listFiles();
-				for (File file : files) {
-					deleteOldFiles(file.getAbsolutePath(), notToBeDeleted);
+				for( File file : files){
+					deleteOldFiles( file.getAbsolutePath(), notToBeDeleted);
 				}
 				folder.delete();
 			}// if it is not in notToBeDeleted
@@ -190,85 +190,88 @@ public class FileOperations {
 
 	}
 
-	public static void deleteFile(String outputFolder, String fileName) {
+	public static void deleteFile( String outputFolder, String fileName) {
 
-		File file = new File(outputFolder + fileName);
+		File file = new File( outputFolder + fileName);
 
-		if (file.delete()) {
-			logger.debug(file.getName() + " is deleted!");
-		} else {
-			logger.error("Delete operation is failed.");
+		if( file.delete()){
+			logger.debug( file.getName() + " is deleted!");
+		}else{
+			logger.error( "Delete operation is failed.");
 		}
 
 	}
 
 	// Added method 31.OCT.2014
 	// GET Chromosome Based BufferedWriter
-	public static BufferedWriter getChromosomeBasedBufferedWriter(ChromosomeName chromName, List<BufferedWriter> bufferedWriterList) {
+	public static BufferedWriter getChromosomeBasedBufferedWriter( ChromosomeName chromName,
+			List<BufferedWriter> bufferedWriterList) {
+
 		BufferedWriter bufferedWriter = null;
 
-		if (chromName.isCHROMOSOME1()) {
-			bufferedWriter = bufferedWriterList.get(0);
-		} else if (chromName.isCHROMOSOME2()) {
-			bufferedWriter = bufferedWriterList.get(1);
-		} else if (chromName.isCHROMOSOME3()) {
-			bufferedWriter = bufferedWriterList.get(2);
-		} else if (chromName.isCHROMOSOME4()) {
-			bufferedWriter = bufferedWriterList.get(3);
-		} else if (chromName.isCHROMOSOME5()) {
-			bufferedWriter = bufferedWriterList.get(4);
-		} else if (chromName.isCHROMOSOME6()) {
-			bufferedWriter = bufferedWriterList.get(5);
-		} else if (chromName.isCHROMOSOME7()) {
-			bufferedWriter = bufferedWriterList.get(6);
-		} else if (chromName.isCHROMOSOME8()) {
-			bufferedWriter = bufferedWriterList.get(7);
-		} else if (chromName.isCHROMOSOME9()) {
-			bufferedWriter = bufferedWriterList.get(8);
-		} else if (chromName.isCHROMOSOME10()) {
-			bufferedWriter = bufferedWriterList.get(9);
-		} else if (chromName.isCHROMOSOME11()) {
-			bufferedWriter = bufferedWriterList.get(10);
-		} else if (chromName.isCHROMOSOME12()) {
-			bufferedWriter = bufferedWriterList.get(11);
-		} else if (chromName.isCHROMOSOME13()) {
-			bufferedWriter = bufferedWriterList.get(12);
-		} else if (chromName.isCHROMOSOME14()) {
-			bufferedWriter = bufferedWriterList.get(13);
-		} else if (chromName.isCHROMOSOME15()) {
-			bufferedWriter = bufferedWriterList.get(14);
-		} else if (chromName.isCHROMOSOME16()) {
-			bufferedWriter = bufferedWriterList.get(15);
-		} else if (chromName.isCHROMOSOME17()) {
-			bufferedWriter = bufferedWriterList.get(16);
-		} else if (chromName.isCHROMOSOME18()) {
-			bufferedWriter = bufferedWriterList.get(17);
-		} else if (chromName.isCHROMOSOME19()) {
-			bufferedWriter = bufferedWriterList.get(18);
-		} else if (chromName.isCHROMOSOME20()) {
-			bufferedWriter = bufferedWriterList.get(19);
-		} else if (chromName.isCHROMOSOME21()) {
-			bufferedWriter = bufferedWriterList.get(20);
-		} else if (chromName.isCHROMOSOME22()) {
-			bufferedWriter = bufferedWriterList.get(21);
-		} else if (chromName.isCHROMOSOMEX()) {
-			bufferedWriter = bufferedWriterList.get(22);
-		} else if (chromName.isCHROMOSOMEY()) {
-			bufferedWriter = bufferedWriterList.get(23);
+		if( chromName.isCHROMOSOME1()){
+			bufferedWriter = bufferedWriterList.get( 0);
+		}else if( chromName.isCHROMOSOME2()){
+			bufferedWriter = bufferedWriterList.get( 1);
+		}else if( chromName.isCHROMOSOME3()){
+			bufferedWriter = bufferedWriterList.get( 2);
+		}else if( chromName.isCHROMOSOME4()){
+			bufferedWriter = bufferedWriterList.get( 3);
+		}else if( chromName.isCHROMOSOME5()){
+			bufferedWriter = bufferedWriterList.get( 4);
+		}else if( chromName.isCHROMOSOME6()){
+			bufferedWriter = bufferedWriterList.get( 5);
+		}else if( chromName.isCHROMOSOME7()){
+			bufferedWriter = bufferedWriterList.get( 6);
+		}else if( chromName.isCHROMOSOME8()){
+			bufferedWriter = bufferedWriterList.get( 7);
+		}else if( chromName.isCHROMOSOME9()){
+			bufferedWriter = bufferedWriterList.get( 8);
+		}else if( chromName.isCHROMOSOME10()){
+			bufferedWriter = bufferedWriterList.get( 9);
+		}else if( chromName.isCHROMOSOME11()){
+			bufferedWriter = bufferedWriterList.get( 10);
+		}else if( chromName.isCHROMOSOME12()){
+			bufferedWriter = bufferedWriterList.get( 11);
+		}else if( chromName.isCHROMOSOME13()){
+			bufferedWriter = bufferedWriterList.get( 12);
+		}else if( chromName.isCHROMOSOME14()){
+			bufferedWriter = bufferedWriterList.get( 13);
+		}else if( chromName.isCHROMOSOME15()){
+			bufferedWriter = bufferedWriterList.get( 14);
+		}else if( chromName.isCHROMOSOME16()){
+			bufferedWriter = bufferedWriterList.get( 15);
+		}else if( chromName.isCHROMOSOME17()){
+			bufferedWriter = bufferedWriterList.get( 16);
+		}else if( chromName.isCHROMOSOME18()){
+			bufferedWriter = bufferedWriterList.get( 17);
+		}else if( chromName.isCHROMOSOME19()){
+			bufferedWriter = bufferedWriterList.get( 18);
+		}else if( chromName.isCHROMOSOME20()){
+			bufferedWriter = bufferedWriterList.get( 19);
+		}else if( chromName.isCHROMOSOME21()){
+			bufferedWriter = bufferedWriterList.get( 20);
+		}else if( chromName.isCHROMOSOME22()){
+			bufferedWriter = bufferedWriterList.get( 21);
+		}else if( chromName.isCHROMOSOMEX()){
+			bufferedWriter = bufferedWriterList.get( 22);
+		}else if( chromName.isCHROMOSOMEY()){
+			bufferedWriter = bufferedWriterList.get( 23);
 		}
 
 		return bufferedWriter;
 	}
 
 	// Added 31.OCT.2014
-	public static void closeChromosomeBasedBufferedWriters(List<BufferedWriter> bufferedWriterList) {
+	public static void closeChromosomeBasedBufferedWriters( List<BufferedWriter> bufferedWriterList) {
+
 		Iterator<BufferedWriter> itr = bufferedWriterList.iterator();
 
-		while (itr.hasNext()) {
-			BufferedWriter bw = (BufferedWriter) itr.next();
-			try {
+		while( itr.hasNext()){
+			BufferedWriter bw = ( BufferedWriter)itr.next();
+			try{
 				bw.close();
-			} catch (IOException e) {
+			}catch( IOException e){
 				e.printStackTrace();
 			}
 		}
@@ -279,7 +282,8 @@ public class FileOperations {
 	// ENCODE TF
 	// ENCODE HISTONE
 	// UCSCGENOME REFSEQ GENE
-	public static void createUnsortedChromosomeBasedWithNumbersBufferedWriters(String dataFolder, ElementType elementType, List<BufferedWriter> bufferedWriterList) {
+	public static void createUnsortedChromosomeBasedWithNumbersBufferedWriters( String dataFolder,
+			ElementType elementType, List<BufferedWriter> bufferedWriterList) {
 
 		String baseDirectoryName = null;
 
@@ -288,50 +292,50 @@ public class FileOperations {
 
 		String fileEnd = null;
 
-		switch (elementType) {
-			case DNASE:
-				baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
-				fileEnd = Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS;
-				break;
+		switch( elementType){
+		case DNASE:
+			baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ENCODE + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator");
+			fileEnd = Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS;
+			break;
 
-			case TF:
-				baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
-				fileEnd = Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS;
-				break;
+		case TF:
+			baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ENCODE + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator");
+			fileEnd = Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS;
+			break;
 
-			case HISTONE:
-				baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.ENCODE + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
-				fileEnd = Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS;
-				break;
+		case HISTONE:
+			baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ENCODE + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator");
+			fileEnd = Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS;
+			break;
 
-			case HG19_REFSEQ_GENE:
-				baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty("file.separator") + Commons.UCSCGENOME + System.getProperty("file.separator") + elementType.convertEnumtoString() + System.getProperty("file.separator");
-				fileEnd = Commons.UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS;
-				break;
+		case HG19_REFSEQ_GENE:
+			baseDirectoryName = dataFolder + Commons.BYGLANET + System.getProperty( "file.separator") + Commons.UCSCGENOME + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator");
+			fileEnd = Commons.UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS;
+			break;
 		}// End of SWITCH
 
-		try {
+		try{
 
-			for (int i = 1; i <= 24; i++) {
+			for( int i = 1; i <= 24; i++){
 
 				// Chromosome X
-				if (i == 23) {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + System.getProperty("file.separator") + Commons.CHR + Commons.X + fileEnd);
+				if( i == 23){
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + System.getProperty( "file.separator") + Commons.CHR + Commons.X + fileEnd);
 				}
 				// Chromosome Y
-				else if (i == 24) {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + System.getProperty("file.separator") + Commons.CHR + Commons.Y + fileEnd);
+				else if( i == 24){
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + System.getProperty( "file.separator") + Commons.CHR + Commons.Y + fileEnd);
 				}
 				// Chromosome1..22
-				else {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + System.getProperty("file.separator") + Commons.CHR + i + fileEnd);
+				else{
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + System.getProperty( "file.separator") + Commons.CHR + i + fileEnd);
 				}
 
-				bufferedWriter = new BufferedWriter(fileWriter);
-				bufferedWriterList.add(bufferedWriter);
+				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriterList.add( bufferedWriter);
 			}// End of FOR
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -339,174 +343,174 @@ public class FileOperations {
 
 	// Added 31.OCT.2014
 	// UserDefinedLibrary
-	public static void createChromosomeBasedListofBufferedWriters(String elementType, int elementTypeNumber, TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap, String baseDirectoryName) {
+	public static void createChromosomeBasedListofBufferedWriters( String elementType, int elementTypeNumber,
+			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2ListofBufferedWritersMap, String baseDirectoryName) {
 
 		List<BufferedWriter> listofBufferedWriter = new ArrayList<BufferedWriter>();
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
+		try{
 
-			for (int i = 1; i <= 24; i++) {
+			for( int i = 1; i <= 24; i++){
 
 				// Chromosome X
-				if (i == 23) {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.CHR + Commons.X + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
+				if( i == 23){
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + elementType + System.getProperty( "file.separator") + Commons.CHR + Commons.X + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
 
 				}
 				// Chromosome Y
-				else if (i == 24) {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.CHR + Commons.Y + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
+				else if( i == 24){
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + elementType + System.getProperty( "file.separator") + Commons.CHR + Commons.Y + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
 
 				}
 				// Chromosome1..22
-				else {
-					fileWriter = FileOperations.createFileWriter(baseDirectoryName + elementType + System.getProperty("file.separator") + Commons.CHR + i + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
+				else{
+					fileWriter = FileOperations.createFileWriter( baseDirectoryName + elementType + System.getProperty( "file.separator") + Commons.CHR + i + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
 				}
 
-				bufferedWriter = new BufferedWriter(fileWriter);
-				listofBufferedWriter.add(bufferedWriter);
+				bufferedWriter = new BufferedWriter( fileWriter);
+				listofBufferedWriter.add( bufferedWriter);
 
 			}// End of for each chromosome
 
-			elementTypeNumber2ListofBufferedWritersMap.put(elementTypeNumber, listofBufferedWriter);
+			elementTypeNumber2ListofBufferedWritersMap.put( elementTypeNumber, listofBufferedWriter);
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	//Added 31.OCT.2014
-	//Pay attention first element has elementNumber 1 
-	public static void writeName(
-			String dataFolder, 
-			TIntObjectMap<String> number2NameMap, 
-			String outputDirectoryName, 
+	// Added 31.OCT.2014
+	// Pay attention first element has elementNumber 1
+	public static void writeName( String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName,
 			String outputFileName) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
+		try{
 
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			
-			for (int i = 1; i<= number2NameMap.size(); i++){
-				bufferedWriter.write( number2NameMap.get(i) + System.getProperty("line.separator"));
+			for( int i = 1; i <= number2NameMap.size(); i++){
+				bufferedWriter.write( number2NameMap.get( i) + System.getProperty( "line.separator"));
 			}
-			
 
 			bufferedWriter.close();
 			fileWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
 	// Added 31.OCT.2014
-	public static void writeName2NumberMap(String dataFolder, TObjectIntMap<String> name2NumberMap, String outputDirectoryName, String outputFileName) {
+	public static void writeName2NumberMap( String dataFolder, TObjectIntMap<String> name2NumberMap,
+			String outputDirectoryName, String outputFileName) {
+
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
+		try{
 
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			for (TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();) {
+			for( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
+				bufferedWriter.write( it.key() + "\t" + it.value() + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 			fileWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	
-	
-	
 	// Added 31.OCT.2014
-	public static void writeNumber2NameMap(String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
+	public static void writeNumber2NameMap( String dataFolder, TIntObjectMap<String> number2NameMap,
+			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			for (TIntObjectIterator<String> it = number2NameMap.iterator(); it.hasNext();) {
+			for( TIntObjectIterator<String> it = number2NameMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
+				bufferedWriter.write( it.key() + "\t" + it.value() + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	//Added 26 March 2015
-	//Pay attention first element has elementNumber 1 
-	public static void writeSortedNumber2NameMap(String dataFolder, TIntIntMap number2NumberMap, String outputDirectoryName, String outputFileName) {
+
+	// Added 26 March 2015
+	// Pay attention first element has elementNumber 1
+	public static void writeSortedNumber2NameMap( String dataFolder, TIntIntMap number2NumberMap,
+			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			for(int i = 1; i <= number2NumberMap.size(); i++){
-				bufferedWriter.write(i + "\t" + number2NumberMap.get(i) + System.getProperty("line.separator"));				
+		try{
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( int i = 1; i <= number2NumberMap.size(); i++){
+				bufferedWriter.write( i + "\t" + number2NumberMap.get( i) + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	// Added 20.NOV.2014
-	//Pay attention first element has elementNumber 1 
-	public static void writeSortedNumber2NameMap(String dataFolder, TIntObjectMap<String> number2NameMap, String outputDirectoryName, String outputFileName) {
+	// Pay attention first element has elementNumber 1
+	public static void writeSortedNumber2NameMap( String dataFolder, TIntObjectMap<String> number2NameMap,
+			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		try {
-			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			for(int i = 1; i <= number2NameMap.size(); i++){
-				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));				
+		try{
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( int i = 1; i <= number2NameMap.size(); i++){
+				bufferedWriter.write( i + "\t" + number2NameMap.get( i) + System.getProperty( "line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void fillName2NumberMap(TObjectShortMap<String> name2NumberMap, String dataFolder, String inputFileName) {
+	public static void fillName2NumberMap( TObjectShortMap<String> name2NumberMap, String dataFolder,
+			String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -514,34 +518,34 @@ public class FileOperations {
 		short number;
 		String name;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				name = strLine.substring(0, indexofFirstTab);
-				number = Short.parseShort(strLine.substring(indexofFirstTab + 1));
-				name2NumberMap.put(name, number);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+				name = strLine.substring( 0, indexofFirstTab);
+				number = Short.parseShort( strLine.substring( indexofFirstTab + 1));
+				name2NumberMap.put( name, number);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public static void fillNumber2NumberMap(TIntIntMap number2NumberMap, String dataFolder, String inputFileName) {
+
+	public static void fillNumber2NumberMap( TIntIntMap number2NumberMap, String dataFolder, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -550,77 +554,70 @@ public class FileOperations {
 		int number1;
 		int number2;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				number1 = Integer.parseInt(strLine.substring(0, indexofFirstTab));
-				number2 = Integer.parseInt(strLine.substring(indexofFirstTab + 1));
-				number2NumberMap.put(number1, number2);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+				number1 = Integer.parseInt( strLine.substring( 0, indexofFirstTab));
+				number2 = Integer.parseInt( strLine.substring( indexofFirstTab + 1));
+				number2NumberMap.put( number1, number2);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-	
-	//Using char[][]
-	public static void fillNameList(
-			char[][] nameList, 
-			String dataFolder, 
-			String inputFileName){
-		
+
+	// Using char[][]
+	public static void fillNameList( char[][] nameList, String dataFolder, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		int indexofFirstTab;
 
 		int nameCount = 0;
-		
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				
-				indexofFirstTab = strLine.indexOf('\t');
-				
-				nameList[nameCount]= strLine.substring(indexofFirstTab + 1).toCharArray();
-				
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				indexofFirstTab = strLine.indexOf( '\t');
+
+				nameList[nameCount] = strLine.substring( indexofFirstTab + 1).toCharArray();
+
 				nameCount++;
-				
+
 				strLine = null;
-			}//End of While
-			
-			
+			}// End of While
+
 			bufferedReader.close();
 			fileReader.close();
-			
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		
 	}
-	
-	
 
-	public static void fillNumber2NameMap(TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
+	public static void fillNumber2NameMap( TIntObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -629,79 +626,81 @@ public class FileOperations {
 		int number;
 		String name;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				number = Integer.parseInt(strLine.substring(0, indexofFirstTab));
-				name = strLine.substring(indexofFirstTab + 1);
-				number2NameMap.put(number, name);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+				number = Integer.parseInt( strLine.substring( 0, indexofFirstTab));
+				name = strLine.substring( indexofFirstTab + 1);
+				number2NameMap.put( number, name);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-	
-	//TroveMap using StringBuilder
-	public static void fillNumber2NameStringBuilderMap(TShortObjectMap<StringBuilder> number2NameMap, String dataFolder, String inputFileName) {
+
+	// TroveMap using StringBuilder
+	public static void fillNumber2NameStringBuilderMap( TShortObjectMap<StringBuilder> number2NameMap,
+			String dataFolder, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		int indexofFirstTab;
 		short number;
-		StringBuilder name = new StringBuilder(16);
+		StringBuilder name = new StringBuilder( 16);
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				
-				number = Short.parseShort(strLine.substring(0, indexofFirstTab));
-				
-				name = new StringBuilder(16).append(strLine.substring(indexofFirstTab + 1));
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+
+				number = Short.parseShort( strLine.substring( 0, indexofFirstTab));
+
+				name = new StringBuilder( 16).append( strLine.substring( indexofFirstTab + 1));
 
 				name.trimToSize();
-				
-				number2NameMap.put(number, name);
-				
-				
-				
+
+				number2NameMap.put( number, name);
+
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-	//new ends
-		
 
-	//TroveMap using CharSequence
-	public static void fillNumber2NameCharSequenceMap(TShortObjectMap<CharSequence> number2NameMap, String dataFolder, String inputFileName) {
+	// new ends
+
+	// TroveMap using CharSequence
+	public static void fillNumber2NameCharSequenceMap( TShortObjectMap<CharSequence> number2NameMap, String dataFolder,
+			String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -709,39 +708,41 @@ public class FileOperations {
 		short number;
 		CharSequence name;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				
-				number = Short.parseShort(strLine.substring(0, indexofFirstTab));
-				
-				name = strLine.subSequence(indexofFirstTab + 1,strLine.length());
-				
-				
-				number2NameMap.put(number, name);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+
+				number = Short.parseShort( strLine.substring( 0, indexofFirstTab));
+
+				name = strLine.subSequence( indexofFirstTab + 1, strLine.length());
+
+				number2NameMap.put( number, name);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-	//new ends
-	
-	//TroveMap Using String
-	public static void fillNumber2NameMap(TShortObjectMap<String> number2NameMap, String dataFolder, String inputFileName) {
+
+	// new ends
+
+	// TroveMap Using String
+	public static void fillNumber2NameMap( TShortObjectMap<String> number2NameMap, String dataFolder,
+			String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -749,140 +750,142 @@ public class FileOperations {
 		short number;
 		String name;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				indexofFirstTab = strLine.indexOf('\t');
-				number = Short.parseShort(strLine.substring(0, indexofFirstTab));
-				name = strLine.substring(indexofFirstTab + 1);
-				number2NameMap.put(number, name);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+				number = Short.parseShort( strLine.substring( 0, indexofFirstTab));
+				name = strLine.substring( indexofFirstTab + 1);
+				number2NameMap.put( number, name);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	public static void fillList(List<String> list, String dataFolder, String inputFileName) {
+	public static void fillList( List<String> list, String dataFolder, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
-		try {
-			fileReader = new FileReader(dataFolder + inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				list.add(strLine);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				list.add( strLine);
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	public static void fillHashMap(Map<String, Integer> hashMap, String inputFileName) {
+	public static void fillHashMap( Map<String, Integer> hashMap, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
-		try {
-			fileReader = new FileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				hashMap.put(strLine, Commons.ZERO);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				hashMap.put( strLine, Commons.ZERO);
 
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	public static void readNames(String dataFolder, List<String> nameList, String inputDirectoryName, String inputFileName) {
+	public static void readNames( String dataFolder, List<String> nameList, String inputDirectoryName,
+			String inputFileName) {
+
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
 		String strLine;
 
-		try {
+		try{
 
-			fileReader = FileOperations.createFileReader(dataFolder + inputDirectoryName, inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+			fileReader = FileOperations.createFileReader( dataFolder + inputDirectoryName, inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				if (!nameList.contains(strLine)) {
-					nameList.add(strLine);
+			while( ( strLine = bufferedReader.readLine()) != null){
+				if( !nameList.contains( strLine)){
+					nameList.add( strLine);
 				}
 			}// End of While
 
 			bufferedReader.close();
 			fileReader.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void createChromBaseSearchInputFiles(
-			String outputFolder, 
-			TIntObjectMap<FileWriter> chrNumber2FileWriterMap, 
-			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
-		
-		try {
+	public static void createChromBaseSearchInputFiles( String outputFolder,
+			TIntObjectMap<FileWriter> chrNumber2FileWriterMap, TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+
+		try{
 
 			// For each ChromosomeName
-			for (ChromosomeName chrName : ChromosomeName.values()) {
+			for( ChromosomeName chrName : ChromosomeName.values()){
 
-				FileWriter fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-				chrNumber2FileWriterMap.put(chrName.getChromosomeName(), fileWriter);
-				
-				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				chrNumber2BufferedWriterMap.put(chrName.getChromosomeName(),bufferedWriter);
+				FileWriter fileWriter = FileOperations.createFileWriter( outputFolder + Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+				chrNumber2FileWriterMap.put( chrName.getChromosomeName(), fileWriter);
+
+				BufferedWriter bufferedWriter = new BufferedWriter( fileWriter);
+				chrNumber2BufferedWriterMap.put( chrName.getChromosomeName(), bufferedWriter);
 
 			}// End of for each chromosomeName
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
 	// 25 NOV 2014
-	public static void readFromBedFileWriteToGlanetFile(String folderName, String inputFileName, String outputFileName) {
+	public static void readFromBedFileWriteToGlanetFile( String folderName, String inputFileName, String outputFileName) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -904,43 +907,43 @@ public class FileOperations {
 
 		int numberofProcessedInputLinesForGLANET = 0;
 
-		try {
-			fileReader = createFileReader(folderName, inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = createFileReader( folderName, inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			fileWriter = createFileWriter(folderName, outputFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			fileWriter = createFileWriter( folderName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
-				if (!strLine.startsWith(Commons.NULL) && strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER) {
+				if( !strLine.startsWith( Commons.NULL) && strLine.charAt( 0) != Commons.GLANET_COMMENT_CHARACTER){
 
-					indexofFirstTab = strLine.indexOf('\t');
-					indexofSecondTab = (indexofFirstTab > 0) ? strLine.indexOf('\t', indexofFirstTab + 1) : -1;
+					indexofFirstTab = strLine.indexOf( '\t');
+					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
 
-					chrName = strLine.substring(0, indexofFirstTab);
-					oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
-					oneBasedEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1));
+					chrName = strLine.substring( 0, indexofFirstTab);
+					oneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+					oneBasedEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
 
 					zeroBasedStart = oneBasedStart - 1;
 					zeroBasedEnd = oneBasedEnd - 1;
 
-					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedEnd + System.getProperty("line.separator"));
+					bufferedWriter.write( chrName + "\t" + zeroBasedStart + "\t" + zeroBasedEnd + System.getProperty( "line.separator"));
 					numberofProcessedInputLinesForGLANET++;
 
 				}// End of IF NOT NULL
 
 			}// End of While
 
-			logger.info("******************************************************************************");
-			logger.info("Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
-			logger.info("******************************************************************************");
+			logger.info( "******************************************************************************");
+			logger.info( "Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
+			logger.info( "******************************************************************************");
 
 			// Close bufferedReader and bufferedWriter
 			bufferedReader.close();
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -950,13 +953,15 @@ public class FileOperations {
 	 * 
 	 */
 	public FileOperations() {
+
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

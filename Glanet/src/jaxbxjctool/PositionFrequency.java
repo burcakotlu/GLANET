@@ -13,34 +13,42 @@ public class PositionFrequency {
 	float _GFrequency;
 
 	public float get_AFrequency() {
+
 		return _AFrequency;
 	}
 
-	public void set_AFrequency(float _AFrequency) {
+	public void set_AFrequency( float _AFrequency) {
+
 		this._AFrequency = _AFrequency;
 	}
 
 	public float get_CFrequency() {
+
 		return _CFrequency;
 	}
 
-	public void set_CFrequency(float _CFrequency) {
+	public void set_CFrequency( float _CFrequency) {
+
 		this._CFrequency = _CFrequency;
 	}
 
 	public float get_TFrequency() {
+
 		return _TFrequency;
 	}
 
-	public void set_TFrequency(float _TFrequency) {
+	public void set_TFrequency( float _TFrequency) {
+
 		this._TFrequency = _TFrequency;
 	}
 
 	public float get_GFrequency() {
+
 		return _GFrequency;
 	}
 
-	public void set_GFrequency(float _GFrequency) {
+	public void set_GFrequency( float _GFrequency) {
+
 		this._GFrequency = _GFrequency;
 	}
 
@@ -48,10 +56,12 @@ public class PositionFrequency {
 	 * 
 	 */
 	public PositionFrequency() {
+
 		// TODO Auto-generated constructor stub
 	}
 
-	public PositionFrequency(float _AFrequency, float _CFrequency, float _GFrequency, float _TFrequency) {
+	public PositionFrequency( float _AFrequency, float _CFrequency, float _GFrequency, float _TFrequency) {
+
 		super();
 		this._AFrequency = _AFrequency;
 		this._CFrequency = _CFrequency;
@@ -62,7 +72,8 @@ public class PositionFrequency {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

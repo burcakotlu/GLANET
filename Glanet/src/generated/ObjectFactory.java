@@ -29,6 +29,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ObjectFactory() {
+
 	}
 
 	/**
@@ -36,6 +37,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public WarningList createWarningList() {
+
 		return new WarningList();
 	}
 
@@ -44,6 +46,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public PhraseIgnored createPhraseIgnored() {
+
 		return new PhraseIgnored();
 	}
 
@@ -52,6 +55,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public QuotedPhraseNotFound createQuotedPhraseNotFound() {
+
 		return new QuotedPhraseNotFound();
 	}
 
@@ -60,6 +64,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public OutputMessage createOutputMessage() {
+
 		return new OutputMessage();
 	}
 
@@ -68,6 +73,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public TranslationStack createTranslationStack() {
+
 		return new TranslationStack();
 	}
 
@@ -76,6 +82,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public TermSet createTermSet() {
+
 		return new TermSet();
 	}
 
@@ -84,6 +91,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public OP createOP() {
+
 		return new OP();
 	}
 
@@ -92,6 +100,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public QueryKey createQueryKey() {
+
 		return new QueryKey();
 	}
 
@@ -100,6 +109,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Count createCount() {
+
 		return new Count();
 	}
 
@@ -108,6 +118,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ESearchResult createESearchResult() {
+
 		return new ESearchResult();
 	}
 
@@ -116,6 +127,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public RetMax createRetMax() {
+
 		return new RetMax();
 	}
 
@@ -124,6 +136,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public RetStart createRetStart() {
+
 		return new RetStart();
 	}
 
@@ -132,6 +145,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public WebEnv createWebEnv() {
+
 		return new WebEnv();
 	}
 
@@ -140,6 +154,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public IdList createIdList() {
+
 		return new IdList();
 	}
 
@@ -148,6 +163,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public TranslationSet createTranslationSet() {
+
 		return new TranslationSet();
 	}
 
@@ -156,6 +172,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public QueryTranslation createQueryTranslation() {
+
 		return new QueryTranslation();
 	}
 
@@ -164,6 +181,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ERROR createERROR() {
+
 		return new ERROR();
 	}
 
@@ -172,6 +190,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public ErrorList createErrorList() {
+
 		return new ErrorList();
 	}
 
@@ -180,6 +199,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Id createId() {
+
 		return new Id();
 	}
 
@@ -188,6 +208,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public PhraseNotFound createPhraseNotFound() {
+
 		return new PhraseNotFound();
 	}
 
@@ -196,6 +217,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public Translation createTranslation() {
+
 		return new Translation();
 	}
 
@@ -204,6 +226,7 @@ public class ObjectFactory {
 	 * 
 	 */
 	public FieldNotFound createFieldNotFound() {
+
 		return new FieldNotFound();
 	}
 

@@ -1,7 +1,6 @@
 
-
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Apr 13, 2015
  * @project Glanet 
  *
@@ -14,16 +13,19 @@ public class MapabilityIntervalTreeNode extends IntervalTreeNode {
 	short mapability;
 
 	public short getMapability() {
+
 		return mapability;
 	}
 
-	public void setMapability(short mapability) {
+	public void setMapability( short mapability) {
+
 		this.mapability = mapability;
 	}
 
 	// CalculateMapability
-	public MapabilityIntervalTreeNode(int low, int high, short mapability) {
-		super(low, high);
+	public MapabilityIntervalTreeNode( int low, int high, short mapability) {
+
+		super( low, high);
 		this.mapability = mapability;
 	}
 

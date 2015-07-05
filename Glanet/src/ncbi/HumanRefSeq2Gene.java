@@ -18,12 +18,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 public class HumanRefSeq2Gene {
@@ -41,44 +38,46 @@ public class HumanRefSeq2Gene {
 		Integer taxId;
 		int numberofHumanGene2RefseqLines = 0;
 
-		try {
-			
-			fileReader = FileOperations.createFileReader( dataFolder + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
-			fileWriter = FileOperations.createFileWriter( dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+		try{
 
-			bufferedReader = new BufferedReader(fileReader);
-			bufferedWriter = new BufferedWriter(fileWriter);
+			fileReader = FileOperations.createFileReader( dataFolder + Commons.NCBI_GENE_TO_REF_SEQ_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,
+					Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+
+			bufferedReader = new BufferedReader( fileReader);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Skip first line
 			strLine = bufferedReader.readLine();
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 
-				indexofFirstTab = strLine.indexOf('\t');
-				taxId = Integer.parseInt(strLine.substring(0, indexofFirstTab));
+				indexofFirstTab = strLine.indexOf( '\t');
+				taxId = Integer.parseInt( strLine.substring( 0, indexofFirstTab));
 
-				if (taxId.equals(Commons.HOMO_SAPIENS_TAX_ID)) {
-					bufferedWriter.write(strLine + System.getProperty("line.separator"));
+				if( taxId.equals( Commons.HOMO_SAPIENS_TAX_ID)){
+					bufferedWriter.write( strLine + System.getProperty( "line.separator"));
 					numberofHumanGene2RefseqLines++;
 				}
 
 			}
 
-			System.out.print("Number of humangene2refseq lines " + numberofHumanGene2RefseqLines + System.getProperty("line.separator"));
+			System.out.print( "Number of humangene2refseq lines " + numberofHumanGene2RefseqLines + System.getProperty( "line.separator"));
 
 			bufferedWriter.close();
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void humanRNANucleotideAccession2GeneID(String dataFolder) {
+	public static void humanRNANucleotideAccession2GeneID( String dataFolder) {
 
 		FileReader fileReader;
 		FileWriter fileWriter;
@@ -105,61 +104,67 @@ public class HumanRefSeq2Gene {
 		Set<RefSeq2Gene> refSeq2GeneSet = new HashSet<RefSeq2Gene>();
 		RefSeq2Gene refSeq2Gene = null;
 
-		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			fileWriter = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014);
-			fileWriter2 = FileOperations.createFileWriter(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME, Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014);
+		try{
+			fileReader = FileOperations.createFileReader(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,
+					Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			fileWriter = FileOperations.createFileWriter(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,
+					Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014);
+			fileWriter2 = FileOperations.createFileWriter(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME,
+					Commons.NCBI_RNANUCLEOTIDEACCESSIONWITHVERSION_TO_GENEID_18_NOV_2014);
 
-			bufferedReader = new BufferedReader(fileReader);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter2 = new BufferedWriter(fileWriter2);
+			bufferedReader = new BufferedReader( fileReader);
+			bufferedWriter = new BufferedWriter( fileWriter);
+			bufferedWriter2 = new BufferedWriter( fileWriter2);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example Line from file Commons.NCBI_HUMAN_GENE_TO_REF_SEQ
 				// 9606 63976 REVIEWED NM_022114.3 289547572 NP_071397.3
 				// 289547573 NC_000001.10 224589800 2985741 3355184 + Reference
 				// GRCh37.p10 Primary Assembly
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
 
-				geneId = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneId = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// RNA_Nucleotide_Accession_WithVersion may be null (-)
-				RNA_Nucleotide_Accession_WithVersion = strLine.substring(indexofThirdTab + 1, indexofFourthTab);
+				RNA_Nucleotide_Accession_WithVersion = strLine.substring( indexofThirdTab + 1, indexofFourthTab);
 
-				indexofDot = RNA_Nucleotide_Accession_WithVersion.indexOf('.');
+				indexofDot = RNA_Nucleotide_Accession_WithVersion.indexOf( '.');
 				RNA_Nucleotide_Accession = null;
-				if (indexofDot >= 0) {
-					RNA_Nucleotide_Accession = RNA_Nucleotide_Accession_WithVersion.substring(0, indexofDot);
+				if( indexofDot >= 0){
+					RNA_Nucleotide_Accession = RNA_Nucleotide_Accession_WithVersion.substring( 0, indexofDot);
 				}
 
-				if (!(RNA_Nucleotide_Accession_WithVersion.equals(Commons.STRING_HYPHEN))) {
+				if( !( RNA_Nucleotide_Accession_WithVersion.equals( Commons.STRING_HYPHEN))){
 
 					refSeq2Gene = new RefSeq2Gene();
 
-					refSeq2Gene.setGeneId(geneId);
+					refSeq2Gene.setGeneId( geneId);
 
-					if (RNA_Nucleotide_Accession != null) {
-						refSeq2Gene.setRNA_Nucleotide_Accession(RNA_Nucleotide_Accession);
+					if( RNA_Nucleotide_Accession != null){
+						refSeq2Gene.setRNA_Nucleotide_Accession( RNA_Nucleotide_Accession);
 					}
 
-					refSeq2Gene.setRNA_Nucleotide_Accession_WithVersion(RNA_Nucleotide_Accession_WithVersion);
+					refSeq2Gene.setRNA_Nucleotide_Accession_WithVersion( RNA_Nucleotide_Accession_WithVersion);
 
-					if (!(refSeq2GeneSet.contains(refSeq2Gene))) {
+					if( !( refSeq2GeneSet.contains( refSeq2Gene))){
 
-						refSeq2GeneSet.add(refSeq2Gene);
+						refSeq2GeneSet.add( refSeq2Gene);
 
-						if (RNA_Nucleotide_Accession != null) {
-							bufferedWriter.write(RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty("line.separator"));
+						if( RNA_Nucleotide_Accession != null){
+							bufferedWriter.write( RNA_Nucleotide_Accession + "\t" + geneId + System.getProperty( "line.separator"));
 							numberofHuman_RNA_Nucleotide_Accession++;
 						}
 
-						bufferedWriter2.write(RNA_Nucleotide_Accession_WithVersion + "\t" + geneId + System.getProperty("line.separator"));
+						bufferedWriter2.write( RNA_Nucleotide_Accession_WithVersion + "\t" + geneId + System.getProperty( "line.separator"));
 						numberofHuman_RNA_Nucleotide_Accession_WithVersion++;
-					} else {
+					}else{
 						refSeq2Gene = null;
 					}
 
@@ -167,17 +172,17 @@ public class HumanRefSeq2Gene {
 					// (-)
 			} // End of While
 
-			GlanetRunner.appendLog("Number of Human_RNA_Nucleotide_Accession lines " + numberofHuman_RNA_Nucleotide_Accession);
-			GlanetRunner.appendLog("Number of Human_RNA_Nucleotide_Accession_WithVersion " + numberofHuman_RNA_Nucleotide_Accession_WithVersion);
+			GlanetRunner.appendLog( "Number of Human_RNA_Nucleotide_Accession lines " + numberofHuman_RNA_Nucleotide_Accession);
+			GlanetRunner.appendLog( "Number of Human_RNA_Nucleotide_Accession_WithVersion " + numberofHuman_RNA_Nucleotide_Accession_WithVersion);
 
 			bufferedWriter.close();
 			bufferedWriter2.close();
 			bufferedReader.close();
 			refSeq2GeneSet = null;
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -245,10 +250,10 @@ public class HumanRefSeq2Gene {
 	// ---> default Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	// ---> Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	// args[21] ---> number of permutations in each run
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
 		humanGene2RefSeq( dataFolder);
 		humanRNANucleotideAccession2GeneID( dataFolder);

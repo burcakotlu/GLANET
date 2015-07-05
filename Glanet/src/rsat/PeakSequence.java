@@ -14,18 +14,22 @@ public class PeakSequence {
 	int end;
 
 	public int getStart() {
+
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart( int start) {
+
 		this.start = start;
 	}
 
 	public int getEnd() {
+
 		return end;
 	}
 
-	public void setEnd(int end) {
+	public void setEnd( int end) {
+
 		this.end = end;
 	}
 
@@ -33,13 +37,15 @@ public class PeakSequence {
 	 * 
 	 */
 	public PeakSequence() {
+
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

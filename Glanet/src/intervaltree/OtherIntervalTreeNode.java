@@ -6,9 +6,7 @@
 package intervaltree;
 
 import java.util.List;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.NodeName;
 
@@ -28,41 +26,51 @@ public class OtherIntervalTreeNode extends IntervalTreeNode {
 	int height;
 
 	public String getRsId() {
+
 		return rsId;
 	}
 
-	public void setRsId(String rsId) {
+	public void setRsId( String rsId) {
+
 		this.rsId = rsId;
 	}
 
 	public List<String> getObservedVariationAlleles() {
+
 		return observedVariationAlleles;
 	}
 
-	public void setObservedVariationAlleles(List<String> observedVariationAlleles) {
+	public void setObservedVariationAlleles( List<String> observedVariationAlleles) {
+
 		this.observedVariationAlleles = observedVariationAlleles;
 	}
 
 	public int getMin() {
+
 		return min;
 	}
 
-	public void setMin(int min) {
+	public void setMin( int min) {
+
 		this.min = min;
 	}
 
 	public int getHeight() {
+
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight( int height) {
+
 		this.height = height;
 	}
 
 	// 7 March 2014
 	// For dbSNP node
-	public OtherIntervalTreeNode(String rsId, ChromosomeName chrNumber, int chrPosition, List<String> observedVariationAlleles) {
-		super(chrNumber, chrPosition, chrPosition);
+	public OtherIntervalTreeNode( String rsId, ChromosomeName chrNumber, int chrPosition,
+			List<String> observedVariationAlleles) {
+
+		super( chrNumber, chrPosition, chrPosition);
 
 		// no conversion here
 		// since it is done in the caller class
@@ -74,6 +82,7 @@ public class OtherIntervalTreeNode extends IntervalTreeNode {
 
 	// SENTINEL node
 	public OtherIntervalTreeNode() {
+
 		this.color = Commons.BLACK;
 		this.nodeName = NodeName.SENTINEL;
 		this.numberofBases = 0;

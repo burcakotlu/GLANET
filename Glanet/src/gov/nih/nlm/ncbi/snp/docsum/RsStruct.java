@@ -40,26 +40,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "RsStruct")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "")
+@XmlRootElement( name = "RsStruct")
 public class RsStruct {
 
-	@XmlAttribute(name = "protAcc")
+	@XmlAttribute( name = "protAcc")
 	protected String protAcc;
-	@XmlAttribute(name = "protGi")
+	@XmlAttribute( name = "protGi")
 	protected Integer protGi;
-	@XmlAttribute(name = "protLoc")
+	@XmlAttribute( name = "protLoc")
 	protected Integer protLoc;
-	@XmlAttribute(name = "protResidue")
+	@XmlAttribute( name = "protResidue")
 	protected String protResidue;
-	@XmlAttribute(name = "rsResidue")
+	@XmlAttribute( name = "rsResidue")
 	protected String rsResidue;
-	@XmlAttribute(name = "structGi")
+	@XmlAttribute( name = "structGi")
 	protected Integer structGi;
-	@XmlAttribute(name = "structLoc")
+	@XmlAttribute( name = "structLoc")
 	protected Integer structLoc;
-	@XmlAttribute(name = "structResidue")
+	@XmlAttribute( name = "structResidue")
 	protected String structResidue;
 
 	/**
@@ -69,6 +69,7 @@ public class RsStruct {
 	 * 
 	 */
 	public String getProtAcc() {
+
 		return protAcc;
 	}
 
@@ -79,7 +80,8 @@ public class RsStruct {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setProtAcc(String value) {
+	public void setProtAcc( String value) {
+
 		this.protAcc = value;
 	}
 
@@ -90,6 +92,7 @@ public class RsStruct {
 	 * 
 	 */
 	public Integer getProtGi() {
+
 		return protGi;
 	}
 
@@ -100,7 +103,8 @@ public class RsStruct {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setProtGi(Integer value) {
+	public void setProtGi( Integer value) {
+
 		this.protGi = value;
 	}
 
@@ -111,6 +115,7 @@ public class RsStruct {
 	 * 
 	 */
 	public Integer getProtLoc() {
+
 		return protLoc;
 	}
 
@@ -121,7 +126,8 @@ public class RsStruct {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setProtLoc(Integer value) {
+	public void setProtLoc( Integer value) {
+
 		this.protLoc = value;
 	}
 
@@ -132,6 +138,7 @@ public class RsStruct {
 	 * 
 	 */
 	public String getProtResidue() {
+
 		return protResidue;
 	}
 
@@ -142,7 +149,8 @@ public class RsStruct {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setProtResidue(String value) {
+	public void setProtResidue( String value) {
+
 		this.protResidue = value;
 	}
 
@@ -153,6 +161,7 @@ public class RsStruct {
 	 * 
 	 */
 	public String getRsResidue() {
+
 		return rsResidue;
 	}
 
@@ -163,7 +172,8 @@ public class RsStruct {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setRsResidue(String value) {
+	public void setRsResidue( String value) {
+
 		this.rsResidue = value;
 	}
 
@@ -174,6 +184,7 @@ public class RsStruct {
 	 * 
 	 */
 	public Integer getStructGi() {
+
 		return structGi;
 	}
 
@@ -184,7 +195,8 @@ public class RsStruct {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setStructGi(Integer value) {
+	public void setStructGi( Integer value) {
+
 		this.structGi = value;
 	}
 
@@ -195,6 +207,7 @@ public class RsStruct {
 	 * 
 	 */
 	public Integer getStructLoc() {
+
 		return structLoc;
 	}
 
@@ -205,7 +218,8 @@ public class RsStruct {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setStructLoc(Integer value) {
+	public void setStructLoc( Integer value) {
+
 		this.structLoc = value;
 	}
 
@@ -216,6 +230,7 @@ public class RsStruct {
 	 * 
 	 */
 	public String getStructResidue() {
+
 		return structResidue;
 	}
 
@@ -226,7 +241,8 @@ public class RsStruct {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setStructResidue(String value) {
+	public void setStructResidue( String value) {
+
 		this.structResidue = value;
 	}
 

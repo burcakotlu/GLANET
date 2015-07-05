@@ -17,17 +17,20 @@ public class TforHistoneIntervalTreeNode extends DnaseIntervalTreeNode {
 	String tfbsorHistoneName;
 
 	public String getTfbsorHistoneName() {
+
 		return tfbsorHistoneName;
 	}
 
-	public void setTfbsorHistoneName(String tfbsorHistoneName) {
+	public void setTfbsorHistoneName( String tfbsorHistoneName) {
+
 		this.tfbsorHistoneName = tfbsorHistoneName;
 	}
 
 	// For Encode tfbs and histone
-	public TforHistoneIntervalTreeNode(ChromosomeName chromName, int low, int high, String tfbsorHistoneName, String cellLineName, String fileName, NodeType nodeType) {
+	public TforHistoneIntervalTreeNode( ChromosomeName chromName, int low, int high, String tfbsorHistoneName,
+			String cellLineName, String fileName, NodeType nodeType) {
 
-		super(chromName, low, high, cellLineName, fileName, nodeType);
+		super( chromName, low, high, cellLineName, fileName, nodeType);
 		this.tfbsorHistoneName = tfbsorHistoneName;
 
 	}

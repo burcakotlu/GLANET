@@ -22,32 +22,39 @@ public class UserDefinedLibraryIntervalTreeNodeWithNumbers extends IntervalTreeN
 	int fileNumber;
 
 	public int getElementNumber() {
+
 		return elementNumber;
 	}
 
-	public void setElementNumber(int elementNumber) {
+	public void setElementNumber( int elementNumber) {
+
 		this.elementNumber = elementNumber;
 	}
 
 	public int getFileNumber() {
+
 		return fileNumber;
 	}
 
-	public void setFileNumber(int fileNumber) {
+	public void setFileNumber( int fileNumber) {
+
 		this.fileNumber = fileNumber;
 	}
 
 	public int getElementTypeNumber() {
+
 		return elementTypeNumber;
 	}
 
-	public void setElementTypeNumber(int elementTypeNumber) {
+	public void setElementTypeNumber( int elementTypeNumber) {
+
 		this.elementTypeNumber = elementTypeNumber;
 	}
 
-	public UserDefinedLibraryIntervalTreeNodeWithNumbers(ChromosomeName chromName, int low, int high, int elementTypeNumber, int elementNumber, int fileNumber, NodeType nodeType) {
+	public UserDefinedLibraryIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
+			int elementTypeNumber, int elementNumber, int fileNumber, NodeType nodeType) {
 
-		super(chromName, low, high, nodeType);
+		super( chromName, low, high, nodeType);
 
 		this.elementTypeNumber = elementTypeNumber;
 		this.elementNumber = elementNumber;

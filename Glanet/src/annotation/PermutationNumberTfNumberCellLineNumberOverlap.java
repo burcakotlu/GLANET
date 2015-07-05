@@ -15,30 +15,38 @@ public class PermutationNumberTfNumberCellLineNumberOverlap {
 	int high;
 
 	public long getPermutationNumberTfNumberCellLineNumber() {
+
 		return permutationNumberTfNumberCellLineNumber;
 	}
 
-	public void setPermutationNumberTfNumberCellLineNumber(long permutationNumberTfNumberCellLineNumber) {
+	public void setPermutationNumberTfNumberCellLineNumber( long permutationNumberTfNumberCellLineNumber) {
+
 		this.permutationNumberTfNumberCellLineNumber = permutationNumberTfNumberCellLineNumber;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
-	public PermutationNumberTfNumberCellLineNumberOverlap(long permutationNumberTfNumberCellLineNumber, int low, int high) {
+	public PermutationNumberTfNumberCellLineNumberOverlap( long permutationNumberTfNumberCellLineNumber, int low,
+			int high) {
+
 		super();
 		this.permutationNumberTfNumberCellLineNumber = permutationNumberTfNumberCellLineNumber;
 		this.low = low;

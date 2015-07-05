@@ -9,7 +9,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -69,26 +68,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "component", "snpStat" })
-@XmlRootElement(name = "Assembly")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"component", "snpStat"})
+@XmlRootElement( name = "Assembly")
 public class Assembly {
 
-	@XmlElement(name = "Component")
+	@XmlElement( name = "Component")
 	protected List<Component> component;
-	@XmlElement(name = "SnpStat", required = true)
+	@XmlElement( name = "SnpStat", required = true)
 	protected Assembly.SnpStat snpStat;
-	@XmlAttribute(name = "dbSnpBuild", required = true)
+	@XmlAttribute( name = "dbSnpBuild", required = true)
 	protected int dbSnpBuild;
-	@XmlAttribute(name = "genomeBuild", required = true)
+	@XmlAttribute( name = "genomeBuild", required = true)
 	protected String genomeBuild;
-	@XmlAttribute(name = "groupLabel")
+	@XmlAttribute( name = "groupLabel")
 	protected String groupLabel;
-	@XmlAttribute(name = "assemblySource")
+	@XmlAttribute( name = "assemblySource")
 	protected String assemblySource;
-	@XmlAttribute(name = "current")
+	@XmlAttribute( name = "current")
 	protected Boolean current;
-	@XmlAttribute(name = "reference")
+	@XmlAttribute( name = "reference")
 	protected Boolean reference;
 
 	/**
@@ -115,7 +114,8 @@ public class Assembly {
 	 * 
 	 */
 	public List<Component> getComponent() {
-		if (component == null) {
+
+		if( component == null){
 			component = new ArrayList<Component>();
 		}
 		return this.component;
@@ -128,6 +128,7 @@ public class Assembly {
 	 * 
 	 */
 	public Assembly.SnpStat getSnpStat() {
+
 		return snpStat;
 	}
 
@@ -138,7 +139,8 @@ public class Assembly {
 	 *            allowed object is {@link Assembly.SnpStat }
 	 * 
 	 */
-	public void setSnpStat(Assembly.SnpStat value) {
+	public void setSnpStat( Assembly.SnpStat value) {
+
 		this.snpStat = value;
 	}
 
@@ -147,6 +149,7 @@ public class Assembly {
 	 * 
 	 */
 	public int getDbSnpBuild() {
+
 		return dbSnpBuild;
 	}
 
@@ -154,7 +157,8 @@ public class Assembly {
 	 * Sets the value of the dbSnpBuild property.
 	 * 
 	 */
-	public void setDbSnpBuild(int value) {
+	public void setDbSnpBuild( int value) {
+
 		this.dbSnpBuild = value;
 	}
 
@@ -165,6 +169,7 @@ public class Assembly {
 	 * 
 	 */
 	public String getGenomeBuild() {
+
 		return genomeBuild;
 	}
 
@@ -175,7 +180,8 @@ public class Assembly {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setGenomeBuild(String value) {
+	public void setGenomeBuild( String value) {
+
 		this.genomeBuild = value;
 	}
 
@@ -186,6 +192,7 @@ public class Assembly {
 	 * 
 	 */
 	public String getGroupLabel() {
+
 		return groupLabel;
 	}
 
@@ -196,7 +203,8 @@ public class Assembly {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setGroupLabel(String value) {
+	public void setGroupLabel( String value) {
+
 		this.groupLabel = value;
 	}
 
@@ -207,6 +215,7 @@ public class Assembly {
 	 * 
 	 */
 	public String getAssemblySource() {
+
 		return assemblySource;
 	}
 
@@ -217,7 +226,8 @@ public class Assembly {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setAssemblySource(String value) {
+	public void setAssemblySource( String value) {
+
 		this.assemblySource = value;
 	}
 
@@ -228,6 +238,7 @@ public class Assembly {
 	 * 
 	 */
 	public Boolean isCurrent() {
+
 		return current;
 	}
 
@@ -238,7 +249,8 @@ public class Assembly {
 	 *            allowed object is {@link Boolean }
 	 * 
 	 */
-	public void setCurrent(Boolean value) {
+	public void setCurrent( Boolean value) {
+
 		this.current = value;
 	}
 
@@ -249,6 +261,7 @@ public class Assembly {
 	 * 
 	 */
 	public Boolean isReference() {
+
 		return reference;
 	}
 
@@ -259,7 +272,8 @@ public class Assembly {
 	 *            allowed object is {@link Boolean }
 	 * 
 	 */
-	public void setReference(Boolean value) {
+	public void setReference( Boolean value) {
+
 		this.reference = value;
 	}
 
@@ -298,21 +312,21 @@ public class Assembly {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "")
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "")
 	public static class SnpStat {
 
-		@XmlAttribute(name = "mapWeight", required = true)
+		@XmlAttribute( name = "mapWeight", required = true)
 		protected String mapWeight;
-		@XmlAttribute(name = "chromCount")
+		@XmlAttribute( name = "chromCount")
 		protected Integer chromCount;
-		@XmlAttribute(name = "placedContigCount")
+		@XmlAttribute( name = "placedContigCount")
 		protected Integer placedContigCount;
-		@XmlAttribute(name = "unplacedContigCount")
+		@XmlAttribute( name = "unplacedContigCount")
 		protected Integer unplacedContigCount;
-		@XmlAttribute(name = "seqlocCount")
+		@XmlAttribute( name = "seqlocCount")
 		protected Integer seqlocCount;
-		@XmlAttribute(name = "hapCount")
+		@XmlAttribute( name = "hapCount")
 		protected Integer hapCount;
 
 		/**
@@ -322,6 +336,7 @@ public class Assembly {
 		 * 
 		 */
 		public String getMapWeight() {
+
 			return mapWeight;
 		}
 
@@ -332,7 +347,8 @@ public class Assembly {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setMapWeight(String value) {
+		public void setMapWeight( String value) {
+
 			this.mapWeight = value;
 		}
 
@@ -343,6 +359,7 @@ public class Assembly {
 		 * 
 		 */
 		public Integer getChromCount() {
+
 			return chromCount;
 		}
 
@@ -353,7 +370,8 @@ public class Assembly {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setChromCount(Integer value) {
+		public void setChromCount( Integer value) {
+
 			this.chromCount = value;
 		}
 
@@ -364,6 +382,7 @@ public class Assembly {
 		 * 
 		 */
 		public Integer getPlacedContigCount() {
+
 			return placedContigCount;
 		}
 
@@ -374,7 +393,8 @@ public class Assembly {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setPlacedContigCount(Integer value) {
+		public void setPlacedContigCount( Integer value) {
+
 			this.placedContigCount = value;
 		}
 
@@ -385,6 +405,7 @@ public class Assembly {
 		 * 
 		 */
 		public Integer getUnplacedContigCount() {
+
 			return unplacedContigCount;
 		}
 
@@ -395,7 +416,8 @@ public class Assembly {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setUnplacedContigCount(Integer value) {
+		public void setUnplacedContigCount( Integer value) {
+
 			this.unplacedContigCount = value;
 		}
 
@@ -406,6 +428,7 @@ public class Assembly {
 		 * 
 		 */
 		public Integer getSeqlocCount() {
+
 			return seqlocCount;
 		}
 
@@ -416,7 +439,8 @@ public class Assembly {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setSeqlocCount(Integer value) {
+		public void setSeqlocCount( Integer value) {
+
 			this.seqlocCount = value;
 		}
 
@@ -427,6 +451,7 @@ public class Assembly {
 		 * 
 		 */
 		public Integer getHapCount() {
+
 			return hapCount;
 		}
 
@@ -437,7 +462,8 @@ public class Assembly {
 		 *            allowed object is {@link Integer }
 		 * 
 		 */
-		public void setHapCount(Integer value) {
+		public void setHapCount( Integer value) {
+
 			this.hapCount = value;
 		}
 

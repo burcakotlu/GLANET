@@ -19,42 +19,52 @@ public class GCorMapabilityFile {
 	Double mean;
 
 	public Double getMean() {
+
 		return mean;
 	}
 
-	public void setMean(Double mean) {
+	public void setMean( Double mean) {
+
 		this.mean = mean;
 	}
 
 	public Double getStandardDeviation() {
+
 		return standardDeviation;
 	}
 
-	public void setStandardDeviation(Double standardDeviation) {
+	public void setStandardDeviation( Double standardDeviation) {
+
 		this.standardDeviation = standardDeviation;
 	}
 
 	public String getFileName() {
+
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+	public void setFileName( String fileName) {
+
 		this.fileName = fileName;
 	}
 
 	public String getFunctionalElementName() {
+
 		return functionalElementName;
 	}
 
-	public void setFunctionalElementName(String functionalElementName) {
+	public void setFunctionalElementName( String functionalElementName) {
+
 		this.functionalElementName = functionalElementName;
 	}
 
 	public BufferedReader getBufferedReader() {
+
 		return bufferedReader;
 	}
 
-	public void setBufferedReader(BufferedReader bufferedReader) {
+	public void setBufferedReader( BufferedReader bufferedReader) {
+
 		this.bufferedReader = bufferedReader;
 	}
 
@@ -62,6 +72,7 @@ public class GCorMapabilityFile {
 	 * 
 	 */
 	public GCorMapabilityFile() {
+
 		// TODO Auto-generated constructor stub
 	}
 

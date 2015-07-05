@@ -1,11 +1,8 @@
 package ui;
 
 import javax.swing.JPanel;
-
 import ui.MainView.MainViewDelegate;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 public class MainViewController extends ViewController implements MainViewDelegate {
@@ -14,8 +11,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 	private Thread runnerThread;
 	private GlanetRunner runner;
 
-	public MainViewController(JPanel contentPanel) {
-		super(contentPanel);
+	public MainViewController( JPanel contentPanel) {
+
+		super( contentPanel);
 
 		loadView();
 	}
@@ -23,17 +21,17 @@ public class MainViewController extends ViewController implements MainViewDelega
 	@Override
 	public void loadView() {
 
-		if (mainView != null) {
-			contentPanel.remove(mainView);
+		if( mainView != null){
+			contentPanel.remove( mainView);
 		}
 
 		mainView = new MainView();
-		mainView.setDelegate(this);
-		contentPanel.add(mainView);
+		mainView.setDelegate( this);
+		contentPanel.add( mainView);
 	}
 
 	@Override
-	public void presentViewController(ViewController viewController) {
+	public void presentViewController( ViewController viewController) {
 
 		contentPanel.removeAll();
 		contentPanel.invalidate();
@@ -44,48 +42,26 @@ public class MainViewController extends ViewController implements MainViewDelega
 
 	@Override
 	public void dismissViewController() {
+
 		contentPanel.removeAll();
-		contentPanel.add(mainView);
+		contentPanel.add( mainView);
 	}
 
 	@Override
-	public void startRunActionsWithOptions(
-			String inputFileName, 
-			String inputFileAssembly, 
-			String outputFolder, 
-			String inputFileFormat, 
-			String numberOfBases, 
-			String enrichmentEnabled, 
-			String enrichmentWithKeeepingNumberofOverlapsFromEachPermutation,
-			String generateRandomDataMode, 
-			String multipleTestingChoice, 
-			String bonferoniCorrectionSignificanceLevel, 
-			String falseDiscoveryRate, 
-			String numberOfPermutations, 
-			String dnaseEnrichment, 
-			String histoneEnrichment, 
-			String tfEnrichment, 
-			String geneEnrichment,
-			String keggPathwayEnrichment, 
-			String tfAndKeggPathwayEnrichment, 
-			String cellLineBasedTfAndKeggPathwayEnrichment, 
-			String regulatorySequenceAnalysisUsingRSAT, 
-			String jobName, 
-			String writeElementBasedAnnotationFoundOverlapsMode, 
-			String writeAnnotationBinaryMatrixMode, 
-			String writeGeneratedRandomDataMode, 
-			String writePermutationBasedandParametricBasedAnnotationResultMode, 
-			String writePermutationBasedAnnotationResultMode, 
-			String numberOfPermutationsInEachRun, 
-			String userDefinedGeneSetEnrichment,
-			String userDefinedGeneSetInputFile, 
-			String userDefinedGeneSetGeneInformation, 
-			String userDefinedGeneSetName, 
-			String userDefinedGeneSetDescription, 
-			String userDefinedLibraryEnrichment, 
-			String userDefinedLibraryInputFile,
-			String userDefinedLibraryDataFormat, 
-			String givenInputDataType, 
+	public void startRunActionsWithOptions( String inputFileName, String inputFileAssembly, String outputFolder,
+			String inputFileFormat, String numberOfBases, String enrichmentEnabled,
+			String enrichmentWithKeeepingNumberofOverlapsFromEachPermutation, String generateRandomDataMode,
+			String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate,
+			String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrichment,
+			String geneEnrichment, String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment,
+			String cellLineBasedTfAndKeggPathwayEnrichment, String regulatorySequenceAnalysisUsingRSAT, String jobName,
+			String writeElementBasedAnnotationFoundOverlapsMode, String writeAnnotationBinaryMatrixMode,
+			String writeGeneratedRandomDataMode, String writePermutationBasedandParametricBasedAnnotationResultMode,
+			String writePermutationBasedAnnotationResultMode, String numberOfPermutationsInEachRun,
+			String userDefinedGeneSetEnrichment, String userDefinedGeneSetInputFile,
+			String userDefinedGeneSetGeneInformation, String userDefinedGeneSetName,
+			String userDefinedGeneSetDescription, String userDefinedLibraryEnrichment,
+			String userDefinedLibraryInputFile, String userDefinedLibraryDataFormat, String givenInputDataType,
 			String[] cellLinesToBeConsidered) {
 
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
@@ -96,9 +72,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;
 		args[CommandLineArguments.PerformEnrichment.value()] = enrichmentEnabled;
-		
 		args[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()] = enrichmentWithKeeepingNumberofOverlapsFromEachPermutation;
-		
 		args[CommandLineArguments.GenerateRandomDataMode.value()] = generateRandomDataMode;
 		args[CommandLineArguments.MultipleTesting.value()] = multipleTestingChoice;
 		args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;
@@ -130,15 +104,15 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.GivenInputDataType.value()] = givenInputDataType;
 
 		// filling the rest with selected cell lines.
-		for (int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)
+		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)
 			args[i] = cellLinesToBeConsidered[i - Commons.NUMBER_OF_PROGRAM_RUNTIME_ARGUMENTS];
 
 		runner = new GlanetRunner();
 
-		GlanetRunner.setArgs(args);
-		GlanetRunner.setMainView(mainView);
+		GlanetRunner.setArgs( args);
+		GlanetRunner.setMainView( mainView);
 
-		runnerThread = new Thread(runner);
+		runnerThread = new Thread( runner);
 		runnerThread.start();
 	}
 

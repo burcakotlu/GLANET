@@ -8,7 +8,6 @@
 package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -123,42 +122,42 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "sequence" })
-@XmlRootElement(name = "Ss")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"sequence"})
+@XmlRootElement( name = "Ss")
 public class Ss {
 
-	@XmlElement(name = "Sequence", required = true)
+	@XmlElement( name = "Sequence", required = true)
 	protected Ss.Sequence sequence;
-	@XmlAttribute(name = "ssId", required = true)
+	@XmlAttribute( name = "ssId", required = true)
 	protected int ssId;
-	@XmlAttribute(name = "handle", required = true)
+	@XmlAttribute( name = "handle", required = true)
 	protected String handle;
-	@XmlAttribute(name = "batchId", required = true)
+	@XmlAttribute( name = "batchId", required = true)
 	protected int batchId;
-	@XmlAttribute(name = "locSnpId")
+	@XmlAttribute( name = "locSnpId")
 	protected String locSnpId;
-	@XmlAttribute(name = "subSnpClass")
+	@XmlAttribute( name = "subSnpClass")
 	protected String subSnpClass;
-	@XmlAttribute(name = "orient")
+	@XmlAttribute( name = "orient")
 	protected String orient;
-	@XmlAttribute(name = "strand")
+	@XmlAttribute( name = "strand")
 	protected String strand;
-	@XmlAttribute(name = "molType")
+	@XmlAttribute( name = "molType")
 	protected String molType;
-	@XmlAttribute(name = "buildId")
+	@XmlAttribute( name = "buildId")
 	protected Integer buildId;
-	@XmlAttribute(name = "methodClass")
+	@XmlAttribute( name = "methodClass")
 	protected String methodClass;
-	@XmlAttribute(name = "validated")
+	@XmlAttribute( name = "validated")
 	protected String validated;
-	@XmlAttribute(name = "linkoutUrl")
+	@XmlAttribute( name = "linkoutUrl")
 	protected String linkoutUrl;
-	@XmlAttribute(name = "ssAlias")
+	@XmlAttribute( name = "ssAlias")
 	protected String ssAlias;
-	@XmlAttribute(name = "alleleOrigin")
+	@XmlAttribute( name = "alleleOrigin")
 	protected BigInteger alleleOrigin;
-	@XmlAttribute(name = "clinicalSignificance")
+	@XmlAttribute( name = "clinicalSignificance")
 	protected String clinicalSignificance;
 
 	/**
@@ -168,6 +167,7 @@ public class Ss {
 	 * 
 	 */
 	public Ss.Sequence getSequence() {
+
 		return sequence;
 	}
 
@@ -178,7 +178,8 @@ public class Ss {
 	 *            allowed object is {@link Ss.Sequence }
 	 * 
 	 */
-	public void setSequence(Ss.Sequence value) {
+	public void setSequence( Ss.Sequence value) {
+
 		this.sequence = value;
 	}
 
@@ -187,6 +188,7 @@ public class Ss {
 	 * 
 	 */
 	public int getSsId() {
+
 		return ssId;
 	}
 
@@ -194,7 +196,8 @@ public class Ss {
 	 * Sets the value of the ssId property.
 	 * 
 	 */
-	public void setSsId(int value) {
+	public void setSsId( int value) {
+
 		this.ssId = value;
 	}
 
@@ -205,6 +208,7 @@ public class Ss {
 	 * 
 	 */
 	public String getHandle() {
+
 		return handle;
 	}
 
@@ -215,7 +219,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setHandle(String value) {
+	public void setHandle( String value) {
+
 		this.handle = value;
 	}
 
@@ -224,6 +229,7 @@ public class Ss {
 	 * 
 	 */
 	public int getBatchId() {
+
 		return batchId;
 	}
 
@@ -231,7 +237,8 @@ public class Ss {
 	 * Sets the value of the batchId property.
 	 * 
 	 */
-	public void setBatchId(int value) {
+	public void setBatchId( int value) {
+
 		this.batchId = value;
 	}
 
@@ -242,6 +249,7 @@ public class Ss {
 	 * 
 	 */
 	public String getLocSnpId() {
+
 		return locSnpId;
 	}
 
@@ -252,7 +260,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setLocSnpId(String value) {
+	public void setLocSnpId( String value) {
+
 		this.locSnpId = value;
 	}
 
@@ -263,6 +272,7 @@ public class Ss {
 	 * 
 	 */
 	public String getSubSnpClass() {
+
 		return subSnpClass;
 	}
 
@@ -273,7 +283,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSubSnpClass(String value) {
+	public void setSubSnpClass( String value) {
+
 		this.subSnpClass = value;
 	}
 
@@ -284,6 +295,7 @@ public class Ss {
 	 * 
 	 */
 	public String getOrient() {
+
 		return orient;
 	}
 
@@ -294,7 +306,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setOrient(String value) {
+	public void setOrient( String value) {
+
 		this.orient = value;
 	}
 
@@ -305,6 +318,7 @@ public class Ss {
 	 * 
 	 */
 	public String getStrand() {
+
 		return strand;
 	}
 
@@ -315,7 +329,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setStrand(String value) {
+	public void setStrand( String value) {
+
 		this.strand = value;
 	}
 
@@ -326,6 +341,7 @@ public class Ss {
 	 * 
 	 */
 	public String getMolType() {
+
 		return molType;
 	}
 
@@ -336,7 +352,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setMolType(String value) {
+	public void setMolType( String value) {
+
 		this.molType = value;
 	}
 
@@ -347,6 +364,7 @@ public class Ss {
 	 * 
 	 */
 	public Integer getBuildId() {
+
 		return buildId;
 	}
 
@@ -357,7 +375,8 @@ public class Ss {
 	 *            allowed object is {@link Integer }
 	 * 
 	 */
-	public void setBuildId(Integer value) {
+	public void setBuildId( Integer value) {
+
 		this.buildId = value;
 	}
 
@@ -368,6 +387,7 @@ public class Ss {
 	 * 
 	 */
 	public String getMethodClass() {
+
 		return methodClass;
 	}
 
@@ -378,7 +398,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setMethodClass(String value) {
+	public void setMethodClass( String value) {
+
 		this.methodClass = value;
 	}
 
@@ -389,6 +410,7 @@ public class Ss {
 	 * 
 	 */
 	public String getValidated() {
+
 		return validated;
 	}
 
@@ -399,7 +421,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setValidated(String value) {
+	public void setValidated( String value) {
+
 		this.validated = value;
 	}
 
@@ -410,6 +433,7 @@ public class Ss {
 	 * 
 	 */
 	public String getLinkoutUrl() {
+
 		return linkoutUrl;
 	}
 
@@ -420,7 +444,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setLinkoutUrl(String value) {
+	public void setLinkoutUrl( String value) {
+
 		this.linkoutUrl = value;
 	}
 
@@ -431,6 +456,7 @@ public class Ss {
 	 * 
 	 */
 	public String getSsAlias() {
+
 		return ssAlias;
 	}
 
@@ -441,7 +467,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSsAlias(String value) {
+	public void setSsAlias( String value) {
+
 		this.ssAlias = value;
 	}
 
@@ -452,6 +479,7 @@ public class Ss {
 	 * 
 	 */
 	public BigInteger getAlleleOrigin() {
+
 		return alleleOrigin;
 	}
 
@@ -462,7 +490,8 @@ public class Ss {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setAlleleOrigin(BigInteger value) {
+	public void setAlleleOrigin( BigInteger value) {
+
 		this.alleleOrigin = value;
 	}
 
@@ -473,6 +502,7 @@ public class Ss {
 	 * 
 	 */
 	public String getClinicalSignificance() {
+
 		return clinicalSignificance;
 	}
 
@@ -483,7 +513,8 @@ public class Ss {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setClinicalSignificance(String value) {
+	public void setClinicalSignificance( String value) {
+
 		this.clinicalSignificance = value;
 	}
 
@@ -511,15 +542,15 @@ public class Ss {
 	 * 
 	 * 
 	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "seq5", "observed", "seq3" })
+	@XmlAccessorType( XmlAccessType.FIELD)
+	@XmlType( name = "", propOrder = {"seq5", "observed", "seq3"})
 	public static class Sequence {
 
-		@XmlElement(name = "Seq5")
+		@XmlElement( name = "Seq5")
 		protected String seq5;
-		@XmlElement(name = "Observed", required = true)
+		@XmlElement( name = "Observed", required = true)
 		protected String observed;
-		@XmlElement(name = "Seq3")
+		@XmlElement( name = "Seq3")
 		protected String seq3;
 
 		/**
@@ -529,6 +560,7 @@ public class Ss {
 		 * 
 		 */
 		public String getSeq5() {
+
 			return seq5;
 		}
 
@@ -539,7 +571,8 @@ public class Ss {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setSeq5(String value) {
+		public void setSeq5( String value) {
+
 			this.seq5 = value;
 		}
 
@@ -550,6 +583,7 @@ public class Ss {
 		 * 
 		 */
 		public String getObserved() {
+
 			return observed;
 		}
 
@@ -560,7 +594,8 @@ public class Ss {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setObserved(String value) {
+		public void setObserved( String value) {
+
 			this.observed = value;
 		}
 
@@ -571,6 +606,7 @@ public class Ss {
 		 * 
 		 */
 		public String getSeq3() {
+
 			return seq3;
 		}
 
@@ -581,7 +617,8 @@ public class Ss {
 		 *            allowed object is {@link String }
 		 * 
 		 */
-		public void setSeq3(String value) {
+		public void setSeq3( String value) {
+
 			this.seq3 = value;
 		}
 

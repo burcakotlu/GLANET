@@ -15,19 +15,17 @@ import java.util.Locale;
  */
 public class GlanetDecimalFormat {
 
-	public static DecimalFormat getGLANETDecimalFormat(String formatString) {
+	public static DecimalFormat getGLANETDecimalFormat( String formatString) {
 
 		Locale loc = Locale.getDefault();
 
-		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(loc);
-		otherSymbols.setDecimalSeparator('.');
-		otherSymbols.setGroupingSeparator(',');
-		DecimalFormat df = new DecimalFormat(formatString, otherSymbols);
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols( loc);
+		otherSymbols.setDecimalSeparator( '.');
+		otherSymbols.setGroupingSeparator( ',');
+		DecimalFormat df = new DecimalFormat( formatString, otherSymbols);
 
 		return df;
 
 	}
-
-
 
 }

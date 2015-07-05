@@ -34,14 +34,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "RsLinkout")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "")
+@XmlRootElement( name = "RsLinkout")
 public class RsLinkout {
 
-	@XmlAttribute(name = "resourceId", required = true)
+	@XmlAttribute( name = "resourceId", required = true)
 	protected String resourceId;
-	@XmlAttribute(name = "linkValue", required = true)
+	@XmlAttribute( name = "linkValue", required = true)
 	protected String linkValue;
 
 	/**
@@ -51,6 +51,7 @@ public class RsLinkout {
 	 * 
 	 */
 	public String getResourceId() {
+
 		return resourceId;
 	}
 
@@ -61,7 +62,8 @@ public class RsLinkout {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setResourceId(String value) {
+	public void setResourceId( String value) {
+
 		this.resourceId = value;
 	}
 
@@ -72,6 +74,7 @@ public class RsLinkout {
 	 * 
 	 */
 	public String getLinkValue() {
+
 		return linkValue;
 	}
 
@@ -82,7 +85,8 @@ public class RsLinkout {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setLinkValue(String value) {
+	public void setLinkValue( String value) {
+
 		this.linkValue = value;
 	}
 

@@ -20,9 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import ui.GlanetRunner;
-
 import common.Commons;
 
 public class CreationofDataFileforRBoxPlot {
@@ -31,36 +29,41 @@ public class CreationofDataFileforRBoxPlot {
 	 * 
 	 */
 	public CreationofDataFileforRBoxPlot() {
+
 	}
 
-	public static void closeBufferedReaders(Map<String, BufferedReader> bufferedReaderHashMap) {
+	public static void closeBufferedReaders( Map<String, BufferedReader> bufferedReaderHashMap) {
+
 		BufferedReader bufferedReader;
 
-		for (Map.Entry<String, BufferedReader> entry : bufferedReaderHashMap.entrySet()) {
+		for( Map.Entry<String, BufferedReader> entry : bufferedReaderHashMap.entrySet()){
 			bufferedReader = entry.getValue();
-			try {
+			try{
 				bufferedReader.close();
-			} catch (IOException e) {
+			}catch( IOException e){
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public static void closeBufferedReaders(List<GCorMapabilityFile> listofTopTenMostVaryingFiles) {
+	public static void closeBufferedReaders( List<GCorMapabilityFile> listofTopTenMostVaryingFiles) {
+
 		BufferedReader bufferedReader;
 
-		for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+		for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 			bufferedReader = file.getBufferedReader();
-			try {
+			try{
 				bufferedReader.close();
-			} catch (IOException e) {
+			}catch( IOException e){
 				e.printStackTrace();
 			}
 		}
 	}
 
 	// todo
-	public static void writeTabDelimitedTextFile(List<GCorMapabilityFile> listofTopTenMostVaryingFiles, String boxPlotFileName, String writeMode) {
+	public static void writeTabDelimitedTextFile( List<GCorMapabilityFile> listofTopTenMostVaryingFiles,
+			String boxPlotFileName, String writeMode) {
+
 		BufferedReader bufferedReader;
 
 		FileWriter fileWriter;
@@ -88,77 +91,77 @@ public class CreationofDataFileforRBoxPlot {
 
 		int indexofFirstUnderscore;
 
-		try {
-			fileWriter = new FileWriter(boxPlotFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( boxPlotFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Write skipLine1 contains long file names
-			for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+			for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 				fileName = file.getFileName();
 
-				if (fileName.startsWith("GC_") || (fileName.startsWith("MAPABILITY_"))) {
-					indexofFirstUnderscore = fileName.indexOf('_');
+				if( fileName.startsWith( "GC_") || ( fileName.startsWith( "MAPABILITY_"))){
+					indexofFirstUnderscore = fileName.indexOf( '_');
 					// In order to get rid of GC_ or MAPABILITY_ in filename
-					if (indexofFirstUnderscore > 0) {
-						fileName = fileName.substring(indexofFirstUnderscore + 1);
+					if( indexofFirstUnderscore > 0){
+						fileName = fileName.substring( indexofFirstUnderscore + 1);
 					}
 				}
 
-				if (firstFileName) {
+				if( firstFileName){
 					skipLine1 = fileName;
 					firstFileName = false;
-				} else {
+				}else{
 					skipLine1 = skipLine1 + "\t" + fileName;
 				}
 			}// End of for
-			bufferedWriter.write(skipLine1 + System.getProperty("line.separator"));
+			bufferedWriter.write( skipLine1 + System.getProperty( "line.separator"));
 
-			if (Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE.equals(writeMode)) {
+			if( Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE.equals( writeMode)){
 
 				// Write skipLine2 contains standard deviations
-				for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+				for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 					standardDeviation = file.getStandardDeviation().toString();
 
-					if (firstStandardDeviation) {
+					if( firstStandardDeviation){
 						skipLine2 = standardDeviation;
 						firstStandardDeviation = false;
-					} else {
+					}else{
 						skipLine2 = skipLine2 + "\t" + standardDeviation;
 					}
 				}// End of for
-				bufferedWriter.write(skipLine2 + System.getProperty("line.separator"));
+				bufferedWriter.write( skipLine2 + System.getProperty( "line.separator"));
 
-			} else if (Commons.WRITE_MEAN_VALUE_OF_EACH_FILE.equals(writeMode)) {
+			}else if( Commons.WRITE_MEAN_VALUE_OF_EACH_FILE.equals( writeMode)){
 
 				// Write skipLine2 contains means
-				for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+				for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 					mean = file.getMean().toString();
 
-					if (firstMean) {
+					if( firstMean){
 						skipLine2 = mean;
 						firstMean = false;
-					} else {
+					}else{
 						skipLine2 = skipLine2 + "\t" + mean;
 					}
 				}// End of for
-				bufferedWriter.write(skipLine2 + System.getProperty("line.separator"));
+				bufferedWriter.write( skipLine2 + System.getProperty( "line.separator"));
 			}
 
 			// Write header
-			for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+			for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 				functionalElementName = file.getFunctionalElementName();
 
-				if (firstFunctionalElementName) {
+				if( firstFunctionalElementName){
 					header = functionalElementName;
 					firstFunctionalElementName = false;
-				} else {
+				}else{
 					header = header + "\t" + functionalElementName;
 				}
 			}// End of for
-			bufferedWriter.write(header + System.getProperty("line.separator"));
+			bufferedWriter.write( header + System.getProperty( "line.separator"));
 
 			// Write GC or Mapability values
-			do {
+			do{
 				strLine = "";
 				wholeStrLinewithTabs = "";
 				concatenatedStringwithoutTabs = "";
@@ -166,24 +169,24 @@ public class CreationofDataFileforRBoxPlot {
 				// initialize firstGC to true for each line
 				firstGCorMapability = true;
 
-				for (GCorMapabilityFile file : listofTopTenMostVaryingFiles) {
+				for( GCorMapabilityFile file : listofTopTenMostVaryingFiles){
 
 					bufferedReader = file.getBufferedReader();
 
 					strLine = bufferedReader.readLine();
 
-					if (firstGCorMapability) {
-						if (strLine == null) {
+					if( firstGCorMapability){
+						if( strLine == null){
 							wholeStrLinewithTabs = "";
-						} else {
+						}else{
 							wholeStrLinewithTabs = strLine;
 							concatenatedStringwithoutTabs = strLine;
 						}
 						firstGCorMapability = false;
-					} else {
-						if (strLine == null) {
+					}else{
+						if( strLine == null){
 							wholeStrLinewithTabs = wholeStrLinewithTabs + "\t" + "";
-						} else {
+						}else{
 							concatenatedStringwithoutTabs = concatenatedStringwithoutTabs + strLine;
 							wholeStrLinewithTabs = wholeStrLinewithTabs + "\t" + strLine;
 
@@ -192,24 +195,25 @@ public class CreationofDataFileforRBoxPlot {
 
 				}// End of for
 
-				if (concatenatedStringwithoutTabs != "") {
-					bufferedWriter.write(wholeStrLinewithTabs + System.getProperty("line.separator"));
+				if( concatenatedStringwithoutTabs != ""){
+					bufferedWriter.write( wholeStrLinewithTabs + System.getProperty( "line.separator"));
 				}
 
-			} while (concatenatedStringwithoutTabs != "");
+			}while( concatenatedStringwithoutTabs != "");
 
 			// do not forget to close buffered readers in hash map
-			closeBufferedReaders(listofTopTenMostVaryingFiles);
+			closeBufferedReaders( listofTopTenMostVaryingFiles);
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void writeTabDelimitedTextFile(Map<String, BufferedReader> bufferedReaderHashMap, String boxPlotFileName) {
+	public static void writeTabDelimitedTextFile( Map<String, BufferedReader> bufferedReaderHashMap,
+			String boxPlotFileName) {
 
 		BufferedReader bufferedReader;
 
@@ -232,35 +236,35 @@ public class CreationofDataFileforRBoxPlot {
 
 		entrySet = bufferedReaderHashMap.entrySet();
 
-		try {
-			fileWriter = new FileWriter(boxPlotFileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
+		try{
+			fileWriter = new FileWriter( boxPlotFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Write header
-			for (Map.Entry<String, BufferedReader> entry : entrySet) {
+			for( Map.Entry<String, BufferedReader> entry : entrySet){
 				fileName = entry.getKey();
 
-				if (fileName.startsWith("GC_") || (fileName.startsWith("MAPABILITY_"))) {
-					indexofFirstUnderscore = fileName.indexOf('_');
+				if( fileName.startsWith( "GC_") || ( fileName.startsWith( "MAPABILITY_"))){
+					indexofFirstUnderscore = fileName.indexOf( '_');
 					// In order to get rid of GC_ or MAPABILITY_ in filename
-					if (indexofFirstUnderscore > 0) {
-						fileName = fileName.substring(indexofFirstUnderscore + 1);
+					if( indexofFirstUnderscore > 0){
+						fileName = fileName.substring( indexofFirstUnderscore + 1);
 					}
 				}
 
-				if (firstFileName) {
+				if( firstFileName){
 					header = fileName;
 					firstFileName = false;
 
-				} else {
+				}else{
 					header = header + "\t" + fileName;
 				}
 			}// End of for
 
-			bufferedWriter.write(header + System.getProperty("line.separator"));
+			bufferedWriter.write( header + System.getProperty( "line.separator"));
 
 			// Write GC or Mapability values
-			do {
+			do{
 				strLine = "";
 				wholeStrLinewithTabs = "";
 				concatenatedStringwithoutTabs = "";
@@ -268,24 +272,24 @@ public class CreationofDataFileforRBoxPlot {
 				// initialize firstGC to true for each line
 				firstGCorMapability = true;
 
-				for (Map.Entry<String, BufferedReader> entry : entrySet) {
+				for( Map.Entry<String, BufferedReader> entry : entrySet){
 
 					bufferedReader = entry.getValue();
 
 					strLine = bufferedReader.readLine();
 
-					if (firstGCorMapability) {
-						if (strLine == null) {
+					if( firstGCorMapability){
+						if( strLine == null){
 							wholeStrLinewithTabs = "";
-						} else {
+						}else{
 							wholeStrLinewithTabs = strLine;
 							concatenatedStringwithoutTabs = strLine;
 						}
 						firstGCorMapability = false;
-					} else {
-						if (strLine == null) {
+					}else{
+						if( strLine == null){
 							wholeStrLinewithTabs = wholeStrLinewithTabs + "\t" + "";
-						} else {
+						}else{
 							concatenatedStringwithoutTabs = concatenatedStringwithoutTabs + strLine;
 							wholeStrLinewithTabs = wholeStrLinewithTabs + "\t" + strLine;
 
@@ -294,60 +298,61 @@ public class CreationofDataFileforRBoxPlot {
 
 				}// End of for
 
-				if (concatenatedStringwithoutTabs != "") {
-					bufferedWriter.write(wholeStrLinewithTabs + System.getProperty("line.separator"));
+				if( concatenatedStringwithoutTabs != ""){
+					bufferedWriter.write( wholeStrLinewithTabs + System.getProperty( "line.separator"));
 				}
 
-			} while (concatenatedStringwithoutTabs != "");
+			}while( concatenatedStringwithoutTabs != "");
 
 			// do not forget to close buffered readers in hash map
-			closeBufferedReaders(bufferedReaderHashMap);
+			closeBufferedReaders( bufferedReaderHashMap);
 
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
 	// todo
-	public static void createTabDelimitedTextFileforBoxPlotinR(File directory, String boxPlotFileName, List<GCorMapabilityFile> listofFiles, String writeMode) {
+	public static void createTabDelimitedTextFileforBoxPlotinR( File directory, String boxPlotFileName,
+			List<GCorMapabilityFile> listofFiles, String writeMode) {
 
 		String path;
 
 		FileReader fileReader;
 		BufferedReader bufferedReader = null;
 
-		if (!directory.exists()) {
-			GlanetRunner.appendLog("No File/Dir" + directory.getName());
+		if( !directory.exists()){
+			GlanetRunner.appendLog( "No File/Dir" + directory.getName());
 		}
 
-		if (directory.isDirectory()) {// a directory!
+		if( directory.isDirectory()){// a directory!
 
 			path = directory.getPath();
 
-			for (GCorMapabilityFile file : listofFiles) {
+			for( GCorMapabilityFile file : listofFiles){
 
-				try {
-					fileReader = new FileReader(path + "\\" + file.getFileName());
-					bufferedReader = new BufferedReader(fileReader);
+				try{
+					fileReader = new FileReader( path + "\\" + file.getFileName());
+					bufferedReader = new BufferedReader( fileReader);
 
-				} catch (FileNotFoundException e) {
+				}catch( FileNotFoundException e){
 					e.printStackTrace();
 				}
 
-				file.setBufferedReader(bufferedReader);
+				file.setBufferedReader( bufferedReader);
 
 			}// End of For
 
-			writeTabDelimitedTextFile(listofFiles, boxPlotFileName, writeMode);
+			writeTabDelimitedTextFile( listofFiles, boxPlotFileName, writeMode);
 
 		} // End of If
 
 	}
 
-	public static void createTabDelimitedTextFileforBoxPlotinR(File directory, String boxPlotFileName) {
+	public static void createTabDelimitedTextFileforBoxPlotinR( File directory, String boxPlotFileName) {
 
 		File[] files;
 		File file;
@@ -360,21 +365,22 @@ public class CreationofDataFileforRBoxPlot {
 		BufferedReader bufferedReader;
 		Map<String, BufferedReader> bufferedReaderHashMap = new HashMap<String, BufferedReader>();
 
-		if (!directory.exists()) {
-			GlanetRunner.appendLog("No File/Dir" + directory.getName());
+		if( !directory.exists()){
+			GlanetRunner.appendLog( "No File/Dir" + directory.getName());
 		}
 
 		// Reading directory contents
-		if (directory.isDirectory()) {// a directory!
+		if( directory.isDirectory()){// a directory!
 
 			files = directory.listFiles();
 			numberofFiles = files.length;
 
-			System.out.printf("Number of Files %d in %s" + System.getProperty("line.separator"), files.length, directory.getAbsolutePath());
+			System.out.printf( "Number of Files %d in %s" + System.getProperty( "line.separator"), files.length,
+					directory.getAbsolutePath());
 
-			for (int i = 0; i < numberofFiles; i++) {
+			for( int i = 0; i < numberofFiles; i++){
 
-				if (files[i].isFile()) {
+				if( files[i].isFile()){
 
 					// read the content of each file
 					file = files[i];
@@ -382,13 +388,13 @@ public class CreationofDataFileforRBoxPlot {
 					fileName = file.getName();
 					filePath = file.getPath();
 
-					try {
-						fileReader = new FileReader(filePath);
-						bufferedReader = new BufferedReader(fileReader);
+					try{
+						fileReader = new FileReader( filePath);
+						bufferedReader = new BufferedReader( fileReader);
 
-						bufferedReaderHashMap.put(fileName, bufferedReader);
+						bufferedReaderHashMap.put( fileName, bufferedReader);
 
-					} catch (FileNotFoundException e) {
+					}catch( FileNotFoundException e){
 						e.printStackTrace();
 					}
 
@@ -397,7 +403,7 @@ public class CreationofDataFileforRBoxPlot {
 			} // End of For -----reading each file in the directory
 
 			// All BufferedReaders are created and put into the hash map
-			writeTabDelimitedTextFile(bufferedReaderHashMap, boxPlotFileName);
+			writeTabDelimitedTextFile( bufferedReaderHashMap, boxPlotFileName);
 
 		} // End of if: For all files in this directory
 
@@ -423,27 +429,28 @@ public class CreationofDataFileforRBoxPlot {
 		String allHistoneMapabilityFilesDirectory = Commons.ALL_HISTONE_MAPABILITY_FILES_DIRECTORY;
 
 		// Create tab delimited text file for GC values of all files
-		File dnaseGCDirectory = new File(allDnaseGCFilesDirectory);
-		File tfbsGCDirectory = new File(allTfbsGCFilesDirectory);
-		File histoneGCDirectory = new File(allHistoneGCFilesDirectory);
+		File dnaseGCDirectory = new File( allDnaseGCFilesDirectory);
+		File tfbsGCDirectory = new File( allTfbsGCFilesDirectory);
+		File histoneGCDirectory = new File( allHistoneGCFilesDirectory);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseGCDirectory, dnaseGCBoxPlotinRFileName);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsGCDirectory, tfbsGCBoxPlotinRFileName);
-		createTabDelimitedTextFileforBoxPlotinR(histoneGCDirectory, histoneGCBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseGCDirectory, dnaseGCBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsGCDirectory, tfbsGCBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( histoneGCDirectory, histoneGCBoxPlotinRFileName);
 
 		// Create tab delimited text file for MAPABILITY values of all files
-		File dnaseMapabilityDirectory = new File(allDnaseMapabilityFilesDirectory);
-		File tfbsMapabilityDirectory = new File(allTfbsMapabilityFilesDirectory);
-		File histoneMapabilityDirectory = new File(allHistoneMapabilityFilesDirectory);
+		File dnaseMapabilityDirectory = new File( allDnaseMapabilityFilesDirectory);
+		File tfbsMapabilityDirectory = new File( allTfbsMapabilityFilesDirectory);
+		File histoneMapabilityDirectory = new File( allHistoneMapabilityFilesDirectory);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseMapabilityDirectory, dnaseMapabilityBoxPlotinRFileName);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsMapabilityDirectory, tfbsMapabilityBoxPlotinRFileName);
-		createTabDelimitedTextFileforBoxPlotinR(histoneMapabilityDirectory, histoneMapabilityBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseMapabilityDirectory, dnaseMapabilityBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsMapabilityDirectory, tfbsMapabilityBoxPlotinRFileName);
+		createTabDelimitedTextFileforBoxPlotinR( histoneMapabilityDirectory, histoneMapabilityBoxPlotinRFileName);
 
 	}
 
 	// todo
-	public static void fill(List<GCorMapabilityFile> listofFiles, String listofFilesNamesFileName) {
+	public static void fill( List<GCorMapabilityFile> listofFiles, String listofFilesNamesFileName) {
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -466,52 +473,52 @@ public class CreationofDataFileforRBoxPlot {
 
 		GCorMapabilityFile gcorMapabilityFile;
 
-		try {
-			fileReader = new FileReader(listofFilesNamesFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( listofFilesNamesFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example strLine
 				// MAPABILITY DNASE
 				// idrPool.H1_ES_FAIRE_BP_TP_peaks_OV_H1_ES_B1_peaks_VS_UncFAIRE_H1_ES_B2_peaks.npk2.narrowPeak
 				// H1_ES number of intervals 1629 mean 0.88037356990742 std dev
 				// 0.20231867004224047
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
-				indexofEighthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
-				indexofNinethTab = strLine.indexOf('\t', indexofEighthTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
+				indexofEighthTab = strLine.indexOf( '\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf( '\t', indexofEighthTab + 1);
 
-				MAPABILITYorGC = strLine.substring(0, indexofFirstTab);
-				fileName = strLine.substring(indexofSecondTab + 1, indexofThirdTab);
-				functionalElementName = strLine.substring(indexofThirdTab + 1, indexofFourthTab);
-				mean = Double.parseDouble(strLine.substring(indexofSeventhTab + 1, indexofEighthTab));
-				standardDeviation = Double.parseDouble(strLine.substring(indexofNinethTab + 1));
+				MAPABILITYorGC = strLine.substring( 0, indexofFirstTab);
+				fileName = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
+				functionalElementName = strLine.substring( indexofThirdTab + 1, indexofFourthTab);
+				mean = Double.parseDouble( strLine.substring( indexofSeventhTab + 1, indexofEighthTab));
+				standardDeviation = Double.parseDouble( strLine.substring( indexofNinethTab + 1));
 
 				// Add mapability or gc to the fileName
 				fileName = MAPABILITYorGC + "_" + fileName;
 
 				gcorMapabilityFile = new GCorMapabilityFile();
 
-				gcorMapabilityFile.setFileName(fileName);
-				gcorMapabilityFile.setFunctionalElementName(functionalElementName);
-				gcorMapabilityFile.setMean(mean);
-				gcorMapabilityFile.setStandardDeviation(standardDeviation);
-				gcorMapabilityFile.setBufferedReader(null);
+				gcorMapabilityFile.setFileName( fileName);
+				gcorMapabilityFile.setFunctionalElementName( functionalElementName);
+				gcorMapabilityFile.setMean( mean);
+				gcorMapabilityFile.setStandardDeviation( standardDeviation);
+				gcorMapabilityFile.setBufferedReader( null);
 
-				listofFiles.add(gcorMapabilityFile);
+				listofFiles.add( gcorMapabilityFile);
 
 			}
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -522,6 +529,7 @@ public class CreationofDataFileforRBoxPlot {
 	// Create For Tab Delimited Files
 	// For Ten Different Mean Files
 	public static void createTabDelimitedTextFileForTenDifferentMeanFiles() {
+
 		// Ouput Tab Delimited Text Files
 		// Data files for R
 		String dataFileforRTenDifferentMeanDnaseGCFiles = Commons.DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_DNASE_GC_FILES;
@@ -545,39 +553,48 @@ public class CreationofDataFileforRBoxPlot {
 
 		// GC
 		// Get the required GC files from these directories
-		File dnaseGCDirectory = new File(allDnaseGCFilesDirectory);
-		File tfbsGCDirectory = new File(allTfbsGCFilesDirectory);
-		File histoneGCDirectory = new File(allHistoneGCFilesDirectory);
+		File dnaseGCDirectory = new File( allDnaseGCFilesDirectory);
+		File tfbsGCDirectory = new File( allTfbsGCFilesDirectory);
+		File histoneGCDirectory = new File( allHistoneGCFilesDirectory);
 
 		List<GCorMapabilityFile> listofTenDifferentMeanDnaseGCFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTenDifferentMeanTfbsGCFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTenDifferentMeanHistoneGCFiles = new ArrayList<GCorMapabilityFile>();
 
-		fill(listofTenDifferentMeanDnaseGCFiles, Commons.TEN_DIFFERENT_MEAN_DNASE_GC_FILES);
-		fill(listofTenDifferentMeanTfbsGCFiles, Commons.TEN_DIFFERENT_MEAN_TFBS_GC_FILES);
-		fill(listofTenDifferentMeanHistoneGCFiles, Commons.TEN_DIFFERENT_MEAN_HISTONE_GC_FILES);
+		fill( listofTenDifferentMeanDnaseGCFiles, Commons.TEN_DIFFERENT_MEAN_DNASE_GC_FILES);
+		fill( listofTenDifferentMeanTfbsGCFiles, Commons.TEN_DIFFERENT_MEAN_TFBS_GC_FILES);
+		fill( listofTenDifferentMeanHistoneGCFiles, Commons.TEN_DIFFERENT_MEAN_HISTONE_GC_FILES);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseGCDirectory, dataFileforRTenDifferentMeanDnaseGCFiles, listofTenDifferentMeanDnaseGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsGCDirectory, dataFileforRTenDifferentMeanTfbsGCFiles, listofTenDifferentMeanTfbsGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(histoneGCDirectory, dataFileforRTenDifferentMeanHistoneGCFiles, listofTenDifferentMeanHistoneGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseGCDirectory, dataFileforRTenDifferentMeanDnaseGCFiles,
+				listofTenDifferentMeanDnaseGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsGCDirectory, dataFileforRTenDifferentMeanTfbsGCFiles,
+				listofTenDifferentMeanTfbsGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( histoneGCDirectory, dataFileforRTenDifferentMeanHistoneGCFiles,
+				listofTenDifferentMeanHistoneGCFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
 
 		// MAPABILITY
 		// Get the required MAPABILITY files from these directories
-		File dnaseMapabilityDirectory = new File(allDnaseMapabilityFilesDirectory);
-		File tfbsMapabilityDirectory = new File(allTfbsMapabilityFilesDirectory);
-		File histoneMapabilityDirectory = new File(allHistoneMapabilityFilesDirectory);
+		File dnaseMapabilityDirectory = new File( allDnaseMapabilityFilesDirectory);
+		File tfbsMapabilityDirectory = new File( allTfbsMapabilityFilesDirectory);
+		File histoneMapabilityDirectory = new File( allHistoneMapabilityFilesDirectory);
 
 		List<GCorMapabilityFile> listofTenDifferentMeanDnaseMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTenDifferentMeanTfbsMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTenDifferentMeanHistoneMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 
-		fill(listofTenDifferentMeanDnaseMapabilityFiles, Commons.TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES);
-		fill(listofTenDifferentMeanTfbsMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES);
-		fill(listofTenDifferentMeanHistoneMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES);
+		fill( listofTenDifferentMeanDnaseMapabilityFiles, Commons.TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES);
+		fill( listofTenDifferentMeanTfbsMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES);
+		fill( listofTenDifferentMeanHistoneMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseMapabilityDirectory, dataFileforRTenDifferentMeanDnaseMAPABILITYFiles, listofTenDifferentMeanDnaseMapabilityFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsMapabilityDirectory, dataFileforRTenDifferentMeanTfbsMAPABILITYFiles, listofTenDifferentMeanTfbsMapabilityFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(histoneMapabilityDirectory, dataFileforRTenDifferentMeanHistoneMAPABILITYFiles, listofTenDifferentMeanHistoneMapabilityFiles, Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseMapabilityDirectory,
+				dataFileforRTenDifferentMeanDnaseMAPABILITYFiles, listofTenDifferentMeanDnaseMapabilityFiles,
+				Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsMapabilityDirectory,
+				dataFileforRTenDifferentMeanTfbsMAPABILITYFiles, listofTenDifferentMeanTfbsMapabilityFiles,
+				Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( histoneMapabilityDirectory,
+				dataFileforRTenDifferentMeanHistoneMAPABILITYFiles, listofTenDifferentMeanHistoneMapabilityFiles,
+				Commons.WRITE_MEAN_VALUE_OF_EACH_FILE);
 
 	}
 
@@ -606,47 +623,53 @@ public class CreationofDataFileforRBoxPlot {
 
 		// GC
 		// Create tab delimited text file for GC values of top ten most varying
-		File dnaseGCDirectory = new File(allDnaseGCFilesDirectory);
-		File tfbsGCDirectory = new File(allTfbsGCFilesDirectory);
-		File histoneGCDirectory = new File(allHistoneGCFilesDirectory);
+		File dnaseGCDirectory = new File( allDnaseGCFilesDirectory);
+		File tfbsGCDirectory = new File( allTfbsGCFilesDirectory);
+		File histoneGCDirectory = new File( allHistoneGCFilesDirectory);
 
 		List<GCorMapabilityFile> listofTopTenMostVaryingDnaseGCFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTopTenMostVaryingTfbsGCFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTopTenMostVaryingHistoneGCFiles = new ArrayList<GCorMapabilityFile>();
 
-		fill(listofTopTenMostVaryingDnaseGCFiles, Commons.TOP_TEN_MOST_VARYING_DNASE_GC_FILES);
-		fill(listofTopTenMostVaryingTfbsGCFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_GC_FILES);
-		fill(listofTopTenMostVaryingHistoneGCFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_GC_FILES);
+		fill( listofTopTenMostVaryingDnaseGCFiles, Commons.TOP_TEN_MOST_VARYING_DNASE_GC_FILES);
+		fill( listofTopTenMostVaryingTfbsGCFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_GC_FILES);
+		fill( listofTopTenMostVaryingHistoneGCFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_GC_FILES);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseGCDirectory, dnaseGCBoxPlotinRFileName, listofTopTenMostVaryingDnaseGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsGCDirectory, tfbsGCBoxPlotinRFileName, listofTopTenMostVaryingTfbsGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(histoneGCDirectory, histoneGCBoxPlotinRFileName, listofTopTenMostVaryingHistoneGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseGCDirectory, dnaseGCBoxPlotinRFileName,
+				listofTopTenMostVaryingDnaseGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsGCDirectory, tfbsGCBoxPlotinRFileName,
+				listofTopTenMostVaryingTfbsGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( histoneGCDirectory, histoneGCBoxPlotinRFileName,
+				listofTopTenMostVaryingHistoneGCFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
 
 		// MAPABILITY
 		// Create tab delimited text file for MAPABILITY values of top ten most
 		// varying
-		File dnaseMapabilityDirectory = new File(allDnaseMapabilityFilesDirectory);
-		File tfbsMapabilityDirectory = new File(allTfbsMapabilityFilesDirectory);
-		File histoneMapabilityDirectory = new File(allHistoneMapabilityFilesDirectory);
+		File dnaseMapabilityDirectory = new File( allDnaseMapabilityFilesDirectory);
+		File tfbsMapabilityDirectory = new File( allTfbsMapabilityFilesDirectory);
+		File histoneMapabilityDirectory = new File( allHistoneMapabilityFilesDirectory);
 
 		List<GCorMapabilityFile> listofTopTenMostVaryingDnaseMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTopTenMostVaryingTfbsMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 		List<GCorMapabilityFile> listofTopTenMostVaryingHistoneMapabilityFiles = new ArrayList<GCorMapabilityFile>();
 
-		fill(listofTopTenMostVaryingDnaseMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES);
-		fill(listofTopTenMostVaryingTfbsMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES);
-		fill(listofTopTenMostVaryingHistoneMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES);
+		fill( listofTopTenMostVaryingDnaseMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES);
+		fill( listofTopTenMostVaryingTfbsMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES);
+		fill( listofTopTenMostVaryingHistoneMapabilityFiles, Commons.TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES);
 
-		createTabDelimitedTextFileforBoxPlotinR(dnaseMapabilityDirectory, dnaseMapabilityBoxPlotinRFileName, listofTopTenMostVaryingDnaseMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(tfbsMapabilityDirectory, tfbsMapabilityBoxPlotinRFileName, listofTopTenMostVaryingTfbsMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
-		createTabDelimitedTextFileforBoxPlotinR(histoneMapabilityDirectory, histoneMapabilityBoxPlotinRFileName, listofTopTenMostVaryingHistoneMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( dnaseMapabilityDirectory, dnaseMapabilityBoxPlotinRFileName,
+				listofTopTenMostVaryingDnaseMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( tfbsMapabilityDirectory, tfbsMapabilityBoxPlotinRFileName,
+				listofTopTenMostVaryingTfbsMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
+		createTabDelimitedTextFileforBoxPlotinR( histoneMapabilityDirectory, histoneMapabilityBoxPlotinRFileName,
+				listofTopTenMostVaryingHistoneMapabilityFiles, Commons.WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE);
 
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		// For All Files
 		createTabDelimitedTextFileForAllFiles();

@@ -16,14 +16,14 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "from", "to" })
-@XmlRootElement(name = "Translation")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"from", "to"})
+@XmlRootElement( name = "Translation")
 public class Translation {
 
-	@XmlElement(name = "From", required = true)
+	@XmlElement( name = "From", required = true)
 	protected String from;
-	@XmlElement(name = "To", required = true)
+	@XmlElement( name = "To", required = true)
 	protected String to;
 
 	/**
@@ -33,6 +33,7 @@ public class Translation {
 	 * 
 	 */
 	public String getFrom() {
+
 		return from;
 	}
 
@@ -43,7 +44,8 @@ public class Translation {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setFrom(String value) {
+	public void setFrom( String value) {
+
 		this.from = value;
 	}
 
@@ -54,6 +56,7 @@ public class Translation {
 	 * 
 	 */
 	public String getTo() {
+
 		return to;
 	}
 
@@ -64,7 +67,8 @@ public class Translation {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setTo(String value) {
+	public void setTo( String value) {
+
 		this.to = value;
 	}
 

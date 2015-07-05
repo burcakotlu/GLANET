@@ -5,40 +5,40 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
-
 import common.Commons;
 
 public class CalculateUtility {
 
-	public static void fillHashMapwithZeros(Map<String, Long> hashMap, String inputFileName) {
+	public static void fillHashMapwithZeros( Map<String, Long> hashMap, String inputFileName) {
+
 		String strLine;
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
-		try {
-			fileReader = new FileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
-				if (!(hashMap.containsKey(strLine))) {
+			while( ( strLine = bufferedReader.readLine()) != null){
+				if( !( hashMap.containsKey( strLine))){
 					// hashMap.put(strLine.toUpperCase(Locale.ENGLISH),
 					// Commons.LONG_ZERO);
-					hashMap.put(strLine, Commons.LONG_ZERO);
+					hashMap.put( strLine, Commons.LONG_ZERO);
 				}
 
 				strLine = null;
 			}
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
-		try {
+		try{
 			bufferedReader.close();
 			fileReader.close();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -46,7 +46,8 @@ public class CalculateUtility {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main( String[] args) {
+
 		// TODO Auto-generated method stub
 
 	}

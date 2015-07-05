@@ -9,7 +9,6 @@ package gov.nih.nlm.ncbi.snp.docsum;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -53,20 +52,20 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "mapLoc" })
-@XmlRootElement(name = "PrimarySequence")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType( name = "", propOrder = {"mapLoc"})
+@XmlRootElement( name = "PrimarySequence")
 public class PrimarySequence {
 
-	@XmlElement(name = "MapLoc", required = true)
+	@XmlElement( name = "MapLoc", required = true)
 	protected List<MapLoc> mapLoc;
-	@XmlAttribute(name = "dbSnpBuild", required = true)
+	@XmlAttribute( name = "dbSnpBuild", required = true)
 	protected int dbSnpBuild;
-	@XmlAttribute(name = "gi", required = true)
+	@XmlAttribute( name = "gi", required = true)
 	protected int gi;
-	@XmlAttribute(name = "source")
+	@XmlAttribute( name = "source")
 	protected String source;
-	@XmlAttribute(name = "accession")
+	@XmlAttribute( name = "accession")
 	protected String accession;
 
 	/**
@@ -92,7 +91,8 @@ public class PrimarySequence {
 	 * 
 	 */
 	public List<MapLoc> getMapLoc() {
-		if (mapLoc == null) {
+
+		if( mapLoc == null){
 			mapLoc = new ArrayList<MapLoc>();
 		}
 		return this.mapLoc;
@@ -103,6 +103,7 @@ public class PrimarySequence {
 	 * 
 	 */
 	public int getDbSnpBuild() {
+
 		return dbSnpBuild;
 	}
 
@@ -110,7 +111,8 @@ public class PrimarySequence {
 	 * Sets the value of the dbSnpBuild property.
 	 * 
 	 */
-	public void setDbSnpBuild(int value) {
+	public void setDbSnpBuild( int value) {
+
 		this.dbSnpBuild = value;
 	}
 
@@ -119,6 +121,7 @@ public class PrimarySequence {
 	 * 
 	 */
 	public int getGi() {
+
 		return gi;
 	}
 
@@ -126,7 +129,8 @@ public class PrimarySequence {
 	 * Sets the value of the gi property.
 	 * 
 	 */
-	public void setGi(int value) {
+	public void setGi( int value) {
+
 		this.gi = value;
 	}
 
@@ -137,6 +141,7 @@ public class PrimarySequence {
 	 * 
 	 */
 	public String getSource() {
+
 		return source;
 	}
 
@@ -147,7 +152,8 @@ public class PrimarySequence {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setSource(String value) {
+	public void setSource( String value) {
+
 		this.source = value;
 	}
 
@@ -158,6 +164,7 @@ public class PrimarySequence {
 	 * 
 	 */
 	public String getAccession() {
+
 		return accession;
 	}
 
@@ -168,7 +175,8 @@ public class PrimarySequence {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setAccession(String value) {
+	public void setAccession( String value) {
+
 		this.accession = value;
 	}
 

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.CommandLineArguments;
@@ -26,7 +25,8 @@ public class HumanGenesAugmentation {
 
 	// read NCBI humanGene2RefSeq file
 	// fill map --> geneSymbol2ListofGeneIDMap: this map is ? 2 ? (? pairs)
-	public static void fillGeneSymbol2ListofGeneIDMap(String dataFolder, Map<String, List<Integer>> geneSymbol2ListofGeneIdMap) {
+	public static void fillGeneSymbol2ListofGeneIDMap( String dataFolder,
+			Map<String, List<Integer>> geneSymbol2ListofGeneIdMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -53,11 +53,11 @@ public class HumanGenesAugmentation {
 
 		List<Integer> geneIDList;
 
-		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = FileOperations.createFileReader( dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example line
 				// the second column is gene id column
 				// the fourth column is the refseq gene name column
@@ -65,39 +65,39 @@ public class HumanGenesAugmentation {
 				// AC_000151.1 157718668 55167315 55174019 - Alternate HuRef - -
 				// A1BG
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
-				indexofEigthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
-				indexofNinethTab = strLine.indexOf('\t', indexofEigthTab + 1);
-				indexofTenthTab = strLine.indexOf('\t', indexofNinethTab + 1);
-				indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab + 1);
-				indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab + 1);
-				indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab + 1);
-				indexofFourteenthTab = strLine.indexOf('\t', indexofThirteenthTab + 1);
-				indexofFifteenthTab = strLine.indexOf('\t', indexofFourteenthTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
+				indexofEigthTab = strLine.indexOf( '\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf( '\t', indexofEigthTab + 1);
+				indexofTenthTab = strLine.indexOf( '\t', indexofNinethTab + 1);
+				indexofEleventhTab = strLine.indexOf( '\t', indexofTenthTab + 1);
+				indexofTwelfthTab = strLine.indexOf( '\t', indexofEleventhTab + 1);
+				indexofThirteenthTab = strLine.indexOf( '\t', indexofTwelfthTab + 1);
+				indexofFourteenthTab = strLine.indexOf( '\t', indexofThirteenthTab + 1);
+				indexofFifteenthTab = strLine.indexOf( '\t', indexofFourteenthTab + 1);
 
-				geneID = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneID = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// geneSymbol the default symbol for the gene
-				geneSymbol = strLine.substring(indexofFifteenthTab + 1);
+				geneSymbol = strLine.substring( indexofFifteenthTab + 1);
 
-				if ((geneSymbol != null) && !(geneSymbol.equals("-"))) {
+				if( ( geneSymbol != null) && !( geneSymbol.equals( "-"))){
 
 					// FILL geneSymbol2ListoGeneIdMap starts
-					geneIDList = geneSymbol2ListofGeneIdMap.get(geneSymbol);
+					geneIDList = geneSymbol2ListofGeneIdMap.get( geneSymbol);
 
-					if (geneIDList == null) {
+					if( geneIDList == null){
 						geneIDList = new ArrayList<Integer>();
-						geneIDList.add(geneID);
-						geneSymbol2ListofGeneIdMap.put(geneSymbol, geneIDList);
-					} else {
-						if (!geneIDList.contains(geneID)) {
-							geneIDList.add(geneID);
+						geneIDList.add( geneID);
+						geneSymbol2ListofGeneIdMap.put( geneSymbol, geneIDList);
+					}else{
+						if( !geneIDList.contains( geneID)){
+							geneIDList.add( geneID);
 						}
 
 						// //For debugging purposes starts
@@ -107,7 +107,7 @@ public class HumanGenesAugmentation {
 						// }
 						// //For debugging purposes ends
 
-						geneSymbol2ListofGeneIdMap.put(geneSymbol, geneIDList);
+						geneSymbol2ListofGeneIdMap.put( geneSymbol, geneIDList);
 
 					}
 					// FILL geneSymbol2ListoGeneIdMap ends
@@ -118,9 +118,9 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -129,7 +129,8 @@ public class HumanGenesAugmentation {
 	// read NCBI humanGene2RefSeq file
 	// fill map --> RNANucleotideAccession2ListofGeneIDMap: this map is many 2
 	// one (41065 pairs)
-	public static void fillRNANucleotideAccession2ListofGeneIdMap(String dataFolder, Map<String, List<Integer>> RNANucleotideAccession2ListofGeneIdMap) {
+	public static void fillRNANucleotideAccession2ListofGeneIdMap( String dataFolder,
+			Map<String, List<Integer>> RNANucleotideAccession2ListofGeneIdMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -148,51 +149,51 @@ public class HumanGenesAugmentation {
 
 		List<Integer> geneIDList;
 
-		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = FileOperations.createFileReader( dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example line
 				// the second column is gene id column
 				// the fourth column is the refseq gene name column
 				// 9606 63976 REVIEWED NM_022114.3 289547572 NP_071397.3
 				// 289547573 NC_000001.10 224589800 2985741 3355184 + Reference
 				// GRCh37.p10 Primary Assembly
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
 
-				geneID = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneID = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// RNA nucleotide accession.version: may be null (-) for some
 				// genomes
-				RNANucleotideAccessionWithVersion = strLine.substring(indexofThirdTab + 1, indexofFourthTab);
+				RNANucleotideAccessionWithVersion = strLine.substring( indexofThirdTab + 1, indexofFourthTab);
 
-				indexofDot = RNANucleotideAccessionWithVersion.indexOf('.');
+				indexofDot = RNANucleotideAccessionWithVersion.indexOf( '.');
 				RNANucleotideAccession = null;
-				if (indexofDot >= 0) {
-					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring(0, indexofDot);
+				if( indexofDot >= 0){
+					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring( 0, indexofDot);
 				}
 
-				if (!RNANucleotideAccessionWithVersion.equals("-")) {
+				if( !RNANucleotideAccessionWithVersion.equals( "-")){
 
 					// FILL RefSeqRNANucleotideAccession2ListofHumanGeneIdMap
 					// starts
-					if (RNANucleotideAccession != null) {
+					if( RNANucleotideAccession != null){
 
-						geneIDList = RNANucleotideAccession2ListofGeneIdMap.get(RNANucleotideAccession);
+						geneIDList = RNANucleotideAccession2ListofGeneIdMap.get( RNANucleotideAccession);
 
-						if (geneIDList == null) {
+						if( geneIDList == null){
 							geneIDList = new ArrayList<Integer>();
 
-							geneIDList.add(geneID);
+							geneIDList.add( geneID);
 
-							RNANucleotideAccession2ListofGeneIdMap.put(RNANucleotideAccession, geneIDList);
-						} else {
-							if (!geneIDList.contains(geneID)) {
-								geneIDList.add(geneID);
+							RNANucleotideAccession2ListofGeneIdMap.put( RNANucleotideAccession, geneIDList);
+						}else{
+							if( !geneIDList.contains( geneID)){
+								geneIDList.add( geneID);
 							}
 
 							// if(geneIDList.size()>1){
@@ -200,7 +201,7 @@ public class HumanGenesAugmentation {
 							// geneIDList.size());
 							// }
 
-							RNANucleotideAccession2ListofGeneIdMap.put(RNANucleotideAccession, geneIDList);
+							RNANucleotideAccession2ListofGeneIdMap.put( RNANucleotideAccession, geneIDList);
 
 						}
 					}// End of IF: map key is not null
@@ -214,9 +215,9 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
@@ -340,7 +341,9 @@ public class HumanGenesAugmentation {
 	// one 2 one (41065 pairs)
 	// 2. map --> alternateGeneName2ListofRNANucleotideAccessionMap: this map is
 	// one 2 many (23732 pairs)
-	public static void fillRNANucleotideAccession2ListofAlternateGeneNameMapAndReverseMap(String dataFolder, Map<String, List<String>> RNANucleotideAccession2ListofGeneSymbolMap, Map<String, List<String>> geneSymbol2ListofRNANucleotideAccessionMap) {
+	public static void fillRNANucleotideAccession2ListofAlternateGeneNameMapAndReverseMap( String dataFolder,
+			Map<String, List<String>> RNANucleotideAccession2ListofGeneSymbolMap,
+			Map<String, List<String>> geneSymbol2ListofRNANucleotideAccessionMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -366,14 +369,14 @@ public class HumanGenesAugmentation {
 		List<String> alternateGeneNameList;
 		List<String> RNANucleotideAccessionList;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
 			// skip header line
 			strLine = bufferedReader.readLine();
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// header line
 				// #bin name chrom strand txStart txEnd cdsStart cdsEnd
 				// exonCount exonStarts exonEnds score name2 cdsStartStat
@@ -385,57 +388,57 @@ public class HumanGenesAugmentation {
 				// 0 SGIP1 cmpl cmpl
 				// 0,1,2,0,0,0,1,0,0,0,1,2,1,1,1,1,0,1,1,2,2,0,2,1,1,
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
-				indexofEighthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
-				indexofNinethTab = strLine.indexOf('\t', indexofEighthTab + 1);
-				indexofTenthTab = strLine.indexOf('\t', indexofNinethTab + 1);
-				indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab + 1);
-				indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab + 1);
-				indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
+				indexofEighthTab = strLine.indexOf( '\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf( '\t', indexofEighthTab + 1);
+				indexofTenthTab = strLine.indexOf( '\t', indexofNinethTab + 1);
+				indexofEleventhTab = strLine.indexOf( '\t', indexofTenthTab + 1);
+				indexofTwelfthTab = strLine.indexOf( '\t', indexofEleventhTab + 1);
+				indexofThirteenthTab = strLine.indexOf( '\t', indexofTwelfthTab + 1);
 
-				RNANucleotideAccession = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
-				alternateGeneName = strLine.substring(indexofTwelfthTab + 1, indexofThirteenthTab);
+				RNANucleotideAccession = strLine.substring( indexofFirstTab + 1, indexofSecondTab);
+				alternateGeneName = strLine.substring( indexofTwelfthTab + 1, indexofThirteenthTab);
 
 				/****************************************************************************/
-				alternateGeneNameList = RNANucleotideAccession2ListofGeneSymbolMap.get(RNANucleotideAccession);
+				alternateGeneNameList = RNANucleotideAccession2ListofGeneSymbolMap.get( RNANucleotideAccession);
 
-				if (alternateGeneNameList == null) {
+				if( alternateGeneNameList == null){
 					alternateGeneNameList = new ArrayList<String>();
-					alternateGeneNameList.add(alternateGeneName);
+					alternateGeneNameList.add( alternateGeneName);
 
-					RNANucleotideAccession2ListofGeneSymbolMap.put(RNANucleotideAccession, alternateGeneNameList);
-				} else {
+					RNANucleotideAccession2ListofGeneSymbolMap.put( RNANucleotideAccession, alternateGeneNameList);
+				}else{
 
-					if (!alternateGeneNameList.contains(alternateGeneName)) {
-						alternateGeneNameList.add(alternateGeneName);
+					if( !alternateGeneNameList.contains( alternateGeneName)){
+						alternateGeneNameList.add( alternateGeneName);
 					}
 
-					if (alternateGeneNameList.size() > 1) {
-						System.out.println("alternateGeneNameList size: " + alternateGeneNameList.size());
+					if( alternateGeneNameList.size() > 1){
+						System.out.println( "alternateGeneNameList size: " + alternateGeneNameList.size());
 					}
 
-					RNANucleotideAccession2ListofGeneSymbolMap.put(RNANucleotideAccession, alternateGeneNameList);
+					RNANucleotideAccession2ListofGeneSymbolMap.put( RNANucleotideAccession, alternateGeneNameList);
 				}
 				/****************************************************************************/
 
 				/****************************************************************************/
-				RNANucleotideAccessionList = geneSymbol2ListofRNANucleotideAccessionMap.get(alternateGeneName);
+				RNANucleotideAccessionList = geneSymbol2ListofRNANucleotideAccessionMap.get( alternateGeneName);
 
-				if (RNANucleotideAccessionList == null) {
+				if( RNANucleotideAccessionList == null){
 					RNANucleotideAccessionList = new ArrayList<String>();
-					RNANucleotideAccessionList.add(RNANucleotideAccession);
+					RNANucleotideAccessionList.add( RNANucleotideAccession);
 
-					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName, RNANucleotideAccessionList);
-				} else {
+					geneSymbol2ListofRNANucleotideAccessionMap.put( alternateGeneName, RNANucleotideAccessionList);
+				}else{
 
-					if (!RNANucleotideAccessionList.contains(RNANucleotideAccession)) {
-						RNANucleotideAccessionList.add(RNANucleotideAccession);
+					if( !RNANucleotideAccessionList.contains( RNANucleotideAccession)){
+						RNANucleotideAccessionList.add( RNANucleotideAccession);
 					}
 
 					// if (RNANucleotideAccessionList.size()>1){
@@ -443,7 +446,7 @@ public class HumanGenesAugmentation {
 					// RNANucleotideAccessionList.size());
 					// }
 
-					geneSymbol2ListofRNANucleotideAccessionMap.put(alternateGeneName, RNANucleotideAccessionList);
+					geneSymbol2ListofRNANucleotideAccessionMap.put( alternateGeneName, RNANucleotideAccessionList);
 				}
 				/****************************************************************************/
 
@@ -451,20 +454,18 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
-	
-	//1 March 2015
-	public static void fillGeneId2GeneHugoSymbolMap(
-			String dataFolder, 
-			TIntObjectMap<String>  geneID2ListofGeneHugoSymbolMap 
-	) {
-		
+
+	// 1 March 2015
+	public static void fillGeneId2GeneHugoSymbolMap( String dataFolder,
+			TIntObjectMap<String> geneID2ListofGeneHugoSymbolMap) {
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -488,13 +489,12 @@ public class HumanGenesAugmentation {
 		int geneID;
 		String geneSymbol;
 		String geneSymbolList;
-		
-	
-		try {
-			fileReader = FileOperations.createFileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+		try{
+			fileReader = FileOperations.createFileReader( dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example line
 				// the second column is gene id column
 				// the fourth column is the refseq gene name column
@@ -502,57 +502,53 @@ public class HumanGenesAugmentation {
 				// AC_000151.1 157718668 55167315 55174019 - Alternate HuRef - -
 				// A1BG
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
-				indexofEigthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
-				indexofNinethTab = strLine.indexOf('\t', indexofEigthTab + 1);
-				indexofTenthTab = strLine.indexOf('\t', indexofNinethTab + 1);
-				indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab + 1);
-				indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab + 1);
-				indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab + 1);
-				indexofFourteenthTab = strLine.indexOf('\t', indexofThirteenthTab + 1);
-				indexofFifteenthTab = strLine.indexOf('\t', indexofFourteenthTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
+				indexofEigthTab = strLine.indexOf( '\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf( '\t', indexofEigthTab + 1);
+				indexofTenthTab = strLine.indexOf( '\t', indexofNinethTab + 1);
+				indexofEleventhTab = strLine.indexOf( '\t', indexofTenthTab + 1);
+				indexofTwelfthTab = strLine.indexOf( '\t', indexofEleventhTab + 1);
+				indexofThirteenthTab = strLine.indexOf( '\t', indexofTwelfthTab + 1);
+				indexofFourteenthTab = strLine.indexOf( '\t', indexofThirteenthTab + 1);
+				indexofFifteenthTab = strLine.indexOf( '\t', indexofFourteenthTab + 1);
 
-				geneID = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneID = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// geneSymbol the default symbol for the gene
-				geneSymbol = strLine.substring(indexofFifteenthTab + 1);
+				geneSymbol = strLine.substring( indexofFifteenthTab + 1);
 
-		
 				// FILL geneID2ListofGeneHugoSymbolMap starts
-				geneSymbolList = geneID2ListofGeneHugoSymbolMap.get(geneID);
+				geneSymbolList = geneID2ListofGeneHugoSymbolMap.get( geneID);
 
-				if (geneSymbolList == null) {
-					geneSymbolList =  geneSymbol ;
-					geneID2ListofGeneHugoSymbolMap.put(geneID, geneSymbolList);
-				} else {
-					
-					if (!geneSymbolList.contains(geneSymbol)){
-						geneSymbolList = geneSymbolList + " " + geneSymbol ;
-						geneID2ListofGeneHugoSymbolMap.put(geneID, geneSymbolList);
+				if( geneSymbolList == null){
+					geneSymbolList = geneSymbol;
+					geneID2ListofGeneHugoSymbolMap.put( geneID, geneSymbolList);
+				}else{
+
+					if( !geneSymbolList.contains( geneSymbol)){
+						geneSymbolList = geneSymbolList + " " + geneSymbol;
+						geneID2ListofGeneHugoSymbolMap.put( geneID, geneSymbolList);
 					}
-					
+
 				}
 				// FILL geneID2ListofGeneHugoSymbolMap ends
-
-		
 
 			}// End of while
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
-
 
 	// read NCBI humanGene2RefSeq file
 	// fill two maps
@@ -560,7 +556,9 @@ public class HumanGenesAugmentation {
 	// (27240 pairs)
 	// 2. map --> RNANucleotideAccession2ListofGeneIDMap: this map is many 2 one
 	// (41065 pairs)
-	public static void fillGeneId2ListofRNANucleotideAccessionMapAndReverseMap(String dataFolder, Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap, Map<String, List<Integer>> RefSeqRNANucleotideAccession2ListofHumanGeneIdMap) {
+	public static void fillGeneId2ListofRNANucleotideAccessionMapAndReverseMap( String dataFolder,
+			Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap,
+			Map<String, List<Integer>> RefSeqRNANucleotideAccession2ListofHumanGeneIdMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -580,52 +578,53 @@ public class HumanGenesAugmentation {
 		List<String> RNANucleotideAccessionList;
 		List<Integer> geneIDList;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example line
 				// the second column is gene id column
 				// the fourth column is the refseq gene name column
 				// 9606 63976 REVIEWED NM_022114.3 289547572 NP_071397.3
 				// 289547573 NC_000001.10 224589800 2985741 3355184 + Reference
 				// GRCh37.p10 Primary Assembly
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
 
-				geneID = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneID = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// RNA nucleotide accession.version: may be null (-) for some
 				// genomes
-				RNANucleotideAccessionWithVersion = strLine.substring(indexofThirdTab + 1, indexofFourthTab);
+				RNANucleotideAccessionWithVersion = strLine.substring( indexofThirdTab + 1, indexofFourthTab);
 
-				indexofDot = RNANucleotideAccessionWithVersion.indexOf('.');
+				indexofDot = RNANucleotideAccessionWithVersion.indexOf( '.');
 				RNANucleotideAccession = null;
-				if (indexofDot >= 0) {
-					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring(0, indexofDot);
+				if( indexofDot >= 0){
+					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring( 0, indexofDot);
 				}
 
-				RNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get(geneID);
+				RNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get( geneID);
 
-				if (!RNANucleotideAccessionWithVersion.equals("-")) {
+				if( !RNANucleotideAccessionWithVersion.equals( "-")){
 
 					// FILL humanGeneId2ListofRefSeqRNANucleotideAccessionMap
 					// starts
-					if (RNANucleotideAccessionList == null) {
+					if( RNANucleotideAccessionList == null){
 						RNANucleotideAccessionList = new ArrayList<String>();
 
-						if (RNANucleotideAccession != null) {
-							RNANucleotideAccessionList.add(RNANucleotideAccession);
+						if( RNANucleotideAccession != null){
+							RNANucleotideAccessionList.add( RNANucleotideAccession);
 						}
 
-						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneID, RNANucleotideAccessionList);
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put( geneID, RNANucleotideAccessionList);
 
-					} else {
-						if (RNANucleotideAccession != null && !RNANucleotideAccessionList.contains(RNANucleotideAccession)) {
-							RNANucleotideAccessionList.add(RNANucleotideAccession);
+					}else{
+						if( RNANucleotideAccession != null && !RNANucleotideAccessionList.contains( RNANucleotideAccession)){
+							RNANucleotideAccessionList.add( RNANucleotideAccession);
 						}
 
 						// if(refSeqRNANucleotideAccessionList.size()>1){
@@ -633,7 +632,7 @@ public class HumanGenesAugmentation {
 						// + refSeqRNANucleotideAccessionList.size());
 						// }
 
-						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneID, RNANucleotideAccessionList);
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put( geneID, RNANucleotideAccessionList);
 
 					}
 					// FILL humanGeneId2ListofRefSeqRNANucleotideAccessionMap
@@ -641,19 +640,19 @@ public class HumanGenesAugmentation {
 
 					// FILL RefSeqRNANucleotideAccession2ListofHumanGeneIdMap
 					// starts
-					if (RNANucleotideAccession != null) {
+					if( RNANucleotideAccession != null){
 
-						geneIDList = RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.get(RNANucleotideAccession);
+						geneIDList = RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.get( RNANucleotideAccession);
 
-						if (geneIDList == null) {
+						if( geneIDList == null){
 							geneIDList = new ArrayList<Integer>();
 
-							geneIDList.add(geneID);
+							geneIDList.add( geneID);
 
-							RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.put(RNANucleotideAccession, geneIDList);
-						} else {
-							if (!geneIDList.contains(geneID)) {
-								geneIDList.add(geneID);
+							RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.put( RNANucleotideAccession, geneIDList);
+						}else{
+							if( !geneIDList.contains( geneID)){
+								geneIDList.add( geneID);
 							}
 
 							// if(geneIDList.size()>1){
@@ -661,7 +660,7 @@ public class HumanGenesAugmentation {
 							// geneIDList.size());
 							// }
 
-							RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.put(RNANucleotideAccession, geneIDList);
+							RefSeqRNANucleotideAccession2ListofHumanGeneIdMap.put( RNANucleotideAccession, geneIDList);
 
 						}
 					}// End of IF: map key is not null
@@ -675,15 +674,17 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap(String dataFolder, Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap) {
+	public static void fillHumanGeneId2ListofRefSeqRNANucleotideAccessionMap( String dataFolder,
+			Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap) {
+
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 		String strLine;
@@ -701,54 +702,55 @@ public class HumanGenesAugmentation {
 
 		List<String> refSeqRNANucleotideAccessionList;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader(
+					dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_FILENAME_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example line
 				// the second column is gene id column
 				// the fourth column is the refseq gene name column
 				// 9606 63976 REVIEWED NM_022114.3 289547572 NP_071397.3
 				// 289547573 NC_000001.10 224589800 2985741 3355184 + Reference
 				// GRCh37.p10 Primary Assembly
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
 
-				geneId = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+				geneId = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 
 				// RNA nucleotide accession.version: may be null (-) for some
 				// genomes
-				RNANucleotideAccessionWithVersion = strLine.substring(indexofThirdTab + 1, indexofFourthTab);
+				RNANucleotideAccessionWithVersion = strLine.substring( indexofThirdTab + 1, indexofFourthTab);
 
-				indexofDot = RNANucleotideAccessionWithVersion.indexOf('.');
+				indexofDot = RNANucleotideAccessionWithVersion.indexOf( '.');
 
 				RNANucleotideAccession = null;
 
-				if (indexofDot >= 0) {
-					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring(0, indexofDot);
+				if( indexofDot >= 0){
+					RNANucleotideAccession = RNANucleotideAccessionWithVersion.substring( 0, indexofDot);
 				}
 
-				refSeqRNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get(geneId);
+				refSeqRNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get( geneId);
 
-				if (!RNANucleotideAccessionWithVersion.equals("-")) {
-					if (refSeqRNANucleotideAccessionList == null) {
+				if( !RNANucleotideAccessionWithVersion.equals( "-")){
+					if( refSeqRNANucleotideAccessionList == null){
 						refSeqRNANucleotideAccessionList = new ArrayList<String>();
 
-						if (RNANucleotideAccession != null) {
-							refSeqRNANucleotideAccessionList.add(RNANucleotideAccession);
+						if( RNANucleotideAccession != null){
+							refSeqRNANucleotideAccessionList.add( RNANucleotideAccession);
 						}
 
-						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneId, refSeqRNANucleotideAccessionList);
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put( geneId, refSeqRNANucleotideAccessionList);
 
-					} else {
-						if (RNANucleotideAccession != null && !refSeqRNANucleotideAccessionList.contains(RNANucleotideAccession)) {
-							refSeqRNANucleotideAccessionList.add(RNANucleotideAccession);
+					}else{
+						if( RNANucleotideAccession != null && !refSeqRNANucleotideAccessionList.contains( RNANucleotideAccession)){
+							refSeqRNANucleotideAccessionList.add( RNANucleotideAccession);
 						}
 
-						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put(geneId, refSeqRNANucleotideAccessionList);
+						humanGeneId2ListofRefSeqRNANucleotideAccessionMap.put( geneId, refSeqRNANucleotideAccessionList);
 
 					}
 				}
@@ -757,15 +759,16 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(String dataFolder, Map<String, List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap) {
+	public static void fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap( String dataFolder,
+			Map<String, List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -790,14 +793,14 @@ public class HumanGenesAugmentation {
 
 		List<String> alternateGeneNameList;
 
-		try {
-			fileReader = new FileReader(dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = new FileReader( dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014);
+			bufferedReader = new BufferedReader( fileReader);
 
 			// skip header line
 			strLine = bufferedReader.readLine();
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// header line
 				// #bin name chrom strand txStart txEnd cdsStart cdsEnd
 				// exonCount exonStarts exonEnds score name2 cdsStartStat
@@ -809,37 +812,39 @@ public class HumanGenesAugmentation {
 				// 0 SGIP1 cmpl cmpl
 				// 0,1,2,0,0,0,1,0,0,0,1,2,1,1,1,1,0,1,1,2,2,0,2,1,1,
 
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
-				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
-				indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
-				indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
-				indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
-				indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
-				indexofEighthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
-				indexofNinethTab = strLine.indexOf('\t', indexofEighthTab + 1);
-				indexofTenthTab = strLine.indexOf('\t', indexofNinethTab + 1);
-				indexofEleventhTab = strLine.indexOf('\t', indexofTenthTab + 1);
-				indexofTwelfthTab = strLine.indexOf('\t', indexofEleventhTab + 1);
-				indexofThirteenthTab = strLine.indexOf('\t', indexofTwelfthTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+				indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
+				indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
+				indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
+				indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
+				indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
+				indexofEighthTab = strLine.indexOf( '\t', indexofSeventhTab + 1);
+				indexofNinethTab = strLine.indexOf( '\t', indexofEighthTab + 1);
+				indexofTenthTab = strLine.indexOf( '\t', indexofNinethTab + 1);
+				indexofEleventhTab = strLine.indexOf( '\t', indexofTenthTab + 1);
+				indexofTwelfthTab = strLine.indexOf( '\t', indexofEleventhTab + 1);
+				indexofThirteenthTab = strLine.indexOf( '\t', indexofTwelfthTab + 1);
 
-				refSeqRNANucleotideAccession = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
-				alternateGeneName = strLine.substring(indexofTwelfthTab + 1, indexofThirteenthTab);
+				refSeqRNANucleotideAccession = strLine.substring( indexofFirstTab + 1, indexofSecondTab);
+				alternateGeneName = strLine.substring( indexofTwelfthTab + 1, indexofThirteenthTab);
 
-				alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get(refSeqRNANucleotideAccession);
+				alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get( refSeqRNANucleotideAccession);
 
-				if (alternateGeneNameList == null) {
+				if( alternateGeneNameList == null){
 					alternateGeneNameList = new ArrayList<String>();
-					alternateGeneNameList.add(alternateGeneName);
+					alternateGeneNameList.add( alternateGeneName);
 
-					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put(refSeqRNANucleotideAccession, alternateGeneNameList);
-				} else {
+					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put( refSeqRNANucleotideAccession,
+							alternateGeneNameList);
+				}else{
 
-					if (!alternateGeneNameList.contains(alternateGeneName)) {
-						alternateGeneNameList.add(alternateGeneName);
+					if( !alternateGeneNameList.contains( alternateGeneName)){
+						alternateGeneNameList.add( alternateGeneName);
 					}
 
-					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put(refSeqRNANucleotideAccession, alternateGeneNameList);
+					humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.put( refSeqRNANucleotideAccession,
+							alternateGeneNameList);
 
 				}
 
@@ -847,23 +852,26 @@ public class HumanGenesAugmentation {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	public static void augmentGeneIdWithRefSeqRNANucleotideAccession(List<Integer> keggPathwayGeneIdList, List<String> keggPathwayRefSeqRNANucleotideAccessionList, Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap) {
+	public static void augmentGeneIdWithRefSeqRNANucleotideAccession( List<Integer> keggPathwayGeneIdList,
+			List<String> keggPathwayRefSeqRNANucleotideAccessionList,
+			Map<Integer, List<String>> humanGeneId2ListofRefSeqRNANucleotideAccessionMap) {
+
 		List<String> refSeqRNANucleotideAccessionList;
 
-		for (Integer geneId : keggPathwayGeneIdList) {
-			refSeqRNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get(geneId);
+		for( Integer geneId : keggPathwayGeneIdList){
+			refSeqRNANucleotideAccessionList = humanGeneId2ListofRefSeqRNANucleotideAccessionMap.get( geneId);
 
-			if (refSeqRNANucleotideAccessionList != null) {
-				for (String refSeqRNANucleotideAccession : refSeqRNANucleotideAccessionList) {
-					if (!keggPathwayRefSeqRNANucleotideAccessionList.contains(refSeqRNANucleotideAccession)) {
-						keggPathwayRefSeqRNANucleotideAccessionList.add(refSeqRNANucleotideAccession);
+			if( refSeqRNANucleotideAccessionList != null){
+				for( String refSeqRNANucleotideAccession : refSeqRNANucleotideAccessionList){
+					if( !keggPathwayRefSeqRNANucleotideAccessionList.contains( refSeqRNANucleotideAccession)){
+						keggPathwayRefSeqRNANucleotideAccessionList.add( refSeqRNANucleotideAccession);
 					}
 				}
 			}
@@ -871,16 +879,19 @@ public class HumanGenesAugmentation {
 
 	}
 
-	public static void augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(List<String> keggPathwayRefSeqRNANucleotideAccessionList, List<String> keggPathwayAlternateGeneNameList, Map<String, List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap) {
+	public static void augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(
+			List<String> keggPathwayRefSeqRNANucleotideAccessionList, List<String> keggPathwayAlternateGeneNameList,
+			Map<String, List<String>> humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap) {
+
 		List<String> alternateGeneNameList;
 
-		for (String refSeqRNANucleotideAccession : keggPathwayRefSeqRNANucleotideAccessionList) {
-			alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get(refSeqRNANucleotideAccession);
+		for( String refSeqRNANucleotideAccession : keggPathwayRefSeqRNANucleotideAccessionList){
+			alternateGeneNameList = humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap.get( refSeqRNANucleotideAccession);
 
-			if (alternateGeneNameList != null) {
-				for (String alternateGeneName : alternateGeneNameList) {
-					if (!keggPathwayAlternateGeneNameList.contains(alternateGeneName)) {
-						keggPathwayAlternateGeneNameList.add(alternateGeneName);
+			if( alternateGeneNameList != null){
+				for( String alternateGeneName : alternateGeneNameList){
+					if( !keggPathwayAlternateGeneNameList.contains( alternateGeneName)){
+						keggPathwayAlternateGeneNameList.add( alternateGeneName);
 					}
 				}
 			}
@@ -892,6 +903,7 @@ public class HumanGenesAugmentation {
 	 * 
 	 */
 	public HumanGenesAugmentation() {
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -917,10 +929,10 @@ public class HumanGenesAugmentation {
 	// DO_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT or
 	// DO_NOT_TF_CELLLINE_KEGGPATHWAY_ENRICHMENT
 	// args[13] must have a job name exampe: any_string
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		// String outputFolder = glanetFolder + Commons.OUTPUT +
 		// System.getProperty("file.separator") ;
 
@@ -937,30 +949,34 @@ public class HumanGenesAugmentation {
 		// fillHumanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap(dataFolder,humanRefSeqRNANucleotideAccession2ListofAlternateGeneNameMap);
 
 		// For testing purposes
-		fillGeneId2ListofRNANucleotideAccessionMapAndReverseMap(dataFolder, geneId2ListofRNANucleotideAccessionMap, RNANucleotideAccession2ListofGeneIdMap);
-		System.out.println("geneId2ListofRNANucleotideAccessionMap Size: " + geneId2ListofRNANucleotideAccessionMap.size());
-		System.out.println("RNANucleotideAccession2ListofGeneIdMap Size: " + RNANucleotideAccession2ListofGeneIdMap.size());
+		fillGeneId2ListofRNANucleotideAccessionMapAndReverseMap( dataFolder, geneId2ListofRNANucleotideAccessionMap,
+				RNANucleotideAccession2ListofGeneIdMap);
+		System.out.println( "geneId2ListofRNANucleotideAccessionMap Size: " + geneId2ListofRNANucleotideAccessionMap.size());
+		System.out.println( "RNANucleotideAccession2ListofGeneIdMap Size: " + RNANucleotideAccession2ListofGeneIdMap.size());
 
-		fillRNANucleotideAccession2ListofAlternateGeneNameMapAndReverseMap(dataFolder, RNANucleotideAccession2ListofAlternateGeneNameMap, alternateGeneName2ListofRNANucleotideAccessionMap);
-		System.out.println("RNANucleotideAccession2ListofAlternateGeneNameMap Size: " + RNANucleotideAccession2ListofAlternateGeneNameMap.size());
-		System.out.println("alternateGeneName2ListofRNANucleotideAccessionMap Size: " + alternateGeneName2ListofRNANucleotideAccessionMap.size());
+		fillRNANucleotideAccession2ListofAlternateGeneNameMapAndReverseMap( dataFolder,
+				RNANucleotideAccession2ListofAlternateGeneNameMap, alternateGeneName2ListofRNANucleotideAccessionMap);
+		System.out.println( "RNANucleotideAccession2ListofAlternateGeneNameMap Size: " + RNANucleotideAccession2ListofAlternateGeneNameMap.size());
+		System.out.println( "alternateGeneName2ListofRNANucleotideAccessionMap Size: " + alternateGeneName2ListofRNANucleotideAccessionMap.size());
 
 		List<Integer> keggPathwayGeneIdList = new ArrayList<Integer>();
-		keggPathwayGeneIdList.add(10000);
-		keggPathwayGeneIdList.add(1050);
-		keggPathwayGeneIdList.add(11040);
-		keggPathwayGeneIdList.add(1147);
-		keggPathwayGeneIdList.add(1978);
-		keggPathwayGeneIdList.add(207);
-		keggPathwayGeneIdList.add(208);
-		keggPathwayGeneIdList.add(2322);
-		keggPathwayGeneIdList.add(23533);
+		keggPathwayGeneIdList.add( 10000);
+		keggPathwayGeneIdList.add( 1050);
+		keggPathwayGeneIdList.add( 11040);
+		keggPathwayGeneIdList.add( 1147);
+		keggPathwayGeneIdList.add( 1978);
+		keggPathwayGeneIdList.add( 207);
+		keggPathwayGeneIdList.add( 208);
+		keggPathwayGeneIdList.add( 2322);
+		keggPathwayGeneIdList.add( 23533);
 
 		List<String> keggPathwayRefSeqRNANucleotideAccessionList = new ArrayList<String>();
 		List<String> keggPathwayAlternateGeneNameList = new ArrayList<String>();
 
-		augmentGeneIdWithRefSeqRNANucleotideAccession(keggPathwayGeneIdList, keggPathwayRefSeqRNANucleotideAccessionList, geneId2ListofRNANucleotideAccessionMap);
-		augmentRefSeqRNANucleotideAccessionwithAlternateGeneName(keggPathwayRefSeqRNANucleotideAccessionList, keggPathwayAlternateGeneNameList, RNANucleotideAccession2ListofAlternateGeneNameMap);
+		augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,
+				keggPathwayRefSeqRNANucleotideAccessionList, geneId2ListofRNANucleotideAccessionMap);
+		augmentRefSeqRNANucleotideAccessionwithAlternateGeneName( keggPathwayRefSeqRNANucleotideAccessionList,
+				keggPathwayAlternateGeneNameList, RNANucleotideAccession2ListofAlternateGeneNameMap);
 
 	}
 

@@ -11,7 +11,6 @@ package giveninputdata;
 import intervaltree.GivenInputDataSNPSorIntervals;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -21,13 +20,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
-
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.Assembly;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -36,41 +31,44 @@ import enumtypes.NodeType;
 
 public class InputDataRemoveOverlaps {
 
-	final static Logger logger = Logger.getLogger(InputDataRemoveOverlaps.class);
+	final static Logger logger = Logger.getLogger( InputDataRemoveOverlaps.class);
 
-	public static IntervalTreeNode mergeIntervals(IntervalTreeNode node1, IntervalTreeNode node2) {
+	public static IntervalTreeNode mergeIntervals( IntervalTreeNode node1, IntervalTreeNode node2) {
 
-		if (node2.getLow() < node1.getLow()) {
-			node1.setLow(node2.getLow());
+		if( node2.getLow() < node1.getLow()){
+			node1.setLow( node2.getLow());
 		}
 
-		if (node2.getHigh() > node1.getHigh()) {
-			node1.setHigh(node2.getHigh());
+		if( node2.getHigh() > node1.getHigh()){
+			node1.setHigh( node2.getHigh());
 		}
 
 		return node1;
 
 	}
 
-	public static void updateMergedNode(IntervalTreeNode mergedNode, IntervalTreeNode overlappedNode) {
-		if (overlappedNode.getLow() < mergedNode.getLow()) {
-			mergedNode.setLow(overlappedNode.getLow());
+	public static void updateMergedNode( IntervalTreeNode mergedNode, IntervalTreeNode overlappedNode) {
+
+		if( overlappedNode.getLow() < mergedNode.getLow()){
+			mergedNode.setLow( overlappedNode.getLow());
 		}
 
-		if (overlappedNode.getHigh() > mergedNode.getHigh()) {
-			mergedNode.setHigh(overlappedNode.getHigh());
+		if( overlappedNode.getHigh() > mergedNode.getHigh()){
+			mergedNode.setHigh( overlappedNode.getHigh());
 		}
 
-		mergedNode.setNumberofBases(mergedNode.getHigh() - mergedNode.getLow() + 1);
+		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
 	}
 
-	public static IntervalTreeNode compute(Map<IntervalTreeNode, IntervalTreeNode> splicedNode2CopiedNodeMap, IntervalTreeNode overlappedNode) {
-		IntervalTreeNode node = splicedNode2CopiedNodeMap.get(overlappedNode);
+	public static IntervalTreeNode compute( Map<IntervalTreeNode, IntervalTreeNode> splicedNode2CopiedNodeMap,
+			IntervalTreeNode overlappedNode) {
+
+		IntervalTreeNode node = splicedNode2CopiedNodeMap.get( overlappedNode);
 		IntervalTreeNode savedPreviousNode = null;
 
-		while (node != null) {
+		while( node != null){
 			savedPreviousNode = node;
-			node = splicedNode2CopiedNodeMap.get(node);
+			node = splicedNode2CopiedNodeMap.get( node);
 		}
 
 		return savedPreviousNode;
@@ -86,43 +84,43 @@ public class InputDataRemoveOverlaps {
 	 * Then write each interval tree to an output file. In this manner input
 	 * file will get rid of overlaps.
 	 */
-	public static void removeOverlaps(String[] args) {
+	public static void removeOverlaps( String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		Assembly inputFileAssembly = Assembly.convertStringtoEnum(args[CommandLineArguments.InputFileAssembly.value()]);
-		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
+		Assembly inputFileAssembly = Assembly.convertStringtoEnum( args[CommandLineArguments.InputFileAssembly.value()]);
+		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum( args[CommandLineArguments.InputFileDataFormat.value()]);
 		String inputFileName = null;
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if (jobName.isEmpty()) {
+		if( jobName.isEmpty()){
 			jobName = Commons.NO_NAME;
 		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
-		switch (inputFileFormat) {
+		switch( inputFileFormat){
 
-			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
-			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
-			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
-			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
+		case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
+		case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
+		case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+		case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
 
-				switch (inputFileAssembly) {
-					case GRCh38:
-						inputFileName = givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38;
-						break;
-					case GRCh37_p13:
-						inputFileName = givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13;
-						break;
-				}// End of SWITCH inputFileAssembly
+			switch( inputFileAssembly){
+			case GRCh38:
+				inputFileName = givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38;
 				break;
-
-			case INPUT_FILE_FORMAT_DBSNP_IDS:
+			case GRCh37_p13:
 				inputFileName = givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 				break;
+			}// End of SWITCH inputFileAssembly
+			break;
+
+		case INPUT_FILE_FORMAT_DBSNP_IDS:
+			inputFileName = givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13;
+			break;
 
 		}// End of SWITCH inputFileFormat
 
@@ -142,45 +140,47 @@ public class InputDataRemoveOverlaps {
 		IntervalTree intervalTree = null;
 		IntervalTreeNode intervalTreeNode = null;
 
-		try {
-			fileReader = FileOperations.createFileReader(inputFileName);
-			bufferedReader = new BufferedReader(fileReader);
+		try{
+			fileReader = FileOperations.createFileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
 
-			while ((strLine = bufferedReader.readLine()) != null) {
+			while( ( strLine = bufferedReader.readLine()) != null){
 				// example strLine
 				// chr12 90902 90902
-				indexofFirstTab = strLine.indexOf('\t');
-				indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
 
-				chromosomeName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
+				chromosomeName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));
 
-				if (indexofSecondTab > indexofFirstTab) {
-					low = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
-					high = Integer.parseInt(strLine.substring(indexofSecondTab + 1));
-				} else {
-					low = Integer.parseInt(strLine.substring(indexofFirstTab + 1));
+				if( indexofSecondTab > indexofFirstTab){
+					low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
+				}else{
+					low = Integer.parseInt( strLine.substring( indexofFirstTab + 1));
 					high = low;
 				}
 
-				intervalTree = chromosome2IntervalTree.get(chromosomeName);
-				intervalTreeNode = new IntervalTreeNode(chromosomeName, low, high);
+				intervalTree = chromosome2IntervalTree.get( chromosomeName);
+				intervalTreeNode = new IntervalTreeNode( chromosomeName, low, high);
 
 				// create chromosome based interval tree
-				if (intervalTree == null) {
+				if( intervalTree == null){
 					intervalTree = new IntervalTree();
-					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
-					chromosome2IntervalTree.put(chromosomeName, intervalTree);
+					intervalTree.intervalTreeInsert( intervalTree, intervalTreeNode);
+					chromosome2IntervalTree.put( chromosomeName, intervalTree);
 				}
 				// chromosome based interval tree already exists
-				else {
+				else{
 					List<IntervalTreeNode> overlappedNodeList = new ArrayList<IntervalTreeNode>();
 
-					intervalTree.findAllOverlappingIntervals(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
+					intervalTree.findAllOverlappingIntervals( overlappedNodeList, intervalTree.getRoot(),
+							intervalTreeNode);
 
 					// there is overlap
-					if (overlappedNodeList != null && overlappedNodeList.size() > 0) {
+					if( overlappedNodeList != null && overlappedNodeList.size() > 0){
 
-						IntervalTreeNode mergedNode = new IntervalTreeNode(intervalTreeNode.getChromName(), intervalTreeNode.getLow(), intervalTreeNode.getHigh(), NodeType.MERGED);
+						IntervalTreeNode mergedNode = new IntervalTreeNode( intervalTreeNode.getChromName(),
+								intervalTreeNode.getLow(), intervalTreeNode.getHigh(), NodeType.MERGED);
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted = null;
 						// you may try to delete a node which is already spliced
@@ -190,11 +190,11 @@ public class InputDataRemoveOverlaps {
 						// spliced out node.
 						Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
 
-						for (int i = 0; i < overlappedNodeList.size(); i++) {
+						for( int i = 0; i < overlappedNodeList.size(); i++){
 
-							IntervalTreeNode overlappedNode = overlappedNodeList.get(i);
+							IntervalTreeNode overlappedNode = overlappedNodeList.get( i);
 
-							updateMergedNode(mergedNode, overlappedNode);
+							updateMergedNode( mergedNode, overlappedNode);
 
 							// if the to be deleted, intended interval tree node
 							// is an already spliced out node
@@ -203,9 +203,9 @@ public class InputDataRemoveOverlaps {
 							// then you have to delete that node
 							// not the already spliced out node
 
-							nodetoBeDeleted = compute(splicedoutNode2CopiedNodeMap, overlappedNode);
+							nodetoBeDeleted = compute( splicedoutNode2CopiedNodeMap, overlappedNode);
 
-							if (nodetoBeDeleted != null) {
+							if( nodetoBeDeleted != null){
 								// they are the same
 								// current overlapped node has been copied to
 								// the previously deleted overlapped node
@@ -217,27 +217,27 @@ public class InputDataRemoveOverlaps {
 								// since current overlapped node is copied to
 								// the previously deleted overlapped node
 								// Now we can delete this overlappedNode
-								splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
+								splicedoutNode = intervalTree.intervalTreeDelete( intervalTree, nodetoBeDeleted);
 
-								if (splicedoutNode != nodetoBeDeleted)
-									splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
-							} else {
+								if( splicedoutNode != nodetoBeDeleted)
+									splicedoutNode2CopiedNodeMap.put( splicedoutNode, nodetoBeDeleted);
+							}else{
 								// Now we can delete this overlappedNode
-								splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
+								splicedoutNode = intervalTree.intervalTreeDelete( intervalTree, overlappedNode);
 
-								if (splicedoutNode != overlappedNode)
-									splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
+								if( splicedoutNode != overlappedNode)
+									splicedoutNode2CopiedNodeMap.put( splicedoutNode, overlappedNode);
 
 							}
 
 						}// end of for: each overlapped node in the list
-						intervalTree.intervalTreeInsert(intervalTree, mergedNode);
+						intervalTree.intervalTreeInsert( intervalTree, mergedNode);
 
 					}
 					// there is no overlap
-					else {
+					else{
 						// insert interval
-						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+						intervalTree.intervalTreeInsert( intervalTree, intervalTreeNode);
 					}
 				}
 
@@ -245,9 +245,9 @@ public class InputDataRemoveOverlaps {
 
 			bufferedReader.close();
 
-		} catch (FileNotFoundException e) {
+		}catch( FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -259,73 +259,76 @@ public class InputDataRemoveOverlaps {
 
 		String type = Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS;
 
-		try {
+		try{
 
-			switch (inputFileFormat) {
+			switch( inputFileFormat){
 
-				case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
-				case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
-				case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
-				case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
 
-					switch (inputFileAssembly) {
-						case GRCh38:
-							bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38));
-							break;
-						case GRCh37_p13:
-							bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
-							break;
-					}// End of SWITCH inputFileAssembly
+				switch( inputFileAssembly){
+				case GRCh38:
+					bufferedWriter = new BufferedWriter(
+							FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38));
 					break;
-
-				case INPUT_FILE_FORMAT_DBSNP_IDS:
-					bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+				case GRCh37_p13:
+					bufferedWriter = new BufferedWriter(
+							FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
 					break;
+				}// End of SWITCH inputFileAssembly
+				break;
+
+			case INPUT_FILE_FORMAT_DBSNP_IDS:
+				bufferedWriter = new BufferedWriter(
+						FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+				break;
 
 			}// End of SWITCH inputFileFormat
 
 			// Initialize isGivenInputDataComprisedofSNPs
 			// Assume that givenInputData is comprised of SNPs
 			GivenInputDataSNPSorIntervals givenInputDataSNPSorIntervals = new GivenInputDataSNPSorIntervals();
-			givenInputDataSNPSorIntervals.setGivenInputDataSNPs(true);
+			givenInputDataSNPSorIntervals.setGivenInputDataSNPs( true);
 
-			for (Map.Entry<ChromosomeName, IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()) {
+			for( Map.Entry<ChromosomeName, IntervalTree> chr2IntervalTree : chromosome2IntervalTree.entrySet()){
 
 				chromosomeName = chr2IntervalTree.getKey();
 				tree = chr2IntervalTree.getValue();
 
 				// write the nodes of the interval tree in a sorted way
-				tree.intervalTreeInfixTraversal(tree.getRoot(), bufferedWriter, type, givenInputDataSNPSorIntervals);
+				tree.intervalTreeInfixTraversal( tree.getRoot(), bufferedWriter, type, givenInputDataSNPSorIntervals);
 
 			}
 
 			// Set Command Line Argument
-			if (!givenInputDataSNPSorIntervals.getGivenInputDataSNPs()) {
+			if( !givenInputDataSNPSorIntervals.getGivenInputDataSNPs()){
 				args[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS;
 			}
 
 			// Close output file buffered writer
 			bufferedWriter.close();
 
-		} catch (IOException e) {
+		}catch( IOException e){
 
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void writeGLANETRunTimeArguments(String[] args) {
+	public static void writeGLANETRunTimeArguments( String[] args) {
 
-		logger.info("*****************************************************************");
-		logger.info("GLANET Parameters starts");
+		logger.info( "*****************************************************************");
+		logger.info( "GLANET Parameters starts");
 
 		// Write GLANET Arguments
-		for (int i = 0; i < args.length; i++) {
-			logger.info(args[i]);
+		for( int i = 0; i < args.length; i++){
+			logger.info( args[i]);
 		}
 
-		logger.info("GLANET Parameters ends");
-		logger.info("*****************************************************************");
+		logger.info( "GLANET Parameters ends");
+		logger.info( "*****************************************************************");
 
 	}
 
@@ -416,11 +419,11 @@ public class InputDataRemoveOverlaps {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main(String[] args) {
+	public static void main( String[] args) {
 
-		removeOverlaps(args);
+		removeOverlaps( args);
 
-		writeGLANETRunTimeArguments(args);
+		writeGLANETRunTimeArguments( args);
 
 	}
 

@@ -12,6 +12,7 @@ import gnu.trove.list.TShortList;
  * 
  */
 public class UcscRefSeqGeneOverlapWithNumbers {
+
 	// example
 	// refSeqGeneName NM_002979
 	// intervalName INTRON
@@ -31,70 +32,88 @@ public class UcscRefSeqGeneOverlapWithNumbers {
 	int high;
 
 	public int getRefSeqGeneNumber() {
+
 		return refSeqGeneNumber;
 	}
 
-	public void setRefSeqGeneNumber(int refSeqGeneNumber) {
+	public void setRefSeqGeneNumber( int refSeqGeneNumber) {
+
 		this.refSeqGeneNumber = refSeqGeneNumber;
 	}
 
 	public int getGeneHugoSymbolNumber() {
+
 		return geneHugoSymbolNumber;
 	}
 
-	public void setGeneHugoSymbolNumber(int geneHugoSymbolNumber) {
+	public void setGeneHugoSymbolNumber( int geneHugoSymbolNumber) {
+
 		this.geneHugoSymbolNumber = geneHugoSymbolNumber;
 	}
 
 	public int getGeneEntrezId() {
+
 		return geneEntrezId;
 	}
 
-	public void setGeneEntrezId(int geneEntrezId) {
+	public void setGeneEntrezId( int geneEntrezId) {
+
 		this.geneEntrezId = geneEntrezId;
 	}
 
 	public TShortList getKeggPathwayNumberList() {
+
 		return keggPathwayNumberList;
 	}
 
-	public void setKeggPathwayNumberList(TShortList keggPathwayNumberList) {
+	public void setKeggPathwayNumberList( TShortList keggPathwayNumberList) {
+
 		this.keggPathwayNumberList = keggPathwayNumberList;
 	}
 
 	public IntervalName getIntervalName() {
+
 		return intervalName;
 	}
 
-	public void setIntervalName(IntervalName intervalName) {
+	public void setIntervalName( IntervalName intervalName) {
+
 		this.intervalName = intervalName;
 	}
 
 	public int getIntervalNumber() {
+
 		return intervalNumber;
 	}
 
-	public void setIntervalNumber(int intervalNumber) {
+	public void setIntervalNumber( int intervalNumber) {
+
 		this.intervalNumber = intervalNumber;
 	}
 
 	public int getLow() {
+
 		return low;
 	}
 
-	public void setLow(int low) {
+	public void setLow( int low) {
+
 		this.low = low;
 	}
 
 	public int getHigh() {
+
 		return high;
 	}
 
-	public void setHigh(int high) {
+	public void setHigh( int high) {
+
 		this.high = high;
 	}
 
-	public UcscRefSeqGeneOverlapWithNumbers(int refSeqGeneNumber, int geneHugoSymbolNumber, int geneEntrezId, TShortList keggPathwayNumberList, IntervalName intervalName, int intervalNumber, int low, int high) {
+	public UcscRefSeqGeneOverlapWithNumbers( int refSeqGeneNumber, int geneHugoSymbolNumber, int geneEntrezId,
+			TShortList keggPathwayNumberList, IntervalName intervalName, int intervalNumber, int low, int high) {
+
 		super();
 		this.refSeqGeneNumber = refSeqGeneNumber;
 		this.geneHugoSymbolNumber = geneHugoSymbolNumber;
