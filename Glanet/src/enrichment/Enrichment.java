@@ -4715,15 +4715,21 @@ public class Enrichment {
 				}
 
 				// Using AnnotateWithNumbers
-				if( ( tfAnnotationType.doTFAnnotation()) && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+				if( ( tfAnnotationType.doTFAnnotation()) && 
+						!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+
 					// tf
 					// generate tf interval tree
+					
 					intervalTree = generateTfbsIntervalTreeWithNumbers( dataFolder, chromName);
+					
 					annotateWithNumbers = new AnnotateWithNumbers( outputFolder, chromName,
 							permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
 							writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
 							permutationNumberList.size(), permutationNumberList, intervalTree, null,
 							AnnotationType.DO_TF_ANNOTATION, null, overlapDefinition);
+					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
 					allMapsWithNumbers = null;
@@ -6479,7 +6485,8 @@ public class Enrichment {
 				}
 
 				// TF KEGGPathway Enrichment
-				if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 					// TF
 					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();
@@ -6497,7 +6504,8 @@ public class Enrichment {
 				}
 
 				// TF CellLine KEGGPathway Enrichment
-				if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+				if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+						!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
 
 					// TF
 					tfbs2AllKMap = new TIntObjectHashMap<TIntList>();

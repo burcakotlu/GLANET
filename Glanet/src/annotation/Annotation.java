@@ -6489,12 +6489,14 @@ public class Annotation {
 
 				elementNumber = IntervalTree.getShortElementNumber(
 						elementNumberCellLineNumber,
-						GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+				
 				elementName = elementNumber2ElementNameMap.get( elementNumber);
 
 				cellLineNumber = IntervalTree.getCellLineNumber(
 						elementNumberCellLineNumber,
-						GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+				
 				cellLineName = cellLineNumber2CellLineNameMap.get( cellLineNumber);
 
 				numberofOverlaps = element.getElementNumberofOverlaps();
@@ -8312,7 +8314,9 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ TF******ANNOTATION******starts ***********************************/
 			/*******************************************************************************/
-			if( tfAnnotationType.doTFAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+			if( tfAnnotationType.doTFAnnotation() && 
+					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 				// TF
 				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
@@ -8325,8 +8329,10 @@ public class Annotation {
 						writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2NameMap, cellLineNumber2NameMap,
 						fileNumber2NameMap);
+				
 				writeResultsWithNumbers( tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
 						outputFolder, Commons.ANNOTATION_RESULTS_FOR_TF);
+				
 				dateAfter = System.currentTimeMillis();
 
 				GlanetRunner.appendLog( "CellLine Based TF annotation ends: " + new Date());
@@ -8403,7 +8409,9 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
 			/*******************************************************************************/
-			if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+			if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 				// KEGGPathway
 				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
@@ -8629,7 +8637,8 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ TF KEGGPATHWAY***ANNOTATION*****starts ***************************/
 			/*******************************************************************************/
-			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 				// KEGGPathway
 				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
@@ -8726,7 +8735,8 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ TF CELLLINE KEGGPATHWAY***ANNOTATION*****starts ******************/
 			/*******************************************************************************/
-			if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
+			if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
 
 				// KEGGPathway
 				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
@@ -8828,7 +8838,8 @@ public class Annotation {
 			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
 			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
 			/*********************************************************************************/
-			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 				// KEGGPathway
 				TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();

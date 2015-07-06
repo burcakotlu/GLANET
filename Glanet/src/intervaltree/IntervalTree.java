@@ -3098,7 +3098,7 @@ public class IntervalTree {
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getCellLineNumber( int elementNumberCellLineNumberKeggPathwayNumber,
+	public static short getCellLineNumber( int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
@@ -3108,9 +3108,13 @@ public class IntervalTree {
 
 		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
 			// example 100_300_020
-			cellLineNumber = ( short)( ( elementNumberCellLineNumberKeggPathwayNumber / 1000) % 1000);
+			cellLineNumber = ( short)( ( mixedNumber / 1000) % 1000);
 			break;
 
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+			cellLineNumber = ( short)(mixedNumber % 100000) ;
+			break;
+			
 		default:
 			break;
 
@@ -3148,6 +3152,13 @@ public class IntervalTree {
 			cellLineNumber = ( int)( cellLineNumberKeggPathwayNumber / 10000L);
 			break;
 		}
+		
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
+			cellLineNumber = (int) (mixedNumber % 100000);
+			break;
+		}
+			
+			
 		default:{
 			break;
 		}
@@ -3159,7 +3170,7 @@ public class IntervalTree {
 	// 4 Mart 2015
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getShortElementNumber( int elementNumberCellLineNumberKeggPathwayNumber,
+	public static short getShortElementNumber( int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
@@ -3172,10 +3183,15 @@ public class IntervalTree {
 			// cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
 			// elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber)
 			// / 1000000);
-
-			elementNumber = ( short)( ( elementNumberCellLineNumberKeggPathwayNumber) / 1000000);
+			elementNumber = ( short)( ( mixedNumber) / 1000000);
 
 			break;
+			
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+			elementNumber = (short) (( mixedNumber) / 100000);
+
+			break;
+			
 		default:
 			break;
 
@@ -3292,6 +3308,11 @@ public class IntervalTree {
 			break;
 		}
 
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
+			elementNumber = (int)(mixedNumber / 100000L);
+			break;
+		}
+		
 		default:{
 			break;
 		}
@@ -3330,9 +3351,11 @@ public class IntervalTree {
 					generatedMixedNumberDescriptionOrderLength);
 
 			if( cellLineNumber > 0){
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + cellLineNumber;
+				//GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
+				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 100000 + cellLineNumber;
 			}else if( keggPathwayNumber > 0){
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 10000 + keggPathwayNumber;
+				//GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
+				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 100000 + keggPathwayNumber;
 			}
 			return elementNumberCellLineNumberOrKeggPathwayNumber;
 		}

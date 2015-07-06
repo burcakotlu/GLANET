@@ -295,7 +295,8 @@ public class CollectionofPermutationsResults {
 			return keggPathwayName;
 		}
 
-		case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:{
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
+			
 			tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
 			tfName = tfNumber2NameMap.get( tfNumber);
 			cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
@@ -1169,7 +1170,7 @@ public class CollectionofPermutationsResults {
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF,
 					jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(),
 					tfAnnotationType, null, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 		}
 		/************ Collection of TF RESULTS ends *****************/
 		/************************************************************/
