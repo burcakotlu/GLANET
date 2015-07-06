@@ -543,9 +543,8 @@ public class Enrichment {
 
 		private final int overlapDefinition;
 
-		private TIntIntMap dnaseCellLineNumber2OriginalKMap;
-		private TIntIntMap tfNumberCellLineNumber2OriginalKMap;
-
+		private TIntIntMap elementNumber2OriginalKMap;
+		
 		public AnnotateWithNumbersForAllChromosomes(
 				String outputFolder,
 				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
@@ -556,7 +555,7 @@ public class Enrichment {
 				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, AnnotationType annotationType,
 				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, int overlapDefinition,
-				TIntIntMap dnaseCellLineNumber2OriginalKMap, TIntIntMap tfNumberCellLineNumber2OriginalKMap) {
+				TIntIntMap elementNumber2OriginalKMap) {
 
 			this.outputFolder = outputFolder;
 
@@ -579,8 +578,7 @@ public class Enrichment {
 			this.chrNumber2UcscRefSeqGenesIntervalTreeMap = chrNumber2UcscRefSeqGenesIntervalTreeMap;
 
 			this.annotationType = annotationType;
-			// this.tfandKeggPathwayEnrichmentType =
-			// tfandKeggPathwayEnrichmentType;
+
 
 			// geneId2ListofGeneSetNumberMap
 			// sent full when annotationType is KEGG_PATHWAY_ANNOTATION
@@ -592,8 +590,7 @@ public class Enrichment {
 
 			this.overlapDefinition = overlapDefinition;
 
-			this.dnaseCellLineNumber2OriginalKMap = dnaseCellLineNumber2OriginalKMap;
-			this.tfNumberCellLineNumber2OriginalKMap = tfNumberCellLineNumber2OriginalKMap;
+			this.elementNumber2OriginalKMap = elementNumber2OriginalKMap;
 		}
 
 		protected AllMapsWithNumbersForAllChromosomes compute() {
@@ -613,13 +610,13 @@ public class Enrichment {
 						writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex,
 						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
 						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
-						dnaseCellLineNumber2OriginalKMap, tfNumberCellLineNumber2OriginalKMap);
+						elementNumber2OriginalKMap);
 				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes( outputFolder,
 						chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations,
 						writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex,
 						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
 						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
-						dnaseCellLineNumber2OriginalKMap, tfNumberCellLineNumber2OriginalKMap);
+						elementNumber2OriginalKMap);
 				left.fork();
 
 				rightAllMapsWithNumbersForAllChromosomes = right.compute();
@@ -659,11 +656,15 @@ public class Enrichment {
 						// By annotating each permutation one by one.
 						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
 
-						Annotation.annotatePermutationWithoutIOWithNumbersForAllChromosomes( permutationNumber,
-								chrNumber2RandomlyGeneratedData, chrNumber2IntervalTreeMap,
-								chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType,
-								geneId2ListofGeneSetNumberMap, overlapDefinition, dnaseCellLineNumber2OriginalKMap,
-								tfNumberCellLineNumber2OriginalKMap),
+						Annotation.annotatePermutationWithoutIOWithNumbersForAllChromosomes(
+								permutationNumber,
+								chrNumber2RandomlyGeneratedData, 
+								chrNumber2IntervalTreeMap,
+								chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+								annotationType,
+								geneId2ListofGeneSetNumberMap, 
+								overlapDefinition, 
+								elementNumber2OriginalKMap),
 
 						allMapsWithNumbersForAllChromosomes, annotationType);
 					}
@@ -676,10 +677,17 @@ public class Enrichment {
 
 						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
 
-						Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes( outputFolder,
-								permutationNumber, chrNumber2RandomlyGeneratedData, chrNumber2IntervalTreeMap,
-								chrNumber2UcscRefSeqGenesIntervalTreeMap, annotationType,
-								geneId2ListofGeneSetNumberMap, overlapDefinition, dnaseCellLineNumber2OriginalKMap),
+						Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes( 
+								outputFolder,
+								permutationNumber, 
+								chrNumber2RandomlyGeneratedData, 
+								chrNumber2IntervalTreeMap,
+								chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+								annotationType,
+								geneId2ListofGeneSetNumberMap, 
+								overlapDefinition, 
+								elementNumber2OriginalKMap),
+								
 								allMapsWithNumbersForAllChromosomes, annotationType);
 					}
 				}// End of FOR
@@ -3928,12 +3936,21 @@ public class Enrichment {
 			fillElementNumber2OriginalKMap( dnaseCellLineNumber2OriginalKMap, outputFolder,
 					Commons.ANNOTATION_RESULTS_FOR_DNASE);
 
-			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( outputFolder,
-					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
-					writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
-					permutationNumberList.size(), permutationNumberList, dnaseIntervalTreeMap, null,
-					AnnotationType.DO_DNASE_ANNOTATION, null, overlapDefinition, dnaseCellLineNumber2OriginalKMap,
-					tfNumberCellLineNumber2OriginalKMap);
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes(
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					dnaseIntervalTreeMap, 
+					null,
+					AnnotationType.DO_DNASE_ANNOTATION, 
+					null, 
+					overlapDefinition, 
+					dnaseCellLineNumber2OriginalKMap);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
@@ -3996,11 +4013,20 @@ public class Enrichment {
 			fillElementNumber2OriginalKMap( tfNumberCellLineNumber2OriginalKMap, outputFolder,
 					Commons.ANNOTATION_RESULTS_FOR_TF);
 
-			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( outputFolder,
-					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
-					writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
-					permutationNumberList.size(), permutationNumberList, tfIntervalTreeMap, null,
-					AnnotationType.DO_TF_ANNOTATION, null, overlapDefinition, dnaseCellLineNumber2OriginalKMap,
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					tfIntervalTreeMap, 
+					null,
+					AnnotationType.DO_TF_ANNOTATION, 
+					null, 
+					overlapDefinition,
 					tfNumberCellLineNumber2OriginalKMap);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);

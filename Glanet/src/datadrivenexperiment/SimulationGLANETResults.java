@@ -461,15 +461,15 @@ public class SimulationGLANETResults {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
 
-		String tpmString = Commons.TPM_1;
+		//String tpmString = Commons.TPM_1;
 		// String tpmString = Commons.TPM_01;
 		// String tpmString = Commons.TPM_001;
-		// String tpmString = Commons.TPM_0001;
+		String tpmString = Commons.TPM_0_001;
 		// String tpmString = Commons.TPM_0;
 
-		String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
+		//String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
 		// String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
-		// String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DNASE_OVERLAPS_EXCLUSION;
+		String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 
 		float FDR = 0.05f;
 		float bonferroniCorrectionSignificanceLevel = 0.05f;
