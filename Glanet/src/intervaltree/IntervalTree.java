@@ -1592,12 +1592,21 @@ public class IntervalTree {
 			castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
 		}
 
-		int histoneNumberCellLineNumber = generateElementNumberCellLineNumberKeggPathwayNumber(
-				castedNode.getTforHistoneNumber(),
+		
+		// KEGG Pathway number included
+		// WHY?
+//		int histoneNumberCellLineNumber = generateElementNumberCellLineNumberKeggPathwayNumber(
+//				castedNode.getTforHistoneNumber(),
+//				castedNode.getCellLineNumber(),
+//				( short)0,
+//				GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
+				castedNode.getTforHistoneNumber(), 
 				castedNode.getCellLineNumber(),
-				( short)0,
-				GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
+		
+		
 		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
 				overlapDefinition)){
 			try{
@@ -1614,8 +1623,8 @@ public class IntervalTree {
 							true);
 					bufferedWriter = new BufferedWriter( fileWriter);
 
-					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( histoneNumberCellLineNumber)){
-						histoneNumberCellLineNumber2ZeroorOneMap.put( histoneNumberCellLineNumber, Commons.BYTE_1);
+					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
+						histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
 						bufferedWriter.write( "#Searched for chr" + "\t" + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t" + "node Low" + "\t" + "node high" + "\t" + "node HistoneName" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
 					}
 
@@ -1625,8 +1634,8 @@ public class IntervalTree {
 
 				// Do not Write Annotation Found Overlaps to element Named File
 				else{
-					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( histoneNumberCellLineNumber)){
-						histoneNumberCellLineNumber2ZeroorOneMap.put( histoneNumberCellLineNumber, Commons.BYTE_1);
+					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
+						histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
 					}
 				}
 
@@ -3784,15 +3793,20 @@ public class IntervalTree {
 	}
 
 	// 26 June 2015
+	
+	
 
 	// 3 July 2015
-	// For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the related
-	// tfNumberCellLineNumber
-	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers( int permutationNumber, IntervalTreeNode node,
-			InputLineMinimal interval, ChromosomeName chromName,
-			TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap, int overlapDefinition) {
+	// For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the corresponding tfNumberCellLineNumber
+	public void findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers( 
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntByteMap tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition) {
 
-		int tfNumberCellLineNumber;
+		int tforHistoneNumberCellLineNumber;
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
 		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
@@ -3804,30 +3818,41 @@ public class IntervalTree {
 			// @todo
 			// How to generate tfNumberCellLineNumber from tfNumber and cellLineNumber?
 			// How does Annotation writes tfNumberCellLineNumber
-			// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
-
-			tfNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
-					castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(),
+			// INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
+			tforHistoneNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
+					castedNode.getTforHistoneNumber(), 
+					castedNode.getCellLineNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
-			if( !( tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey( tfNumberCellLineNumber))){
-				tfNumberCellLineNumber2PermutationZeroorOneMap.put( tfNumberCellLineNumber, Commons.BYTE_1);
+			if( !( tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
+				tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.put(tforHistoneNumberCellLineNumber, Commons.BYTE_1);
 			}
 		}// End of IF OVERLAPS
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval, chromName,
-					tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+			
+			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(), 
+					interval, 
+					chromName,
+					tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval, chromName,
-					tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+			
+			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(), 
+					interval, 
+					chromName,
+					tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
+					overlapDefinition);
 
 		}
 
 	}
-
 	// 3 July 2015
 
 	// 1 June 2015
@@ -3835,9 +3860,13 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( int permutationNumber, IntervalTreeNode node,
-			InputLineMinimal interval, ChromosomeName chromName,
-			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
+			int overlapDefinition) {
 
 		int dnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
@@ -3856,13 +3885,25 @@ public class IntervalTree {
 		}// End of IF OVERLAPS
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval,
-					chromName, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+			
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					dnaseCellLineNumber2PermutationZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval,
-					chromName, dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+			
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					dnaseCellLineNumber2PermutationZeroorOneMap, 
+					overlapDefinition);
 
 		}
 

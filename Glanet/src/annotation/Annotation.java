@@ -1501,8 +1501,7 @@ public class Annotation {
 				if( !( permutationNumberDnaseCellLineNumber2KMap.containsKey( it.key()))){
 					permutationNumberDnaseCellLineNumber2KMap.put( it.key(), it.value());
 				}else{
-					permutationNumberDnaseCellLineNumber2KMap.put( it.key(),
-							permutationNumberDnaseCellLineNumber2KMap.get( it.key()) + it.value());
+					permutationNumberDnaseCellLineNumber2KMap.put( it.key(),permutationNumberDnaseCellLineNumber2KMap.get(it.key()) + it.value());
 				}
 
 			}// End of for
@@ -1513,14 +1512,20 @@ public class Annotation {
 	// with numbers ends
 	// @todo
 
+	
+	
 	// 3 July 2015
+	// TF
+	// HISTONE
 	// Enrichment
 	// Without IO
 	// With Numbers
 	// For All Chromosomes
-	public static void searchTFWithoutIOWithNumbersForAllChromosomes( int permutationNumber,
+	public static void searchTForHistoneWithoutIOWithNumbersForAllChromosomes( 
+			int permutationNumber,
 			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines,
-			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap, TIntIntMap tfNumberCellLineNumber2PermutationKMap,
+			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap, 
+			TIntIntMap tforHistoneNumberCellLineNumber2PermutationKMap,
 			int overlapDefinition) {
 
 		ChromosomeName chromName;
@@ -1528,45 +1533,49 @@ public class Annotation {
 		List<InputLineMinimal> inputLines;
 		InputLineMinimal inputLine;
 
-		IntervalTree tfIntervalTree;
+		IntervalTree tforHistoneIntervalTree;
 
 		for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
 
-			chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
-			inputLines = chrNumber2InputLines.get( chrNumber);
-			tfIntervalTree = chrNumber2TFIntervalTreeMap.get( chrNumber);
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2InputLines.get(chrNumber);
+			tforHistoneIntervalTree = chrNumber2TFIntervalTreeMap.get(chrNumber);
 
 			if( inputLines != null){
 
 				for( int i = 0; i < inputLines.size(); i++){
 
-					TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+					TIntByteMap tforHistoneNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
 
 					inputLine = inputLines.get( i);
 
-					if( tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
-						tfIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers( permutationNumber,
-								tfIntervalTree.getRoot(), inputLine, chromName,
-								tfNumberCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
+					if( tforHistoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						tforHistoneIntervalTree.findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								tforHistoneIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
+								overlapDefinition);
 					}
 
 					// accumulate search results of dnaseCellLineNumber2PermutationZeroorOneMap in
 					// dnaseCellLineNumber2PermutationKMap
-					for( TIntByteIterator it = tfNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();){
+					for( TIntByteIterator it = tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();){
 
 						it.advance();
 
-						if( !( tfNumberCellLineNumber2PermutationKMap.containsKey( it.key()))){
-							tfNumberCellLineNumber2PermutationKMap.put( it.key(), it.value());
+						if( !(tforHistoneNumberCellLineNumber2PermutationKMap.containsKey(it.key()))){
+							tforHistoneNumberCellLineNumber2PermutationKMap.put(it.key(), it.value());
 						}else{
-							tfNumberCellLineNumber2PermutationKMap.put( it.key(),
-									tfNumberCellLineNumber2PermutationKMap.get( it.key()) + it.value());
+							tforHistoneNumberCellLineNumber2PermutationKMap.put(it.key(),tforHistoneNumberCellLineNumber2PermutationKMap.get(it.key()) + it.value());
 						}
 
 					}// End of FOR
 
 					// Free space
-					tfNumberCellLineNumber2PermutationZeroorOneMap = null;
+					tforHistoneNumberCellLineNumber2PermutationZeroorOneMap = null;
 
 				}// End of FOR each Randomly Generated Interval
 
@@ -1575,7 +1584,6 @@ public class Annotation {
 		}// End of FOR each Chromosome
 
 	}
-
 	// 3 July 2015
 
 	// 26 June 2015
@@ -1610,6 +1618,7 @@ public class Annotation {
 					inputLine = inputLines.get( i);
 
 					if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
 						dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber,
 								dnaseIntervalTree.getRoot(), inputLine, chromName,
 								dnaseCellLineNumber2PermutationZeroorOneMap, overlapDefinition);
@@ -9265,7 +9274,10 @@ public class Annotation {
 			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
 
 			// Free space
-			tfNumberCellLineNumber2PermutationKMap = null;
+			tfNumberCellLineNumber2PermutationKMap = null;	
+		}
+		
+		if (annotationType.doHistoneAnnotation()){
 			
 		}
 
@@ -9770,8 +9782,12 @@ public class Annotation {
 			// tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
 			TIntIntMap tfNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
 
-			searchTFWithoutIOWithNumbersForAllChromosomes( permutationNumber, chrNumber2RandomlyGeneratedData,
-					chrNumber2IntervalTreeMap, tfNumberCellLineNumber2PermutationKMap, overlapDefinition);
+			searchTForHistoneWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData,
+					chrNumber2IntervalTreeMap, 
+					tfNumberCellLineNumber2PermutationKMap, 
+					overlapDefinition);
 
 			// Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and
 			// dnaseCellLineNumber2OriginalKMap
@@ -9786,6 +9802,38 @@ public class Annotation {
 			// Free space
 			tfNumberCellLineNumber2PermutationKMap = null;
 		}// End of TF
+		
+		//HISTONE
+		if (annotationType.doHistoneAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap histoneNumberCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+
+			// This will be filled during search method call, after setting tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
+			TIntIntMap histoneNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
+
+			searchTForHistoneWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData,
+					chrNumber2IntervalTreeMap, 
+					histoneNumberCellLineNumber2PermutationKMap,
+					overlapDefinition);
+
+			// Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and
+			// dnaseCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					elementNumber2OriginalKMap, 
+					histoneNumberCellLineNumber2PermutationKMap,
+					histoneNumberCellLineNumber2PermutationOneorZeroMap);
+
+			// Set HistoneCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setHistoneNumberCellLineNumber2PermutationOneorZeroMap(histoneNumberCellLineNumber2PermutationOneorZeroMap);
+
+			// Free space
+			histoneNumberCellLineNumber2PermutationKMap = null;
+		}
 
 		return allMapsKeysWithNumbersAndValuesOneorZero;
 	}

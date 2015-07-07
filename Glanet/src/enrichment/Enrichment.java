@@ -3415,7 +3415,9 @@ public class Enrichment {
 	}
 
 	// 1 July 2015
-	public static void writeToBeCollectedNumberofPermutations( String outputFolder, String outputFileName,
+	public static void writeToBeCollectedNumberofPermutations( 
+			String outputFolder, 
+			String outputFileName,
 			int runNumber,
 			TIntIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap) {
 
@@ -3733,10 +3735,18 @@ public class Enrichment {
 		/**********************************24 JUNE 2015 ends*************************************************/
 		/******************************************************************************************************/
 
+		
+		/******************************************************************************************************/
+		/**********************************GENERATE RANDOM DATA STARTS*****************************************/
+		/******************************************************************************************************/
+
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES STARTS***************************************/
 		/******************************************************************************************************/
 
+		startTimeGenerateRandomData = System.currentTimeMillis();
+
+		
 		/******************************************************************************************************/
 		/********************************* FOR EACH HG19 CHROMOSOME STARTS ************************************/
 		/******************************************************************************************************/
@@ -3851,14 +3861,13 @@ public class Enrichment {
 				/*******************************************************************************************************************************/
 
 				/********************************************************************************************************/
-				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
+				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME STARTS ****************************/
 				/********************************************************************************************************/
-				GlanetRunner.appendLog( "Generate Random Data for permutations has started.");
-				logger.info( "Generate Random Data for permutations has started.");
+				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
+				logger.info("Generate Random Data for permutations has started.");
 				// First generate Random Data
 
-				startTimeGenerateRandomData = System.currentTimeMillis();
-
+				
 				generateRandomData = new GenerateRandomData( outputFolder, chromSize, chromName,
 						chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode,
 						Commons.ZERO, permutationNumberList.size(), permutationNumberList, givenInputsSNPsorIntervals,
@@ -3867,21 +3876,27 @@ public class Enrichment {
 						mapabilityChromosomePositionList, mapabilityShortValueList);
 
 				permutationNumber2RandomlyGeneratedDataMap = pool.invoke( generateRandomData);
-
-				endTimeGenerateRandomData = System.currentTimeMillis();
-
-				GlanetRunner.appendLog( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-				logger.info( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 				/********************************************************************************************************/
-				/********************************** GENERATE RANDOM DATA ENDS *******************************************/
+				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME ENDS ******************************/
 				/********************************************************************************************************/
 
 				// 24 June 2015
-				chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.put( chrNumber,
-						permutationNumber2RandomlyGeneratedDataMap);
+				chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap.put(chrNumber,permutationNumber2RandomlyGeneratedDataMap);
 
 				// Do not clear permutationNumber2RandomlyGeneratedDataHashMap, DO NOT LOSE just created Random Data.
 				// permutationNumber2RandomlyGeneratedDataHashMap.clear();
+				
+				//Free memory
+				gcByteList = null;
+				gcIntervalTree = null;
+				gcIsochoreIntervalTree = null;
+
+				gcIsochoreFamilyL1Pool = null;
+				gcIsochoreFamilyL2Pool = null;
+				gcIsochoreFamilyH1Pool = null;
+				gcIsochoreFamilyH2Pool = null;
+				gcIsochoreFamilyH3Pool = null;
+			
 
 				System.gc();
 				System.runFinalization();
@@ -3889,14 +3904,26 @@ public class Enrichment {
 			}// End of IF: Chromosome Based Input Lines are not NULL
 
 		}// End of FOR each CHROMOSOME
+		
+		
 		/******************************************************************************************************/
 		/******************************** FOR EACH HG19 CHROMOSOME ********************************************/
 		/******************************************************************************************************/
 
+		endTimeGenerateRandomData = System.currentTimeMillis();
+
+		GlanetRunner.appendLog( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		logger.info( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+	
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
 		/******************************************************************************************************/
 
+		/******************************************************************************************************/
+		/**********************************GENERATE RANDOM DATA ENDS*******************************************/
+		/******************************************************************************************************/
+
+		
 		/******************************************************************************************************/
 		/*************************ALL DATA STRUCTURES ARE READY************************************************/
 		/*************************************ANNOTATION STARTS************************************************/
@@ -3932,8 +3959,9 @@ public class Enrichment {
 			}// End of FOR each CHROMOSOME
 
 			// Why don't we fill it before?
-			// Fill dnaseCellLineNumber2OriginalKMap
-			fillElementNumber2OriginalKMap( dnaseCellLineNumber2OriginalKMap, outputFolder,
+			fillElementNumber2OriginalKMap(
+					dnaseCellLineNumber2OriginalKMap, 
+					outputFolder,
 					Commons.ANNOTATION_RESULTS_FOR_DNASE);
 
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes(
@@ -4009,7 +4037,6 @@ public class Enrichment {
 			}// End of FOR each CHROMOSOME
 
 			// Why don't we fill it before?
-			// Fill dnaseCellLineNumber2OriginalKMap
 			fillElementNumber2OriginalKMap( tfNumberCellLineNumber2OriginalKMap, outputFolder,
 					Commons.ANNOTATION_RESULTS_FOR_TF);
 
@@ -4031,8 +4058,11 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
-			writeToBeCollectedNumberofPermutations( outputFolder, Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
-					runNumber, allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations());
+			writeToBeCollectedNumberofPermutations(
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
+					runNumber, 
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations());
 
 			// Free memory
 			tfIntervalTreeMap = null;
@@ -4043,7 +4073,7 @@ public class Enrichment {
 			GlanetRunner.appendLog( "Transcription Factor Annotation of Permutations has ended.");
 			logger.info( "Transcription Factor Annotation of Permutations has ended.");
 
-		}// End of IF DO DNase Annotation
+		}// End of IF DO TF Annotation
 
 		endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
@@ -4055,6 +4085,88 @@ public class Enrichment {
 		/********************************************************************************************************/
 		/***************************** TF ANNOTATION OF PERMUTATIONS STARTS *************************************/
 		/********************************************************************************************************/
+		
+		
+		/********************************************************************************************************/
+		/***************************** HISTONE ANNOTATION OF PERMUTATIONS STARTS ********************************/
+		/********************************************************************************************************/
+		startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+		if(histoneAnnotationType.doHistoneAnnotation()){
+
+			GlanetRunner.appendLog("Histone Modifications Annotation of Permutations has started.");
+			logger.info( "Histone Modifications Annotation of Permutations has started.");
+
+			TIntObjectMap<IntervalTree> histoneIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+
+			// Fill chrNumber2IntervalTreeMap
+			// For each chromosome, generate intervalTree and fill intervalTreeMap
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+				chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+
+				if( chromosomeBaseOriginalInputLines != null){
+
+					intervalTree = generateHistoneIntervalTreeWithNumbers( dataFolder, chromName);
+					histoneIntervalTreeMap.put( chrNumber, intervalTree);
+
+				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+
+			}// End of FOR each CHROMOSOME
+
+			// Why don't we fill it before?
+			fillElementNumber2OriginalKMap( 
+					histoneNumberCellLineNumber2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_HISTONE);
+
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					histoneIntervalTreeMap, 
+					null,
+					AnnotationType.DO_HISTONE_ANNOTATION, 
+					null, 
+					overlapDefinition,
+					histoneNumberCellLineNumber2OriginalKMap);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations());
+
+			// Free memory
+			histoneIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("Histone Modifications Annotation of Permutations has ended.");
+			logger.info("Histone Modifications Annotation of Permutations has ended.");
+
+		}// End of IF DO HISTONE Annotation
+
+		endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+		GlanetRunner.appendLog( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+		GlanetRunner.appendLog( "******************************************************************************************");
+
+		logger.info( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+		logger.info( "******************************************************************************************");
+		/********************************************************************************************************/
+		/***************************** HISTONE ANNOTATION OF PERMUTATIONS RNDS ********************************/
+		/********************************************************************************************************/
+	
 
 		/******************************************************************************************************/
 		/*************************ALL DATA STRUCTURES ARE READY************************************************/
