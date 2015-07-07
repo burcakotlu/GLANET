@@ -34,7 +34,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import annotation.OverlapInformation;
 import annotation.PermutationNumberTfNameCellLineNameOverlap;
@@ -49,6 +51,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
+import enumtypes.AnnotationType;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.GeneSetAnalysisType;
@@ -1871,23 +1874,25 @@ public class IntervalTree {
 	// 6 July 2015
 	//Enrichment
 	//With IO
-	//WithNumbers
+	//With Numbers
 	//Without PermutationNumber
-	public void findAllOverlappingTFIntervalsWithIOWithNumbers( 
+	//TF and Histone
+	public void findAllOverlappingTForHistoneIntervalsWithIOWithNumbers( 
 			String outputFolder, 
 			int permutationNumber,
 			IntervalTreeNode node, 
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TLongObjectMap<BufferedWriter> permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap,
-			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap, 
-			int overlapDefinition) {
+			TLongObjectMap<BufferedWriter> permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap,
+			TIntByteMap tforHistoneNumberCellLineNumber2ZeroorOneMap, 
+			int overlapDefinition,
+			AnnotationType annotationType) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
-		int tfNumberCellLineNumber;
-		long permutationNumberTfNumberCellLineNumber;
+		int tforHistoneNumberCellLineNumber;
+		long permutationNumberTforHistoneNumberCellLineNumber;
 		
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
@@ -1899,37 +1904,53 @@ public class IntervalTree {
 				}
 
 				
-				tfNumberCellLineNumber = generateElementNumberCellLineNumber(
+				tforHistoneNumberCellLineNumber = generateElementNumberCellLineNumber(
 						castedNode.getTforHistoneNumber(),
 						castedNode.getCellLineNumber(),
 						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 				
-				permutationNumberTfNumberCellLineNumber = generateMixedNumber(
+				permutationNumberTforHistoneNumberCellLineNumber = generateMixedNumber(
 						permutationNumber,
 						castedNode.getTforHistoneNumber(),
 						castedNode.getCellLineNumber(),
-						( short)0,
+						(short)0,
 						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-				bufferedWriter = permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.get(permutationNumberTfNumberCellLineNumber);
+				bufferedWriter = permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.get(permutationNumberTforHistoneNumberCellLineNumber);
 
 				if( bufferedWriter == null){
 
-					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",
-							true);
+					if(annotationType.doTFAnnotation()){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
+							
+					}else if (annotationType.doHistoneAnnotation()){
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
+					}
+					
+					
 					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					
+					if(annotationType.doTFAnnotation()){
+						bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					}else if (annotationType.doHistoneAnnotation()){
+						bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));						
+					}
+					
 					bufferedWriter.flush();
 
-					permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.put( permutationNumberTfNumberCellLineNumber, bufferedWriter);
+					permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.put(permutationNumberTforHistoneNumberCellLineNumber, bufferedWriter);
 				}
 
-				if( !( tfNumberCellLineNumber2ZeroorOneMap.containsKey(tfNumberCellLineNumber))){
-					tfNumberCellLineNumber2ZeroorOneMap.put(tfNumberCellLineNumber,Commons.BYTE_1);
+				if( !( tforHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
+					tforHistoneNumberCellLineNumber2ZeroorOneMap.put(tforHistoneNumberCellLineNumber,Commons.BYTE_1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				if(annotationType.doTFAnnotation()){
+					bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				}else if (annotationType.doHistoneAnnotation()){
+					bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				}
+				
 				bufferedWriter.flush();
 
 			}catch( IOException e){
@@ -1939,15 +1960,31 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTFIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
-					interval, chromName, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap, tfNumberCellLineNumber2ZeroorOneMap,
-					overlapDefinition);
+			
+			findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
+					outputFolder, 
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap, 
+					tforHistoneNumberCellLineNumber2ZeroorOneMap,
+					overlapDefinition,
+					annotationType);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTFIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
-					interval, chromName, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap, tfNumberCellLineNumber2ZeroorOneMap,
-					overlapDefinition);
+			
+			findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
+					outputFolder, 
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap, 
+					tforHistoneNumberCellLineNumber2ZeroorOneMap,
+					overlapDefinition,
+					annotationType);
 
 		}
 

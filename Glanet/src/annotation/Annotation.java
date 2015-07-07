@@ -2148,62 +2148,64 @@ public class Annotation {
 	// With IO
 	// With Numbers
 	// For All Chromosomes
-	public static void searchTFWithIOWithNumbersForAllChromosomes(
+	public static void searchTForHistoneWithIOWithNumbersForAllChromosomes(
 		String outputFolder,
 		int permutationNumber,
 		TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
-		TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap,
-		TLongObjectMap<BufferedWriter> permutationNumberTFNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap,
-		TIntIntMap tfNumberCellLineNumber2PermutationKMap, 
-		int overlapDefinition){
+		TIntObjectMap<IntervalTree> chrNumber2TForHistoneIntervalTreeMap,
+		TLongObjectMap<BufferedWriter> permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap,
+		TIntIntMap tforHistoneNumberCellLineNumber2PermutationKMap, 
+		int overlapDefinition,
+		AnnotationType annotationType){
 						
 		ChromosomeName chromName;
 
 		List<InputLineMinimal> inputLines;
 		InputLineMinimal inputLine;
 
-		IntervalTree tfIntervalTree;
+		IntervalTree tforHistoneIntervalTree;
 
 		for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
 
 			chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
 			inputLines = chrNumber2RandomlyGeneratedData.get( chrNumber);
-			tfIntervalTree = chrNumber2TFIntervalTreeMap.get( chrNumber);
+			tforHistoneIntervalTree = chrNumber2TForHistoneIntervalTreeMap.get( chrNumber);
 
 			for( int i = 0; i < inputLines.size(); i++){
 
-				TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
+				TIntByteMap tforHistoneNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
 
 				inputLine = inputLines.get( i);
 
-				if( tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
+				if( tforHistoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					
-					tfIntervalTree.findAllOverlappingTFIntervalsWithIOWithNumbers(
+					tforHistoneIntervalTree.findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
 							outputFolder, 
 							permutationNumber, 
-							tfIntervalTree.getRoot(), 
+							tforHistoneIntervalTree.getRoot(), 
 							inputLine, 
 							chromName,
-							permutationNumberTFNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap, 
-							tfNumberCellLineNumber2PermutationZeroorOneMap, 
-							overlapDefinition);
+							permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap, 
+							tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
+							overlapDefinition,
+							annotationType);
 				}
 
 				// accumulate search results of tfNumberCellLine2OneorZeroMap in permutationNumberDnaseCellLineName2KMap
-				for( TIntByteIterator it = tfNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();){
+				for( TIntByteIterator it = tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.iterator(); it.hasNext();){
 
 					it.advance();
 
-					if( !( tfNumberCellLineNumber2PermutationKMap.containsKey( it.key()))){
-						tfNumberCellLineNumber2PermutationKMap.put( it.key(), it.value());
+					if( !( tforHistoneNumberCellLineNumber2PermutationKMap.containsKey( it.key()))){
+						tforHistoneNumberCellLineNumber2PermutationKMap.put( it.key(), it.value());
 					}else{
-						tfNumberCellLineNumber2PermutationKMap.put( it.key(),
-								tfNumberCellLineNumber2PermutationKMap.get( it.key()) + it.value());
+						tforHistoneNumberCellLineNumber2PermutationKMap.put( it.key(),
+								tforHistoneNumberCellLineNumber2PermutationKMap.get( it.key()) + it.value());
 					}
 
 				}// End of for
 
-				tfNumberCellLineNumber2PermutationZeroorOneMap = null;
+				tforHistoneNumberCellLineNumber2PermutationZeroorOneMap = null;
 
 			}// End of for each Randomly Generated Interval
 
@@ -9253,14 +9255,15 @@ public class Annotation {
 
 			TLongObjectMap<BufferedWriter> permutationNumberTFNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap = new TLongObjectHashMap<BufferedWriter>();
 
-			searchTFWithIOWithNumbersForAllChromosomes(
+			searchTForHistoneWithIOWithNumbersForAllChromosomes(
 					outputFolder, 
 					permutationNumber,
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap, 
 					permutationNumberTFNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap,
 					tfNumberCellLineNumber2PermutationKMap, 
-					overlapDefinition);
+					overlapDefinition,
+					annotationType);
 
 			closeBufferedWritersWithNumbers(permutationNumberTFNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap);
 
@@ -9278,7 +9281,38 @@ public class Annotation {
 		}
 		
 		if (annotationType.doHistoneAnnotation()){
+			// For each permutation, this will be filled during searching histone interval trees
+			TIntIntMap histoneNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
 			
+			// This will be filled using histoneNumberCellLineNumber2PermutationKMap and histoneNumberCellLineNumber2OriginalKMap
+			TIntByteMap histoneNumberCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+
+			TLongObjectMap<BufferedWriter> permutationNumberHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap = new TLongObjectHashMap<BufferedWriter>();
+
+			searchTForHistoneWithIOWithNumbersForAllChromosomes(
+					outputFolder, 
+					permutationNumber,
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap, 
+					permutationNumberHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap,
+					histoneNumberCellLineNumber2PermutationKMap, 
+					overlapDefinition,
+					annotationType);
+
+			closeBufferedWritersWithNumbers(permutationNumberHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap);
+
+			// Fill histoneNumberCellLineNumber2PermutationOneorZeroMap using histoneNumberCellLineNumber2PermutationKMap and histoneNumberCellLineNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					elementNumber2OriginalKMap, 
+					histoneNumberCellLineNumber2PermutationKMap,
+					histoneNumberCellLineNumber2PermutationOneorZeroMap);
+
+			// Set tfNumberCellLineNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setHistoneNumberCellLineNumber2PermutationOneorZeroMap(histoneNumberCellLineNumber2PermutationOneorZeroMap);
+
+			// Free space
+			histoneNumberCellLineNumber2PermutationKMap = null;	
+
 		}
 
 		return allMapsKeysWithNumbersAndValuesOneorZero;

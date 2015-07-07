@@ -3897,7 +3897,9 @@ public class Enrichment {
 				gcIsochoreFamilyH2Pool = null;
 				gcIsochoreFamilyH3Pool = null;
 			
-
+				mapabilityChromosomePositionList = null;
+				mapabilityShortValueList = null;
+				
 				System.gc();
 				System.runFinalization();
 
@@ -3987,6 +3989,7 @@ public class Enrichment {
 
 			// Free memory
 			dnaseIntervalTreeMap = null;
+			
 
 			System.gc();
 			System.runFinalization();
@@ -4176,19 +4179,6 @@ public class Enrichment {
 		/******************************************************************************************************/
 		/***************************************** FREE MEMORY STARTS *****************************************/
 		chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = null;
-
-		gcByteList = null;
-		gcIntervalTree = null;
-		gcIsochoreIntervalTree = null;
-
-		gcIsochoreFamilyL1Pool = null;
-		gcIsochoreFamilyL2Pool = null;
-		gcIsochoreFamilyH1Pool = null;
-		gcIsochoreFamilyH2Pool = null;
-		gcIsochoreFamilyH3Pool = null;
-
-		mapabilityChromosomePositionList = null;
-		mapabilityShortValueList = null;
 
 		annotateWithNumbersForAllChromosomes = null;
 
