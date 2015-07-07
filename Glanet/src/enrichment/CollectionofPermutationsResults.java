@@ -267,15 +267,20 @@ public class CollectionofPermutationsResults {
 
 	}
 
-	public static String convertGeneratedMixedNumberToName( long modifiedMixedNumber,
+	public static String convertGeneratedMixedNumberToName( 
+			long modifiedMixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength,
-			TIntObjectMap<String> cellLineNumber2NameMap, TIntObjectMap<String> tfNumber2NameMap,
+			TIntObjectMap<String> cellLineNumber2NameMap, 
+			TIntObjectMap<String> tfNumber2NameMap,
 			TIntObjectMap<String> histoneNumber2NameMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
 			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap, TIntObjectMap<String> geneID2GeneHugoSymbolMap) {
+			TIntObjectMap<String> keggPathwayNumber2NameMap, 
+			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
+			AnnotationType annotationType) {
 
 		int cellLineNumber;
+		int tforHistoneNumber;
 		int tfNumber;
 		int histoneNumber;
 		int keggPathwayNumber;
@@ -288,6 +293,7 @@ public class CollectionofPermutationsResults {
 		String cellLineName;
 		String tfName;
 		String histoneName;
+		String tforHistoneName = null;
 		String keggPathwayName;
 		String userDefinedGeneSetName;
 
@@ -296,88 +302,96 @@ public class CollectionofPermutationsResults {
 		String geneHugoSymbol;
 
 		switch( generatedMixedNumberDescriptionOrderLength){
-		case INT_4DIGIT_DNASECELLLINENUMBER:{
-			cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
-			return cellLineName;
-		}
-		case INT_5DIGIT_USERDEFINEDGENESETNUMBER:{
-			userDefinedGeneSetNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			userDefinedGeneSetName = userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap.get( userDefinedGeneSetNumber);
-			return userDefinedGeneSetName;
-
-		}
-		case INT_4DIGIT_KEGGPATHWAYNUMBER:{
-			keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
-			return keggPathwayName;
-		}
-
-		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
-			
-			tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
-			tfName = tfNumber2NameMap.get( tfNumber);
-			cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
-			return tfName + "_" + cellLineName;
-		}
-
-		case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
-			histoneNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			histoneName = histoneNumber2NameMap.get( histoneNumber);
-
-			cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
-
-			return histoneName + "_" + cellLineName;
-
-		}
-
-		case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
-			tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
-			tfName = tfNumber2NameMap.get( tfNumber);
-
-			keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
-
-			return tfName + "_" + keggPathwayName;
-		}
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
-			tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
-			tfName = tfNumber2NameMap.get( tfNumber);
-
-			cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
-
-			keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
-
-			return tfName + "_" + cellLineName + "_" + keggPathwayName;
-		}
-
-		case INT_6DIGIT_ELEMENTNUMBER:{
-			userDefinedLibraryElementNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			userDefinedLibraryElementName = userDefinedLibraryElementNumber2ElementNameMap.get( userDefinedLibraryElementNumber);
-			return userDefinedLibraryElementName;
-		}
-		case INT_10DIGIT_GENENUMBER:{
-			geneID = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);;
-			geneHugoSymbol = geneID2GeneHugoSymbolMap.get( geneID);
-			return geneHugoSymbol;
-		}
-		default:{
-			break;
-		}
+			case INT_4DIGIT_DNASECELLLINENUMBER:{
+				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
+				return cellLineName;
+			}
+			case INT_5DIGIT_USERDEFINEDGENESETNUMBER:{
+				userDefinedGeneSetNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				userDefinedGeneSetName = userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap.get( userDefinedGeneSetNumber);
+				return userDefinedGeneSetName;
+		
+			}
+			case INT_4DIGIT_KEGGPATHWAYNUMBER:{
+				keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
+				return keggPathwayName;
+			}
+		
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
+				
+				tforHistoneNumber = IntervalTree.getElementNumber(modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
+				
+				 if (annotationType.doTFAnnotation()){
+					 tforHistoneName = tfNumber2NameMap.get(tforHistoneNumber);
+						
+				 }else if (annotationType.doHistoneAnnotation()){
+					 tforHistoneName = histoneNumber2NameMap.get(tforHistoneNumber);
+						
+				 }
+				
+				cellLineNumber = IntervalTree.getCellLineNumber(modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
+				cellLineName = cellLineNumber2NameMap.get(cellLineNumber);
+				
+				return tforHistoneName + "_" + cellLineName;
+			}
+		
+			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
+				histoneNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				histoneName = histoneNumber2NameMap.get( histoneNumber);
+		
+				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
+		
+				return histoneName + "_" + cellLineName;
+		
+			}
+		
+			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
+				tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
+				tfName = tfNumber2NameMap.get( tfNumber);
+		
+				keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
+		
+				return tfName + "_" + keggPathwayName;
+			}
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
+				tfNumber = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
+				tfName = tfNumber2NameMap.get( tfNumber);
+		
+				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
+		
+				keggPathwayNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				keggPathwayName = keggPathwayNumber2NameMap.get( keggPathwayNumber);
+		
+				return tfName + "_" + cellLineName + "_" + keggPathwayName;
+			}
+		
+			case INT_6DIGIT_ELEMENTNUMBER:{
+				userDefinedLibraryElementNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				userDefinedLibraryElementName = userDefinedLibraryElementNumber2ElementNameMap.get( userDefinedLibraryElementNumber);
+				return userDefinedLibraryElementName;
+			}
+			case INT_10DIGIT_GENENUMBER:{
+				geneID = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);;
+				geneHugoSymbol = geneID2GeneHugoSymbolMap.get( geneID);
+				return geneHugoSymbol;
+			}
+			default:{
+				break;
+			}
 
 		}
 
@@ -679,11 +693,16 @@ public class CollectionofPermutationsResults {
 						element.setNumber( mixedNumber);
 
 						tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol = convertGeneratedMixedNumberToName(
-								mixedNumber, generatedMixedNumberDescriptionOrderLength, cellLineNumber2NameMap,
-								tfNumber2NameMap, histoneNumber2NameMap,
+								mixedNumber, 
+								generatedMixedNumberDescriptionOrderLength, 
+								cellLineNumber2NameMap,
+								tfNumber2NameMap, 
+								histoneNumber2NameMap,
 								userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-								userDefinedLibraryElementNumber2ElementNameMap, keggPathwayNumber2NameMap,
-								geneID2GeneHugoSymbolMap);
+								userDefinedLibraryElementNumber2ElementNameMap, 
+								keggPathwayNumber2NameMap,
+								geneID2GeneHugoSymbolMap,
+								annotationType);
 
 						element.setName( tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol);
 
@@ -1172,12 +1191,23 @@ public class CollectionofPermutationsResults {
 		/************ Collection of HISTONE RESULTS starts **********/
 		if( histoneAnnotationType.doHistoneAnnotation()){
 
-			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
-					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					dataFolder, 
+					outputFolder,
 					Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,
-					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE, jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getHistoneCellLineNumberofComparison(), histoneAnnotationType, null, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER);
+					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_HISTONE, 
+					jobName, 
+					numberofRuns, 
+					numberofRemainders,
+					numberofComparisons.getHistoneCellLineNumberofComparison(), 
+					histoneAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 		}
 		/************ Collection of HISTONE RESULTS ends ************/
 		/************************************************************/
