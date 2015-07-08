@@ -6,10 +6,13 @@
 
 package keggpathway.ncbigenes;
 
+import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TObjectShortMap;
+import gnu.trove.map.TObjectIntMap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,8 +24,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 public class KeggPathwayUtility {
@@ -439,15 +444,18 @@ public class KeggPathwayUtility {
 	}
 
 	// @todo Trove library usage starts
-	public static void fillKeggPathwayName2KeggPathwayNumberMap( String dataFolder, String direcyoryName,
-			String inputFileName, TObjectShortMap<String> keggPathwayName2KeggPathwayNumber) {
+	public static void fillKeggPathwayName2KeggPathwayNumberMap( 
+			String dataFolder, 
+			String direcyoryName,
+			String inputFileName, 
+			TObjectIntMap<String> keggPathwayName2KeggPathwayNumber) {
 
 		String strLine;
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 
 		String keggPathwayName;
-		short keggPathwayNumber;
+		int keggPathwayNumber;
 		int indexofFirstTab;
 
 		try{
@@ -459,7 +467,7 @@ public class KeggPathwayUtility {
 				indexofFirstTab = strLine.indexOf( '\t');
 
 				keggPathwayName = strLine.substring( 0, indexofFirstTab);
-				keggPathwayNumber = Short.parseShort( strLine.substring( indexofFirstTab + 1));
+				keggPathwayNumber = Integer.parseInt(strLine.substring( indexofFirstTab + 1));
 
 				keggPathwayName2KeggPathwayNumber.put( keggPathwayName, keggPathwayNumber);
 
@@ -516,8 +524,8 @@ public class KeggPathwayUtility {
 
 	// @todo Trove Library usage starts
 	public static void createNcbiGeneId2KeggPathwayNumberMap( String dataFolder, String fileName,
-			TIntObjectMap<TShortList> ncbiGeneId2KeggPathwayNumberHashMap,
-			TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap) {
+			TIntObjectMap<TIntList> ncbiGeneId2KeggPathwayNumberHashMap,
+			TObjectIntMap<String> keggPathwayName2KeggPathwayNumberMap) {
 
 		String strLine;
 		FileReader fileReader = null;
@@ -529,11 +537,11 @@ public class KeggPathwayUtility {
 		int indexofSecondColon = -1;
 
 		String keggPathwayEntry;
-		Short keggPathwayNumber;
+		Integer keggPathwayNumber;
 		String ncbiGeneIdString;
 		Integer ncbiGeneId;
 
-		TShortList existingKeggPathwayList = null;
+		TIntList existingKeggPathwayList = null;
 
 		try{
 			fileReader = new FileReader( dataFolder + fileName);
@@ -562,9 +570,9 @@ public class KeggPathwayUtility {
 				// fill ncbiGeneId2KeggPathwayHashMap
 				// Hash Map does not contain this ncbiGeneId
 				if( ncbiGeneId2KeggPathwayNumberHashMap.get( ncbiGeneId) == null){
-					TShortList keggPathwayNumberList = new TShortArrayList();
-					keggPathwayNumberList.add( keggPathwayNumber);
-					ncbiGeneId2KeggPathwayNumberHashMap.put( ncbiGeneId, keggPathwayNumberList);
+					TIntList keggPathwayNumberList = new TIntArrayList();
+					keggPathwayNumberList.add(keggPathwayNumber);
+					ncbiGeneId2KeggPathwayNumberHashMap.put(ncbiGeneId, keggPathwayNumberList);
 				}
 				// Hash Map contains this ncbiGeneId
 				else{
@@ -687,9 +695,11 @@ public class KeggPathwayUtility {
 	 * pathway_hsa.list file is read. Map<String,List<String>>
 	 * ncbiGeneId2KeggPathwayHashMap will be created.
 	 */
-	public static void createNcbiGeneId2ListofKeggPathwayNumberMap( String dataFolder, String fileName,
-			TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap,
-			TIntObjectMap<TShortList> ncbiGeneId2ListofKeggPathwayNumberHashMap) {
+	public static void createNcbiGeneId2ListofKeggPathwayNumberMap(
+			String dataFolder, 
+			String fileName,
+			TObjectIntMap<String> keggPathwayName2KeggPathwayNumberMap,
+			TIntObjectMap<TIntList> ncbiGeneId2ListofKeggPathwayNumberHashMap) {
 
 		String strLine;
 		FileReader fileReader = null;
@@ -703,10 +713,10 @@ public class KeggPathwayUtility {
 		String keggPathwayName;
 		String ncbiGeneIdName;
 
-		Short keggPathwayNumber;
+		Integer keggPathwayNumber;
 		int ncbiGeneId;
 
-		TShortList existingKeggPathwayNumberList = null;
+		TIntList existingKeggPathwayNumberList = null;
 
 		try{
 			fileReader = new FileReader( dataFolder + fileName);
@@ -737,7 +747,7 @@ public class KeggPathwayUtility {
 					// Fill ncbiGeneId2KeggPathwayHashMap
 					// Hash Map does not contain this ncbiGeneId
 					if( !ncbiGeneId2ListofKeggPathwayNumberHashMap.containsKey( ncbiGeneId)){
-						TShortArrayList keggPathwayNumberList = new TShortArrayList();
+						TIntArrayList keggPathwayNumberList = new TIntArrayList();
 						keggPathwayNumberList.add( keggPathwayNumber);
 						ncbiGeneId2ListofKeggPathwayNumberHashMap.put( ncbiGeneId, keggPathwayNumberList);
 					}

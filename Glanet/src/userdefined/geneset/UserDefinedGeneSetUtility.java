@@ -6,11 +6,11 @@
 package userdefined.geneset;
 
 import enumtypes.GeneInformationType;
-import gnu.trove.list.TShortList;
-import gnu.trove.list.array.TShortArrayList;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TObjectShortMap;
-import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.TObjectIntMap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -29,18 +31,21 @@ import common.Commons;
  */
 public class UserDefinedGeneSetUtility {
 
-	public static void updateMap( List<Integer> geneInformation2ListofGeneIDs,
-			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap, short currentUserDefinedGeneSetNumber,
-			String GO_ID, String geneInformation) {
+	public static void updateMap( 
+			List<Integer> geneInformation2ListofGeneIDs,
+			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap, 
+			int currentUserDefinedGeneSetNumber,
+			String GO_ID, 
+			String geneInformation) {
 
-		TShortList userDefinedGeneSetNumberList = null;
-		TShortList existingUserDefinedGeneSetNumberList = null;
+		TIntList userDefinedGeneSetNumberList = null;
+		TIntList existingUserDefinedGeneSetNumberList = null;
 
 		for( int geneID : geneInformation2ListofGeneIDs){
 			// fill geneId2ListofUserDefinedGenesetHashMap
 			// Hash Map does not contain this ncbiGeneId
 			if( !geneId2ListofUserDefinedGeneSetNumberMap.containsKey( geneID)){
-				userDefinedGeneSetNumberList = new TShortArrayList();
+				userDefinedGeneSetNumberList = new TIntArrayList();
 				userDefinedGeneSetNumberList.add( currentUserDefinedGeneSetNumber);
 				geneId2ListofUserDefinedGeneSetNumberMap.put( geneID, userDefinedGeneSetNumberList);
 			}
@@ -135,11 +140,13 @@ public class UserDefinedGeneSetUtility {
 		return GO_ID;
 	}
 
-	public static void createNcbiGeneId2ListofUserDefinedGeneSetNumberMap( String dataFolder,
-			String userDefinedGeneSetInputFile, GeneInformationType geneInformationType,
-			TObjectShortMap<String> userDefinedGeneSetName2NumberMap,
-			TShortObjectMap<String> userDefinedGeneSetNumber2NameMap,
-			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap) {
+	public static void createNcbiGeneId2ListofUserDefinedGeneSetNumberMap( 
+			String dataFolder,
+			String userDefinedGeneSetInputFile, 
+			GeneInformationType geneInformationType,
+			TObjectIntMap<String> userDefinedGeneSetName2NumberMap,
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap,
+			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap) {
 
 		// Read the user defined geneset inputFile
 		String strLine;
@@ -147,8 +154,8 @@ public class UserDefinedGeneSetUtility {
 		String geneSetName;
 		String geneInformation;
 
-		short userDefinedGeneSetNumber = 1;
-		short currentUserDefinedGeneSetNumber = Short.MIN_VALUE;
+		int userDefinedGeneSetNumber = 1;
+		int currentUserDefinedGeneSetNumber = Integer.MIN_VALUE;
 
 		// In case of need: First fill these conversion maps
 		Map<String, List<Integer>> geneSymbol2ListofGeneIDMap = null;

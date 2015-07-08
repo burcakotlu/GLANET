@@ -6,7 +6,7 @@
 package annotation;
 
 import enumtypes.IntervalName;
-import gnu.trove.list.TShortList;
+import gnu.trove.list.TIntList;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 	int geneEntrezId;
 	int low;
 	int high;
-	TShortList keggPathwayNumberList;
+	TIntList keggPathwayNumberList;
 
 	public int getPermutationNumber() {
 
@@ -109,19 +109,26 @@ public class PermutationNumberUcscRefSeqGeneNumberOverlap {
 		this.high = high;
 	}
 
-	public TShortList getKeggPathwayNumberList() {
+	
 
+	public TIntList getKeggPathwayNumberList() {
 		return keggPathwayNumberList;
 	}
 
-	public void setKeggPathwayNumberList( TShortList keggPathwayNumberList) {
-
+	public void setKeggPathwayNumberList(TIntList keggPathwayNumberList) {
 		this.keggPathwayNumberList = keggPathwayNumberList;
 	}
 
-	public PermutationNumberUcscRefSeqGeneNumberOverlap( int permutationNumber, int refSeqGeneNumber,
-			IntervalName intervalName, int intervalNumber, int geneHugoSymbolNumber, int geneEntrezId, int low,
-			int high, TShortList keggPathwayNumberList) {
+	public PermutationNumberUcscRefSeqGeneNumberOverlap(
+			int permutationNumber, 
+			int refSeqGeneNumber,
+			IntervalName intervalName, 
+			int intervalNumber, 
+			int geneHugoSymbolNumber, 
+			int geneEntrezId, 
+			int low,
+			int high, 
+			TIntList keggPathwayNumberList) {
 
 		super();
 		this.permutationNumber = permutationNumber;

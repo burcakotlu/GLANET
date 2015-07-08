@@ -38,17 +38,16 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongByteMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
-import gnu.trove.map.TObjectShortMap;
-import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
-import gnu.trove.map.hash.TObjectShortHashMap;
-import gnu.trove.map.hash.TShortObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -62,15 +61,19 @@ import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapability.ChromosomeBasedMappabilityTroveList;
+
 import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -537,7 +540,7 @@ public class Enrichment {
 		private final int lowIndex;
 		private final int highIndex;
 
-		private final TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap;
+		private final TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap;
 
 		private final String outputFolder;
 
@@ -558,7 +561,7 @@ public class Enrichment {
 				int lowIndex, int highIndex, TIntList permutationNumberList,
 				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, AnnotationType annotationType,
-				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
 				int overlapDefinition,
 				TIntIntMap elementNumber2OriginalKMap,
 				TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
@@ -2053,7 +2056,7 @@ public class Enrichment {
 		private final int lowIndex;
 		private final int highIndex;
 
-		private final TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap;
+		private final TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap;
 
 		private final String outputFolder;
 
@@ -2068,7 +2071,7 @@ public class Enrichment {
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 				int lowIndex, int highIndex, TIntList permutationNumberList, IntervalTree intervalTree,
 				IntervalTree ucscRefSeqGenesIntervalTree, AnnotationType annotationType,
-				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, int overlapDefinition) {
+				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, int overlapDefinition) {
 
 			this.outputFolder = outputFolder;
 
@@ -3623,8 +3626,8 @@ public class Enrichment {
 			AnnotationType tfCellLineKeggPathwayAnnotationType,
 			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType, 
 			int overlapDefinition,
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap,
-			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap,
+			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
+			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
 
 		// 26 June 2015
@@ -4426,8 +4429,8 @@ public class Enrichment {
 			AnnotationType userDefinedGeneSetAnnotationType, AnnotationType userDefinedLibraryAnnotationType,
 			AnnotationType keggPathwayAnnotationType, AnnotationType tfKeggPathwayAnnotationType,
 			AnnotationType tfCellLineKeggPathwayAnnotationType, int overlapDefinition,
-			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap,
-			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap,
+			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
+			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
 
 		String permutationBasedResultDirectory;
@@ -6301,17 +6304,20 @@ public class Enrichment {
 		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP STARTS *******************/
 		/**********************************************************************************************/
-		TShortObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TShortObjectHashMap<String>();
+		TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetNameMap = new TIntObjectHashMap<String>();
 		// Used in filling geneId2ListofUserDefinedGeneSetNumberMap
-		TObjectShortMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap = new TObjectShortHashMap<String>();
+		TObjectIntMap<String> userDefinedGeneSetName2UserDefinedGeneSetNumberMap = new TObjectIntHashMap<String>();
 
-		TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap = new TIntObjectHashMap<TShortList>();
+		TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap = new TIntObjectHashMap<TIntList>();
 
 		if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
-			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap( dataFolder,
-					userDefinedGeneSetInputFile, geneInformationType,
+			UserDefinedGeneSetUtility.createNcbiGeneId2ListofUserDefinedGeneSetNumberMap(
+					dataFolder,
+					userDefinedGeneSetInputFile, 
+					geneInformationType,
 					userDefinedGeneSetName2UserDefinedGeneSetNumberMap,
-					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, geneId2ListofUserDefinedGeneSetNumberMap);
+					userDefinedGeneSetNumber2UserDefinedGeneSetNameMap, 
+					geneId2ListofUserDefinedGeneSetNumberMap);
 		}
 		/**********************************************************************************************/
 		/********************* FILL GENEID 2 USER DEFINED GENESET NUMBER MAP ENDS *********************/
@@ -6323,8 +6329,8 @@ public class Enrichment {
 		// For efficiency
 		// Fill this map only once.
 		// NCBI Gene Id is Integer
-		TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
-		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectShortHashMap<String>();
+		TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TIntList>();
+		TObjectIntMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectIntHashMap<String>();
 
 		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || 
 				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 

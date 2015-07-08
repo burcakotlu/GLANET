@@ -507,6 +507,45 @@ public class FileOperations {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void fillName2NumberMap(
+			TObjectIntMap<String> name2NumberMap, 
+			String dataFolder,
+			String inputFileName) {
+
+		String strLine;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		int indexofFirstTab;
+		int number;
+		String name;
+
+		try{
+			fileReader = new FileReader( dataFolder + inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+				indexofFirstTab = strLine.indexOf( '\t');
+				name = strLine.substring( 0, indexofFirstTab);
+				number = Integer.parseInt(strLine.substring( indexofFirstTab + 1));
+				name2NumberMap.put( name, number);
+				strLine = null;
+			}
+
+		}catch( FileNotFoundException e){
+			e.printStackTrace();
+		}catch( IOException e){
+			e.printStackTrace();
+		}
+
+		try{
+			bufferedReader.close();
+			fileReader.close();
+		}catch( IOException e){
+			e.printStackTrace();
+		}
+	}
+
 
 	public static void fillName2NumberMap( TObjectShortMap<String> name2NumberMap, String dataFolder,
 			String inputFileName) {

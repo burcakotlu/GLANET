@@ -7,6 +7,7 @@
 package annotation;
 
 import enumtypes.CommandLineArguments;
+import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
@@ -14,6 +15,7 @@ import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -22,7 +24,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 public class WriteAllPossibleNames {
@@ -103,6 +107,33 @@ public class WriteAllPossibleNames {
 
 	}
 
+	// 8 Jul 2015
+	public static void writeNames( 
+			String dataFolder, 
+			TObjectIntMap<String> name2NumberMap,
+			String outputDirectoryName, 
+			String outputFileName) {
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try{
+
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+				it.advance();
+				bufferedWriter.write( it.key() + System.getProperty( "line.separator"));
+			}
+
+			bufferedWriter.close();
+
+		}catch( IOException e){
+			e.printStackTrace();
+		}
+
+	}
 	public static void writeNames( String dataFolder, List<String> nameList, String outputDirectoryName,
 			String outputFileName) {
 
@@ -152,8 +183,35 @@ public class WriteAllPossibleNames {
 		}
 
 	}
-
 	// Write String2ShortMap ends
+	
+	// 8 July 2015
+	public static void writeMapsString2Int(
+			String dataFolder, 
+			TObjectIntMap<String> name2NumberMap,
+			String outputDirectoryName, 
+			String outputFileName) {
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try{
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+				it.advance();
+				bufferedWriter.write( it.key() + "\t" + it.value() + System.getProperty( "line.separator"));
+			}
+
+			bufferedWriter.close();
+
+		}catch( IOException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	// Write Short2StringMap starts
 	// Pay attention first element has elementNumber 1
@@ -179,8 +237,34 @@ public class WriteAllPossibleNames {
 		}
 
 	}
-
 	// Write Short2StringMap ends
+	
+	// 8 July 2015
+	public static void writeMapsInt2String(
+			String dataFolder, 
+			TIntObjectMap<String> number2NameMap,
+			String outputDirectoryName, 
+			String outputFileName) {
+
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try{
+			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			for( int i = 1; i <= number2NameMap.size(); i++){
+				bufferedWriter.write( i + "\t" + number2NameMap.get( i) + System.getProperty( "line.separator"));
+			}
+
+			bufferedWriter.close();
+
+		}catch( IOException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	public static void writeAllPossibleKeggPathwayNames( String dataFolder) {
 
@@ -205,17 +289,21 @@ public class WriteAllPossibleNames {
 	// userDefinedGeneSetName2UserDefinedGeneSetNumberMap is already full
 	// userDefinedGeneSetNumber2UserDefinedGeneSetNameMap is already full
 	// Write them to name2NumberMap and number2NameMap
-	public static void writeAllPossibleUserDefinedGeneSetNames( String dataFolder,
-			TObjectShortMap<String> userDefinedGeneSetName2NumberMap,
-			TShortObjectMap<String> userDefinedGeneSetNumber2NameMap) {
+	public static void writeAllPossibleUserDefinedGeneSetNames( 
+			String dataFolder,
+			TObjectIntMap<String> userDefinedGeneSetName2NumberMap,
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap) {
 
-		writeNames( dataFolder, userDefinedGeneSetName2NumberMap,
+		writeNames( dataFolder, 
+				userDefinedGeneSetName2NumberMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
-		writeMapsString2Short( dataFolder, userDefinedGeneSetName2NumberMap,
+		
+		writeMapsString2Int( dataFolder, userDefinedGeneSetName2NumberMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAME_2_NUMBER_OUTPUT_FILENAME);
-		writeMapsShort2String( dataFolder, userDefinedGeneSetNumber2NameMap,
+		
+		writeMapsInt2String( dataFolder, userDefinedGeneSetNumber2NameMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
 
