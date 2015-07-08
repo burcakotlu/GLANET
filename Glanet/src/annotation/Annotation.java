@@ -10135,7 +10135,7 @@ public class Annotation {
 					allBasedKEGGPathwayNumber2PermutationKMap,
 					allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
 			
-			// Set exonBasedKEGGPathwayNumber2PermutationOneorZeroMap
+			// Set elementNumber2PermutationOneorZeroMap
 			allMapsKeysWithNumbersAndValuesOneorZero.setExonBasedKeggPathwayNumber2PermutationOneorZeroMap(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
 			allMapsKeysWithNumbersAndValuesOneorZero.setRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
 			allMapsKeysWithNumbersAndValuesOneorZero.setAllBasedKeggPathwayNumber2PermutationOneorZeroMap(allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
@@ -10145,7 +10145,6 @@ public class Annotation {
 			regulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
 			allBasedKEGGPathwayNumber2PermutationKMap 			= null;
 		
-			//without Zscores ends
 
 		}
 		
