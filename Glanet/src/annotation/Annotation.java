@@ -47,6 +47,7 @@ import intervaltree.TforHistoneIntervalTreeNodeWithNumbers;
 import intervaltree.UcscRefSeqGeneIntervalTreeNode;
 import intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers;
 import intervaltree.UserDefinedLibraryIntervalTreeNodeWithNumbers;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -63,15 +64,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+
 import keggpathway.ncbigenes.KeggPathwayUtility;
+
 import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
@@ -4374,10 +4380,150 @@ public class Annotation {
 		}// End of for each inputline
 
 	}
-
 	// Enrichment
 	// With IO
 	// With Numbers
+	
+	
+	// 7 July 2015 
+	// KEGGPathway
+	// Without ZScores
+	// Without IO
+	// With Numbers
+	public static void searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+			int permutationNumber, 
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
+			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap,
+			TIntIntMap keggPathwayNumber2PermutationKMap,
+			TIntIntMap userDefinedGeneSetNumber2PermutationKMap, 
+			TIntIntMap geneNumber2PermutationKMap,
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType, 
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
+
+		
+		ChromosomeName chromName;
+
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+
+		IntervalTree ucscRefSeqGenesIntervalTree;
+		
+		for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+			chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+			inputLines = chrNumber2RandomlyGeneratedData.get(chrNumber);
+			ucscRefSeqGenesIntervalTree = chrNumber2IntervalTreeMap.get(chrNumber);
+
+			if( inputLines != null){
+
+				for( int i = 0; i < inputLines.size(); i++){
+		
+					TIntByteMap keggPathwayNumber2PermutationOneorZeroMap = null;
+					TIntByteMap userDefinedGeneSetNumber2PermutationOneorZeroMap = null;
+					TIntByteMap geneNumber2PermutationOneorZeroMap = null;
+					
+		
+					if( geneSetType.isKeggPathway()){
+						keggPathwayNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+					}else if( geneSetType.isUserDefinedGeneSet()){
+						userDefinedGeneSetNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+					}else if( geneSetType.isNoGeneSetTypeDefined()){
+						geneNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+					}
+		
+					inputLine = inputLines.get( i);
+		
+					if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+								permutationNumber, 
+								ucscRefSeqGenesIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								geneId2ListofGeneSetNumberMap, 
+								keggPathwayNumber2PermutationOneorZeroMap,
+								userDefinedGeneSetNumber2PermutationOneorZeroMap,
+								geneNumber2PermutationOneorZeroMap, 
+								type, 
+								geneSetAnalysisType, 
+								geneSetType,
+								overlapDefinition);
+					}
+		
+					// KEGG Pathway starts
+					if( geneSetType.isKeggPathway()){
+		
+						// accumulate search results of keggPathway2OneorZeroMap in keggPathway2KMap
+						for( TIntByteIterator it = keggPathwayNumber2PermutationOneorZeroMap.iterator(); it.hasNext();){
+		
+							it.advance();
+		
+							if( !(keggPathwayNumber2PermutationKMap.containsKey( it.key()))){
+								keggPathwayNumber2PermutationKMap.put( it.key(), it.value());
+							}else{
+								keggPathwayNumber2PermutationKMap.put(it.key(),keggPathwayNumber2PermutationKMap.get( it.key()) + it.value());
+							}
+		
+						}// End of for
+		
+					}
+					// KEGG Pathway ends
+		
+					// UserDefinedGeneSet starts
+					else if( geneSetType.isUserDefinedGeneSet()){
+		
+						// accumulate search results of keggPathway2OneorZeroMap in
+						// keggPathway2KMap
+						for( TIntByteIterator it = userDefinedGeneSetNumber2PermutationOneorZeroMap.iterator(); it.hasNext();){
+		
+							it.advance();
+		
+							if( !(userDefinedGeneSetNumber2PermutationKMap.containsKey( it.key()))){
+								userDefinedGeneSetNumber2PermutationKMap.put( it.key(), it.value());
+							}else{
+								userDefinedGeneSetNumber2PermutationKMap.put( it.key(),
+										userDefinedGeneSetNumber2PermutationKMap.get( it.key()) + it.value());
+		
+							}
+		
+						}// End of for
+		
+					}
+					// UserDefinedGeneSet ends
+		
+					// Gene starts
+					else if( geneSetType.isNoGeneSetTypeDefined()){
+		
+						// accumulate search results of keggPathway2OneorZeroMap in
+						// keggPathway2KMap
+						for( TIntByteIterator it = geneNumber2PermutationOneorZeroMap.iterator(); it.hasNext();){
+		
+							it.advance();
+		
+							if( !(geneNumber2PermutationKMap.containsKey( it.key()))){
+								geneNumber2PermutationKMap.put( it.key(), it.value());
+							}else{
+								geneNumber2PermutationKMap.put( it.key(),
+										geneNumber2PermutationKMap.get( it.key()) + it.value());
+		
+							}
+		
+						}// End of for
+		
+					}
+					// Gene ends
+		
+				}// End of for each input line
+		
+			}// End of IF inputLines is not NULL
+
+		}// End of FOR each Chromosome
+
+	}
+	// 7 July 2015
 
 	// 23 OCT 2014
 	// Enrichment
@@ -9771,7 +9917,10 @@ public class Annotation {
 			AnnotationType annotationType,
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
 			int overlapDefinition,
-			TIntIntMap elementNumber2OriginalKMap) {
+			TIntIntMap elementNumber2OriginalKMap,
+			TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
+			TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
+			TIntIntMap allBasedGeneSetNumber2OriginalKMap) {
 
 		// For each Permutation we have TIntByteMap
 		// Key is elementNumber and Value is be 1 or 0.
@@ -9855,8 +10004,7 @@ public class Annotation {
 					histoneNumberCellLineNumber2PermutationKMap,
 					overlapDefinition);
 
-			// Fill dnaseCellLineNumber2OneorZeroMap using dnaseCellLineNumber2PermutaionKMap and
-			// dnaseCellLineNumber2OriginalKMap
+			// Fill histoneNumberCellLineNumber2PermutationOneorZeroMap using histoneNumberCellLineNumber2PermutaionKMap and histoneNumberCellLineNumber2OriginalKMap
 			fillPermutationOneorZeroMap(
 					elementNumber2OriginalKMap, 
 					histoneNumberCellLineNumber2PermutationKMap,
@@ -9869,6 +10017,96 @@ public class Annotation {
 			histoneNumberCellLineNumber2PermutationKMap = null;
 		}
 
+		//KEGGPathway
+		if (annotationType.doKEGGPathwayAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap exonBasedKEGGPathwayNumber2PermutationOneorZeroMap 		= new TIntByteHashMap();
+			TIntByteMap regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			TIntByteMap allBasedKEGGPathwayNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+
+			// This will be filled during search method call
+			TIntIntMap exonBasedKEGGPathwayNumber2PermutationKMap 		= new TIntIntHashMap();
+			TIntIntMap regulationBasedKEGGPathwayNumber2PermutationKMap = new TIntIntHashMap();
+			TIntIntMap allBasedKEGGPathwayNumber2PermutationKMap 		= new TIntIntHashMap();
+			
+			// EXON Based KEGG Pathway Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					exonBasedKEGGPathwayNumber2PermutationKMap, 
+					null, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					GeneSetType.KEGGPATHWAY,
+					overlapDefinition);
+			
+			
+			// REGULATION Based KEGG Pathway Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					regulationBasedKEGGPathwayNumber2PermutationKMap, 
+					null, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					GeneSetType.KEGGPATHWAY,
+					overlapDefinition);
+			
+			
+			// ALL Based KEGG Pathway Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					allBasedKEGGPathwayNumber2PermutationKMap, 
+					null, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					GeneSetType.KEGGPATHWAY,
+					overlapDefinition);
+			
+			
+			// Fill exonBasedKEGGPathwayNumber2PermutationOneorZeroMap using exonBasedKEGGPathwayNumber2OriginalKMap and exonBasedKEGGPathwayNumber2PermutationKMap
+			fillPermutationOneorZeroMap(
+				exonBasedGeneSetNumber2OriginalKMap, 
+				exonBasedKEGGPathwayNumber2PermutationKMap,
+				exonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			fillPermutationOneorZeroMap(
+					regulationBasedGeneSetNumber2OriginalKMap, 
+					regulationBasedKEGGPathwayNumber2PermutationKMap,
+					regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			
+			fillPermutationOneorZeroMap(
+					allBasedGeneSetNumber2OriginalKMap, 
+					allBasedKEGGPathwayNumber2PermutationKMap,
+					allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			
+			// Set exonBasedKEGGPathwayNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setExonBasedKeggPathwayNumber2PermutationOneorZeroMap(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setAllBasedKeggPathwayNumber2PermutationOneorZeroMap(allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			//Free space
+			exonBasedKEGGPathwayNumber2PermutationKMap 			= null;
+			regulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
+			allBasedKEGGPathwayNumber2PermutationKMap 			= null;
+		
+			//without Zscores ends
+
+		}
+		
 		return allMapsKeysWithNumbersAndValuesOneorZero;
 	}
 

@@ -545,6 +545,10 @@ public class Enrichment {
 
 		private TIntIntMap elementNumber2OriginalKMap;
 		
+		private TIntIntMap exonBasedGeneSetNumber2OriginalKMap;
+		private TIntIntMap regulationBasedGeneSetNumber2OriginalKMap;
+		private TIntIntMap allBasedGeneSetNumber2OriginalKMap;
+		
 		public AnnotateWithNumbersForAllChromosomes(
 				String outputFolder,
 				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
@@ -554,8 +558,12 @@ public class Enrichment {
 				int lowIndex, int highIndex, TIntList permutationNumberList,
 				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, AnnotationType annotationType,
-				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, int overlapDefinition,
-				TIntIntMap elementNumber2OriginalKMap) {
+				TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap, 
+				int overlapDefinition,
+				TIntIntMap elementNumber2OriginalKMap,
+				TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
+				TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
+				TIntIntMap allBasedGeneSetNumber2OriginalKMap) {
 
 			this.outputFolder = outputFolder;
 
@@ -572,8 +580,7 @@ public class Enrichment {
 			this.chrNumber2IntervalTreeMap = chrNumber2IntervalTreeMap;
 
 			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
-			// sent full when annotationType is
-			// TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
 			// otherwise sent null
 			this.chrNumber2UcscRefSeqGenesIntervalTreeMap = chrNumber2UcscRefSeqGenesIntervalTreeMap;
 
@@ -591,6 +598,11 @@ public class Enrichment {
 			this.overlapDefinition = overlapDefinition;
 
 			this.elementNumber2OriginalKMap = elementNumber2OriginalKMap;
+			
+			this.exonBasedGeneSetNumber2OriginalKMap 		= exonBasedGeneSetNumber2OriginalKMap;
+			this.regulationBasedGeneSetNumber2OriginalKMap 	= regulationBasedGeneSetNumber2OriginalKMap;
+			this.allBasedGeneSetNumber2OriginalKMap 		= allBasedGeneSetNumber2OriginalKMap;
+			
 		}
 
 		protected AllMapsWithNumbersForAllChromosomes compute() {
@@ -610,20 +622,30 @@ public class Enrichment {
 						writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex,
 						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
 						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
-						elementNumber2OriginalKMap);
+						elementNumber2OriginalKMap,
+						exonBasedGeneSetNumber2OriginalKMap,
+						regulationBasedGeneSetNumber2OriginalKMap,
+						allBasedGeneSetNumber2OriginalKMap);
+				
 				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes( outputFolder,
 						chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations,
 						writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex,
 						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
 						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
-						elementNumber2OriginalKMap);
+						elementNumber2OriginalKMap,
+						exonBasedGeneSetNumber2OriginalKMap,
+						regulationBasedGeneSetNumber2OriginalKMap,
+						allBasedGeneSetNumber2OriginalKMap);
+				
 				left.fork();
 
 				rightAllMapsWithNumbersForAllChromosomes = right.compute();
 				leftAllMapsWithNumbersForAllChromosomes = left.join();
 
-				accumulateLeftInRightAllMapsWithNumbersForAllChromosomes( leftAllMapsWithNumbersForAllChromosomes,
-						rightAllMapsWithNumbersForAllChromosomes, annotationType);
+				accumulateLeftInRightAllMapsWithNumbersForAllChromosomes(
+						leftAllMapsWithNumbersForAllChromosomes,
+						rightAllMapsWithNumbersForAllChromosomes, 
+						annotationType);
 
 				leftAllMapsWithNumbersForAllChromosomes = null;
 				return rightAllMapsWithNumbersForAllChromosomes;
@@ -664,7 +686,10 @@ public class Enrichment {
 								annotationType,
 								geneId2ListofGeneSetNumberMap, 
 								overlapDefinition, 
-								elementNumber2OriginalKMap),
+								elementNumber2OriginalKMap,
+								exonBasedGeneSetNumber2OriginalKMap,
+								regulationBasedGeneSetNumber2OriginalKMap,
+								allBasedGeneSetNumber2OriginalKMap),
 
 						allMapsWithNumbersForAllChromosomes, annotationType);
 					}
@@ -3570,22 +3595,34 @@ public class Enrichment {
 			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,
 			WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 			WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode,
-			TIntIntMap dnaseCellLineNumber2OriginalKMap, TIntIntMap tfNumberCellLineNumber2OriginalKMap,
-			TIntIntMap histoneNumberCellLineNumber2OriginalKMap, TIntIntMap gene2OriginalKMap,
+			TIntIntMap dnaseCellLineNumber2OriginalKMap, 
+			TIntIntMap tfNumberCellLineNumber2OriginalKMap,
+			TIntIntMap histoneNumberCellLineNumber2OriginalKMap, 
+			TIntIntMap gene2OriginalKMap,
 			TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap,
 			TIntIntMap regulationBasedUserDefinedGeneSet2OriginalKMap,
-			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap, TIntIntMap elementTypeNumberElementNumber2OriginalKMap,
-			TIntIntMap exonBasedKeggPathway2OriginalKMap, TIntIntMap regulationBasedKeggPathway2OriginalKMap,
-			TIntIntMap allBasedKeggPathway2OriginalKMap, TIntIntMap tfExonBasedKeggPathway2OriginalKMap,
-			TIntIntMap tfRegulationBasedKeggPathway2OriginalKMap, TIntIntMap tfAllBasedKeggPathway2OriginalKMap,
+			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap, 
+			TIntIntMap elementTypeNumberElementNumber2OriginalKMap,
+			TIntIntMap exonBasedKeggPathway2OriginalKMap, 
+			TIntIntMap regulationBasedKeggPathway2OriginalKMap,
+			TIntIntMap allBasedKeggPathway2OriginalKMap, 
+			TIntIntMap tfExonBasedKeggPathway2OriginalKMap,
+			TIntIntMap tfRegulationBasedKeggPathway2OriginalKMap, 
+			TIntIntMap tfAllBasedKeggPathway2OriginalKMap,
 			TLongIntMap tfCellLineExonBasedKeggPathway2OriginalKMap,
 			TLongIntMap tfCellLineRegulationBasedKeggPathway2OriginalKMap,
-			TLongIntMap tfCellLineAllBasedKeggPathway2OriginalKMap, AnnotationType dnaseAnnotationType,
-			AnnotationType histoneAnnotationType, AnnotationType tfAnnotationType, AnnotationType geneAnnotationType,
-			AnnotationType userDefinedGeneSetAnnotationType, AnnotationType userDefinedLibraryAnnotationType,
-			AnnotationType keggPathwayAnnotationType, AnnotationType tfKeggPathwayAnnotationType,
+			TLongIntMap tfCellLineAllBasedKeggPathway2OriginalKMap, 
+			AnnotationType dnaseAnnotationType,
+			AnnotationType histoneAnnotationType, 
+			AnnotationType tfAnnotationType, 
+			AnnotationType geneAnnotationType,
+			AnnotationType userDefinedGeneSetAnnotationType, 
+			AnnotationType userDefinedLibraryAnnotationType,
+			AnnotationType keggPathwayAnnotationType, 
+			AnnotationType tfKeggPathwayAnnotationType,
 			AnnotationType tfCellLineKeggPathwayAnnotationType,
-			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType, int overlapDefinition,
+			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType, 
+			int overlapDefinition,
 			TIntObjectMap<TShortList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TShortList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
@@ -3768,8 +3805,8 @@ public class Enrichment {
 				// Fill GC and Mapability Data Structures
 				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
-					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
+					logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -3852,8 +3889,8 @@ public class Enrichment {
 
 					endTimeFillingList = System.currentTimeMillis();
 
-					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-					logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+					logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 
 				}// Generate Random Data WITH GC and Mapability
 				/*******************************************************************************************************************************/
@@ -3863,11 +3900,9 @@ public class Enrichment {
 				/********************************************************************************************************/
 				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME STARTS ****************************/
 				/********************************************************************************************************/
-				GlanetRunner.appendLog("Generate Random Data for permutations has started.");
-				logger.info("Generate Random Data for permutations has started.");
+				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
+				logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
 				// First generate Random Data
-
-				
 				generateRandomData = new GenerateRandomData( outputFolder, chromSize, chromName,
 						chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode,
 						Commons.ZERO, permutationNumberList.size(), permutationNumberList, givenInputsSNPsorIntervals,
@@ -3876,6 +3911,8 @@ public class Enrichment {
 						mapabilityChromosomePositionList, mapabilityShortValueList);
 
 				permutationNumber2RandomlyGeneratedDataMap = pool.invoke( generateRandomData);
+				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has ended.");
+				logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has ended.");
 				/********************************************************************************************************/
 				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME ENDS ******************************/
 				/********************************************************************************************************/
@@ -3914,8 +3951,8 @@ public class Enrichment {
 
 		endTimeGenerateRandomData = System.currentTimeMillis();
 
-		GlanetRunner.appendLog( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-		logger.info( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		GlanetRunner.appendLog( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		logger.info( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 	
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
@@ -3980,7 +4017,10 @@ public class Enrichment {
 					AnnotationType.DO_DNASE_ANNOTATION, 
 					null, 
 					overlapDefinition, 
-					dnaseCellLineNumber2OriginalKMap);
+					dnaseCellLineNumber2OriginalKMap,
+					null,
+					null,
+					null);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
@@ -4040,7 +4080,9 @@ public class Enrichment {
 			}// End of FOR each CHROMOSOME
 
 			// Why don't we fill it before?
-			fillElementNumber2OriginalKMap( tfNumberCellLineNumber2OriginalKMap, outputFolder,
+			fillElementNumber2OriginalKMap(
+					tfNumberCellLineNumber2OriginalKMap, 
+					outputFolder,
 					Commons.ANNOTATION_RESULTS_FOR_TF);
 
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
@@ -4057,7 +4099,10 @@ public class Enrichment {
 					AnnotationType.DO_TF_ANNOTATION, 
 					null, 
 					overlapDefinition,
-					tfNumberCellLineNumber2OriginalKMap);
+					tfNumberCellLineNumber2OriginalKMap,
+					null,
+					null,
+					null);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
@@ -4138,7 +4183,10 @@ public class Enrichment {
 					AnnotationType.DO_HISTONE_ANNOTATION, 
 					null, 
 					overlapDefinition,
-					histoneNumberCellLineNumber2OriginalKMap);
+					histoneNumberCellLineNumber2OriginalKMap,
+					null,
+					null,
+					null);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
@@ -4167,7 +4215,115 @@ public class Enrichment {
 		logger.info( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 		logger.info( "******************************************************************************************");
 		/********************************************************************************************************/
-		/***************************** HISTONE ANNOTATION OF PERMUTATIONS RNDS ********************************/
+		/***************************** HISTONE ANNOTATION OF PERMUTATIONS ENDS **********************************/
+		/********************************************************************************************************/
+
+		/********************************************************************************************************/
+		/*************************** KEGGPathway ANNOTATION OF PERMUTATIONS STARTS ******************************/
+		/********************************************************************************************************/
+		startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+		if(keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
+
+			GlanetRunner.appendLog("KEGG Pathway Annotation of Permutations has started.");
+			logger.info("KEGG Pathway  Annotation of Permutations has started.");
+
+			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+
+			// Fill chrNumber2IntervalTreeMap
+			// For each chromosome, generate intervalTree and fill intervalTreeMap
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+				chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+
+				if( chromosomeBaseOriginalInputLines != null){
+
+					intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
+					ucscRefSeqGenesIntervalTreeMap.put( chrNumber, intervalTree);
+
+				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+
+			}// End of FOR each CHROMOSOME
+
+			// Why don't we fill it before?
+			fillElementNumber2OriginalKMap( 
+					exonBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					regulationBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					allBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+
+
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					ucscRefSeqGenesIntervalTreeMap, 
+					null,
+					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, 
+					geneId2ListofKeggPathwayNumberMap, 
+					overlapDefinition,
+					null,
+					exonBasedKeggPathway2OriginalKMap,
+					regulationBasedKeggPathway2OriginalKMap,
+					allBasedKeggPathway2OriginalKMap);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations());
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations());
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations());
+
+			// Free memory
+			ucscRefSeqGenesIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("KEGG Pathway Annotation of Permutations has ended.");
+			logger.info("KEGG Pathway Annotation of Permutations has ended.");
+
+		}// End of IF DO KEGG Pathway Annotation
+
+		endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+		GlanetRunner.appendLog( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+		GlanetRunner.appendLog( "******************************************************************************************");
+
+		logger.info( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+		logger.info( "******************************************************************************************");
+
+		/********************************************************************************************************/
+		/*************************** KEGGPathway ANNOTATION OF PERMUTATIONS ENDS ********************************/
 		/********************************************************************************************************/
 	
 
@@ -6170,7 +6326,9 @@ public class Enrichment {
 		TIntObjectMap<TShortList> geneId2KeggPathwayNumberMap = new TIntObjectHashMap<TShortList>();
 		TObjectShortMap<String> keggPathwayName2KeggPathwayNumberMap = new TObjectShortHashMap<String>();
 
-		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || 
+				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			// all_possible_keggPathwayName_2_keggPathwayNumber_map.txt
 			KeggPathwayUtility.fillKeggPathwayName2KeggPathwayNumberMap( dataFolder,
@@ -6317,7 +6475,6 @@ public class Enrichment {
 			exonBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
 			regulationBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
 			allBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
-
 		}
 
 		// User Defined Library

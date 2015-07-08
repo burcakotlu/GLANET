@@ -4857,6 +4857,217 @@ public class IntervalTree {
 		}
 
 	}
+	
+	
+	// 8 July 2015
+	// WITHOUT IO
+	// WITH Numbers
+	// WITHOUT ZScores
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap,
+			TIntByteMap keggPathwayNumber2PermutationOneorZeroMap,
+			TIntByteMap userDefinedGeneSetNumber2PermutationOneorZeroMap,
+			TIntByteMap geneNumber2PermutationOneorZeroMap, 
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType,
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
+
+		int keggPathwayNumber = Integer.MIN_VALUE;
+		int userDefinedGeneSetNumber = Integer.MIN_VALUE;
+		int geneNumber = Integer.MIN_VALUE;
+
+		Short geneSetNumber = null;
+		TShortList ListofGeneSetNumberContainingThisGeneId = null;
+
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+
+		if( Commons.NCBI_GENE_ID.equals( type)){
+			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				}
+
+				// Gene Enrichment
+				if( geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
+						geneNumber = castedNode.getGeneEntrezId();
+
+					if( !(geneNumber2PermutationOneorZeroMap.containsKey(geneNumber))){
+						geneNumber2PermutationOneorZeroMap.put(geneNumber, Commons.BYTE_1);
+					}
+
+				}
+
+				// write EXON based results starts
+				else if( geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
+
+					// EXON based KEGG Pathway analysis
+					if( castedNode.getIntervalName().isExon()){
+
+						//@todo Must be TIntList instead of TShortList
+						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
+
+						if( ListofGeneSetNumberContainingThisGeneId != null){
+							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+
+								// KEGGPathway starts
+								if( geneSetType.isKeggPathway()){
+									keggPathwayNumber = geneSetNumber;
+											
+									if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+										keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+									}
+								}
+								// KEGGPathway ends
+
+								// UserDefinedGeneSet starts
+								else if( geneSetType.isUserDefinedGeneSet()){
+									userDefinedGeneSetNumber = geneSetNumber;
+											
+									if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+										userDefinedGeneSetNumber2PermutationOneorZeroMap.put(
+												userDefinedGeneSetNumber, Commons.BYTE_1);
+									}
+								}
+								// UserDefinedGeneSet ends
+
+							}// End of For: for all genesets having this gene in their gene list
+						
+						} // End of If: geneSetListContainingThisGeneId is not null
+						
+					}// End of If: Exon Based GeneSet Analysis, Overlapped node is an exon
+
+				}
+				// write EXON based results ends
+
+				// write REGULATION based results
+				else if( geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
+					// Regulation Based kegg pathway analysis
+					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+
+						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+
+						if( ListofGeneSetNumberContainingThisGeneId != null){
+							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+
+								// Kegg Pathway starts
+								if( geneSetType.isKeggPathway()){
+
+									keggPathwayNumber = geneSetNumber;
+								
+									if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+										keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+									}
+
+								}
+								// Kegg Pathway ends
+
+								// UserDefinedGeneSet starts
+								else if( geneSetType.isUserDefinedGeneSet()){
+									
+									userDefinedGeneSetNumber = geneSetNumber;
+									
+									if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+										userDefinedGeneSetNumber2PermutationOneorZeroMap.put(userDefinedGeneSetNumber, Commons.BYTE_1);
+									}
+
+								}
+								// UserDefinedGeneSet ends
+
+							}// End of For: for all gene sets having this gene in their gene list
+						} // End of If: geneSetListContainingThisGeneId is not null
+					}// End of If: Regulation Based gene set Analysis,
+					// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+
+				}
+				// write REGULATION based results ends
+
+				// write ALL based results starts
+				else if( geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
+
+					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+
+					if( ListofGeneSetNumberContainingThisGeneId != null){
+						for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+							geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+
+							// Kegg Pathway starts
+							if( geneSetType.isKeggPathway()){
+								keggPathwayNumber = geneSetNumber;
+								
+								if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+									keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+								}
+
+							}
+							// Kegg Pathway ends
+
+							// UserDefinedGeneSet starts
+							else if( geneSetType.isUserDefinedGeneSet()){
+
+								userDefinedGeneSetNumber = geneSetNumber;
+								
+								if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+									userDefinedGeneSetNumber2PermutationOneorZeroMap.put(userDefinedGeneSetNumber, Commons.BYTE_1);
+								}
+
+							}
+							// UserDefinedGeneSet ends
+
+						}// End of For: for all genesets having this gene in their gene list
+					} // End of If: geneSetListContainingThisGeneId is not null
+
+				}
+				// write ALL based results ends
+
+			}// End of if: there is overlap
+		} // End of If: type is NCBI_GENE_ID
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					keggPathwayNumber2PermutationOneorZeroMap,
+					userDefinedGeneSetNumber2PermutationOneorZeroMap, 
+					geneNumber2PermutationOneorZeroMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					keggPathwayNumber2PermutationOneorZeroMap,
+					userDefinedGeneSetNumber2PermutationOneorZeroMap, 
+					geneNumber2PermutationOneorZeroMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
+		}
+
+	}
+	//8 July 2015
+	
 
 	// 23 OCT 2014
 	// Empirical P Value Calculation
@@ -4867,13 +5078,19 @@ public class IntervalTree {
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// without IO
 	// with Numbers
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
 			TIntObjectMap<TShortList> geneId2ListofGeneSetNumberMap,
 			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap,
 			TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,
-			TLongIntMap permutationNumberGeneNumber2OneorZeroMap, String type, GeneSetAnalysisType geneSetAnalysisType,
-			GeneSetType geneSetType, int overlapDefinition) {
+			TLongIntMap permutationNumberGeneNumber2OneorZeroMap, 
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType,
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
 
 		int permutationNumberKeggPathwayNumber = Integer.MIN_VALUE;
 		long permutationNumberUserDefinedGeneSetNumber = Long.MIN_VALUE;
