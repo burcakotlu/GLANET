@@ -99,6 +99,9 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Histone Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone modifications sites.
 
+	* *Genome Annotation (CellLine Based)*
+                -  Needs explanation
+
 	* *Transcription Factor (TF) Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
 
@@ -179,6 +182,9 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Perform Enrichment*
 		-  Check *Perform Enrichment* checkbox if you want Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
+
+	* *Perform Enrichment With ZScores*
+                -  Needs explanation
 
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
@@ -265,6 +271,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-tf`_        |  Optional         | `-c`_        | None                 |
 |                         +---------------+-------------------+--------------+----------------------+
+|                         | `-gene`_      |  Optional         | `-c`_        | None                 |
+|			  +---------------+-------------------+--------------+----------------------+
 |                         | `-kegg`_      |  Optional         | `-c`_        | None                 |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-tfkegg`_    |  Optional         | `-c`_        | None                 |
@@ -313,6 +321,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-celltfkegg`_|                      |
 |                         +---------------+-------------------+--------------+----------------------+
+|			  | `-ewz`_       |  Optional         | `-e`_        + None		    |
+|			  +---------------+-------------------+--------------+----------------------+
 |                         | `-rdgcm`_     |  Required         | `-e`_        | `-rdgcm`_            |
 |                         +---------------+                   |              |                      |
 |                         | `-rd`_        |                   |              |                      |
@@ -418,6 +428,11 @@ This option enables DNase Hypersensitive Sites (Cell Line Based) Annotation.
 
 This option enables Histone Modifications Sites (Cell Line Based) Annotation.
 
+-gene
+^^^^^
+
+Needs explanation
+
 -tf
 ^^^
 
@@ -520,6 +535,10 @@ This option specifies User Defined Library Data Format as "1-based coordinates (
 
 If this option is specified, GLANET performs enrichment. 
 Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
+
+-ewz
+^^^^
+Needs explanation
 
 -rdgcm
 ^^^^^^
