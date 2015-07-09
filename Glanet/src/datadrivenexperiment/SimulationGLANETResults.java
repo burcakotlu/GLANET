@@ -21,6 +21,7 @@ import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
 import common.Commons;
 import enumtypes.CommandLineArguments;
+import enumtypes.DnaseOverlapExclusionType;
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecision;
 import enumtypes.MultipleTestingType;
@@ -454,39 +455,77 @@ public class SimulationGLANETResults {
 		}
 	}
 
+	/*
+	 * args[0] = glanet folder (which includes Data folder inside)
+	 * args[1] = tpm value (0.1, 0.01, 0.001)
+	 * args[2] = 0 or otherwise (any value except 0).
+	 * 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * any value except 0 (e.g. 1) =
+	 * DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * args[3] = fdr value (e.g. "0.05")
+	 * args[4] = bonferroni correction significance level ( e.g "0.05")
+	 * args[5] = 0 or otherwise (any value except 0)
+	 * 0 = MultipleTestingType.BONFERRONI_CORRECTION
+	 * any value except 0 (e.g. 1) = MultipleTestingType.BENJAMINI_HOCHBERG_FDR
+	 * 
+	 * args[6] = 0 or otherwise (any value except 0)
+	 * 0 = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE
+	 * any value except 0 (e.g. 1) = EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO
+	 * 
+	 * args[7] = number of simulations (e.g. "100")
+	 * 
+	 * example parameters:
+	 * 
+	 * "//Volumes//External//Documents//GLANET//"
+	 * "0.001"
+	 * "0"
+	 * "0.05"
+	 * "0.05'
+	 * "0"
+	 * "0"
+	 * "100"
+	 */
 	public static void main( String[] args) {
 
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-
+		String glanetFolder = args[0];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
+		String tpmString;
 
-		//String tpmString = Commons.TPM_1;
-		// String tpmString = Commons.TPM_01;
-		// String tpmString = Commons.TPM_001;
-		String tpmString = Commons.TPM_0_001;
-		// String tpmString = Commons.TPM_0;
+		if( args.length > 1)
+			switch( args[1]){
 
-		//String dnaseOverlapsExcludedorNot = Commons.NON_EXPRESSING_GENES;
-		// String dnaseOverlapsExcludedorNot = Commons.COMPLETELY_DNASE_OVERLAPS_EXCLUSION;
-		String dnaseOverlapsExcludedorNot = Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+			case "0.1":
+				tpmString = Commons.TPM_0_1;
+				break;
+			case "0.01":
+				tpmString = Commons.TPM_0_01;
+				break;
+			case "0.001":
+				tpmString = Commons.TPM_0_001;
+				break;
+			default:
+				tpmString = Commons.TPM_0_001;
+				break;
+			}
+		else
+			tpmString = Commons.TPM_0_001;
 
-		float FDR = 0.05f;
-		float bonferroniCorrectionSignificanceLevel = 0.05f;
-		MultipleTestingType multipleTestingParameter = MultipleTestingType.BONFERRONI_CORRECTION;
-		// MultipleTestingType multipleTestingParameter = MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
+		String dnaseOverlapsExcludedorNot = ( Integer.parseInt( args[2]) == 0)?Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+
+		float FDR = ( args.length > 3)?Float.parseFloat( args[3]):0.05f;
+		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;
+		MultipleTestingType multipleTestingParameter = ( Integer.parseInt( args[5]) == 0 || !( args.length > 5))?MultipleTestingType.BONFERRONI_CORRECTION:MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
 
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
 				dataFolder, ElementType.TF, Commons.GM12878);
 		int numberofHistoneElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
 				dataFolder, ElementType.HISTONE, Commons.GM12878);
 
-		int numberofSimulations = 100;
-
 		// Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
-		// EnrichmentDecision enrichmentDecision =
-		// EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
-		EnrichmentDecision enrichmentDecision = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE;
+		EnrichmentDecision enrichmentDecision = ( Integer.parseInt( args[6]) == 0 || !( args.length > 6))?EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE:EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
+
+		int numberofSimulations = ( args.length > 7)?Integer.parseInt( args[7]):100;
 
 		readSimulationGLANETResults( outputFolder, tpmString, dnaseOverlapsExcludedorNot, numberofSimulations,
 				numberofTFElementsInCellLine, ElementType.TF, Commons.GM12878, Commons.POL2_GM12878,
@@ -497,7 +536,6 @@ public class SimulationGLANETResults {
 		readSimulationGLANETResults( outputFolder, tpmString, dnaseOverlapsExcludedorNot, numberofSimulations,
 				numberofHistoneElementsInCellLine, ElementType.HISTONE, Commons.GM12878, Commons.H3K27ME3_GM12878,
 				bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, enrichmentDecision);
-
 	}
 
 }
