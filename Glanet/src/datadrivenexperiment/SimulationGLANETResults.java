@@ -356,12 +356,14 @@ public class SimulationGLANETResults {
 				elementList = new ArrayList<FunctionalElementMinimal>();
 
 				enrichmentDirectory = new File(
-						outputFolder + tpmString + dnaseOverlapsExcludedorNot + Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString());
+						outputFolder + tpmString + "_" + dnaseOverlapsExcludedorNot + Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 				// Get the enrichmentFile in this folder for this simulation
 				// There must only one enrichmentFile
+
 				if( enrichmentDirectory.exists() && enrichmentDirectory.isDirectory()){
 
+					System.out.println( "directory exists and is directory");
 					for( File eachEnrichmentFile : enrichmentDirectory.listFiles()){
 
 						if( !eachEnrichmentFile.isDirectory() && eachEnrichmentFile.getAbsolutePath().contains(
@@ -381,6 +383,7 @@ public class SimulationGLANETResults {
 				enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
 
 				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter( enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineName + "_" + Commons.SIMULATION + i + ".txt");
+
 				cellLineFilteredEnrichmentBufferedWriter = new BufferedWriter( cellLineFilteredEnrichmentFileWriter);
 
 				// Skip HeaderLine
@@ -511,11 +514,11 @@ public class SimulationGLANETResults {
 		else
 			tpmString = Commons.TPM_0_001;
 
-		String dnaseOverlapsExcludedorNot = ( Integer.parseInt( args[2]) == 0)?Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		String dnaseOverlapsExcludedorNot = ( ( args.length < 3) || Integer.parseInt( args[2]) == 0)?Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 
 		float FDR = ( args.length > 3)?Float.parseFloat( args[3]):0.05f;
 		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;
-		MultipleTestingType multipleTestingParameter = ( Integer.parseInt( args[5]) == 0 || !( args.length > 5))?MultipleTestingType.BONFERRONI_CORRECTION:MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
+		MultipleTestingType multipleTestingParameter = ( !( args.length > 5) || Integer.parseInt( args[5]) == 0)?MultipleTestingType.BONFERRONI_CORRECTION:MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
 
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
 				dataFolder, ElementType.TF, Commons.GM12878);
@@ -523,7 +526,7 @@ public class SimulationGLANETResults {
 				dataFolder, ElementType.HISTONE, Commons.GM12878);
 
 		// Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
-		EnrichmentDecision enrichmentDecision = ( Integer.parseInt( args[6]) == 0 || !( args.length > 6))?EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE:EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
+		EnrichmentDecision enrichmentDecision = ( !( args.length > 6) || Integer.parseInt( args[6]) == 0)?EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE:EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
 
 		int numberofSimulations = ( args.length > 7)?Integer.parseInt( args[7]):100;
 
