@@ -18,6 +18,7 @@ import gnu.trove.list.TIntList;
 import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TLongByteMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.TObjectIntMap;
@@ -27,6 +28,7 @@ import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TLongByteHashMap;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
@@ -9962,7 +9964,10 @@ public class Annotation {
 			TIntIntMap elementNumber2OriginalKMap,
 			TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
 			TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
-			TIntIntMap allBasedGeneSetNumber2OriginalKMap) {
+			TIntIntMap allBasedGeneSetNumber2OriginalKMap,
+			TLongIntMap tfNumberCellLineNumberExonBasedKEGGPathwayNumber2OriginalKMap,
+			TLongIntMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
+			TLongIntMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2OriginalKMap) {
 
 		// For each Permutation we have TIntByteMap
 		// Key is elementNumber and Value is be 1 or 0.
@@ -10148,14 +10153,97 @@ public class Annotation {
 
 		}
 		
+		//TF CELLLINE KEGGPATHWAY 
+		if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TLongByteMap tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap		= new TLongByteHashMap();
+			TLongByteMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap	= new TLongByteHashMap();
+			TLongByteMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap 		= new TLongByteHashMap();
+
+			// This will be filled during search method call
+			TLongIntMap tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationKMap 		= new TLongIntHashMap();
+			TLongIntMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= new TLongIntHashMap();
+			TLongIntMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationKMap 		= new TLongIntHashMap();
+
+			//@todo left here
+			//do search interval trees
+			
+			fillPermutationOneorZeroMap(
+					tfNumberCellLineNumberExonBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			fillPermutationOneorZeroMap(
+					tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+				
+			fillPermutationOneorZeroMap(
+					tfNumberCellLineNumberAllBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+				
+				// Set elementNumber2PermutationOneorZeroMap
+				allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+				allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+				allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+				//Free space
+				tfNumberCellLineNumberExonBasedKEGGPathwayNumber2PermutationKMap 		= null;
+				tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
+				tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationKMap 		= null;
+		}
+		
 		return allMapsKeysWithNumbersAndValuesOneorZero;
 	}
-
 	// 26 June 2015
+	
+	//9 July 2015
+	public static void fillPermutationOneorZeroMap( 
+			TLongIntMap elementNumber2OriginalKMap,
+			TLongIntMap elementNumber2PermutationKMap, 
+			TLongByteMap elementNumber2PermutationOneorZeroMap) {
+
+		long elementNumber;
+		int originalNumberofOverlaps;
+		Integer permutationNumberofOverlaps;
+
+		for( TLongIntIterator itr = elementNumber2OriginalKMap.iterator(); itr.hasNext();){
+
+			itr.advance();
+
+			elementNumber = itr.key();
+			originalNumberofOverlaps = itr.value();
+
+			permutationNumberofOverlaps = elementNumber2PermutationKMap.get( elementNumber);
+
+			if( permutationNumberofOverlaps != null){
+
+				if( permutationNumberofOverlaps >= originalNumberofOverlaps){
+					elementNumber2PermutationOneorZeroMap.put( elementNumber, Commons.BYTE_1);
+				}else{
+					elementNumber2PermutationOneorZeroMap.put( elementNumber, Commons.BYTE_0);
+				}// End of IF
+
+			}// End of IF permutationNumberofOverlaps is not NULL
+
+			else{
+				elementNumber2PermutationOneorZeroMap.put( elementNumber, Commons.BYTE_0);
+			}// End of ELSE permutationNumberofOverlaps is NULL
+
+		}// End of FOR each elementNumber in elementNumber2OriginalKMap
+
+	}
+	//9 July 2015
 
 	// We must consider each of the elementNumber
-	public static void fillPermutationOneorZeroMap( TIntIntMap elementNumber2OriginalKMap,
-			TIntIntMap elementNumber2PermutationKMap, TIntByteMap elementNumber2PermutationOneorZeroMap) {
+	public static void fillPermutationOneorZeroMap( 
+			TIntIntMap elementNumber2OriginalKMap,
+			TIntIntMap elementNumber2PermutationKMap, 
+			TIntByteMap elementNumber2PermutationOneorZeroMap) {
 
 		int elementNumber;
 		int originalNumberofOverlaps;
