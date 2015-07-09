@@ -394,11 +394,6 @@ public class MainView extends JPanel {
 		annotationOptions.setLayout( new BoxLayout( annotationOptions, BoxLayout.PAGE_AXIS));
 
 		// dnaseAnnotation added to annotationOptions
-		geneAnnotation = new JCheckBox( Commons.GUI_HINT_GENE_ANNOTATION);
-		geneAnnotation.addItemListener( enableEnrichmentListener);
-		annotationOptions.add( createPanelWithHint( geneAnnotation, Commons.GUI_HINT_GENE_ANNOTATION));
-
-		// dnaseAnnotation added to annotationOptions
 		dnaseAnnotation = new JCheckBox( Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION);
 		dnaseAnnotation.addItemListener( enableEnrichmentListener);
 		annotationOptions.add( createPanelWithHint( dnaseAnnotation, Commons.GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION));
@@ -408,6 +403,11 @@ public class MainView extends JPanel {
 		histoneAnnotation.addItemListener( enableEnrichmentListener);
 		annotationOptions.add( createPanelWithHint( histoneAnnotation,
 				Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
+
+		// geneAnnotation added to annotationOptions
+		geneAnnotation = new JCheckBox( Commons.GUI_HINT_GENE_ANNOTATION);
+		geneAnnotation.addItemListener( enableEnrichmentListener);
+		annotationOptions.add( createPanelWithHint( geneAnnotation, Commons.GUI_HINT_GENE_ANNOTATION));
 
 		// tfAnnotation added to annotationOptions
 		tfAnnotation = new JCheckBox( Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION);
@@ -548,12 +548,10 @@ public class MainView extends JPanel {
 
 		performEnrichmentPanel.add( performEnrichmentCheckBox);
 
-		JPanel performEnrichmentWithZScoresPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
 		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores (requires more memory)");
-		performEnrichmentWithZScoresPanel.add( performEnrichmentWithZScoresCheckBox);
+		performEnrichmentPanel.add( performEnrichmentWithZScoresCheckBox);
 
 		enrichmentPanel.add( performEnrichmentPanel);
-		enrichmentPanel.add( performEnrichmentWithZScoresPanel);
 
 		// generateRandomDataModeCombo added to enrichmentPanel
 		String[] generateRandomDataModeSet = {Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT,
@@ -762,7 +760,7 @@ public class MainView extends JPanel {
 
 	public void checkUsabilityOfEnrichmentOptions() {
 
-		if( dnaseAnnotation.isSelected() || histoneAnnotation.isSelected() || tfAnnotation.isSelected() || keggPathwayAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() || userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected()){
+		if( dnaseAnnotation.isSelected() || geneAnnotation.isSelected() || histoneAnnotation.isSelected() || tfAnnotation.isSelected() || keggPathwayAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() || userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected()){
 
 			performEnrichmentCheckBox.setEnabled( true);
 		}else{
@@ -863,8 +861,10 @@ public class MainView extends JPanel {
 		userDefinedGeneSetGeneInformation.setEnabled( shouldEnable);
 		userDefinedLibraryDataFormatCombo.setEnabled( shouldEnable);
 		performEnrichmentCheckBox.setEnabled( shouldEnable);
+		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
 		regulatorySequenceAnalysisUsingRSATCheck.setEnabled( shouldEnable);
 		dnaseAnnotation.setEnabled( shouldEnable);
+		geneAnnotation.setEnabled( shouldEnable);
 		histoneAnnotation.setEnabled( shouldEnable);
 		tfAndKeggPathwayAnnotation.setEnabled( shouldEnable);
 		tfAnnotation.setEnabled( shouldEnable);
