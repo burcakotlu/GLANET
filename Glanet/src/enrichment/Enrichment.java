@@ -3955,8 +3955,7 @@ public class Enrichment {
 					mapabilityChromosomePositionList = new TIntArrayList();
 					mapabilityShortValueList = new TShortArrayList();
 
-					ChromosomeBasedMappabilityTroveList.fillTroveList( dataFolder, chromName,
-							mapabilityChromosomePositionList, mapabilityShortValueList);
+					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList, mapabilityShortValueList);
 					/************************************************/
 					/**************MAPABILITY************************/
 					/************************************************/
@@ -4032,7 +4031,6 @@ public class Enrichment {
 
 		GlanetRunner.appendLog( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 		logger.info( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-	
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
 		/******************************************************************************************************/

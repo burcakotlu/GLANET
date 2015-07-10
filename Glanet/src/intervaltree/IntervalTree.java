@@ -43,6 +43,7 @@ import annotation.PermutationNumberTfNameCellLineNameOverlap;
 import annotation.PermutationNumberTfNumberCellLineNumberOverlap;
 import annotation.PermutationNumberUcscRefSeqGeneNumberOverlap;
 import annotation.PermutationNumberUcscRefSeqGeneOverlap;
+import annotation.TFNumberCellLineNumberOverlap;
 import annotation.TfCellLineOverlapWithNumbers;
 import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
@@ -2209,6 +2210,65 @@ public class IntervalTree {
 		}
 
 	}
+	
+	//9 July 2015
+	// With Numbers
+	// Without IO
+	// WITH permutationNumberTfNameCellLineNameOverlapList
+	// WITHOUT keeping number of overlaps coming from each permutation
+	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap,
+			List<TFNumberCellLineNumberOverlap> tfNumberCellLineNumberOverlapList,
+			int overlapDefinition) {
+
+		int tfNumberCellLineNumber;
+
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			}
+
+			tfNumberCellLineNumber = generateElementNumberCellLineNumber(
+					castedNode.getTforHistoneNumber(),
+					castedNode.getCellLineNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+
+			tfNumberCellLineNumberOverlapList.add(new TFNumberCellLineNumberOverlap(tfNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
+
+			if( !( tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tfNumberCellLineNumber))){
+				tfNumberCellLineNumber2PermutationZeroorOneMap.put( tfNumberCellLineNumber, Commons.BYTE_1);
+			}
+		}
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
+					node.getLeft(), 
+					interval,
+					chromName, 
+					tfNumberCellLineNumber2PermutationZeroorOneMap,
+					tfNumberCellLineNumberOverlapList, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
+					node.getRight(), 
+					interval,
+					chromName, 
+					tfNumberCellLineNumber2PermutationZeroorOneMap,
+					tfNumberCellLineNumberOverlapList, 
+					overlapDefinition);
+
+		}
+
+	}
+	//9 July 2015
 
 	// @todo
 	// with Numbers starts
@@ -3686,6 +3746,7 @@ public class IntervalTree {
 	// 3 July 2015
 	// Annotation
 	// TF
+	// Histone
 	public static int generateElementNumberCellLineNumber(
 			int elementNumber, 
 			int cellLineNumber,
@@ -3757,28 +3818,50 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-
-			// Get only CellLineNumber and KEGGPathwayNumber
-			cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
-
-			// get KEGG Pathway Number
-			keggPathwayNumber = ( short)( cellLineNumberKeggPathwayNumber % 10000L);
-
-			cellLineNumber = cellLineNumberKeggPathwayNumber - keggPathwayNumber;
-
-			cellLineNumberRemoved = permutationNumberElementNumberCellLineNumberKeggPathwayNumber - cellLineNumber;
-			break;
-		}
-		default:{
-			break;
-		}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+	
+				// Get only CellLineNumber and KEGGPathwayNumber
+				cellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000000L;
+	
+				// get KEGG Pathway Number
+				keggPathwayNumber = ( short)( cellLineNumberKeggPathwayNumber % 10000L);
+	
+				cellLineNumber = cellLineNumberKeggPathwayNumber - keggPathwayNumber;
+	
+				cellLineNumberRemoved = permutationNumberElementNumberCellLineNumberKeggPathwayNumber - cellLineNumber;
+				break;
+			}
+			default:{
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumberRemoved;
 
 	}
 
+	//10 July 2015
+	public static long addKeggPathwayNumber(
+			int elementNumberCellLineNumber,
+			int keggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+
+		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
+
+		switch( generatedMixedNumberDescriptionOrderLength){
+		
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumberCellLineNumber * 100000 + keggPathwayNumber;
+				break;
+				
+			default:
+				break;
+			
+		}// End of SWITCH
+
+		return elementNumberCellLineNumberKeggPathwayNumber;
+	}
+	
 	// AnnotatePermutations withoutIO withNumbers
 	// AnnotatePermutations withIO withNumbers
 	// TF_KEGGPATHWAY
@@ -3790,21 +3873,51 @@ public class IntervalTree {
 		long permutationNumberElementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
 		switch( generatedMixedNumberDescriptionOrderLength){
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumber + keggPathwayNumber;
-			break;
-		}
-		default:{
-			break;
-		}
+		
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				permutationNumberElementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumber + keggPathwayNumber;
+				break;
+			}
+			
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				break;
+				
+			default:{
+				break;
+			}
+			
 		}// End of SWITCH
 
 		return permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
 	}
 
+	// 10 July 2015
+	public static int removeCellLineNumberAddKeggPathwayNumber(
+			int mixedNumber, 
+			int keggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+		
+		int tfNumberKEGGPathwayNumber = Integer.MIN_VALUE;
+		
+		switch(generatedMixedNumberDescriptionOrderLength) {
+		
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				tfNumberKEGGPathwayNumber = (mixedNumber / 100000) * 100000 + keggPathwayNumber;
+				break;
+			
+			default:
+				break;
+		
+		}// End of SWITCH
+		
+		return tfNumberKEGGPathwayNumber;
+	}
+	
 	// AnnotatePermutations withoutIO withNumbers
 	// TF_KEGGPATHWAY
-	public static long removeCellLineNumberAddKeggPathwayNumber( long mixedNumber, int keggPathwayNumber,
+	public static long removeCellLineNumberAddKeggPathwayNumber(
+			long mixedNumber, 
+			int keggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		long cellLineRemoved = Long.MIN_VALUE;
@@ -3864,7 +3977,6 @@ public class IntervalTree {
 	// 3 July 2015
 	// For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the corresponding tfNumberCellLineNumber
 	public void findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers( 
-			int permutationNumber, 
 			IntervalTreeNode node,
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
@@ -3897,7 +4009,6 @@ public class IntervalTree {
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
-					permutationNumber, 
 					node.getLeft(), 
 					interval, 
 					chromName,
@@ -3908,7 +4019,6 @@ public class IntervalTree {
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
-					permutationNumber, 
 					node.getRight(), 
 					interval, 
 					chromName,
@@ -6052,6 +6162,166 @@ public class IntervalTree {
 		}
 	}
 
+	
+	// 10 July 2015
+	// Without IO
+	// With Numbers
+	// Without permutationNumber
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<TIntList> geneId2KeggPathwayNumbersMap,
+			TIntByteMap exonBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+			TIntByteMap regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+			TIntByteMap allBasedKEGGPathwayNumber2PermutationOneorZeroMap, 
+			String type,
+			List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKEGGPathwayOverlapList,
+			List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKEGGPathwayOverlapList,
+			List<UcscRefSeqGeneOverlapWithNumbers> allBasedKEGGPathwayOverlapList,
+			int overlapDefinition) {
+
+		int keggPathwayNumber;
+		TIntList keggPathwayListContainingThisGeneId = null;
+
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+
+		if( Commons.NCBI_GENE_ID.equals( type)){
+			
+			// There is overlap
+			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				}
+
+				keggPathwayListContainingThisGeneId = geneId2KeggPathwayNumbersMap.get( castedNode.getGeneEntrezId());
+
+				// write EXON based results
+				if( castedNode.getIntervalName().isExon()){
+					
+					if( keggPathwayListContainingThisGeneId != null){
+						
+						exonBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+								castedNode.getRefSeqGeneNumber(), 
+								castedNode.getGeneHugoSymbolNumber(),
+								castedNode.getGeneEntrezId(), 
+								keggPathwayListContainingThisGeneId,
+								castedNode.getIntervalName(),
+								castedNode.getIntervalNumber(), 
+								castedNode.getLow(), 
+								castedNode.getHigh()
+								));
+
+						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+
+							keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
+							
+							if( !(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+								exonBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+							}
+
+						}// End of FOR: for all keggpathways having this gene in their gene list
+						
+					} // End of IF: keggPathWayListContainingThisGeneId is not null
+					
+				}// End of IF: Exon Based Kegg Pathway Analysis, Overlapped node is an exon
+
+				// write REGULATION based results
+				// Regulation Based kegg pathway analysis
+				if( castedNode.getIntervalName().isIntron() || 
+						castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
+						castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+
+					if( keggPathwayListContainingThisGeneId != null){
+
+						regulationBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+								castedNode.getRefSeqGeneNumber(), 
+								castedNode.getGeneHugoSymbolNumber(),
+								castedNode.getGeneEntrezId(), 
+								keggPathwayListContainingThisGeneId,
+								castedNode.getIntervalName(),
+								castedNode.getIntervalNumber(), 
+								castedNode.getLow(), 
+								castedNode.getHigh()));
+
+						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+
+							keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+							
+							if( !(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+								regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+							}
+
+						}// End of FOR: for all KEGG pathways having this gene in their gene list
+						
+					} // End of IF: keggPathWayListContainingThisGeneId is not null
+					
+				}// End of IF: Regulation Based kegg pathway Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+
+				// write ALL results
+				if( keggPathwayListContainingThisGeneId != null){
+
+					allBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+							castedNode.getRefSeqGeneNumber(), 
+							castedNode.getGeneHugoSymbolNumber(),
+							castedNode.getGeneEntrezId(), 
+							keggPathwayListContainingThisGeneId,
+							castedNode.getIntervalName(),
+							castedNode.getIntervalNumber(), 
+							castedNode.getLow(), 
+							castedNode.getHigh()));
+
+					for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+
+						keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+						
+						if( !(allBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+							allBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
+						}
+
+					}// End of For: for all kegg pathways having this gene in
+						// their gene list
+				} // End of If: keggPathWayListContainingThisGeneId is not null
+
+			}// End of if: there is overlap
+		} // End of If: type is NCBI_GENE_ID
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					node.getLeft(),
+					interval, 
+					chromName, 
+					geneId2KeggPathwayNumbersMap,
+					exonBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+					regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+					allBasedKEGGPathwayNumber2PermutationOneorZeroMap, 
+					type,
+					exonBasedKEGGPathwayOverlapList,
+					regulationBasedKEGGPathwayOverlapList,
+					allBasedKEGGPathwayOverlapList, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( 
+					node.getRight(),
+					interval, 
+					chromName, 
+					geneId2KeggPathwayNumbersMap,
+					exonBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+					regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap,
+					allBasedKEGGPathwayNumber2PermutationOneorZeroMap, 
+					type,
+					exonBasedKEGGPathwayOverlapList,
+					regulationBasedKEGGPathwayOverlapList,
+					allBasedKEGGPathwayOverlapList, 
+					overlapDefinition);
+		}
+
+	}
+	//10 July 2015
+	
 	// @todo
 	// with numbers starts
 	// NEW FUNCIONALITY
