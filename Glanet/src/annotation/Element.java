@@ -6,7 +6,7 @@ package annotation;
 import java.util.Comparator;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Feb 23, 2015
  * @project Glanet 
  *
@@ -15,7 +15,19 @@ public class Element {
 
 	int elementIntNumber;
 	short elementShortNumber;
+	long elementLongNumber;
+	
 	Integer elementNumberofOverlaps;
+	
+	
+
+	public long getElementLongNumber() {
+		return elementLongNumber;
+	}
+
+	public void setElementLongNumber(long elementLongNumber) {
+		this.elementLongNumber = elementLongNumber;
+	}
 
 	public int getElementIntNumber() {
 
@@ -44,6 +56,13 @@ public class Element {
 
 	public void setElementNumberofOverlaps( int elementNumberofOverlaps) {
 
+		this.elementNumberofOverlaps = elementNumberofOverlaps;
+	}
+	
+	public Element(long elementLongNumber, int elementNumberofOverlaps) {
+
+		super();
+		this.elementLongNumber = elementLongNumber;
 		this.elementNumberofOverlaps = elementNumberofOverlaps;
 	}
 

@@ -3777,8 +3777,7 @@ public class Enrichment {
 		/******************************* GET HG19 CHROMOSOME SIZES STARTS ***************************************/
 		hg19.GRCh37Hg19Chromosome.initializeChromosomeSizes( hg19ChromosomeSizes);
 		// get the hg19 chromosome sizes
-		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,
-				Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		/******************************* GET HG19 CHROMOSOME SIZES ENDS *****************************************/
 		/********************************************************************************************************/
 
@@ -4445,8 +4444,33 @@ public class Enrichment {
 				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
 
 			}// End of FOR each CHROMOSOME
+			
+			
+			// TF
+			fillElementNumber2OriginalKMap(
+					tfNumberCellLineNumber2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF);
+			
+			
+			// KEGGPathway
+			fillElementNumber2OriginalKMap( 
+					exonBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					regulationBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					allBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
-			// Why don't we fill it before?
+			
+			// TF CellLine  KEGGPathway
 			fillElementNumber2OriginalKMap( 
 					tfCellLineExonBasedKeggPathway2OriginalKMap, 
 					outputFolder,
@@ -4463,7 +4487,6 @@ public class Enrichment {
 					Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 			
 
-
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
 					outputFolder,
 					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
@@ -4478,16 +4501,44 @@ public class Enrichment {
 					AnnotationType.DO_HISTONE_ANNOTATION, 
 					null, 
 					overlapDefinition,
-					null,
-					null,
-					null,
-					null,
+					tfNumberCellLineNumber2OriginalKMap,
+					exonBasedKeggPathway2OriginalKMap,
+					regulationBasedKeggPathway2OriginalKMap,
+					allBasedKeggPathway2OriginalKMap,
 					tfCellLineExonBasedKeggPathway2OriginalKMap,
 					tfCellLineRegulationBasedKeggPathway2OriginalKMap,
 					tfCellLineAllBasedKeggPathway2OriginalKMap);
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
+			//TF
+			writeToBeCollectedNumberofPermutations(
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
+					runNumber, 
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations());
+
+			
+			//KEGGPathway
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations());
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations());
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations());
+
+			//TF Cellline KEGGPathway
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
@@ -6445,7 +6496,7 @@ public class Enrichment {
 		// TFCellLineKEGGPathway Annotation, DO or DO_NOT
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
 
-		// Will be set
+		// Will be set if TFKEGGPathway and tfCellLineKeggPathwayAnnotationType are both checked
 		AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType = AnnotationType.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
 
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum( args[CommandLineArguments.GivenInputDataType.value()]);

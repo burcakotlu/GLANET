@@ -2693,13 +2693,18 @@ public class IntervalTree {
 
 	// @todo Annotation with Numbers ends
 
+	// Modified on 13 July 2015 
 	// Annotation with Numbers with OverlapList starts
 	public void findAllOverlappingTfbsIntervalsWithNumbers( String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
 			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
-			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList, int overlapDefinition,
-			TShortObjectMap<String> tfNumber2TfNameMap, TShortObjectMap<String> cellLineNumber2CellLineNameMap,
+			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList, 
+			int overlapDefinition,
+			TShortObjectMap<String> tfNumber2TfNameMap, 
+			TShortObjectMap<String> cellLineNumber2CellLineNameMap,
 			TShortObjectMap<String> fileNumber2FileNameMap) {
 
 		FileWriter fileWriter = null;
@@ -2711,15 +2716,13 @@ public class IntervalTree {
 			castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
 		}
 
-		// KEGG Pathway number included
-		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumberKeggPathwayNumber(
+		
+		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
 				castedNode.getTforHistoneNumber(),
 				castedNode.getCellLineNumber(),
-				( short)0,
-				GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition)){
+		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			try{
 
 				/*******************************************************************/
@@ -2744,14 +2747,17 @@ public class IntervalTree {
 				/*******************************************************************/
 				// Do not Write Annotation Found Overlaps to element Named File
 				else{
-					if( !tfNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-						tfNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
+					if( !tfNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
+						tfNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, Commons.BYTE_1);
 					}
 				}
 				/*******************************************************************/
 
-				tfandCellLineOverlapList.add( new TfCellLineOverlapWithNumbers( elementNumberCellLineNumber,
-						castedNode.getLow(), castedNode.getHigh()));
+				tfandCellLineOverlapList.add( 
+						new TfCellLineOverlapWithNumbers( 
+								elementNumberCellLineNumber,
+								castedNode.getLow(), 
+								castedNode.getHigh()));
 
 			}catch( IOException e){
 
@@ -2772,7 +2778,6 @@ public class IntervalTree {
 					fileNumber2FileNameMap);
 		}
 	}
-
 	// @todo Annotation with Numbers with OverlapList ends
 
 	// New Functionality added
@@ -3181,6 +3186,28 @@ public class IntervalTree {
 	}
 
 	// @todo For Annotation with Numbers ends
+	
+	
+	//13 July 2015
+	public static int getKeggPathwayNumber( 
+			long elementNumberCellLineNumberKeggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+
+		int keggPathwayNumber = Integer.MIN_VALUE;
+
+		switch( generatedMixedNumberDescriptionOrderLength){
+
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				keggPathwayNumber = (int) (elementNumberCellLineNumberKeggPathwayNumber % 100000l);
+				break;
+		
+			default:
+				break;
+
+		} // End of SWITCH
+
+		return keggPathwayNumber;
+	}
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
@@ -3239,7 +3266,8 @@ public class IntervalTree {
 	// called from convertGeneratedMixedNumberToName method in
 	// CollectionofPermutationsResults
 	// Get CellLineNumber from mixed number
-	public static int getCellLineNumber( long mixedNumber,
+	public static int getCellLineNumber( 
+			long mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int cellLineNumber = Integer.MIN_VALUE;
@@ -3247,29 +3275,34 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_4DIGIT_DNASECELLLINENUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
-			cellLineNumber = ( int)( mixedNumber % 10000L);
-			break;
-		}
-
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			cellLineNumberKeggPathwayNumber = mixedNumber % 100000000L;
-			cellLineNumber = ( int)( cellLineNumberKeggPathwayNumber / 10000L);
-			break;
-		}
-		
-		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
-			cellLineNumber = (int) (mixedNumber % 100000);
-			break;
-		}
+			case INT_4DIGIT_DNASECELLLINENUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
+				cellLineNumber = ( int)( mixedNumber % 10000L);
+				break;
+			}
+	
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				cellLineNumberKeggPathwayNumber = mixedNumber % 100000000L;
+				cellLineNumber = ( int)( cellLineNumberKeggPathwayNumber / 10000L);
+				break;
+			}
 			
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
+				cellLineNumber = (int) (mixedNumber % 100000);
+				break;
+			}
+				
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
+				cellLineNumber = (int) ((mixedNumber % 10000000000L) / 100000);
+				break;
+			}
+				
 			
-		default:{
-			break;
-		}
+			default:{
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumber;
@@ -3278,7 +3311,8 @@ public class IntervalTree {
 	// 4 Mart 2015
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getShortElementNumber( int mixedNumber,
+	public static short getShortElementNumber( 
+			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
@@ -3309,7 +3343,8 @@ public class IntervalTree {
 	}
 
 	// 6 NOV 2014
-	public static int getElementTypeNumber( long mixedNumber,
+	public static int getElementTypeNumber( 
+			long mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		long permutationNumberElementTypeNumber = Long.MIN_VALUE;
@@ -3321,7 +3356,7 @@ public class IntervalTree {
 			permutationNumberElementTypeNumber = mixedNumber / 1000000L;
 			elementTypeNumber = ( int)( permutationNumberElementTypeNumber % 10000L);
 			break;
-
+			
 		default:
 			break;
 
@@ -3388,42 +3423,47 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
-			elementNumber = ( int)( mixedNumber / 10000L);
-			break;
-		}
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			permutationNumberElementNumber = mixedNumber / 100000000L;
-			elementNumber = ( int)( permutationNumberElementNumber % 10000L);
-			break;
-		}
-
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-			elementNumber = ( int)( mixedNumber % 1000000L);
-			break;
-		}
-
-		case INT_6DIGIT_ELEMENTNUMBER:{
-			elementNumber = ( int)( mixedNumber % 1000000L);
-			break;
-		}
-
-		case INT_10DIGIT_GENENUMBER:{
-			elementNumber = ( int)( mixedNumber % 10000000000L);
-			break;
-		}
-
-		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
-			elementNumber = (int)(mixedNumber / 100000L);
-			break;
-		}
-		
-		default:{
-			break;
-		}
+			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
+				elementNumber = ( int)( mixedNumber / 10000L);
+				break;
+			}
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				permutationNumberElementNumber = mixedNumber / 100000000L;
+				elementNumber = ( int)( permutationNumberElementNumber % 10000L);
+				break;
+			}
+	
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
+				elementNumber = ( int)( mixedNumber % 1000000L);
+				break;
+			}
+	
+			case INT_6DIGIT_ELEMENTNUMBER:{
+				elementNumber = ( int)( mixedNumber % 1000000L);
+				break;
+			}
+	
+			case INT_10DIGIT_GENENUMBER:{
+				elementNumber = ( int)( mixedNumber % 10000000000L);
+				break;
+			}
+	
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
+				elementNumber = (int)(mixedNumber / 100000L);
+				break;
+			}
+			
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
+				elementNumber = ( int)( mixedNumber / 10000000000L);
+				break;
+			}
+	
+			default:{
+				break;
+			}
 
 		}// End of SWITCH
 
@@ -3773,6 +3813,37 @@ public class IntervalTree {
 	}
 
 	// 3 July 2015
+	
+	//13 July 2015
+	//Annotation
+	//WITH Numbers
+	//TF CellLine KEGGPathway
+	public static long generateLongElementNumberCellLineNumberKeggPathwayNumber(
+			int elementNumber, 
+			int cellLineNumber,
+			int keggPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+
+		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
+
+		// Integer.MAX 2147_483_647
+		// Integer.MIN -2147_483_648
+
+		switch( generatedMixedNumberDescriptionOrderLength){
+		
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 10000000000L + cellLineNumber * 100000 + keggPathwayNumber;
+				break;
+			}
+		
+			default:{
+				break;
+			}
+
+		}// End of SWITCH
+
+		return elementNumberCellLineNumberKeggPathwayNumber;
+	}
 
 	// Annotation
 	// AnnotateGivenIntervals with numbers
@@ -3792,13 +3863,14 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:{
-			elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
-			break;
-		}
-		default:{
-			break;
-		}
+			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:{
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
+				break;
+			}
+			
+			default:{
+				break;
+			}
 
 		}// End of switch
 

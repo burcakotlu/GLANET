@@ -48,7 +48,10 @@ public class TfCellLineOverlapWithNumbers {
 		this.high = high;
 	}
 
-	public TfCellLineOverlapWithNumbers( int tfNumberCellLineNumber, int low, int high) {
+	public TfCellLineOverlapWithNumbers(
+			int tfNumberCellLineNumber, 
+			int low, 
+			int high) {
 
 		super();
 		this.tfNumberCellLineNumber = tfNumberCellLineNumber;
