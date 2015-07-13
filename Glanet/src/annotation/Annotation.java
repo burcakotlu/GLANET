@@ -7117,7 +7117,7 @@ public class Annotation {
 
 				element = it.next();
 
-				elementNumberCellLineNumberKeggPathwayNumber = element.getElementIntNumber();
+				elementNumberCellLineNumberKeggPathwayNumber = element.getElementLongNumber();
 
 				elementNumber = IntervalTree.getElementNumber(
 						elementNumberCellLineNumberKeggPathwayNumber,

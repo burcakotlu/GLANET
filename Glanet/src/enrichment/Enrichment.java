@@ -562,9 +562,12 @@ public class Enrichment {
 				int runNumber,
 				int numberofPermutations,
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
-				int lowIndex, int highIndex, TIntList permutationNumberList,
+				int lowIndex, 
+				int highIndex, 
+				TIntList permutationNumberList,
 				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
-				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, AnnotationType annotationType,
+				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+				AnnotationType annotationType,
 				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
 				int overlapDefinition,
 				TIntIntMap elementNumber2OriginalKMap,
@@ -684,8 +687,7 @@ public class Enrichment {
 
 					// Fill TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData using
 					// chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap
-					fillPermutationRandomlyGeneratedData( permutationNumber,
-							chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, chrNumber2RandomlyGeneratedData);
+					fillPermutationRandomlyGeneratedData( permutationNumber,chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, chrNumber2RandomlyGeneratedData);
 
 					// Annotate each permutation with permutationNumber
 					// WITHOUT IO
@@ -725,19 +727,19 @@ public class Enrichment {
 					else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
 
 						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(
-
-						Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes( 
-								outputFolder,
-								permutationNumber, 
-								chrNumber2RandomlyGeneratedData, 
-								chrNumber2IntervalTreeMap,
-								chrNumber2UcscRefSeqGenesIntervalTreeMap, 
-								annotationType,
-								geneId2ListofGeneSetNumberMap, 
-								overlapDefinition, 
-								elementNumber2OriginalKMap),
-								
-								allMapsWithNumbersForAllChromosomes, annotationType);
+							Annotation.annotatePermutationWithIOWithNumbersForAllChromosomes( 
+									outputFolder,
+									permutationNumber, 
+									chrNumber2RandomlyGeneratedData, 
+									chrNumber2IntervalTreeMap,
+									chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+									annotationType,
+									geneId2ListofGeneSetNumberMap, 
+									overlapDefinition, 
+									elementNumber2OriginalKMap),
+									
+							allMapsWithNumbersForAllChromosomes, 
+							annotationType);
 					}
 				}// End of FOR
 
@@ -4020,8 +4022,6 @@ public class Enrichment {
 			}// End of IF: Chromosome Based Input Lines are not NULL
 
 		}// End of FOR each CHROMOSOME
-		
-		
 		/******************************************************************************************************/
 		/******************************** FOR EACH HG19 CHROMOSOME ********************************************/
 		/******************************************************************************************************/
@@ -4498,8 +4498,8 @@ public class Enrichment {
 					permutationNumberList, 
 					tfIntervalTreeMap, 
 					ucscRefSeqGenesIntervalTreeMap,
-					AnnotationType.DO_HISTONE_ANNOTATION, 
-					null, 
+					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
+					geneId2ListofKeggPathwayNumberMap, 
 					overlapDefinition,
 					tfNumberCellLineNumber2OriginalKMap,
 					exonBasedKeggPathway2OriginalKMap,
@@ -6754,7 +6754,8 @@ public class Enrichment {
 		}
 
 		// TF KEGGPathway Enrichment
-		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			// TF
 			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
@@ -6772,7 +6773,8 @@ public class Enrichment {
 		}
 
 		// TF CellLine KEGGPathway Enrichment
-		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
+		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+				!tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
 
 			// TF
 			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
