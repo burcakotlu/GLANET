@@ -670,6 +670,7 @@ public class FileOperations {
 			bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
+				
 				indexofFirstTab = strLine.indexOf( '\t');
 				number = Integer.parseInt( strLine.substring( 0, indexofFirstTab));
 				name = strLine.substring( indexofFirstTab + 1);
