@@ -711,7 +711,9 @@ public class CollectionofPermutationsResults {
 						// INFORMATION augmentation
 						// such as KEGGPathway description, geneID List of
 						// genes, hugoSymbols of genes in this KEGG Pathway
-						if( generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_KEGGPATHWAYNUMBER() || generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER() || generatedMixedNumberDescriptionOrderLength.is_LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER()){
+						if( generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER()){
 
 							keggPathwayNumber = IntervalTree.getGeneSetNumber( mixedNumber,
 									generatedMixedNumberDescriptionOrderLength);
@@ -1214,7 +1216,9 @@ public class CollectionofPermutationsResults {
 
 		/************************************************************/
 		/************ Collection of TF RESULTS starts ***************/
-		if( tfAnnotationType.doTFAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+		if( tfAnnotationType.doTFAnnotation() && 
+				!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1334,7 +1338,9 @@ public class CollectionofPermutationsResults {
 
 		/****************************************************************************/
 		/************ Collection of KEGG Pathway RESULTS starts *********************/
-		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+				!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+				!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1365,7 +1371,8 @@ public class CollectionofPermutationsResults {
 
 		/****************************************************************************/
 		/************ Collection of TF KEGG Pathway RESULTS starts ******************/
-		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1426,7 +1433,8 @@ public class CollectionofPermutationsResults {
 
 		/****************************************************************************/
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
-		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
+		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
+				!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,

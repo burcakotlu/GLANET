@@ -12,7 +12,7 @@ import enumtypes.GenerateRandomDataMode;
 import auxiliary.FileOperations;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date May 7, 2015
  * @project Glanet
  * 

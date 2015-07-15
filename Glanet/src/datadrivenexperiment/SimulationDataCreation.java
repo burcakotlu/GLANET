@@ -11,15 +11,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
 import enumtypes.DnaseOverlapExclusionType;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date May 1, 2015
  * @project Glanet 
  * 

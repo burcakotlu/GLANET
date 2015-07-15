@@ -3497,7 +3497,7 @@ public class Enrichment {
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "\t" + 	"CellLineName" + "\t" + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 
 			for( TLongIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
@@ -3510,7 +3510,7 @@ public class Enrichment {
 				cellLineNumber = IntervalTree.getCellLineNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				
-				bufferedWriter.write( elementNumber + "\t" + cellLineNumber  + "\t" + keggPathwayNumber + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+				bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) +  "\t" + cellLineNumber2NameMap.get(cellLineNumber)  + "\t" + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 
 			}// End of FOR
 
@@ -3553,8 +3553,29 @@ public class Enrichment {
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			switch(annotationType){
+			
+				case DO_DNASE_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "DnaseCellLineNumber" + "\t" + "DnaseCellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+					
+				case DO_TF_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+					
+				case DO_HISTONE_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+	
+				case DO_KEGGPATHWAY_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+	
+				default:
+					break;
 
+			}//End of SWITCH
+			
 			for( TIntIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
 				itr.advance();
@@ -5642,7 +5663,9 @@ public class Enrichment {
 					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 		}
 
-		if( tfAnnotationType.doTFAnnotation() || tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( tfAnnotationType.doTFAnnotation() || 
+				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() ||
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),
@@ -5698,7 +5721,9 @@ public class Enrichment {
 		}
 
 		// KEGG Pathway
-		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || 
+				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			convert( accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),
 					exonBasedKeggPathway2AllKMap, originalExonBasedKeggPathway2KMap,
@@ -6736,14 +6761,16 @@ public class Enrichment {
 		/*********************************************************************************/
 		/**************DO NOT MAKE SAME CALCULATIONS AGAIN and AGAIN starts***************/
 		/*********************************************************************************/
-		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			tfAnnotationType = AnnotationType.DO_NOT_TF_ANNOTATION;
 			keggPathwayAnnotationType = AnnotationType.DO_NOT_KEGGPATHWAY_ANNOTATION;
 
 		}
 
-		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 			tfKeggPathwayAnnotationType = AnnotationType.DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
 			tfCellLineKeggPathwayAnnotationType = AnnotationType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
@@ -6756,6 +6783,7 @@ public class Enrichment {
 
 		/************************************************************************************************/
 		/******************************* CALCULATE NUMBER OF RUNS STARTS ********************************/
+		/************************************************************************************************/
 		// for loop starts
 		// NUMBER_OF_PERMUTATIONS has to be multiple of 1000 like 1000, 5000, 10000, 50000, 100000
 		int numberofRuns = 0;
@@ -6775,6 +6803,7 @@ public class Enrichment {
 		if( numberofRemainedPermutations > 0){
 			numberofRuns += 1;
 		}
+		/**********************************************************************************************/
 		/******************************* CALCULATE NUMBER OF RUNS ENDS ********************************/
 		/**********************************************************************************************/
 		
@@ -7336,6 +7365,7 @@ public class Enrichment {
 				// Then Annotate Permutations (Random Data) concurrently
 				// elementName2AllKMap and originalElementName2KMap will be filled here
 				if( ( runNumber == numberofRuns) && ( numberofRemainedPermutations > 0)){
+					
 					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
 							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations,
 							numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap,
@@ -7363,6 +7393,7 @@ public class Enrichment {
 							tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 				}else{
+					
 					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
 							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun,
 							numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap,
@@ -7466,7 +7497,8 @@ public class Enrichment {
 				}
 
 				// TFKEGGPathway
-				if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && !( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+				if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
+						!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
 					// TF
 					writeToBeCollectedNumberofOverlaps( outputFolder, tfNumberCellLineNumber2OriginalKMap,
@@ -7496,7 +7528,8 @@ public class Enrichment {
 
 				}
 
-				if( !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				if( !( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+						tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 					// TF
 					writeToBeCollectedNumberofOverlaps( outputFolder, tfNumberCellLineNumber2OriginalKMap,

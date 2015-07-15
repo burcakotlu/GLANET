@@ -4,6 +4,7 @@
 package datadrivenexperiment;
 
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,11 +12,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import annotation.Annotation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
 import enumtypes.DnaseOverlapExclusionType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.TIntList;
@@ -26,7 +29,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 16, 2015
  * @project Glanet 
  * 

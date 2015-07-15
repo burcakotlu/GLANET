@@ -1,7 +1,7 @@
 package datadrivenexperiment;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 17, 2015
  * @project Glanet 
  *

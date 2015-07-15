@@ -1,10 +1,10 @@
 package datadrivenexperiment;
 
 import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**

@@ -13,15 +13,16 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import multipletesting.BenjaminiandHochberg;
 import multipletesting.BonferroniCorrection;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
+
 import common.Commons;
-import enumtypes.CommandLineArguments;
-import enumtypes.DnaseOverlapExclusionType;
+
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecision;
 import enumtypes.MultipleTestingType;
