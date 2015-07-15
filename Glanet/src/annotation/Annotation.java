@@ -5754,8 +5754,6 @@ public class Annotation {
 					for( TFNumberCellLineNumberOverlap tfNumberCellLineNumberOverlap : tfNumberCellLineNumberOverlapList){
 			
 						tfNumberCellLineNumber = tfNumberCellLineNumberOverlap.getTfNumberCellLineNumber();
-			
-						
 						
 						// TF and EXON Based Kegg Pathway starts
 						for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKEGGPathwayNumberOverlapList){
@@ -10638,6 +10636,9 @@ public class Annotation {
 			TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
 			TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
 			TIntIntMap allBasedGeneSetNumber2OriginalKMap,
+			TIntIntMap tfNumberExonBasedKEGGPathwayNumber2OriginalKMap,
+			TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
+			TIntIntMap tfNumberAllBasedKEGGPathwayNumber2OriginalKMap,
 			TLongIntMap tfNumberCellLineNumberExonBasedKEGGPathwayNumber2OriginalKMap,
 			TLongIntMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
 			TLongIntMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2OriginalKMap) {
@@ -10826,6 +10827,125 @@ public class Annotation {
 
 		}
 		
+		//TF KEGGPATHWAY
+		if (annotationType.doTFKEGGPathwayAnnotation()){
+			
+			// TF
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap tfNumberCellLineNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			// This will be filled during search method call, after setting
+			// tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
+			TIntIntMap tfNumberCellLineNumber2PermutationKMap = new TIntIntHashMap();
+
+		
+			// KEGGPATHWAY
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap exonBasedKEGGPathwayNumber2PermutationOneorZeroMap 			= new TIntByteHashMap();
+			TIntByteMap regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap 	= new TIntByteHashMap();
+			TIntByteMap allBasedKEGGPathwayNumber2PermutationOneorZeroMap 			= new TIntByteHashMap();
+			// This will be filled during search method call
+			TIntIntMap exonBasedKEGGPathwayNumber2PermutationKMap 		= new TIntIntHashMap();
+			TIntIntMap regulationBasedKEGGPathwayNumber2PermutationKMap = new TIntIntHashMap();
+			TIntIntMap allBasedKEGGPathwayNumber2PermutationKMap 		= new TIntIntHashMap();
+				
+			// TF KEGGPATHWAY
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap			= new TIntByteHashMap();
+			TIntByteMap tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap	= new TIntByteHashMap();
+			TIntByteMap tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap 			= new TIntByteHashMap();
+			// This will be filled during search method call
+			TIntIntMap tfNumberExonBasedKEGGPathwayNumber2PermutationKMap 			= new TIntIntHashMap();
+			TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= new TIntIntHashMap();
+			TIntIntMap tfNumberAllBasedKEGGPathwayNumber2PermutationKMap 			= new TIntIntHashMap();
+
+			// Search interval trees
+			searchTfandKeggPathwayWithoutIOWithNumbersForAllChromosomes(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					chrNumber2UcscRefSeqGenesIntervalTreeMap,  
+					geneId2ListofGeneSetNumberMap,
+					tfNumberCellLineNumber2PermutationKMap,
+					exonBasedKEGGPathwayNumber2PermutationKMap,
+					regulationBasedKEGGPathwayNumber2PermutationKMap,
+					allBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberExonBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberAllBasedKEGGPathwayNumber2PermutationKMap,
+					null,
+					null,
+					null,
+					Commons.NCBI_GENE_ID,
+					annotationType, 
+					overlapDefinition);
+			
+			
+			// TF
+			fillPermutationOneorZeroMap(
+					elementNumber2OriginalKMap, 
+					tfNumberCellLineNumber2PermutationKMap,
+					tfNumberCellLineNumber2PermutationOneorZeroMap);
+			
+			// KEGGPathway
+			fillPermutationOneorZeroMap(
+					exonBasedGeneSetNumber2OriginalKMap, 
+					exonBasedKEGGPathwayNumber2PermutationKMap,
+					exonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			fillPermutationOneorZeroMap(
+					regulationBasedGeneSetNumber2OriginalKMap, 
+					regulationBasedKEGGPathwayNumber2PermutationKMap,
+					regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			fillPermutationOneorZeroMap(
+					allBasedGeneSetNumber2OriginalKMap, 
+					allBasedKEGGPathwayNumber2PermutationKMap,
+					allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			
+			// TF KEGGPathway
+			fillPermutationOneorZeroMap(
+					tfNumberExonBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberExonBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			fillPermutationOneorZeroMap(
+					tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);				
+			fillPermutationOneorZeroMap(
+					tfNumberAllBasedKEGGPathwayNumber2OriginalKMap, 
+					tfNumberAllBasedKEGGPathwayNumber2PermutationKMap,
+					tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+				
+			// Set elementNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
+		
+			allMapsKeysWithNumbersAndValuesOneorZero.setExonBasedKeggPathwayNumber2PermutationOneorZeroMap(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setAllBasedKeggPathwayNumber2PermutationOneorZeroMap(allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap(tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+
+			//Free space
+			tfNumberCellLineNumber2PermutationKMap		= null;
+			
+			exonBasedKEGGPathwayNumber2PermutationKMap 			= null;
+			regulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
+			allBasedKEGGPathwayNumber2PermutationKMap 			= null;
+			
+			tfNumberExonBasedKEGGPathwayNumber2PermutationKMap 		= null;
+			tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
+			tfNumberAllBasedKEGGPathwayNumber2PermutationKMap 		= null;
+
+			
+		}
+		
 		//TF CELLLINE KEGGPATHWAY 
 		if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
 			
@@ -10864,9 +10984,7 @@ public class Annotation {
 			TLongIntMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= new TLongIntHashMap();
 			TLongIntMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2PermutationKMap 		= new TLongIntHashMap();
 
-			// @todo left here
-			// do search interval trees
-			// will be modified for all chromosomes
+			// Search interval trees
 			searchTfandKeggPathwayWithoutIOWithNumbersForAllChromosomes(
 					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
