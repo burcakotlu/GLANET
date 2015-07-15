@@ -3923,7 +3923,7 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
-				elementNumberCellLineNumberKeggPathwayNumber = elementNumberCellLineNumber * 100000 + keggPathwayNumber;
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumberCellLineNumber * 100000L + keggPathwayNumber;
 				break;
 				
 			default:
