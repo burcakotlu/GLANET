@@ -3982,6 +3982,12 @@ public class IntervalTree {
 		
 		}// End of SWITCH
 		
+		// debug starts
+		if (keggPathwayNumber > 269){
+			System.out.println("keggPathwayNumber: " + keggPathwayNumber);
+		}
+		// debug ends
+		
 		return tfNumberKEGGPathwayNumber;
 	}
 	

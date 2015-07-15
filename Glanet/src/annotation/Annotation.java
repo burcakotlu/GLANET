@@ -5776,6 +5776,16 @@ public class Annotation {
 												GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 			
 										
+										//debug starts
+										if (tfNumberKEGGPathwayNumber == 9000322){
+											System.out.println("stop here");
+										}
+										
+										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
+											System.out.println("stop here");
+										}
+										//debug ends
+										
 										if( !(tfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap.containsKey(tfNumberKEGGPathwayNumber))){
 											tfNumberExonBasedKeggPathwayNumber2PermutationOneorZeroMap.put(tfNumberKEGGPathwayNumber, Commons.BYTE_1);
 										}
@@ -5850,6 +5860,16 @@ public class Annotation {
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 			
+										//debug starts
+										if (tfNumberKEGGPathwayNumber == 9000322){
+											System.out.println("stop here");
+										}
+										
+										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
+											System.out.println("stop here");
+										}
+										//debug ends
+										
 										if( !( tfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap.containsKey( tfNumberKEGGPathwayNumber))){
 											tfNumberRegulationBasedKeggPathwayNumber2PermutationOneorZeroMap.put(tfNumberKEGGPathwayNumber, Commons.BYTE_1);
 										}
@@ -5921,6 +5941,17 @@ public class Annotation {
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 			
+										
+										//debug starts
+										if (tfNumberKEGGPathwayNumber == 9000322){
+											System.out.println("stop here");
+										}
+										
+										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
+											System.out.println("stop here");
+										}
+										//debug ends
+										
 										if( !(tfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap.containsKey( tfNumberKEGGPathwayNumber))){
 											tfNumberAllBasedKeggPathwayNumber2PermutationOneorZeroMap.put(tfNumberKEGGPathwayNumber, Commons.BYTE_1);
 										}

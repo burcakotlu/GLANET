@@ -606,7 +606,6 @@ public class Enrichment {
 
 			this.annotationType = annotationType;
 
-
 			// geneId2ListofGeneSetNumberMap
 			// sent full when annotationType is KEGG_PATHWAY_ANNOTATION
 			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
@@ -3554,8 +3553,7 @@ public class Enrichment {
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap
-			) {
+			TIntObjectMap<String> keggPathwayNumber2NameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3633,7 +3631,12 @@ public class Enrichment {
 					case DO_TF_KEGGPATHWAY_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						keggPathwayNumber = mixedNumber % 100000;
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+						
+						if (keggPathwayNumber2NameMap.get(keggPathwayNumber) == null){
+							System.out.println("stop here");	
+						}
+						
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 						break;
 						
 					default:
