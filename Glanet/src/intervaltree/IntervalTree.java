@@ -3984,7 +3984,12 @@ public class IntervalTree {
 		
 		// debug starts
 		if (keggPathwayNumber > 269){
-			System.out.println("keggPathwayNumber: " + keggPathwayNumber);
+			System.out.println("There is  situation, keggPathwayNumber: " + keggPathwayNumber);
+		}
+		
+		if (tfNumberKEGGPathwayNumber < 10000){
+			System.out.println("There is  situation, tfNumberKEGGPathwayNumber: " + tfNumberKEGGPathwayNumber);
+			
 		}
 		// debug ends
 		

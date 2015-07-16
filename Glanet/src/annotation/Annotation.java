@@ -2591,8 +2591,7 @@ public class Annotation {
 
 		int tfNumberCellLineNumber;
 		int tfNumberKeggPathwayNumber;
-		int tfNumberCellLineNumberKeggPathwayNumber;
-
+	
 		try{
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -2729,10 +2728,11 @@ public class Annotation {
 					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
 					tfNumber = IntervalTree.getShortElementNumber(
 							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+					
 					cellLineNumber = IntervalTree.getCellLineNumber(
 							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
+							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
 					/****************************************************************************/
 					/**************TF and Exon Based KEGGPathway starts**************************/
@@ -2744,10 +2744,10 @@ public class Annotation {
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
-
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber + keggPathwayNumber;
-								tfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumber( tfNumberCellLineNumberKeggPathwayNumber);
-
+								
+								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								
+								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
 								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
@@ -2794,9 +2794,8 @@ public class Annotation {
 
 								keggPathwayNumber = it.next();
 
-								tfNumberCellLineNumberKeggPathwayNumber = tfOverlap.getTfNumberCellLineNumber() + keggPathwayNumber;
-								tfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumber( tfNumberCellLineNumberKeggPathwayNumber);
-
+								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
 								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
@@ -2843,9 +2842,8 @@ public class Annotation {
 
 								keggPathwayNumber = it.next();
 
-								tfNumberCellLineNumberKeggPathwayNumber = tfOverlap.getTfNumberCellLineNumber() + keggPathwayNumber;
-								tfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumber( tfNumberCellLineNumberKeggPathwayNumber);
-
+								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
 								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
@@ -5778,11 +5776,11 @@ public class Annotation {
 										
 										//debug starts
 										if (tfNumberKEGGPathwayNumber == 9000322){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										
 										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										//debug ends
 										
@@ -5862,11 +5860,11 @@ public class Annotation {
 			
 										//debug starts
 										if (tfNumberKEGGPathwayNumber == 9000322){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										
 										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										//debug ends
 										
@@ -5944,11 +5942,11 @@ public class Annotation {
 										
 										//debug starts
 										if (tfNumberKEGGPathwayNumber == 9000322){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										
 										if (keggPathwayNumber > 269 || tfNumberKEGGPathwayNumber < 10000){
-											System.out.println("stop here");
+											System.out.println("There is a situation, stop here");
 										}
 										//debug ends
 										
@@ -10938,6 +10936,8 @@ public class Annotation {
 					allBasedKEGGPathwayNumber2PermutationOneorZeroMap);
 
 			
+			
+			
 			// TF KEGGPathway
 			fillPermutationOneorZeroMap(
 					tfNumberExonBasedKEGGPathwayNumber2OriginalKMap, 
@@ -10951,6 +10951,17 @@ public class Annotation {
 					tfNumberAllBasedKEGGPathwayNumber2OriginalKMap, 
 					tfNumberAllBasedKEGGPathwayNumber2PermutationKMap,
 					tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			
+			
+			//debug starts
+			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationKMap);
+			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap);
+			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationKMap);
+			
+			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+			//debug ends
 				
 			// Set elementNumber2PermutationOneorZeroMap
 			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
@@ -10971,7 +10982,7 @@ public class Annotation {
 			allBasedKEGGPathwayNumber2PermutationKMap 			= null;
 			
 			tfNumberExonBasedKEGGPathwayNumber2PermutationKMap 		= null;
-			tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap 	= null;
+			tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap = null;
 			tfNumberAllBasedKEGGPathwayNumber2PermutationKMap 		= null;
 
 			
@@ -11135,6 +11146,57 @@ public class Annotation {
 
 	}
 	//9 July 2015
+	
+	//16 July 2015
+	//Method for Debug 
+	public static void checkforDebug(
+			TIntIntMap tfNumberKEGGPathwayNumber2PermutationKMap){
+		
+		int tfNumberKEGGPathwayNumber  = Integer.MIN_VALUE;
+		int KEGGPathwayNumber = Integer.MIN_VALUE;
+		
+		
+		for(TIntIntIterator itr = tfNumberKEGGPathwayNumber2PermutationKMap.iterator(); itr.hasNext();){
+			
+			itr.advance();
+			
+			tfNumberKEGGPathwayNumber = itr.key();
+			
+			KEGGPathwayNumber = tfNumberKEGGPathwayNumber % 100000;
+			
+			if (KEGGPathwayNumber > 269){
+				System.out.println("There is a situation90, KEGGPathwayNumber: " + KEGGPathwayNumber);
+			}
+			
+		}
+		
+	}
+	
+	
+	//16 July 2015
+	//Method for Debug 
+	public static void checkforDebug(
+			TIntByteMap tfNumberKEGGPathwayNumber2PermutationOneorZeroMap){
+		
+		int tfNumberKEGGPathwayNumber  = Integer.MIN_VALUE;
+		int KEGGPathwayNumber = Integer.MIN_VALUE;
+		
+		
+		for(TIntByteIterator itr = tfNumberKEGGPathwayNumber2PermutationOneorZeroMap.iterator(); itr.hasNext();){
+			
+			itr.advance();
+			
+			tfNumberKEGGPathwayNumber = itr.key();
+			
+			KEGGPathwayNumber = tfNumberKEGGPathwayNumber % 100000;
+			
+			if (KEGGPathwayNumber > 269){
+				System.out.println("There is a situation100, KEGGPathwayNumber: " + KEGGPathwayNumber);
+			}
+			
+		}//End of for
+		
+	}
 
 	// We must consider each of the elementNumber
 	public static void fillPermutationOneorZeroMap( 
@@ -11152,6 +11214,12 @@ public class Annotation {
 
 			elementNumber = itr.key();
 			originalNumberofOverlaps = itr.value();
+			
+			//debug starts
+			if ((elementNumber) % 100000 > 269){
+				System.out.println("There is a situation200: elementNumber is "  + elementNumber);
+			}
+			//debug ends
 
 			permutationNumberofOverlaps = elementNumber2PermutationKMap.get( elementNumber);
 
