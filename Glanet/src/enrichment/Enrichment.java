@@ -4958,6 +4958,259 @@ public class Enrichment {
 		/***********************TF CellLine KEGGPathway ANNOTATION OF PERMUTATIONS ENDS**************************/
 		/********************************************************************************************************/
 	
+		//20 July 2015
+		/********************************************************************************************************/
+		/********************************************BOTH STARTS*************************************************/
+		/****************************TFKEGGPathway ANNOTATION OF PERMUTATIONS STARTS*****************************/
+		/***********************TFCellLineKEGGPathway ANNOTATION OF PERMUTATIONS STARTS**************************/
+		/********************************************************************************************************/
+		if(bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+			
+			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
+			logger.info("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
+
+			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+			
+			// Fill chrNumber2IntervalTreeMap
+			// For each chromosome, generate intervalTree and fill intervalTreeMap
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+				chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+
+				if( chromosomeBaseOriginalInputLines != null){
+					
+					tfIntervalTree = generateTfbsIntervalTreeWithNumbers(dataFolder, chromName);
+					ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
+
+					tfIntervalTreeMap.put(chrNumber,tfIntervalTree);
+					ucscRefSeqGenesIntervalTreeMap.put(chrNumber,ucscRefSeqGenesIntervalTree);
+
+				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+
+			}// End of FOR each CHROMOSOME
+			
+			
+			// TF
+			fillElementNumber2OriginalKMap(
+					tfNumberCellLineNumber2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF);
+			
+			
+			// KEGGPathway
+			fillElementNumber2OriginalKMap( 
+					exonBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					regulationBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					allBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
+
+			
+			// TF KEGGPathway
+			fillElementNumber2OriginalKMap( 
+					tfExonBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+			
+			fillElementNumber2OriginalKMap( 
+					tfRegulationBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
+			
+			fillElementNumber2OriginalKMap( 
+					tfAllBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
+			
+			
+			// TF CellLine  KEGGPathway
+			fillElementNumber2OriginalKMap( 
+					tfCellLineExonBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
+			
+			fillElementNumber2OriginalKMap( 
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
+			
+			fillElementNumber2OriginalKMap( 
+					tfCellLineAllBasedKeggPathway2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
+			
+
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					tfIntervalTreeMap, 
+					ucscRefSeqGenesIntervalTreeMap,
+					AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
+					geneId2ListofKeggPathwayNumberMap, 
+					overlapDefinition,
+					tfNumberCellLineNumber2OriginalKMap,
+					exonBasedKeggPathway2OriginalKMap,
+					regulationBasedKeggPathway2OriginalKMap,
+					allBasedKeggPathway2OriginalKMap,
+					tfExonBasedKeggPathway2OriginalKMap,
+					tfRegulationBasedKeggPathway2OriginalKMap,
+					tfAllBasedKeggPathway2OriginalKMap,
+					tfCellLineExonBasedKeggPathway2OriginalKMap,
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap,
+					tfCellLineAllBasedKeggPathway2OriginalKMap);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+
+			//TF
+			writeToBeCollectedNumberofPermutations(
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
+					runNumber, 
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					null);
+
+			
+			//KEGGPathway
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+			
+
+			//TF KEGGPathway
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+			
+
+			//TF Cellline KEGGPathway
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
+					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
+					tfNumber2NameMap,
+					cellLineNumber2NameMap,
+					keggPathwayNumber2NameMap);
+
+			// Free memory
+			tfIntervalTreeMap = null;
+			ucscRefSeqGenesIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of Permutations has ended.");
+			logger.info("BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of Permutations has ended.");
+
+			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog( "RunNumber: " + runNumber + "BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			GlanetRunner.appendLog( "******************************************************************************************");
+
+			logger.info( "RunNumber: " + runNumber + "BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			logger.info( "******************************************************************************************");
+
+		}// End of IF DO TF CellLine KEGGPathway Annotation
+		
+		/********************************************************************************************************/
+		/********************************************BOTH ENDS***************************************************/
+		/****************************TFKEGGPathway ANNOTATION OF PERMUTATIONS ENDS*******************************/
+		/***********************TFCellLineKEGGPathway ANNOTATION OF PERMUTATIONS ENDS****************************/
+		/********************************************************************************************************/
 		
 		
 		/******************************************************************************************************/
@@ -7239,14 +7492,14 @@ public class Enrichment {
 			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
 
 			// KEGGPathway
-			exonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+			exonBasedKeggPathway2OriginalKMap 		= new TIntIntHashMap();
 			regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
-			allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+			allBasedKeggPathway2OriginalKMap 		= new TIntIntHashMap();
 
 			// TF KEGGPathway
-			tfExonBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
-			tfRegulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
-			tfAllBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
+			tfExonBasedKeggPathway2OriginalKMap 		= new TIntIntHashMap();
+			tfRegulationBasedKeggPathway2OriginalKMap 	= new TIntIntHashMap();
+			tfAllBasedKeggPathway2OriginalKMap 			= new TIntIntHashMap();
 
 		}
 

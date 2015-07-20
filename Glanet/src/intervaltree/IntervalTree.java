@@ -72,7 +72,6 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
-import gnu.trove.map.TShortByteMap;
 import gnu.trove.map.TShortObjectMap;
 
 //public class IntervalTree  extends TLinkableAdapter<IntervalTree>{
@@ -1570,6 +1569,7 @@ public class IntervalTree {
 
 	}
 
+	//Modified 20 July 2015
 	// Annotation
 	// HISTONE
 	// With Numbers
@@ -1578,12 +1578,17 @@ public class IntervalTree {
 	// For each search input line, each histoneNameandCellLineName will have
 	// value 1 or 0
 	// These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap
-	public void findAllOverlappingHistoneIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingHistoneIntervalsWithNumbers(
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
-			TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition,
-			TShortObjectMap<String> histoneNumber2HistoneNameMap,
-			TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap, 
+			int overlapDefinition,
+			TIntObjectMap<String> histoneNumber2HistoneNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -2614,14 +2619,21 @@ public class IntervalTree {
 
 	}
 
+	//Modified 20 July 2015
 	// Annotation
 	// TF with Numbers starts
-	public void findAllOverlappingTfbsIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingTfbsIntervalsWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, IntervalTreeNode node,
-			Interval interval, ChromosomeName chromName, TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
-			int overlapDefinition, TShortObjectMap<String> tfNumber2TfNameMap,
-			TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
+			int overlapDefinition, 
+			TIntObjectMap<String> tfNumber2TfNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -2639,7 +2651,8 @@ public class IntervalTree {
 		// castedNode.getCellLineNumber(), (short) 0,
 		// GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
-				castedNode.getTforHistoneNumber(), castedNode.getCellLineNumber(),
+				castedNode.getTforHistoneNumber(), 
+				castedNode.getCellLineNumber(),
 				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
 		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
@@ -2693,6 +2706,7 @@ public class IntervalTree {
 
 	// @todo Annotation with Numbers ends
 
+	// Modified 20 July 2015
 	// Modified on 13 July 2015 
 	// Annotation with Numbers with OverlapList starts
 	public void findAllOverlappingTfbsIntervalsWithNumbers( String outputFolder,
@@ -2703,9 +2717,9 @@ public class IntervalTree {
 			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
 			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList, 
 			int overlapDefinition,
-			TShortObjectMap<String> tfNumber2TfNameMap, 
-			TShortObjectMap<String> cellLineNumber2CellLineNameMap,
-			TShortObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> tfNumber2TfNameMap, 
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String> fileNumber2FileNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3103,25 +3117,34 @@ public class IntervalTree {
 	// Called from convert methods
 	// Called from writeAnnotationstoFiles methods
 	// Get CellLineNumberOrGeneSetNumber from mixed number
-	public static int getCellLineNumberOrGeneSetNumber( int permutationNumberCellLineNumberOrKeggPathwayNumber,
+	public static int getCellLineNumberOrGeneSetNumber( 
+			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int cellLineNumberOrGeneSetNumber = Integer.MIN_VALUE;
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:{
-			cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
-			break;
-		}
-		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			cellLineNumberOrGeneSetNumber = permutationNumberCellLineNumberOrKeggPathwayNumber % 10000;
-			break;
-		}
-
-		default:{
-			break;
-		}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:{
+				cellLineNumberOrGeneSetNumber = mixedNumber % 10000;
+				break;
+			}
+			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				cellLineNumberOrGeneSetNumber = mixedNumber % 10000;
+				break;
+			}
+			
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+				cellLineNumberOrGeneSetNumber = mixedNumber % 100000;
+				break;
+				
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				cellLineNumberOrGeneSetNumber = mixedNumber % 100000;
+				break;
+				
+			default:{
+				break;
+			}
 		}// End of SWITCH
 
 		return cellLineNumberOrGeneSetNumber;
@@ -3211,7 +3234,8 @@ public class IntervalTree {
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getKeggPathwayNumber( int elementNumberCellLineNumberKeggPathwayNumber,
+	public static short getKeggPathwayNumber(
+			int elementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		short keggPathwayNumber = Short.MIN_VALUE;
@@ -3221,6 +3245,10 @@ public class IntervalTree {
 		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
 			// example 100_300_020
 			keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 1000);
+			break;
+			
+		case	INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+			keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 100000);
 			break;
 
 		default:
@@ -3386,7 +3414,8 @@ public class IntervalTree {
 	}
 
 	// 8 NOV 2014
-	public static int getElementNumber( int elementTypeNumberElementNumber,
+	public static int getElementNumber( 
+			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int elementNumber = Integer.MIN_VALUE;
@@ -3394,8 +3423,13 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 
 		case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementNumber = ( int)( elementTypeNumberElementNumber % 1000000);
+			elementNumber = ( int)(mixedNumber % 1000000);
 			break;
+			
+		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+			elementNumber = (mixedNumber / 100000);
+
+
 
 		default:
 			break;
@@ -4421,11 +4455,16 @@ public class IntervalTree {
 	// search input size: n
 	// For each search input line, each dnase cell line will have value 1 or 0
 	// These 1 or 0's will be accumulated in dnaseCellLine2KMap
-	public void findAllOverlappingDnaseIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingDnaseIntervalsWithNumbers(
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
-			TShortByteMap dnaseCellLineNumber2OneorZeroMap, int overlapDefinition,
-			TShortObjectMap<String> cellLineNumber2CellLineNameMap, TShortObjectMap<String> fileNumber2FileNameMap) {
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap, 
+			int overlapDefinition,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -7313,11 +7352,14 @@ public class IntervalTree {
 		}
 	}
 
+	// Modified 20 July 2015
 	// Annotation
 	// with Numbers with OverlapList starts
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntByteMap exonBasedKeggPathway2OneorZeroMap, 
 			TIntByteMap regulationBasedKeggPathway2OneorZeroMap,
